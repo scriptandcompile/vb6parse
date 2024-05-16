@@ -1,6 +1,11 @@
 Current support:
 
 VB6 Project (vbp) files:
+- [X] **Project Types**
+    - [X] Exe
+    - [X] Control
+    - [X] OleExe
+    - [X] OleDll
 - [x] **References**
 - [x] **Objects**
 - [x] **Modules**
@@ -8,13 +13,14 @@ VB6 Project (vbp) files:
 - [x] **Classes**
 - [x] **Forms**
 - [x] **UserControls**
+- [X] **UserDocuments**
 - [X] **ResFile32** - Partial support. Default value not correctly handled.
 - [X] **IconForm** - Partial support. Default value not correctly handled.
-- [X] **Startup** - Partial support. Default value not correctly handled. 'Sub ' might need to be trimmed off the start of this value since I'm nearly certain that the startup must always be a subroutine.
+- [X] **Startup** - Partial support. Default value not correctly handled.
 - [X] **HelpFile** - Partial support. Default value not correctly handled.
 - [X] **Title** - Partial support. Default value not correctly handled. 
-- [ ] **ExeName32**
-- [ ] **Command32**
+- [X] **ExeName32** - Partial support. Default value not correctly handled. 
+- [X] **Command32** - Partial support. Default value not correctly handled. 
 - [ ] **Name**
 - [ ] **HelpContextID**
 - [ ] **CompatibleMode**

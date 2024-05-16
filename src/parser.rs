@@ -22,6 +22,7 @@ const REFERENCE: &[u8] = "Reference".as_bytes();
 const OBJECT: &[u8] = "Object".as_bytes();
 const MODULE: &[u8] = "Module".as_bytes();
 const DESIGNER: &[u8] = "Designer".as_bytes();
+const USERDOCUMENT: &[u8] = &"UserDocument".as_bytes();
 const CLASS: &[u8] = "Class".as_bytes();
 const FORM: &[u8] = "Form".as_bytes();
 const USERCONTROL: &[u8] = "UserControl".as_bytes();
@@ -104,17 +105,22 @@ pub struct VB6Project {
     pub classes: Vec<VB6ProjectClass>,
     pub designers: Vec<VB6ProjectDesigner>,
     pub forms: Vec<VB6ProjectForm>,
-    pub usercontrols: Vec<VB6ProjectUserControl>,
+    pub user_controls: Vec<VB6ProjectUserControl>,
+    pub user_documents: Vec<VB6ProjectUserDocument>,
     pub res_file_32_path: String,
     pub icon_form: String,
     pub startup: String,
     pub help_file_path: String,
     pub title: String,
+    pub exe_32_file_name: String,
+    pub command_line_arguments: String,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub enum ProjectType {
     Exe,
+    Control,
+    OleExe,
     OleDll,
 }
 
@@ -153,6 +159,11 @@ pub struct VB6ProjectDesigner {
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
+pub struct VB6ProjectUserDocument {
+    pub path: String,
+}
+
+#[derive(Debug, PartialEq, Eq, Clone)]
 pub struct VB6ProjectForm {
     pub path: String,
 }
@@ -165,6 +176,7 @@ pub struct VB6ProjectUserControl {
 #[derive(Debug, PartialEq, Eq, Clone)]
 enum LineType {
     Reference(VB6ProjectReference),
+    UserDocument(VB6ProjectUserDocument),
     Object(VB6ProjectObject),
     Module(VB6ProjectModule),
     Designer(VB6ProjectDesigner),
@@ -176,8 +188,8 @@ enum LineType {
     Startup(String),
     HelpFile(String),
     Title(String),
-    ExeName32,
-    Command32,
+    ExeName32(String),
+    Command32(String),
     Name,
     HelpContextID,
     CompatibleMode,
@@ -232,6 +244,14 @@ impl VB6Project {
             })
             .collect();
 
+        let user_documents = line_types
+            .iter()
+            .filter_map(|line| match line {
+                LineType::UserDocument(user_document) => Some(user_document.clone()),
+                _ => None,
+            })
+            .collect();
+
         let objects = line_types
             .iter()
             .filter_map(|line| match line {
@@ -272,10 +292,10 @@ impl VB6Project {
             })
             .collect();
 
-        let usercontrols = line_types
+        let user_controls = line_types
             .iter()
             .filter_map(|line| match line {
-                LineType::UserControl(usercontrol) => Some(usercontrol.clone()),
+                LineType::UserControl(user_control) => Some(user_control.clone()),
                 _ => None,
             })
             .collect();
@@ -325,6 +345,22 @@ impl VB6Project {
             })
             .unwrap();
 
+        let exe_32_file_name = line_types
+            .iter()
+            .find_map(|line| match line {
+                LineType::ExeName32(exe_32_file_name) => Some(exe_32_file_name.clone()),
+                _ => None,
+            })
+            .unwrap();
+
+        let command_line_arguments = line_types
+            .iter()
+            .find_map(|line| match line {
+                LineType::Command32(command_line_arguments) => Some(command_line_arguments.clone()),
+                _ => None,
+            })
+            .unwrap();
+
 
         let project = VB6Project {
             project_type: project_type,
@@ -334,12 +370,15 @@ impl VB6Project {
             classes: classes,
             designers: designers,
             forms: forms,
-            usercontrols: usercontrols,
+            user_documents: user_documents,
+            user_controls: user_controls,
             res_file_32_path: res_file_32_path,
             icon_form: icon_form,
             startup: startup,
             help_file_path: help_file_path,
             title: title,
+            exe_32_file_name: exe_32_file_name,
+            command_line_arguments: command_line_arguments,
         };
 
         Ok(project)
@@ -370,9 +409,9 @@ fn project_type_parse(input: &[u8]) -> IResult<&[u8], ProjectType, ProjectParseE
     let remainder = input;
 
     // The first line of any VB6 project file (vbp) is a type line that
-    // tells us if we have an executable or an OLE DLL.
+    // tells us what kind of project we have. 
     // this should be in every project file, even an empty one, and it must
-    // be one of these two types.
+    // be one of these four options.
     // further, it should end with a "\r\n" to be conservative, we will accept
     // either an "\n" or an "\r\n"
     //
@@ -380,8 +419,10 @@ fn project_type_parse(input: &[u8]) -> IResult<&[u8], ProjectType, ProjectParseE
     let (remainder, (_, project_type)) = match pair(
         tag_no_case("Type="),
         alt((
-            value(ProjectType::Exe, tag_no_case("Exe")),
+            value(ProjectType::Exe, tag_no_case("Exe")),            
+            value(ProjectType::Control, tag_no_case("Control")),
             value(ProjectType::OleDll, tag_no_case("OleDll")),
+            value(ProjectType::OleExe, tag_no_case("OleExe")),
         )),
     )(remainder)
     {
@@ -424,6 +465,11 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
             let (remainder, reference) = reference_line_parse(remainder)?;
 
             (remainder, LineType::Reference(reference))
+        }
+        USERDOCUMENT => {
+            let (remainder, (_key, user_document)) = key_value_pair_parse(remainder)?;
+
+            (remainder, LineType::UserDocument(VB6ProjectUserDocument{path: user_document}))
         }
         OBJECT => {
             let (remainder, object) = object_line_parse(remainder)?;
@@ -487,14 +533,14 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
             (remainder, LineType::Title(value))
         }
         EXENAME32 => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
+            let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
 
-            (remainder, LineType::ExeName32)
+            (remainder, LineType::ExeName32(value))
         }
         COMMAND32 => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
+            let (remainder,  (_key, value)) = key_qouted_value_pair_parse(remainder)?;
 
-            (remainder, LineType::Command32)
+            (remainder, LineType::Command32(value))
         }
         NAME => {
             let (remainder, _) = take_line_remove_newline_parse(remainder)?;
