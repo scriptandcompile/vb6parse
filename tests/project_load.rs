@@ -13,4 +13,6 @@ fn vbp_load() {
     assert_eq!(project.designers.len(), 55);
     assert_eq!(project.forms.len(), 157);
     assert_eq!(project.usercontrols.len(), 13);
+    
+    assert_eq!(project.res_file_32_path, "..\\DBCommon\\PSFC.RES");
 }
