@@ -8,8 +8,8 @@ VB6 Project (vbp) files:
 - [x] **Classes**
 - [x] **Forms**
 - [x] **UserControls**
-- [X] **ResFile32**
-- [X] **IconForm**
+- [X] **ResFile32** - Partial support. Default value not correctly handled.
+- [X] **IconForm** - Partial support. Default value not correctly handled.
 - [ ] **Startup**
 - [ ] **HelpFile**
 - [ ] **Title**
