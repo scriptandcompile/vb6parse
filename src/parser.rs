@@ -219,27 +219,45 @@ impl VB6Project {
         let (_remainder, line_types) = many0(preceded(not(eof), line_type_parse))(remainder)
             .map_err(|_| ProjectParseError::NoLineEnding)?;
 
-        let mut references = vec![];
-        let mut objects = vec![];
-        let mut modules = vec![];
-        let mut classes = vec![];
-        let mut designers = vec![];
-        let mut forms = vec![];
-        let mut usercontrols = vec![];
 
-        for line in line_types.iter() {
-            match line {
-                LineType::Reference(reference) => references.push(reference.clone()),
-                LineType::Object(object) => objects.push(object.clone()),
-                LineType::Module(module) => modules.push(module.clone()),
-                LineType::Class(class) => classes.push(class.clone()),
-                LineType::Designer(designer) => designers.push(designer.clone()),
-                LineType::Form(form) => forms.push(form.clone()),
-                LineType::UserControl(usercontrol) => usercontrols.push(usercontrol.clone()),
-                _ => (),
-            }
-        }
 
+        let references = line_types.iter().filter_map( |line| match line {
+            LineType::Reference(reference) => Some(reference.clone()),
+            _ => None,
+        }).collect();
+
+        let objects = line_types.iter().filter_map( |line| match line {
+            LineType::Object(object) => Some(object.clone()),
+            _ => None,
+        }).collect();
+
+        let modules = line_types.iter().filter_map( |line| match line {
+            LineType::Module(module) => Some(module.clone()),
+            _ => None,
+        }).collect();
+
+        let classes = line_types.iter().filter_map( |line| match line {
+            LineType::Class(class) => Some(class.clone()),
+            _ => None,
+        }).collect();
+
+        let designers = line_types.iter().filter_map( |line| match line {
+            LineType::Designer(designer) => Some(designer.clone()),
+            _ => None,
+        }).collect();
+
+        let forms = line_types.iter().filter_map( |line| match line {
+            LineType::Form(form) => Some(form.clone()),
+            _ => None,
+        }).collect();
+
+        let usercontrols = line_types.iter().filter_map( |line| match line {
+            LineType::UserControl(usercontrol) => Some(usercontrol.clone()),
+            _ => None,
+        }).collect();
+
+
+        
         let project = VB6Project {
             project_type: project_type,
             references: references,
