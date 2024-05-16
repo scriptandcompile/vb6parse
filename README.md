@@ -9,7 +9,7 @@ VB6 Project (vbp) files:
 - [x] **Forms**
 - [x] **UserControls**
 - [X] **ResFile32**
-- [ ] **IconForm**
+- [X] **IconForm**
 - [ ] **Startup**
 - [ ] **HelpFile**
 - [ ] **Title**
