@@ -7,7 +7,7 @@ use nom::{
     combinator::{eof, not, peek, value},
     error::{ErrorKind, ParseError},
     multi::many0,
-    sequence::{preceded, pair, tuple},
+    sequence::{pair, preceded, tuple},
     IResult,
 };
 
@@ -216,8 +216,8 @@ impl VB6Project {
             Err(_) => return Err(ProjectParseError::ProjectTypeUnknown),
         };
 
-        let (_remainder, line_types) = many0(preceded(not(eof), line_type_parse))(remainder).map_err(|_| ProjectParseError::NoLineEnding)?;
-        
+        let (_remainder, line_types) = many0(preceded(not(eof), line_type_parse))(remainder)
+            .map_err(|_| ProjectParseError::NoLineEnding)?;
 
         let mut references = vec![];
         let mut objects = vec![];
@@ -321,13 +321,12 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
 
     let remainder = input;
 
-    let (remainder, line_type_text) =
-        match peek(alt((take_until1("="), line_ending)))(remainder) {
-            Ok((remainder, line_type_text)) => (remainder, line_type_text),
-            Err(_) => {
-                return Err(nom::Err::Failure(ProjectParseError::LineTypeUnknown));
-            }
-        };
+    let (remainder, line_type_text) = match peek(alt((take_until1("="), line_ending)))(remainder) {
+        Ok((remainder, line_type_text)) => (remainder, line_type_text),
+        Err(_) => {
+            return Err(nom::Err::Failure(ProjectParseError::LineTypeUnknown));
+        }
+    };
 
     let (remainder, line_type) = match line_type_text {
         REFERENCE => {
@@ -348,7 +347,10 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
         DESIGNER => {
             let (remainder, (_key, value)) = key_value_pair_parse(remainder)?;
 
-            (remainder, LineType::Designer(VB6ProjectDesigner { path: value}))
+            (
+                remainder,
+                LineType::Designer(VB6ProjectDesigner { path: value }),
+            )
         }
         CLASS => {
             let (remainder, class) = class_line_parse(remainder)?;
@@ -358,12 +360,15 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
         FORM => {
             let (remainder, (_key, value)) = key_value_pair_parse(remainder)?;
 
-            (remainder, LineType::Form(VB6ProjectForm { path: value}))
+            (remainder, LineType::Form(VB6ProjectForm { path: value }))
         }
         USERCONTROL => {
             let (remainder, (_key, value)) = key_value_pair_parse(remainder)?;
 
-            (remainder, LineType::UserControl(VB6ProjectUserControl { path: value}))
+            (
+                remainder,
+                LineType::UserControl(VB6ProjectUserControl { path: value }),
+            )
         }
         RESFILE32 => {
             let (remainder, _) = take_line_remove_newline_parse(remainder)?;
@@ -578,9 +583,9 @@ fn key_value_pair_parse(input: &[u8]) -> IResult<&[u8], (&[u8], String), Project
     // Form=..\DBCommon\frmSelectUser.frm\r\n
     // Designer=AllMfgStatus.Dsr\r\n
     //
-    // This parser handles this by spliting on the equal and returning a 
+    // This parser handles this by spliting on the equal and returning a
     // tuple of the two halves.
-    
+
     // this parser reads right after the '=' to get just the name and path.
 
     // We specify the impl here because it makes the following code
@@ -589,10 +594,9 @@ fn key_value_pair_parse(input: &[u8]) -> IResult<&[u8], (&[u8], String), Project
     let not_line_ending = not_line_ending::<&[u8], ProjectParseError>;
     let take_until = take_until::<&str, &[u8], ProjectParseError>;
 
-
     let remainder = input;
 
-    let (remainder, name) = match take_until( r"=")(remainder) {
+    let (remainder, name) = match take_until(r"=")(remainder) {
         Ok((remainder, path)) => (remainder, path),
         Err(_) => {
             return Err(nom::Err::Failure(ProjectParseError::NoEqualSplit));
@@ -714,13 +718,13 @@ fn name_path_tuple_parse(input: &[u8]) -> IResult<&[u8], (&[u8], &[u8]), Project
 
     let remainder = input;
 
-    let (remainder, name) = match take_until( r"; ")(remainder) {
+    let (remainder, name) = match take_until(r"; ")(remainder) {
         Ok((remainder, path)) => (remainder, path),
         Err(_) => {
             return Err(nom::Err::Failure(ProjectParseError::NoLineEnding));
         }
     };
-    
+
     //  We read up to the split, now we want to consume the splitter as well.
     let (remainder, _) = tag_no_case(r"; ")(remainder)?;
 
@@ -737,7 +741,6 @@ fn name_path_tuple_parse(input: &[u8]) -> IResult<&[u8], (&[u8], &[u8]), Project
     let (remainder, _) = line_ending(remainder)?;
 
     Ok((remainder, (name, path)))
-
 }
 
 fn module_line_parse(input: &[u8]) -> IResult<&[u8], VB6ProjectModule, ProjectParseError> {
@@ -967,7 +970,6 @@ mod tests {
         assert_eq!(result.path, "..\\DBCommon\\CStatusBarClass.cls");
     }
 
-
     #[test]
     fn key_value_line_valid() {
         let key_value_line = "Designer=AllMfgStatus.Dsr\r\n".as_bytes();
@@ -978,5 +980,4 @@ mod tests {
         assert_eq!(key, "Designer".as_bytes());
         assert_eq!(value, "AllMfgStatus.Dsr");
     }
-
 }
