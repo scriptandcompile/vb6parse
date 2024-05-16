@@ -10,7 +10,7 @@ VB6 Project (vbp) files:
 - [x] **UserControls**
 - [X] **ResFile32** - Partial support. Default value not correctly handled.
 - [X] **IconForm** - Partial support. Default value not correctly handled.
-- [ ] **Startup**
+- [X] **Startup** - Partial support. Default value not correctly handled. 'Sub ' might need to be trimmed off the start of this value since I'm nearly certain that the startup must always be a subroutine.
 - [ ] **HelpFile**
 - [ ] **Title**
 - [ ] **ExeName32**

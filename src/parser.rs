@@ -107,6 +107,7 @@ pub struct VB6Project {
     pub usercontrols: Vec<VB6ProjectUserControl>,
     pub res_file_32_path: String,
     pub icon_form: String,
+    pub startup: String,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -170,7 +171,7 @@ enum LineType {
     UserControl(VB6ProjectUserControl),
     ResFile32(String),
     IconForm(String),
-    Startup,
+    Startup(String),
     HelpFile,
     Title,
     ExeName32,
@@ -298,6 +299,14 @@ impl VB6Project {
             })
             .unwrap();
 
+            let startup = line_types
+            .iter()
+            .find_map(|line| match line {
+                LineType::Startup(startup) => Some(startup.clone()),
+                _ => None,
+            })
+            .unwrap();
+
         let project = VB6Project {
             project_type: project_type,
             references: references,
@@ -309,6 +318,7 @@ impl VB6Project {
             usercontrols: usercontrols,
             res_file_32_path: res_file_32_path,
             icon_form: icon_form,
+            startup: startup
         };
 
         Ok(project)
@@ -441,9 +451,9 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
             (remainder, LineType::IconForm(value))
         }
         STARTUP => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
+            let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
 
-            (remainder, LineType::Startup)
+            (remainder, LineType::Startup(value))
         }
         HELPFILE => {
             let (remainder, _) = take_line_remove_newline_parse(remainder)?;

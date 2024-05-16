@@ -16,4 +16,5 @@ fn vbp_load() {
 
     assert_eq!(project.res_file_32_path, "..\\DBCommon\\PSFC.RES");
     assert_eq!(project.icon_form, "frmMain");
+    assert_eq!(project.startup, "Sub Main");
 }
