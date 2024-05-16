@@ -105,6 +105,8 @@ pub struct VB6Project {
     pub designers: Vec<VB6ProjectDesigner>,
     pub forms: Vec<VB6ProjectForm>,
     pub usercontrols: Vec<VB6ProjectUserControl>,
+    pub res_file_32_path: String,
+
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -166,7 +168,7 @@ enum LineType {
     Class(VB6ProjectClass),
     Form(VB6ProjectForm),
     UserControl(VB6ProjectUserControl),
-    ResFile32,
+    ResFile32(String),
     IconForm,
     Startup,
     HelpFile,
@@ -219,45 +221,72 @@ impl VB6Project {
         let (_remainder, line_types) = many0(preceded(not(eof), line_type_parse))(remainder)
             .map_err(|_| ProjectParseError::NoLineEnding)?;
 
+        let references = line_types
+            .iter()
+            .filter_map(|line| match line {
+                LineType::Reference(reference) => Some(reference.clone()),
+                _ => None,
+            })
+            .collect();
 
+        let objects = line_types
+            .iter()
+            .filter_map(|line| match line {
+                LineType::Object(object) => Some(object.clone()),
+                _ => None,
+            })
+            .collect();
 
-        let references = line_types.iter().filter_map( |line| match line {
-            LineType::Reference(reference) => Some(reference.clone()),
-            _ => None,
-        }).collect();
+        let modules = line_types
+            .iter()
+            .filter_map(|line| match line {
+                LineType::Module(module) => Some(module.clone()),
+                _ => None,
+            })
+            .collect();
 
-        let objects = line_types.iter().filter_map( |line| match line {
-            LineType::Object(object) => Some(object.clone()),
-            _ => None,
-        }).collect();
+        let classes = line_types
+            .iter()
+            .filter_map(|line| match line {
+                LineType::Class(class) => Some(class.clone()),
+                _ => None,
+            })
+            .collect();
 
-        let modules = line_types.iter().filter_map( |line| match line {
-            LineType::Module(module) => Some(module.clone()),
-            _ => None,
-        }).collect();
+        let designers = line_types
+            .iter()
+            .filter_map(|line| match line {
+                LineType::Designer(designer) => Some(designer.clone()),
+                _ => None,
+            })
+            .collect();
 
-        let classes = line_types.iter().filter_map( |line| match line {
-            LineType::Class(class) => Some(class.clone()),
-            _ => None,
-        }).collect();
+        let forms = line_types
+            .iter()
+            .filter_map(|line| match line {
+                LineType::Form(form) => Some(form.clone()),
+                _ => None,
+            })
+            .collect();
 
-        let designers = line_types.iter().filter_map( |line| match line {
-            LineType::Designer(designer) => Some(designer.clone()),
-            _ => None,
-        }).collect();
+        let usercontrols = line_types
+            .iter()
+            .filter_map(|line| match line {
+                LineType::UserControl(usercontrol) => Some(usercontrol.clone()),
+                _ => None,
+            })
+            .collect();
 
-        let forms = line_types.iter().filter_map( |line| match line {
-            LineType::Form(form) => Some(form.clone()),
-            _ => None,
-        }).collect();
+        // TODO:
+        // All of these should have a default value that matches whatever 
+        // default VB6 uses whenever the item isn't in the VB6 project (*.vbp) 
+        // file. For now, I've just done an 'unwrap', this is not right, but
+        // we should be able to come back to this later.
+        let res_file_32_path = line_types.iter().find_map(|line| match line {
+            LineType::ResFile32(res_file_32_path) => Some(res_file_32_path.clone()),
+            _ => None
+        }).unwrap();
 
-        let usercontrols = line_types.iter().filter_map( |line| match line {
-            LineType::UserControl(usercontrol) => Some(usercontrol.clone()),
-            _ => None,
-        }).collect();
-
-
-        
         let project = VB6Project {
             project_type: project_type,
             references: references,
@@ -267,6 +296,7 @@ impl VB6Project {
             designers: designers,
             forms: forms,
             usercontrols: usercontrols,
+            res_file_32_path: res_file_32_path,
         };
 
         Ok(project)
@@ -389,9 +419,9 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
             )
         }
         RESFILE32 => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
+            let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
 
-            (remainder, LineType::ResFile32)
+            (remainder, LineType::ResFile32(value))
         }
         ICONFORM => {
             let (remainder, _) = take_line_remove_newline_parse(remainder)?;
@@ -593,6 +623,18 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
     };
 
     Ok((remainder, line_type))
+}
+
+fn key_qouted_value_pair_parse(input: &[u8]) -> IResult<&[u8], (&[u8], String), ProjectParseError> {
+
+    let remainder = input;
+
+    let (remainder, (key, value)) = key_value_pair_parse(remainder)?;
+
+    // This variant uses a key/value variant has a double quoted value.
+    let value = value.trim_matches('"').to_owned();
+    
+    Ok((remainder, (key, value)))
 }
 
 fn key_value_pair_parse(input: &[u8]) -> IResult<&[u8], (&[u8], String), ProjectParseError> {
@@ -998,4 +1040,16 @@ mod tests {
         assert_eq!(key, "Designer".as_bytes());
         assert_eq!(value, "AllMfgStatus.Dsr");
     }
+
+    #[test]
+    fn key_qouted_value_line_valid() {
+        let key_value_line = "ResFile32=\"..\\DBCommon\\PSFC.RES\"\r\n".as_bytes();
+
+        let (remainder, (key, value)) = key_qouted_value_pair_parse(key_value_line).unwrap();
+
+        assert_eq!(remainder, []);
+        assert_eq!(key, "ResFile32".as_bytes());
+        assert_eq!(value, "..\\DBCommon\\PSFC.RES");
+    }
+
 }
