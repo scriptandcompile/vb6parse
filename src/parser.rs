@@ -106,7 +106,7 @@ pub struct VB6Project {
     pub forms: Vec<VB6ProjectForm>,
     pub usercontrols: Vec<VB6ProjectUserControl>,
     pub res_file_32_path: String,
-
+    pub icon_form: String,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -169,7 +169,7 @@ enum LineType {
     Form(VB6ProjectForm),
     UserControl(VB6ProjectUserControl),
     ResFile32(String),
-    IconForm,
+    IconForm(String),
     Startup,
     HelpFile,
     Title,
@@ -278,14 +278,25 @@ impl VB6Project {
             .collect();
 
         // TODO:
-        // All of these should have a default value that matches whatever 
-        // default VB6 uses whenever the item isn't in the VB6 project (*.vbp) 
+        // All of these should have a default value that matches whatever
+        // default VB6 uses whenever the item isn't in the VB6 project (*.vbp)
         // file. For now, I've just done an 'unwrap', this is not right, but
         // we should be able to come back to this later.
-        let res_file_32_path = line_types.iter().find_map(|line| match line {
-            LineType::ResFile32(res_file_32_path) => Some(res_file_32_path.clone()),
-            _ => None
-        }).unwrap();
+        let res_file_32_path = line_types
+            .iter()
+            .find_map(|line| match line {
+                LineType::ResFile32(res_file_32_path) => Some(res_file_32_path.clone()),
+                _ => None,
+            })
+            .unwrap();
+
+        let icon_form = line_types
+            .iter()
+            .find_map(|line| match line {
+                LineType::IconForm(icon_form) => Some(icon_form.clone()),
+                _ => None,
+            })
+            .unwrap();
 
         let project = VB6Project {
             project_type: project_type,
@@ -297,6 +308,7 @@ impl VB6Project {
             forms: forms,
             usercontrols: usercontrols,
             res_file_32_path: res_file_32_path,
+            icon_form: icon_form,
         };
 
         Ok(project)
@@ -424,9 +436,9 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
             (remainder, LineType::ResFile32(value))
         }
         ICONFORM => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
+            let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
 
-            (remainder, LineType::IconForm)
+            (remainder, LineType::IconForm(value))
         }
         STARTUP => {
             let (remainder, _) = take_line_remove_newline_parse(remainder)?;
@@ -626,14 +638,13 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
 }
 
 fn key_qouted_value_pair_parse(input: &[u8]) -> IResult<&[u8], (&[u8], String), ProjectParseError> {
-
     let remainder = input;
 
     let (remainder, (key, value)) = key_value_pair_parse(remainder)?;
 
     // This variant uses a key/value variant has a double quoted value.
     let value = value.trim_matches('"').to_owned();
-    
+
     Ok((remainder, (key, value)))
 }
 
@@ -1051,5 +1062,4 @@ mod tests {
         assert_eq!(key, "ResFile32".as_bytes());
         assert_eq!(value, "..\\DBCommon\\PSFC.RES");
     }
-
 }
