@@ -109,6 +109,7 @@ pub struct VB6Project {
     pub icon_form: String,
     pub startup: String,
     pub help_file_path: String,
+    pub title: String,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -174,7 +175,7 @@ enum LineType {
     IconForm(String),
     Startup(String),
     HelpFile(String),
-    Title,
+    Title(String),
     ExeName32,
     Command32,
     Name,
@@ -316,6 +317,15 @@ impl VB6Project {
             })
             .unwrap();
 
+        let title = line_types
+            .iter()
+            .find_map(|line| match line {
+                LineType::Title(title) => Some(title.clone()),
+                _ => None,
+            })
+            .unwrap();
+
+
         let project = VB6Project {
             project_type: project_type,
             references: references,
@@ -329,6 +339,7 @@ impl VB6Project {
             icon_form: icon_form,
             startup: startup,
             help_file_path: help_file_path,
+            title: title,
         };
 
         Ok(project)
@@ -471,9 +482,9 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
             (remainder, LineType::HelpFile(value))
         }
         TITLE => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
+            let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
 
-            (remainder, LineType::Title)
+            (remainder, LineType::Title(value))
         }
         EXENAME32 => {
             let (remainder, _) = take_line_remove_newline_parse(remainder)?;
