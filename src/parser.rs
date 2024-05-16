@@ -15,9 +15,9 @@ use uuid::Uuid;
 
 // These constants are used as text to tag capture against. Sadly, because vb6
 // predates UTF we have to read the project file in as a byte slice since
-// it can contain non-ascii text elements, especially tm character, the
+// it can contain non-ascii text elements, especially the tm character, the
 // copyright character and other such 'special' characters which are often found
-// in the VersionLegalCopyright, VersionLegalDescription, fields.
+// in the VersionLegalCopyright, VersionLegalDescription, etc fields.
 const REFERENCE: &[u8] = "Reference".as_bytes();
 const OBJECT: &[u8] = "Object".as_bytes();
 const MODULE: &[u8] = "Module".as_bytes();
