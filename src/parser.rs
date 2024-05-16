@@ -108,6 +108,7 @@ pub struct VB6Project {
     pub res_file_32_path: String,
     pub icon_form: String,
     pub startup: String,
+    pub help_file_path: String,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -172,7 +173,7 @@ enum LineType {
     ResFile32(String),
     IconForm(String),
     Startup(String),
-    HelpFile,
+    HelpFile(String),
     Title,
     ExeName32,
     Command32,
@@ -299,10 +300,18 @@ impl VB6Project {
             })
             .unwrap();
 
-            let startup = line_types
+        let startup = line_types
             .iter()
             .find_map(|line| match line {
                 LineType::Startup(startup) => Some(startup.clone()),
+                _ => None,
+            })
+            .unwrap();
+
+        let help_file_path = line_types
+            .iter()
+            .find_map(|line| match line {
+                LineType::HelpFile(help_file_path) => Some(help_file_path.clone()),
                 _ => None,
             })
             .unwrap();
@@ -318,7 +327,8 @@ impl VB6Project {
             usercontrols: usercontrols,
             res_file_32_path: res_file_32_path,
             icon_form: icon_form,
-            startup: startup
+            startup: startup,
+            help_file_path: help_file_path,
         };
 
         Ok(project)
@@ -456,9 +466,9 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
             (remainder, LineType::Startup(value))
         }
         HELPFILE => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
+            let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
 
-            (remainder, LineType::HelpFile)
+            (remainder, LineType::HelpFile(value))
         }
         TITLE => {
             let (remainder, _) = take_line_remove_newline_parse(remainder)?;
