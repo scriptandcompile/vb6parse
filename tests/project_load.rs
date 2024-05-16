@@ -18,4 +18,5 @@ fn vbp_load() {
     assert_eq!(project.icon_form, "frmMain");
     assert_eq!(project.startup, "Sub Main");
     assert_eq!(project.help_file_path, "");
+    assert_eq!(project.title, "PPDM");
 }
