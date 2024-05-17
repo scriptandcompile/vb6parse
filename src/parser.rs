@@ -115,6 +115,8 @@ pub struct VB6Project {
     pub exe_32_file_name: String,
     pub command_line_arguments: String,
     pub name: String,
+    // May need to be switched to a u32. Not sure yet.
+    pub help_context_id: String,
 
 }
 
@@ -193,7 +195,7 @@ enum LineType {
     ExeName32(String),
     Command32(String),
     Name(String),
-    HelpContextID,
+    HelpContextID(String),
     CompatibleMode,
     MajorVer,
     MinorVer,
@@ -371,6 +373,13 @@ impl VB6Project {
             })
             .unwrap();
 
+        let help_context_id = line_types
+            .iter()
+            .find_map(|line| match line {
+                LineType::HelpContextID(help_context_id) => Some(help_context_id.clone()),
+                _ => None,
+            })
+            .unwrap();
 
         let project = VB6Project {
             project_type: project_type,
@@ -390,6 +399,7 @@ impl VB6Project {
             exe_32_file_name: exe_32_file_name,
             command_line_arguments: command_line_arguments,
             name: name,
+            help_context_id: help_context_id,
         };
 
         Ok(project)
@@ -559,9 +569,9 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
             (remainder, LineType::Name(value))
         }
         HELPCONTEXTID => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
+            let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
 
-            (remainder, LineType::HelpContextID)
+            (remainder, LineType::HelpContextID(value))
         }
         COMPATIBLEMODE => {
             let (remainder, _) = take_line_remove_newline_parse(remainder)?;

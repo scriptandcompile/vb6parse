@@ -21,8 +21,8 @@ VB6 Project (vbp) files:
 - [X] **Title** - Partial support. Default value not correctly handled. 
 - [X] **ExeName32** - Partial support. Default value not correctly handled. 
 - [X] **Command32** - Partial support. Default value not correctly handled. 
-- [X] **Name**
-- [ ] **HelpContextID**
+- [X] **Name** - Partial support. Default value not correctly handled. 
+- [X] **HelpContextID** - Partial support. Default value not correctly handled. 
 - [ ] **CompatibleMode**
 - [ ] **MajorVer**
 - [ ] **MinorVer**
