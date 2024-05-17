@@ -122,7 +122,6 @@ pub struct VB6Project {
     // May need to be switched to a u32. Not sure yet.
     pub help_context_id: String,
     pub compatible_mode: String,
-
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -203,10 +202,10 @@ enum LineType {
     HelpContextID(String),
     CompatibleMode(String),
     NoControlUpgrade(String), // 0 or line missing - false, 1 = 'Upgrade ActiveX Control'. default = true.
-    MajorVer, // 0 - 9999, default 1.
-    MinorVer, // 0 - 9999, default 0.
-    RevisionVer, // 0 - 9999, default 0.
-    AutoIncrementVer, // 0 - no increment, 1 - increment, default 0.
+    MajorVer,                 // 0 - 9999, default 1.
+    MinorVer,                 // 0 - 9999, default 0.
+    RevisionVer,              // 0 - 9999, default 0.
+    AutoIncrementVer,         // 0 - no increment, 1 - increment, default 0.
     ServerSupportFiles,
     VersionCompanyName,
     VersionFileDescription,
@@ -238,9 +237,8 @@ impl VB6Project {
     pub fn parse(input: &[u8]) -> Result<Self, ProjectParseError> {
         let remainder = input;
 
-        let (remainder, project_type) = match project_type_parse(remainder) {
-            Ok((remainder, project_type)) => (remainder, project_type),
-            Err(_) => return Err(ProjectParseError::ProjectTypeUnknown),
+        let Ok((remainder, project_type)) = project_type_parse(remainder) else {
+            return Err(ProjectParseError::ProjectTypeUnknown);
         };
 
         let (_remainder, line_types) = many0(preceded(not(eof), line_type_parse))(remainder)
@@ -395,16 +393,17 @@ impl VB6Project {
             })
             .unwrap();
 
-        let upgrade_activex_controls =line_types
+        let upgrade_activex_controls = line_types
             .iter()
             .find_map(|line| match line {
                 LineType::NoControlUpgrade(control_upgrade) => Some(control_upgrade.clone()),
                 _ => None,
-        }).map_or(true, |value| match value.as_str() {
-            "0" => false,
-            "1" => true,
-            _ => false
-        });
+            })
+            .map_or(true, |value| match value.as_str() {
+                "0" => false,
+                "1" => true,
+                _ => false,
+            });
 
         let project = VB6Project {
             project_type,
@@ -457,27 +456,23 @@ fn project_type_parse(input: &[u8]) -> IResult<&[u8], ProjectType, ProjectParseE
     let remainder = input;
 
     // The first line of any VB6 project file (vbp) is a type line that
-    // tells us what kind of project we have. 
+    // tells us what kind of project we have.
     // this should be in every project file, even an empty one, and it must
     // be one of these four options.
     // further, it should end with a "\r\n" to be conservative, we will accept
     // either an "\n" or an "\r\n"
     //
     // The project type line starts with a 'Type=' has either 'Exe' or 'OleDll'.
-    let (remainder, (_, project_type)) = match pair(
+    let Ok((remainder, (_, project_type))) = pair(
         tag_no_case("Type="),
         alt((
-            value(ProjectType::Exe, tag_no_case("Exe")),            
+            value(ProjectType::Exe, tag_no_case("Exe")),
             value(ProjectType::Control, tag_no_case("Control")),
             value(ProjectType::OleDll, tag_no_case("OleDll")),
             value(ProjectType::OleExe, tag_no_case("OleExe")),
         )),
-    )(remainder)
-    {
-        Ok((remainder, project_type)) => (remainder, project_type),
-        Err(_) => {
-            return Err(nom::Err::Failure(ProjectParseError::ProjectTypeUnknown));
-        }
+    )(remainder) else {
+        return Err(nom::Err::Failure(ProjectParseError::ProjectTypeUnknown));
     };
 
     // We split out the newline here so we can handle the difference between
@@ -501,11 +496,9 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
 
     let remainder = input;
 
-    let (remainder, line_type_text) = match peek(alt((take_until1("="), line_ending)))(remainder) {
-        Ok((remainder, line_type_text)) => (remainder, line_type_text),
-        Err(_) => {
-            return Err(nom::Err::Failure(ProjectParseError::LineTypeUnknown));
-        }
+    let Ok((remainder, line_type_text)) = peek(alt((take_until1("="), line_ending)))(remainder)
+    else {
+        return Err(nom::Err::Failure(ProjectParseError::LineTypeUnknown));
     };
 
     let (remainder, line_type) = match line_type_text {
@@ -517,7 +510,12 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
         USERDOCUMENT => {
             let (remainder, (_key, user_document)) = key_value_pair_parse(remainder)?;
 
-            (remainder, LineType::UserDocument(VB6ProjectUserDocument{path: user_document}))
+            (
+                remainder,
+                LineType::UserDocument(VB6ProjectUserDocument {
+                    path: user_document,
+                }),
+            )
         }
         OBJECT => {
             let (remainder, object) = object_line_parse(remainder)?;
@@ -586,7 +584,7 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
             (remainder, LineType::ExeName32(value))
         }
         COMMAND32 => {
-            let (remainder,  (_key, value)) = key_qouted_value_pair_parse(remainder)?;
+            let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
 
             (remainder, LineType::Command32(value))
         }
@@ -594,12 +592,12 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
             let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
 
             (remainder, LineType::Name(value))
-        },
+        }
         HELPCONTEXTID => {
             let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
 
             (remainder, LineType::HelpContextID(value))
-        },
+        }
         COMPATIBLEMODE => {
             let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
 
@@ -609,7 +607,7 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
             let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
 
             (remainder, LineType::NoControlUpgrade(value))
-        },
+        }
         MAJORVER => {
             let (remainder, _) = take_line_remove_newline_parse(remainder)?;
 
@@ -797,22 +795,16 @@ fn key_value_pair_parse(input: &[u8]) -> IResult<&[u8], (&[u8], String), Project
 
     let remainder = input;
 
-    let (remainder, name) = match take_until(r"=")(remainder) {
-        Ok((remainder, path)) => (remainder, path),
-        Err(_) => {
-            return Err(nom::Err::Failure(ProjectParseError::NoEqualSplit));
-        }
+    let Ok((remainder, name)) = take_until(r"=")(remainder) else {
+        return Err(nom::Err::Failure(ProjectParseError::NoEqualSplit));
     };
 
     //  We read up to the split, now we want to consume the splitter as well.
     let (remainder, _) = tag_no_case(r"=")(remainder)?;
 
     // Finally, we are grabbing the value.
-    let (remainder, value) = match not_line_ending(remainder) {
-        Ok((remainder, value)) => (remainder, value),
-        Err(_) => {
-            return Err(nom::Err::Failure(ProjectParseError::NoLineEnding));
-        }
+    let Ok((remainder, value)) = not_line_ending(remainder) else {
+        return Err(nom::Err::Failure(ProjectParseError::NoLineEnding));
     };
 
     // TODO:
@@ -852,18 +844,12 @@ fn object_line_parse(input: &[u8]) -> IResult<&[u8], VB6ProjectObject, ProjectPa
     let (remainder, (_, uuid_bytes)) =
         tuple((tag_no_case(r"Object={".as_bytes()), take_until("}#")))(remainder)?;
 
-    let uuid_text = match str::from_utf8(uuid_bytes) {
-        Ok(uuid_text) => uuid_text,
-        Err(_) => {
-            return Err(nom::Err::Failure(ProjectParseError::UnableToParseUuid));
-        }
+    let Ok(uuid_text) = str::from_utf8(uuid_bytes) else {
+        return Err(nom::Err::Failure(ProjectParseError::UnableToParseUuid));
     };
 
-    let uuid = match uuid::Uuid::parse_str(uuid_text) {
-        Ok(uuid) => uuid,
-        Err(_) => {
-            return Err(nom::Err::Failure(ProjectParseError::UnableToParseUuid));
-        }
+    let Ok(uuid) = uuid::Uuid::parse_str(uuid_text) else {
+        return Err(nom::Err::Failure(ProjectParseError::UnableToParseUuid));
     };
 
     let (remainder, _) = tag_no_case("}#".as_bytes())(remainder)?;
@@ -882,11 +868,8 @@ fn object_line_parse(input: &[u8]) -> IResult<&[u8], VB6ProjectObject, ProjectPa
     let (remainder, _) = tag_no_case("; ".as_bytes())(remainder)?;
 
     // Finally, we are grabbing the file name, for this object.
-    let (remainder, file_name) = match not_line_ending(remainder) {
-        Ok((remainder, file_name)) => (remainder, file_name),
-        Err(_) => {
-            return Err(nom::Err::Failure(ProjectParseError::NoLineEnding));
-        }
+    let Ok((remainder, file_name)) = not_line_ending(remainder) else {
+        return Err(nom::Err::Failure(ProjectParseError::NoLineEnding));
     };
 
     // We snagged up to the line ending before, now we want to actually get
@@ -919,22 +902,16 @@ fn name_path_tuple_parse(input: &[u8]) -> IResult<&[u8], (&[u8], &[u8]), Project
 
     let remainder = input;
 
-    let (remainder, name) = match take_until(r"; ")(remainder) {
-        Ok((remainder, path)) => (remainder, path),
-        Err(_) => {
-            return Err(nom::Err::Failure(ProjectParseError::NoLineEnding));
-        }
+    let Ok((remainder, name)) = take_until(r"; ")(remainder) else {
+        return Err(nom::Err::Failure(ProjectParseError::NoLineEnding));
     };
 
     //  We read up to the split, now we want to consume the splitter as well.
     let (remainder, _) = tag_no_case(r"; ")(remainder)?;
 
     // Finally, we are grabbing the path.
-    let (remainder, path) = match not_line_ending(remainder) {
-        Ok((remainder, path)) => (remainder, path),
-        Err(_) => {
-            return Err(nom::Err::Failure(ProjectParseError::NoLineEnding));
-        }
+    let Ok((remainder, path)) = not_line_ending(remainder) else {
+        return Err(nom::Err::Failure(ProjectParseError::NoLineEnding));
     };
 
     // We snagged up to the line ending before, now we want to actually get
@@ -1015,11 +992,8 @@ fn reference_line_parse(input: &[u8]) -> IResult<&[u8], VB6ProjectReference, Pro
         }
     };
 
-    let uuid = match uuid::Uuid::parse_str(uuid_text) {
-        Ok(uuid) => uuid,
-        Err(_) => {
-            return Err(nom::Err::Failure(ProjectParseError::UnableToParseUuid));
-        }
+    let Ok(uuid) = uuid::Uuid::parse_str(uuid_text) else {
+        return Err(nom::Err::Failure(ProjectParseError::UnableToParseUuid));
     };
 
     let (remainder, _) = tag_no_case("}#".as_bytes())(remainder)?;
@@ -1045,11 +1019,8 @@ fn reference_line_parse(input: &[u8]) -> IResult<&[u8], VB6ProjectReference, Pro
 
     // Finally, we are grabbing the description, ie human readable, description
     // of this reference.
-    let (remainder, description) = match not_line_ending(remainder) {
-        Ok((remainder, description)) => (remainder, description),
-        Err(_) => {
-            return Err(nom::Err::Failure(ProjectParseError::NoLineEnding));
-        }
+    let Ok((remainder, description)) = not_line_ending(remainder) else {
+        return Err(nom::Err::Failure(ProjectParseError::NoLineEnding));
     };
 
     // We snagged up to the line ending before, now we want to actually get
