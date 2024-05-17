@@ -106,13 +106,13 @@ pub struct VB6Project {
     pub objects: Vec<VB6ProjectObject>,
     pub modules: Vec<VB6ProjectModule>,
     pub classes: Vec<VB6ProjectClass>,
-    pub designers: Vec<VB6ProjectDesigner>,
-    pub forms: Vec<VB6ProjectForm>,
-    pub user_controls: Vec<VB6ProjectUserControl>,
-    pub user_documents: Vec<VB6ProjectUserDocument>,
+    pub designers: Vec<String>,
+    pub forms: Vec<String>,
+    pub user_controls: Vec<String>,
+    pub user_documents: Vec<String>,
     pub upgrade_activex_controls: bool,
     pub res_file_32_path: String,
-    pub icon_form: String,
+    pub icon_form: Option<String>,
     pub startup: String,
     pub help_file_path: String,
     pub title: String,
@@ -162,35 +162,15 @@ pub struct VB6ProjectClass {
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
-pub struct VB6ProjectDesigner {
-    pub path: String,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone)]
-pub struct VB6ProjectUserDocument {
-    pub path: String,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone)]
-pub struct VB6ProjectForm {
-    pub path: String,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone)]
-pub struct VB6ProjectUserControl {
-    pub path: String,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone)]
 enum LineType {
     Reference(VB6ProjectReference),
-    UserDocument(VB6ProjectUserDocument),
+    UserDocument(String),
     Object(VB6ProjectObject),
     Module(VB6ProjectModule),
-    Designer(VB6ProjectDesigner),
+    Designer(String),
     Class(VB6ProjectClass),
-    Form(VB6ProjectForm),
-    UserControl(VB6ProjectUserControl),
+    Form(String),
+    UserControl(String),
     ResFile32(String),
     IconForm(String),
     Startup(String),
@@ -321,13 +301,10 @@ impl VB6Project {
             })
             .unwrap();
 
-        let icon_form = line_types
-            .iter()
-            .find_map(|line| match line {
-                LineType::IconForm(icon_form) => Some(icon_form.clone()),
-                _ => None,
-            })
-            .unwrap();
+        let icon_form = line_types.iter().find_map(|line| match line {
+            LineType::IconForm(icon_form) => Some(icon_form.clone()),
+            _ => None,
+        });
 
         let startup = line_types
             .iter()
@@ -393,6 +370,9 @@ impl VB6Project {
             })
             .unwrap();
 
+        // If we don't have an NoControlUpgrade line then the default is
+        // true. The text line itself is 1 or 0 which is translated to
+        // true and false.
         let upgrade_activex_controls = line_types
             .iter()
             .find_map(|line| match line {
@@ -401,7 +381,7 @@ impl VB6Project {
             })
             .map_or(true, |value| matches!(value.as_str(), "1"));
 
-        let project = VB6Project {
+        let mut project = VB6Project {
             project_type,
             references,
             objects,
@@ -424,8 +404,40 @@ impl VB6Project {
             compatible_mode,
         };
 
+        project.validate();
+
         Ok(project)
     }
+
+    fn validate(&mut self) {
+        let icon = self.icon_form.clone();
+
+        if (icon.is_none() || icon.unwrap().is_empty()) && !self.forms.is_empty() {
+            let first_form_path = self.forms[0].clone();
+
+            let form_name = file_name_without_extension(first_form_path);
+
+            self.icon_form = form_name;
+        };
+    }
+}
+
+fn file_name_without_extension<P>(path: P) -> Option<String>
+where
+    P: AsRef<std::path::Path>,
+{
+    let file_name = path.as_ref().file_name()?;
+
+    let file_limited_path = std::path::Path::new(file_name);
+
+    // Using 'with_extension' this way is gross, but 'file_prefix' is currently
+    // nightly only.
+    let file_name_without_extension = file_limited_path.with_extension("");
+
+    file_name_without_extension
+        .into_os_string()
+        .into_string()
+        .ok()
 }
 
 fn take_line_remove_newline_parse(input: &[u8]) -> IResult<&[u8], &[u8], ProjectParseError> {
@@ -503,12 +515,7 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
         USERDOCUMENT => {
             let (remainder, (_key, user_document)) = key_value_pair_parse(remainder)?;
 
-            (
-                remainder,
-                LineType::UserDocument(VB6ProjectUserDocument {
-                    path: user_document,
-                }),
-            )
+            (remainder, LineType::UserDocument(user_document))
         }
         OBJECT => {
             let (remainder, object) = object_line_parse(remainder)?;
@@ -521,12 +528,9 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
             (remainder, LineType::Module(module))
         }
         DESIGNER => {
-            let (remainder, (_key, value)) = key_value_pair_parse(remainder)?;
+            let (remainder, (_key, path)) = key_value_pair_parse(remainder)?;
 
-            (
-                remainder,
-                LineType::Designer(VB6ProjectDesigner { path: value }),
-            )
+            (remainder, LineType::Designer(path))
         }
         CLASS => {
             let (remainder, class) = class_line_parse(remainder)?;
@@ -534,17 +538,14 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
             (remainder, LineType::Class(class))
         }
         FORM => {
-            let (remainder, (_key, value)) = key_value_pair_parse(remainder)?;
+            let (remainder, (_key, path)) = key_value_pair_parse(remainder)?;
 
-            (remainder, LineType::Form(VB6ProjectForm { path: value }))
+            (remainder, LineType::Form(path))
         }
         USERCONTROL => {
-            let (remainder, (_key, value)) = key_value_pair_parse(remainder)?;
+            let (remainder, (_key, path)) = key_value_pair_parse(remainder)?;
 
-            (
-                remainder,
-                LineType::UserControl(VB6ProjectUserControl { path: value }),
-            )
+            (remainder, LineType::UserControl(path))
         }
         RESFILE32 => {
             let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
