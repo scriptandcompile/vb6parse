@@ -20,56 +20,56 @@ use uuid::Uuid;
 // it can contain non-ascii text elements, especially the tm character, the
 // copyright character and other such 'special' characters which are often found
 // in the VersionLegalCopyright, VersionLegalDescription, etc fields.
-const REFERENCE: &[u8] = "Reference".as_bytes();
-const OBJECT: &[u8] = "Object".as_bytes();
-const MODULE: &[u8] = "Module".as_bytes();
-const DESIGNER: &[u8] = "Designer".as_bytes();
-const USERDOCUMENT: &[u8] = &"UserDocument".as_bytes();
-const CLASS: &[u8] = "Class".as_bytes();
-const FORM: &[u8] = "Form".as_bytes();
-const USERCONTROL: &[u8] = "UserControl".as_bytes();
-const RESFILE32: &[u8] = "ResFile32".as_bytes();
-const ICONFORM: &[u8] = "IconForm".as_bytes();
-const STARTUP: &[u8] = "Startup".as_bytes();
-const HELPFILE: &[u8] = "HelpFile".as_bytes();
-const TITLE: &[u8] = "Title".as_bytes();
-const EXENAME32: &[u8] = "ExeName32".as_bytes();
-const COMMAND32: &[u8] = "Command32".as_bytes();
-const NAME: &[u8] = "Name".as_bytes();
-const HELPCONTEXTID: &[u8] = "HelpContextID".as_bytes();
-const COMPATIBLEMODE: &[u8] = "CompatibleMode".as_bytes();
-const NOCONTROLUPGRADE: &[u8] = "NoControlUpgrade".as_bytes();
-const MAJORVER: &[u8] = "MajorVer".as_bytes();
-const MINORVER: &[u8] = "MinorVer".as_bytes();
-const REVISIONVER: &[u8] = "RevisionVer".as_bytes();
-const AUTOINCREMENTVER: &[u8] = "AutoIncrementVer".as_bytes();
-const SERVERSUPPORTFILES: &[u8] = "ServerSupportFiles".as_bytes();
-const VERSIONCOMPANYNAME: &[u8] = "VersionCompanyName".as_bytes();
-const VERSIONFILEDESCRIPTION: &[u8] = "VersionFileDescription".as_bytes();
-const VERSIONLEGALCOPYRIGHT: &[u8] = "VersionLegalCopyright".as_bytes();
-const VERSIONLEGALTRADEMARKS: &[u8] = "VersionLegalTrademarks".as_bytes();
-const VERSIONPRODUCTNAME: &[u8] = "VersionProductName".as_bytes();
-const CONDCOMP: &[u8] = "CondComp".as_bytes();
-const COMPILATIONTYPE: &[u8] = "CompilationType".as_bytes();
-const OPTIMIZATIONTYPE: &[u8] = "OptimizationType".as_bytes();
-const NOALIASING: &[u8] = "NoAliasing".as_bytes();
-const CODEVIEWDEBUGINFO: &[u8] = "CodeViewDebugInfo".as_bytes();
+const REFERENCE: &[u8] = b"Reference";
+const OBJECT: &[u8] = b"Object";
+const MODULE: &[u8] = b"Module";
+const DESIGNER: &[u8] = b"Designer";
+const USERDOCUMENT: &[u8] = b"UserDocument";
+const CLASS: &[u8] = b"Class";
+const FORM: &[u8] = b"Form";
+const USERCONTROL: &[u8] = b"UserControl";
+const RESFILE32: &[u8] = b"ResFile32";
+const ICONFORM: &[u8] = b"IconForm";
+const STARTUP: &[u8] = b"Startup";
+const HELPFILE: &[u8] = b"HelpFile";
+const TITLE: &[u8] = b"Title";
+const EXENAME32: &[u8] = b"ExeName32";
+const COMMAND32: &[u8] = b"Command32";
+const NAME: &[u8] = b"Name";
+const HELPCONTEXTID: &[u8] = b"HelpContextID";
+const COMPATIBLEMODE: &[u8] = b"CompatibleMode";
+const NOCONTROLUPGRADE: &[u8] = b"NoControlUpgrade";
+const MAJORVER: &[u8] = b"MajorVer";
+const MINORVER: &[u8] = b"MinorVer";
+const REVISIONVER: &[u8] = b"RevisionVer";
+const AUTOINCREMENTVER: &[u8] = b"AutoIncrementVer";
+const SERVERSUPPORTFILES: &[u8] = b"ServerSupportFiles";
+const VERSIONCOMPANYNAME: &[u8] = b"VersionCompanyName";
+const VERSIONFILEDESCRIPTION: &[u8] = b"VersionFileDescription";
+const VERSIONLEGALCOPYRIGHT: &[u8] = b"VersionLegalCopyright";
+const VERSIONLEGALTRADEMARKS: &[u8] = b"VersionLegalTrademarks";
+const VERSIONPRODUCTNAME: &[u8] = b"VersionProductName";
+const CONDCOMP: &[u8] = b"CondComp";
+const COMPILATIONTYPE: &[u8] = b"CompilationType";
+const OPTIMIZATIONTYPE: &[u8] = b"OptimizationType";
+const NOALIASING: &[u8] = b"NoAliasing";
+const CODEVIEWDEBUGINFO: &[u8] = b"CodeViewDebugInfo";
 // In the vbp file this is FavorPentiumPro(tm)
-const FAVORPENTIUMPROTM: &[u8] = "FavorPentiumPro(tm)".as_bytes();
-const BOUNDSCHECK: &[u8] = "BoundsCheck".as_bytes();
-const OVERFLOWCHECK: &[u8] = "OverflowCheck".as_bytes();
-const FLPOINTCHECK: &[u8] = "FlPointCheck".as_bytes();
-const FDIVCHECK: &[u8] = "FDIVCheck".as_bytes();
-const UNROUNDEDFP: &[u8] = "UnroundedFP".as_bytes();
-const STARTMODE: &[u8] = "StartMode".as_bytes();
-const UNATTENDED: &[u8] = "Unattended".as_bytes();
-const RETAINED: &[u8] = "Retained".as_bytes();
-const THREADPEROBJECT: &[u8] = "ThreadPerObject".as_bytes();
-const MAXNUMBEROFTHREADS: &[u8] = "MaxNumberOfThreads".as_bytes();
-const DEBUGSTARTOPTION: &[u8] = "DebugStartOption".as_bytes();
-const AUTOREFRESH: &[u8] = "AutoRefresh".as_bytes();
+const FAVORPENTIUMPROTM: &[u8] = b"FavorPentiumPro(tm)";
+const BOUNDSCHECK: &[u8] = b"BoundsCheck";
+const OVERFLOWCHECK: &[u8] = b"OverflowCheck";
+const FLPOINTCHECK: &[u8] = b"FlPointCheck";
+const FDIVCHECK: &[u8] = b"FDIVCheck";
+const UNROUNDEDFP: &[u8] = b"UnroundedFP";
+const STARTMODE: &[u8] = b"StartMode";
+const UNATTENDED: &[u8] = b"Unattended";
+const RETAINED: &[u8] = b"Retained";
+const THREADPEROBJECT: &[u8] = b"ThreadPerObject";
+const MAXNUMBEROFTHREADS: &[u8] = b"MaxNumberOfThreads";
+const DEBUGSTARTOPTION: &[u8] = b"DebugStartOption";
+const AUTOREFRESH: &[u8] = b"AutoRefresh";
 
-const EMPTY: &[u8] = "".as_bytes();
+const EMPTY: &[u8] = b"";
 
 #[derive(thiserror::Error, Debug, PartialEq)]
 pub enum ProjectParseError {
@@ -842,7 +842,7 @@ fn object_line_parse(input: &[u8]) -> IResult<&[u8], VB6ProjectObject, ProjectPa
     let remainder = input;
 
     let (remainder, (_, uuid_bytes)) =
-        tuple((tag_no_case(r"Object={".as_bytes()), take_until("}#")))(remainder)?;
+        tuple((tag_no_case(b"Object={"), take_until("}#")))(remainder)?;
 
     let Ok(uuid_text) = str::from_utf8(uuid_bytes) else {
         return Err(nom::Err::Failure(ProjectParseError::UnableToParseUuid));
@@ -852,20 +852,20 @@ fn object_line_parse(input: &[u8]) -> IResult<&[u8], VB6ProjectObject, ProjectPa
         return Err(nom::Err::Failure(ProjectParseError::UnableToParseUuid));
     };
 
-    let (remainder, _) = tag_no_case("}#".as_bytes())(remainder)?;
+    let (remainder, _) = tag_no_case(b"}#")(remainder)?;
 
     // We again take until the first '#'.
     // This looks like, and almost certainly is, a version number of a
     // '#.#' form like 1.0, 2.1, 6.0, etc.
     let (remainder, version) = take_until("#")(remainder)?;
 
-    let (remainder, _) = tag_no_case("#".as_bytes())(remainder)?;
+    let (remainder, _) = tag_no_case(b"#")(remainder)?;
 
     // We again take until the first '; '. It's not clear what this value is.
     // In every case, I've only seen '0'.
     let (remainder, unknown1) = take_until("; ")(remainder)?;
 
-    let (remainder, _) = tag_no_case("; ".as_bytes())(remainder)?;
+    let (remainder, _) = tag_no_case(b"; ")(remainder)?;
 
     // Finally, we are grabbing the file name, for this object.
     let Ok((remainder, file_name)) = not_line_ending(remainder) else {
@@ -930,7 +930,7 @@ fn module_line_parse(input: &[u8]) -> IResult<&[u8], VB6ProjectModule, ProjectPa
 
     let remainder = input;
 
-    let (remainder, _) = tag_no_case(r"Module=".as_bytes())(remainder)?;
+    let (remainder, _) = tag_no_case(b"Module=")(remainder)?;
 
     let (remainder, (name, path)) = name_path_tuple_parse(remainder)?;
 
@@ -951,7 +951,7 @@ fn class_line_parse(input: &[u8]) -> IResult<&[u8], VB6ProjectClass, ProjectPars
 
     let remainder = input;
 
-    let (remainder, _) = tag_no_case(r"Class=".as_bytes())(remainder)?;
+    let (remainder, _) = tag_no_case(b"Class=")(remainder)?;
 
     let (remainder, (name, path)) = name_path_tuple_parse(remainder)?;
 
@@ -979,11 +979,12 @@ fn reference_line_parse(input: &[u8]) -> IResult<&[u8], VB6ProjectReference, Pro
     // make error reporting easier.
     let tag_no_case = tag_no_case::<&[u8], &[u8], ProjectParseError>;
     let not_line_ending = not_line_ending::<&[u8], ProjectParseError>;
+    let take_until = take_until::<&[u8], &[u8], ProjectParseError>;
 
     let remainder = input;
 
     let (remainder, (_, uuid_bytes)) =
-        tuple((tag_no_case(r"Reference=*\G{".as_bytes()), take_until("}#")))(remainder)?;
+        tuple((tag_no_case(b"Reference=*\\G{"), take_until(b"}#")))(remainder)?;
 
     let uuid_text = match str::from_utf8(uuid_bytes) {
         Ok(uuid_text) => uuid_text,
@@ -996,26 +997,26 @@ fn reference_line_parse(input: &[u8]) -> IResult<&[u8], VB6ProjectReference, Pro
         return Err(nom::Err::Failure(ProjectParseError::UnableToParseUuid));
     };
 
-    let (remainder, _) = tag_no_case("}#".as_bytes())(remainder)?;
+    let (remainder, _) = tag_no_case(b"}#")(remainder)?;
 
     // We again take until the first '#'. It's not clear what this value is.
     // I've seen values of 1.0, 2.0, c.0, and a few other 'something.something'
     // values.
-    let (remainder, unknown1) = take_until("#")(remainder)?;
+    let (remainder, unknown1) = take_until(b"#")(remainder)?;
 
-    let (remainder, _) = tag_no_case("#".as_bytes())(remainder)?;
+    let (remainder, _) = tag_no_case(b"#")(remainder)?;
 
     // We again take until the first '#'. It's not clear what this value is.
     // In every case, I've only seen '0'.
-    let (remainder, unknown2) = take_until("#")(remainder)?;
+    let (remainder, unknown2) = take_until(b"#")(remainder)?;
 
-    let (remainder, _) = tag_no_case("#".as_bytes())(remainder)?;
+    let (remainder, _) = tag_no_case(b"#")(remainder)?;
 
     // Another take until '#', this time we should have a path. This
     // path can be relative or absolute.
-    let (remainder, path) = take_until("#")(remainder)?;
+    let (remainder, path) = take_until(b"#")(remainder)?;
 
-    let (remainder, _) = tag_no_case("#".as_bytes())(remainder)?;
+    let (remainder, _) = tag_no_case(b"#")(remainder)?;
 
     // Finally, we are grabbing the description, ie human readable, description
     // of this reference.
@@ -1044,27 +1045,27 @@ mod tests {
 
     #[test]
     fn project_type_is_exe() {
-        let project_type_line = "Type=Exe\r\n".as_bytes();
+        let project_type_line = b"Type=Exe\r\n";
 
         let (remainder, result) = project_type_parse(project_type_line).unwrap();
 
         assert_eq!(result, ProjectType::Exe);
-        assert_eq!(remainder, "".as_bytes());
+        assert_eq!(remainder, b"");
     }
 
     #[test]
     fn project_type_is_oledll() {
-        let project_type_line = "Type=OleDll\r\n".as_bytes();
+        let project_type_line = b"Type=OleDll\r\n";
 
         let (remainder, result) = project_type_parse(project_type_line).unwrap();
 
         assert_eq!(result, ProjectType::OleDll);
-        assert_eq!(remainder, "".as_bytes());
+        assert_eq!(remainder, b"");
     }
 
     #[test]
     fn project_type_is_unknown_type() {
-        let project_type_line = "Type=blah\r\n".as_bytes();
+        let project_type_line = b"Type=blah\r\n";
 
         let result = project_type_parse(project_type_line);
 
@@ -1077,7 +1078,7 @@ mod tests {
 
     #[test]
     fn project_type_lacks_line_ending() {
-        let project_type_line = "Type=Exe".as_bytes();
+        let project_type_line = b"Type=Exe";
 
         let result = project_type_parse(project_type_line);
 
@@ -1090,7 +1091,7 @@ mod tests {
 
     #[test]
     fn reference_line_valid() {
-        let reference_line = "Reference=*\\G{000440D8-E9ED-4435-A9A2-06B05387BB16}#c.0#0#..\\DBCommon\\Libs\\VbIntellisenseFix.dll#VbIntellisenseFix\r\n".as_bytes();
+        let reference_line = b"Reference=*\\G{000440D8-E9ED-4435-A9A2-06B05387BB16}#c.0#0#..\\DBCommon\\Libs\\VbIntellisenseFix.dll#VbIntellisenseFix\r\n";
 
         let (remainder, result) = reference_line_parse(reference_line).unwrap();
 
@@ -1106,8 +1107,7 @@ mod tests {
 
     #[test]
     fn object_line_valid() {
-        let object_line =
-            "Object={C4847593-972C-11D0-9567-00A0C9273C2A}#8.0#0; crviewer.dll\r\n".as_bytes();
+        let object_line = b"Object={C4847593-972C-11D0-9567-00A0C9273C2A}#8.0#0; crviewer.dll\r\n";
 
         let (remainder, result) = object_line_parse(object_line).unwrap();
 
@@ -1116,13 +1116,13 @@ mod tests {
         assert_eq!(remainder, []);
         assert_eq!(result.uuid, expected_uuid);
         assert_eq!(result.version, "8.0");
-        assert_eq!(result.unknown1, r"0");
-        assert_eq!(result.file_name, r"crviewer.dll");
+        assert_eq!(result.unknown1, "0");
+        assert_eq!(result.file_name, "crviewer.dll");
     }
 
     #[test]
     fn module_line_valid() {
-        let module_line = "Module=modDBAssist; ..\\DBCommon\\DBAssist.bas\r\n".as_bytes();
+        let module_line = b"Module=modDBAssist; ..\\DBCommon\\DBAssist.bas\r\n";
 
         let (remainder, result) = module_line_parse(module_line).unwrap();
 
@@ -1133,7 +1133,7 @@ mod tests {
 
     #[test]
     fn class_line_valid() {
-        let class_line = "Class=CStatusBarClass; ..\\DBCommon\\CStatusBarClass.cls\r\n".as_bytes();
+        let class_line = b"Class=CStatusBarClass; ..\\DBCommon\\CStatusBarClass.cls\r\n";
 
         let (remainder, result) = class_line_parse(class_line).unwrap();
 
@@ -1144,23 +1144,23 @@ mod tests {
 
     #[test]
     fn key_value_line_valid() {
-        let key_value_line = "Designer=AllMfgStatus.Dsr\r\n".as_bytes();
+        let key_value_line = b"Designer=AllMfgStatus.Dsr\r\n";
 
         let (remainder, (key, value)) = key_value_pair_parse(key_value_line).unwrap();
 
         assert_eq!(remainder, []);
-        assert_eq!(key, "Designer".as_bytes());
+        assert_eq!(key, b"Designer");
         assert_eq!(value, "AllMfgStatus.Dsr");
     }
 
     #[test]
     fn key_qouted_value_line_valid() {
-        let key_value_line = "ResFile32=\"..\\DBCommon\\PSFC.RES\"\r\n".as_bytes();
+        let key_value_line = b"ResFile32=\"..\\DBCommon\\PSFC.RES\"\r\n";
 
         let (remainder, (key, value)) = key_qouted_value_pair_parse(key_value_line).unwrap();
 
         assert_eq!(remainder, []);
-        assert_eq!(key, "ResFile32".as_bytes());
+        assert_eq!(key, b"ResFile32");
         assert_eq!(value, "..\\DBCommon\\PSFC.RES");
     }
 }
