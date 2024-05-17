@@ -24,4 +24,6 @@ fn vbp_load() {
     assert_eq!(project.command_line_arguments, "-DisableRememberPassword%20-CHARTING -U -language %22english%7d");
     assert_eq!(project.name, "PPDM");
     assert_eq!(project.help_context_id, "0");
+    assert_eq!(project.compatible_mode, "0");
+    assert_eq!(project.upgrade_activex_controls, true);
 }

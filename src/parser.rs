@@ -36,6 +36,7 @@ const COMMAND32: &[u8] = "Command32".as_bytes();
 const NAME: &[u8] = "Name".as_bytes();
 const HELPCONTEXTID: &[u8] = "HelpContextID".as_bytes();
 const COMPATIBLEMODE: &[u8] = "CompatibleMode".as_bytes();
+const NOCONTROLUPGRADE: &[u8] = "NoControlUpgrade".as_bytes();
 const MAJORVER: &[u8] = "MajorVer".as_bytes();
 const MINORVER: &[u8] = "MinorVer".as_bytes();
 const REVISIONVER: &[u8] = "RevisionVer".as_bytes();
@@ -107,6 +108,7 @@ pub struct VB6Project {
     pub forms: Vec<VB6ProjectForm>,
     pub user_controls: Vec<VB6ProjectUserControl>,
     pub user_documents: Vec<VB6ProjectUserDocument>,
+    pub upgrade_activex_controls: bool,
     pub res_file_32_path: String,
     pub icon_form: String,
     pub startup: String,
@@ -117,6 +119,7 @@ pub struct VB6Project {
     pub name: String,
     // May need to be switched to a u32. Not sure yet.
     pub help_context_id: String,
+    pub compatible_mode: String,
 
 }
 
@@ -196,11 +199,12 @@ enum LineType {
     Command32(String),
     Name(String),
     HelpContextID(String),
-    CompatibleMode,
-    MajorVer,
-    MinorVer,
-    RevisionVer,
-    AutoIncrementVer,
+    CompatibleMode(String),
+    NoControlUpgrade(String), // 0 or line missing - false, 1 = 'Upgrade ActiveX Control'. default = true.
+    MajorVer, // 0 - 9999, default 1.
+    MinorVer, // 0 - 9999, default 0.
+    RevisionVer, // 0 - 9999, default 0.
+    AutoIncrementVer, // 0 - no increment, 1 - increment, default 0.
     ServerSupportFiles,
     VersionCompanyName,
     VersionFileDescription,
@@ -381,6 +385,25 @@ impl VB6Project {
             })
             .unwrap();
 
+        let compatible_mode = line_types
+            .iter()
+            .find_map(|line| match line {
+                LineType::CompatibleMode(compatible_mode) => Some(compatible_mode.clone()),
+                _ => None,
+            })
+            .unwrap();
+
+        let upgrade_activex_controls =line_types
+            .iter()
+            .find_map(|line| match line {
+                LineType::NoControlUpgrade(control_upgrade) => Some(control_upgrade.clone()),
+                _ => None,
+        }).map_or(true, |value| match value.as_str() {
+            "0" => false,
+            "1" => true,
+            _ => false
+        });
+
         let project = VB6Project {
             project_type: project_type,
             references: references,
@@ -391,6 +414,7 @@ impl VB6Project {
             forms: forms,
             user_documents: user_documents,
             user_controls: user_controls,
+            upgrade_activex_controls: upgrade_activex_controls,
             res_file_32_path: res_file_32_path,
             icon_form: icon_form,
             startup: startup,
@@ -400,6 +424,7 @@ impl VB6Project {
             command_line_arguments: command_line_arguments,
             name: name,
             help_context_id: help_context_id,
+            compatible_mode: compatible_mode,
         };
 
         Ok(project)
@@ -567,17 +592,22 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
             let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
 
             (remainder, LineType::Name(value))
-        }
+        },
         HELPCONTEXTID => {
             let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
 
             (remainder, LineType::HelpContextID(value))
-        }
+        },
         COMPATIBLEMODE => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
+            let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
 
-            (remainder, LineType::CompatibleMode)
+            (remainder, LineType::CompatibleMode(value))
         }
+        NOCONTROLUPGRADE => {
+            let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
+
+            (remainder, LineType::NoControlUpgrade(value))
+        },
         MAJORVER => {
             let (remainder, _) = take_line_remove_newline_parse(remainder)?;
 

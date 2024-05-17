@@ -23,7 +23,8 @@ VB6 Project (vbp) files:
 - [X] **Command32** - Partial support. Default value not correctly handled. 
 - [X] **Name** - Partial support. Default value not correctly handled. 
 - [X] **HelpContextID** - Partial support. Default value not correctly handled. 
-- [ ] **CompatibleMode**
+- [X] **CompatibleMode** - Partial support. Default value not correctly handled. 
+- [X] **NoControlUpgrade** - Full support for the 'ActiveX Control Upgrade' option, including the default or empty reverting to true.
 - [ ] **MajorVer**
 - [ ] **MinorVer**
 - [ ] **RevisionVer**
