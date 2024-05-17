@@ -16,7 +16,7 @@ fn vbp_load() {
     assert_eq!(project.user_documents.len(), 0);
 
     assert_eq!(project.res_file_32_path, "..\\DBCommon\\PSFC.RES");
-    assert_eq!(project.icon_form, "frmMain");
+    assert_eq!(project.icon_form, Some("frmMain".to_owned()));
     assert_eq!(project.startup, "Sub Main");
     assert_eq!(project.help_file_path, "");
     assert_eq!(project.title, "PPDM");
