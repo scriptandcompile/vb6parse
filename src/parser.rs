@@ -1,3 +1,5 @@
+#![warn(clippy::pedantic)]
+
 use std::str;
 
 use nom::{
@@ -405,26 +407,26 @@ impl VB6Project {
         });
 
         let project = VB6Project {
-            project_type: project_type,
-            references: references,
-            objects: objects,
-            modules: modules,
-            classes: classes,
-            designers: designers,
-            forms: forms,
-            user_documents: user_documents,
-            user_controls: user_controls,
-            upgrade_activex_controls: upgrade_activex_controls,
-            res_file_32_path: res_file_32_path,
-            icon_form: icon_form,
-            startup: startup,
-            help_file_path: help_file_path,
-            title: title,
-            exe_32_file_name: exe_32_file_name,
-            command_line_arguments: command_line_arguments,
-            name: name,
-            help_context_id: help_context_id,
-            compatible_mode: compatible_mode,
+            project_type,
+            references,
+            objects,
+            modules,
+            classes,
+            designers,
+            forms,
+            user_documents,
+            user_controls,
+            upgrade_activex_controls,
+            res_file_32_path,
+            icon_form,
+            startup,
+            help_file_path,
+            title,
+            exe_32_file_name,
+            command_line_arguments,
+            name,
+            help_context_id,
+            compatible_mode,
         };
 
         Ok(project)
@@ -892,7 +894,7 @@ fn object_line_parse(input: &[u8]) -> IResult<&[u8], VB6ProjectObject, ProjectPa
     let (remainder, _) = line_ending(remainder)?;
 
     let object = VB6ProjectObject {
-        uuid: uuid,
+        uuid,
         version: String::from_utf8(version.to_vec()).unwrap(),
         unknown1: String::from_utf8(unknown1.to_vec()).unwrap(),
         file_name: String::from_utf8(file_name.to_vec()).unwrap(),
@@ -1055,7 +1057,7 @@ fn reference_line_parse(input: &[u8]) -> IResult<&[u8], VB6ProjectReference, Pro
     let (remainder, _) = line_ending(remainder)?;
 
     let reference = VB6ProjectReference {
-        uuid: uuid,
+        uuid,
         unknown1: String::from_utf8(unknown1.to_vec()).unwrap(),
         unknown2: String::from_utf8(unknown2.to_vec()).unwrap(),
         path: String::from_utf8(path.to_vec()).unwrap(),
