@@ -399,10 +399,7 @@ impl VB6Project {
                 LineType::NoControlUpgrade(control_upgrade) => Some(control_upgrade.clone()),
                 _ => None,
             })
-            .map_or(true, |value| match value.as_str() {
-                "1" => true,
-                _ => false,
-            });
+            .map_or(true, |value| matches!(value.as_str(), "1"));
 
         let project = VB6Project {
             project_type,
