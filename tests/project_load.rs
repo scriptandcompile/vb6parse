@@ -22,4 +22,5 @@ fn vbp_load() {
     assert_eq!(project.title, "PPDM");
     assert_eq!(project.exe_32_file_name, "PPDM.exe");
     assert_eq!(project.command_line_arguments, "-DisableRememberPassword%20-CHARTING -U -language %22english%7d");
+    assert_eq!(project.name, "PPDM");
 }
