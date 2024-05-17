@@ -400,7 +400,6 @@ impl VB6Project {
                 _ => None,
             })
             .map_or(true, |value| match value.as_str() {
-                "0" => false,
                 "1" => true,
                 _ => false,
             });
@@ -477,11 +476,8 @@ fn project_type_parse(input: &[u8]) -> IResult<&[u8], ProjectType, ProjectParseE
 
     // We split out the newline here so we can handle the difference between
     // a type line that ends in a newline and one without it.
-    let (remainder, _) = match line_ending(remainder) {
-        Ok((remainder, _)) => (remainder, ()),
-        Err(_) => {
-            return Err(nom::Err::Failure(ProjectParseError::NoLineEnding));
-        }
+    let Ok((remainder, _)) = line_ending(remainder) else {
+        return Err(nom::Err::Failure(ProjectParseError::NoLineEnding));
     };
 
     Ok((remainder, project_type))
