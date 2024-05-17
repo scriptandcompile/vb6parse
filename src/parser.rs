@@ -982,11 +982,8 @@ fn reference_line_parse(input: &[u8]) -> IResult<&[u8], VB6ProjectReference, Pro
     let (remainder, (_, uuid_bytes)) =
         tuple((tag_no_case(b"Reference=*\\G{"), take_until(b"}#")))(remainder)?;
 
-    let uuid_text = match str::from_utf8(uuid_bytes) {
-        Ok(uuid_text) => uuid_text,
-        Err(_) => {
-            return Err(nom::Err::Failure(ProjectParseError::UnableToParseUuid));
-        }
+    let Ok(uuid_text) = str::from_utf8(uuid_bytes) else {
+        return Err(nom::Err::Failure(ProjectParseError::UnableToParseUuid));
     };
 
     let Ok(uuid) = uuid::Uuid::parse_str(uuid_text) else {
