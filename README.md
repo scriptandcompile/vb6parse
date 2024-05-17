@@ -1,6 +1,24 @@
-Current support:
 
-VB6 Project (vbp) files:
+# Goals:
+
+VB6Parse aims to be a complete, end-to-end parser library for VB6. Including, but not limited to:
+
+* (*.vbp) VB6 project files.
+* (*.vbw) VB6 windows files for determining editor windows when they are opened. 
+* (*.frm) VB6 Forms.
+* (*.frx) VB6 Form Resource files.
+* (*.dsx) VB Data Environment files.
+* (*.dsr) VB Data Environment Resource files.
+* (*.cls) Class files.
+* (*.ttx) Crystal Report files.
+* (*.ctl) User Control files.
+* (*.dob) User Document files.
+
+## Current support:
+
+First work has focused on the (vbp) project files since is the method to discover all other files that should be linked/referenced within a project.
+
+#### (*.vbp) VB6 Project file parser feature support:
 - [X] **Project Types**
     - [X] Exe
     - [X] Control
@@ -53,3 +71,11 @@ VB6 Project (vbp) files:
 - [ ] **MaxNumberOfThreads**
 - [ ] **DebugStartOption**
 - [ ] **AutoRefresh**
+
+#### VB6Project API:
+- [x] Unit Testing.
+- [x] Integration/End-to-End Testing.
+- [ ] Benchmarking.
+- [ ] Top level API finalization.
+- [ ] Documentation.
+- [ ] Examples.
