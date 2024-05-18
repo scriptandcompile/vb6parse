@@ -15,18 +15,21 @@ fn vbp_load() {
     assert_eq!(project.user_controls.len(), 13);
     assert_eq!(project.user_documents.len(), 0);
 
-    assert_eq!(project.res_file_32_path, "..\\DBCommon\\PSFC.RES");
+    assert_eq!(
+        project.res_file_32_path,
+        Some("..\\DBCommon\\PSFC.RES".to_owned())
+    );
     assert_eq!(project.icon_form, Some("frmMain".to_owned()));
-    assert_eq!(project.startup, "Sub Main");
-    assert_eq!(project.help_file_path, "");
-    assert_eq!(project.title, "PPDM");
-    assert_eq!(project.exe_32_file_name, "PPDM.exe");
+    assert_eq!(project.startup, Some("Sub Main".to_owned()));
+    assert_eq!(project.help_file_path, Some("".to_owned()));
+    assert_eq!(project.title, Some("PPDM".to_owned()));
+    assert_eq!(project.exe_32_file_name, Some("PPDM.exe".to_owned()));
     assert_eq!(
         project.command_line_arguments,
-        "-DisableRememberPassword%20-CHARTING -U -language %22english%7d"
+        Some("-DisableRememberPassword%20-CHARTING -U -language %22english%7d".to_owned())
     );
-    assert_eq!(project.name, "PPDM");
-    assert_eq!(project.help_context_id, "0");
-    assert_eq!(project.compatible_mode, "0");
+    assert_eq!(project.name, Some("PPDM".to_owned()));
+    assert_eq!(project.help_context_id, Some("0".to_owned()));
+    assert_eq!(project.compatible_mode, Some("0".to_owned()));
     assert_eq!(project.upgrade_activex_controls, true);
 }

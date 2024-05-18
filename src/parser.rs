@@ -111,17 +111,17 @@ pub struct VB6Project {
     pub user_controls: Vec<String>,
     pub user_documents: Vec<String>,
     pub upgrade_activex_controls: bool,
-    pub res_file_32_path: String,
+    pub res_file_32_path: Option<String>,
     pub icon_form: Option<String>,
-    pub startup: String,
-    pub help_file_path: String,
-    pub title: String,
-    pub exe_32_file_name: String,
-    pub command_line_arguments: String,
-    pub name: String,
+    pub startup: Option<String>,
+    pub help_file_path: Option<String>,
+    pub title: Option<String>,
+    pub exe_32_file_name: Option<String>,
+    pub command_line_arguments: Option<String>,
+    pub name: Option<String>,
     // May need to be switched to a u32. Not sure yet.
-    pub help_context_id: String,
-    pub compatible_mode: String,
+    pub help_context_id: Option<String>,
+    pub compatible_mode: Option<String>,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -224,162 +224,31 @@ impl VB6Project {
         let (_remainder, line_types) = many0(preceded(not(eof), line_type_parse))(remainder)
             .map_err(|_| ProjectParseError::NoLineEnding)?;
 
-        let references = line_types
-            .iter()
-            .filter_map(|line| match line {
-                LineType::Reference(reference) => Some(reference.clone()),
-                _ => None,
-            })
-            .collect();
-
-        let user_documents = line_types
-            .iter()
-            .filter_map(|line| match line {
-                LineType::UserDocument(user_document) => Some(user_document.clone()),
-                _ => None,
-            })
-            .collect();
-
-        let objects = line_types
-            .iter()
-            .filter_map(|line| match line {
-                LineType::Object(object) => Some(object.clone()),
-                _ => None,
-            })
-            .collect();
-
-        let modules = line_types
-            .iter()
-            .filter_map(|line| match line {
-                LineType::Module(module) => Some(module.clone()),
-                _ => None,
-            })
-            .collect();
-
-        let classes = line_types
-            .iter()
-            .filter_map(|line| match line {
-                LineType::Class(class) => Some(class.clone()),
-                _ => None,
-            })
-            .collect();
-
-        let designers = line_types
-            .iter()
-            .filter_map(|line| match line {
-                LineType::Designer(designer) => Some(designer.clone()),
-                _ => None,
-            })
-            .collect();
-
-        let forms = line_types
-            .iter()
-            .filter_map(|line| match line {
-                LineType::Form(form) => Some(form.clone()),
-                _ => None,
-            })
-            .collect();
-
-        let user_controls = line_types
-            .iter()
-            .filter_map(|line| match line {
-                LineType::UserControl(user_control) => Some(user_control.clone()),
-                _ => None,
-            })
-            .collect();
+        let references = collect_references(&line_types);
+        let user_documents = collect_user_documents(&line_types);
+        let objects = collect_objects(&line_types);
+        let modules = collect_modules(&line_types);
+        let classes = collect_classes(&line_types);
+        let designers = collect_designers(&line_types);
+        let forms = collect_forms(&line_types);
+        let user_controls = collect_user_controls(&line_types);
 
         // TODO:
         // All of these should have a default value that matches whatever
         // default VB6 uses whenever the item isn't in the VB6 project (*.vbp)
         // file. For now, I've just done an 'unwrap', this is not right, but
         // we should be able to come back to this later.
-        let res_file_32_path = line_types
-            .iter()
-            .find_map(|line| match line {
-                LineType::ResFile32(res_file_32_path) => Some(res_file_32_path.clone()),
-                _ => None,
-            })
-            .unwrap();
-
-        let icon_form = line_types.iter().find_map(|line| match line {
-            LineType::IconForm(icon_form) => Some(icon_form.clone()),
-            _ => None,
-        });
-
-        let startup = line_types
-            .iter()
-            .find_map(|line| match line {
-                LineType::Startup(startup) => Some(startup.clone()),
-                _ => None,
-            })
-            .unwrap();
-
-        let help_file_path = line_types
-            .iter()
-            .find_map(|line| match line {
-                LineType::HelpFile(help_file_path) => Some(help_file_path.clone()),
-                _ => None,
-            })
-            .unwrap();
-
-        let title = line_types
-            .iter()
-            .find_map(|line| match line {
-                LineType::Title(title) => Some(title.clone()),
-                _ => None,
-            })
-            .unwrap();
-
-        let exe_32_file_name = line_types
-            .iter()
-            .find_map(|line| match line {
-                LineType::ExeName32(exe_32_file_name) => Some(exe_32_file_name.clone()),
-                _ => None,
-            })
-            .unwrap();
-
-        let command_line_arguments = line_types
-            .iter()
-            .find_map(|line| match line {
-                LineType::Command32(command_line_arguments) => Some(command_line_arguments.clone()),
-                _ => None,
-            })
-            .unwrap();
-
-        let name = line_types
-            .iter()
-            .find_map(|line| match line {
-                LineType::Name(name) => Some(name.clone()),
-                _ => None,
-            })
-            .unwrap();
-
-        let help_context_id = line_types
-            .iter()
-            .find_map(|line| match line {
-                LineType::HelpContextID(help_context_id) => Some(help_context_id.clone()),
-                _ => None,
-            })
-            .unwrap();
-
-        let compatible_mode = line_types
-            .iter()
-            .find_map(|line| match line {
-                LineType::CompatibleMode(compatible_mode) => Some(compatible_mode.clone()),
-                _ => None,
-            })
-            .unwrap();
-
-        // If we don't have an NoControlUpgrade line then the default is
-        // true. The text line itself is 1 or 0 which is translated to
-        // true and false.
-        let upgrade_activex_controls = line_types
-            .iter()
-            .find_map(|line| match line {
-                LineType::NoControlUpgrade(control_upgrade) => Some(control_upgrade.clone()),
-                _ => None,
-            })
-            .map_or(true, |value| matches!(value.as_str(), "1"));
+        let res_file_32_path = get_res_32_path(&line_types);
+        let icon_form = get_icon_form(&line_types);
+        let startup = get_startup(&line_types);
+        let help_file_path = get_help_file_path(&line_types);
+        let title = get_title(&line_types);
+        let exe_32_file_name = get_exe_32_file_name(&line_types);
+        let command_line_arguments = get_command_line_arguments(&line_types);
+        let name = get_name(&line_types);
+        let help_context_id = get_help_context_id(&line_types);
+        let compatible_mode = get_compatible_mode(&line_types);
+        let upgrade_activex_controls = get_upgrade_activex_controls(&line_types);
 
         let mut project = VB6Project {
             project_type,
@@ -420,6 +289,166 @@ impl VB6Project {
             self.icon_form = form_name;
         };
     }
+}
+
+fn collect_references(lines: &[LineType]) -> Vec<VB6ProjectReference> {
+    lines
+        .iter()
+        .filter_map(|line| match line {
+            LineType::Reference(reference) => Some(reference.clone()),
+            _ => None,
+        })
+        .collect()
+}
+
+fn collect_user_documents(lines: &[LineType]) -> Vec<String> {
+    lines
+        .iter()
+        .filter_map(|line| match line {
+            LineType::UserDocument(user_document) => Some(user_document.clone()),
+            _ => None,
+        })
+        .collect()
+}
+
+fn collect_objects(lines: &[LineType]) -> Vec<VB6ProjectObject> {
+    lines
+        .iter()
+        .filter_map(|line| match line {
+            LineType::Object(object) => Some(object.clone()),
+            _ => None,
+        })
+        .collect()
+}
+
+fn collect_modules(lines: &[LineType]) -> Vec<VB6ProjectModule> {
+    lines
+        .iter()
+        .filter_map(|line| match line {
+            LineType::Module(module) => Some(module.clone()),
+            _ => None,
+        })
+        .collect()
+}
+
+fn collect_classes(lines: &[LineType]) -> Vec<VB6ProjectClass> {
+    lines
+        .iter()
+        .filter_map(|line| match line {
+            LineType::Class(class) => Some(class.clone()),
+            _ => None,
+        })
+        .collect()
+}
+
+fn collect_designers(lines: &[LineType]) -> Vec<String> {
+    lines
+        .iter()
+        .filter_map(|line| match line {
+            LineType::Designer(designer) => Some(designer.clone()),
+            _ => None,
+        })
+        .collect()
+}
+
+fn collect_forms(lines: &[LineType]) -> Vec<String> {
+    lines
+        .iter()
+        .filter_map(|line| match line {
+            LineType::Form(form) => Some(form.clone()),
+            _ => None,
+        })
+        .collect()
+}
+
+fn collect_user_controls(lines: &[LineType]) -> Vec<String> {
+    lines
+        .iter()
+        .filter_map(|line| match line {
+            LineType::UserControl(user_control) => Some(user_control.clone()),
+            _ => None,
+        })
+        .collect()
+}
+
+fn get_res_32_path(lines: &[LineType]) -> Option<String> {
+    lines.iter().find_map(|line| match line {
+        LineType::ResFile32(res_file_32_path) => Some(res_file_32_path.clone()),
+        _ => None,
+    })
+}
+
+fn get_icon_form(lines: &[LineType]) -> Option<String> {
+    lines.iter().find_map(|line| match line {
+        LineType::IconForm(icon_form) => Some(icon_form.clone()),
+        _ => None,
+    })
+}
+
+fn get_startup(lines: &[LineType]) -> Option<String> {
+    lines.iter().find_map(|line| match line {
+        LineType::Startup(startup) => Some(startup.clone()),
+        _ => None,
+    })
+}
+
+fn get_help_file_path(lines: &[LineType]) -> Option<String> {
+    lines.iter().find_map(|line| match line {
+        LineType::HelpFile(help_file_path) => Some(help_file_path.clone()),
+        _ => None,
+    })
+}
+
+fn get_title(lines: &[LineType]) -> Option<String> {
+    lines.iter().find_map(|line| match line {
+        LineType::Title(title) => Some(title.clone()),
+        _ => None,
+    })
+}
+
+fn get_exe_32_file_name(lines: &[LineType]) -> Option<String> {
+    lines.iter().find_map(|line| match line {
+        LineType::ExeName32(exe_32_file_name) => Some(exe_32_file_name.clone()),
+        _ => None,
+    })
+}
+
+fn get_command_line_arguments(lines: &[LineType]) -> Option<String> {
+    lines.iter().find_map(|line| match line {
+        LineType::Command32(command_line_arguments) => Some(command_line_arguments.clone()),
+        _ => None,
+    })
+}
+
+fn get_name(lines: &[LineType]) -> Option<String> {
+    lines.iter().find_map(|line| match line {
+        LineType::Name(name) => Some(name.clone()),
+        _ => None,
+    })
+}
+
+fn get_help_context_id(lines: &[LineType]) -> Option<String> {
+    lines.iter().find_map(|line| match line {
+        LineType::HelpContextID(help_context_id) => Some(help_context_id.clone()),
+        _ => None,
+    })
+}
+
+fn get_compatible_mode(lines: &[LineType]) -> Option<String> {
+    lines.iter().find_map(|line| match line {
+        LineType::CompatibleMode(compatible_mode) => Some(compatible_mode.clone()),
+        _ => None,
+    })
+}
+
+fn get_upgrade_activex_controls(lines: &[LineType]) -> bool {
+    lines
+        .iter()
+        .find_map(|line| match line {
+            LineType::NoControlUpgrade(control_upgrade) => Some(control_upgrade.clone()),
+            _ => None,
+        })
+        .map_or(true, |value| matches!(value.as_str(), "1"))
 }
 
 fn file_name_without_extension<P>(path: P) -> Option<String>
