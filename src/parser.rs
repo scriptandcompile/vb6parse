@@ -123,6 +123,7 @@ pub struct VB6Project {
     pub help_context_id: Option<String>,
     pub compatible_mode: Option<String>,
     pub major_version: Option<String>,
+    pub minor_version: Option<String>,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -184,7 +185,7 @@ enum LineType {
     CompatibleMode(String),
     NoControlUpgrade(String), // 0 or line missing - false, 1 = 'Upgrade ActiveX Control'. default = true.
     MajorVer(String),         // 0 - 9999, default 1.
-    MinorVer,                 // 0 - 9999, default 0.
+    MinorVer(String),         // 0 - 9999, default 0.
     RevisionVer,              // 0 - 9999, default 0.
     AutoIncrementVer,         // 0 - no increment, 1 - increment, default 0.
     ServerSupportFiles,
@@ -251,6 +252,7 @@ impl VB6Project {
         let compatible_mode = get_compatible_mode(&line_types);
         let upgrade_activex_controls = get_upgrade_activex_controls(&line_types);
         let major_version = get_major_version(&line_types);
+        let minor_version = get_minor_version(&line_types);
 
         let mut project = VB6Project {
             project_type,
@@ -274,6 +276,7 @@ impl VB6Project {
             help_context_id,
             compatible_mode,
             major_version,
+            minor_version,
         };
 
         project.validate();
@@ -457,6 +460,13 @@ fn get_upgrade_activex_controls(lines: &[LineType]) -> bool {
 fn get_major_version(lines: &[LineType]) -> Option<String> {
     lines.iter().find_map(|line| match line {
         LineType::MajorVer(major_version) => Some(major_version.clone()),
+        _ => None,
+    })
+}
+
+fn get_minor_version(lines: &[LineType]) -> Option<String> {
+    lines.iter().find_map(|line| match line {
+        LineType::MinorVer(minor_version) => Some(minor_version.clone()),
         _ => None,
     })
 }
@@ -647,9 +657,9 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
             (remainder, LineType::MajorVer(value))
         }
         MINORVER => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
+            let (remainder, (_key, value)) = key_value_pair_parse(remainder)?;
 
-            (remainder, LineType::MinorVer)
+            (remainder, LineType::MinorVer(value))
         }
         REVISIONVER => {
             let (remainder, _) = take_line_remove_newline_parse(remainder)?;
