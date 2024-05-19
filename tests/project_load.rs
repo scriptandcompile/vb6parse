@@ -41,4 +41,8 @@ fn vbp_load() {
         project.version_company_name,
         Some("Predator Software Inc.".to_owned())
     );
+    assert_eq!(
+        project.version_file_description,
+        Some("Predator PDM ".to_owned())
+    );
 }
