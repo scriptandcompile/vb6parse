@@ -127,6 +127,7 @@ pub struct VB6Project {
     pub revision_version: Option<String>,
     pub auto_increment_revision_version: bool,
     pub server_support_files: bool,
+    pub version_company_name: Option<String>,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -186,13 +187,13 @@ enum LineType {
     Name(String),
     HelpContextID(String),
     CompatibleMode(String),
-    NoControlUpgrade(String),   // 0 or line missing - false, 1 = 'Upgrade ActiveX Control'. default = true.
-    MajorVer(String),           // 0 - 9999, default 1.
-    MinorVer(String),           // 0 - 9999, default 0.
-    RevisionVer(String),        // 0 - 9999, default 0.
-    AutoIncrementVer(String),   // 0 - no increment, 1 - increment, default 0.
+    NoControlUpgrade(String), // 0 or line missing - false, 1 = 'Upgrade ActiveX Control'. default = true.
+    MajorVer(String),         // 0 - 9999, default 1.
+    MinorVer(String),         // 0 - 9999, default 0.
+    RevisionVer(String),      // 0 - 9999, default 0.
+    AutoIncrementVer(String), // 0 - no increment, 1 - increment, default 0.
     ServerSupportFiles(String), // 0 - no support files, 1 - server support files, default 0.
-    VersionCompanyName,
+    VersionCompanyName(String),
     VersionFileDescription,
     VersionLegalCopyright,
     VersionLegalTrademarks,
@@ -259,6 +260,7 @@ impl VB6Project {
         let revision_version = get_revision_version(&line_types);
         let auto_increment_revision_version = get_auto_increment_revision_version(&line_types);
         let server_support_files = get_server_support_files(&line_types);
+        let version_company_name = get_version_company_name(&line_types);
 
         let mut project = VB6Project {
             project_type,
@@ -285,7 +287,8 @@ impl VB6Project {
             minor_version,
             revision_version,
             auto_increment_revision_version,
-            server_support_files
+            server_support_files,
+            version_company_name,
         };
 
         project.validate();
@@ -501,12 +504,20 @@ fn get_server_support_files(lines: &[LineType]) -> bool {
     lines
         .iter()
         .find_map(|line| match line {
-            LineType::ServerSupportFiles(server_support_files) => Some(server_support_files.clone()),
+            LineType::ServerSupportFiles(server_support_files) => {
+                Some(server_support_files.clone())
+            }
             _ => None,
         })
         .map_or(true, |value| matches!(value.as_str(), "1"))
 }
 
+fn get_version_company_name(lines: &[LineType]) -> Option<String> {
+    lines.iter().find_map(|line| match line {
+        LineType::VersionCompanyName(version_company_name) => Some(version_company_name.clone()),
+        _ => None,
+    })
+}
 
 fn file_name_without_extension<P>(path: P) -> Option<String>
 where
@@ -699,24 +710,24 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
             (remainder, LineType::MinorVer(value))
         }
         REVISIONVER => {
-            let (remainder,  (_key, value)) = key_value_pair_parse(remainder)?;
+            let (remainder, (_key, value)) = key_value_pair_parse(remainder)?;
 
             (remainder, LineType::RevisionVer(value))
         }
         AUTOINCREMENTVER => {
-            let (remainder,  (_key, value)) = key_value_pair_parse(remainder)?;
+            let (remainder, (_key, value)) = key_value_pair_parse(remainder)?;
 
             (remainder, LineType::AutoIncrementVer(value))
         }
         SERVERSUPPORTFILES => {
-            let (remainder,  (_key, value)) = key_value_pair_parse(remainder)?;
+            let (remainder, (_key, value)) = key_value_pair_parse(remainder)?;
 
             (remainder, LineType::ServerSupportFiles(value))
         }
         VERSIONCOMPANYNAME => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
+            let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
 
-            (remainder, LineType::VersionCompanyName)
+            (remainder, LineType::VersionCompanyName(value))
         }
         VERSIONFILEDESCRIPTION => {
             let (remainder, _) = take_line_remove_newline_parse(remainder)?;
