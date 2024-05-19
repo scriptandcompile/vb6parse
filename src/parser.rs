@@ -122,6 +122,7 @@ pub struct VB6Project {
     // May need to be switched to a u32. Not sure yet.
     pub help_context_id: Option<String>,
     pub compatible_mode: Option<String>,
+    pub major_version: Option<String>,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -182,7 +183,7 @@ enum LineType {
     HelpContextID(String),
     CompatibleMode(String),
     NoControlUpgrade(String), // 0 or line missing - false, 1 = 'Upgrade ActiveX Control'. default = true.
-    MajorVer,                 // 0 - 9999, default 1.
+    MajorVer(String),         // 0 - 9999, default 1.
     MinorVer,                 // 0 - 9999, default 0.
     RevisionVer,              // 0 - 9999, default 0.
     AutoIncrementVer,         // 0 - no increment, 1 - increment, default 0.
@@ -249,6 +250,7 @@ impl VB6Project {
         let help_context_id = get_help_context_id(&line_types);
         let compatible_mode = get_compatible_mode(&line_types);
         let upgrade_activex_controls = get_upgrade_activex_controls(&line_types);
+        let major_version = get_major_version(&line_types);
 
         let mut project = VB6Project {
             project_type,
@@ -271,6 +273,7 @@ impl VB6Project {
             name,
             help_context_id,
             compatible_mode,
+            major_version,
         };
 
         project.validate();
@@ -449,6 +452,13 @@ fn get_upgrade_activex_controls(lines: &[LineType]) -> bool {
             _ => None,
         })
         .map_or(true, |value| matches!(value.as_str(), "1"))
+}
+
+fn get_major_version(lines: &[LineType]) -> Option<String> {
+    lines.iter().find_map(|line| match line {
+        LineType::MajorVer(major_version) => Some(major_version.clone()),
+        _ => None,
+    })
 }
 
 fn file_name_without_extension<P>(path: P) -> Option<String>
@@ -632,9 +642,9 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
             (remainder, LineType::NoControlUpgrade(value))
         }
         MAJORVER => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
+            let (remainder, (_key, value)) = key_value_pair_parse(remainder)?;
 
-            (remainder, LineType::MajorVer)
+            (remainder, LineType::MajorVer(value))
         }
         MINORVER => {
             let (remainder, _) = take_line_remove_newline_parse(remainder)?;
