@@ -43,10 +43,10 @@ First work has focused on the (vbp) project files since is the method to discove
 - [X] **HelpContextID** - Partial support. Default value not correctly handled. 
 - [X] **CompatibleMode** - Partial support. Default value not correctly handled. 
 - [X] **NoControlUpgrade** - Full support for the 'ActiveX Control Upgrade' option, including the default or empty reverting to true.
-- [ ] **MajorVer**
-- [ ] **MinorVer**
-- [ ] **RevisionVer**
-- [ ] **AutoIncrementVer**
+- [X] **MajorVer** - Partial support. Default value not correctly handled.
+- [X] **MinorVer** - Partial support. Default value not correctly handled.
+- [X] **RevisionVer** - Partial support. Default value not correctly handled.
+- [X] **AutoIncrementVer** - Partial support. Default value not correctly handled.
 - [ ] **ServerSupportFiles**
 - [ ] **VersionCompanyName**
 - [ ] **VersionFileDescription**

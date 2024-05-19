@@ -34,4 +34,6 @@ fn vbp_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.major_version, Some("11".to_owned()));
     assert_eq!(project.minor_version, Some("0".to_owned()));
+    assert_eq!(project.revision_version, Some("288".to_owned()));
+    assert_eq!(project.auto_increment_revision_version, false);
 }

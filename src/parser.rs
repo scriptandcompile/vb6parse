@@ -124,6 +124,8 @@ pub struct VB6Project {
     pub compatible_mode: Option<String>,
     pub major_version: Option<String>,
     pub minor_version: Option<String>,
+    pub revision_version: Option<String>,
+    pub auto_increment_revision_version: bool,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -186,8 +188,8 @@ enum LineType {
     NoControlUpgrade(String), // 0 or line missing - false, 1 = 'Upgrade ActiveX Control'. default = true.
     MajorVer(String),         // 0 - 9999, default 1.
     MinorVer(String),         // 0 - 9999, default 0.
-    RevisionVer,              // 0 - 9999, default 0.
-    AutoIncrementVer,         // 0 - no increment, 1 - increment, default 0.
+    RevisionVer(String),      // 0 - 9999, default 0.
+    AutoIncrementVer(String), // 0 - no increment, 1 - increment, default 0.
     ServerSupportFiles,
     VersionCompanyName,
     VersionFileDescription,
@@ -253,6 +255,8 @@ impl VB6Project {
         let upgrade_activex_controls = get_upgrade_activex_controls(&line_types);
         let major_version = get_major_version(&line_types);
         let minor_version = get_minor_version(&line_types);
+        let revision_version = get_revision_version(&line_types);
+        let auto_increment_revision_version = get_auto_increment_revision_version(&line_types);
 
         let mut project = VB6Project {
             project_type,
@@ -277,6 +281,8 @@ impl VB6Project {
             compatible_mode,
             major_version,
             minor_version,
+            revision_version,
+            auto_increment_revision_version
         };
 
         project.validate();
@@ -471,6 +477,24 @@ fn get_minor_version(lines: &[LineType]) -> Option<String> {
     })
 }
 
+fn get_revision_version(lines: &[LineType]) -> Option<String> {
+    lines.iter().find_map(|line| match line {
+        LineType::RevisionVer(revision_version) => Some(revision_version.clone()),
+        _ => None,
+    })
+}
+
+fn get_auto_increment_revision_version(lines: &[LineType]) -> bool {
+    lines
+        .iter()
+        .find_map(|line| match line {
+            LineType::AutoIncrementVer(auto_increment) => Some(auto_increment.clone()),
+            _ => None,
+        })
+        .map_or(true, |value| matches!(value.as_str(), "1"))
+}
+
+
 fn file_name_without_extension<P>(path: P) -> Option<String>
 where
     P: AsRef<std::path::Path>,
@@ -662,14 +686,14 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
             (remainder, LineType::MinorVer(value))
         }
         REVISIONVER => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
+            let (remainder,  (_key, value)) = key_value_pair_parse(remainder)?;
 
-            (remainder, LineType::RevisionVer)
+            (remainder, LineType::RevisionVer(value))
         }
         AUTOINCREMENTVER => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
+            let (remainder,  (_key, value)) = key_value_pair_parse(remainder)?;
 
-            (remainder, LineType::AutoIncrementVer)
+            (remainder, LineType::AutoIncrementVer(value))
         }
         SERVERSUPPORTFILES => {
             let (remainder, _) = take_line_remove_newline_parse(remainder)?;
@@ -801,7 +825,6 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
             let (remainder, _) = take_line_remove_newline_parse(remainder)?;
 
             (remainder, LineType::Empty)
-            //return Err(nom::Err::Failure(ProjectParseError::LineTypeUnknown));
         }
     };
 
