@@ -128,6 +128,7 @@ pub struct VB6Project {
     pub auto_increment_revision_version: bool,
     pub server_support_files: bool,
     pub version_company_name: Option<String>,
+    pub version_file_description: Option<String>,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -194,7 +195,7 @@ enum LineType {
     AutoIncrementVer(String), // 0 - no increment, 1 - increment, default 0.
     ServerSupportFiles(String), // 0 - no support files, 1 - server support files, default 0.
     VersionCompanyName(String),
-    VersionFileDescription,
+    VersionFileDescription(String),
     VersionLegalCopyright,
     VersionLegalTrademarks,
     VersionProductName,
@@ -261,6 +262,7 @@ impl VB6Project {
         let auto_increment_revision_version = get_auto_increment_revision_version(&line_types);
         let server_support_files = get_server_support_files(&line_types);
         let version_company_name = get_version_company_name(&line_types);
+        let version_file_description = get_version_file_description(&line_types);
 
         let mut project = VB6Project {
             project_type,
@@ -289,6 +291,7 @@ impl VB6Project {
             auto_increment_revision_version,
             server_support_files,
             version_company_name,
+            version_file_description,
         };
 
         project.validate();
@@ -519,6 +522,13 @@ fn get_version_company_name(lines: &[LineType]) -> Option<String> {
     })
 }
 
+fn get_version_file_description(lines: &[LineType]) -> Option<String> {
+    lines.iter().find_map(|line| match line {
+        LineType::VersionFileDescription(version_file_description) => Some(version_file_description.clone()),
+        _ => None,
+    })
+}
+
 fn file_name_without_extension<P>(path: P) -> Option<String>
 where
     P: AsRef<std::path::Path>,
@@ -730,9 +740,9 @@ fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> 
             (remainder, LineType::VersionCompanyName(value))
         }
         VERSIONFILEDESCRIPTION => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
+            let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
 
-            (remainder, LineType::VersionFileDescription)
+            (remainder, LineType::VersionFileDescription(value))
         }
         VERSIONLEGALCOPYRIGHT => {
             let (remainder, _) = take_line_remove_newline_parse(remainder)?;
