@@ -37,4 +37,8 @@ fn vbp_load() {
     assert_eq!(project.revision_version, Some("288".to_owned()));
     assert_eq!(project.auto_increment_revision_version, false);
     assert_eq!(project.server_support_files, false);
+    assert_eq!(
+        project.version_company_name,
+        Some("Predator Software Inc.".to_owned())
+    );
 }
