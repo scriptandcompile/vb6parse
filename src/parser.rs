@@ -1,81 +1,25 @@
 #![warn(clippy::pedantic)]
-
-use std::str;
-
-use nom::{
-    branch::alt,
-    bytes::complete::{tag_no_case, take_until, take_until1},
-    character::complete::{line_ending, not_line_ending},
-    combinator::{eof, not, peek, value},
-    error::{ErrorKind, ParseError},
-    multi::many0,
-    sequence::{pair, preceded, tuple},
-    IResult,
+use bstr::{BStr, ByteSlice};
+use uuid::Uuid;
+use winnow::{
+    combinator::{alt, rest, separated_pair},
+    error::{ErrMode, ErrorKind, ParserError},
+    stream::Stream,
+    token::{literal, take_until, take_while},
+    PResult, Parser,
 };
 
-use uuid::Uuid;
-
-// These constants are used as text to tag capture against. Sadly, because vb6
-// predates UTF we have to read the project file in as a byte slice since
-// it can contain non-ascii text elements, especially the tm character, the
-// copyright character and other such 'special' characters which are often found
-// in the VersionLegalCopyright, VersionLegalDescription, etc fields.
-const REFERENCE: &[u8] = b"Reference";
-const OBJECT: &[u8] = b"Object";
-const MODULE: &[u8] = b"Module";
-const DESIGNER: &[u8] = b"Designer";
-const USERDOCUMENT: &[u8] = b"UserDocument";
-const CLASS: &[u8] = b"Class";
-const FORM: &[u8] = b"Form";
-const USERCONTROL: &[u8] = b"UserControl";
-const RESFILE32: &[u8] = b"ResFile32";
-const ICONFORM: &[u8] = b"IconForm";
-const STARTUP: &[u8] = b"Startup";
-const HELPFILE: &[u8] = b"HelpFile";
-const TITLE: &[u8] = b"Title";
-const EXENAME32: &[u8] = b"ExeName32";
-const COMMAND32: &[u8] = b"Command32";
-const NAME: &[u8] = b"Name";
-const HELPCONTEXTID: &[u8] = b"HelpContextID";
-const COMPATIBLEMODE: &[u8] = b"CompatibleMode";
-const NOCONTROLUPGRADE: &[u8] = b"NoControlUpgrade";
-const MAJORVER: &[u8] = b"MajorVer";
-const MINORVER: &[u8] = b"MinorVer";
-const REVISIONVER: &[u8] = b"RevisionVer";
-const AUTOINCREMENTVER: &[u8] = b"AutoIncrementVer";
-const SERVERSUPPORTFILES: &[u8] = b"ServerSupportFiles";
-const VERSIONCOMPANYNAME: &[u8] = b"VersionCompanyName";
-const VERSIONFILEDESCRIPTION: &[u8] = b"VersionFileDescription";
-const VERSIONLEGALCOPYRIGHT: &[u8] = b"VersionLegalCopyright";
-const VERSIONLEGALTRADEMARKS: &[u8] = b"VersionLegalTrademarks";
-const VERSIONPRODUCTNAME: &[u8] = b"VersionProductName";
-const CONDCOMP: &[u8] = b"CondComp";
-const COMPILATIONTYPE: &[u8] = b"CompilationType";
-const OPTIMIZATIONTYPE: &[u8] = b"OptimizationType";
-const NOALIASING: &[u8] = b"NoAliasing";
-const CODEVIEWDEBUGINFO: &[u8] = b"CodeViewDebugInfo";
-// In the vbp file this is FavorPentiumPro(tm)
-const FAVORPENTIUMPROTM: &[u8] = b"FavorPentiumPro(tm)";
-const BOUNDSCHECK: &[u8] = b"BoundsCheck";
-const OVERFLOWCHECK: &[u8] = b"OverflowCheck";
-const FLPOINTCHECK: &[u8] = b"FlPointCheck";
-const FDIVCHECK: &[u8] = b"FDIVCheck";
-const UNROUNDEDFP: &[u8] = b"UnroundedFP";
-const STARTMODE: &[u8] = b"StartMode";
-const UNATTENDED: &[u8] = b"Unattended";
-const RETAINED: &[u8] = b"Retained";
-const THREADPEROBJECT: &[u8] = b"ThreadPerObject";
-const MAXNUMBEROFTHREADS: &[u8] = b"MaxNumberOfThreads";
-const DEBUGSTARTOPTION: &[u8] = b"DebugStartOption";
-const AUTOREFRESH: &[u8] = b"AutoRefresh";
-
-const EMPTY: &[u8] = b"";
-
 #[derive(thiserror::Error, Debug, PartialEq)]
-pub enum ProjectParseError {
-    #[error("Line type is unknown.")]
-    LineTypeUnknown,
-    #[error("Project type is not Exe or OleDll")]
+pub enum VB6ProjectParseError<I> {
+    #[error("The reference line has too many elements")]
+    ReferenceExtraSections,
+    #[error("The reference line has too few elements")]
+    ReferenceMissingSections,
+    #[error("The first line of a VB6 project file must be a project 'Type' entry.")]
+    FirstLineNotProject,
+    #[error("Line type is unknown.\r\n  Line Type: '{line_type}'\r\n  Value: '{value}'")]
+    LineTypeUnknown { line_type: String, value: String },
+    #[error("Project type is not Exe, OleDll, Control, or OleExe")]
     ProjectTypeUnknown,
     #[error("Project line entry is not ended with a recognized line ending.")]
     NoLineEnding,
@@ -87,48 +31,91 @@ pub enum ProjectParseError {
     NoEqualSplit,
     #[error("Unknown parser error")]
     Unparseable,
+    #[error("Major version is not a number.")]
+    MajorVersionUnparseable,
+    #[error("Minor version is not a number.")]
+    MinorVersionUnparseable,
+    #[error("Revision version is not a number.")]
+    RevisionVersionUnparseable,
+    #[error("AutoIncrement can only be a 0 (false) or a 1 (true)")]
+    AutoIncrementUnparseable,
+    #[error("CompatibilityMode can only be a 0 (false) or a 1 (true)")]
+    CompatibilityModeUnparseable,
+    #[error("Thread Per Object is not a number.")]
+    ThreadPerObjectUnparseable,
+    #[error("Max Threads is not a number.")]
+    MaxThreadsUnparseable,
+
+    #[error("Winnow Error")]
+    ParseError(I, ErrorKind),
 }
 
-impl<I> ParseError<I> for ProjectParseError {
-    fn from_error_kind(_input: I, _kind: ErrorKind) -> Self {
-        ProjectParseError::Unparseable
+impl<I: Stream + Clone> ParserError<I> for VB6ProjectParseError<I> {
+    fn from_error_kind(input: &I, kind: ErrorKind) -> Self {
+        VB6ProjectParseError::ParseError(input.clone(), kind)
     }
 
-    fn append(_: I, _: ErrorKind, other: Self) -> Self {
-        other
+    fn append(self, _: &I, _: &<I as Stream>::Checkpoint, _: ErrorKind) -> Self {
+        self
     }
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
-pub struct VB6Project {
+pub struct VB6Project<'a> {
     pub project_type: ProjectType,
-    pub references: Vec<VB6ProjectReference>,
-    pub objects: Vec<VB6ProjectObject>,
-    pub modules: Vec<VB6ProjectModule>,
-    pub classes: Vec<VB6ProjectClass>,
-    pub designers: Vec<String>,
-    pub forms: Vec<String>,
-    pub user_controls: Vec<String>,
-    pub user_documents: Vec<String>,
+    pub references: Vec<VB6ProjectReference<'a>>,
+    pub objects: Vec<VB6ProjectObject<'a>>,
+    pub modules: Vec<VB6ProjectModule<'a>>,
+    pub classes: Vec<VB6ProjectClass<'a>>,
+    pub designers: Vec<&'a BStr>,
+    pub forms: Vec<&'a BStr>,
+    pub user_controls: Vec<&'a BStr>,
+    pub user_documents: Vec<&'a BStr>,
     pub upgrade_activex_controls: bool,
-    pub res_file_32_path: Option<String>,
-    pub icon_form: Option<String>,
-    pub startup: Option<String>,
-    pub help_file_path: Option<String>,
-    pub title: Option<String>,
-    pub exe_32_file_name: Option<String>,
-    pub command_line_arguments: Option<String>,
-    pub name: Option<String>,
+    pub res_file_32_path: Option<&'a BStr>,
+    pub icon_form: Option<&'a BStr>,
+    pub startup: Option<&'a BStr>,
+    pub help_file_path: Option<&'a BStr>,
+    pub title: Option<&'a BStr>,
+    pub exe_32_file_name: Option<&'a BStr>,
+    pub command_line_arguments: Option<&'a BStr>,
+    pub name: Option<&'a BStr>,
     // May need to be switched to a u32. Not sure yet.
-    pub help_context_id: Option<String>,
-    pub compatible_mode: Option<String>,
-    pub major_version: Option<String>,
-    pub minor_version: Option<String>,
-    pub revision_version: Option<String>,
-    pub auto_increment_revision_version: bool,
+    pub help_context_id: Option<&'a BStr>,
+    pub compatible_mode: bool,
+    pub version_info: VersionInformation<'a>,
     pub server_support_files: bool,
-    pub version_company_name: Option<String>,
-    pub version_file_description: Option<String>,
+    pub conditional_compile: Option<&'a BStr>,
+    pub compilation_type: bool,
+    pub optimization_type: bool,
+    pub favor_pentium_pro: bool,
+    pub code_view_debug_info: bool,
+    pub aliasing: bool,
+    pub bounds_check: bool,
+    pub overflow_check: bool,
+    pub floating_point_check: bool,
+    pub pentium_fdiv_bug_check: bool,
+    pub unrounded_floating_point: bool,
+    pub start_mode: bool,
+    pub unattended: bool,
+    pub retained: bool,
+    pub thread_per_object: u16,
+    pub max_number_of_threads: u16,
+    pub debug_startup_option: bool,
+    pub auto_refresh: bool,
+}
+
+#[derive(Debug, PartialEq, Eq, Clone)]
+pub struct VersionInformation<'a> {
+    pub major: u16,
+    pub minor: u16,
+    pub revision: u16,
+    pub auto_increment_revision: bool,
+    pub company_name: Option<&'a BStr>,
+    pub file_description: Option<&'a BStr>,
+    pub copyright: Option<&'a BStr>,
+    pub trademark: Option<&'a BStr>,
+    pub product_name: Option<&'a BStr>,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -140,132 +127,430 @@ pub enum ProjectType {
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
-pub struct VB6ProjectReference {
+pub struct VB6ProjectReference<'a> {
     pub uuid: Uuid,
-    pub unknown1: String,
-    pub unknown2: String,
-    pub path: String,
-    pub description: String,
+    pub unknown1: &'a BStr,
+    pub unknown2: &'a BStr,
+    pub path: &'a BStr,
+    pub description: &'a BStr,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
-pub struct VB6ProjectObject {
+pub struct VB6ProjectObject<'a> {
     pub uuid: Uuid,
-    pub version: String,
-    pub unknown1: String,
-    pub file_name: String,
+    pub version: &'a BStr,
+    pub unknown1: &'a BStr,
+    pub file_name: &'a BStr,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
-pub struct VB6ProjectModule {
-    pub name: String,
-    pub path: String,
+pub struct VB6ProjectModule<'a> {
+    pub name: &'a BStr,
+    pub path: &'a BStr,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
-pub struct VB6ProjectClass {
-    pub name: String,
-    pub path: String,
+pub struct VB6ProjectClass<'a> {
+    pub name: &'a BStr,
+    pub path: &'a BStr,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
-enum LineType {
-    Reference(VB6ProjectReference),
-    UserDocument(String),
-    Object(VB6ProjectObject),
-    Module(VB6ProjectModule),
-    Designer(String),
-    Class(VB6ProjectClass),
-    Form(String),
-    UserControl(String),
-    ResFile32(String),
-    IconForm(String),
-    Startup(String),
-    HelpFile(String),
-    Title(String),
-    ExeName32(String),
-    Command32(String),
-    Name(String),
-    HelpContextID(String),
-    CompatibleMode(String),
-    NoControlUpgrade(String), // 0 or line missing - false, 1 = 'Upgrade ActiveX Control'. default = true.
-    MajorVer(String),         // 0 - 9999, default 1.
-    MinorVer(String),         // 0 - 9999, default 0.
-    RevisionVer(String),      // 0 - 9999, default 0.
-    AutoIncrementVer(String), // 0 - no increment, 1 - increment, default 0.
-    ServerSupportFiles(String), // 0 - no support files, 1 - server support files, default 0.
-    VersionCompanyName(String),
-    VersionFileDescription(String),
-    VersionLegalCopyright,
-    VersionLegalTrademarks,
-    VersionProductName,
-    CondComp,
-    CompilationType,
-    OptimizationType,
-    /// In the file this is FavorPentiumPro(tm)
-    FavorPentiumProTM,
-    CodeViewDebugInfo,
-    NoAliasing,
-    BoundsCheck,
-    FlPointCheck,
-    FDIVCheck,
-    UnroundedFP,
-    StartMode,
-    Unattended,
-    Retained,
-    ThreadPerObject,
-    MaxNumberOfThreads,
-    DebugStartOption,
-    AutoRefresh,
-    Empty,
-}
+impl<'a> VB6Project<'a> {
+    pub fn parse(input: &'a [u8]) -> Result<Self, VB6ProjectParseError<&'a [u8]>> {
+        let mut references = vec![];
+        let mut user_documents = vec![];
+        let mut objects = vec![];
+        let mut modules = vec![];
+        let mut classes = vec![];
+        let mut designers = vec![];
+        let mut forms = vec![];
+        let mut user_controls = vec![];
 
-impl VB6Project {
-    pub fn parse(input: &[u8]) -> Result<Self, ProjectParseError> {
-        let remainder = input;
+        let mut project_type: Option<ProjectType> = None;
+        let mut res_file_32_path = Some(BStr::new(b""));
+        let mut icon_form = Some(BStr::new(b""));
+        let mut startup = Some(BStr::new(b""));
+        let mut help_file_path = Some(BStr::new(b""));
+        let mut title = Some(BStr::new(b""));
+        let mut exe_32_file_name = Some(BStr::new(b""));
+        let mut command_line_arguments = Some(BStr::new(b""));
+        let mut name = Some(BStr::new(b""));
+        let mut help_context_id = Some(BStr::new(b""));
+        let mut compatible_mode = false;
+        let mut upgrade_activex_controls = true; // True is the default.
+        let mut server_support_files = false;
+        let mut conditional_compile = Some(BStr::new(b""));
+        let mut compilation_type = false;
+        let mut optimization_type = false;
+        let mut favor_pentium_pro = false;
+        let mut code_view_debug_info = false;
+        let mut aliasing = false;
+        let mut bounds_check = false;
+        let mut overflow_check = false;
+        let mut floating_point_check = false;
+        let mut pentium_fdiv_bug_check = false;
+        let mut unrounded_floating_point = false;
+        let mut start_mode = false;
+        let mut unattended = false;
+        let mut retained = false;
+        let mut thread_per_object = 0;
+        let mut max_number_of_threads = 1;
+        let mut debug_startup_option = false;
+        let mut auto_refresh = true;
 
-        let Ok((remainder, project_type)) = project_type_parse(remainder) else {
-            return Err(ProjectParseError::ProjectTypeUnknown);
+        let mut company_name = Some(BStr::new(b""));
+        let mut file_description = Some(BStr::new(b""));
+        let mut major = 0u16;
+        let mut minor = 0u16;
+        let mut revision = 0u16;
+        let mut auto_increment_revision = false;
+        let mut copyright = Some(BStr::new(b""));
+        let mut trademark = Some(BStr::new(b""));
+        let mut product_name = Some(BStr::new(b""));
+
+        // First, bstr-ify the input and split it into lines.
+        // The VB6 project format is basically a line-by-line format
+        // so this is the easiest way to parse it.
+        let input_bstr = input.as_bstr();
+        let lines = input_bstr.lines();
+
+        for mut line in lines {
+            // Skip any empty lines.
+            if line.is_empty() {
+                continue;
+            }
+
+            // We also want to skip any '[MS Transaction Server]' header lines.
+            // There should only be one in the file since it's only used once,
+            // but we want to be flexible in what we accept so we skip any of
+            // these kinds of header lines.
+            if line.starts_with(b"[") {
+                continue;
+            }
+
+            let (key, mut value) = match key_value_parse(&mut line, b"=") {
+                Ok((key, value)) => (key, value),
+                Err(e) => return Err(e.into_inner().unwrap()),
+            };
+
+            match key {
+                b"Type" => {
+                    project_type = match project_type_parse(&mut value) {
+                        Ok(project) => Some(project),
+                        Err(e) => return Err(e.into_inner().unwrap()),
+                    };
+                }
+                b"Designer" => {
+                    designers.push(value.as_bstr());
+                }
+                b"Reference" => {
+                    let reference = match reference_parse(&mut value) {
+                        Ok(reference) => reference,
+                        Err(e) => return Err(e.into_inner().unwrap()),
+                    };
+
+                    references.push(reference);
+                }
+                b"Object" => {
+                    let object = match object_parse(&mut value) {
+                        Ok(object) => object,
+                        Err(e) => return Err(e.into_inner().unwrap()),
+                    };
+
+                    objects.push(object);
+                }
+                b"Module" => {
+                    let module = match module_parse(&mut value) {
+                        Ok(module) => module,
+                        Err(e) => return Err(e.into_inner().unwrap()),
+                    };
+
+                    modules.push(module);
+                }
+                b"Class" => {
+                    let class = match class_parse(&mut value) {
+                        Ok(class) => class,
+                        Err(e) => return Err(e.into_inner().unwrap()),
+                    };
+
+                    classes.push(class);
+                }
+                b"Form" => {
+                    forms.push(value.into());
+                }
+                b"UserControl" => {
+                    user_controls.push(value.into());
+                }
+                b"UserDocument" => {
+                    user_documents.push(value.into());
+                }
+                b"ResFile32" => {
+                    let res_file_32 = match qouted_value(&mut value, b"\"") {
+                        Ok(res_file_32) => res_file_32,
+                        Err(e) => return Err(e.into_inner().unwrap()),
+                    };
+
+                    res_file_32_path = Some(res_file_32.as_bstr());
+                }
+                b"IconForm" => {
+                    let form = match qouted_value(&mut value, b"\"") {
+                        Ok(form) => form,
+                        Err(e) => return Err(e.into_inner().unwrap()),
+                    };
+
+                    icon_form = Some(form.as_bstr());
+                }
+                b"Startup" => {
+                    let start_up_sub = match qouted_value(&mut value, b"\"") {
+                        Ok(start_up_sub) => start_up_sub,
+                        Err(e) => return Err(e.into_inner().unwrap()),
+                    };
+
+                    startup = Some(start_up_sub.as_bstr());
+                }
+                b"HelpFile" => {
+                    let help_file = match qouted_value(&mut value, b"\"") {
+                        Ok(help_file) => help_file,
+                        Err(e) => return Err(e.into_inner().unwrap()),
+                    };
+
+                    help_file_path = Some(help_file.as_bstr());
+                }
+                b"Title" => {
+                    let title_text = match qouted_value(&mut value, b"\"") {
+                        Ok(title_text) => title_text,
+                        Err(e) => return Err(e.into_inner().unwrap()),
+                    };
+
+                    title = Some(title_text.as_bstr());
+                }
+                b"ExeName32" => {
+                    let exe_file_name = match qouted_value(&mut value, b"\"") {
+                        Ok(exe_file_name) => exe_file_name,
+                        Err(e) => return Err(e.into_inner().unwrap()),
+                    };
+
+                    exe_32_file_name = Some(exe_file_name.as_bstr());
+                }
+                b"Command32" => {
+                    let command = match qouted_value(&mut value, b"\"") {
+                        Ok(command) => command,
+                        Err(e) => return Err(e.into_inner().unwrap()),
+                    };
+
+                    command_line_arguments = Some(command.as_bstr());
+                }
+                b"Name" => {
+                    let project_name = match qouted_value(&mut value, b"\"") {
+                        Ok(project_name) => project_name,
+                        Err(e) => return Err(e.into_inner().unwrap()),
+                    };
+
+                    name = Some(project_name.as_bstr());
+                }
+                b"HelpContextID" => {
+                    let help_context = match qouted_value(&mut value, b"\"") {
+                        Ok(help_context) => help_context,
+                        Err(e) => return Err(e.into_inner().unwrap()),
+                    };
+
+                    help_context_id = Some(help_context.as_bstr());
+                }
+                b"CompatibleMode" => match qouted_true_false_parse(&mut value) {
+                    Ok(val) => compatible_mode = val,
+                    Err(_) => return Err(VB6ProjectParseError::CompatibilityModeUnparseable),
+                },
+                b"MajorVer" => {
+                    let Ok(major_ver) = value.to_str() else {
+                        return Err(VB6ProjectParseError::MajorVersionUnparseable);
+                    };
+
+                    major = major_ver.parse().unwrap();
+                }
+                b"MinorVer" => {
+                    let Ok(minor_ver) = value.to_str() else {
+                        return Err(VB6ProjectParseError::MinorVersionUnparseable);
+                    };
+
+                    minor = minor_ver.parse().unwrap();
+                }
+                b"RevisionVer" => {
+                    let Ok(revision_ver) = value.to_str() else {
+                        return Err(VB6ProjectParseError::MinorVersionUnparseable);
+                    };
+
+                    revision = revision_ver.parse().unwrap();
+                }
+                b"AutoIncrementVer" => match true_false_parse(&mut value) {
+                    Ok(val) => auto_increment_revision = val,
+                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                },
+                b"NoControlUpgrade" => {
+                    match true_false_parse(&mut value) {
+                        // Invert answer since we inverted the name.
+                        // This defaults to true, and is the most common value.
+                        Ok(val) => upgrade_activex_controls = !val,
+                        Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                    }
+                }
+                b"ServerSupportFiles" => match true_false_parse(&mut value) {
+                    Ok(val) => server_support_files = val,
+                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                },
+                b"VersionCompanyName" => {
+                    let company = match qouted_value(&mut value, b"\"") {
+                        Ok(company) => company,
+                        Err(e) => return Err(e.into_inner().unwrap()),
+                    };
+
+                    company_name = Some(company.as_bstr());
+                }
+                b"VersionFileDescription" => {
+                    let description = match qouted_value(&mut value, b"\"") {
+                        Ok(description) => description,
+                        Err(e) => return Err(e.into_inner().unwrap()),
+                    };
+
+                    file_description = Some(description.as_bstr());
+                }
+                b"VersionLegalCopyright" => {
+                    let legal_copyright = match qouted_value(&mut value, b"\"") {
+                        Ok(legal_copyright) => legal_copyright,
+                        Err(e) => return Err(e.into_inner().unwrap()),
+                    };
+
+                    copyright = Some(legal_copyright.as_bstr());
+                }
+                b"VersionLegalTrademarks" => {
+                    let legal_trademark = match qouted_value(&mut value, b"\"") {
+                        Ok(legal_trademark) => legal_trademark,
+                        Err(e) => return Err(e.into_inner().unwrap()),
+                    };
+
+                    trademark = Some(legal_trademark.as_bstr());
+                }
+                b"VersionProductName" => {
+                    let legal_product_name = match qouted_value(&mut value, b"\"") {
+                        Ok(legal_product_name) => legal_product_name,
+                        Err(e) => return Err(e.into_inner().unwrap()),
+                    };
+
+                    product_name = Some(legal_product_name.as_bstr());
+                }
+                b"CondComp" => {
+                    let conditional = match qouted_value(&mut value, b"\"") {
+                        Ok(conditional) => conditional,
+                        Err(e) => return Err(e.into_inner().unwrap()),
+                    };
+
+                    conditional_compile = Some(conditional.as_bstr());
+                }
+                b"CompilationType" => match true_false_parse(&mut value) {
+                    Ok(val) => compilation_type = val,
+                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                },
+                b"OptimizationType" => match true_false_parse(&mut value) {
+                    Ok(val) => optimization_type = val,
+                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                },
+                b"FavorPentiumPro(tm)" => match true_false_parse(&mut value) {
+                    Ok(val) => favor_pentium_pro = val,
+                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                },
+                b"CodeViewDebugInfo" => match true_false_parse(&mut value) {
+                    Ok(val) => code_view_debug_info = val,
+                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                },
+                b"NoAliasing" => match true_false_parse(&mut value) {
+                    // Invert the value since we inverted the name.
+                    Ok(val) => aliasing = !val,
+                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                },
+                b"BoundsCheck" => match true_false_parse(&mut value) {
+                    Ok(val) => bounds_check = val,
+                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                },
+                b"OverflowCheck" => match true_false_parse(&mut value) {
+                    Ok(val) => overflow_check = val,
+                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                },
+                b"FlPointCheck" => match true_false_parse(&mut value) {
+                    Ok(val) => floating_point_check = val,
+                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                },
+                b"FDIVCheck" => match true_false_parse(&mut value) {
+                    Ok(val) => pentium_fdiv_bug_check = val,
+                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                },
+                b"UnroundedFP" => match true_false_parse(&mut value) {
+                    Ok(val) => unrounded_floating_point = val,
+                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                },
+                b"StartMode" => match true_false_parse(&mut value) {
+                    Ok(val) => start_mode = val,
+                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                },
+                b"Unattended" => match true_false_parse(&mut value) {
+                    Ok(val) => unattended = val,
+                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                },
+                b"Retained" => match true_false_parse(&mut value) {
+                    Ok(val) => retained = val,
+                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                },
+                b"ThreadPerObject" => {
+                    let Ok(threads) = value.to_str() else {
+                        return Err(VB6ProjectParseError::ThreadPerObjectUnparseable);
+                    };
+
+                    thread_per_object = threads.parse().unwrap();
+                }
+                b"MaxNumberOfThreads" => {
+                    let Ok(max_threads) = value.to_str() else {
+                        return Err(VB6ProjectParseError::MaxThreadsUnparseable);
+                    };
+
+                    max_number_of_threads = max_threads.parse().unwrap();
+                }
+                b"DebugStartupOption" => match true_false_parse(&mut value) {
+                    Ok(val) => debug_startup_option = val,
+                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                },
+                b"AutoRefresh" => match true_false_parse(&mut value) {
+                    Ok(val) => auto_refresh = val,
+                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                },
+                _ => {
+                    // TODO: Need to fix this in the future since these could
+                    // end up being non-ANSII byte strings.
+                    let line_type = key.to_str().unwrap().to_string();
+                    let val = value.to_str().unwrap().to_string();
+                    return Err(VB6ProjectParseError::LineTypeUnknown {
+                        line_type,
+                        value: val,
+                    });
+                }
+            }
+        }
+
+        if project_type.is_none() {
+            return Err(VB6ProjectParseError::FirstLineNotProject);
+        }
+
+        let version_info = VersionInformation {
+            major,
+            minor,
+            revision,
+            auto_increment_revision,
+            company_name,
+            file_description,
+            copyright,
+            trademark,
+            product_name,
         };
 
-        let (_remainder, line_types) = many0(preceded(not(eof), line_type_parse))(remainder)
-            .map_err(|_| ProjectParseError::NoLineEnding)?;
-
-        let references = collect_references(&line_types);
-        let user_documents = collect_user_documents(&line_types);
-        let objects = collect_objects(&line_types);
-        let modules = collect_modules(&line_types);
-        let classes = collect_classes(&line_types);
-        let designers = collect_designers(&line_types);
-        let forms = collect_forms(&line_types);
-        let user_controls = collect_user_controls(&line_types);
-
-        // TODO:
-        // All of these should have a default value that matches whatever
-        // default VB6 uses whenever the item isn't in the VB6 project (*.vbp)
-        // file. For now, I've just done an 'unwrap', this is not right, but
-        // we should be able to come back to this later.
-        let res_file_32_path = get_res_32_path(&line_types);
-        let icon_form = get_icon_form(&line_types);
-        let startup = get_startup(&line_types);
-        let help_file_path = get_help_file_path(&line_types);
-        let title = get_title(&line_types);
-        let exe_32_file_name = get_exe_32_file_name(&line_types);
-        let command_line_arguments = get_command_line_arguments(&line_types);
-        let name = get_name(&line_types);
-        let help_context_id = get_help_context_id(&line_types);
-        let compatible_mode = get_compatible_mode(&line_types);
-        let upgrade_activex_controls = get_upgrade_activex_controls(&line_types);
-        let major_version = get_major_version(&line_types);
-        let minor_version = get_minor_version(&line_types);
-        let revision_version = get_revision_version(&line_types);
-        let auto_increment_revision_version = get_auto_increment_revision_version(&line_types);
-        let server_support_files = get_server_support_files(&line_types);
-        let version_company_name = get_version_company_name(&line_types);
-        let version_file_description = get_version_file_description(&line_types);
-
-        let mut project = VB6Project {
-            project_type,
+        let project = VB6Project {
+            project_type: project_type.unwrap(),
             references,
             objects,
             modules,
@@ -285,855 +570,262 @@ impl VB6Project {
             name,
             help_context_id,
             compatible_mode,
-            major_version,
-            minor_version,
-            revision_version,
-            auto_increment_revision_version,
+            version_info,
             server_support_files,
-            version_company_name,
-            version_file_description,
+            conditional_compile,
+            compilation_type,
+            optimization_type,
+            favor_pentium_pro,
+            code_view_debug_info,
+            aliasing,
+            bounds_check,
+            overflow_check,
+            floating_point_check,
+            pentium_fdiv_bug_check,
+            unrounded_floating_point,
+            start_mode,
+            unattended,
+            retained,
+            thread_per_object,
+            max_number_of_threads,
+            debug_startup_option,
+            auto_refresh,
         };
-
-        project.validate();
 
         Ok(project)
     }
+}
 
-    fn validate(&mut self) {
-        let icon = self.icon_form.clone();
+// fn file_name_without_extension<'a>(path: &'a BStr) -> Option<&'a BStr> {
+//     let file_name = path.as_ref().file_name()?;
 
-        if (icon.is_none() || icon.unwrap().is_empty()) && !self.forms.is_empty() {
-            let first_form_path = self.forms[0].clone();
+//     let file_limited_path = std::path::Path::new(file_name);
 
-            let form_name = file_name_without_extension(first_form_path);
+//     // Using 'with_extension' this way is gross, but 'file_prefix' is currently
+//     // nightly only.
+//     let file_name_without_extension = file_limited_path.with_extension("");
 
-            self.icon_form = form_name;
-        };
+//     file_name_without_extension
+//         .into_os_string()
+//         .into_string()
+//         .ok()
+// }
+
+type KVTuple<'a> = (&'a [u8], &'a [u8]);
+
+fn key_value_parse<'a>(
+    input: &mut &'a [u8],
+    split: &[u8],
+) -> PResult<KVTuple<'a>, VB6ProjectParseError<&'a [u8]>> {
+    // Normally we would expect a key to be just an alphanumeric, but the
+    // VB6 Project format includes this lovely gem of a line:
+    //
+    // ```FavorPentiumPro(tm)=0```
+    //
+    // So we have to include the '(' and the ')' characters in the key split.
+    let take_key_valid_parse = take_while(1.., ('0'..='9', 'a'..='z', 'A'..='Z', '(', ')'));
+
+    let (key, value) = separated_pair(take_key_valid_parse, split, rest).parse_next(input)?;
+
+    Ok((key, value))
+}
+
+fn true_false_parse<'a>(input: &mut &'a [u8]) -> PResult<bool, VB6ProjectParseError<&'a [u8]>> {
+    let result = alt(('0'.value(false), '1'.value(true))).parse_next(input)?;
+
+    Ok(result)
+}
+
+fn qouted_true_false_parse<'a>(
+    input: &mut &'a [u8],
+) -> PResult<bool, VB6ProjectParseError<&'a [u8]>> {
+    let mut qoute = qouted_value(input, b"\"")?;
+
+    let result = alt(('0'.value(false), '1'.value(true))).parse_next(&mut qoute)?;
+
+    Ok(result)
+}
+
+fn qouted_value<'a>(
+    input: &mut &'a [u8],
+    qoute_char: &[u8],
+) -> PResult<&'a [u8], VB6ProjectParseError<&'a [u8]>> {
+    literal(qoute_char).parse_next(input)?;
+    let qouted_value = take_until(0.., qoute_char).parse_next(input)?;
+    literal(qoute_char).parse_next(input)?;
+
+    Ok(qouted_value)
+}
+
+fn object_parse<'a>(
+    input: &mut &'a [u8],
+) -> PResult<VB6ProjectObject<'a>, VB6ProjectParseError<&'a [u8]>> {
+    literal('{').parse_next(input)?;
+
+    let uuid_segment = take_until(1.., '}').parse_next(input)?;
+
+    let Ok(uuid) = Uuid::parse_str(uuid_segment.to_str().unwrap()) else {
+        return Err(ErrMode::Cut(VB6ProjectParseError::UnableToParseUuid));
+    };
+
+    literal("}#").parse_next(input)?;
+
+    // still not sure what this element or the next represents.
+    let version = take_until(1.., '#').parse_next(input)?;
+    let version = version.as_bstr();
+
+    literal(b"#").parse_next(input)?;
+
+    let unknown1 = take_until(1.., ';').parse_next(input)?;
+    let unknown1 = unknown1.as_bstr();
+
+    // the file name is preceded by a semi-colon then a space. not sure why the
+    // space is there, but it is. this strips it and the smi-colon out.
+    literal(b"; ").parse_next(input)?;
+
+    // the filename is the rest of the input.
+    let file_name = input.as_bstr();
+
+    let obvject = VB6ProjectObject {
+        uuid,
+        version,
+        unknown1,
+        file_name,
+    };
+
+    Ok(obvject)
+}
+
+fn module_parse<'a>(
+    input: &mut &'a [u8],
+) -> PResult<VB6ProjectModule<'a>, VB6ProjectParseError<&'a [u8]>> {
+    let (name, path) = semicolon_space_split_parse.parse_next(input)?;
+
+    let name = name.as_bstr();
+    let path = path.as_bstr();
+
+    let module = VB6ProjectModule { name, path };
+
+    Ok(module)
+}
+
+fn class_parse<'a>(
+    input: &mut &'a [u8],
+) -> PResult<VB6ProjectClass<'a>, VB6ProjectParseError<&'a [u8]>> {
+    let (name, path) = semicolon_space_split_parse.parse_next(input)?;
+
+    let name = name.as_bstr();
+    let path = path.as_bstr();
+
+    let module = VB6ProjectClass { name, path };
+
+    Ok(module)
+}
+
+fn semicolon_space_split_parse<'a>(
+    input: &mut &'a [u8],
+) -> PResult<(&'a [u8], &'a [u8]), VB6ProjectParseError<&'a [u8]>> {
+    let left = take_until(1.., "; ").parse_next(input)?;
+    literal("; ").parse_next(input)?;
+
+    let right = input;
+
+    Ok((left, right))
+}
+
+fn reference_parse<'a>(
+    input: &mut &'a [u8],
+) -> PResult<VB6ProjectReference<'a>, VB6ProjectParseError<&'a [u8]>> {
+    literal(b"*\\G{").parse_next(input)?;
+
+    // This is not the cleanest way to handle this but we need to replace the
+    // first instance of "*\\G{" from the start of the segment. Notice the '\\'
+    // escape sequence which is just a single slash in the file itself.
+    // Then remove
+    let uuid_segment = take_until(1.., "}#").parse_next(input)?;
+
+    let Ok(uuid) = Uuid::parse_str(uuid_segment.to_str().unwrap()) else {
+        return Err(ErrMode::Cut(VB6ProjectParseError::UnableToParseUuid));
+    };
+
+    literal("}#").parse_next(input)?;
+
+    // still not sure what this element or the next represents.
+    let Ok(unknown1): PResult<&[u8], ErrMode<VB6ProjectParseError<&'a [u8]>>> =
+        take_until(1.., "#").parse_next(input)
+    else {
+        return Err(ErrMode::Cut(VB6ProjectParseError::ReferenceMissingSections));
+    };
+
+    literal("#").parse_next(input)?;
+    let unknown1 = unknown1.as_bstr();
+
+    let Ok(unknown2): PResult<&[u8], ErrMode<VB6ProjectParseError<&'a [u8]>>> =
+        take_until(1.., "#").parse_next(input)
+    else {
+        return Err(ErrMode::Cut(VB6ProjectParseError::ReferenceMissingSections));
+    };
+
+    literal("#").parse_next(input)?;
+    let unknown2 = unknown2.as_bstr();
+
+    let Ok(path): PResult<&[u8], ErrMode<VB6ProjectParseError<&'a [u8]>>> =
+        take_until(1.., "#").parse_next(input)
+    else {
+        return Err(ErrMode::Cut(VB6ProjectParseError::ReferenceMissingSections));
+    };
+
+    literal("#").parse_next(input)?;
+    let path = path.as_bstr();
+
+    let description = input;
+
+    if description.contains(&b'#') {
+        return Err(ErrMode::Cut(VB6ProjectParseError::ReferenceExtraSections));
     }
+
+    let description = description.as_bstr();
+
+    let reference = VB6ProjectReference {
+        uuid,
+        unknown1,
+        unknown2,
+        path,
+        description,
+    };
+
+    Ok(reference)
 }
 
-fn collect_references(lines: &[LineType]) -> Vec<VB6ProjectReference> {
-    lines
-        .iter()
-        .filter_map(|line| match line {
-            LineType::Reference(reference) => Some(reference.clone()),
-            _ => None,
-        })
-        .collect()
-}
-
-fn collect_user_documents(lines: &[LineType]) -> Vec<String> {
-    lines
-        .iter()
-        .filter_map(|line| match line {
-            LineType::UserDocument(user_document) => Some(user_document.clone()),
-            _ => None,
-        })
-        .collect()
-}
-
-fn collect_objects(lines: &[LineType]) -> Vec<VB6ProjectObject> {
-    lines
-        .iter()
-        .filter_map(|line| match line {
-            LineType::Object(object) => Some(object.clone()),
-            _ => None,
-        })
-        .collect()
-}
-
-fn collect_modules(lines: &[LineType]) -> Vec<VB6ProjectModule> {
-    lines
-        .iter()
-        .filter_map(|line| match line {
-            LineType::Module(module) => Some(module.clone()),
-            _ => None,
-        })
-        .collect()
-}
-
-fn collect_classes(lines: &[LineType]) -> Vec<VB6ProjectClass> {
-    lines
-        .iter()
-        .filter_map(|line| match line {
-            LineType::Class(class) => Some(class.clone()),
-            _ => None,
-        })
-        .collect()
-}
-
-fn collect_designers(lines: &[LineType]) -> Vec<String> {
-    lines
-        .iter()
-        .filter_map(|line| match line {
-            LineType::Designer(designer) => Some(designer.clone()),
-            _ => None,
-        })
-        .collect()
-}
-
-fn collect_forms(lines: &[LineType]) -> Vec<String> {
-    lines
-        .iter()
-        .filter_map(|line| match line {
-            LineType::Form(form) => Some(form.clone()),
-            _ => None,
-        })
-        .collect()
-}
-
-fn collect_user_controls(lines: &[LineType]) -> Vec<String> {
-    lines
-        .iter()
-        .filter_map(|line| match line {
-            LineType::UserControl(user_control) => Some(user_control.clone()),
-            _ => None,
-        })
-        .collect()
-}
-
-fn get_res_32_path(lines: &[LineType]) -> Option<String> {
-    lines.iter().find_map(|line| match line {
-        LineType::ResFile32(res_file_32_path) => Some(res_file_32_path.clone()),
-        _ => None,
-    })
-}
-
-fn get_icon_form(lines: &[LineType]) -> Option<String> {
-    lines.iter().find_map(|line| match line {
-        LineType::IconForm(icon_form) => Some(icon_form.clone()),
-        _ => None,
-    })
-}
-
-fn get_startup(lines: &[LineType]) -> Option<String> {
-    lines.iter().find_map(|line| match line {
-        LineType::Startup(startup) => Some(startup.clone()),
-        _ => None,
-    })
-}
-
-fn get_help_file_path(lines: &[LineType]) -> Option<String> {
-    lines.iter().find_map(|line| match line {
-        LineType::HelpFile(help_file_path) => Some(help_file_path.clone()),
-        _ => None,
-    })
-}
-
-fn get_title(lines: &[LineType]) -> Option<String> {
-    lines.iter().find_map(|line| match line {
-        LineType::Title(title) => Some(title.clone()),
-        _ => None,
-    })
-}
-
-fn get_exe_32_file_name(lines: &[LineType]) -> Option<String> {
-    lines.iter().find_map(|line| match line {
-        LineType::ExeName32(exe_32_file_name) => Some(exe_32_file_name.clone()),
-        _ => None,
-    })
-}
-
-fn get_command_line_arguments(lines: &[LineType]) -> Option<String> {
-    lines.iter().find_map(|line| match line {
-        LineType::Command32(command_line_arguments) => Some(command_line_arguments.clone()),
-        _ => None,
-    })
-}
-
-fn get_name(lines: &[LineType]) -> Option<String> {
-    lines.iter().find_map(|line| match line {
-        LineType::Name(name) => Some(name.clone()),
-        _ => None,
-    })
-}
-
-fn get_help_context_id(lines: &[LineType]) -> Option<String> {
-    lines.iter().find_map(|line| match line {
-        LineType::HelpContextID(help_context_id) => Some(help_context_id.clone()),
-        _ => None,
-    })
-}
-
-fn get_compatible_mode(lines: &[LineType]) -> Option<String> {
-    lines.iter().find_map(|line| match line {
-        LineType::CompatibleMode(compatible_mode) => Some(compatible_mode.clone()),
-        _ => None,
-    })
-}
-
-fn get_upgrade_activex_controls(lines: &[LineType]) -> bool {
-    lines
-        .iter()
-        .find_map(|line| match line {
-            LineType::NoControlUpgrade(control_upgrade) => Some(control_upgrade.clone()),
-            _ => None,
-        })
-        .map_or(true, |value| matches!(value.as_str(), "1"))
-}
-
-fn get_major_version(lines: &[LineType]) -> Option<String> {
-    lines.iter().find_map(|line| match line {
-        LineType::MajorVer(major_version) => Some(major_version.clone()),
-        _ => None,
-    })
-}
-
-fn get_minor_version(lines: &[LineType]) -> Option<String> {
-    lines.iter().find_map(|line| match line {
-        LineType::MinorVer(minor_version) => Some(minor_version.clone()),
-        _ => None,
-    })
-}
-
-fn get_revision_version(lines: &[LineType]) -> Option<String> {
-    lines.iter().find_map(|line| match line {
-        LineType::RevisionVer(revision_version) => Some(revision_version.clone()),
-        _ => None,
-    })
-}
-
-fn get_auto_increment_revision_version(lines: &[LineType]) -> bool {
-    lines
-        .iter()
-        .find_map(|line| match line {
-            LineType::AutoIncrementVer(auto_increment) => Some(auto_increment.clone()),
-            _ => None,
-        })
-        .map_or(true, |value| matches!(value.as_str(), "1"))
-}
-
-fn get_server_support_files(lines: &[LineType]) -> bool {
-    lines
-        .iter()
-        .find_map(|line| match line {
-            LineType::ServerSupportFiles(server_support_files) => {
-                Some(server_support_files.clone())
-            }
-            _ => None,
-        })
-        .map_or(true, |value| matches!(value.as_str(), "1"))
-}
-
-fn get_version_company_name(lines: &[LineType]) -> Option<String> {
-    lines.iter().find_map(|line| match line {
-        LineType::VersionCompanyName(version_company_name) => Some(version_company_name.clone()),
-        _ => None,
-    })
-}
-
-fn get_version_file_description(lines: &[LineType]) -> Option<String> {
-    lines.iter().find_map(|line| match line {
-        LineType::VersionFileDescription(version_file_description) => Some(version_file_description.clone()),
-        _ => None,
-    })
-}
-
-fn file_name_without_extension<P>(path: P) -> Option<String>
-where
-    P: AsRef<std::path::Path>,
-{
-    let file_name = path.as_ref().file_name()?;
-
-    let file_limited_path = std::path::Path::new(file_name);
-
-    // Using 'with_extension' this way is gross, but 'file_prefix' is currently
-    // nightly only.
-    let file_name_without_extension = file_limited_path.with_extension("");
-
-    file_name_without_extension
-        .into_os_string()
-        .into_string()
-        .ok()
-}
-
-fn take_line_remove_newline_parse(input: &[u8]) -> IResult<&[u8], &[u8], ProjectParseError> {
-    // We specify the impl of the tag here since we want to catch a failure on
-    // the alternation check and specifying it here makes the code easier to
-    // read.
-    let line_ending = line_ending::<&[u8], ProjectParseError>;
-
-    let remainder = input;
-
-    let (remainder, line) = alt((take_until("\n"), take_until("\r\n")))(remainder)?;
-    let (remainder, _) = line_ending(remainder)?;
-
-    Ok((remainder, line))
-}
-
-fn project_type_parse(input: &[u8]) -> IResult<&[u8], ProjectType, ProjectParseError> {
-    // We specify the impl of the tag here since we want to catch a failure on
-    // the alternation check and specifying it here makes the code easier to
-    // read.
-    let tag_no_case = tag_no_case::<&str, &[u8], ProjectParseError>;
-    let line_ending = line_ending::<&[u8], ProjectParseError>;
-
-    let remainder = input;
-
+fn project_type_parse<'a>(
+    input: &mut &'a [u8],
+) -> PResult<ProjectType, VB6ProjectParseError<&'a [u8]>> {
     // The first line of any VB6 project file (vbp) is a type line that
     // tells us what kind of project we have.
     // this should be in every project file, even an empty one, and it must
     // be one of these four options.
-    // further, it should end with a "\r\n" to be conservative, we will accept
-    // either an "\n" or an "\r\n"
     //
-    // The project type line starts with a 'Type=' has either 'Exe' or 'OleDll'.
-    let Ok((remainder, (_, project_type))) = pair(
-        tag_no_case("Type="),
-        alt((
-            value(ProjectType::Exe, tag_no_case("Exe")),
-            value(ProjectType::Control, tag_no_case("Control")),
-            value(ProjectType::OleDll, tag_no_case("OleDll")),
-            value(ProjectType::OleExe, tag_no_case("OleExe")),
-        )),
-    )(remainder) else {
-        return Err(nom::Err::Failure(ProjectParseError::ProjectTypeUnknown));
-    };
-
-    // We split out the newline here so we can handle the difference between
-    // a type line that ends in a newline and one without it.
-    let Ok((remainder, _)) = line_ending(remainder) else {
-        return Err(nom::Err::Failure(ProjectParseError::NoLineEnding));
-    };
-
-    Ok((remainder, project_type))
-}
-
-fn line_type_parse(input: &[u8]) -> IResult<&[u8], LineType, ProjectParseError> {
-    // fully qualify the impl of these parsers here because it makes the following
-    // code easier to read since we need to fully specify the parser function to
-    // make error reporting easier.
-    let take_until1 = take_until1::<&str, &[u8], ProjectParseError>;
-    let line_ending = line_ending::<&[u8], ProjectParseError>;
-
-    let remainder = input;
-
-    let Ok((remainder, line_type_text)) = peek(alt((take_until1("="), line_ending)))(remainder)
-    else {
-        return Err(nom::Err::Failure(ProjectParseError::LineTypeUnknown));
-    };
-
-    let (remainder, line_type) = match line_type_text {
-        REFERENCE => {
-            let (remainder, reference) = reference_line_parse(remainder)?;
-
-            (remainder, LineType::Reference(reference))
-        }
-        USERDOCUMENT => {
-            let (remainder, (_key, user_document)) = key_value_pair_parse(remainder)?;
-
-            (remainder, LineType::UserDocument(user_document))
-        }
-        OBJECT => {
-            let (remainder, object) = object_line_parse(remainder)?;
-
-            (remainder, LineType::Object(object))
-        }
-        MODULE => {
-            let (remainder, module) = module_line_parse(remainder)?;
-
-            (remainder, LineType::Module(module))
-        }
-        DESIGNER => {
-            let (remainder, (_key, path)) = key_value_pair_parse(remainder)?;
-
-            (remainder, LineType::Designer(path))
-        }
-        CLASS => {
-            let (remainder, class) = class_line_parse(remainder)?;
-
-            (remainder, LineType::Class(class))
-        }
-        FORM => {
-            let (remainder, (_key, path)) = key_value_pair_parse(remainder)?;
-
-            (remainder, LineType::Form(path))
-        }
-        USERCONTROL => {
-            let (remainder, (_key, path)) = key_value_pair_parse(remainder)?;
-
-            (remainder, LineType::UserControl(path))
-        }
-        RESFILE32 => {
-            let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
-
-            (remainder, LineType::ResFile32(value))
-        }
-        ICONFORM => {
-            let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
-
-            (remainder, LineType::IconForm(value))
-        }
-        STARTUP => {
-            let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
-
-            (remainder, LineType::Startup(value))
-        }
-        HELPFILE => {
-            let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
-
-            (remainder, LineType::HelpFile(value))
-        }
-        TITLE => {
-            let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
-
-            (remainder, LineType::Title(value))
-        }
-        EXENAME32 => {
-            let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
-
-            (remainder, LineType::ExeName32(value))
-        }
-        COMMAND32 => {
-            let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
-
-            (remainder, LineType::Command32(value))
-        }
-        NAME => {
-            let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
-
-            (remainder, LineType::Name(value))
-        }
-        HELPCONTEXTID => {
-            let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
-
-            (remainder, LineType::HelpContextID(value))
-        }
-        COMPATIBLEMODE => {
-            let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
-
-            (remainder, LineType::CompatibleMode(value))
-        }
-        NOCONTROLUPGRADE => {
-            let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
-
-            (remainder, LineType::NoControlUpgrade(value))
-        }
-        MAJORVER => {
-            let (remainder, (_key, value)) = key_value_pair_parse(remainder)?;
-
-            (remainder, LineType::MajorVer(value))
-        }
-        MINORVER => {
-            let (remainder, (_key, value)) = key_value_pair_parse(remainder)?;
-
-            (remainder, LineType::MinorVer(value))
-        }
-        REVISIONVER => {
-            let (remainder, (_key, value)) = key_value_pair_parse(remainder)?;
-
-            (remainder, LineType::RevisionVer(value))
-        }
-        AUTOINCREMENTVER => {
-            let (remainder, (_key, value)) = key_value_pair_parse(remainder)?;
-
-            (remainder, LineType::AutoIncrementVer(value))
-        }
-        SERVERSUPPORTFILES => {
-            let (remainder, (_key, value)) = key_value_pair_parse(remainder)?;
-
-            (remainder, LineType::ServerSupportFiles(value))
-        }
-        VERSIONCOMPANYNAME => {
-            let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
-
-            (remainder, LineType::VersionCompanyName(value))
-        }
-        VERSIONFILEDESCRIPTION => {
-            let (remainder, (_key, value)) = key_qouted_value_pair_parse(remainder)?;
-
-            (remainder, LineType::VersionFileDescription(value))
-        }
-        VERSIONLEGALCOPYRIGHT => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
-
-            (remainder, LineType::VersionLegalCopyright)
-        }
-        VERSIONLEGALTRADEMARKS => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
-
-            (remainder, LineType::VersionLegalTrademarks)
-        }
-        VERSIONPRODUCTNAME => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
-
-            (remainder, LineType::VersionProductName)
-        }
-        CONDCOMP => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
-
-            (remainder, LineType::CondComp)
-        }
-        COMPILATIONTYPE => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
-
-            (remainder, LineType::CompilationType)
-        }
-        OPTIMIZATIONTYPE => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
-
-            (remainder, LineType::OptimizationType)
-        }
-        NOALIASING => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
-
-            (remainder, LineType::NoAliasing)
-        }
-        CODEVIEWDEBUGINFO => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
-
-            (remainder, LineType::CodeViewDebugInfo)
-        }
-        // In the vbp file this is FavorPentiumPro(tm)
-        FAVORPENTIUMPROTM => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
-
-            (remainder, LineType::FavorPentiumProTM)
-        }
-        OVERFLOWCHECK => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
-
-            (remainder, LineType::BoundsCheck)
-        }
-        BOUNDSCHECK => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
-
-            (remainder, LineType::BoundsCheck)
-        }
-        FLPOINTCHECK => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
-
-            (remainder, LineType::FlPointCheck)
-        }
-        FDIVCHECK => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
-
-            (remainder, LineType::FDIVCheck)
-        }
-        UNROUNDEDFP => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
-
-            (remainder, LineType::UnroundedFP)
-        }
-        STARTMODE => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
-
-            (remainder, LineType::StartMode)
-        }
-        UNATTENDED => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
-
-            (remainder, LineType::Unattended)
-        }
-        RETAINED => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
-
-            (remainder, LineType::Retained)
-        }
-        THREADPEROBJECT => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
-
-            (remainder, LineType::ThreadPerObject)
-        }
-        MAXNUMBEROFTHREADS => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
-
-            (remainder, LineType::MaxNumberOfThreads)
-        }
-        DEBUGSTARTOPTION => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
-
-            (remainder, LineType::DebugStartOption)
-        }
-        EMPTY => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
-
-            (remainder, LineType::Empty)
-        }
-        AUTOREFRESH => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
-
-            (remainder, LineType::AutoRefresh)
-        }
-        _ => {
-            let (remainder, _) = take_line_remove_newline_parse(remainder)?;
-
-            (remainder, LineType::Empty)
-        }
-    };
-
-    Ok((remainder, line_type))
-}
-
-fn key_qouted_value_pair_parse(input: &[u8]) -> IResult<&[u8], (&[u8], String), ProjectParseError> {
-    let remainder = input;
-
-    let (remainder, (key, value)) = key_value_pair_parse(remainder)?;
-
-    // This variant uses a key/value variant has a double quoted value.
-    let value = value.trim_matches('"').to_owned();
-
-    Ok((remainder, (key, value)))
-}
-
-fn key_value_pair_parse(input: &[u8]) -> IResult<&[u8], (&[u8], String), ProjectParseError> {
-    // Multiple lines are of the form 'key=value\r\n'
-    // For example:
-    // Form=..\DBCommon\frmSelectUser.frm\r\n
-    // Designer=AllMfgStatus.Dsr\r\n
+    // The project type line starts with a 'Type=' has either 'Exe', 'OleDll',
+    // 'Control', or 'OleExe'.
     //
-    // This parser handles this by spliting on the equal and returning a
-    // tuple of the two halves.
-
-    // this parser reads right after the '=' to get just the name and path.
-
-    // We specify the impl here because it makes the following code
-    // easier to read since we need to fully specifiy the parser function to
-    // make error reporting easier.
-    let not_line_ending = not_line_ending::<&[u8], ProjectParseError>;
-    let take_until = take_until::<&str, &[u8], ProjectParseError>;
-
-    let remainder = input;
-
-    let Ok((remainder, name)) = take_until(r"=")(remainder) else {
-        return Err(nom::Err::Failure(ProjectParseError::NoEqualSplit));
+    // By this point in the parse the "Type=" component should be stripped off
+    // since that is how we knew to use this particular parse.
+    let project_type = match alt((
+        b"Exe".value(ProjectType::Exe),
+        b"Control".value(ProjectType::Control),
+        b"OleExe".value(ProjectType::OleExe),
+        b"OleDll".value(ProjectType::OleDll),
+    ))
+    .parse_next(input)
+    {
+        Ok(type_project) => type_project,
+        Err(e) => {
+            let inner = e.or(ErrMode::Cut(VB6ProjectParseError::ProjectTypeUnknown));
+            return Err(inner);
+        }
     };
 
-    //  We read up to the split, now we want to consume the splitter as well.
-    let (remainder, _) = tag_no_case(r"=")(remainder)?;
-
-    // Finally, we are grabbing the value.
-    let Ok((remainder, value)) = not_line_ending(remainder) else {
-        return Err(nom::Err::Failure(ProjectParseError::NoLineEnding));
-    };
-
-    // TODO:
-    // this works on most lines and most systems, but there are some
-    // key/value pairs where the value is a non-ascii and non-utf8 because
-    // VB6 predates UTF. These escape sequences need to be learned and converted
-    // into the correct UTF-8 format.
-    let value = String::from_utf8(value.to_vec()).unwrap();
-
-    // We snagged up to the line ending before, now we want to actually get
-    // that line ending as well.
-    let (remainder, _) = line_ending(remainder)?;
-
-    Ok((remainder, (name, value)))
-}
-
-fn object_line_parse(input: &[u8]) -> IResult<&[u8], VB6ProjectObject, ProjectParseError> {
-    // Object={C4847593-972C-11D0-9567-00A0C9273C2A}#8.0#0; crviewer.dll\r\n
-
-    // a reference line starts with 'Object=' which is then followed by
-    // a GUID which is:
-    // S "{", followed by 8 hexadecimal digits, a "-", four hexadecimal digits,
-    // a "-", another four hexadecimal digits, a "-", another twelve
-    // hexadecimal digits, and finally a "}#". The '# is used to indicate the
-    // start of the next section.
-    // We then have a version number, another '#', an unknown value followed by
-    // a semicolon and a single white space, then the file name (usually a .dll
-    // or .ocx) and finally a newline.
-
-    // We specify the impl here because it makes the following code
-    // easier to read since we need to fully specifiy the parser function to
-    // make error reporting easier.
-    let not_line_ending = not_line_ending::<&[u8], ProjectParseError>;
-
-    let remainder = input;
-
-    let (remainder, (_, uuid_bytes)) =
-        tuple((tag_no_case(b"Object={"), take_until("}#")))(remainder)?;
-
-    let Ok(uuid_text) = str::from_utf8(uuid_bytes) else {
-        return Err(nom::Err::Failure(ProjectParseError::UnableToParseUuid));
-    };
-
-    let Ok(uuid) = uuid::Uuid::parse_str(uuid_text) else {
-        return Err(nom::Err::Failure(ProjectParseError::UnableToParseUuid));
-    };
-
-    let (remainder, _) = tag_no_case(b"}#")(remainder)?;
-
-    // We again take until the first '#'.
-    // This looks like, and almost certainly is, a version number of a
-    // '#.#' form like 1.0, 2.1, 6.0, etc.
-    let (remainder, version) = take_until("#")(remainder)?;
-
-    let (remainder, _) = tag_no_case(b"#")(remainder)?;
-
-    // We again take until the first '; '. It's not clear what this value is.
-    // In every case, I've only seen '0'.
-    let (remainder, unknown1) = take_until("; ")(remainder)?;
-
-    let (remainder, _) = tag_no_case(b"; ")(remainder)?;
-
-    // Finally, we are grabbing the file name, for this object.
-    let Ok((remainder, file_name)) = not_line_ending(remainder) else {
-        return Err(nom::Err::Failure(ProjectParseError::NoLineEnding));
-    };
-
-    // We snagged up to the line ending before, now we want to actually get
-    // that line ending as well.
-    let (remainder, _) = line_ending(remainder)?;
-
-    let object = VB6ProjectObject {
-        uuid,
-        version: String::from_utf8(version.to_vec()).unwrap(),
-        unknown1: String::from_utf8(unknown1.to_vec()).unwrap(),
-        file_name: String::from_utf8(file_name.to_vec()).unwrap(),
-    };
-
-    Ok((remainder, object))
-}
-
-fn name_path_tuple_parse(input: &[u8]) -> IResult<&[u8], (&[u8], &[u8]), ProjectParseError> {
-    // module and class lines both use a 'tag=filename; path\r\n' pattern.
-    // examples:
-    // Module=modDBAssist; ..\DBCommon\DBAssist.bas\r\n
-    // Class=CDecodeVarsClass; ..\DBCommon\CDecodeVarsClass.cls\r\n
-
-    // this parser reads right after the '=' to get just the name and path.
-
-    // We specify the impl here because it makes the following code
-    // easier to read since we need to fully specifiy the parser function to
-    // make error reporting easier.
-    let not_line_ending = not_line_ending::<&[u8], ProjectParseError>;
-    let take_until = take_until::<&str, &[u8], ProjectParseError>;
-
-    let remainder = input;
-
-    let Ok((remainder, name)) = take_until(r"; ")(remainder) else {
-        return Err(nom::Err::Failure(ProjectParseError::NoLineEnding));
-    };
-
-    //  We read up to the split, now we want to consume the splitter as well.
-    let (remainder, _) = tag_no_case(r"; ")(remainder)?;
-
-    // Finally, we are grabbing the path.
-    let Ok((remainder, path)) = not_line_ending(remainder) else {
-        return Err(nom::Err::Failure(ProjectParseError::NoLineEnding));
-    };
-
-    // We snagged up to the line ending before, now we want to actually get
-    // that line ending as well.
-    let (remainder, _) = line_ending(remainder)?;
-
-    Ok((remainder, (name, path)))
-}
-
-fn module_line_parse(input: &[u8]) -> IResult<&[u8], VB6ProjectModule, ProjectParseError> {
-    //Module=modDBAssist; ..\DBCommon\DBAssist.bas\r\n
-
-    // a module line starts with 'Module=' which is then followed by
-    // the modules name then seperated by a semicolon and a single white space,
-    // then the file name (usually a .bas file) and finally a newline.
-
-    let remainder = input;
-
-    let (remainder, _) = tag_no_case(b"Module=")(remainder)?;
-
-    let (remainder, (name, path)) = name_path_tuple_parse(remainder)?;
-
-    let module = VB6ProjectModule {
-        name: String::from_utf8(name.to_vec()).unwrap(),
-        path: String::from_utf8(path.to_vec()).unwrap(),
-    };
-
-    Ok((remainder, module))
-}
-
-fn class_line_parse(input: &[u8]) -> IResult<&[u8], VB6ProjectClass, ProjectParseError> {
-    // Class=CDecodeVarsClass; ..\DBCommon\CDecodeVarsClass.cls\r\n
-
-    // a class line starts with 'Class=' which is then followed by
-    // the class name then seperated by a semicolon and a single white space,
-    // then the file name (usually a .cls file) and finally a newline.
-
-    let remainder = input;
-
-    let (remainder, _) = tag_no_case(b"Class=")(remainder)?;
-
-    let (remainder, (name, path)) = name_path_tuple_parse(remainder)?;
-
-    let class = VB6ProjectClass {
-        name: String::from_utf8(name.to_vec()).unwrap(),
-        path: String::from_utf8(path.to_vec()).unwrap(),
-    };
-
-    Ok((remainder, class))
-}
-
-fn reference_line_parse(input: &[u8]) -> IResult<&[u8], VB6ProjectReference, ProjectParseError> {
-    // Reference=*\G{000440D8-E9ED-4435-A9A2-06B05387BB16}#c.0#0#..\DBCommon\Libs\VbIntellisenseFix.dll#VbIntellisenseFix\r\n
-
-    // a reference line starts with 'Reference=' which is then followed by
-    // "*\G" which indicates the next element will be
-    // a GUID ie:
-    // "{", followed 8 hexadecimal digits, a "-", four hexadecimal digits,
-    // a "-", another four hexadecimal digits, a "-", another twelve
-    // hexadecimal digits, and finally a "}#". The '# is used to indicate the
-    // start of the next section.
-
-    // We specify the impl here because it makes the following code
-    // easier to read since we need to fully specifiy the parser function to
-    // make error reporting easier.
-    let tag_no_case = tag_no_case::<&[u8], &[u8], ProjectParseError>;
-    let not_line_ending = not_line_ending::<&[u8], ProjectParseError>;
-    let take_until = take_until::<&[u8], &[u8], ProjectParseError>;
-
-    let remainder = input;
-
-    let (remainder, (_, uuid_bytes)) =
-        tuple((tag_no_case(b"Reference=*\\G{"), take_until(b"}#")))(remainder)?;
-
-    let Ok(uuid_text) = str::from_utf8(uuid_bytes) else {
-        return Err(nom::Err::Failure(ProjectParseError::UnableToParseUuid));
-    };
-
-    let Ok(uuid) = uuid::Uuid::parse_str(uuid_text) else {
-        return Err(nom::Err::Failure(ProjectParseError::UnableToParseUuid));
-    };
-
-    let (remainder, _) = tag_no_case(b"}#")(remainder)?;
-
-    // We again take until the first '#'. It's not clear what this value is.
-    // I've seen values of 1.0, 2.0, c.0, and a few other 'something.something'
-    // values.
-    let (remainder, unknown1) = take_until(b"#")(remainder)?;
-
-    let (remainder, _) = tag_no_case(b"#")(remainder)?;
-
-    // We again take until the first '#'. It's not clear what this value is.
-    // In every case, I've only seen '0'.
-    let (remainder, unknown2) = take_until(b"#")(remainder)?;
-
-    let (remainder, _) = tag_no_case(b"#")(remainder)?;
-
-    // Another take until '#', this time we should have a path. This
-    // path can be relative or absolute.
-    let (remainder, path) = take_until(b"#")(remainder)?;
-
-    let (remainder, _) = tag_no_case(b"#")(remainder)?;
-
-    // Finally, we are grabbing the description, ie human readable, description
-    // of this reference.
-    let Ok((remainder, description)) = not_line_ending(remainder) else {
-        return Err(nom::Err::Failure(ProjectParseError::NoLineEnding));
-    };
-
-    // We snagged up to the line ending before, now we want to actually get
-    // that line ending as well.
-    let (remainder, _) = line_ending(remainder)?;
-
-    let reference = VB6ProjectReference {
-        uuid,
-        unknown1: String::from_utf8(unknown1.to_vec()).unwrap(),
-        unknown2: String::from_utf8(unknown2.to_vec()).unwrap(),
-        path: String::from_utf8(path.to_vec()).unwrap(),
-        description: String::from_utf8(description.to_vec()).unwrap(),
-    };
-
-    Ok((remainder, reference))
+    Ok(project_type)
 }
 
 #[cfg(test)]
@@ -1142,59 +834,54 @@ mod tests {
 
     #[test]
     fn project_type_is_exe() {
-        let project_type_line = b"Type=Exe\r\n";
+        let mut project_type_line = b"Type=Exe".as_slice();
 
-        let (remainder, result) = project_type_parse(project_type_line).unwrap();
+        let (key, mut value) = key_value_parse(&mut project_type_line, b"=").unwrap();
 
+        let result = project_type_parse(&mut value).unwrap();
+
+        assert_eq!(key, b"Type");
         assert_eq!(result, ProjectType::Exe);
-        assert_eq!(remainder, b"");
     }
 
     #[test]
     fn project_type_is_oledll() {
-        let project_type_line = b"Type=OleDll\r\n";
+        let mut project_type_line = b"Type=OleDll".as_slice();
 
-        let (remainder, result) = project_type_parse(project_type_line).unwrap();
+        let (key, mut value) = key_value_parse(&mut project_type_line, b"=").unwrap();
 
+        let result = project_type_parse(&mut value).unwrap();
+
+        assert_eq!(key, b"Type");
         assert_eq!(result, ProjectType::OleDll);
-        assert_eq!(remainder, b"");
     }
 
     #[test]
     fn project_type_is_unknown_type() {
-        let project_type_line = b"Type=blah\r\n";
+        let mut project_type_line = b"Type=blah".as_slice();
 
-        let result = project_type_parse(project_type_line);
+        let (key, mut value) = key_value_parse(&mut project_type_line, b"=").unwrap();
+        let result = project_type_parse(&mut value);
 
+        assert_eq!(key, b"Type");
         assert!(result.is_err());
         assert_eq!(
-            result.err().unwrap(),
-            nom::Err::Failure(ProjectParseError::ProjectTypeUnknown)
-        );
-    }
-
-    #[test]
-    fn project_type_lacks_line_ending() {
-        let project_type_line = b"Type=Exe";
-
-        let result = project_type_parse(project_type_line);
-
-        assert!(result.is_err());
-        assert_eq!(
-            result.err().unwrap(),
-            nom::Err::Failure(ProjectParseError::NoLineEnding)
+            result.unwrap_err(),
+            ErrMode::Cut(VB6ProjectParseError::ProjectTypeUnknown)
         );
     }
 
     #[test]
     fn reference_line_valid() {
-        let reference_line = b"Reference=*\\G{000440D8-E9ED-4435-A9A2-06B05387BB16}#c.0#0#..\\DBCommon\\Libs\\VbIntellisenseFix.dll#VbIntellisenseFix\r\n";
+        let mut reference_line = b"Reference=*\\G{000440D8-E9ED-4435-A9A2-06B05387BB16}#c.0#0#..\\DBCommon\\Libs\\VbIntellisenseFix.dll#VbIntellisenseFix".as_slice();
 
-        let (remainder, result) = reference_line_parse(reference_line).unwrap();
+        let (key, mut value) = key_value_parse(&mut reference_line, b"=").unwrap();
+        let result = reference_parse(&mut value).unwrap();
 
         let expected_uuid = Uuid::parse_str("000440D8-E9ED-4435-A9A2-06B05387BB16").unwrap();
 
-        assert_eq!(remainder, []);
+        assert_eq!(reference_line.len(), 0);
+        assert_eq!(key, b"Reference");
         assert_eq!(result.uuid, expected_uuid);
         assert_eq!(result.unknown1, "c.0");
         assert_eq!(result.unknown2, "0");
@@ -1204,13 +891,16 @@ mod tests {
 
     #[test]
     fn object_line_valid() {
-        let object_line = b"Object={C4847593-972C-11D0-9567-00A0C9273C2A}#8.0#0; crviewer.dll\r\n";
+        let mut object_line =
+            b"Object={C4847593-972C-11D0-9567-00A0C9273C2A}#8.0#0; crviewer.dll".as_slice();
 
-        let (remainder, result) = object_line_parse(object_line).unwrap();
+        let (key, mut value) = key_value_parse(&mut object_line, b"=").unwrap();
+        let result = object_parse(&mut value).unwrap();
 
         let expected_uuid = Uuid::parse_str("C4847593-972C-11D0-9567-00A0C9273C2A").unwrap();
 
-        assert_eq!(remainder, []);
+        assert_eq!(object_line.len(), 0);
+        assert_eq!(key, b"Object");
         assert_eq!(result.uuid, expected_uuid);
         assert_eq!(result.version, "8.0");
         assert_eq!(result.unknown1, "0");
@@ -1219,45 +909,27 @@ mod tests {
 
     #[test]
     fn module_line_valid() {
-        let module_line = b"Module=modDBAssist; ..\\DBCommon\\DBAssist.bas\r\n";
+        let mut module_line = b"Module=modDBAssist; ..\\DBCommon\\DBAssist.bas".as_slice();
 
-        let (remainder, result) = module_line_parse(module_line).unwrap();
+        let (key, mut value) = key_value_parse(&mut module_line, b"=").unwrap();
+        let result = module_parse(&mut value).unwrap();
 
-        assert_eq!(remainder, []);
+        assert_eq!(module_line.len(), 0);
+        assert_eq!(key, b"Module");
         assert_eq!(result.name, "modDBAssist");
         assert_eq!(result.path, "..\\DBCommon\\DBAssist.bas");
     }
 
     #[test]
     fn class_line_valid() {
-        let class_line = b"Class=CStatusBarClass; ..\\DBCommon\\CStatusBarClass.cls\r\n";
+        let mut class_line = b"Class=CStatusBarClass; ..\\DBCommon\\CStatusBarClass.cls".as_slice();
 
-        let (remainder, result) = class_line_parse(class_line).unwrap();
+        let (key, mut value) = key_value_parse(&mut class_line, b"=").unwrap();
+        let result = class_parse(&mut value).unwrap();
 
-        assert_eq!(remainder, []);
+        assert_eq!(class_line.len(), 0);
+        assert_eq!(key, b"Class");
         assert_eq!(result.name, "CStatusBarClass");
         assert_eq!(result.path, "..\\DBCommon\\CStatusBarClass.cls");
-    }
-
-    #[test]
-    fn key_value_line_valid() {
-        let key_value_line = b"Designer=AllMfgStatus.Dsr\r\n";
-
-        let (remainder, (key, value)) = key_value_pair_parse(key_value_line).unwrap();
-
-        assert_eq!(remainder, []);
-        assert_eq!(key, b"Designer");
-        assert_eq!(value, "AllMfgStatus.Dsr");
-    }
-
-    #[test]
-    fn key_qouted_value_line_valid() {
-        let key_value_line = b"ResFile32=\"..\\DBCommon\\PSFC.RES\"\r\n";
-
-        let (remainder, (key, value)) = key_qouted_value_pair_parse(key_value_line).unwrap();
-
-        assert_eq!(remainder, []);
-        assert_eq!(key, b"ResFile32");
-        assert_eq!(value, "..\\DBCommon\\PSFC.RES");
     }
 }
