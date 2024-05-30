@@ -17,6 +17,7 @@ fn criterion_benchmark(c: &mut Criterion) {
         include_bytes!("../tests/data/vb6-code/Edge-detection/EdgeDetection.vbp").to_vec(),
         include_bytes!("../tests/data/vb6-code/Emboss-engrave-effect/EmbossEngrave.vbp").to_vec(),
         include_bytes!("../tests/data/vb6-code/Fill-image-region/Fill_Region.vbp").to_vec(),
+        include_bytes!("../tests/data/vb6-code/Fire-effect/FlameTest.vbp").to_vec(),
     ];
 
     c.bench_function("load multiple projects", |b| {
