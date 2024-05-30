@@ -1,5 +1,5 @@
 use bstr::{ByteSlice, B};
-use vb6parse::parser::{ProjectType, VB6Project};
+use vb6parse::project::{ProjectType, VB6Project};
 
 #[test]
 fn vbp_load() {
