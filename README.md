@@ -18,7 +18,9 @@ VB6Parse aims to be a complete, end-to-end parser library for VB6. Including, bu
 
 First work has focused on the (vbp) project files since is the method to discover all other files that should be linked/referenced within a project.
 
-#### (*.vbp) VB6 Project file parser feature support:
+<details>
+    <summary> (*.vbp) VB6 Project file parser feature support: </summary>
+
 - [x] **Project Types**
     - [x] Exe
     - [x] Control
@@ -71,6 +73,8 @@ First work has focused on the (vbp) project files since is the method to discove
 - [x] **MaxNumberOfThreads**
 - [x] **DebugStartOption**
 - [x] **AutoRefresh**
+
+</details>
 
 #### VB6Project API:
 - [x] Unit Testing (partial).
