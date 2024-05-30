@@ -20,6 +20,8 @@ fn criterion_benchmark(c: &mut Criterion) {
         include_bytes!("../tests/data/vb6-code/Fire-effect/FlameTest.vbp").to_vec(),
         include_bytes!("../tests/data/vb6-code/Game-physics-basic/Physics.vbp").to_vec(),
         include_bytes!("../tests/data/vb6-code/Gradient-2D/Gradient.vbp").to_vec(),
+        include_bytes!("../tests/data/vb6-code/Grayscale-effect/Grayscale.vbp").to_vec(),
+
     ];
 
     c.bench_function("load multiple projects", |b| {
