@@ -10,3 +10,27 @@ winnow = "0.6.8"
 uuid = "1.8.0"
 thiserror = "1.0.60"
 bstr = "1.9.1"
+
+[[test]]
+name="ppdm"
+path="tests/ppdm/ppdm.rs"
+
+[[test]]
+name="vb6_code_Artificial_Life"
+path="tests/vb6_code/artificial_life.rs"
+
+[[test]]
+name="vb6_code_Blacklight_effect"
+path="tests/vb6_code/blacklight_effect.rs"
+
+[[test]]
+name="vb6_code_Brightness_effect"
+path="tests/vb6_code/brightness_effect.rs"
+
+[[test]]
+name="vb6_code_Color_shift_effect"
+path="tests/vb6_code/color_shift_effect.rs"
+
+[[test]]
+name="vb6_code_Colorize_effect"
+path="tests/vb6_code/colorize_effect.rs"
