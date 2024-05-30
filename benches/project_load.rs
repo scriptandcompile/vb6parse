@@ -22,6 +22,7 @@ fn criterion_benchmark(c: &mut Criterion) {
         include_bytes!("../tests/data/vb6-code/Gradient-2D/Gradient.vbp").to_vec(),
         include_bytes!("../tests/data/vb6-code/Grayscale-effect/Grayscale.vbp").to_vec(),
         include_bytes!("../tests/data/vb6-code/Hidden-Markov-model/HMM.vbp").to_vec(),
+        include_bytes!("../tests/data/vb6-code/Histograms-advanced/Advanced Histograms.vbp").to_vec(),
 
     ];
 
