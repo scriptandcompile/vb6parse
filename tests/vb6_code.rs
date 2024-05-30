@@ -1440,10 +1440,10 @@ fn map_editor_2d_project_load() {
         Some(b"Tanner Helland Productions".as_bstr())
     );
     assert_eq!(project.version_info.file_description, Some(b"".as_bstr()));
-    assert_eq!(
-        project.version_info.copyright,
-        Some(b"".as_bstr())
-    );
+    assert_eq!(project.version_info.copyright, Some(b"".as_bstr()));
     assert_eq!(project.version_info.trademark, Some(B("").as_bstr()));
-    assert_eq!(project.version_info.product_name, Some(B("VB Map Editor").as_bstr()));
+    assert_eq!(
+        project.version_info.product_name,
+        Some(B("VB Map Editor").as_bstr())
+    );
 }
