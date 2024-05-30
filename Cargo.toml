@@ -10,3 +10,10 @@ winnow = "0.6.8"
 uuid = "1.8.0"
 thiserror = "1.0.60"
 bstr = "1.9.1"
+
+[dev-dependencies]
+criterion = { version = "0.5.1", features = ["html_reports"] }
+
+[[bench]]
+name = "project_load"
+harness = false
