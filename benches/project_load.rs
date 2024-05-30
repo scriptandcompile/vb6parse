@@ -31,6 +31,8 @@ fn criterion_benchmark(c: &mut Criterion) {
         include_bytes!("../tests/data/vb6-code/Nature-effects/NatureFilters.vbp").to_vec(),
         include_bytes!("../tests/data/vb6-code/Randomize-effects/RandomizationFX.vbp").to_vec(),
         include_bytes!("../tests/data/vb6-code/Scanner-TWAIN/VB_Scanner_Support.vbp").to_vec(),
+        include_bytes!("../tests/data/vb6-code/Screen-capture/ScreenCapture.vbp").to_vec(),
+        
     ];
 
     c.bench_function("load multiple projects", |b| {
