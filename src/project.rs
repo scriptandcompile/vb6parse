@@ -10,7 +10,6 @@ use winnow::{
 
 use crate::errors::VB6ProjectParseError;
 
-
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct VB6Project<'a> {
     pub project_type: ProjectType,
@@ -61,12 +60,13 @@ pub struct VersionInformation<'a> {
     pub major: u16,
     pub minor: u16,
     pub revision: u16,
-    pub auto_increment_revision: bool,
+    pub auto_increment_revision: u16,
     pub company_name: Option<&'a BStr>,
     pub file_description: Option<&'a BStr>,
     pub copyright: Option<&'a BStr>,
     pub trademark: Option<&'a BStr>,
     pub product_name: Option<&'a BStr>,
+    pub comments: Option<&'a BStr>,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -147,17 +147,18 @@ impl<'a> VB6Project<'a> {
         let mut thread_per_object = 0;
         let mut max_number_of_threads = 1;
         let mut debug_startup_option = false;
-        let mut auto_refresh = true;
+        let mut auto_refresh = false;
 
         let mut company_name = Some(BStr::new(b""));
         let mut file_description = Some(BStr::new(b""));
         let mut major = 0u16;
         let mut minor = 0u16;
         let mut revision = 0u16;
-        let mut auto_increment_revision = false;
+        let mut auto_increment_revision = 0;
         let mut copyright = Some(BStr::new(b""));
         let mut trademark = Some(BStr::new(b""));
         let mut product_name = Some(BStr::new(b""));
+        let mut comments = Some(BStr::new(b""));
 
         // First, bstr-ify the input and split it into lines.
         // The VB6 project format is basically a line-by-line format
@@ -332,21 +333,24 @@ impl<'a> VB6Project<'a> {
 
                     revision = revision_ver.parse().unwrap();
                 }
-                b"AutoIncrementVer" => match true_false_parse(&mut value) {
-                    Ok(val) => auto_increment_revision = val,
-                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
-                },
+                b"AutoIncrementVer" => {
+                    let Ok(auto_increment) = value.to_str() else {
+                        return Err(VB6ProjectParseError::AutoIncrementUnparseable);
+                    };
+
+                    auto_increment_revision = auto_increment.parse().unwrap();
+                }
                 b"NoControlUpgrade" => {
                     match true_false_parse(&mut value) {
                         // Invert answer since we inverted the name.
                         // This defaults to true, and is the most common value.
                         Ok(val) => upgrade_activex_controls = !val,
-                        Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                        Err(_) => return Err(VB6ProjectParseError::NoControlUpgradeUnparsable),
                     }
                 }
                 b"ServerSupportFiles" => match true_false_parse(&mut value) {
                     Ok(val) => server_support_files = val,
-                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                    Err(_) => return Err(VB6ProjectParseError::ServerSupportFilesUnparseable),
                 },
                 b"VersionCompanyName" => {
                     let company = match qouted_value(&mut value, b"\"") {
@@ -388,6 +392,14 @@ impl<'a> VB6Project<'a> {
 
                     product_name = Some(legal_product_name.as_bstr());
                 }
+                b"VersionComments" => {
+                    let version_comments = match qouted_value(&mut value, b"\"") {
+                        Ok(version_comments) => version_comments,
+                        Err(e) => return Err(e.into_inner().unwrap()),
+                    };
+
+                    comments = Some(version_comments.as_bstr());
+                }
                 b"CondComp" => {
                     let conditional = match qouted_value(&mut value, b"\"") {
                         Ok(conditional) => conditional,
@@ -398,56 +410,56 @@ impl<'a> VB6Project<'a> {
                 }
                 b"CompilationType" => match true_false_parse(&mut value) {
                     Ok(val) => compilation_type = val,
-                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                    Err(_) => return Err(VB6ProjectParseError::CompilationTypeUnparseable),
                 },
                 b"OptimizationType" => match true_false_parse(&mut value) {
                     Ok(val) => optimization_type = val,
-                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                    Err(_) => return Err(VB6ProjectParseError::OptimizationTypeUnparseable),
                 },
                 b"FavorPentiumPro(tm)" => match true_false_parse(&mut value) {
                     Ok(val) => favor_pentium_pro = val,
-                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                    Err(_) => return Err(VB6ProjectParseError::FavorPentiumProUnparseable),
                 },
                 b"CodeViewDebugInfo" => match true_false_parse(&mut value) {
                     Ok(val) => code_view_debug_info = val,
-                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                    Err(_) => return Err(VB6ProjectParseError::CodeViewDebugInfoUnparseable),
                 },
                 b"NoAliasing" => match true_false_parse(&mut value) {
                     // Invert the value since we inverted the name.
                     Ok(val) => aliasing = !val,
-                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                    Err(_) => return Err(VB6ProjectParseError::NoAliasingUnparseable),
                 },
                 b"BoundsCheck" => match true_false_parse(&mut value) {
                     Ok(val) => bounds_check = val,
-                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                    Err(_) => return Err(VB6ProjectParseError::BoundsCheckUnparseable),
                 },
                 b"OverflowCheck" => match true_false_parse(&mut value) {
                     Ok(val) => overflow_check = val,
-                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                    Err(_) => return Err(VB6ProjectParseError::OverflowCheckUnparseable),
                 },
                 b"FlPointCheck" => match true_false_parse(&mut value) {
                     Ok(val) => floating_point_check = val,
-                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                    Err(_) => return Err(VB6ProjectParseError::FlPointCheckUnparseable),
                 },
                 b"FDIVCheck" => match true_false_parse(&mut value) {
                     Ok(val) => pentium_fdiv_bug_check = val,
-                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                    Err(_) => return Err(VB6ProjectParseError::FDIVCheckUnparseable),
                 },
                 b"UnroundedFP" => match true_false_parse(&mut value) {
                     Ok(val) => unrounded_floating_point = val,
-                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                    Err(_) => return Err(VB6ProjectParseError::UnroundedFPUnparseable),
                 },
                 b"StartMode" => match true_false_parse(&mut value) {
                     Ok(val) => start_mode = val,
-                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                    Err(_) => return Err(VB6ProjectParseError::StartModeUnparseable),
                 },
                 b"Unattended" => match true_false_parse(&mut value) {
                     Ok(val) => unattended = val,
-                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                    Err(_) => return Err(VB6ProjectParseError::UnattendedUnparseable),
                 },
                 b"Retained" => match true_false_parse(&mut value) {
                     Ok(val) => retained = val,
-                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                    Err(_) => return Err(VB6ProjectParseError::RetainedUnparseable),
                 },
                 b"ThreadPerObject" => {
                     let Ok(threads) = value.to_str() else {
@@ -465,17 +477,15 @@ impl<'a> VB6Project<'a> {
                 }
                 b"DebugStartupOption" => match true_false_parse(&mut value) {
                     Ok(val) => debug_startup_option = val,
-                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                    Err(_) => return Err(VB6ProjectParseError::DebugStartupOptionUnparseable),
                 },
-                b"AutoRefresh" => match true_false_parse(&mut value) {
+                b"AutoRefresh" => match auto_refresh_parse(&mut value) {
                     Ok(val) => auto_refresh = val,
-                    Err(_) => return Err(VB6ProjectParseError::AutoIncrementUnparseable),
+                    Err(_) => return Err(VB6ProjectParseError::AutoRefreshUnparseable),
                 },
                 _ => {
-                    // TODO: Need to fix this in the future since these could
-                    // end up being non-ANSII byte strings.
-                    let line_type = key.to_str().unwrap().to_string();
-                    let val = value.to_str().unwrap().to_string();
+                    let line_type = key.as_bstr().to_string();
+                    let val = value.as_bstr().to_string();
                     return Err(VB6ProjectParseError::LineTypeUnknown {
                         line_type,
                         value: val,
@@ -498,6 +508,7 @@ impl<'a> VB6Project<'a> {
             copyright,
             trademark,
             product_name,
+            comments,
         };
 
         let project = VB6Project {
@@ -582,7 +593,18 @@ fn key_value_parse<'a>(
 }
 
 fn true_false_parse<'a>(input: &mut &'a [u8]) -> PResult<bool, VB6ProjectParseError<&'a [u8]>> {
-    let result = alt(('0'.value(false), '1'.value(true))).parse_next(input)?;
+    // 0 is false...and -1 is true.
+    // Why vb6? What are you like this? Who hurt you?
+    let result = alt(('0'.value(false), "-1".value(true))).parse_next(input)?;
+
+    Ok(result)
+}
+
+fn auto_refresh_parse<'a>(input: &mut &'a [u8]) -> PResult<bool, VB6ProjectParseError<&'a [u8]>> {
+    // 0 is false...and 1 is true.
+    // Of course, VB6 being VB6, this is the only entry that does something different.
+    // le sigh.
+    let result = alt(('0'.value(false), "1".value(true))).parse_next(input)?;
 
     Ok(result)
 }
@@ -591,8 +613,9 @@ fn qouted_true_false_parse<'a>(
     input: &mut &'a [u8],
 ) -> PResult<bool, VB6ProjectParseError<&'a [u8]>> {
     let mut qoute = qouted_value(input, b"\"")?;
-
-    let result = alt(('0'.value(false), '1'.value(true))).parse_next(&mut qoute)?;
+    // 0 is false...and -1 is true.
+    // Why vb6? What are you like this? Who hurt you?
+    let result = alt(('0'.value(false), "-1".value(true))).parse_next(&mut qoute)?;
 
     Ok(result)
 }
