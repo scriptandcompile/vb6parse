@@ -61,7 +61,7 @@ fn vbp_load() {
     assert_eq!(project.version_info.major, 11);
     assert_eq!(project.version_info.minor, 0);
     assert_eq!(project.version_info.revision, 288);
-    assert_eq!(project.version_info.auto_increment_revision, false);
+    assert_eq!(project.version_info.auto_increment_revision, 0);
     assert_eq!(
         project.version_info.company_name,
         Some(b"Predator Software Inc.".as_bstr())
