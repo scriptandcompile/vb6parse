@@ -87,4 +87,4 @@ First work has focused on the (vbp) project files since is the method to discove
 
 ### Test:
 
-Be sure to use ``` git pull --recurse-submodules ``` to get all integration test submodule data.
+Be sure to use ```git submodule update --init --recursive``` to get all integration test submodule data.
