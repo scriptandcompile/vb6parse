@@ -8,6 +8,7 @@ fn criterion_benchmark(c: &mut Criterion) {
         include_bytes!("../tests/data/vb6-code/Blacklight-effect/Blacklight.vbp").to_vec(),
         include_bytes!("../tests/data/vb6-code/Brightness-effect/Part 1 - Pure VB6/Brightness.vbp")
             .to_vec(),
+        include_bytes!("../tests/data/vb6-code/Brightness-effect/Part 2 - API - GetPixel and SetPixel/Brightness2.vbp").to_vec(),
         include_bytes!("../tests/data/vb6-code/Color-shift-effect/ShiftColor.vbp").to_vec(),
         include_bytes!("../tests/data/vb6-code/Colorize-effect/Colorize.vbp").to_vec(),
         include_bytes!("../tests/data/vb6-code/Contrast-effect/Contrast.vbp").to_vec(),
