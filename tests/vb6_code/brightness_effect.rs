@@ -2,7 +2,7 @@ use bstr::{ByteSlice, B};
 use vb6parse::project::{ProjectType, VB6Project};
 
 #[test]
-fn artificial_life_project_load() {
+fn brightness_effect_project_load() {
     let project_file_bytes =
         include_bytes!("../data/vb6-code/Brightness-effect/Part 1 - Pure VB6/Brightness.vbp");
 
