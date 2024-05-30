@@ -1,0 +1,3 @@
+[submodule "tests/vb6-code"]
+	path = tests/vb6-code
+	url = https://github.com/tannerhelland/vb6-code
