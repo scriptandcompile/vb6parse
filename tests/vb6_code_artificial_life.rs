@@ -2,7 +2,7 @@ use bstr::{ByteSlice, B};
 use vb6parse::project::{ProjectType, VB6Project};
 
 #[test]
-fn vb6_code_artificial_life_load() {
+fn vb6_code_artificial_life_project_load() {
     let project_file_bytes = include_bytes!("./vb6-code/Artificial-life/Artificial Life.vbp");
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
