@@ -3,7 +3,7 @@ use vb6parse::project::{ProjectType, VB6Project};
 
 #[test]
 fn ppdm_project_load() {
-    let project_file_bytes = include_bytes!("../data/ppdm/ppdm.vbp");
+    let project_file_bytes = include_bytes!("./data/ppdm/ppdm.vbp");
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
