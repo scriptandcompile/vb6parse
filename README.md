@@ -79,7 +79,7 @@ First work has focused on the (vbp) project files since is the method to discove
 #### VB6Project API:
 - [x] Unit Testing (partial).
 - [x] Integration/End-to-End Testing (partial).
-- [ ] Benchmarking.
+- [x] Benchmarking.
 - [ ] Top level API finalization.
 - [ ] Documentation.
 - [ ] Examples.
