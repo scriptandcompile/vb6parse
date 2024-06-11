@@ -4,7 +4,6 @@ use std::{mem::take, string::ParseError};
 
 use bstr::ByteSlice;
 use winnow::{
-    ,
     ascii::line_ending, combinator::{alt, rest, separated_pair}, error::{ContextError, ErrMode, ParserError}, stream::{AsBStr, AsChar}, token::{literal, take_till, take_while}, PResult, Parser
 };
 
@@ -42,8 +41,8 @@ impl<'a> VB6ClassFile<'a> {
         
         let mut input = input;
 
-        let version = literal(b"VERSION").parse_next(&mut input) else {
-            panic!("not working yet. I've got to figure this thing out.");
+        //let version = literal(b"VERSION").parse_next(&mut input) else {
+            //panic!("not working yet. I've got to figure this thing out.");
             //let r = literal.err();
 
             //let error = VB6ClassParseError::ClassVersionInformationNotFound {
@@ -52,7 +51,7 @@ impl<'a> VB6ClassFile<'a> {
             //};
             
             //return Err(error);
-        };
+        //};
 
         //
         Ok(VB6ClassFile {
