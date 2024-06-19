@@ -1,3 +1,4 @@
+pub mod class;
 pub mod errors;
 pub mod project;
-pub mod class;
+pub mod vb6;
