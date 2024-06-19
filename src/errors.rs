@@ -1,6 +1,6 @@
 #![warn(clippy::pedantic)]
 use winnow::{
-    error::{ErrorKind, FromExternalError, ParserError},
+    error::{ErrorKind, ParserError},
     stream::Stream,
 };
 
@@ -91,23 +91,18 @@ impl<I: Stream + Clone> ParserError<I> for VB6ProjectParseError<I> {
 }
 
 #[derive(thiserror::Error, Debug, PartialEq)]
-pub enum VB6ClassParseError<'a, I> {
-    
+pub enum VB6ClassParseError<I> {
     #[error("Class version information was not found.")]
-    ClassVersionInformationNotFound {
-        line: &'a [u8],
-        line_location: usize,
-    },
+    VersionInformationNotFound { line: String, line_location: usize },
 
     #[error("Winnow Error")]
     ParseError(I, ErrorKind),
 }
 
-impl<'a, I: Stream + Clone> ParserError<I> for VB6ClassParseError<'a, I> {
+impl<I: Stream + Clone> ParserError<I> for VB6ClassParseError<I> {
     fn from_error_kind(input: &I, kind: ErrorKind) -> Self {
         VB6ClassParseError::ParseError(input.clone(), kind)
     }
-
 
     fn append(self, _: &I, _: &<I as Stream>::Checkpoint, _: ErrorKind) -> Self {
         self

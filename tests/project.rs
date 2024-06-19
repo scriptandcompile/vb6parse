@@ -281,9 +281,8 @@ fn brightness_effect_part_2_project_load() {
 
 #[test]
 fn brightness_effect_part_3_project_load() {
-    let project_file_bytes = include_bytes!(
-        "./data/vb6-code/Brightness-effect/Part 3 - DIBs/Brightness3.vbp"
-    );
+    let project_file_bytes =
+        include_bytes!("./data/vb6-code/Brightness-effect/Part 3 - DIBs/Brightness3.vbp");
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
