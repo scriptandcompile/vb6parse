@@ -43,7 +43,7 @@ impl<'a> Stream for VB6Stream<'a> {
     fn next_token(&mut self) -> Option<Self::Token> {
         let (token, next) = self.stream.split_first()?;
         *self = VB6Stream::new(next);
-        Some(token.clone())
+        Some(*token)
     }
 
     fn offset_for<P>(&self, predicate: P) -> Option<usize>
@@ -68,7 +68,7 @@ impl<'a> Stream for VB6Stream<'a> {
     }
 
     fn checkpoint(&self) -> Self::Checkpoint {
-        self.clone()
+        *self
     }
 
     fn reset(&mut self, checkpoint: &Self::Checkpoint) {

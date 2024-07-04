@@ -13,15 +13,32 @@ use winnow::{
 };
 
 #[derive(Debug, PartialEq, Eq, Clone)]
+pub enum FileUsage {
+    MultiUse,  // -1 (true)
+    SingleUse, // 0 (false)
+}
+
+#[derive(Debug, PartialEq, Eq, Clone)]
+pub enum Persistance {
+    Persistable,    // -1 (true)
+    NonPersistable, // 0 (false)
+}
+
+#[derive(Debug, PartialEq, Eq, Clone)]
+pub enum MtsStatus {
+    NotAnMTSObject, // 0 (false)
+    MTSObject,      // -1 (true)
+}
+
+#[derive(Debug, PartialEq, Eq, Clone)]
 pub struct VB6ClassHeader<'a> {
     pub version: VB6ClassVersion,
-    pub multi_use: bool,             // (0/-1) false/true
-    pub persistable: bool,           // (0/-1) false/true
-    pub data_binding_behavior: bool, // (0/-1) false/true - vbNone
-    pub data_source_behavior: bool,  // (0/-1) false/true - vbNone
-    pub mts_transaction_mode: bool, // (0/-1) false/true - If false then this is NotAnMTSObject / if true this is a MTSObject
+    pub multi_use: FileUsage,            // (0/-1) multi use / single use
+    pub persistable: Persistance,        // (0/-1) NonParsistable / Persistable
+    pub data_binding_behavior: bool,     // (0/-1) false/true - vbNone
+    pub data_source_behavior: bool,      // (0/-1) false/true - vbNone
+    pub mts_transaction_mode: MtsStatus, // (0/-1) NotAnMTSObject / MTSObject
     pub attributes: VB6FileAttributes<'a>,
-    pub option_explicit: bool, // Option Explicit, or Option Explicit ON, or Option Explicit OFF. This must be before any other line in the file (except comments)
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -81,33 +98,50 @@ fn class_header_parse<'a>(input: &mut &'a [u8]) -> PResult<VB6ClassHeader<'a>> {
         .context(StrContext::Label("Newline expected after BEGIN keyword."))
         .parse_next(input)?;
 
-    let mut multi_use = false;
-    let mut persistable = false;
+    let mut multi_use = FileUsage::MultiUse;
+    let mut persistable = Persistance::NonPersistable;
     let mut data_binding_behavior = false;
     let mut data_source_behavior = false;
-    let mut mts_transaction_mode = false;
+    let mut mts_transaction_mode = MtsStatus::NotAnMTSObject;
 
     let (collection, _): (Vec<(&[u8], &[u8])>, &[u8]) =
         repeat_till(0.., key_value_line_parse(b"="), keyword_parse("END")).parse_next(input)?;
 
-    for pair in collection.iter() {
+    for pair in &collection {
         let (key, value) = *pair;
 
         match key {
             b"Persistable" => {
-                persistable = value == b"-1";
+                // -1 is 'true' and 0 is 'false' in VB6
+                if value == b"-1" {
+                    persistable = Persistance::Persistable;
+                } else {
+                    persistable = Persistance::NonPersistable;
+                }
             }
             b"MultiUse" => {
-                multi_use = value == b"-1";
+                // -1 is 'true' and 0 is 'false' in VB6
+                if value == b"-1" {
+                    multi_use = FileUsage::MultiUse;
+                } else {
+                    multi_use = FileUsage::SingleUse;
+                }
             }
             b"DataBindingBehavior" => {
+                // -1 is 'true' and 0 is 'false' in VB6
                 data_binding_behavior = value == b"-1";
             }
             b"DataSourceBehavior" => {
+                // -1 is 'true' and 0 is 'false' in VB6
                 data_source_behavior = value == b"-1";
             }
             b"MTSTransactionMode" => {
-                mts_transaction_mode = value == b"-1";
+                // -1 is 'true' and 0 is 'false' in VB6
+                if value == b"-1" {
+                    mts_transaction_mode = MtsStatus::MTSObject;
+                } else {
+                    mts_transaction_mode = MtsStatus::NotAnMTSObject;
+                }
             }
             _ => {
                 panic!("Unknown key found in class header.");
@@ -129,7 +163,6 @@ fn class_header_parse<'a>(input: &mut &'a [u8]) -> PResult<VB6ClassHeader<'a>> {
         data_source_behavior,
         mts_transaction_mode,
         attributes,
-        option_explicit: false,
     })
 }
 
@@ -232,7 +265,7 @@ fn key_value_line_parse<'a>(
     }
 }
 
-fn version_parse<'a>(input: &mut &'a [u8]) -> PResult<VB6ClassVersion> {
+fn version_parse(input: &mut &[u8]) -> PResult<VB6ClassVersion> {
     keyword_parse("VERSION").parse_next(input)?;
 
     space1(input)?;

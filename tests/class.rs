@@ -1,4 +1,7 @@
-use vb6parse::{class::VB6ClassFile, vb6::VB6Token};
+use vb6parse::{
+    class::{FileUsage, MtsStatus, Persistance, VB6ClassFile},
+    vb6::VB6Token,
+};
 
 #[test]
 fn artificial_life_organism_class_load() {
@@ -26,11 +29,17 @@ fn artificial_life_organism_class_load() {
     assert_eq!(organism_class.header.version.major, 1);
     assert_eq!(organism_class.header.version.minor, 0);
 
-    assert_eq!(organism_class.header.multi_use, true);
-    assert_eq!(organism_class.header.persistable, false);
+    assert_eq!(organism_class.header.multi_use, FileUsage::MultiUse);
+    assert_eq!(
+        organism_class.header.persistable,
+        Persistance::NonPersistable
+    );
     assert_eq!(organism_class.header.data_binding_behavior, false);
     assert_eq!(organism_class.header.data_source_behavior, false);
-    assert_eq!(organism_class.header.mts_transaction_mode, false);
+    assert_eq!(
+        organism_class.header.mts_transaction_mode,
+        MtsStatus::NotAnMTSObject
+    );
 
     assert_eq!(organism_class.header.attributes.name, b"Organism");
     assert_eq!(organism_class.header.attributes.global_name_space, false);
@@ -2329,7 +2338,11 @@ fn artificial_life_organism_class_load() {
         VB6Token::Newline(b"\r\n".into()),
     );
 
-    assert_eq!(tokens.len(), organism_class.tokens.len(), "Token count mismatch");
+    assert_eq!(
+        tokens.len(),
+        organism_class.tokens.len(),
+        "Token count mismatch"
+    );
 
     for (index, token) in tokens.iter().zip(organism_class.tokens.iter()).enumerate() {
         assert_eq!(token.0, token.1, "Token mismatch at token index: {}", index);
