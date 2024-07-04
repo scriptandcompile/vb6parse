@@ -238,9 +238,6 @@ pub fn vb6_parse<'a>(input: &mut &'a [u8]) -> PResult<Vec<VB6Token<'a>>> {
     let mut tokens = Vec::new();
 
     while !input.is_empty() {
-        if tokens.len() == 671 {
-            println!("{:?}", input[0..20].as_bstr());
-        }
 
         if let Ok(token) = line_ending::<&'a [u8], ContextError>.parse_next(input) {
             tokens.push(VB6Token::Newline(token.as_bstr()));
