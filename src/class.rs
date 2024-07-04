@@ -12,24 +12,43 @@ use winnow::{
     PResult, Parser,
 };
 
+/// Represents the usage of a file.
+/// -1 is 'true' and 0 is 'false' in VB6.
+/// MultiUse is -1 and SingleUse is 0.
+/// MultiUse is true and SingleUse is false.
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub enum FileUsage {
     MultiUse,  // -1 (true)
     SingleUse, // 0 (false)
 }
 
+/// Represents the persistability of a file.
+/// -1 is 'true' and 0 is 'false' in VB6.
+/// Persistable is -1 and NonPersistable is 0.
+/// Persistable is true and NonPersistable is false.
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub enum Persistance {
     Persistable,    // -1 (true)
     NonPersistable, // 0 (false)
 }
 
+/// Represents the MTS status of a file.
+/// -1 is 'true' and 0 is 'false' in VB6.
+/// MTSObject is -1 and NotAnMTSObject is 0.
+/// MTSObject is true and NotAnMTSObject is false.
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub enum MtsStatus {
     NotAnMTSObject, // 0 (false)
     MTSObject,      // -1 (true)
 }
 
+/// Represents the header of a VB6 class file.
+/// The header contains the version, multi use, persistable, data binding behavior,
+/// data source behavior, and MTS transaction mode.
+/// The header also contains the attributes of the class file.
+///
+/// None of these values are normally visible in the code editor region.
+/// They are only visible in the file property explorer.
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct VB6ClassHeader<'a> {
     pub version: VB6ClassVersion,
@@ -41,6 +60,11 @@ pub struct VB6ClassHeader<'a> {
     pub attributes: VB6FileAttributes<'a>,
 }
 
+/// Represents the attributes of a VB6 class file.
+/// The attributes contain the name, global name space, creatable, pre-declared id, and exposed.
+///
+/// None of these values are normally visible in the code editor region.
+/// They are only visible in the file property explorer.
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct VB6ClassAttributes<'a> {
     pub name: &'a [u8],          // Attribute VB_Name = "Organism"
@@ -50,18 +74,34 @@ pub struct VB6ClassAttributes<'a> {
     pub exposed: bool,           // (True/False) Attribute VB_Exposed = False
 }
 
+/// Represents a VB6 class file.
+/// A VB6 class file contains a header and a list of tokens.
+///
+/// The header contains the version, multi use, persistable, data binding behavior,
+/// data source behavior, and MTS transaction mode.
+/// The header also contains the attributes of the class file.
+///
+/// The tokens contain the token stream of the code of the class file.
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct VB6ClassFile<'a> {
     pub header: VB6ClassHeader<'a>,
     pub tokens: Vec<VB6Token<'a>>,
 }
 
+/// Represents the version of a VB6 class file.
+/// The version contains a major and minor version number.
+///
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct VB6ClassVersion {
     pub major: u16,
     pub minor: u16,
 }
 
+/// Represents the attributes of a VB6 class file.
+/// The attributes contain the name, global name space, creatable, pre-declared id, and exposed.
+///
+/// None of these values are normally visible in the code editor region.
+/// They are only visible in the file property explorer.
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct VB6FileAttributes<'a> {
     pub name: &'a [u8],          // Attribute VB_Name = "Organism"
@@ -72,6 +112,44 @@ pub struct VB6FileAttributes<'a> {
 }
 
 impl<'a> VB6ClassFile<'a> {
+    /// Parses a VB6 class file from a byte slice.
+    ///
+    /// # Arguments
+    ///
+    /// * `input` The byte slice to parse.
+    ///
+    /// # Returns
+    ///
+    /// A result containing the parsed VB6 class file or an error.
+    ///
+    /// # Errors
+    ///
+    /// An error will be returned if the input is not a valid VB6 class file.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use vb6parse::class::VB6ClassFile;
+    ///
+    /// let input = b"VERSION 1.0 CLASS
+    /// BEGIN
+    ///   MultiUse = -1  'True
+    ///   Persistable = 0  'NotPersistable
+    ///   DataBindingBehavior = 0  'vbNone
+    ///   DataSourceBehavior = 0  'vbNone
+    ///   MTSTransactionMode = 0  'NotAnMTSObject
+    /// END
+    /// Attribute VB_Name = \"Something\"
+    /// Attribute VB_GlobalNameSpace = False
+    /// Attribute VB_Creatable = True
+    /// Attribute VB_PredeclaredId = False
+    /// Attribute VB_Exposed = False
+    /// ";
+    ///
+    /// let result = VB6ClassFile::parse(input);
+    ///
+    /// assert!(result.is_ok());
+    /// ```
     pub fn parse(input: &'a [u8]) -> Result<Self, ErrMode<ContextError>> {
         let mut input = input;
 
@@ -83,16 +161,34 @@ impl<'a> VB6ClassFile<'a> {
     }
 }
 
+/// Parses a VB6 class file header from a byte slice.
+///
+/// # Arguments
+///
+/// * `input` The byte slice to parse.
+///
+/// # Returns
+///
+/// A result containing the parsed VB6 class file header or an error.
+///
+/// # Errors
+///
+/// An error will be returned if the input is not a valid VB6 class file header.
+///
 fn class_header_parse<'a>(input: &mut &'a [u8]) -> PResult<VB6ClassHeader<'a>> {
     // VERSION #.# CLASS
     // BEGIN
-    //  key = value 'comment
+    //  key = value  'comment
     //  ...
     // END
 
     let version = version_parse.parse_next(input)?;
 
+    space0(input)?;
+
     keyword_parse("BEGIN").parse_next(input)?;
+
+    space0(input)?;
 
     line_ending
         .context(StrContext::Label("Newline expected after BEGIN keyword."))
@@ -266,9 +362,11 @@ fn key_value_line_parse<'a>(
 }
 
 fn version_parse(input: &mut &[u8]) -> PResult<VB6ClassVersion> {
-    keyword_parse("VERSION").parse_next(input)?;
+    keyword_parse("VERSION")
+        .context(StrContext::Label("'VERSION' header element not found."))
+        .parse_next(input)?;
 
-    space1(input)?;
+    space1.context(StrContext::Label("At least one space is required between the 'VERSION' header element and the header major version number.")).parse_next(input)?;
 
     let major_digits = digit1
         .context(StrContext::Label("Major version number not found."))
@@ -287,13 +385,16 @@ fn version_parse(input: &mut &[u8]) -> PResult<VB6ClassVersion> {
     let minor_version =
         u16::from_str_radix(bstr::BStr::new(minor_digits).to_string().as_str(), 10).unwrap();
 
-    space1(input)?;
+    space1.context(StrContext::Label("At least one space is required between the header minor version number and the 'CLASS' header element")).parse_next(input)?;
 
-    keyword_parse("CLASS").parse_next(input)?;
+    keyword_parse("CLASS")
+        .context(StrContext::Label("'Class' header element not found."))
+        .parse_next(input)?;
 
     space0(input)?;
 
-    opt(line_ending.context(StrContext::Label("Newline expected after CLASS keyword.")))
+    line_ending
+        .context(StrContext::Label("Newline expected after CLASS keyword."))
         .parse_next(input)?;
 
     Ok(VB6ClassVersion {

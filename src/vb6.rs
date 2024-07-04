@@ -41,6 +41,28 @@ pub fn eol_comment_parse<'a>(input: &mut &'a [u8]) -> PResult<&'a [u8]> {
     Ok(comment)
 }
 
+/// Parses whitespace.
+///
+/// Whitespace is defined as one or more spaces or tabs.
+///
+/// # Arguments
+///
+/// * `input` - The input to parse.
+///
+/// # Returns
+///
+/// The whitespace.
+///
+/// # Example
+///
+/// ```rust
+/// use vb6parse::vb6::whitespace_parse;
+///
+/// let mut input = "    t".as_bytes();
+/// let whitespace = whitespace_parse(&mut input).unwrap();
+///
+/// assert_eq!(whitespace, b"    ");
+/// ```
 pub fn whitespace_parse<'a>(input: &mut &'a [u8]) -> PResult<&'a [u8]> {
     let whitespace = take_while(1.., (' ', '\t')).parse_next(input)?;
 
@@ -127,18 +149,22 @@ pub fn keyword_parse<'a>(keyword: &'a str) -> impl FnMut(&mut &'a [u8]) -> PResu
 
         match keyword {
             Ok(keyword) => {
-                // the not indicates the keyword is not followed by a letter, number, or underscore.
+                // The 'not' indicates the keyword is not followed by a letter, number, or underscore.
                 // and the 'not' function will give a success when it doesn't match.
                 if continuation.is_ok() {
                     return Ok(keyword);
                 }
 
                 input.reset(&checkpoint);
-                Err(ErrMode::Backtrack(ContextError::new()))
+
+                let context_error = ContextError::new();
+                Err(ErrMode::Backtrack(context_error))
             }
             _ => {
                 input.reset(&checkpoint);
-                Err(ErrMode::Backtrack(ContextError::new()))
+
+                let context_error = ContextError::new();
+                Err(ErrMode::Backtrack(context_error))
             }
         }
     }
@@ -148,22 +174,16 @@ pub fn keyword_parse<'a>(keyword: &'a str) -> impl FnMut(&mut &'a [u8]) -> PResu
 ///
 /// This is a simple enum that represents the different types of tokens that can be parsed from VB6 code.
 ///
-/// # Example
-///
-/// ```rust
-/// use vb6parse::vb6::VB6Token;
-/// use bstr::ByteSlice;
-///
-/// let token =
-///    VB6Token::VariableName(b"variable_name".as_bstr());
-///
-/// assert_eq!(token, VB6Token::VariableName(b"variable_name".as_bstr()));
-/// ```
 #[derive(Debug, PartialEq, Clone, Eq)]
 pub enum VB6Token<'a> {
+    /// Represents whitespace.
     Whitespace(&'a BStr),
+    /// Represents a newline.
+    /// This can be a carriage return, a newline, or a carriage return followed by a newline.
     Newline(&'a BStr),
 
+    /// Represents a comment.
+    /// Includes the single quote character.
     Comment(&'a BStr),
 
     ReDimKeyword(&'a BStr),
@@ -188,7 +208,9 @@ pub enum VB6Token<'a> {
     SubKeyword(&'a BStr),
     EndKeyword(&'a BStr),
 
+    /// Represents the boolean literal `True`.
     TrueKeyword(&'a BStr),
+    /// Represents the boolean literal `False`.
     FalseKeyword(&'a BStr),
 
     EnumKeyword(&'a BStr),
@@ -201,6 +223,8 @@ pub enum VB6Token<'a> {
     StringKeyword(&'a BStr),
     IntegerKeyword(&'a BStr),
 
+    /// Represents a string literal.
+    /// The string literal is enclosed in double quotes.
     StringLiteral(&'a BStr),
 
     IfKeyword(&'a BStr),
@@ -218,30 +242,80 @@ pub enum VB6Token<'a> {
     StepKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
+    /// Represents a dollar sign '$'.
     DollarSign(&'a BStr),
+    /// Represents an underscore '_'.
     Underscore(&'a BStr),
+    /// Represents an ampersand '&'.
     Ampersand(&'a BStr),
+    /// Represents a percent sign '%'.
     Percent(&'a BStr),
+    /// Represents an octothorpe '#'.
     Octothorpe(&'a BStr),
+    /// Represents a left paranthesis '('.
     LeftParanthesis(&'a BStr),
+    /// Represents a right paranthesis ')'.
     RightParanthesis(&'a BStr),
+    /// Represents a comma ','.
     Comma(&'a BStr),
 
+    /// Represents an equality operator '=' can also be the assignment operator.
     EqualityOperator(&'a BStr),
+    /// Represents a less than operator '<'.
     LessThanOperator(&'a BStr),
+    /// Represents a greater than operator '>'.
     GreaterThanOperator(&'a BStr),
+    /// Represents a multiplication operator '*'.
     MultiplicationOperator(&'a BStr),
+    /// Represents a subtraction operator '-'.
     SubtractionOperator(&'a BStr),
+    /// Represents an addition operator '+'.
     AdditionOperator(&'a BStr),
+    /// Represents a division operator '/'.
     DivisionOperator(&'a BStr),
+    /// Represents a period operator '.'.
     PeriodOperator(&'a BStr),
+    /// Represents a colon operator ':'.
     ColonOperator(&'a BStr),
 
+    /// Represents a variable name.
+    /// This is a name that starts with a letter and can contain letters, numbers, and underscores.
     VariableName(&'a BStr),
+    /// Represents a number.
+    /// This is just a collection of digits and hasn't been parsed into a
+    /// specific kind of number yet.
     Number(&'a BStr),
 }
 
-/// Parses a VB6 code lines.
+/// Parses VB6 code into a token stream.
+///
+///
+/// # Arguments
+///
+/// * `input` - The input to parse.
+///
+/// # Returns
+///
+/// A vector of VB6 tokens.
+///
+/// # Example
+///
+/// ```rust
+/// use vb6parse::vb6::{vb6_parse, VB6Token};
+/// use bstr::ByteSlice;
+///
+/// let mut input = "Dim x As Integer".as_bytes();
+/// let tokens = vb6_parse(&mut input).unwrap();
+///
+/// assert_eq!(tokens.len(), 7);
+/// assert_eq!(tokens[0], VB6Token::DimKeyword(b"Dim".as_bstr()));
+/// assert_eq!(tokens[1], VB6Token::Whitespace(b" ".as_bstr()));
+/// assert_eq!(tokens[2], VB6Token::VariableName(b"x".as_bstr()));
+/// assert_eq!(tokens[3], VB6Token::Whitespace(b" ".as_bstr()));
+/// assert_eq!(tokens[4], VB6Token::AsKeyword(b"As".as_bstr()));
+/// assert_eq!(tokens[5], VB6Token::Whitespace(b" ".as_bstr()));
+/// assert_eq!(tokens[6], VB6Token::IntegerKeyword(b"Integer".as_bstr()));
+/// ```
 pub fn vb6_parse<'a>(input: &mut &'a [u8]) -> PResult<Vec<VB6Token<'a>>> {
     let mut tokens = Vec::new();
 
