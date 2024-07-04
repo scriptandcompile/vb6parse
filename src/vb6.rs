@@ -2,7 +2,7 @@ use bstr::{BStr, ByteSlice};
 
 use winnow::{
     ascii::{digit1, line_ending, Caseless},
-    combinator::not,
+    combinator::{not, delimited},
     error::{ContextError, ErrMode, ParserError},
     stream::Stream,
     token::{literal, one_of, take_till, take_while},
@@ -182,6 +182,7 @@ pub enum VB6Token<'a> {
     AsKeyword(&'a BStr),
     ByValKeyword(&'a BStr),
     ByRefKeyword(&'a BStr),
+    OptionalKeyword(&'a BStr),
 
     FunctionKeyword(&'a BStr),
     SubKeyword(&'a BStr),
@@ -191,12 +192,16 @@ pub enum VB6Token<'a> {
     FalseKeyword(&'a BStr),
 
     EnumKeyword(&'a BStr),
+    TypeKeyword(&'a BStr),
 
     BooleanKeyword(&'a BStr),
     ByteKeyword(&'a BStr),
     LongKeyword(&'a BStr),
     SingleKeyword(&'a BStr),
     StringKeyword(&'a BStr),
+    IntegerKeyword(&'a BStr),
+
+    StringLiteral(&'a BStr),
 
     IfKeyword(&'a BStr),
     ElseKeyword(&'a BStr),
@@ -213,12 +218,15 @@ pub enum VB6Token<'a> {
     StepKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
+    DollarSign(&'a BStr),
+    Underscore(&'a BStr),
     Ampersand(&'a BStr),
     Percent(&'a BStr),
     Octothorpe(&'a BStr),
     LeftParanthesis(&'a BStr),
     RightParanthesis(&'a BStr),
     Comma(&'a BStr),
+
     EqualityOperator(&'a BStr),
     LessThanOperator(&'a BStr),
     GreaterThanOperator(&'a BStr),
@@ -246,6 +254,21 @@ pub fn vb6_parse<'a>(input: &mut &'a [u8]) -> PResult<Vec<VB6Token<'a>>> {
 
         if let Ok(token) = eol_comment_parse.parse_next(input) {
             tokens.push(VB6Token::Comment(token.as_bstr()));
+            continue;
+        }
+
+        if let Ok(token) = delimited::<&'a [u8], &'a [u8], &'a [u8], &'a [u8], ContextError, &[u8; 1], _, &[u8; 1]>(b"\"", take_till(0.., b"\""), b"\"").recognize().parse_next(input) {
+            tokens.push(VB6Token::StringLiteral(token.as_bstr()));
+            continue;
+        }
+
+        if let Ok(token) = keyword_parse("Type").parse_next(input) {
+            tokens.push(VB6Token::TypeKeyword(token.as_bstr()));
+            continue;
+        }
+
+        if let Ok(token) = keyword_parse("Optional").parse_next(input) {
+            tokens.push(VB6Token::OptionalKeyword(token.as_bstr()));
             continue;
         }
 
@@ -306,6 +329,11 @@ pub fn vb6_parse<'a>(input: &mut &'a [u8]) -> PResult<Vec<VB6Token<'a>>> {
 
         if let Ok(token) = keyword_parse("Long").parse_next(input) {
             tokens.push(VB6Token::LongKeyword(token.as_bstr()));
+            continue;
+        }
+
+        if let Ok(token) = keyword_parse("Integer").parse_next(input) {
+            tokens.push(VB6Token::IntegerKeyword(token.as_bstr()));
             continue;
         }
 
@@ -432,6 +460,16 @@ pub fn vb6_parse<'a>(input: &mut &'a [u8]) -> PResult<Vec<VB6Token<'a>>> {
         // Technically, this could be an equality operator or a assignment operator.
         if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b"=").parse_next(input) {
             tokens.push(VB6Token::EqualityOperator(token.as_bstr()));
+            continue;
+        }
+
+        if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b"$").parse_next(input) {
+            tokens.push(VB6Token::DollarSign(token.as_bstr()));
+            continue;
+        }
+
+        if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b"_").parse_next(input) {
+            tokens.push(VB6Token::Underscore(token.as_bstr()));
             continue;
         }
 
