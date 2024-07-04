@@ -654,20 +654,20 @@ fn object_parse<'a>(
     let unknown1 = unknown1.as_bstr();
 
     // the file name is preceded by a semi-colon then a space. not sure why the
-    // space is there, but it is. this strips it and the smi-colon out.
+    // space is there, but it is. this strips it and the semi-colon out.
     literal(b"; ").parse_next(input)?;
 
     // the filename is the rest of the input.
     let file_name = input.as_bstr();
 
-    let obvject = VB6ProjectObject {
+    let project_object = VB6ProjectObject {
         uuid,
         version,
         unknown1,
         file_name,
     };
 
-    Ok(obvject)
+    Ok(project_object)
 }
 
 fn module_parse<'a>(
