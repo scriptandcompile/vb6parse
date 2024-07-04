@@ -109,8 +109,6 @@ pub struct VB6ProjectClass<'a> {
 }
 
 impl<'a> VB6Project<'a> {
-
-
     pub fn parse(input: &'a [u8]) -> Result<Self, VB6ProjectParseError<&'a [u8]>> {
         let mut references = vec![];
         let mut user_documents = vec![];

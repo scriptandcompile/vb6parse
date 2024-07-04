@@ -2,7 +2,6 @@ use vb6parse::{class, project::VB6Project};
 
 #[test]
 fn bulk_load_all_projects() {
-
     let projects = [
         "./tests/data/vb6-code/Artificial-life/Artificial Life.vbp",
         "./tests/data/vb6-code/Blacklight-effect/Blacklight.vbp",
@@ -40,21 +39,18 @@ fn bulk_load_all_projects() {
     println!("Loading projects...");
 
     for project_path in projects.iter() {
-
         println!("Loading project: {}", project_path);
 
         let project_contents = std::fs::read(project_path).unwrap();
         let project = VB6Project::parse(&project_contents).unwrap();
-        
-        for class_reference in project.classes {
 
+        for class_reference in project.classes {
             //remove filename from path
             let project_directory = std::path::Path::new(project_path).parent().unwrap();
 
             let class_path = project_directory.join(&class_reference.path.to_string());
 
-            if std::fs::metadata(&class_path).is_err()
-            {
+            if std::fs::metadata(&class_path).is_err() {
                 println!("Class not found: {}", class_path.to_str().unwrap());
                 continue;
             }
@@ -63,7 +59,6 @@ fn bulk_load_all_projects() {
 
             let class_contents = std::fs::read(&class_path).unwrap();
             let _class = class::VB6ClassFile::parse(&class_contents).unwrap();
-
         }
     }
 }

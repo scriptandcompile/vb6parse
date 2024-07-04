@@ -2,7 +2,7 @@ use bstr::{BStr, ByteSlice};
 
 use winnow::{
     ascii::{digit1, line_ending, Caseless},
-    combinator::{not, delimited},
+    combinator::{delimited, not},
     error::{ContextError, ErrMode, ParserError},
     stream::Stream,
     token::{literal, one_of, take_till, take_while},
@@ -246,7 +246,6 @@ pub fn vb6_parse<'a>(input: &mut &'a [u8]) -> PResult<Vec<VB6Token<'a>>> {
     let mut tokens = Vec::new();
 
     while !input.is_empty() {
-
         if let Ok(token) = line_ending::<&'a [u8], ContextError>.parse_next(input) {
             tokens.push(VB6Token::Newline(token.as_bstr()));
             continue;
@@ -257,7 +256,19 @@ pub fn vb6_parse<'a>(input: &mut &'a [u8]) -> PResult<Vec<VB6Token<'a>>> {
             continue;
         }
 
-        if let Ok(token) = delimited::<&'a [u8], &'a [u8], &'a [u8], &'a [u8], ContextError, &[u8; 1], _, &[u8; 1]>(b"\"", take_till(0.., b"\""), b"\"").recognize().parse_next(input) {
+        if let Ok(token) = delimited::<
+            &'a [u8],
+            &'a [u8],
+            &'a [u8],
+            &'a [u8],
+            ContextError,
+            &[u8; 1],
+            _,
+            &[u8; 1],
+        >(b"\"", take_till(0.., b"\""), b"\"")
+        .recognize()
+        .parse_next(input)
+        {
             tokens.push(VB6Token::StringLiteral(token.as_bstr()));
             continue;
         }
