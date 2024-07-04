@@ -6,7 +6,7 @@ use winnow::{
     error::{ContextError, ErrMode, ParserError},
     stream::Stream,
     token::{literal, one_of, take_till, take_while},
-    PResult, Parser,  
+    PResult, Parser,
 };
 
 /// Parses a VB6 end-of-line comment.
@@ -117,8 +117,13 @@ pub fn keyword_parse<'a>(keyword: &'a str) -> impl FnMut(&mut &'a [u8]) -> PResu
 
         let keyword: Result<&[u8], ErrMode<ContextError>> = Caseless(keyword).parse_next(input);
 
-        let continuation =
-            not::<&[u8], u8, ContextError, _>(one_of::<&[u8], _, _>((b'_', b'a'..=b'z', b'A'..=b'Z', b'0'..=b'9'))).parse_next(input);
+        let continuation = not::<&[u8], u8, ContextError, _>(one_of::<&[u8], _, _>((
+            b'_',
+            b'a'..=b'z',
+            b'A'..=b'Z',
+            b'0'..=b'9',
+        )))
+        .parse_next(input);
 
         match keyword {
             Ok(keyword) => {
@@ -129,13 +134,13 @@ pub fn keyword_parse<'a>(keyword: &'a str) -> impl FnMut(&mut &'a [u8]) -> PResu
                 }
 
                 input.reset(&checkpoint);
-                return Err(ErrMode::Backtrack(ContextError::new()));
+                Err(ErrMode::Backtrack(ContextError::new()))
             }
-            Err(_) => {
+            _ => {
                 input.reset(&checkpoint);
-                return Err(ErrMode::Backtrack(ContextError::new()));
+                Err(ErrMode::Backtrack(ContextError::new()))
             }
-        };
+        }
     }
 }
 
@@ -163,6 +168,10 @@ pub enum VB6Token<'a> {
 
     ReDimKeyword(&'a BStr),
     DimKeyword(&'a BStr),
+    DeclareKeyword(&'a BStr),
+    LibKeyword(&'a BStr),
+    WithKeyword(&'a BStr),
+
     OptionKeyword(&'a BStr),
     ExplicitKeyword(&'a BStr),
 
@@ -181,10 +190,13 @@ pub enum VB6Token<'a> {
     TrueKeyword(&'a BStr),
     FalseKeyword(&'a BStr),
 
+    EnumKeyword(&'a BStr),
+
     BooleanKeyword(&'a BStr),
     ByteKeyword(&'a BStr),
     LongKeyword(&'a BStr),
     SingleKeyword(&'a BStr),
+    StringKeyword(&'a BStr),
 
     IfKeyword(&'a BStr),
     ElseKeyword(&'a BStr),
@@ -201,6 +213,9 @@ pub enum VB6Token<'a> {
     StepKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
+    Ampersand(&'a BStr),
+    Percent(&'a BStr),
+    Octothorpe(&'a BStr),
     LeftParanthesis(&'a BStr),
     RightParanthesis(&'a BStr),
     Comma(&'a BStr),
@@ -262,6 +277,21 @@ pub fn vb6_parse<'a>(input: &mut &'a [u8]) -> PResult<Vec<VB6Token<'a>>> {
             continue;
         }
 
+        if let Ok(token) = keyword_parse("With").parse_next(input) {
+            tokens.push(VB6Token::WithKeyword(token.as_bstr()));
+            continue;
+        }
+
+        if let Ok(token) = keyword_parse("Declare").parse_next(input) {
+            tokens.push(VB6Token::DeclareKeyword(token.as_bstr()));
+            continue;
+        }
+
+        if let Ok(token) = keyword_parse("Lib").parse_next(input) {
+            tokens.push(VB6Token::LibKeyword(token.as_bstr()));
+            continue;
+        }
+
         if let Ok(token) = keyword_parse("Const").parse_next(input) {
             tokens.push(VB6Token::ConstKeyword(token.as_bstr()));
             continue;
@@ -269,6 +299,11 @@ pub fn vb6_parse<'a>(input: &mut &'a [u8]) -> PResult<Vec<VB6Token<'a>>> {
 
         if let Ok(token) = keyword_parse("As").parse_next(input) {
             tokens.push(VB6Token::AsKeyword(token.as_bstr()));
+            continue;
+        }
+
+        if let Ok(token) = keyword_parse("Enum").parse_next(input) {
+            tokens.push(VB6Token::EnumKeyword(token.as_bstr()));
             continue;
         }
 
@@ -289,6 +324,11 @@ pub fn vb6_parse<'a>(input: &mut &'a [u8]) -> PResult<Vec<VB6Token<'a>>> {
 
         if let Ok(token) = keyword_parse("Single").parse_next(input) {
             tokens.push(VB6Token::SingleKeyword(token.as_bstr()));
+            continue;
+        }
+
+        if let Ok(token) = keyword_parse("String").parse_next(input) {
+            tokens.push(VB6Token::StringKeyword(token.as_bstr()));
             continue;
         }
 
@@ -398,6 +438,21 @@ pub fn vb6_parse<'a>(input: &mut &'a [u8]) -> PResult<Vec<VB6Token<'a>>> {
             continue;
         }
 
+        if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b"&").parse_next(input) {
+            tokens.push(VB6Token::Ampersand(token.as_bstr()));
+            continue;
+        }
+
+        if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b"%").parse_next(input) {
+            tokens.push(VB6Token::Percent(token.as_bstr()));
+            continue;
+        }
+
+        if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b"#").parse_next(input) {
+            tokens.push(VB6Token::Octothorpe(token.as_bstr()));
+            continue;
+        }
+
         if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b"<").parse_next(input) {
             tokens.push(VB6Token::LessThanOperator(token.as_bstr()));
             continue;
@@ -468,8 +523,11 @@ pub fn vb6_parse<'a>(input: &mut &'a [u8]) -> PResult<Vec<VB6Token<'a>>> {
             continue;
         }
 
-        return Err(ErrMode::Cut(ParserError::assert(input, "Unable to match VB6 token.")));
+        return Err(ErrMode::Cut(ParserError::assert(
+            input,
+            "Unable to match VB6 token.",
+        )));
     }
 
-    return Ok(tokens);
+    Ok(tokens)
 }

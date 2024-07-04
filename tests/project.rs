@@ -1,5 +1,5 @@
 use bstr::{ByteSlice, B};
-use vb6parse::project::{ProjectType, VB6Project};
+use vb6parse::project::{CompileTargetType, VB6Project};
 
 #[test]
 fn artificial_life_project_load() {
@@ -7,7 +7,7 @@ fn artificial_life_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 1);
@@ -78,7 +78,7 @@ fn blacklight_effect_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 0);
@@ -141,7 +141,7 @@ fn brightness_effect_part_1_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 0);
@@ -214,7 +214,7 @@ fn brightness_effect_part_2_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 0);
@@ -286,7 +286,7 @@ fn brightness_effect_part_3_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 0);
@@ -357,7 +357,7 @@ fn color_shift_effect_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 0);
@@ -419,7 +419,7 @@ fn colorize_effect_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 0);
@@ -484,7 +484,7 @@ fn contrast_effect_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 0);
@@ -549,7 +549,7 @@ fn curves_effect_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 0);
@@ -612,7 +612,7 @@ fn custom_image_filters_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 0);
@@ -680,7 +680,7 @@ fn diffuse_effect_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 0);
@@ -745,7 +745,7 @@ fn edge_detection_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 0);
@@ -811,7 +811,7 @@ fn emboss_engrave_effect_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 0);
@@ -882,7 +882,7 @@ fn fill_image_region_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 0);
@@ -944,7 +944,7 @@ fn fire_effect_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 0);
@@ -1006,7 +1006,7 @@ fn game_physics_basic_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 1);
@@ -1074,7 +1074,7 @@ fn gradient_2d_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 0);
@@ -1136,7 +1136,7 @@ fn grayscale_effect_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 0);
@@ -1201,7 +1201,7 @@ fn hidden_markov_model_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 0);
@@ -1264,7 +1264,7 @@ fn histograms_advanced_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 1);
@@ -1333,7 +1333,7 @@ fn histogram_basic_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 1);
@@ -1401,7 +1401,7 @@ fn levels_effect_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 1);
@@ -1469,7 +1469,7 @@ fn mandelbrot_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 0);
@@ -1534,7 +1534,7 @@ fn map_editor_2d_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 2);
@@ -1599,7 +1599,7 @@ fn nature_effects_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 0);
@@ -1665,7 +1665,7 @@ fn randomize_effects_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 0);
@@ -1736,7 +1736,7 @@ fn scanner_twain_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 0);
@@ -1801,7 +1801,7 @@ fn screen_capture_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 2);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 0);
@@ -1869,7 +1869,7 @@ fn sepia_effect_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 0);
@@ -1931,7 +1931,7 @@ fn threshold_effect_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 0);
     assert_eq!(project.modules.len(), 0);
@@ -1999,7 +1999,7 @@ fn transparency_2d_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
     assert_eq!(project.objects.len(), 1);
     assert_eq!(project.modules.len(), 0);

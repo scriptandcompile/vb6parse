@@ -1,6 +1,8 @@
 #![warn(clippy::pedantic)]
 use bstr::{BStr, ByteSlice};
+
 use uuid::Uuid;
+
 use winnow::{
     combinator::{alt, rest, separated_pair},
     error::{ErrMode, ParserError},
@@ -12,7 +14,7 @@ use crate::errors::VB6ProjectParseError;
 
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct VB6Project<'a> {
-    pub project_type: ProjectType,
+    pub project_type: CompileTargetType,
     pub references: Vec<VB6ProjectReference<'a>>,
     pub objects: Vec<VB6ProjectObject<'a>>,
     pub modules: Vec<VB6ProjectModule<'a>>,
@@ -70,7 +72,7 @@ pub struct VersionInformation<'a> {
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
-pub enum ProjectType {
+pub enum CompileTargetType {
     Exe,
     Control,
     OleExe,
@@ -107,6 +109,8 @@ pub struct VB6ProjectClass<'a> {
 }
 
 impl<'a> VB6Project<'a> {
+
+
     pub fn parse(input: &'a [u8]) -> Result<Self, VB6ProjectParseError<&'a [u8]>> {
         let mut references = vec![];
         let mut user_documents = vec![];
@@ -117,7 +121,7 @@ impl<'a> VB6Project<'a> {
         let mut forms = vec![];
         let mut user_controls = vec![];
 
-        let mut project_type: Option<ProjectType> = None;
+        let mut project_type: Option<CompileTargetType> = None;
         let mut res_file_32_path = Some(BStr::new(b""));
         let mut icon_form = Some(BStr::new(b""));
         let mut startup = Some(BStr::new(b""));
@@ -773,7 +777,7 @@ fn reference_parse<'a>(
 
 fn project_type_parse<'a>(
     input: &mut &'a [u8],
-) -> PResult<ProjectType, VB6ProjectParseError<&'a [u8]>> {
+) -> PResult<CompileTargetType, VB6ProjectParseError<&'a [u8]>> {
     // The first line of any VB6 project file (vbp) is a type line that
     // tells us what kind of project we have.
     // this should be in every project file, even an empty one, and it must
@@ -785,10 +789,10 @@ fn project_type_parse<'a>(
     // By this point in the parse the "Type=" component should be stripped off
     // since that is how we knew to use this particular parse.
     let project_type = match alt((
-        b"Exe".value(ProjectType::Exe),
-        b"Control".value(ProjectType::Control),
-        b"OleExe".value(ProjectType::OleExe),
-        b"OleDll".value(ProjectType::OleDll),
+        b"Exe".value(CompileTargetType::Exe),
+        b"Control".value(CompileTargetType::Control),
+        b"OleExe".value(CompileTargetType::OleExe),
+        b"OleDll".value(CompileTargetType::OleDll),
     ))
     .parse_next(input)
     {
@@ -815,7 +819,7 @@ mod tests {
         let result = project_type_parse(&mut value).unwrap();
 
         assert_eq!(key, b"Type");
-        assert_eq!(result, ProjectType::Exe);
+        assert_eq!(result, CompileTargetType::Exe);
     }
 
     #[test]
@@ -827,7 +831,7 @@ mod tests {
         let result = project_type_parse(&mut value).unwrap();
 
         assert_eq!(key, b"Type");
-        assert_eq!(result, ProjectType::OleDll);
+        assert_eq!(result, CompileTargetType::OleDll);
     }
 
     #[test]

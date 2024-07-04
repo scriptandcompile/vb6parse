@@ -1,5 +1,5 @@
 use bstr::{ByteSlice, B};
-use vb6parse::project::{ProjectType, VB6Project};
+use vb6parse::project::{CompileTargetType, VB6Project};
 
 #[test]
 fn ppdm_project_load() {
@@ -7,7 +7,7 @@ fn ppdm_project_load() {
 
     let project = VB6Project::parse(project_file_bytes).unwrap();
 
-    assert_eq!(project.project_type, ProjectType::Exe);
+    assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 15);
     assert_eq!(project.objects.len(), 12);
     assert_eq!(project.modules.len(), 39);
