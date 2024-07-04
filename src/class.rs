@@ -2,12 +2,12 @@
 
 use core::panic;
 
-use crate::vb6::eol_comment_parse;
+use crate::vb6::{eol_comment_parse, keyword_parse, vb6_parse, VB6Token};
 
 use winnow::{
-    ascii::{digit1, line_ending, space0, space1, Caseless},
+    ascii::{digit1, line_ending, space0, space1},
     combinator::{opt, repeat_till},
-    error::{ContextError, ErrMode, ParserError, StrContext, StrContextValue},
+    error::{ContextError, ErrMode, ParserError, StrContext},
     token::{literal, take_while},
     PResult, Parser,
 };
@@ -36,6 +36,7 @@ pub struct VB6ClassAttributes<'a> {
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct VB6ClassFile<'a> {
     pub header: VB6ClassHeader<'a>,
+    pub tokens: Vec<VB6Token<'a>>,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -59,7 +60,9 @@ impl<'a> VB6ClassFile<'a> {
 
         let header = class_header_parse(&mut input)?;
 
-        Ok(VB6ClassFile { header })
+        let tokens = vb6_parse(&mut input)?;
+
+        Ok(VB6ClassFile { header, tokens })
     }
 }
 
@@ -183,18 +186,6 @@ fn attributes_parse<'a>(input: &mut &'a [u8]) -> PResult<VB6FileAttributes<'a>> 
         pre_declared_id,
         exposed,
     })
-}
-
-fn keyword_parse<'a>(keyword: &'a str) -> impl Parser<&'a [u8], &'a [u8], ContextError> {
-    move |input: &mut &'a [u8]| {
-        let keyword_value = Caseless(keyword)
-            .context(StrContext::Expected(StrContextValue::Description(
-                "Unable to match Keyword {keyword}",
-            )))
-            .parse_next(input)?;
-
-        Ok(keyword_value)
-    }
 }
 
 fn key_value_parse<'a>(
