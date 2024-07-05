@@ -1,4 +1,4 @@
-use vb6parse::{class, project::VB6Project};
+use vb6parse::{class::VB6ClassFile, project::VB6Project, module::VB6ModuleFile};
 
 #[test]
 fn bulk_load_all_projects() {
@@ -44,10 +44,10 @@ fn bulk_load_all_projects() {
         let project_contents = std::fs::read(project_path).unwrap();
         let project = VB6Project::parse(&project_contents).unwrap();
 
-        for class_reference in project.classes {
-            //remove filename from path
-            let project_directory = std::path::Path::new(project_path).parent().unwrap();
+        //remove filename from path
+        let project_directory = std::path::Path::new(project_path).parent().unwrap();
 
+        for class_reference in project.classes {
             let class_path = project_directory.join(&class_reference.path.to_string());
 
             if std::fs::metadata(&class_path).is_err() {
@@ -58,7 +58,21 @@ fn bulk_load_all_projects() {
             println!("Loading class: {}", class_path.to_str().unwrap());
 
             let class_contents = std::fs::read(&class_path).unwrap();
-            let _class = class::VB6ClassFile::parse(&class_contents).unwrap();
+            let _class = VB6ClassFile::parse(&class_contents).unwrap();
+        }
+
+        for module_reference in project.modules {
+            let module_path = project_directory.join(&module_reference.path.to_string());
+
+            if std::fs::metadata(&module_path).is_err() {
+                println!("Module not found: {}", module_path.to_str().unwrap());
+                continue;
+            }
+
+            println!("Loading module: {}", module_path.to_str().unwrap());
+
+            let module_contents = std::fs::read(&module_path).unwrap();
+            let _module = VB6ModuleFile::parse(&module_contents).unwrap();
         }
     }
 }

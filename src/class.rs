@@ -1,7 +1,5 @@
 #![warn(clippy::pedantic)]
 
-use core::panic;
-
 use crate::vb6::{eol_comment_parse, keyword_parse, vb6_parse, VB6Token};
 
 use winnow::{
