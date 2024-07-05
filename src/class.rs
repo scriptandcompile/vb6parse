@@ -1,6 +1,7 @@
 #![warn(clippy::pedantic)]
 
 use crate::vb6::{eol_comment_parse, keyword_parse, vb6_parse, VB6Token};
+use crate::VB6FileFormatVersion;
 
 use winnow::{
     ascii::{digit1, line_ending, space0, space1},
@@ -12,8 +13,8 @@ use winnow::{
 
 /// Represents the usage of a file.
 /// -1 is 'true' and 0 is 'false' in VB6.
-/// MultiUse is -1 and SingleUse is 0.
-/// MultiUse is true and SingleUse is false.
+/// `MultiUse` is -1 and `SingleUse` is 0.
+/// `MultiUse` is true and `SingleUse` is false.
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub enum FileUsage {
     MultiUse,  // -1 (true)
@@ -22,8 +23,8 @@ pub enum FileUsage {
 
 /// Represents the persistability of a file.
 /// -1 is 'true' and 0 is 'false' in VB6.
-/// Persistable is -1 and NonPersistable is 0.
-/// Persistable is true and NonPersistable is false.
+/// `Persistable` is -1 and `NonPersistable` is 0.
+/// `Persistable` is true and `NonPersistable` is false.
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub enum Persistance {
     Persistable,    // -1 (true)
@@ -32,8 +33,8 @@ pub enum Persistance {
 
 /// Represents the MTS status of a file.
 /// -1 is 'true' and 0 is 'false' in VB6.
-/// MTSObject is -1 and NotAnMTSObject is 0.
-/// MTSObject is true and NotAnMTSObject is false.
+/// `MTSObject` is -1 and `NotAnMTSObject` is 0.
+/// `MTSObject` is true and `NotAnMTSObject` is false.
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub enum MtsStatus {
     NotAnMTSObject, // 0 (false)
@@ -49,7 +50,7 @@ pub enum MtsStatus {
 /// They are only visible in the file property explorer.
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct VB6ClassHeader<'a> {
-    pub version: VB6ClassVersion,
+    pub version: VB6FileFormatVersion,
     pub multi_use: FileUsage,            // (0/-1) multi use / single use
     pub persistable: Persistance,        // (0/-1) NonParsistable / Persistable
     pub data_binding_behavior: bool,     // (0/-1) false/true - vbNone
@@ -91,8 +92,8 @@ pub struct VB6ClassFile<'a> {
 ///
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct VB6ClassVersion {
-    pub major: u16,
-    pub minor: u16,
+    pub major: u8,
+    pub minor: u8,
 }
 
 /// Represents the attributes of a VB6 class file.
@@ -359,7 +360,7 @@ fn key_value_line_parse<'a>(
     }
 }
 
-fn version_parse(input: &mut &[u8]) -> PResult<VB6ClassVersion> {
+fn version_parse(input: &mut &[u8]) -> PResult<VB6FileFormatVersion> {
     keyword_parse("VERSION")
         .context(StrContext::Label("'VERSION' header element not found."))
         .parse_next(input)?;
@@ -371,7 +372,7 @@ fn version_parse(input: &mut &[u8]) -> PResult<VB6ClassVersion> {
         .parse_next(input)?;
 
     let major_version =
-        u16::from_str_radix(bstr::BStr::new(major_digits).to_string().as_str(), 10).unwrap();
+        u8::from_str_radix(bstr::BStr::new(major_digits).to_string().as_str(), 10).unwrap();
 
     b".".context(StrContext::Label("Version decimal character not found."))
         .parse_next(input)?;
@@ -381,7 +382,7 @@ fn version_parse(input: &mut &[u8]) -> PResult<VB6ClassVersion> {
         .parse_next(input)?;
 
     let minor_version =
-        u16::from_str_radix(bstr::BStr::new(minor_digits).to_string().as_str(), 10).unwrap();
+        u8::from_str_radix(bstr::BStr::new(minor_digits).to_string().as_str(), 10).unwrap();
 
     space1.context(StrContext::Label("At least one space is required between the header minor version number and the 'CLASS' header element")).parse_next(input)?;
 
@@ -395,7 +396,7 @@ fn version_parse(input: &mut &[u8]) -> PResult<VB6ClassVersion> {
         .context(StrContext::Label("Newline expected after CLASS keyword."))
         .parse_next(input)?;
 
-    Ok(VB6ClassVersion {
+    Ok(VB6FileFormatVersion {
         major: major_version,
         minor: minor_version,
     })
