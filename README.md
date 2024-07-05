@@ -4,12 +4,13 @@
 VB6Parse aims to be a complete, end-to-end parser library for VB6. Including, but not limited to:
 
 * (*.vbp) VB6 project files.
+* (*.bas) VB6 module files.
 * (*.vbw) VB6 windows files for determining editor windows when they are opened. 
 * (*.frm) VB6 Forms.
 * (*.frx) VB6 Form Resource files.
-* (*.dsx) VB Data Environment files.
-* (*.dsr) VB Data Environment Resource files.
-* (*.cls) Class files.
+* (*.dsx) VB6 Data Environment files.
+* (*.dsr) VB6 Data Environment Resource files.
+* (*.cls) VB6 Class files.
 * (*.ttx) Crystal Report files.
 * (*.ctl) User Control files.
 * (*.dob) User Document files.
@@ -76,13 +77,30 @@ First work has focused on the (vbp) project files since is the method to discove
 
 </details>
 
+<details>
+    <summary> (*.cls) VB6 Class file parser feature support: </summary>
+
+- [x] **Header**
+- [x] **VB6 Token stream lexed**
+
+</details>
+
+<details>
+    <summary> (*.bas) VB6 module file parser feature support: </summary>
+
+- [x] **Header**
+- [x] **VB6 Token stream lexed**
+
+</details>
+
+
 #### VB6Project API:
 - [x] Unit Testing (partial).
 - [x] Integration/End-to-End Testing.
 - [x] Benchmarking.
 - [ ] Top level API finalization.
-- [ ] Documentation.
-- [ ] Examples.
+- [x] Documentation.
+- [x] Examples.
 
 
 ### Test:
