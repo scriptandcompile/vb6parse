@@ -273,6 +273,8 @@ pub enum VB6Token<'a> {
     AdditionOperator(&'a BStr),
     /// Represents a division operator '/'.
     DivisionOperator(&'a BStr),
+    /// Represents a forward slash operator '\\'.
+    ForwardSlashOperator(&'a BStr),
     /// Represents a period operator '.'.
     PeriodOperator(&'a BStr),
     /// Represents a colon operator ':'.
@@ -610,6 +612,11 @@ pub fn vb6_parse<'a>(input: &mut &'a [u8]) -> PResult<Vec<VB6Token<'a>>> {
 
         if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b"*").parse_next(input) {
             tokens.push(VB6Token::MultiplicationOperator(token.as_bstr()));
+            continue;
+        }
+
+        if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b"\\").parse_next(input) {
+            tokens.push(VB6Token::ForwardSlashOperator(token.as_bstr()));
             continue;
         }
 
