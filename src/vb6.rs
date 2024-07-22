@@ -1,13 +1,15 @@
-use bstr::{BStr, ByteSlice};
+use bstr::BStr;
 
 use winnow::{
     ascii::{digit1, line_ending, Caseless},
-    combinator::{delimited, not},
+    combinator::{alt, delimited},
     error::{ContextError, ErrMode, ParserError},
     stream::Stream,
-    token::{literal, one_of, take_till, take_while},
+    token::{one_of, take_till, take_while},
     PResult, Parser,
 };
+
+use crate::vb6stream::VB6Stream;
 
 /// Parses a VB6 end-of-line comment.
 ///
@@ -27,13 +29,14 @@ use winnow::{
 ///
 /// ```rust
 /// use vb6parse::vb6::eol_comment_parse;
+/// use vb6parse::vb6stream::VB6Stream;
 ///
-/// let mut input = "' This is a comment\r\n".as_bytes();
+/// let mut input = VB6Stream::new("' This is a comment\r\n".as_bytes());
 /// let comment = eol_comment_parse(&mut input).unwrap();
 ///
-/// assert_eq!(comment, b"' This is a comment");
+/// assert_eq!(comment, "' This is a comment");
 /// ```
-pub fn eol_comment_parse<'a>(input: &mut &'a [u8]) -> PResult<&'a [u8]> {
+pub fn eol_comment_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr> {
     let comment = ('\'', take_till(0.., ('\r', '\n')))
         .recognize()
         .parse_next(input)?;
@@ -57,13 +60,14 @@ pub fn eol_comment_parse<'a>(input: &mut &'a [u8]) -> PResult<&'a [u8]> {
 ///
 /// ```rust
 /// use vb6parse::vb6::whitespace_parse;
+/// use vb6parse::vb6stream::VB6Stream;
 ///
-/// let mut input = "    t".as_bytes();
+/// let mut input = VB6Stream::new("    t".as_bytes());
 /// let whitespace = whitespace_parse(&mut input).unwrap();
 ///
-/// assert_eq!(whitespace, b"    ");
+/// assert_eq!(whitespace, "    ");
 /// ```
-pub fn whitespace_parse<'a>(input: &mut &'a [u8]) -> PResult<&'a [u8]> {
+pub fn whitespace_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr> {
     let whitespace = take_while(1.., (' ', '\t')).parse_next(input)?;
 
     Ok(whitespace)
@@ -85,13 +89,14 @@ pub fn whitespace_parse<'a>(input: &mut &'a [u8]) -> PResult<&'a [u8]> {
 ///
 /// ```rust
 /// use vb6parse::vb6::variable_name_parse;
+/// use vb6parse::vb6stream::VB6Stream;
 ///
-/// let mut input = "variable_name".as_bytes();
+/// let mut input = VB6Stream::new("variable_name".as_bytes());
 /// let variable_name = variable_name_parse(&mut input).unwrap();
 ///
-/// assert_eq!(variable_name, b"variable_name");
+/// assert_eq!(variable_name, "variable_name");
 /// ```
-pub fn variable_name_parse<'a>(input: &mut &'a [u8]) -> PResult<&'a [u8]> {
+pub fn variable_name_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr> {
     let variable_name = (
         one_of(('a'..='z', 'A'..='Z')),
         take_while(0.., ('_', 'a'..='z', 'A'..='Z', '0'..='9')),
@@ -118,55 +123,41 @@ pub fn variable_name_parse<'a>(input: &mut &'a [u8]) -> PResult<&'a [u8]> {
 ///
 /// ```rust
 /// use vb6parse::vb6::keyword_parse;
+/// use vb6parse::vb6stream::VB6Stream;
 ///
-/// use winnow::Parser;
-/// use winnow::error::{ParserError, ErrMode, ContextError};
+/// use bstr::{BStr, ByteSlice};
+/// use winnow::error::{ContextError, ErrMode};
 ///
-/// use bstr::ByteSlice;
+/// let mut input1 = VB6Stream::new("Option".as_bytes());
+/// let mut input2 = VB6Stream::new("op do".as_bytes());
 ///
 /// let mut op_parse = keyword_parse("Op");
 ///
-/// let keyword = op_parse.parse_next(&mut "Option".as_bytes());
-/// let keyword2 = op_parse.parse_next(&mut "op do".as_bytes());
-///
+/// let keyword = op_parse(&mut input1);
+/// let keyword2 = op_parse(&mut input2);
 ///
 /// assert_eq!(keyword, Err(ErrMode::Backtrack(ContextError::new())));
-/// assert_eq!(keyword2, Ok("op".as_bytes()));
+/// assert_eq!(keyword2, Ok(b"op".as_bstr()));
 /// ```
-pub fn keyword_parse<'a>(keyword: &'a str) -> impl FnMut(&mut &'a [u8]) -> PResult<&'a [u8]> {
-    move |input: &mut &'a [u8]| {
+pub fn keyword_parse<'a, 'b>(
+    keyword: &'static str,
+) -> impl FnMut(&mut VB6Stream<'a>) -> PResult<&'a BStr> {
+    move |input: &mut VB6Stream<'a>| -> PResult<&'a BStr> {
         let checkpoint = input.checkpoint();
 
-        let keyword: Result<&[u8], ErrMode<ContextError>> = Caseless(keyword).parse_next(input);
+        let keyword = Caseless(keyword).parse_next(input)?;
 
-        let continuation = not::<&[u8], u8, ContextError, _>(one_of::<&[u8], _, _>((
-            b'_',
-            b'a'..=b'z',
-            b'A'..=b'Z',
-            b'0'..=b'9',
-        )))
-        .parse_next(input);
+        if one_of::<VB6Stream, _, ContextError>(('_', 'a'..='z', 'A'..='Z', '0'..='9'))
+            .parse_next(input)
+            .is_ok()
+        {
+            input.reset(&checkpoint);
 
-        match keyword {
-            Ok(keyword) => {
-                // The 'not' indicates the keyword is not followed by a letter, number, or underscore.
-                // and the 'not' function will give a success when it doesn't match.
-                if continuation.is_ok() {
-                    return Ok(keyword);
-                }
-
-                input.reset(&checkpoint);
-
-                let context_error = ContextError::new();
-                Err(ErrMode::Backtrack(context_error))
-            }
-            _ => {
-                input.reset(&checkpoint);
-
-                let context_error = ContextError::new();
-                Err(ErrMode::Backtrack(context_error))
-            }
+            let context_error = ParserError::assert(input, "{keyword} followed by one of _, a-z, A-Z, or 0-9, this indicates {keyword} was likely found as part of another variable name. ie, 'Dim' found within 'Dimming'");
+            return Err(ErrMode::Backtrack(context_error));
         }
+
+        Ok(keyword)
     }
 }
 
@@ -279,6 +270,8 @@ pub enum VB6Token<'a> {
     PeriodOperator(&'a BStr),
     /// Represents a colon operator ':'.
     ColonOperator(&'a BStr),
+    /// Represents an exponentiation operator '^'.
+    ExponentiationOperator(&'a BStr),
 
     /// Represents a variable name.
     /// This is a name that starts with a letter and can contain letters, numbers, and underscores.
@@ -304,349 +297,123 @@ pub enum VB6Token<'a> {
 ///
 /// ```rust
 /// use vb6parse::vb6::{vb6_parse, VB6Token};
-/// use bstr::ByteSlice;
+/// use vb6parse::vb6stream::VB6Stream;
 ///
-/// let mut input = "Dim x As Integer".as_bytes();
+/// use bstr::{BStr, ByteSlice};
+///
+/// let mut input = VB6Stream::new("Dim x As Integer".as_bytes());
 /// let tokens = vb6_parse(&mut input).unwrap();
 ///
 /// assert_eq!(tokens.len(), 7);
-/// assert_eq!(tokens[0], VB6Token::DimKeyword(b"Dim".as_bstr()));
-/// assert_eq!(tokens[1], VB6Token::Whitespace(b" ".as_bstr()));
-/// assert_eq!(tokens[2], VB6Token::VariableName(b"x".as_bstr()));
-/// assert_eq!(tokens[3], VB6Token::Whitespace(b" ".as_bstr()));
-/// assert_eq!(tokens[4], VB6Token::AsKeyword(b"As".as_bstr()));
-/// assert_eq!(tokens[5], VB6Token::Whitespace(b" ".as_bstr()));
-/// assert_eq!(tokens[6], VB6Token::IntegerKeyword(b"Integer".as_bstr()));
+/// assert_eq!(tokens[0], VB6Token::DimKeyword("Dim".into()));
+/// assert_eq!(tokens[1], VB6Token::Whitespace(" ".into()));
+/// assert_eq!(tokens[2], VB6Token::VariableName("x".into()));
+/// assert_eq!(tokens[3], VB6Token::Whitespace(" ".into()));
+/// assert_eq!(tokens[4], VB6Token::AsKeyword("As".into()));
+/// assert_eq!(tokens[5], VB6Token::Whitespace(" ".into()));
+/// assert_eq!(tokens[6], VB6Token::IntegerKeyword("Integer".into()));
 /// ```
-pub fn vb6_parse<'a>(input: &mut &'a [u8]) -> PResult<Vec<VB6Token<'a>>> {
+pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<Vec<VB6Token<'a>>> {
     let mut tokens = Vec::new();
 
     while !input.is_empty() {
-        if let Ok(token) = line_ending::<&'a [u8], ContextError>.parse_next(input) {
-            tokens.push(VB6Token::Newline(token.as_bstr()));
+        if let Ok(token) = line_ending::<VB6Stream<'a>, ContextError>.parse_next(input) {
+            tokens.push(VB6Token::Newline(token));
             continue;
         }
 
         if let Ok(token) = eol_comment_parse.parse_next(input) {
-            tokens.push(VB6Token::Comment(token.as_bstr()));
+            tokens.push(VB6Token::Comment(token));
             continue;
         }
 
-        if let Ok(token) = delimited::<
-            &'a [u8],
-            &'a [u8],
-            &'a [u8],
-            &'a [u8],
-            ContextError,
-            &[u8; 1],
-            _,
-            &[u8; 1],
-        >(b"\"", take_till(0.., b"\""), b"\"")
+        if let Ok(token) = delimited::<VB6Stream<'a>, _, &BStr, _, ContextError, _, _, _>(
+            '\"',
+            take_till(0.., '\"'),
+            '\"',
+        )
         .recognize()
         .parse_next(input)
         {
-            tokens.push(VB6Token::StringLiteral(token.as_bstr()));
+            tokens.push(VB6Token::StringLiteral(token));
             continue;
         }
 
-        if let Ok(token) = keyword_parse("Type").parse_next(input) {
-            tokens.push(VB6Token::TypeKeyword(token.as_bstr()));
-            continue;
-        }
+        // 'alt' only allows for a limited number of parsers to be passed in.
+        // so we need to chain the 'alt' parsers together.
+        let token = alt((
+            alt((
+                "Type".map(|token: &BStr| VB6Token::TypeKeyword(token)),
+                "Optional".map(|token: &BStr| VB6Token::OptionalKeyword(token)),
+                "Option".map(|token: &BStr| VB6Token::OptionKeyword(token)),
+                "Explicit".map(|token: &BStr| VB6Token::ExplicitKeyword(token)),
+                "Private".map(|token: &BStr| VB6Token::PrivateKeyword(token)),
+                "Public".map(|token: &BStr| VB6Token::PublicKeyword(token)),
+                "Dim".map(|token: &BStr| VB6Token::DimKeyword(token)),
+                "With".map(|token: &BStr| VB6Token::WithKeyword(token)),
+                "Declare".map(|token: &BStr| VB6Token::DeclareKeyword(token)),
+                "Lib".map(|token: &BStr| VB6Token::LibKeyword(token)),
+                "Const".map(|token: &BStr| VB6Token::ConstKeyword(token)),
+                "As".map(|token: &BStr| VB6Token::AsKeyword(token)),
+                "Enum".map(|token: &BStr| VB6Token::EnumKeyword(token)),
+                "Long".map(|token: &BStr| VB6Token::LongKeyword(token)),
+                "Integer".map(|token: &BStr| VB6Token::IntegerKeyword(token)),
+                "Boolean".map(|token: &BStr| VB6Token::BooleanKeyword(token)),
+                "Byte".map(|token: &BStr| VB6Token::ByteKeyword(token)),
+                "Single".map(|token: &BStr| VB6Token::SingleKeyword(token)),
+                "String".map(|token: &BStr| VB6Token::StringKeyword(token)),
+            )),
+            alt((
+                "True".map(|token: &BStr| VB6Token::TrueKeyword(token)),
+                "False".map(|token: &BStr| VB6Token::FalseKeyword(token)),
+                "Function".map(|token: &BStr| VB6Token::FunctionKeyword(token)),
+                "Sub".map(|token: &BStr| VB6Token::SubKeyword(token)),
+                "End".map(|token: &BStr| VB6Token::EndKeyword(token)),
+                "If".map(|token: &BStr| VB6Token::IfKeyword(token)),
+                "Else".map(|token: &BStr| VB6Token::ElseKeyword(token)),
+                "And".map(|token: &BStr| VB6Token::AndKeyword(token)),
+                "Or".map(|token: &BStr| VB6Token::OrKeyword(token)),
+                "Not".map(|token: &BStr| VB6Token::NotKeyword(token)),
+                "Then".map(|token: &BStr| VB6Token::ThenKeyword(token)),
+                "For".map(|token: &BStr| VB6Token::ForKeyword(token)),
+                "To".map(|token: &BStr| VB6Token::ToKeyword(token)),
+                "Step".map(|token: &BStr| VB6Token::StepKeyword(token)),
+                "Next".map(|token: &BStr| VB6Token::NextKeyword(token)),
+                "ReDim".map(|token: &BStr| VB6Token::ReDimKeyword(token)),
+                "ByVal".map(|token: &BStr| VB6Token::ByValKeyword(token)),
+                "ByRef".map(|token: &BStr| VB6Token::ByRefKeyword(token)),
+                "Goto".map(|token: &BStr| VB6Token::GotoKeyword(token)),
+                "Exit".map(|token: &BStr| VB6Token::ExitKeyword(token)),
+                "=".map(|token: &BStr| VB6Token::EqualityOperator(token)),
+            )),
+            alt((
+                "$".map(|token: &BStr| VB6Token::DollarSign(token)),
+                "_".map(|token: &BStr| VB6Token::Underscore(token)),
+                "&".map(|token: &BStr| VB6Token::Ampersand(token)),
+                "%".map(|token: &BStr| VB6Token::Percent(token)),
+                "#".map(|token: &BStr| VB6Token::Octothorpe(token)),
+                "<".map(|token: &BStr| VB6Token::LessThanOperator(token)),
+                ">".map(|token: &BStr| VB6Token::GreaterThanOperator(token)),
+                "(".map(|token: &BStr| VB6Token::LeftParanthesis(token)),
+                ")".map(|token: &BStr| VB6Token::RightParanthesis(token)),
+                ",".map(|token: &BStr| VB6Token::Comma(token)),
+                "+".map(|token: &BStr| VB6Token::AdditionOperator(token)),
+                "-".map(|token: &BStr| VB6Token::SubtractionOperator(token)),
+                "*".map(|token: &BStr| VB6Token::MultiplicationOperator(token)),
+                "\\".map(|token: &BStr| VB6Token::ForwardSlashOperator(token)),
+                "/".map(|token: &BStr| VB6Token::DivisionOperator(token)),
+                ".".map(|token: &BStr| VB6Token::PeriodOperator(token)),
+                ":".map(|token: &BStr| VB6Token::ColonOperator(token)),
+                "^".map(|token: &BStr| VB6Token::ExponentiationOperator(token)),
+                digit1.map(|token: &BStr| VB6Token::Number(token)),
+                variable_name_parse.map(|token: &BStr| VB6Token::VariableName(token)),
+                whitespace_parse.map(|token: &BStr| VB6Token::Whitespace(token)),
+            )),
+        ))
+        .parse_next(input);
 
-        if let Ok(token) = keyword_parse("Optional").parse_next(input) {
-            tokens.push(VB6Token::OptionalKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("Option").parse_next(input) {
-            tokens.push(VB6Token::OptionKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("Explicit").parse_next(input) {
-            tokens.push(VB6Token::ExplicitKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("Private").parse_next(input) {
-            tokens.push(VB6Token::PrivateKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("Public").parse_next(input) {
-            tokens.push(VB6Token::PublicKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("Dim").parse_next(input) {
-            tokens.push(VB6Token::DimKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("With").parse_next(input) {
-            tokens.push(VB6Token::WithKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("Declare").parse_next(input) {
-            tokens.push(VB6Token::DeclareKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("Lib").parse_next(input) {
-            tokens.push(VB6Token::LibKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("Const").parse_next(input) {
-            tokens.push(VB6Token::ConstKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("As").parse_next(input) {
-            tokens.push(VB6Token::AsKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("Enum").parse_next(input) {
-            tokens.push(VB6Token::EnumKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("Long").parse_next(input) {
-            tokens.push(VB6Token::LongKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("Integer").parse_next(input) {
-            tokens.push(VB6Token::IntegerKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("Boolean").parse_next(input) {
-            tokens.push(VB6Token::BooleanKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("Byte").parse_next(input) {
-            tokens.push(VB6Token::ByteKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("Single").parse_next(input) {
-            tokens.push(VB6Token::SingleKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("String").parse_next(input) {
-            tokens.push(VB6Token::StringKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("True").parse_next(input) {
-            tokens.push(VB6Token::TrueKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("False").parse_next(input) {
-            tokens.push(VB6Token::FalseKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("Function").parse_next(input) {
-            tokens.push(VB6Token::FunctionKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("Sub").parse_next(input) {
-            tokens.push(VB6Token::SubKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("End").parse_next(input) {
-            tokens.push(VB6Token::EndKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("If").parse_next(input) {
-            tokens.push(VB6Token::IfKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("Else").parse_next(input) {
-            tokens.push(VB6Token::ElseKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("And").parse_next(input) {
-            tokens.push(VB6Token::AndKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("Or").parse_next(input) {
-            tokens.push(VB6Token::OrKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("Not").parse_next(input) {
-            tokens.push(VB6Token::NotKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("Then").parse_next(input) {
-            tokens.push(VB6Token::ThenKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("For").parse_next(input) {
-            tokens.push(VB6Token::ForKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("To").parse_next(input) {
-            tokens.push(VB6Token::ToKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("Step").parse_next(input) {
-            tokens.push(VB6Token::StepKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("Next").parse_next(input) {
-            tokens.push(VB6Token::NextKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("ReDim").parse_next(input) {
-            tokens.push(VB6Token::ReDimKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("ByVal").parse_next(input) {
-            tokens.push(VB6Token::ByValKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("ByRef").parse_next(input) {
-            tokens.push(VB6Token::ByRefKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("Goto").parse_next(input) {
-            tokens.push(VB6Token::GotoKeyword(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = keyword_parse("Exit").parse_next(input) {
-            tokens.push(VB6Token::ExitKeyword(token.as_bstr()));
-            continue;
-        }
-
-        // Technically, this could be an equality operator or a assignment operator.
-        if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b"=").parse_next(input) {
-            tokens.push(VB6Token::EqualityOperator(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b"$").parse_next(input) {
-            tokens.push(VB6Token::DollarSign(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b"_").parse_next(input) {
-            tokens.push(VB6Token::Underscore(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b"&").parse_next(input) {
-            tokens.push(VB6Token::Ampersand(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b"%").parse_next(input) {
-            tokens.push(VB6Token::Percent(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b"#").parse_next(input) {
-            tokens.push(VB6Token::Octothorpe(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b"<").parse_next(input) {
-            tokens.push(VB6Token::LessThanOperator(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b">").parse_next(input) {
-            tokens.push(VB6Token::GreaterThanOperator(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b"(").parse_next(input) {
-            tokens.push(VB6Token::LeftParanthesis(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b")").parse_next(input) {
-            tokens.push(VB6Token::RightParanthesis(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b",").parse_next(input) {
-            tokens.push(VB6Token::Comma(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b"+").parse_next(input) {
-            tokens.push(VB6Token::AdditionOperator(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b"-").parse_next(input) {
-            tokens.push(VB6Token::SubtractionOperator(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b"*").parse_next(input) {
-            tokens.push(VB6Token::MultiplicationOperator(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b"\\").parse_next(input) {
-            tokens.push(VB6Token::ForwardSlashOperator(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b"/").parse_next(input) {
-            tokens.push(VB6Token::DivisionOperator(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b".").parse_next(input) {
-            tokens.push(VB6Token::PeriodOperator(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = literal::<&[u8], &'a [u8], ContextError>(b":").parse_next(input) {
-            tokens.push(VB6Token::ColonOperator(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = digit1::<&'a [u8], ContextError>.parse_next(input) {
-            tokens.push(VB6Token::Number(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = variable_name_parse.parse_next(input) {
-            tokens.push(VB6Token::VariableName(token.as_bstr()));
-            continue;
-        }
-
-        if let Ok(token) = whitespace_parse.parse_next(input) {
-            tokens.push(VB6Token::Whitespace(token.as_bstr()));
+        if let Ok(token) = token {
+            tokens.push(token);
             continue;
         }
 

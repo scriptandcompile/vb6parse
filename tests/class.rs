@@ -7,7 +7,7 @@ use vb6parse::{
 fn artificial_life_organism_class_load() {
     let organism_class_bytes = include_bytes!("./data/vb6-code/Artificial-life/Organism.cls");
 
-    let organism_class_result = VB6ClassFile::parse(organism_class_bytes);
+    let organism_class_result = VB6ClassFile::parse(&mut organism_class_bytes.as_slice());
 
     if organism_class_result.is_err() {
         for r in organism_class_result
