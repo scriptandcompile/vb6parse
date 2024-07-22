@@ -3,9 +3,9 @@ use vb6parse::project::{CompileTargetType, VB6Project};
 
 #[test]
 fn ppdm_project_load() {
-    let project_file_bytes = include_bytes!("./data/ppdm/ppdm.vbp");
+    let mut project_file_bytes = include_bytes!("./data/ppdm/ppdm.vbp").as_slice();
 
-    let project = VB6Project::parse(project_file_bytes).unwrap();
+    let project = VB6Project::parse(&mut project_file_bytes).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 15);

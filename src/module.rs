@@ -1,6 +1,9 @@
 #![warn(clippy::pedantic)]
 
-use crate::vb6::{vb6_parse, VB6Token};
+use crate::{
+    vb6::{vb6_parse, VB6Token},
+    vb6stream::VB6Stream,
+};
 
 use winnow::{
     ascii::{line_ending, space0, space1, Caseless},
@@ -51,7 +54,7 @@ impl<'a> VB6ModuleFile<'a> {
     /// assert!(result.is_ok());
     /// ```
     pub fn parse(input: &'a [u8]) -> Result<Self, ErrMode<ContextError>> {
-        let mut input = input;
+        let mut input = VB6Stream::new(input);
 
         (
             space0,

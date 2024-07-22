@@ -1,6 +1,14 @@
 #![warn(clippy::pedantic)]
 
+use bstr::BStr;
+
+use miette::{Diagnostic, SourceOffset, SourceSpan};
+use thiserror::Error;
+use winnow::stream::{Offset, Stream};
+
+use crate::errors::VB6ClassParseError;
 use crate::vb6::{eol_comment_parse, keyword_parse, vb6_parse, VB6Token};
+use crate::vb6stream::VB6Stream;
 use crate::VB6FileFormatVersion;
 
 use winnow::{
@@ -10,6 +18,18 @@ use winnow::{
     token::{literal, take_while},
     PResult, Parser,
 };
+
+#[derive(Debug, Diagnostic, Error)]
+pub enum ClassParseError {
+    #[error("oops, boom!")]
+    #[diagnostic(code(vb6parse::class::VB6ClassFile::parse))]
+    Boom {
+        #[label("here")]
+        at: SourceSpan,
+        #[source_code]
+        src: String,
+    },
+}
 
 /// Represents the usage of a file.
 /// -1 is 'true' and 0 is 'false' in VB6.
@@ -145,16 +165,21 @@ impl<'a> VB6ClassFile<'a> {
     /// Attribute VB_Exposed = False
     /// ";
     ///
-    /// let result = VB6ClassFile::parse(input);
+    /// let result = VB6ClassFile::parse(&mut input.as_slice());
     ///
     /// assert!(result.is_ok());
     /// ```
-    pub fn parse(input: &'a [u8]) -> Result<Self, ErrMode<ContextError>> {
-        let mut input = input;
+    pub fn parse(input: &mut &'a [u8]) -> Result<Self, ClassParseError> {
+        let input = &mut VB6Stream::new(input);
 
-        let header = class_header_parse(&mut input)?;
+        let header = class_header_parse(input) else {
+            return Err(ClassParseError::Boom {
+                src: input.stream.to_string(),
+                at:,
+            });
+        }
 
-        let tokens = vb6_parse(&mut input)?;
+        let tokens = vb6_parse(input)?;
 
         Ok(VB6ClassFile { header, tokens })
     }
@@ -174,7 +199,7 @@ impl<'a> VB6ClassFile<'a> {
 ///
 /// An error will be returned if the input is not a valid VB6 class file header.
 ///
-fn class_header_parse<'a>(input: &mut &'a [u8]) -> PResult<VB6ClassHeader<'a>> {
+fn class_header_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6ClassHeader<'a>> {
     // VERSION #.# CLASS
     // BEGIN
     //  key = value  'comment
@@ -183,11 +208,11 @@ fn class_header_parse<'a>(input: &mut &'a [u8]) -> PResult<VB6ClassHeader<'a>> {
 
     let version = version_parse.parse_next(input)?;
 
-    space0(input)?;
+    space0.parse_next(input)?;
 
     keyword_parse("BEGIN").parse_next(input)?;
 
-    space0(input)?;
+    space0.parse_next(input)?;
 
     line_ending
         .context(StrContext::Label("Newline expected after BEGIN keyword."))
@@ -199,40 +224,40 @@ fn class_header_parse<'a>(input: &mut &'a [u8]) -> PResult<VB6ClassHeader<'a>> {
     let mut data_source_behavior = false;
     let mut mts_transaction_mode = MtsStatus::NotAnMTSObject;
 
-    let (collection, _): (Vec<(&[u8], &[u8])>, &[u8]) =
-        repeat_till(0.., key_value_line_parse(b"="), keyword_parse("END")).parse_next(input)?;
+    let (collection, _): (Vec<(&BStr, &BStr)>, &BStr) =
+        repeat_till(0.., key_value_line_parse("="), keyword_parse("END")).parse_next(input)?;
 
-    for pair in &collection {
-        let (key, value) = *pair;
+    for pair in collection.iter() {
+        let (key, value) = pair;
 
-        match key {
-            b"Persistable" => {
+        match key.to_ascii_lowercase().as_slice() {
+            b"persistable" => {
                 // -1 is 'true' and 0 is 'false' in VB6
-                if value == b"-1" {
+                if value.to_ascii_lowercase().as_slice() == b"-1" {
                     persistable = Persistance::Persistable;
                 } else {
                     persistable = Persistance::NonPersistable;
                 }
             }
-            b"MultiUse" => {
+            b"multiuse" => {
                 // -1 is 'true' and 0 is 'false' in VB6
-                if value == b"-1" {
+                if value.to_ascii_lowercase().as_slice() == b"-1" {
                     multi_use = FileUsage::MultiUse;
                 } else {
                     multi_use = FileUsage::SingleUse;
                 }
             }
-            b"DataBindingBehavior" => {
+            b"databindingbehavior" => {
                 // -1 is 'true' and 0 is 'false' in VB6
-                data_binding_behavior = value == b"-1";
+                data_binding_behavior = value.to_ascii_lowercase().as_slice() == b"-1";
             }
-            b"DataSourceBehavior" => {
+            b"datasourcebehavior" => {
                 // -1 is 'true' and 0 is 'false' in VB6
-                data_source_behavior = value == b"-1";
+                data_source_behavior = value.to_ascii_lowercase().as_slice() == b"-1";
             }
-            b"MTSTransactionMode" => {
+            b"mtstransactionmode" => {
                 // -1 is 'true' and 0 is 'false' in VB6
-                if value == b"-1" {
+                if value.to_ascii_lowercase().as_slice() == b"-1" {
                     mts_transaction_mode = MtsStatus::MTSObject;
                 } else {
                     mts_transaction_mode = MtsStatus::NotAnMTSObject;
@@ -261,8 +286,8 @@ fn class_header_parse<'a>(input: &mut &'a [u8]) -> PResult<VB6ClassHeader<'a>> {
     })
 }
 
-fn attributes_parse<'a>(input: &mut &'a [u8]) -> PResult<VB6FileAttributes<'a>> {
-    let _ = space0::<&[u8], ContextError>(input);
+fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6FileAttributes<'a>> {
+    let _ = space0::<VB6Stream, ContextError>.parse_next(input);
 
     let mut name = Option::None;
     let mut global_name_space = false;
@@ -271,7 +296,7 @@ fn attributes_parse<'a>(input: &mut &'a [u8]) -> PResult<VB6FileAttributes<'a>> 
     let mut exposed = false;
 
     while let Ok((_, (key, value))) =
-        (keyword_parse("Attribute"), key_value_parse(b"=")).parse_next(input)
+        (keyword_parse("Attribute"), key_value_parse("=")).parse_next(input)
     {
         line_ending
             .context(StrContext::Label(
@@ -279,21 +304,21 @@ fn attributes_parse<'a>(input: &mut &'a [u8]) -> PResult<VB6FileAttributes<'a>> 
             ))
             .parse_next(input)?;
 
-        match key {
-            b"VB_Name" => {
+        match key.to_ascii_lowercase().as_slice() {
+            b"vb_name" => {
                 name = Some(value);
             }
-            b"VB_GlobalNameSpace" => {
-                global_name_space = value == b"True";
+            b"vb_globalnamespace" => {
+                global_name_space = value.to_ascii_lowercase().as_slice() == b"True";
             }
-            b"VB_Creatable" => {
-                creatable = value == b"True";
+            b"vb_creatable" => {
+                creatable = value.to_ascii_lowercase().as_slice() == b"True";
             }
-            b"VB_PredeclaredId" => {
-                pre_declared_id = value == b"True";
+            b"vb_predeclaredid" => {
+                pre_declared_id = value.to_ascii_lowercase().as_slice() == b"True";
             }
-            b"VB_Exposed" => {
-                exposed = value == b"True";
+            b"vb_exposed" => {
+                exposed = value.to_ascii_lowercase().as_slice() == b"True";
             }
             _ => {
                 panic!("Unknown key found in class attributes.");
@@ -317,19 +342,19 @@ fn attributes_parse<'a>(input: &mut &'a [u8]) -> PResult<VB6FileAttributes<'a>> 
 }
 
 fn key_value_parse<'a>(
-    divider: &'a [u8],
-) -> impl Parser<&'a [u8], (&'a [u8], &'a [u8]), ContextError> {
-    move |input: &mut &'a [u8]| {
-        let _ = space0::<&[u8], ContextError>.parse_next(input);
+    divider: &'static str,
+) -> impl FnMut(&mut VB6Stream<'a>) -> PResult<(&'a BStr, &'a BStr)> {
+    move |input: &mut VB6Stream<'a>| -> Result<(&'a BStr, &'a BStr), ErrMode<ContextError>> {
+        let _ = space0::<VB6Stream<'a>, ContextError>.parse_next(input);
 
         let key = take_while(1.., ('_', '"', '-', '+', 'a'..='z', 'A'..='Z', '0'..='9'))
             .parse_next(input)?;
 
-        let _ = space0::<&[u8], ContextError>.parse_next(input);
+        let _ = space0::<VB6Stream<'a>, ContextError>.parse_next(input);
 
         literal(divider).parse_next(input)?;
 
-        let _ = space0::<&[u8], ContextError>.parse_next(input);
+        let _ = space0::<VB6Stream<'a>, ContextError>.parse_next(input);
 
         opt("\"").parse_next(input)?;
 
@@ -338,17 +363,17 @@ fn key_value_parse<'a>(
 
         opt("\"").parse_next(input)?;
 
-        let _ = space0::<&[u8], ContextError>.parse_next(input);
+        let _ = space0::<VB6Stream<'a>, ContextError>.parse_next(input);
 
         Ok((key, value))
     }
 }
 
 fn key_value_line_parse<'a>(
-    divider: &'a [u8],
-) -> impl Parser<&'a [u8], (&'a [u8], &'a [u8]), ContextError> {
-    move |input: &mut &'a [u8]| {
-        let (key, value) = key_value_parse(&divider).parse_next(input)?;
+    divider: &'static str,
+) -> impl FnMut(&mut VB6Stream<'a>) -> PResult<(&'a BStr, &'a BStr)> {
+    move |input: &mut VB6Stream<'a>| -> PResult<(&'a BStr, &'a BStr)> {
+        let (key, value) = key_value_parse(divider).parse_next(input)?;
 
         eol_comment_parse.parse_next(input)?;
 
@@ -360,7 +385,7 @@ fn key_value_line_parse<'a>(
     }
 }
 
-fn version_parse(input: &mut &[u8]) -> PResult<VB6FileFormatVersion> {
+fn version_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6FileFormatVersion> {
     keyword_parse("VERSION")
         .context(StrContext::Label("'VERSION' header element not found."))
         .parse_next(input)?;
@@ -374,7 +399,7 @@ fn version_parse(input: &mut &[u8]) -> PResult<VB6FileFormatVersion> {
     let major_version =
         u8::from_str_radix(bstr::BStr::new(major_digits).to_string().as_str(), 10).unwrap();
 
-    b".".context(StrContext::Label("Version decimal character not found."))
+    ".".context(StrContext::Label("Version decimal character not found."))
         .parse_next(input)?;
 
     let minor_digits = digit1
@@ -400,4 +425,198 @@ fn version_parse(input: &mut &[u8]) -> PResult<VB6FileFormatVersion> {
         major: major_version,
         minor: minor_version,
     })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[cfg(test)]
+    mod tests {
+        use super::*;
+
+        #[test]
+        fn test_parse_valid_class_file() {
+            let input = b"VERSION 1.0 CLASS\r
+    BEGIN\r
+      MultiUse = -1  'True\r
+      Persistable = 0  'NotPersistable\r
+      DataBindingBehavior = 0  'vbNone\r
+      DataSourceBehavior = 0  'vbNone\r
+      MTSTransactionMode = 0  'NotAnMTSObject\r
+    END\r
+    Attribute VB_Name = \"Something\"\r
+    Attribute VB_GlobalNameSpace = False\r
+    Attribute VB_Creatable = True\r
+    Attribute VB_PredeclaredId = False\r
+    Attribute VB_Exposed = False\r
+    ";
+
+            let result = VB6ClassFile::parse(&mut input.as_slice());
+
+            assert!(result.is_ok());
+        }
+
+        #[test]
+        fn test_parse_invalid_class_file() {
+            let input = b"VERSION 1.0 CLASS
+    BEGIN
+      MultiUse = -1  'True
+      Persistable = 0  'NotPersistable
+      DataBindingBehavior = 0  'vbNone
+      DataSourceBehavior = 0  'vbNone
+      MTSTransactionMode = 0  'NotAnMTSObject
+    END
+    Attribute VB_Name = \"Something\"
+    Attribute VB_GlobalNameSpace = False
+    Attribute VB_Creatable = True
+    Attribute VB_PredeclaredId = False
+    Attribute VB_Exposed = False
+    ";
+
+            let result = VB6ClassFile::parse(&mut input.as_slice());
+
+            assert!(result.is_err());
+        }
+
+        #[test]
+        fn test_parse_valid_class_header() {
+            let input = b"MultiUse = -1  'True
+    Persistable = 0  'NotPersistable
+    DataBindingBehavior = 0  'vbNone
+    DataSourceBehavior = 0  'vbNone
+    MTSTransactionMode = 0  'NotAnMTSObject
+    ";
+
+            let mut stream = VB6Stream::new(&mut input.as_slice());
+            let result = class_header_parse(&mut stream);
+
+            assert!(result.is_ok());
+        }
+
+        #[test]
+        fn test_parse_invalid_class_header() {
+            let input = b"MultiUse = -1  'True
+    Persistable = 0  'NotPersistable
+    DataBindingBehavior = 0  'vbNone
+    DataSourceBehavior = 0  'vbNone
+    MTSTransactionMode = 0  'NotAnMTSObject
+    ";
+
+            let mut stream = VB6Stream::new(&mut input.as_slice());
+            let result = class_header_parse(&mut stream);
+
+            assert!(result.is_err());
+        }
+
+        #[test]
+        fn test_parse_valid_attributes() {
+            let input = b"Attribute VB_Name = \"Something\"
+    Attribute VB_GlobalNameSpace = False
+    Attribute VB_Creatable = True
+    Attribute VB_PredeclaredId = False
+    Attribute VB_Exposed = False
+    ";
+
+            let mut stream = VB6Stream::new(&mut input.as_slice());
+            let result = attributes_parse(&mut stream);
+
+            assert!(result.is_ok());
+        }
+
+        #[test]
+        fn test_parse_invalid_attributes() {
+            let input = b"Attribute VB_Name = \"Something\"
+    Attribute VB_GlobalNameSpace = False
+    Attribute VB_Creatable = True
+    Attribute VB_PredeclaredId = False
+    Attribute VB_Exposed = False
+    ";
+
+            let mut stream = VB6Stream::new(&mut input.as_slice());
+            let result = attributes_parse(&mut stream);
+
+            assert!(result.is_err());
+        }
+
+        #[test]
+        fn test_parse_valid_version() {
+            let input = b"VERSION 1.0 CLASS";
+
+            let mut stream = VB6Stream::new(&mut input.as_slice());
+            let result = version_parse(&mut stream);
+
+            assert!(result.is_ok());
+        }
+
+        #[test]
+        fn test_parse_invalid_version() {
+            let input = b"VERSION 1.0 CLASS";
+
+            let mut stream = VB6Stream::new(&mut input.as_slice());
+            let result = version_parse(&mut stream);
+
+            assert!(result.is_err());
+        }
+
+        #[test]
+        fn test_key_value_parse_valid() {
+            let input = b"key = value";
+
+            let mut stream = VB6Stream::new(&mut input.as_slice());
+            let result = key_value_parse("=")(&mut stream);
+
+            assert!(result.is_ok());
+        }
+
+        #[test]
+        fn test_key_value_parse_invalid() {
+            let input = b"key = value";
+
+            let mut stream = VB6Stream::new(&mut input.as_slice());
+            let result = key_value_parse(":")(&mut stream);
+
+            assert!(result.is_err());
+        }
+
+        #[test]
+        fn test_key_value_line_parse_valid() {
+            let input = b"key = value  'comment\n";
+
+            let mut stream = VB6Stream::new(&mut input.as_slice());
+            let result = key_value_line_parse("=")(&mut stream);
+
+            assert!(result.is_ok());
+        }
+
+        #[test]
+        fn test_key_value_line_parse_invalid() {
+            let input = b"key = value  'comment\n";
+
+            let mut stream = VB6Stream::new(&mut input.as_slice());
+            let result = key_value_line_parse(":")(&mut stream);
+
+            assert!(result.is_err());
+        }
+
+        #[test]
+        fn test_version_parse_valid() {
+            let input = b"VERSION 1.0 CLASS";
+
+            let mut stream = VB6Stream::new(&mut input.as_slice());
+            let result = version_parse(&mut stream);
+
+            assert!(result.is_ok());
+        }
+
+        #[test]
+        fn test_version_parse_invalid() {
+            let input = b"VERSION 1.0 CLASS";
+
+            let mut stream = VB6Stream::new(&mut input.as_slice());
+            let result = version_parse(&mut stream);
+
+            assert!(result.is_err());
+        }
+    }
 }
