@@ -10,16 +10,7 @@ fn artificial_life_organism_class_load() {
     let organism_class_result = VB6ClassFile::parse(&mut organism_class_bytes.as_slice());
 
     if organism_class_result.is_err() {
-        for r in organism_class_result
-            .err()
-            .unwrap()
-            .into_inner()
-            .unwrap()
-            .context()
-        {
-            let s = r.to_string();
-            println!("{s:20}");
-        }
+        println!("{:?}", organism_class_result.err());
 
         return;
     };
