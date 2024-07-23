@@ -2,11 +2,9 @@
 
 use bstr::BStr;
 
-use miette::{Diagnostic, SourceOffset, SourceSpan};
+use miette::{Diagnostic, NamedSource, Result, SourceOffset, SourceSpan};
 use thiserror::Error;
-use winnow::stream::{Offset, Stream};
 
-use crate::errors::VB6ClassParseError;
 use crate::vb6::{eol_comment_parse, keyword_parse, vb6_parse, VB6Token};
 use crate::vb6stream::VB6Stream;
 use crate::VB6FileFormatVersion;
@@ -19,15 +17,44 @@ use winnow::{
     PResult, Parser,
 };
 
-#[derive(Debug, Diagnostic, Error)]
+#[derive(Debug, Error, Diagnostic)]
+#[error("A parsing error occured")]
+pub struct ErrorInfo {
+    #[source_code]
+    pub src: NamedSource<String>,
+    #[label("oh no")]
+    pub location: SourceSpan,
+}
+
+impl ErrorInfo {
+    pub fn new(
+        source: impl Into<String>,
+        file_name: impl Into<String>,
+        line: usize,
+        column: usize,
+        len: usize,
+    ) -> Self {
+        let code = source.into().clone();
+        Self {
+            src: NamedSource::new(file_name.into(), code.clone()),
+            location: SourceSpan::new(SourceOffset::from_location(&code, line, column), len),
+        }
+    }
+}
+
+#[derive(Error, Debug, Diagnostic)]
 pub enum ClassParseError {
-    #[error("oops, boom!")]
-    #[diagnostic(code(vb6parse::class::VB6ClassFile::parse))]
-    Boom {
-        #[label("here")]
-        at: SourceSpan,
-        #[source_code]
-        src: String,
+    #[error("Error parsing header")]
+    #[diagnostic(transparent)]
+    Header {
+        #[label = "A parsing error occured"]
+        info: ErrorInfo,
+    },
+    #[error("Error parsing the VB6 file contents")]
+    #[diagnostic(transparent)]
+    FileContent {
+        #[label = "A parsing error occured"]
+        info: ErrorInfo,
     },
 }
 
@@ -172,14 +199,15 @@ impl<'a> VB6ClassFile<'a> {
     pub fn parse(input: &mut &'a [u8]) -> Result<Self, ClassParseError> {
         let input = &mut VB6Stream::new(input);
 
-        let header = class_header_parse(input) else {
-            return Err(ClassParseError::Boom {
-                src: input.stream.to_string(),
-                at:,
-            });
-        }
+        let Ok(header) = class_header_parse(input) else {
+            let err_info = ErrorInfo::new(input.stream.to_string(), "", 0, 0, 20);
+            return Err(ClassParseError::Header { info: err_info });
+        };
 
-        let tokens = vb6_parse(input)?;
+        let Ok(tokens) = vb6_parse(input) else {
+            let err_info = ErrorInfo::new(input.stream.to_string(), "", 0, 0, 20);
+            return Err(ClassParseError::FileContent { info: err_info });
+        };
 
         Ok(VB6ClassFile { header, tokens })
     }
