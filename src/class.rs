@@ -459,13 +459,9 @@ fn version_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6FileFormatVersion>
 mod tests {
     use super::*;
 
-    #[cfg(test)]
-    mod tests {
-        use super::*;
-
-        #[test]
-        fn test_parse_valid_class_file() {
-            let input = b"VERSION 1.0 CLASS\r
+    #[test]
+    fn parse_valid_class_file() {
+        let input = b"VERSION 1.0 CLASS\r
     BEGIN\r
       MultiUse = -1  'True\r
       Persistable = 0  'NotPersistable\r
@@ -480,14 +476,14 @@ mod tests {
     Attribute VB_Exposed = False\r
     ";
 
-            let result = VB6ClassFile::parse(&mut input.as_slice());
+        let result = VB6ClassFile::parse(&mut input.as_slice());
 
-            assert!(result.is_ok());
-        }
+        assert!(result.is_ok());
+    }
 
-        #[test]
-        fn test_parse_invalid_class_file() {
-            let input = b"VERSION 1.0 CLASS
+    #[test]
+    fn parse_invalid_class_file() {
+        let input = b"VERSION 1.0 CLASS
     BEGIN
       MultiUse = -1  'True
       Persistable = 0  'NotPersistable
@@ -502,149 +498,148 @@ mod tests {
     Attribute VB_Exposed = False
     ";
 
-            let result = VB6ClassFile::parse(&mut input.as_slice());
+        let result = VB6ClassFile::parse(&mut input.as_slice());
 
-            assert!(result.is_err());
-        }
+        assert!(result.is_err());
+    }
 
-        #[test]
-        fn test_parse_valid_class_header() {
-            let input = b"MultiUse = -1  'True
+    #[test]
+    fn parse_valid_class_header() {
+        let input = b"MultiUse = -1  'True
     Persistable = 0  'NotPersistable
     DataBindingBehavior = 0  'vbNone
     DataSourceBehavior = 0  'vbNone
     MTSTransactionMode = 0  'NotAnMTSObject
     ";
 
-            let mut stream = VB6Stream::new(&mut input.as_slice());
-            let result = class_header_parse(&mut stream);
+        let mut stream = VB6Stream::new(&mut input.as_slice());
+        let result = class_header_parse(&mut stream);
 
-            assert!(result.is_ok());
-        }
+        assert!(result.is_ok());
+    }
 
-        #[test]
-        fn test_parse_invalid_class_header() {
-            let input = b"MultiUse = -1  'True
+    #[test]
+    fn parse_invalid_class_header() {
+        let input = b"MultiUse = -1  'True
     Persistable = 0  'NotPersistable
     DataBindingBehavior = 0  'vbNone
     DataSourceBehavior = 0  'vbNone
     MTSTransactionMode = 0  'NotAnMTSObject
     ";
 
-            let mut stream = VB6Stream::new(&mut input.as_slice());
-            let result = class_header_parse(&mut stream);
+        let mut stream = VB6Stream::new(&mut input.as_slice());
+        let result = class_header_parse(&mut stream);
 
-            assert!(result.is_err());
-        }
+        assert!(result.is_err());
+    }
 
-        #[test]
-        fn test_parse_valid_attributes() {
-            let input = b"Attribute VB_Name = \"Something\"
+    #[test]
+    fn parse_valid_attributes() {
+        let input = b"Attribute VB_Name = \"Something\"
     Attribute VB_GlobalNameSpace = False
     Attribute VB_Creatable = True
     Attribute VB_PredeclaredId = False
     Attribute VB_Exposed = False
     ";
 
-            let mut stream = VB6Stream::new(&mut input.as_slice());
-            let result = attributes_parse(&mut stream);
+        let mut stream = VB6Stream::new(&mut input.as_slice());
+        let result = attributes_parse(&mut stream);
 
-            assert!(result.is_ok());
-        }
+        assert!(result.is_ok());
+    }
 
-        #[test]
-        fn test_parse_invalid_attributes() {
-            let input = b"Attribute VB_Name = \"Something\"
+    #[test]
+    fn parse_invalid_attributes() {
+        let input = b"Attribute VB_Name = \"Something\"
     Attribute VB_GlobalNameSpace = False
     Attribute VB_Creatable = True
     Attribute VB_PredeclaredId = False
     Attribute VB_Exposed = False
     ";
 
-            let mut stream = VB6Stream::new(&mut input.as_slice());
-            let result = attributes_parse(&mut stream);
+        let mut stream = VB6Stream::new(&mut input.as_slice());
+        let result = attributes_parse(&mut stream);
 
-            assert!(result.is_err());
-        }
+        assert!(result.is_err());
+    }
 
-        #[test]
-        fn test_parse_valid_version() {
-            let input = b"VERSION 1.0 CLASS";
+    #[test]
+    fn parse_valid_version() {
+        let input = b"VERSION 1.0 CLASS";
 
-            let mut stream = VB6Stream::new(&mut input.as_slice());
-            let result = version_parse(&mut stream);
+        let mut stream = VB6Stream::new(&mut input.as_slice());
+        let result = version_parse(&mut stream);
 
-            assert!(result.is_ok());
-        }
+        assert!(result.is_ok());
+    }
 
-        #[test]
-        fn test_parse_invalid_version() {
-            let input = b"VERSION 1.0 CLASS";
+    #[test]
+    fn parse_invalid_version() {
+        let input = b"VERSION 1.0 CLASS";
 
-            let mut stream = VB6Stream::new(&mut input.as_slice());
-            let result = version_parse(&mut stream);
+        let mut stream = VB6Stream::new(&mut input.as_slice());
+        let result = version_parse(&mut stream);
 
-            assert!(result.is_err());
-        }
+        assert!(result.is_err());
+    }
 
-        #[test]
-        fn test_key_value_parse_valid() {
-            let input = b"key = value";
+    #[test]
+    fn key_value_parse_valid() {
+        let input = b"key = value";
 
-            let mut stream = VB6Stream::new(&mut input.as_slice());
-            let result = key_value_parse("=")(&mut stream);
+        let mut stream = VB6Stream::new(&mut input.as_slice());
+        let result = key_value_parse("=")(&mut stream);
 
-            assert!(result.is_ok());
-        }
+        assert!(result.is_ok());
+    }
 
-        #[test]
-        fn test_key_value_parse_invalid() {
-            let input = b"key = value";
+    #[test]
+    fn key_value_parse_invalid() {
+        let input = b"key = value";
 
-            let mut stream = VB6Stream::new(&mut input.as_slice());
-            let result = key_value_parse(":")(&mut stream);
+        let mut stream = VB6Stream::new(&mut input.as_slice());
+        let result = key_value_parse(":")(&mut stream);
 
-            assert!(result.is_err());
-        }
+        assert!(result.is_err());
+    }
 
-        #[test]
-        fn test_key_value_line_parse_valid() {
-            let input = b"key = value  'comment\n";
+    #[test]
+    fn key_value_line_parse_valid() {
+        let input = b"key = value  'comment\n";
 
-            let mut stream = VB6Stream::new(&mut input.as_slice());
-            let result = key_value_line_parse("=")(&mut stream);
+        let mut stream = VB6Stream::new(&mut input.as_slice());
+        let result = key_value_line_parse("=")(&mut stream);
 
-            assert!(result.is_ok());
-        }
+        assert!(result.is_ok());
+    }
 
-        #[test]
-        fn test_key_value_line_parse_invalid() {
-            let input = b"key = value  'comment\n";
+    #[test]
+    fn key_value_line_parse_invalid() {
+        let input = b"key = value  'comment\n";
 
-            let mut stream = VB6Stream::new(&mut input.as_slice());
-            let result = key_value_line_parse(":")(&mut stream);
+        let mut stream = VB6Stream::new(&mut input.as_slice());
+        let result = key_value_line_parse(":")(&mut stream);
 
-            assert!(result.is_err());
-        }
+        assert!(result.is_err());
+    }
 
-        #[test]
-        fn test_version_parse_valid() {
-            let input = b"VERSION 1.0 CLASS";
+    #[test]
+    fn version_parse_valid() {
+        let input = b"VERSION 1.0 CLASS";
 
-            let mut stream = VB6Stream::new(&mut input.as_slice());
-            let result = version_parse(&mut stream);
+        let mut stream = VB6Stream::new(&mut input.as_slice());
+        let result = version_parse(&mut stream);
 
-            assert!(result.is_ok());
-        }
+        assert!(result.is_ok());
+    }
 
-        #[test]
-        fn test_version_parse_invalid() {
-            let input = b"VERSION 1.0 CLASS";
+    #[test]
+    fn version_parse_invalid() {
+        let input = b"VERSION 1.0 CLASS";
 
-            let mut stream = VB6Stream::new(&mut input.as_slice());
-            let result = version_parse(&mut stream);
+        let mut stream = VB6Stream::new(&mut input.as_slice());
+        let result = version_parse(&mut stream);
 
-            assert!(result.is_err());
-        }
+        assert!(result.is_err());
     }
 }
