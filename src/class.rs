@@ -337,16 +337,16 @@ fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6FileAttributes<
                 name = Some(value);
             }
             b"vb_globalnamespace" => {
-                global_name_space = value.to_ascii_lowercase().as_slice() == b"True";
+                global_name_space = value.to_ascii_lowercase().as_slice() == b"true";
             }
             b"vb_creatable" => {
-                creatable = value.to_ascii_lowercase().as_slice() == b"True";
+                creatable = value.to_ascii_lowercase().as_slice() == b"true";
             }
             b"vb_predeclaredid" => {
-                pre_declared_id = value.to_ascii_lowercase().as_slice() == b"True";
+                pre_declared_id = value.to_ascii_lowercase().as_slice() == b"true";
             }
             b"vb_exposed" => {
-                exposed = value.to_ascii_lowercase().as_slice() == b"True";
+                exposed = value.to_ascii_lowercase().as_slice() == b"true";
             }
             _ => {
                 panic!("Unknown key found in class attributes.");
