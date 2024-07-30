@@ -1,8 +1,8 @@
 use bstr::BStr;
 
 use winnow::{
-    ascii::{digit1, line_ending, till_line_ending, Caseless},
-    combinator::{alt, delimited, eof},
+    ascii::{digit1, line_ending, Caseless},
+    combinator::{alt, delimited},
     error::{ContextError, ErrMode, ParserError},
     stream::Stream,
     token::{one_of, take_till, take_while},
@@ -440,8 +440,8 @@ mod test {
 
     #[test]
     fn keyword() {
-        let mut input1 = VB6Stream::new("option".as_bytes());
-        let mut input2 = VB6Stream::new("op do".as_bytes());
+        let mut input1 = VB6Stream::new("", "option".as_bytes());
+        let mut input2 = VB6Stream::new("", "op do".as_bytes());
 
         let mut op_parse = keyword_parse("op");
 
@@ -457,7 +457,7 @@ mod test {
         use crate::vb6::whitespace_parse;
         use crate::vb6stream::VB6Stream;
 
-        let mut input = VB6Stream::new("    t".as_bytes());
+        let mut input = VB6Stream::new("", "    t".as_bytes());
         let whitespace = whitespace_parse(&mut input).unwrap();
 
         assert_eq!(whitespace, "    ");
@@ -468,7 +468,7 @@ mod test {
         use crate::vb6::line_comment_parse;
         use crate::vb6stream::VB6Stream;
 
-        let mut input = VB6Stream::new("' This is a comment\r\n".as_bytes());
+        let mut input = VB6Stream::new("", "' This is a comment\r\n".as_bytes());
         let comment = line_comment_parse(&mut input).unwrap();
 
         assert_eq!(comment, " This is a comment");
@@ -479,7 +479,7 @@ mod test {
         use crate::vb6::line_comment_parse;
         use crate::vb6stream::VB6Stream;
 
-        let mut input = VB6Stream::new("' This is a comment\n".as_bytes());
+        let mut input = VB6Stream::new("", "' This is a comment\n".as_bytes());
         let comment = line_comment_parse(&mut input).unwrap();
 
         assert_eq!(comment, " This is a comment");
@@ -490,7 +490,7 @@ mod test {
         use crate::vb6::line_comment_parse;
         use crate::vb6stream::VB6Stream;
 
-        let mut input = VB6Stream::new("' This is a comment\r".as_bytes());
+        let mut input = VB6Stream::new("", "' This is a comment\r".as_bytes());
         let comment = line_comment_parse(&mut input).unwrap();
 
         assert_eq!(comment, " This is a comment");
@@ -501,7 +501,7 @@ mod test {
         use crate::vb6::line_comment_parse;
         use crate::vb6stream::VB6Stream;
 
-        let mut input = VB6Stream::new("' This is a comment".as_bytes());
+        let mut input = VB6Stream::new("", "' This is a comment".as_bytes());
         let comment = line_comment_parse(&mut input).unwrap();
 
         assert_eq!(comment, " This is a comment");
@@ -512,7 +512,7 @@ mod test {
         use crate::vb6::variable_name_parse;
         use crate::vb6stream::VB6Stream;
 
-        let mut input = VB6Stream::new("variable_name".as_bytes());
+        let mut input = VB6Stream::new("", "variable_name".as_bytes());
 
         let variable_name = variable_name_parse(&mut input).unwrap();
 
@@ -524,7 +524,7 @@ mod test {
         use crate::vb6::{vb6_parse, VB6Token};
         use crate::vb6stream::VB6Stream;
 
-        let mut input = VB6Stream::new("Dim x As Integer".as_bytes());
+        let mut input = VB6Stream::new("", "Dim x As Integer".as_bytes());
         let tokens = vb6_parse(&mut input).unwrap();
 
         assert_eq!(tokens.len(), 7);
@@ -541,7 +541,7 @@ mod test {
     fn multi_keyword() {
         use crate::vb6::keyword_parse;
 
-        let mut input = VB6Stream::new("Option As Integer".as_bytes());
+        let mut input = VB6Stream::new("", "Option As Integer".as_bytes());
 
         let key1 = keyword_parse("Option").parse_next(&mut input).unwrap();
 

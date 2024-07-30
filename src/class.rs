@@ -1,7 +1,6 @@
 #![warn(clippy::pedantic)]
 
-use bstr::{BStr, ByteSlice};
-
+use bstr::BStr;
 use miette::{Diagnostic, NamedSource, Result, SourceOffset, SourceSpan};
 use thiserror::Error;
 use winnow::combinator::{alt, delimited, preceded, separated_pair};
@@ -28,17 +27,14 @@ pub struct ErrorInfo {
 }
 
 impl ErrorInfo {
-    pub fn new(
-        source: impl Into<String>,
-        file_name: impl Into<String>,
-        line: usize,
-        column: usize,
-        len: usize,
-    ) -> Self {
-        let code = source.into().clone();
+    pub fn new(input: &VB6Stream, column: usize, len: usize) -> Self {
+        let code = input.stream.to_string();
         Self {
-            src: NamedSource::new(file_name.into(), code.clone()),
-            location: SourceSpan::new(SourceOffset::from_location(&code, line, column), len),
+            src: NamedSource::new(input.file_name.clone(), code.clone()),
+            location: SourceSpan::new(
+                SourceOffset::from_location(code, input.line_number, column),
+                len,
+            ),
         }
     }
 }
@@ -206,21 +202,15 @@ impl<'a> VB6ClassFile<'a> {
     /// assert!(result.is_ok());
     /// ```
     pub fn parse(file_name: String, input: &mut &'a [u8]) -> Result<Self, ClassParseError> {
-        let input = &mut VB6Stream::new(input);
+        let input = &mut VB6Stream::new(file_name, input);
 
         let Ok(header) = class_header_parse(input) else {
-            let err_info = ErrorInfo::new(input.stream.to_string(), file_name, 0, 0, 0);
+            let err_info = ErrorInfo::new(input, 0, 0);
             return Err(ClassParseError::Header { info: err_info });
         };
 
         let Ok(tokens) = vb6_parse(input) else {
-            let err_info = ErrorInfo::new(
-                input.stream.to_string(),
-                header.attributes.name.as_bstr().to_str_lossy(),
-                0,
-                0,
-                0,
-            );
+            let err_info = ErrorInfo::new(input, 0, 0);
             return Err(ClassParseError::FileContent { info: err_info });
         };
 
@@ -569,7 +559,7 @@ Option Explicit
                     END\r
                     ";
 
-        let mut stream = VB6Stream::new(&mut input.as_slice());
+        let mut stream = VB6Stream::new("", &mut input.as_slice());
         let result = class_header_parse(&mut stream);
 
         assert!(result.is_ok());
@@ -584,7 +574,7 @@ Option Explicit
     MTSTransactionMode = 0  'NotAnMTSObject\r
     ";
 
-        let mut stream = VB6Stream::new(&mut input.as_slice());
+        let mut stream = VB6Stream::new("", &mut input.as_slice());
         let result = class_header_parse(&mut stream);
 
         assert!(result.is_err());
@@ -599,7 +589,7 @@ Option Explicit
     Attribute VB_Exposed = False\r
     ";
 
-        let mut stream = VB6Stream::new(&mut input.as_slice());
+        let mut stream = VB6Stream::new("", &mut input.as_slice());
         let result = attributes_parse(&mut stream);
 
         assert!(result.is_ok());
@@ -614,7 +604,7 @@ Option Explicit
     Atribute VB_Exposed = False\r
     ";
 
-        let mut stream = VB6Stream::new(&mut input.as_slice());
+        let mut stream = VB6Stream::new("", &mut input.as_slice());
         let result = attributes_parse(&mut stream);
 
         assert!(result.is_err());
@@ -624,7 +614,7 @@ Option Explicit
     fn key_value_valid() {
         let input = b"key = value";
 
-        let mut stream = VB6Stream::new(&mut input.as_slice());
+        let mut stream = VB6Stream::new("", &mut input.as_slice());
         let result = key_value_parse("=")(&mut stream);
 
         assert!(result.is_ok());
@@ -634,7 +624,7 @@ Option Explicit
     fn key_value_invalid() {
         let input = b"key = value";
 
-        let mut stream = VB6Stream::new(&mut input.as_slice());
+        let mut stream = VB6Stream::new("", &mut input.as_slice());
         let result = key_value_parse(":")(&mut stream);
 
         assert!(result.is_err());
@@ -644,7 +634,7 @@ Option Explicit
     fn key_value_line_valid() {
         let input = b"key = value  'comment\r\n";
 
-        let mut stream = VB6Stream::new(&mut input.as_slice());
+        let mut stream = VB6Stream::new("", &mut input.as_slice());
         let result = key_value_line_parse("=")(&mut stream);
 
         assert!(result.is_ok());
@@ -654,7 +644,7 @@ Option Explicit
     fn key_value_line_invalid() {
         let input = b"key = value  'comment\r\n";
 
-        let mut stream = VB6Stream::new(&mut input.as_slice());
+        let mut stream = VB6Stream::new("", &mut input.as_slice());
         let result = key_value_line_parse(":")(&mut stream);
 
         assert!(result.is_err());
@@ -664,7 +654,7 @@ Option Explicit
     fn version_valid() {
         let input = b"VERSION 1.0 CLASS\r\n";
 
-        let mut stream = VB6Stream::new(&mut input.as_slice());
+        let mut stream = VB6Stream::new("", &mut input.as_slice());
         let result = version_parse(&mut stream);
 
         println!("{:?}", result);
@@ -677,7 +667,7 @@ Option Explicit
         // Missing the return character and newline character at the end.
         let input = b"VERSION 1.0 CLASS";
 
-        let mut stream = VB6Stream::new(&mut input.as_slice());
+        let mut stream = VB6Stream::new("", &mut input.as_slice());
         let result = version_parse(&mut stream);
 
         assert!(result.is_err());

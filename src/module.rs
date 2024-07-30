@@ -53,8 +53,8 @@ impl<'a> VB6ModuleFile<'a> {
     ///
     /// assert!(result.is_ok());
     /// ```
-    pub fn parse(input: &'a [u8]) -> Result<Self, ErrMode<ContextError>> {
-        let mut input = VB6Stream::new(input);
+    pub fn parse(file_name: String, input: &'a [u8]) -> Result<Self, ErrMode<ContextError>> {
+        let mut input = VB6Stream::new(file_name, input);
 
         (
             space0,
