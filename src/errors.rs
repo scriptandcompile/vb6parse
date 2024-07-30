@@ -89,22 +89,3 @@ impl<I: Stream + Clone> ParserError<I> for VB6ProjectParseError<I> {
         self
     }
 }
-
-#[derive(thiserror::Error, Debug, PartialEq)]
-pub enum VB6ClassParseError<I> {
-    #[error("Class version information was not found.")]
-    VersionInformationNotFound { line: String, line_location: usize },
-
-    #[error("Winnow Error")]
-    ParseError(I, ErrorKind),
-}
-
-impl<I: Stream + Clone> ParserError<I> for VB6ClassParseError<I> {
-    fn from_error_kind(input: &I, kind: ErrorKind) -> Self {
-        VB6ClassParseError::ParseError(input.clone(), kind)
-    }
-
-    fn append(self, _: &I, _: &<I as Stream>::Checkpoint, _: ErrorKind) -> Self {
-        self
-    }
-}

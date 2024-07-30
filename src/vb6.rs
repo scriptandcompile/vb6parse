@@ -1,8 +1,8 @@
 use bstr::BStr;
 
 use winnow::{
-    ascii::{digit1, line_ending, Caseless},
-    combinator::{alt, delimited},
+    ascii::{digit1, line_ending, till_line_ending, Caseless},
+    combinator::{alt, delimited, eof},
     error::{ContextError, ErrMode, ParserError},
     stream::Stream,
     token::{one_of, take_till, take_while},
@@ -34,12 +34,12 @@ use crate::vb6stream::VB6Stream;
 /// let mut input = VB6Stream::new("' This is a comment\r\n".as_bytes());
 /// let comment = eol_comment_parse(&mut input).unwrap();
 ///
-/// assert_eq!(comment, "' This is a comment");
+/// assert_eq!(comment, " This is a comment");
 /// ```
-pub fn eol_comment_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr> {
-    let comment = ('\'', take_till(0.., ('\r', '\n')))
-        .recognize()
-        .parse_next(input)?;
+pub fn line_comment_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr> {
+    '\''.parse_next(input)?;
+
+    let comment = take_till(0.., (b"\r\n", b"\n", b"\r")).parse_next(input)?;
 
     Ok(comment)
 }
@@ -104,6 +104,13 @@ pub fn variable_name_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr> {
         .recognize()
         .parse_next(input)?;
 
+    if variable_name.len() >= 255 {
+        return Err(ErrMode::Cut(ParserError::assert(
+            input,
+            "Variable name is too long.",
+        )));
+    }
+
     Ok(variable_name)
 }
 
@@ -139,13 +146,13 @@ pub fn variable_name_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr> {
 /// assert_eq!(keyword, Err(ErrMode::Backtrack(ContextError::new())));
 /// assert_eq!(keyword2, Ok(b"op".as_bstr()));
 /// ```
-pub fn keyword_parse<'a, 'b>(
+pub fn keyword_parse<'a>(
     keyword: &'static str,
 ) -> impl FnMut(&mut VB6Stream<'a>) -> PResult<&'a BStr> {
     move |input: &mut VB6Stream<'a>| -> PResult<&'a BStr> {
         let checkpoint = input.checkpoint();
 
-        let keyword = Caseless(keyword).parse_next(input)?;
+        let word = Caseless(keyword).parse_next(input)?;
 
         if one_of::<VB6Stream, _, ContextError>(('_', 'a'..='z', 'A'..='Z', '0'..='9'))
             .parse_next(input)
@@ -153,11 +160,11 @@ pub fn keyword_parse<'a, 'b>(
         {
             input.reset(&checkpoint);
 
-            let context_error = ParserError::assert(input, "{keyword} followed by one of _, a-z, A-Z, or 0-9, this indicates {keyword} was likely found as part of another variable name. ie, 'Dim' found within 'Dimming'");
+            let context_error = ContextError::new();
             return Err(ErrMode::Backtrack(context_error));
         }
 
-        Ok(keyword)
+        Ok(word)
     }
 }
 
@@ -322,7 +329,7 @@ pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<Vec<VB6Token<'a>>> {
             continue;
         }
 
-        if let Ok(token) = eol_comment_parse.parse_next(input) {
+        if let Ok(token) = line_comment_parse.parse_next(input) {
             tokens.push(VB6Token::Comment(token));
             continue;
         }
@@ -424,4 +431,130 @@ pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<Vec<VB6Token<'a>>> {
     }
 
     Ok(tokens)
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use bstr::ByteSlice;
+
+    #[test]
+    fn keyword() {
+        let mut input1 = VB6Stream::new("option".as_bytes());
+        let mut input2 = VB6Stream::new("op do".as_bytes());
+
+        let mut op_parse = keyword_parse("op");
+
+        let keyword = op_parse(&mut input1);
+        let keyword2 = op_parse(&mut input2);
+
+        assert_eq!(keyword, Err(ErrMode::Backtrack(ContextError::new())));
+        assert_eq!(keyword2, Ok(b"op".as_bstr()));
+    }
+
+    #[test]
+    fn whitespace() {
+        use crate::vb6::whitespace_parse;
+        use crate::vb6stream::VB6Stream;
+
+        let mut input = VB6Stream::new("    t".as_bytes());
+        let whitespace = whitespace_parse(&mut input).unwrap();
+
+        assert_eq!(whitespace, "    ");
+    }
+
+    #[test]
+    fn eol_comment_carriage_return_newline() {
+        use crate::vb6::line_comment_parse;
+        use crate::vb6stream::VB6Stream;
+
+        let mut input = VB6Stream::new("' This is a comment\r\n".as_bytes());
+        let comment = line_comment_parse(&mut input).unwrap();
+
+        assert_eq!(comment, " This is a comment");
+    }
+
+    #[test]
+    fn eol_comment_newline() {
+        use crate::vb6::line_comment_parse;
+        use crate::vb6stream::VB6Stream;
+
+        let mut input = VB6Stream::new("' This is a comment\n".as_bytes());
+        let comment = line_comment_parse(&mut input).unwrap();
+
+        assert_eq!(comment, " This is a comment");
+    }
+
+    #[test]
+    fn eol_comment_carriage_return() {
+        use crate::vb6::line_comment_parse;
+        use crate::vb6stream::VB6Stream;
+
+        let mut input = VB6Stream::new("' This is a comment\r".as_bytes());
+        let comment = line_comment_parse(&mut input).unwrap();
+
+        assert_eq!(comment, " This is a comment");
+    }
+
+    #[test]
+    fn eol_comment_eof() {
+        use crate::vb6::line_comment_parse;
+        use crate::vb6stream::VB6Stream;
+
+        let mut input = VB6Stream::new("' This is a comment".as_bytes());
+        let comment = line_comment_parse(&mut input).unwrap();
+
+        assert_eq!(comment, " This is a comment");
+    }
+
+    #[test]
+    fn variable_name() {
+        use crate::vb6::variable_name_parse;
+        use crate::vb6stream::VB6Stream;
+
+        let mut input = VB6Stream::new("variable_name".as_bytes());
+
+        let variable_name = variable_name_parse(&mut input).unwrap();
+
+        assert_eq!(variable_name, "variable_name");
+    }
+
+    #[test]
+    fn vb6_parse() {
+        use crate::vb6::{vb6_parse, VB6Token};
+        use crate::vb6stream::VB6Stream;
+
+        let mut input = VB6Stream::new("Dim x As Integer".as_bytes());
+        let tokens = vb6_parse(&mut input).unwrap();
+
+        assert_eq!(tokens.len(), 7);
+        assert_eq!(tokens[0], VB6Token::DimKeyword("Dim".into()));
+        assert_eq!(tokens[1], VB6Token::Whitespace(" ".into()));
+        assert_eq!(tokens[2], VB6Token::VariableName("x".into()));
+        assert_eq!(tokens[3], VB6Token::Whitespace(" ".into()));
+        assert_eq!(tokens[4], VB6Token::AsKeyword("As".into()));
+        assert_eq!(tokens[5], VB6Token::Whitespace(" ".into()));
+        assert_eq!(tokens[6], VB6Token::IntegerKeyword("Integer".into()));
+    }
+
+    #[test]
+    fn multi_keyword() {
+        use crate::vb6::keyword_parse;
+
+        let mut input = VB6Stream::new("Option As Integer".as_bytes());
+
+        let key1 = keyword_parse("Option").parse_next(&mut input).unwrap();
+
+        let _ = whitespace_parse.parse_next(&mut input);
+
+        let key2 = keyword_parse("As").parse_next(&mut input).unwrap();
+
+        let _ = whitespace_parse.parse_next(&mut input);
+
+        let key3 = keyword_parse("Integer").parse_next(&mut input).unwrap();
+
+        assert_eq!(key1, "Option");
+        assert_eq!(key2, "As");
+        assert_eq!(key3, "Integer");
+    }
 }
