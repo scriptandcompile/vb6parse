@@ -135,8 +135,8 @@ impl<'a> VB6FormFile<'a> {
     ///
     /// assert!(result.is_ok());
     /// ```
-    pub fn parse(input: &'a [u8]) -> PResult<Self> {
-        let mut input = VB6Stream::new(input);
+    pub fn parse(file_name: String, input: &'a [u8]) -> PResult<Self> {
+        let mut input = VB6Stream::new(file_name, input);
 
         let format_version = version_information_parse.parse_next(&mut input)?;
 

@@ -9,15 +9,18 @@ use core::slice::Iter;
 
 use core::num::NonZeroUsize;
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Default)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Default)]
 pub struct VB6Stream<'a> {
+    pub file_name: String,
     pub stream: &'a bstr::BStr,
     pub index: usize,
+    pub line_number: usize,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Default)]
 pub struct VB6StreamCheckpoint {
     pub index: usize,
+    pub line_number: usize,
 }
 
 impl Offset for VB6StreamCheckpoint {
@@ -31,11 +34,13 @@ impl Offset<VB6StreamCheckpoint> for VB6Stream<'_> {
     }
 }
 
-impl<'a> VB6Stream<'a> {
-    pub fn new(stream: &'a [u8]) -> Self {
+impl<'a, 'b> VB6Stream<'a> {
+    pub fn new(file_name: impl Into<String>, stream: &'a [u8]) -> Self {
         Self {
+            file_name: file_name.into(),
             stream: stream.as_bstr(),
             index: 0,
+            line_number: 1,
         }
     }
 
@@ -161,6 +166,11 @@ impl<'a> Stream for VB6Stream<'a> {
     fn next_token(&mut self) -> Option<Self::Token> {
         let (token, _) = self.stream[self.index..].split_first()?;
         self.index += 1;
+
+        if *token == b'\n' {
+            self.line_number += 1;
+        }
+
         Some(*token)
     }
 
@@ -186,15 +196,26 @@ impl<'a> Stream for VB6Stream<'a> {
         let slice = self.stream[self.index..(self.index + offset)].as_bstr();
 
         self.index += offset;
+
+        for token in slice.iter() {
+            if *token == b'\n' {
+                self.line_number += 1;
+            }
+        }
+
         slice
     }
 
     fn checkpoint(&self) -> Self::Checkpoint {
-        VB6StreamCheckpoint { index: self.index }
+        VB6StreamCheckpoint {
+            index: self.index,
+            line_number: self.line_number,
+        }
     }
 
     fn reset(&mut self, checkpoint: &Self::Checkpoint) {
         self.index = checkpoint.index;
+        self.line_number = checkpoint.line_number;
     }
 
     fn raw(&self) -> &dyn Debug {
@@ -216,7 +237,7 @@ mod tests {
     #[test]
     fn next_slice() {
         let mut wstream = b"Hello, World!".as_slice();
-        let mut stream = VB6Stream::new(b"Hello, World!");
+        let mut stream = VB6Stream::new("", b"Hello, World!");
 
         assert_eq!(wstream.next_slice(5), "Hello".as_bytes().as_bstr());
         assert_eq!(stream.next_slice(5), "Hello".as_bytes().as_bstr());
@@ -231,7 +252,7 @@ mod tests {
     #[test]
     fn compare() {
         let mut wstream = b"Hello, World!".as_slice();
-        let mut stream = VB6Stream::new(b"Hello, World!");
+        let mut stream = VB6Stream::new("", b"Hello, World!");
 
         let wcheckpoint = wstream.checkpoint();
         let checkpoint = stream.checkpoint();
@@ -273,7 +294,7 @@ mod tests {
     #[test]
     fn eof_offset() {
         let wstream = b"Hello, World!".as_slice();
-        let stream = VB6Stream::new(b"Hello, World!");
+        let stream = VB6Stream::new("", b"Hello, World!");
 
         assert_eq!(wstream.eof_offset(), stream.eof_offset());
     }
@@ -281,7 +302,7 @@ mod tests {
     #[test]
     fn iter_offsets() {
         let mut wstream = b"Hello, World!".as_slice();
-        let mut stream = VB6Stream::new(b"Hello, World!");
+        let mut stream = VB6Stream::new("", b"Hello, World!");
 
         assert_eq!(
             wstream.iter_offsets().collect::<Vec<_>>(),
@@ -303,7 +324,7 @@ mod tests {
     #[test]
     fn offset_at() {
         let wstream = b"Hello, World!".as_slice();
-        let stream = VB6Stream::new(b"Hello, World!");
+        let stream = VB6Stream::new("", b"Hello, World!");
 
         // Test offset_at with a valid offset
         assert_eq!(wstream.offset_at(5), Ok(5));
@@ -327,7 +348,7 @@ mod tests {
     #[test]
     fn offset_for() {
         let wstream = b"Hello, World!".as_slice();
-        let stream = VB6Stream::new(b"Hello, World!");
+        let stream = VB6Stream::new("", b"Hello, World!");
 
         // Test offset_for with a predicate that matches 'e'
         assert_eq!(wstream.offset_for(|b| b == b'e'), Some(1));
@@ -377,7 +398,7 @@ mod tests {
     #[test]
     fn stream() {
         let mut wstream = b"Hello, World!".as_slice();
-        let mut stream = VB6Stream::new(b"Hello, World!");
+        let mut stream = VB6Stream::new("", b"Hello, World!");
 
         assert_eq!(wstream.next_token(), Some(b'H'));
         assert_eq!(stream.next_token(), Some(b'H'));
@@ -423,9 +444,78 @@ mod tests {
     }
 
     #[test]
+    fn line_number() {
+        let mut stream = VB6Stream::new("", b"Hello,\r\n World!");
+
+        let checkpoint = stream.checkpoint();
+
+        assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.next_token(), Some(b'H'));
+        assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.next_token(), Some(b'e'));
+        assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.next_token(), Some(b'l'));
+
+        stream.reset(&checkpoint);
+
+        assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.next_token(), Some(b'H'));
+        assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.next_token(), Some(b'e'));
+        assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.next_token(), Some(b'l'));
+
+        let checkpoint = stream.checkpoint();
+
+        assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.next_token(), Some(b'l'));
+        assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.next_token(), Some(b'o'));
+        assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.next_token(), Some(b','));
+        assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.next_token(), Some(b'\r'));
+        assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.next_token(), Some(b'\n'));
+        assert_eq!(stream.line_number, 2);
+        assert_eq!(stream.next_token(), Some(b' '));
+        assert_eq!(stream.line_number, 2);
+
+        stream.reset(&checkpoint);
+
+        assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.next_token(), Some(b'l'));
+        assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.next_token(), Some(b'o'));
+        assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.next_token(), Some(b','));
+        assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.next_token(), Some(b'\r'));
+        assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.next_token(), Some(b'\n'));
+        assert_eq!(stream.line_number, 2);
+        assert_eq!(stream.next_token(), Some(b' '));
+        assert_eq!(stream.line_number, 2);
+        assert_eq!(stream.next_token(), Some(b'W'));
+        assert_eq!(stream.line_number, 2);
+        assert_eq!(stream.next_token(), Some(b'o'));
+        assert_eq!(stream.line_number, 2);
+        assert_eq!(stream.next_token(), Some(b'r'));
+        assert_eq!(stream.line_number, 2);
+        assert_eq!(stream.next_token(), Some(b'l'));
+        assert_eq!(stream.line_number, 2);
+        assert_eq!(stream.next_token(), Some(b'd'));
+        assert_eq!(stream.line_number, 2);
+        assert_eq!(stream.next_token(), Some(b'!'));
+        assert_eq!(stream.line_number, 2);
+        assert_eq!(stream.next_token(), None);
+        assert_eq!(stream.line_number, 2);
+    }
+
+    #[test]
     fn checkpoint() {
         let mut wstream = b"Hello, World!".as_slice();
-        let mut stream = VB6Stream::new(b"Hello, World!");
+        let mut stream = VB6Stream::new("", b"Hello, World!");
 
         assert_eq!(wstream.next_token(), Some(b'H'));
         assert_eq!(stream.next_token(), Some(b'H'));
