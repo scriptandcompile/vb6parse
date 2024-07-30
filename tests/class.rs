@@ -5,9 +5,12 @@ use vb6parse::{
 
 #[test]
 fn artificial_life_organism_class_load() {
+    let file_name = "Organism.cls".to_owned();
+
     let organism_class_bytes = include_bytes!("./data/vb6-code/Artificial-life/Organism.cls");
 
-    let organism_class_result = VB6ClassFile::parse(&mut organism_class_bytes.as_slice());
+    let organism_class_result =
+        VB6ClassFile::parse(file_name, &mut organism_class_bytes.as_slice());
 
     if organism_class_result.is_err() {
         println!("{:?}", organism_class_result.err());

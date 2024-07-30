@@ -1,5 +1,6 @@
 use vb6parse::{
-    class::VB6ClassFile, form::VB6FormFile, module::VB6ModuleFile, project::VB6Project,
+    class::VB6ClassFile,
+    project::VB6Project, //form::VB6FormFile, module::VB6ModuleFile,
 };
 
 #[test]
@@ -59,8 +60,10 @@ fn bulk_load_all_projects() {
 
             println!("Loading class: {}", class_path.to_str().unwrap());
 
+            let file_name = class_path.file_name().unwrap().to_str().unwrap();
             let class_contents = std::fs::read(&class_path).unwrap();
-            let _class = VB6ClassFile::parse(&mut class_contents.as_slice()).unwrap();
+            let _class =
+                VB6ClassFile::parse(file_name.to_owned(), &mut class_contents.as_slice()).unwrap();
         }
 
         // for module_reference in project.modules {

@@ -2,7 +2,7 @@
 
 use std::vec;
 
-use crate::vb6::{eol_comment_parse, vb6_parse, VB6Token};
+use crate::vb6::{line_comment_parse, vb6_parse, VB6Token};
 use crate::vb6stream::VB6Stream;
 use crate::VB6FileFormatVersion;
 
@@ -180,7 +180,7 @@ fn version_information_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6FileFo
     let minor_version_number =
         u8::from_str_radix(bstr::BStr::new(minor_digits).to_string().as_str(), 10).unwrap();
 
-    opt(eol_comment_parse).parse_next(input)?;
+    opt(line_comment_parse).parse_next(input)?;
 
     line_ending
         .context(StrContext::Label(
@@ -284,7 +284,7 @@ fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6PropertyGro
 
     space0.parse_next(input)?;
 
-    opt(eol_comment_parse).parse_next(input)?;
+    opt(line_comment_parse).parse_next(input)?;
 
     line_ending
         .context(StrContext::Label(
@@ -370,7 +370,7 @@ fn key_value_pair_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<(&'a BStr, &'a
 
     space0.parse_next(input)?;
 
-    opt(eol_comment_parse).parse_next(input)?;
+    opt(line_comment_parse).parse_next(input)?;
 
     line_ending
         .context(StrContext::Label("Expected line ending after value"))

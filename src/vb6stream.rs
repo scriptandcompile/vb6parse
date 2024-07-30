@@ -8,12 +8,27 @@ use core::iter::{Cloned, Enumerate, Iterator};
 use core::slice::Iter;
 
 use core::num::NonZeroUsize;
-use std::num::NonZero;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Default)]
 pub struct VB6Stream<'a> {
     pub stream: &'a bstr::BStr,
     pub index: usize,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Default)]
+pub struct VB6StreamCheckpoint {
+    pub index: usize,
+}
+
+impl Offset for VB6StreamCheckpoint {
+    fn offset_from(&self, start: &Self) -> usize {
+        self.index - start.index
+    }
+}
+impl Offset<VB6StreamCheckpoint> for VB6Stream<'_> {
+    fn offset_from(&self, start: &VB6StreamCheckpoint) -> usize {
+        self.index - start.index
+    }
 }
 
 impl<'a> VB6Stream<'a> {
@@ -26,12 +41,6 @@ impl<'a> VB6Stream<'a> {
 
     pub fn is_empty(&self) -> bool {
         self.stream.len() == self.index
-    }
-}
-
-impl<'a> Offset for VB6Stream<'a> {
-    fn offset_from(&self, start: &Self) -> usize {
-        start.stream.len() - self.index
     }
 }
 
@@ -58,12 +67,27 @@ impl<'a> FindSlice<(&str, &str)> for VB6Stream<'a> {
     }
 }
 
+impl<'a> FindSlice<(char, char)> for VB6Stream<'a> {
+    fn find_slice(&self, needle: (char, char)) -> Option<std::ops::Range<usize>> {
+        for needle in &[needle.0.to_string(), needle.1.to_string()] {
+            if let Some(range) = self.stream[self.index..]
+                .find(needle)
+                .map(|start| start..start + needle.len())
+            {
+                return Some(range);
+            }
+        }
+
+        None
+    }
+}
+
 impl<'a> Compare<char> for VB6Stream<'a> {
     fn compare(&self, other: char) -> CompareResult {
         if self.stream[self.index..].len() < 1 {
             CompareResult::Incomplete
         } else if self.stream[self.index..].starts_with(other.to_string().as_bytes()) {
-            CompareResult::Ok(0)
+            CompareResult::Ok(1)
         } else {
             CompareResult::Error
         }
@@ -92,7 +116,7 @@ impl<'a> Compare<Caseless<&str>> for VB6Stream<'a> {
 
         if self.stream[self.index..].len() < len {
             CompareResult::Incomplete
-        } else if self.stream[self.index..].eq_ignore_ascii_case(other.0) {
+        } else if self.stream[self.index..(self.index + len)].eq_ignore_ascii_case(other.0) {
             CompareResult::Ok(len)
         } else {
             CompareResult::Error
@@ -104,7 +128,7 @@ impl<'a> StreamIsPartial for VB6Stream<'a> {
     type PartialState = usize;
 
     fn complete(&mut self) -> usize {
-        self.stream[self.index..].len() - self.index
+        self.stream[self.index..].len()
     }
 
     fn is_partial(&self) -> bool {
@@ -124,19 +148,19 @@ impl<'a> Stream for VB6Stream<'a> {
     type Token = u8;
     type Slice = &'a bstr::BStr;
     type IterOffsets = Enumerate<Cloned<Iter<'a, u8>>>;
-    type Checkpoint = VB6Stream<'a>;
+    type Checkpoint = VB6StreamCheckpoint;
 
     fn iter_offsets(&self) -> Self::IterOffsets {
-        self.stream.iter().cloned().enumerate()
+        self.stream[self.index..].iter().cloned().enumerate()
     }
 
     fn eof_offset(&self) -> usize {
-        self.stream.len()
+        self.stream[self.index..].len()
     }
 
     fn next_token(&mut self) -> Option<Self::Token> {
         let (token, _) = self.stream[self.index..].split_first()?;
-        self.index = self.index + 1;
+        self.index += 1;
         Some(*token)
     }
 
@@ -159,13 +183,14 @@ impl<'a> Stream for VB6Stream<'a> {
     }
 
     fn next_slice(&mut self, offset: usize) -> Self::Slice {
-        let (slice, _) = self.stream[self.index..].split_at(offset);
-        self.index = self.index + offset;
-        bstr::BStr::new(slice)
+        let slice = self.stream[self.index..(self.index + offset)].as_bstr();
+
+        self.index += offset;
+        slice
     }
 
     fn checkpoint(&self) -> Self::Checkpoint {
-        *self
+        VB6StreamCheckpoint { index: self.index }
     }
 
     fn reset(&mut self, checkpoint: &Self::Checkpoint) {
@@ -201,6 +226,78 @@ mod tests {
 
         assert_eq!(wstream.next_slice(6), "World!".as_bytes().as_bstr());
         assert_eq!(stream.next_slice(6), "World!".as_bytes().as_bstr());
+    }
+
+    #[test]
+    fn compare() {
+        let mut wstream = b"Hello, World!".as_slice();
+        let mut stream = VB6Stream::new(b"Hello, World!");
+
+        let wcheckpoint = wstream.checkpoint();
+        let checkpoint = stream.checkpoint();
+
+        assert_eq!(wstream.compare("Hello"), CompareResult::Ok(5));
+        assert_eq!(stream.compare("Hello"), CompareResult::Ok(5));
+
+        assert_eq!(wstream.compare(", "), CompareResult::Error);
+        assert_eq!(stream.compare(", "), CompareResult::Error);
+
+        assert_eq!(wstream.next_slice(5), "Hello".as_bytes().as_bstr());
+        assert_eq!(stream.next_slice(5), "Hello".as_bytes().as_bstr());
+
+        assert_eq!(wstream.compare(", "), CompareResult::Ok(2));
+        assert_eq!(stream.compare(", "), CompareResult::Ok(2));
+
+        wstream.reset(&wcheckpoint);
+        stream.reset(&checkpoint);
+
+        assert_eq!(wstream.compare("World!"), CompareResult::Error);
+        assert_eq!(stream.compare("World!"), CompareResult::Error);
+
+        assert_eq!(wstream.compare("Hello, World!"), CompareResult::Ok(13));
+        assert_eq!(stream.compare("Hello, World!"), CompareResult::Ok(13));
+
+        assert_eq!(wstream.compare("Hello, World! "), CompareResult::Incomplete);
+        assert_eq!(stream.compare("Hello, World! "), CompareResult::Incomplete);
+
+        assert_eq!(wstream.compare("Hello, World"), CompareResult::Ok(12));
+        assert_eq!(stream.compare("Hello, World"), CompareResult::Ok(12));
+
+        assert_eq!(wstream.compare("Hello, World!!"), CompareResult::Incomplete);
+        assert_eq!(stream.compare("Hello, World!!"), CompareResult::Incomplete);
+
+        assert_eq!(wstream.compare("Hello, World! "), CompareResult::Incomplete);
+        assert_eq!(stream.compare("Hello, World! "), CompareResult::Incomplete);
+    }
+
+    #[test]
+    fn eof_offset() {
+        let wstream = b"Hello, World!".as_slice();
+        let stream = VB6Stream::new(b"Hello, World!");
+
+        assert_eq!(wstream.eof_offset(), stream.eof_offset());
+    }
+
+    #[test]
+    fn iter_offsets() {
+        let mut wstream = b"Hello, World!".as_slice();
+        let mut stream = VB6Stream::new(b"Hello, World!");
+
+        assert_eq!(
+            wstream.iter_offsets().collect::<Vec<_>>(),
+            stream.iter_offsets().collect::<Vec<_>>()
+        );
+
+        assert_eq!(wstream.next_token(), Some(b'H'));
+        assert_eq!(stream.next_token(), Some(b'H'));
+
+        assert_eq!(wstream.next_token(), Some(b'e'));
+        assert_eq!(stream.next_token(), Some(b'e'));
+
+        assert_eq!(
+            wstream.iter_offsets().collect::<Vec<_>>(),
+            stream.iter_offsets().collect::<Vec<_>>()
+        );
     }
 
     #[test]
