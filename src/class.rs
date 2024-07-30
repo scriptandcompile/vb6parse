@@ -12,7 +12,7 @@ use crate::{
 
 use winnow::{
     ascii::{digit1, line_ending, space0, space1},
-    combinator::{alt, delimited, opt, preceded, repeat_till, separated_pair},
+    combinator::{alt, delimited, eof, opt, preceded, repeat_till, separated_pair},
     error::{ContextError, ErrMode, ParserError, StrContext, StrContextValue},
     token::{literal, take_while},
     PResult, Parser,
@@ -326,14 +326,8 @@ fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6FileAttributes<
     let mut exposed = false;
 
     while let Ok((key, value)) =
-        preceded(keyword_parse("Attribute"), key_value_parse("=")).parse_next(input)
+        preceded(keyword_parse("Attribute"), key_value_line_parse("=")).parse_next(input)
     {
-        line_ending
-            .context(StrContext::Label(
-                "Newline expected after Class File Attribute line.",
-            ))
-            .parse_next(input)?;
-
         match key.to_ascii_lowercase().as_slice() {
             b"vb_name" => {
                 name = Some(value);
@@ -407,7 +401,11 @@ fn key_value_line_parse<'a>(
     move |input: &mut VB6Stream<'a>| -> PResult<(&'a BStr, &'a BStr)> {
         let (key, value) = key_value_parse(divider).parse_next(input)?;
 
-        (space0, opt(line_comment_parse), line_ending).parse_next(input)?;
+        // we have to check for eof here because it's perfectly possible to have a
+        // header file that is empty of actual code. This means the last line of the file
+        // should be an empty line, but it might be that the filed ends at the end of the
+        // header attribute section.
+        (space0, opt(line_comment_parse), alt((line_ending, eof))).parse_next(input)?;
 
         Ok((key, value))
     }
@@ -543,14 +541,18 @@ Option Explicit
     #[test]
     fn class_header_valid() {
         let input = b"VERSION 1.0 CLASS\r
-                    BEGIN\r
-                        MultiUse = -1  'True\r
-                        Persistable = 0  'NotPersistable\r
-                        DataBindingBehavior = 0  'vbNone\r
-                        DataSourceBehavior = 0  'vbNone\r
-                        MTSTransactionMode = 0  'NotAnMTSObject\r
-                    END\r
-                    ";
+BEGIN\r
+    MultiUse = -1  'True\r
+    Persistable = 0  'NotPersistable\r
+    DataBindingBehavior = 0  'vbNone\r
+    DataSourceBehavior = 0  'vbNone\r
+    MTSTransactionMode = 0  'NotAnMTSObject\r
+END\r
+Attribute VB_Name = \"Something\"\r
+Attribute VB_GlobalNameSpace = False\r
+Attribute VB_Creatable = True\r
+Attribute VB_PredeclaredId = False\r
+Attribute VB_Exposed = False";
 
         let mut stream = VB6Stream::new("", &mut input.as_slice());
         let result = class_header_parse(&mut stream);
