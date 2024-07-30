@@ -27,12 +27,12 @@ pub struct ErrorInfo {
 }
 
 impl ErrorInfo {
-    pub fn new(input: &VB6Stream, column: usize, len: usize) -> Self {
+    pub fn new(input: &VB6Stream, len: usize) -> Self {
         let code = input.stream.to_string();
         Self {
             src: NamedSource::new(input.file_name.clone(), code.clone()),
             location: SourceSpan::new(
-                SourceOffset::from_location(code, input.line_number, column),
+                SourceOffset::from_location(code, input.line_number, input.column),
                 len,
             ),
         }
@@ -205,12 +205,12 @@ impl<'a> VB6ClassFile<'a> {
         let input = &mut VB6Stream::new(file_name, input);
 
         let Ok(header) = class_header_parse(input) else {
-            let err_info = ErrorInfo::new(input, 0, 0);
+            let err_info = ErrorInfo::new(input, 0);
             return Err(ClassParseError::Header { info: err_info });
         };
 
         let Ok(tokens) = vb6_parse(input) else {
-            let err_info = ErrorInfo::new(input, 0, 0);
+            let err_info = ErrorInfo::new(input, 0);
             return Err(ClassParseError::FileContent { info: err_info });
         };
 
