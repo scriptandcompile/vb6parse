@@ -1,67 +1,22 @@
 #![warn(clippy::pedantic)]
 
 use bstr::BStr;
-use miette::{Diagnostic, NamedSource, Result, SourceOffset, SourceSpan};
-use thiserror::Error;
-use winnow::combinator::{alt, delimited, preceded, separated_pair};
+use miette::Result;
 
-use crate::vb6::{keyword_parse, line_comment_parse, vb6_parse, VB6Token};
-use crate::vb6stream::VB6Stream;
-use crate::VB6FileFormatVersion;
+use crate::{
+    errors::{ClassParseError, ErrorInfo},
+    vb6::{keyword_parse, line_comment_parse, vb6_parse, VB6Token},
+    vb6stream::VB6Stream,
+    VB6FileFormatVersion,
+};
 
 use winnow::{
     ascii::{digit1, line_ending, space0, space1},
-    combinator::{opt, repeat_till},
+    combinator::{alt, delimited, opt, preceded, repeat_till, separated_pair},
     error::{ContextError, ErrMode, ParserError, StrContext, StrContextValue},
     token::{literal, take_while},
     PResult, Parser,
 };
-
-#[derive(Debug, Error, Diagnostic)]
-#[error("A parsing error occured")]
-pub struct ErrorInfo {
-    #[source_code]
-    pub src: NamedSource<String>,
-    #[label("oh no")]
-    pub location: SourceSpan,
-}
-
-impl ErrorInfo {
-    pub fn new(input: &VB6Stream, len: usize) -> Self {
-        let code = input.stream.to_string();
-        Self {
-            src: NamedSource::new(input.file_name.clone(), code.clone()),
-            location: SourceSpan::new(
-                SourceOffset::from_location(code, input.line_number, input.column),
-                len,
-            ),
-        }
-    }
-}
-
-#[derive(Error, Debug, Diagnostic)]
-pub enum ClassParseError {
-    #[error("Error parsing header")]
-    #[diagnostic(transparent)]
-    Header {
-        #[label = "A parsing error occured"]
-        info: ErrorInfo,
-    },
-
-    #[error("No class name in the class file")]
-    #[diagnostic(transparent)]
-    MissingClassName {
-        #[label = "No class name found in the class file"]
-        info: ErrorInfo,
-    },
-
-    #[error("Error parsing the VB6 file contents")]
-    #[diagnostic(transparent)]
-    FileContent {
-        #[label = "A parsing error occured"]
-        info: ErrorInfo,
-    },
-}
 
 /// Represents the usage of a file.
 /// -1 is 'true' and 0 is 'false' in VB6.
@@ -93,6 +48,17 @@ pub enum MtsStatus {
     MTSObject,      // -1 (true)
 }
 
+/// The properties of a VB6 class file is the list of key/value pairs
+/// found between the BEGIN and END lines in the header.
+#[derive(Debug, PartialEq, Eq, Clone)]
+pub struct VB6ClassProperties {
+    pub multi_use: FileUsage,            // (0/-1) multi use / single use
+    pub persistable: Persistance,        // (0/-1) NonParsistable / Persistable
+    pub data_binding_behavior: bool,     // (0/-1) false/true - vbNone
+    pub data_source_behavior: bool,      // (0/-1) false/true - vbNone
+    pub mts_transaction_mode: MtsStatus, // (0/-1) NotAnMTSObject / MTSObject
+}
+
 /// Represents the header of a VB6 class file.
 /// The header contains the version, multi use, persistable, data binding behavior,
 /// data source behavior, and MTS transaction mode.
@@ -103,11 +69,7 @@ pub enum MtsStatus {
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct VB6ClassHeader<'a> {
     pub version: VB6FileFormatVersion,
-    pub multi_use: FileUsage,            // (0/-1) multi use / single use
-    pub persistable: Persistance,        // (0/-1) NonParsistable / Persistable
-    pub data_binding_behavior: bool,     // (0/-1) false/true - vbNone
-    pub data_source_behavior: bool,      // (0/-1) false/true - vbNone
-    pub mts_transaction_mode: MtsStatus, // (0/-1) NotAnMTSObject / MTSObject
+    pub properties: VB6ClassProperties,
     pub attributes: VB6FileAttributes<'a>,
 }
 
@@ -218,11 +180,16 @@ impl<'a> VB6ClassFile<'a> {
     }
 }
 
-/// Parses a VB6 class file header from a byte slice.
+/// Parses a VB6 class file from the header.
+/// The header contains the version, multi use, persistable, data binding behavior,
+/// data source behavior, and MTS transaction mode.
+/// The header also contains the attributes of the class file.
+/// The header is not normally visible in the code editor region.
+/// It is only visible in the file property explorer.
 ///
 /// # Arguments
 ///
-/// * `input` The byte slice to parse.
+/// * `input` The stream to parse.
 ///
 /// # Returns
 ///
@@ -241,15 +208,53 @@ fn class_header_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6ClassHeader<'
 
     let version = version_parse.parse_next(input)?;
 
-    space0.parse_next(input)?;
+    let properties = properties_parse.parse_next(input)?;
 
-    keyword_parse("BEGIN").parse_next(input)?;
+    let attributes = attributes_parse.parse_next(input)?;
 
-    space0.parse_next(input)?;
+    Ok(VB6ClassHeader {
+        version,
+        properties,
+        attributes,
+    })
+}
 
-    line_ending
+fn begin_line_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<()> {
+    (space0, keyword_parse("BEGIN"), space0).parse_next(input)?;
+
+    alt(((line_comment_parse, line_ending), (space0, line_ending)))
         .context(StrContext::Label("Newline expected after BEGIN keyword."))
         .parse_next(input)?;
+
+    Ok(())
+}
+
+fn end_line_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<()> {
+    (space0, keyword_parse("END"), space0).parse_next(input)?;
+
+    alt(((line_comment_parse, line_ending), (space0, line_ending)))
+        .context(StrContext::Label("Newline expected after END keyword."))
+        .parse_next(input)?;
+
+    Ok(())
+}
+
+/// Parses a VB6 class file properties from the header.
+/// The properties are the key/value pairs found between the BEGIN and END lines in the header.
+/// The properties contain the multi use, persistable, data binding behavior,
+/// data source behavior, and MTS transaction mode.
+/// The properties are not normally visible in the code editor region.
+/// They are only visible in the file property explorer.
+///
+/// # Arguments
+///
+/// * `input` The stream to parse.
+///
+/// # Returns
+///
+/// A result containing the parsed VB6 class file properties or an error.
+fn properties_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6ClassProperties> {
+    begin_line_parse.parse_next(input)?;
 
     let mut multi_use = FileUsage::MultiUse;
     let mut persistable = Persistance::NonPersistable;
@@ -258,7 +263,7 @@ fn class_header_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6ClassHeader<'
     let mut mts_transaction_mode = MtsStatus::NotAnMTSObject;
 
     let (collection, _): (Vec<(&BStr, &BStr)>, _) =
-        repeat_till(0.., key_value_line_parse("="), keyword_parse("END")).parse_next(input)?;
+        repeat_till(0.., key_value_line_parse("="), end_line_parse).parse_next(input)?;
 
     for pair in collection.iter() {
         let (key, value) = pair;
@@ -302,20 +307,12 @@ fn class_header_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6ClassHeader<'
         }
     }
 
-    line_ending
-        .context(StrContext::Label("Newline expected after END."))
-        .parse_next(input)?;
-
-    let attributes = attributes_parse.parse_next(input)?;
-
-    Ok(VB6ClassHeader {
-        version,
+    Ok(VB6ClassProperties {
         multi_use,
         persistable,
         data_binding_behavior,
         data_source_behavior,
         mts_transaction_mode,
-        attributes,
     })
 }
 
@@ -410,11 +407,7 @@ fn key_value_line_parse<'a>(
     move |input: &mut VB6Stream<'a>| -> PResult<(&'a BStr, &'a BStr)> {
         let (key, value) = key_value_parse(divider).parse_next(input)?;
 
-        alt((
-            line_comment_parse,
-            line_ending.context(StrContext::Label("newline not found")),
-        ))
-        .parse_next(input)?;
+        (space0, opt(line_comment_parse), line_ending).parse_next(input)?;
 
         Ok((key, value))
     }
@@ -551,11 +544,11 @@ Option Explicit
     fn class_header_valid() {
         let input = b"VERSION 1.0 CLASS\r
                     BEGIN\r
-                        MultiUse = -1  'True
-                        Persistable = 0  'NotPersistable
-                        DataBindingBehavior = 0  'vbNone
-                        DataSourceBehavior = 0  'vbNone
-                        MTSTransactionMode = 0  'NotAnMTSObject
+                        MultiUse = -1  'True\r
+                        Persistable = 0  'NotPersistable\r
+                        DataBindingBehavior = 0  'vbNone\r
+                        DataSourceBehavior = 0  'vbNone\r
+                        MTSTransactionMode = 0  'NotAnMTSObject\r
                     END\r
                     ";
 
