@@ -15,12 +15,14 @@ pub struct VB6Stream<'a> {
     pub stream: &'a bstr::BStr,
     pub index: usize,
     pub line_number: usize,
+    pub column: usize,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Default)]
 pub struct VB6StreamCheckpoint {
     pub index: usize,
     pub line_number: usize,
+    pub column: usize,
 }
 
 impl Offset for VB6StreamCheckpoint {
@@ -41,6 +43,7 @@ impl<'a, 'b> VB6Stream<'a> {
             stream: stream.as_bstr(),
             index: 0,
             line_number: 1,
+            column: 1,
         }
     }
 
@@ -168,7 +171,12 @@ impl<'a> Stream for VB6Stream<'a> {
         self.index += 1;
 
         if *token == b'\n' {
+            // if we have a newline then we need to reset the
+            // column and line number.
             self.line_number += 1;
+            self.column = 1;
+        } else {
+            self.column += 1;
         }
 
         Some(*token)
@@ -199,7 +207,12 @@ impl<'a> Stream for VB6Stream<'a> {
 
         for token in slice.iter() {
             if *token == b'\n' {
+                // on newline we need to reset the column and increment
+                // the line number
                 self.line_number += 1;
+                self.column = 1;
+            } else {
+                self.column += 1;
             }
         }
 
@@ -210,12 +223,14 @@ impl<'a> Stream for VB6Stream<'a> {
         VB6StreamCheckpoint {
             index: self.index,
             line_number: self.line_number,
+            column: self.column,
         }
     }
 
     fn reset(&mut self, checkpoint: &Self::Checkpoint) {
         self.index = checkpoint.index;
         self.line_number = checkpoint.line_number;
+        self.column = checkpoint.column;
     }
 
     fn raw(&self) -> &dyn Debug {
@@ -444,72 +459,103 @@ mod tests {
     }
 
     #[test]
-    fn line_number() {
+    fn line_and_column() {
         let mut stream = VB6Stream::new("", b"Hello,\r\n World!");
 
         let checkpoint = stream.checkpoint();
 
         assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.column, 1);
         assert_eq!(stream.next_token(), Some(b'H'));
         assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.column, 2);
         assert_eq!(stream.next_token(), Some(b'e'));
         assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.column, 3);
         assert_eq!(stream.next_token(), Some(b'l'));
+        assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.column, 4);
 
         stream.reset(&checkpoint);
 
         assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.column, 1);
         assert_eq!(stream.next_token(), Some(b'H'));
         assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.column, 2);
         assert_eq!(stream.next_token(), Some(b'e'));
         assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.column, 3);
         assert_eq!(stream.next_token(), Some(b'l'));
+        assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.column, 4);
 
         let checkpoint = stream.checkpoint();
 
         assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.column, 4);
         assert_eq!(stream.next_token(), Some(b'l'));
         assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.column, 5);
         assert_eq!(stream.next_token(), Some(b'o'));
         assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.column, 6);
         assert_eq!(stream.next_token(), Some(b','));
         assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.column, 7);
         assert_eq!(stream.next_token(), Some(b'\r'));
         assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.column, 8);
         assert_eq!(stream.next_token(), Some(b'\n'));
         assert_eq!(stream.line_number, 2);
+        assert_eq!(stream.column, 1);
         assert_eq!(stream.next_token(), Some(b' '));
         assert_eq!(stream.line_number, 2);
+        assert_eq!(stream.column, 2);
 
         stream.reset(&checkpoint);
 
         assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.column, 4);
         assert_eq!(stream.next_token(), Some(b'l'));
         assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.column, 5);
         assert_eq!(stream.next_token(), Some(b'o'));
         assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.column, 6);
         assert_eq!(stream.next_token(), Some(b','));
         assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.column, 7);
         assert_eq!(stream.next_token(), Some(b'\r'));
         assert_eq!(stream.line_number, 1);
+        assert_eq!(stream.column, 8);
         assert_eq!(stream.next_token(), Some(b'\n'));
         assert_eq!(stream.line_number, 2);
+        assert_eq!(stream.column, 1);
         assert_eq!(stream.next_token(), Some(b' '));
         assert_eq!(stream.line_number, 2);
+        assert_eq!(stream.column, 2);
         assert_eq!(stream.next_token(), Some(b'W'));
         assert_eq!(stream.line_number, 2);
+        assert_eq!(stream.column, 3);
         assert_eq!(stream.next_token(), Some(b'o'));
         assert_eq!(stream.line_number, 2);
+        assert_eq!(stream.column, 4);
         assert_eq!(stream.next_token(), Some(b'r'));
         assert_eq!(stream.line_number, 2);
+        assert_eq!(stream.column, 5);
         assert_eq!(stream.next_token(), Some(b'l'));
         assert_eq!(stream.line_number, 2);
+        assert_eq!(stream.column, 6);
         assert_eq!(stream.next_token(), Some(b'd'));
         assert_eq!(stream.line_number, 2);
+        assert_eq!(stream.column, 7);
         assert_eq!(stream.next_token(), Some(b'!'));
         assert_eq!(stream.line_number, 2);
+        assert_eq!(stream.column, 8);
         assert_eq!(stream.next_token(), None);
         assert_eq!(stream.line_number, 2);
+        assert_eq!(stream.column, 8);
     }
 
     #[test]
