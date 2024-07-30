@@ -4,6 +4,11 @@ use winnow::{
     stream::Stream,
 };
 
+use miette::{Diagnostic, NamedSource, SourceOffset, SourceSpan};
+use thiserror::Error;
+
+use crate::vb6stream::VB6Stream;
+
 #[derive(thiserror::Error, Debug, PartialEq)]
 pub enum VB6ProjectParseError<I> {
     #[error("The reference line has too many elements")]
@@ -88,4 +93,50 @@ impl<I: Stream + Clone> ParserError<I> for VB6ProjectParseError<I> {
     fn append(self, _: &I, _: &<I as Stream>::Checkpoint, _: ErrorKind) -> Self {
         self
     }
+}
+
+#[derive(Debug, Error, Diagnostic)]
+#[error("A parsing error occured")]
+pub struct ErrorInfo {
+    #[source_code]
+    pub src: NamedSource<String>,
+    #[label("oh no")]
+    pub location: SourceSpan,
+}
+
+impl ErrorInfo {
+    pub fn new(input: &VB6Stream, len: usize) -> Self {
+        let code = input.stream.to_string();
+        Self {
+            src: NamedSource::new(input.file_name.clone(), code.clone()),
+            location: SourceSpan::new(
+                SourceOffset::from_location(code, input.line_number, input.column),
+                len,
+            ),
+        }
+    }
+}
+
+#[derive(Error, Debug, Diagnostic)]
+pub enum ClassParseError {
+    #[error("Error parsing header")]
+    #[diagnostic(transparent)]
+    Header {
+        #[label = "A parsing error occured"]
+        info: ErrorInfo,
+    },
+
+    #[error("No class name in the class file")]
+    #[diagnostic(transparent)]
+    MissingClassName {
+        #[label = "No class name found in the class file"]
+        info: ErrorInfo,
+    },
+
+    #[error("Error parsing the VB6 file contents")]
+    #[diagnostic(transparent)]
+    FileContent {
+        #[label = "A parsing error occured"]
+        info: ErrorInfo,
+    },
 }

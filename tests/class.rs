@@ -23,15 +23,21 @@ fn artificial_life_organism_class_load() {
     assert_eq!(organism_class.header.version.major, 1);
     assert_eq!(organism_class.header.version.minor, 0);
 
-    assert_eq!(organism_class.header.multi_use, FileUsage::MultiUse);
     assert_eq!(
-        organism_class.header.persistable,
+        organism_class.header.properties.multi_use,
+        FileUsage::MultiUse
+    );
+    assert_eq!(
+        organism_class.header.properties.persistable,
         Persistance::NonPersistable
     );
-    assert_eq!(organism_class.header.data_binding_behavior, false);
-    assert_eq!(organism_class.header.data_source_behavior, false);
     assert_eq!(
-        organism_class.header.mts_transaction_mode,
+        organism_class.header.properties.data_binding_behavior,
+        false
+    );
+    assert_eq!(organism_class.header.properties.data_source_behavior, false);
+    assert_eq!(
+        organism_class.header.properties.mts_transaction_mode,
         MtsStatus::NotAnMTSObject
     );
 
