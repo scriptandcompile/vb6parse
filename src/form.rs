@@ -2,6 +2,7 @@
 
 use std::vec;
 
+use crate::header::{key_value_line_parse, key_value_parse};
 use crate::vb6::{line_comment_parse, vb6_parse, VB6Token};
 use crate::vb6stream::VB6Stream;
 use crate::VB6FileFormatVersion;
@@ -52,6 +53,8 @@ pub enum VB6ControlKind<'a> {
     Frame {},
     PictureBox {},
     ComboBox {},
+    HScrollBar {},
+    VScrollBar {},
     Menu {
         caption: &'a BStr,
         controls: Vec<VB6Control<'a>>,
@@ -204,16 +207,7 @@ fn block_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6Control<'a>> {
     while !input.is_empty() {
         space0.parse_next(input)?;
 
-        if (
-            space0::<VB6Stream<'a>, ContextError>,
-            Caseless("BeginProperty"),
-            space1,
-        )
-            .parse_next(input)
-            .is_ok()
-        {
-            let property_group = begin_property_parse.parse_next(input)?;
-
+        if let Ok(property_group) = begin_property_parse.parse_next(input) {
             property_groups.push(property_group);
             continue;
         } else if (
@@ -251,6 +245,8 @@ fn block_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6Control<'a>> {
                 b"ComboBox" => VB6ControlKind::ComboBox {},
                 b"CommandButton" => VB6ControlKind::CommandButton {},
                 b"PictureBox" => VB6ControlKind::PictureBox {},
+                b"HScrollBar" => VB6ControlKind::HScrollBar {},
+                b"VScrollBar" => VB6ControlKind::HScrollBar {},
                 _ => {
                     return Err(ParserError::assert(input, "Unknown control kind"));
                 }
@@ -267,7 +263,7 @@ fn block_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6Control<'a>> {
             return Ok(parent_control);
         }
 
-        let (name, value) = key_value_pair_parse.parse_next(input)?;
+        let (name, value) = key_value_parse("=").parse_next(input)?;
 
         properties.push(VB6Property { name, value });
     }
@@ -276,11 +272,15 @@ fn block_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6Control<'a>> {
 }
 
 fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6PropertyGroup<'a>> {
+    (space0, Caseless("BeginProperty"), space1).parse_next(input)?;
+
     let property_name = take_till(1.., (b"\r", b"\t", b" ", b"\n"))
         .context(StrContext::Label(
             "Expected property name after 'BeginProperty' keyword",
         ))
         .parse_next(input)?;
+
+    println!("Property group name: {:?}", property_name);
 
     space0.parse_next(input)?;
 
@@ -312,8 +312,23 @@ fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6PropertyGro
             break;
         }
 
-        let (name, value) = key_value_pair_parse(input)?;
+        println!("input: {:?}", input.stream[input.index..].as_bstr());
+
+        let (name, value) = key_value_parse("=").parse_next(input)?;
+
+        println!("Property: {:?} = {:?}", name, value);
+
         property_group.properties.push(VB6Property { name, value });
+
+        opt(line_comment_parse).parse_next(input)?;
+
+        println!("input: {:?}", input.stream[input.index..].as_bstr());
+
+        line_ending
+            .context(StrContext::Label(
+                "Expected line ending after EndProperty keyword.",
+            ))
+            .parse_next(input)?;
     }
 
     line_ending
@@ -323,60 +338,6 @@ fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6PropertyGro
         .parse_next(input)?;
 
     Ok(property_group)
-}
-
-// TODO: it looks like I can break some of this out into a module
-// specifically for parsing VB6 header information since these
-// headers are basically a language of their own and shared between
-// the different VB6 file types.
-// this should apply to:
-// quoted_value_parse, and unqouted_value_parse, the Begin/End blocks,
-// and the BeginProperty/EndProperty blocks.
-
-/// Parses a qouted-value from a byte slice.
-/// The qouted value excludes the double qoutes.
-fn quoted_value_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr> {
-    let value = delimited('\"', take_till(0.., '\"'), '\"')
-        .context(StrContext::Label("Expected quoted value"))
-        .parse_next(input)?;
-
-    Ok(value.as_bstr())
-}
-
-/// Parses an unquoted-value from a byte slice.
-fn unqouted_value_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr> {
-    let value = take_till(0.., (b"\r\n", b"\n", b"'", b" "))
-        .context(StrContext::Label("Expected unquoted value"))
-        .parse_next(input)?;
-
-    Ok(value.as_bstr())
-}
-
-fn key_value_pair_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<(&'a BStr, &'a BStr)> {
-    space0.parse_next(input)?;
-
-    let key = take_till(0.., (b" ", b"="))
-        .context(StrContext::Label("Expected key before '='"))
-        .parse_next(input)?;
-
-    space0.parse_next(input)?;
-
-    "=".context(StrContext::Label("Expected '=' after key"))
-        .parse_next(input)?;
-
-    space0.parse_next(input)?;
-
-    let value = alt((quoted_value_parse, unqouted_value_parse)).parse_next(input)?;
-
-    space0.parse_next(input)?;
-
-    opt(line_comment_parse).parse_next(input)?;
-
-    line_ending
-        .context(StrContext::Label("Expected line ending after value"))
-        .parse_next(input)?;
-
-    Ok((key.as_bstr(), value))
 }
 
 fn begin_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6FullyQualifiedName<'a>> {
@@ -410,4 +371,44 @@ fn begin_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6FullyQualifiedName<'
         kind: kind.as_bstr(),
         name: name.as_bstr(),
     })
+}
+
+#[cfg(test)]
+mod tests {
+
+    use super::*;
+
+    #[test]
+    fn version_information() {
+        let mut input = VB6Stream::new("", b"VERSION 5.00\r\n");
+        let result = version_information_parse.parse_next(&mut input);
+
+        assert!(result.is_ok());
+
+        let result = result.unwrap();
+        assert_eq!(result.major, 5);
+        assert_eq!(result.minor, 0);
+    }
+
+    #[test]
+    fn begin_property() {
+        let source = b"BeginProperty Font\r
+Name = \"Arial\"\r
+Size = 8.25\r
+Charset = 0\r
+Weight = 400\r
+Underline = 0 'False\r
+Italic = 0 'False\r
+Strikethrough = 0 'False\r
+EndProperty\r\n";
+
+        let mut input = VB6Stream::new("", source);
+        let result = begin_property_parse.parse_next(&mut input);
+
+        assert!(result.is_ok());
+
+        let result = result.unwrap();
+        assert_eq!(result.name, "Font");
+        assert_eq!(result.properties.len(), 7);
+    }
 }

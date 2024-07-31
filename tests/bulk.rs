@@ -1,6 +1,5 @@
 use vb6parse::{
-    class::VB6ClassFile,
-    project::VB6Project, //form::VB6FormFile, module::VB6ModuleFile,
+    class::VB6ClassFile, form::VB6FormFile, module::VB6ModuleFile, project::VB6Project,
 };
 
 #[test]
@@ -66,33 +65,36 @@ fn bulk_load_all_projects() {
                 VB6ClassFile::parse(file_name.to_owned(), &mut class_contents.as_slice()).unwrap();
         }
 
-        // for module_reference in project.modules {
-        //     let module_path = project_directory.join(&module_reference.path.to_string());
+        for module_reference in project.modules {
+            let module_path = project_directory.join(&module_reference.path.to_string());
 
-        //     if std::fs::metadata(&module_path).is_err() {
-        //         println!("Module not found: {}", module_path.to_str().unwrap());
-        //         continue;
-        //     }
+            if std::fs::metadata(&module_path).is_err() {
+                println!("Module not found: {}", module_path.to_str().unwrap());
+                continue;
+            }
 
-        //     println!("Loading module: {}", module_path.to_str().unwrap());
+            println!("Loading module: {}", module_path.to_str().unwrap());
 
-        //     let module_contents = std::fs::read(&module_path).unwrap();
-        //     let _module = VB6ModuleFile::parse(&module_contents).unwrap();
-        // }
+            let file_name = module_path.file_name().unwrap().to_str().unwrap();
+            let module_contents = std::fs::read(&module_path).unwrap();
+            let _module = VB6ModuleFile::parse(file_name.to_owned(), &module_contents).unwrap();
+        }
 
-        // for form_reference in project.forms {
-        //     let form_path = project_directory.join(&form_reference.to_string());
+        for form_reference in project.forms {
+            let form_path = project_directory.join(&form_reference.to_string());
 
-        //     if std::fs::metadata(&form_path).is_err() {
-        //         println!("Form not found: {}", form_path.to_str().unwrap());
-        //         continue;
-        //     }
+            if std::fs::metadata(&form_path).is_err() {
+                println!("Form not found: {}", form_path.to_str().unwrap());
+                continue;
+            }
 
-        //     println!("Loading form: {}", form_path.to_str().unwrap());
+            println!("Loading form: {}", form_path.to_str().unwrap());
 
-        //     let form_contents = std::fs::read(&form_path).unwrap();
-        //     let _form = VB6FormFile::parse(&mut form_contents.as_slice()).unwrap();
-        // }
+            let file_name = form_path.file_name().unwrap().to_str().unwrap();
+            let form_contents = std::fs::read(&form_path).unwrap();
+            let _form =
+                VB6FormFile::parse(file_name.to_owned(), &mut form_contents.as_slice()).unwrap();
+        }
 
         println!("Project loaded: {}", project_path);
     }
