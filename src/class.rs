@@ -5,7 +5,7 @@ use miette::Result;
 
 use crate::{
     errors::{ClassParseError, ErrorInfo},
-    header::key_value_line_parse,
+    header::{key_value_line_parse, version_parse, HeaderKind},
     vb6::{keyword_parse, line_comment_parse, vb6_parse, VB6Token},
     vb6stream::VB6Stream,
     VB6FileFormatVersion,
@@ -206,7 +206,7 @@ fn class_header_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6ClassHeader<'
     //  ...
     // END
 
-    let version = version_parse.parse_next(input)?;
+    let version = version_parse(HeaderKind::Class).parse_next(input)?;
 
     let properties = properties_parse.parse_next(input)?;
 
@@ -365,84 +365,9 @@ fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6FileAttributes<
     })
 }
 
-fn version_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6FileFormatVersion> {
-    space0.parse_next(input)?;
-
-    keyword_parse("VERSION")
-        .context(StrContext::Expected(StrContextValue::Description(
-            "'VERSION' header element not found.",
-        )))
-        .parse_next(input)?;
-
-    space1
-        .context(StrContext::Expected(StrContextValue::Description(
-            "At least one space is required between the 'VERSION' header element and the header major version number.",
-        ))).parse_next(input)?;
-
-    let major_digits = digit1
-        .context(StrContext::Expected(StrContextValue::Description(
-            "Major version number not found.",
-        )))
-        .parse_next(input)?;
-
-    let Ok(major_version) = bstr::BStr::new(major_digits)
-        .to_string()
-        .as_str()
-        .parse::<u8>()
-    else {
-        let error = ParserError::assert(input, "Unable to parse major version number.");
-
-        return Err(ErrMode::Cut(error));
-    };
-
-    ".".context(StrContext::Expected(StrContextValue::Description(
-        "Version decimal character not found.",
-    )))
-    .parse_next(input)?;
-
-    let minor_digits = digit1
-        .context(StrContext::Expected(StrContextValue::Description(
-            "Minor version number not found.",
-        )))
-        .parse_next(input)?;
-
-    let Ok(minor_version) = bstr::BStr::new(minor_digits)
-        .to_string()
-        .as_str()
-        .parse::<u8>()
-    else {
-        let error = ParserError::assert(input, "Unable to parse minor version number.");
-
-        return Err(ErrMode::Cut(error));
-    };
-
-    space1.context(
-        StrContext::Expected(StrContextValue::Description(
-            "At least one space is required between the header minor version number and the 'CLASS' header element"
-        ))).parse_next(input)?;
-
-    keyword_parse("CLASS")
-        .context(StrContext::Expected(StrContextValue::Description(
-            "'CLASS' header element not found.",
-        )))
-        .parse_next(input)?;
-
-    space0.parse_next(input)?;
-
-    line_ending
-        .context(StrContext::Expected(StrContextValue::Description(
-            "Newline expected after CLASS keyword.",
-        )))
-        .parse_next(input)?;
-
-    Ok(VB6FileFormatVersion {
-        major: major_version,
-        minor: minor_version,
-    })
-}
-
 #[cfg(test)]
 mod tests {
+    use super::HeaderKind;
     use super::*;
 
     #[test]
@@ -564,7 +489,7 @@ Attribute VB_Exposed = False";
         let input = b"VERSION 1.0 CLASS\r\n";
 
         let mut stream = VB6Stream::new("", &mut input.as_slice());
-        let result = version_parse(&mut stream);
+        let result = version_parse(HeaderKind::Class).parse_next(&mut stream);
 
         println!("{:?}", result);
 
@@ -577,7 +502,7 @@ Attribute VB_Exposed = False";
         let input = b"VERSION 1.0 CLASS";
 
         let mut stream = VB6Stream::new("", &mut input.as_slice());
-        let result = version_parse(&mut stream);
+        let result = version_parse(HeaderKind::Class).parse_next(&mut stream);
 
         assert!(result.is_err());
     }
