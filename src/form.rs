@@ -393,14 +393,14 @@ mod tests {
     #[test]
     fn begin_property() {
         let source = b"BeginProperty Font\r
-Name = \"Arial\"\r
-Size = 8.25\r
-Charset = 0\r
-Weight = 400\r
-Underline = 0 'False\r
-Italic = 0 'False\r
-Strikethrough = 0 'False\r
-EndProperty\r\n";
+                        Name = \"Arial\"\r
+                        Size = 8.25\r
+                        Charset = 0\r
+                        Weight = 400\r
+                        Underline = 0 'False\r
+                        Italic = 0 'False\r
+                        Strikethrough = 0 'False\r
+                    EndProperty\r\n";
 
         let mut input = VB6Stream::new("", source);
         let result = begin_property_parse.parse_next(&mut input);
