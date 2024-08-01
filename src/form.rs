@@ -2,7 +2,7 @@
 
 use std::vec;
 
-use crate::header::{key_value_line_parse, key_value_parse};
+use crate::header::{key_value_parse, version_parse, HeaderKind};
 use crate::vb6::{line_comment_parse, vb6_parse, VB6Token};
 use crate::vb6stream::VB6Stream;
 use crate::VB6FileFormatVersion;
@@ -11,8 +11,8 @@ use bstr::{BStr, ByteSlice};
 
 use winnow::error::ParserError;
 use winnow::{
-    ascii::{digit1, line_ending, space0, space1, Caseless},
-    combinator::{alt, delimited, opt},
+    ascii::{line_ending, space0, space1, Caseless},
+    combinator::opt,
     error::{ContextError, StrContext},
     token::{take_till, take_until},
     PResult, Parser,
@@ -141,7 +141,7 @@ impl<'a> VB6FormFile<'a> {
     pub fn parse(file_name: String, input: &'a [u8]) -> PResult<Self> {
         let mut input = VB6Stream::new(file_name, input);
 
-        let format_version = version_information_parse.parse_next(&mut input)?;
+        let format_version = version_parse(HeaderKind::Form).parse_next(&mut input)?;
 
         (space0, Caseless("BEGIN"), space1)
             .context(StrContext::Label("Expected 'Begin' keyword"))
@@ -157,44 +157,6 @@ impl<'a> VB6FormFile<'a> {
             tokens,
         })
     }
-}
-
-fn version_information_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6FileFormatVersion> {
-    (space0, Caseless("VERSION"), space1)
-        .context(StrContext::Label(
-            "Version information not found at the start of the VB6 form file",
-        ))
-        .parse_next(input)?;
-
-    let major_digits = digit1
-        .context(StrContext::Label("Expected major version number"))
-        .parse_next(input)?;
-
-    let major_version_number =
-        u8::from_str_radix(bstr::BStr::new(major_digits).to_string().as_str(), 10).unwrap();
-
-    ".".context(StrContext::Label("Expected '.' after major version number"))
-        .parse_next(input)?;
-
-    let minor_digits = digit1
-        .context(StrContext::Label("Expected minor version number"))
-        .parse_next(input)?;
-
-    let minor_version_number =
-        u8::from_str_radix(bstr::BStr::new(minor_digits).to_string().as_str(), 10).unwrap();
-
-    opt(line_comment_parse).parse_next(input)?;
-
-    line_ending
-        .context(StrContext::Label(
-            "Expected line ending after version information",
-        ))
-        .parse_next(input)?;
-
-    Ok(VB6FileFormatVersion {
-        major: major_version_number,
-        minor: minor_version_number,
-    })
 }
 
 fn block_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6Control<'a>> {
@@ -280,8 +242,6 @@ fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6PropertyGro
         ))
         .parse_next(input)?;
 
-    println!("Property group name: {:?}", property_name);
-
     space0.parse_next(input)?;
 
     opt(line_comment_parse).parse_next(input)?;
@@ -312,17 +272,11 @@ fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6PropertyGro
             break;
         }
 
-        println!("input: {:?}", input.stream[input.index..].as_bstr());
-
         let (name, value) = key_value_parse("=").parse_next(input)?;
-
-        println!("Property: {:?} = {:?}", name, value);
 
         property_group.properties.push(VB6Property { name, value });
 
         opt(line_comment_parse).parse_next(input)?;
-
-        println!("input: {:?}", input.stream[input.index..].as_bstr());
 
         line_ending
             .context(StrContext::Label(
@@ -377,18 +331,6 @@ fn begin_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6FullyQualifiedName<'
 mod tests {
 
     use super::*;
-
-    #[test]
-    fn version_information() {
-        let mut input = VB6Stream::new("", b"VERSION 5.00\r\n");
-        let result = version_information_parse.parse_next(&mut input);
-
-        assert!(result.is_ok());
-
-        let result = result.unwrap();
-        assert_eq!(result.major, 5);
-        assert_eq!(result.minor, 0);
-    }
 
     #[test]
     fn begin_property() {
