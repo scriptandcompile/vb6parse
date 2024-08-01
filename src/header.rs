@@ -21,9 +21,7 @@ use winnow::{
 pub enum HeaderKind {
     Class,
     Form,
-    Module,
     UserControl,
-    Project,
 }
 
 pub fn version_parse<'a>(
@@ -80,13 +78,12 @@ pub fn version_parse<'a>(
             return Err(ErrMode::Cut(error));
         };
 
-        space1.context(
-            StrContext::Expected(StrContextValue::Description(
-                "At least one space is required between the header minor version number and the 'CLASS' header element"
-            ))).parse_next(input)?;
-
         match header_kind {
             HeaderKind::Class => {
+                space1.context(
+                    StrContext::Expected(StrContextValue::Description(
+                        "At least one space is required between the header minor version number and the 'CLASS' header element"
+                    ))).parse_next(input)?;
                 keyword_parse("CLASS")
                     .context(StrContext::Expected(StrContextValue::Description(
                         "'CLASS' header element not found.",
@@ -96,11 +93,13 @@ pub fn version_parse<'a>(
             HeaderKind::Form => {
                 // Form headers only have the version keyword and the
                 // major/minor version numbers.
-                // There is no 'FORM' keyword.
+                // There is no 'FORM' keyword in the version line.
             }
-            HeaderKind::Module => {}
-            HeaderKind::UserControl => {}
-            HeaderKind::Project => {}
+            HeaderKind::UserControl => {
+                // User Control headers only have the version keyword and the
+                // major/minor version numbers.
+                // There is no 'UserControl' keyword in the version line.
+            }
         }
 
         space0.parse_next(input)?;
@@ -161,5 +160,49 @@ pub fn key_value_line_parse<'a>(
         (space0, opt(line_comment_parse), alt((line_ending, eof))).parse_next(input)?;
 
         Ok((key, value))
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::vb6stream::VB6Stream;
+
+    use super::HeaderKind;
+
+    #[test]
+    fn test_class_version_parse() {
+        let mut stream = VB6Stream::new("", b"VERSION 1.0 CLASS\r\n");
+        let version = version_parse(HeaderKind::Class)(&mut stream).unwrap();
+
+        assert_eq!(version.major, 1);
+        assert_eq!(version.minor, 0);
+    }
+
+    #[test]
+    fn test_form_version_parse() {
+        let mut stream = VB6Stream::new("", b"VERSION 5.00\r\n");
+        let version = version_parse(HeaderKind::Form)(&mut stream).unwrap();
+
+        assert_eq!(version.major, 5);
+        assert_eq!(version.minor, 0);
+    }
+
+    #[test]
+    fn test_key_value_parse() {
+        let mut stream = VB6Stream::new("", b"Attribute1 = Value1\r\n");
+        let (key, value) = key_value_parse("=")(&mut stream).unwrap();
+
+        assert_eq!(key, "Attribute1".as_bytes());
+        assert_eq!(value, "Value1".as_bytes());
+    }
+
+    #[test]
+    fn test_key_value_line_parse() {
+        let mut stream = VB6Stream::new("", b"Attribute1 = Value1\r\n");
+        let (key, value) = key_value_line_parse("=")(&mut stream).unwrap();
+
+        assert_eq!(key, "Attribute1".as_bytes());
+        assert_eq!(value, "Value1".as_bytes());
     }
 }

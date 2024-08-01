@@ -12,9 +12,9 @@ use crate::{
 };
 
 use winnow::{
-    ascii::{digit1, line_ending, space0, space1},
+    ascii::{line_ending, space0},
     combinator::{alt, preceded, repeat_till},
-    error::{ContextError, ErrMode, ParserError, StrContext, StrContextValue},
+    error::{ContextError, ErrMode, ParserError, StrContext},
     PResult, Parser,
 };
 
