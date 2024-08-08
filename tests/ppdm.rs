@@ -1,11 +1,14 @@
 use bstr::{ByteSlice, B};
+
 use vb6parse::project::{CompileTargetType, VB6Project};
+use vb6parse::vb6stream::VB6Stream;
 
 #[test]
 fn ppdm_project_load() {
-    let mut project_file_bytes = include_bytes!("./data/ppdm/ppdm.vbp").as_slice();
+    let project_file_bytes = include_bytes!("./data/ppdm/ppdm.vbp").as_slice();
+    let mut input = VB6Stream::new("ppdm.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 15);

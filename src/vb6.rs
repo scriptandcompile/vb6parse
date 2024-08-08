@@ -9,13 +9,17 @@ use winnow::{
     PResult, Parser,
 };
 
-use crate::vb6stream::VB6Stream;
+use crate::{
+    errors::{ErrorInfo, VB6ParseError},
+    vb6stream::VB6Stream,
+};
 
 /// Parses a VB6 end-of-line comment.
 ///
-/// The comment starts with a single quote and continues until the end of the line.
-/// But it does not include the single quote, the carriage return character, the newline character,
-/// and it does not consume the carriage return or newline character.
+/// The comment starts with a single quote and continues until the end of the
+/// line. It includes the single quote, but excludes the carriage return
+/// character, the newline character, and it does not consume the carriage
+/// return or newline character.
 ///
 /// # Arguments
 ///
@@ -23,23 +27,26 @@ use crate::vb6stream::VB6Stream;
 ///
 /// # Returns
 ///
-/// The comment without the single quote, carriage return, and newline characters.
+/// The comment with the single quote, but without carriage return, and
+/// newline characters.
 ///
 /// # Example
 ///
 /// ```rust
-/// use vb6parse::vb6::eol_comment_parse;
+/// use vb6parse::vb6::line_comment_parse;
 /// use vb6parse::vb6stream::VB6Stream;
 ///
-/// let mut input = VB6Stream::new("' This is a comment\r\n".as_bytes());
-/// let comment = eol_comment_parse(&mut input).unwrap();
+/// let mut input = VB6Stream::new("line_comment.bas".to_owned(), "' This is a comment\r\n".as_bytes());
+/// let comment = line_comment_parse(&mut input).unwrap();
 ///
-/// assert_eq!(comment, " This is a comment");
+/// assert_eq!(comment, "' This is a comment");
 /// ```
-pub fn line_comment_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr> {
-    '\''.parse_next(input)?;
-
-    let comment = take_till(0.., (b"\r\n", b"\n", b"\r")).parse_next(input)?;
+pub fn line_comment_parse<'a>(
+    input: &mut VB6Stream<'a>,
+) -> PResult<&'a BStr, VB6ParseError<VB6Stream<'a>>> {
+    let comment = ('\'', take_till(0.., (b"\r\n", b"\n", b"\r")))
+        .recognize()
+        .parse_next(input)?;
 
     Ok(comment)
 }
@@ -62,12 +69,14 @@ pub fn line_comment_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr> {
 /// use vb6parse::vb6::whitespace_parse;
 /// use vb6parse::vb6stream::VB6Stream;
 ///
-/// let mut input = VB6Stream::new("    t".as_bytes());
+/// let mut input = VB6Stream::new("whitespace_tes.bas","    t".as_bytes());
 /// let whitespace = whitespace_parse(&mut input).unwrap();
 ///
 /// assert_eq!(whitespace, "    ");
 /// ```
-pub fn whitespace_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr> {
+pub fn whitespace_parse<'a>(
+    input: &mut VB6Stream<'a>,
+) -> PResult<&'a BStr, VB6ParseError<VB6Stream<'a>>> {
     let whitespace = take_while(1.., (' ', '\t')).parse_next(input)?;
 
     Ok(whitespace)
@@ -91,12 +100,14 @@ pub fn whitespace_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr> {
 /// use vb6parse::vb6::variable_name_parse;
 /// use vb6parse::vb6stream::VB6Stream;
 ///
-/// let mut input = VB6Stream::new("variable_name".as_bytes());
+/// let mut input = VB6Stream::new("variable_name_test.bas".to_owned(), "variable_name".as_bytes());
 /// let variable_name = variable_name_parse(&mut input).unwrap();
 ///
 /// assert_eq!(variable_name, "variable_name");
 /// ```
-pub fn variable_name_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr> {
+pub fn variable_name_parse<'a>(
+    input: &mut VB6Stream<'a>,
+) -> PResult<&'a BStr, VB6ParseError<VB6Stream<'a>>> {
     let variable_name = (
         one_of(('a'..='z', 'A'..='Z')),
         take_while(0.., ('_', 'a'..='z', 'A'..='Z', '0'..='9')),
@@ -129,27 +140,30 @@ pub fn variable_name_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr> {
 /// # Example
 ///
 /// ```rust
-/// use vb6parse::vb6::keyword_parse;
-/// use vb6parse::vb6stream::VB6Stream;
+/// use vb6parse::{
+///     vb6::keyword_parse,
+///     vb6stream::VB6Stream,
+///     errors::{ErrorInfo, VB6ParseError},
+/// };
 ///
 /// use bstr::{BStr, ByteSlice};
 /// use winnow::error::{ContextError, ErrMode};
 ///
-/// let mut input1 = VB6Stream::new("Option".as_bytes());
-/// let mut input2 = VB6Stream::new("op do".as_bytes());
+/// let mut input1 = VB6Stream::new("test1.bas", "Option".as_bytes());
+/// let mut input2 = VB6Stream::new("test2.bas","op do".as_bytes());
 ///
 /// let mut op_parse = keyword_parse("Op");
 ///
 /// let keyword = op_parse(&mut input1);
 /// let keyword2 = op_parse(&mut input2);
 ///
-/// assert_eq!(keyword, Err(ErrMode::Backtrack(ContextError::new())));
-/// assert_eq!(keyword2, Ok(b"op".as_bstr()));
+/// assert!(keyword.is_err());
+/// assert_eq!(keyword2.unwrap(), b"op".as_bstr());
 /// ```
 pub fn keyword_parse<'a>(
     keyword: &'static str,
-) -> impl FnMut(&mut VB6Stream<'a>) -> PResult<&'a BStr> {
-    move |input: &mut VB6Stream<'a>| -> PResult<&'a BStr> {
+) -> impl FnMut(&mut VB6Stream<'a>) -> PResult<&'a BStr, VB6ParseError<VB6Stream<'a>>> {
+    move |input: &mut VB6Stream<'a>| -> PResult<&'a BStr, VB6ParseError<VB6Stream<'a>>> {
         let checkpoint = input.checkpoint();
 
         let word = Caseless(keyword).parse_next(input)?;
@@ -160,8 +174,9 @@ pub fn keyword_parse<'a>(
         {
             input.reset(&checkpoint);
 
-            let context_error = ContextError::new();
-            return Err(ErrMode::Backtrack(context_error));
+            return Err(ErrMode::Backtrack(VB6ParseError::KeywordNotFound {
+                info: ErrorInfo::new(input, keyword.len()),
+            }));
         }
 
         Ok(word)
@@ -308,7 +323,7 @@ pub enum VB6Token<'a> {
 ///
 /// use bstr::{BStr, ByteSlice};
 ///
-/// let mut input = VB6Stream::new("Dim x As Integer".as_bytes());
+/// let mut input = VB6Stream::new("test.bas", b"Dim x As Integer");
 /// let tokens = vb6_parse(&mut input).unwrap();
 ///
 /// assert_eq!(tokens.len(), 7);
@@ -320,7 +335,9 @@ pub enum VB6Token<'a> {
 /// assert_eq!(tokens[5], VB6Token::Whitespace(" ".into()));
 /// assert_eq!(tokens[6], VB6Token::IntegerKeyword("Integer".into()));
 /// ```
-pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<Vec<VB6Token<'a>>> {
+pub fn vb6_parse<'a>(
+    input: &mut VB6Stream<'a>,
+) -> PResult<Vec<VB6Token<'a>>, VB6ParseError<VB6Stream<'a>>> {
     let mut tokens = Vec::new();
 
     while !input.is_empty() {
@@ -350,47 +367,47 @@ pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<Vec<VB6Token<'a>>> {
         // so we need to chain the 'alt' parsers together.
         let token = alt((
             alt((
-                "Type".map(|token: &BStr| VB6Token::TypeKeyword(token)),
-                "Optional".map(|token: &BStr| VB6Token::OptionalKeyword(token)),
-                "Option".map(|token: &BStr| VB6Token::OptionKeyword(token)),
-                "Explicit".map(|token: &BStr| VB6Token::ExplicitKeyword(token)),
-                "Private".map(|token: &BStr| VB6Token::PrivateKeyword(token)),
-                "Public".map(|token: &BStr| VB6Token::PublicKeyword(token)),
-                "Dim".map(|token: &BStr| VB6Token::DimKeyword(token)),
-                "With".map(|token: &BStr| VB6Token::WithKeyword(token)),
-                "Declare".map(|token: &BStr| VB6Token::DeclareKeyword(token)),
-                "Lib".map(|token: &BStr| VB6Token::LibKeyword(token)),
-                "Const".map(|token: &BStr| VB6Token::ConstKeyword(token)),
-                "As".map(|token: &BStr| VB6Token::AsKeyword(token)),
-                "Enum".map(|token: &BStr| VB6Token::EnumKeyword(token)),
-                "Long".map(|token: &BStr| VB6Token::LongKeyword(token)),
-                "Integer".map(|token: &BStr| VB6Token::IntegerKeyword(token)),
-                "Boolean".map(|token: &BStr| VB6Token::BooleanKeyword(token)),
-                "Byte".map(|token: &BStr| VB6Token::ByteKeyword(token)),
-                "Single".map(|token: &BStr| VB6Token::SingleKeyword(token)),
-                "String".map(|token: &BStr| VB6Token::StringKeyword(token)),
+                keyword_parse("Type").map(|token: &BStr| VB6Token::TypeKeyword(token)),
+                keyword_parse("Optional").map(|token: &BStr| VB6Token::OptionalKeyword(token)),
+                keyword_parse("Option").map(|token: &BStr| VB6Token::OptionKeyword(token)),
+                keyword_parse("Explicit").map(|token: &BStr| VB6Token::ExplicitKeyword(token)),
+                keyword_parse("Private").map(|token: &BStr| VB6Token::PrivateKeyword(token)),
+                keyword_parse("Public").map(|token: &BStr| VB6Token::PublicKeyword(token)),
+                keyword_parse("Dim").map(|token: &BStr| VB6Token::DimKeyword(token)),
+                keyword_parse("With").map(|token: &BStr| VB6Token::WithKeyword(token)),
+                keyword_parse("Declare").map(|token: &BStr| VB6Token::DeclareKeyword(token)),
+                keyword_parse("Lib").map(|token: &BStr| VB6Token::LibKeyword(token)),
+                keyword_parse("Const").map(|token: &BStr| VB6Token::ConstKeyword(token)),
+                keyword_parse("As").map(|token: &BStr| VB6Token::AsKeyword(token)),
+                keyword_parse("Enum").map(|token: &BStr| VB6Token::EnumKeyword(token)),
+                keyword_parse("Long").map(|token: &BStr| VB6Token::LongKeyword(token)),
+                keyword_parse("Integer").map(|token: &BStr| VB6Token::IntegerKeyword(token)),
+                keyword_parse("Boolean").map(|token: &BStr| VB6Token::BooleanKeyword(token)),
+                keyword_parse("Byte").map(|token: &BStr| VB6Token::ByteKeyword(token)),
+                keyword_parse("Single").map(|token: &BStr| VB6Token::SingleKeyword(token)),
+                keyword_parse("String").map(|token: &BStr| VB6Token::StringKeyword(token)),
             )),
             alt((
-                "True".map(|token: &BStr| VB6Token::TrueKeyword(token)),
-                "False".map(|token: &BStr| VB6Token::FalseKeyword(token)),
-                "Function".map(|token: &BStr| VB6Token::FunctionKeyword(token)),
-                "Sub".map(|token: &BStr| VB6Token::SubKeyword(token)),
-                "End".map(|token: &BStr| VB6Token::EndKeyword(token)),
-                "If".map(|token: &BStr| VB6Token::IfKeyword(token)),
-                "Else".map(|token: &BStr| VB6Token::ElseKeyword(token)),
-                "And".map(|token: &BStr| VB6Token::AndKeyword(token)),
-                "Or".map(|token: &BStr| VB6Token::OrKeyword(token)),
-                "Not".map(|token: &BStr| VB6Token::NotKeyword(token)),
-                "Then".map(|token: &BStr| VB6Token::ThenKeyword(token)),
-                "For".map(|token: &BStr| VB6Token::ForKeyword(token)),
-                "To".map(|token: &BStr| VB6Token::ToKeyword(token)),
-                "Step".map(|token: &BStr| VB6Token::StepKeyword(token)),
-                "Next".map(|token: &BStr| VB6Token::NextKeyword(token)),
-                "ReDim".map(|token: &BStr| VB6Token::ReDimKeyword(token)),
-                "ByVal".map(|token: &BStr| VB6Token::ByValKeyword(token)),
-                "ByRef".map(|token: &BStr| VB6Token::ByRefKeyword(token)),
-                "Goto".map(|token: &BStr| VB6Token::GotoKeyword(token)),
-                "Exit".map(|token: &BStr| VB6Token::ExitKeyword(token)),
+                keyword_parse("True").map(|token: &BStr| VB6Token::TrueKeyword(token)),
+                keyword_parse("False").map(|token: &BStr| VB6Token::FalseKeyword(token)),
+                keyword_parse("Function").map(|token: &BStr| VB6Token::FunctionKeyword(token)),
+                keyword_parse("Sub").map(|token: &BStr| VB6Token::SubKeyword(token)),
+                keyword_parse("End").map(|token: &BStr| VB6Token::EndKeyword(token)),
+                keyword_parse("If").map(|token: &BStr| VB6Token::IfKeyword(token)),
+                keyword_parse("Else").map(|token: &BStr| VB6Token::ElseKeyword(token)),
+                keyword_parse("And").map(|token: &BStr| VB6Token::AndKeyword(token)),
+                keyword_parse("Or").map(|token: &BStr| VB6Token::OrKeyword(token)),
+                keyword_parse("Not").map(|token: &BStr| VB6Token::NotKeyword(token)),
+                keyword_parse("Then").map(|token: &BStr| VB6Token::ThenKeyword(token)),
+                keyword_parse("For").map(|token: &BStr| VB6Token::ForKeyword(token)),
+                keyword_parse("To").map(|token: &BStr| VB6Token::ToKeyword(token)),
+                keyword_parse("Step").map(|token: &BStr| VB6Token::StepKeyword(token)),
+                keyword_parse("Next").map(|token: &BStr| VB6Token::NextKeyword(token)),
+                keyword_parse("ReDim").map(|token: &BStr| VB6Token::ReDimKeyword(token)),
+                keyword_parse("ByVal").map(|token: &BStr| VB6Token::ByValKeyword(token)),
+                keyword_parse("ByRef").map(|token: &BStr| VB6Token::ByRefKeyword(token)),
+                keyword_parse("Goto").map(|token: &BStr| VB6Token::GotoKeyword(token)),
+                keyword_parse("Exit").map(|token: &BStr| VB6Token::ExitKeyword(token)),
                 "=".map(|token: &BStr| VB6Token::EqualityOperator(token)),
             )),
             alt((
@@ -424,10 +441,9 @@ pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<Vec<VB6Token<'a>>> {
             continue;
         }
 
-        return Err(ErrMode::Cut(ParserError::assert(
-            input,
-            "Unable to match VB6 token.",
-        )));
+        return Err(ErrMode::Cut(VB6ParseError::UnknownToken {
+            info: ErrorInfo::new(input, 0),
+        }));
     }
 
     Ok(tokens)
@@ -448,8 +464,9 @@ mod test {
         let keyword = op_parse(&mut input1);
         let keyword2 = op_parse(&mut input2);
 
-        assert_eq!(keyword, Err(ErrMode::Backtrack(ContextError::new())));
-        assert_eq!(keyword2, Ok(b"op".as_bstr()));
+        assert!(keyword.is_err());
+        assert!(keyword2.is_ok());
+        assert_eq!(keyword2.unwrap(), b"op".as_bstr());
     }
 
     #[test]
@@ -471,7 +488,7 @@ mod test {
         let mut input = VB6Stream::new("", "' This is a comment\r\n".as_bytes());
         let comment = line_comment_parse(&mut input).unwrap();
 
-        assert_eq!(comment, " This is a comment");
+        assert_eq!(comment, "' This is a comment");
     }
 
     #[test]
@@ -482,7 +499,7 @@ mod test {
         let mut input = VB6Stream::new("", "' This is a comment\n".as_bytes());
         let comment = line_comment_parse(&mut input).unwrap();
 
-        assert_eq!(comment, " This is a comment");
+        assert_eq!(comment, "' This is a comment");
     }
 
     #[test]
@@ -493,7 +510,7 @@ mod test {
         let mut input = VB6Stream::new("", "' This is a comment\r".as_bytes());
         let comment = line_comment_parse(&mut input).unwrap();
 
-        assert_eq!(comment, " This is a comment");
+        assert_eq!(comment, "' This is a comment");
     }
 
     #[test]
@@ -504,7 +521,7 @@ mod test {
         let mut input = VB6Stream::new("", "' This is a comment".as_bytes());
         let comment = line_comment_parse(&mut input).unwrap();
 
-        assert_eq!(comment, " This is a comment");
+        assert_eq!(comment, "' This is a comment");
     }
 
     #[test]

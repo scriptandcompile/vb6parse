@@ -1,13 +1,17 @@
 use bstr::ByteSlice;
-use winnow::ascii::Caseless;
-use winnow::error::Needed;
-use winnow::stream::{Compare, CompareResult, FindSlice, Offset, Stream, StreamIsPartial};
 
-use core::fmt::Debug;
-use core::iter::{Cloned, Enumerate, Iterator};
-use core::slice::Iter;
+use winnow::{
+    ascii::Caseless,
+    error::Needed,
+    stream::{Compare, CompareResult, FindSlice, Offset, Stream, StreamIsPartial},
+};
 
-use core::num::NonZeroUsize;
+use core::{
+    fmt::Debug,
+    iter::{Cloned, Enumerate, Iterator},
+    num::NonZeroUsize,
+    slice::Iter,
+};
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Default)]
 pub struct VB6Stream<'a> {
@@ -75,9 +79,119 @@ impl<'a> FindSlice<(&str, &str)> for VB6Stream<'a> {
     }
 }
 
+impl<'a> FindSlice<(&str, &str, &str)> for VB6Stream<'a> {
+    fn find_slice(&self, needle: (&str, &str, &str)) -> Option<std::ops::Range<usize>> {
+        for needle in &[needle.0, needle.1, needle.2] {
+            if let Some(range) = self.stream[self.index..]
+                .find(needle)
+                .map(|start| start..start + needle.len())
+            {
+                return Some(range);
+            }
+        }
+
+        None
+    }
+}
+
+impl<'a> FindSlice<(&str, &str, &str, &str)> for VB6Stream<'a> {
+    fn find_slice(&self, needle: (&str, &str, &str, &str)) -> Option<std::ops::Range<usize>> {
+        for needle in &[needle.0, needle.1, needle.2, needle.3] {
+            if let Some(range) = self.stream[self.index..]
+                .find(needle)
+                .map(|start| start..start + needle.len())
+            {
+                return Some(range);
+            }
+        }
+
+        None
+    }
+}
+
+impl<'a> FindSlice<char> for VB6Stream<'a> {
+    fn find_slice(&self, needle: char) -> Option<std::ops::Range<usize>> {
+        if let Some(range) = self.stream[self.index..]
+            .find(needle.to_string())
+            .map(|start| start..start + 1)
+        {
+            return Some(range);
+        }
+
+        None
+    }
+}
+
+impl<'a> FindSlice<u8> for VB6Stream<'a> {
+    fn find_slice(&self, needle: u8) -> Option<std::ops::Range<usize>> {
+        if let Some(range) = self.stream[self.index..]
+            .find(needle.to_string())
+            .map(|start| start..start + 1)
+        {
+            return Some(range);
+        }
+
+        None
+    }
+}
+
 impl<'a> FindSlice<(char, char)> for VB6Stream<'a> {
     fn find_slice(&self, needle: (char, char)) -> Option<std::ops::Range<usize>> {
         for needle in &[needle.0.to_string(), needle.1.to_string()] {
+            if let Some(range) = self.stream[self.index..]
+                .find(needle)
+                .map(|start| start..start + needle.len())
+            {
+                return Some(range);
+            }
+        }
+
+        None
+    }
+}
+
+impl<'a> FindSlice<(u8, u8)> for VB6Stream<'a> {
+    fn find_slice(&self, needle: (u8, u8)) -> Option<std::ops::Range<usize>> {
+        for needle in &[needle.0.to_string(), needle.1.to_string()] {
+            if let Some(range) = self.stream[self.index..]
+                .find(needle)
+                .map(|start| start..start + needle.len())
+            {
+                return Some(range);
+            }
+        }
+
+        None
+    }
+}
+
+impl<'a> FindSlice<(u8, u8, u8)> for VB6Stream<'a> {
+    fn find_slice(&self, needle: (u8, u8, u8)) -> Option<std::ops::Range<usize>> {
+        for needle in &[
+            needle.0.to_string(),
+            needle.1.to_string(),
+            needle.2.to_string(),
+        ] {
+            if let Some(range) = self.stream[self.index..]
+                .find(needle)
+                .map(|start| start..start + needle.len())
+            {
+                return Some(range);
+            }
+        }
+
+        None
+    }
+}
+
+impl<'a> FindSlice<(u8, u8, u8, u8)> for VB6Stream<'a> {
+    fn find_slice(&self, needle: (u8, u8, u8, u8)) -> Option<std::ops::Range<usize>> {
+        for needle in &[
+            needle.0.to_string(),
+            needle.1.to_string(),
+            needle.2.to_string(),
+            needle.3.to_string(),
+        ] {
             if let Some(range) = self.stream[self.index..]
                 .find(needle)
                 .map(|start| start..start + needle.len())
