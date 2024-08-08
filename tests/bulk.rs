@@ -1,5 +1,6 @@
 use vb6parse::{
     class::VB6ClassFile, form::VB6FormFile, module::VB6ModuleFile, project::VB6Project,
+    vb6stream::VB6Stream,
 };
 
 #[test]
@@ -44,7 +45,15 @@ fn bulk_load_all_projects() {
         println!("Loading project: {}", project_path);
 
         let project_contents = std::fs::read(project_path).unwrap();
-        let project = VB6Project::parse(&mut project_contents.as_slice()).unwrap();
+
+        let project_file_name = std::path::Path::new(project_path)
+            .file_name()
+            .unwrap()
+            .to_str()
+            .unwrap();
+
+        let mut input = VB6Stream::new(project_file_name, project_contents.as_slice());
+        let project = VB6Project::parse(&mut input).unwrap();
 
         //remove filename from path
         let project_directory = std::path::Path::new(project_path).parent().unwrap();

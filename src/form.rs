@@ -2,10 +2,13 @@
 
 use std::vec;
 
-use crate::header::{key_value_parse, version_parse, HeaderKind};
-use crate::vb6::{line_comment_parse, vb6_parse, VB6Token};
-use crate::vb6stream::VB6Stream;
-use crate::VB6FileFormatVersion;
+use crate::{
+    errors::{ErrorInfo, VB6ParseError},
+    header::{key_value_parse, version_parse, HeaderKind},
+    vb6::{keyword_parse, line_comment_parse, vb6_parse, whitespace_parse, VB6Token},
+    vb6stream::VB6Stream,
+    VB6FileFormatVersion,
+};
 
 use bstr::{BStr, ByteSlice};
 
@@ -13,8 +16,8 @@ use winnow::error::ParserError;
 use winnow::{
     ascii::{line_ending, space0, space1, Caseless},
     combinator::opt,
-    error::{ContextError, StrContext},
-    token::{take_till, take_until},
+    error::{ContextError, ErrMode},
+    token::{literal, take_till, take_until},
     PResult, Parser,
 };
 
@@ -103,53 +106,64 @@ impl<'a> VB6FormFile<'a> {
     /// ```rust
     /// use vb6parse::form::VB6FormFile;
     ///
-    /// let input = b"VERSION 5.00
-    /// Begin VB.Form frmExampleForm
-    ///    BackColor       =   &H80000005&
-    ///    Caption         =   \"example form\"
-    ///    ClientHeight    =   6210
-    ///    ClientLeft      =   60
-    ///    ClientTop       =   645
-    ///    ClientWidth     =   9900
-    ///    BeginProperty Font
-    ///       Name            =   \"Arial\"
-    ///       Size            =   8.25
-    ///       Charset         =   0
-    ///       Weight          =   400
-    ///       Underline       =   0   'False
-    ///       Italic          =   0   'False
-    ///       Strikethrough   =   0   'False
-    ///    EndProperty
-    ///    LinkTopic       =   \"Form1\"
-    ///    ScaleHeight     =   414
-    ///    ScaleMode       =   3  'Pixel
-    ///    ScaleWidth      =   660
-    ///    StartUpPosition =   2  'CenterScreen
-    ///    Begin VB.Menu mnuFile
-    ///       Caption         =   \"&File\"
-    ///       Begin VB.Menu mnuOpenImage
-    ///          Caption         =   \"&Open image\"
-    ///       End
-    ///    End
-    /// End
+    /// let input = b"VERSION 5.00\r
+    /// Begin VB.Form frmExampleForm\r
+    ///    BackColor       =   &H80000005&\r
+    ///    Caption         =   \"example form\"\r
+    ///    ClientHeight    =   6210\r
+    ///    ClientLeft      =   60\r
+    ///    ClientTop       =   645\r
+    ///    ClientWidth     =   9900\r
+    ///    BeginProperty Font\r
+    ///       Name            =   \"Arial\"\r
+    ///       Size            =   8.25\r
+    ///       Charset         =   0\r
+    ///       Weight          =   400\r
+    ///       Underline       =   0   'False\r
+    ///       Italic          =   0   'False\r
+    ///       Strikethrough   =   0   'False\r
+    ///    EndProperty\r
+    ///    LinkTopic       =   \"Form1\"\r
+    ///    ScaleHeight     =   414\r
+    ///    ScaleMode       =   3  'Pixel\r
+    ///    ScaleWidth      =   660\r
+    ///    StartUpPosition =   2  'CenterScreen\r
+    ///    Begin VB.Menu mnuFile\r
+    ///       Caption         =   \"&File\"\r
+    ///       Begin VB.Menu mnuOpenImage\r
+    ///          Caption         =   \"&Open image\"\r
+    ///       End\r
+    ///    End\r
+    /// End\r
     /// ";
     ///
-    /// let result = VB6FormFile::parse(&mut input.as_ref());
+    /// let result = VB6FormFile::parse("form_parse.frm".to_owned(), &mut input.as_ref());
     ///
+    /// println!("{:?}", result);
     /// assert!(result.is_ok());
     /// ```
-    pub fn parse(file_name: String, input: &'a [u8]) -> PResult<Self> {
+    pub fn parse(file_name: String, input: &'a [u8]) -> Result<Self, VB6ParseError<VB6Stream<'a>>> {
         let mut input = VB6Stream::new(file_name, input);
 
-        let format_version = version_parse(HeaderKind::Form).parse_next(&mut input)?;
+        let format_version = match version_parse(HeaderKind::Form).parse_next(&mut input) {
+            Ok(version) => version,
+            Err(err) => return Err(err.into_inner().unwrap()),
+        };
 
-        (space0, Caseless("BEGIN"), space1)
-            .context(StrContext::Label("Expected 'Begin' keyword"))
-            .parse_next(&mut input)?;
+        match (space0, keyword_parse("BEGIN"), space1).parse_next(&mut input) {
+            Ok(_) => (),
+            Err(err) => return Err(err.into_inner().unwrap()),
+        };
 
-        let form = block_parse.parse_next(&mut input)?;
+        let form = match block_parse.parse_next(&mut input) {
+            Ok(form) => form,
+            Err(err) => return Err(err.into_inner().unwrap()),
+        };
 
-        let tokens = vb6_parse.parse_next(&mut input)?;
+        let tokens = match vb6_parse.parse_next(&mut input) {
+            Ok(tokens) => tokens,
+            Err(err) => return Err(err.into_inner().unwrap()),
+        };
 
         Ok(VB6FormFile {
             form,
@@ -159,7 +173,9 @@ impl<'a> VB6FormFile<'a> {
     }
 }
 
-fn block_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6Control<'a>> {
+fn block_parse<'a>(
+    input: &mut VB6Stream<'a>,
+) -> PResult<VB6Control<'a>, VB6ParseError<VB6Stream<'a>>> {
     let fully_qualified_name = begin_parse.parse_next(input)?;
 
     let mut controls = vec![];
@@ -233,24 +249,38 @@ fn block_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6Control<'a>> {
     Err(ParserError::assert(input, "Unknown control kind"))
 }
 
-fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6PropertyGroup<'a>> {
-    (space0, Caseless("BeginProperty"), space1).parse_next(input)?;
+fn begin_property_parse<'a>(
+    input: &mut VB6Stream<'a>,
+) -> PResult<VB6PropertyGroup<'a>, VB6ParseError<VB6Stream<'a>>> {
+    (space0, keyword_parse("BeginProperty"), space1).parse_next(input)?;
 
-    let property_name = take_till(1.., (b"\r", b"\t", b" ", b"\n"))
-        .context(StrContext::Label(
-            "Expected property name after 'BeginProperty' keyword",
-        ))
-        .parse_next(input)?;
+    let property_name = match take_till::<
+        (u8, u8, u8, u8),
+        VB6Stream<'a>,
+        VB6ParseError<VB6Stream<'a>>,
+    >(1.., (b'\r', b'\t', b' ', b'\n'))
+    .parse_next(input)
+    {
+        Ok(name) => name,
+        Err(_) => {
+            return Err(ErrMode::Cut(VB6ParseError::NoPropertyName {
+                info: ErrorInfo::new(input, 0),
+            }));
+        }
+    };
 
     space0.parse_next(input)?;
 
     opt(line_comment_parse).parse_next(input)?;
 
-    line_ending
-        .context(StrContext::Label(
-            "Expected line ending after property name",
-        ))
-        .parse_next(input)?;
+    if line_ending::<VB6Stream<'a>, VB6ParseError<VB6Stream<'a>>>
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ParseError::NoLineEnding {
+            info: ErrorInfo::new(input, 0),
+        }));
+    }
 
     let mut property_group = VB6PropertyGroup {
         name: property_name.as_bstr(),
@@ -258,14 +288,7 @@ fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6PropertyGro
     };
 
     while !input.is_empty() {
-        if (
-            space0::<VB6Stream<'a>, ContextError>,
-            Caseless("EndProperty"),
-            space0,
-        )
-            .context(StrContext::Label(
-                "Expected 'EndProperty' keyword to end property group",
-            ))
+        if (space0, keyword_parse("EndProperty"), space0)
             .parse_next(input)
             .is_ok()
         {
@@ -278,47 +301,86 @@ fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6PropertyGro
 
         opt(line_comment_parse).parse_next(input)?;
 
-        line_ending
-            .context(StrContext::Label(
-                "Expected line ending after EndProperty keyword.",
-            ))
-            .parse_next(input)?;
+        if line_ending::<VB6Stream<'a>, VB6ParseError<VB6Stream<'a>>>
+            .parse_next(input)
+            .is_err()
+        {
+            return Err(ErrMode::Cut(VB6ParseError::NoLineEnding {
+                info: ErrorInfo::new(input, 0),
+            }));
+        }
     }
 
-    line_ending
-        .context(StrContext::Label(
-            "Expected line ending after EndProperty keyword.",
-        ))
-        .parse_next(input)?;
+    if line_ending::<VB6Stream<'a>, VB6ParseError<VB6Stream<'a>>>
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ParseError::NoLineEndingAfterEndProperty {
+            info: ErrorInfo::new(input, 0),
+        }));
+    }
 
     Ok(property_group)
 }
 
-fn begin_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6FullyQualifiedName<'a>> {
-    let namespace = take_until(0.., ".")
-        .context(StrContext::Label(
-            "Expected namespace after 'Begin' keyword",
-        ))
-        .parse_next(input)?;
+fn begin_parse<'a>(
+    input: &mut VB6Stream<'a>,
+) -> PResult<VB6FullyQualifiedName<'a>, VB6ParseError<VB6Stream<'a>>> {
+    let namespace = match take_until::<_, VB6Stream, VB6ParseError<_>>(0.., ".").parse_next(input) {
+        Ok(namespace) => namespace,
+        Err(_) => {
+            return Err(ErrMode::Cut(VB6ParseError::NoNamespaceAfterBegin {
+                info: ErrorInfo::new(input, 0),
+            }));
+        }
+    };
 
-    ".".context(StrContext::Label("Expected '.' after namespace"))
-        .parse_next(input)?;
+    if literal::<&str, VB6Stream, VB6ParseError<_>>(".")
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ParseError::NoDotAfterNamespace {
+            info: ErrorInfo::new(input, 0),
+        }));
+    };
 
-    let kind = take_until(0.., (" ", "\t"))
-        .context(StrContext::Label("Expected control kind after '.'"))
-        .parse_next(input)?;
+    let kind =
+        match take_until::<_, VB6Stream, VB6ParseError<_>>(0.., (" ", "\t")).parse_next(input) {
+            Ok(kind) => kind,
+            Err(_) => {
+                return Err(ErrMode::Cut(VB6ParseError::NoUserControlNameAfterDot {
+                    info: ErrorInfo::new(input, 0),
+                }));
+            }
+        };
 
-    space1.parse_next(input)?;
+    if space1::<_, VB6ParseError<_>>.parse_next(input).is_err() {
+        return Err(ErrMode::Cut(VB6ParseError::NoSpaceAfterControlKind {
+            info: ErrorInfo::new(input, 0),
+        }));
+    }
 
-    let name = take_until(0.., "\n")
-        .context(StrContext::Label(
-            "Expected control name after control kind",
-        ))
-        .parse_next(input)?;
+    let name = match take_until::<_, VB6Stream, VB6ParseError<_>>(0.., (" ", "\t", "\r\n", "\n"))
+        .parse_next(input)
+    {
+        Ok(name) => name,
+        Err(_) => {
+            return Err(ErrMode::Cut(VB6ParseError::NoControlNameAfterControlKind {
+                info: ErrorInfo::new(input, 0),
+            }));
+        }
+    };
 
-    line_ending
-        .context(StrContext::Label("Expected line ending after control name"))
-        .parse_next(input)?;
+    whitespace_parse.parse_next(input)?;
+
+    if line_ending::<_, VB6ParseError<_>>
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ParseError::NoLineEndingAfterControlName {
+            info: ErrorInfo::new(input, 0),
+        }));
+    };
 
     Ok(VB6FullyQualifiedName {
         namespace: namespace.as_bstr(),
@@ -333,7 +395,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn begin_property() {
+    fn begin_property_valid() {
         let source = b"BeginProperty Font\r
                         Name = \"Arial\"\r
                         Size = 8.25\r
@@ -352,5 +414,48 @@ mod tests {
         let result = result.unwrap();
         assert_eq!(result.name, "Font");
         assert_eq!(result.properties.len(), 7);
+    }
+
+    #[test]
+    fn parse_valid() {
+        let source = b"VERSION 5.00\r
+                        Begin VB.Form frmExampleForm\r
+                            BackColor       =   &H80000005&\r
+                            Caption         =   \"example form\"\r
+                            ClientHeight    =   6210\r
+                            ClientLeft      =   60\r
+                            ClientTop       =   645\r
+                            ClientWidth     =   9900\r
+                            BeginProperty Font\r
+                               Name            =   \"Arial\"\r
+                               Size            =   8.25\r
+                               Charset         =   0\r
+                               Weight          =   400\r
+                               Underline       =   0   'False\r
+                               Italic          =   0   'False\r
+                               Strikethrough   =   0   'False\r
+                            EndProperty\r
+                            LinkTopic       =   \"Form1\"\r
+                            ScaleHeight     =   414\r
+                            ScaleMode       =   3  'Pixel\r
+                            ScaleWidth      =   660\r
+                            StartUpPosition =   2  'CenterScreen\r
+                            Begin VB.Menu mnuFile\r
+                               Caption         =   \"&File\"\r
+                               Begin VB.Menu mnuOpenImage\r
+                                  Caption         =   \"&Open image\"\r
+                               End\r
+                            End\r
+                        End\r
+                        ";
+
+        let result = VB6FormFile::parse("form_parse.frm".to_owned(), source);
+
+        assert!(result.is_ok());
+
+        let result = result.unwrap();
+
+        assert_eq!(result.format_version.major, 5);
+        assert_eq!(result.format_version.minor, 0);
     }
 }

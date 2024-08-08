@@ -1,14 +1,14 @@
 #![warn(clippy::pedantic)]
 
 use crate::{
-    vb6::{vb6_parse, VB6Token},
+    errors::VB6ParseError,
+    vb6::{keyword_parse, vb6_parse, VB6Token},
     vb6stream::VB6Stream,
 };
 
 use winnow::{
-    ascii::{line_ending, space0, space1, Caseless},
-    error::{ContextError, ErrMode},
-    token::{literal, take_until},
+    ascii::{line_ending, space0, space1},
+    token::take_until,
     Parser,
 };
 
@@ -49,35 +49,46 @@ impl<'a> VB6ModuleFile<'a> {
     /// End Sub
     /// ";
     ///
-    /// let result = VB6ModuleFile::parse(input);
+    /// let result = VB6ModuleFile::parse("module.bas".to_owned(), input);
     ///
     /// assert!(result.is_ok());
     /// ```
-    pub fn parse(file_name: String, input: &'a [u8]) -> Result<Self, ErrMode<ContextError>> {
+    pub fn parse(file_name: String, input: &'a [u8]) -> Result<Self, VB6ParseError<VB6Stream<'a>>> {
         let mut input = VB6Stream::new(file_name, input);
 
-        (
+        match (
             space0,
-            literal(Caseless("Attribute")),
+            keyword_parse("Attribute"),
             space1,
-            literal(Caseless("VB_Name")),
+            keyword_parse("VB_Name"),
             space0,
-            literal("="),
+            "=",
             space0,
         )
-            .parse_next(&mut input)?;
+            .parse_next(&mut input)
+        {
+            Ok(_) => {}
+            Err(e) => {
+                return Err(e.into_inner().unwrap());
+            }
+        }
 
-        let name = (
-            literal("\""),
-            take_until(0.., "\""),
-            literal("\""),
-            space0,
-            line_ending,
-        )
+        let name = match ("\"", take_until(0.., "\""), "\"", space0, line_ending)
             .recognize()
-            .parse_next(&mut input)?;
+            .parse_next(&mut input)
+        {
+            Ok(name) => name,
+            Err(e) => {
+                return Err(e.into_inner().unwrap());
+            }
+        };
 
-        let tokens = vb6_parse(&mut input)?;
+        let tokens = match vb6_parse(&mut input) {
+            Ok(tokens) => tokens,
+            Err(e) => {
+                return Err(e.into_inner().unwrap());
+            }
+        };
 
         Ok(VB6ModuleFile { name, tokens })
     }

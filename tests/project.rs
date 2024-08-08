@@ -1,11 +1,14 @@
 use bstr::{ByteSlice, B};
+
 use vb6parse::project::{CompileTargetType, VB6Project};
+use vb6parse::vb6stream::VB6Stream;
 
 #[test]
 fn artificial_life_project_load() {
     let project_file_bytes = include_bytes!("./data/vb6-code/Artificial-life/Artificial Life.vbp");
+    let mut input = VB6Stream::new("Artificial Life.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -75,8 +78,9 @@ fn artificial_life_project_load() {
 #[test]
 fn blacklight_effect_project_load() {
     let project_file_bytes = include_bytes!("./data/vb6-code/Blacklight-effect/Blacklight.vbp");
+    let mut input = VB6Stream::new("Blacklight.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -138,8 +142,9 @@ fn blacklight_effect_project_load() {
 fn brightness_effect_part_1_project_load() {
     let project_file_bytes =
         include_bytes!("./data/vb6-code/Brightness-effect/Part 1 - Pure VB6/Brightness.vbp");
+    let mut input = VB6Stream::new("Brightness.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -211,8 +216,9 @@ fn brightness_effect_part_2_project_load() {
     let project_file_bytes = include_bytes!(
         "./data/vb6-code/Brightness-effect/Part 2 - API - GetPixel and SetPixel/Brightness2.vbp"
     );
+    let mut input = VB6Stream::new("Brightness2.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -283,8 +289,9 @@ fn brightness_effect_part_2_project_load() {
 fn brightness_effect_part_3_project_load() {
     let project_file_bytes =
         include_bytes!("./data/vb6-code/Brightness-effect/Part 3 - DIBs/Brightness3.vbp");
+    let mut input = VB6Stream::new("Brightness3.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -354,8 +361,9 @@ fn brightness_effect_part_3_project_load() {
 #[test]
 fn color_shift_effect_project_load() {
     let project_file_bytes = include_bytes!("./data/vb6-code/Color-shift-effect/ShiftColor.vbp");
+    let mut input = VB6Stream::new("ShiftColor.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -416,8 +424,9 @@ fn color_shift_effect_project_load() {
 #[test]
 fn colorize_effect_project_load() {
     let project_file_bytes = include_bytes!("./data/vb6-code/Colorize-effect/Colorize.vbp");
+    let mut input = VB6Stream::new("Colorize.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -481,8 +490,9 @@ fn colorize_effect_project_load() {
 #[test]
 fn contrast_effect_project_load() {
     let project_file_bytes = include_bytes!("./data/vb6-code/Contrast-effect/Contrast.vbp");
+    let mut input = VB6Stream::new("Contrast.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -546,8 +556,9 @@ fn contrast_effect_project_load() {
 #[test]
 fn curves_effect_project_load() {
     let project_file_bytes = include_bytes!("./data/vb6-code/Curves-effect/Curves.vbp");
+    let mut input = VB6Stream::new("Curves.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -609,8 +620,9 @@ fn curves_effect_project_load() {
 fn custom_image_filters_project_load() {
     let project_file_bytes =
         include_bytes!("./data/vb6-code/Custom-image-filters/CustomFilters.vbp");
+    let mut input = VB6Stream::new("CustomFilters.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -677,8 +689,9 @@ fn custom_image_filters_project_load() {
 #[test]
 fn diffuse_effect_project_load() {
     let project_file_bytes = include_bytes!("./data/vb6-code/Diffuse-effect/Diffuse.vbp");
+    let mut input = VB6Stream::new("Diffuse.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -742,8 +755,9 @@ fn diffuse_effect_project_load() {
 #[test]
 fn edge_detection_project_load() {
     let project_file_bytes = include_bytes!("./data/vb6-code/Edge-detection/EdgeDetection.vbp");
+    let mut input = VB6Stream::new("EdgeDetection.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -808,8 +822,9 @@ fn edge_detection_project_load() {
 fn emboss_engrave_effect_project_load() {
     let project_file_bytes =
         include_bytes!("./data/vb6-code/Emboss-engrave-effect/EmbossEngrave.vbp");
+    let mut input = VB6Stream::new("EmbossEngrave.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -879,8 +894,9 @@ fn emboss_engrave_effect_project_load() {
 #[test]
 fn fill_image_region_project_load() {
     let project_file_bytes = include_bytes!("./data/vb6-code/Fill-image-region/Fill_Region.vbp");
+    let mut input = VB6Stream::new("Fill_Region.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -941,8 +957,9 @@ fn fill_image_region_project_load() {
 #[test]
 fn fire_effect_project_load() {
     let project_file_bytes = include_bytes!("./data/vb6-code/Fire-effect/FlameTest.vbp");
+    let mut input = VB6Stream::new("FlameTest.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -1003,8 +1020,9 @@ fn fire_effect_project_load() {
 #[test]
 fn game_physics_basic_project_load() {
     let project_file_bytes = include_bytes!("./data/vb6-code/Game-physics-basic/Physics.vbp");
+    let mut input = VB6Stream::new("Physics.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -1071,8 +1089,9 @@ fn game_physics_basic_project_load() {
 #[test]
 fn gradient_2d_project_load() {
     let project_file_bytes = include_bytes!("./data/vb6-code/Gradient-2D/Gradient.vbp");
+    let mut input = VB6Stream::new("Gradient.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -1133,8 +1152,9 @@ fn gradient_2d_project_load() {
 #[test]
 fn grayscale_effect_project_load() {
     let project_file_bytes = include_bytes!("./data/vb6-code/Grayscale-effect/Grayscale.vbp");
+    let mut input = VB6Stream::new("Grayscale.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -1198,8 +1218,9 @@ fn grayscale_effect_project_load() {
 #[test]
 fn hidden_markov_model_project_load() {
     let project_file_bytes = include_bytes!("./data/vb6-code/Hidden-Markov-model/HMM.vbp");
+    let mut input = VB6Stream::new("HMM.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -1261,8 +1282,9 @@ fn hidden_markov_model_project_load() {
 fn histograms_advanced_project_load() {
     let project_file_bytes =
         include_bytes!("./data/vb6-code/Histograms-advanced/Advanced Histograms.vbp");
+    let mut input = VB6Stream::new("Advanced Histograms.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -1330,8 +1352,9 @@ fn histograms_advanced_project_load() {
 fn histogram_basic_project_load() {
     let project_file_bytes =
         include_bytes!("./data/vb6-code/Histograms-basic/Basic Histograms.vbp");
+    let mut input = VB6Stream::new("Basic Histograms.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -1398,8 +1421,9 @@ fn histogram_basic_project_load() {
 #[test]
 fn levels_effect_project_load() {
     let project_file_bytes = include_bytes!("./data/vb6-code/Levels-effect/Image Levels.vbp");
+    let mut input = VB6Stream::new("Image Levels.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -1466,8 +1490,9 @@ fn levels_effect_project_load() {
 #[test]
 fn mandelbrot_project_load() {
     let project_file_bytes = include_bytes!("./data/vb6-code/Mandelbrot/Mandelbrot.vbp");
+    let mut input = VB6Stream::new("Mandelbrot.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -1531,8 +1556,9 @@ fn mandelbrot_project_load() {
 #[test]
 fn map_editor_2d_project_load() {
     let project_file_bytes = include_bytes!("./data/vb6-code/Map-editor-2D/Map Editor.vbp");
+    let mut input = VB6Stream::new("Map Editor.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -1596,8 +1622,9 @@ fn map_editor_2d_project_load() {
 #[test]
 fn nature_effects_project_load() {
     let project_file_bytes = include_bytes!("./data/vb6-code/Nature-effects/NatureFilters.vbp");
+    let mut input = VB6Stream::new("NatureFilters.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -1662,8 +1689,9 @@ fn nature_effects_project_load() {
 fn randomize_effects_project_load() {
     let project_file_bytes =
         include_bytes!("./data/vb6-code/Randomize-effects/RandomizationFX.vbp");
+    let mut input = VB6Stream::new("RandomizationFX.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -1733,8 +1761,9 @@ fn randomize_effects_project_load() {
 #[test]
 fn scanner_twain_project_load() {
     let project_file_bytes = include_bytes!("./data/vb6-code/Scanner-TWAIN/VB_Scanner_Support.vbp");
+    let mut input = VB6Stream::new("VB_Scanner_Support.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -1798,8 +1827,9 @@ fn scanner_twain_project_load() {
 #[test]
 fn screen_capture_project_load() {
     let project_file_bytes = include_bytes!("./data/vb6-code/Screen-capture/ScreenCapture.vbp");
+    let mut input = VB6Stream::new("ScreenCapture.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 2);
@@ -1866,8 +1896,9 @@ fn screen_capture_project_load() {
 #[test]
 fn sepia_effect_project_load() {
     let project_file_bytes = include_bytes!("./data/vb6-code/Sepia-effect/Sepia.vbp");
+    let mut input = VB6Stream::new("Sepia.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -1883,7 +1914,10 @@ fn sepia_effect_project_load() {
     assert_eq!(project.icon_form, Some(b"frmSepia".as_bstr()));
     assert_eq!(project.startup, Some(b"frmSepia".as_bstr()));
     assert_eq!(project.help_file_path, Some(b"".as_bstr()));
-    assert_eq!(project.title, Some(b"Sepia / ".as_bstr()));
+    assert_eq!(
+        project.title,
+        Some(b"Sepia / \"Antique\" Image Filter".as_bstr())
+    );
     assert_eq!(project.exe_32_file_name, Some(b"Sepia.exe".as_bstr()));
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"SepiaEffect_Dialog".as_bstr()));
@@ -1928,8 +1962,9 @@ fn sepia_effect_project_load() {
 #[test]
 fn threshold_effect_project_load() {
     let project_file_bytes = include_bytes!("./data/vb6-code/Threshold-effect/Threshold.vbp");
+    let mut input = VB6Stream::new("Threshold.vbp", project_file_bytes);
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);
@@ -1997,7 +2032,9 @@ fn threshold_effect_project_load() {
 fn transparency_2d_project_load() {
     let project_file_bytes = include_bytes!("./data/vb6-code/Transparency-2D/Transparency.vbp");
 
-    let project = VB6Project::parse(&mut project_file_bytes.as_slice()).unwrap();
+    let mut input = VB6Stream::new("Transparency.vbp", project_file_bytes);
+
+    let project = VB6Project::parse(&mut input).unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 1);

@@ -1,9 +1,9 @@
 #![warn(clippy::pedantic)]
 
 use bstr::BStr;
-use miette::Result;
 
 use crate::{
+    errors::{ErrorInfo, VB6ParseError},
     vb6::{keyword_parse, line_comment_parse},
     vb6stream::VB6Stream,
     VB6FileFormatVersion,
@@ -12,8 +12,7 @@ use crate::{
 use winnow::{
     ascii::{digit1, line_ending, space0, space1},
     combinator::{alt, delimited, eof, opt, separated_pair},
-    error::{ContextError, ErrMode},
-    error::{ParserError, StrContext, StrContextValue},
+    error::ErrMode,
     token::{literal, take_while},
     PResult, Parser,
 };
@@ -21,94 +20,62 @@ use winnow::{
 pub enum HeaderKind {
     Class,
     Form,
-    UserControl,
+    //UserControl,
 }
 
 pub fn version_parse<'a>(
     header_kind: HeaderKind,
-) -> impl FnMut(&mut VB6Stream<'a>) -> PResult<VB6FileFormatVersion> {
-    move |input: &mut VB6Stream<'a>| -> Result<VB6FileFormatVersion, ErrMode<ContextError>> {
-        space0.parse_next(input)?;
+) -> impl FnMut(&mut VB6Stream<'a>) -> PResult<VB6FileFormatVersion, VB6ParseError<VB6Stream<'a>>> {
+    move |input: &mut VB6Stream<'a>| -> PResult<VB6FileFormatVersion, VB6ParseError<VB6Stream<'a>>> {
+        (space0, keyword_parse("VERSION"), space1).parse_next(input)?;
 
-        keyword_parse("VERSION")
-            .context(StrContext::Expected(StrContextValue::Description(
-                "'VERSION' header element not found.",
-            )))
-            .parse_next(input)?;
-
-        space1
-            .context(StrContext::Expected(StrContextValue::Description(
-                "At least one space is required between the 'VERSION' header element and the header major version number.",
-            ))).parse_next(input)?;
-
-        let major_digits = digit1
-            .context(StrContext::Expected(StrContextValue::Description(
-                "Major version number not found.",
-            )))
-            .parse_next(input)?;
-
-        let Ok(major_version) = bstr::BStr::new(major_digits)
-            .to_string()
-            .as_str()
-            .parse::<u8>()
+        let Ok(major_digits): PResult<&'a BStr, VB6ParseError<VB6Stream<'a>>> =
+            digit1.parse_next(input)
         else {
-            let error = ParserError::assert(input, "Unable to parse major version number.");
-
-            return Err(ErrMode::Cut(error));
+            return Err(ErrMode::Cut(VB6ParseError::MajorVersionUnparseable {
+                info: ErrorInfo::new(input, 0),
+            }));
         };
 
-        ".".context(StrContext::Expected(StrContextValue::Description(
-            "Version decimal character not found.",
-        )))
-        .parse_next(input)?;
+        let Ok(major_version) = major_digits.to_string().as_str().parse::<u8>() else {
+            return Err(ErrMode::Cut(VB6ParseError::MajorVersionUnparseable {
+                info: ErrorInfo::new(input, 0),
+            }));
+        };
 
-        let minor_digits = digit1
-            .context(StrContext::Expected(StrContextValue::Description(
-                "Minor version number not found.",
-            )))
-            .parse_next(input)?;
+        ".".parse_next(input)?;
 
-        let Ok(minor_version) = bstr::BStr::new(minor_digits)
-            .to_string()
-            .as_str()
-            .parse::<u8>()
+        let Ok(minor_digits): PResult<&'a BStr, VB6ParseError<VB6Stream<'a>>> =
+            digit1.parse_next(input)
         else {
-            let error = ParserError::assert(input, "Unable to parse minor version number.");
+            return Err(ErrMode::Cut(VB6ParseError::MinorVersionUnparseable {
+                info: ErrorInfo::new(input, 0),
+            }));
+        };
 
-            return Err(ErrMode::Cut(error));
+        let Ok(minor_version) = minor_digits.to_string().as_str().parse::<u8>() else {
+            return Err(ErrMode::Cut(VB6ParseError::MinorVersionUnparseable {
+                info: ErrorInfo::new(input, 0),
+            }));
         };
 
         match header_kind {
             HeaderKind::Class => {
-                space1.context(
-                    StrContext::Expected(StrContextValue::Description(
-                        "At least one space is required between the header minor version number and the 'CLASS' header element"
-                    ))).parse_next(input)?;
-                keyword_parse("CLASS")
-                    .context(StrContext::Expected(StrContextValue::Description(
-                        "'CLASS' header element not found.",
-                    )))
-                    .parse_next(input)?;
+                space1.parse_next(input)?;
+                keyword_parse("CLASS").parse_next(input)?;
             }
             HeaderKind::Form => {
                 // Form headers only have the version keyword and the
                 // major/minor version numbers.
                 // There is no 'FORM' keyword in the version line.
-            }
-            HeaderKind::UserControl => {
-                // User Control headers only have the version keyword and the
-                // major/minor version numbers.
-                // There is no 'UserControl' keyword in the version line.
-            }
+            } //HeaderKind::UserControl => {
+              // User Control headers only have the version keyword and the
+              // major/minor version numbers.
+              // There is no 'UserControl' keyword in the version line.
+              //}
         }
 
-        space0.parse_next(input)?;
-
-        line_ending
-            .context(StrContext::Expected(StrContextValue::Description(
-                "Newline expected after version header element.",
-            )))
-            .parse_next(input)?;
+        (space0, line_ending).parse_next(input)?;
 
         Ok(VB6FileFormatVersion {
             major: major_version,
@@ -119,8 +86,8 @@ pub fn version_parse<'a>(
 
 pub fn key_value_parse<'a>(
     divider: &'static str,
-) -> impl FnMut(&mut VB6Stream<'a>) -> PResult<(&'a BStr, &'a BStr)> {
-    move |input: &mut VB6Stream<'a>| -> Result<(&'a BStr, &'a BStr), ErrMode<ContextError>> {
+) -> impl FnMut(&mut VB6Stream<'a>) -> PResult<(&'a BStr, &'a BStr), VB6ParseError<VB6Stream<'a>>> {
+    move |input: &mut VB6Stream<'a>| -> PResult<(&'a BStr, &'a BStr), VB6ParseError<VB6Stream<'a>>> {
         let (key, value) = separated_pair(
             delimited(
                 space0,
@@ -149,8 +116,8 @@ pub fn key_value_parse<'a>(
 
 pub fn key_value_line_parse<'a>(
     divider: &'static str,
-) -> impl FnMut(&mut VB6Stream<'a>) -> PResult<(&'a BStr, &'a BStr)> {
-    move |input: &mut VB6Stream<'a>| -> PResult<(&'a BStr, &'a BStr)> {
+) -> impl FnMut(&mut VB6Stream<'a>) -> PResult<(&'a BStr, &'a BStr), VB6ParseError<VB6Stream<'a>>> {
+    move |input: &mut VB6Stream<'a>| -> PResult<(&'a BStr, &'a BStr), VB6ParseError<VB6Stream<'a>>> {
         let (key, value) = key_value_parse(divider).parse_next(input)?;
 
         // we have to check for eof here because it's perfectly possible to have a
