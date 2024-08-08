@@ -1,7 +1,7 @@
 #![warn(clippy::pedantic)]
 
 use crate::{
-    errors::VB6ParseError,
+    errors::VB6Error,
     vb6::{keyword_parse, vb6_parse, VB6Token},
     vb6stream::VB6Stream,
 };
@@ -53,7 +53,7 @@ impl<'a> VB6ModuleFile<'a> {
     ///
     /// assert!(result.is_ok());
     /// ```
-    pub fn parse(file_name: String, input: &'a [u8]) -> Result<Self, VB6ParseError<VB6Stream<'a>>> {
+    pub fn parse(file_name: String, input: &'a [u8]) -> Result<Self, VB6Error> {
         let mut input = VB6Stream::new(file_name, input);
 
         match (

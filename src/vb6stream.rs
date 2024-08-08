@@ -13,6 +13,8 @@ use core::{
     slice::Iter,
 };
 
+use crate::errors::{VB6Error, VB6ErrorKind};
+
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Default)]
 pub struct VB6Stream<'a> {
     pub file_name: String,
@@ -40,7 +42,7 @@ impl Offset<VB6StreamCheckpoint> for VB6Stream<'_> {
     }
 }
 
-impl<'a, 'b> VB6Stream<'a> {
+impl<'a> VB6Stream<'a> {
     pub fn new(file_name: impl Into<String>, stream: &'a [u8]) -> Self {
         Self {
             file_name: file_name.into(),
@@ -53,6 +55,10 @@ impl<'a, 'b> VB6Stream<'a> {
 
     pub fn is_empty(&self) -> bool {
         self.stream.len() == self.index
+    }
+
+    pub fn error(&self, kind: VB6ErrorKind) -> VB6Error {
+        VB6Error::new(self, kind)
     }
 }
 
