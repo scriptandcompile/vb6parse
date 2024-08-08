@@ -10,7 +10,7 @@ use winnow::{
 };
 
 use crate::{
-    errors::{ErrorInfo, VB6ParseError},
+    errors::{VB6Error, VB6ErrorKind},
     vb6stream::VB6Stream,
 };
 
@@ -41,9 +41,7 @@ use crate::{
 ///
 /// assert_eq!(comment, "' This is a comment");
 /// ```
-pub fn line_comment_parse<'a>(
-    input: &mut VB6Stream<'a>,
-) -> PResult<&'a BStr, VB6ParseError<VB6Stream<'a>>> {
+pub fn line_comment_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr, VB6Error> {
     let comment = ('\'', take_till(0.., (b"\r\n", b"\n", b"\r")))
         .recognize()
         .parse_next(input)?;
@@ -74,9 +72,7 @@ pub fn line_comment_parse<'a>(
 ///
 /// assert_eq!(whitespace, "    ");
 /// ```
-pub fn whitespace_parse<'a>(
-    input: &mut VB6Stream<'a>,
-) -> PResult<&'a BStr, VB6ParseError<VB6Stream<'a>>> {
+pub fn whitespace_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr, VB6Error> {
     let whitespace = take_while(1.., (' ', '\t')).parse_next(input)?;
 
     Ok(whitespace)
@@ -105,9 +101,7 @@ pub fn whitespace_parse<'a>(
 ///
 /// assert_eq!(variable_name, "variable_name");
 /// ```
-pub fn variable_name_parse<'a>(
-    input: &mut VB6Stream<'a>,
-) -> PResult<&'a BStr, VB6ParseError<VB6Stream<'a>>> {
+pub fn variable_name_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr, VB6Error> {
     let variable_name = (
         one_of(('a'..='z', 'A'..='Z')),
         take_while(0.., ('_', 'a'..='z', 'A'..='Z', '0'..='9')),
@@ -162,8 +156,8 @@ pub fn variable_name_parse<'a>(
 /// ```
 pub fn keyword_parse<'a>(
     keyword: &'static str,
-) -> impl FnMut(&mut VB6Stream<'a>) -> PResult<&'a BStr, VB6ParseError<VB6Stream<'a>>> {
-    move |input: &mut VB6Stream<'a>| -> PResult<&'a BStr, VB6ParseError<VB6Stream<'a>>> {
+) -> impl FnMut(&mut VB6Stream<'a>) -> PResult<&'a BStr, VB6Error> {
+    move |input: &mut VB6Stream<'a>| -> PResult<&'a BStr, VB6Error> {
         let checkpoint = input.checkpoint();
 
         let word = Caseless(keyword).parse_next(input)?;
@@ -174,9 +168,9 @@ pub fn keyword_parse<'a>(
         {
             input.reset(&checkpoint);
 
-            return Err(ErrMode::Backtrack(VB6ParseError::KeywordNotFound {
-                info: ErrorInfo::new(input, keyword.len()),
-            }));
+            return Err(ErrMode::Backtrack(
+                input.error(VB6ErrorKind::KeywordNotFound),
+            ));
         }
 
         Ok(word)
@@ -335,9 +329,7 @@ pub enum VB6Token<'a> {
 /// assert_eq!(tokens[5], VB6Token::Whitespace(" ".into()));
 /// assert_eq!(tokens[6], VB6Token::IntegerKeyword("Integer".into()));
 /// ```
-pub fn vb6_parse<'a>(
-    input: &mut VB6Stream<'a>,
-) -> PResult<Vec<VB6Token<'a>>, VB6ParseError<VB6Stream<'a>>> {
+pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<Vec<VB6Token<'a>>, VB6Error> {
     let mut tokens = Vec::new();
 
     while !input.is_empty() {
@@ -441,9 +433,7 @@ pub fn vb6_parse<'a>(
             continue;
         }
 
-        return Err(ErrMode::Cut(VB6ParseError::UnknownToken {
-            info: ErrorInfo::new(input, 0),
-        }));
+        return Err(ErrMode::Cut(input.error(VB6ErrorKind::UnknownToken)));
     }
 
     Ok(tokens)

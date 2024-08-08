@@ -3,7 +3,7 @@
 use bstr::BStr;
 
 use crate::{
-    errors::{ErrorInfo, VB6ParseError},
+    errors::{VB6Error, VB6ErrorKind},
     vb6::{keyword_parse, line_comment_parse},
     vb6stream::VB6Stream,
     VB6FileFormatVersion,
@@ -25,38 +25,34 @@ pub enum HeaderKind {
 
 pub fn version_parse<'a>(
     header_kind: HeaderKind,
-) -> impl FnMut(&mut VB6Stream<'a>) -> PResult<VB6FileFormatVersion, VB6ParseError<VB6Stream<'a>>> {
-    move |input: &mut VB6Stream<'a>| -> PResult<VB6FileFormatVersion, VB6ParseError<VB6Stream<'a>>> {
+) -> impl FnMut(&mut VB6Stream<'a>) -> PResult<VB6FileFormatVersion, VB6Error> {
+    move |input: &mut VB6Stream<'a>| -> PResult<VB6FileFormatVersion, VB6Error> {
         (space0, keyword_parse("VERSION"), space1).parse_next(input)?;
 
-        let Ok(major_digits): PResult<&'a BStr, VB6ParseError<VB6Stream<'a>>> =
-            digit1.parse_next(input)
-        else {
-            return Err(ErrMode::Cut(VB6ParseError::MajorVersionUnparseable {
-                info: ErrorInfo::new(input, 0),
-            }));
+        let Ok(major_digits): PResult<&'a BStr, VB6Error> = digit1.parse_next(input) else {
+            return Err(ErrMode::Cut(
+                input.error(VB6ErrorKind::MajorVersionUnparseable),
+            ));
         };
 
         let Ok(major_version) = major_digits.to_string().as_str().parse::<u8>() else {
-            return Err(ErrMode::Cut(VB6ParseError::MajorVersionUnparseable {
-                info: ErrorInfo::new(input, 0),
-            }));
+            return Err(ErrMode::Cut(
+                input.error(VB6ErrorKind::MajorVersionUnparseable),
+            ));
         };
 
         ".".parse_next(input)?;
 
-        let Ok(minor_digits): PResult<&'a BStr, VB6ParseError<VB6Stream<'a>>> =
-            digit1.parse_next(input)
-        else {
-            return Err(ErrMode::Cut(VB6ParseError::MinorVersionUnparseable {
-                info: ErrorInfo::new(input, 0),
-            }));
+        let Ok(minor_digits): PResult<&'a BStr, VB6Error> = digit1.parse_next(input) else {
+            return Err(ErrMode::Cut(
+                input.error(VB6ErrorKind::MinorVersionUnparseable),
+            ));
         };
 
         let Ok(minor_version) = minor_digits.to_string().as_str().parse::<u8>() else {
-            return Err(ErrMode::Cut(VB6ParseError::MinorVersionUnparseable {
-                info: ErrorInfo::new(input, 0),
-            }));
+            return Err(ErrMode::Cut(
+                input.error(VB6ErrorKind::MinorVersionUnparseable),
+            ));
         };
 
         match header_kind {
@@ -86,8 +82,8 @@ pub fn version_parse<'a>(
 
 pub fn key_value_parse<'a>(
     divider: &'static str,
-) -> impl FnMut(&mut VB6Stream<'a>) -> PResult<(&'a BStr, &'a BStr), VB6ParseError<VB6Stream<'a>>> {
-    move |input: &mut VB6Stream<'a>| -> PResult<(&'a BStr, &'a BStr), VB6ParseError<VB6Stream<'a>>> {
+) -> impl FnMut(&mut VB6Stream<'a>) -> PResult<(&'a BStr, &'a BStr), VB6Error> {
+    move |input: &mut VB6Stream<'a>| -> PResult<(&'a BStr, &'a BStr), VB6Error> {
         let (key, value) = separated_pair(
             delimited(
                 space0,
@@ -116,8 +112,8 @@ pub fn key_value_parse<'a>(
 
 pub fn key_value_line_parse<'a>(
     divider: &'static str,
-) -> impl FnMut(&mut VB6Stream<'a>) -> PResult<(&'a BStr, &'a BStr), VB6ParseError<VB6Stream<'a>>> {
-    move |input: &mut VB6Stream<'a>| -> PResult<(&'a BStr, &'a BStr), VB6ParseError<VB6Stream<'a>>> {
+) -> impl FnMut(&mut VB6Stream<'a>) -> PResult<(&'a BStr, &'a BStr), VB6Error> {
+    move |input: &mut VB6Stream<'a>| -> PResult<(&'a BStr, &'a BStr), VB6Error> {
         let (key, value) = key_value_parse(divider).parse_next(input)?;
 
         // we have to check for eof here because it's perfectly possible to have a

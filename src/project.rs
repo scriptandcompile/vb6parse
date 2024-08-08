@@ -13,7 +13,7 @@ use winnow::{
 };
 
 use crate::{
-    errors::{ErrorInfo, VB6ParseError},
+    errors::{VB6Error, VB6ErrorKind},
     vb6::line_comment_parse,
     vb6stream::VB6Stream,
 };
@@ -115,7 +115,7 @@ pub struct VB6ProjectClass<'a> {
 }
 
 impl<'a> VB6Project<'a> {
-    pub fn parse(input: &mut VB6Stream<'a>) -> Result<Self, VB6ParseError<VB6Stream<'a>>> {
+    pub fn parse(input: &mut VB6Stream<'a>) -> Result<Self, VB6Error> {
         let mut references = vec![];
         let mut user_documents = vec![];
         let mut objects = vec![];
@@ -173,54 +173,40 @@ impl<'a> VB6Project<'a> {
             // There should only be one in the file since it's only used once,
             // but we want to be flexible in what we accept so we skip any of
             // these kinds of header lines.
-            if line_ending::<_, VB6ParseError<VB6Stream<'a>>>
-                .parse_next(input)
-                .is_ok()
-            {
+            if line_ending::<_, VB6Error>.parse_next(input).is_ok() {
                 continue;
             };
 
             // We also want to skip any '[MS Transaction Server]' header lines.
-            if (
-                "[MS Transaction Server]",
-                line_ending::<_, VB6ParseError<VB6Stream<'a>>>,
-            )
+            if ("[MS Transaction Server]", line_ending::<_, VB6Error>)
                 .parse_next(input)
                 .is_ok()
             {
                 continue;
             };
 
-            let _: PResult<_, VB6ParseError<VB6Stream<'a>>> = space0.parse_next(input);
+            let _: PResult<_, VB6Error> = space0.parse_next(input);
 
-            let Ok(key): PResult<_, VB6ParseError<VB6Stream<'a>>> =
-                take_until(1.., "=").parse_next(input)
-            else {
-                return Err(VB6ParseError::NoEqualSplit {
-                    info: ErrorInfo::new(input, 0),
-                });
+            let Ok(key): PResult<_, VB6Error> = take_until(1.., "=").parse_next(input) else {
+                return Err(input.error(VB6ErrorKind::NoEqualSplit));
             };
 
-            let _: PResult<_, VB6ParseError<VB6Stream<'a>>> = ("=", space0).parse_next(input);
+            let _: PResult<_, VB6Error> = ("=", space0).parse_next(input);
 
             match key.to_str() {
                 Ok("Type") => {
                     project_type = match project_type_parse.parse_next(input) {
                         Ok(project_type) => Some(project_type),
                         Err(_) => {
-                            return Err(VB6ParseError::ProjectTypeUnknown {
-                                info: ErrorInfo::new(input, 0),
-                            });
+                            return Err(input.error(VB6ErrorKind::ProjectTypeUnknown));
                         }
                     };
                 }
                 Ok("Designer") => {
-                    let Ok(designer): PResult<_, VB6ParseError<VB6Stream<'a>>> =
+                    let Ok(designer): PResult<_, VB6Error> =
                         take_until1_line_ending.parse_next(input)
                     else {
-                        return Err(VB6ParseError::DesignerLineUnparseable {
-                            info: ErrorInfo::new(input, 0),
-                        });
+                        return Err(input.error(VB6ErrorKind::DesignerLineUnparseable));
                     };
 
                     designers.push(designer.as_bstr());
@@ -258,34 +244,27 @@ impl<'a> VB6Project<'a> {
                     classes.push(class);
                 }
                 Ok("Form") => {
-                    let Ok(form): PResult<_, VB6ParseError<VB6Stream<'a>>> =
-                        take_until1_line_ending.parse_next(input)
+                    let Ok(form): PResult<_, VB6Error> = take_until1_line_ending.parse_next(input)
                     else {
-                        return Err(VB6ParseError::FormLineUnparseable {
-                            info: ErrorInfo::new(input, 0),
-                        });
+                        return Err(input.error(VB6ErrorKind::FormLineUnparseable));
                     };
 
                     forms.push(form);
                 }
                 Ok("UserControl") => {
-                    let Ok(user_control): PResult<_, VB6ParseError<VB6Stream<'a>>> =
+                    let Ok(user_control): PResult<_, VB6Error> =
                         take_until1_line_ending.parse_next(input)
                     else {
-                        return Err(VB6ParseError::UserControlLineUnparseable {
-                            info: ErrorInfo::new(input, 0),
-                        });
+                        return Err(input.error(VB6ErrorKind::UserControlLineUnparseable));
                     };
 
                     user_controls.push(user_control);
                 }
                 Ok("UserDocument") => {
-                    let Ok(user_document): PResult<_, VB6ParseError<VB6Stream<'a>>> =
+                    let Ok(user_document): PResult<_, VB6Error> =
                         take_until1_line_ending.parse_next(input)
                     else {
-                        return Err(VB6ParseError::UserDocumentLineUnparseable {
-                            info: ErrorInfo::new(input, 0),
-                        });
+                        return Err(input.error(VB6ErrorKind::UserDocumentLineUnparseable));
                     };
 
                     user_documents.push(user_document);
@@ -356,75 +335,59 @@ impl<'a> VB6Project<'a> {
                     };
                 }
                 Ok("MajorVer") => {
-                    let Ok(major_ver): PResult<_, VB6ParseError<VB6Stream<'a>>> =
+                    let Ok(major_ver): PResult<_, VB6Error> =
                         take_until1_line_ending.parse_next(input)
                     else {
-                        return Err(VB6ParseError::MajorVersionUnparseable {
-                            info: ErrorInfo::new(input, 0),
-                        });
+                        return Err(input.error(VB6ErrorKind::MajorVersionUnparseable));
                     };
 
                     major = match major_ver.to_string().as_str().parse::<u16>() {
                         Ok(major) => major,
                         Err(_) => {
-                            return Err(VB6ParseError::MajorVersionUnparseable {
-                                info: ErrorInfo::new(input, 0),
-                            });
+                            return Err(input.error(VB6ErrorKind::MajorVersionUnparseable));
                         }
                     };
                 }
                 Ok("MinorVer") => {
-                    let Ok(minor_ver): PResult<_, VB6ParseError<VB6Stream<'a>>> =
+                    let Ok(minor_ver): PResult<_, VB6Error> =
                         take_until1_line_ending.parse_next(input)
                     else {
-                        return Err(VB6ParseError::MinorVersionUnparseable {
-                            info: ErrorInfo::new(input, 0),
-                        });
+                        return Err(input.error(VB6ErrorKind::MinorVersionUnparseable));
                     };
 
                     minor = match minor_ver.to_string().as_str().parse::<u16>() {
                         Ok(minor) => minor,
                         Err(_) => {
-                            return Err(VB6ParseError::MinorVersionUnparseable {
-                                info: ErrorInfo::new(input, 0),
-                            });
+                            return Err(input.error(VB6ErrorKind::MinorVersionUnparseable));
                         }
                     };
                 }
                 Ok("RevisionVer") => {
-                    let Ok(revision_ver): PResult<_, VB6ParseError<VB6Stream<'a>>> =
+                    let Ok(revision_ver): PResult<_, VB6Error> =
                         take_until1_line_ending.parse_next(input)
                     else {
-                        return Err(VB6ParseError::RevisionVersionUnparseable {
-                            info: ErrorInfo::new(input, 0),
-                        });
+                        return Err(input.error(VB6ErrorKind::RevisionVersionUnparseable));
                     };
 
                     revision = match revision_ver.to_string().as_str().parse::<u16>() {
                         Ok(revision) => revision,
                         Err(_) => {
-                            return Err(VB6ParseError::RevisionVersionUnparseable {
-                                info: ErrorInfo::new(input, 0),
-                            });
+                            return Err(input.error(VB6ErrorKind::RevisionVersionUnparseable));
                         }
                     };
                 }
                 Ok("AutoIncrementVer") => {
-                    let Ok(auto_increment): PResult<_, VB6ParseError<VB6Stream<'a>>> =
+                    let Ok(auto_increment): PResult<_, VB6Error> =
                         take_until1_line_ending.parse_next(input)
                     else {
-                        return Err(VB6ParseError::AutoIncrementUnparseable {
-                            info: ErrorInfo::new(input, 0),
-                        });
+                        return Err(input.error(VB6ErrorKind::AutoIncrementUnparseable));
                     };
 
                     auto_increment_revision =
                         match auto_increment.to_string().as_str().parse::<u16>() {
                             Ok(auto_increment_revision) => auto_increment_revision,
                             Err(_) => {
-                                return Err(VB6ParseError::AutoIncrementUnparseable {
-                                    info: ErrorInfo::new(input, 0),
-                                });
+                                return Err(input.error(VB6ErrorKind::AutoIncrementUnparseable));
                             }
                         };
                 }
@@ -434,9 +397,7 @@ impl<'a> VB6Project<'a> {
                     upgrade_activex_controls = match true_false_parse.parse_next(input) {
                         Ok(inv_upgrade_activex_controls) => !inv_upgrade_activex_controls,
                         Err(_) => {
-                            return Err(VB6ParseError::NoControlUpgradeUnparsable {
-                                info: ErrorInfo::new(input, 0),
-                            });
+                            return Err(input.error(VB6ErrorKind::NoControlUpgradeUnparsable));
                         }
                     };
                 }
@@ -444,9 +405,7 @@ impl<'a> VB6Project<'a> {
                     server_support_files = match true_false_parse.parse_next(input) {
                         Ok(server_support_files) => server_support_files,
                         Err(_) => {
-                            return Err(VB6ParseError::ServerSupportFilesUnparseable {
-                                info: ErrorInfo::new(input, 0),
-                            });
+                            return Err(input.error(VB6ErrorKind::ServerSupportFilesUnparseable));
                         }
                     }
                 }
@@ -495,40 +454,28 @@ impl<'a> VB6Project<'a> {
                 Ok("CompilationType") => {
                     compilation_type = match true_false_parse.parse_next(input) {
                         Ok(compilation_type) => compilation_type,
-                        Err(_) => {
-                            return Err(VB6ParseError::CompilationTypeUnparseable {
-                                info: ErrorInfo::new(input, 0),
-                            })
-                        }
+                        Err(_) => return Err(input.error(VB6ErrorKind::CompilationTypeUnparseable)),
                     };
                 }
                 Ok("OptimizationType") => {
                     optimization_type = match true_false_parse.parse_next(input) {
                         Ok(optimization_type) => optimization_type,
                         Err(_) => {
-                            return Err(VB6ParseError::OptimizationTypeUnparseable {
-                                info: ErrorInfo::new(input, 0),
-                            })
+                            return Err(input.error(VB6ErrorKind::OptimizationTypeUnparseable))
                         }
                     };
                 }
                 Ok("FavorPentiumPro(tm)") => {
                     favor_pentium_pro = match true_false_parse.parse_next(input) {
                         Ok(favor_pentium_pro) => favor_pentium_pro,
-                        Err(_) => {
-                            return Err(VB6ParseError::FavorPentiumProUnparseable {
-                                info: ErrorInfo::new(input, 0),
-                            })
-                        }
+                        Err(_) => return Err(input.error(VB6ErrorKind::FavorPentiumProUnparseable)),
                     };
                 }
                 Ok("CodeViewDebugInfo") => {
                     code_view_debug_info = match true_false_parse.parse_next(input) {
                         Ok(code_view_debug_info) => code_view_debug_info,
                         Err(_) => {
-                            return Err(VB6ParseError::CodeViewDebugInfoUnparseable {
-                                info: ErrorInfo::new(input, 0),
-                            })
+                            return Err(input.error(VB6ErrorKind::CodeViewDebugInfoUnparseable))
                         }
                     };
                 }
@@ -536,153 +483,97 @@ impl<'a> VB6Project<'a> {
                     // Invert answer since we inverted the name.
                     aliasing = match true_false_parse.parse_next(input) {
                         Ok(inv_aliasing) => !inv_aliasing,
-                        Err(_) => {
-                            return Err(VB6ParseError::NoAliasingUnparseable {
-                                info: ErrorInfo::new(input, 0),
-                            })
-                        }
+                        Err(_) => return Err(input.error(VB6ErrorKind::NoAliasingUnparseable)),
                     };
                 }
                 Ok("BoundsCheck") => {
                     bounds_check = match true_false_parse.parse_next(input) {
                         Ok(bounds_check) => bounds_check,
-                        Err(_) => {
-                            return Err(VB6ParseError::BoundsCheckUnparseable {
-                                info: ErrorInfo::new(input, 0),
-                            })
-                        }
+                        Err(_) => return Err(input.error(VB6ErrorKind::BoundsCheckUnparseable)),
                     };
                 }
                 Ok("OverflowCheck") => {
                     overflow_check = match true_false_parse.parse_next(input) {
                         Ok(overflow_check) => overflow_check,
-                        Err(_) => {
-                            return Err(VB6ParseError::OverflowCheckUnparseable {
-                                info: ErrorInfo::new(input, 0),
-                            })
-                        }
+                        Err(_) => return Err(input.error(VB6ErrorKind::OverflowCheckUnparseable)),
                     };
                 }
                 Ok("FlPointCheck") => {
                     floating_point_check = match true_false_parse.parse_next(input) {
                         Ok(floating_point_check) => floating_point_check,
-                        Err(_) => {
-                            return Err(VB6ParseError::FlPointCheckUnparseable {
-                                info: ErrorInfo::new(input, 0),
-                            })
-                        }
+                        Err(_) => return Err(input.error(VB6ErrorKind::FlPointCheckUnparseable)),
                     };
                 }
                 Ok("FDIVCheck") => {
                     pentium_fdiv_bug_check = match true_false_parse.parse_next(input) {
                         Ok(pentium_fdiv_bug_check) => pentium_fdiv_bug_check,
-                        Err(_) => {
-                            return Err(VB6ParseError::FDIVCheckUnparseable {
-                                info: ErrorInfo::new(input, 0),
-                            })
-                        }
+                        Err(_) => return Err(input.error(VB6ErrorKind::FDIVCheckUnparseable)),
                     };
                 }
                 Ok("UnroundedFP") => {
                     unrounded_floating_point = match true_false_parse.parse_next(input) {
                         Ok(unrounded_floating_point) => unrounded_floating_point,
-                        Err(_) => {
-                            return Err(VB6ParseError::UnroundedFPUnparseable {
-                                info: ErrorInfo::new(input, 0),
-                            })
-                        }
+                        Err(_) => return Err(input.error(VB6ErrorKind::UnroundedFPUnparseable)),
                     };
                 }
                 Ok("StartMode") => {
                     start_mode = match true_false_parse.parse_next(input) {
                         Ok(start_mode) => start_mode,
-                        Err(_) => {
-                            return Err(VB6ParseError::StartModeUnparseable {
-                                info: ErrorInfo::new(input, 0),
-                            })
-                        }
+                        Err(_) => return Err(input.error(VB6ErrorKind::StartModeUnparseable)),
                     };
                 }
                 Ok("Unattended") => {
                     unattended = match true_false_parse.parse_next(input) {
                         Ok(unattended) => unattended,
-                        Err(_) => {
-                            return Err(VB6ParseError::UnattendedUnparseable {
-                                info: ErrorInfo::new(input, 0),
-                            })
-                        }
+                        Err(_) => return Err(input.error(VB6ErrorKind::UnattendedUnparseable)),
                     };
                 }
                 Ok("Retained") => {
                     retained = match true_false_parse.parse_next(input) {
                         Ok(retained) => retained,
-                        Err(_) => {
-                            return Err(VB6ParseError::RetainedUnparseable {
-                                info: ErrorInfo::new(input, 0),
-                            })
-                        }
+                        Err(_) => return Err(input.error(VB6ErrorKind::RetainedUnparseable)),
                     };
                 }
                 Ok("ThreadPerObject") => {
-                    let Ok(threads): PResult<_, VB6ParseError<VB6Stream<'a>>> =
+                    let Ok(threads): PResult<_, VB6Error> =
                         take_until1_line_ending.parse_next(input)
                     else {
-                        return Err(VB6ParseError::ThreadPerObjectUnparseable {
-                            info: ErrorInfo::new(input, 0),
-                        });
+                        return Err(input.error(VB6ErrorKind::ThreadPerObjectUnparseable));
                     };
 
                     thread_per_object = match threads.to_string().as_str().parse::<u16>() {
                         Ok(thread_per_object) => thread_per_object,
-                        Err(_) => {
-                            return Err(VB6ParseError::ThreadPerObjectUnparseable {
-                                info: ErrorInfo::new(input, 0),
-                            });
-                        }
-                    };
+                        Err(_) => return Err(input.error(VB6ErrorKind::ThreadPerObjectUnparseable)),
+                    }
                 }
                 Ok("MaxNumberOfThreads") => {
-                    let Ok(max_threads): PResult<_, VB6ParseError<VB6Stream<'a>>> =
+                    let Ok(max_threads): PResult<_, VB6Error> =
                         take_until1_line_ending.parse_next(input)
                     else {
-                        return Err(VB6ParseError::MaxThreadsUnparseable {
-                            info: ErrorInfo::new(input, 0),
-                        });
+                        return Err(input.error(VB6ErrorKind::MaxThreadsUnparseable));
                     };
 
                     max_number_of_threads = match max_threads.to_string().as_str().parse::<u16>() {
                         Ok(max_number_of_threads) => max_number_of_threads,
-                        Err(_) => {
-                            return Err(VB6ParseError::MaxThreadsUnparseable {
-                                info: ErrorInfo::new(input, 0),
-                            });
-                        }
+                        Err(_) => return Err(input.error(VB6ErrorKind::MaxThreadsUnparseable)),
                     };
                 }
                 Ok("DebugStartupOption") => {
                     debug_startup_option = match true_false_parse.parse_next(input) {
                         Ok(debug_startup_option) => debug_startup_option,
                         Err(_) => {
-                            return Err(VB6ParseError::DebugStartupOptionUnparseable {
-                                info: ErrorInfo::new(input, 0),
-                            })
+                            return Err(input.error(VB6ErrorKind::DebugStartupOptionUnparseable))
                         }
                     };
                 }
                 Ok("AutoRefresh") => {
                     auto_refresh = match auto_refresh_parse.parse_next(input) {
                         Ok(auto_refresh) => auto_refresh,
-                        Err(_) => {
-                            return Err(VB6ParseError::AutoRefreshUnparseable {
-                                info: ErrorInfo::new(input, 0),
-                            })
-                        }
+                        Err(_) => return Err(input.error(VB6ErrorKind::AutoRefreshUnparseable)),
                     };
                 }
                 _ => {
-                    return Err(VB6ParseError::LineTypeUnknown {
-                        info: ErrorInfo::new(input, 0),
-                    });
+                    return Err(input.error(VB6ErrorKind::LineTypeUnknown));
                 }
             }
 
@@ -690,16 +581,12 @@ impl<'a> VB6Project<'a> {
                 .parse_next(input)
                 .is_err()
             {
-                return Err(VB6ParseError::NoLineEnding {
-                    info: ErrorInfo::new(input, 0),
-                });
+                return Err(input.error(VB6ErrorKind::NoLineEnding));
             }
         }
 
         if project_type.is_none() {
-            return Err(VB6ParseError::FirstLineNotProject {
-                info: ErrorInfo::new(input, 0),
-            });
+            return Err(input.error(VB6ErrorKind::FirstLineNotProject));
         }
 
         let version_info = VersionInformation {
@@ -762,7 +649,7 @@ impl<'a> VB6Project<'a> {
     }
 }
 
-fn true_false_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<bool, VB6ParseError<VB6Stream<'a>>> {
+fn true_false_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<bool, VB6Error> {
     // 0 is false...and -1 is true.
     // Why vb6? What are you like this? Who hurt you?
     let result = alt(('0'.value(false), "-1".value(true))).parse_next(input)?;
@@ -770,35 +657,31 @@ fn true_false_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<bool, VB6ParseErro
     Ok(result)
 }
 
-fn title_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr, VB6ParseError<VB6Stream<'a>>> {
+fn title_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr, VB6Error> {
     // it's perfectly possible to use '"' within the title string.
     // VB6 being the language it is, there is no escape sequence for
     // this. Instead, the title is wrapped in quotes and the quotes
     // are just simply included in the text. This means we can't use
     // the qouted_value parser here.
 
-    let _: PResult<_, VB6ParseError<_>> = (space0, "\"").parse_next(input);
+    let _: PResult<_, VB6Error> = (space0, "\"").parse_next(input);
 
-    let Ok(title): PResult<_, VB6ParseError<VB6Stream<'a>>> =
+    let Ok(title): PResult<_, VB6Error> =
         alt((take_until(1.., "\"\r\n"), take_until(1.., "\"\n"))).parse_next(input)
     else {
-        return Err(ErrMode::Cut(VB6ParseError::TitleUnparseable {
-            info: ErrorInfo::new(input, 0),
-        }));
+        return Err(ErrMode::Cut(input.error(VB6ErrorKind::TitleUnparseable)));
     };
 
     // We need to skip the closing quote.
     // But we also need to make sure we don't skip the line ending.
     // This is a bit odd, but all the other one off line parsers don't read
     // the line ending, so we need to make sure this one doesn't either.
-    let _: PResult<_, VB6ParseError<_>> = "\"".parse_next(input);
+    let _: PResult<_, VB6Error> = "\"".parse_next(input);
 
     Ok(title)
 }
 
-fn auto_refresh_parse<'a>(
-    input: &mut VB6Stream<'a>,
-) -> PResult<bool, VB6ParseError<VB6Stream<'a>>> {
+fn auto_refresh_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<bool, VB6Error> {
     // 0 is false...and 1 is true.
     // Of course, VB6 being VB6, this is the only entry that does something different.
     // le sigh.
@@ -807,9 +690,7 @@ fn auto_refresh_parse<'a>(
     Ok(result)
 }
 
-fn qouted_true_false_parse<'a>(
-    input: &mut VB6Stream<'a>,
-) -> PResult<bool, VB6ParseError<VB6Stream<'a>>> {
+fn qouted_true_false_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<bool, VB6Error> {
     let qoute = qouted_value("\"").parse_next(input)?;
 
     // 0 is false...and -1 is true.
@@ -820,17 +701,15 @@ fn qouted_true_false_parse<'a>(
         Ok(true)
     } else {
         Err(ErrMode::Cut(
-            VB6ParseError::TrueFalseZSeroNegOneUnparseable {
-                info: ErrorInfo::new(input, 0),
-            },
+            input.error(VB6ErrorKind::TrueFalseZSeroNegOneUnparseable),
         ))
     }
 }
 
 fn qouted_value<'a>(
     qoute_char: &'a str,
-) -> impl FnMut(&mut VB6Stream<'a>) -> PResult<&'a BStr, VB6ParseError<VB6Stream<'a>>> {
-    move |input: &mut VB6Stream<'a>| -> PResult<&'a BStr, VB6ParseError<VB6Stream<'a>>> {
+) -> impl FnMut(&mut VB6Stream<'a>) -> PResult<&'a BStr, VB6Error> {
+    move |input: &mut VB6Stream<'a>| -> PResult<&'a BStr, VB6Error> {
         literal(qoute_char).parse_next(input)?;
         let qouted_value = take_until(0.., qoute_char).parse_next(input)?;
         literal(qoute_char).parse_next(input)?;
@@ -839,17 +718,13 @@ fn qouted_value<'a>(
     }
 }
 
-fn object_parse<'a>(
-    input: &mut VB6Stream<'a>,
-) -> PResult<VB6ProjectObject<'a>, VB6ParseError<VB6Stream<'a>>> {
+fn object_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6ProjectObject<'a>, VB6Error> {
     "{".parse_next(input)?;
 
     let uuid_segment = take_until(1.., "}").parse_next(input)?;
 
     let Ok(uuid) = Uuid::parse_str(uuid_segment.to_str().unwrap()) else {
-        return Err(ErrMode::Cut(VB6ParseError::UnableToParseUuid {
-            info: ErrorInfo::new(input, 0),
-        }));
+        return Err(ErrMode::Cut(input.error(VB6ErrorKind::UnableToParseUuid)));
     };
 
     "}#".parse_next(input)?;
@@ -878,9 +753,7 @@ fn object_parse<'a>(
     Ok(project_object)
 }
 
-fn module_parse<'a>(
-    input: &mut VB6Stream<'a>,
-) -> PResult<VB6ProjectModule<'a>, VB6ParseError<VB6Stream<'a>>> {
+fn module_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6ProjectModule<'a>, VB6Error> {
     let (name, path) = semicolon_space_split_parse.parse_next(input)?;
 
     let name = name.as_bstr();
@@ -891,9 +764,7 @@ fn module_parse<'a>(
     Ok(module)
 }
 
-fn class_parse<'a>(
-    input: &mut VB6Stream<'a>,
-) -> PResult<VB6ProjectClass<'a>, VB6ParseError<VB6Stream<'a>>> {
+fn class_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6ProjectClass<'a>, VB6Error> {
     let (name, path) = semicolon_space_split_parse.parse_next(input)?;
 
     let name = name.as_bstr();
@@ -906,7 +777,7 @@ fn class_parse<'a>(
 
 fn semicolon_space_split_parse<'a>(
     input: &mut VB6Stream<'a>,
-) -> PResult<(&'a [u8], &'a [u8]), VB6ParseError<VB6Stream<'a>>> {
+) -> PResult<(&'a [u8], &'a [u8]), VB6Error> {
     let left = take_until(1.., "; ").parse_next(input)?;
 
     "; ".parse_next(input)?;
@@ -916,15 +787,11 @@ fn semicolon_space_split_parse<'a>(
     Ok((left, right))
 }
 
-fn take_until1_line_ending<'a>(
-    input: &mut VB6Stream<'a>,
-) -> PResult<&'a BStr, VB6ParseError<VB6Stream<'a>>> {
+fn take_until1_line_ending<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr, VB6Error> {
     alt((take_until(1.., "\r\n"), take_until(1.., "\n"))).parse_next(input)
 }
 
-fn reference_parse<'a>(
-    input: &mut VB6Stream<'a>,
-) -> PResult<VB6ProjectReference<'a>, VB6ParseError<VB6Stream<'a>>> {
+fn reference_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6ProjectReference<'a>, VB6Error> {
     // This is not the cleanest way to handle this but we need to replace the
     // first instance of "*\\G{" from the start of the segment. Notice the '\\'
     // escape sequence which is just a single slash in the file itself.
@@ -932,48 +799,44 @@ fn reference_parse<'a>(
     let (_, uuid_segment, _) = ("*\\G{", take_until(1.., "}#"), "}#").parse_next(input)?;
 
     let Ok(uuid) = Uuid::parse_str(uuid_segment.to_str().unwrap()) else {
-        return Err(ErrMode::Cut(VB6ParseError::UnableToParseUuid {
-            info: ErrorInfo::new(input, 0),
-        }));
+        return Err(ErrMode::Cut(input.error(VB6ErrorKind::UnableToParseUuid)));
     };
 
     // still not sure what this element or the next represents.
-    let Ok((unknown1, _)): Result<_, ErrMode<VB6ParseError<_>>> =
+    let Ok((unknown1, _)): Result<_, ErrMode<VB6Error>> =
         (take_until(1.., "#"), "#").parse_next(input)
     else {
-        return Err(ErrMode::Cut(VB6ParseError::ReferenceMissingSections {
-            info: ErrorInfo::new(input, 0),
-        }));
+        return Err(ErrMode::Cut(
+            input.error(VB6ErrorKind::ReferenceMissingSections),
+        ));
     };
 
-    let Ok((unknown2, _)): Result<_, ErrMode<VB6ParseError<_>>> =
+    let Ok((unknown2, _)): Result<_, ErrMode<VB6Error>> =
         (take_until(1.., "#"), "#").parse_next(input)
     else {
-        return Err(ErrMode::Cut(VB6ParseError::ReferenceMissingSections {
-            info: ErrorInfo::new(input, 0),
-        }));
+        return Err(ErrMode::Cut(
+            input.error(VB6ErrorKind::ReferenceMissingSections),
+        ));
     };
 
-    let Ok((path, _)): Result<_, ErrMode<VB6ParseError<_>>> =
-        (take_until(1.., "#"), "#").parse_next(input)
+    let Ok((path, _)): Result<_, ErrMode<VB6Error>> = (take_until(1.., "#"), "#").parse_next(input)
     else {
-        return Err(ErrMode::Cut(VB6ParseError::ReferenceMissingSections {
-            info: ErrorInfo::new(input, 0),
-        }));
+        return Err(ErrMode::Cut(
+            input.error(VB6ErrorKind::ReferenceMissingSections),
+        ));
     };
 
-    let Ok(description): Result<_, ErrMode<VB6ParseError<_>>> =
-        take_until1_line_ending.parse_next(input)
+    let Ok(description): Result<_, ErrMode<VB6Error>> = take_until1_line_ending.parse_next(input)
     else {
-        return Err(ErrMode::Cut(VB6ParseError::ReferenceMissingSections {
-            info: ErrorInfo::new(input, 0),
-        }));
+        return Err(ErrMode::Cut(
+            input.error(VB6ErrorKind::ReferenceMissingSections),
+        ));
     };
 
     if description.contains(&b'#') {
-        return Err(ErrMode::Cut(VB6ParseError::ReferenceExtraSections {
-            info: ErrorInfo::new(input, 0),
-        }));
+        return Err(ErrMode::Cut(
+            input.error(VB6ErrorKind::ReferenceExtraSections),
+        ));
     }
 
     let reference = VB6ProjectReference {
@@ -987,9 +850,7 @@ fn reference_parse<'a>(
     Ok(reference)
 }
 
-fn project_type_parse<'a>(
-    input: &mut VB6Stream<'a>,
-) -> PResult<CompileTargetType, VB6ParseError<VB6Stream<'a>>> {
+fn project_type_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<CompileTargetType, VB6Error> {
     // The first line of any VB6 project file (vbp) is a type line that
     // tells us what kind of project we have.
     // this should be in every project file, even an empty one, and it must
@@ -1000,7 +861,7 @@ fn project_type_parse<'a>(
     //
     // By this point in the parse the "Type=" component should be stripped off
     // since that is how we knew to use this particular parse.
-    let project_type = match alt::<_, CompileTargetType, VB6ParseError<_>, _>((
+    let project_type = match alt::<_, CompileTargetType, VB6Error, _>((
         "Exe".value(CompileTargetType::Exe),
         "Control".value(CompileTargetType::Control),
         "OleExe".value(CompileTargetType::OleExe),
@@ -1010,9 +871,7 @@ fn project_type_parse<'a>(
     {
         Ok(type_project) => type_project,
         Err(_) => {
-            return Err(ErrMode::Cut(VB6ParseError::ProjectTypeUnknown {
-                info: ErrorInfo::new(input, 0),
-            }));
+            return Err(ErrMode::Cut(input.error(VB6ErrorKind::ProjectTypeUnknown)));
         }
     };
 
@@ -1029,7 +888,7 @@ mod tests {
     fn project_type_is_exe() {
         let mut input = VB6Stream::new("", b"Type=Exe");
 
-        let _: Result<&BStr, ErrMode<VB6ParseError<VB6Stream>>> = "Type=".parse_next(&mut input);
+        let _: Result<&BStr, ErrMode<VB6Error>> = "Type=".parse_next(&mut input);
 
         let result = project_type_parse.parse_next(&mut input).unwrap();
 
@@ -1040,7 +899,7 @@ mod tests {
     fn project_type_is_oledll() {
         let mut input = VB6Stream::new("", b"Type=OleDll");
 
-        let _: Result<&BStr, ErrMode<VB6ParseError<VB6Stream>>> = "Type=".parse_next(&mut input);
+        let _: Result<&BStr, ErrMode<VB6Error>> = "Type=".parse_next(&mut input);
 
         let result = project_type_parse.parse_next(&mut input).unwrap();
         assert_eq!(result, CompileTargetType::OleDll);
@@ -1050,7 +909,7 @@ mod tests {
     fn project_type_is_unknown_type() {
         let mut input = VB6Stream::new("", b"Type=blah");
 
-        let _: Result<&BStr, ErrMode<VB6ParseError<VB6Stream>>> = "Type=".parse_next(&mut input);
+        let _: Result<&BStr, ErrMode<VB6Error>> = "Type=".parse_next(&mut input);
 
         let result = project_type_parse.parse_next(&mut input);
         assert!(result.is_err());
@@ -1060,8 +919,7 @@ mod tests {
     fn reference_line_valid() {
         let mut input = VB6Stream::new("", b"Reference=*\\G{000440D8-E9ED-4435-A9A2-06B05387BB16}#c.0#0#..\\DBCommon\\Libs\\VbIntellisenseFix.dll#VbIntellisenseFix\r\n");
 
-        let _: Result<&BStr, ErrMode<VB6ParseError<VB6Stream>>> =
-            "Reference=".parse_next(&mut input);
+        let _: Result<&BStr, ErrMode<VB6Error>> = "Reference=".parse_next(&mut input);
 
         let result = reference_parse.parse_next(&mut input).unwrap();
 
@@ -1083,7 +941,7 @@ mod tests {
             b"Object={C4847593-972C-11D0-9567-00A0C9273C2A}#8.0#0; crviewer.dll\r\n",
         );
 
-        let _: Result<&BStr, ErrMode<VB6ParseError<VB6Stream>>> = "Object=".parse_next(&mut input);
+        let _: Result<&BStr, ErrMode<VB6Error>> = "Object=".parse_next(&mut input);
 
         let result = object_parse.parse_next(&mut input).unwrap();
 
@@ -1101,7 +959,7 @@ mod tests {
     fn module_line_valid() {
         let mut input = VB6Stream::new("", b"Module=modDBAssist; ..\\DBCommon\\DBAssist.bas\r\n");
 
-        let _: Result<&BStr, ErrMode<VB6ParseError<VB6Stream>>> = "Module=".parse_next(&mut input);
+        let _: Result<&BStr, ErrMode<VB6Error>> = "Module=".parse_next(&mut input);
         let result = module_parse.parse_next(&mut input).unwrap();
 
         // we don't consume the line ending, so we should have 2 bytes left.
@@ -1117,7 +975,7 @@ mod tests {
             b"Class=CStatusBarClass; ..\\DBCommon\\CStatusBarClass.cls\r\n",
         );
 
-        let _: Result<&BStr, ErrMode<VB6ParseError<VB6Stream>>> = "Class=".parse_next(&mut input);
+        let _: Result<&BStr, ErrMode<VB6Error>> = "Class=".parse_next(&mut input);
         let result = class_parse.parse_next(&mut input).unwrap();
 
         // we don't consume the line ending, so we should have 2 bytes left.
