@@ -6,13 +6,15 @@ use winnow::{
     error::{ContextError, ErrMode, ParserError},
     stream::Stream,
     token::{one_of, take_till, take_while},
-    PResult, Parser,
+    Parser,
 };
 
 use crate::{
     errors::{VB6Error, VB6ErrorKind},
     vb6stream::VB6Stream,
 };
+
+pub type VB6Result<T> = Result<T, ErrMode<VB6Error>>;
 
 /// Parses a VB6 end-of-line comment.
 ///
@@ -41,7 +43,7 @@ use crate::{
 ///
 /// assert_eq!(comment, "' This is a comment");
 /// ```
-pub fn line_comment_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr, VB6Error> {
+pub fn line_comment_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
     let comment = ('\'', take_till(0.., (b"\r\n", b"\n", b"\r")))
         .recognize()
         .parse_next(input)?;
@@ -72,7 +74,7 @@ pub fn line_comment_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr, VB
 ///
 /// assert_eq!(whitespace, "    ");
 /// ```
-pub fn whitespace_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr, VB6Error> {
+pub fn whitespace_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
     let whitespace = take_while(1.., (' ', '\t')).parse_next(input)?;
 
     Ok(whitespace)
@@ -101,7 +103,7 @@ pub fn whitespace_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr, VB6E
 ///
 /// assert_eq!(variable_name, "variable_name");
 /// ```
-pub fn variable_name_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr, VB6Error> {
+pub fn variable_name_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
     let variable_name = (
         one_of(('a'..='z', 'A'..='Z')),
         take_while(0.., ('_', 'a'..='z', 'A'..='Z', '0'..='9')),
@@ -137,7 +139,7 @@ pub fn variable_name_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr, V
 /// use vb6parse::{
 ///     vb6::keyword_parse,
 ///     vb6stream::VB6Stream,
-///     errors::{ErrorInfo, VB6ParseError},
+///     errors::{VB6ErrorKind, VB6Error},
 /// };
 ///
 /// use bstr::{BStr, ByteSlice};
@@ -156,8 +158,8 @@ pub fn variable_name_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<&'a BStr, V
 /// ```
 pub fn keyword_parse<'a>(
     keyword: &'static str,
-) -> impl FnMut(&mut VB6Stream<'a>) -> PResult<&'a BStr, VB6Error> {
-    move |input: &mut VB6Stream<'a>| -> PResult<&'a BStr, VB6Error> {
+) -> impl FnMut(&mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
+    move |input: &mut VB6Stream<'a>| -> VB6Result<&'a BStr> {
         let checkpoint = input.checkpoint();
 
         let word = Caseless(keyword).parse_next(input)?;
@@ -329,7 +331,7 @@ pub enum VB6Token<'a> {
 /// assert_eq!(tokens[5], VB6Token::Whitespace(" ".into()));
 /// assert_eq!(tokens[6], VB6Token::IntegerKeyword("Integer".into()));
 /// ```
-pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<Vec<VB6Token<'a>>, VB6Error> {
+pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6Token<'a>>> {
     let mut tokens = Vec::new();
 
     while !input.is_empty() {

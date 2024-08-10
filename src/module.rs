@@ -1,5 +1,7 @@
 #![warn(clippy::pedantic)]
 
+use miette::Result;
+
 use crate::{
     errors::VB6Error,
     vb6::{keyword_parse, vb6_parse, VB6Token},

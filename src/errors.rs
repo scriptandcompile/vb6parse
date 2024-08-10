@@ -184,7 +184,8 @@ pub enum VB6ErrorKind {
 }
 
 #[derive(Debug, Error, Diagnostic)]
-#[error("A parsing error occurred")]
+#[error("{kind}")]
+#[diagnostic()]
 pub struct VB6Error {
     #[source_code]
     pub src: NamedSource<String>,
