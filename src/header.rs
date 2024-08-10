@@ -3,18 +3,18 @@
 use bstr::BStr;
 
 use crate::{
-    errors::{VB6Error, VB6ErrorKind},
-    vb6::{keyword_parse, line_comment_parse},
+    errors::VB6ErrorKind,
+    vb6::{keyword_parse, line_comment_parse, VB6Result},
     vb6stream::VB6Stream,
     VB6FileFormatVersion,
-};
+}; 
 
 use winnow::{
     ascii::{digit1, line_ending, space0, space1},
     combinator::{alt, delimited, eof, opt, separated_pair},
     error::ErrMode,
     token::{literal, take_while},
-    PResult, Parser,
+    Parser,
 };
 
 pub enum HeaderKind {
@@ -25,11 +25,11 @@ pub enum HeaderKind {
 
 pub fn version_parse<'a>(
     header_kind: HeaderKind,
-) -> impl FnMut(&mut VB6Stream<'a>) -> PResult<VB6FileFormatVersion, VB6Error> {
-    move |input: &mut VB6Stream<'a>| -> PResult<VB6FileFormatVersion, VB6Error> {
+) -> impl FnMut(&mut VB6Stream<'a>) -> VB6Result<VB6FileFormatVersion> {
+    move |input: &mut VB6Stream<'a>| -> VB6Result<VB6FileFormatVersion> {
         (space0, keyword_parse("VERSION"), space1).parse_next(input)?;
 
-        let Ok(major_digits): PResult<&'a BStr, VB6Error> = digit1.parse_next(input) else {
+        let Ok(major_digits): VB6Result<&'a BStr> = digit1.parse_next(input) else {
             return Err(ErrMode::Cut(
                 input.error(VB6ErrorKind::MajorVersionUnparseable),
             ));
@@ -43,7 +43,7 @@ pub fn version_parse<'a>(
 
         ".".parse_next(input)?;
 
-        let Ok(minor_digits): PResult<&'a BStr, VB6Error> = digit1.parse_next(input) else {
+        let Ok(minor_digits): VB6Result<&'a BStr> = digit1.parse_next(input) else {
             return Err(ErrMode::Cut(
                 input.error(VB6ErrorKind::MinorVersionUnparseable),
             ));
@@ -82,8 +82,8 @@ pub fn version_parse<'a>(
 
 pub fn key_value_parse<'a>(
     divider: &'static str,
-) -> impl FnMut(&mut VB6Stream<'a>) -> PResult<(&'a BStr, &'a BStr), VB6Error> {
-    move |input: &mut VB6Stream<'a>| -> PResult<(&'a BStr, &'a BStr), VB6Error> {
+) -> impl FnMut(&mut VB6Stream<'a>) -> VB6Result<(&'a BStr, &'a BStr)> {
+    move |input: &mut VB6Stream<'a>| -> VB6Result<(&'a BStr, &'a BStr)> {
         let (key, value) = separated_pair(
             delimited(
                 space0,
@@ -112,8 +112,8 @@ pub fn key_value_parse<'a>(
 
 pub fn key_value_line_parse<'a>(
     divider: &'static str,
-) -> impl FnMut(&mut VB6Stream<'a>) -> PResult<(&'a BStr, &'a BStr), VB6Error> {
-    move |input: &mut VB6Stream<'a>| -> PResult<(&'a BStr, &'a BStr), VB6Error> {
+) -> impl FnMut(&mut VB6Stream<'a>) -> VB6Result<(&'a BStr, &'a BStr)> {
+    move |input: &mut VB6Stream<'a>| -> VB6Result<(&'a BStr, &'a BStr)> {
         let (key, value) = key_value_parse(divider).parse_next(input)?;
 
         // we have to check for eof here because it's perfectly possible to have a

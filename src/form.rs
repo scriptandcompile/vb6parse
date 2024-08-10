@@ -2,10 +2,12 @@
 
 use std::vec;
 
+use miette::Result;
+
 use crate::{
     errors::{VB6Error, VB6ErrorKind},
     header::{key_value_parse, version_parse, HeaderKind},
-    vb6::{keyword_parse, line_comment_parse, vb6_parse, whitespace_parse, VB6Token},
+    vb6::{keyword_parse, line_comment_parse, vb6_parse, whitespace_parse, VB6Result, VB6Token},
     vb6stream::VB6Stream,
     VB6FileFormatVersion,
 };
@@ -18,7 +20,7 @@ use winnow::{
     combinator::opt,
     error::{ContextError, ErrMode},
     token::{literal, take_till, take_until},
-    PResult, Parser,
+    Parser,
 };
 
 /// Represents a VB6 Form file.
@@ -139,7 +141,7 @@ impl<'a> VB6FormFile<'a> {
     ///
     /// let result = VB6FormFile::parse("form_parse.frm".to_owned(), &mut input.as_ref());
     ///
-    /// println!("{:?}", result);
+    ///
     /// assert!(result.is_ok());
     /// ```
     pub fn parse(file_name: String, input: &'a [u8]) -> Result<Self, VB6Error> {
@@ -173,7 +175,7 @@ impl<'a> VB6FormFile<'a> {
     }
 }
 
-fn block_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6Control<'a>, VB6Error> {
+fn block_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Control<'a>> {
     let fully_qualified_name = begin_parse.parse_next(input)?;
 
     let mut controls = vec![];
@@ -247,7 +249,7 @@ fn block_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6Control<'a>, VB6Erro
     Err(ParserError::assert(input, "Unknown control kind"))
 }
 
-fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6PropertyGroup<'a>, VB6Error> {
+fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyGroup<'a>> {
     (space0, keyword_parse("BeginProperty"), space1).parse_next(input)?;
 
     let property_name = match take_till::<(u8, u8, u8, u8), VB6Stream<'a>, VB6Error>(
@@ -312,7 +314,7 @@ fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6PropertyGro
     Ok(property_group)
 }
 
-fn begin_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6FullyQualifiedName<'a>, VB6Error> {
+fn begin_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FullyQualifiedName<'a>> {
     let namespace = match take_until::<_, VB6Stream, VB6Error>(0.., ".").parse_next(input) {
         Ok(namespace) => namespace,
         Err(_) => {
@@ -400,6 +402,51 @@ mod tests {
     }
 
     #[test]
+    fn larger_parse_valid() -> Result<(), miette::Report> {
+        use crate::form::VB6FormFile;
+
+        let input = b"VERSION 5.00\r
+    Begin VB.Form frmExampleForm\r
+        BackColor       =   &H80000005&\r
+        Caption         =   \"example form\"\r
+        ClientHeight    =   6210\r
+        ClientLeft      =   60\r
+        ClientTop       =   645\r
+        ClientWidth     =   9900\r
+        BeginProperty Font\r
+            Name            =   \"Arial\"\r
+            Size            =   8.25\r
+            Charset         =   0\r
+            Weight          =   400\r
+            Underline       =   0   'False\r
+            Italic          =   0   'False\r
+            Strikethrough   =   0   'False\r
+        EndProperty\r
+        LinkTopic       =   \"Form1\"\r
+        ScaleHeight     =   414\r
+        ScaleMode       =   3  'Pixel\r
+        ScaleWidth      =   660\r
+        StartUpPosition =   2  'CenterScreen\r
+        Begin VB.Menu mnuFile\r
+            Caption         =   \"&File\"\r
+            Begin VB.Menu mnuOpenImage\r
+                Caption         =   \"&Open image\"\r
+           End\r
+        End\r
+    End\r
+    ";
+
+        let result = VB6FormFile::parse("form_parse.frm".to_owned(), &mut input.as_ref());
+
+        //println!("{:?}", result);
+        result.into_diagnostic()?;
+
+        //assert!(result.is_ok());
+
+        Ok(())
+    }
+
+    #[test]
     fn parse_valid() {
         let source = b"VERSION 5.00\r
                         Begin VB.Form frmExampleForm\r
@@ -433,6 +480,7 @@ mod tests {
                         ";
 
         let result = VB6FormFile::parse("form_parse.frm".to_owned(), source);
+
         let diag = result.into_diagnostic();
 
         println!("{:?}", diag);

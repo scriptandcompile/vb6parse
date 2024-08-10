@@ -1,8 +1,43 @@
 use vb6parse::project::VB6Project;
+use vb6parse::vb6stream::VB6Stream;
 
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 
 fn criterion_benchmark(c: &mut Criterion) {
+    let project_names = vec![
+        "Artificial Life.vbp".to_owned(),
+        "Blacklight.vbp".to_owned(),
+        "Brightness.vbp".to_owned(),
+        "Brightness2.vbp".to_owned(),
+        "Brightness3.vbp".to_owned(),
+        "ShiftColor.vbp".to_owned(),
+        "Colorize.vbp".to_owned(),
+        "Contrast.vbp".to_owned(),
+        "Curves.vbp".to_owned(),
+        "CustomFilters.vbp".to_owned(),
+        "Diffuse.vbp".to_owned(),
+        "EdgeDetection.vbp".to_owned(),
+        "EmbossEngrave.vbp".to_owned(),
+        "Fill_Region.vbp".to_owned(),
+        "FlameTest.vbp".to_owned(),
+        "Physics.vbp".to_owned(),
+        "Gradient.vbp".to_owned(),
+        "Grayscale.vbp".to_owned(),
+        "HMM.vbp".to_owned(),
+        "Advanced Histograms.vbp".to_owned(),
+        "Basic Histograms.vbp".to_owned(),
+        "Image Levels.vbp".to_owned(),
+        "Mandelbrot.vbp".to_owned(),
+        "Map Editor.vbp".to_owned(),
+        "NatureFilters.vbp".to_owned(),
+        "RandomizationFX.vbp".to_owned(),
+        "VB_Scanner_Support.vbp".to_owned(),
+        "ScreenCapture.vbp".to_owned(),
+        "Sepia.vbp".to_owned(),
+        "Threshold.vbp".to_owned(),
+        "Transparency.vbp".to_owned(),
+    ];
+
     let projects = vec![
         include_bytes!("../tests/data/vb6-code/Artificial-life/Artificial Life.vbp").to_vec(),
         include_bytes!("../tests/data/vb6-code/Blacklight-effect/Blacklight.vbp").to_vec(),
@@ -39,11 +74,14 @@ fn criterion_benchmark(c: &mut Criterion) {
         include_bytes!("../tests/data/vb6-code/Transparency-2D/Transparency.vbp").to_vec(),
     ];
 
+    let project_pairs: Vec<(_, _)> = project_names.iter().zip(projects.iter()).collect();
+
     c.bench_function("load multiple projects", |b| {
         b.iter(|| {
-            for project in &projects {
+            for project_pair in &project_pairs {
                 black_box({
-                    let _proj = VB6Project::parse(project.as_slice());
+                    let mut stream = VB6Stream::new(project_pair.0, project_pair.1.as_slice());
+                    let _proj = VB6Project::parse(&mut stream);
                 });
             }
         })

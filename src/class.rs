@@ -6,7 +6,7 @@ use miette::Result;
 use crate::{
     errors::{VB6Error, VB6ErrorKind},
     header::{key_value_line_parse, version_parse, HeaderKind},
-    vb6::{keyword_parse, line_comment_parse, vb6_parse, VB6Token},
+    vb6::{keyword_parse, line_comment_parse, vb6_parse, VB6Result, VB6Token},
     vb6stream::VB6Stream,
     VB6FileFormatVersion,
 };
@@ -15,7 +15,7 @@ use winnow::{
     ascii::{line_ending, space0},
     combinator::{alt, preceded, repeat_till},
     error::ErrMode,
-    PResult, Parser,
+    Parser,
 };
 
 /// Represents the usage of a file.
@@ -197,7 +197,7 @@ impl<'a> VB6ClassFile<'a> {
 ///
 /// An error will be returned if the input is not a valid VB6 class file header.
 ///
-fn class_header_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6ClassHeader<'a>, VB6Error> {
+fn class_header_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ClassHeader<'a>> {
     // VERSION #.# CLASS
     // BEGIN
     //  key = value  'comment
@@ -217,20 +217,20 @@ fn class_header_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6ClassHeader<'
     })
 }
 
-fn begin_line_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<(), VB6Error> {
-    (space0, keyword_parse("BEGIN"), space0).parse_next(input)?;
+fn begin_line_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
+    let (_, begin, _) = (space0, keyword_parse("BEGIN"), space0).parse_next(input)?;
 
     alt(((line_comment_parse, line_ending), (space0, line_ending))).parse_next(input)?;
 
-    Ok(())
+    Ok(begin)
 }
 
-fn end_line_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<(), VB6Error> {
-    (space0, keyword_parse("END"), space0).parse_next(input)?;
+fn end_line_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
+    let (_, keyword, _) = (space0, keyword_parse("END"), space0).parse_next(input)?;
 
     alt(((line_comment_parse, line_ending), (space0, line_ending))).parse_next(input)?;
 
-    Ok(())
+    Ok(keyword)
 }
 
 /// Parses a VB6 class file properties from the header.
@@ -247,7 +247,7 @@ fn end_line_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<(), VB6Error> {
 /// # Returns
 ///
 /// A result containing the parsed VB6 class file properties or an error.
-fn properties_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6ClassProperties, VB6Error> {
+fn properties_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ClassProperties> {
     begin_line_parse.parse_next(input)?;
 
     let mut multi_use = FileUsage::MultiUse;
@@ -310,7 +310,7 @@ fn properties_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6ClassProperties
     })
 }
 
-fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> PResult<VB6FileAttributes<'a>, VB6Error> {
+fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FileAttributes<'a>> {
     let _ = space0::<_, VB6Error>.parse_next(input);
 
     let mut name = Option::None;
