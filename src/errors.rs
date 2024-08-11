@@ -201,7 +201,7 @@ impl VB6Error {
     pub fn new(input: &VB6Stream, kind: VB6ErrorKind) -> Self {
         let code = input.stream.to_string();
         let src =
-            NamedSource::new(input.file_name.clone(), code.clone()).with_language("VisualBasic 6");
+            NamedSource::new(input.file_name.clone(), code.clone()).with_language("Visual Basic 6");
         let len = code.len();
         Self {
             src,
@@ -230,7 +230,7 @@ impl<'a> ParserError<VB6Stream<'a>> for VB6Error {
     }
 }
 
-impl<'a> From<winnow::error::ParseError<VB6Stream<'a>, ContextError>> for VB6Error {
+impl<'a> From<ParseError<VB6Stream<'a>, ContextError>> for VB6Error {
     fn from(err: ParseError<VB6Stream<'a>, ContextError>) -> Self {
         let input = err.input();
         VB6Error::new(&input, VB6ErrorKind::WinnowParseError)
