@@ -397,7 +397,7 @@ mod tests {
         let result = VB6FormFile::parse("form_parse.frm".to_owned(), &mut input.as_ref());
 
         //println!("{:?}", result);
-        //result.into_diagnostic()?;
+        result.into_diagnostic()?;
 
         //assert!(result.is_ok());
 
