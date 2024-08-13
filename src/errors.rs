@@ -236,3 +236,19 @@ impl<'a> From<ParseError<VB6Stream<'a>, ContextError>> for VB6Error {
         VB6Error::new(&input, VB6ErrorKind::WinnowParseError)
     }
 }
+
+impl<'a> ParserError<VB6Stream<'a>> for VB6ErrorKind {
+    fn from_error_kind(_: &VB6Stream, _: ErrorKind) -> Self {
+        VB6ErrorKind::WinnowParseError
+    }
+
+    fn append(self, _: &VB6Stream, _: &<VB6Stream as Stream>::Checkpoint, _: ErrorKind) -> Self {
+        self
+    }
+}
+
+impl<'a> From<ParseError<VB6Stream<'a>, ContextError>> for VB6ErrorKind {
+    fn from(_: ParseError<VB6Stream<'a>, ContextError>) -> Self {
+        VB6ErrorKind::WinnowParseError
+    }
+}

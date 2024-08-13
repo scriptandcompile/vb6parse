@@ -14,7 +14,7 @@ use crate::{
     vb6stream::VB6Stream,
 };
 
-pub type VB6Result<T> = Result<T, ErrMode<VB6Error>>;
+pub type VB6Result<T> = Result<T, ErrMode<VB6ErrorKind>>;
 
 /// Parses a VB6 end-of-line comment.
 ///
@@ -170,9 +170,7 @@ pub fn keyword_parse<'a>(
         {
             input.reset(&checkpoint);
 
-            return Err(ErrMode::Backtrack(
-                input.error(VB6ErrorKind::KeywordNotFound),
-            ));
+            return Err(ErrMode::Backtrack(VB6ErrorKind::KeywordNotFound));
         }
 
         Ok(word)
@@ -435,7 +433,7 @@ pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6Token<'a>>> 
             continue;
         }
 
-        return Err(ErrMode::Cut(input.error(VB6ErrorKind::UnknownToken)));
+        return Err(ErrMode::Cut(VB6ErrorKind::UnknownToken));
     }
 
     Ok(tokens)

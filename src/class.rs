@@ -345,7 +345,7 @@ fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FileAttribute
     }
 
     if name.is_none() {
-        return Err(ErrMode::Cut(input.error(VB6ErrorKind::MissingClassName)));
+        return Err(ErrMode::Cut(VB6ErrorKind::MissingClassName));
     }
 
     Ok(VB6FileAttributes {
