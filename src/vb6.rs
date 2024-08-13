@@ -1,7 +1,7 @@
 use bstr::BStr;
 
 use winnow::{
-    ascii::{digit1, line_ending, Caseless},
+    ascii::{digit1, line_ending, space1, Caseless},
     combinator::{alt, delimited},
     error::{ContextError, ErrMode, ParserError},
     stream::Stream,
@@ -9,10 +9,7 @@ use winnow::{
     Parser,
 };
 
-use crate::{
-    errors::{VB6Error, VB6ErrorKind},
-    vb6stream::VB6Stream,
-};
+use crate::{errors::VB6ErrorKind, vb6stream::VB6Stream};
 
 pub type VB6Result<T> = Result<T, ErrMode<VB6ErrorKind>>;
 
@@ -49,35 +46,6 @@ pub fn line_comment_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> 
         .parse_next(input)?;
 
     Ok(comment)
-}
-
-/// Parses whitespace.
-///
-/// Whitespace is defined as one or more spaces or tabs.
-///
-/// # Arguments
-///
-/// * `input` - The input to parse.
-///
-/// # Returns
-///
-/// The whitespace.
-///
-/// # Example
-///
-/// ```rust
-/// use vb6parse::vb6::whitespace_parse;
-/// use vb6parse::vb6stream::VB6Stream;
-///
-/// let mut input = VB6Stream::new("whitespace_tes.bas","    t".as_bytes());
-/// let whitespace = whitespace_parse(&mut input).unwrap();
-///
-/// assert_eq!(whitespace, "    ");
-/// ```
-pub fn whitespace_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
-    let whitespace = take_while(1.., (' ', '\t')).parse_next(input)?;
-
-    Ok(whitespace)
 }
 
 /// Parses a VB6 variable name.
@@ -423,7 +391,7 @@ pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6Token<'a>>> 
                 "^".map(|token: &BStr| VB6Token::ExponentiationOperator(token)),
                 digit1.map(|token: &BStr| VB6Token::Number(token)),
                 variable_name_parse.map(|token: &BStr| VB6Token::VariableName(token)),
-                whitespace_parse.map(|token: &BStr| VB6Token::Whitespace(token)),
+                space1.map(|token: &BStr| VB6Token::Whitespace(token)),
             )),
         ))
         .parse_next(input);
@@ -457,17 +425,6 @@ mod test {
         assert!(keyword.is_err());
         assert!(keyword2.is_ok());
         assert_eq!(keyword2.unwrap(), b"op".as_bstr());
-    }
-
-    #[test]
-    fn whitespace() {
-        use crate::vb6::whitespace_parse;
-        use crate::vb6stream::VB6Stream;
-
-        let mut input = VB6Stream::new("", "    t".as_bytes());
-        let whitespace = whitespace_parse(&mut input).unwrap();
-
-        assert_eq!(whitespace, "    ");
     }
 
     #[test]
@@ -552,11 +509,11 @@ mod test {
 
         let key1 = keyword_parse("Option").parse_next(&mut input).unwrap();
 
-        let _ = whitespace_parse.parse_next(&mut input);
+        let _ = space1::<_, VB6ErrorKind>.parse_next(&mut input);
 
         let key2 = keyword_parse("As").parse_next(&mut input).unwrap();
 
-        let _ = whitespace_parse.parse_next(&mut input);
+        let _ = space1::<_, VB6ErrorKind>.parse_next(&mut input);
 
         let key3 = keyword_parse("Integer").parse_next(&mut input).unwrap();
 
