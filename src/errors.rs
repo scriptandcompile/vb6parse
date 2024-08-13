@@ -200,15 +200,13 @@ pub struct VB6Error {
 impl VB6Error {
     pub fn new(input: &VB6Stream, kind: VB6ErrorKind) -> Self {
         let code = input.stream.to_string();
+        let len = code.len();
         let src =
             NamedSource::new(input.file_name.clone(), code.clone()).with_language("Visual Basic 6");
-        let len = code.len();
+        let offset = SourceOffset::from_location(code, input.line_number, input.column);
         Self {
             src,
-            location: SourceSpan::new(
-                SourceOffset::from_location(code, input.line_number, input.column),
-                len,
-            ),
+            location: SourceSpan::new(offset, len),
             kind,
         }
     }
