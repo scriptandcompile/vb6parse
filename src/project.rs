@@ -215,7 +215,7 @@ impl<'a> VB6Project<'a> {
                 Ok("Reference") => {
                     let reference = match reference_parse.parse_next(input) {
                         Ok(reference) => reference,
-                        Err(e) => return Err(e.into_inner().unwrap()),
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
                     };
 
                     references.push(reference);
@@ -223,7 +223,7 @@ impl<'a> VB6Project<'a> {
                 Ok("Object") => {
                     let object = match object_parse.parse_next(input) {
                         Ok(object) => object,
-                        Err(e) => return Err(e.into_inner().unwrap()),
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
                     };
 
                     objects.push(object);
@@ -231,7 +231,7 @@ impl<'a> VB6Project<'a> {
                 Ok("Module") => {
                     let module = match module_parse.parse_next(input) {
                         Ok(module) => module,
-                        Err(e) => return Err(e.into_inner().unwrap()),
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
                     };
 
                     modules.push(module);
@@ -239,7 +239,7 @@ impl<'a> VB6Project<'a> {
                 Ok("Class") => {
                     let class = match class_parse.parse_next(input) {
                         Ok(class) => class,
-                        Err(e) => return Err(e.into_inner().unwrap()),
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
                     };
 
                     classes.push(class);
@@ -270,25 +270,25 @@ impl<'a> VB6Project<'a> {
                 Ok("ResFile32") => {
                     res_file_32_path = match qouted_value("\"").parse_next(input) {
                         Ok(res_file_32_path) => Some(res_file_32_path),
-                        Err(e) => return Err(e.into_inner().unwrap()),
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
                     };
                 }
                 Ok("IconForm") => {
                     icon_form = match qouted_value("\"").parse_next(input) {
                         Ok(icon_form) => Some(icon_form),
-                        Err(e) => return Err(e.into_inner().unwrap()),
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
                     };
                 }
                 Ok("Startup") => {
                     startup = match qouted_value("\"").parse_next(input) {
                         Ok(startup) => Some(startup),
-                        Err(e) => return Err(e.into_inner().unwrap()),
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
                     };
                 }
                 Ok("HelpFile") => {
                     help_file_path = match qouted_value("\"").parse_next(input) {
                         Ok(help_file_path) => Some(help_file_path),
-                        Err(e) => return Err(e.into_inner().unwrap()),
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
                     };
                 }
                 Ok("Title") => {
@@ -299,37 +299,37 @@ impl<'a> VB6Project<'a> {
                     // the qouted_value parser here.
                     title = match title_parse.parse_next(input) {
                         Ok(title) => Some(title),
-                        Err(e) => return Err(e.into_inner().unwrap()),
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
                     };
                 }
                 Ok("ExeName32") => {
                     exe_32_file_name = match qouted_value("\"").parse_next(input) {
                         Ok(exe_32_file_name) => Some(exe_32_file_name),
-                        Err(e) => return Err(e.into_inner().unwrap()),
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
                     };
                 }
                 Ok("Command32") => {
                     command_line_arguments = match qouted_value("\"").parse_next(input) {
                         Ok(command_line_arguments) => Some(command_line_arguments),
-                        Err(e) => return Err(e.into_inner().unwrap()),
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
                     };
                 }
                 Ok("Name") => {
                     name = match qouted_value("\"").parse_next(input) {
                         Ok(name) => Some(name),
-                        Err(e) => return Err(e.into_inner().unwrap()),
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
                     };
                 }
                 Ok("HelpContextID") => {
                     help_context_id = match qouted_value("\"").parse_next(input) {
                         Ok(help_context_id) => Some(help_context_id),
-                        Err(e) => return Err(e.into_inner().unwrap()),
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
                     };
                 }
                 Ok("CompatibleMode") => {
                     compatible_mode = match qouted_true_false_parse.parse_next(input) {
                         Ok(compatible_mode) => compatible_mode,
-                        Err(e) => return Err(e.into_inner().unwrap()),
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
                     };
                 }
                 Ok("MajorVer") => {
@@ -407,43 +407,43 @@ impl<'a> VB6Project<'a> {
                 Ok("VersionCompanyName") => {
                     company_name = match qouted_value("\"").parse_next(input) {
                         Ok(company_name) => Some(company_name),
-                        Err(e) => return Err(e.into_inner().unwrap()),
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
                     };
                 }
                 Ok("VersionFileDescription") => {
                     file_description = match qouted_value("\"").parse_next(input) {
                         Ok(file_description) => Some(file_description),
-                        Err(e) => return Err(e.into_inner().unwrap()),
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
                     };
                 }
                 Ok("VersionLegalCopyright") => {
                     copyright = match qouted_value("\"").parse_next(input) {
                         Ok(copyright) => Some(copyright),
-                        Err(e) => return Err(e.into_inner().unwrap()),
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
                     };
                 }
                 Ok("VersionLegalTrademarks") => {
                     trademark = match qouted_value("\"").parse_next(input) {
                         Ok(trademark) => Some(trademark),
-                        Err(e) => return Err(e.into_inner().unwrap()),
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
                     };
                 }
                 Ok("VersionProductName") => {
                     product_name = match qouted_value("\"").parse_next(input) {
                         Ok(product_name) => Some(product_name),
-                        Err(e) => return Err(e.into_inner().unwrap()),
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
                     };
                 }
                 Ok("VersionComments") => {
                     comments = match qouted_value("\"").parse_next(input) {
                         Ok(comments) => Some(comments),
-                        Err(e) => return Err(e.into_inner().unwrap()),
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
                     };
                 }
                 Ok("CondComp") => {
                     conditional_compile = match qouted_value("\"").parse_next(input) {
                         Ok(conditional_compile) => Some(conditional_compile),
-                        Err(e) => return Err(e.into_inner().unwrap()),
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
                     };
                 }
                 Ok("CompilationType") => {
@@ -662,7 +662,7 @@ fn title_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
     let Ok(title): VB6Result<_> =
         alt((take_until(1.., "\"\r\n"), take_until(1.., "\"\n"))).parse_next(input)
     else {
-        return Err(ErrMode::Cut(input.error(VB6ErrorKind::TitleUnparseable)));
+        return Err(ErrMode::Cut(VB6ErrorKind::TitleUnparseable));
     };
 
     // We need to skip the closing quote.
@@ -693,9 +693,7 @@ fn qouted_true_false_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<bool> {
     } else if qoute == "-1" {
         Ok(true)
     } else {
-        Err(ErrMode::Cut(
-            input.error(VB6ErrorKind::TrueFalseZSeroNegOneUnparseable),
-        ))
+        Err(ErrMode::Cut(VB6ErrorKind::TrueFalseZSeroNegOneUnparseable))
     }
 }
 
@@ -715,7 +713,7 @@ fn object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectObject<'a>
     let uuid_segment = take_until(1.., "}").parse_next(input)?;
 
     let Ok(uuid) = Uuid::parse_str(uuid_segment.to_str().unwrap()) else {
-        return Err(ErrMode::Cut(input.error(VB6ErrorKind::UnableToParseUuid)));
+        return Err(ErrMode::Cut(VB6ErrorKind::UnableToParseUuid));
     };
 
     "}#".parse_next(input)?;
@@ -788,38 +786,28 @@ fn reference_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectReferen
     let (_, uuid_segment, _) = ("*\\G{", take_until(1.., "}#"), "}#").parse_next(input)?;
 
     let Ok(uuid) = Uuid::parse_str(uuid_segment.to_str().unwrap()) else {
-        return Err(ErrMode::Cut(input.error(VB6ErrorKind::UnableToParseUuid)));
+        return Err(ErrMode::Cut(VB6ErrorKind::UnableToParseUuid));
     };
 
     // still not sure what this element or the next represents.
     let Ok((unknown1, _)): VB6Result<_> = (take_until(1.., "#"), "#").parse_next(input) else {
-        return Err(ErrMode::Cut(
-            input.error(VB6ErrorKind::ReferenceMissingSections),
-        ));
+        return Err(ErrMode::Cut(VB6ErrorKind::ReferenceMissingSections));
     };
 
     let Ok((unknown2, _)): VB6Result<_> = (take_until(1.., "#"), "#").parse_next(input) else {
-        return Err(ErrMode::Cut(
-            input.error(VB6ErrorKind::ReferenceMissingSections),
-        ));
+        return Err(ErrMode::Cut(VB6ErrorKind::ReferenceMissingSections));
     };
 
     let Ok((path, _)): VB6Result<_> = (take_until(1.., "#"), "#").parse_next(input) else {
-        return Err(ErrMode::Cut(
-            input.error(VB6ErrorKind::ReferenceMissingSections),
-        ));
+        return Err(ErrMode::Cut(VB6ErrorKind::ReferenceMissingSections));
     };
 
     let Ok(description): VB6Result<_> = take_until1_line_ending.parse_next(input) else {
-        return Err(ErrMode::Cut(
-            input.error(VB6ErrorKind::ReferenceMissingSections),
-        ));
+        return Err(ErrMode::Cut(VB6ErrorKind::ReferenceMissingSections));
     };
 
     if description.contains(&b'#') {
-        return Err(ErrMode::Cut(
-            input.error(VB6ErrorKind::ReferenceExtraSections),
-        ));
+        return Err(ErrMode::Cut(VB6ErrorKind::ReferenceExtraSections));
     }
 
     let reference = VB6ProjectReference {
@@ -844,7 +832,7 @@ fn project_type_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<CompileTargetT
     //
     // By this point in the parse the "Type=" component should be stripped off
     // since that is how we knew to use this particular parse.
-    let project_type = match alt::<_, CompileTargetType, VB6Error, _>((
+    let project_type = match alt::<_, CompileTargetType, VB6ErrorKind, _>((
         "Exe".value(CompileTargetType::Exe),
         "Control".value(CompileTargetType::Control),
         "OleExe".value(CompileTargetType::OleExe),
@@ -854,7 +842,7 @@ fn project_type_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<CompileTargetT
     {
         Ok(type_project) => type_project,
         Err(_) => {
-            return Err(ErrMode::Cut(input.error(VB6ErrorKind::ProjectTypeUnknown)));
+            return Err(ErrMode::Cut(VB6ErrorKind::ProjectTypeUnknown));
         }
     };
 
@@ -871,7 +859,7 @@ mod tests {
     fn project_type_is_exe() {
         let mut input = VB6Stream::new("", b"Type=Exe");
 
-        let _: Result<&BStr, ErrMode<VB6Error>> = "Type=".parse_next(&mut input);
+        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Type=".parse_next(&mut input);
 
         let result = project_type_parse.parse_next(&mut input).unwrap();
 
@@ -882,7 +870,7 @@ mod tests {
     fn project_type_is_oledll() {
         let mut input = VB6Stream::new("", b"Type=OleDll");
 
-        let _: Result<&BStr, ErrMode<VB6Error>> = "Type=".parse_next(&mut input);
+        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Type=".parse_next(&mut input);
 
         let result = project_type_parse.parse_next(&mut input).unwrap();
         assert_eq!(result, CompileTargetType::OleDll);
@@ -892,7 +880,7 @@ mod tests {
     fn project_type_is_unknown_type() {
         let mut input = VB6Stream::new("", b"Type=blah");
 
-        let _: Result<&BStr, ErrMode<VB6Error>> = "Type=".parse_next(&mut input);
+        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Type=".parse_next(&mut input);
 
         let result = project_type_parse.parse_next(&mut input);
         assert!(result.is_err());
@@ -902,7 +890,7 @@ mod tests {
     fn reference_line_valid() {
         let mut input = VB6Stream::new("", b"Reference=*\\G{000440D8-E9ED-4435-A9A2-06B05387BB16}#c.0#0#..\\DBCommon\\Libs\\VbIntellisenseFix.dll#VbIntellisenseFix\r\n");
 
-        let _: Result<&BStr, ErrMode<VB6Error>> = "Reference=".parse_next(&mut input);
+        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Reference=".parse_next(&mut input);
 
         let result = reference_parse.parse_next(&mut input).unwrap();
 
@@ -924,7 +912,7 @@ mod tests {
             b"Object={C4847593-972C-11D0-9567-00A0C9273C2A}#8.0#0; crviewer.dll\r\n",
         );
 
-        let _: Result<&BStr, ErrMode<VB6Error>> = "Object=".parse_next(&mut input);
+        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Object=".parse_next(&mut input);
 
         let result = object_parse.parse_next(&mut input).unwrap();
 
@@ -942,7 +930,7 @@ mod tests {
     fn module_line_valid() {
         let mut input = VB6Stream::new("", b"Module=modDBAssist; ..\\DBCommon\\DBAssist.bas\r\n");
 
-        let _: Result<&BStr, ErrMode<VB6Error>> = "Module=".parse_next(&mut input);
+        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Module=".parse_next(&mut input);
         let result = module_parse.parse_next(&mut input).unwrap();
 
         // we don't consume the line ending, so we should have 2 bytes left.
@@ -958,7 +946,7 @@ mod tests {
             b"Class=CStatusBarClass; ..\\DBCommon\\CStatusBarClass.cls\r\n",
         );
 
-        let _: Result<&BStr, ErrMode<VB6Error>> = "Class=".parse_next(&mut input);
+        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Class=".parse_next(&mut input);
         let result = class_parse.parse_next(&mut input).unwrap();
 
         // we don't consume the line ending, so we should have 2 bytes left.

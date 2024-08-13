@@ -7,7 +7,7 @@ use crate::{
     vb6::{keyword_parse, line_comment_parse, VB6Result},
     vb6stream::VB6Stream,
     VB6FileFormatVersion,
-}; 
+};
 
 use winnow::{
     ascii::{digit1, line_ending, space0, space1},
@@ -30,29 +30,21 @@ pub fn version_parse<'a>(
         (space0, keyword_parse("VERSION"), space1).parse_next(input)?;
 
         let Ok(major_digits): VB6Result<&'a BStr> = digit1.parse_next(input) else {
-            return Err(ErrMode::Cut(
-                input.error(VB6ErrorKind::MajorVersionUnparseable),
-            ));
+            return Err(ErrMode::Cut(VB6ErrorKind::MajorVersionUnparseable));
         };
 
         let Ok(major_version) = major_digits.to_string().as_str().parse::<u8>() else {
-            return Err(ErrMode::Cut(
-                input.error(VB6ErrorKind::MajorVersionUnparseable),
-            ));
+            return Err(ErrMode::Cut(VB6ErrorKind::MajorVersionUnparseable));
         };
 
         ".".parse_next(input)?;
 
         let Ok(minor_digits): VB6Result<&'a BStr> = digit1.parse_next(input) else {
-            return Err(ErrMode::Cut(
-                input.error(VB6ErrorKind::MinorVersionUnparseable),
-            ));
+            return Err(ErrMode::Cut(VB6ErrorKind::MinorVersionUnparseable));
         };
 
         let Ok(minor_version) = minor_digits.to_string().as_str().parse::<u8>() else {
-            return Err(ErrMode::Cut(
-                input.error(VB6ErrorKind::MinorVersionUnparseable),
-            ));
+            return Err(ErrMode::Cut(VB6ErrorKind::MinorVersionUnparseable));
         };
 
         match header_kind {
@@ -87,19 +79,25 @@ pub fn key_value_parse<'a>(
         let (key, value) = separated_pair(
             delimited(
                 space0,
-                take_while(1.., ('_', '-', '+', 'a'..='z', 'A'..='Z', '0'..='9')),
+                take_while(1.., ('_', '-', '+', '&', 'a'..='z', 'A'..='Z', '0'..='9')),
                 space0,
             ),
             literal(divider),
             alt((
                 delimited(
                     (space0, opt("\"")),
-                    take_while(1.., ('_', '.', '-', '+', 'a'..='z', 'A'..='Z', '0'..='9')),
+                    take_while(
+                        1..,
+                        ('_', '.', '-', '+', '&', 'a'..='z', 'A'..='Z', '0'..='9'),
+                    ),
                     (opt("\""), space0),
                 ),
                 delimited(
                     space0,
-                    take_while(1.., ('_', '.', '-', '+', 'a'..='z', 'A'..='Z', '0'..='9')),
+                    take_while(
+                        1..,
+                        ('_', '.', '-', '+', '&', 'a'..='z', 'A'..='Z', '0'..='9'),
+                    ),
                     space0,
                 ),
             )),

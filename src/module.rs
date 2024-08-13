@@ -71,7 +71,7 @@ impl<'a> VB6ModuleFile<'a> {
         {
             Ok(_) => {}
             Err(e) => {
-                return Err(e.into_inner().unwrap());
+                return Err(input.error(e.into_inner().unwrap()));
             }
         }
 
@@ -81,14 +81,14 @@ impl<'a> VB6ModuleFile<'a> {
         {
             Ok(name) => name,
             Err(e) => {
-                return Err(e.into_inner().unwrap());
+                return Err(input.error(e.into_inner().unwrap()));
             }
         };
 
         let tokens = match vb6_parse(&mut input) {
             Ok(tokens) => tokens,
             Err(e) => {
-                return Err(e.into_inner().unwrap());
+                return Err(input.error(e.into_inner().unwrap()));
             }
         };
 
