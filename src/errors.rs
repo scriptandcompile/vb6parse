@@ -7,7 +7,7 @@ use winnow::{
     stream::Stream,
 };
 
-use ariadne::{Color, ColorGenerator, Fmt, Label, Report, ReportKind, Source};
+use ariadne::{Label, Report, ReportKind, Source};
 
 use thiserror::Error;
 
@@ -180,6 +180,15 @@ pub enum VB6ErrorKind {
     #[error("Title text was unparsable")]
     TitleUnparseable,
 
+    #[error("Unknown property in header file")]
+    UnknownProperty,
+
+    #[error("Invalid property value. Only 0 or -1 are valid for this property")]
+    InvalidPropertyValueZeroNegOne,
+
+    #[error("Invalid property value. Only True or False are valid for this property")]
+    InvalidPropertyValueTrueFalse,
+
     #[error("Winnow Error")]
     WinnowParseError,
 }
@@ -219,13 +228,7 @@ impl VB6Error {
 }
 
 impl Display for VB6Error {
-    fn fmt(&self, f: &mut Formatter) -> Result<(), std::fmt::Error> {
-        // write!(
-        //     f,
-        //     "Error parsing VB6 file: {} at line {} column {}",
-        //     self.file_name, self.line_number, self.column
-        // )
-
+    fn fmt(&self, _: &mut Formatter) -> Result<(), std::fmt::Error> {
         Report::build(ReportKind::Error, (), 34)
             .with_message(self.kind.to_string())
             .with_label(

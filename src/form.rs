@@ -278,6 +278,8 @@ fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyG
 
         opt(line_comment_parse).parse_next(input)?;
 
+        //println!("{:?}", input.stream[input.index..].as_bstr());
+
         if line_ending::<_, VB6Error>.parse_next(input).is_err() {
             return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
         }
@@ -392,8 +394,6 @@ mod tests {
 
         let result = VB6FormFile::parse("form_parse.frm".to_owned(), &mut input.as_ref());
 
-        println!("{}", result.err().unwrap());
-
         //assert!(result.is_ok());
     }
 
@@ -431,16 +431,5 @@ mod tests {
                         ";
 
         let _result = VB6FormFile::parse("form_parse.frm".to_owned(), source);
-
-        //let diag = result.into_diagnostic();
-
-        //println!("{:?}", diag);
-
-        //assert!(result.is_ok());
-
-        //let result = result.unwrap();
-
-        //assert_eq!(result.format_version.major, 5);
-        //assert_eq!(result.format_version.minor, 0);
     }
 }
