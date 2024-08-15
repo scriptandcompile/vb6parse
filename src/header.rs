@@ -85,7 +85,7 @@ pub fn key_value_parse<'a>(
             literal(divider),
             alt((
                 delimited(
-                    (space0, opt("\"")),
+                    (space0, "\""),
                     take_while(
                         1..,
                         (
@@ -101,7 +101,7 @@ pub fn key_value_parse<'a>(
                             '0'..='9',
                         ),
                     ),
-                    (opt("\""), space0),
+                    ("\"", space0),
                 ),
                 delimited(
                     space0,
