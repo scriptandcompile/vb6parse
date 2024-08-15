@@ -1,6 +1,6 @@
 #![warn(clippy::pedantic)]
 
-use bstr::BStr;
+use bstr::{BStr, ByteSlice};
 
 use crate::{
     errors::{VB6Error, VB6ErrorKind},
@@ -259,43 +259,61 @@ fn properties_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ClassProperti
         repeat_till(0.., key_value_line_parse("="), end_line_parse).parse_next(input)?;
 
     for pair in collection.iter() {
-        let (key, value) = pair;
+        let (key, value) = *pair;
 
-        match key.to_ascii_lowercase().as_slice() {
-            b"persistable" => {
+        match key.as_bytes() {
+            b"Persistable" => {
                 // -1 is 'true' and 0 is 'false' in VB6
-                if value.to_ascii_lowercase().as_slice() == b"-1" {
+                if value == "-1" {
                     persistable = Persistance::Persistable;
-                } else {
+                } else if value == "0" {
                     persistable = Persistance::NonPersistable;
+                } else {
+                    return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueZeroNegOne));
                 }
             }
-            b"multiuse" => {
+            b"MultiUse" => {
                 // -1 is 'true' and 0 is 'false' in VB6
-                if value.to_ascii_lowercase().as_slice() == b"-1" {
+                if value == "-1" {
                     multi_use = FileUsage::MultiUse;
-                } else {
+                } else if value == "0" {
                     multi_use = FileUsage::SingleUse;
+                } else {
+                    return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueZeroNegOne));
                 }
             }
-            b"databindingbehavior" => {
+            b"DataBindingBehavior" => {
                 // -1 is 'true' and 0 is 'false' in VB6
-                data_binding_behavior = value.to_ascii_lowercase().as_slice() == b"-1";
-            }
-            b"datasourcebehavior" => {
-                // -1 is 'true' and 0 is 'false' in VB6
-                data_source_behavior = value.to_ascii_lowercase().as_slice() == b"-1";
-            }
-            b"mtstransactionmode" => {
-                // -1 is 'true' and 0 is 'false' in VB6
-                if value.to_ascii_lowercase().as_slice() == b"-1" {
-                    mts_transaction_mode = MtsStatus::MTSObject;
+                if value == "-1" {
+                    data_binding_behavior = true;
+                } else if value == "0" {
+                    data_binding_behavior = false;
                 } else {
+                    return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueZeroNegOne));
+                }
+            }
+            b"DataSourceBehavior" => {
+                // -1 is 'true' and 0 is 'false' in VB6
+                if value == "-1" {
+                    data_source_behavior = true;
+                } else if value == "0" {
+                    data_source_behavior = false;
+                } else {
+                    return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueZeroNegOne));
+                }
+            }
+            b"MTSTransactionMode" => {
+                // -1 is 'true' and 0 is 'false' in VB6
+                if value == "-1" {
+                    mts_transaction_mode = MtsStatus::MTSObject;
+                } else if value == "0" {
                     mts_transaction_mode = MtsStatus::NotAnMTSObject;
+                } else {
+                    return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueZeroNegOne));
                 }
             }
             _ => {
-                panic!("Unknown key found in class header.");
+                return Err(ErrMode::Cut(VB6ErrorKind::UnknownProperty));
             }
         }
     }
@@ -321,24 +339,48 @@ fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FileAttribute
     while let Ok((key, value)) =
         preceded(keyword_parse("Attribute"), key_value_line_parse("=")).parse_next(input)
     {
-        match key.to_ascii_lowercase().as_slice() {
-            b"vb_name" => {
+        match key.as_bytes() {
+            b"VB_Name" => {
                 name = Some(value);
             }
-            b"vb_globalnamespace" => {
-                global_name_space = value.to_ascii_lowercase().as_slice() == b"true";
+            b"VB_GlobalNameSpace" => {
+                if value == "True" {
+                    global_name_space = true;
+                } else if value == "False" {
+                    global_name_space = false;
+                } else {
+                    return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueTrueFalse));
+                }
             }
-            b"vb_creatable" => {
-                creatable = value.to_ascii_lowercase().as_slice() == b"true";
+            b"VB_Creatable" => {
+                if value == "True" {
+                    creatable = true;
+                } else if value == "False" {
+                    creatable = false;
+                } else {
+                    return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueTrueFalse));
+                }
             }
-            b"vb_predeclaredid" => {
-                pre_declared_id = value.to_ascii_lowercase().as_slice() == b"true";
+            b"VB_PredeclaredId" => {
+                if value == "True" {
+                    pre_declared_id = true;
+                } else if value == "False" {
+                    pre_declared_id = false;
+                } else {
+                    return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueTrueFalse));
+                }
             }
-            b"vb_exposed" => {
-                exposed = value.to_ascii_lowercase().as_slice() == b"true";
+            b"VB_Exposed" => {
+                if value == "True" {
+                    exposed = true;
+                } else if value == "False" {
+                    exposed = false;
+                } else {
+                    return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueTrueFalse));
+                }
             }
             _ => {
-                panic!("Unknown key found in class attributes.");
+                return Err(ErrMode::Cut(VB6ErrorKind::UnknownProperty));
             }
         }
     }
@@ -481,8 +523,6 @@ Attribute VB_Exposed = False";
 
         let mut stream = VB6Stream::new("", &mut input.as_slice());
         let result = version_parse(HeaderKind::Class).parse_next(&mut stream);
-
-        println!("{:?}", result);
 
         assert!(result.is_ok());
     }
