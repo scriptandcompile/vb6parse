@@ -88,7 +88,18 @@ pub fn key_value_parse<'a>(
                     (space0, opt("\"")),
                     take_while(
                         1..,
-                        ('_', '.', '-', '+', '&', 'a'..='z', 'A'..='Z', '0'..='9'),
+                        (
+                            '_',
+                            '.',
+                            '-',
+                            ' ',  // If the value is quoted, it can contain spaces.
+                            '\t', // If the value is quoted, it can contain tabs.
+                            '+',
+                            '&',
+                            'a'..='z',
+                            'A'..='Z',
+                            '0'..='9',
+                        ),
                     ),
                     (opt("\""), space0),
                 ),
