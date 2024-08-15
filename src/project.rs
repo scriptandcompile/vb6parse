@@ -2,8 +2,6 @@
 
 use bstr::{BStr, ByteSlice};
 
-use miette::Result;
-
 use uuid::Uuid;
 
 use winnow::{
@@ -117,7 +115,7 @@ pub struct VB6ProjectClass<'a> {
 }
 
 impl<'a> VB6Project<'a> {
-    pub fn parse(input: &mut VB6Stream<'a>) -> Result<Self, VB6Error> {
+    pub fn parse(input: &'a mut VB6Stream<'a>) -> Result<Self, VB6Error> {
         let mut references = vec![];
         let mut user_documents = vec![];
         let mut objects = vec![];

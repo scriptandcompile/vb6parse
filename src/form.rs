@@ -2,8 +2,6 @@
 
 use std::vec;
 
-use miette::Result;
-
 use crate::{
     errors::{VB6Error, VB6ErrorKind},
     header::{key_value_line_parse, version_parse, HeaderKind},
@@ -333,8 +331,6 @@ fn begin_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FullyQualifiedName
 #[cfg(test)]
 mod tests {
 
-    use miette::IntoDiagnostic;
-
     use super::*;
 
     #[test]
@@ -350,7 +346,7 @@ mod tests {
                     EndProperty\r\n";
 
         let mut input = VB6Stream::new("", source);
-        let result = begin_property_parse.parse_next(&mut input);
+        let _result = begin_property_parse.parse_next(&mut input);
 
         //assert!(result.is_ok());
 
@@ -360,7 +356,7 @@ mod tests {
     }
 
     #[test]
-    fn larger_parse_valid() -> Result<(), miette::Report> {
+    fn larger_parse_valid() {
         use crate::form::VB6FormFile;
 
         let input = b"VERSION 5.00\r
@@ -396,12 +392,9 @@ mod tests {
 
         let result = VB6FormFile::parse("form_parse.frm".to_owned(), &mut input.as_ref());
 
-        //println!("{:?}", result);
-        result.into_diagnostic()?;
+        println!("{}", result.err().unwrap());
 
         //assert!(result.is_ok());
-
-        Ok(())
     }
 
     #[test]
@@ -437,7 +430,7 @@ mod tests {
                         End\r
                         ";
 
-        let result = VB6FormFile::parse("form_parse.frm".to_owned(), source);
+        let _result = VB6FormFile::parse("form_parse.frm".to_owned(), source);
 
         //let diag = result.into_diagnostic();
 
