@@ -1,18 +1,19 @@
 #![warn(clippy::pedantic)]
 
-use std::fmt::Debug;
+use std::fmt::{Debug, Display, Formatter};
 
 use winnow::{
     error::{ContextError, ErrorKind, ParseError, ParserError},
     stream::Stream,
 };
 
-use miette::{Diagnostic, NamedSource, SourceOffset, SourceSpan};
+use ariadne::{Color, ColorGenerator, Fmt, Label, Report, ReportKind, Source};
+
 use thiserror::Error;
 
 use crate::vb6stream::VB6Stream;
 
-#[derive(Error, Debug, Diagnostic)]
+#[derive(Error, Debug)]
 pub enum VB6ErrorKind {
     #[error("The reference line has too many elements")]
     ReferenceExtraSections,
@@ -183,43 +184,64 @@ pub enum VB6ErrorKind {
     WinnowParseError,
 }
 
-#[derive(Debug, Error, Diagnostic)]
-#[error("{kind}")]
-#[diagnostic()]
+#[derive(Debug, Error)]
 pub struct VB6Error {
-    #[source_code]
-    pub src: NamedSource<String>,
+    pub file_name: String,
 
-    #[label]
-    pub location: SourceSpan,
+    pub source_code: String,
 
-    #[diagnostic(transparent)]
+    pub source_offset: usize,
+
+    pub column: usize,
+
+    pub line_number: usize,
+
     pub kind: VB6ErrorKind,
 }
 
 impl VB6Error {
     pub fn new(input: &VB6Stream, kind: VB6ErrorKind) -> Self {
-        let code = input.stream.to_string();
-        let len = code.len();
-        let src =
-            NamedSource::new(input.file_name.clone(), code.clone()).with_language("Visual Basic 6");
-        let offset = SourceOffset::from_location(code, input.line_number, input.column);
+        let file_name = input.file_name.clone();
+        let source_code = input.stream.to_string();
+        let source_offset = input.index;
+        let column = input.column;
+        let line_number = input.line_number;
+
         Self {
-            src,
-            location: SourceSpan::new(offset, len),
+            file_name,
+            source_code,
+            source_offset,
+            column,
+            line_number,
             kind,
         }
     }
 }
 
-impl From<&VB6Error> for SourceSpan {
-    fn from(info: &VB6Error) -> Self {
-        info.location.clone()
+impl Display for VB6Error {
+    fn fmt(&self, f: &mut Formatter) -> Result<(), std::fmt::Error> {
+        // write!(
+        //     f,
+        //     "Error parsing VB6 file: {} at line {} column {}",
+        //     self.file_name, self.line_number, self.column
+        // )
+
+        Report::build(ReportKind::Error, (), 34)
+            .with_message(self.kind.to_string())
+            .with_label(
+                Label::new(self.source_offset..self.source_offset + 1)
+                    .with_message(self.kind.to_string()),
+            )
+            .finish()
+            .print(Source::from(self.source_code.as_str()))
+            .unwrap();
+
+        Ok(())
     }
 }
 
 impl<'a> ParserError<VB6Stream<'a>> for VB6Error {
-    fn from_error_kind(input: &VB6Stream, _: ErrorKind) -> Self {
+    fn from_error_kind(input: &VB6Stream<'a>, _: ErrorKind) -> Self {
         VB6Error::new(input, VB6ErrorKind::WinnowParseError)
     }
 

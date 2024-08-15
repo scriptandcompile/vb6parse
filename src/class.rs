@@ -1,7 +1,6 @@
 #![warn(clippy::pedantic)]
 
 use bstr::BStr;
-use miette::Result;
 
 use crate::{
     errors::{VB6Error, VB6ErrorKind},

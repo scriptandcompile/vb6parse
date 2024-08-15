@@ -1,7 +1,5 @@
 #![warn(clippy::pedantic)]
 
-use miette::Result;
-
 use crate::{
     errors::VB6Error,
     vb6::{keyword_parse, vb6_parse, VB6Token},
@@ -55,8 +53,8 @@ impl<'a> VB6ModuleFile<'a> {
     ///
     /// assert!(result.is_ok());
     /// ```
-    pub fn parse(file_name: String, input: &'a [u8]) -> Result<Self, VB6Error> {
-        let mut input = VB6Stream::new(file_name, input);
+    pub fn parse(file_name: String, source_code: &'a [u8]) -> Result<Self, VB6Error> {
+        let mut input = VB6Stream::new(file_name, source_code);
 
         match (
             space0,
