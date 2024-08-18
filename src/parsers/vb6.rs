@@ -9,7 +9,7 @@ use winnow::{
     Parser,
 };
 
-use crate::{errors::VB6ErrorKind, language::VB6Token, vb6stream::VB6Stream};
+use crate::{errors::VB6ErrorKind, language::VB6Token, parsers::VB6Stream};
 
 pub type VB6Result<T> = Result<T, ErrMode<VB6ErrorKind>>;
 
@@ -32,8 +32,7 @@ pub type VB6Result<T> = Result<T, ErrMode<VB6ErrorKind>>;
 /// # Example
 ///
 /// ```rust
-/// use vb6parse::vb6::line_comment_parse;
-/// use vb6parse::vb6stream::VB6Stream;
+/// use vb6parse::parsers::{vb6::line_comment_parse, VB6Stream};
 ///
 /// let mut input = VB6Stream::new("line_comment.bas".to_owned(), "' This is a comment\r\n".as_bytes());
 /// let comment = line_comment_parse(&mut input).unwrap();
@@ -63,8 +62,7 @@ pub fn line_comment_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> 
 /// # Example
 ///
 /// ```rust
-/// use vb6parse::vb6::variable_name_parse;
-/// use vb6parse::vb6stream::VB6Stream;
+/// use vb6parse::parsers::{vb6::variable_name_parse, VB6Stream};
 ///
 /// let mut input = VB6Stream::new("variable_name_test.bas".to_owned(), "variable_name".as_bytes());
 /// let variable_name = variable_name_parse(&mut input).unwrap();
@@ -105,13 +103,11 @@ pub fn variable_name_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr>
 ///
 /// ```rust
 /// use vb6parse::{
-///     vb6::keyword_parse,
-///     vb6stream::VB6Stream,
+///     parsers::{vb6::keyword_parse, VB6Stream},
 ///     errors::{VB6ErrorKind, VB6Error},
 /// };
 ///
 /// use bstr::{BStr, ByteSlice};
-/// use winnow::error::{ContextError, ErrMode};
 ///
 /// let mut input1 = VB6Stream::new("test1.bas", "Option".as_bytes());
 /// let mut input2 = VB6Stream::new("test2.bas","op do".as_bytes());
@@ -159,9 +155,8 @@ pub fn keyword_parse<'a>(
 /// # Example
 ///
 /// ```rust
-/// use vb6parse::vb6::{vb6_parse};
 /// use vb6parse::language::VB6Token;
-/// use vb6parse::vb6stream::VB6Stream;
+/// use vb6parse::parsers::{VB6Stream, vb6_parse};
 ///
 /// use bstr::{BStr, ByteSlice};
 ///
@@ -181,7 +176,7 @@ pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6Token<'a>>> 
     let mut tokens = Vec::new();
 
     while !input.is_empty() {
-        if let Ok(token) = line_ending::<VB6Stream<'a>, ContextError>.parse_next(input) {
+        if let Ok(token) = line_ending::<VB6Stream<'a>, VB6ErrorKind>.parse_next(input) {
             tokens.push(VB6Token::Newline(token));
             continue;
         }
@@ -191,7 +186,7 @@ pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6Token<'a>>> 
             continue;
         }
 
-        if let Ok(token) = delimited::<VB6Stream<'a>, _, &BStr, _, ContextError, _, _, _>(
+        if let Ok(token) = delimited::<VB6Stream<'a>, _, &BStr, _, VB6ErrorKind, _, _, _>(
             '\"',
             take_till(0.., '\"'),
             '\"',
@@ -309,8 +304,8 @@ mod test {
 
     #[test]
     fn eol_comment_carriage_return_newline() {
+        use crate::parsers::VB6Stream;
         use crate::vb6::line_comment_parse;
-        use crate::vb6stream::VB6Stream;
 
         let mut input = VB6Stream::new("", "' This is a comment\r\n".as_bytes());
         let comment = line_comment_parse(&mut input).unwrap();
@@ -320,8 +315,8 @@ mod test {
 
     #[test]
     fn eol_comment_newline() {
+        use crate::parsers::VB6Stream;
         use crate::vb6::line_comment_parse;
-        use crate::vb6stream::VB6Stream;
 
         let mut input = VB6Stream::new("", "' This is a comment\n".as_bytes());
         let comment = line_comment_parse(&mut input).unwrap();
@@ -331,8 +326,8 @@ mod test {
 
     #[test]
     fn eol_comment_carriage_return() {
+        use crate::parsers::VB6Stream;
         use crate::vb6::line_comment_parse;
-        use crate::vb6stream::VB6Stream;
 
         let mut input = VB6Stream::new("", "' This is a comment\r".as_bytes());
         let comment = line_comment_parse(&mut input).unwrap();
@@ -342,8 +337,8 @@ mod test {
 
     #[test]
     fn eol_comment_eof() {
+        use crate::parsers::VB6Stream;
         use crate::vb6::line_comment_parse;
-        use crate::vb6stream::VB6Stream;
 
         let mut input = VB6Stream::new("", "' This is a comment".as_bytes());
         let comment = line_comment_parse(&mut input).unwrap();
@@ -353,8 +348,8 @@ mod test {
 
     #[test]
     fn variable_name() {
+        use crate::parsers::VB6Stream;
         use crate::vb6::variable_name_parse;
-        use crate::vb6stream::VB6Stream;
 
         let mut input = VB6Stream::new("", "variable_name".as_bytes());
 
@@ -365,8 +360,8 @@ mod test {
 
     #[test]
     fn vb6_parse() {
+        use crate::parsers::VB6Stream;
         use crate::vb6::{vb6_parse, VB6Token};
-        use crate::vb6stream::VB6Stream;
 
         let mut input = VB6Stream::new("", "Dim x As Integer".as_bytes());
         let tokens = vb6_parse(&mut input).unwrap();

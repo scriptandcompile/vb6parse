@@ -4,10 +4,12 @@ use std::vec;
 
 use crate::{
     errors::{VB6Error, VB6ErrorKind},
-    header::{key_value_line_parse, version_parse, HeaderKind, VB6FileFormatVersion},
     language::{VB6Color, VB6Control, VB6ControlCommonInformation, VB6ControlKind, VB6Token},
+    parsers::{
+        header::{key_value_line_parse, version_parse, HeaderKind, VB6FileFormatVersion},
+        VB6Stream,
+    },
     vb6::{keyword_parse, line_comment_parse, vb6_parse, VB6Result},
-    vb6stream::VB6Stream,
 };
 
 use bstr::{BStr, ByteSlice};
@@ -66,7 +68,7 @@ impl<'a> VB6FormFile<'a> {
     /// # Example
     ///
     /// ```rust
-    /// use vb6parse::form::VB6FormFile;
+    /// use vb6parse::parsers::VB6FormFile;
     ///
     /// let input = b"VERSION 5.00\r
     /// Begin VB.Form frmExampleForm\r
@@ -341,8 +343,6 @@ mod tests {
 
     #[test]
     fn larger_parse_valid() {
-        use crate::form::VB6FormFile;
-
         let input = b"VERSION 5.00\r
     Begin VB.Form frmExampleForm\r
         BackColor       =   &H80000005&\r

@@ -1,6 +1,6 @@
 use vb6parse::{
-    class::{FileUsage, MtsStatus, Persistance, VB6ClassFile},
     language::VB6Token,
+    parsers::class::{FileUsage, MtsStatus, Persistance, VB6ClassFile},
 };
 
 #[test]

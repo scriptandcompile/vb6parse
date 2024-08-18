@@ -1,7 +1,4 @@
-use vb6parse::{
-    class::VB6ClassFile, form::VB6FormFile, module::VB6ModuleFile, project::VB6Project,
-    vb6stream::VB6Stream,
-};
+use vb6parse::parsers::{VB6ClassFile, VB6FormFile, VB6ModuleFile, VB6Project, VB6Stream};
 
 #[test]
 fn bulk_load_all_projects() {

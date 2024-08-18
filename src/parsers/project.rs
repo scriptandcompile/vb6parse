@@ -14,8 +14,8 @@ use winnow::{
 
 use crate::{
     errors::{VB6Error, VB6ErrorKind},
+    parsers::vb6stream::VB6Stream,
     vb6::{line_comment_parse, VB6Result},
-    vb6stream::VB6Stream,
 };
 
 #[derive(Debug, PartialEq, Eq, Clone)]

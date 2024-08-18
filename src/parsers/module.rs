@@ -3,8 +3,8 @@
 use crate::{
     errors::VB6Error,
     language::VB6Token,
+    parsers::VB6Stream,
     vb6::{keyword_parse, vb6_parse},
-    vb6stream::VB6Stream,
 };
 
 use winnow::{
@@ -41,7 +41,7 @@ impl<'a> VB6ModuleFile<'a> {
     /// # Example
     ///
     /// ```rust
-    /// use vb6parse::module::VB6ModuleFile;
+    /// use vb6parse::parsers::VB6ModuleFile;
     ///
     /// let input = b"Attribute VB_Name = \"Module1\"
     /// Option Explicit

@@ -4,8 +4,8 @@ use bstr::BStr;
 
 use crate::{
     errors::VB6ErrorKind,
+    parsers::VB6Stream,
     vb6::{keyword_parse, line_comment_parse, VB6Result},
-    vb6stream::VB6Stream,
 };
 
 use winnow::{
@@ -145,7 +145,7 @@ pub fn key_value_line_parse<'a>(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::vb6stream::VB6Stream;
+    use crate::parsers::VB6Stream;
 
     use super::HeaderKind;
 
