@@ -1,7 +1,8 @@
 use bstr::{ByteSlice, B};
 
-use vb6parse::project::{CompileTargetType, VB6Project};
-use vb6parse::vb6stream::VB6Stream;
+use vb6parse::parsers::CompileTargetType;
+use vb6parse::parsers::VB6Project;
+use vb6parse::parsers::VB6Stream;
 
 #[test]
 fn artificial_life_project_load() {

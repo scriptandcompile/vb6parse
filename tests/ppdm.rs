@@ -1,7 +1,7 @@
 use bstr::{ByteSlice, B};
 
-use vb6parse::project::{CompileTargetType, VB6Project};
-use vb6parse::vb6stream::VB6Stream;
+use vb6parse::parsers::VB6Stream;
+use vb6parse::parsers::{CompileTargetType, VB6Project};
 
 #[test]
 fn ppdm_project_load() {

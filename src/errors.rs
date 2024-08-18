@@ -11,7 +11,7 @@ use ariadne::{Label, Report, ReportKind, Source};
 
 use thiserror::Error;
 
-use crate::vb6stream::VB6Stream;
+use crate::parsers::VB6Stream;
 
 #[derive(Error, Debug)]
 pub enum VB6ErrorKind {

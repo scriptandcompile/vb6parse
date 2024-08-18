@@ -4,10 +4,12 @@ use bstr::{BStr, ByteSlice};
 
 use crate::{
     errors::{VB6Error, VB6ErrorKind},
-    header::{key_value_line_parse, version_parse, HeaderKind, VB6FileFormatVersion},
     language::VB6Token,
+    parsers::{
+        header::{key_value_line_parse, version_parse, HeaderKind, VB6FileFormatVersion},
+        VB6Stream,
+    },
     vb6::{keyword_parse, line_comment_parse, vb6_parse, VB6Result},
-    vb6stream::VB6Stream,
 };
 
 use winnow::{
@@ -141,7 +143,7 @@ impl<'a> VB6ClassFile<'a> {
     /// # Example
     ///
     /// ```rust
-    /// use vb6parse::class::VB6ClassFile;
+    /// use vb6parse::parsers::VB6ClassFile;
     ///
     /// let input = b"VERSION 1.0 CLASS
     /// BEGIN

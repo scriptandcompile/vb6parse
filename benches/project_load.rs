@@ -1,5 +1,5 @@
-use vb6parse::project::VB6Project;
-use vb6parse::vb6stream::VB6Stream;
+use vb6parse::parsers::VB6Project;
+use vb6parse::parsers::VB6Stream;
 
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 

@@ -103,8 +103,7 @@ impl VB6Color {
     /// # Example
     ///
     /// ```rust
-    /// use vb6parse::language::VB6Color;
-    /// use vb6parse::vb6stream::VB6Stream;
+    /// use vb6parse::{language::VB6Color, parsers::VB6Stream};
     ///
     /// // Of course, VB6 being as it is...
     /// // the color is stored in a 'special' order.
