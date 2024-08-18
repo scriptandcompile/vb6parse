@@ -189,6 +189,12 @@ pub enum VB6ErrorKind {
     #[error("Invalid property value. Only True or False are valid for this property")]
     InvalidPropertyValueTrueFalse,
 
+    #[error("Unable to parse hex color value")]
+    HexColorParseError,
+
+    #[error("Unknown control in control list")]
+    UnknownControlKind,
+
     #[error("Winnow Error")]
     WinnowParseError,
 }

@@ -4,10 +4,10 @@ use bstr::{BStr, ByteSlice};
 
 use crate::{
     errors::{VB6Error, VB6ErrorKind},
-    header::{key_value_line_parse, version_parse, HeaderKind},
-    vb6::{keyword_parse, line_comment_parse, vb6_parse, VB6Result, VB6Token},
+    header::{key_value_line_parse, version_parse, HeaderKind, VB6FileFormatVersion},
+    language::VB6Token,
+    vb6::{keyword_parse, line_comment_parse, vb6_parse, VB6Result},
     vb6stream::VB6Stream,
-    VB6FileFormatVersion,
 };
 
 use winnow::{
