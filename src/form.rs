@@ -4,10 +4,10 @@ use std::vec;
 
 use crate::{
     errors::{VB6Error, VB6ErrorKind},
-    header::{key_value_line_parse, version_parse, HeaderKind},
-    vb6::{keyword_parse, line_comment_parse, vb6_parse, VB6Result, VB6Token},
+    header::{key_value_line_parse, version_parse, HeaderKind, VB6FileFormatVersion},
+    language::{VB6Color, VB6Control, VB6ControlCommonInformation, VB6ControlKind, VB6Token},
+    vb6::{keyword_parse, line_comment_parse, vb6_parse, VB6Result},
     vb6stream::VB6Stream,
-    VB6FileFormatVersion,
 };
 
 use bstr::{BStr, ByteSlice};
@@ -27,44 +27,6 @@ pub struct VB6FormFile<'a> {
     pub form: VB6Control<'a>,
     pub format_version: VB6FileFormatVersion,
     pub tokens: Vec<VB6Token<'a>>,
-}
-
-/// Represents a VB6 control.
-#[derive(Debug, PartialEq, Eq, Clone)]
-pub struct VB6Control<'a> {
-    pub common: VB6ControlCommonInformation<'a>,
-    pub kind: VB6ControlKind<'a>,
-}
-
-/// Represents a VB6 control common information.
-#[derive(Debug, PartialEq, Eq, Clone)]
-pub struct VB6ControlCommonInformation<'a> {
-    pub name: &'a BStr,
-    pub caption: &'a BStr,
-}
-
-/// Represents a VB6 control kind.
-/// A VB6 control kind is an enumeration of the different kinds of
-/// standard VB6 controls.
-#[derive(Debug, PartialEq, Eq, Clone)]
-pub enum VB6ControlKind<'a> {
-    CommandButton {},
-    TextBox {},
-    CheckBox {},
-    Line {},
-    Label {},
-    Frame {},
-    PictureBox {},
-    ComboBox {},
-    HScrollBar {},
-    VScrollBar {},
-    Menu {
-        caption: &'a BStr,
-        controls: Vec<VB6Control<'a>>,
-    },
-    Form {
-        controls: Vec<VB6Control<'a>>,
-    },
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -215,14 +177,39 @@ fn block_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Control<'a>> {
                 b"HScrollBar" => VB6ControlKind::HScrollBar {},
                 b"VScrollBar" => VB6ControlKind::HScrollBar {},
                 _ => {
-                    return Err(ParserError::assert(input, "Unknown control kind"));
+                    return Err(ErrMode::Cut(VB6ErrorKind::UnknownControlKind));
                 }
+            };
+
+            let caption = properties
+                .iter()
+                .find(|property| property.name == "Caption")
+                .map(|property| property.value)
+                .unwrap_or_default();
+
+            let back_color = match properties
+                .iter()
+                .find(|property| property.name == "BackColor")
+                .map(|property| {
+                    let Ok(color_ascii) = property.value.to_str() else {
+                        return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueZeroNegOne));
+                    };
+
+                    let Ok(color) = VB6Color::from_hex(color_ascii) else {
+                        return Err(ErrMode::Cut(VB6ErrorKind::HexColorParseError));
+                    };
+
+                    Ok(color)
+                }) {
+                Some(color) => color?,
+                None => VB6Color::rgb(192, 192, 192),
             };
 
             let parent_control = VB6Control {
                 common: VB6ControlCommonInformation {
                     name: fully_qualified_name.name,
-                    caption: fully_qualified_name.name,
+                    caption: caption,
+                    back_color: back_color,
                 },
                 kind,
             };
@@ -275,14 +262,6 @@ fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyG
         let (name, value) = key_value_line_parse("=").parse_next(input)?;
 
         property_group.properties.push(VB6Property { name, value });
-
-        opt(line_comment_parse).parse_next(input)?;
-
-        //println!("{:?}", input.stream[input.index..].as_bstr());
-
-        if line_ending::<_, VB6Error>.parse_next(input).is_err() {
-            return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
-        }
     }
 
     if line_ending::<_, VB6Error>.parse_next(input).is_err() {
@@ -315,7 +294,8 @@ fn begin_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FullyQualifiedName
         return Err(ErrMode::Cut(VB6ErrorKind::NoSpaceAfterControlKind));
     }
 
-    let name = match take_until::<_, _, VB6Error>(0.., (" ", "\t", "\r\n", "\n")).parse_next(input)
+    let name = match take_till::<_, _, VB6Error>(0.., (b" ", b"\t", b"\r", b"\r\n", b"\n"))
+        .parse_next(input)
     {
         Ok(name) => name,
         Err(_) => {
@@ -323,10 +303,12 @@ fn begin_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FullyQualifiedName
         }
     };
 
+    line_ending.parse_next(input)?;
+
     Ok(VB6FullyQualifiedName {
-        namespace: namespace.as_bstr(),
-        kind: kind.as_bstr(),
-        name: name.as_bstr(),
+        namespace,
+        kind,
+        name,
     })
 }
 
@@ -394,7 +376,20 @@ mod tests {
 
         let result = VB6FormFile::parse("form_parse.frm".to_owned(), &mut input.as_ref());
 
-        //assert!(result.is_ok());
+        //println!("{}", result.err().unwrap());
+
+        assert!(result.is_ok());
+
+        let result = result.unwrap();
+
+        assert_eq!(result.format_version.major, 5);
+        assert_eq!(result.format_version.minor, 0);
+        assert_eq!(result.form.common.name, "frmExampleForm");
+        assert_eq!(result.form.common.caption, "example form");
+        assert_eq!(
+            result.form.common.back_color,
+            VB6Color::new(0x80, 0x05, 0x00, 0x00)
+        );
     }
 
     #[test]

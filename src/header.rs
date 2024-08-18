@@ -6,7 +6,6 @@ use crate::{
     errors::VB6ErrorKind,
     vb6::{keyword_parse, line_comment_parse, VB6Result},
     vb6stream::VB6Stream,
-    VB6FileFormatVersion,
 };
 
 use winnow::{
@@ -16,6 +15,14 @@ use winnow::{
     token::{literal, take_while},
     Parser,
 };
+
+/// Represents a VB6 file format version.
+/// A VB6 file format version contains a major version number and a minor version number.
+#[derive(Debug, PartialEq, Eq, Clone)]
+pub struct VB6FileFormatVersion {
+    pub major: u8,
+    pub minor: u8,
+}
 
 pub enum HeaderKind {
     Class,

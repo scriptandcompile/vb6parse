@@ -2,7 +2,8 @@
 
 use crate::{
     errors::VB6Error,
-    vb6::{keyword_parse, vb6_parse, VB6Token},
+    language::VB6Token,
+    vb6::{keyword_parse, vb6_parse},
     vb6stream::VB6Stream,
 };
 
