@@ -376,8 +376,6 @@ mod tests {
 
         let result = VB6FormFile::parse("form_parse.frm".to_owned(), &mut input.as_ref());
 
-        //println!("{}", result.err().unwrap());
-
         assert!(result.is_ok());
 
         let result = result.unwrap();
@@ -389,6 +387,42 @@ mod tests {
         assert_eq!(
             result.form.common.back_color,
             VB6Color::new(0x80, 0x05, 0x00, 0x00)
+        );
+        assert_eq!(
+            result.form.kind,
+            VB6ControlKind::Form {
+                controls: vec![VB6Control {
+                    common: VB6ControlCommonInformation {
+                        name: BStr::new(b"mnuFile"),
+                        caption: BStr::new(b"&File"),
+                        back_color: VB6Color {
+                            alpha: 255,
+                            red: 192,
+                            green: 192,
+                            blue: 192
+                        }
+                    },
+                    kind: VB6ControlKind::Menu {
+                        caption: BStr::new(b"&File"),
+                        controls: vec![VB6Control {
+                            common: VB6ControlCommonInformation {
+                                name: BStr::new(b"mnuOpenImage"),
+                                caption: BStr::new(b"&Open image"),
+                                back_color: VB6Color {
+                                    alpha: 255,
+                                    red: 192,
+                                    green: 192,
+                                    blue: 192
+                                }
+                            },
+                            kind: VB6ControlKind::Menu {
+                                caption: BStr::new(b"&Open image"),
+                                controls: vec![]
+                            }
+                        }]
+                    }
+                }]
+            }
         );
     }
 
