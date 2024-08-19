@@ -19,45 +19,103 @@ use winnow::{
     Parser,
 };
 
-/// Represents the usage of a file.
-/// -1 is 'true' and 0 is 'false' in VB6.
-/// `MultiUse` is -1 and `SingleUse` is 0.
-/// `MultiUse` is true and `SingleUse` is false.
+/// Represents the COM usage of a class file.
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub enum FileUsage {
-    MultiUse,  // -1 (true)
+    // In a COM object a MultiUse class object will be created for all clients.
+    // This value is stored as -1 (true) in the file.
+    MultiUse,
+    // In a COM object a SingleUse class object will be created for each client.
+    // This value is stored as 0 (false) in the file.
     SingleUse, // 0 (false)
 }
 
 /// Represents the persistability of a file.
-/// -1 is 'true' and 0 is 'false' in VB6.
-/// `Persistable` is -1 and `NonPersistable` is 0.
-/// `Persistable` is true and `NonPersistable` is false.
+/// Only available when the class is part of an ActiveX DLL project that is both
+/// public and creatable.
+///
+/// Determines whether the class can be saved to disk.
+///
+/// If it is Persistable, four procedures: InitProperties, ReadProperties, and
+/// WriteProperties events, and the PropertyChanged method are automatically
+/// added to the class module.
+///
+/// Without these procedures, the class cannot be saved to disk.
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub enum Persistance {
-    Persistable,    // -1 (true)
-    NonPersistable, // 0 (false)
+    // The class property cannot be saved to a file in a property bag.
+    // This value is stored as 0 (false) in the file.
+    NonPersistable,
+    // The class property can be saved to a file in a property bag.
+    // This value is stored as 1 (true) in the file.
+    Persistable,
 }
 
 /// Represents the MTS status of a file.
-/// -1 is 'true' and 0 is 'false' in VB6.
-/// `MTSObject` is -1 and `NotAnMTSObject` is 0.
-/// `MTSObject` is true and `NotAnMTSObject` is false.
+///
+/// Only available when the class is part of an ActiveX DLL project. This should
+/// be set to values other than NotAnMTSObject (0) if the class is to be used as
+/// a Microsoft Transaction Server component.
+///
+/// Maps directly to the MTS transaction mode attribute in Microsoft Transaction
+/// Server.
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub enum MtsStatus {
-    NotAnMTSObject, // 0 (false)
-    MTSObject,      // -1 (true)
+    // This class is not an MTS component.
+    // This value is stored as 0 in the file.
+    // This is the default value.
+    NotAnMTSObject,
+    // This class is an MTS component but does not support transactions.
+    // This value is stored as 1 in the file.
+    NoTransactions,
+    // This class is an MTS component and requires a transaction.
+    // This value is stored as 2 in the file.
+    RequiresTransaction,
+    // This class is an MTS component and uses a transaction.
+    // This value is stored as 3 in the file.
+    UsesTransaction,
+    // This class is an MTS component and requires a new transaction.
+    // This value is stored as 4 in the file.
+    RequiresNewTransaction,
+}
+
+#[derive(Debug, PartialEq, Eq, Clone)]
+pub enum DataSourceBehavior {
+    // The class does not support acting as a Data Source.
+    // This value is stored as 0 in the file.
+    None,
+    // The class supports acting as a Data Source.
+    // This value is stored as 1 in the file.
+    DataSource,
+}
+
+#[derive(Debug, PartialEq, Eq, Clone)]
+pub enum DataBindingBehavior {
+    // The class does not support data binding.
+    // This value is stored as 0 in the file.
+    None,
+    // The class supports simple data binding.
+    // This value is stored as 1 in the file.
+    Simple,
+    // The class supports complex data binding.
+    // This value is stored as 2 in the file.
+    Complex,
 }
 
 /// The properties of a VB6 class file is the list of key/value pairs
 /// found between the BEGIN and END lines in the header.
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct VB6ClassProperties {
-    pub multi_use: FileUsage,            // (0/-1) multi use / single use
-    pub persistable: Persistance,        // (0/-1) NonParsistable / Persistable
-    pub data_binding_behavior: bool,     // (0/-1) false/true - vbNone
-    pub data_source_behavior: bool,      // (0/-1) false/true - vbNone
-    pub mts_transaction_mode: MtsStatus, // (0/-1) NotAnMTSObject / MTSObject
+    // (0/-1) multi use / single use
+    pub multi_use: FileUsage,
+    // (0/1) NonParsistable / Persistable
+    pub persistable: Persistance,
+    // (0/1/2) vbNone / vbSimple / vbComplex
+    pub data_binding_behavior: DataBindingBehavior,
+    // (0/1) vbNone / vbDataSource
+    pub data_source_behavior: DataSourceBehavior,
+    // (0/1/2/3/4) NotAnMTSObject / NoTransactions / RequiresTransaction / UsesTransaction / RequiresNewTransaction
+    pub mts_transaction_mode: MtsStatus,
 }
 
 /// Represents the header of a VB6 class file.
@@ -253,8 +311,8 @@ fn properties_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ClassProperti
 
     let mut multi_use = FileUsage::MultiUse;
     let mut persistable = Persistance::NonPersistable;
-    let mut data_binding_behavior = false;
-    let mut data_source_behavior = false;
+    let mut data_binding_behavior = DataBindingBehavior::None;
+    let mut data_source_behavior = DataSourceBehavior::None;
     let mut mts_transaction_mode = MtsStatus::NotAnMTSObject;
 
     let (collection, _): (Vec<(&BStr, &BStr)>, _) =
@@ -285,31 +343,36 @@ fn properties_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ClassProperti
                 }
             }
             b"DataBindingBehavior" => {
-                // -1 is 'true' and 0 is 'false' in VB6
-                if value == "-1" {
-                    data_binding_behavior = true;
-                } else if value == "0" {
-                    data_binding_behavior = false;
+                if value == "0" {
+                    data_binding_behavior = DataBindingBehavior::None;
+                } else if value == "1" {
+                    data_binding_behavior = DataBindingBehavior::Simple;
+                } else if value == "2" {
+                    data_binding_behavior = DataBindingBehavior::Complex;
                 } else {
                     return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueZeroNegOne));
                 }
             }
             b"DataSourceBehavior" => {
-                // -1 is 'true' and 0 is 'false' in VB6
-                if value == "-1" {
-                    data_source_behavior = true;
-                } else if value == "0" {
-                    data_source_behavior = false;
+                if value == "0" {
+                    data_source_behavior = DataSourceBehavior::None;
+                } else if value == "1" {
+                    data_source_behavior = DataSourceBehavior::DataSource;
                 } else {
                     return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueZeroNegOne));
                 }
             }
             b"MTSTransactionMode" => {
-                // -1 is 'true' and 0 is 'false' in VB6
-                if value == "-1" {
-                    mts_transaction_mode = MtsStatus::MTSObject;
-                } else if value == "0" {
+                if value == "0" {
                     mts_transaction_mode = MtsStatus::NotAnMTSObject;
+                } else if value == "1" {
+                    mts_transaction_mode = MtsStatus::NoTransactions;
+                } else if value == "2" {
+                    mts_transaction_mode = MtsStatus::RequiresTransaction;
+                } else if value == "3" {
+                    mts_transaction_mode = MtsStatus::UsesTransaction;
+                } else if value == "4" {
+                    mts_transaction_mode = MtsStatus::RequiresNewTransaction
                 } else {
                     return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueZeroNegOne));
                 }
