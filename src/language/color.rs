@@ -3,12 +3,16 @@ use crate::errors::VB6ErrorKind;
 /// Represents a VB6 color.
 /// The color is represented as a 32-bit RGB value.
 /// The red, green, and blue values are each 8-bits.
-/// This is stored and used within VB6 as a &HAABBGGRR value.
+/// This is stored and used within VB6 as text formatted as &HAABBGGRR& value.
 #[derive(Debug, PartialEq, Clone, Eq)]
 pub struct VB6Color {
+    /// The alpha value.
     pub alpha: u8,
+    /// The red value.
     pub red: u8,
+    /// The green value.
     pub green: u8,
+    /// The blue value.
     pub blue: u8,
 }
 
@@ -73,7 +77,7 @@ impl VB6Color {
     ///
     /// The color is represented as a 32-bit RGB value.
     /// The red, green, and blue values are each 8-bits.
-    /// This is stored and used within VB6 as a &HAABBGGRR value.
+    /// This is stored and used in VB6 as a formatted hex text value &HAABBGGRR&.
     ///
     /// # Arguments
     ///

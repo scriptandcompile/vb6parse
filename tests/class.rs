@@ -1,6 +1,8 @@
 use vb6parse::{
     language::VB6Token,
-    parsers::class::{FileUsage, MtsStatus, Persistance, VB6ClassFile},
+    parsers::class::{
+        DataBindingBehavior, DataSourceBehavior, FileUsage, MtsStatus, Persistance, VB6ClassFile,
+    },
 };
 
 #[test]
@@ -29,9 +31,12 @@ fn artificial_life_organism_class_load() {
     );
     assert_eq!(
         organism_class.header.properties.data_binding_behavior,
-        false
+        DataBindingBehavior::None
     );
-    assert_eq!(organism_class.header.properties.data_source_behavior, false);
+    assert_eq!(
+        organism_class.header.properties.data_source_behavior,
+        DataSourceBehavior::None
+    );
     assert_eq!(
         organism_class.header.properties.mts_transaction_mode,
         MtsStatus::NotAnMTSObject
