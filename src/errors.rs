@@ -195,6 +195,21 @@ pub enum VB6ErrorKind {
     #[error("Unknown control in control list")]
     UnknownControlKind,
 
+    #[error("Property name is not a valid ASCII string")]
+    PropertyNameAsciiConversionError,
+
+    #[error("Property value is not a valid ASCII string")]
+    PropertyValueAsciiConversionError,
+
+    #[error("Namespace is not a valid ASCII string")]
+    NamespaceAsciiConversionError,
+
+    #[error("Control kind is not a valid ASCII string")]
+    ControlKindAsciiConversionError,
+
+    #[error("Qualified control name is not a valid ASCII string")]
+    QualifiedControlNameAsciiConversionError,
+
     #[error("Winnow Error")]
     WinnowParseError,
 }
