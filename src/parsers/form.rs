@@ -1,10 +1,16 @@
 #![warn(clippy::pedantic)]
 
-use std::vec;
+use std::collections::HashMap;
+use std::vec::Vec;
 
 use crate::{
     errors::{VB6Error, VB6ErrorKind},
-    language::{VB6Color, VB6Control, VB6ControlCommonInformation, VB6ControlKind, VB6Token},
+    language::{
+        CheckBoxProperties, ComboBoxProperties, CommandButtonProperties, FormProperties,
+        FrameProperties, LabelProperties, LineProperties, MenuProperties, PictureBoxProperties,
+        ScrollBarProperties, TextBoxProperties, VB6Color, VB6Control, VB6ControlKind,
+        VB6MenuControl, VB6Token,
+    },
     parsers::{
         header::{key_value_line_parse, version_parse, HeaderKind, VB6FileFormatVersion},
         VB6Stream,
@@ -12,7 +18,7 @@ use crate::{
     vb6::{keyword_parse, line_comment_parse, vb6_parse, VB6Result},
 };
 
-use bstr::{BStr, ByteSlice};
+use bstr::ByteSlice;
 
 use winnow::error::ParserError;
 use winnow::{
@@ -33,21 +39,15 @@ pub struct VB6FormFile<'a> {
 
 #[derive(Debug, PartialEq, Eq, Clone)]
 struct VB6FullyQualifiedName<'a> {
-    pub namespace: &'a BStr,
-    pub kind: &'a BStr,
-    pub name: &'a BStr,
+    pub namespace: &'a str,
+    pub kind: &'a str,
+    pub name: &'a str,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
 struct VB6PropertyGroup<'a> {
-    pub name: &'a BStr,
-    pub properties: Vec<VB6Property<'a>>,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone)]
-struct VB6Property<'a> {
-    pub name: &'a BStr,
-    pub value: &'a BStr,
+    pub name: &'a str,
+    pub properties: HashMap<&'a str, &'a str>,
 }
 
 impl<'a> VB6FormFile<'a> {
@@ -141,8 +141,9 @@ fn block_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Control<'a>> {
     let fully_qualified_name = begin_parse.parse_next(input)?;
 
     let mut controls = vec![];
+    let mut menus = vec![];
     let mut property_groups = vec![];
-    let mut properties: Vec<VB6Property> = vec![];
+    let mut properties = HashMap::new();
 
     while !input.is_empty() {
         space0.parse_next(input)?;
@@ -155,90 +156,222 @@ fn block_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Control<'a>> {
             .is_ok()
         {
             let control = block_parse.parse_next(input)?;
-            controls.push(control);
+            if control.kind.is_menu() {
+                menus.push(control);
+            } else {
+                controls.push(control);
+            }
 
             continue;
         } else if (space0, keyword_parse("END"), space0, line_ending)
             .parse_next(input)
             .is_ok()
         {
-            let kind = match fully_qualified_name.kind.as_bytes() {
-                b"Form" => VB6ControlKind::Form { controls },
-                b"Menu" => VB6ControlKind::Menu {
-                    controls,
-                    caption: properties[0].value,
-                },
-                b"TextBox" => VB6ControlKind::TextBox {},
-                b"CheckBox" => VB6ControlKind::CheckBox {},
-                b"Line" => VB6ControlKind::Line {},
-                b"Label" => VB6ControlKind::Label {},
-                b"Frame" => VB6ControlKind::Frame {},
-                b"ComboBox" => VB6ControlKind::ComboBox {},
-                b"CommandButton" => VB6ControlKind::CommandButton {},
-                b"PictureBox" => VB6ControlKind::PictureBox {},
-                b"HScrollBar" => VB6ControlKind::HScrollBar {},
-                b"VScrollBar" => VB6ControlKind::HScrollBar {},
-                _ => {
-                    return Err(ErrMode::Cut(VB6ErrorKind::UnknownControlKind));
-                }
+            match build_control(
+                fully_qualified_name,
+                controls,
+                menus,
+                properties,
+                property_groups,
+            ) {
+                Ok(control) => return Ok(control),
+                Err(err) => return Err(ErrMode::Cut(err)),
             };
-
-            let caption = properties
-                .iter()
-                .find(|property| property.name == "Caption")
-                .map(|property| property.value)
-                .unwrap_or_default();
-
-            let back_color = match properties
-                .iter()
-                .find(|property| property.name == "BackColor")
-                .map(|property| {
-                    let Ok(color_ascii) = property.value.to_str() else {
-                        return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueZeroNegOne));
-                    };
-
-                    let Ok(color) = VB6Color::from_hex(color_ascii) else {
-                        return Err(ErrMode::Cut(VB6ErrorKind::HexColorParseError));
-                    };
-
-                    Ok(color)
-                }) {
-                Some(color) => color?,
-                None => VB6Color::rgb(192, 192, 192),
-            };
-
-            let parent_control = VB6Control {
-                common: VB6ControlCommonInformation {
-                    name: fully_qualified_name.name,
-                    caption: caption,
-                    back_color: back_color,
-                },
-                kind,
-            };
-
-            return Ok(parent_control);
         } else {
             let (name, value) = key_value_line_parse("=").parse_next(input)?;
 
-            properties.push(VB6Property { name, value });
+            let Ok(name_ascii) = name.to_str() else {
+                return Err(ErrMode::Cut(VB6ErrorKind::PropertyNameAsciiConversionError));
+            };
+
+            let Ok(value_ascii) = value.to_str() else {
+                return Err(ErrMode::Cut(
+                    VB6ErrorKind::PropertyValueAsciiConversionError,
+                ));
+            };
+
+            properties.insert(name_ascii, value_ascii);
         }
     }
 
     Err(ParserError::assert(input, "Unknown control kind"))
 }
 
+fn build_control<'a>(
+    fully_qualified_name: VB6FullyQualifiedName<'a>,
+    controls: Vec<VB6Control<'a>>,
+    menus: Vec<VB6Control<'a>>,
+    properties: HashMap<&'a str, &'a str>,
+    _property_groups: Vec<VB6PropertyGroup<'a>>,
+) -> Result<VB6Control<'a>, VB6ErrorKind> {
+    // This is wrong.
+    // TODO: When we start work on custom controls we will need
+    // to handle fully verified name parsing. This will work for now though.
+    let kind = match fully_qualified_name.kind.as_bytes() {
+        b"Form" => {
+            let mut form_properties = FormProperties::default();
+
+            if properties.contains_key("Caption") {
+                form_properties.caption = properties["Caption"];
+            }
+
+            if properties.contains_key("BackColor") {
+                let color_ascii = properties["BackColor"];
+
+                let Ok(back_color) = VB6Color::from_hex(color_ascii) else {
+                    return Err(VB6ErrorKind::HexColorParseError);
+                };
+                form_properties.back_color = back_color;
+            }
+
+            let mut converted_menus = vec![];
+
+            for menu in menus {
+                if let VB6ControlKind::Menu {
+                    properties: menu_properties,
+                    sub_menus,
+                } = menu.kind
+                {
+                    converted_menus.push(VB6MenuControl {
+                        name: menu.name,
+                        tag: menu.tag,
+                        index: menu.index,
+                        properties: menu_properties,
+                        sub_menus,
+                    });
+                }
+            }
+
+            let form = VB6ControlKind::Form {
+                controls,
+                properties: form_properties,
+                menus: converted_menus,
+            };
+
+            form
+        }
+        b"Menu" => {
+            let mut menu_properties = MenuProperties::default();
+
+            if properties.contains_key("Caption") {
+                menu_properties.caption = properties["Caption"];
+            }
+
+            let mut converted_menus = vec![];
+
+            for menu in menus {
+                if let VB6ControlKind::Menu {
+                    properties: menu_properties,
+                    sub_menus,
+                } = menu.kind
+                {
+                    converted_menus.push(VB6MenuControl {
+                        name: menu.name,
+                        tag: menu.tag,
+                        index: menu.index,
+                        properties: menu_properties,
+                        sub_menus,
+                    });
+                }
+            }
+
+            let menu = VB6ControlKind::Menu {
+                properties: menu_properties,
+                sub_menus: converted_menus,
+            };
+            menu
+        }
+        b"Frame" => {
+            let frame = VB6ControlKind::Frame {
+                controls,
+                properties: FrameProperties::default(),
+            };
+            frame
+        }
+        b"TextBox" => {
+            let textbox = VB6ControlKind::TextBox {
+                properties: TextBoxProperties::default(),
+            };
+            textbox
+        }
+        b"CheckBox" => {
+            let checkbox = VB6ControlKind::CheckBox {
+                properties: CheckBoxProperties::default(),
+            };
+            checkbox
+        }
+        b"Line" => {
+            let line = VB6ControlKind::Line {
+                properties: LineProperties::default(),
+            };
+            line
+        }
+        b"Label" => {
+            let label = VB6ControlKind::Label {
+                properties: LabelProperties::default(),
+            };
+            label
+        }
+        b"ComboBox" => {
+            let combobox = VB6ControlKind::ComboBox {
+                properties: ComboBoxProperties::default(),
+            };
+            combobox
+        }
+        b"CommandButton" => {
+            let commandbutton = VB6ControlKind::CommandButton {
+                properties: CommandButtonProperties::default(),
+            };
+            commandbutton
+        }
+        b"PictureBox" => {
+            let picturebox = VB6ControlKind::PictureBox {
+                properties: PictureBoxProperties::default(),
+            };
+            picturebox
+        }
+        b"HScrollBar" => {
+            let hscrollbar = VB6ControlKind::HScrollBar {
+                properties: ScrollBarProperties::default(),
+            };
+            hscrollbar
+        }
+        b"VScrollBar" => {
+            let vscrollbar = VB6ControlKind::VScrollBar {
+                properties: ScrollBarProperties::default(),
+            };
+            vscrollbar
+        }
+        _ => {
+            return Err(VB6ErrorKind::UnknownControlKind);
+        }
+    };
+
+    let parent_control = VB6Control {
+        name: fully_qualified_name.name,
+        tag: "",
+        index: 0,
+        kind,
+    };
+
+    Ok(parent_control)
+}
+
 fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyGroup<'a>> {
     (space0, keyword_parse("BeginProperty"), space1).parse_next(input)?;
 
-    let property_name =
-        match take_till::<(u8, u8, u8, u8), _, VB6Error>(1.., (b'\r', b'\t', b' ', b'\n'))
-            .parse_next(input)
-        {
-            Ok(name) => name,
-            Err(_) => {
-                return Err(ErrMode::Cut(VB6ErrorKind::NoPropertyName));
-            }
-        };
+    let name = match take_till::<(u8, u8, u8, u8), _, VB6Error>(1.., (b'\r', b'\t', b' ', b'\n'))
+        .parse_next(input)
+    {
+        Ok(name) => name,
+        Err(_) => {
+            return Err(ErrMode::Cut(VB6ErrorKind::NoPropertyName));
+        }
+    };
+
+    let Ok(property_name) = name.to_str() else {
+        return Err(ErrMode::Cut(VB6ErrorKind::PropertyNameAsciiConversionError));
+    };
 
     space0.parse_next(input)?;
 
@@ -249,8 +382,8 @@ fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyG
     }
 
     let mut property_group = VB6PropertyGroup {
-        name: property_name.as_bstr(),
-        properties: vec![],
+        name: property_name,
+        properties: HashMap::new(),
     };
 
     while !input.is_empty() {
@@ -263,7 +396,16 @@ fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyG
 
         let (name, value) = key_value_line_parse("=").parse_next(input)?;
 
-        property_group.properties.push(VB6Property { name, value });
+        let Ok(name_ascii) = name.to_str() else {
+            return Err(ErrMode::Cut(VB6ErrorKind::PropertyNameAsciiConversionError));
+        };
+
+        let Ok(value_ascii) = value.to_str() else {
+            return Err(ErrMode::Cut(
+                VB6ErrorKind::PropertyValueAsciiConversionError,
+            ));
+        };
+        property_group.properties.insert(name_ascii, value_ascii);
     }
 
     if line_ending::<_, VB6Error>.parse_next(input).is_err() {
@@ -305,12 +447,26 @@ fn begin_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FullyQualifiedName
         }
     };
 
+    let Ok(namespace_ascii) = namespace.to_str() else {
+        return Err(ErrMode::Cut(VB6ErrorKind::NamespaceAsciiConversionError));
+    };
+
+    let Ok(kind_ascii) = kind.to_str() else {
+        return Err(ErrMode::Cut(VB6ErrorKind::ControlKindAsciiConversionError));
+    };
+
+    let Ok(name_ascii) = name.to_str() else {
+        return Err(ErrMode::Cut(
+            VB6ErrorKind::QualifiedControlNameAsciiConversionError,
+        ));
+    };
+
     line_ending.parse_next(input)?;
 
     Ok(VB6FullyQualifiedName {
-        namespace,
-        kind,
-        name,
+        namespace: namespace_ascii,
+        kind: kind_ascii,
+        name: name_ascii,
     })
 }
 
@@ -343,6 +499,8 @@ mod tests {
 
     #[test]
     fn larger_parse_valid() {
+        use crate::language::VB_WINDOW_BACKGROUND;
+
         let input = b"VERSION 5.00\r
     Begin VB.Form frmExampleForm\r
         BackColor       =   &H80000005&\r
@@ -382,52 +540,52 @@ mod tests {
 
         assert_eq!(result.format_version.major, 5);
         assert_eq!(result.format_version.minor, 0);
-        assert_eq!(result.form.common.name, "frmExampleForm");
-        assert_eq!(result.form.common.caption, "example form");
-        assert_eq!(
-            result.form.common.back_color,
-            VB6Color::new(0x80, 0x05, 0x00, 0x00)
-        );
-        assert_eq!(
-            result.form.kind,
-            VB6ControlKind::Form {
-                controls: vec![VB6Control {
-                    common: VB6ControlCommonInformation {
-                        name: BStr::new(b"mnuFile"),
-                        caption: BStr::new(b"&File"),
-                        back_color: VB6Color {
-                            alpha: 255,
-                            red: 192,
-                            green: 192,
-                            blue: 192
-                        }
+
+        assert_eq!(result.form.name, "frmExampleForm");
+        assert_eq!(result.form.tag, "");
+        assert_eq!(result.form.index, 0);
+
+        if let VB6ControlKind::Form {
+            controls,
+            properties,
+            menus,
+        } = &result.form.kind
+        {
+            assert_eq!(controls.len(), 0);
+            assert_eq!(menus.len(), 1);
+            assert_eq!(properties.caption, "example form");
+            assert_eq!(properties.back_color, VB_WINDOW_BACKGROUND);
+            assert_eq!(
+                menus,
+                &vec![VB6MenuControl {
+                    name: "mnuFile",
+                    tag: "",
+                    index: 0,
+                    properties: MenuProperties {
+                        caption: &"&File",
+                        ..Default::default()
                     },
-                    kind: VB6ControlKind::Menu {
-                        caption: BStr::new(b"&File"),
-                        controls: vec![VB6Control {
-                            common: VB6ControlCommonInformation {
-                                name: BStr::new(b"mnuOpenImage"),
-                                caption: BStr::new(b"&Open image"),
-                                back_color: VB6Color {
-                                    alpha: 255,
-                                    red: 192,
-                                    green: 192,
-                                    blue: 192
-                                }
-                            },
-                            kind: VB6ControlKind::Menu {
-                                caption: BStr::new(b"&Open image"),
-                                controls: vec![]
-                            }
-                        }]
-                    }
+                    sub_menus: vec![VB6MenuControl {
+                        name: "mnuOpenImage",
+                        tag: "",
+                        index: 0,
+                        properties: MenuProperties {
+                            caption: &"&Open image",
+                            ..Default::default()
+                        },
+                        sub_menus: vec![],
+                    }]
                 }]
-            }
-        );
+            );
+        } else {
+            panic!("Expected form kind");
+        }
     }
 
     #[test]
     fn parse_valid() {
+        use crate::language::VB_WINDOW_BACKGROUND;
+
         let source = b"VERSION 5.00\r
                         Begin VB.Form frmExampleForm\r
                             BackColor       =   &H80000005&\r
