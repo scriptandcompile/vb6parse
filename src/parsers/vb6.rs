@@ -1,4 +1,4 @@
-use bstr::{BStr, ByteSlice};
+use bstr::BStr;
 
 use winnow::{
     ascii::{digit1, line_ending, space1, Caseless},
