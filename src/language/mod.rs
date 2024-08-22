@@ -11,9 +11,13 @@ pub use color::{
     VB_MSG_BOX, VB_MSG_BOX_TEXT, VB_RED, VB_SCROLL_BARS, VB_TITLE_BAR_TEXT, VB_WHITE,
     VB_WINDOW_BACKGROUND, VB_WINDOW_FRAME, VB_WINDOW_TEXT, VB_YELLOW,
 };
+
 pub use controls::{
-    CheckBoxProperties, ComboBoxProperties, CommandButtonProperties, FormProperties,
-    FrameProperties, LabelProperties, LineProperties, MenuProperties, PictureBoxProperties,
-    ScrollBarProperties, TextBoxProperties, VB6Control, VB6ControlKind, VB6MenuControl,
+    checkbox::CheckBoxProperties,
+    menus::{MenuProperties, VB6MenuControl},
+    ComboBoxProperties, CommandButtonProperties, FormProperties, FrameProperties, LabelProperties,
+    LineProperties, PictureBoxProperties, ScrollBarProperties, TextBoxProperties, VB6Control,
+    VB6ControlKind,
 };
+
 pub use tokens::VB6Token;
