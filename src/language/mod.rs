@@ -17,8 +17,9 @@ pub use controls::{
     commandbutton::CommandButtonProperties,
     menus::{MenuProperties, VB6MenuControl},
     picturebox::PictureBoxProperties,
+    textbox::TextBoxProperties,
     ComboBoxProperties, FormProperties, FrameProperties, LabelProperties, LineProperties,
-    ScrollBarProperties, TextBoxProperties, VB6Control, VB6ControlKind,
+    ScrollBarProperties, VB6Control, VB6ControlKind,
 };
 
 pub use tokens::VB6Token;
