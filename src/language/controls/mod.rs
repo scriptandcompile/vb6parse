@@ -6,6 +6,7 @@ pub mod listbox;
 pub mod menus;
 pub mod picturebox;
 pub mod textbox;
+pub mod timer;
 
 use crate::language::{
     controls::checkbox::CheckBoxProperties,
@@ -16,6 +17,7 @@ use crate::language::{
     controls::menus::{MenuProperties, VB6MenuControl},
     controls::picturebox::PictureBoxProperties,
     controls::textbox::TextBoxProperties,
+    controls::timer::TimerProperties,
     VB6Color,
 };
 
@@ -360,14 +362,6 @@ pub enum ShortCut {
     Del,
     ShiftDel,
     AltBKsp,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone)]
-pub struct TimerProperties {
-    pub enabled: bool,
-    pub interval: i32,
-    pub left: i32,
-    pub top: i32,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -870,17 +864,6 @@ impl Default for ScrollBarProperties {
             visible: true,
             whats_this_help_id: 0,
             width: 100,
-        }
-    }
-}
-
-impl Default for TimerProperties {
-    fn default() -> Self {
-        TimerProperties {
-            enabled: true,
-            interval: 0,
-            left: 0,
-            top: 0,
         }
     }
 }

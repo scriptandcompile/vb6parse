@@ -19,6 +19,7 @@ pub use controls::{
     menus::{MenuProperties, VB6MenuControl},
     picturebox::PictureBoxProperties,
     textbox::TextBoxProperties,
+    timer::TimerProperties,
     ComboBoxProperties, FormProperties, FrameProperties, LabelProperties, ScrollBarProperties,
     VB6Control, VB6ControlKind,
 };
