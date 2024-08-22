@@ -15,11 +15,12 @@ pub use color::{
 pub use controls::{
     checkbox::CheckBoxProperties,
     commandbutton::CommandButtonProperties,
+    line::LineProperties,
     menus::{MenuProperties, VB6MenuControl},
     picturebox::PictureBoxProperties,
     textbox::TextBoxProperties,
-    ComboBoxProperties, FormProperties, FrameProperties, LabelProperties, LineProperties,
-    ScrollBarProperties, VB6Control, VB6ControlKind,
+    ComboBoxProperties, FormProperties, FrameProperties, LabelProperties, ScrollBarProperties,
+    VB6Control, VB6ControlKind,
 };
 
 pub use tokens::VB6Token;
