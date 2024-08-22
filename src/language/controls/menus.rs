@@ -21,3 +21,17 @@ pub struct MenuProperties<'a> {
     pub visible: bool,
     pub window_list: bool,
 }
+
+impl Default for MenuProperties<'_> {
+    fn default() -> Self {
+        MenuProperties {
+            caption: "",
+            enabled: true,
+            help_context_id: 0,
+            negotiate_position: NegotiatePosition::None,
+            shortcut: None,
+            visible: true,
+            window_list: false,
+        }
+    }
+}
