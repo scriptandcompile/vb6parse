@@ -16,8 +16,9 @@ pub use controls::{
     checkbox::CheckBoxProperties,
     commandbutton::CommandButtonProperties,
     menus::{MenuProperties, VB6MenuControl},
+    picturebox::PictureBoxProperties,
     ComboBoxProperties, FormProperties, FrameProperties, LabelProperties, LineProperties,
-    PictureBoxProperties, ScrollBarProperties, TextBoxProperties, VB6Control, VB6ControlKind,
+    ScrollBarProperties, TextBoxProperties, VB6Control, VB6ControlKind,
 };
 
 pub use tokens::VB6Token;
