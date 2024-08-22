@@ -1,5 +1,6 @@
 pub mod checkbox;
 pub mod commandbutton;
+pub mod data;
 pub mod listbox;
 pub mod menus;
 pub mod picturebox;
@@ -7,6 +8,7 @@ pub mod picturebox;
 use crate::language::{
     controls::checkbox::CheckBoxProperties,
     controls::commandbutton::CommandButtonProperties,
+    controls::data::DataProperties,
     controls::listbox::ListBoxProperties,
     controls::menus::{MenuProperties, VB6MenuControl},
     controls::picturebox::PictureBoxProperties,
@@ -155,12 +157,6 @@ pub enum ComboBoxStyle {
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
-pub enum BOFAction {
-    MoveFirst = 0,
-    BOF = 1,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone)]
 pub enum FillStyle {
     Solid = 0,
     Transparent = 1,
@@ -170,56 +166,6 @@ pub enum FillStyle {
     DownwardDiagonal = 5,
     Cross = 6,
     DiagonalCross = 7,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone)]
-pub enum Connection {
-    Access,
-    DBaseIII,
-    DBaseIV,
-    DBase5_0,
-    Excel3_0,
-    Excel4_0,
-    Excel5_0,
-    Excel8_0,
-    FoxPro2_0,
-    FoxPro2_5,
-    FoxPro2_6,
-    FoxPro3_0,
-    LotusWk1,
-    LotusWk3,
-    LotusWk4,
-    Paradox3X,
-    Paradox4X,
-    Paradox5X,
-    Text,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone)]
-pub enum DefaultCursorType {
-    DefaultCursor = 0,
-    ODBCCursor = 1,
-    ServerSideCursor = 2,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone)]
-pub enum DefaultType {
-    UseODBC = 1,
-    UseJet = 2,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone)]
-pub enum EOFAction {
-    MoveLast = 0,
-    EOF = 1,
-    AddNew = 2,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone)]
-pub enum RecordSetType {
-    Table = 0,
-    Dynaset = 1,
-    Snapshot = 2,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
