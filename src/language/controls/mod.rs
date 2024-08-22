@@ -1,4 +1,11 @@
-use crate::language::VB6Color;
+pub mod checkbox;
+pub mod menus;
+
+use crate::language::{
+    controls::checkbox::CheckBoxProperties,
+    controls::menus::{MenuProperties, VB6MenuControl},
+    VB6Color,
+};
 
 /// Represents a VB6 control.
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -9,16 +16,7 @@ pub struct VB6Control<'a> {
     pub kind: VB6ControlKind<'a>,
 }
 
-/// Represents a VB6 control.
-#[derive(Debug, PartialEq, Eq, Clone)]
-pub struct VB6MenuControl<'a> {
-    pub name: &'a str,
-    pub tag: &'a str,
-    pub index: i32,
-    pub properties: MenuProperties<'a>,
-    pub sub_menus: Vec<VB6MenuControl<'a>>,
-}
-
+///
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub enum Align {
     None = 0,
@@ -42,22 +40,12 @@ pub enum BackStyle {
     Opaque = 1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
-pub enum CheckBoxAlignment {
-    LeftJustify = 0,
-    RightJustify = 1,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone)]
-pub enum CheckBoxValue {
-    Unchecked = 0,
-    Checked = 1,
-    Grayed = 2,
-}
-
+/// Whether or not a control is painted at run time with 3D effects.
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub enum Appearance {
+    /// The control is painted with a flat style.
     Flat = 0,
+    /// The control is painted with a 3D style.
     ThreeD = 1,
 }
 
@@ -425,17 +413,6 @@ pub enum ShortCut {
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
-pub struct MenuProperties<'a> {
-    pub caption: &'a str,
-    pub enabled: bool,
-    pub help_context_id: i32,
-    pub negotiate_position: NegotiatePosition,
-    pub shortcut: Option<ShortCut>,
-    pub visible: bool,
-    pub window_list: bool,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone)]
 pub struct CommandButtonProperties<'a> {
     pub appearance: Appearance,
     pub back_color: VB6Color,
@@ -539,44 +516,6 @@ pub struct TextBoxProperties<'a> {
     pub text: &'a str,
     pub tool_tip_text: &'a str,
     pub top: i32,
-    pub visible: bool,
-    pub whats_this_help_id: i32,
-    pub width: i32,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone)]
-pub struct CheckBoxProperties<'a> {
-    pub alignment: CheckBoxAlignment,
-    pub appearance: Appearance,
-    pub back_color: VB6Color,
-    pub caption: &'a str,
-    pub causes_validation: bool,
-    pub data_field: &'a str,
-    pub data_format: &'a str,
-    pub data_member: &'a str,
-    pub data_source: &'a str,
-    //pub disabled_picture: Option<ImageBuffer>,
-    //pub down_picture: Option<ImageBuffer>,
-    //pub drag_icon: Option<ImageBuffer>,
-    pub drag_mode: DragMode,
-    pub enabled: bool,
-    pub fore_color: VB6Color,
-    pub height: i32,
-    pub help_context_id: i32,
-    pub left: i32,
-    pub mask_color: VB6Color,
-    //pub mouse_icon: Option<ImageBuffer>,
-    pub mouse_pointer: MousePointer,
-    pub ole_drop_mode: OLEDropMode,
-    //pub picture: Option<ImageBuffer>,
-    pub right_to_left: bool,
-    pub style: Style,
-    pub tab_index: i32,
-    pub tab_stop: bool,
-    pub tool_tip_text: &'a str,
-    pub top: i32,
-    pub use_mask_color: bool,
-    pub value: CheckBoxValue,
     pub visible: bool,
     pub whats_this_help_id: i32,
     pub width: i32,
@@ -707,6 +646,8 @@ pub struct FrameProperties<'a> {
 pub struct PictureBoxProperties<'a> {
     pub align: Align,
     pub appearance: Appearance,
+    /// Determines if the output from a graphics method is to a persistent bitmap
+    /// which acts as a double buffer.
     pub auto_redraw: bool,
     pub auto_size: bool,
     pub back_color: VB6Color,
@@ -966,6 +907,8 @@ pub struct ScrollBarProperties {
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct FormProperties<'a> {
     pub appearance: Appearance,
+    /// Determines if the output from a graphics method is to a persistent bitmap
+    /// which acts as a double buffer.
     pub auto_redraw: bool,
     pub back_color: VB6Color,
     pub border_style: FormBorderStyle,
@@ -1091,42 +1034,6 @@ impl<'a> VB6ControlKind<'a> {
         match self {
             VB6ControlKind::Menu { .. } => true,
             _ => false,
-        }
-    }
-}
-
-impl Default for CheckBoxProperties<'_> {
-    fn default() -> Self {
-        CheckBoxProperties {
-            alignment: CheckBoxAlignment::LeftJustify,
-            appearance: Appearance::ThreeD,
-            back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
-            caption: "Check1",
-            causes_validation: true,
-            data_field: "",
-            data_format: "",
-            data_member: "",
-            data_source: "",
-            drag_mode: DragMode::Manual,
-            enabled: true,
-            fore_color: VB6Color::from_hex("&H80000012&").unwrap(),
-            height: 30,
-            help_context_id: 0,
-            left: 30,
-            mask_color: VB6Color::from_hex("&H00C0C0C0&").unwrap(),
-            mouse_pointer: MousePointer::Default,
-            ole_drop_mode: OLEDropMode::None,
-            right_to_left: false,
-            style: Style::Standard,
-            tab_index: 0,
-            tab_stop: true,
-            tool_tip_text: "",
-            top: 30,
-            use_mask_color: false,
-            value: CheckBoxValue::Unchecked,
-            visible: true,
-            whats_this_help_id: 0,
-            width: 100,
         }
     }
 }
