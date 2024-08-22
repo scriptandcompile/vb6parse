@@ -413,40 +413,6 @@ pub enum ShortCut {
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
-pub struct DataProperties<'a> {
-    pub align: Align,
-    pub appearance: Appearance,
-    pub back_color: VB6Color,
-    pub bof_action: BOFAction,
-    pub caption: &'a str,
-    pub connection: Connection,
-    pub database_name: &'a str,
-    pub default_cursor_type: DefaultCursorType,
-    pub default_type: DefaultType,
-    //pub drag_icon: Option<ImageBuffer>,
-    pub drag_mode: DragMode,
-    pub enabled: bool,
-    pub eof_action: EOFAction,
-    pub exclusive: bool,
-    pub fore_color: VB6Color,
-    pub height: i32,
-    pub left: i32,
-    //pub mouse_icon: Option<ImageBuffer>,
-    pub mouse_pointer: MousePointer,
-    pub ole_drop_mode: OLEDropMode,
-    pub options: i32,
-    pub read_only: bool,
-    pub record_set_type: RecordSetType,
-    // pub record_source: &'a str,
-    pub right_to_left: bool,
-    pub tool_tip_text: &'a str,
-    pub top: i32,
-    pub visible: bool,
-    pub whats_this_help_id: i32,
-    pub width: i32,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone)]
 pub struct TextBoxProperties<'a> {
     pub alignment: Alignment,
     pub appearance: Appearance,
@@ -1108,20 +1074,6 @@ impl Default for FrameProperties<'_> {
             visible: true,
             whats_this_help_id: 0,
             width: 100,
-        }
-    }
-}
-
-impl Default for MenuProperties<'_> {
-    fn default() -> Self {
-        MenuProperties {
-            caption: "",
-            enabled: true,
-            help_context_id: 0,
-            negotiate_position: NegotiatePosition::None,
-            shortcut: None,
-            visible: true,
-            window_list: false,
         }
     }
 }
