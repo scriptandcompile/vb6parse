@@ -4,7 +4,6 @@ pub mod parsers;
 
 pub use crate::language::VB6Color;
 pub use crate::language::VB6Control;
-pub use crate::language::VB6ControlCommonInformation;
 pub use crate::language::VB6ControlKind;
 pub use crate::language::VB6Token;
 
