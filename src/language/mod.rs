@@ -20,9 +20,10 @@ pub use controls::{
     line::LineProperties,
     menus::{MenuProperties, VB6MenuControl},
     picturebox::PictureBoxProperties,
+    scrollbars::ScrollBarProperties,
     textbox::TextBoxProperties,
     timer::TimerProperties,
-    ComboBoxProperties, FormProperties, ScrollBarProperties, VB6Control, VB6ControlKind,
+    ComboBoxProperties, FormProperties, VB6Control, VB6ControlKind,
 };
 
 pub use tokens::VB6Token;

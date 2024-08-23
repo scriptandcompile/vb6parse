@@ -7,6 +7,7 @@ pub mod line;
 pub mod listbox;
 pub mod menus;
 pub mod picturebox;
+pub mod scrollbars;
 pub mod textbox;
 pub mod timer;
 
@@ -20,6 +21,7 @@ use crate::language::{
     controls::listbox::ListBoxProperties,
     controls::menus::{MenuProperties, VB6MenuControl},
     controls::picturebox::PictureBoxProperties,
+    controls::scrollbars::ScrollBarProperties,
     controls::textbox::TextBoxProperties,
     controls::timer::TimerProperties,
     VB6Color,
@@ -551,31 +553,6 @@ pub struct ComboBoxProperties<'a> {
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
-pub struct ScrollBarProperties {
-    pub causes_validation: bool,
-    //pub drag_icon: Option<ImageBuffer>,
-    pub drag_mode: DragMode,
-    pub enabled: bool,
-    pub height: i32,
-    pub help_context_id: i32,
-    pub large_change: i32,
-    pub left: i32,
-    pub max: i32,
-    pub min: i32,
-    //pub mouse_icon: Option<ImageBuffer>,
-    pub mouse_pointer: MousePointer,
-    pub right_to_left: bool,
-    pub small_change: i32,
-    pub tab_index: i32,
-    pub tab_stop: bool,
-    pub top: i32,
-    pub value: i32,
-    pub visible: bool,
-    pub whats_this_help_id: i32,
-    pub width: i32,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone)]
 pub struct FormProperties<'a> {
     pub appearance: Appearance,
     /// Determines if the output from a graphics method is to a persistent bitmap
@@ -738,32 +715,6 @@ impl Default for ComboBoxProperties<'_> {
             text: "",
             tool_tip_text: "",
             top: 30,
-            visible: true,
-            whats_this_help_id: 0,
-            width: 100,
-        }
-    }
-}
-
-impl Default for ScrollBarProperties {
-    fn default() -> Self {
-        ScrollBarProperties {
-            causes_validation: true,
-            drag_mode: DragMode::Manual,
-            enabled: true,
-            height: 30,
-            help_context_id: 0,
-            large_change: 1,
-            left: 30,
-            max: 32767,
-            min: 0,
-            mouse_pointer: MousePointer::Default,
-            right_to_left: false,
-            small_change: 1,
-            tab_index: 0,
-            tab_stop: true,
-            top: 30,
-            value: 0,
             visible: true,
             whats_this_help_id: 0,
             width: 100,
