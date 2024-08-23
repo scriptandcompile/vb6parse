@@ -1,8 +1,15 @@
 use crate::language::controls::{
     Alignment, Appearance, BorderStyle, DragMode, LinkMode, MousePointer, OLEDragMode, OLEDropMode,
-    ScrollBars,
 };
 use crate::VB6Color;
+
+#[derive(Debug, PartialEq, Eq, Clone)]
+pub enum ScrollBars {
+    None = 0,
+    Horizontal = 1,
+    Vertical = 2,
+    Both = 3,
+}
 
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct TextBoxProperties<'a> {
