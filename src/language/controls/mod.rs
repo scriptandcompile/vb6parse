@@ -50,6 +50,86 @@ pub struct VB6Control<'a> {
     pub kind: VB6ControlKind<'a>,
 }
 
+/// Represents a VB6 control kind.
+/// A VB6 control kind is an enumeration of the different kinds of
+/// standard VB6 controls.
+#[derive(Debug, PartialEq, Eq, Clone)]
+pub enum VB6ControlKind<'a> {
+    CommandButton {
+        properties: CommandButtonProperties<'a>,
+    },
+    Data {
+        properties: DataProperties<'a>,
+    },
+    TextBox {
+        properties: TextBoxProperties<'a>,
+    },
+    CheckBox {
+        properties: CheckBoxProperties<'a>,
+    },
+    Line {
+        properties: LineProperties,
+    },
+    ListBox {
+        properties: ListBoxProperties<'a>,
+    },
+    Timer {
+        properties: TimerProperties,
+    },
+    Label {
+        properties: LabelProperties<'a>,
+    },
+    Frame {
+        properties: FrameProperties<'a>,
+        controls: Vec<VB6Control<'a>>,
+    },
+    PictureBox {
+        properties: PictureBoxProperties<'a>,
+    },
+    FileListBox {
+        properties: FileListBoxProperties<'a>,
+    },
+    DriveListBox {
+        properties: DriveListBoxProperties<'a>,
+    },
+    DirListBox {
+        properties: DirListBoxProperties<'a>,
+    },
+    Ole {
+        properties: OLEProperties<'a>,
+    },
+    Image {
+        properties: ImageProperties<'a>,
+    },
+    ComboBox {
+        properties: ComboBoxProperties<'a>,
+    },
+    HScrollBar {
+        properties: ScrollBarProperties,
+    },
+    VScrollBar {
+        properties: ScrollBarProperties,
+    },
+    Menu {
+        properties: MenuProperties<'a>,
+        sub_menus: Vec<VB6MenuControl<'a>>,
+    },
+    Form {
+        properties: FormProperties<'a>,
+        controls: Vec<VB6Control<'a>>,
+        menus: Vec<VB6MenuControl<'a>>,
+    },
+}
+
+impl<'a> VB6ControlKind<'a> {
+    pub fn is_menu(&self) -> bool {
+        match self {
+            VB6ControlKind::Menu { .. } => true,
+            _ => false,
+        }
+    }
+}
+
 ///
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub enum Align {
@@ -210,84 +290,4 @@ pub enum SizeMode {
     Stretch = 1,
     AutoSize = 2,
     Zoom = 3,
-}
-
-/// Represents a VB6 control kind.
-/// A VB6 control kind is an enumeration of the different kinds of
-/// standard VB6 controls.
-#[derive(Debug, PartialEq, Eq, Clone)]
-pub enum VB6ControlKind<'a> {
-    CommandButton {
-        properties: CommandButtonProperties<'a>,
-    },
-    Data {
-        properties: DataProperties<'a>,
-    },
-    TextBox {
-        properties: TextBoxProperties<'a>,
-    },
-    CheckBox {
-        properties: CheckBoxProperties<'a>,
-    },
-    Line {
-        properties: LineProperties,
-    },
-    ListBox {
-        properties: ListBoxProperties<'a>,
-    },
-    Timer {
-        properties: TimerProperties,
-    },
-    Label {
-        properties: LabelProperties<'a>,
-    },
-    Frame {
-        properties: FrameProperties<'a>,
-        controls: Vec<VB6Control<'a>>,
-    },
-    PictureBox {
-        properties: PictureBoxProperties<'a>,
-    },
-    FileListBox {
-        properties: FileListBoxProperties<'a>,
-    },
-    DriveListBox {
-        properties: DriveListBoxProperties<'a>,
-    },
-    DirListBox {
-        properties: DirListBoxProperties<'a>,
-    },
-    Ole {
-        properties: OLEProperties<'a>,
-    },
-    Image {
-        properties: ImageProperties<'a>,
-    },
-    ComboBox {
-        properties: ComboBoxProperties<'a>,
-    },
-    HScrollBar {
-        properties: ScrollBarProperties,
-    },
-    VScrollBar {
-        properties: ScrollBarProperties,
-    },
-    Menu {
-        properties: MenuProperties<'a>,
-        sub_menus: Vec<VB6MenuControl<'a>>,
-    },
-    Form {
-        properties: FormProperties<'a>,
-        controls: Vec<VB6Control<'a>>,
-        menus: Vec<VB6MenuControl<'a>>,
-    },
-}
-
-impl<'a> VB6ControlKind<'a> {
-    pub fn is_menu(&self) -> bool {
-        match self {
-            VB6ControlKind::Menu { .. } => true,
-            _ => false,
-        }
-    }
 }
