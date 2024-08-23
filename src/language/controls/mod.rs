@@ -7,6 +7,7 @@ pub mod drivelistbox;
 pub mod filelistbox;
 pub mod form;
 pub mod frame;
+pub mod image;
 pub mod label;
 pub mod line;
 pub mod listbox;
@@ -27,6 +28,7 @@ use crate::language::{
     controls::filelistbox::FileListBoxProperties,
     controls::form::FormProperties,
     controls::frame::FrameProperties,
+    controls::image::ImageProperties,
     controls::label::LabelProperties,
     controls::line::LineProperties,
     controls::listbox::ListBoxProperties,
@@ -208,123 +210,6 @@ pub enum SizeMode {
     Stretch = 1,
     AutoSize = 2,
     Zoom = 3,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone)]
-pub enum NegotiatePosition {
-    None = 0,
-    Left = 1,
-    Middle = 2,
-    Right = 3,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone)]
-pub enum ShortCut {
-    CtrlA,
-    CtrlB,
-    CtrlC,
-    CtrlD,
-    CtrlE,
-    CtrlF,
-    CtrlG,
-    CtrlH,
-    CtrlI,
-    CtrlJ,
-    CtrlK,
-    CtrlL,
-    CtrlM,
-    CtrlN,
-    CtrlO,
-    CtrlP,
-    CtrlQ,
-    CtrlR,
-    CtrlS,
-    CtrlT,
-    CtrlU,
-    CtrlV,
-    CtrlW,
-    CtrlX,
-    CtrlY,
-    CtrlZ,
-    F1,
-    F2,
-    F3,
-    F4,
-    F5,
-    F6,
-    F7,
-    F8,
-    F9,
-    // F10 is not included.
-    F11,
-    F12,
-    CtrlF1,
-    CtrlF2,
-    CtrlF3,
-    CtrlF4,
-    CtrlF5,
-    CtrlF6,
-    CtrlF7,
-    CtrlF8,
-    CtrlF9,
-    // CtrlF10 is not included.
-    CtrlF11,
-    CtrlF12,
-    ShiftF1,
-    ShiftF2,
-    ShiftF3,
-    ShiftF4,
-    ShiftF5,
-    ShiftF6,
-    ShiftF7,
-    ShiftF8,
-    ShiftF9,
-    // ShiftF10 is not included.
-    ShiftF11,
-    ShiftF12,
-    ShiftCtrlF1,
-    ShiftCtrlF2,
-    ShiftCtrlF3,
-    ShiftCtrlF4,
-    ShiftCtrlF5,
-    ShiftCtrlF6,
-    ShiftCtrlF7,
-    ShiftCtrlF8,
-    ShiftCtrlF9,
-    // ShiftCtrlF10 is not included.
-    ShiftCtrlF11,
-    ShiftCtrlF12,
-    CtrlIns,
-    ShiftIns,
-    Del,
-    ShiftDel,
-    AltBKsp,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone)]
-pub struct ImageProperties<'a> {
-    pub appearance: Appearance,
-    pub border_style: BorderStyle,
-    pub data_field: &'a str,
-    pub data_format: &'a str,
-    pub data_member: &'a str,
-    pub data_source: &'a str,
-    // pub drag_icon: Option<ImageBuffer>,
-    pub drag_mode: DragMode,
-    pub enabled: bool,
-    pub height: i32,
-    pub left: i32,
-    // pub mouse_icon: Option<ImageBuffer>,
-    pub mouse_pointer: MousePointer,
-    pub ole_drag_mode: OLEDragMode,
-    pub ole_drop_mode: OLEDropMode,
-    // pub picture: Option<ImageBuffer>,
-    pub stretch: bool,
-    pub tool_tip_text: &'a str,
-    pub top: i32,
-    pub visible: bool,
-    pub whats_this_help_id: i32,
-    pub width: i32,
 }
 
 /// Represents a VB6 control kind.
