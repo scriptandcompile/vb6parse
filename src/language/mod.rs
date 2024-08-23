@@ -14,6 +14,7 @@ pub use color::{
 
 pub use controls::{
     checkbox::CheckBoxProperties,
+    combobox::{ComboBoxProperties, ComboBoxStyle},
     commandbutton::CommandButtonProperties,
     frame::FrameProperties,
     label::LabelProperties,
@@ -23,7 +24,7 @@ pub use controls::{
     scrollbars::ScrollBarProperties,
     textbox::TextBoxProperties,
     timer::TimerProperties,
-    ComboBoxProperties, FormProperties, VB6Control, VB6ControlKind,
+    FormProperties, VB6Control, VB6ControlKind,
 };
 
 pub use tokens::VB6Token;
