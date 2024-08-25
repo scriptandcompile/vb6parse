@@ -43,7 +43,7 @@ use crate::language::{
 };
 
 /// Represents a VB6 control.
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Clone)]
 pub struct VB6Control<'a> {
     pub name: &'a str,
     pub tag: &'a str,
@@ -54,7 +54,7 @@ pub struct VB6Control<'a> {
 /// Represents a VB6 control kind.
 /// A VB6 control kind is an enumeration of the different kinds of
 /// standard VB6 controls.
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Clone)]
 pub enum VB6ControlKind<'a> {
     CommandButton {
         properties: CommandButtonProperties<'a>,

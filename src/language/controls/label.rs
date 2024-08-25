@@ -3,7 +3,9 @@ use crate::language::controls::{
 };
 use crate::VB6Color;
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+use image::DynamicImage;
+
+#[derive(Debug, PartialEq, Clone)]
 pub struct LabelProperties<'a> {
     pub alignment: Alignment,
     pub appearance: Appearance,
@@ -16,7 +18,7 @@ pub struct LabelProperties<'a> {
     pub data_format: &'a str,
     pub data_member: &'a str,
     pub data_source: &'a str,
-    //pub drag_icon: Option<ImageBuffer>,
+    pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
     pub enabled: bool,
     pub fore_color: VB6Color,
@@ -26,7 +28,7 @@ pub struct LabelProperties<'a> {
     pub link_mode: LinkMode,
     pub link_timeout: i32,
     pub link_topic: &'a str,
-    // pub mouse_icon: Option<ImageBuffer>,
+    pub mouse_icon: Option<DynamicImage>,
     pub mouse_pointer: MousePointer,
     pub ole_drop_mode: OLEDropMode,
     pub right_to_left: bool,
@@ -54,6 +56,7 @@ impl Default for LabelProperties<'_> {
             data_format: "",
             data_member: "",
             data_source: "",
+            drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: true,
             fore_color: VB6Color::from_hex("&H80000012&").unwrap(),
@@ -63,6 +66,7 @@ impl Default for LabelProperties<'_> {
             link_mode: LinkMode::None,
             link_timeout: 50,
             link_topic: "",
+            mouse_icon: None,
             mouse_pointer: MousePointer::Default,
             ole_drop_mode: OLEDropMode::None,
             right_to_left: false,

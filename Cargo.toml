@@ -11,6 +11,7 @@ uuid = "1.8.0"
 thiserror = "1.0.60"
 bstr = "1.9.1"
 ariadne = "0.4.1"
+image = "0.25.2"
 
 [dev-dependencies]
 criterion = { version = "0.5.1", features = ["html_reports"] }

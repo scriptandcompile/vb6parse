@@ -3,6 +3,8 @@ use crate::language::controls::{
 };
 use crate::language::VB6Color;
 
+use image::DynamicImage;
+
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub enum OLETypeAllowed {
     Link = 0,
@@ -31,7 +33,7 @@ pub enum DisplayType {
     Icon = 1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Clone)]
 pub struct OLEProperties<'a> {
     pub appearance: Appearance,
     pub auto_activate: AutoActivate,
@@ -44,7 +46,7 @@ pub struct OLEProperties<'a> {
     pub data_field: &'a str,
     pub data_source: &'a str,
     pub display_type: DisplayType,
-    // pub drag_icon: Option<ImageBuffer>,
+    pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
     pub enabled: bool,
     pub height: i32,
@@ -52,7 +54,7 @@ pub struct OLEProperties<'a> {
     pub host_name: &'a str,
     pub left: i32,
     pub misc_flags: i32,
-    // pub mouse_icon: Option<ImageBuffer>,
+    pub mouse_icon: Option<DynamicImage>,
     pub mouse_pointer: MousePointer,
     pub ole_drop_allowed: bool,
     pub ole_type_allowed: OLETypeAllowed,

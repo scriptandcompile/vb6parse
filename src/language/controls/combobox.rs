@@ -1,6 +1,8 @@
 use crate::language::controls::{Appearance, DragMode, MousePointer, OLEDragMode, OLEDropMode};
 use crate::VB6Color;
 
+use image::DynamicImage;
+
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub enum ComboBoxStyle {
     DropDownCombo = 0,
@@ -8,7 +10,7 @@ pub enum ComboBoxStyle {
     DropDownList = 2,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Clone)]
 pub struct ComboBoxProperties<'a> {
     pub appearance: Appearance,
     pub back_color: VB6Color,
@@ -17,18 +19,18 @@ pub struct ComboBoxProperties<'a> {
     pub data_format: &'a str,
     pub data_member: &'a str,
     pub data_source: &'a str,
-    // pub drag_icon: Option<ImageBuffer>,
+    pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
     pub enabled: bool,
     pub fore_color: VB6Color,
     pub height: i32,
     pub help_context_id: i32,
     pub integral_height: bool,
-    // pub item_data: Vec<&'a str>,
+    //pub item_data: Vec<&'a str>,
     pub left: i32,
     // pub list: Vec<&'a str>,
     pub locked: bool,
-    // pub mouse_icon: Option<ImageBuffer>,
+    pub mouse_icon: Option<DynamicImage>,
     pub mouse_pointer: MousePointer,
     pub ole_drag_mode: OLEDragMode,
     pub ole_drop_mode: OLEDropMode,
@@ -55,14 +57,18 @@ impl Default for ComboBoxProperties<'_> {
             data_format: "",
             data_member: "",
             data_source: "",
+            drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: true,
             fore_color: VB6Color::from_hex("&H80000008&").unwrap(),
             height: 30,
             help_context_id: 0,
             integral_height: true,
+            //item_data:
             left: 30,
+            //list:
             locked: false,
+            mouse_icon: None,
             mouse_pointer: MousePointer::Default,
             ole_drag_mode: OLEDragMode::Manual,
             ole_drop_mode: OLEDropMode::None,

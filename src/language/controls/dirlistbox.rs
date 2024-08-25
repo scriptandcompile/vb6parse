@@ -1,19 +1,21 @@
 use crate::language::controls::{Appearance, DragMode, MousePointer, OLEDragMode, OLEDropMode};
 use crate::VB6Color;
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+use image::DynamicImage;
+
+#[derive(Debug, PartialEq, Clone)]
 pub struct DirListBoxProperties<'a> {
     pub appearance: Appearance,
     pub back_color: VB6Color,
     pub causes_validation: bool,
-    //pub drag_icon: Option<ImageBuffer>,
+    pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
     pub enabled: bool,
     pub fore_color: VB6Color,
     pub height: i32,
     pub help_context_id: i32,
     pub left: i32,
-    // pub mouse_icon: Option<ImageBuffer>,
+    pub mouse_icon: Option<DynamicImage>,
     pub mouse_pointer: MousePointer,
     pub ole_drag_mode: OLEDragMode,
     pub ole_drop_mode: OLEDropMode,
