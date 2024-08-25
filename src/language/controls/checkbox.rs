@@ -1,4 +1,5 @@
-use crate::language::controls::{Appearance, DragMode, MousePointer, OLEDropMode, Style, VB6Color};
+use crate::language::controls::{Appearance, DragMode, MousePointer, OLEDropMode, Style};
+use crate::language::VB6Color;
 
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub enum CheckBoxValue {
