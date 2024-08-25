@@ -3,6 +3,8 @@ use crate::language::controls::{
 };
 use crate::VB6Color;
 
+use image::DynamicImage;
+
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub enum FormLinkMode {
     None = 0,
@@ -41,7 +43,7 @@ pub enum WindowState {
     Maximized = 2,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Clone)]
 pub struct FormProperties<'a> {
     pub appearance: Appearance,
     /// Determines if the output from a graphics method is to a persistent bitmap
@@ -63,7 +65,7 @@ pub struct FormProperties<'a> {
     pub has_dc: bool,
     pub height: i32,
     pub help_context_id: i32,
-    // pub icon: Option<ImageBuffer>,
+    pub icon: Option<DynamicImage>,
     pub key_preview: bool,
     pub left: i32,
     pub link_mode: FormLinkMode,
@@ -71,14 +73,14 @@ pub struct FormProperties<'a> {
     pub max_button: bool,
     pub mdi_child: bool,
     pub min_button: bool,
-    // pub mouse_icon: Option<ImageBuffer>,
+    pub mouse_icon: Option<DynamicImage>,
     pub mouse_pointer: MousePointer,
     pub moveable: bool,
     pub negotiate_menus: bool,
     pub ole_drop_mode: OLEDropMode,
-    // pub palette: Option<ImageBuffer>,
+    pub palette: Option<DynamicImage>,
     pub pallette_mode: PaletteMode,
-    // pub picture: Option<ImageBuffer>,
+    pub picture: Option<DynamicImage>,
     pub right_to_left: bool,
     pub scale_height: i32,
     pub scale_left: i32,
@@ -116,6 +118,7 @@ impl Default for FormProperties<'_> {
             has_dc: true,
             height: 240,
             help_context_id: 0,
+            icon: None,
             key_preview: false,
             left: 0,
             link_mode: FormLinkMode::None,
@@ -123,11 +126,14 @@ impl Default for FormProperties<'_> {
             max_button: true,
             mdi_child: false,
             min_button: true,
+            mouse_icon: None,
             mouse_pointer: MousePointer::Default,
             moveable: true,
             negotiate_menus: true,
             ole_drop_mode: OLEDropMode::None,
+            palette: None,
             pallette_mode: PaletteMode::HalfTone,
+            picture: None,
             right_to_left: false,
             scale_height: 240,
             scale_left: 0,

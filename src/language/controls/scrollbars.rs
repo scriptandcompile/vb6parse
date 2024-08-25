@@ -1,9 +1,11 @@
 use crate::language::controls::{DragMode, MousePointer};
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+use image::DynamicImage;
+
+#[derive(Debug, PartialEq, Clone)]
 pub struct ScrollBarProperties {
     pub causes_validation: bool,
-    //pub drag_icon: Option<ImageBuffer>,
+    pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
     pub enabled: bool,
     pub height: i32,
@@ -12,7 +14,7 @@ pub struct ScrollBarProperties {
     pub left: i32,
     pub max: i32,
     pub min: i32,
-    //pub mouse_icon: Option<ImageBuffer>,
+    pub mouse_icon: Option<DynamicImage>,
     pub mouse_pointer: MousePointer,
     pub right_to_left: bool,
     pub small_change: i32,
@@ -29,6 +31,7 @@ impl Default for ScrollBarProperties {
     fn default() -> Self {
         ScrollBarProperties {
             causes_validation: true,
+            drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: true,
             height: 30,
@@ -37,6 +40,7 @@ impl Default for ScrollBarProperties {
             left: 30,
             max: 32767,
             min: 0,
+            mouse_icon: None,
             mouse_pointer: MousePointer::Default,
             right_to_left: false,
             small_change: 1,

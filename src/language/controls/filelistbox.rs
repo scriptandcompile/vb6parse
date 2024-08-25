@@ -3,13 +3,15 @@ use crate::language::controls::{
     Appearance, DragMode, MousePointer, MultiSelect, OLEDragMode, OLEDropMode,
 };
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+use image::DynamicImage;
+
+#[derive(Debug, PartialEq, Clone)]
 pub struct FileListBoxProperties<'a> {
     pub appearance: Appearance,
     pub archive: bool,
     pub back_color: VB6Color,
     pub causes_validation: bool,
-    //pub drag_icon: Option<ImageBuffer>,
+    pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
     pub enabled: bool,
     pub fore_color: VB6Color,
@@ -17,7 +19,7 @@ pub struct FileListBoxProperties<'a> {
     pub help_context_id: i32,
     pub hidden: bool,
     pub left: i32,
-    // pub mouse_icon: Option<ImageBuffer>,
+    pub mouse_icon: Option<DynamicImage>,
     pub mouse_pointer: MousePointer,
     pub multi_select: MultiSelect,
     pub normal: bool,

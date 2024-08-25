@@ -1,7 +1,9 @@
 use crate::language::controls::{Align, Appearance, DragMode, MousePointer, OLEDropMode};
 use crate::VB6Color;
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+use image::DynamicImage;
+
+#[derive(Debug, PartialEq, Clone)]
 pub struct DataProperties<'a> {
     pub align: Align,
     pub appearance: Appearance,
@@ -12,7 +14,7 @@ pub struct DataProperties<'a> {
     pub database_name: &'a str,
     pub default_cursor_type: DefaultCursorType,
     pub default_type: DefaultType,
-    //pub drag_icon: Option<ImageBuffer>,
+    pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
     pub enabled: bool,
     pub eof_action: EOFAction,
@@ -20,13 +22,13 @@ pub struct DataProperties<'a> {
     pub fore_color: VB6Color,
     pub height: i32,
     pub left: i32,
-    //pub mouse_icon: Option<ImageBuffer>,
+    pub mouse_icon: Option<DynamicImage>,
     pub mouse_pointer: MousePointer,
     pub ole_drop_mode: OLEDropMode,
     pub options: i32,
     pub read_only: bool,
     pub record_set_type: RecordSetType,
-    // pub record_source: &'a str,
+    pub record_source: &'a str,
     pub right_to_left: bool,
     pub tool_tip_text: &'a str,
     pub top: i32,

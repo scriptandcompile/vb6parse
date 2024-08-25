@@ -3,6 +3,8 @@ use crate::language::controls::{
 };
 use crate::VB6Color;
 
+use image::DynamicImage;
+
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub enum ScrollBars {
     None = 0,
@@ -11,7 +13,7 @@ pub enum ScrollBars {
     Both = 3,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Clone)]
 pub struct TextBoxProperties<'a> {
     pub alignment: Alignment,
     pub appearance: Appearance,
@@ -22,7 +24,7 @@ pub struct TextBoxProperties<'a> {
     pub data_format: &'a str,
     pub data_member: &'a str,
     pub data_source: &'a str,
-    //pub drag_icon: Option<ImageBuffer>,
+    pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
     pub enabled: bool,
     pub fore_color: VB6Color,
@@ -36,7 +38,7 @@ pub struct TextBoxProperties<'a> {
     pub link_topic: &'a str,
     pub locked: bool,
     pub max_length: i32,
-    //pub mouse_icon: Option<ImageBuffer>,
+    pub mouse_icon: Option<DynamicImage>,
     pub mouse_pointer: MousePointer,
     pub multi_line: bool,
     pub ole_drag_mode: OLEDragMode,
@@ -66,6 +68,7 @@ impl Default for TextBoxProperties<'_> {
             data_format: "",
             data_member: "",
             data_source: "",
+            drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: true,
             fore_color: VB6Color::from_hex("&H80000008&").unwrap(),
@@ -79,6 +82,7 @@ impl Default for TextBoxProperties<'_> {
             link_topic: "",
             locked: false,
             max_length: 0,
+            mouse_icon: None,
             mouse_pointer: MousePointer::Default,
             multi_line: false,
             ole_drag_mode: OLEDragMode::Manual,

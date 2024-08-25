@@ -3,6 +3,8 @@ use crate::language::controls::{
 };
 use crate::language::VB6Color;
 
+use image::DynamicImage;
+
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub enum CheckBoxValue {
     Unchecked = 0,
@@ -10,7 +12,7 @@ pub enum CheckBoxValue {
     Grayed = 2,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Clone)]
 pub struct CheckBoxProperties<'a> {
     pub alignment: JustifyAlignment,
     pub appearance: Appearance,
@@ -21,9 +23,9 @@ pub struct CheckBoxProperties<'a> {
     pub data_format: &'a str,
     pub data_member: &'a str,
     pub data_source: &'a str,
-    //pub disabled_picture: Option<ImageBuffer>,
-    //pub down_picture: Option<ImageBuffer>,
-    //pub drag_icon: Option<ImageBuffer>,
+    pub disabled_picture: Option<DynamicImage>,
+    pub down_picture: Option<DynamicImage>,
+    pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
     pub enabled: bool,
     pub fore_color: VB6Color,
@@ -31,10 +33,10 @@ pub struct CheckBoxProperties<'a> {
     pub help_context_id: i32,
     pub left: i32,
     pub mask_color: VB6Color,
-    //pub mouse_icon: Option<ImageBuffer>,
+    pub mouse_icon: Option<DynamicImage>,
     pub mouse_pointer: MousePointer,
     pub ole_drop_mode: OLEDropMode,
-    //pub picture: Option<ImageBuffer>,
+    pub picture: Option<DynamicImage>,
     pub right_to_left: bool,
     pub style: Style,
     pub tab_index: i32,
@@ -60,6 +62,9 @@ impl Default for CheckBoxProperties<'_> {
             data_format: "",
             data_member: "",
             data_source: "",
+            disabled_picture: None,
+            down_picture: None,
+            drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: true,
             fore_color: VB6Color::from_hex("&H80000012&").unwrap(),
@@ -67,8 +72,10 @@ impl Default for CheckBoxProperties<'_> {
             help_context_id: 0,
             left: 30,
             mask_color: VB6Color::from_hex("&H00C0C0C0&").unwrap(),
+            mouse_icon: None,
             mouse_pointer: MousePointer::Default,
             ole_drop_mode: OLEDropMode::None,
+            picture: None,
             right_to_left: false,
             style: Style::Standard,
             tab_index: 0,

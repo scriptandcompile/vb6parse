@@ -4,7 +4,9 @@ use crate::language::controls::{
 };
 use crate::VB6Color;
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+use image::DynamicImage;
+
+#[derive(Debug, PartialEq, Clone)]
 pub struct PictureBoxProperties<'a> {
     pub align: Align,
     pub appearance: Appearance,
@@ -20,7 +22,7 @@ pub struct PictureBoxProperties<'a> {
     pub data_format: &'a str,
     pub data_member: &'a str,
     pub data_source: &'a str,
-    //pub drag_icon: Option<ImageBuffer>,
+    pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
     pub draw_mode: DrawMode,
     pub draw_style: DrawStyle,
@@ -38,12 +40,12 @@ pub struct PictureBoxProperties<'a> {
     pub link_mode: LinkMode,
     pub link_timeout: i32,
     pub link_topic: &'a str,
-    // pub mouse_icon: Option<ImageBuffer>,
+    pub mouse_icon: Option<DynamicImage>,
     pub mouse_pointer: MousePointer,
     pub negotiate: bool,
     pub ole_drag_mode: OLEDragMode,
     pub ole_drop_mode: OLEDropMode,
-    // pub picture: Option<ImageBuffer>,
+    pub picture: Option<DynamicImage>,
     pub right_to_left: bool,
     pub scale_height: i32,
     pub scale_left: i32,
@@ -74,6 +76,7 @@ impl Default for PictureBoxProperties<'_> {
             data_format: "",
             data_member: "",
             data_source: "",
+            drag_icon: None,
             drag_mode: DragMode::Manual,
             draw_mode: DrawMode::CopyPen,
             draw_style: DrawStyle::Solid,
@@ -91,10 +94,12 @@ impl Default for PictureBoxProperties<'_> {
             link_mode: LinkMode::None,
             link_timeout: 50,
             link_topic: "",
+            mouse_icon: None,
             mouse_pointer: MousePointer::Default,
             negotiate: false,
             ole_drag_mode: OLEDragMode::Manual,
             ole_drop_mode: OLEDropMode::None,
+            picture: None,
             right_to_left: false,
             scale_height: 100,
             scale_left: 0,
