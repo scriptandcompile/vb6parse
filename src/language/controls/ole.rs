@@ -1,6 +1,7 @@
 use crate::language::controls::{
-    Appearance, BackStyle, BorderStyle, DragMode, MousePointer, SizeMode, VB6Color,
+    Appearance, BackStyle, BorderStyle, DragMode, MousePointer, SizeMode,
 };
+use crate::language::VB6Color;
 
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub enum OLETypeAllowed {

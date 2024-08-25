@@ -2,6 +2,7 @@ pub mod errors;
 pub mod language;
 pub mod parsers;
 
+pub use crate::errors::VB6Error;
 pub use crate::language::VB6Color;
 pub use crate::language::VB6Control;
 pub use crate::language::VB6ControlKind;

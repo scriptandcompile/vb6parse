@@ -16,16 +16,26 @@ pub use controls::{
     checkbox::CheckBoxProperties,
     combobox::{ComboBoxProperties, ComboBoxStyle},
     commandbutton::CommandButtonProperties,
+    data::DataProperties,
+    dirlistbox::DirListBoxProperties,
+    drivelistbox::DriveListBoxProperties,
+    filelistbox::FileListBoxProperties,
     form::FormProperties,
     frame::FrameProperties,
     label::LabelProperties,
     line::LineProperties,
     menus::{MenuProperties, VB6MenuControl},
+    ole::OLEProperties,
     picturebox::PictureBoxProperties,
     scrollbars::ScrollBarProperties,
     textbox::TextBoxProperties,
     timer::TimerProperties,
     VB6Control, VB6ControlKind,
+};
+
+pub use controls::{
+    Align, Appearance, BorderStyle, DragMode, DrawMode, DrawStyle, FillStyle, LinkMode,
+    MousePointer, OLEDragMode, OLEDropMode, ScaleMode,
 };
 
 pub use tokens::VB6Token;

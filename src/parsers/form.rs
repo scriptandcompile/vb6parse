@@ -104,7 +104,7 @@ impl<'a> VB6FormFile<'a> {
     /// let result = VB6FormFile::parse("form_parse.frm".to_owned(), &mut input.as_ref());
     ///
     ///
-    /// //assert!(result.is_ok());
+    /// assert!(result.is_ok());
     /// ```
     pub fn parse(file_name: String, input: &'a [u8]) -> Result<Self, VB6Error> {
         let mut input = VB6Stream::new(file_name, input);
@@ -211,6 +211,8 @@ fn build_control<'a>(
         b"Form" => {
             let mut form_properties = FormProperties::default();
 
+            // TODO: We are not correctly handling property assignment for each control.
+
             if properties.contains_key("Caption") {
                 form_properties.caption = properties["Caption"];
             }
@@ -253,6 +255,8 @@ fn build_control<'a>(
         b"Menu" => {
             let mut menu_properties = MenuProperties::default();
 
+            // TODO: We are not correctly handling property assignment for each control.
+
             if properties.contains_key("Caption") {
                 menu_properties.caption = properties["Caption"];
             }
@@ -282,6 +286,7 @@ fn build_control<'a>(
             menu
         }
         b"Frame" => {
+            // TODO: We are not correctly handling property assignment for each control.
             let frame = VB6ControlKind::Frame {
                 controls,
                 properties: FrameProperties::default(),
@@ -289,54 +294,63 @@ fn build_control<'a>(
             frame
         }
         b"TextBox" => {
+            // TODO: We are not correctly handling property assignment for each control.
             let textbox = VB6ControlKind::TextBox {
                 properties: TextBoxProperties::default(),
             };
             textbox
         }
         b"CheckBox" => {
+            // TODO: We are not correctly handling property assignment for each control.
             let checkbox = VB6ControlKind::CheckBox {
                 properties: CheckBoxProperties::default(),
             };
             checkbox
         }
         b"Line" => {
+            // TODO: We are not correctly handling property assignment for each control.
             let line = VB6ControlKind::Line {
                 properties: LineProperties::default(),
             };
             line
         }
         b"Label" => {
+            // TODO: We are not correctly handling property assignment for each control.
             let label = VB6ControlKind::Label {
                 properties: LabelProperties::default(),
             };
             label
         }
         b"ComboBox" => {
+            // TODO: We are not correctly handling property assignment for each control.
             let combobox = VB6ControlKind::ComboBox {
                 properties: ComboBoxProperties::default(),
             };
             combobox
         }
         b"CommandButton" => {
+            // TODO: We are not correctly handling property assignment for each control.
             let commandbutton = VB6ControlKind::CommandButton {
                 properties: CommandButtonProperties::default(),
             };
             commandbutton
         }
         b"PictureBox" => {
+            // TODO: We are not correctly handling property assignment for each control.
             let picturebox = VB6ControlKind::PictureBox {
                 properties: PictureBoxProperties::default(),
             };
             picturebox
         }
         b"HScrollBar" => {
+            // TODO: We are not correctly handling property assignment for each control.
             let hscrollbar = VB6ControlKind::HScrollBar {
                 properties: ScrollBarProperties::default(),
             };
             hscrollbar
         }
         b"VScrollBar" => {
+            // TODO: We are not correctly handling property assignment for each control.
             let vscrollbar = VB6ControlKind::VScrollBar {
                 properties: ScrollBarProperties::default(),
             };
@@ -461,6 +475,9 @@ fn begin_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FullyQualifiedName
         ));
     };
 
+    // If there are spaces after the control name, eat those up since we don't care about them.
+    space0.parse_next(input)?;
+    // eat the line ending and move on.
     line_ending.parse_next(input)?;
 
     Ok(VB6FullyQualifiedName {
@@ -488,17 +505,17 @@ mod tests {
                     EndProperty\r\n";
 
         let mut input = VB6Stream::new("", source);
-        let _result = begin_property_parse.parse_next(&mut input);
+        let result = begin_property_parse.parse_next(&mut input);
 
-        //assert!(result.is_ok());
+        assert!(result.is_ok());
 
-        //let result = result.unwrap();
-        //assert_eq!(result.name, "Font");
-        //assert_eq!(result.properties.len(), 7);
+        let result = result.unwrap();
+        assert_eq!(result.name, "Font");
+        assert_eq!(result.properties.len(), 7);
     }
 
     #[test]
-    fn larger_parse_valid() {
+    fn parse_indented_menu_valid() {
         use crate::language::VB_WINDOW_BACKGROUND;
 
         let input = b"VERSION 5.00\r
@@ -580,43 +597,5 @@ mod tests {
         } else {
             panic!("Expected form kind");
         }
-    }
-
-    #[test]
-    fn parse_valid() {
-        use crate::language::VB_WINDOW_BACKGROUND;
-
-        let source = b"VERSION 5.00\r
-                        Begin VB.Form frmExampleForm\r
-                            BackColor       =   &H80000005&\r
-                            Caption         =   \"example form\"\r
-                            ClientHeight    =   6210\r
-                            ClientLeft      =   60\r
-                            ClientTop       =   645\r
-                            ClientWidth     =   9900\r
-                            BeginProperty Font\r
-                               Name            =   \"Arial\"\r
-                               Size            =   8.25\r
-                               Charset         =   0\r
-                               Weight          =   400\r
-                               Underline       =   0   'False\r
-                               Italic          =   0   'False\r
-                               Strikethrough   =   0   'False\r
-                            EndProperty\r
-                            LinkTopic       =   \"Form1\"\r
-                            ScaleHeight     =   414\r
-                            ScaleMode       =   3  'Pixel\r
-                            ScaleWidth      =   660\r
-                            StartUpPosition =   2  'CenterScreen\r
-                            Begin VB.Menu mnuFile\r
-                               Caption         =   \"&File\"\r
-                               Begin VB.Menu mnuOpenImage\r
-                                  Caption         =   \"&Open image\"\r
-                               End\r
-                            End\r
-                        End\r
-                        ";
-
-        let _result = VB6FormFile::parse("form_parse.frm".to_owned(), source);
     }
 }
