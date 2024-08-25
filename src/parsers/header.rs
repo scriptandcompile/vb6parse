@@ -93,32 +93,7 @@ pub fn key_value_parse<'a>(
             alt((
                 delimited(
                     (space0, "\""),
-                    take_while(
-                        1..,
-                        (
-                            '_',
-                            '.',
-                            '-',
-                            ' ',  // If the value is quoted, it can contain spaces.
-                            '\t', // If the value is quoted, it can contain tabs.
-                            '+',
-                            '?', // TODO: We need to handle quoted strings better here.
-                            ':',
-                            '/',
-                            '<',
-                            '|',
-                            ',',
-                            '(',
-                            ')',
-                            '#',
-                            '-',
-                            '>',
-                            '&',
-                            'a'..='z',
-                            'A'..='Z',
-                            '0'..='9',
-                        ),
-                    ),
+                    take_while(1.., (' '..='!', '#'..='~', '\t')),
                     ("\"", space0),
                 ),
                 delimited(
