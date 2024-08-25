@@ -102,6 +102,13 @@ pub fn key_value_parse<'a>(
                             ' ',  // If the value is quoted, it can contain spaces.
                             '\t', // If the value is quoted, it can contain tabs.
                             '+',
+                            '?', // TODO: We need to handle quoted strings better here.
+                            ':',
+                            '(',
+                            ')',
+                            '#',
+                            '-',
+                            '>',
                             '&',
                             'a'..='z',
                             'A'..='Z',
