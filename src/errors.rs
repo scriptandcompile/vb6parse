@@ -250,15 +250,24 @@ impl VB6Error {
 
 impl Display for VB6Error {
     fn fmt(&self, _: &mut Formatter) -> Result<(), std::fmt::Error> {
-        Report::build(ReportKind::Error, (), 34)
-            .with_message(self.kind.to_string())
-            .with_label(
-                Label::new(self.source_offset..self.source_offset + 1)
-                    .with_message(self.kind.to_string()),
-            )
-            .finish()
-            .print(Source::from(self.source_code.as_str()))
-            .unwrap();
+        let source = Source::from(self.source_code.clone());
+
+        let kind_label = Label::new((
+            self.file_name.clone(),
+            self.source_offset..self.source_offset + 1,
+        ))
+        .with_message(self.kind.to_string());
+
+        Report::build(
+            ReportKind::Error,
+            self.file_name.clone(),
+            self.source_offset,
+        )
+        .with_message("Parsing error")
+        .with_label(kind_label)
+        .finish()
+        .eprint((self.file_name.clone(), source))
+        .unwrap();
 
         Ok(())
     }
