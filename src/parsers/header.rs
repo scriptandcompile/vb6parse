@@ -104,6 +104,10 @@ pub fn key_value_parse<'a>(
                             '+',
                             '?', // TODO: We need to handle quoted strings better here.
                             ':',
+                            '/',
+                            '<',
+                            '|',
+                            ',',
                             '(',
                             ')',
                             '#',
