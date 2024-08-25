@@ -7,9 +7,9 @@ use crate::{
     errors::{VB6Error, VB6ErrorKind},
     language::{
         CheckBoxProperties, ComboBoxProperties, CommandButtonProperties, FormProperties,
-        FrameProperties, LabelProperties, LineProperties, MenuProperties, PictureBoxProperties,
-        ScrollBarProperties, TextBoxProperties, VB6Color, VB6Control, VB6ControlKind,
-        VB6MenuControl, VB6Token,
+        FrameProperties, LabelProperties, LineProperties, MenuProperties, OptionButtonProperties,
+        PictureBoxProperties, ScrollBarProperties, TextBoxProperties, VB6Color, VB6Control,
+        VB6ControlKind, VB6MenuControl, VB6Token,
     },
     parsers::{
         header::{key_value_line_parse, version_parse, HeaderKind, VB6FileFormatVersion},
@@ -306,6 +306,13 @@ fn build_control<'a>(
                 properties: CheckBoxProperties::default(),
             };
             checkbox
+        }
+        b"OptionButton" => {
+            // TODO: We are not correctly handling property assignment for each control.
+            let optionbutton = VB6ControlKind::OptionButton {
+                properties: OptionButtonProperties::default(),
+            };
+            optionbutton
         }
         b"Line" => {
             // TODO: We are not correctly handling property assignment for each control.

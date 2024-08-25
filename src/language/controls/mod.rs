@@ -13,6 +13,7 @@ pub mod line;
 pub mod listbox;
 pub mod menus;
 pub mod ole;
+pub mod optionbutton;
 pub mod picturebox;
 pub mod scrollbars;
 pub mod textbox;
@@ -34,6 +35,7 @@ use crate::language::{
     controls::listbox::ListBoxProperties,
     controls::menus::{MenuProperties, VB6MenuControl},
     controls::ole::OLEProperties,
+    controls::optionbutton::OptionButtonProperties,
     controls::picturebox::PictureBoxProperties,
     controls::scrollbars::ScrollBarProperties,
     controls::textbox::TextBoxProperties,
@@ -97,6 +99,9 @@ pub enum VB6ControlKind<'a> {
     Ole {
         properties: OLEProperties<'a>,
     },
+    OptionButton {
+        properties: OptionButtonProperties<'a>,
+    },
     Image {
         properties: ImageProperties<'a>,
     },
@@ -142,6 +147,12 @@ pub enum Align {
     Left = 3,
     /// The control is docked to the right of the parent control.
     Right = 4,
+}
+
+#[derive(Debug, PartialEq, Eq, Clone)]
+pub enum JustifyAlignment {
+    LeftJustify = 0,
+    RightJustify = 1,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -322,7 +333,6 @@ pub enum Style {
     /// The control uses graphical styling using its appropriate picture properties.
     Graphical = 1,
 }
-
 
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub enum FillStyle {

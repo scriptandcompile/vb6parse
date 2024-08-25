@@ -1,4 +1,6 @@
-use crate::language::controls::{Appearance, DragMode, MousePointer, OLEDropMode, Style};
+use crate::language::controls::{
+    Appearance, DragMode, JustifyAlignment, MousePointer, OLEDropMode, Style,
+};
 use crate::language::VB6Color;
 
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -9,14 +11,8 @@ pub enum CheckBoxValue {
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
-pub enum CheckBoxAlignment {
-    LeftJustify = 0,
-    RightJustify = 1,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone)]
 pub struct CheckBoxProperties<'a> {
-    pub alignment: CheckBoxAlignment,
+    pub alignment: JustifyAlignment,
     pub appearance: Appearance,
     pub back_color: VB6Color,
     pub caption: &'a str,
@@ -55,7 +51,7 @@ pub struct CheckBoxProperties<'a> {
 impl Default for CheckBoxProperties<'_> {
     fn default() -> Self {
         CheckBoxProperties {
-            alignment: CheckBoxAlignment::LeftJustify,
+            alignment: JustifyAlignment::LeftJustify,
             appearance: Appearance::ThreeD,
             back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
             caption: "Check1",

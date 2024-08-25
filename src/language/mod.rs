@@ -26,6 +26,7 @@ pub use controls::{
     line::LineProperties,
     menus::{MenuProperties, VB6MenuControl},
     ole::OLEProperties,
+    optionbutton::{OptionButtonProperties, OptionButtonValue},
     picturebox::PictureBoxProperties,
     scrollbars::ScrollBarProperties,
     textbox::TextBoxProperties,
