@@ -210,6 +210,33 @@ pub enum VB6ErrorKind {
     #[error("Qualified control name is not a valid ASCII string")]
     QualifiedControlNameAsciiConversionError,
 
+    #[error("Appearance can only be a 0 (Flat) or a 1 (ThreeD)")]
+    AppearancePropertyInvalid,
+
+    #[error("BorderStyle can only be a 0 (None) or 1 (FixedSingle)")]
+    BorderStylePropertyInvalid,
+
+    #[error("ClipControls can only be a 0 (false) or a 1 (true)")]
+    ClipControlsPropertyInvalid,
+
+    #[error("DragMode can only be 0 (Manual) or 1 (Automatic)")]
+    DragModePropertyInvalid,
+
+    #[error("Enabled can only be 0 (false) or a 1 (true)")]
+    EnabledPropertyInvalid,
+
+    #[error("MousePointer can only be 0 (Default), 1 (Arrow), 2 (Cross), 3 (IBeam), 6 (SizeNESW), 7 (SizeNS), 8 (SizeNWSE), 9 (SizeWE), 10 (UpArrow), 11 (Hourglass), 12 (NoDrop), 13 (ArrowHourglass), 14 (ArrowQuestion), 15 (SizeAll), or 99 (Custom)")]
+    MousePointerPropertyInvalid,
+
+    #[error("OLEDropMode can only be 0 (None), or 1 (Manual)")]
+    OLEDropModePropertyInvalid,
+
+    #[error("RightToLeft can only be 0 (false) or a 1 (true)")]
+    RightToLeftPropertyInvalid,
+
+    #[error("Visible can only be 0 (false) or a 1 (true)")]
+    VisiblePropertyInvalid,
+
     #[error("Winnow Error")]
     WinnowParseError,
 }
