@@ -20,7 +20,9 @@ pub use controls::{
     dirlistbox::DirListBoxProperties,
     drivelistbox::DriveListBoxProperties,
     filelistbox::FileListBoxProperties,
-    form::FormProperties,
+    form::{
+        FormBorderStyle, FormLinkMode, FormProperties, PaletteMode, StartUpPosition, WindowState,
+    },
     frame::FrameProperties,
     label::LabelProperties,
     line::LineProperties,
@@ -35,7 +37,7 @@ pub use controls::{
 };
 
 pub use controls::{
-    Align, Appearance, BorderStyle, DragMode, DrawMode, DrawStyle, FillStyle, LinkMode,
+    Align, Appearance, BackStyle, BorderStyle, DragMode, DrawMode, DrawStyle, FillStyle, LinkMode,
     MousePointer, OLEDragMode, OLEDropMode, ScaleMode,
 };
 

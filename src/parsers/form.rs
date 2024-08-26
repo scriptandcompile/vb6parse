@@ -45,7 +45,7 @@ struct VB6FullyQualifiedName<'a> {
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
-struct VB6PropertyGroup<'a> {
+pub struct VB6PropertyGroup<'a> {
     pub name: &'a str,
     pub properties: HashMap<&'a str, &'a str>,
 }
@@ -286,12 +286,13 @@ fn build_control<'a>(
             menu
         }
         b"Frame" => {
-            // TODO: We are not correctly handling property assignment for each control.
-            let frame = VB6ControlKind::Frame {
+            let frame_properties =
+                FrameProperties::construct_control(properties, _property_groups)?;
+
+            VB6ControlKind::Frame {
                 controls,
-                properties: FrameProperties::default(),
-            };
-            frame
+                properties: frame_properties,
+            }
         }
         b"TextBox" => {
             // TODO: We are not correctly handling property assignment for each control.
