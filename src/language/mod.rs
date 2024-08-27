@@ -13,7 +13,7 @@ pub use color::{
 };
 
 pub use controls::{
-    checkbox::CheckBoxProperties,
+    checkbox::{CheckBoxProperties, CheckBoxValue},
     combobox::{ComboBoxProperties, ComboBoxStyle},
     commandbutton::CommandButtonProperties,
     data::DataProperties,
@@ -31,14 +31,14 @@ pub use controls::{
     optionbutton::{OptionButtonProperties, OptionButtonValue},
     picturebox::PictureBoxProperties,
     scrollbars::ScrollBarProperties,
-    textbox::TextBoxProperties,
+    textbox::{ScrollBars, TextBoxProperties},
     timer::TimerProperties,
-    VB6Control, VB6ControlKind,
+    Style, VB6Control, VB6ControlKind,
 };
 
 pub use controls::{
-    Align, Appearance, BackStyle, BorderStyle, DragMode, DrawMode, DrawStyle, FillStyle, LinkMode,
-    MousePointer, OLEDragMode, OLEDropMode, ScaleMode,
+    Align, Alignment, Appearance, BackStyle, BorderStyle, DragMode, DrawMode, DrawStyle, FillStyle,
+    JustifyAlignment, LinkMode, MousePointer, OLEDragMode, OLEDropMode, ScaleMode,
 };
 
 pub use tokens::VB6Token;
