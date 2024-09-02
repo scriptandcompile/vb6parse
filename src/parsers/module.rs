@@ -75,7 +75,7 @@ impl<'a> VB6ModuleFile<'a> {
         }
 
         let name = match ("\"", take_until(0.., "\""), "\"", space0, line_ending)
-            .recognize()
+            .take()
             .parse_next(&mut input)
         {
             Ok(name) => name,
