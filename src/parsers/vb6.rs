@@ -41,7 +41,7 @@ pub type VB6Result<T> = Result<T, ErrMode<VB6ErrorKind>>;
 /// ```
 pub fn line_comment_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
     let comment = ('\'', take_till(0.., (b"\r\n", b"\n", b"\r")))
-        .recognize()
+        .take()
         .parse_next(input)?;
 
     Ok(comment)
@@ -74,7 +74,7 @@ pub fn variable_name_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr>
         one_of(('a'..='z', 'A'..='Z')),
         take_while(0.., ('_', 'a'..='z', 'A'..='Z', '0'..='9')),
     )
-        .recognize()
+        .take()
         .parse_next(input)?;
 
     if variable_name.len() >= 255 {
@@ -191,7 +191,7 @@ pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6Token<'a>>> 
             take_till(0.., '\"'),
             '\"',
         )
-        .recognize()
+        .take()
         .parse_next(input)
         {
             tokens.push(VB6Token::StringLiteral(token));
