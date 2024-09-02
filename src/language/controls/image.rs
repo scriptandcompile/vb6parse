@@ -31,6 +31,35 @@ pub struct ImageProperties<'a> {
     pub width: i32,
 }
 
+impl Default for ImageProperties<'_> {
+    fn default() -> Self {
+        ImageProperties {
+            appearance: Appearance::ThreeD,
+            border_style: BorderStyle::None,
+            data_field: "",
+            data_format: "",
+            data_member: "",
+            data_source: "",
+            drag_icon: None,
+            drag_mode: DragMode::Manual,
+            enabled: true,
+            height: 975,
+            left: 1080,
+            mouse_icon: None,
+            mouse_pointer: MousePointer::Default,
+            ole_drag_mode: OLEDragMode::Manual,
+            ole_drop_mode: OLEDropMode::None,
+            picture: None,
+            stretch: false,
+            tool_tip_text: "",
+            top: 960,
+            visible: true,
+            whats_this_help_id: 0,
+            width: 615,
+        }
+    }
+}
+
 impl Serialize for ImageProperties<'_> {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
