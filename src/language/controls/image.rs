@@ -3,6 +3,7 @@ use crate::language::controls::{
 };
 
 use image::DynamicImage;
+use serde::Serialize;
 
 #[derive(Debug, PartialEq, Clone)]
 pub struct ImageProperties<'a> {
@@ -28,4 +29,56 @@ pub struct ImageProperties<'a> {
     pub visible: bool,
     pub whats_this_help_id: i32,
     pub width: i32,
+}
+
+impl Serialize for ImageProperties<'_> {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+
+        let mut s = serializer.serialize_struct("ImageProperties", 21)?;
+        s.serialize_field("appearance", &self.appearance)?;
+        s.serialize_field("border_style", &self.border_style)?;
+        s.serialize_field("data_field", &self.data_field)?;
+        s.serialize_field("data_format", &self.data_format)?;
+        s.serialize_field("data_member", &self.data_member)?;
+        s.serialize_field("data_source", &self.data_source)?;
+
+        let option_text = match &self.drag_icon {
+            Some(_) => "Some(DynamicImage)",
+            None => "None",
+        };
+
+        s.serialize_field("drag_icon", &option_text)?;
+        s.serialize_field("drag_mode", &self.drag_mode)?;
+        s.serialize_field("enabled", &self.enabled)?;
+        s.serialize_field("height", &self.height)?;
+        s.serialize_field("left", &self.left)?;
+
+        let option_text = match &self.mouse_icon {
+            Some(_) => "Some(DynamicImage)",
+            None => "None",
+        };
+
+        s.serialize_field("mouse_icon", &option_text)?;
+        s.serialize_field("mouse_pointer", &self.mouse_pointer)?;
+        s.serialize_field("ole_drag_mode", &self.ole_drag_mode)?;
+        s.serialize_field("ole_drop_mode", &self.ole_drop_mode)?;
+
+        let option_text = match &self.picture {
+            Some(_) => "Some(DynamicImage)",
+            None => "None",
+        };
+
+        s.serialize_field("picture", &option_text)?;
+        s.serialize_field("stretch", &self.stretch)?;
+        s.serialize_field("tool_tip_text", &self.tool_tip_text)?;
+        s.serialize_field("top", &self.top)?;
+        s.serialize_field("visible", &self.visible)?;
+        s.serialize_field("whats_this_help_id", &self.whats_this_help_id)?;
+        s.serialize_field("width", &self.width)?;
+        s.end()
+    }
 }

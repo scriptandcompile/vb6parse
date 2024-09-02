@@ -1,7 +1,4 @@
-use core::panic;
-
-use vb6parse::parsers::{VB6ClassFile, VB6FormFile, VB6ModuleFile, VB6Project, VB6Stream};
-use vb6parse::VB6Error;
+use vb6parse::parsers::{VB6ClassFile, VB6ModuleFile, VB6Project, VB6Stream};
 
 #[test]
 fn bulk_load_all_projects() {
@@ -106,7 +103,9 @@ fn bulk_load_all_projects() {
         //             Ok(form) => form,
         //             Err(e) => {
         //                 let message = std::format!("Error parsing form: {}", e);
-        //                 panic!("{}", message);
+        //                 println!("{}", message);
+        //                 continue;
+        //                 //panic!("{}", message);
         //             }
         //         };
         // }

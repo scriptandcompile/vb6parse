@@ -4,8 +4,9 @@ use crate::language::controls::{
 use crate::language::VB6Color;
 
 use image::DynamicImage;
+use serde::Serialize;
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize)]
 pub enum CheckBoxValue {
     Unchecked = 0,
     Checked = 1,
@@ -88,5 +89,81 @@ impl Default for CheckBoxProperties<'_> {
             whats_this_help_id: 0,
             width: 100,
         }
+    }
+}
+
+impl Serialize for CheckBoxProperties<'_> {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+
+        let mut state = serializer.serialize_struct("CheckBoxProperties", 29)?;
+        state.serialize_field("alignment", &self.alignment)?;
+        state.serialize_field("appearance", &self.appearance)?;
+        state.serialize_field("back_color", &self.back_color)?;
+        state.serialize_field("caption", &self.caption)?;
+        state.serialize_field("causes_validation", &self.causes_validation)?;
+        state.serialize_field("data_field", &self.data_field)?;
+        state.serialize_field("data_format", &self.data_format)?;
+        state.serialize_field("data_member", &self.data_member)?;
+        state.serialize_field("data_source", &self.data_source)?;
+
+        let option_text = match self.disabled_picture {
+            Some(_) => Some("Some(DynamicImage)"),
+            None => None,
+        };
+
+        state.serialize_field("disabled_picture", &option_text)?;
+
+        let option_text = match self.down_picture {
+            Some(_) => Some("Some(DynamicImage)"),
+            None => None,
+        };
+
+        state.serialize_field("down_picture", &option_text)?;
+
+        let option_text = match self.drag_icon {
+            Some(_) => Some("Some(DynamicImage)"),
+            None => None,
+        };
+
+        state.serialize_field("drag_icon", &option_text)?;
+        state.serialize_field("drag_mode", &self.drag_mode)?;
+        state.serialize_field("enabled", &self.enabled)?;
+        state.serialize_field("fore_color", &self.fore_color)?;
+        state.serialize_field("height", &self.height)?;
+        state.serialize_field("help_context_id", &self.help_context_id)?;
+        state.serialize_field("left", &self.left)?;
+        state.serialize_field("mask_color", &self.mask_color)?;
+
+        let option_text = match self.mouse_icon {
+            Some(_) => Some("Some(DynamicImage)"),
+            None => None,
+        };
+
+        state.serialize_field("mouse_icon", &option_text)?;
+        state.serialize_field("mouse_pointer", &self.mouse_pointer)?;
+        state.serialize_field("ole_drop_mode", &self.ole_drop_mode)?;
+
+        let option_text = match self.picture {
+            Some(_) => Some("Some(DynamicImage)"),
+            None => None,
+        };
+
+        state.serialize_field("picture", &option_text)?;
+        state.serialize_field("right_to_left", &self.right_to_left)?;
+        state.serialize_field("style", &self.style)?;
+        state.serialize_field("tab_index", &self.tab_index)?;
+        state.serialize_field("tab_stop", &self.tab_stop)?;
+        state.serialize_field("tool_tip_text", &self.tool_tip_text)?;
+        state.serialize_field("top", &self.top)?;
+        state.serialize_field("use_mask_color", &self.use_mask_color)?;
+        state.serialize_field("value", &self.value)?;
+        state.serialize_field("visible", &self.visible)?;
+        state.serialize_field("whats_this_help_id", &self.whats_this_help_id)?;
+        state.serialize_field("width", &self.width)?;
+        state.end()
     }
 }

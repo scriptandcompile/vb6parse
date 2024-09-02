@@ -1,4 +1,4 @@
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize)]
 pub struct TimerProperties {
     pub enabled: bool,
     pub interval: i32,

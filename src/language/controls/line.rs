@@ -1,7 +1,7 @@
 use crate::language::color::VB6Color;
 use crate::language::controls::{DrawMode, DrawStyle};
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize)]
 pub struct LineProperties {
     pub border_color: VB6Color,
     pub border_style: DrawStyle,

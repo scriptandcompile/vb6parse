@@ -4,7 +4,7 @@ use bstr::BStr;
 ///
 /// This is a simple enum that represents the different types of tokens that can be parsed from VB6 code.
 ///
-#[derive(Debug, PartialEq, Clone, Eq)]
+#[derive(Debug, PartialEq, Clone, Eq, serde::Serialize)]
 pub enum VB6Token<'a> {
     /// Represents whitespace.
     Whitespace(&'a BStr),

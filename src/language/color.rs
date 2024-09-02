@@ -7,7 +7,7 @@ use crate::errors::VB6ErrorKind;
 /// if, instead, the value begins with '&H80' such as in '&H80000000&', then
 /// the color is a system color. and the value is not the elements of the color,
 /// but rather the index of a system color.
-#[derive(Debug, PartialEq, Clone, Eq)]
+#[derive(Debug, PartialEq, Clone, Eq, serde::Serialize)]
 pub enum VB6Color {
     RGB {
         /// The red value.
