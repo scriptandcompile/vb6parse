@@ -6,15 +6,17 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-winnow = "0.6.11"
-uuid = "1.8.0"
-thiserror = "1.0.60"
-bstr = "1.9.1"
+winnow = "0.6.18"
+uuid = "1.10.0"
+thiserror = "1.0.63"
+bstr = {version = "1.10.0", features = ["serde"]}
 ariadne = "0.4.1"
 image = "0.25.2"
+serde = { version = "1.0.209", features = ["derive"] }
 
 [dev-dependencies]
 criterion = { version = "0.5.1", features = ["html_reports"] }
+insta = { version = "1.39.0", features = ["yaml"] }
 
 [[bench]]
 name = "project_load"
