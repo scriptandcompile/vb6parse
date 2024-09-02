@@ -30,7 +30,7 @@ use winnow::{
 };
 
 /// Represents a VB6 Form file.
-#[derive(Debug, PartialEq, Clone)]
+#[derive(Debug, PartialEq, Clone, serde::Serialize)]
 pub struct VB6FormFile<'a> {
     pub form: VB6Control<'a>,
     pub format_version: VB6FileFormatVersion,

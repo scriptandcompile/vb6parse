@@ -26,7 +26,7 @@ pub use controls::{
     frame::FrameProperties,
     label::LabelProperties,
     line::LineProperties,
-    menus::{MenuProperties, VB6MenuControl},
+    menus::{MenuProperties, NegotiatePosition, ShortCut, VB6MenuControl},
     ole::OLEProperties,
     optionbutton::{OptionButtonProperties, OptionButtonValue},
     picturebox::PictureBoxProperties,

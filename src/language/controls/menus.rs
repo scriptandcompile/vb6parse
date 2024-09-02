@@ -1,6 +1,8 @@
+use serde::Serialize;
+
 /// Represents a VB6 menu control.
 /// This should only be used as a child of a Form.
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct VB6MenuControl<'a> {
     pub name: &'a str,
     pub tag: &'a str,
@@ -9,7 +11,7 @@ pub struct VB6MenuControl<'a> {
     pub sub_menus: Vec<VB6MenuControl<'a>>,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct MenuProperties<'a> {
     pub caption: &'a str,
     pub enabled: bool,
@@ -34,7 +36,7 @@ impl Default for MenuProperties<'_> {
     }
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum NegotiatePosition {
     None = 0,
     Left = 1,
@@ -42,7 +44,7 @@ pub enum NegotiatePosition {
     Right = 3,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum ShortCut {
     CtrlA,
     CtrlB,

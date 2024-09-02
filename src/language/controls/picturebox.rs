@@ -5,6 +5,7 @@ use crate::language::controls::{
 use crate::VB6Color;
 
 use image::DynamicImage;
+use serde::Serialize;
 
 #[derive(Debug, PartialEq, Clone)]
 pub struct PictureBoxProperties<'a> {
@@ -114,5 +115,85 @@ impl Default for PictureBoxProperties<'_> {
             whats_this_help_id: 0,
             width: 100,
         }
+    }
+}
+
+impl Serialize for PictureBoxProperties<'_> {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+
+        let mut s = serializer.serialize_struct("PictureBoxProperties", 39)?;
+        s.serialize_field("align", &self.align)?;
+        s.serialize_field("appearance", &self.appearance)?;
+        s.serialize_field("auto_redraw", &self.auto_redraw)?;
+        s.serialize_field("auto_size", &self.auto_size)?;
+        s.serialize_field("back_color", &self.back_color)?;
+        s.serialize_field("border_style", &self.border_style)?;
+        s.serialize_field("causes_validation", &self.causes_validation)?;
+        s.serialize_field("clip_controls", &self.clip_controls)?;
+        s.serialize_field("data_field", &self.data_field)?;
+        s.serialize_field("data_format", &self.data_format)?;
+        s.serialize_field("data_member", &self.data_member)?;
+        s.serialize_field("data_source", &self.data_source)?;
+
+        let option_text = match &self.drag_icon {
+            Some(_) => "Some(DynamicImage)",
+            None => "None",
+        };
+
+        s.serialize_field("drag_icon", &option_text)?;
+        s.serialize_field("drag_mode", &self.drag_mode)?;
+        s.serialize_field("draw_mode", &self.draw_mode)?;
+        s.serialize_field("draw_style", &self.draw_style)?;
+        s.serialize_field("draw_width", &self.draw_width)?;
+        s.serialize_field("enabled", &self.enabled)?;
+        s.serialize_field("fill_color", &self.fill_color)?;
+        s.serialize_field("fill_style", &self.fill_style)?;
+        s.serialize_field("font_transparent", &self.font_transparent)?;
+        s.serialize_field("fore_color", &self.fore_color)?;
+        s.serialize_field("has_dc", &self.has_dc)?;
+        s.serialize_field("height", &self.height)?;
+        s.serialize_field("help_context_id", &self.help_context_id)?;
+        s.serialize_field("left", &self.left)?;
+        s.serialize_field("link_item", &self.link_item)?;
+        s.serialize_field("link_mode", &self.link_mode)?;
+        s.serialize_field("link_timeout", &self.link_timeout)?;
+        s.serialize_field("link_topic", &self.link_topic)?;
+
+        let option_text = match &self.mouse_icon {
+            Some(_) => "Some(DynamicImage)",
+            None => "None",
+        };
+
+        s.serialize_field("mouse_icon", &option_text)?;
+        s.serialize_field("mouse_pointer", &self.mouse_pointer)?;
+        s.serialize_field("negotiate", &self.negotiate)?;
+        s.serialize_field("ole_drag_mode", &self.ole_drag_mode)?;
+        s.serialize_field("ole_drop_mode", &self.ole_drop_mode)?;
+
+        let option_text = match &self.picture {
+            Some(_) => "Some(DynamicImage)",
+            None => "None",
+        };
+
+        s.serialize_field("picture", &option_text)?;
+        s.serialize_field("right_to_left", &self.right_to_left)?;
+        s.serialize_field("scale_height", &self.scale_height)?;
+        s.serialize_field("scale_left", &self.scale_left)?;
+        s.serialize_field("scale_mode", &self.scale_mode)?;
+        s.serialize_field("scale_top", &self.scale_top)?;
+        s.serialize_field("scale_width", &self.scale_width)?;
+        s.serialize_field("tab_index", &self.tab_index)?;
+        s.serialize_field("tab_stop", &self.tab_stop)?;
+        s.serialize_field("tool_tip_text", &self.tool_tip_text)?;
+        s.serialize_field("top", &self.top)?;
+        s.serialize_field("visible", &self.visible)?;
+        s.serialize_field("whats_this_help_id", &self.whats_this_help_id)?;
+        s.serialize_field("width", &self.width)?;
+
+        s.end()
     }
 }

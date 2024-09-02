@@ -4,8 +4,9 @@ use crate::language::controls::{
 use crate::VB6Color;
 
 use image::DynamicImage;
+use serde::Serialize;
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize)]
 pub enum ListBoxStyle {
     Standard = 0,
     Checkbox = 1,
@@ -83,5 +84,61 @@ impl Default for ListBoxProperties<'_> {
             whats_this_help_id: 0,
             width: 100,
         }
+    }
+}
+
+impl Serialize for ListBoxProperties<'_> {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+
+        let mut s = serializer.serialize_struct("ListBoxProperties", 26)?;
+        s.serialize_field("appearance", &self.appearance)?;
+        s.serialize_field("back_color", &self.back_color)?;
+        s.serialize_field("causes_validation", &self.causes_validation)?;
+        s.serialize_field("columns", &self.columns)?;
+        s.serialize_field("data_field", &self.data_field)?;
+        s.serialize_field("data_format", &self.data_format)?;
+        s.serialize_field("data_member", &self.data_member)?;
+        s.serialize_field("data_source", &self.data_source)?;
+
+        let option_text = match &self.drag_icon {
+            Some(_) => "Some(DynamicImage)",
+            None => "None",
+        };
+
+        s.serialize_field("drag_icon", &option_text)?;
+        s.serialize_field("drag_mode", &self.drag_mode)?;
+        s.serialize_field("enabled", &self.enabled)?;
+        s.serialize_field("fore_color", &self.fore_color)?;
+        s.serialize_field("height", &self.height)?;
+        s.serialize_field("help_context_id", &self.help_context_id)?;
+        s.serialize_field("integral_height", &self.integral_height)?;
+        s.serialize_field("left", &self.left)?;
+
+        let option_text = match &self.mouse_icon {
+            Some(_) => "Some(DynamicImage)",
+            None => "None",
+        };
+
+        s.serialize_field("mouse_icon", &option_text)?;
+        s.serialize_field("mouse_pointer", &self.mouse_pointer)?;
+        s.serialize_field("multi_select", &self.multi_select)?;
+        s.serialize_field("ole_drag_mode", &self.ole_drag_mode)?;
+        s.serialize_field("ole_drop_mode", &self.ole_drop_mode)?;
+        s.serialize_field("right_to_left", &self.right_to_left)?;
+        s.serialize_field("sorted", &self.sorted)?;
+        s.serialize_field("style", &self.style)?;
+        s.serialize_field("tab_index", &self.tab_index)?;
+        s.serialize_field("tab_stop", &self.tab_stop)?;
+        s.serialize_field("tool_tip_text", &self.tool_tip_text)?;
+        s.serialize_field("top", &self.top)?;
+        s.serialize_field("visible", &self.visible)?;
+        s.serialize_field("whats_this_help_id", &self.whats_this_help_id)?;
+        s.serialize_field("width", &self.width)?;
+
+        s.end()
     }
 }

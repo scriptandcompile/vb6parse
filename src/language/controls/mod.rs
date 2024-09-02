@@ -19,6 +19,8 @@ pub mod scrollbars;
 pub mod textbox;
 pub mod timer;
 
+use serde::Serialize;
+
 use crate::language::{
     controls::checkbox::CheckBoxProperties,
     controls::combobox::ComboBoxProperties,
@@ -43,7 +45,7 @@ use crate::language::{
 };
 
 /// Represents a VB6 control.
-#[derive(Debug, PartialEq, Clone)]
+#[derive(Debug, PartialEq, Clone, Serialize)]
 pub struct VB6Control<'a> {
     pub name: &'a str,
     pub tag: &'a str,
@@ -54,7 +56,7 @@ pub struct VB6Control<'a> {
 /// Represents a VB6 control kind.
 /// A VB6 control kind is an enumeration of the different kinds of
 /// standard VB6 controls.
-#[derive(Debug, PartialEq, Clone)]
+#[derive(Debug, PartialEq, Clone, Serialize)]
 pub enum VB6ControlKind<'a> {
     CommandButton {
         properties: CommandButtonProperties<'a>,
@@ -135,7 +137,7 @@ impl<'a> VB6ControlKind<'a> {
 }
 
 /// Determines which side of the parent control to dock this control to.
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum Align {
     /// The control is not docked to any side of the parent control.
     None = 0,
@@ -149,13 +151,13 @@ pub enum Align {
     Right = 4,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum JustifyAlignment {
     LeftJustify = 0,
     RightJustify = 1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum Alignment {
     LeftJustify = 0,
     RightJustify = 1,
@@ -163,7 +165,7 @@ pub enum Alignment {
 }
 
 /// The back style determines whether the background of a control is opaque or transparent.
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum BackStyle {
     /// The background of the control is transparent.
     Transparent = 0,
@@ -173,7 +175,7 @@ pub enum BackStyle {
 
 /// The appearance determines whether or not a control is painted at run time
 /// with 3D effects.
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum Appearance {
     /// The control is painted with a flat style.
     Flat = 0,
@@ -182,7 +184,7 @@ pub enum Appearance {
 }
 
 /// The border style determines the appearance of the border of a control.
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum BorderStyle {
     /// The control has no border.
     None = 0,
@@ -191,7 +193,7 @@ pub enum BorderStyle {
 }
 
 /// Determines the style of drag and drop operations.
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum DragMode {
     /// The control does not support drag and drop operations until
     /// the program manually initiates the drag operation.
@@ -203,7 +205,7 @@ pub enum DragMode {
 
 /// Specifies how the pen (the color used in drawing) interacts with the
 /// background.
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum DrawMode {
     /// Black pen color is applied over the background.
     Blackness = 1,
@@ -241,7 +243,7 @@ pub enum DrawMode {
 }
 
 /// Determines the line style of any drawing from any graphic method applied by the control.
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum DrawStyle {
     /// A solid line.
     Solid = 0,
@@ -260,7 +262,7 @@ pub enum DrawStyle {
 }
 
 /// Determines the appearance of the mouse pointer when it is over the control.
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum MousePointer {
     /// Standard pointer. the image is determined by the object (default).
     Default = 0,
@@ -307,7 +309,7 @@ pub enum MousePointer {
 }
 
 /// Determines the style of drag and drop operations.
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum OLEDragMode {
     /// The programmer handles all OLE drag/drop events manually. (default).
     Manual = 0,
@@ -316,7 +318,7 @@ pub enum OLEDragMode {
 }
 
 /// Determines the style of drop operations.
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum OLEDropMode {
     /// The control does not accept any OLE drop operations.
     None = 0,
@@ -326,7 +328,7 @@ pub enum OLEDropMode {
 
 /// Determines if the control uses standard styling or if it uses graphical styling from it's
 /// picture properties.
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum Style {
     /// The control uses standard styling.
     Standard = 0,
@@ -334,7 +336,7 @@ pub enum Style {
     Graphical = 1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum FillStyle {
     Solid = 0,
     Transparent = 1,
@@ -346,7 +348,7 @@ pub enum FillStyle {
     DiagonalCross = 7,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum LinkMode {
     None = 0,
     Automatic = 1,
@@ -354,14 +356,14 @@ pub enum LinkMode {
     Notify = 3,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum MultiSelect {
     None = 0,
     Simple = 1,
     Extended = 2,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum ScaleMode {
     User = 0,
     Twip = 1,
@@ -373,7 +375,7 @@ pub enum ScaleMode {
     Centimeter = 7,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum SizeMode {
     Clip = 0,
     Stretch = 1,

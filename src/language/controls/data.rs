@@ -2,6 +2,7 @@ use crate::language::controls::{Align, Appearance, DragMode, MousePointer, OLEDr
 use crate::VB6Color;
 
 use image::DynamicImage;
+use serde::Serialize;
 
 #[derive(Debug, PartialEq, Clone)]
 pub struct DataProperties<'a> {
@@ -37,13 +38,68 @@ pub struct DataProperties<'a> {
     pub width: i32,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+impl Serialize for DataProperties<'_> {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+
+        let mut s = serializer.serialize_struct("DataProperties", 29)?;
+        s.serialize_field("align", &self.align)?;
+        s.serialize_field("appearance", &self.appearance)?;
+        s.serialize_field("back_color", &self.back_color)?;
+        s.serialize_field("bof_action", &self.bof_action)?;
+        s.serialize_field("caption", &self.caption)?;
+        s.serialize_field("connection", &self.connection)?;
+        s.serialize_field("database_name", &self.database_name)?;
+        s.serialize_field("default_cursor_type", &self.default_cursor_type)?;
+        s.serialize_field("default_type", &self.default_type)?;
+
+        let option_text = match self.drag_icon {
+            Some(_) => "Some(DynamicImage)",
+            None => "None",
+        };
+
+        s.serialize_field("drag_icon", &option_text)?;
+        s.serialize_field("drag_mode", &self.drag_mode)?;
+        s.serialize_field("enabled", &self.enabled)?;
+        s.serialize_field("eof_action", &self.eof_action)?;
+        s.serialize_field("exclusive", &self.exclusive)?;
+        s.serialize_field("fore_color", &self.fore_color)?;
+        s.serialize_field("height", &self.height)?;
+        s.serialize_field("left", &self.left)?;
+
+        let option_text = match self.mouse_icon {
+            Some(_) => "Some(DynamicImage)",
+            None => "None",
+        };
+
+        s.serialize_field("mouse_icon", &option_text)?;
+        s.serialize_field("mouse_pointer", &self.mouse_pointer)?;
+        s.serialize_field("ole_drop_mode", &self.ole_drop_mode)?;
+        s.serialize_field("options", &self.options)?;
+        s.serialize_field("read_only", &self.read_only)?;
+        s.serialize_field("record_set_type", &self.record_set_type)?;
+        s.serialize_field("record_source", &self.record_source)?;
+        s.serialize_field("right_to_left", &self.right_to_left)?;
+        s.serialize_field("tool_tip_text", &self.tool_tip_text)?;
+        s.serialize_field("top", &self.top)?;
+        s.serialize_field("visible", &self.visible)?;
+        s.serialize_field("whats_this_help_id", &self.whats_this_help_id)?;
+        s.serialize_field("width", &self.width)?;
+
+        s.end()
+    }
+}
+
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum BOFAction {
     MoveFirst = 0,
     BOF = 1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum Connection {
     Access,
     DBaseIII,
@@ -66,27 +122,27 @@ pub enum Connection {
     Text,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum DefaultCursorType {
     DefaultCursor = 0,
     ODBCCursor = 1,
     ServerSideCursor = 2,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum DefaultType {
     UseODBC = 1,
     UseJet = 2,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum EOFAction {
     MoveLast = 0,
     EOF = 1,
     AddNew = 2,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum RecordSetType {
     Table = 0,
     Dynaset = 1,

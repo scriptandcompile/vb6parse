@@ -4,21 +4,22 @@ use crate::language::controls::{
 use crate::VB6Color;
 
 use image::DynamicImage;
+use serde::Serialize;
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize)]
 pub enum FormLinkMode {
     None = 0,
     Source = 1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize)]
 pub enum PaletteMode {
     HalfTone = 0,
     UseZOrder = 1,
     Custom = 2,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize)]
 pub enum StartUpPosition {
     Manual = 0,
     CenterOwner = 1,
@@ -26,7 +27,7 @@ pub enum StartUpPosition {
     WindowsDefault = 3,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize)]
 pub enum FormBorderStyle {
     None = 0,
     FixedSingle = 1,
@@ -36,7 +37,7 @@ pub enum FormBorderStyle {
     SizableToolWindow = 5,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize)]
 pub enum WindowState {
     Normal = 0,
     Minimized = 1,
@@ -95,6 +96,91 @@ pub struct FormProperties<'a> {
     pub whats_this_help: bool,
     pub width: i32,
     pub window_state: WindowState,
+}
+
+impl Serialize for FormProperties<'_> {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+
+        let mut state = serializer.serialize_struct("FormProperties", 38)?;
+        state.serialize_field("appearance", &self.appearance)?;
+        state.serialize_field("auto_redraw", &self.auto_redraw)?;
+        state.serialize_field("back_color", &self.back_color)?;
+        state.serialize_field("border_style", &self.border_style)?;
+        state.serialize_field("caption", &self.caption)?;
+        state.serialize_field("clip_controls", &self.clip_controls)?;
+        state.serialize_field("control_box", &self.control_box)?;
+        state.serialize_field("draw_mode", &self.draw_mode)?;
+        state.serialize_field("draw_style", &self.draw_style)?;
+        state.serialize_field("draw_width", &self.draw_width)?;
+        state.serialize_field("enabled", &self.enabled)?;
+        state.serialize_field("fill_color", &self.fill_color)?;
+        state.serialize_field("fill_style", &self.fill_style)?;
+        state.serialize_field("font_transparent", &self.font_transparent)?;
+        state.serialize_field("fore_color", &self.fore_color)?;
+        state.serialize_field("has_dc", &self.has_dc)?;
+        state.serialize_field("height", &self.height)?;
+        state.serialize_field("help_context_id", &self.help_context_id)?;
+
+        let option_text = match self.icon {
+            Some(_) => Some("Some(DynamicImage)"),
+            None => None,
+        };
+
+        state.serialize_field("icon", &option_text)?;
+        state.serialize_field("key_preview", &self.key_preview)?;
+        state.serialize_field("left", &self.left)?;
+        state.serialize_field("link_mode", &self.link_mode)?;
+        state.serialize_field("link_topic", &self.link_topic)?;
+        state.serialize_field("max_button", &self.max_button)?;
+        state.serialize_field("mdi_child", &self.mdi_child)?;
+        state.serialize_field("min_button", &self.min_button)?;
+
+        let option_text = match self.mouse_icon {
+            Some(_) => Some("Some(DynamicImage)"),
+            None => None,
+        };
+
+        state.serialize_field("mouse_icon", &option_text)?;
+        state.serialize_field("mouse_pointer", &self.mouse_pointer)?;
+        state.serialize_field("moveable", &self.moveable)?;
+        state.serialize_field("negotiate_menus", &self.negotiate_menus)?;
+        state.serialize_field("ole_drop_mode", &self.ole_drop_mode)?;
+
+        let option_text = match self.palette {
+            Some(_) => Some("Some(DynamicImage)"),
+            None => None,
+        };
+
+        state.serialize_field("palette", &option_text)?;
+        state.serialize_field("palette_mode", &self.palette_mode)?;
+
+        let option_text = match self.palette {
+            Some(_) => Some("Some(DynamicImage)"),
+            None => None,
+        };
+
+        state.serialize_field("picture", &option_text)?;
+        state.serialize_field("right_to_left", &self.right_to_left)?;
+        state.serialize_field("scale_height", &self.scale_height)?;
+        state.serialize_field("scale_left", &self.scale_left)?;
+        state.serialize_field("scale_mode", &self.scale_mode)?;
+        state.serialize_field("scale_top", &self.scale_top)?;
+        state.serialize_field("scale_width", &self.scale_width)?;
+        state.serialize_field("show_in_taskbar", &self.show_in_taskbar)?;
+        state.serialize_field("start_up_position", &self.start_up_position)?;
+        state.serialize_field("top", &self.top)?;
+        state.serialize_field("visible", &self.visible)?;
+        state.serialize_field("whats_this_button", &self.whats_this_button)?;
+        state.serialize_field("whats_this_help", &self.whats_this_help)?;
+        state.serialize_field("width", &self.width)?;
+        state.serialize_field("window_state", &self.window_state)?;
+
+        state.end()
+    }
 }
 
 impl Default for FormProperties<'_> {

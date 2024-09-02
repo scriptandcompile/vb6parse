@@ -18,7 +18,7 @@ use winnow::{
 
 /// Represents a VB6 file format version.
 /// A VB6 file format version contains a major version number and a minor version number.
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize)]
 pub struct VB6FileFormatVersion {
     pub major: u8,
     pub minor: u8,
