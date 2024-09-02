@@ -28,6 +28,33 @@ pub struct DriveListBoxProperties<'a> {
     pub width: i32,
 }
 
+impl Default for DriveListBoxProperties<'_> {
+    fn default() -> Self {
+        DriveListBoxProperties {
+            appearance: Appearance::ThreeD,
+            back_color: VB6Color::System { index: 5 },
+            causes_validation: true,
+            drag_icon: None,
+            drag_mode: DragMode::Manual,
+            enabled: true,
+            fore_color: VB6Color::System { index: 8 },
+            height: 319,
+            help_context_id: 0,
+            left: 480,
+            mouse_icon: None,
+            mouse_pointer: MousePointer::Default,
+            ole_drop_mode: OLEDropMode::None,
+            tab_index: 0,
+            tab_stop: true,
+            tool_tip_text: "",
+            top: 960,
+            visible: true,
+            whats_this_help_id: 0,
+            width: 1455,
+        }
+    }
+}
+
 impl Serialize for DriveListBoxProperties<'_> {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
