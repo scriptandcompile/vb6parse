@@ -26,10 +26,10 @@ use winnow::{
 pub enum FileUsage {
     // In a COM object a MultiUse class object will be created for all clients.
     // This value is stored as -1 (true) in the file.
-    MultiUse,
+    MultiUse = -1,
     // In a COM object a SingleUse class object will be created for each client.
     // This value is stored as 0 (false) in the file.
-    SingleUse, // 0 (false)
+    SingleUse = 0, // 0 (false)
 }
 
 /// Represents the persistability of a file.
@@ -47,10 +47,10 @@ pub enum FileUsage {
 pub enum Persistance {
     // The class property cannot be saved to a file in a property bag.
     // This value is stored as 0 (false) in the file.
-    NonPersistable,
+    NonPersistable = 0,
     // The class property can be saved to a file in a property bag.
     // This value is stored as 1 (true) in the file.
-    Persistable,
+    Persistable = 1,
 }
 
 /// Represents the MTS status of a file.
@@ -66,42 +66,42 @@ pub enum MtsStatus {
     // This class is not an MTS component.
     // This value is stored as 0 in the file.
     // This is the default value.
-    NotAnMTSObject,
+    NotAnMTSObject = 0,
     // This class is an MTS component but does not support transactions.
     // This value is stored as 1 in the file.
-    NoTransactions,
+    NoTransactions = 1,
     // This class is an MTS component and requires a transaction.
     // This value is stored as 2 in the file.
-    RequiresTransaction,
+    RequiresTransaction = 2,
     // This class is an MTS component and uses a transaction.
     // This value is stored as 3 in the file.
-    UsesTransaction,
+    UsesTransaction = 3,
     // This class is an MTS component and requires a new transaction.
     // This value is stored as 4 in the file.
-    RequiresNewTransaction,
+    RequiresNewTransaction = 4,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum DataSourceBehavior {
     // The class does not support acting as a Data Source.
     // This value is stored as 0 in the file.
-    None,
+    None = 0,
     // The class supports acting as a Data Source.
     // This value is stored as 1 in the file.
-    DataSource,
+    DataSource = 1,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum DataBindingBehavior {
     // The class does not support data binding.
     // This value is stored as 0 in the file.
-    None,
+    None = 0,
     // The class supports simple data binding.
     // This value is stored as 1 in the file.
-    Simple,
+    Simple = 1,
     // The class supports complex data binding.
     // This value is stored as 2 in the file.
-    Complex,
+    Complex = 2,
 }
 
 /// The properties of a VB6 class file is the list of key/value pairs
