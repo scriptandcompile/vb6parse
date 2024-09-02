@@ -12,6 +12,8 @@ use crate::{
     vb6::{keyword_parse, line_comment_parse, vb6_parse, VB6Result},
 };
 
+use serde::Serialize;
+
 use winnow::{
     ascii::{line_ending, space0},
     combinator::{alt, preceded, repeat_till},
@@ -20,7 +22,7 @@ use winnow::{
 };
 
 /// Represents the COM usage of a class file.
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum FileUsage {
     // In a COM object a MultiUse class object will be created for all clients.
     // This value is stored as -1 (true) in the file.
@@ -41,7 +43,7 @@ pub enum FileUsage {
 /// added to the class module.
 ///
 /// Without these procedures, the class cannot be saved to disk.
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum Persistance {
     // The class property cannot be saved to a file in a property bag.
     // This value is stored as 0 (false) in the file.
@@ -59,7 +61,7 @@ pub enum Persistance {
 ///
 /// Maps directly to the MTS transaction mode attribute in Microsoft Transaction
 /// Server.
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum MtsStatus {
     // This class is not an MTS component.
     // This value is stored as 0 in the file.
@@ -79,7 +81,7 @@ pub enum MtsStatus {
     RequiresNewTransaction,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum DataSourceBehavior {
     // The class does not support acting as a Data Source.
     // This value is stored as 0 in the file.
@@ -89,7 +91,7 @@ pub enum DataSourceBehavior {
     DataSource,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum DataBindingBehavior {
     // The class does not support data binding.
     // This value is stored as 0 in the file.
@@ -104,7 +106,7 @@ pub enum DataBindingBehavior {
 
 /// The properties of a VB6 class file is the list of key/value pairs
 /// found between the BEGIN and END lines in the header.
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct VB6ClassProperties {
     // (0/-1) multi use / single use
     pub multi_use: FileUsage,
@@ -125,7 +127,7 @@ pub struct VB6ClassProperties {
 ///
 /// None of these values are normally visible in the code editor region.
 /// They are only visible in the file property explorer.
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct VB6ClassHeader<'a> {
     pub version: VB6FileFormatVersion,
     pub properties: VB6ClassProperties,
@@ -137,7 +139,7 @@ pub struct VB6ClassHeader<'a> {
 ///
 /// None of these values are normally visible in the code editor region.
 /// They are only visible in the file property explorer.
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct VB6ClassAttributes<'a> {
     pub name: &'a [u8],          // Attribute VB_Name = "Organism"
     pub global_name_space: bool, // (True/False) Attribute VB_GlobalNameSpace = False
@@ -154,7 +156,7 @@ pub struct VB6ClassAttributes<'a> {
 /// The header also contains the attributes of the class file.
 ///
 /// The tokens contain the token stream of the code of the class file.
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct VB6ClassFile<'a> {
     pub header: VB6ClassHeader<'a>,
     pub tokens: Vec<VB6Token<'a>>,
@@ -163,7 +165,7 @@ pub struct VB6ClassFile<'a> {
 /// Represents the version of a VB6 class file.
 /// The version contains a major and minor version number.
 ///
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct VB6ClassVersion {
     pub major: u8,
     pub minor: u8,
@@ -174,7 +176,7 @@ pub struct VB6ClassVersion {
 ///
 /// None of these values are normally visible in the code editor region.
 /// They are only visible in the file property explorer.
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct VB6FileAttributes<'a> {
     pub name: &'a [u8],          // Attribute VB_Name = "Organism"
     pub global_name_space: bool, // (True/False) Attribute VB_GlobalNameSpace = False
