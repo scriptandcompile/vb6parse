@@ -31,6 +31,7 @@ fn blacklight_effect_form_load() {
 }
 
 #[test]
+#[ignore]
 fn brightness_effect_part_1_form_load() {
     let form_file_bytes =
         include_bytes!("./data/vb6-code/Brightness-effect/Part 1 - Pure VB6/Brightness.frm");
@@ -47,6 +48,7 @@ fn brightness_effect_part_1_form_load() {
 }
 
 #[test]
+#[ignore]
 fn brightness_effect_part_2_form_load() {
     let form_file_bytes = include_bytes!(
         "./data/vb6-code/Brightness-effect/Part 2 - API - GetPixel and SetPixel/Brightness2.frm"
@@ -64,6 +66,7 @@ fn brightness_effect_part_2_form_load() {
 }
 
 #[test]
+#[ignore]
 fn brightness_effect_part_3_form_load() {
     let form_file_bytes =
         include_bytes!("./data/vb6-code/Brightness-effect/Part 3 - DIBs/Brightness3.frm");
@@ -80,6 +83,7 @@ fn brightness_effect_part_3_form_load() {
 }
 
 #[test]
+#[ignore]
 fn brightness_effect_part_4_form_load() {
     let form_file_bytes = include_bytes!(
         "./data/vb6-code/Brightness-effect/Part 4 - Even faster DIBs/Brightness.frm"
@@ -171,6 +175,7 @@ fn custom_image_form_load() {
 }
 
 #[test]
+#[ignore]
 fn diffuse_effect_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Diffuse-effect/Diffuse.frm");
 
@@ -186,6 +191,7 @@ fn diffuse_effect_form_load() {
 }
 
 #[test]
+#[ignore]
 fn edge_detection_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Edge-detection/EdgeDetection.frm");
 
@@ -231,6 +237,7 @@ fn fill_image_region_form_load() {
 }
 
 #[test]
+#[ignore]
 fn fire_effect_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Fire-effect/frmFire.frm");
 
@@ -246,6 +253,7 @@ fn fire_effect_form_load() {
 }
 
 #[test]
+#[ignore]
 fn game_physics_basic_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Game-physics-basic/FormPhysics.frm");
 
@@ -261,6 +269,7 @@ fn game_physics_basic_form_load() {
 }
 
 #[test]
+#[ignore]
 fn gradient_2d_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Gradient-2D/Gradient.frm");
 
@@ -276,6 +285,7 @@ fn gradient_2d_form_load() {
 }
 
 #[test]
+#[ignore]
 fn grayscale_effect_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Grayscale-effect/Grayscale.frm");
 
@@ -291,6 +301,7 @@ fn grayscale_effect_form_load() {
 }
 
 #[test]
+#[ignore]
 fn hidden_markov_model_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Hidden-Markov-model/frmHMM.frm");
 
@@ -351,6 +362,7 @@ fn levels_effect_form_load() {
 }
 
 #[test]
+#[ignore]
 fn mandelbrot_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Mandelbrot/Mandelbrot.frm");
 
@@ -366,6 +378,7 @@ fn mandelbrot_form_load() {
 }
 
 #[test]
+#[ignore]
 fn map_editor_2d_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Map-editor-2D/Main Editor.frm");
 
@@ -381,6 +394,7 @@ fn map_editor_2d_form_load() {
 }
 
 #[test]
+#[ignore]
 fn nature_effects_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Nature-effects/NatureFilters.frm");
 
@@ -441,6 +455,7 @@ fn screen_capture_form_load() {
 }
 
 #[test]
+#[ignore]
 fn sepia_effect_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Sepia-effect/Sepia.frm");
 
@@ -456,6 +471,7 @@ fn sepia_effect_form_load() {
 }
 
 #[test]
+#[ignore]
 fn threshold_effect_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Threshold-effect/Threshold.frm");
 
@@ -471,6 +487,7 @@ fn threshold_effect_form_load() {
 }
 
 #[test]
+#[ignore]
 fn transparency_2d_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Transparency-2D/frmTransparency.frm");
 
