@@ -38,6 +38,41 @@ pub struct FileListBoxProperties<'a> {
     pub width: i32,
 }
 
+impl Default for FileListBoxProperties<'_> {
+    fn default() -> Self {
+        FileListBoxProperties {
+            appearance: Appearance::ThreeD,
+            archive: true,
+            back_color: VB6Color::System { index: 5 },
+            causes_validation: true,
+            drag_icon: None,
+            drag_mode: DragMode::Manual,
+            enabled: true,
+            fore_color: VB6Color::System { index: 8 },
+            height: 1260,
+            help_context_id: 0,
+            hidden: false,
+            left: 710,
+            mouse_icon: None,
+            mouse_pointer: MousePointer::Default,
+            multi_select: MultiSelect::None,
+            normal: true,
+            ole_drag_mode: OLEDragMode::Manual,
+            ole_drop_mode: OLEDropMode::None,
+            pattern: "*.*",
+            read_only: true,
+            system: false,
+            tab_index: 0,
+            tab_stop: true,
+            tool_tip_text: "",
+            top: 480,
+            visible: true,
+            whats_this_help_id: 0,
+            width: 735,
+        }
+    }
+}
+
 impl Serialize for FileListBoxProperties<'_> {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
