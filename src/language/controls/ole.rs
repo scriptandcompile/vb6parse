@@ -72,6 +72,47 @@ pub struct OLEProperties<'a> {
     pub width: i32,
 }
 
+impl Default for OLEProperties<'_> {
+    fn default() -> Self {
+        OLEProperties {
+            appearance: Appearance::ThreeD,
+            auto_activate: AutoActivate::DoubleClick,
+            auto_verb_menu: true,
+            back_color: VB6Color::System { index: 5 },
+            back_style: BackStyle::Opaque,
+            border_style: BorderStyle::FixedSingle,
+            causes_validation: true,
+            class: None,
+            data_field: "",
+            data_source: "",
+            display_type: DisplayType::Content,
+            drag_icon: None,
+            drag_mode: DragMode::Manual,
+            enabled: true,
+            height: 375,
+            help_context_id: 0,
+            host_name: "",
+            left: 600,
+            misc_flags: 0,
+            mouse_icon: None,
+            mouse_pointer: MousePointer::Default,
+            ole_drop_allowed: false,
+            ole_type_allowed: OLETypeAllowed::Either,
+            size_mode: SizeMode::Clip,
+            //source_doc: "",
+            //source_item: "",
+            tab_index: 0,
+            tab_stop: true,
+            top: 1200,
+            update_options: UpdateOptions::Automatic,
+            verb: 0,
+            visible: true,
+            whats_this_help_id: 0,
+            width: 1335,
+        }
+    }
+}
+
 impl Serialize for OLEProperties<'_> {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
