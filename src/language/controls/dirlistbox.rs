@@ -29,6 +29,34 @@ pub struct DirListBoxProperties<'a> {
     pub width: i32,
 }
 
+impl Default for DirListBoxProperties<'_> {
+    fn default() -> Self {
+        DirListBoxProperties {
+            appearance: Appearance::ThreeD,
+            back_color: VB6Color::System { index: 5 },
+            causes_validation: true,
+            drag_icon: None,
+            drag_mode: DragMode::Manual,
+            enabled: true,
+            fore_color: VB6Color::System { index: 8 },
+            height: 3195,
+            help_context_id: 0,
+            left: 720,
+            mouse_icon: None,
+            mouse_pointer: MousePointer::Default,
+            ole_drag_mode: OLEDragMode::Manual,
+            ole_drop_mode: OLEDropMode::None,
+            tab_index: 0,
+            tab_stop: true,
+            tool_tip_text: "",
+            top: 720,
+            visible: true,
+            whats_this_help_id: 0,
+            width: 975,
+        }
+    }
+}
+
 impl Serialize for DirListBoxProperties<'_> {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
