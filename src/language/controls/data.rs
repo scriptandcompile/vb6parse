@@ -25,6 +25,7 @@ pub struct DataProperties<'a> {
     pub left: i32,
     pub mouse_icon: Option<DynamicImage>,
     pub mouse_pointer: MousePointer,
+    pub negotitate: bool,
     pub ole_drop_mode: OLEDropMode,
     pub options: i32,
     pub read_only: bool,
@@ -38,6 +39,44 @@ pub struct DataProperties<'a> {
     pub width: i32,
 }
 
+impl Default for DataProperties<'_> {
+    fn default() -> Self {
+        DataProperties {
+            align: Align::None,
+            appearance: Appearance::ThreeD,
+            back_color: VB6Color::System { index: 5 },
+            bof_action: BOFAction::MoveFirst,
+            caption: "Data1",
+            connection: Connection::Access,
+            database_name: "",
+            default_cursor_type: DefaultCursorType::DefaultCursor,
+            default_type: DefaultType::UseJet,
+            drag_icon: None,
+            drag_mode: DragMode::Manual,
+            enabled: true,
+            eof_action: EOFAction::MoveLast,
+            exclusive: false,
+            fore_color: VB6Color::System { index: 8 },
+            height: 1215,
+            left: 480,
+            mouse_icon: None,
+            mouse_pointer: MousePointer::Default,
+            negotitate: false,
+            ole_drop_mode: OLEDropMode::None,
+            options: 0,
+            read_only: false,
+            record_set_type: RecordSetType::Dynaset,
+            record_source: "",
+            right_to_left: false,
+            tool_tip_text: "",
+            top: 840,
+            visible: true,
+            whats_this_help_id: 0,
+            width: 1140,
+        }
+    }
+}
+
 impl Serialize for DataProperties<'_> {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -45,7 +84,7 @@ impl Serialize for DataProperties<'_> {
     {
         use serde::ser::SerializeStruct;
 
-        let mut s = serializer.serialize_struct("DataProperties", 29)?;
+        let mut s = serializer.serialize_struct("DataProperties", 30)?;
         s.serialize_field("align", &self.align)?;
         s.serialize_field("appearance", &self.appearance)?;
         s.serialize_field("back_color", &self.back_color)?;
@@ -77,6 +116,7 @@ impl Serialize for DataProperties<'_> {
 
         s.serialize_field("mouse_icon", &option_text)?;
         s.serialize_field("mouse_pointer", &self.mouse_pointer)?;
+        s.serialize_field("negotitate", &self.negotitate)?;
         s.serialize_field("ole_drop_mode", &self.ole_drop_mode)?;
         s.serialize_field("options", &self.options)?;
         s.serialize_field("read_only", &self.read_only)?;
