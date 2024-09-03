@@ -31,7 +31,6 @@ fn blacklight_effect_form_load() {
 }
 
 #[test]
-#[ignore]
 fn brightness_effect_part_1_form_load() {
     let form_file_bytes =
         include_bytes!("./data/vb6-code/Brightness-effect/Part 1 - Pure VB6/Brightness.frm");
@@ -48,7 +47,6 @@ fn brightness_effect_part_1_form_load() {
 }
 
 #[test]
-#[ignore]
 fn brightness_effect_part_2_form_load() {
     let form_file_bytes = include_bytes!(
         "./data/vb6-code/Brightness-effect/Part 2 - API - GetPixel and SetPixel/Brightness2.frm"
@@ -234,7 +232,6 @@ fn fill_image_region_form_load() {
 }
 
 #[test]
-#[ignore]
 fn fire_effect_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Fire-effect/frmFire.frm");
 
