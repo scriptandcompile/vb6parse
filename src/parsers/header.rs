@@ -1,7 +1,6 @@
 #![warn(clippy::pedantic)]
 
-use bstr::{BStr, BString};
-use image::EncodableLayout;
+use bstr::{BStr, ByteSlice};
 
 use crate::{
     errors::VB6ErrorKind,
@@ -11,7 +10,7 @@ use crate::{
 
 use winnow::{
     ascii::{digit1, line_ending, space0, space1},
-    combinator::{alt, delimited, eof, opt, separated_pair, Verify},
+    combinator::{alt, delimited, eof, opt, separated_pair},
     error::ErrMode,
     stream::Stream,
     token::{literal, take_till, take_while},
@@ -93,11 +92,7 @@ pub fn key_value_parse<'a>(
             ),
             literal(divider),
             alt((
-                delimited(
-                    (space0, "\""),
-                    take_while(1.., (' '..='!', '#'..='~', '\t')),
-                    ("\"", space0),
-                ),
+                delimited(space0, vb6_string_parse, space0),
                 delimited(
                     space0,
                     take_while(
@@ -194,23 +189,22 @@ pub fn key_resource_offset_line_parse<'a>(
     }
 }
 
-fn vb6_string_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<BString> {
+pub fn vb6_string_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
     "\"".parse_next(input)?;
 
-    let mut text = BString::new(vec![]);
+    let start_index = input.index;
 
     loop {
-        let content = take_till(1.., ['"']).parse_next(input)?;
-
-        text.append(&mut content.to_vec());
+        take_till(1.., ['"']).parse_next(input)?;
 
         if literal::<_, _, VB6ErrorKind>("\"\"")
             .parse_next(input)
             .is_err()
         {
-            return Ok(text);
-        } else {
-            text.append(&mut vec![b'"']);
+            let end_index = input.index;
+            "\"".parse_next(input)?;
+
+            return Ok(input.stream[start_index..end_index].as_bstr());
         }
     }
 }
@@ -228,7 +222,7 @@ mod tests {
         let mut stream = VB6Stream::new("", input_line);
         let string = vb6_string_parse(&mut stream).unwrap();
 
-        assert_eq!(string.as_bytes(), "This is a string".as_bytes());
+        assert_eq!(string, "This is a string");
     }
 
     #[test]
@@ -237,7 +231,7 @@ mod tests {
         let mut stream = VB6Stream::new("", input_line);
         let string = vb6_string_parse(&mut stream).unwrap();
 
-        assert_eq!(string.as_bytes(), "This is also \"a\" string".as_bytes());
+        assert_eq!(string, "This is also \"\"a\"\" string");
     }
 
     #[test]
