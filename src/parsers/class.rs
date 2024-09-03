@@ -49,8 +49,8 @@ pub enum Persistance {
     // This value is stored as 0 (false) in the file.
     NonPersistable = 0,
     // The class property can be saved to a file in a property bag.
-    // This value is stored as 1 (true) in the file.
-    Persistable = 1,
+    // This value is stored as -1 (true) in the file.
+    Persistable = -1,
 }
 
 /// Represents the MTS status of a file.
@@ -148,6 +148,18 @@ pub struct VB6ClassAttributes<'a> {
     pub exposed: bool,           // (True/False) Attribute VB_Exposed = False
 }
 
+impl Default for VB6ClassAttributes<'_> {
+    fn default() -> Self {
+        VB6ClassAttributes {
+            name: b"",
+            global_name_space: false,
+            creatable: true,
+            pre_declared_id: false,
+            exposed: false,
+        }
+    }
+}
+
 /// Represents a VB6 class file.
 /// A VB6 class file contains a header and a list of tokens.
 ///
@@ -163,8 +175,7 @@ pub struct VB6ClassFile<'a> {
 }
 
 /// Represents the version of a VB6 class file.
-/// The version contains a major and minor version number.
-///
+/// The class version contains a major and minor version number.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct VB6ClassVersion {
     pub major: u8,
@@ -183,6 +194,18 @@ pub struct VB6FileAttributes<'a> {
     pub creatable: bool,         // (True/False) Attribute VB_Creatable = True
     pub pre_declared_id: bool,   // (True/False) Attribute VB_PredeclaredId = False
     pub exposed: bool,           // (True/False) Attribute VB_Exposed = False
+}
+
+impl Default for VB6FileAttributes<'_> {
+    fn default() -> Self {
+        VB6FileAttributes {
+            name: b"",
+            global_name_space: false,
+            creatable: true,
+            pre_declared_id: false,
+            exposed: false,
+        }
+    }
 }
 
 impl<'a> VB6ClassFile<'a> {
