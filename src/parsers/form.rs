@@ -6,10 +6,11 @@ use std::vec::Vec;
 use crate::{
     errors::{VB6Error, VB6ErrorKind},
     language::{
-        CheckBoxProperties, ComboBoxProperties, CommandButtonProperties, FormProperties,
-        FrameProperties, LabelProperties, LineProperties, MenuProperties, OptionButtonProperties,
-        PictureBoxProperties, ScrollBarProperties, TextBoxProperties, VB6Color, VB6Control,
-        VB6ControlKind, VB6MenuControl, VB6Token,
+        CheckBoxProperties, ComboBoxProperties, CommandButtonProperties, DataProperties,
+        DirListBoxProperties, FormProperties, FrameProperties, ImageProperties, LabelProperties,
+        LineProperties, ListBoxProperties, MenuProperties, OLEProperties, OptionButtonProperties,
+        PictureBoxProperties, ScrollBarProperties, TextBoxProperties, TimerProperties, VB6Color,
+        VB6Control, VB6ControlKind, VB6MenuControl, VB6Token,
     },
     parsers::{
         header::{key_value_line_parse, version_parse, HeaderKind, VB6FileFormatVersion},
@@ -301,12 +302,26 @@ fn build_control<'a>(
             };
             textbox
         }
+        b"Timer" => {
+            // TODO: We are not correctly handling property assignment for each control.
+            let timer = VB6ControlKind::Timer {
+                properties: TimerProperties::default(),
+            };
+            timer
+        }
         b"CheckBox" => {
             // TODO: We are not correctly handling property assignment for each control.
             let checkbox = VB6ControlKind::CheckBox {
                 properties: CheckBoxProperties::default(),
             };
             checkbox
+        }
+        b"Ole" => {
+            // TODO: We are not correctly handling property assignment for each control.
+            let ole = VB6ControlKind::Ole {
+                properties: OLEProperties::default(),
+            };
+            ole
         }
         b"OptionButton" => {
             // TODO: We are not correctly handling property assignment for each control.
@@ -321,6 +336,13 @@ fn build_control<'a>(
                 properties: LineProperties::default(),
             };
             line
+        }
+        b"ListBox" => {
+            // TODO: We are not correctly handling property assignment for each control.
+            let listbox = VB6ControlKind::ListBox {
+                properties: ListBoxProperties::default(),
+            };
+            listbox
         }
         b"Label" => {
             // TODO: We are not correctly handling property assignment for each control.
@@ -363,6 +385,27 @@ fn build_control<'a>(
                 properties: ScrollBarProperties::default(),
             };
             vscrollbar
+        }
+        b"DirListBox" => {
+            // TODO: We are not correctly handling property assignment for each control.
+            let dirlistbox = VB6ControlKind::DirListBox {
+                properties: DirListBoxProperties::default(),
+            };
+            dirlistbox
+        }
+        b"Image" => {
+            // TODO: We are not correctly handling property assignment for each control.
+            let image = VB6ControlKind::Image {
+                properties: ImageProperties::default(),
+            };
+            image
+        }
+        b"Data" => {
+            // TODO: We are not correctly handling property assignment for each control.
+            let data = VB6ControlKind::Data {
+                properties: DataProperties::default(),
+            };
+            data
         }
         _ => {
             return Err(VB6ErrorKind::UnknownControlKind);
