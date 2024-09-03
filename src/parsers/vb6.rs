@@ -243,9 +243,9 @@ pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6Token<'a>>> 
                 keyword_parse("ByRef").map(|token: &BStr| VB6Token::ByRefKeyword(token)),
                 keyword_parse("Goto").map(|token: &BStr| VB6Token::GotoKeyword(token)),
                 keyword_parse("Exit").map(|token: &BStr| VB6Token::ExitKeyword(token)),
-                "=".map(|token: &BStr| VB6Token::EqualityOperator(token)),
             )),
             alt((
+                "=".map(|token: &BStr| VB6Token::EqualityOperator(token)),
                 "$".map(|token: &BStr| VB6Token::DollarSign(token)),
                 "_".map(|token: &BStr| VB6Token::Underscore(token)),
                 "&".map(|token: &BStr| VB6Token::Ampersand(token)),
@@ -264,6 +264,9 @@ pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6Token<'a>>> 
                 ".".map(|token: &BStr| VB6Token::PeriodOperator(token)),
                 ":".map(|token: &BStr| VB6Token::ColonOperator(token)),
                 "^".map(|token: &BStr| VB6Token::ExponentiationOperator(token)),
+                "!".map(|token: &BStr| VB6Token::ExclamationMark(token)),
+            )),
+            alt((
                 digit1.map(|token: &BStr| VB6Token::Number(token)),
                 variable_name_parse.map(|token: &BStr| VB6Token::VariableName(token)),
                 space1.map(|token: &BStr| VB6Token::Whitespace(token)),

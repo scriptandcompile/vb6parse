@@ -89,6 +89,9 @@ pub enum VB6Token<'a> {
     /// Represents a comma ','.
     Comma(&'a BStr),
 
+    /// Represents an exclamation mark '!'.
+    ExclamationMark(&'a BStr),
+
     /// Represents an equality operator '=' can also be the assignment operator.
     EqualityOperator(&'a BStr),
     /// Represents a less than operator '<'.
