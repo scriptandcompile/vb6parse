@@ -368,7 +368,6 @@ fn mandelbrot_form_load() {
 }
 
 #[test]
-#[ignore]
 fn map_editor_2d_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Map-editor-2D/Main Editor.frm");
 
