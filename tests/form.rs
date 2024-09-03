@@ -191,7 +191,6 @@ fn diffuse_effect_form_load() {
 }
 
 #[test]
-#[ignore]
 fn edge_detection_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Edge-detection/EdgeDetection.frm");
 
@@ -285,7 +284,6 @@ fn gradient_2d_form_load() {
 }
 
 #[test]
-#[ignore]
 fn grayscale_effect_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Grayscale-effect/Grayscale.frm");
 
@@ -394,7 +392,6 @@ fn map_editor_2d_form_load() {
 }
 
 #[test]
-#[ignore]
 fn nature_effects_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Nature-effects/NatureFilters.frm");
 
