@@ -7,6 +7,7 @@ use crate::{
     vb6::{keyword_parse, vb6_parse},
 };
 
+use serde::Serialize;
 use winnow::{
     ascii::{line_ending, space0, space1},
     token::take_until,
@@ -17,7 +18,7 @@ use winnow::{
 /// A VB6 module file contains a header and a list of tokens.
 ///
 /// The tokens contain the token stream of the code of the class file.
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct VB6ModuleFile<'a> {
     pub name: &'a [u8], // Attribute VB_Name = "Module1"
     pub tokens: Vec<VB6Token<'a>>,
