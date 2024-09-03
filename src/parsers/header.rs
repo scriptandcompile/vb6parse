@@ -1,6 +1,7 @@
 #![warn(clippy::pedantic)]
 
-use bstr::BStr;
+use bstr::{BStr, BString};
+use image::EncodableLayout;
 
 use crate::{
     errors::VB6ErrorKind,
@@ -10,10 +11,10 @@ use crate::{
 
 use winnow::{
     ascii::{digit1, line_ending, space0, space1},
-    combinator::{alt, delimited, eof, opt, separated_pair},
+    combinator::{alt, delimited, eof, opt, separated_pair, Verify},
     error::ErrMode,
     stream::Stream,
-    token::{literal, take_while},
+    token::{literal, take_till, take_while},
     Parser,
 };
 
@@ -193,12 +194,51 @@ pub fn key_resource_offset_line_parse<'a>(
     }
 }
 
+fn vb6_string_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<BString> {
+    "\"".parse_next(input)?;
+
+    let mut text = BString::new(vec![]);
+
+    loop {
+        let content = take_till(1.., ['"']).parse_next(input)?;
+
+        text.append(&mut content.to_vec());
+
+        if literal::<_, _, VB6ErrorKind>("\"\"")
+            .parse_next(input)
+            .is_err()
+        {
+            return Ok(text);
+        } else {
+            text.append(&mut vec![b'"']);
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::parsers::VB6Stream;
 
     use super::HeaderKind;
+
+    #[test]
+    fn vb6_no_double_quote_string_parse() {
+        let input_line = b"\"This is a string\"\r\n";
+        let mut stream = VB6Stream::new("", input_line);
+        let string = vb6_string_parse(&mut stream).unwrap();
+
+        assert_eq!(string.as_bytes(), "This is a string".as_bytes());
+    }
+
+    #[test]
+    fn vb6_with_double_quote_string_parse() {
+        let input_line = b"\"This is also \"\"a\"\" string\"\r\n";
+        let mut stream = VB6Stream::new("", input_line);
+        let string = vb6_string_parse(&mut stream).unwrap();
+
+        assert_eq!(string.as_bytes(), "This is also \"a\" string".as_bytes());
+    }
 
     #[test]
     fn test_key_resource_offset_line_parse() {
