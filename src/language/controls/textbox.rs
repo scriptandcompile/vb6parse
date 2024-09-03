@@ -14,6 +14,10 @@ pub enum ScrollBars {
     Both = 3,
 }
 
+/// Properties for a TextBox control. This is used as an enum variant of
+/// [VB6ControlKind::TextBox](crate::language::controls::VB6ControlKind::TextBox).
+/// tag, name, and index are not included in this struct, but instead are part
+/// of the parent [VB6Control](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct TextBoxProperties<'a> {
     pub alignment: Alignment,

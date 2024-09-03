@@ -34,6 +34,10 @@ pub enum DisplayType {
     Icon = 1,
 }
 
+/// Properties for a OLE control. This is used as an enum variant of
+/// [VB6ControlKind::Ole](crate::language::controls::VB6ControlKind::Ole).
+/// tag, name, and index are not included in this struct, but instead are part
+/// of the parent [VB6Control](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct OLEProperties<'a> {
     pub appearance: Appearance,

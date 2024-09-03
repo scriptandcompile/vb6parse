@@ -44,6 +44,10 @@ pub enum WindowState {
     Maximized = 2,
 }
 
+/// Properties for a Form control. This is used as an enum variant of
+/// [VB6ControlKind::Form](crate::language::controls::VB6ControlKind::Form).
+/// tag, name, and index are not included in this struct, but instead are part
+/// of the parent [VB6Control](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct FormProperties<'a> {
     pub appearance: Appearance,

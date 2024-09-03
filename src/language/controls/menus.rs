@@ -11,6 +11,17 @@ pub struct VB6MenuControl<'a> {
     pub sub_menus: Vec<VB6MenuControl<'a>>,
 }
 
+/// Properties for a Menu control. This is used as an enum variant of
+/// [VB6ControlKind::Menu](crate::language::controls::VB6ControlKind::Menu).
+/// tag, name, and index are not included in this struct, but instead are part
+/// of the parent [VB6Control](crate::language::controls::VB6Control) struct.
+/// This is represented within the parsing code independently of
+/// [VB6MenuControl](crate::language::controls::VB6MenuControl)'s.
+///
+/// This currently redundant, but is included for the future where the correct
+/// behavior of a menu control only being a child of a form is enforced.
+///
+/// As is, the parser will not enforce this, but the VB6 IDE will.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct MenuProperties<'a> {
     pub caption: &'a str,

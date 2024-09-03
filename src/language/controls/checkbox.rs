@@ -13,6 +13,10 @@ pub enum CheckBoxValue {
     Grayed = 2,
 }
 
+/// Properties for a CheckBox control. This is used as an enum variant of
+/// [VB6ControlKind::CheckBox](crate::language::controls::VB6ControlKind::CheckBox).
+/// tag, name, and index are not included in this struct, but instead are part
+/// of the parent [VB6Control](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct CheckBoxProperties<'a> {
     pub alignment: JustifyAlignment,
