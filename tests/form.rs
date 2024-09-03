@@ -352,7 +352,6 @@ fn levels_effect_form_load() {
 }
 
 #[test]
-#[ignore]
 fn mandelbrot_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Mandelbrot/Mandelbrot.frm");
 
@@ -443,7 +442,6 @@ fn screen_capture_form_load() {
 }
 
 #[test]
-#[ignore]
 fn sepia_effect_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Sepia-effect/Sepia.frm");
 
