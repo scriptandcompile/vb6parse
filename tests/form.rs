@@ -262,7 +262,6 @@ fn game_physics_basic_form_load() {
 }
 
 #[test]
-#[ignore]
 fn gradient_2d_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Gradient-2D/Gradient.frm");
 
