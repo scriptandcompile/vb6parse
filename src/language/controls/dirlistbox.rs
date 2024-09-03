@@ -4,6 +4,10 @@ use crate::VB6Color;
 use image::DynamicImage;
 use serde::Serialize;
 
+/// Properties for a DirListBox control. This is used as an enum variant of
+/// [VB6ControlKind::DirListBox](crate::language::controls::VB6ControlKind::DirListBox).
+/// tag, name, and index are not included in this struct, but instead are part
+/// of the parent [VB6Control](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct DirListBoxProperties<'a> {
     pub appearance: Appearance,

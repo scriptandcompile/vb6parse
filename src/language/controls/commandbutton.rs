@@ -4,6 +4,10 @@ use crate::VB6Color;
 use image::DynamicImage;
 use serde::Serialize;
 
+/// Properties for a CommandButton control. This is used as an enum variant of
+/// [VB6ControlKind::CommandButton](crate::language::controls::VB6ControlKind::CommandButton).
+/// tag, name, and index are not included in this struct, but instead are part
+/// of the parent [VB6Control](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct CommandButtonProperties<'a> {
     pub appearance: Appearance,
