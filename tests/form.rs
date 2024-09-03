@@ -66,7 +66,6 @@ fn brightness_effect_part_2_form_load() {
 }
 
 #[test]
-#[ignore]
 fn brightness_effect_part_3_form_load() {
     let form_file_bytes =
         include_bytes!("./data/vb6-code/Brightness-effect/Part 3 - DIBs/Brightness3.frm");
@@ -83,7 +82,6 @@ fn brightness_effect_part_3_form_load() {
 }
 
 #[test]
-#[ignore]
 fn brightness_effect_part_4_form_load() {
     let form_file_bytes = include_bytes!(
         "./data/vb6-code/Brightness-effect/Part 4 - Even faster DIBs/Brightness.frm"
@@ -252,7 +250,6 @@ fn fire_effect_form_load() {
 }
 
 #[test]
-#[ignore]
 fn game_physics_basic_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Game-physics-basic/FormPhysics.frm");
 
@@ -299,7 +296,6 @@ fn grayscale_effect_form_load() {
 }
 
 #[test]
-#[ignore]
 fn hidden_markov_model_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Hidden-Markov-model/frmHMM.frm");
 
@@ -484,7 +480,6 @@ fn threshold_effect_form_load() {
 }
 
 #[test]
-#[ignore]
 fn transparency_2d_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Transparency-2D/frmTransparency.frm");
 
