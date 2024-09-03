@@ -12,6 +12,7 @@ use winnow::{
     ascii::{digit1, line_ending, space0, space1},
     combinator::{alt, delimited, eof, opt, separated_pair},
     error::ErrMode,
+    stream::Stream,
     token::{literal, take_while},
     Parser,
 };
@@ -116,7 +117,15 @@ pub fn key_value_line_parse<'a>(
     divider: &'static str,
 ) -> impl FnMut(&mut VB6Stream<'a>) -> VB6Result<(&'a BStr, &'a BStr)> {
     move |input: &mut VB6Stream<'a>| -> VB6Result<(&'a BStr, &'a BStr)> {
-        let (key, value) = key_value_parse(divider).parse_next(input)?;
+        let checkpoint = input.checkpoint();
+
+        let (key, value) = match key_value_parse(divider).parse_next(input) {
+            Ok((key, value)) => (key, value),
+            Err(e) => {
+                input.reset(&checkpoint);
+                return Err(e);
+            }
+        };
 
         // we have to check for eof here because it's perfectly possible to have a
         // header file that is empty of actual code. This means the last line of the file
@@ -128,12 +137,82 @@ pub fn key_value_line_parse<'a>(
     }
 }
 
+pub fn key_resource_offset_line_parse<'a>(
+    divider: &'static str,
+) -> impl FnMut(&mut VB6Stream<'a>) -> VB6Result<(&'a BStr, &'a BStr, &'a BStr)> {
+    move |input: &mut VB6Stream<'a>| -> VB6Result<(&'a BStr, &'a BStr, &'a BStr)> {
+        let checkpoint = input.checkpoint();
+
+        let (key, resource_file_name) = match separated_pair(
+            delimited(
+                space0,
+                take_while(1.., ('_', '-', '+', '&', 'a'..='z', 'A'..='Z', '0'..='9')),
+                space0,
+            ),
+            literal(divider),
+            delimited(
+                (space0, opt("$"), "\""),
+                take_while(1.., (' '..='!', '#'..='~', '\t')),
+                "\"",
+            ),
+        )
+        .parse_next(input)
+        {
+            Ok((key, resource_file_name)) => (key, resource_file_name),
+            Err(e) => {
+                input.reset(&checkpoint);
+                return Err(e);
+            }
+        };
+
+        let offset = match (":", take_while(1.., ('0'..='9', 'A'..='F'))).parse_next(input) {
+            Ok((_, offset)) => offset,
+            Err(e) => {
+                input.reset(&checkpoint);
+                return Err(e);
+            }
+        };
+
+        // we have to check for eof here because it's perfectly possible to have a
+        // header file that is empty of actual code. This means the last line of the file
+        // should be an empty line, but it might be that the filed ends at the end of the
+        // header attribute section.
+        (space0, opt(line_comment_parse), alt((line_ending, eof))).parse_next(input)?;
+
+        Ok((key, resource_file_name, offset))
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::parsers::VB6Stream;
 
     use super::HeaderKind;
+
+    #[test]
+    fn test_key_resource_offset_line_parse() {
+        let input_line = b"      Picture         =   \"Brightness.frx\":0000\r\n";
+        let mut stream = VB6Stream::new("", input_line);
+        let (key, resource_file_name, offset) =
+            key_resource_offset_line_parse("=")(&mut stream).unwrap();
+
+        assert_eq!(key, "Picture".as_bytes());
+        assert_eq!(resource_file_name, "Brightness.frx".as_bytes());
+        assert_eq!(offset, "0000".as_bytes());
+    }
+
+    #[test]
+    fn test_key_resource_offset_line_with_comment_parse() {
+        let input_line = b"      Picture         =   \"Brightness.frx\":0000\r\n";
+        let mut stream = VB6Stream::new("", input_line);
+        let (key, resource_file_name, offset) =
+            key_resource_offset_line_parse("=")(&mut stream).unwrap();
+
+        assert_eq!(key, "Picture".as_bytes());
+        assert_eq!(resource_file_name, "Brightness.frx".as_bytes());
+        assert_eq!(offset, "0000".as_bytes());
+    }
 
     #[test]
     fn test_class_version_parse() {

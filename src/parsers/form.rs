@@ -13,7 +13,10 @@ use crate::{
         VB6Control, VB6ControlKind, VB6MenuControl, VB6Token,
     },
     parsers::{
-        header::{key_value_line_parse, version_parse, HeaderKind, VB6FileFormatVersion},
+        header::{
+            key_resource_offset_line_parse, key_value_line_parse, version_parse, HeaderKind,
+            VB6FileFormatVersion,
+        },
         VB6Stream,
     },
     vb6::{keyword_parse, line_comment_parse, vb6_parse, VB6Result},
@@ -152,7 +155,9 @@ fn block_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Control<'a>> {
         if let Ok(property_group) = begin_property_parse.parse_next(input) {
             property_groups.push(property_group);
             continue;
-        } else if (space0, keyword_parse("BEGIN"), space1)
+        }
+
+        if (space0, keyword_parse("BEGIN"), space1)
             .parse_next(input)
             .is_ok()
         {
@@ -164,7 +169,9 @@ fn block_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Control<'a>> {
             }
 
             continue;
-        } else if (space0, keyword_parse("END"), space0, line_ending)
+        }
+
+        if (space0, keyword_parse("END"), space0, line_ending)
             .parse_next(input)
             .is_ok()
         {
@@ -178,9 +185,27 @@ fn block_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Control<'a>> {
                 Ok(control) => return Ok(control),
                 Err(err) => return Err(ErrMode::Cut(err)),
             };
-        } else {
-            let (name, value) = key_value_line_parse("=").parse_next(input)?;
+        }
 
+        if let Ok((name, _resource_file, _offset)) =
+            key_resource_offset_line_parse("=").parse_next(input)
+        {
+            // TODO: At the moment we just eat the resource file look up.
+            let Ok(name_ascii) = name.to_str() else {
+                return Err(ErrMode::Cut(VB6ErrorKind::PropertyNameAsciiConversionError));
+            };
+
+            // let Ok(value_ascii) = value.to_str() else {
+            //     return Err(ErrMode::Cut(
+            //         VB6ErrorKind::PropertyValueAsciiConversionError,
+            //     ));
+            // };
+
+            properties.insert(name_ascii, "");
+            continue;
+        }
+
+        if let Ok((name, value)) = key_value_line_parse("=").parse_next(input) {
             let Ok(name_ascii) = name.to_str() else {
                 return Err(ErrMode::Cut(VB6ErrorKind::PropertyNameAsciiConversionError));
             };
@@ -192,7 +217,10 @@ fn block_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Control<'a>> {
             };
 
             properties.insert(name_ascii, value_ascii);
+            continue;
         }
+
+        return Err(ErrMode::Cut(VB6ErrorKind::KeyValueParseError));
     }
 
     Err(ParserError::assert(input, "Unknown control kind"))
