@@ -201,6 +201,9 @@ pub enum VB6ErrorKind {
     #[error("Property value is not a valid ASCII string")]
     PropertyValueAsciiConversionError,
 
+    #[error("Key value pair format is incorrect")]
+    KeyValueParseError,
+
     #[error("Namespace is not a valid ASCII string")]
     NamespaceAsciiConversionError,
 
