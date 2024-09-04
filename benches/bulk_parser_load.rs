@@ -1,9 +1,10 @@
+use vb6parse::parsers::VB6ClassFile;
 use vb6parse::parsers::VB6Project;
 use vb6parse::parsers::VB6Stream;
 
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 
-fn criterion_benchmark(c: &mut Criterion) {
+fn project_benchmark(c: &mut Criterion) {
     let project_names = vec![
         "Artificial Life.vbp".to_owned(),
         "Blacklight.vbp".to_owned(),
@@ -88,5 +89,36 @@ fn criterion_benchmark(c: &mut Criterion) {
     });
 }
 
-criterion_group!(benches, criterion_benchmark);
+fn class_benchmark(c: &mut Criterion) {
+    let class_names = vec![
+        "FastDrawing.cls".to_owned(),
+        "pdOpenSaveDialog.cls".to_owned(),
+        "cCommonDialog.cls".to_owned(),
+        "cSystemColorDialog.cls".to_owned(),
+    ];
+
+    let classes = vec![
+        include_bytes!("../tests/data/vb6-code/Levels-effect/FastDrawing.cls").to_vec(),
+        include_bytes!("../tests/data/vb6-code/Levels-effect/pdOpenSaveDialog.cls").to_vec(),
+        include_bytes!("../tests/data/vb6-code/Randomize-effects/cCommonDialog.cls").to_vec(),
+        include_bytes!("../tests/data/vb6-code/Emboss-engrave-effect/cSystemColorDialog.cls")
+            .to_vec(),
+        include_bytes!("../tests/data/vb6-code/Artificial-life/Organism.cls").to_vec(),
+    ];
+
+    let class_pairs: Vec<(_, _)> = class_names.iter().zip(classes.iter()).collect();
+
+    c.bench_function("load multiple classes", |b| {
+        b.iter(|| {
+            for class_pair in &class_pairs {
+                black_box({
+                    let _class =
+                        VB6ClassFile::parse(class_pair.0.to_string(), &mut class_pair.1.as_slice());
+                });
+            }
+        })
+    });
+}
+
+criterion_group!(benches, project_benchmark, class_benchmark);
 criterion_main!(benches);

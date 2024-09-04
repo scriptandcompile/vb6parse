@@ -19,5 +19,5 @@ criterion = { version = "0.5.1", features = ["html_reports"] }
 insta = { version = "1.39.0", features = ["yaml"] }
 
 [[bench]]
-name = "project_load"
+name = "bulk_parser_load"
 harness = false
