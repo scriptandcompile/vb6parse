@@ -8,7 +8,7 @@ use winnow::{
 
 use core::{
     fmt::Debug,
-    iter::{Cloned, Enumerate, Iterator},
+    iter::{Copied, Enumerate, Iterator},
     num::NonZeroUsize,
     slice::Iter,
 };
@@ -290,11 +290,11 @@ impl<'a> StreamIsPartial for VB6Stream<'a> {
 impl<'a> Stream for VB6Stream<'a> {
     type Token = u8;
     type Slice = &'a bstr::BStr;
-    type IterOffsets = Enumerate<Cloned<Iter<'a, u8>>>;
+    type IterOffsets = Enumerate<Copied<Iter<'a, u8>>>;
     type Checkpoint = VB6StreamCheckpoint;
 
     fn iter_offsets(&self) -> Self::IterOffsets {
-        self.stream[self.index..].iter().cloned().enumerate()
+        self.stream[self.index..].iter().copied().enumerate()
     }
 
     fn eof_offset(&self) -> usize {
