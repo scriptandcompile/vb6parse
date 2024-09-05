@@ -21,3 +21,6 @@ insta = { version = "1.39.0", features = ["yaml"] }
 [[bench]]
 name = "bulk_parser_load"
 harness = false
+
+[lints.clippy]
+pedantic = "warn"

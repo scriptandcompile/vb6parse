@@ -1,5 +1,3 @@
-#![warn(clippy::pedantic)]
-
 use crate::{
     errors::VB6Error,
     language::VB6Token,
