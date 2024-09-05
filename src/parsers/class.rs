@@ -1,5 +1,3 @@
-#![warn(clippy::pedantic)]
-
 use bstr::{BStr, ByteSlice};
 
 use crate::{

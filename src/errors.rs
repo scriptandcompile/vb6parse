@@ -1,5 +1,3 @@
-#![warn(clippy::pedantic)]
-
 use std::fmt::{Debug, Display, Formatter};
 
 use winnow::{
@@ -316,7 +314,7 @@ impl<'a> ParserError<VB6Stream<'a>> for VB6Error {
 impl<'a> From<ParseError<VB6Stream<'a>, ContextError>> for VB6Error {
     fn from(err: ParseError<VB6Stream<'a>, ContextError>) -> Self {
         let input = err.input();
-        VB6Error::new(&input, VB6ErrorKind::WinnowParseError)
+        VB6Error::new(input, VB6ErrorKind::WinnowParseError)
     }
 }
 
