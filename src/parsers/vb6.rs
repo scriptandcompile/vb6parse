@@ -3,7 +3,7 @@ use bstr::BStr;
 use winnow::{
     ascii::{digit1, line_ending, space1, Caseless},
     combinator::{alt, delimited},
-    error::{ContextError, ErrMode, ParserError},
+    error::{ContextError, ErrMode},
     stream::Stream,
     token::{one_of, take_till, take_while},
     Parser,
@@ -23,6 +23,12 @@ pub type VB6Result<T> = Result<T, ErrMode<VB6ErrorKind>>;
 /// # Arguments
 ///
 /// * `input` - The input to parse.
+///
+/// # Errors
+///
+/// Will return an error if it is not able to parse a comment. This can happen
+/// if the comment is not terminated by a newline character, or if the comment
+/// lacks a single quote.
 ///
 /// # Returns
 ///
@@ -55,6 +61,10 @@ pub fn line_comment_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> 
 ///
 /// * `input` - The input to parse.
 ///
+/// # Errors
+///
+/// If the variable name is too long, it will return an error.
+///
 /// # Returns
 ///
 /// The VB6 variable name.
@@ -78,10 +88,7 @@ pub fn variable_name_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr>
         .parse_next(input)?;
 
     if variable_name.len() >= 255 {
-        return Err(ErrMode::Cut(ParserError::assert(
-            input,
-            "Variable name is too long.",
-        )));
+        return Err(ErrMode::Cut(VB6ErrorKind::VariableNameTooLong));
     }
 
     Ok(variable_name)
@@ -94,6 +101,10 @@ pub fn variable_name_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr>
 /// # Arguments
 ///
 /// * `keyword` - The keyword to parse.
+///
+/// # Errors
+///
+/// If the keyword is not found, it will return an error.
 ///
 /// # Returns
 ///
@@ -151,6 +162,10 @@ pub fn keyword_parse<'a>(
 /// # Returns
 ///
 /// A vector of VB6 tokens.
+///
+/// # Errors
+///
+/// If the parser encounters an unknown token, it will return an error.
 ///
 /// # Example
 ///
