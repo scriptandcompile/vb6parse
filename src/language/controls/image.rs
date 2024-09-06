@@ -5,10 +5,12 @@ use crate::language::controls::{
 use image::DynamicImage;
 use serde::Serialize;
 
-/// Properties for a Image control. This is used as an enum variant of
-/// [VB6ControlKind::Image](crate::language::controls::VB6ControlKind::Image).
+/// Properties for a `Image` control.
+///
+/// This is used as an enum variant of
+/// [`VB6ControlKind::Image`](crate::language::controls::VB6ControlKind::Image).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [VB6Control](crate::language::controls::VB6Control) struct.
+/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct ImageProperties<'a> {
     pub appearance: Appearance,

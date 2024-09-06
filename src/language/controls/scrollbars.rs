@@ -3,11 +3,13 @@ use crate::language::controls::{DragMode, MousePointer};
 use image::DynamicImage;
 use serde::Serialize;
 
-/// Properties for a ScrollBar control. This is used as an enum variant of
-/// either a [VB6ControlKind::HScrollBar](crate::language::controls::VB6ControlKind::HScrollBar)
-/// or a [VB6ControlKind::VScrollBar](crate::language::controls::VB6ControlKind::VScrollBar).
+/// Properties for a `ScrollBar` control.
+///
+/// This is used as an enum variant of
+/// either a [`VB6ControlKind::HScrollBar`](crate::language::controls::VB6ControlKind::HScrollBar)
+/// or a [`VB6ControlKind::VScrollBar`](crate::language::controls::VB6ControlKind::VScrollBar).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [VB6Control](crate::language::controls::VB6Control) struct.
+/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct ScrollBarProperties {
     pub causes_validation: bool,
