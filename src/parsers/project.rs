@@ -817,7 +817,7 @@ fn reference_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectReferen
     Ok(reference)
 }
 
-fn project_type_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<CompileTargetType> {
+fn project_type_parse(input: &mut VB6Stream<'_>) -> VB6Result<CompileTargetType> {
     // The first line of any VB6 project file (vbp) is a type line that
     // tells us what kind of project we have.
     // this should be in every project file, even an empty one, and it must
