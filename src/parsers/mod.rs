@@ -8,7 +8,7 @@ mod vb6stream;
 
 pub use class::{
     FileUsage, MtsStatus, Persistance, VB6ClassAttributes, VB6ClassFile, VB6ClassHeader,
-    VB6ClassProperties, VB6ClassVersion, VB6FileAttributes,
+    VB6ClassProperties, VB6ClassVersion,
 };
 
 pub use form::VB6FormFile;

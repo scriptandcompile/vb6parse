@@ -32,8 +32,8 @@ header:
       - 103
     global_name_space: Local
     creatable: "True"
-    pre_declared_id: false
-    exposed: false
+    pre_declared_id: "False"
+    exposed: "False"
 tokens:
   - Comment:
       - 39
