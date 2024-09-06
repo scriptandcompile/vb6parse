@@ -4,10 +4,12 @@ use crate::VB6Color;
 use image::DynamicImage;
 use serde::Serialize;
 
-/// Properties for a CommandButton control. This is used as an enum variant of
-/// [VB6ControlKind::CommandButton](crate::language::controls::VB6ControlKind::CommandButton).
+/// Properties for a `CommandButton` control.
+///
+/// This is used as an enum variant of
+/// [`VB6ControlKind::CommandButton`](crate::language::controls::VB6ControlKind::CommandButton).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [VB6Control](crate::language::controls::VB6Control) struct.
+/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct CommandButtonProperties<'a> {
     pub appearance: Appearance,
@@ -90,21 +92,21 @@ impl Serialize for CommandButtonProperties<'_> {
         s.serialize_field("causes_validation", &self.causes_validation)?;
         s.serialize_field("default", &self.default)?;
 
-        let option_text = match &self.disabled_picture {
+        let option_text = match self.disabled_picture {
             Some(_) => "Some(DynamicImage)",
             None => "None",
         };
 
         s.serialize_field("disabled_picture", &option_text)?;
 
-        let option_text = match &self.down_picture {
+        let option_text = match self.down_picture {
             Some(_) => "Some(DynamicImage)",
             None => "None",
         };
 
         s.serialize_field("down_picture", &option_text)?;
 
-        let option_text = match &self.drag_icon {
+        let option_text = match self.drag_icon {
             Some(_) => "Some(DynamicImage)",
             None => "None",
         };
@@ -117,7 +119,7 @@ impl Serialize for CommandButtonProperties<'_> {
         s.serialize_field("left", &self.left)?;
         s.serialize_field("mask_color", &self.mask_color)?;
 
-        let option_text = match &self.mouse_icon {
+        let option_text = match self.mouse_icon {
             Some(_) => "Some(DynamicImage)",
             None => "None",
         };
@@ -126,7 +128,7 @@ impl Serialize for CommandButtonProperties<'_> {
         s.serialize_field("mouse_pointer", &self.mouse_pointer)?;
         s.serialize_field("ole_drop_mode", &self.ole_drop_mode)?;
 
-        let option_text = match &self.picture {
+        let option_text = match self.picture {
             Some(_) => "Some(DynamicImage)",
             None => "None",
         };
