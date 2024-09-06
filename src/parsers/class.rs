@@ -131,7 +131,7 @@ pub struct VB6ClassProperties {
 pub struct VB6ClassHeader<'a> {
     pub version: VB6FileFormatVersion,
     pub properties: VB6ClassProperties,
-    pub attributes: VB6FileAttributes<'a>,
+    pub attributes: VB6ClassAttributes<'a>,
 }
 
 /// Represents if a class is in the global or local name space.
@@ -147,42 +147,76 @@ pub enum NameSpace {
 
 /// The creatable attribute is used to determine if the class can be created.
 ///
+/// If True, the class can be created from anywhere. The class is essentially public.
+/// If False, the class can only be created from within the class itself.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum Creatable {
     False,
     True,
 }
 
+/// Used to determine if the class has a pre-declared ID.
+///
+/// If True, the class has a pre-declared ID and can be accessed by
+/// the class name without creating an instance of the class.
+///
+/// If False, the class does not have a pre-declared ID and must be
+/// accessed by creating an instance of the class.
+///
+/// If True and the GlobalNameSpace is True, the class shares namespace
+/// access semantics with the VB6 intrinsic classes.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum PreDeclaredID {
     False,
     True,
 }
 
-/// Represents the attributes of a VB6 class file.
-/// The attributes contain the name, global name space, creatable, pre-declared id, and exposed.
+/// Used to determine if the class is exposed.
 ///
-/// None of these values are normally visible in the code editor region.
-/// They are only visible in the file property explorer.
+/// The VB_Exposed attribute is not normally visible in the code editor region.
+///
+/// ----------------------------------------------------------------------------
+///
+/// True is public and False is internal.
+/// Used in combination with the Creatable attribute to create a matrix of
+/// scoping behavior.
+///
+/// ----------------------------------------------------------------------------
+///
+/// Private (Default).
+///
+/// VB_Exposed = False and VB_Creatable = False.
+/// The class is accessible only within the enclosing project.
+///
+/// Instances of the class can only be created by modules contained within the
+/// project that defines the class.
+///
+/// ----------------------------------------------------------------------------
+///
+/// Public Not Creatable.
+///
+/// VB_Exposed = True and VB_Creatable = False.
+/// The class is accessible within the enclosing project and within projects
+/// that reference the enclosing project.
+///
+/// Instances of the class can only be created by modules within the enclosing
+/// project. Modules in other projects can reference the class name as a
+/// declared type but can’t instantiate the class using new or the
+/// CreateObject function.
+///
+/// ----------------------------------------------------------------------------
+///
+/// Public Creatable.
+///
+/// VB_Exposed = True and VB_Creatable = True.
+/// The class is accessible within the enclosing project and within the
+/// enclosing project and within projects that reference the enclosing project.
+///
+/// Any module that can access the class can create instances of it.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
-pub struct VB6ClassAttributes<'a> {
-    pub name: &'a [u8],                 // Attribute VB_Name = "Organism"
-    pub global_name_space: NameSpace,   // (True/False) Attribute VB_GlobalNameSpace = False
-    pub creatable: Creatable,           // (True/False) Attribute VB_Creatable = True
-    pub pre_declared_id: PreDeclaredID, // (True/False) Attribute VB_PredeclaredId = False
-    pub exposed: bool,                  // (True/False) Attribute VB_Exposed = False
-}
-
-impl Default for VB6ClassAttributes<'_> {
-    fn default() -> Self {
-        VB6ClassAttributes {
-            name: b"",
-            global_name_space: NameSpace::Local,
-            creatable: Creatable::True,
-            pre_declared_id: PreDeclaredID::False,
-            exposed: false,
-        }
-    }
+pub enum Exposed {
+    False,
+    True,
 }
 
 /// Represents a VB6 class file.
@@ -213,22 +247,22 @@ pub struct VB6ClassVersion {
 /// None of these values are normally visible in the code editor region.
 /// They are only visible in the file property explorer.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
-pub struct VB6FileAttributes<'a> {
+pub struct VB6ClassAttributes<'a> {
     pub name: &'a [u8],                 // Attribute VB_Name = "Organism"
     pub global_name_space: NameSpace,   // (True/False) Attribute VB_GlobalNameSpace = False
     pub creatable: Creatable,           // (True/False) Attribute VB_Creatable = True
     pub pre_declared_id: PreDeclaredID, // (True/False) Attribute VB_PredeclaredId = False
-    pub exposed: bool,                  // (True/False) Attribute VB_Exposed = False
+    pub exposed: Exposed,               // (True/False) Attribute VB_Exposed = False
 }
 
-impl Default for VB6FileAttributes<'_> {
+impl Default for VB6ClassAttributes<'_> {
     fn default() -> Self {
-        VB6FileAttributes {
+        VB6ClassAttributes {
             name: b"",
             global_name_space: NameSpace::Local,
             creatable: Creatable::True,
             pre_declared_id: PreDeclaredID::False,
-            exposed: false,
+            exposed: Exposed::False,
         }
     }
 }
@@ -442,14 +476,14 @@ fn properties_parse(input: &mut VB6Stream<'_>) -> VB6Result<VB6ClassProperties> 
     })
 }
 
-fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FileAttributes<'a>> {
+fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ClassAttributes<'a>> {
     let _ = space0::<_, VB6Error>.parse_next(input);
 
     let mut name = Option::None;
     let mut global_name_space = NameSpace::Local;
     let mut creatable = Creatable::True;
     let mut pre_declared_id = PreDeclaredID::False;
-    let mut exposed = false;
+    let mut exposed = Exposed::False;
 
     while let Ok((key, value)) =
         preceded(keyword_parse("Attribute"), key_value_line_parse("=")).parse_next(input)
@@ -487,9 +521,9 @@ fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FileAttribute
             }
             b"VB_Exposed" => {
                 if value == "True" {
-                    exposed = true;
+                    exposed = Exposed::True;
                 } else if value == "False" {
-                    exposed = false;
+                    exposed = Exposed::False;
                 } else {
                     return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueTrueFalse));
                 }
@@ -504,7 +538,7 @@ fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FileAttribute
         return Err(ErrMode::Cut(VB6ErrorKind::MissingClassName));
     }
 
-    Ok(VB6FileAttributes {
+    Ok(VB6ClassAttributes {
         name: name.unwrap(),
         global_name_space,
         creatable,
