@@ -451,13 +451,10 @@ fn build_control<'a>(
 fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyGroup<'a>> {
     (space0, keyword_parse("BeginProperty"), space1).parse_next(input)?;
 
-    let name = match take_till::<(u8, u8, u8, u8), _, VB6Error>(1.., (b'\r', b'\t', b' ', b'\n'))
+    let Ok(name) = take_till::<(u8, u8, u8, u8), _, VB6Error>(1.., (b'\r', b'\t', b' ', b'\n'))
         .parse_next(input)
-    {
-        Ok(name) => name,
-        Err(_) => {
-            return Err(ErrMode::Cut(VB6ErrorKind::NoPropertyName));
-        }
+    else {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoPropertyName));
     };
 
     let Ok(property_name) = name.to_str() else {
@@ -507,22 +504,16 @@ fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyG
 }
 
 fn begin_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FullyQualifiedName<'a>> {
-    let namespace = match take_until::<_, _, VB6Error>(0.., ".").parse_next(input) {
-        Ok(namespace) => namespace,
-        Err(_) => {
-            return Err(ErrMode::Cut(VB6ErrorKind::NoNamespaceAfterBegin));
-        }
+    let Ok(namespace) = take_until::<_, _, VB6Error>(0.., ".").parse_next(input) else {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoNamespaceAfterBegin));
     };
 
     if literal::<&str, _, VB6Error>(".").parse_next(input).is_err() {
         return Err(ErrMode::Cut(VB6ErrorKind::NoDotAfterNamespace));
     };
 
-    let kind = match take_until::<_, _, VB6Error>(0.., (" ", "\t")).parse_next(input) {
-        Ok(kind) => kind,
-        Err(_) => {
-            return Err(ErrMode::Cut(VB6ErrorKind::NoUserControlNameAfterDot));
-        }
+    let Ok(kind) = take_until::<_, _, VB6Error>(0.., (" ", "\t")).parse_next(input) else {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoUserControlNameAfterDot));
     };
 
     if space1::<_, VB6Error>.parse_next(input).is_err() {
