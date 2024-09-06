@@ -679,7 +679,7 @@ fn auto_refresh_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<bool> {
     Ok(result)
 }
 
-fn qouted_true_false_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<bool> {
+fn qouted_true_false_parse(input: &mut VB6Stream<'_>) -> VB6Result<bool> {
     let qoute = qouted_value("\"").parse_next(input)?;
 
     // 0 is false...and -1 is true.
