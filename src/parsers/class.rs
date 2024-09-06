@@ -31,13 +31,14 @@ pub enum FileUsage {
 }
 
 /// Represents the persistability of a file.
-/// Only available when the class is part of an ActiveX DLL project that is both
+///
+/// Only available when the class is part of an activeX DLL project that is both
 /// public and creatable.
 ///
 /// Determines whether the class can be saved to disk.
 ///
-/// If it is Persistable, four procedures: InitProperties, ReadProperties, and
-/// WriteProperties events, and the PropertyChanged method are automatically
+/// If it is `Persistable`, then four procedures: `InitProperties`, `ReadProperties`, and
+/// `WriteProperties` events, and the `PropertyChanged` method are automatically
 /// added to the class module.
 ///
 /// Without these procedures, the class cannot be saved to disk.
@@ -53,8 +54,8 @@ pub enum Persistance {
 
 /// Represents the MTS status of a file.
 ///
-/// Only available when the class is part of an ActiveX DLL project. This should
-/// be set to values other than NotAnMTSObject (0) if the class is to be used as
+/// Only available when the class is part of an activeX DLL project. This should
+/// be set to values other than `NotAnMTSObject` (0) if the class is to be used as
 /// a Microsoft Transaction Server component.
 ///
 /// Maps directly to the MTS transaction mode attribute in Microsoft Transaction
@@ -119,6 +120,7 @@ pub struct VB6ClassProperties {
 }
 
 /// Represents the header of a VB6 class file.
+///
 /// The header contains the version, multi use, persistable, data binding behavior,
 /// data source behavior, and MTS transaction mode.
 /// The header also contains the attributes of the class file.
