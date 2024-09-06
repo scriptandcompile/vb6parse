@@ -198,81 +198,7 @@ pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6Token<'a>>> 
             continue;
         }
 
-        // 'alt' only allows for a limited number of parsers to be passed in.
-        // so we need to chain the 'alt' parsers together.
-        let token = alt((
-            alt((
-                keyword_parse("Type").map(|token: &BStr| VB6Token::TypeKeyword(token)),
-                keyword_parse("Optional").map(|token: &BStr| VB6Token::OptionalKeyword(token)),
-                keyword_parse("Option").map(|token: &BStr| VB6Token::OptionKeyword(token)),
-                keyword_parse("Explicit").map(|token: &BStr| VB6Token::ExplicitKeyword(token)),
-                keyword_parse("Private").map(|token: &BStr| VB6Token::PrivateKeyword(token)),
-                keyword_parse("Public").map(|token: &BStr| VB6Token::PublicKeyword(token)),
-                keyword_parse("Dim").map(|token: &BStr| VB6Token::DimKeyword(token)),
-                keyword_parse("With").map(|token: &BStr| VB6Token::WithKeyword(token)),
-                keyword_parse("Declare").map(|token: &BStr| VB6Token::DeclareKeyword(token)),
-                keyword_parse("Lib").map(|token: &BStr| VB6Token::LibKeyword(token)),
-                keyword_parse("Const").map(|token: &BStr| VB6Token::ConstKeyword(token)),
-                keyword_parse("As").map(|token: &BStr| VB6Token::AsKeyword(token)),
-                keyword_parse("Enum").map(|token: &BStr| VB6Token::EnumKeyword(token)),
-                keyword_parse("Long").map(|token: &BStr| VB6Token::LongKeyword(token)),
-                keyword_parse("Integer").map(|token: &BStr| VB6Token::IntegerKeyword(token)),
-                keyword_parse("Boolean").map(|token: &BStr| VB6Token::BooleanKeyword(token)),
-                keyword_parse("Byte").map(|token: &BStr| VB6Token::ByteKeyword(token)),
-                keyword_parse("Single").map(|token: &BStr| VB6Token::SingleKeyword(token)),
-                keyword_parse("String").map(|token: &BStr| VB6Token::StringKeyword(token)),
-            )),
-            alt((
-                keyword_parse("True").map(|token: &BStr| VB6Token::TrueKeyword(token)),
-                keyword_parse("False").map(|token: &BStr| VB6Token::FalseKeyword(token)),
-                keyword_parse("Function").map(|token: &BStr| VB6Token::FunctionKeyword(token)),
-                keyword_parse("Sub").map(|token: &BStr| VB6Token::SubKeyword(token)),
-                keyword_parse("End").map(|token: &BStr| VB6Token::EndKeyword(token)),
-                keyword_parse("If").map(|token: &BStr| VB6Token::IfKeyword(token)),
-                keyword_parse("Else").map(|token: &BStr| VB6Token::ElseKeyword(token)),
-                keyword_parse("And").map(|token: &BStr| VB6Token::AndKeyword(token)),
-                keyword_parse("Or").map(|token: &BStr| VB6Token::OrKeyword(token)),
-                keyword_parse("Not").map(|token: &BStr| VB6Token::NotKeyword(token)),
-                keyword_parse("Then").map(|token: &BStr| VB6Token::ThenKeyword(token)),
-                keyword_parse("For").map(|token: &BStr| VB6Token::ForKeyword(token)),
-                keyword_parse("To").map(|token: &BStr| VB6Token::ToKeyword(token)),
-                keyword_parse("Step").map(|token: &BStr| VB6Token::StepKeyword(token)),
-                keyword_parse("Next").map(|token: &BStr| VB6Token::NextKeyword(token)),
-                keyword_parse("ReDim").map(|token: &BStr| VB6Token::ReDimKeyword(token)),
-                keyword_parse("ByVal").map(|token: &BStr| VB6Token::ByValKeyword(token)),
-                keyword_parse("ByRef").map(|token: &BStr| VB6Token::ByRefKeyword(token)),
-                keyword_parse("Goto").map(|token: &BStr| VB6Token::GotoKeyword(token)),
-                keyword_parse("Exit").map(|token: &BStr| VB6Token::ExitKeyword(token)),
-            )),
-            alt((
-                "=".map(|token: &BStr| VB6Token::EqualityOperator(token)),
-                "$".map(|token: &BStr| VB6Token::DollarSign(token)),
-                "_".map(|token: &BStr| VB6Token::Underscore(token)),
-                "&".map(|token: &BStr| VB6Token::Ampersand(token)),
-                "%".map(|token: &BStr| VB6Token::Percent(token)),
-                "#".map(|token: &BStr| VB6Token::Octothorpe(token)),
-                "<".map(|token: &BStr| VB6Token::LessThanOperator(token)),
-                ">".map(|token: &BStr| VB6Token::GreaterThanOperator(token)),
-                "(".map(|token: &BStr| VB6Token::LeftParanthesis(token)),
-                ")".map(|token: &BStr| VB6Token::RightParanthesis(token)),
-                ",".map(|token: &BStr| VB6Token::Comma(token)),
-                "+".map(|token: &BStr| VB6Token::AdditionOperator(token)),
-                "-".map(|token: &BStr| VB6Token::SubtractionOperator(token)),
-                "*".map(|token: &BStr| VB6Token::MultiplicationOperator(token)),
-                "\\".map(|token: &BStr| VB6Token::ForwardSlashOperator(token)),
-                "/".map(|token: &BStr| VB6Token::DivisionOperator(token)),
-                ".".map(|token: &BStr| VB6Token::PeriodOperator(token)),
-                ":".map(|token: &BStr| VB6Token::ColonOperator(token)),
-                "^".map(|token: &BStr| VB6Token::ExponentiationOperator(token)),
-                "!".map(|token: &BStr| VB6Token::ExclamationMark(token)),
-            )),
-            alt((
-                digit1.map(|token: &BStr| VB6Token::Number(token)),
-                variable_name_parse.map(|token: &BStr| VB6Token::VariableName(token)),
-                space1.map(|token: &BStr| VB6Token::Whitespace(token)),
-            )),
-        ))
-        .parse_next(input);
+        let token = vb6_token_parse.parse_next(input);
 
         if let Ok(token) = token {
             tokens.push(token);
@@ -283,6 +209,100 @@ pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6Token<'a>>> 
     }
 
     Ok(tokens)
+}
+
+fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
+    // 'alt' only allows for a limited number of parsers to be passed in.
+    // so we need to chain the 'alt' parsers together.
+    alt((
+        alt((
+            keyword_parse("Type").map(|token: &BStr| VB6Token::TypeKeyword(token)),
+            keyword_parse("Optional").map(|token: &BStr| VB6Token::OptionalKeyword(token)),
+            keyword_parse("Option").map(|token: &BStr| VB6Token::OptionKeyword(token)),
+            keyword_parse("Explicit").map(|token: &BStr| VB6Token::ExplicitKeyword(token)),
+            keyword_parse("Private").map(|token: &BStr| VB6Token::PrivateKeyword(token)),
+            keyword_parse("Public").map(|token: &BStr| VB6Token::PublicKeyword(token)),
+            keyword_parse("Dim").map(|token: &BStr| VB6Token::DimKeyword(token)),
+            keyword_parse("With").map(|token: &BStr| VB6Token::WithKeyword(token)),
+            keyword_parse("Declare").map(|token: &BStr| VB6Token::DeclareKeyword(token)),
+            keyword_parse("Lib").map(|token: &BStr| VB6Token::LibKeyword(token)),
+            keyword_parse("Const").map(|token: &BStr| VB6Token::ConstKeyword(token)),
+            keyword_parse("As").map(|token: &BStr| VB6Token::AsKeyword(token)),
+            keyword_parse("Enum").map(|token: &BStr| VB6Token::EnumKeyword(token)),
+            keyword_parse("Long").map(|token: &BStr| VB6Token::LongKeyword(token)),
+            keyword_parse("Integer").map(|token: &BStr| VB6Token::IntegerKeyword(token)),
+            keyword_parse("Boolean").map(|token: &BStr| VB6Token::BooleanKeyword(token)),
+            keyword_parse("Byte").map(|token: &BStr| VB6Token::ByteKeyword(token)),
+            keyword_parse("Single").map(|token: &BStr| VB6Token::SingleKeyword(token)),
+            keyword_parse("String").map(|token: &BStr| VB6Token::StringKeyword(token)),
+        )),
+        alt((
+            keyword_parse("True").map(|token: &BStr| VB6Token::TrueKeyword(token)),
+            keyword_parse("False").map(|token: &BStr| VB6Token::FalseKeyword(token)),
+            keyword_parse("Function").map(|token: &BStr| VB6Token::FunctionKeyword(token)),
+            keyword_parse("Sub").map(|token: &BStr| VB6Token::SubKeyword(token)),
+            keyword_parse("End").map(|token: &BStr| VB6Token::EndKeyword(token)),
+            keyword_parse("If").map(|token: &BStr| VB6Token::IfKeyword(token)),
+            keyword_parse("Else").map(|token: &BStr| VB6Token::ElseKeyword(token)),
+            keyword_parse("And").map(|token: &BStr| VB6Token::AndKeyword(token)),
+            keyword_parse("Or").map(|token: &BStr| VB6Token::OrKeyword(token)),
+            keyword_parse("Not").map(|token: &BStr| VB6Token::NotKeyword(token)),
+            keyword_parse("Then").map(|token: &BStr| VB6Token::ThenKeyword(token)),
+            keyword_parse("For").map(|token: &BStr| VB6Token::ForKeyword(token)),
+            keyword_parse("To").map(|token: &BStr| VB6Token::ToKeyword(token)),
+            keyword_parse("Step").map(|token: &BStr| VB6Token::StepKeyword(token)),
+            keyword_parse("Next").map(|token: &BStr| VB6Token::NextKeyword(token)),
+            keyword_parse("ReDim").map(|token: &BStr| VB6Token::ReDimKeyword(token)),
+            keyword_parse("ByVal").map(|token: &BStr| VB6Token::ByValKeyword(token)),
+            keyword_parse("ByRef").map(|token: &BStr| VB6Token::ByRefKeyword(token)),
+            keyword_parse("Goto").map(|token: &BStr| VB6Token::GotoKeyword(token)),
+            keyword_parse("Exit").map(|token: &BStr| VB6Token::ExitKeyword(token)),
+        )),
+    ))
+    .parse_next(input)
+}
+
+fn vb6_symbol_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
+    // 'alt' only allows for a limited number of parsers to be passed in.
+    // so we need to chain the 'alt' parsers together.
+    alt((
+        "=".map(|token: &BStr| VB6Token::EqualityOperator(token)),
+        "$".map(|token: &BStr| VB6Token::DollarSign(token)),
+        "_".map(|token: &BStr| VB6Token::Underscore(token)),
+        "&".map(|token: &BStr| VB6Token::Ampersand(token)),
+        "%".map(|token: &BStr| VB6Token::Percent(token)),
+        "#".map(|token: &BStr| VB6Token::Octothorpe(token)),
+        "<".map(|token: &BStr| VB6Token::LessThanOperator(token)),
+        ">".map(|token: &BStr| VB6Token::GreaterThanOperator(token)),
+        "(".map(|token: &BStr| VB6Token::LeftParanthesis(token)),
+        ")".map(|token: &BStr| VB6Token::RightParanthesis(token)),
+        ",".map(|token: &BStr| VB6Token::Comma(token)),
+        "+".map(|token: &BStr| VB6Token::AdditionOperator(token)),
+        "-".map(|token: &BStr| VB6Token::SubtractionOperator(token)),
+        "*".map(|token: &BStr| VB6Token::MultiplicationOperator(token)),
+        "\\".map(|token: &BStr| VB6Token::ForwardSlashOperator(token)),
+        "/".map(|token: &BStr| VB6Token::DivisionOperator(token)),
+        ".".map(|token: &BStr| VB6Token::PeriodOperator(token)),
+        ":".map(|token: &BStr| VB6Token::ColonOperator(token)),
+        "^".map(|token: &BStr| VB6Token::ExponentiationOperator(token)),
+        "!".map(|token: &BStr| VB6Token::ExclamationMark(token)),
+    ))
+    .parse_next(input)
+}
+
+fn vb6_token_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
+    // 'alt' only allows for a limited number of parsers to be passed in.
+    // so we need to chain the 'alt' parsers together.
+    alt((
+        vb6_keyword_parse,
+        vb6_symbol_parse,
+        alt((
+            digit1.map(|token: &BStr| VB6Token::Number(token)),
+            variable_name_parse.map(|token: &BStr| VB6Token::VariableName(token)),
+            space1.map(|token: &BStr| VB6Token::Whitespace(token)),
+        )),
+    ))
+    .parse_next(input)
 }
 
 #[cfg(test)]
