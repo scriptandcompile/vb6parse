@@ -30,8 +30,8 @@ header:
       - 108
       - 111
       - 103
-    global_name_space: false
-    creatable: true
+    global_name_space: Local
+    creatable: "True"
     pre_declared_id: false
     exposed: false
 tokens:
