@@ -127,6 +127,10 @@ impl<'a> VB6Project<'a> {
     ///
     /// This function can return a `VB6Error` if the input is not a valid VB6 project file.
     ///
+    /// # Panics
+    ///
+    /// This function can panic if the input is not a valid VB6 project file.
+    ///
     /// # Example
     ///
     /// ```rust
