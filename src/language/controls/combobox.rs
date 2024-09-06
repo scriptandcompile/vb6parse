@@ -12,10 +12,10 @@ pub enum ComboBoxStyle {
     DropDownList = 2,
 }
 
-/// Properties for a ComboBox control. This is used as an enum variant of
-/// [VB6ControlKind::ComboBox](crate::language::controls::VB6ControlKind::ComboBox).
+/// Properties for a `ComboBox` control. This is used as an enum variant of
+/// [`VB6ControlKind::ComboBox`](crate::language::controls::VB6ControlKind::ComboBox).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [VB6Control](crate::language::controls::VB6Control) struct.
+/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct ComboBoxProperties<'a> {
     pub appearance: Appearance,
@@ -109,10 +109,7 @@ impl Serialize for ComboBoxProperties<'_> {
         s.serialize_field("data_member", &self.data_member)?;
         s.serialize_field("data_source", &self.data_source)?;
 
-        let option_text = match self.drag_icon {
-            Some(_) => Some("Some(DynamicImage)"),
-            None => None,
-        };
+        let option_text = self.drag_icon.as_ref().map(|_| "Some(DynamicImage)");
 
         s.serialize_field("drag_icon", &option_text)?;
         s.serialize_field("drag_mode", &self.drag_mode)?;
@@ -126,10 +123,7 @@ impl Serialize for ComboBoxProperties<'_> {
         //s.serialize_field("list", &self.list)?;
         s.serialize_field("locked", &self.locked)?;
 
-        let option_text = match self.mouse_icon {
-            Some(_) => Some("Some(DynamicImage)"),
-            None => None,
-        };
+        let option_text = self.mouse_icon.as_ref().map(|_| "Some(DynamicImage)");
 
         s.serialize_field("mouse_icon", &option_text)?;
         s.serialize_field("mouse_pointer", &self.mouse_pointer)?;
