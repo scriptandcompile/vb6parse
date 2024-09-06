@@ -153,6 +153,12 @@ pub enum Creatable {
     True,
 }
 
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+pub enum PreDeclaredID {
+    False,
+    True,
+}
+
 /// Represents the attributes of a VB6 class file.
 /// The attributes contain the name, global name space, creatable, pre-declared id, and exposed.
 ///
@@ -160,11 +166,11 @@ pub enum Creatable {
 /// They are only visible in the file property explorer.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct VB6ClassAttributes<'a> {
-    pub name: &'a [u8],               // Attribute VB_Name = "Organism"
-    pub global_name_space: NameSpace, // (True/False) Attribute VB_GlobalNameSpace = False
-    pub creatable: Creatable,         // (True/False) Attribute VB_Creatable = True
-    pub pre_declared_id: bool,        // (True/False) Attribute VB_PredeclaredId = False
-    pub exposed: bool,                // (True/False) Attribute VB_Exposed = False
+    pub name: &'a [u8],                 // Attribute VB_Name = "Organism"
+    pub global_name_space: NameSpace,   // (True/False) Attribute VB_GlobalNameSpace = False
+    pub creatable: Creatable,           // (True/False) Attribute VB_Creatable = True
+    pub pre_declared_id: PreDeclaredID, // (True/False) Attribute VB_PredeclaredId = False
+    pub exposed: bool,                  // (True/False) Attribute VB_Exposed = False
 }
 
 impl Default for VB6ClassAttributes<'_> {
@@ -173,7 +179,7 @@ impl Default for VB6ClassAttributes<'_> {
             name: b"",
             global_name_space: NameSpace::Local,
             creatable: Creatable::True,
-            pre_declared_id: false,
+            pre_declared_id: PreDeclaredID::False,
             exposed: false,
         }
     }
@@ -208,11 +214,11 @@ pub struct VB6ClassVersion {
 /// They are only visible in the file property explorer.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct VB6FileAttributes<'a> {
-    pub name: &'a [u8],               // Attribute VB_Name = "Organism"
-    pub global_name_space: NameSpace, // (True/False) Attribute VB_GlobalNameSpace = False
-    pub creatable: Creatable,         // (True/False) Attribute VB_Creatable = True
-    pub pre_declared_id: bool,        // (True/False) Attribute VB_PredeclaredId = False
-    pub exposed: bool,                // (True/False) Attribute VB_Exposed = False
+    pub name: &'a [u8],                 // Attribute VB_Name = "Organism"
+    pub global_name_space: NameSpace,   // (True/False) Attribute VB_GlobalNameSpace = False
+    pub creatable: Creatable,           // (True/False) Attribute VB_Creatable = True
+    pub pre_declared_id: PreDeclaredID, // (True/False) Attribute VB_PredeclaredId = False
+    pub exposed: bool,                  // (True/False) Attribute VB_Exposed = False
 }
 
 impl Default for VB6FileAttributes<'_> {
@@ -221,7 +227,7 @@ impl Default for VB6FileAttributes<'_> {
             name: b"",
             global_name_space: NameSpace::Local,
             creatable: Creatable::True,
-            pre_declared_id: false,
+            pre_declared_id: PreDeclaredID::False,
             exposed: false,
         }
     }
@@ -441,8 +447,8 @@ fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FileAttribute
 
     let mut name = Option::None;
     let mut global_name_space = NameSpace::Local;
-    let mut creatable = Creatable::False;
-    let mut pre_declared_id = false;
+    let mut creatable = Creatable::True;
+    let mut pre_declared_id = PreDeclaredID::False;
     let mut exposed = false;
 
     while let Ok((key, value)) =
@@ -472,9 +478,9 @@ fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FileAttribute
             }
             b"VB_PredeclaredId" => {
                 if value == "True" {
-                    pre_declared_id = true;
+                    pre_declared_id = PreDeclaredID::True;
                 } else if value == "False" {
-                    pre_declared_id = false;
+                    pre_declared_id = PreDeclaredID::False;
                 } else {
                     return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueTrueFalse));
                 }
