@@ -145,6 +145,14 @@ pub enum NameSpace {
     Local,
 }
 
+/// The creatable attribute is used to determine if the class can be created.
+///
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+pub enum Creatable {
+    False,
+    True,
+}
+
 /// Represents the attributes of a VB6 class file.
 /// The attributes contain the name, global name space, creatable, pre-declared id, and exposed.
 ///
@@ -154,7 +162,7 @@ pub enum NameSpace {
 pub struct VB6ClassAttributes<'a> {
     pub name: &'a [u8],               // Attribute VB_Name = "Organism"
     pub global_name_space: NameSpace, // (True/False) Attribute VB_GlobalNameSpace = False
-    pub creatable: bool,              // (True/False) Attribute VB_Creatable = True
+    pub creatable: Creatable,         // (True/False) Attribute VB_Creatable = True
     pub pre_declared_id: bool,        // (True/False) Attribute VB_PredeclaredId = False
     pub exposed: bool,                // (True/False) Attribute VB_Exposed = False
 }
@@ -164,7 +172,7 @@ impl Default for VB6ClassAttributes<'_> {
         VB6ClassAttributes {
             name: b"",
             global_name_space: NameSpace::Local,
-            creatable: true,
+            creatable: Creatable::True,
             pre_declared_id: false,
             exposed: false,
         }
@@ -202,7 +210,7 @@ pub struct VB6ClassVersion {
 pub struct VB6FileAttributes<'a> {
     pub name: &'a [u8],               // Attribute VB_Name = "Organism"
     pub global_name_space: NameSpace, // (True/False) Attribute VB_GlobalNameSpace = False
-    pub creatable: bool,              // (True/False) Attribute VB_Creatable = True
+    pub creatable: Creatable,         // (True/False) Attribute VB_Creatable = True
     pub pre_declared_id: bool,        // (True/False) Attribute VB_PredeclaredId = False
     pub exposed: bool,                // (True/False) Attribute VB_Exposed = False
 }
@@ -212,7 +220,7 @@ impl Default for VB6FileAttributes<'_> {
         VB6FileAttributes {
             name: b"",
             global_name_space: NameSpace::Local,
-            creatable: true,
+            creatable: Creatable::True,
             pre_declared_id: false,
             exposed: false,
         }
@@ -433,7 +441,7 @@ fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FileAttribute
 
     let mut name = Option::None;
     let mut global_name_space = NameSpace::Local;
-    let mut creatable = false;
+    let mut creatable = Creatable::False;
     let mut pre_declared_id = false;
     let mut exposed = false;
 
@@ -455,9 +463,9 @@ fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FileAttribute
             }
             b"VB_Creatable" => {
                 if value == "True" {
-                    creatable = true;
+                    creatable = Creatable::True;
                 } else if value == "False" {
-                    creatable = false;
+                    creatable = Creatable::False;
                 } else {
                     return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueTrueFalse));
                 }
