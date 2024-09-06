@@ -37,6 +37,10 @@ impl<'a> VB6ModuleFile<'a> {
     ///
     /// An error will be returned if the input is not a valid VB6 module file.
     ///
+    /// # Panics
+    ///
+    /// This function will panic if the source code is not a valid module file.
+    ///
     /// # Example
     ///
     /// ```rust
