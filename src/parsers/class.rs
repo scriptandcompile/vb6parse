@@ -137,8 +137,8 @@ pub struct VB6ClassHeader<'a> {
 /// Represents if a class is in the global or local name space.
 ///
 /// The global name space is the default name space for a class.
-/// In the file, VB_GlobalNameSpace of 'False' means the class is in the local name space.
-/// VB_GlobalNameSpace of 'True' means the class is in the global name space.
+/// In the file, `VB_GlobalNameSpace` of 'False' means the class is in the local name space.
+/// `VB_GlobalNameSpace` of 'True' means the class is in the global name space.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum NameSpace {
     Global,
@@ -163,7 +163,7 @@ pub enum Creatable {
 /// If False, the class does not have a pre-declared ID and must be
 /// accessed by creating an instance of the class.
 ///
-/// If True and the GlobalNameSpace is True, the class shares namespace
+/// If True and the `VB_GlobalNameSpace` is True, the class shares namespace
 /// access semantics with the VB6 intrinsic classes.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum PreDeclaredID {
@@ -173,7 +173,7 @@ pub enum PreDeclaredID {
 
 /// Used to determine if the class is exposed.
 ///
-/// The VB_Exposed attribute is not normally visible in the code editor region.
+/// The `VB_Exposed` attribute is not normally visible in the code editor region.
 ///
 /// ----------------------------------------------------------------------------
 ///
@@ -185,7 +185,7 @@ pub enum PreDeclaredID {
 ///
 /// Private (Default).
 ///
-/// VB_Exposed = False and VB_Creatable = False.
+/// `VB_Exposed` = False and `VB_Creatable` = False.
 /// The class is accessible only within the enclosing project.
 ///
 /// Instances of the class can only be created by modules contained within the
@@ -195,20 +195,20 @@ pub enum PreDeclaredID {
 ///
 /// Public Not Creatable.
 ///
-/// VB_Exposed = True and VB_Creatable = False.
+/// `VB_Exposed` = True and `VB_Creatable` = False.
 /// The class is accessible within the enclosing project and within projects
 /// that reference the enclosing project.
 ///
 /// Instances of the class can only be created by modules within the enclosing
 /// project. Modules in other projects can reference the class name as a
 /// declared type but can’t instantiate the class using new or the
-/// CreateObject function.
+/// `CreateObject` function.
 ///
 /// ----------------------------------------------------------------------------
 ///
 /// Public Creatable.
 ///
-/// VB_Exposed = True and VB_Creatable = True.
+/// `VB_Exposed` = True and `VB_Creatable` = True.
 /// The class is accessible within the enclosing project and within the
 /// enclosing project and within projects that reference the enclosing project.
 ///
