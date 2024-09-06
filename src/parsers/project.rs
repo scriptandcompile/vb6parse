@@ -638,7 +638,7 @@ impl<'a> VB6Project<'a> {
     }
 }
 
-fn true_false_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<bool> {
+fn true_false_parse(input: &mut VB6Stream<'_>) -> VB6Result<bool> {
     // 0 is false...and -1 is true.
     // Why vb6? What are you like this? Who hurt you?
     let result = alt(('0'.value(false), "-1".value(true))).parse_next(input)?;
