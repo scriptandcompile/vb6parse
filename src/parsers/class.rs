@@ -395,7 +395,7 @@ fn properties_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ClassProperti
                 } else if value == "3" {
                     mts_transaction_mode = MtsStatus::UsesTransaction;
                 } else if value == "4" {
-                    mts_transaction_mode = MtsStatus::RequiresNewTransaction
+                    mts_transaction_mode = MtsStatus::RequiresNewTransaction;
                 } else {
                     return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueZeroNegOne));
                 }
