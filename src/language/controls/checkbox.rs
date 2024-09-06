@@ -13,10 +13,12 @@ pub enum CheckBoxValue {
     Grayed = 2,
 }
 
-/// Properties for a CheckBox control. This is used as an enum variant of
-/// [VB6ControlKind::CheckBox](crate::language::controls::VB6ControlKind::CheckBox).
+/// Properties for a `CheckBox` control.
+///
+/// This is used as an enum variant of
+/// [`VB6ControlKind::CheckBox`](crate::language::controls::VB6ControlKind::CheckBox).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [VB6Control](crate::language::controls::VB6Control) struct.
+/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct CheckBoxProperties<'a> {
     pub alignment: JustifyAlignment,
@@ -114,24 +116,15 @@ impl Serialize for CheckBoxProperties<'_> {
         state.serialize_field("data_member", &self.data_member)?;
         state.serialize_field("data_source", &self.data_source)?;
 
-        let option_text = match self.disabled_picture {
-            Some(_) => Some("Some(DynamicImage)"),
-            None => None,
-        };
+        let option_text = self.disabled_picture.as_ref().map(|_| "Some(DynamicImage)");
 
         state.serialize_field("disabled_picture", &option_text)?;
 
-        let option_text = match self.down_picture {
-            Some(_) => Some("Some(DynamicImage)"),
-            None => None,
-        };
+        let option_text = self.down_picture.as_ref().map(|_| "Some(DynamicImage)");
 
         state.serialize_field("down_picture", &option_text)?;
 
-        let option_text = match self.drag_icon {
-            Some(_) => Some("Some(DynamicImage)"),
-            None => None,
-        };
+        let option_text = self.drag_icon.as_ref().map(|_| "Some(DynamicImage)");
 
         state.serialize_field("drag_icon", &option_text)?;
         state.serialize_field("drag_mode", &self.drag_mode)?;
@@ -142,19 +135,13 @@ impl Serialize for CheckBoxProperties<'_> {
         state.serialize_field("left", &self.left)?;
         state.serialize_field("mask_color", &self.mask_color)?;
 
-        let option_text = match self.mouse_icon {
-            Some(_) => Some("Some(DynamicImage)"),
-            None => None,
-        };
+        let option_text = self.mouse_icon.as_ref().map(|_| "Some(DynamicImage)");
 
         state.serialize_field("mouse_icon", &option_text)?;
         state.serialize_field("mouse_pointer", &self.mouse_pointer)?;
         state.serialize_field("ole_drop_mode", &self.ole_drop_mode)?;
 
-        let option_text = match self.picture {
-            Some(_) => Some("Some(DynamicImage)"),
-            None => None,
-        };
+        let option_text = self.picture.as_ref().map(|_| "Some(DynamicImage)");
 
         state.serialize_field("picture", &option_text)?;
         state.serialize_field("right_to_left", &self.right_to_left)?;
@@ -168,6 +155,7 @@ impl Serialize for CheckBoxProperties<'_> {
         state.serialize_field("visible", &self.visible)?;
         state.serialize_field("whats_this_help_id", &self.whats_this_help_id)?;
         state.serialize_field("width", &self.width)?;
+
         state.end()
     }
 }
