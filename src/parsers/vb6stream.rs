@@ -43,6 +43,7 @@ impl Offset<VB6StreamCheckpoint> for VB6Stream<'_> {
 }
 
 impl<'a> VB6Stream<'a> {
+    #[must_use]
     pub fn new(file_name: impl Into<String>, stream: &'a [u8]) -> Self {
         Self {
             file_name: file_name.into(),
@@ -53,10 +54,12 @@ impl<'a> VB6Stream<'a> {
         }
     }
 
+    #[must_use]
     pub fn is_empty(&self) -> bool {
         self.stream.len() == self.index
     }
 
+    #[must_use]
     pub fn error(&self, kind: VB6ErrorKind) -> VB6Error {
         VB6Error::new(self, kind)
     }
