@@ -53,7 +53,8 @@ pub struct VB6Control<'a> {
     pub kind: VB6ControlKind<'a>,
 }
 
-/// The VB6Kind determines the specific kind of control that the VB6Control represents.
+/// The `VB6ControlKind` determines the specific kind of control that the `VB6Control` represents.
+///
 /// Each variant contains the properties that are specific to that kind of control.
 #[derive(Debug, PartialEq, Clone, Serialize)]
 pub enum VB6ControlKind<'a> {
@@ -127,6 +128,7 @@ pub enum VB6ControlKind<'a> {
 }
 
 impl<'a> VB6ControlKind<'a> {
+    #[must_use]
     pub fn is_menu(&self) -> bool {
         matches!(self, VB6ControlKind::Menu { .. })
     }
@@ -299,7 +301,7 @@ pub enum MousePointer {
     /// Duplicate of Size (5).
     SizeAll = 15,
     /// Uses the icon specified by the `MouseIcon` property.
-    /// If the MouseIcon property is not set, the behavior is the same as the Default setting.
+    /// If the `MouseIcon` property is not set, the behavior is the same as the Default setting.
     /// This is a duplicate of Icon (4).
     Custom = 99,
 }
