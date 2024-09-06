@@ -12,7 +12,9 @@ pub enum ComboBoxStyle {
     DropDownList = 2,
 }
 
-/// Properties for a `ComboBox` control. This is used as an enum variant of
+/// Properties for a `ComboBox` control.
+///
+/// This is used as an enum variant of
 /// [`VB6ControlKind::ComboBox`](crate::language::controls::VB6ControlKind::ComboBox).
 /// tag, name, and index are not included in this struct, but instead are part
 /// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
