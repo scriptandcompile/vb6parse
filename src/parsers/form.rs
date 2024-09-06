@@ -39,7 +39,7 @@ pub struct VB6FormFile<'a> {
     pub tokens: Vec<VB6Token<'a>>,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Copy)]
 struct VB6FullyQualifiedName<'a> {
     pub namespace: &'a str,
     pub kind: &'a str,
