@@ -32,7 +32,7 @@ header:
       - 108
       - 111
       - 103
-    global_name_space: false
+    global_name_space: Local
     creatable: true
     pre_declared_id: false
     exposed: false
