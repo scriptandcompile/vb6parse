@@ -7,10 +7,12 @@ use crate::VB6Color;
 use image::DynamicImage;
 use serde::Serialize;
 
-/// Properties for a PictureBox control. This is used as an enum variant of
-/// [VB6ControlKind::PictureBox](crate::language::controls::VB6ControlKind::PictureBox).
+/// Properties for a `PictureBox` control.
+///
+/// This is used as an enum variant of
+/// [`VB6ControlKind::PictureBox`](crate::language::controls::VB6ControlKind::PictureBox).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [VB6Control](crate::language::controls::VB6Control) struct.
+/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct PictureBoxProperties<'a> {
     pub align: Align,

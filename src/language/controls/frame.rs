@@ -8,10 +8,12 @@ use crate::parsers::form::VB6PropertyGroup;
 use image::DynamicImage;
 use serde::Serialize;
 
-/// Properties for a Frame control. This is used as an enum variant of
-/// [VB6ControlKind::Frame](crate::language::controls::VB6ControlKind::Frame).
+/// Properties for a `Frame` control.
+///
+/// This is used as an enum variant of
+/// [`VB6ControlKind::Frame`](crate::language::controls::VB6ControlKind::Frame).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [VB6Control](crate::language::controls::VB6Control) struct.
+/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct FrameProperties<'a> {
     pub appearance: Appearance,
