@@ -53,9 +53,8 @@ pub struct VB6Control<'a> {
     pub kind: VB6ControlKind<'a>,
 }
 
-/// Represents a VB6 control kind.
-/// A VB6 control kind is an enumeration of the different kinds of
-/// standard VB6 controls.
+/// The VB6Kind determines the specific kind of control that the VB6Control represents.
+/// Each variant contains the properties that are specific to that kind of control.
 #[derive(Debug, PartialEq, Clone, Serialize)]
 pub enum VB6ControlKind<'a> {
     CommandButton {
@@ -231,7 +230,7 @@ pub enum DrawMode {
     Nop = 11,
     /// The combinaton of the display color and the inverse of the pen color.
     MergeNotPen = 12,
-    /// The color specified by the ForeColor property is applied over the background.
+    /// The color specified by the `ForeColor` property is applied over the background.
     /// This is the default setting.
     CopyPen = 13,
     /// The combination of the pen color and inverse of the display color.
@@ -272,8 +271,8 @@ pub enum MousePointer {
     Cross = 2,
     /// I-beam pointer.
     IBeam = 3,
-    /// Icon pointer. The image is determined by the MouseIcon property.
-    /// If the MouseIcon property is not set, the behavior is the same as the Default setting.
+    /// Icon pointer. The image is determined by the `MouseIcon` property.
+    /// If the `MouseIcon` property is not set, the behavior is the same as the Default setting.
     /// This is a duplicate of Custom (99).
     Icon = 4,
     /// Size all cursor (arrows pointing north, south, east, and west).
@@ -302,7 +301,7 @@ pub enum MousePointer {
     /// This cursor is used to indicate that the control can be resized in any direction.
     /// Duplicate of Size (5).
     SizeAll = 15,
-    /// Uses the icon specified by the MouseIcon property.
+    /// Uses the icon specified by the `MouseIcon` property.
     /// If the MouseIcon property is not set, the behavior is the same as the Default setting.
     /// This is a duplicate of Icon (4).
     Custom = 99,
