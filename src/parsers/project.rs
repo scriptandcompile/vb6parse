@@ -670,7 +670,7 @@ fn title_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
     Ok(title)
 }
 
-fn auto_refresh_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<bool> {
+fn auto_refresh_parse(input: &mut VB6Stream<'_>) -> VB6Result<bool> {
     // 0 is false...and 1 is true.
     // Of course, VB6 being VB6, this is the only entry that does something different.
     // le sigh.
