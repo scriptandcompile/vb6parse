@@ -238,6 +238,9 @@ pub enum VB6ErrorKind {
     #[error("Visible can only be 0 (false) or a 1 (true)")]
     VisiblePropertyInvalid,
 
+    #[error("Variable names must be less than 255 characters in VB6.")]
+    VariableNameTooLong,
+
     #[error("Winnow Error")]
     WinnowParseError,
 }
