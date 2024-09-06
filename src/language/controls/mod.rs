@@ -128,10 +128,7 @@ pub enum VB6ControlKind<'a> {
 
 impl<'a> VB6ControlKind<'a> {
     pub fn is_menu(&self) -> bool {
-        match self {
-            VB6ControlKind::Menu { .. } => true,
-            _ => false,
-        }
+        matches!(self, VB6ControlKind::Menu { .. })
     }
 }
 
