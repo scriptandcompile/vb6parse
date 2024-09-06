@@ -828,18 +828,14 @@ fn project_type_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<CompileTargetT
     //
     // By this point in the parse the "Type=" component should be stripped off
     // since that is how we knew to use this particular parse.
-    let project_type = match alt::<_, CompileTargetType, VB6ErrorKind, _>((
+    let Ok(project_type) = alt::<_, CompileTargetType, VB6ErrorKind, _>((
         "Exe".value(CompileTargetType::Exe),
         "Control".value(CompileTargetType::Control),
         "OleExe".value(CompileTargetType::OleExe),
         "OleDll".value(CompileTargetType::OleDll),
     ))
-    .parse_next(input)
-    {
-        Ok(type_project) => type_project,
-        Err(_) => {
-            return Err(ErrMode::Cut(VB6ErrorKind::ProjectTypeUnknown));
-        }
+    .parse_next(input) else {
+        return Err(ErrMode::Cut(VB6ErrorKind::ProjectTypeUnknown));
     };
 
     Ok(project_type)
