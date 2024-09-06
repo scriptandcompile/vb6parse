@@ -22,7 +22,7 @@ header:
       - 105
       - 115
       - 109
-    global_name_space: false
+    global_name_space: Local
     creatable: true
     pre_declared_id: false
     exposed: false
