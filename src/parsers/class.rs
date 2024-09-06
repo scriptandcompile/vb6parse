@@ -341,7 +341,7 @@ fn properties_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ClassProperti
     let (collection, _): (Vec<(&BStr, &BStr)>, _) =
         repeat_till(0.., key_value_line_parse("="), end_line_parse).parse_next(input)?;
 
-    for pair in collection.iter() {
+    for pair in &collection {
         let (key, value) = *pair;
 
         match key.as_bytes() {
