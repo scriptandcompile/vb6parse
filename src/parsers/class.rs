@@ -329,7 +329,7 @@ fn end_line_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
 /// # Returns
 ///
 /// A result containing the parsed VB6 class file properties or an error.
-fn properties_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ClassProperties> {
+fn properties_parse(input: &mut VB6Stream<'_>) -> VB6Result<VB6ClassProperties> {
     begin_line_parse.parse_next(input)?;
 
     let mut multi_use = FileUsage::MultiUse;
