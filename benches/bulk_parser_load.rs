@@ -1,7 +1,6 @@
 use vb6parse::parsers::VB6ClassFile;
 use vb6parse::parsers::VB6ModuleFile;
 use vb6parse::parsers::VB6Project;
-use vb6parse::parsers::VB6Stream;
 
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 
@@ -82,8 +81,7 @@ fn project_benchmark(c: &mut Criterion) {
         b.iter(|| {
             for project_pair in &project_pairs {
                 black_box({
-                    let mut stream = VB6Stream::new(project_pair.0, project_pair.1.as_slice());
-                    let _proj = VB6Project::parse(&mut stream);
+                    let _proj = VB6Project::parse(project_pair.0, project_pair.1.as_slice());
                 });
             }
         })
