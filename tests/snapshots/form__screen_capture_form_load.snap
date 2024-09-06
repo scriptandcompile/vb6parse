@@ -80,7 +80,7 @@ form:
                 data_format: ""
                 data_member: ""
                 data_source: ""
-                drag_icon: None
+                drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
@@ -92,7 +92,7 @@ form:
                 link_mode: None
                 link_timeout: 50
                 link_topic: ""
-                mouse_icon: None
+                mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
                 right_to_left: false
@@ -116,7 +116,7 @@ form:
                 data_format: ""
                 data_member: ""
                 data_source: ""
-                drag_icon: None
+                drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
@@ -128,7 +128,7 @@ form:
                 link_mode: None
                 link_timeout: 50
                 link_topic: ""
-                mouse_icon: None
+                mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
                 right_to_left: false

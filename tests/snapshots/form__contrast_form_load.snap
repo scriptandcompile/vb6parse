@@ -73,7 +73,7 @@ form:
             HScrollBar:
               properties:
                 causes_validation: true
-                drag_icon: None
+                drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 height: 30
@@ -82,7 +82,7 @@ form:
                 left: 30
                 max: 32767
                 min: 0
-                mouse_icon: None
+                mouse_icon: ~
                 mouse_pointer: Default
                 right_to_left: false
                 small_change: 1
@@ -113,7 +113,7 @@ form:
                 data_format: ""
                 data_member: ""
                 data_source: ""
-                drag_icon: None
+                drag_icon: ~
                 drag_mode: Manual
                 draw_mode: CopyPen
                 draw_style: Solid
@@ -137,12 +137,12 @@ form:
                 link_mode: None
                 link_timeout: 50
                 link_topic: ""
-                mouse_icon: None
+                mouse_icon: ~
                 mouse_pointer: Default
                 negotiate: false
                 ole_drag_mode: Manual
                 ole_drop_mode: None
-                picture: None
+                picture: ~
                 right_to_left: false
                 scale_height: 100
                 scale_left: 0
@@ -176,7 +176,7 @@ form:
                 data_format: ""
                 data_member: ""
                 data_source: ""
-                drag_icon: None
+                drag_icon: ~
                 drag_mode: Manual
                 draw_mode: CopyPen
                 draw_style: Solid
@@ -200,12 +200,12 @@ form:
                 link_mode: None
                 link_timeout: 50
                 link_topic: ""
-                mouse_icon: None
+                mouse_icon: ~
                 mouse_pointer: Default
                 negotiate: false
                 ole_drag_mode: Manual
                 ole_drop_mode: None
-                picture: None
+                picture: ~
                 right_to_left: false
                 scale_height: 100
                 scale_left: 0
@@ -231,7 +231,7 @@ form:
                 data_format: ""
                 data_member: ""
                 data_source: ""
-                drag_icon: None
+                drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
@@ -243,7 +243,7 @@ form:
                 link_mode: None
                 link_timeout: 50
                 link_topic: ""
-                mouse_icon: None
+                mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
                 right_to_left: false
@@ -267,7 +267,7 @@ form:
                 data_format: ""
                 data_member: ""
                 data_source: ""
-                drag_icon: None
+                drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
@@ -279,7 +279,7 @@ form:
                 link_mode: None
                 link_timeout: 50
                 link_topic: ""
-                mouse_icon: None
+                mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
                 right_to_left: false

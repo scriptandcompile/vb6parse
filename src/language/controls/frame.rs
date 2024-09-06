@@ -82,10 +82,7 @@ impl Serialize for FrameProperties<'_> {
         s.serialize_field("caption", &self.caption)?;
         s.serialize_field("clip_controls", &self.clip_controls)?;
 
-        let option_text = match &self.drag_icon {
-            Some(_) => "Some(DynamicImage)",
-            None => "None",
-        };
+        let option_text = self.drag_icon.as_ref().map(|_| "Some(DynamicImage)");
 
         s.serialize_field("drag_icon", &option_text)?;
         s.serialize_field("drag_mode", &self.drag_mode)?;
@@ -95,10 +92,7 @@ impl Serialize for FrameProperties<'_> {
         s.serialize_field("help_context_id", &self.help_context_id)?;
         s.serialize_field("left", &self.left)?;
 
-        let option_text = match &self.mouse_icon {
-            Some(_) => "Some(DynamicImage)",
-            None => "None",
-        };
+        let option_text = self.mouse_icon.as_ref().map(|_| "Some(DynamicImage)");
 
         s.serialize_field("mouse_icon", &option_text)?;
         s.serialize_field("mouse_pointer", &self.mouse_pointer)?;

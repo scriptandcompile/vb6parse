@@ -129,10 +129,7 @@ impl Serialize for FormProperties<'_> {
         state.serialize_field("height", &self.height)?;
         state.serialize_field("help_context_id", &self.help_context_id)?;
 
-        let option_text = match self.icon {
-            Some(_) => Some("Some(DynamicImage)"),
-            None => None,
-        };
+        let option_text = self.icon.as_ref().map(|_| "Some(DynamicImage)");
 
         state.serialize_field("icon", &option_text)?;
         state.serialize_field("key_preview", &self.key_preview)?;
@@ -143,10 +140,7 @@ impl Serialize for FormProperties<'_> {
         state.serialize_field("mdi_child", &self.mdi_child)?;
         state.serialize_field("min_button", &self.min_button)?;
 
-        let option_text = match self.mouse_icon {
-            Some(_) => Some("Some(DynamicImage)"),
-            None => None,
-        };
+        let option_text = self.mouse_icon.as_ref().map(|_| "Some(DynamicImage)");
 
         state.serialize_field("mouse_icon", &option_text)?;
         state.serialize_field("mouse_pointer", &self.mouse_pointer)?;
@@ -154,18 +148,12 @@ impl Serialize for FormProperties<'_> {
         state.serialize_field("negotiate_menus", &self.negotiate_menus)?;
         state.serialize_field("ole_drop_mode", &self.ole_drop_mode)?;
 
-        let option_text = match self.palette {
-            Some(_) => Some("Some(DynamicImage)"),
-            None => None,
-        };
+        let option_text = self.palette.as_ref().map(|_| "Some(DynamicImage)");
 
         state.serialize_field("palette", &option_text)?;
         state.serialize_field("palette_mode", &self.palette_mode)?;
 
-        let option_text = match self.palette {
-            Some(_) => Some("Some(DynamicImage)"),
-            None => None,
-        };
+        let option_text = self.palette.as_ref().map(|_| "Some(DynamicImage)");
 
         state.serialize_field("picture", &option_text)?;
         state.serialize_field("right_to_left", &self.right_to_left)?;

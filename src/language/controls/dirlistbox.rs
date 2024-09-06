@@ -4,10 +4,12 @@ use crate::VB6Color;
 use image::DynamicImage;
 use serde::Serialize;
 
-/// Properties for a DirListBox control. This is used as an enum variant of
-/// [VB6ControlKind::DirListBox](crate::language::controls::VB6ControlKind::DirListBox).
+/// Properties for a `DirListBox` control.
+///
+/// This is used as an enum variant of
+/// [`VB6ControlKind::DirListBox`](crate::language::controls::VB6ControlKind::DirListBox).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [VB6Control](crate::language::controls::VB6Control) struct.
+/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct DirListBoxProperties<'a> {
     pub appearance: Appearance,
@@ -73,10 +75,7 @@ impl Serialize for DirListBoxProperties<'_> {
         s.serialize_field("back_color", &self.back_color)?;
         s.serialize_field("causes_validation", &self.causes_validation)?;
 
-        let option_text = match &self.drag_icon {
-            Some(_) => "Some(DynamicImage)",
-            None => "None",
-        };
+        let option_text = self.drag_icon.as_ref().map(|_| "Some(DynamicImage)");
 
         s.serialize_field("drag_icon", &option_text)?;
         s.serialize_field("drag_mode", &self.drag_mode)?;
@@ -86,10 +85,7 @@ impl Serialize for DirListBoxProperties<'_> {
         s.serialize_field("help_context_id", &self.help_context_id)?;
         s.serialize_field("left", &self.left)?;
 
-        let option_text = match &self.mouse_icon {
-            Some(_) => "Some(DynamicImage)",
-            None => "None",
-        };
+        let option_text = self.mouse_icon.as_ref().map(|_| "Some(DynamicImage)");
 
         s.serialize_field("mouse_icon", &option_text)?;
         s.serialize_field("mouse_pointer", &self.mouse_pointer)?;

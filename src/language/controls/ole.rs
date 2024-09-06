@@ -137,10 +137,7 @@ impl Serialize for OLEProperties<'_> {
         s.serialize_field("data_source", &self.data_source)?;
         s.serialize_field("display_type", &self.display_type)?;
 
-        let option_text = match &self.drag_icon {
-            Some(_) => "Some(DynamicImage)",
-            None => "None",
-        };
+        let option_text = self.drag_icon.as_ref().map(|_| "Some(DynamicImage)");
 
         s.serialize_field("drag_icon", &option_text)?;
         s.serialize_field("drag_mode", &self.drag_mode)?;
@@ -151,10 +148,7 @@ impl Serialize for OLEProperties<'_> {
         s.serialize_field("left", &self.left)?;
         s.serialize_field("misc_flags", &self.misc_flags)?;
 
-        let option_text = match &self.mouse_icon {
-            Some(_) => "Some(DynamicImage)",
-            None => "None",
-        };
+        let option_text = self.mouse_icon.as_ref().map(|_| "Some(DynamicImage)");
 
         s.serialize_field("mouse_icon", &option_text)?;
         s.serialize_field("mouse_pointer", &self.mouse_pointer)?;

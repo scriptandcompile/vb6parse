@@ -71,10 +71,7 @@ impl Serialize for ScrollBarProperties {
         let mut s = serializer.serialize_struct("ScrollBarProperties", 20)?;
         s.serialize_field("causes_validation", &self.causes_validation)?;
 
-        let option_text = match &self.drag_icon {
-            Some(_) => "Some(DynamicImage)",
-            None => "None",
-        };
+        let option_text = self.drag_icon.as_ref().map(|_| "Some(DynamicImage)");
 
         s.serialize_field("drag_icon", &option_text)?;
         s.serialize_field("drag_mode", &self.drag_mode)?;
@@ -86,10 +83,7 @@ impl Serialize for ScrollBarProperties {
         s.serialize_field("max", &self.max)?;
         s.serialize_field("min", &self.min)?;
 
-        let option_text = match &self.mouse_icon {
-            Some(_) => "Some(DynamicImage)",
-            None => "None",
-        };
+        let option_text = self.mouse_icon.as_ref().map(|_| "Some(DynamicImage)");
 
         s.serialize_field("mouse_icon", &option_text)?;
         s.serialize_field("mouse_pointer", &self.mouse_pointer)?;
