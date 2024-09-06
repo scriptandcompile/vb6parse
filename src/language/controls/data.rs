@@ -4,10 +4,12 @@ use crate::VB6Color;
 use image::DynamicImage;
 use serde::Serialize;
 
-/// Properties for a Data control. This is used as an enum variant of
-/// [VB6ControlKind::Data](crate::language::controls::VB6ControlKind::Data).
+/// Properties for a `Data` control.
+///
+/// This is used as an enum variant of
+/// [`VB6ControlKind::Data`](crate::language::controls::VB6ControlKind::Data).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [VB6Control](crate::language::controls::VB6Control) struct.
+/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct DataProperties<'a> {
     pub align: Align,
@@ -53,7 +55,7 @@ impl Default for DataProperties<'_> {
             caption: "Data1",
             connection: Connection::Access,
             database_name: "",
-            default_cursor_type: DefaultCursorType::DefaultCursor,
+            default_cursor_type: DefaultCursorType::Default,
             default_type: DefaultType::UseJet,
             drag_icon: None,
             drag_mode: DragMode::Manual,
@@ -140,7 +142,7 @@ impl Serialize for DataProperties<'_> {
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum BOFAction {
     MoveFirst = 0,
-    BOF = 1,
+    Bof = 1,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
@@ -168,9 +170,9 @@ pub enum Connection {
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum DefaultCursorType {
-    DefaultCursor = 0,
-    ODBCCursor = 1,
-    ServerSideCursor = 2,
+    Default = 0,
+    ODBC = 1,
+    ServerSide = 2,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
@@ -182,7 +184,7 @@ pub enum DefaultType {
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum EOFAction {
     MoveLast = 0,
-    EOF = 1,
+    Eof = 1,
     AddNew = 2,
 }
 
