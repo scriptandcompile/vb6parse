@@ -529,13 +529,10 @@ fn begin_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FullyQualifiedName
         return Err(ErrMode::Cut(VB6ErrorKind::NoSpaceAfterControlKind));
     }
 
-    let name = match take_till::<_, _, VB6Error>(0.., (b" ", b"\t", b"\r", b"\r\n", b"\n"))
-        .parse_next(input)
-    {
-        Ok(name) => name,
-        Err(_) => {
-            return Err(ErrMode::Cut(VB6ErrorKind::NoControlNameAfterControlKind));
-        }
+    let Ok(name) =
+        take_till::<_, _, VB6Error>(0.., (b" ", b"\t", b"\r", b"\r\n", b"\n")).parse_next(input)
+    else {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoControlNameAfterControlKind));
     };
 
     let Ok(namespace_ascii) = namespace.to_str() else {
