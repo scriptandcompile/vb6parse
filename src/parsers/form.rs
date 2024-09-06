@@ -271,13 +271,11 @@ fn build_control<'a>(
                 }
             }
 
-            let form = VB6ControlKind::Form {
+            VB6ControlKind::Form {
                 controls,
                 properties: form_properties,
                 menus: converted_menus,
-            };
-
-            form
+            }
         }
         b"Menu" => {
             let mut menu_properties = MenuProperties::default();
@@ -306,11 +304,10 @@ fn build_control<'a>(
                 }
             }
 
-            let menu = VB6ControlKind::Menu {
+            VB6ControlKind::Menu {
                 properties: menu_properties,
                 sub_menus: converted_menus,
-            };
-            menu
+            }
         }
         b"Frame" => {
             let frame_properties =
@@ -323,115 +320,99 @@ fn build_control<'a>(
         }
         b"TextBox" => {
             // TODO: We are not correctly handling property assignment for each control.
-            let textbox = VB6ControlKind::TextBox {
+            VB6ControlKind::TextBox {
                 properties: TextBoxProperties::default(),
-            };
-            textbox
+            }
         }
         b"Timer" => {
             // TODO: We are not correctly handling property assignment for each control.
-            let timer = VB6ControlKind::Timer {
+            VB6ControlKind::Timer {
                 properties: TimerProperties::default(),
-            };
-            timer
+            }
         }
         b"CheckBox" => {
             // TODO: We are not correctly handling property assignment for each control.
-            let checkbox = VB6ControlKind::CheckBox {
+            VB6ControlKind::CheckBox {
                 properties: CheckBoxProperties::default(),
-            };
-            checkbox
+            }
         }
         b"Ole" => {
             // TODO: We are not correctly handling property assignment for each control.
-            let ole = VB6ControlKind::Ole {
+            VB6ControlKind::Ole {
                 properties: OLEProperties::default(),
-            };
-            ole
+            }
         }
         b"OptionButton" => {
             // TODO: We are not correctly handling property assignment for each control.
-            let optionbutton = VB6ControlKind::OptionButton {
+            VB6ControlKind::OptionButton {
                 properties: OptionButtonProperties::default(),
-            };
-            optionbutton
+            }
         }
         b"Line" => {
             // TODO: We are not correctly handling property assignment for each control.
-            let line = VB6ControlKind::Line {
+            VB6ControlKind::Line {
                 properties: LineProperties::default(),
-            };
-            line
+            }
         }
         b"ListBox" => {
             // TODO: We are not correctly handling property assignment for each control.
-            let listbox = VB6ControlKind::ListBox {
+            VB6ControlKind::ListBox {
                 properties: ListBoxProperties::default(),
-            };
-            listbox
+            }
         }
         b"Label" => {
             // TODO: We are not correctly handling property assignment for each control.
-            let label = VB6ControlKind::Label {
+            VB6ControlKind::Label {
                 properties: LabelProperties::default(),
-            };
-            label
+            }
         }
         b"ComboBox" => {
             // TODO: We are not correctly handling property assignment for each control.
-            let combobox = VB6ControlKind::ComboBox {
+            VB6ControlKind::ComboBox {
                 properties: ComboBoxProperties::default(),
-            };
-            combobox
+            }
         }
         b"CommandButton" => {
             // TODO: We are not correctly handling property assignment for each control.
-            let commandbutton = VB6ControlKind::CommandButton {
+            VB6ControlKind::CommandButton {
                 properties: CommandButtonProperties::default(),
-            };
-            commandbutton
+            }
         }
         b"PictureBox" => {
             // TODO: We are not correctly handling property assignment for each control.
-            let picturebox = VB6ControlKind::PictureBox {
+            VB6ControlKind::PictureBox {
                 properties: PictureBoxProperties::default(),
-            };
-            picturebox
+            }
         }
         b"HScrollBar" => {
             // TODO: We are not correctly handling property assignment for each control.
-            let hscrollbar = VB6ControlKind::HScrollBar {
+            VB6ControlKind::HScrollBar {
                 properties: ScrollBarProperties::default(),
-            };
-            hscrollbar
+            }
         }
         b"VScrollBar" => {
             // TODO: We are not correctly handling property assignment for each control.
-            let vscrollbar = VB6ControlKind::VScrollBar {
+            VB6ControlKind::VScrollBar {
                 properties: ScrollBarProperties::default(),
-            };
-            vscrollbar
+            }
         }
         b"DirListBox" => {
             // TODO: We are not correctly handling property assignment for each control.
-            let dirlistbox = VB6ControlKind::DirListBox {
+            VB6ControlKind::DirListBox {
                 properties: DirListBoxProperties::default(),
-            };
-            dirlistbox
+            }
         }
         b"Image" => {
             // TODO: We are not correctly handling property assignment for each control.
-            let image = VB6ControlKind::Image {
+            VB6ControlKind::Image {
                 properties: ImageProperties::default(),
-            };
-            image
+            }
         }
         b"Data" => {
             // TODO: We are not correctly handling property assignment for each control.
-            let data = VB6ControlKind::Data {
+            VB6ControlKind::Data {
                 properties: DataProperties::default(),
-            };
-            data
+            }
         }
         _ => {
             return Err(VB6ErrorKind::UnknownControlKind);
