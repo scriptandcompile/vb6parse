@@ -79,10 +79,7 @@ impl Serialize for ImageProperties<'_> {
         s.serialize_field("data_member", &self.data_member)?;
         s.serialize_field("data_source", &self.data_source)?;
 
-        let option_text = match &self.drag_icon {
-            Some(_) => "Some(DynamicImage)",
-            None => "None",
-        };
+        let option_text = self.drag_icon.as_ref().map(|_| "Some(DynamicImage)");
 
         s.serialize_field("drag_icon", &option_text)?;
         s.serialize_field("drag_mode", &self.drag_mode)?;
@@ -90,20 +87,14 @@ impl Serialize for ImageProperties<'_> {
         s.serialize_field("height", &self.height)?;
         s.serialize_field("left", &self.left)?;
 
-        let option_text = match &self.mouse_icon {
-            Some(_) => "Some(DynamicImage)",
-            None => "None",
-        };
+        let option_text = self.mouse_icon.as_ref().map(|_| "Some(DynamicImage)");
 
         s.serialize_field("mouse_icon", &option_text)?;
         s.serialize_field("mouse_pointer", &self.mouse_pointer)?;
         s.serialize_field("ole_drag_mode", &self.ole_drag_mode)?;
         s.serialize_field("ole_drop_mode", &self.ole_drop_mode)?;
 
-        let option_text = match &self.picture {
-            Some(_) => "Some(DynamicImage)",
-            None => "None",
-        };
+        let option_text = self.picture.as_ref().map(|_| "Some(DynamicImage)");
 
         s.serialize_field("picture", &option_text)?;
         s.serialize_field("stretch", &self.stretch)?;
@@ -112,6 +103,7 @@ impl Serialize for ImageProperties<'_> {
         s.serialize_field("visible", &self.visible)?;
         s.serialize_field("whats_this_help_id", &self.whats_this_help_id)?;
         s.serialize_field("width", &self.width)?;
+
         s.end()
     }
 }

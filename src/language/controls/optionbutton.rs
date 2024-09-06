@@ -101,24 +101,15 @@ impl Serialize for OptionButtonProperties<'_> {
         s.serialize_field("caption", &self.caption)?;
         s.serialize_field("causes_validation", &self.causes_validation)?;
 
-        let option_text = match &self.disabled_picture {
-            Some(_) => "Some(DynamicImage)",
-            None => "None",
-        };
+        let option_text = self.disabled_picture.as_ref().map(|_| "Some(DynamicImage)");
 
         s.serialize_field("disabled_picture", &option_text)?;
 
-        let option_text = match &self.down_picture {
-            Some(_) => "Some(DynamicImage)",
-            None => "None",
-        };
+        let option_text = self.down_picture.as_ref().map(|_| "Some(DynamicImage)");
 
         s.serialize_field("down_picture", &option_text)?;
 
-        let option_text = match &self.drag_icon {
-            Some(_) => "Some(DynamicImage)",
-            None => "None",
-        };
+        let option_text = self.drag_icon.as_ref().map(|_| "Some(DynamicImage)");
 
         s.serialize_field("drag_icon", &option_text)?;
         s.serialize_field("drag_mode", &self.drag_mode)?;
@@ -129,19 +120,13 @@ impl Serialize for OptionButtonProperties<'_> {
         s.serialize_field("left", &self.left)?;
         s.serialize_field("mask_color", &self.mask_color)?;
 
-        let option_text = match &self.mouse_icon {
-            Some(_) => "Some(DynamicImage)",
-            None => "None",
-        };
+        let option_text = self.mouse_icon.as_ref().map(|_| "Some(DynamicImage)");
 
         s.serialize_field("mouse_icon", &option_text)?;
         s.serialize_field("mouse_pointer", &self.mouse_pointer)?;
         s.serialize_field("ole_drop_mode", &self.ole_drop_mode)?;
 
-        let option_text = match &self.picture {
-            Some(_) => "Some(DynamicImage)",
-            None => "None",
-        };
+        let option_text = self.picture.as_ref().map(|_| "Some(DynamicImage)");
 
         s.serialize_field("picture", &option_text)?;
         s.serialize_field("right_to_left", &self.right_to_left)?;

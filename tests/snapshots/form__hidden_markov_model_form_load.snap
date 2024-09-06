@@ -83,7 +83,7 @@ form:
                 border_style: FixedSingle
                 caption: "Step 4: Run a sliding window analysis to determine possible CG island locations"
                 clip_controls: true
-                drag_icon: None
+                drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
@@ -92,7 +92,7 @@ form:
                 height: 3375
                 help_context_id: 0
                 left: 120
-                mouse_icon: None
+                mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
                 right_to_left: false
@@ -123,7 +123,7 @@ form:
                         data_format: ""
                         data_member: ""
                         data_source: ""
-                        drag_icon: None
+                        drag_icon: ~
                         drag_mode: Manual
                         draw_mode: CopyPen
                         draw_style: Solid
@@ -147,12 +147,12 @@ form:
                         link_mode: None
                         link_timeout: 50
                         link_topic: ""
-                        mouse_icon: None
+                        mouse_icon: ~
                         mouse_pointer: Default
                         negotiate: false
                         ole_drag_mode: Manual
                         ole_drop_mode: None
-                        picture: None
+                        picture: ~
                         right_to_left: false
                         scale_height: 100
                         scale_left: 0
@@ -186,7 +186,7 @@ form:
                         data_format: ""
                         data_member: ""
                         data_source: ""
-                        drag_icon: None
+                        drag_icon: ~
                         drag_mode: Manual
                         draw_mode: CopyPen
                         draw_style: Solid
@@ -210,12 +210,12 @@ form:
                         link_mode: None
                         link_timeout: 50
                         link_topic: ""
-                        mouse_icon: None
+                        mouse_icon: ~
                         mouse_pointer: Default
                         negotiate: false
                         ole_drag_mode: Manual
                         ole_drop_mode: None
-                        picture: None
+                        picture: ~
                         right_to_left: false
                         scale_height: 100
                         scale_left: 0
@@ -246,7 +246,7 @@ form:
                         data_format: ""
                         data_member: ""
                         data_source: ""
-                        drag_icon: None
+                        drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         fore_color:
@@ -262,7 +262,7 @@ form:
                         link_topic: ""
                         locked: false
                         max_length: 0
-                        mouse_icon: None
+                        mouse_icon: ~
                         mouse_pointer: Default
                         multi_line: false
                         ole_drag_mode: Manual
@@ -292,9 +292,9 @@ form:
                         caption: Command1
                         causes_validation: true
                         default: false
-                        disabled_picture: None
-                        down_picture: None
-                        drag_icon: None
+                        disabled_picture: ~
+                        down_picture: ~
+                        drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         height: 30
@@ -305,10 +305,10 @@ form:
                             red: 192
                             green: 192
                             blue: 192
-                        mouse_icon: None
+                        mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
-                        picture: None
+                        picture: ~
                         right_to_left: false
                         style: Standard
                         tab_index: 0
@@ -330,7 +330,7 @@ form:
                         data_format: ""
                         data_member: ""
                         data_source: ""
-                        drag_icon: None
+                        drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         fore_color:
@@ -342,7 +342,7 @@ form:
                         link_mode: None
                         link_timeout: 50
                         link_topic: ""
-                        mouse_icon: None
+                        mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
                         right_to_left: false
@@ -366,7 +366,7 @@ form:
                         data_format: ""
                         data_member: ""
                         data_source: ""
-                        drag_icon: None
+                        drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         fore_color:
@@ -378,7 +378,7 @@ form:
                         link_mode: None
                         link_timeout: 50
                         link_topic: ""
-                        mouse_icon: None
+                        mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
                         right_to_left: false
@@ -402,7 +402,7 @@ form:
                         data_format: ""
                         data_member: ""
                         data_source: ""
-                        drag_icon: None
+                        drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         fore_color:
@@ -414,7 +414,7 @@ form:
                         link_mode: None
                         link_timeout: 50
                         link_topic: ""
-                        mouse_icon: None
+                        mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
                         right_to_left: false
@@ -438,7 +438,7 @@ form:
                         data_format: ""
                         data_member: ""
                         data_source: ""
-                        drag_icon: None
+                        drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         fore_color:
@@ -450,7 +450,7 @@ form:
                         link_mode: None
                         link_timeout: 50
                         link_topic: ""
-                        mouse_icon: None
+                        mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
                         right_to_left: false
@@ -477,7 +477,7 @@ form:
                 border_style: FixedSingle
                 caption: "Step 3: Run the HMM and Viterbi algorithm on your data "
                 clip_controls: true
-                drag_icon: None
+                drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
@@ -486,7 +486,7 @@ form:
                 height: 975
                 help_context_id: 0
                 left: 120
-                mouse_icon: None
+                mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
                 right_to_left: false
@@ -511,9 +511,9 @@ form:
                         caption: Command1
                         causes_validation: true
                         default: false
-                        disabled_picture: None
-                        down_picture: None
-                        drag_icon: None
+                        disabled_picture: ~
+                        down_picture: ~
+                        drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         height: 30
@@ -524,10 +524,10 @@ form:
                             red: 192
                             green: 192
                             blue: 192
-                        mouse_icon: None
+                        mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
-                        picture: None
+                        picture: ~
                         right_to_left: false
                         style: Standard
                         tab_index: 0
@@ -549,7 +549,7 @@ form:
                         data_format: ""
                         data_member: ""
                         data_source: ""
-                        drag_icon: None
+                        drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         fore_color:
@@ -561,7 +561,7 @@ form:
                         link_mode: None
                         link_timeout: 50
                         link_topic: ""
-                        mouse_icon: None
+                        mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
                         right_to_left: false
@@ -588,7 +588,7 @@ form:
                 border_style: FixedSingle
                 caption: "Step 2: Input HMM Parameters "
                 clip_controls: true
-                drag_icon: None
+                drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
@@ -597,7 +597,7 @@ form:
                 height: 2535
                 help_context_id: 0
                 left: 120
-                mouse_icon: None
+                mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
                 right_to_left: false
@@ -622,9 +622,9 @@ form:
                         caption: Command1
                         causes_validation: true
                         default: false
-                        disabled_picture: None
-                        down_picture: None
-                        drag_icon: None
+                        disabled_picture: ~
+                        down_picture: ~
+                        drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         height: 30
@@ -635,10 +635,10 @@ form:
                             red: 192
                             green: 192
                             blue: 192
-                        mouse_icon: None
+                        mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
-                        picture: None
+                        picture: ~
                         right_to_left: false
                         style: Standard
                         tab_index: 0
@@ -663,7 +663,7 @@ form:
                         border_style: FixedSingle
                         caption: "Initial Probabilities:"
                         clip_controls: true
-                        drag_icon: None
+                        drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         fore_color:
@@ -672,7 +672,7 @@ form:
                         height: 1215
                         help_context_id: 0
                         left: 5160
-                        mouse_icon: None
+                        mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
                         right_to_left: false
@@ -700,7 +700,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -716,7 +716,7 @@ form:
                                 link_topic: ""
                                 locked: false
                                 max_length: 0
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 multi_line: false
                                 ole_drag_mode: Manual
@@ -749,7 +749,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -765,7 +765,7 @@ form:
                                 link_topic: ""
                                 locked: false
                                 max_length: 0
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 multi_line: false
                                 ole_drag_mode: Manual
@@ -793,7 +793,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -805,7 +805,7 @@ form:
                                 link_mode: None
                                 link_timeout: 50
                                 link_topic: ""
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
                                 right_to_left: false
@@ -829,7 +829,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -841,7 +841,7 @@ form:
                                 link_mode: None
                                 link_timeout: 50
                                 link_topic: ""
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
                                 right_to_left: false
@@ -868,7 +868,7 @@ form:
                         border_style: FixedSingle
                         caption: "State Probabilities:"
                         clip_controls: true
-                        drag_icon: None
+                        drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         fore_color:
@@ -877,7 +877,7 @@ form:
                         height: 1935
                         help_context_id: 0
                         left: 2040
-                        mouse_icon: None
+                        mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
                         right_to_left: false
@@ -905,7 +905,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -921,7 +921,7 @@ form:
                                 link_topic: ""
                                 locked: false
                                 max_length: 0
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 multi_line: false
                                 ole_drag_mode: Manual
@@ -954,7 +954,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -970,7 +970,7 @@ form:
                                 link_topic: ""
                                 locked: false
                                 max_length: 0
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 multi_line: false
                                 ole_drag_mode: Manual
@@ -1003,7 +1003,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -1019,7 +1019,7 @@ form:
                                 link_topic: ""
                                 locked: false
                                 max_length: 0
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 multi_line: false
                                 ole_drag_mode: Manual
@@ -1052,7 +1052,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -1068,7 +1068,7 @@ form:
                                 link_topic: ""
                                 locked: false
                                 max_length: 0
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 multi_line: false
                                 ole_drag_mode: Manual
@@ -1101,7 +1101,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -1117,7 +1117,7 @@ form:
                                 link_topic: ""
                                 locked: false
                                 max_length: 0
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 multi_line: false
                                 ole_drag_mode: Manual
@@ -1150,7 +1150,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -1166,7 +1166,7 @@ form:
                                 link_topic: ""
                                 locked: false
                                 max_length: 0
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 multi_line: false
                                 ole_drag_mode: Manual
@@ -1199,7 +1199,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -1215,7 +1215,7 @@ form:
                                 link_topic: ""
                                 locked: false
                                 max_length: 0
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 multi_line: false
                                 ole_drag_mode: Manual
@@ -1248,7 +1248,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -1264,7 +1264,7 @@ form:
                                 link_topic: ""
                                 locked: false
                                 max_length: 0
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 multi_line: false
                                 ole_drag_mode: Manual
@@ -1292,7 +1292,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -1304,7 +1304,7 @@ form:
                                 link_mode: None
                                 link_timeout: 50
                                 link_topic: ""
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
                                 right_to_left: false
@@ -1328,7 +1328,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -1340,7 +1340,7 @@ form:
                                 link_mode: None
                                 link_timeout: 50
                                 link_topic: ""
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
                                 right_to_left: false
@@ -1364,7 +1364,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -1376,7 +1376,7 @@ form:
                                 link_mode: None
                                 link_timeout: 50
                                 link_topic: ""
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
                                 right_to_left: false
@@ -1400,7 +1400,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -1412,7 +1412,7 @@ form:
                                 link_mode: None
                                 link_timeout: 50
                                 link_topic: ""
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
                                 right_to_left: false
@@ -1436,7 +1436,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -1448,7 +1448,7 @@ form:
                                 link_mode: None
                                 link_timeout: 50
                                 link_topic: ""
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
                                 right_to_left: false
@@ -1472,7 +1472,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -1484,7 +1484,7 @@ form:
                                 link_mode: None
                                 link_timeout: 50
                                 link_topic: ""
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
                                 right_to_left: false
@@ -1508,7 +1508,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -1520,7 +1520,7 @@ form:
                                 link_mode: None
                                 link_timeout: 50
                                 link_topic: ""
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
                                 right_to_left: false
@@ -1544,7 +1544,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -1556,7 +1556,7 @@ form:
                                 link_mode: None
                                 link_timeout: 50
                                 link_topic: ""
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
                                 right_to_left: false
@@ -1583,7 +1583,7 @@ form:
                         border_style: FixedSingle
                         caption: I/B Probabilities
                         clip_controls: true
-                        drag_icon: None
+                        drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         fore_color:
@@ -1592,7 +1592,7 @@ form:
                         height: 1935
                         help_context_id: 0
                         left: 120
-                        mouse_icon: None
+                        mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
                         right_to_left: false
@@ -1620,7 +1620,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -1636,7 +1636,7 @@ form:
                                 link_topic: ""
                                 locked: false
                                 max_length: 0
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 multi_line: false
                                 ole_drag_mode: Manual
@@ -1669,7 +1669,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -1685,7 +1685,7 @@ form:
                                 link_topic: ""
                                 locked: false
                                 max_length: 0
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 multi_line: false
                                 ole_drag_mode: Manual
@@ -1718,7 +1718,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -1734,7 +1734,7 @@ form:
                                 link_topic: ""
                                 locked: false
                                 max_length: 0
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 multi_line: false
                                 ole_drag_mode: Manual
@@ -1767,7 +1767,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -1783,7 +1783,7 @@ form:
                                 link_topic: ""
                                 locked: false
                                 max_length: 0
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 multi_line: false
                                 ole_drag_mode: Manual
@@ -1811,7 +1811,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -1823,7 +1823,7 @@ form:
                                 link_mode: None
                                 link_timeout: 50
                                 link_topic: ""
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
                                 right_to_left: false
@@ -1847,7 +1847,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -1859,7 +1859,7 @@ form:
                                 link_mode: None
                                 link_timeout: 50
                                 link_topic: ""
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
                                 right_to_left: false
@@ -1883,7 +1883,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -1895,7 +1895,7 @@ form:
                                 link_mode: None
                                 link_timeout: 50
                                 link_topic: ""
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
                                 right_to_left: false
@@ -1919,7 +1919,7 @@ form:
                                 data_format: ""
                                 data_member: ""
                                 data_source: ""
-                                drag_icon: None
+                                drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
                                 fore_color:
@@ -1931,7 +1931,7 @@ form:
                                 link_mode: None
                                 link_timeout: 50
                                 link_topic: ""
-                                mouse_icon: None
+                                mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
                                 right_to_left: false
@@ -1960,7 +1960,7 @@ form:
                 data_format: ""
                 data_member: ""
                 data_source: ""
-                drag_icon: None
+                drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
@@ -1976,7 +1976,7 @@ form:
                 link_topic: ""
                 locked: false
                 max_length: 0
-                mouse_icon: None
+                mouse_icon: ~
                 mouse_pointer: Default
                 multi_line: false
                 ole_drag_mode: Manual
@@ -2007,7 +2007,7 @@ form:
                 border_style: FixedSingle
                 caption: "Step 1: Load information from a FASTA file "
                 clip_controls: true
-                drag_icon: None
+                drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
@@ -2016,7 +2016,7 @@ form:
                 height: 975
                 help_context_id: 0
                 left: 120
-                mouse_icon: None
+                mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
                 right_to_left: false
@@ -2041,9 +2041,9 @@ form:
                         caption: Command1
                         causes_validation: true
                         default: false
-                        disabled_picture: None
-                        down_picture: None
-                        drag_icon: None
+                        disabled_picture: ~
+                        down_picture: ~
+                        drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         height: 30
@@ -2054,10 +2054,10 @@ form:
                             red: 192
                             green: 192
                             blue: 192
-                        mouse_icon: None
+                        mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
-                        picture: None
+                        picture: ~
                         right_to_left: false
                         style: Standard
                         tab_index: 0
@@ -2079,7 +2079,7 @@ form:
                         data_format: ""
                         data_member: ""
                         data_source: ""
-                        drag_icon: None
+                        drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         fore_color:
@@ -2091,7 +2091,7 @@ form:
                         link_mode: None
                         link_timeout: 50
                         link_topic: ""
-                        mouse_icon: None
+                        mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
                         right_to_left: false
@@ -2115,7 +2115,7 @@ form:
                 data_format: ""
                 data_member: ""
                 data_source: ""
-                drag_icon: None
+                drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
@@ -2127,7 +2127,7 @@ form:
                 link_mode: None
                 link_timeout: 50
                 link_topic: ""
-                mouse_icon: None
+                mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
                 right_to_left: false
