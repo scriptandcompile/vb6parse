@@ -34,6 +34,7 @@ pub struct VB6Project<'a> {
     pub help_file_path: Option<&'a BStr>,
     pub title: Option<&'a BStr>,
     pub exe_32_file_name: Option<&'a BStr>,
+    pub path_32: Option<&'a BStr>,
     pub command_line_arguments: Option<&'a BStr>,
     pub name: Option<&'a BStr>,
     // May need to be switched to a u32. Not sure yet.
@@ -149,6 +150,7 @@ impl<'a> VB6Project<'a> {
     /// UserDocument=UserDocument1.uds
     /// ExeName32="Project1.exe"
     /// Command32=""
+    /// Path32=""
     /// Name="Project1"
     /// HelpContextID="0"
     /// CompatibleMode="0"
@@ -208,6 +210,7 @@ impl<'a> VB6Project<'a> {
     /// assert_eq!(project.title, Some(BStr::new(b"Project1")));
     /// assert_eq!(project.exe_32_file_name, Some(BStr::new(b"Project1.exe")));
     /// assert_eq!(project.command_line_arguments, Some(BStr::new(b"")));
+    /// assert_eq!(project.path_32, Some(BStr::new(b"")));
     /// assert_eq!(project.name, Some(BStr::new(b"Project1")));
     /// assert_eq!(project.help_context_id, Some(BStr::new(b"0")));
     /// assert_eq!(project.compatible_mode, false, "compatible_mode check");
@@ -259,6 +262,7 @@ impl<'a> VB6Project<'a> {
         let mut help_file_path = Some(BStr::new(b""));
         let mut title = Some(BStr::new(b""));
         let mut exe_32_file_name = Some(BStr::new(b""));
+        let mut path_32 = Some(BStr::new(b""));
         let mut command_line_arguments = Some(BStr::new(b""));
         let mut name = Some(BStr::new(b""));
         let mut help_context_id = Some(BStr::new(b""));
@@ -433,6 +437,12 @@ impl<'a> VB6Project<'a> {
                 Ok("ExeName32") => {
                     exe_32_file_name = match qouted_value("\"").parse_next(&mut input) {
                         Ok(exe_32_file_name) => Some(exe_32_file_name),
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
+                    };
+                }
+                Ok("Path32") => {
+                    path_32 = match qouted_value("\"").parse_next(&mut input) {
+                        Ok(path_32) => Some(path_32),
                         Err(e) => return Err(input.error(e.into_inner().unwrap())),
                     };
                 }
@@ -744,6 +754,7 @@ impl<'a> VB6Project<'a> {
             help_file_path,
             title,
             exe_32_file_name,
+            path_32,
             command_line_arguments,
             name,
             help_context_id,
