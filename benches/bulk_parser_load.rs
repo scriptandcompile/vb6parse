@@ -233,7 +233,6 @@ fn form_benchmark(c: &mut Criterion) {
         include_bytes!("../tests/data/vb6-code/Mandelbrot/Mandelbrot.frm").to_vec(),
         include_bytes!("../tests/data/vb6-code/Curves-effect/Curves.frm").to_vec(),
         include_bytes!("../tests/data/vb6-code/Artificial-life/frmMain.frm").to_vec(),
-        
     ];
 
     let forms_pairs: Vec<(_, _)> = form_names.iter().zip(forms.iter()).collect();
@@ -242,10 +241,8 @@ fn form_benchmark(c: &mut Criterion) {
         b.iter(|| {
             for form_pair in &forms_pairs {
                 black_box({
-                    let _class = VB6ModuleFile::parse(
-                        form_pair.0.to_string(),
-                        &mut form_pair.1.as_slice(),
-                    );
+                    let _class =
+                        VB6FormeFile::parse(form_pair.0.to_string(), &mut form_pair.1.as_slice());
                 });
             }
         })
