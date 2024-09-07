@@ -140,7 +140,7 @@ pub enum VB6ErrorKind {
     KeywordNotFound,
 
     #[error("Error parsing true/false from header. Must be a 0 (false), -1 (true), or 1 (true)")]
-    TrueFalseZeroNegOneUnparseable,
+    TrueFalseOneZeroNegOneUnparseable,
 
     #[error("Error parsing the VB6 file contents")]
     FileContent,
