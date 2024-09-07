@@ -61,7 +61,7 @@ pub enum VB6ErrorKind {
     #[error("CompatibilityMode can only be a 0 (false) or a -1 (true)")]
     CompatibilityModeUnparseable,
 
-    #[error("NoControlUpgrade can only be a 0 (false) or a -1 (true)")]
+    #[error("NoControlUpgrade can only be a 0 (false) or a 1 (true)")]
     NoControlUpgradeUnparsable,
 
     #[error("ServerSupportFiles can only be a 0 (false) or a -1 (true)")]
@@ -139,8 +139,8 @@ pub enum VB6ErrorKind {
     #[error("Keyword not found")]
     KeywordNotFound,
 
-    #[error("Error parsing true/false from header. Must be a 0 (false) or a -1 (true)")]
-    TrueFalseZSeroNegOneUnparseable,
+    #[error("Error parsing true/false from header. Must be a 0 (false), -1 (true), or 1 (true)")]
+    TrueFalseZeroNegOneUnparseable,
 
     #[error("Error parsing the VB6 file contents")]
     FileContent,
