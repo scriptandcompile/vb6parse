@@ -37,6 +37,7 @@ pub struct VB6Project<'a> {
     pub path_32: Option<&'a BStr>,
     pub command_line_arguments: Option<&'a BStr>,
     pub name: Option<&'a BStr>,
+    pub description: Option<&'a BStr>,
     // May need to be switched to a u32. Not sure yet.
     pub help_context_id: Option<&'a BStr>,
     pub compatible_mode: bool,
@@ -265,6 +266,7 @@ impl<'a> VB6Project<'a> {
         let mut path_32 = Some(BStr::new(b""));
         let mut command_line_arguments = Some(BStr::new(b""));
         let mut name = Some(BStr::new(b""));
+        let mut description = Some(BStr::new(b""));
         let mut help_context_id = Some(BStr::new(b""));
         let mut compatible_mode = false;
         let mut upgrade_activex_controls = true; // True is the default.
@@ -455,6 +457,12 @@ impl<'a> VB6Project<'a> {
                 Ok("Name") => {
                     name = match qouted_value("\"").parse_next(&mut input) {
                         Ok(name) => Some(name),
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
+                    };
+                }
+                Ok("Description") => {
+                    description = match qouted_value("\"").parse_next(&mut input) {
+                        Ok(description) => Some(description),
                         Err(e) => return Err(input.error(e.into_inner().unwrap())),
                     };
                 }
@@ -757,6 +765,7 @@ impl<'a> VB6Project<'a> {
             path_32,
             command_line_arguments,
             name,
+            description,
             help_context_id,
             compatible_mode,
             version_info,
