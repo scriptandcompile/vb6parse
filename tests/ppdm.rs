@@ -1,6 +1,6 @@
 use bstr::{ByteSlice, B};
 
-use vb6parse::parsers::{CompileTargetType, VB6Project};
+use vb6parse::parsers::{project::CompatibilityMode, CompileTargetType, VB6Project};
 
 #[test]
 fn ppdm_project_load() {
@@ -33,7 +33,10 @@ fn ppdm_project_load() {
     );
     assert_eq!(project.name, Some(b"PPDM".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(
