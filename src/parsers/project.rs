@@ -824,7 +824,7 @@ fn qouted_true_false_parse(input: &mut VB6Stream<'_>) -> VB6Result<bool> {
         Ok(false)
     } else if qoute == "-1" {
         Ok(true)
-    else if qoute == "1" {
+    } else if qoute == "1" {
         Ok(true)
     } else {
         Err(ErrMode::Cut(VB6ErrorKind::TrueFalseZSeroNegOneUnparseable))
