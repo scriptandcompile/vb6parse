@@ -777,7 +777,7 @@ impl<'a> VB6Project<'a> {
 fn true_false_parse(input: &mut VB6Stream<'_>) -> VB6Result<bool> {
     // 0 is false...and -1 is true.
     // Why vb6? What are you like this? Who hurt you?
-    let result = alt(('0'.value(false), "-1".value(true))).parse_next(input)?;
+    let result = alt(('0'.value(false), "-1".value(true), "1".value(true))).parse_next(input)?;
 
     Ok(result)
 }
@@ -823,6 +823,8 @@ fn qouted_true_false_parse(input: &mut VB6Stream<'_>) -> VB6Result<bool> {
     if qoute == "0" {
         Ok(false)
     } else if qoute == "-1" {
+        Ok(true)
+    else if qoute == "1" {
         Ok(true)
     } else {
         Err(ErrMode::Cut(VB6ErrorKind::TrueFalseZSeroNegOneUnparseable))
