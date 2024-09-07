@@ -716,6 +716,7 @@ form:
                 visible: true
                 window_list: false
               sub_menus: []
+objects: []
 format_version:
   major: 5
   minor: 0

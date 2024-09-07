@@ -15,12 +15,13 @@ use crate::{
             key_resource_offset_line_parse, key_value_line_parse, version_parse, HeaderKind,
             VB6FileFormatVersion,
         },
-        VB6Stream,
+        VB6ObjectReference, VB6Stream,
     },
     vb6::{keyword_parse, line_comment_parse, vb6_parse, VB6Result},
 };
 
 use bstr::ByteSlice;
+use serde::Serialize;
 
 use winnow::error::ParserError;
 use winnow::{
@@ -31,22 +32,25 @@ use winnow::{
     Parser,
 };
 
+use super::header::object_parse;
+
 /// Represents a VB6 Form file.
-#[derive(Debug, PartialEq, Clone, serde::Serialize)]
+#[derive(Debug, PartialEq, Clone, Serialize)]
 pub struct VB6FormFile<'a> {
     pub form: VB6Control<'a>,
+    pub objects: Vec<VB6ObjectReference<'a>>,
     pub format_version: VB6FileFormatVersion,
     pub tokens: Vec<VB6Token<'a>>,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Copy)]
+#[derive(Debug, PartialEq, Eq, Clone, Copy, Serialize)]
 struct VB6FullyQualifiedName<'a> {
     pub namespace: &'a str,
     pub kind: &'a str,
     pub name: &'a str,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct VB6PropertyGroup<'a> {
     pub name: &'a str,
     pub properties: HashMap<&'a str, &'a str>,
@@ -116,6 +120,11 @@ impl<'a> VB6FormFile<'a> {
             Err(err) => return Err(input.error(err.into_inner().unwrap())),
         };
 
+        let objects = match form_object_parse.parse_next(&mut input) {
+            Ok(objects) => objects,
+            Err(err) => return Err(input.error(err.into_inner().unwrap())),
+        };
+
         match (space0, keyword_parse("BEGIN"), space1).parse_next(&mut input) {
             Ok(_) => (),
             Err(err) => return Err(input.error(err.into_inner().unwrap())),
@@ -133,10 +142,36 @@ impl<'a> VB6FormFile<'a> {
 
         Ok(VB6FormFile {
             form,
+            objects,
             format_version,
             tokens,
         })
     }
+}
+
+fn form_object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6ObjectReference<'a>>> {
+    let mut objects = vec![];
+
+    loop {
+        space0.parse_next(input)?;
+
+        if literal::<_, _, VB6ErrorKind>("Object")
+            .parse_next(input)
+            .is_err()
+        {
+            break;
+        }
+
+        (space0, "=", space0).parse_next(input)?;
+
+        let object = object_parse.parse_next(input)?;
+
+        line_ending.parse_next(input)?;
+
+        objects.push(object);
+    }
+
+    Ok(objects)
 }
 
 fn block_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Control<'a>> {

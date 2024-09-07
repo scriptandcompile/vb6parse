@@ -12,15 +12,15 @@ use winnow::{
 
 use crate::{
     errors::{VB6Error, VB6ErrorKind},
-    parsers::vb6stream::VB6Stream,
-    vb6::{line_comment_parse, VB6Result},
+    parsers::{header::object_parse, vb6stream::VB6Stream, VB6ObjectReference},
+    vb6::{line_comment_parse, take_until_line_ending, VB6Result},
 };
 
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct VB6Project<'a> {
     pub project_type: CompileTargetType,
     pub references: Vec<VB6ProjectReference<'a>>,
-    pub objects: Vec<VB6ProjectObject<'a>>,
+    pub objects: Vec<VB6ObjectReference<'a>>,
     pub modules: Vec<VB6ProjectModule<'a>>,
     pub classes: Vec<VB6ProjectClass<'a>>,
     pub designers: Vec<&'a BStr>,
@@ -92,14 +92,6 @@ pub struct VB6ProjectReference<'a> {
     pub unknown2: &'a BStr,
     pub path: &'a BStr,
     pub description: &'a BStr,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone)]
-pub struct VB6ProjectObject<'a> {
-    pub uuid: Uuid,
-    pub version: &'a BStr,
-    pub unknown1: &'a BStr,
-    pub file_name: &'a BStr,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -336,7 +328,7 @@ impl<'a> VB6Project<'a> {
                     };
                 }
                 Ok("Designer") => {
-                    let Ok(designer): VB6Result<_> = take_until1_line_ending.parse_next(&mut input)
+                    let Ok(designer): VB6Result<_> = take_until_line_ending.parse_next(&mut input)
                     else {
                         return Err(input.error(VB6ErrorKind::DesignerLineUnparseable));
                     };
@@ -376,7 +368,7 @@ impl<'a> VB6Project<'a> {
                     classes.push(class);
                 }
                 Ok("Form") => {
-                    let Ok(form): VB6Result<_> = take_until1_line_ending.parse_next(&mut input)
+                    let Ok(form): VB6Result<_> = take_until_line_ending.parse_next(&mut input)
                     else {
                         return Err(input.error(VB6ErrorKind::FormLineUnparseable));
                     };
@@ -385,7 +377,7 @@ impl<'a> VB6Project<'a> {
                 }
                 Ok("UserControl") => {
                     let Ok(user_control): VB6Result<_> =
-                        take_until1_line_ending.parse_next(&mut input)
+                        take_until_line_ending.parse_next(&mut input)
                     else {
                         return Err(input.error(VB6ErrorKind::UserControlLineUnparseable));
                     };
@@ -394,7 +386,7 @@ impl<'a> VB6Project<'a> {
                 }
                 Ok("UserDocument") => {
                     let Ok(user_document): VB6Result<_> =
-                        take_until1_line_ending.parse_next(&mut input)
+                        take_until_line_ending.parse_next(&mut input)
                     else {
                         return Err(input.error(VB6ErrorKind::UserDocumentLineUnparseable));
                     };
@@ -479,8 +471,7 @@ impl<'a> VB6Project<'a> {
                     };
                 }
                 Ok("MajorVer") => {
-                    let Ok(major_ver): VB6Result<_> =
-                        take_until1_line_ending.parse_next(&mut input)
+                    let Ok(major_ver): VB6Result<_> = take_until_line_ending.parse_next(&mut input)
                     else {
                         return Err(input.error(VB6ErrorKind::MajorVersionUnparseable));
                     };
@@ -493,8 +484,7 @@ impl<'a> VB6Project<'a> {
                     };
                 }
                 Ok("MinorVer") => {
-                    let Ok(minor_ver): VB6Result<_> =
-                        take_until1_line_ending.parse_next(&mut input)
+                    let Ok(minor_ver): VB6Result<_> = take_until_line_ending.parse_next(&mut input)
                     else {
                         return Err(input.error(VB6ErrorKind::MinorVersionUnparseable));
                     };
@@ -508,7 +498,7 @@ impl<'a> VB6Project<'a> {
                 }
                 Ok("RevisionVer") => {
                     let Ok(revision_ver): VB6Result<_> =
-                        take_until1_line_ending.parse_next(&mut input)
+                        take_until_line_ending.parse_next(&mut input)
                     else {
                         return Err(input.error(VB6ErrorKind::RevisionVersionUnparseable));
                     };
@@ -522,7 +512,7 @@ impl<'a> VB6Project<'a> {
                 }
                 Ok("AutoIncrementVer") => {
                     let Ok(auto_increment): VB6Result<_> =
-                        take_until1_line_ending.parse_next(&mut input)
+                        take_until_line_ending.parse_next(&mut input)
                     else {
                         return Err(input.error(VB6ErrorKind::AutoIncrementUnparseable));
                     };
@@ -679,7 +669,7 @@ impl<'a> VB6Project<'a> {
                     };
                 }
                 Ok("ThreadPerObject") => {
-                    let Ok(threads): VB6Result<_> = take_until1_line_ending.parse_next(&mut input)
+                    let Ok(threads): VB6Result<_> = take_until_line_ending.parse_next(&mut input)
                     else {
                         return Err(input.error(VB6ErrorKind::ThreadPerObjectUnparseable));
                     };
@@ -691,7 +681,7 @@ impl<'a> VB6Project<'a> {
                 }
                 Ok("MaxNumberOfThreads") => {
                     let Ok(max_threads): VB6Result<_> =
-                        take_until1_line_ending.parse_next(&mut input)
+                        take_until_line_ending.parse_next(&mut input)
                     else {
                         return Err(input.error(VB6ErrorKind::MaxThreadsUnparseable));
                     };
@@ -863,41 +853,6 @@ fn qouted_value<'a>(qoute_char: &'a str) -> impl FnMut(&mut VB6Stream<'a>) -> VB
     }
 }
 
-fn object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectObject<'a>> {
-    "{".parse_next(input)?;
-
-    let uuid_segment = take_until(1.., "}").parse_next(input)?;
-
-    let Ok(uuid) = Uuid::parse_str(uuid_segment.to_str().unwrap()) else {
-        return Err(ErrMode::Cut(VB6ErrorKind::UnableToParseUuid));
-    };
-
-    "}#".parse_next(input)?;
-
-    // still not sure what this element or the next represents.
-    let version = take_until(1.., "#").parse_next(input)?;
-
-    "#".parse_next(input)?;
-
-    let unknown1 = take_until(1.., ";").parse_next(input)?;
-
-    // the file name is preceded by a semi-colon then a space. not sure why the
-    // space is there, but it is. this strips it and the semi-colon out.
-    "; ".parse_next(input)?;
-
-    // the filename is the rest of the input.
-    let file_name = take_until1_line_ending.parse_next(input)?;
-
-    let project_object = VB6ProjectObject {
-        uuid,
-        version,
-        unknown1,
-        file_name,
-    };
-
-    Ok(project_object)
-}
-
 fn module_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectModule<'a>> {
     let (name, path) = semicolon_space_split_parse.parse_next(input)?;
 
@@ -925,13 +880,9 @@ fn semicolon_space_split_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<(&'a 
 
     "; ".parse_next(input)?;
 
-    let right = take_until1_line_ending.parse_next(input)?;
+    let right = take_until_line_ending.parse_next(input)?;
 
     Ok((left, right))
-}
-
-fn take_until1_line_ending<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
-    alt((take_until(1.., "\r\n"), take_until(1.., "\n"))).parse_next(input)
 }
 
 fn reference_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectReference<'a>> {
@@ -958,7 +909,7 @@ fn reference_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectReferen
         return Err(ErrMode::Cut(VB6ErrorKind::ReferenceMissingSections));
     };
 
-    let Ok(description): VB6Result<_> = take_until1_line_ending.parse_next(input) else {
+    let Ok(description): VB6Result<_> = take_until_line_ending.parse_next(input) else {
         return Err(ErrMode::Cut(VB6ErrorKind::ReferenceMissingSections));
     };
 
@@ -1055,27 +1006,6 @@ mod tests {
         assert_eq!(result.unknown2, "0");
         assert_eq!(result.path, r"..\DBCommon\Libs\VbIntellisenseFix.dll");
         assert_eq!(result.description, r"VbIntellisenseFix");
-    }
-
-    #[test]
-    fn object_line_valid() {
-        let mut input = VB6Stream::new(
-            "",
-            b"Object={C4847593-972C-11D0-9567-00A0C9273C2A}#8.0#0; crviewer.dll\r\n",
-        );
-
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Object=".parse_next(&mut input);
-
-        let result = object_parse.parse_next(&mut input).unwrap();
-
-        let expected_uuid = Uuid::parse_str("C4847593-972C-11D0-9567-00A0C9273C2A").unwrap();
-
-        // we don't consume the line ending, so we should have 2 bytes left.
-        assert_eq!(input.complete(), 2);
-        assert_eq!(result.uuid, expected_uuid);
-        assert_eq!(result.version, "8.0");
-        assert_eq!(result.unknown1, "0");
-        assert_eq!(result.file_name, "crviewer.dll");
     }
 
     #[test]
