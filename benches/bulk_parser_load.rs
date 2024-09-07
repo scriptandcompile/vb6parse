@@ -1,4 +1,5 @@
 use vb6parse::parsers::VB6ClassFile;
+use vb6parse::parsers::VB6FormFile;
 use vb6parse::parsers::VB6ModuleFile;
 use vb6parse::parsers::VB6Project;
 
@@ -146,7 +147,7 @@ fn bas_module_benchmark(c: &mut Criterion) {
         b.iter(|| {
             for bas_module_pair in &bas_modules_pairs {
                 black_box({
-                    let _class = VB6ModuleFile::parse(
+                    let _module = VB6ModuleFile::parse(
                         bas_module_pair.0.to_string(),
                         &mut bas_module_pair.1.as_slice(),
                     );
@@ -242,7 +243,7 @@ fn form_benchmark(c: &mut Criterion) {
             for form_pair in &forms_pairs {
                 black_box({
                     let _class =
-                        VB6FormeFile::parse(form_pair.0.to_string(), &mut form_pair.1.as_slice());
+                        VB6FormFile::parse(form_pair.0.to_string(), &mut form_pair.1.as_slice());
                 });
             }
         })
