@@ -88,6 +88,11 @@ pub enum VB6Token<'a> {
     RightParanthesis(&'a BStr),
     /// Represents a comma ','.
     Comma(&'a BStr),
+    /// Represents a semicolon ';'.
+    Semicolon(&'a BStr),
+
+    /// Represents the 'at' symbol '@'.
+    AtSign(&'a BStr),
 
     /// Represents an exclamation mark '!'.
     ExclamationMark(&'a BStr),
