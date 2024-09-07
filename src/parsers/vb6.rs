@@ -308,6 +308,8 @@ fn vb6_symbol_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             "!".map(|token: &BStr| VB6Token::ExclamationMark(token)),
         )),
         alt((
+            "[".map(|token: &BStr| VB6Token::LeftSquareBracket(token)),
+            "]".map(|token: &BStr| VB6Token::RightSquareBracket(token)),
             ";".map(|token: &BStr| VB6Token::Semicolon(token)),
             "@".map(|token: &BStr| VB6Token::AtSign(token)),
         )),

@@ -82,10 +82,17 @@ pub enum VB6Token<'a> {
     Percent(&'a BStr),
     /// Represents an octothorpe '#'.
     Octothorpe(&'a BStr),
+
     /// Represents a left paranthesis '('.
     LeftParanthesis(&'a BStr),
     /// Represents a right paranthesis ')'.
     RightParanthesis(&'a BStr),
+
+    /// Represents a left square bracket '['.
+    LeftSquareBracket(&'a BStr),
+    /// Represents a right square bracket ']'.
+    RightSquareBracket(&'a BStr),
+
     /// Represents a comma ','.
     Comma(&'a BStr),
     /// Represents a semicolon ';'.
