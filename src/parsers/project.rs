@@ -1,5 +1,6 @@
 use bstr::{BStr, ByteSlice};
 
+use serde::Serialize;
 use uuid::Uuid;
 
 use winnow::{
@@ -34,13 +35,14 @@ pub struct VB6Project<'a> {
     pub help_file_path: Option<&'a BStr>,
     pub title: Option<&'a BStr>,
     pub exe_32_file_name: Option<&'a BStr>,
+    //pub exe_32_compatible: Option<&'a BStr>,
     pub path_32: Option<&'a BStr>,
     pub command_line_arguments: Option<&'a BStr>,
     pub name: Option<&'a BStr>,
     pub description: Option<&'a BStr>,
     // May need to be switched to a u32. Not sure yet.
     pub help_context_id: Option<&'a BStr>,
-    pub compatible_mode: bool,
+    pub compatibility_mode: CompatibilityMode,
     pub version_info: VersionInformation<'a>,
     pub server_support_files: bool,
     pub conditional_compile: Option<&'a BStr>,
@@ -61,6 +63,19 @@ pub struct VB6Project<'a> {
     pub max_number_of_threads: u16,
     pub debug_startup_option: bool,
     pub auto_refresh: bool,
+}
+
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+pub enum CompatibilityMode {
+    NoCompatibility = 0,
+    Project = 1,
+    CompatibleExe = 2,
+}
+
+impl Default for CompatibilityMode {
+    fn default() -> Self {
+        CompatibilityMode::Project
+    }
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -130,6 +145,7 @@ impl<'a> VB6Project<'a> {
     /// ```rust
     /// use crate::vb6parse::VB6Project;
     /// use crate::vb6parse::parsers::CompileTargetType;
+    /// use crate::vb6parse::parsers::project::CompatibilityMode;
     /// use bstr::BStr;
     ///
     /// let input = r#"Type=Exe
@@ -195,7 +211,7 @@ impl<'a> VB6Project<'a> {
     /// assert_eq!(project.forms.len(), 2);
     /// assert_eq!(project.user_controls.len(), 1);
     /// assert_eq!(project.user_documents.len(), 1);
-    /// assert_eq!(project.upgrade_activex_controls, true, "NoControlUpgrade is inverted fromt the file as upgrade_activex_controls");
+    /// assert_eq!(project.upgrade_activex_controls, true, "NoControlUpgrade is inverted from the file as upgrade_activex_controls");
     /// assert_eq!(project.res_file_32_path, Some(BStr::new(b"")));
     /// assert_eq!(project.icon_form, Some(BStr::new(b"")));
     /// assert_eq!(project.startup, Some(BStr::new(b"Form1")));
@@ -206,7 +222,7 @@ impl<'a> VB6Project<'a> {
     /// assert_eq!(project.path_32, Some(BStr::new(b"")));
     /// assert_eq!(project.name, Some(BStr::new(b"Project1")));
     /// assert_eq!(project.help_context_id, Some(BStr::new(b"0")));
-    /// assert_eq!(project.compatible_mode, false, "compatible_mode check");
+    /// assert_eq!(project.compatibility_mode, CompatibilityMode::NoCompatibility);
     /// assert_eq!(project.version_info.major, 1);
     /// assert_eq!(project.version_info.minor, 0);
     /// assert_eq!(project.version_info.revision, 0);
@@ -260,7 +276,7 @@ impl<'a> VB6Project<'a> {
         let mut name = Some(BStr::new(b""));
         let mut description = Some(BStr::new(b""));
         let mut help_context_id = Some(BStr::new(b""));
-        let mut compatible_mode = false;
+        let mut compatibility_mode = CompatibilityMode::Project;
         let mut upgrade_activex_controls = true; // True is the default.
         let mut server_support_files = false;
         let mut conditional_compile = Some(BStr::new(b""));
@@ -465,8 +481,15 @@ impl<'a> VB6Project<'a> {
                     };
                 }
                 Ok("CompatibleMode") => {
-                    compatible_mode = match qouted_true_false_parse.parse_next(&mut input) {
-                        Ok(compatible_mode) => compatible_mode,
+                    compatibility_mode = match qouted_value("\"").parse_next(&mut input) {
+                        Ok(compatible_mode) => match compatible_mode.as_bytes() {
+                            b"0" => CompatibilityMode::NoCompatibility,
+                            b"1" => CompatibilityMode::Project,
+                            b"2" => CompatibilityMode::CompatibleExe,
+                            _ => {
+                                return Err(input.error(VB6ErrorKind::CompatibleModeUnparseable));
+                            }
+                        },
                         Err(e) => return Err(input.error(e.into_inner().unwrap())),
                     };
                 }
@@ -757,7 +780,7 @@ impl<'a> VB6Project<'a> {
             name,
             description,
             help_context_id,
-            compatible_mode,
+            compatibility_mode,
             version_info,
             server_support_files,
             conditional_compile,
@@ -825,23 +848,23 @@ fn auto_refresh_parse(input: &mut VB6Stream<'_>) -> VB6Result<bool> {
     Ok(result)
 }
 
-fn qouted_true_false_parse(input: &mut VB6Stream<'_>) -> VB6Result<bool> {
-    let qoute = qouted_value("\"").parse_next(input)?;
+// fn qouted_true_false_parse(input: &mut VB6Stream<'_>) -> VB6Result<bool> {
+//     let qoute = qouted_value("\"").parse_next(input)?;
 
-    // 0 is false...and -1 is true.
-    // Why vb6? What are you like this? Who hurt you?
-    if qoute == "0" {
-        Ok(false)
-    } else if qoute == "-1" {
-        Ok(true)
-    } else if qoute == "1" {
-        Ok(true)
-    } else {
-        Err(ErrMode::Cut(
-            VB6ErrorKind::TrueFalseOneZeroNegOneUnparseable,
-        ))
-    }
-}
+//     // 0 is false...and -1 is true.
+//     // Why vb6? What are you like this? Who hurt you?
+//     if qoute == "0" {
+//         Ok(false)
+//     } else if qoute == "-1" {
+//         Ok(true)
+//     } else if qoute == "1" {
+//         Ok(true)
+//     } else {
+//         Err(ErrMode::Cut(
+//             VB6ErrorKind::TrueFalseOneZeroNegOneUnparseable,
+//         ))
+//     }
+// }
 
 fn qouted_value<'a>(qoute_char: &'a str) -> impl FnMut(&mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
     move |input: &mut VB6Stream<'a>| -> VB6Result<&'a BStr> {

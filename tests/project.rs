@@ -1,5 +1,6 @@
 use bstr::{ByteSlice, B};
 
+use vb6parse::parsers::project::CompatibilityMode;
 use vb6parse::parsers::CompileTargetType;
 use vb6parse::parsers::VB6Project;
 
@@ -31,7 +32,10 @@ fn artificial_life_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"Artificial_Life".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -99,7 +103,10 @@ fn blacklight_effect_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"Blacklight_Effect".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -165,7 +172,10 @@ fn brightness_effect_part_1_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"VB_Brightness".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -238,7 +248,10 @@ fn brightness_effect_part_2_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"API_Brightness".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -310,7 +323,10 @@ fn brightness_effect_part_3_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"DIB_Brightness".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -378,7 +394,10 @@ fn color_shift_effect_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"ColorShift".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -440,7 +459,10 @@ fn colorize_effect_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"Colorize".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -505,7 +527,10 @@ fn contrast_effect_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"Image_Contrast".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -570,7 +595,10 @@ fn curves_effect_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"Curves_Dialog".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -636,7 +664,10 @@ fn custom_image_filters_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"CustomFilters_Dialog".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -701,7 +732,10 @@ fn diffuse_effect_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"Diffuse_Dialog".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -769,7 +803,10 @@ fn edge_detection_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"EdgeDetection_Dialog".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -838,7 +875,10 @@ fn emboss_engrave_effect_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"EmbossEngrave_Dialog".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -903,7 +943,10 @@ fn fill_image_region_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"Fill_Region".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -965,7 +1008,10 @@ fn fire_effect_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"VBFire2".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -1030,7 +1076,10 @@ fn game_physics_basic_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"VB_Game_Physics".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -1095,7 +1144,10 @@ fn gradient_2d_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"Gradient_Demo".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -1157,7 +1209,10 @@ fn grayscale_effect_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"Grayscale_Dialog".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -1222,7 +1277,10 @@ fn hidden_markov_model_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"InBio465_HMM_Lab".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -1288,7 +1346,10 @@ fn histograms_advanced_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"Histogram_Demo".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -1357,7 +1418,10 @@ fn histogram_basic_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"Histogram_Demo".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -1425,7 +1489,10 @@ fn levels_effect_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"Image_Levels_Project".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -1490,7 +1557,10 @@ fn mandelbrot_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"Mandelbrot_Fractal_Demo".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -1555,7 +1625,10 @@ fn map_editor_2d_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"VB_Map_Editor".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -1623,7 +1696,10 @@ fn nature_effects_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"NatureFilters_Dialog".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -1692,7 +1768,10 @@ fn randomize_effects_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"RandomizationEffect".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -1760,7 +1839,10 @@ fn scanner_twain_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"VB_Scanner_Support".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -1828,7 +1910,10 @@ fn screen_capture_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"Project_ScreenCapture".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -1893,7 +1978,10 @@ fn sepia_effect_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"SepiaEffect_Dialog".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -1958,7 +2046,10 @@ fn threshold_effect_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"Threshold_Dialog".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
@@ -2026,7 +2117,10 @@ fn transparency_2d_project_load() {
     assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
     assert_eq!(project.name, Some(b"Realtime_Transparency_Demo".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
-    assert_eq!(project.compatible_mode, false);
+    assert_eq!(
+        project.compatibility_mode,
+        CompatibilityMode::NoCompatibility
+    );
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));

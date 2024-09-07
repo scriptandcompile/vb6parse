@@ -46,6 +46,9 @@ pub enum VB6ErrorKind {
     #[error("Major version is not a number.")]
     MajorVersionUnparseable,
 
+    #[error("CompatibleMode Invalid. CompatibileMode can only be 0, 1, or 2.")]
+    CompatibleModeUnparseable,
+
     #[error("Minor version is not a number.")]
     MinorVersionUnparseable,
 
