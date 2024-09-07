@@ -306,6 +306,7 @@ form:
                 width: 100
                 word_wrap: false
       menus: []
+objects: []
 format_version:
   major: 5
   minor: 0

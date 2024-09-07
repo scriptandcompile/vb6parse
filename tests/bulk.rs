@@ -1,7 +1,7 @@
 use vb6parse::parsers::{VB6ClassFile, VB6FormFile, VB6ModuleFile, VB6Project};
 
 #[test]
-#[ignore]
+//#[ignore]
 fn bulk_load_all_projects() {
     let projects = [
         "./tests/data/VB6-add-GUI-objects-at-runtime/Generate objects at runtime V3/Project1.vbp",
@@ -361,6 +361,8 @@ fn bulk_load_all_projects() {
 
     println!("Loading projects...");
 
+    let mut error_count = 0;
+
     for project_path in projects.iter() {
         println!("Loading project: {}", project_path);
 
@@ -380,6 +382,7 @@ fn bulk_load_all_projects() {
                 project_path,
                 project.err().unwrap()
             );
+            error_count += 1;
             continue;
         }
 
@@ -397,6 +400,7 @@ fn bulk_load_all_projects() {
                     project_path,
                     class_path.to_str().unwrap()
                 );
+                error_count += 1;
                 continue;
             }
 
@@ -412,6 +416,7 @@ fn bulk_load_all_projects() {
                     project_path,
                     class.err().unwrap()
                 );
+                error_count += 1;
                 continue;
             }
 
@@ -427,6 +432,7 @@ fn bulk_load_all_projects() {
                     project_path,
                     module_path.to_str().unwrap()
                 );
+                error_count += 1;
                 continue;
             }
 
@@ -442,6 +448,7 @@ fn bulk_load_all_projects() {
                     project_path,
                     module.err().unwrap()
                 );
+                error_count += 1;
                 continue;
             }
 
@@ -457,6 +464,7 @@ fn bulk_load_all_projects() {
                     project_path,
                     form_path.to_str().unwrap()
                 );
+                error_count += 1;
                 continue;
             }
 
@@ -472,6 +480,7 @@ fn bulk_load_all_projects() {
                     project_path,
                     form.err().unwrap()
                 );
+                error_count += 1;
                 continue;
             }
 
@@ -480,4 +489,6 @@ fn bulk_load_all_projects() {
 
         println!("Project loaded: {}", project_path);
     }
+
+    println!("Projects loaded with {} errors", error_count);
 }

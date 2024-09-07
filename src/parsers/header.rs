@@ -1,9 +1,11 @@
 use bstr::{BStr, ByteSlice};
 
+use uuid::Uuid;
+
 use crate::{
     errors::VB6ErrorKind,
-    parsers::VB6Stream,
-    vb6::{keyword_parse, line_comment_parse, VB6Result},
+    parsers::{VB6ObjectReference, VB6Stream},
+    vb6::{keyword_parse, line_comment_parse, take_until_line_ending, VB6Result},
 };
 
 use winnow::{
@@ -11,7 +13,7 @@ use winnow::{
     combinator::{alt, delimited, eof, opt, separated_pair},
     error::ErrMode,
     stream::Stream,
-    token::{literal, take_till, take_while},
+    token::{literal, take_till, take_until, take_while},
     Parser,
 };
 
@@ -76,6 +78,52 @@ pub fn version_parse<'a>(
             minor: minor_version,
         })
     }
+}
+
+pub fn object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ObjectReference<'a>> {
+    // the GUID may or may not be wrapped in double-qoutes.
+    opt("\"").parse_next(input)?;
+
+    "{".parse_next(input)?;
+
+    let uuid_segment = take_until(1.., "}").parse_next(input)?;
+
+    let Ok(uuid) = Uuid::parse_str(uuid_segment.to_str().unwrap()) else {
+        return Err(ErrMode::Cut(VB6ErrorKind::UnableToParseUuid));
+    };
+
+    "}#".parse_next(input)?;
+
+    // still not sure what this element or the next represents.
+    let version = take_until(1.., "#").parse_next(input)?;
+
+    "#".parse_next(input)?;
+
+    // we have to take until the next semi-colon or the next semi-colon wrapped in double-qoutes since it could be qouted or not.
+    let unknown1 = alt((take_until(1.., ";"), take_until(1.., "\";"))).parse_next(input)?;
+
+    opt("\"").parse_next(input)?;
+    // the file name is preceded by a semi-colon then a space. not sure why the
+    // space is there, but it is. this strips it and the semi-colon out.
+    "; ".parse_next(input)?;
+
+    // the filename may or may not be wrapped in double-qoutes.
+    opt("\"").parse_next(input)?;
+
+    // the filename is the rest of the input.
+    // the filename may or may not be wrapped in double-qoutes.
+    let file_name = alt((take_until_line_ending, take_until(1.., "\""))).parse_next(input)?;
+
+    opt("\"").parse_next(input)?;
+
+    let object = VB6ObjectReference {
+        uuid,
+        version,
+        unknown1,
+        file_name,
+    };
+
+    Ok(object)
 }
 
 pub fn key_value_parse<'a>(
@@ -209,6 +257,8 @@ pub fn vb6_string_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
 
 #[cfg(test)]
 mod tests {
+    use winnow::stream::StreamIsPartial;
+
     use super::*;
     use crate::parsers::VB6Stream;
 
@@ -230,6 +280,27 @@ mod tests {
         let string = vb6_string_parse(&mut stream).unwrap();
 
         assert_eq!(string, "This is also \"\"a\"\" string");
+    }
+
+    #[test]
+    fn object_line_valid() {
+        let mut input = VB6Stream::new(
+            "",
+            b"Object={C4847593-972C-11D0-9567-00A0C9273C2A}#8.0#0; crviewer.dll\r\n",
+        );
+
+        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Object=".parse_next(&mut input);
+
+        let result = object_parse.parse_next(&mut input).unwrap();
+
+        let expected_uuid = Uuid::parse_str("C4847593-972C-11D0-9567-00A0C9273C2A").unwrap();
+
+        // we don't consume the line ending, so we should have 2 bytes left.
+        assert_eq!(input.complete(), 2);
+        assert_eq!(result.uuid, expected_uuid);
+        assert_eq!(result.version, "8.0");
+        assert_eq!(result.unknown1, "0");
+        assert_eq!(result.file_name, "crviewer.dll");
     }
 
     #[test]

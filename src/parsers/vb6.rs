@@ -5,7 +5,7 @@ use winnow::{
     combinator::{alt, delimited},
     error::{ContextError, ErrMode},
     stream::Stream,
-    token::{one_of, take_till, take_while},
+    token::{one_of, take_till, take_until, take_while},
     Parser,
 };
 
@@ -92,6 +92,10 @@ pub fn variable_name_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr>
     }
 
     Ok(variable_name)
+}
+
+pub fn take_until_line_ending<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
+    alt((take_until(1.., "\r\n"), take_until(1.., "\n"))).parse_next(input)
 }
 
 /// Parses a VB6 keyword.
