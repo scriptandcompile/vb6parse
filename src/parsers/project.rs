@@ -302,8 +302,8 @@ impl<'a> VB6Project<'a> {
                 continue;
             };
 
-            // We also want to skip any '[MS Transaction Server]' header lines.
-            if ("[MS Transaction Server]", line_ending::<_, VB6Error>)
+            // We also want to skip any '[MS Transaction Server]' or other section header lines.
+            if ("[", take_until(0.., "]"), "]", line_ending::<_, VB6Error>)
                 .parse_next(&mut input)
                 .is_ok()
             {
