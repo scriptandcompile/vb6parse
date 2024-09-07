@@ -1,3 +1,200 @@
 [submodule "tests/data/vb6-code"]
 	path = tests/data/vb6-code
 	url = https://github.com/tannerhelland/vb6-code
+
+
+[submodule "tests/data/ADM-TSC-Tools-ALM-QC"]
+	path = tests/data/ADM-TSC-Tools-ALM-QC
+	url = https://github.com/MicroFocus/ADM-TSC-Tools-ALM-QC.git
+
+[submodule "tests/data/ao-server"]
+	path = tests/data/ao-server
+	url = https://github.com/ao-libre/ao-server.git
+
+[submodule "tests/data/audiostation"]
+	path = tests/data/audiostation
+	url = https://github.com/Sibra-Soft/audiostation.git
+
+[submodule "tests/data/Binary-metamorphosis"]
+	path = tests/data/Binary-metamorphosis
+	url = https://github.com/Gagniuc/Binary-metamorphosis.git
+
+[submodule "tests/data/Bitrate-calculator"]
+	path = tests/data/Bitrate-calculator
+	url = https://github.com/Philippe734/Bitrate-calculator.git
+
+[submodule "tests/data/CdiuBeatUpEditor"]
+	path = tests/data/CdiuBeatUpEditor
+	url = https://github.com/dreamd/CdiuBeatUpEditor.git
+
+[submodule "tests/data/ChessBrainVB"]
+	path = tests/data/ChessBrainVB
+	url = https://github.com/RZulu54/ChessBrainVB.git
+
+[submodule "tests/data/ComponentDocumenter"]
+	path = tests/data/ComponentDocumenter
+	url = https://github.com/EduardoVB/ComponentDocumenter.git
+
+[submodule "tests/data/CoolWind2D-GameEngine-CHS"]
+	path = tests/data/CoolWind2D-GameEngine-CHS
+	url = https://github.com/CoolWindValley/CoolWind2D-GameEngine-CHS.git
+
+[submodule "tests/data/DevOps"]
+	path = tests/data/DevOps
+	url = https://github.com/hojat-gazestani/DevOps.git
+
+[submodule "tests/data/Discrete-Probability-Detector-in-VB6"]
+	path = tests/data/Discrete-Probability-Detector-in-VB6
+	url = https://github.com/Gagniuc/Discrete-Probability-Detector-in-VB6.git
+
+[submodule "tests/data/Endless-runner-Game_VB6.0"]
+	path = tests/data/Endless-runner-Game_VB6.0
+	url = https://github.com/Haricharan2012/Endless-runner-Game_VB6.0.git
+
+[submodule "tests/data/Environment"]
+	path = tests/data/Environment
+	url = https://github.com/M2000Interpreter/Environment.git
+
+[submodule "tests/data/framework-vb6"]
+	path = tests/data/framework-vb6
+	url = https://github.com/tomascardoner/framework-vb6.git
+
+[submodule "tests/data/Genomin"]
+	path = tests/data/Genomin
+	url = https://github.com/Gagniuc/Genomin.git
+
+[submodule "tests/data/KORG_Read_pcg"]
+	path = tests/data/KORG_Read_pcg
+	url = https://github.com/OlimilO1402/KORG_Read_pcg.git
+
+[submodule "tests/data/Markov-Chains-VB6"]
+	path = tests/data/Markov-Chains-VB6
+	url = https://github.com/Gagniuc/Markov-Chains-VB6.git
+
+[submodule "tests/data/Mix-two-signals-by-using-Spectral-Forecast-in-VB6-app-v1.0"]
+	path = tests/data/Mix-two-signals-by-using-Spectral-Forecast-in-VB6-app-v1.0
+	url = https://github.com/Gagniuc/Mix-two-signals-by-using-Spectral-Forecast-in-VB6-app-v1.0.git
+
+[submodule "tests/data/Mix-two-signals-by-using-Spectral-Forecast-in-VB6-app-v2.0"]
+	path = tests/data/Mix-two-signals-by-using-Spectral-Forecast-in-VB6-app-v2.0
+	url = https://github.com/Gagniuc/Mix-two-signals-by-using-Spectral-Forecast-in-VB6-app-v2.0.git
+
+[submodule "tests/data/NewTab"]
+	path = tests/data/NewTab
+	url = https://github.com/EduardoVB/NewTab.git
+
+[submodule "tests/data/OCX_Advanced_Control__VB6"]
+	path = tests/data/OCX_Advanced_Control__VB6
+	url = https://github.com/RizkyKhapidsyah/OCX_Advanced_Control__VB6.git
+
+[submodule "tests/data/OCX_Advanced_Grid__VB6"]
+	path = tests/data/OCX_Advanced_Grid__VB6
+	url = https://github.com/RizkyKhapidsyah/OCX_Advanced_Grid__VB6.git
+
+[submodule "tests/data/omelette-vb6"]
+	path = tests/data/omelette-vb6
+	url = https://github.com/pyhoon/omelette-vb6.git
+
+[submodule "tests/data/opendialup"]
+	path = tests/data/opendialup
+	url = https://github.com/jwillians/opendialup.git
+
+[submodule "tests/data/Papaver-Genomics"]
+	path = tests/data/Papaver-Genomics
+	url = https://github.com/xjtu-omics/Papaver-Genomics.git
+
+[submodule "tests/data/project-duplication-detection-system"]
+	path = tests/data/project-duplication-detection-system
+	url = https://github.com/Edward5051/project-duplication-detection-system.git
+
+[submodule "tests/data/ProjectExaminer"]
+	path = tests/data/ProjectExaminer
+	url = https://github.com/EduardoVB/ProjectExaminer.git
+
+[submodule "tests/data/PromKappa-1.0-makes-Objective-Digital-Stains"]
+	path = tests/data/PromKappa-1.0-makes-Objective-Digital-Stains
+	url = https://github.com/Gagniuc/PromKappa-1.0-makes-Objective-Digital-Stains.git
+
+[submodule "tests/data/Prototype-software-for-Photon-pixel-coupling"]
+	path = tests/data/Prototype-software-for-Photon-pixel-coupling
+	url = https://github.com/Gagniuc/Prototype-software-for-Photon-pixel-coupling.git
+
+[submodule "tests/data/ScrollableContainer"]
+	path = tests/data/ScrollableContainer
+	url = https://github.com/EduardoVB/ScrollableContainer.git
+
+[submodule "tests/data/SK-ADO_Dan_SQL_Demo__VB6"]
+	path = tests/data/SK-ADO_Dan_SQL_Demo__VB6
+	url = https://github.com/RizkyKhapidsyah/SK-ADO_Dan_SQL_Demo__VB6.git
+
+[submodule "tests/data/SK-Alarm_Clock__VB6"]
+	path = tests/data/SK-Alarm_Clock__VB6
+	url = https://github.com/RizkyKhapidsyah/SK-Alarm_Clock__VB6.git
+
+[submodule "tests/data/SK-Password-Application-ADD-ON__VB6"]
+	path = tests/data/SK-Password-Application-ADD-ON__VB6
+	url = https://github.com/RizkyKhapidsyah/SK-Password-Application-ADD-ON__VB6.git
+
+[submodule "tests/data/SK-SQL_Code_Generator_V2__VB6"]
+	path = tests/data/SK-SQL_Code_Generator_V2__VB6
+	url = https://github.com/RizkyKhapidsyah/SK-SQL_Code_Generator_V2__VB6.git
+
+[submodule "tests/data/stdVBA-Inspiration"]
+	path = tests/data/stdVBA-Inspiration
+	url = https://github.com/sancarn/stdVBA-Inspiration.git
+
+[submodule "tests/data/SteamyDock"]
+	path = tests/data/SteamyDock
+	url = https://github.com/yereverluvinunclebert/SteamyDock.git
+
+[submodule "tests/data/Troyano-VB6-PoC"]
+	path = tests/data/Troyano-VB6-PoC
+	url = https://github.com/adrianlois/Troyano-VB6-PoC.git
+
+[submodule "tests/data/ucJLDatePicker"]
+	path = tests/data/ucJLDatePicker
+	url = https://github.com/JoseMLiza/ucJLDatePicker.git
+
+[submodule "tests/data/unlightvbe_qs"]
+	path = tests/data/unlightvbe_qs
+	url = https://github.com/unlightvbe/unlightvbe_qs.git
+
+[submodule "tests/data/vb6"]
+	path = tests/data/vb6
+	url = https://github.com/badcodes/vb6.git
+
+[submodule "tests/data/Vb6.0"]
+	path = tests/data/Vb6.0
+	url = https://github.com/jinalkathiriya/Vb6.0.git
+
+[submodule "tests/data/VB6-2D-Physic-Engine"]
+	path = tests/data/VB6-2D-Physic-Engine
+	url = https://github.com/miorsoft/VB6-2D-Physic-Engine.git
+
+[submodule "tests/data/VB6-add-GUI-objects-at-runtime"]
+	path = tests/data/VB6-add-GUI-objects-at-runtime
+	url = https://github.com/Gagniuc/VB6-add-GUI-objects-at-runtime.git
+
+[submodule "tests/data/VB6-AddIn-Delete-vbw-Files"]
+	path = tests/data/VB6-AddIn-Delete-vbw-Files
+	url = https://github.com/EduardoVB/VB6-AddIn-Delete-vbw-Files.git
+
+[submodule "tests/data/VB6-samples"]
+	path = tests/data/VB6-samples
+	url = https://github.com/thomasschilb-com/VB6-samples.git
+
+[submodule "tests/data/VbScalesReader"]
+	path = tests/data/VbScalesReader
+	url = https://github.com/wqweto/VbScalesReader.git
+
+[submodule "tests/data/VPN-Lifeguard"]
+	path = tests/data/VPN-Lifeguard
+	url = https://github.com/Philippe734/VPN-Lifeguard.git
+
+[submodule "tests/data/w.bloggar"]
+	path = tests/data/w.bloggar
+	url = https://github.com/lvcabral/w.bloggar.git
+
+[submodule "tests/data/Win_Dialogs"]
+	path = tests/data/Win_Dialogs
+	url = https://github.com/OlimilO1402/Win_Dialogs.git
