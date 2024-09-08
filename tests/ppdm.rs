@@ -57,7 +57,7 @@ fn ppdm_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
