@@ -424,10 +424,19 @@ impl<'a> VB6Project<'a> {
                     };
                 }
                 Ok("Startup") => {
-                    startup = match qouted_value("\"").parse_next(&mut input) {
-                        Ok(startup) => Some(startup),
-                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                    };
+                    // if the project lacks a startup object/function/etc it will be !(None)! in the file
+                    // which is distinct from the double qouted way of targeting a specific object.
+                    startup =
+                        match alt((qouted_value("\""), qouted_value("!"))).parse_next(&mut input) {
+                            Ok(startup) => {
+                                if startup == "(None)" {
+                                    None
+                                } else {
+                                    Some(startup)
+                                }
+                            }
+                            Err(e) => return Err(input.error(e.into_inner().unwrap())),
+                        };
                 }
                 Ok("HelpFile") => {
                     help_file_path = match qouted_value("\"").parse_next(&mut input) {
@@ -988,6 +997,8 @@ fn project_type_parse(input: &mut VB6Stream<'_>) -> VB6Result<CompileTargetType>
 mod tests {
     use winnow::stream::StreamIsPartial;
 
+    use crate::parsers::project;
+
     use super::*;
 
     #[test]
@@ -1067,5 +1078,154 @@ mod tests {
         assert_eq!(input.complete(), 2);
         assert_eq!(result.name, "CStatusBarClass");
         assert_eq!(result.path, "..\\DBCommon\\CStatusBarClass.cls");
+    }
+
+    #[test]
+    fn no_startup_selected() {
+        use bstr::BStr;
+
+        let input = r#"Type=Exe
+     Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
+     Object={00020430-0000-0000-C000-000000000046}#2.0#0; stdole2.tlb
+     Module=Module1; Module1.bas
+     Class=Class1; Class1.cls
+     Form=Form1.frm
+     Form=Form2.frm
+     UserControl=UserControl1.ctl
+     UserDocument=UserDocument1.uds
+     ExeName32="Project1.exe"
+     Command32=""
+     Path32=""
+     Name="Project1"
+     HelpContextID="0"
+     CompatibleMode="0"
+     MajorVer=1
+     MinorVer=0
+     RevisionVer=0
+     AutoIncrementVer=0
+     StartMode=0
+     Unattended=0
+     Retained=0
+     ThreadPerObject=0
+     MaxNumberOfThreads=1
+     DebugStartupOption=0
+     AutoRefresh=0
+     NoControlUpgrade=0
+     ServerSupportFiles=0
+     VersionCompanyName="Company Name"
+     VersionFileDescription="File Description"
+     VersionLegalCopyright="Copyright"
+     VersionLegalTrademarks="Trademark"
+     VersionProductName="Product Name"
+     VersionComments="Comments"
+     CompilationType=0
+     OptimizationType=0
+     FavorPentiumPro(tm)=0
+     CodeViewDebugInfo=0
+     NoAliasing=0
+     BoundsCheck=0
+     OverflowCheck=0
+     FlPointCheck=0
+     FDIVCheck=0
+     UnroundedFP=0
+     CondComp=""
+     ResFile32=""
+     IconForm=""
+     Startup=!(None)!
+     HelpFile=""
+     Title="Project1"
+"#;
+
+        let project = VB6Project::parse("project1.vbp", input.as_bytes()).unwrap();
+
+        assert_eq!(project.project_type, CompileTargetType::Exe);
+        assert_eq!(project.references.len(), 1);
+        assert_eq!(project.objects.len(), 1);
+        assert_eq!(project.modules.len(), 1);
+        assert_eq!(project.classes.len(), 1);
+        assert_eq!(project.designers.len(), 0);
+        assert_eq!(project.forms.len(), 2);
+        assert_eq!(project.user_controls.len(), 1);
+        assert_eq!(project.user_documents.len(), 1);
+        assert_eq!(
+            project.upgrade_activex_controls, true,
+            "NoControlUpgrade is inverted from the file as upgrade_activex_controls"
+        );
+        assert_eq!(project.res_file_32_path, Some(BStr::new(b"")));
+        assert_eq!(project.icon_form, Some(BStr::new(b"")));
+        assert_eq!(project.startup, None);
+        assert_eq!(project.help_file_path, Some(BStr::new(b"")));
+        assert_eq!(project.title, Some(BStr::new(b"Project1")));
+        assert_eq!(project.exe_32_file_name, Some(BStr::new(b"Project1.exe")));
+        assert_eq!(project.exe_32_compatible, Some(BStr::new(b"")));
+        assert_eq!(project.command_line_arguments, Some(BStr::new(b"")));
+        assert_eq!(project.path_32, Some(BStr::new(b"")));
+        assert_eq!(project.name, Some(BStr::new(b"Project1")));
+        assert_eq!(project.help_context_id, Some(BStr::new(b"0")));
+        assert_eq!(
+            project.compatibility_mode,
+            CompatibilityMode::NoCompatibility
+        );
+        assert_eq!(project.version_info.major, 1);
+        assert_eq!(project.version_info.minor, 0);
+        assert_eq!(project.version_info.revision, 0);
+        assert_eq!(project.version_info.auto_increment_revision, 0);
+        assert_eq!(
+            project.version_info.company_name,
+            Some(BStr::new(b"Company Name"))
+        );
+        assert_eq!(
+            project.version_info.file_description,
+            Some(BStr::new(b"File Description"))
+        );
+        assert_eq!(
+            project.version_info.trademark,
+            Some(BStr::new(b"Trademark"))
+        );
+        assert_eq!(
+            project.version_info.product_name,
+            Some(BStr::new(b"Product Name"))
+        );
+        assert_eq!(project.version_info.comments, Some(BStr::new(b"Comments")));
+        assert_eq!(
+            project.server_support_files, false,
+            "server_support_files check"
+        );
+        assert_eq!(project.conditional_compile, Some(BStr::new(b"")));
+        assert_eq!(project.compilation_type, false, "compilation_type check");
+        assert_eq!(project.optimization_type, false, "optimization_type check");
+        assert_eq!(project.favor_pentium_pro, false, "favor_pentium_pro check");
+        assert_eq!(
+            project.code_view_debug_info, false,
+            "code_view_debug_info check"
+        );
+        assert_eq!(
+            project.aliasing, true,
+            "NoAliasing is inverted from the file as aliasing"
+        );
+        assert_eq!(project.bounds_check, false, "bounds_check check");
+        assert_eq!(project.overflow_check, false, "overflow_check check");
+        assert_eq!(
+            project.floating_point_check, false,
+            "floating_point_check check"
+        );
+        assert_eq!(
+            project.pentium_fdiv_bug_check, false,
+            "pentium_fdiv_bug_check check"
+        );
+        assert_eq!(
+            project.unrounded_floating_point, false,
+            "unrounded_floating_point check"
+        );
+        assert_eq!(project.start_mode, false, "start_mode check");
+        assert_eq!(project.unattended, false, "unattended check");
+        assert_eq!(project.retained, false, "retained check");
+        assert_eq!(project.thread_per_object, 0);
+        assert_eq!(project.max_number_of_threads, 1);
+        assert_eq!(
+            project.debug_startup_option, false,
+            "debug_startup_option check"
+        );
+        assert_eq!(project.auto_refresh, false, "auto_refresh check");
     }
 }
