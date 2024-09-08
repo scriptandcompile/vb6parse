@@ -53,7 +53,7 @@ fn artificial_life_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -124,7 +124,7 @@ fn blacklight_effect_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -193,7 +193,7 @@ fn brightness_effect_part_1_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -269,7 +269,7 @@ fn brightness_effect_part_2_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -344,7 +344,7 @@ fn brightness_effect_part_3_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -415,7 +415,7 @@ fn color_shift_effect_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -480,7 +480,7 @@ fn colorize_effect_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -548,7 +548,7 @@ fn contrast_effect_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -616,7 +616,7 @@ fn curves_effect_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -685,7 +685,7 @@ fn custom_image_filters_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -753,7 +753,7 @@ fn diffuse_effect_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -824,7 +824,7 @@ fn edge_detection_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -896,7 +896,7 @@ fn emboss_engrave_effect_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -964,7 +964,7 @@ fn fill_image_region_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -1029,7 +1029,7 @@ fn fire_effect_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -1097,7 +1097,7 @@ fn game_physics_basic_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -1165,7 +1165,7 @@ fn gradient_2d_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -1230,7 +1230,7 @@ fn grayscale_effect_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -1298,7 +1298,7 @@ fn hidden_markov_model_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -1367,7 +1367,7 @@ fn histograms_advanced_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -1439,7 +1439,7 @@ fn histogram_basic_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -1510,7 +1510,7 @@ fn levels_effect_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -1578,7 +1578,7 @@ fn mandelbrot_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -1646,7 +1646,7 @@ fn map_editor_2d_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -1717,7 +1717,7 @@ fn nature_effects_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -1789,7 +1789,7 @@ fn randomize_effects_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -1860,7 +1860,7 @@ fn scanner_twain_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -1931,7 +1931,7 @@ fn screen_capture_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -1999,7 +1999,7 @@ fn sepia_effect_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -2067,7 +2067,7 @@ fn threshold_effect_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
@@ -2138,7 +2138,7 @@ fn transparency_2d_project_load() {
     assert_eq!(project.start_mode, false);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
-    assert_eq!(project.thread_per_object, 0);
+    assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
     assert_eq!(project.debug_startup_option, false);
 
