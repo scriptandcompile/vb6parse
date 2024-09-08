@@ -218,6 +218,7 @@ impl<'a> VB6Project<'a> {
     /// assert_eq!(project.help_file_path, Some(BStr::new(b"")));
     /// assert_eq!(project.title, Some(BStr::new(b"Project1")));
     /// assert_eq!(project.exe_32_file_name, Some(BStr::new(b"Project1.exe")));
+    /// assert_eq!(project.exe_32_compatible, Some(BStr::new(b"")));
     /// assert_eq!(project.command_line_arguments, Some(BStr::new(b"")));
     /// assert_eq!(project.path_32, Some(BStr::new(b"")));
     /// assert_eq!(project.name, Some(BStr::new(b"Project1")));
