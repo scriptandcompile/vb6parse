@@ -55,6 +55,12 @@ pub enum VB6ErrorKind {
     #[error("Revision version is not a number.")]
     RevisionVersionUnparseable,
 
+    #[error("Unable to parse the value after ThreadingModel key")]
+    ThreadingModelUnparseable,
+
+    #[error("ThreadingModel can only be 0 (Apartment Threaded), or 1 (Single Threaded)")]
+    ThreadingModelInvalid,
+
     #[error("No property name found after BeginProperty keyword.")]
     NoPropertyName,
 

@@ -61,6 +61,7 @@ pub struct VB6Project<'a> {
     pub unattended: bool,
     pub retained: bool,
     pub thread_per_object: Option<u16>,
+    pub threading_model: ThreadingModel,
     pub max_number_of_threads: u16,
     pub debug_startup_option: bool,
     pub auto_refresh: bool,
@@ -99,6 +100,14 @@ pub enum CompileTargetType {
     Control,
     OleExe,
     OleDll,
+}
+
+#[derive(Debug, PartialEq, Eq, Clone)]
+pub enum ThreadingModel {
+    /// Single-threaded.
+    SingleThreaded = 0,
+    /// Apartment-threaded. This is the default.
+    ApartmentThreaded = 1,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -243,6 +252,7 @@ impl<'a> VB6Project<'a> {
         let mut description = Some(BStr::new(b""));
         let mut help_context_id = Some(BStr::new(b""));
         let mut compatibility_mode = CompatibilityMode::Project;
+        let mut threading_model = ThreadingModel::ApartmentThreaded;
         let mut upgrade_activex_controls = true; // True is the default.
         let mut server_support_files = false;
         let mut conditional_compile = Some(BStr::new(b""));
@@ -263,7 +273,6 @@ impl<'a> VB6Project<'a> {
         let mut max_number_of_threads = 1;
         let mut debug_startup_option = false;
         let mut auto_refresh = false;
-
         let mut company_name = Some(BStr::new(b""));
         let mut file_description = Some(BStr::new(b""));
         let mut major = 0u16;
@@ -520,6 +529,24 @@ impl<'a> VB6Project<'a> {
                         }
                     };
                 }
+                Ok("ThreadingModel") => {
+                    let Ok(threading_model_text): VB6Result<_> =
+                        take_until_line_ending.parse_next(&mut input)
+                    else {
+                        return Err(input.error(VB6ErrorKind::ThreadingModelUnparseable));
+                    };
+
+                    threading_model = match threading_model_text.to_string().trim().parse::<u16>() {
+                        Ok(0) => ThreadingModel::SingleThreaded,
+                        Ok(1) => ThreadingModel::ApartmentThreaded,
+                        Ok(_) => {
+                            return Err(input.error(VB6ErrorKind::ThreadingModelInvalid));
+                        }
+                        Err(_) => {
+                            return Err(input.error(VB6ErrorKind::ThreadingModelInvalid));
+                        }
+                    };
+                }
                 Ok("AutoIncrementVer") => {
                     let Ok(auto_increment): VB6Result<_> =
                         take_until_line_ending.parse_next(&mut input)
@@ -684,7 +711,7 @@ impl<'a> VB6Project<'a> {
                         return Err(input.error(VB6ErrorKind::ThreadPerObjectUnparseable));
                     };
 
-                    if threads == "-1" {
+                    if threads.trim() == b"-1" {
                         thread_per_object = None;
                     } else {
                         thread_per_object = match threads.to_string().as_str().parse::<u16>() {
@@ -794,6 +821,7 @@ impl<'a> VB6Project<'a> {
             retained,
             thread_per_object,
             max_number_of_threads,
+            threading_model,
             debug_startup_option,
             auto_refresh,
         };
