@@ -244,7 +244,7 @@ pub enum VB6ErrorKind {
     #[error("Variable names must be less than 255 characters in VB6.")]
     VariableNameTooLong,
 
-    #[error("Winnow Error")]
+    #[error("Internal Parser Error - please report this issue to the developers.")]
     WinnowParseError,
 }
 

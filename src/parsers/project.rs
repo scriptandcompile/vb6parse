@@ -35,7 +35,7 @@ pub struct VB6Project<'a> {
     pub help_file_path: Option<&'a BStr>,
     pub title: Option<&'a BStr>,
     pub exe_32_file_name: Option<&'a BStr>,
-    //pub exe_32_compatible: Option<&'a BStr>,
+    pub exe_32_compatible: Option<&'a BStr>,
     pub path_32: Option<&'a BStr>,
     pub command_line_arguments: Option<&'a BStr>,
     pub name: Option<&'a BStr>,
@@ -271,6 +271,7 @@ impl<'a> VB6Project<'a> {
         let mut help_file_path = Some(BStr::new(b""));
         let mut title = Some(BStr::new(b""));
         let mut exe_32_file_name = Some(BStr::new(b""));
+        let mut exe_32_compatible = Some(BStr::new(b""));
         let mut path_32 = Some(BStr::new(b""));
         let mut command_line_arguments = Some(BStr::new(b""));
         let mut name = Some(BStr::new(b""));
@@ -490,6 +491,12 @@ impl<'a> VB6Project<'a> {
                                 return Err(input.error(VB6ErrorKind::CompatibleModeUnparseable));
                             }
                         },
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
+                    };
+                }
+                Ok("CompatibleEXE32") => {
+                    exe_32_compatible = match qouted_value("\"").parse_next(&mut input) {
+                        Ok(exe_32_compatible) => Some(exe_32_compatible),
                         Err(e) => return Err(input.error(e.into_inner().unwrap())),
                     };
                 }
@@ -775,6 +782,7 @@ impl<'a> VB6Project<'a> {
             help_file_path,
             title,
             exe_32_file_name,
+            exe_32_compatible,
             path_32,
             command_line_arguments,
             name,
