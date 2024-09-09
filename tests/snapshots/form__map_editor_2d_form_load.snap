@@ -1,5 +1,5 @@
 ---
-source: vb6parse/tests/form.rs
+source: tests/form.rs
 expression: form_file
 ---
 form:
@@ -17,7 +17,52 @@ form:
             green: 255
             blue: 255
         border_style: Sizable
-        caption: Basic Tile Map Editor - www.tannerhelland.com
+        caption:
+          - 66
+          - 97
+          - 115
+          - 105
+          - 99
+          - 32
+          - 84
+          - 105
+          - 108
+          - 101
+          - 32
+          - 77
+          - 97
+          - 112
+          - 32
+          - 69
+          - 100
+          - 105
+          - 116
+          - 111
+          - 114
+          - 32
+          - 45
+          - 32
+          - 119
+          - 119
+          - 119
+          - 46
+          - 116
+          - 97
+          - 110
+          - 110
+          - 101
+          - 114
+          - 104
+          - 101
+          - 108
+          - 108
+          - 97
+          - 110
+          - 100
+          - 46
+          - 99
+          - 111
+          - 109
         clip_controls: true
         control_box: true
         draw_mode: CopyPen
@@ -41,7 +86,12 @@ form:
         key_preview: false
         left: 0
         link_mode: None
-        link_topic: Form1
+        link_topic:
+          - 70
+          - 111
+          - 114
+          - 109
+          - 49
         max_button: true
         mdi_child: false
         min_button: true
@@ -447,7 +497,12 @@ form:
           tag: ""
           index: 0
           properties:
-            caption: "&File"
+            caption:
+              - 38
+              - 70
+              - 105
+              - 108
+              - 101
             enabled: true
             help_context_id: 0
             negotiate_position: None
@@ -459,7 +514,15 @@ form:
               tag: ""
               index: 0
               properties:
-                caption: "&New Map"
+                caption:
+                  - 38
+                  - 78
+                  - 101
+                  - 119
+                  - 32
+                  - 77
+                  - 97
+                  - 112
                 enabled: true
                 help_context_id: 0
                 negotiate_position: None
@@ -471,7 +534,16 @@ form:
               tag: ""
               index: 0
               properties:
-                caption: "&Open Map"
+                caption:
+                  - 38
+                  - 79
+                  - 112
+                  - 101
+                  - 110
+                  - 32
+                  - 77
+                  - 97
+                  - 112
                 enabled: true
                 help_context_id: 0
                 negotiate_position: None
@@ -483,7 +555,24 @@ form:
               tag: ""
               index: 0
               properties:
-                caption: "&Save Current Map"
+                caption:
+                  - 38
+                  - 83
+                  - 97
+                  - 118
+                  - 101
+                  - 32
+                  - 67
+                  - 117
+                  - 114
+                  - 114
+                  - 101
+                  - 110
+                  - 116
+                  - 32
+                  - 77
+                  - 97
+                  - 112
                 enabled: true
                 help_context_id: 0
                 negotiate_position: None
@@ -495,7 +584,8 @@ form:
               tag: ""
               index: 0
               properties:
-                caption: "-"
+                caption:
+                  - 45
                 enabled: true
                 help_context_id: 0
                 negotiate_position: None
@@ -507,7 +597,12 @@ form:
               tag: ""
               index: 0
               properties:
-                caption: E&xit
+                caption:
+                  - 69
+                  - 38
+                  - 120
+                  - 105
+                  - 116
                 enabled: true
                 help_context_id: 0
                 negotiate_position: None
@@ -519,7 +614,15 @@ form:
           tag: ""
           index: 0
           properties:
-            caption: "&Options"
+            caption:
+              - 38
+              - 79
+              - 112
+              - 116
+              - 105
+              - 111
+              - 110
+              - 115
             enabled: true
             help_context_id: 0
             negotiate_position: None
@@ -531,7 +634,21 @@ form:
               tag: ""
               index: 0
               properties:
-                caption: Resize the Map
+                caption:
+                  - 82
+                  - 101
+                  - 115
+                  - 105
+                  - 122
+                  - 101
+                  - 32
+                  - 116
+                  - 104
+                  - 101
+                  - 32
+                  - 77
+                  - 97
+                  - 112
                 enabled: true
                 help_context_id: 0
                 negotiate_position: None
@@ -543,7 +660,12 @@ form:
           tag: ""
           index: 0
           properties:
-            caption: "&View"
+            caption:
+              - 38
+              - 86
+              - 105
+              - 101
+              - 119
             enabled: true
             help_context_id: 0
             negotiate_position: None
@@ -555,7 +677,22 @@ form:
               tag: ""
               index: 0
               properties:
-                caption: "&Refresh Screen"
+                caption:
+                  - 38
+                  - 82
+                  - 101
+                  - 102
+                  - 114
+                  - 101
+                  - 115
+                  - 104
+                  - 32
+                  - 83
+                  - 99
+                  - 114
+                  - 101
+                  - 101
+                  - 110
                 enabled: true
                 help_context_id: 0
                 negotiate_position: None
@@ -567,7 +704,8 @@ form:
               tag: ""
               index: 0
               properties:
-                caption: "-"
+                caption:
+                  - 45
                 enabled: true
                 help_context_id: 0
                 negotiate_position: None
@@ -579,7 +717,19 @@ form:
               tag: ""
               index: 0
               properties:
-                caption: Change &Zoom
+                caption:
+                  - 67
+                  - 104
+                  - 97
+                  - 110
+                  - 103
+                  - 101
+                  - 32
+                  - 38
+                  - 90
+                  - 111
+                  - 111
+                  - 109
                 enabled: true
                 help_context_id: 0
                 negotiate_position: None

@@ -1,3 +1,4 @@
+use bstr::BStr;
 use serde::Serialize;
 
 /// Represents a VB6 menu control.
@@ -26,7 +27,7 @@ pub struct VB6MenuControl<'a> {
 /// As is, the parser will not enforce this, but the VB6 IDE will.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct MenuProperties<'a> {
-    pub caption: &'a str,
+    pub caption: &'a BStr,
     pub enabled: bool,
     pub help_context_id: i32,
     pub negotiate_position: NegotiatePosition,
@@ -38,7 +39,7 @@ pub struct MenuProperties<'a> {
 impl Default for MenuProperties<'_> {
     fn default() -> Self {
         MenuProperties {
-            caption: "",
+            caption: BStr::new(""),
             enabled: true,
             help_context_id: 0,
             negotiate_position: NegotiatePosition::None,

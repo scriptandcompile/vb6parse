@@ -1,5 +1,5 @@
 ---
-source: vb6parse/tests/form.rs
+source: tests/form.rs
 expression: form_file
 ---
 form:
@@ -15,7 +15,53 @@ form:
           System:
             index: 5
         border_style: Sizable
-        caption: Real-time Image Levels - www.tannerhelland.com
+        caption:
+          - 82
+          - 101
+          - 97
+          - 108
+          - 45
+          - 116
+          - 105
+          - 109
+          - 101
+          - 32
+          - 73
+          - 109
+          - 97
+          - 103
+          - 101
+          - 32
+          - 76
+          - 101
+          - 118
+          - 101
+          - 108
+          - 115
+          - 32
+          - 45
+          - 32
+          - 119
+          - 119
+          - 119
+          - 46
+          - 116
+          - 97
+          - 110
+          - 110
+          - 101
+          - 114
+          - 104
+          - 101
+          - 108
+          - 108
+          - 97
+          - 110
+          - 100
+          - 46
+          - 99
+          - 111
+          - 109
         clip_controls: true
         control_box: true
         draw_mode: CopyPen
@@ -39,7 +85,12 @@ form:
         key_preview: false
         left: 0
         link_mode: None
-        link_topic: Form1
+        link_topic:
+          - 70
+          - 111
+          - 114
+          - 109
+          - 49
         max_button: true
         mdi_child: false
         min_button: true
@@ -117,7 +168,14 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                caption: "Levels:"
+                caption:
+                  - 76
+                  - 101
+                  - 118
+                  - 101
+                  - 108
+                  - 115
+                  - 58
                 clip_controls: true
                 drag_icon: ~
                 drag_mode: Manual
@@ -133,7 +191,7 @@ form:
                 ole_drop_mode: None
                 right_to_left: false
                 tab_index: 2
-                tool_tip_text: ""
+                tool_tip_text: []
                 top: 720
                 visible: true
                 whats_this_help_id: 0
@@ -949,7 +1007,12 @@ form:
           tag: ""
           index: 0
           properties:
-            caption: "&File"
+            caption:
+              - 38
+              - 70
+              - 105
+              - 108
+              - 101
             enabled: true
             help_context_id: 0
             negotiate_position: None
@@ -961,7 +1024,18 @@ form:
               tag: ""
               index: 0
               properties:
-                caption: "&Open Image"
+                caption:
+                  - 38
+                  - 79
+                  - 112
+                  - 101
+                  - 110
+                  - 32
+                  - 73
+                  - 109
+                  - 97
+                  - 103
+                  - 101
                 enabled: true
                 help_context_id: 0
                 negotiate_position: None

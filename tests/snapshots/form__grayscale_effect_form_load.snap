@@ -1,5 +1,5 @@
 ---
-source: vb6parse/tests/form.rs
+source: tests/form.rs
 expression: form_file
 ---
 form:
@@ -15,7 +15,62 @@ form:
           System:
             index: 5
         border_style: Sizable
-        caption: Grayscale Conversion Algorithms - www.tannerhelland.com
+        caption:
+          - 71
+          - 114
+          - 97
+          - 121
+          - 115
+          - 99
+          - 97
+          - 108
+          - 101
+          - 32
+          - 67
+          - 111
+          - 110
+          - 118
+          - 101
+          - 114
+          - 115
+          - 105
+          - 111
+          - 110
+          - 32
+          - 65
+          - 108
+          - 103
+          - 111
+          - 114
+          - 105
+          - 116
+          - 104
+          - 109
+          - 115
+          - 32
+          - 45
+          - 32
+          - 119
+          - 119
+          - 119
+          - 46
+          - 116
+          - 97
+          - 110
+          - 110
+          - 101
+          - 114
+          - 104
+          - 101
+          - 108
+          - 108
+          - 97
+          - 110
+          - 100
+          - 46
+          - 99
+          - 111
+          - 109
         clip_controls: true
         control_box: true
         draw_mode: CopyPen
@@ -39,7 +94,12 @@ form:
         key_preview: false
         left: 0
         link_mode: None
-        link_topic: Form1
+        link_topic:
+          - 70
+          - 111
+          - 114
+          - 109
+          - 49
         max_button: true
         mdi_child: false
         min_button: true
@@ -77,7 +137,32 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                caption: "How many shades of gray? "
+                caption:
+                  - 72
+                  - 111
+                  - 119
+                  - 32
+                  - 109
+                  - 97
+                  - 110
+                  - 121
+                  - 32
+                  - 115
+                  - 104
+                  - 97
+                  - 100
+                  - 101
+                  - 115
+                  - 32
+                  - 111
+                  - 102
+                  - 32
+                  - 103
+                  - 114
+                  - 97
+                  - 121
+                  - 63
+                  - 32
                 clip_controls: true
                 drag_icon: ~
                 drag_mode: Manual
@@ -93,7 +178,7 @@ form:
                 ole_drop_mode: None
                 right_to_left: false
                 tab_index: 12
-                tool_tip_text: ""
+                tool_tip_text: []
                 top: 5520
                 visible: false
                 whats_this_help_id: 0
@@ -173,7 +258,33 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                caption: "Decompose according to... "
+                caption:
+                  - 68
+                  - 101
+                  - 99
+                  - 111
+                  - 109
+                  - 112
+                  - 111
+                  - 115
+                  - 101
+                  - 32
+                  - 97
+                  - 99
+                  - 99
+                  - 111
+                  - 114
+                  - 100
+                  - 105
+                  - 110
+                  - 103
+                  - 32
+                  - 116
+                  - 111
+                  - 46
+                  - 46
+                  - 46
+                  - 32
                 clip_controls: true
                 drag_icon: ~
                 drag_mode: Manual
@@ -189,7 +300,7 @@ form:
                 ole_drop_mode: None
                 right_to_left: false
                 tab_index: 9
-                tool_tip_text: ""
+                tool_tip_text: []
                 top: 4200
                 visible: false
                 whats_this_help_id: 0
@@ -294,7 +405,31 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                caption: "Select a color channel: "
+                caption:
+                  - 83
+                  - 101
+                  - 108
+                  - 101
+                  - 99
+                  - 116
+                  - 32
+                  - 97
+                  - 32
+                  - 99
+                  - 111
+                  - 108
+                  - 111
+                  - 114
+                  - 32
+                  - 99
+                  - 104
+                  - 97
+                  - 110
+                  - 110
+                  - 101
+                  - 108
+                  - 58
+                  - 32
                 clip_controls: true
                 drag_icon: ~
                 drag_mode: Manual
@@ -310,7 +445,7 @@ form:
                 ole_drop_mode: None
                 right_to_left: false
                 tab_index: 5
-                tool_tip_text: ""
+                tool_tip_text: []
                 top: 2520
                 visible: false
                 whats_this_help_id: 0
@@ -696,7 +831,12 @@ form:
           tag: ""
           index: 0
           properties:
-            caption: "&File"
+            caption:
+              - 38
+              - 70
+              - 105
+              - 108
+              - 101
             enabled: true
             help_context_id: 0
             negotiate_position: None
@@ -708,7 +848,18 @@ form:
               tag: ""
               index: 0
               properties:
-                caption: "&Open image"
+                caption:
+                  - 38
+                  - 79
+                  - 112
+                  - 101
+                  - 110
+                  - 32
+                  - 105
+                  - 109
+                  - 97
+                  - 103
+                  - 101
                 enabled: true
                 help_context_id: 0
                 negotiate_position: None

@@ -1,6 +1,8 @@
 use std::collections::HashMap;
 use std::vec::Vec;
 
+use bstr::BStr;
+
 use crate::{
     errors::{VB6Error, VB6ErrorKind},
     language::{
@@ -224,26 +226,13 @@ fn block_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Control<'a>> {
             key_resource_offset_line_parse("=").parse_next(input)
         {
             // TODO: At the moment we just eat the resource file look up.
-            let Ok(name_ascii) = name.to_str() else {
-                return Err(ErrMode::Cut(VB6ErrorKind::PropertyNameAsciiConversionError));
-            };
 
-            properties.insert(name_ascii, "");
+            properties.insert(name, BStr::new(""));
             continue;
         }
 
         if let Ok((name, value)) = key_value_line_parse("=").parse_next(input) {
-            let Ok(name_ascii) = name.to_str() else {
-                return Err(ErrMode::Cut(VB6ErrorKind::PropertyNameAsciiConversionError));
-            };
-
-            let Ok(value_ascii) = value.to_str() else {
-                return Err(ErrMode::Cut(
-                    VB6ErrorKind::PropertyValueAsciiConversionError,
-                ));
-            };
-
-            properties.insert(name_ascii, value_ascii);
+            properties.insert(name, value);
             continue;
         }
 
@@ -257,7 +246,7 @@ fn build_control<'a>(
     fully_qualified_name: VB6FullyQualifiedName<'a>,
     controls: Vec<VB6Control<'a>>,
     menus: Vec<VB6Control<'a>>,
-    properties: HashMap<&'a str, &'a str>,
+    properties: HashMap<&'a BStr, &'a BStr>,
     _property_groups: Vec<VB6PropertyGroup<'a>>,
 ) -> Result<VB6Control<'a>, VB6ErrorKind> {
     // This is wrong.
@@ -268,15 +257,16 @@ fn build_control<'a>(
             let mut form_properties = FormProperties::default();
 
             // TODO: We are not correctly handling property assignment for each control.
-
-            if properties.contains_key("Caption") {
-                form_properties.caption = properties["Caption"];
+            let caption_key = BStr::new("Caption");
+            if properties.contains_key(caption_key) {
+                form_properties.caption = properties[caption_key];
             }
 
-            if properties.contains_key("BackColor") {
-                let color_ascii = properties["BackColor"];
+            let backcolor_key = BStr::new("BackColor");
+            if properties.contains_key(backcolor_key) {
+                let color_ascii = properties[backcolor_key];
 
-                let Ok(back_color) = VB6Color::from_hex(color_ascii) else {
+                let Ok(back_color) = VB6Color::from_hex(color_ascii.to_str().unwrap()) else {
                     return Err(VB6ErrorKind::HexColorParseError);
                 };
                 form_properties.back_color = back_color;
@@ -310,9 +300,9 @@ fn build_control<'a>(
             let mut menu_properties = MenuProperties::default();
 
             // TODO: We are not correctly handling property assignment for each control.
-
-            if properties.contains_key("Caption") {
-                menu_properties.caption = properties["Caption"];
+            let caption_key = BStr::new("Caption");
+            if properties.contains_key(caption_key) {
+                menu_properties.caption = properties[caption_key];
             }
 
             let mut converted_menus = vec![];
@@ -654,7 +644,7 @@ mod tests {
                     tag: "",
                     index: 0,
                     properties: MenuProperties {
-                        caption: &"&File",
+                        caption: BStr::new("&File"),
                         ..Default::default()
                     },
                     sub_menus: vec![VB6MenuControl {
@@ -662,7 +652,7 @@ mod tests {
                         tag: "",
                         index: 0,
                         properties: MenuProperties {
-                            caption: &"&Open image",
+                            caption: BStr::new("&Open image"),
                             ..Default::default()
                         },
                         sub_menus: vec![],

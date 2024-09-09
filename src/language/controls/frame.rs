@@ -5,6 +5,7 @@ use crate::language::color::VB6Color;
 use crate::language::controls::{Appearance, BorderStyle, DragMode, MousePointer, OLEDropMode};
 use crate::parsers::form::VB6PropertyGroup;
 
+use bstr::{BStr, ByteSlice};
 use image::DynamicImage;
 use serde::Serialize;
 
@@ -19,7 +20,7 @@ pub struct FrameProperties<'a> {
     pub appearance: Appearance,
     pub back_color: VB6Color,
     pub border_style: BorderStyle,
-    pub caption: &'a str,
+    pub caption: &'a BStr,
     pub clip_controls: bool,
     pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
@@ -33,7 +34,7 @@ pub struct FrameProperties<'a> {
     pub ole_drop_mode: OLEDropMode,
     pub right_to_left: bool,
     pub tab_index: i32,
-    pub tool_tip_text: &'a str,
+    pub tool_tip_text: &'a BStr,
     pub top: i32,
     pub visible: bool,
     pub whats_this_help_id: i32,
@@ -46,7 +47,7 @@ impl Default for FrameProperties<'_> {
             appearance: Appearance::ThreeD,
             back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
             border_style: BorderStyle::FixedSingle,
-            caption: "Frame1",
+            caption: BStr::new("Frame1"),
             clip_controls: true,
             drag_icon: None,
             drag_mode: DragMode::Manual,
@@ -60,7 +61,7 @@ impl Default for FrameProperties<'_> {
             ole_drop_mode: OLEDropMode::None,
             right_to_left: false,
             tab_index: 0,
-            tool_tip_text: "",
+            tool_tip_text: BStr::new(""),
             top: 30,
             visible: true,
             whats_this_help_id: 0,
@@ -113,27 +114,29 @@ impl Serialize for FrameProperties<'_> {
 
 impl<'a> FrameProperties<'a> {
     pub fn construct_control(
-        properties: HashMap<&'a str, &'a str>,
+        properties: HashMap<&'a BStr, &'a BStr>,
         _property_groups: Vec<VB6PropertyGroup<'a>>,
     ) -> Result<Self, VB6ErrorKind> {
         // TODO: We are not correctly handling property assignment for each control.
 
         let mut frame_properties = FrameProperties::default();
 
-        if properties.contains_key("Appearance") {
-            let appearance = properties["Appearance"];
+        let appearance_key = BStr::new("Appearance");
+        if properties.contains_key(appearance_key) {
+            let appearance = properties[appearance_key];
 
-            frame_properties.appearance = match appearance {
-                "0" => Appearance::Flat,
-                "1" => Appearance::ThreeD,
+            frame_properties.appearance = match appearance.as_bytes() {
+                b"0" => Appearance::Flat,
+                b"1" => Appearance::ThreeD,
                 _ => {
                     return Err(VB6ErrorKind::AppearancePropertyInvalid);
                 }
             };
         }
 
-        if properties.contains_key("BackColor") {
-            let color_ascii = properties["BackColor"];
+        let backcolor_key = BStr::new("BackColor");
+        if properties.contains_key(backcolor_key) {
+            let color_ascii = properties[backcolor_key].to_str().unwrap();
 
             let Ok(back_color) = VB6Color::from_hex(color_ascii) else {
                 return Err(VB6ErrorKind::HexColorParseError);
@@ -141,28 +144,31 @@ impl<'a> FrameProperties<'a> {
             frame_properties.back_color = back_color;
         }
 
-        if properties.contains_key("BorderStyle") {
-            let border_style = properties["BorderStyle"];
+        let borderstyle_key = BStr::new("BorderStyle");
+        if properties.contains_key(borderstyle_key) {
+            let border_style = properties[borderstyle_key];
 
-            frame_properties.border_style = match border_style {
-                "0" => BorderStyle::None,
-                "1" => BorderStyle::FixedSingle,
+            frame_properties.border_style = match border_style.as_bytes() {
+                b"0" => BorderStyle::None,
+                b"1" => BorderStyle::FixedSingle,
                 _ => {
                     return Err(VB6ErrorKind::BorderStylePropertyInvalid);
                 }
             };
         }
 
-        if properties.contains_key("Caption") {
-            frame_properties.caption = properties["Caption"];
+        let caption_key = BStr::new("Caption");
+        if properties.contains_key(caption_key) {
+            frame_properties.caption = properties[caption_key];
         }
 
-        if properties.contains_key("ClipControls") {
-            let clip_controls = properties["ClipControls"];
+        let clipcontrols_key = BStr::new("ClipControls");
+        if properties.contains_key(clipcontrols_key) {
+            let clip_controls = properties[clipcontrols_key];
 
-            frame_properties.clip_controls = match clip_controls {
-                "0" => false,
-                "1" => true,
+            frame_properties.clip_controls = match clip_controls.as_bytes() {
+                b"0" => false,
+                b"1" => true,
                 _ => {
                     return Err(VB6ErrorKind::ClipControlsPropertyInvalid);
                 }
@@ -172,63 +178,69 @@ impl<'a> FrameProperties<'a> {
         // TODO: Implement loading drag_icon picture loading.
         // drag_icon: None,
 
-        if properties.contains_key("DragMode") {
-            let drag_mode = properties["DragMode"];
+        let dragmode_key = BStr::new("DragMode");
+        if properties.contains_key(dragmode_key) {
+            let drag_mode = properties[dragmode_key];
 
-            frame_properties.drag_mode = match drag_mode {
-                "0" => DragMode::Manual,
-                "1" => DragMode::Automatic,
+            frame_properties.drag_mode = match drag_mode.as_bytes() {
+                b"0" => DragMode::Manual,
+                b"1" => DragMode::Automatic,
                 _ => {
                     return Err(VB6ErrorKind::DragModePropertyInvalid);
                 }
             };
         }
 
-        if properties.contains_key("Enabled") {
-            let enabled = properties["Enabled"];
+        let enabled_key = BStr::new("Enabled");
+        if properties.contains_key(enabled_key) {
+            let enabled = properties[enabled_key];
 
-            frame_properties.enabled = match enabled {
-                "0" => false,
-                "1" => true,
+            frame_properties.enabled = match enabled.as_bytes() {
+                b"0" => false,
+                b"1" => true,
                 _ => {
                     return Err(VB6ErrorKind::EnabledPropertyInvalid);
                 }
             };
         }
 
-        if properties.contains_key("ForeColor") {
-            let color_ascii = properties["ForeColor"];
+        let forecolor_key = BStr::new("ForeColor");
+        if properties.contains_key(forecolor_key) {
+            let color_ascii = properties[forecolor_key];
 
-            let Ok(fore_color) = VB6Color::from_hex(color_ascii) else {
+            let Ok(fore_color) = VB6Color::from_hex(color_ascii.to_str().unwrap()) else {
                 return Err(VB6ErrorKind::HexColorParseError);
             };
             frame_properties.fore_color = fore_color;
         }
 
-        if properties.contains_key("Height") {
-            let height = properties["Height"];
+        let height_key = BStr::new("Height");
+        if properties.contains_key(height_key) {
+            let height = properties[height_key];
 
-            let Ok(height) = height.parse::<i32>() else {
+            let Ok(height) = height.to_str().unwrap().parse::<i32>() else {
                 return Err(VB6ErrorKind::PropertyValueAsciiConversionError);
             };
 
             frame_properties.height = height;
         }
 
-        if properties.contains_key("HelpContextID") {
-            let help_context_id = properties["HelpContextID"];
+        let helpcontextid_key = BStr::new("HelpContextID");
+        if properties.contains_key(helpcontextid_key) {
+            let help_context_id = properties[helpcontextid_key];
 
-            let Ok(help_context_id) = help_context_id.parse::<i32>() else {
+            let Ok(help_context_id) = help_context_id.to_str().unwrap().parse::<i32>() else {
                 return Err(VB6ErrorKind::PropertyValueAsciiConversionError);
             };
 
             frame_properties.help_context_id = help_context_id;
         }
 
-        if properties.contains_key("Left") {
-            let left = properties["Left"];
+        let left_key = BStr::new("Left");
+        if properties.contains_key(left_key) {
+            let left = properties[left_key];
 
-            let Ok(left) = left.parse::<i32>() else {
+            let Ok(left) = left.to_str().unwrap().parse::<i32>() else {
                 return Err(VB6ErrorKind::PropertyValueAsciiConversionError);
             };
 
@@ -237,106 +249,114 @@ impl<'a> FrameProperties<'a> {
 
         // TODO: Implement mouse_icon picture loading.
         // mouse_icon: None,
+        let mousepointer_key = BStr::new("MousePointer");
+        if properties.contains_key(mousepointer_key) {
+            let mouse_pointer = properties[mousepointer_key];
 
-        if properties.contains_key("MousePointer") {
-            let mouse_pointer = properties["MousePointer"];
-
-            frame_properties.mouse_pointer = match mouse_pointer {
-                "0" => MousePointer::Default,
-                "1" => MousePointer::Arrow,
-                "2" => MousePointer::Cross,
-                "3" => MousePointer::IBeam,
-                "6" => MousePointer::SizeNESW,
-                "7" => MousePointer::SizeNS,
-                "8" => MousePointer::SizeNWSE,
-                "9" => MousePointer::SizeWE,
-                "10" => MousePointer::UpArrow,
-                "11" => MousePointer::Hourglass,
-                "12" => MousePointer::NoDrop,
-                "13" => MousePointer::ArrowHourglass,
-                "14" => MousePointer::ArrowQuestion,
-                "15" => MousePointer::SizeAll,
-                "99" => MousePointer::Custom,
+            frame_properties.mouse_pointer = match mouse_pointer.as_bytes() {
+                b"0" => MousePointer::Default,
+                b"1" => MousePointer::Arrow,
+                b"2" => MousePointer::Cross,
+                b"3" => MousePointer::IBeam,
+                b"6" => MousePointer::SizeNESW,
+                b"7" => MousePointer::SizeNS,
+                b"8" => MousePointer::SizeNWSE,
+                b"9" => MousePointer::SizeWE,
+                b"10" => MousePointer::UpArrow,
+                b"11" => MousePointer::Hourglass,
+                b"12" => MousePointer::NoDrop,
+                b"13" => MousePointer::ArrowHourglass,
+                b"14" => MousePointer::ArrowQuestion,
+                b"15" => MousePointer::SizeAll,
+                b"99" => MousePointer::Custom,
                 _ => {
                     return Err(VB6ErrorKind::MousePointerPropertyInvalid);
                 }
             };
         }
 
-        if properties.contains_key("OLEDropMode") {
-            let ole_drop_mode = properties["OLEDropMode"];
+        let oledropmode_key = BStr::new("OLEDropMode");
+        if properties.contains_key(oledropmode_key) {
+            let ole_drop_mode = properties[oledropmode_key];
 
-            frame_properties.ole_drop_mode = match ole_drop_mode {
-                "0" => OLEDropMode::None,
-                "1" => OLEDropMode::Manual,
+            frame_properties.ole_drop_mode = match ole_drop_mode.as_bytes() {
+                b"0" => OLEDropMode::None,
+                b"1" => OLEDropMode::Manual,
                 _ => {
                     return Err(VB6ErrorKind::OLEDropModePropertyInvalid);
                 }
             };
         }
 
-        if properties.contains_key("RightToLeft") {
-            let right_to_left = properties["RightToLeft"];
+        let righttoleft_key = BStr::new("RightToLeft");
+        if properties.contains_key(righttoleft_key) {
+            let right_to_left = properties[righttoleft_key];
 
-            frame_properties.right_to_left = match right_to_left {
-                "0" => false,
-                "1" => true,
+            frame_properties.right_to_left = match right_to_left.as_bytes() {
+                b"0" => false,
+                b"1" => true,
                 _ => {
                     return Err(VB6ErrorKind::RightToLeftPropertyInvalid);
                 }
             };
         }
 
-        if properties.contains_key("TabIndex") {
-            let tab_index = properties["TabIndex"];
+        let tabindex_key = BStr::new("TabIndex");
+        if properties.contains_key(tabindex_key) {
+            let tab_index = properties[tabindex_key];
 
-            let Ok(tab_index) = tab_index.parse::<i32>() else {
+            let Ok(tab_index) = tab_index.to_str().unwrap().parse::<i32>() else {
                 return Err(VB6ErrorKind::PropertyValueAsciiConversionError);
             };
 
             frame_properties.tab_index = tab_index;
         }
 
-        if properties.contains_key("ToolTipText") {
-            frame_properties.tool_tip_text = properties["ToolTipText"];
+        let tooltiptext_key = BStr::new("ToolTipText");
+        if properties.contains_key(tooltiptext_key) {
+            frame_properties.tool_tip_text = properties[tooltiptext_key];
         }
 
-        if properties.contains_key("Top") {
-            let top = properties["Top"];
+        let top_key = BStr::new("Top");
+        if properties.contains_key(top_key) {
+            let top = properties[top_key];
 
-            let Ok(top) = top.parse::<i32>() else {
+            let Ok(top) = top.to_str().unwrap().parse::<i32>() else {
                 return Err(VB6ErrorKind::PropertyValueAsciiConversionError);
             };
 
             frame_properties.top = top;
         }
 
-        if properties.contains_key("Visible") {
-            let visible = properties["Visible"];
+        let visible_key = BStr::new("Visible");
+        if properties.contains_key(visible_key) {
+            let visible = properties[visible_key];
 
-            frame_properties.visible = match visible {
-                "0" => false,
-                "1" => true,
+            frame_properties.visible = match visible.as_bytes() {
+                b"0" => false,
+                b"1" => true,
                 _ => {
                     return Err(VB6ErrorKind::VisiblePropertyInvalid);
                 }
             };
         }
 
-        if properties.contains_key("WhatsThisHelpID") {
-            let whats_this_help_id = properties["WhatsThisHelpID"];
+        let whatsthishelpid_key = BStr::new("WhatsThisHelpID");
+        if properties.contains_key(whatsthishelpid_key) {
+            let whats_this_help_id = properties[whatsthishelpid_key];
 
-            let Ok(whats_this_help_id) = whats_this_help_id.parse::<i32>() else {
+            let Ok(whats_this_help_id) = whats_this_help_id.to_str().unwrap().parse::<i32>() else {
                 return Err(VB6ErrorKind::PropertyValueAsciiConversionError);
             };
 
             frame_properties.whats_this_help_id = whats_this_help_id;
         }
 
-        if properties.contains_key("Width") {
-            let width = properties["Width"];
+        let width_key = BStr::new("Width");
+        if properties.contains_key(width_key) {
+            let width = properties[width_key];
 
-            let Ok(width) = width.parse::<i32>() else {
+            let Ok(width) = width.to_str().unwrap().parse::<i32>() else {
                 return Err(VB6ErrorKind::PropertyValueAsciiConversionError);
             };
 
