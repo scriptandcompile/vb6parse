@@ -1,5 +1,5 @@
 ---
-source: vb6parse/tests/form.rs
+source: tests/form.rs
 expression: form_file
 ---
 form:
@@ -17,7 +17,17 @@ form:
             green: 192
             blue: 192
         border_style: Sizable
-        caption: " Histogram"
+        caption:
+          - 32
+          - 72
+          - 105
+          - 115
+          - 116
+          - 111
+          - 103
+          - 114
+          - 97
+          - 109
         clip_controls: true
         control_box: true
         draw_mode: CopyPen
@@ -41,7 +51,12 @@ form:
         key_preview: false
         left: 0
         link_mode: None
-        link_topic: Form1
+        link_topic:
+          - 70
+          - 111
+          - 114
+          - 109
+          - 49
         max_button: true
         mdi_child: false
         min_button: true
@@ -81,7 +96,17 @@ form:
                     green: 192
                     blue: 192
                 border_style: FixedSingle
-                caption: Statistics
+                caption:
+                  - 83
+                  - 116
+                  - 97
+                  - 116
+                  - 105
+                  - 115
+                  - 116
+                  - 105
+                  - 99
+                  - 115
                 clip_controls: true
                 drag_icon: ~
                 drag_mode: Manual
@@ -97,7 +122,7 @@ form:
                 ole_drop_mode: None
                 right_to_left: false
                 tab_index: 6
-                tool_tip_text: ""
+                tool_tip_text: []
                 top: 5280
                 visible: true
                 whats_this_help_id: 0

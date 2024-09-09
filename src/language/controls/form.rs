@@ -3,6 +3,7 @@ use crate::language::controls::{
 };
 use crate::VB6Color;
 
+use bstr::BStr;
 use image::DynamicImage;
 use serde::Serialize;
 
@@ -58,7 +59,7 @@ pub struct FormProperties<'a> {
     pub auto_redraw: bool,
     pub back_color: VB6Color,
     pub border_style: FormBorderStyle,
-    pub caption: &'a str,
+    pub caption: &'a BStr,
     pub clip_controls: bool,
     pub control_box: bool,
     pub draw_mode: DrawMode,
@@ -76,7 +77,7 @@ pub struct FormProperties<'a> {
     pub key_preview: bool,
     pub left: i32,
     pub link_mode: FormLinkMode,
-    pub link_topic: &'a str,
+    pub link_topic: &'a BStr,
     pub max_button: bool,
     pub mdi_child: bool,
     pub min_button: bool,
@@ -184,7 +185,7 @@ impl Default for FormProperties<'_> {
             auto_redraw: false,
             back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
             border_style: FormBorderStyle::Sizable,
-            caption: "Form1",
+            caption: BStr::new("Form1"),
             clip_controls: true,
             control_box: true,
             draw_mode: DrawMode::CopyPen,
@@ -202,7 +203,7 @@ impl Default for FormProperties<'_> {
             key_preview: false,
             left: 0,
             link_mode: FormLinkMode::None,
-            link_topic: "Form1",
+            link_topic: BStr::new("Form1"),
             max_button: true,
             mdi_child: false,
             min_button: true,

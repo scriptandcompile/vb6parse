@@ -303,11 +303,17 @@ impl<'a> VB6Project<'a> {
 
             let _: VB6Result<_> = space0.parse_next(&mut input);
 
-            let Ok(key): VB6Result<_> = take_until(1.., "=").parse_next(&mut input) else {
+            let Ok((_, key, _, _, _)): VB6Result<_> = (
+                space0,
+                alt((take_until(0.., "="), take_until(0.., " "))),
+                space0,
+                "=",
+                space0,
+            )
+                .parse_next(&mut input)
+            else {
                 return Err(input.error(VB6ErrorKind::NoEqualSplit));
             };
-
-            let _: VB6Result<_> = ("=", space0).parse_next(&mut input);
 
             match key.to_str() {
                 Ok("Type") => {

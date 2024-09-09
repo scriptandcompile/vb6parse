@@ -1,5 +1,5 @@
 ---
-source: vb6parse/tests/form.rs
+source: tests/form.rs
 expression: form_file
 ---
 form:
@@ -17,7 +17,74 @@ form:
             green: 192
             blue: 192
         border_style: Sizable
-        caption: Hidden Markov Models and CpG Islands in VB6 - www.tannerhelland.com
+        caption:
+          - 72
+          - 105
+          - 100
+          - 100
+          - 101
+          - 110
+          - 32
+          - 77
+          - 97
+          - 114
+          - 107
+          - 111
+          - 118
+          - 32
+          - 77
+          - 111
+          - 100
+          - 101
+          - 108
+          - 115
+          - 32
+          - 97
+          - 110
+          - 100
+          - 32
+          - 67
+          - 112
+          - 71
+          - 32
+          - 73
+          - 115
+          - 108
+          - 97
+          - 110
+          - 100
+          - 115
+          - 32
+          - 105
+          - 110
+          - 32
+          - 86
+          - 66
+          - 54
+          - 32
+          - 45
+          - 32
+          - 119
+          - 119
+          - 119
+          - 46
+          - 116
+          - 97
+          - 110
+          - 110
+          - 101
+          - 114
+          - 104
+          - 101
+          - 108
+          - 108
+          - 97
+          - 110
+          - 100
+          - 46
+          - 99
+          - 111
+          - 109
         clip_controls: true
         control_box: true
         draw_mode: CopyPen
@@ -41,7 +108,12 @@ form:
         key_preview: false
         left: 0
         link_mode: None
-        link_topic: Form1
+        link_topic:
+          - 70
+          - 111
+          - 114
+          - 109
+          - 49
         max_button: true
         mdi_child: false
         min_button: true
@@ -81,7 +153,86 @@ form:
                     green: 192
                     blue: 192
                 border_style: FixedSingle
-                caption: "Step 4: Run a sliding window analysis to determine possible CG island locations"
+                caption:
+                  - 83
+                  - 116
+                  - 101
+                  - 112
+                  - 32
+                  - 52
+                  - 58
+                  - 32
+                  - 82
+                  - 117
+                  - 110
+                  - 32
+                  - 97
+                  - 32
+                  - 115
+                  - 108
+                  - 105
+                  - 100
+                  - 105
+                  - 110
+                  - 103
+                  - 32
+                  - 119
+                  - 105
+                  - 110
+                  - 100
+                  - 111
+                  - 119
+                  - 32
+                  - 97
+                  - 110
+                  - 97
+                  - 108
+                  - 121
+                  - 115
+                  - 105
+                  - 115
+                  - 32
+                  - 116
+                  - 111
+                  - 32
+                  - 100
+                  - 101
+                  - 116
+                  - 101
+                  - 114
+                  - 109
+                  - 105
+                  - 110
+                  - 101
+                  - 32
+                  - 112
+                  - 111
+                  - 115
+                  - 115
+                  - 105
+                  - 98
+                  - 108
+                  - 101
+                  - 32
+                  - 67
+                  - 71
+                  - 32
+                  - 105
+                  - 115
+                  - 108
+                  - 97
+                  - 110
+                  - 100
+                  - 32
+                  - 108
+                  - 111
+                  - 99
+                  - 97
+                  - 116
+                  - 105
+                  - 111
+                  - 110
+                  - 115
                 clip_controls: true
                 drag_icon: ~
                 drag_mode: Manual
@@ -97,7 +248,7 @@ form:
                 ole_drop_mode: None
                 right_to_left: false
                 tab_index: 39
-                tool_tip_text: ""
+                tool_tip_text: []
                 top: 4920
                 visible: true
                 whats_this_help_id: 0
@@ -475,7 +626,62 @@ form:
                     green: 192
                     blue: 192
                 border_style: FixedSingle
-                caption: "Step 3: Run the HMM and Viterbi algorithm on your data "
+                caption:
+                  - 83
+                  - 116
+                  - 101
+                  - 112
+                  - 32
+                  - 51
+                  - 58
+                  - 32
+                  - 82
+                  - 117
+                  - 110
+                  - 32
+                  - 116
+                  - 104
+                  - 101
+                  - 32
+                  - 72
+                  - 77
+                  - 77
+                  - 32
+                  - 97
+                  - 110
+                  - 100
+                  - 32
+                  - 86
+                  - 105
+                  - 116
+                  - 101
+                  - 114
+                  - 98
+                  - 105
+                  - 32
+                  - 97
+                  - 108
+                  - 103
+                  - 111
+                  - 114
+                  - 105
+                  - 116
+                  - 104
+                  - 109
+                  - 32
+                  - 111
+                  - 110
+                  - 32
+                  - 121
+                  - 111
+                  - 117
+                  - 114
+                  - 32
+                  - 100
+                  - 97
+                  - 116
+                  - 97
+                  - 32
                 clip_controls: true
                 drag_icon: ~
                 drag_mode: Manual
@@ -491,7 +697,7 @@ form:
                 ole_drop_mode: None
                 right_to_left: false
                 tab_index: 37
-                tool_tip_text: ""
+                tool_tip_text: []
                 top: 3840
                 visible: true
                 whats_this_help_id: 0
@@ -586,7 +792,36 @@ form:
                     green: 192
                     blue: 192
                 border_style: FixedSingle
-                caption: "Step 2: Input HMM Parameters "
+                caption:
+                  - 83
+                  - 116
+                  - 101
+                  - 112
+                  - 32
+                  - 50
+                  - 58
+                  - 32
+                  - 73
+                  - 110
+                  - 112
+                  - 117
+                  - 116
+                  - 32
+                  - 72
+                  - 77
+                  - 77
+                  - 32
+                  - 80
+                  - 97
+                  - 114
+                  - 97
+                  - 109
+                  - 101
+                  - 116
+                  - 101
+                  - 114
+                  - 115
+                  - 32
                 clip_controls: true
                 drag_icon: ~
                 drag_mode: Manual
@@ -602,7 +837,7 @@ form:
                 ole_drop_mode: None
                 right_to_left: false
                 tab_index: 5
-                tool_tip_text: ""
+                tool_tip_text: []
                 top: 1200
                 visible: true
                 whats_this_help_id: 0
@@ -661,7 +896,29 @@ form:
                             green: 192
                             blue: 192
                         border_style: FixedSingle
-                        caption: "Initial Probabilities:"
+                        caption:
+                          - 73
+                          - 110
+                          - 105
+                          - 116
+                          - 105
+                          - 97
+                          - 108
+                          - 32
+                          - 80
+                          - 114
+                          - 111
+                          - 98
+                          - 97
+                          - 98
+                          - 105
+                          - 108
+                          - 105
+                          - 116
+                          - 105
+                          - 101
+                          - 115
+                          - 58
                         clip_controls: true
                         drag_icon: ~
                         drag_mode: Manual
@@ -677,7 +934,7 @@ form:
                         ole_drop_mode: None
                         right_to_left: false
                         tab_index: 32
-                        tool_tip_text: ""
+                        tool_tip_text: []
                         top: 360
                         visible: true
                         whats_this_help_id: 0
@@ -866,7 +1123,27 @@ form:
                             green: 192
                             blue: 192
                         border_style: FixedSingle
-                        caption: "State Probabilities:"
+                        caption:
+                          - 83
+                          - 116
+                          - 97
+                          - 116
+                          - 101
+                          - 32
+                          - 80
+                          - 114
+                          - 111
+                          - 98
+                          - 97
+                          - 98
+                          - 105
+                          - 108
+                          - 105
+                          - 116
+                          - 105
+                          - 101
+                          - 115
+                          - 58
                         clip_controls: true
                         drag_icon: ~
                         drag_mode: Manual
@@ -882,7 +1159,7 @@ form:
                         ole_drop_mode: None
                         right_to_left: false
                         tab_index: 15
-                        tool_tip_text: ""
+                        tool_tip_text: []
                         top: 360
                         visible: true
                         whats_this_help_id: 0
@@ -1581,7 +1858,24 @@ form:
                             green: 192
                             blue: 192
                         border_style: FixedSingle
-                        caption: I/B Probabilities
+                        caption:
+                          - 73
+                          - 47
+                          - 66
+                          - 32
+                          - 80
+                          - 114
+                          - 111
+                          - 98
+                          - 97
+                          - 98
+                          - 105
+                          - 108
+                          - 105
+                          - 116
+                          - 105
+                          - 101
+                          - 115
                         clip_controls: true
                         drag_icon: ~
                         drag_mode: Manual
@@ -1597,7 +1891,7 @@ form:
                         ole_drop_mode: None
                         right_to_left: false
                         tab_index: 6
-                        tool_tip_text: ""
+                        tool_tip_text: []
                         top: 360
                         visible: true
                         whats_this_help_id: 0
@@ -2005,7 +2299,50 @@ form:
                     green: 192
                     blue: 192
                 border_style: FixedSingle
-                caption: "Step 1: Load information from a FASTA file "
+                caption:
+                  - 83
+                  - 116
+                  - 101
+                  - 112
+                  - 32
+                  - 49
+                  - 58
+                  - 32
+                  - 76
+                  - 111
+                  - 97
+                  - 100
+                  - 32
+                  - 105
+                  - 110
+                  - 102
+                  - 111
+                  - 114
+                  - 109
+                  - 97
+                  - 116
+                  - 105
+                  - 111
+                  - 110
+                  - 32
+                  - 102
+                  - 114
+                  - 111
+                  - 109
+                  - 32
+                  - 97
+                  - 32
+                  - 70
+                  - 65
+                  - 83
+                  - 84
+                  - 65
+                  - 32
+                  - 102
+                  - 105
+                  - 108
+                  - 101
+                  - 32
                 clip_controls: true
                 drag_icon: ~
                 drag_mode: Manual
@@ -2021,7 +2358,7 @@ form:
                 ole_drop_mode: None
                 right_to_left: false
                 tab_index: 0
-                tool_tip_text: ""
+                tool_tip_text: []
                 top: 120
                 visible: true
                 whats_this_help_id: 0

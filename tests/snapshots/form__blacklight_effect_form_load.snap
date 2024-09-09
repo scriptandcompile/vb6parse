@@ -1,5 +1,5 @@
 ---
-source: vb6parse/tests/form.rs
+source: tests/form.rs
 expression: form_file
 ---
 form:
@@ -15,7 +15,44 @@ form:
           System:
             index: 5
         border_style: Sizable
-        caption: Blacklight Effect - tannerhelland.com
+        caption:
+          - 66
+          - 108
+          - 97
+          - 99
+          - 107
+          - 108
+          - 105
+          - 103
+          - 104
+          - 116
+          - 32
+          - 69
+          - 102
+          - 102
+          - 101
+          - 99
+          - 116
+          - 32
+          - 45
+          - 32
+          - 116
+          - 97
+          - 110
+          - 110
+          - 101
+          - 114
+          - 104
+          - 101
+          - 108
+          - 108
+          - 97
+          - 110
+          - 100
+          - 46
+          - 99
+          - 111
+          - 109
         clip_controls: true
         control_box: true
         draw_mode: CopyPen
@@ -39,7 +76,12 @@ form:
         key_preview: false
         left: 0
         link_mode: None
-        link_topic: Form1
+        link_topic:
+          - 70
+          - 111
+          - 114
+          - 109
+          - 49
         max_button: true
         mdi_child: false
         min_button: true
@@ -308,7 +350,12 @@ form:
           tag: ""
           index: 0
           properties:
-            caption: "&File"
+            caption:
+              - 38
+              - 70
+              - 105
+              - 108
+              - 101
             enabled: true
             help_context_id: 0
             negotiate_position: None
@@ -320,7 +367,18 @@ form:
               tag: ""
               index: 0
               properties:
-                caption: "&Open image"
+                caption:
+                  - 38
+                  - 79
+                  - 112
+                  - 101
+                  - 110
+                  - 32
+                  - 105
+                  - 109
+                  - 97
+                  - 103
+                  - 101
                 enabled: true
                 help_context_id: 0
                 negotiate_position: None
