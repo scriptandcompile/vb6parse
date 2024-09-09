@@ -228,12 +228,6 @@ fn block_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Control<'a>> {
                 return Err(ErrMode::Cut(VB6ErrorKind::PropertyNameAsciiConversionError));
             };
 
-            // let Ok(value_ascii) = value.to_str() else {
-            //     return Err(ErrMode::Cut(
-            //         VB6ErrorKind::PropertyValueAsciiConversionError,
-            //     ));
-            // };
-
             properties.insert(name_ascii, "");
             continue;
         }
