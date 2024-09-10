@@ -36,6 +36,7 @@ pub struct VB6Project<'a> {
     pub title: Option<&'a BStr>,
     pub exe_32_file_name: Option<&'a BStr>,
     pub exe_32_compatible: Option<&'a BStr>,
+    pub dll_base_address: u32,
     pub path_32: Option<&'a BStr>,
     pub command_line_arguments: Option<&'a BStr>,
     pub name: Option<&'a BStr>,
@@ -245,6 +246,7 @@ impl<'a> VB6Project<'a> {
         let mut title = Some(BStr::new(b""));
         let mut exe_32_file_name = Some(BStr::new(b""));
         let mut exe_32_compatible = Some(BStr::new(b""));
+        let mut dll_base_address = 0x11000000u32;
         let mut version_32_compatibility = Some(BStr::new(b""));
         let mut path_32 = Some(BStr::new(b""));
         let mut command_line_arguments = Some(BStr::new(b""));
@@ -493,6 +495,23 @@ impl<'a> VB6Project<'a> {
                     exe_32_compatible = match qouted_value("\"").parse_next(&mut input) {
                         Ok(exe_32_compatible) => Some(exe_32_compatible),
                         Err(e) => return Err(input.error(e.into_inner().unwrap())),
+                    };
+                }
+                Ok("DllBaseAddress") => {
+                    let Ok(base_address_hex_text): VB6Result<_> =
+                        take_until_line_ending.parse_next(&mut input)
+                    else {
+                        return Err(input.error(VB6ErrorKind::DllBaseAddressUnparseable));
+                    };
+
+                    dll_base_address = match u32::from_str_radix(
+                        base_address_hex_text.to_string().trim_start_matches("&H"),
+                        16,
+                    ) {
+                        Ok(dll_base_address) => dll_base_address,
+                        Err(_) => {
+                            return Err(input.error(VB6ErrorKind::DllBaseAddressUnparseable));
+                        }
                     };
                 }
                 Ok("MajorVer") => {
@@ -802,6 +821,7 @@ impl<'a> VB6Project<'a> {
             title,
             exe_32_file_name,
             exe_32_compatible,
+            dll_base_address,
             version_32_compatibility,
             path_32,
             command_line_arguments,
