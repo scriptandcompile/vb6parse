@@ -46,6 +46,9 @@ pub enum VB6ErrorKind {
     #[error("Major version is not a number.")]
     MajorVersionUnparseable,
 
+    #[error("Unable to parse hex address from DllBaseAddress key")]
+    DllBaseAddressUnparseable,
+
     #[error("CompatibleMode Invalid. CompatibileMode can only be 0, 1, or 2.")]
     CompatibleModeUnparseable,
 
