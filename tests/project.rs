@@ -29,7 +29,7 @@ fn artificial_life_project_load() {
         project.exe_32_file_name,
         Some(b"Artificial Life.exe".as_bstr())
     );
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"Artificial_Life".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -99,7 +99,7 @@ fn blacklight_effect_project_load() {
     assert_eq!(project.help_file_path, Some(b"".as_bstr()));
     assert_eq!(project.title, Some(b"Blacklight".as_bstr()));
     assert_eq!(project.exe_32_file_name, Some(b"Blacklight.exe".as_bstr()));
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"Blacklight_Effect".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -167,7 +167,7 @@ fn brightness_effect_part_1_project_load() {
         project.exe_32_file_name,
         Some(b"vbBrightness.exe".as_bstr())
     );
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"VB_Brightness".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -242,7 +242,7 @@ fn brightness_effect_part_2_project_load() {
         project.exe_32_file_name,
         Some(b"apiBrightness.exe".as_bstr())
     );
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"API_Brightness".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -316,7 +316,7 @@ fn brightness_effect_part_3_project_load() {
         project.exe_32_file_name,
         Some(b"dibBrightness.exe".as_bstr())
     );
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"DIB_Brightness".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -386,7 +386,7 @@ fn color_shift_effect_project_load() {
     assert_eq!(project.help_file_path, Some(b"".as_bstr()));
     assert_eq!(project.title, Some(b"ColorShifting".as_bstr()));
     assert_eq!(project.exe_32_file_name, Some(b"ColorShift.exe".as_bstr()));
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"ColorShift".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -450,7 +450,7 @@ fn colorize_effect_project_load() {
     assert_eq!(project.help_file_path, Some(b"".as_bstr()));
     assert_eq!(project.title, Some(b"Colorize Application".as_bstr()));
     assert_eq!(project.exe_32_file_name, Some(b"Colorize.exe".as_bstr()));
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"Colorize".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -517,7 +517,7 @@ fn contrast_effect_project_load() {
     assert_eq!(project.help_file_path, Some(b"".as_bstr()));
     assert_eq!(project.title, Some(b"Contrast".as_bstr()));
     assert_eq!(project.exe_32_file_name, Some(b"Contrast.exe".as_bstr()));
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"Image_Contrast".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -584,7 +584,7 @@ fn curves_effect_project_load() {
     assert_eq!(project.help_file_path, Some(b"".as_bstr()));
     assert_eq!(project.title, Some(b"Curves".as_bstr()));
     assert_eq!(project.exe_32_file_name, Some(b"Curves.exe".as_bstr()));
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"Curves_Dialog".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -652,7 +652,7 @@ fn custom_image_filters_project_load() {
         project.exe_32_file_name,
         Some(b"Custom_Filters.exe".as_bstr())
     );
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"CustomFilters_Dialog".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -719,7 +719,7 @@ fn diffuse_effect_project_load() {
     assert_eq!(project.help_file_path, Some(b"".as_bstr()));
     assert_eq!(project.title, Some(b"Diffuse Application".as_bstr()));
     assert_eq!(project.exe_32_file_name, Some(b"Diffuse.exe".as_bstr()));
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"Diffuse_Dialog".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -789,7 +789,7 @@ fn edge_detection_project_load() {
         project.exe_32_file_name,
         Some(b"Edge_Detection.exe".as_bstr())
     );
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"EdgeDetection_Dialog".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -860,7 +860,7 @@ fn emboss_engrave_effect_project_load() {
         project.exe_32_file_name,
         Some(b"Emboss_Engrave.exe".as_bstr())
     );
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"EmbossEngrave_Dialog".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -927,7 +927,7 @@ fn fill_image_region_project_load() {
     assert_eq!(project.help_file_path, Some(b"".as_bstr()));
     assert_eq!(project.title, Some(b"VB Fill Demonstration".as_bstr()));
     assert_eq!(project.exe_32_file_name, Some(b"Filling.exe".as_bstr()));
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"Fill_Region".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -991,7 +991,7 @@ fn fire_effect_project_load() {
     assert_eq!(project.help_file_path, Some(b"".as_bstr()));
     assert_eq!(project.title, Some(b"FlameTest".as_bstr()));
     assert_eq!(project.exe_32_file_name, Some(b"Fast_Flames.exe".as_bstr()));
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"VBFire2".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -1058,7 +1058,7 @@ fn game_physics_basic_project_load() {
         project.exe_32_file_name,
         Some(b"Physics_Demo.exe".as_bstr())
     );
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"VB_Game_Physics".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -1125,7 +1125,7 @@ fn gradient_2d_project_load() {
     assert_eq!(project.help_file_path, Some(b"".as_bstr()));
     assert_eq!(project.title, Some(b"Gradient Demo".as_bstr()));
     assert_eq!(project.exe_32_file_name, Some(b"Gradient.exe".as_bstr()));
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"Gradient_Demo".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -1189,7 +1189,7 @@ fn grayscale_effect_project_load() {
     assert_eq!(project.help_file_path, Some(b"".as_bstr()));
     assert_eq!(project.title, Some(b"Grayscale Application".as_bstr()));
     assert_eq!(project.exe_32_file_name, Some(b"Grayscale.exe".as_bstr()));
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"Grayscale_Dialog".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -1256,7 +1256,7 @@ fn hidden_markov_model_project_load() {
     assert_eq!(project.help_file_path, Some(b"".as_bstr()));
     assert_eq!(project.title, Some(b"HMM Demo".as_bstr()));
     assert_eq!(project.exe_32_file_name, Some(b"HMM.exe".as_bstr()));
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"InBio465_HMM_Lab".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -1324,7 +1324,7 @@ fn histograms_advanced_project_load() {
         project.exe_32_file_name,
         Some(b"Advanced Histogram Viewer.exe".as_bstr())
     );
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"Histogram_Demo".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -1395,7 +1395,7 @@ fn histogram_basic_project_load() {
         project.exe_32_file_name,
         Some(b"Basic Histogram Viewer.exe".as_bstr())
     );
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"Histogram_Demo".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -1465,7 +1465,7 @@ fn levels_effect_project_load() {
         project.exe_32_file_name,
         Some(b"Image Levels.exe".as_bstr())
     );
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"Image_Levels_Project".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -1532,7 +1532,7 @@ fn mandelbrot_project_load() {
     assert_eq!(project.help_file_path, Some(b"".as_bstr()));
     assert_eq!(project.title, Some(b"Mandelbrot Fractal Demo".as_bstr()));
     assert_eq!(project.exe_32_file_name, Some(b"Mandelbrot.exe".as_bstr()));
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"Mandelbrot_Fractal_Demo".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -1599,7 +1599,7 @@ fn map_editor_2d_project_load() {
     assert_eq!(project.help_file_path, Some(b"".as_bstr()));
     assert_eq!(project.title, Some(b"Map Editor".as_bstr()));
     assert_eq!(project.exe_32_file_name, Some(b"Map Editor.exe".as_bstr()));
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"VB_Map_Editor".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -1669,7 +1669,7 @@ fn nature_effects_project_load() {
         project.exe_32_file_name,
         Some(b"Nature_Filters.exe".as_bstr())
     );
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"NatureFilters_Dialog".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -1740,7 +1740,7 @@ fn randomize_effects_project_load() {
         project.exe_32_file_name,
         Some(b"RandomizationFX.exe".as_bstr())
     );
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"RandomizationEffect".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -1810,7 +1810,7 @@ fn scanner_twain_project_load() {
         project.exe_32_file_name,
         Some(b"VB_Scanner_Support.exe".as_bstr())
     );
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"VB_Scanner_Support".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -1880,7 +1880,7 @@ fn screen_capture_project_load() {
         project.exe_32_file_name,
         Some(b"ScreenCapture.exe".as_bstr())
     );
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"Project_ScreenCapture".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -1947,7 +1947,7 @@ fn sepia_effect_project_load() {
         Some(b"Sepia / \"Antique\" Image Filter".as_bstr())
     );
     assert_eq!(project.exe_32_file_name, Some(b"Sepia.exe".as_bstr()));
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"SepiaEffect_Dialog".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -2014,7 +2014,7 @@ fn threshold_effect_project_load() {
         Some(b"Image Threshold Application".as_bstr())
     );
     assert_eq!(project.exe_32_file_name, Some(b"Threshold.exe".as_bstr()));
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"Threshold_Dialog".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
@@ -2084,7 +2084,7 @@ fn transparency_2d_project_load() {
         project.exe_32_file_name,
         Some(b"Transparency.exe".as_bstr())
     );
-    assert_eq!(project.command_line_arguments, Some(b"".as_bstr()));
+    assert_eq!(project.command_line_arguments, None);
     assert_eq!(project.name, Some(b"Realtime_Transparency_Demo".as_bstr()));
     assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
