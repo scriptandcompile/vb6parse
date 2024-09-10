@@ -870,8 +870,16 @@ impl<'a> VB6Project<'a> {
                     return Err(input.error(VB6ErrorKind::NoEqualSplit));
                 };
 
-                name = match qouted_value("\"").parse_next(&mut input) {
-                    Ok(name) => Some(name),
+                // if the project lacks a name it will be !(None)! or !! or "" in the file..
+                name = match alt((qouted_value("\""), qouted_value("!"))).parse_next(&mut input) {
+                    Ok(name) => {
+                        // if we have !(None)! or !! then we have no command32 line.
+                        if name == "(None)" || name == "" {
+                            None
+                        } else {
+                            Some(name)
+                        }
+                    }
                     Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
 
@@ -2307,7 +2315,7 @@ mod tests {
         assert_eq!(project.title, Some(BStr::new(b"Project1")));
         assert_eq!(project.exe_32_file_name, Some(BStr::new(b"Project1.exe")));
         assert_eq!(project.exe_32_compatible, Some(BStr::new(b"")));
-        assert_eq!(project.command_line_arguments, Some(BStr::new(b"")));
+        assert_eq!(project.command_line_arguments, None);
         assert_eq!(project.path_32, Some(BStr::new(b"")));
         assert_eq!(project.name, Some(BStr::new(b"Project1")));
         assert_eq!(project.help_context_id, Some(BStr::new(b"0")));
@@ -2457,7 +2465,7 @@ mod tests {
         assert_eq!(project.title, Some(BStr::new(b"Project1")));
         assert_eq!(project.exe_32_file_name, Some(BStr::new(b"Project1.exe")));
         assert_eq!(project.exe_32_compatible, Some(BStr::new(b"")));
-        assert_eq!(project.command_line_arguments, Some(BStr::new(b"")));
+        assert_eq!(project.command_line_arguments, None);
         assert_eq!(project.path_32, Some(BStr::new(b"")));
         assert_eq!(project.name, Some(BStr::new(b"Project1")));
         assert_eq!(project.help_context_id, Some(BStr::new(b"0")));
