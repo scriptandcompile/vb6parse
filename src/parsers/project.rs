@@ -73,6 +73,7 @@ pub struct VB6Project<'a> {
     pub threading_model: ThreadingModel,
     pub max_number_of_threads: u16,
     pub debug_startup_option: bool,
+    pub use_existing_browser: bool,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
@@ -295,6 +296,7 @@ impl<'a> VB6Project<'a> {
         let mut trademark = Some(BStr::new(b""));
         let mut product_name = Some(BStr::new(b""));
         let mut comments = Some(BStr::new(b""));
+        let mut use_existing_browser = true;
 
         let mut other_property_group: Option<&'a BStr> = None;
 
@@ -687,12 +689,13 @@ impl<'a> VB6Project<'a> {
                     return Err(input.error(VB6ErrorKind::NoEqualSplit));
                 };
 
-                // if the project lacks a startup object/function/etc it will be !(None)! in the file
+                // if the project lacks a startup object/function/etc it will be !(None)! or !! in the file
                 // which is distinct from the double qouted way of targeting a specific object.
                 startup = match alt((qouted_value("\""), qouted_value("!"))).parse_next(&mut input)
                 {
                     Ok(startup) => {
-                        if startup == "(None)" {
+                        // if we have !(None)! or !! then we have no startup object.
+                        if startup == "(None)" || startup == "" {
                             None
                         } else {
                             Some(startup)
@@ -831,10 +834,20 @@ impl<'a> VB6Project<'a> {
                     return Err(input.error(VB6ErrorKind::NoEqualSplit));
                 };
 
-                command_line_arguments = match qouted_value("\"").parse_next(&mut input) {
-                    Ok(command_line_arguments) => Some(command_line_arguments),
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
+                // if the project lacks a commandline it will be !(None)! or !! or "" in the file
+                // which is distinct from the double qouted way of targeting a specific object.
+                command_line_arguments =
+                    match alt((qouted_value("\""), qouted_value("!"))).parse_next(&mut input) {
+                        Ok(command_line_arguments) => {
+                            // if we have !(None)! or !! then we have no command32 line.
+                            if command_line_arguments == "(None)" || command_line_arguments == "" {
+                                None
+                            } else {
+                                Some(command_line_arguments)
+                            }
+                        }
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
+                    };
 
                 if (space0, alt((line_ending, line_comment_parse)))
                     .parse_next(&mut input)
@@ -1888,6 +1901,32 @@ impl<'a> VB6Project<'a> {
                 continue;
             }
 
+            if literal::<_, _, VB6Error>("UseExistingBrowser")
+                .parse_next(&mut input)
+                .is_ok()
+            {
+                if (space0::<_, VB6Error>, "=", space0)
+                    .parse_next(&mut input)
+                    .is_err()
+                {
+                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
+                };
+
+                use_existing_browser = match true_false_parse.parse_next(&mut input) {
+                    Ok(use_existing_browser) => use_existing_browser,
+                    Err(_) => return Err(input.error(VB6ErrorKind::UseExistingBrowserUnparseable)),
+                };
+
+                if (space0, alt((line_ending, line_comment_parse)))
+                    .parse_next(&mut input)
+                    .is_err()
+                {
+                    return Err(input.error(VB6ErrorKind::NoLineEnding));
+                }
+
+                continue;
+            }
+
             return Err(input.error(VB6ErrorKind::LineTypeUnknown));
         }
 
@@ -1956,6 +1995,7 @@ impl<'a> VB6Project<'a> {
             max_number_of_threads,
             threading_model,
             debug_startup_option,
+            use_existing_browser,
         };
 
         Ok(project)

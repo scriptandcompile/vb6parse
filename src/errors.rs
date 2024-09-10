@@ -139,6 +139,9 @@ pub enum VB6ErrorKind {
     #[error("DebugStartup can only be a 0 (false) or a -1 (true)")]
     DebugStartupOptionUnparseable,
 
+    #[error("UseExistingBrowser can only be a 0 (false) or a -1 (true)")]
+    UseExistingBrowserUnparseable,
+
     #[error("AutoRefresh can only be a 0 (false) or a -1 (true)")]
     AutoRefreshUnparseable,
 
