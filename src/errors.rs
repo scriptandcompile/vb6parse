@@ -67,6 +67,9 @@ pub enum VB6ErrorKind {
     #[error("No property name found after BeginProperty keyword.")]
     NoPropertyName,
 
+    #[error("Unable to parse the RelatedDoc property line.")]
+    RelatedDocLineUnparseable,
+
     #[error("AutoIncrement can only be a 0 (false) or a -1 (true)")]
     AutoIncrementUnparseable,
 
