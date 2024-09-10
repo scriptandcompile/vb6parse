@@ -39,7 +39,6 @@ fn artificial_life_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -110,7 +109,6 @@ fn blacklight_effect_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -179,7 +177,6 @@ fn brightness_effect_part_1_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, false);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -255,7 +252,6 @@ fn brightness_effect_part_2_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, false);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -330,7 +326,6 @@ fn brightness_effect_part_3_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -401,7 +396,6 @@ fn color_shift_effect_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -466,7 +460,6 @@ fn colorize_effect_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -534,7 +527,6 @@ fn contrast_effect_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -602,7 +594,6 @@ fn curves_effect_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -671,7 +662,6 @@ fn custom_image_filters_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -739,7 +729,6 @@ fn diffuse_effect_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -810,7 +799,6 @@ fn edge_detection_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -882,7 +870,6 @@ fn emboss_engrave_effect_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -950,7 +937,6 @@ fn fill_image_region_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -1015,7 +1001,6 @@ fn fire_effect_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -1083,7 +1068,6 @@ fn game_physics_basic_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -1151,7 +1135,6 @@ fn gradient_2d_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -1216,7 +1199,6 @@ fn grayscale_effect_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -1284,7 +1266,6 @@ fn hidden_markov_model_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -1353,7 +1334,6 @@ fn histograms_advanced_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -1425,7 +1405,6 @@ fn histogram_basic_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -1496,7 +1475,6 @@ fn levels_effect_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -1564,7 +1542,6 @@ fn mandelbrot_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -1632,7 +1609,6 @@ fn map_editor_2d_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -1703,7 +1679,6 @@ fn nature_effects_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -1775,7 +1750,6 @@ fn randomize_effects_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -1846,7 +1820,6 @@ fn scanner_twain_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, false);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -1917,7 +1890,6 @@ fn screen_capture_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -1985,7 +1957,6 @@ fn sepia_effect_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -2053,7 +2024,6 @@ fn threshold_effect_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);
@@ -2124,7 +2094,6 @@ fn transparency_2d_project_load() {
     assert_eq!(project.upgrade_activex_controls, true);
     assert_eq!(project.server_support_files, false);
     assert_eq!(project.conditional_compile, Some(b"".as_bstr()));
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, true);

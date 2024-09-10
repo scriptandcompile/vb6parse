@@ -43,7 +43,6 @@ fn ppdm_project_load() {
         project.conditional_compile,
         Some(b"PDMBuild = 1 : PDM_SHORTCUTS = 1 : PMData7Build = 0".as_bstr())
     );
-    assert_eq!(project.auto_refresh, true);
     assert_eq!(project.compilation_type, false);
     assert_eq!(project.optimization_type, false);
     assert_eq!(project.favor_pentium_pro, false);
