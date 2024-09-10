@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use bstr::{BStr, ByteSlice};
 
 use serde::Serialize;
@@ -13,7 +15,11 @@ use winnow::{
 
 use crate::{
     errors::{VB6Error, VB6ErrorKind},
-    parsers::{header::object_parse, vb6stream::VB6Stream, VB6ObjectReference},
+    parsers::{
+        header::{key_value_line_parse, object_parse},
+        vb6stream::VB6Stream,
+        VB6ObjectReference,
+    },
     vb6::{line_comment_parse, take_until_line_ending, VB6Result},
 };
 
@@ -29,6 +35,7 @@ pub struct VB6Project<'a> {
     pub forms: Vec<&'a BStr>,
     pub user_controls: Vec<&'a BStr>,
     pub user_documents: Vec<&'a BStr>,
+    pub other_properties: HashMap<&'a BStr, HashMap<&'a BStr, &'a BStr>>,
     pub upgrade_activex_controls: bool,
     pub res_file_32_path: Option<&'a BStr>,
     pub icon_form: Option<&'a BStr>,
@@ -66,7 +73,6 @@ pub struct VB6Project<'a> {
     pub threading_model: ThreadingModel,
     pub max_number_of_threads: u16,
     pub debug_startup_option: bool,
-    pub auto_refresh: bool,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
@@ -185,7 +191,6 @@ impl<'a> VB6Project<'a> {
     /// ThreadPerObject=0
     /// MaxNumberOfThreads=1
     /// DebugStartupOption=0
-    /// AutoRefresh=0
     /// NoControlUpgrade=0
     /// ServerSupportFiles=0
     /// VersionCompanyName="Company Name"
@@ -210,6 +215,9 @@ impl<'a> VB6Project<'a> {
     /// Startup="Form1"
     /// HelpFile=""
     /// Title="Project1"
+    ///
+    /// [MS Transaction Server]
+    /// AutoRefresh=1
     /// "#;
     ///
     /// let project = VB6Project::parse("project1.vbp", input.as_bytes()).unwrap();
@@ -239,6 +247,7 @@ impl<'a> VB6Project<'a> {
         let mut forms = vec![];
         let mut user_controls = vec![];
         let mut related_documents = vec![];
+        let mut other_properties = HashMap::new();
 
         let mut project_type: Option<CompileTargetType> = None;
         let mut res_file_32_path = Some(BStr::new(b""));
@@ -276,7 +285,6 @@ impl<'a> VB6Project<'a> {
         let mut thread_per_object = None;
         let mut max_number_of_threads = 1;
         let mut debug_startup_option = false;
-        let mut auto_refresh = false;
         let mut company_name = Some(BStr::new(b""));
         let mut file_description = Some(BStr::new(b""));
         let mut major = 0u16;
@@ -288,6 +296,8 @@ impl<'a> VB6Project<'a> {
         let mut product_name = Some(BStr::new(b""));
         let mut comments = Some(BStr::new(b""));
 
+        let mut other_property_group: Option<&'a BStr> = None;
+
         while !input.is_empty() {
             // We also want to skip any '[MS Transaction Server]' header lines.
             // There should only be one in the file since it's only used once,
@@ -295,18 +305,47 @@ impl<'a> VB6Project<'a> {
             // these kinds of header lines.
 
             // skip empty lines.
-            if line_ending::<_, VB6Error>.parse_next(&mut input).is_ok() {
-                continue;
-            }
-
-            // We want to skip any '[MS Transaction Server]' or other section header lines.
-            if ("[", take_until(0.., "]"), "]", line_ending::<_, VB6Error>)
+            if (space0, line_ending::<_, VB6Error>)
                 .parse_next(&mut input)
                 .is_ok()
             {
                 continue;
+            }
+
+            // We want to grab any '[MS Transaction Server]' or other section header lines.
+            // Which we will use in parsing 'other properties.'
+            if let Ok((_, other_property, _, _, _)) = (
+                "[",
+                take_until(0.., "]"),
+                "]",
+                space0,
+                line_ending::<_, VB6Error>,
+            )
+                .parse_next(&mut input)
+            {
+                if !other_properties.contains_key(other_property) {
+                    other_properties.insert(other_property, HashMap::new());
+
+                    other_property_group = Some(other_property);
+                }
             };
 
+            // Looks like we are no longer parsing the standard VB6 property section
+            // Now we are parsing some third party properties.
+            if other_property_group != None {
+                let (property_name, property_value) =
+                    match key_value_line_parse("=").parse_next(&mut input) {
+                        Ok((property_name, property_value)) => (property_name, property_value),
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
+                    };
+
+                other_properties
+                    .get_mut(other_property_group.unwrap())
+                    .unwrap()
+                    .insert(property_name, property_value);
+
+                continue;
+            }
             let _: VB6Result<_> = space0.parse_next(&mut input);
 
             // Type
@@ -1849,32 +1888,6 @@ impl<'a> VB6Project<'a> {
                 continue;
             }
 
-            if literal::<_, _, VB6Error>("AutoRefresh")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                if (space0::<_, VB6Error>, "=", space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                auto_refresh = match auto_refresh_parse.parse_next(&mut input) {
-                    Ok(auto_refresh) => auto_refresh,
-                    Err(_) => return Err(input.error(VB6ErrorKind::AutoRefreshUnparseable)),
-                };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
-
-                continue;
-            }
-
             return Err(input.error(VB6ErrorKind::LineTypeUnknown));
         }
 
@@ -1906,6 +1919,7 @@ impl<'a> VB6Project<'a> {
             user_controls,
             user_documents,
             related_documents,
+            other_properties,
             upgrade_activex_controls,
             res_file_32_path,
             icon_form,
@@ -1942,7 +1956,6 @@ impl<'a> VB6Project<'a> {
             max_number_of_threads,
             threading_model,
             debug_startup_option,
-            auto_refresh,
         };
 
         Ok(project)
@@ -1979,16 +1992,6 @@ fn title_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
     let _: VB6Result<_> = "\"".parse_next(input);
 
     Ok(title)
-}
-
-fn auto_refresh_parse(input: &mut VB6Stream<'_>) -> VB6Result<bool> {
-    // 0 is false...and 1 is true.
-    // Of course, VB6 being VB6, this is the only entry that does something different.
-    // le sigh.
-
-    let result = alt(('0'.value(false), '1'.value(true))).parse_next(input)?;
-
-    Ok(result)
 }
 
 fn qouted_value<'a>(qoute_char: &'a str) -> impl FnMut(&mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
@@ -2213,7 +2216,6 @@ mod tests {
      ThreadPerObject=-1
      MaxNumberOfThreads=1
      DebugStartupOption=0
-     AutoRefresh=0
      NoControlUpgrade=0
      ServerSupportFiles=0
      VersionCompanyName="Company Name"
@@ -2238,6 +2240,9 @@ mod tests {
      Startup=!(None)!
      HelpFile=""
      Title="Project1"
+    
+     [MS Transaction Server]
+     AutoRefresh=1
 "#;
 
         let project = VB6Project::parse("project1.vbp", input.as_bytes()).unwrap();
@@ -2330,7 +2335,6 @@ mod tests {
             project.debug_startup_option, false,
             "debug_startup_option check"
         );
-        assert_eq!(project.auto_refresh, false, "auto_refresh check");
     }
 
     #[test]
@@ -2362,7 +2366,6 @@ mod tests {
      ThreadPerObject=0
      MaxNumberOfThreads=1
      DebugStartupOption=0
-     AutoRefresh=0
      NoControlUpgrade=0
      ServerSupportFiles=0
      VersionCompanyName="Company Name"
@@ -2387,6 +2390,9 @@ mod tests {
      Startup=!(None)!
      HelpFile=""
      Title="Project1"
+
+     [MS Transaction Server]
+     AutoRefresh=1
 "#;
 
         let project = VB6Project::parse("project1.vbp", input.as_bytes()).unwrap();
@@ -2479,6 +2485,5 @@ mod tests {
             project.debug_startup_option, false,
             "debug_startup_option check"
         );
-        assert_eq!(project.auto_refresh, false, "auto_refresh check");
     }
 }
