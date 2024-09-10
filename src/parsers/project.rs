@@ -965,17 +965,18 @@ impl<'a> VB6Project<'a> {
                     return Err(input.error(VB6ErrorKind::NoEqualSplit));
                 };
 
-                compatibility_mode = match qouted_value("\"").parse_next(&mut input) {
-                    Ok(compatible_mode) => match compatible_mode.as_bytes() {
-                        b"0" => CompatibilityMode::NoCompatibility,
-                        b"1" => CompatibilityMode::Project,
-                        b"2" => CompatibilityMode::CompatibleExe,
-                        _ => {
-                            return Err(input.error(VB6ErrorKind::CompatibleModeUnparseable));
-                        }
-                    },
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
+                compatibility_mode =
+                    match alt((qouted_value("\""), qouted_value("!"))).parse_next(&mut input) {
+                        Ok(compatible_mode) => match compatible_mode.as_bytes() {
+                            b"0" => CompatibilityMode::NoCompatibility,
+                            b"1" => CompatibilityMode::Project,
+                            b"2" => CompatibilityMode::CompatibleExe,
+                            _ => {
+                                return Err(input.error(VB6ErrorKind::CompatibleModeUnparseable));
+                            }
+                        },
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
+                    };
 
                 if (space0, alt((line_ending, line_comment_parse)))
                     .parse_next(&mut input)
