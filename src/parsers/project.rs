@@ -305,8 +305,7 @@ impl<'a> VB6Project<'a> {
 
             let _: VB6Result<_> = space0.parse_next(&mut input);
 
-            let Ok((_, key, _, _, _)): VB6Result<_> = (
-                space0,
+            let Ok((key, _, _, _)): VB6Result<_> = (
                 alt((take_until(0.., "="), take_until(0.., " "))),
                 space0,
                 "=",
