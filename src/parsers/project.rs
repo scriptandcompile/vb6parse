@@ -317,7 +317,7 @@ impl<'a> VB6Project<'a> {
                 return Err(input.error(VB6ErrorKind::NoEqualSplit));
             };
 
-            match key.to_str() {
+            match key.trim().to_str() {
                 Ok("Type") => {
                     project_type = match project_type_parse.parse_next(&mut input) {
                         Ok(project_type) => Some(project_type),
@@ -892,28 +892,11 @@ fn auto_refresh_parse(input: &mut VB6Stream<'_>) -> VB6Result<bool> {
     // 0 is false...and 1 is true.
     // Of course, VB6 being VB6, this is the only entry that does something different.
     // le sigh.
-    let result = alt(('0'.value(false), "1".value(true))).parse_next(input)?;
+
+    let result = alt(('0'.value(false), '1'.value(true))).parse_next(input)?;
 
     Ok(result)
 }
-
-// fn qouted_true_false_parse(input: &mut VB6Stream<'_>) -> VB6Result<bool> {
-//     let qoute = qouted_value("\"").parse_next(input)?;
-
-//     // 0 is false...and -1 is true.
-//     // Why vb6? What are you like this? Who hurt you?
-//     if qoute == "0" {
-//         Ok(false)
-//     } else if qoute == "-1" {
-//         Ok(true)
-//     } else if qoute == "1" {
-//         Ok(true)
-//     } else {
-//         Err(ErrMode::Cut(
-//             VB6ErrorKind::TrueFalseOneZeroNegOneUnparseable,
-//         ))
-//     }
-// }
 
 fn qouted_value<'a>(qoute_char: &'a str) -> impl FnMut(&mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
     move |input: &mut VB6Stream<'a>| -> VB6Result<&'a BStr> {
