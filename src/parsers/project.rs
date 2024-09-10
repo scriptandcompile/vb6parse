@@ -36,6 +36,8 @@ pub struct VB6Project<'a> {
     pub user_controls: Vec<&'a BStr>,
     pub user_documents: Vec<&'a BStr>,
     pub other_properties: HashMap<&'a BStr, HashMap<&'a BStr, &'a BStr>>,
+
+    pub remove_unused_control_info: bool,
     pub upgrade_activex_controls: bool,
     pub res_file_32_path: Option<&'a BStr>,
     pub icon_form: Option<&'a BStr>,
@@ -250,6 +252,7 @@ impl<'a> VB6Project<'a> {
         let mut related_documents = vec![];
         let mut other_properties = HashMap::new();
 
+        let mut remove_unused_control_info = true;
         let mut project_type: Option<CompileTargetType> = None;
         let mut res_file_32_path = Some(BStr::new(b""));
         let mut icon_form = Some(BStr::new(b""));
@@ -1065,6 +1068,32 @@ impl<'a> VB6Project<'a> {
                     Err(_) => {
                         return Err(input.error(VB6ErrorKind::DllBaseAddressUnparseable));
                     }
+                };
+
+                if (space0, alt((line_ending, line_comment_parse)))
+                    .parse_next(&mut input)
+                    .is_err()
+                {
+                    return Err(input.error(VB6ErrorKind::NoLineEnding));
+                }
+
+                continue;
+            }
+
+            if literal::<_, _, VB6Error>("RemoveUnusedControlInfo")
+                .parse_next(&mut input)
+                .is_ok()
+            {
+                if (space0::<_, VB6Error>, "=", space0)
+                    .parse_next(&mut input)
+                    .is_err()
+                {
+                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
+                };
+
+                remove_unused_control_info = match true_false_parse.parse_next(&mut input) {
+                    Ok(remove_unused_control_info) => remove_unused_control_info,
+                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
 
                 if (space0, alt((line_ending, line_comment_parse)))
@@ -1977,6 +2006,7 @@ impl<'a> VB6Project<'a> {
             user_documents,
             related_documents,
             other_properties,
+            remove_unused_control_info,
             upgrade_activex_controls,
             res_file_32_path,
             icon_form,
