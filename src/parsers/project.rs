@@ -930,10 +930,19 @@ impl<'a> VB6Project<'a> {
                     return Err(input.error(VB6ErrorKind::NoEqualSplit));
                 };
 
-                help_context_id = match qouted_value("\"").parse_next(&mut input) {
-                    Ok(help_context_id) => Some(help_context_id),
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
+                // if the project lacks a help_context_id it will be !(None)! or !! or "" in the file..
+                help_context_id =
+                    match alt((qouted_value("\""), qouted_value("!"))).parse_next(&mut input) {
+                        Ok(help_context_id) => {
+                            // if we have !(None)! or !! then we have no command32 line.
+                            if help_context_id == "(None)" || help_context_id == "" {
+                                None
+                            } else {
+                                Some(help_context_id)
+                            }
+                        }
+                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
+                    };
 
                 if (space0, alt((line_ending, line_comment_parse)))
                     .parse_next(&mut input)
