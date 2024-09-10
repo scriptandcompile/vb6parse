@@ -24,6 +24,7 @@ pub struct VB6Project<'a> {
     pub objects: Vec<VB6ObjectReference<'a>>,
     pub modules: Vec<VB6ProjectModule<'a>>,
     pub classes: Vec<VB6ProjectClass<'a>>,
+    pub related_documents: Vec<&'a BStr>,
     pub designers: Vec<&'a BStr>,
     pub forms: Vec<&'a BStr>,
     pub user_controls: Vec<&'a BStr>,
@@ -237,6 +238,7 @@ impl<'a> VB6Project<'a> {
         let mut designers = vec![];
         let mut forms = vec![];
         let mut user_controls = vec![];
+        let mut related_documents = vec![];
 
         let mut project_type: Option<CompileTargetType> = None;
         let mut res_file_32_path = Some(BStr::new(b""));
@@ -462,6 +464,33 @@ impl<'a> VB6Project<'a> {
                 };
 
                 classes.push(class);
+
+                if (space0, alt((line_ending, line_comment_parse)))
+                    .parse_next(&mut input)
+                    .is_err()
+                {
+                    return Err(input.error(VB6ErrorKind::NoLineEnding));
+                }
+
+                continue;
+            }
+
+            if literal::<_, _, VB6Error>("RelatedDoc")
+                .parse_next(&mut input)
+                .is_ok()
+            {
+                if (space0::<_, VB6Error>, "=", space0)
+                    .parse_next(&mut input)
+                    .is_err()
+                {
+                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
+                };
+
+                let Ok(related_document) = take_until_line_ending.parse_next(&mut input) else {
+                    return Err(input.error(VB6ErrorKind::RelatedDocLineUnparseable));
+                };
+
+                related_documents.push(related_document);
 
                 if (space0, alt((line_ending, line_comment_parse)))
                     .parse_next(&mut input)
@@ -1876,6 +1905,7 @@ impl<'a> VB6Project<'a> {
             forms,
             user_controls,
             user_documents,
+            related_documents,
             upgrade_activex_controls,
             res_file_32_path,
             icon_form,
