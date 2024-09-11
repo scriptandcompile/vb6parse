@@ -6,7 +6,7 @@ use serde::Serialize;
 use uuid::Uuid;
 
 use winnow::{
-    ascii::{line_ending, space0},
+    ascii::{digit1, line_ending, space0},
     combinator::alt,
     error::ErrMode,
     token::{literal, take_until},
@@ -58,8 +58,8 @@ pub struct VB6Project<'a> {
     pub version_info: VersionInformation<'a>,
     pub server_support_files: bool,
     pub conditional_compile: Option<&'a BStr>,
-    pub compilation_type: bool,
-    pub optimization_type: bool,
+    pub compilation_type: CompilationType,
+    pub optimization_type: OptimizationType,
     pub favor_pentium_pro: bool,
     pub code_view_debug_info: bool,
     pub aliasing: bool,
@@ -83,6 +83,19 @@ pub enum CompatibilityMode {
     NoCompatibility = 0,
     Project = 1,
     CompatibleExe = 2,
+}
+
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+pub enum CompilationType {
+    NativeCode = 0,
+    PCode = 1,
+}
+
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+pub enum OptimizationType {
+    FavorFastCode = 0,
+    FavorSmallCode = 1,
+    NoOptimization = 2,
 }
 
 impl Default for CompatibilityMode {
@@ -273,8 +286,8 @@ impl<'a> VB6Project<'a> {
         let mut upgrade_activex_controls = true; // True is the default.
         let mut server_support_files = false;
         let mut conditional_compile = Some(BStr::new(b""));
-        let mut compilation_type = false;
-        let mut optimization_type = false;
+        let mut compilation_type = CompilationType::PCode;
+        let mut optimization_type = OptimizationType::FavorFastCode;
         let mut favor_pentium_pro = false;
         let mut code_view_debug_info = false;
         let mut aliasing = false;
@@ -1528,8 +1541,12 @@ impl<'a> VB6Project<'a> {
                     return Err(input.error(VB6ErrorKind::NoEqualSplit));
                 };
 
-                compilation_type = match true_false_parse.parse_next(&mut input) {
-                    Ok(compilation_type) => compilation_type,
+                compilation_type = match digit1::<_, VB6ErrorKind>.parse_next(&mut input) {
+                    Ok(compilation_type) => match compilation_type.as_bytes() {
+                        b"0" => CompilationType::PCode,
+                        b"1" => CompilationType::NativeCode,
+                        _ => return Err(input.error(VB6ErrorKind::CompilationTypeUnparseable)),
+                    },
                     Err(_) => return Err(input.error(VB6ErrorKind::CompilationTypeUnparseable)),
                 };
 
@@ -1554,8 +1571,13 @@ impl<'a> VB6Project<'a> {
                     return Err(input.error(VB6ErrorKind::NoEqualSplit));
                 };
 
-                optimization_type = match true_false_parse.parse_next(&mut input) {
-                    Ok(optimization_type) => optimization_type,
+                optimization_type = match digit1::<_, VB6ErrorKind>.parse_next(&mut input) {
+                    Ok(op) => match op.as_bytes() {
+                        b"0" => OptimizationType::FavorFastCode,
+                        b"1" => OptimizationType::FavorSmallCode,
+                        b"2" => OptimizationType::NoOptimization,
+                        _ => return Err(input.error(VB6ErrorKind::OptimizationTypeUnparseable)),
+                    },
                     Err(_) => return Err(input.error(VB6ErrorKind::OptimizationTypeUnparseable)),
                 };
 
@@ -2389,8 +2411,8 @@ mod tests {
             "server_support_files check"
         );
         assert_eq!(project.conditional_compile, Some(BStr::new(b"")));
-        assert_eq!(project.compilation_type, false, "compilation_type check");
-        assert_eq!(project.optimization_type, false, "optimization_type check");
+        assert_eq!(project.compilation_type, CompilationType::PCode);
+        assert_eq!(project.optimization_type, OptimizationType::FavorFastCode);
         assert_eq!(project.favor_pentium_pro, false, "favor_pentium_pro check");
         assert_eq!(
             project.code_view_debug_info, false,
@@ -2539,8 +2561,8 @@ mod tests {
             "server_support_files check"
         );
         assert_eq!(project.conditional_compile, Some(BStr::new(b"")));
-        assert_eq!(project.compilation_type, false, "compilation_type check");
-        assert_eq!(project.optimization_type, false, "optimization_type check");
+        assert_eq!(project.compilation_type, CompilationType::PCode);
+        assert_eq!(project.optimization_type, OptimizationType::FavorFastCode);
         assert_eq!(project.favor_pentium_pro, false, "favor_pentium_pro check");
         assert_eq!(
             project.code_view_debug_info, false,

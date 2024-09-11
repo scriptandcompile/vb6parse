@@ -85,7 +85,7 @@ pub enum VB6ErrorKind {
     #[error("CompilationType can only be a 0 (false) or a -1 (true)")]
     CompilationTypeUnparseable,
 
-    #[error("OptimizationType can only be a 0 (false) or a -1 (true)")]
+    #[error("OptimizationType can only be a 0 (FastCode) or 1 (SmallCode), or 2 (NoOptimization)")]
     OptimizationTypeUnparseable,
 
     #[error("FavorPentiumPro(tm) can only be a 0 (false) or a -1 (true)")]
