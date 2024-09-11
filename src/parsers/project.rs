@@ -74,7 +74,7 @@ pub struct VB6Project<'a> {
     pub thread_per_object: Option<u16>,
     pub threading_model: ThreadingModel,
     pub max_number_of_threads: u16,
-    pub debug_startup_option: bool,
+    pub debug_startup_option: DebugStartupOption,
     pub use_existing_browser: bool,
 }
 
@@ -89,6 +89,14 @@ pub enum CompatibilityMode {
 pub enum CompilationType {
     PCode = -1,
     NativeCode = 0,
+}
+
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+pub enum DebugStartupOption {
+    WaitForComponentCreation = 0,
+    StartComponent = 1,
+    StartProgram = 2,
+    StartBrowser = 3,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
@@ -320,7 +328,7 @@ impl<'a> VB6Project<'a> {
         let mut retained = false;
         let mut thread_per_object = None;
         let mut max_number_of_threads = 1;
-        let mut debug_startup_option = false;
+        let mut debug_startup_option = DebugStartupOption::WaitForComponentCreation;
         let mut company_name = Some(BStr::new(b""));
         let mut file_description = Some(BStr::new(b""));
         let mut major = 0u16;
@@ -1977,8 +1985,14 @@ impl<'a> VB6Project<'a> {
                     return Err(input.error(VB6ErrorKind::NoEqualSplit));
                 };
 
-                debug_startup_option = match true_false_parse.parse_next(&mut input) {
-                    Ok(debug_startup_option) => debug_startup_option,
+                debug_startup_option = match take_until_line_ending.parse_next(&mut input) {
+                    Ok(debug_startup_option) => match debug_startup_option.as_bytes() {
+                        b"0" => DebugStartupOption::WaitForComponentCreation,
+                        b"1" => DebugStartupOption::StartComponent,
+                        b"2" => DebugStartupOption::StartProgram,
+                        b"3" => DebugStartupOption::StartBrowser,
+                        _ => return Err(input.error(VB6ErrorKind::DebugStartupOptionUnparseable)),
+                    },
                     Err(_) => return Err(input.error(VB6ErrorKind::DebugStartupOptionUnparseable)),
                 };
 
@@ -2464,7 +2478,8 @@ mod tests {
         assert_eq!(project.thread_per_object, None);
         assert_eq!(project.max_number_of_threads, 1);
         assert_eq!(
-            project.debug_startup_option, false,
+            project.debug_startup_option,
+            DebugStartupOption::WaitForComponentCreation,
             "debug_startup_option check"
         );
     }
@@ -2614,7 +2629,8 @@ mod tests {
         assert_eq!(project.thread_per_object, Some(0));
         assert_eq!(project.max_number_of_threads, 1);
         assert_eq!(
-            project.debug_startup_option, false,
+            project.debug_startup_option,
+            DebugStartupOption::WaitForComponentCreation,
             "debug_startup_option check"
         );
     }
@@ -2768,7 +2784,8 @@ mod tests {
         assert_eq!(project.thread_per_object, Some(0));
         assert_eq!(project.max_number_of_threads, 1);
         assert_eq!(
-            project.debug_startup_option, false,
+            project.debug_startup_option,
+            DebugStartupOption::WaitForComponentCreation,
             "debug_startup_option check"
         );
     }
