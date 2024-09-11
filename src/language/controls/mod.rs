@@ -16,6 +16,7 @@ pub mod ole;
 pub mod optionbutton;
 pub mod picturebox;
 pub mod scrollbars;
+pub mod shape;
 pub mod textbox;
 pub mod timer;
 
@@ -40,6 +41,7 @@ use crate::language::{
     controls::optionbutton::OptionButtonProperties,
     controls::picturebox::PictureBoxProperties,
     controls::scrollbars::ScrollBarProperties,
+    controls::shape::ShapeProperties,
     controls::textbox::TextBoxProperties,
     controls::timer::TimerProperties,
 };
@@ -72,6 +74,9 @@ pub enum VB6ControlKind<'a> {
     },
     Line {
         properties: LineProperties,
+    },
+    Shape {
+        properties: ShapeProperties,
     },
     ListBox {
         properties: ListBoxProperties<'a>,
