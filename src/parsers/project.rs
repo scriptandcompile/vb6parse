@@ -7,7 +7,7 @@ use uuid::Uuid;
 
 use winnow::{
     ascii::{digit1, line_ending, space0},
-    combinator::alt,
+    combinator::{alt, opt},
     error::ErrMode,
     token::{literal, take_until},
     Parser,
@@ -87,8 +87,8 @@ pub enum CompatibilityMode {
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum CompilationType {
+    PCode = -1,
     NativeCode = 0,
-    PCode = 1,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
@@ -1541,10 +1541,13 @@ impl<'a> VB6Project<'a> {
                     return Err(input.error(VB6ErrorKind::NoEqualSplit));
                 };
 
-                compilation_type = match digit1::<_, VB6ErrorKind>.parse_next(&mut input) {
+                compilation_type = match (opt("-"), digit1::<_, VB6ErrorKind>)
+                    .take()
+                    .parse_next(&mut input)
+                {
                     Ok(compilation_type) => match compilation_type.as_bytes() {
-                        b"0" => CompilationType::PCode,
-                        b"1" => CompilationType::NativeCode,
+                        b"-1" => CompilationType::PCode,
+                        b"0" => CompilationType::NativeCode,
                         _ => return Err(input.error(VB6ErrorKind::CompilationTypeUnparseable)),
                     },
                     Err(_) => return Err(input.error(VB6ErrorKind::CompilationTypeUnparseable)),
@@ -2411,7 +2414,7 @@ mod tests {
             "server_support_files check"
         );
         assert_eq!(project.conditional_compile, Some(BStr::new(b"")));
-        assert_eq!(project.compilation_type, CompilationType::PCode);
+        assert_eq!(project.compilation_type, CompilationType::NativeCode);
         assert_eq!(project.optimization_type, OptimizationType::FavorFastCode);
         assert_eq!(project.favor_pentium_pro, false, "favor_pentium_pro check");
         assert_eq!(
@@ -2561,7 +2564,7 @@ mod tests {
             "server_support_files check"
         );
         assert_eq!(project.conditional_compile, Some(BStr::new(b"")));
-        assert_eq!(project.compilation_type, CompilationType::PCode);
+        assert_eq!(project.compilation_type, CompilationType::NativeCode);
         assert_eq!(project.optimization_type, OptimizationType::FavorFastCode);
         assert_eq!(project.favor_pentium_pro, false, "favor_pentium_pro check");
         assert_eq!(
