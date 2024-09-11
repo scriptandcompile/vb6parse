@@ -2128,6 +2128,13 @@ impl<'a> VB6Project<'a> {
 
         Ok(project)
     }
+
+    pub fn get_project_references(&self) -> Vec<&VB6ProjectReference> {
+        self.references
+            .iter()
+            .filter(|reference| matches!(reference, VB6ProjectReference::Project { .. }))
+            .collect::<Vec<_>>()
+    }
 }
 
 fn true_false_parse(input: &mut VB6Stream<'_>) -> VB6Result<bool> {
