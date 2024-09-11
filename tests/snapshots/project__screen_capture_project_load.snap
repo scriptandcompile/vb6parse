@@ -416,3 +416,4 @@ max_number_of_threads: 1
 debug_startup_option: WaitForComponentCreation
 use_existing_browser: true
 comment: []
+property_page: []

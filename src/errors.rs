@@ -85,6 +85,9 @@ pub enum VB6ErrorKind {
     #[error("Comment line was unparsable")]
     CommentUnparseable,
 
+    #[error("PropertyPage line was unparsable")]
+    PropertyPageUnparseable,
+
     #[error("CompilationType can only be a 0 (false) or a -1 (true)")]
     CompilationTypeUnparseable,
 

@@ -78,6 +78,7 @@ pub struct VB6Project<'a> {
     pub debug_startup_option: DebugStartupOption,
     pub use_existing_browser: bool,
     pub comment: Option<&'a BStr>,
+    pub property_page: Option<&'a BStr>,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
@@ -366,6 +367,7 @@ impl<'a> VB6Project<'a> {
         let mut comment = Some(BStr::new(b""));
         let mut version_comments = Some(BStr::new(b""));
         let mut use_existing_browser = true;
+        let mut property_page = Some(BStr::new(b""));
 
         let mut other_property_group: Option<&'a BStr> = None;
 
@@ -1371,6 +1373,34 @@ impl<'a> VB6Project<'a> {
                 continue;
             }
 
+            if literal::<_, _, VB6Error>("PropertyPage")
+                .parse_next(&mut input)
+                .is_ok()
+            {
+                if (space0::<_, VB6Error>, "=", space0)
+                    .parse_next(&mut input)
+                    .is_err()
+                {
+                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
+                };
+
+                property_page = match take_until_line_ending.parse_next(&mut input) {
+                    Ok(property_page) => Some(property_page),
+                    Err(_) => {
+                        return Err(input.error(VB6ErrorKind::PropertyPageUnparseable));
+                    }
+                };
+
+                if (space0, alt((line_ending, line_comment_parse)))
+                    .parse_next(&mut input)
+                    .is_err()
+                {
+                    return Err(input.error(VB6ErrorKind::NoLineEnding));
+                }
+
+                continue;
+            }
+
             if literal::<_, _, VB6Error>("DebugStartupComponent")
                 .parse_next(&mut input)
                 .is_ok()
@@ -2186,6 +2216,7 @@ impl<'a> VB6Project<'a> {
             debug_startup_option,
             use_existing_browser,
             comment,
+            property_page,
         };
 
         Ok(project)
