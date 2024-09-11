@@ -51,6 +51,7 @@ pub struct VB6Project<'a> {
     pub command_line_arguments: Option<&'a BStr>,
     pub name: Option<&'a BStr>,
     pub description: Option<&'a BStr>,
+    pub debug_startup_component: Option<&'a BStr>,
     // May need to be switched to a u32. Not sure yet.
     pub help_context_id: Option<&'a BStr>,
     pub compatibility_mode: CompatibilityMode,
@@ -76,6 +77,7 @@ pub struct VB6Project<'a> {
     pub max_number_of_threads: u16,
     pub debug_startup_option: DebugStartupOption,
     pub use_existing_browser: bool,
+    pub comment: Option<&'a BStr>,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
@@ -314,6 +316,7 @@ impl<'a> VB6Project<'a> {
         let mut related_documents = vec![];
         let mut other_properties = HashMap::new();
 
+        let mut debug_startup_component = Some(BStr::new(b""));
         let mut remove_unused_control_info = true;
         let mut project_type: Option<CompileTargetType> = None;
         let mut res_file_32_path = Some(BStr::new(b""));
@@ -360,7 +363,8 @@ impl<'a> VB6Project<'a> {
         let mut copyright = Some(BStr::new(b""));
         let mut trademark = Some(BStr::new(b""));
         let mut product_name = Some(BStr::new(b""));
-        let mut comments = Some(BStr::new(b""));
+        let mut comment = Some(BStr::new(b""));
+        let mut version_comments = Some(BStr::new(b""));
         let mut use_existing_browser = true;
 
         let mut other_property_group: Option<&'a BStr> = None;
@@ -1339,6 +1343,62 @@ impl<'a> VB6Project<'a> {
                 continue;
             }
 
+            if literal::<_, _, VB6Error>("Comment")
+                .parse_next(&mut input)
+                .is_ok()
+            {
+                if (space0::<_, VB6Error>, "=", space0)
+                    .parse_next(&mut input)
+                    .is_err()
+                {
+                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
+                };
+
+                comment = match take_until_line_ending.parse_next(&mut input) {
+                    Ok(comment) => Some(comment),
+                    Err(_) => {
+                        return Err(input.error(VB6ErrorKind::CommentUnparseable));
+                    }
+                };
+
+                if (space0, alt((line_ending, line_comment_parse)))
+                    .parse_next(&mut input)
+                    .is_err()
+                {
+                    return Err(input.error(VB6ErrorKind::NoLineEnding));
+                }
+
+                continue;
+            }
+
+            if literal::<_, _, VB6Error>("DebugStartupComponent")
+                .parse_next(&mut input)
+                .is_ok()
+            {
+                if (space0::<_, VB6Error>, "=", space0)
+                    .parse_next(&mut input)
+                    .is_err()
+                {
+                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
+                };
+
+                debug_startup_component = match take_until_line_ending.parse_next(&mut input) {
+                    Ok(debug_startup_component) => Some(debug_startup_component),
+                    Err(_) => {
+                        return Err(input.error(VB6ErrorKind::CommentUnparseable));
+                    }
+                };
+
+                if (space0, alt((line_ending, line_comment_parse)))
+                    .parse_next(&mut input)
+                    .is_err()
+                {
+                    return Err(input.error(VB6ErrorKind::NoLineEnding));
+                }
+
+                continue;
+            }
+
             if literal::<_, _, VB6Error>("NoControlUpgrade")
                 .parse_next(&mut input)
                 .is_ok()
@@ -1538,8 +1598,8 @@ impl<'a> VB6Project<'a> {
                     return Err(input.error(VB6ErrorKind::NoEqualSplit));
                 };
 
-                comments = match qouted_value("\"").parse_next(&mut input) {
-                    Ok(comments) => Some(comments),
+                version_comments = match qouted_value("\"").parse_next(&mut input) {
+                    Ok(version_comments) => Some(version_comments),
                     Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
 
@@ -2071,7 +2131,7 @@ impl<'a> VB6Project<'a> {
             copyright,
             trademark,
             product_name,
-            comments,
+            comments: version_comments,
         };
 
         let project = VB6Project {
@@ -2088,6 +2148,7 @@ impl<'a> VB6Project<'a> {
             other_properties,
             remove_unused_control_info,
             upgrade_activex_controls,
+            debug_startup_component,
             res_file_32_path,
             icon_form,
             startup,
@@ -2124,6 +2185,7 @@ impl<'a> VB6Project<'a> {
             threading_model,
             debug_startup_option,
             use_existing_browser,
+            comment,
         };
 
         Ok(project)
@@ -2219,6 +2281,8 @@ fn semicolon_space_split_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<(&'a 
 }
 
 fn project_reference_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectReference<'a>> {
+    space0.parse_next(input)?;
+
     "*\\A".parse_next(input)?;
 
     let Ok(path): VB6Result<_> = take_until_line_ending.parse_next(input) else {
