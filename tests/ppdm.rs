@@ -1,7 +1,7 @@
 use bstr::{ByteSlice, B};
 
 use vb6parse::parsers::{
-    project::{CompatibilityMode, CompilationType, OptimizationType},
+    project::{CompatibilityMode, CompilationType, DebugStartupOption, OptimizationType},
     CompileTargetType, VB6Project,
 };
 
@@ -61,7 +61,10 @@ fn ppdm_project_load() {
     assert_eq!(project.retained, false);
     assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);
-    assert_eq!(project.debug_startup_option, false);
+    assert_eq!(
+        project.debug_startup_option,
+        DebugStartupOption::WaitForComponentCreation
+    );
 
     // version information.
     assert_eq!(project.version_info.major, 11);
