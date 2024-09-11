@@ -457,7 +457,6 @@ fn sepia_effect_form_load() {
 }
 
 #[test]
-#[ignore]
 fn threshold_effect_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Threshold-effect/Threshold.frm");
 
