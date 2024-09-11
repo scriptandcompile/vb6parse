@@ -9,8 +9,8 @@ use crate::{
         CheckBoxProperties, ComboBoxProperties, CommandButtonProperties, DataProperties,
         DirListBoxProperties, FormProperties, FrameProperties, ImageProperties, LabelProperties,
         LineProperties, ListBoxProperties, MenuProperties, OLEProperties, OptionButtonProperties,
-        PictureBoxProperties, ScrollBarProperties, TextBoxProperties, TimerProperties, VB6Color,
-        VB6Control, VB6ControlKind, VB6MenuControl, VB6Token,
+        PictureBoxProperties, ScrollBarProperties, ShapeProperties, TextBoxProperties,
+        TimerProperties, VB6Color, VB6Control, VB6ControlKind, VB6MenuControl, VB6Token,
     },
     parsers::{
         header::{
@@ -371,6 +371,12 @@ fn build_control<'a>(
             // TODO: We are not correctly handling property assignment for each control.
             VB6ControlKind::Line {
                 properties: LineProperties::default(),
+            }
+        }
+        b"Shape" => {
+            // TODO: We are not correctly handling property assignment for each control.
+            VB6ControlKind::Shape {
+                properties: ShapeProperties::default(),
             }
         }
         b"ListBox" => {

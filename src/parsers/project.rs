@@ -2135,6 +2135,13 @@ impl<'a> VB6Project<'a> {
             .filter(|reference| matches!(reference, VB6ProjectReference::Project { .. }))
             .collect::<Vec<_>>()
     }
+
+    pub fn get_compiled_references(&self) -> Vec<&VB6ProjectReference> {
+        self.references
+            .iter()
+            .filter(|reference| matches!(reference, VB6ProjectReference::Compiled { .. }))
+            .collect::<Vec<_>>()
+    }
 }
 
 fn true_false_parse(input: &mut VB6Stream<'_>) -> VB6Result<bool> {

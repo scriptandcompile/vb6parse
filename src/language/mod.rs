@@ -33,6 +33,7 @@ pub use controls::{
     optionbutton::{OptionButtonProperties, OptionButtonValue},
     picturebox::PictureBoxProperties,
     scrollbars::ScrollBarProperties,
+    shape::{Shape, ShapeProperties},
     textbox::{ScrollBars, TextBoxProperties},
     timer::TimerProperties,
     Style, VB6Control, VB6ControlKind,
