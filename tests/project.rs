@@ -1,5 +1,3 @@
-use insta::assert_yaml_snapshot;
-
 use vb6parse::parsers::VB6Project;
 
 #[test]
