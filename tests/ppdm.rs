@@ -1,6 +1,9 @@
 use bstr::{ByteSlice, B};
 
-use vb6parse::parsers::{project::CompatibilityMode, CompileTargetType, VB6Project};
+use vb6parse::parsers::{
+    project::{CompatibilityMode, CompilationType, OptimizationType},
+    CompileTargetType, VB6Project,
+};
 
 #[test]
 fn ppdm_project_load() {
@@ -43,8 +46,8 @@ fn ppdm_project_load() {
         project.conditional_compile,
         Some(b"PDMBuild = 1 : PDM_SHORTCUTS = 1 : PMData7Build = 0".as_bstr())
     );
-    assert_eq!(project.compilation_type, false);
-    assert_eq!(project.optimization_type, false);
+    assert_eq!(project.compilation_type, CompilationType::PCode);
+    assert_eq!(project.optimization_type, OptimizationType::FavorFastCode);
     assert_eq!(project.favor_pentium_pro, false);
     assert_eq!(project.code_view_debug_info, false);
     assert_eq!(project.aliasing, true);
