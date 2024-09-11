@@ -23,7 +23,7 @@ use crate::{
     vb6::{line_comment_parse, take_until_line_ending, VB6Result},
 };
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct VB6Project<'a> {
     pub project_type: CompileTargetType,
     pub references: Vec<VB6ProjectReference<'a>>,
@@ -104,7 +104,7 @@ impl Default for CompatibilityMode {
     }
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct VersionInformation<'a> {
     pub major: u16,
     pub minor: u16,
@@ -118,7 +118,7 @@ pub struct VersionInformation<'a> {
     pub comments: Option<&'a BStr>,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum CompileTargetType {
     Exe,
     Control,
@@ -126,7 +126,7 @@ pub enum CompileTargetType {
     OleDll,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum ThreadingModel {
     /// Single-threaded.
     SingleThreaded = 0,
@@ -143,13 +143,32 @@ pub struct VB6ProjectReference<'a> {
     pub description: &'a BStr,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+impl Serialize for VB6ProjectReference<'_> {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+
+        let mut state = serializer.serialize_struct("VB6ProjectReference", 5)?;
+
+        state.serialize_field("uuid", &self.uuid.to_string())?;
+        state.serialize_field("unknown1", &self.unknown1)?;
+        state.serialize_field("unknown2", &self.unknown2)?;
+        state.serialize_field("path", &self.path)?;
+        state.serialize_field("description", &self.description)?;
+
+        state.end()
+    }
+}
+
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct VB6ProjectModule<'a> {
     pub name: &'a BStr,
     pub path: &'a BStr,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct VB6ProjectClass<'a> {
     pub name: &'a BStr,
     pub path: &'a BStr,
