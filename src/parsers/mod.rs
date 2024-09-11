@@ -28,11 +28,16 @@ pub use vb6::vb6_parse;
 pub use vb6stream::VB6Stream;
 
 #[derive(Debug, PartialEq, Eq, Clone)]
-pub struct VB6ObjectReference<'a> {
-    pub uuid: Uuid,
-    pub version: &'a BStr,
-    pub unknown1: &'a BStr,
-    pub file_name: &'a BStr,
+pub enum VB6ObjectReference<'a> {
+    Compiled {
+        uuid: Uuid,
+        version: &'a BStr,
+        unknown1: &'a BStr,
+        file_name: &'a BStr,
+    },
+    Project {
+        path: &'a BStr,
+    },
 }
 
 impl Serialize for VB6ObjectReference<'_> {
@@ -42,13 +47,29 @@ impl Serialize for VB6ObjectReference<'_> {
     {
         use serde::ser::SerializeStruct;
 
-        let mut state = serializer.serialize_struct("VB6Object", 4)?;
+        match self {
+            VB6ObjectReference::Compiled {
+                uuid,
+                version,
+                unknown1,
+                file_name,
+            } => {
+                let mut state = serializer.serialize_struct("CompiledReference", 4)?;
 
-        state.serialize_field("uuid", &self.uuid.to_string())?;
-        state.serialize_field("version", &self.version)?;
-        state.serialize_field("unknown1", &self.unknown1)?;
-        state.serialize_field("file_name", &self.file_name)?;
+                state.serialize_field("uuid", &uuid.to_string())?;
+                state.serialize_field("version", version)?;
+                state.serialize_field("unknown1", unknown1)?;
+                state.serialize_field("file_name", file_name)?;
 
-        state.end()
+                state.end()
+            }
+            VB6ObjectReference::Project { path } => {
+                let mut state = serializer.serialize_struct("ProjectReference", 1)?;
+
+                state.serialize_field("path", path)?;
+
+                state.end()
+            }
+        }
     }
 }
