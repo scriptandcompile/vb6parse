@@ -77,7 +77,6 @@ pub struct VB6Project<'a> {
     pub max_number_of_threads: u16,
     pub debug_startup_option: DebugStartupOption,
     pub use_existing_browser: bool,
-    pub comment: Option<&'a BStr>,
     pub property_page: Option<&'a BStr>,
 }
 
@@ -364,8 +363,7 @@ impl<'a> VB6Project<'a> {
         let mut copyright = Some(BStr::new(b""));
         let mut trademark = Some(BStr::new(b""));
         let mut product_name = Some(BStr::new(b""));
-        let mut comment = Some(BStr::new(b""));
-        let mut version_comments = Some(BStr::new(b""));
+        let mut comments = Some(BStr::new(b""));
         let mut use_existing_browser = true;
         let mut property_page = Some(BStr::new(b""));
 
@@ -401,6 +399,7 @@ impl<'a> VB6Project<'a> {
 
                     other_property_group = Some(other_property);
                 }
+                continue;
             };
 
             // Looks like we are no longer parsing the standard VB6 property section
@@ -1345,34 +1344,6 @@ impl<'a> VB6Project<'a> {
                 continue;
             }
 
-            if literal::<_, _, VB6Error>("Comment")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                if (space0::<_, VB6Error>, "=", space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                comment = match take_until_line_ending.parse_next(&mut input) {
-                    Ok(comment) => Some(comment),
-                    Err(_) => {
-                        return Err(input.error(VB6ErrorKind::CommentUnparseable));
-                    }
-                };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
-
-                continue;
-            }
-
             if literal::<_, _, VB6Error>("PropertyPage")
                 .parse_next(&mut input)
                 .is_ok()
@@ -1628,8 +1599,8 @@ impl<'a> VB6Project<'a> {
                     return Err(input.error(VB6ErrorKind::NoEqualSplit));
                 };
 
-                version_comments = match qouted_value("\"").parse_next(&mut input) {
-                    Ok(version_comments) => Some(version_comments),
+                comments = match qouted_value("\"").parse_next(&mut input) {
+                    Ok(comments) => Some(comments),
                     Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
 
@@ -2161,7 +2132,7 @@ impl<'a> VB6Project<'a> {
             copyright,
             trademark,
             product_name,
-            comments: version_comments,
+            comments,
         };
 
         let project = VB6Project {
@@ -2215,7 +2186,6 @@ impl<'a> VB6Project<'a> {
             threading_model,
             debug_startup_option,
             use_existing_browser,
-            comment,
             property_page,
         };
 
