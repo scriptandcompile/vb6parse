@@ -6,8 +6,8 @@ license-file = "LICENSE"
 description = "vb6parse is a library for parsing and analyzing VB6 code, from projects, to controls, to modules, and forms."
 repository = "https://github.com/scriptandcompile/vb6parse"
 readme = "README.md"
-keywords = ["vb6", "parser", "analyzer", "visual basic 6", "vb6parse"]
-categories = ["development-tools", "parsing", "analysis"]
+keywords = ["vb6", "parser", "analyzer", "vb6parse"]
+categories = ["development-tools", "parsing", "parser-implementations"]
 
 # exclude the test data files from the package
 exclude = [
