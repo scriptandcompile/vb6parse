@@ -143,12 +143,17 @@ pub enum ThreadingModel {
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
-pub struct VB6ProjectReference<'a> {
-    pub uuid: Uuid,
-    pub unknown1: &'a BStr,
-    pub unknown2: &'a BStr,
-    pub path: &'a BStr,
-    pub description: &'a BStr,
+pub enum VB6ProjectReference<'a> {
+    Compiled {
+        uuid: Uuid,
+        unknown1: &'a BStr,
+        unknown2: &'a BStr,
+        path: &'a BStr,
+        description: &'a BStr,
+    },
+    Project {
+        path: &'a BStr,
+    },
 }
 
 impl Serialize for VB6ProjectReference<'_> {
@@ -158,15 +163,32 @@ impl Serialize for VB6ProjectReference<'_> {
     {
         use serde::ser::SerializeStruct;
 
-        let mut state = serializer.serialize_struct("VB6ProjectReference", 5)?;
+        match self {
+            VB6ProjectReference::Compiled {
+                uuid,
+                unknown1,
+                unknown2,
+                path,
+                description,
+            } => {
+                let mut state = serializer.serialize_struct("CompiledReference", 5)?;
 
-        state.serialize_field("uuid", &self.uuid.to_string())?;
-        state.serialize_field("unknown1", &self.unknown1)?;
-        state.serialize_field("unknown2", &self.unknown2)?;
-        state.serialize_field("path", &self.path)?;
-        state.serialize_field("description", &self.description)?;
+                state.serialize_field("uuid", &uuid.to_string())?;
+                state.serialize_field("unknown1", unknown1)?;
+                state.serialize_field("unknown2", unknown2)?;
+                state.serialize_field("path", path)?;
+                state.serialize_field("description", description)?;
 
-        state.end()
+                state.end()
+            }
+            VB6ProjectReference::Project { path } => {
+                let mut state = serializer.serialize_struct("ProjectReference", 1)?;
+
+                state.serialize_field("path", path)?;
+
+                state.end()
+            }
+        }
     }
 }
 
@@ -2182,7 +2204,19 @@ fn semicolon_space_split_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<(&'a 
     Ok((left, right))
 }
 
-fn reference_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectReference<'a>> {
+fn project_reference_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectReference<'a>> {
+    "*\\A".parse_next(input)?;
+
+    let Ok(path): VB6Result<_> = take_until_line_ending.parse_next(input) else {
+        return Err(ErrMode::Cut(VB6ErrorKind::ReferenceMissingSections));
+    };
+
+    let reference = VB6ProjectReference::Project { path };
+
+    Ok(reference)
+}
+
+fn compiled_reference_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectReference<'a>> {
     // This is not the cleanest way to handle this but we need to replace the
     // first instance of "*\\G{" from the start of the segment. Notice the '\\'
     // escape sequence which is just a single slash in the file itself.
@@ -2214,7 +2248,7 @@ fn reference_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectReferen
         return Err(ErrMode::Cut(VB6ErrorKind::ReferenceExtraSections));
     }
 
-    let reference = VB6ProjectReference {
+    let reference = VB6ProjectReference::Compiled {
         uuid,
         unknown1,
         unknown2,
@@ -2223,6 +2257,10 @@ fn reference_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectReferen
     };
 
     Ok(reference)
+}
+
+fn reference_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectReference<'a>> {
+    alt((project_reference_parse, compiled_reference_parse)).parse_next(input)
 }
 
 fn project_type_parse(input: &mut VB6Stream<'_>) -> VB6Result<CompileTargetType> {
@@ -2297,11 +2335,22 @@ mod tests {
 
         // we don't consume the line ending, so we should have 2 bytes left.
         assert_eq!(input.complete(), 2);
-        assert_eq!(result.uuid, expected_uuid);
-        assert_eq!(result.unknown1, "c.0");
-        assert_eq!(result.unknown2, "0");
-        assert_eq!(result.path, r"..\DBCommon\Libs\VbIntellisenseFix.dll");
-        assert_eq!(result.description, r"VbIntellisenseFix");
+        assert_eq!(matches!(result, VB6ProjectReference::Compiled { .. }), true);
+        let result = match result {
+            VB6ProjectReference::Compiled {
+                uuid,
+                unknown1,
+                unknown2,
+                path,
+                description,
+            } => (uuid, unknown1, unknown2, path, description),
+            _ => unreachable!(),
+        };
+        assert_eq!(result.0, expected_uuid);
+        assert_eq!(result.1, "c.0");
+        assert_eq!(result.2, "0");
+        assert_eq!(result.3, r"..\DBCommon\Libs\VbIntellisenseFix.dll");
+        assert_eq!(result.4, r"VbIntellisenseFix");
     }
 
     #[test]
