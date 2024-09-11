@@ -80,7 +80,7 @@ pub fn version_parse<'a>(
     }
 }
 
-pub fn object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ObjectReference<'a>> {
+fn compiled_object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ObjectReference<'a>> {
     // the GUID may or may not be wrapped in double-qoutes.
     opt("\"").parse_next(input)?;
 
@@ -116,7 +116,7 @@ pub fn object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ObjectReferen
 
     opt("\"").parse_next(input)?;
 
-    let object = VB6ObjectReference {
+    let object = VB6ObjectReference::Compiled {
         uuid,
         version,
         unknown1,
@@ -124,6 +124,21 @@ pub fn object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ObjectReferen
     };
 
     Ok(object)
+}
+
+fn project_object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ObjectReference<'a>> {
+    "*\\A".parse_next(input)?;
+
+    // the path is the rest of the input.
+    let path = take_until_line_ending.parse_next(input)?;
+
+    let object = VB6ObjectReference::Project { path };
+
+    Ok(object)
+}
+
+pub fn object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ObjectReference<'a>> {
+    alt((compiled_object_parse, project_object_parse)).parse_next(input)
 }
 
 pub fn key_value_parse<'a>(
@@ -285,7 +300,7 @@ mod tests {
     }
 
     #[test]
-    fn object_line_valid() {
+    fn compiled_object_line_valid() {
         let mut input = VB6Stream::new(
             "",
             b"Object={C4847593-972C-11D0-9567-00A0C9273C2A}#8.0#0; crviewer.dll\r\n",
@@ -299,10 +314,40 @@ mod tests {
 
         // we don't consume the line ending, so we should have 2 bytes left.
         assert_eq!(input.complete(), 2);
-        assert_eq!(result.uuid, expected_uuid);
-        assert_eq!(result.version, "8.0");
-        assert_eq!(result.unknown1, "0");
-        assert_eq!(result.file_name, "crviewer.dll");
+
+        match result {
+            VB6ObjectReference::Compiled {
+                uuid,
+                version,
+                unknown1,
+                file_name,
+            } => {
+                assert_eq!(uuid, expected_uuid);
+                assert_eq!(version, "8.0");
+                assert_eq!(unknown1, "0");
+                assert_eq!(file_name, "crviewer.dll");
+            }
+            _ => panic!("Expected a compiled object reference."),
+        }
+    }
+
+    #[test]
+    fn project_object_line_valid() {
+        let mut input = VB6Stream::new("", b"Object=*\\A..\\vbGraph.vbp\r\n");
+
+        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Object=".parse_next(&mut input);
+
+        let result = object_parse.parse_next(&mut input).unwrap();
+
+        // we don't consume the line ending, so we should have 2 bytes left.
+        assert_eq!(input.complete(), 2);
+
+        match result {
+            VB6ObjectReference::Project { path } => {
+                assert_eq!(path, "..\\vbGraph.vbp");
+            }
+            _ => panic!("Expected a project object reference."),
+        }
     }
 
     #[test]

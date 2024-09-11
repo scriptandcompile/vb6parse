@@ -15,11 +15,7 @@ use winnow::{
 
 use crate::{
     errors::{VB6Error, VB6ErrorKind},
-    parsers::{
-        header::{key_value_line_parse, object_parse},
-        vb6stream::VB6Stream,
-        VB6ObjectReference,
-    },
+    parsers::{header::object_parse, vb6stream::VB6Stream, VB6ObjectReference},
     vb6::{line_comment_parse, take_until_line_ending, VB6Result},
 };
 
@@ -405,16 +401,37 @@ impl<'a> VB6Project<'a> {
             // Looks like we are no longer parsing the standard VB6 property section
             // Now we are parsing some third party properties.
             if other_property_group != None {
-                let (property_name, property_value) =
-                    match key_value_line_parse("=").parse_next(&mut input) {
-                        Ok((property_name, property_value)) => (property_name, property_value),
-                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                    };
+                let property_name = match (opt(space0), take_until(0.., "=")).parse_next(&mut input)
+                {
+                    Ok((_, property_name)) => property_name,
+                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
+                };
+
+                if (opt(space0::<_, VB6Error>), "=")
+                    .parse_next(&mut input)
+                    .is_err()
+                {
+                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
+                }
+
+                let property_value = match take_until::<_, _, VB6ErrorKind>(0.., ("\r", "\n"))
+                    .parse_next(&mut input)
+                {
+                    Ok(property_value) => property_value,
+                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
+                };
 
                 other_properties
                     .get_mut(other_property_group.unwrap())
                     .unwrap()
                     .insert(property_name, property_value);
+
+                if (space0, alt((line_ending, line_comment_parse)))
+                    .parse_next(&mut input)
+                    .is_err()
+                {
+                    return Err(input.error(VB6ErrorKind::NoLineEnding));
+                }
 
                 continue;
             }
@@ -2822,6 +2839,7 @@ mod tests {
      
      [VBCompiler]
      LinkSwitches=/STACK:32180000
+     Comment=Nouveaut�s :�- ajout d'options dans le menu du widget��Am�liorations :�- position de la fenetre sauvegard�e��Bugs corrig�s :�- 1.4.12 - L'erreur 383 s'est produite dans la fen�tre frmConfig de la proc�dure TimerStart_Timer � la ligne 780 : Propri�t� 'Text' en lecture seule.�- Position de la fen�tre non restaur� en cas de r�duction auto au d�marrage.
 "#;
 
         let project = VB6Project::parse("project1.vbp", input.as_bytes()).unwrap();
