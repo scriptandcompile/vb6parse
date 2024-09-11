@@ -82,6 +82,9 @@ pub enum VB6ErrorKind {
     #[error("ServerSupportFiles can only be a 0 (false) or a -1 (true)")]
     ServerSupportFilesUnparseable,
 
+    #[error("Comment line was unparsable")]
+    CommentUnparseable,
+
     #[error("CompilationType can only be a 0 (false) or a -1 (true)")]
     CompilationTypeUnparseable,
 

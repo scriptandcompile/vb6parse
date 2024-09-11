@@ -260,6 +260,7 @@ name:
   - 122
   - 101
 description: []
+debug_startup_component: []
 help_context_id:
   - 48
 compatibility_mode: NoCompatibility
@@ -405,3 +406,4 @@ threading_model: ApartmentThreaded
 max_number_of_threads: 1
 debug_startup_option: WaitForComponentCreation
 use_existing_browser: true
+comment: []
