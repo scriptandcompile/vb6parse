@@ -1,5 +1,5 @@
 ---
-source: vb6parse/tests/class.rs
+source: tests/class.rs
 expression: class_file
 ---
 header:
@@ -31,6 +31,7 @@ header:
     creatable: "True"
     pre_declared_id: "False"
     exposed: "False"
+    description: ~
 tokens:
   - OptionKeyword:
       - 79

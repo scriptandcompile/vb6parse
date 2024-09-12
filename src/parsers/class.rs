@@ -253,6 +253,7 @@ pub struct VB6ClassAttributes<'a> {
     pub creatable: Creatable,           // (True/False) Attribute VB_Creatable = True
     pub pre_declared_id: PreDeclaredID, // (True/False) Attribute VB_PredeclaredId = False
     pub exposed: Exposed,               // (True/False) Attribute VB_Exposed = False
+    pub description: Option<&'a BStr>,  // Attribute VB_Description = "Description"
 }
 
 impl Default for VB6ClassAttributes<'_> {
@@ -263,6 +264,7 @@ impl Default for VB6ClassAttributes<'_> {
             creatable: Creatable::True,
             pre_declared_id: PreDeclaredID::False,
             exposed: Exposed::False,
+            description: None,
         }
     }
 }
@@ -479,11 +481,12 @@ fn properties_parse(input: &mut VB6Stream<'_>) -> VB6Result<VB6ClassProperties> 
 fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ClassAttributes<'a>> {
     let _ = space0::<_, VB6Error>.parse_next(input);
 
-    let mut name = Option::None;
+    let mut name = None;
     let mut global_name_space = NameSpace::Local;
     let mut creatable = Creatable::True;
     let mut pre_declared_id = PreDeclaredID::False;
     let mut exposed = Exposed::False;
+    let mut description = None;
 
     while let Ok((key, value)) =
         preceded(keyword_parse("Attribute"), key_value_line_parse("=")).parse_next(input)
@@ -491,6 +494,9 @@ fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ClassAttribut
         match key.as_bytes() {
             b"VB_Name" => {
                 name = Some(value);
+            }
+            b"VB_Description" => {
+                description = Some(value);
             }
             b"VB_GlobalNameSpace" => {
                 if value == "True" {
@@ -544,6 +550,7 @@ fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ClassAttribut
         creatable,
         pre_declared_id,
         exposed,
+        description,
     })
 }
 
@@ -591,6 +598,7 @@ Option Explicit
                     Attribute VB_Creatable = True\r
                     Attribute VB_PredeclaredId = False\r
                     Attribute VB_Exposed = False\r
+                    Attribute VB_Description = \"Description text\"\r
                     \r
                     Option Explicit\r";
 
