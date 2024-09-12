@@ -127,6 +127,18 @@ fn compiled_object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ObjectRe
 }
 
 fn project_object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ObjectReference<'a>> {
+    // we have a qouted project path (likely a just a filename). aka Object = "*\\ADropStack.vbp"
+    if (space0::<VB6Stream<'a>, VB6ErrorKind>, "\"*\\A")
+        .parse_next(input)
+        .is_ok()
+    {
+        let path = take_until(1.., "\"").parse_next(input)?;
+        let object = VB6ObjectReference::Project { path };
+        take_until_line_ending.parse_next(input)?;
+
+        return Ok(object);
+    }
+
     "*\\A".parse_next(input)?;
 
     // the path is the rest of the input.
