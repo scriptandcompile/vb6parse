@@ -5,7 +5,7 @@ use winnow::{
     combinator::{alt, delimited},
     error::{ContextError, ErrMode},
     stream::Stream,
-    token::{one_of, take_till, take_until, take_while},
+    token::{literal, one_of, take_till, take_until, take_while},
     Parser,
 };
 
@@ -195,6 +195,14 @@ pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6Token<'a>>> 
     let mut tokens = Vec::new();
 
     while !input.is_empty() {
+        // The file should end if there is a null byte.
+        if literal::<_, _, VB6ErrorKind>('\0')
+            .parse_next(input)
+            .is_ok()
+        {
+            break;
+        }
+
         if let Ok(token) = line_ending::<VB6Stream<'a>, VB6ErrorKind>.parse_next(input) {
             tokens.push(VB6Token::Newline(token));
             continue;
@@ -305,9 +313,9 @@ fn vb6_symbol_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             ".".map(|token: &BStr| VB6Token::PeriodOperator(token)),
             ":".map(|token: &BStr| VB6Token::ColonOperator(token)),
             "^".map(|token: &BStr| VB6Token::ExponentiationOperator(token)),
-            "!".map(|token: &BStr| VB6Token::ExclamationMark(token)),
         )),
         alt((
+            "!".map(|token: &BStr| VB6Token::ExclamationMark(token)),
             "[".map(|token: &BStr| VB6Token::LeftSquareBracket(token)),
             "]".map(|token: &BStr| VB6Token::RightSquareBracket(token)),
             ";".map(|token: &BStr| VB6Token::Semicolon(token)),
@@ -321,6 +329,7 @@ fn vb6_token_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
     // 'alt' only allows for a limited number of parsers to be passed in.
     // so we need to chain the 'alt' parsers together.
     alt((
+        (line_comment_parse).map(|token: &BStr| VB6Token::Comment(token)),
         vb6_keyword_parse,
         vb6_symbol_parse,
         alt((
