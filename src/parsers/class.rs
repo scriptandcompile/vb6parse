@@ -7,15 +7,16 @@ use crate::{
         header::{key_value_line_parse, version_parse, HeaderKind, VB6FileFormatVersion},
         VB6Stream,
     },
-    vb6::{keyword_parse, line_comment_parse, vb6_parse, VB6Result},
+    vb6::{keyword_parse, line_comment_parse, string_parse, vb6_parse, VB6Result},
 };
 
 use serde::Serialize;
 
 use winnow::{
     ascii::{line_ending, space0},
-    combinator::{alt, preceded, repeat_till},
+    combinator::{alt, eof, repeat_till},
     error::ErrMode,
+    token::literal,
     Parser,
 };
 
@@ -248,7 +249,7 @@ pub struct VB6ClassVersion {
 /// They are only visible in the file property explorer.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct VB6ClassAttributes<'a> {
-    pub name: &'a [u8],                 // Attribute VB_Name = "Organism"
+    pub name: &'a BStr,                 // Attribute VB_Name = "Organism"
     pub global_name_space: NameSpace,   // (True/False) Attribute VB_GlobalNameSpace = False
     pub creatable: Creatable,           // (True/False) Attribute VB_Creatable = True
     pub pre_declared_id: PreDeclaredID, // (True/False) Attribute VB_PredeclaredId = False
@@ -259,7 +260,7 @@ pub struct VB6ClassAttributes<'a> {
 impl Default for VB6ClassAttributes<'_> {
     fn default() -> Self {
         VB6ClassAttributes {
-            name: b"",
+            name: BStr::new(""),
             global_name_space: NameSpace::Local,
             creatable: Creatable::True,
             pre_declared_id: PreDeclaredID::False,
@@ -311,12 +312,14 @@ impl<'a> VB6ClassFile<'a> {
     pub fn parse(file_name: String, input: &mut &'a [u8]) -> Result<Self, VB6Error> {
         let input = &mut VB6Stream::new(file_name, input);
 
-        let Ok(header) = class_header_parse(input) else {
-            return Err(input.error(VB6ErrorKind::Header));
+        let header = match class_header_parse.parse_next(input) {
+            Ok(header) => header,
+            Err(e) => return Err(input.error(e.into_inner().unwrap())),
         };
 
-        let Ok(tokens) = vb6_parse(input) else {
-            return Err(input.error(VB6ErrorKind::FileContent));
+        let tokens = match vb6_parse.parse_next(input) {
+            Ok(tokens) => tokens,
+            Err(e) => return Err(input.error(e.into_inner().unwrap())),
         };
 
         Ok(VB6ClassFile { header, tokens })
@@ -478,6 +481,15 @@ fn properties_parse(input: &mut VB6Stream<'_>) -> VB6Result<VB6ClassProperties> 
     })
 }
 
+enum Attributes {
+    Name,
+    GlobalNameSpace,
+    Creatable,
+    PredeclaredId,
+    Exposed,
+    Description,
+}
+
 fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ClassAttributes<'a>> {
     let _ = space0::<_, VB6Error>.parse_next(input);
 
@@ -488,54 +500,117 @@ fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ClassAttribut
     let mut exposed = Exposed::False;
     let mut description = None;
 
-    while let Ok((key, value)) =
-        preceded(keyword_parse("Attribute"), key_value_line_parse("=")).parse_next(input)
-    {
-        match key.as_bytes() {
-            b"VB_Name" => {
-                name = Some(value);
+    while let Ok(_) = (space0, keyword_parse("Attribute"), space0).parse_next(input) {
+        space0.parse_next(input)?;
+
+        let Ok(key) = alt((
+            keyword_parse("VB_Name").map(|_| Attributes::Name),
+            keyword_parse("VB_GlobalNameSpace").map(|_| Attributes::GlobalNameSpace),
+            keyword_parse("VB_Creatable").map(|_| Attributes::Creatable),
+            keyword_parse("VB_PredeclaredId").map(|_| Attributes::PredeclaredId),
+            keyword_parse("VB_Exposed").map(|_| Attributes::Exposed),
+            keyword_parse("VB_Description").map(|_| Attributes::Description),
+        ))
+        .parse_next(input) else {
+            return Err(ErrMode::Cut(VB6ErrorKind::UnknownAttribute));
+        };
+
+        let _ = (space0, "=", space0).parse_next(input)?;
+
+        match key {
+            Attributes::Name => {
+                name = match string_parse.parse_next(input) {
+                    Ok(name) => Some(name),
+                    Err(_) => return Err(ErrMode::Cut(VB6ErrorKind::StringParseError)),
+                };
+
+                space0.parse_next(input)?;
+                alt((line_comment_parse, line_ending, eof)).parse_next(input)?;
+
+                continue;
             }
-            b"VB_Description" => {
-                description = Some(value);
+            Attributes::Description => {
+                description = match string_parse.parse_next(input) {
+                    Ok(description) => Some(description),
+                    Err(_) => return Err(ErrMode::Cut(VB6ErrorKind::StringParseError)),
+                };
+
+                space0.parse_next(input)?;
+                alt((line_comment_parse, line_ending, eof)).parse_next(input)?;
+
+                continue;
             }
-            b"VB_GlobalNameSpace" => {
-                if value == "True" {
-                    global_name_space = NameSpace::Global;
-                } else if value == "False" {
-                    global_name_space = NameSpace::Local;
-                } else {
-                    return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueTrueFalse));
-                }
+            Attributes::GlobalNameSpace => {
+                global_name_space = match alt((
+                    literal::<_, _, VB6ErrorKind>("True").map(|_| NameSpace::Global),
+                    literal::<_, _, VB6ErrorKind>("False").map(|_| NameSpace::Local),
+                ))
+                .parse_next(input)
+                {
+                    Ok(global_name_space) => global_name_space,
+                    Err(_) => {
+                        return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueTrueFalse))
+                    }
+                };
+
+                space0.parse_next(input)?;
+                alt((line_comment_parse, line_ending, eof)).parse_next(input)?;
+
+                continue;
             }
-            b"VB_Creatable" => {
-                if value == "True" {
-                    creatable = Creatable::True;
-                } else if value == "False" {
-                    creatable = Creatable::False;
-                } else {
-                    return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueTrueFalse));
-                }
+            Attributes::Creatable => {
+                creatable = match alt((
+                    literal::<_, _, VB6ErrorKind>("True").map(|_| Creatable::True),
+                    literal::<_, _, VB6ErrorKind>("False").map(|_| Creatable::False),
+                ))
+                .parse_next(input)
+                {
+                    Ok(creatable) => creatable,
+                    Err(_) => {
+                        return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueTrueFalse))
+                    }
+                };
+
+                space0.parse_next(input)?;
+                alt((line_comment_parse, line_ending, eof)).parse_next(input)?;
+
+                continue;
             }
-            b"VB_PredeclaredId" => {
-                if value == "True" {
-                    pre_declared_id = PreDeclaredID::True;
-                } else if value == "False" {
-                    pre_declared_id = PreDeclaredID::False;
-                } else {
-                    return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueTrueFalse));
-                }
+            Attributes::PredeclaredId => {
+                pre_declared_id = match alt((
+                    literal::<_, _, VB6ErrorKind>("True").map(|_| PreDeclaredID::True),
+                    literal::<_, _, VB6ErrorKind>("False").map(|_| PreDeclaredID::False),
+                ))
+                .parse_next(input)
+                {
+                    Ok(pre_declared_id) => pre_declared_id,
+                    Err(_) => {
+                        return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueTrueFalse))
+                    }
+                };
+
+                space0.parse_next(input)?;
+                alt((line_comment_parse, line_ending, eof)).parse_next(input)?;
+
+                continue;
             }
-            b"VB_Exposed" => {
-                if value == "True" {
-                    exposed = Exposed::True;
-                } else if value == "False" {
-                    exposed = Exposed::False;
-                } else {
-                    return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueTrueFalse));
-                }
-            }
-            _ => {
-                return Err(ErrMode::Cut(VB6ErrorKind::UnknownProperty));
+            Attributes::Exposed => {
+                exposed = match alt((
+                    literal::<_, _, VB6ErrorKind>("True").map(|_| Exposed::True),
+                    literal::<_, _, VB6ErrorKind>("False").map(|_| Exposed::False),
+                ))
+                .parse_next(input)
+                {
+                    Ok(exposed) => exposed,
+                    Err(_) => {
+                        return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueTrueFalse))
+                    }
+                };
+
+                space0.parse_next(input)?;
+                alt((line_comment_parse, line_ending, eof)).parse_next(input)?;
+
+                continue;
             }
         }
     }
@@ -625,6 +700,13 @@ Attribute VB_Exposed = False";
 
         let mut stream = VB6Stream::new("", &mut input.as_slice());
         let result = class_header_parse(&mut stream);
+
+        // eprintln!(
+        //     "{:?}",
+        //     stream.error(result.err().unwrap().into_inner().unwrap())
+        // );
+
+        // assert!(false);
 
         assert!(result.is_ok());
     }

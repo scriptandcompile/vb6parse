@@ -13,10 +13,7 @@ use crate::{
         TimerProperties, VB6Color, VB6Control, VB6ControlKind, VB6MenuControl, VB6Token,
     },
     parsers::{
-        header::{
-            key_resource_offset_line_parse, key_value_line_parse, version_parse, HeaderKind,
-            VB6FileFormatVersion,
-        },
+        header::{key_resource_offset_line_parse, version_parse, HeaderKind, VB6FileFormatVersion},
         VB6ObjectReference, VB6Stream,
     },
     vb6::{keyword_parse, line_comment_parse, vb6_parse, VB6Result},
@@ -28,13 +25,13 @@ use serde::Serialize;
 use winnow::error::ParserError;
 use winnow::{
     ascii::{line_ending, space0, space1},
-    combinator::opt,
+    combinator::{alt, opt},
     error::ErrMode,
     token::{literal, take_till, take_until},
     Parser,
 };
 
-use super::header::object_parse;
+use super::{header::object_parse, vb6::string_parse};
 
 /// Represents a VB6 Form file.
 #[derive(Debug, PartialEq, Clone, Serialize)]
@@ -231,12 +228,28 @@ fn block_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Control<'a>> {
             continue;
         }
 
-        if let Ok((name, value)) = key_value_line_parse("=").parse_next(input) {
-            properties.insert(name, value);
-            continue;
-        }
+        space0.parse_next(input)?;
 
-        return Err(ErrMode::Cut(VB6ErrorKind::KeyValueParseError));
+        let name = take_until(1.., (" ", "\t", "=")).parse_next(input)?;
+
+        space0.parse_next(input)?;
+
+        "=".parse_next(input)?;
+
+        space0.parse_next(input)?;
+
+        let value =
+            alt((string_parse, take_till(1.., (' ', '\t', '\'', '\r', '\n')))).parse_next(input)?;
+
+        properties.insert(name, value);
+
+        space0.parse_next(input)?;
+
+        opt(line_comment_parse).parse_next(input)?;
+
+        line_ending.parse_next(input)?;
+
+        continue;
     }
 
     Err(ParserError::assert(input, "Unknown control kind"))
@@ -469,11 +482,7 @@ fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyG
 
     space0.parse_next(input)?;
 
-    opt(line_comment_parse).parse_next(input)?;
-
-    if line_ending::<_, VB6Error>.parse_next(input).is_err() {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
-    }
+    alt((line_comment_parse, line_ending)).parse_next(input)?;
 
     let mut property_group = VB6PropertyGroup {
         name: property_name,
@@ -485,25 +494,43 @@ fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyG
             .parse_next(input)
             .is_ok()
         {
+            if line_ending::<_, VB6Error>.parse_next(input).is_err() {
+                return Err(ErrMode::Cut(VB6ErrorKind::NoLineEndingAfterEndProperty));
+            }
+
             break;
         }
 
-        let (name, value) = key_value_line_parse("=").parse_next(input)?;
+        space0.parse_next(input)?;
+
+        let name = take_until(1.., ("\t", " ", "=")).parse_next(input)?;
 
         let Ok(name_ascii) = name.to_str() else {
             return Err(ErrMode::Cut(VB6ErrorKind::PropertyNameAsciiConversionError));
         };
+
+        space0.parse_next(input)?;
+
+        "=".parse_next(input)?;
+
+        space0.parse_next(input)?;
+
+        let value =
+            alt((string_parse, take_till(1.., (' ', '\t', '\'', '\r', '\n')))).parse_next(input)?;
 
         let Ok(value_ascii) = value.to_str() else {
             return Err(ErrMode::Cut(
                 VB6ErrorKind::PropertyValueAsciiConversionError,
             ));
         };
-        property_group.properties.insert(name_ascii, value_ascii);
-    }
 
-    if line_ending::<_, VB6Error>.parse_next(input).is_err() {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEndingAfterEndProperty));
+        property_group.properties.insert(name_ascii, value_ascii);
+
+        space0.parse_next(input)?;
+
+        opt(line_comment_parse).parse_next(input)?;
+
+        line_ending.parse_next(input)?;
     }
 
     Ok(property_group)
@@ -514,12 +541,20 @@ fn begin_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FullyQualifiedName
         return Err(ErrMode::Cut(VB6ErrorKind::NoNamespaceAfterBegin));
     };
 
+    let Ok(namespace_ascii) = namespace.to_str() else {
+        return Err(ErrMode::Cut(VB6ErrorKind::NamespaceAsciiConversionError));
+    };
+
     if literal::<&str, _, VB6Error>(".").parse_next(input).is_err() {
         return Err(ErrMode::Cut(VB6ErrorKind::NoDotAfterNamespace));
     };
 
     let Ok(kind) = take_until::<_, _, VB6Error>(0.., (" ", "\t")).parse_next(input) else {
         return Err(ErrMode::Cut(VB6ErrorKind::NoUserControlNameAfterDot));
+    };
+
+    let Ok(kind_ascii) = kind.to_str() else {
+        return Err(ErrMode::Cut(VB6ErrorKind::ControlKindAsciiConversionError));
     };
 
     if space1::<_, VB6Error>.parse_next(input).is_err() {
@@ -531,15 +566,6 @@ fn begin_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FullyQualifiedName
     else {
         return Err(ErrMode::Cut(VB6ErrorKind::NoControlNameAfterControlKind));
     };
-
-    let Ok(namespace_ascii) = namespace.to_str() else {
-        return Err(ErrMode::Cut(VB6ErrorKind::NamespaceAsciiConversionError));
-    };
-
-    let Ok(kind_ascii) = kind.to_str() else {
-        return Err(ErrMode::Cut(VB6ErrorKind::ControlKindAsciiConversionError));
-    };
-
     let Ok(name_ascii) = name.to_str() else {
         return Err(ErrMode::Cut(
             VB6ErrorKind::QualifiedControlNameAsciiConversionError,

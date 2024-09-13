@@ -1,8 +1,8 @@
-use bstr::BStr;
+use bstr::{BStr, ByteSlice};
 
 use winnow::{
     ascii::{digit1, line_ending, space1, Caseless},
-    combinator::{alt, delimited},
+    combinator::{alt, delimited, repeat},
     error::{ContextError, ErrMode},
     stream::Stream,
     token::{literal, one_of, take_till, take_until, take_while},
@@ -38,10 +38,11 @@ pub type VB6Result<T> = Result<T, ErrMode<VB6ErrorKind>>;
 /// # Example
 ///
 /// ```rust
+/// use winnow::Parser;
 /// use vb6parse::parsers::{vb6::line_comment_parse, VB6Stream};
 ///
 /// let mut input = VB6Stream::new("line_comment.bas".to_owned(), "' This is a comment\r\n".as_bytes());
-/// let comment = line_comment_parse(&mut input).unwrap();
+/// let comment = line_comment_parse.parse_next(&mut input).unwrap();
 ///
 /// assert_eq!(comment, "' This is a comment");
 /// ```
@@ -154,6 +155,73 @@ pub fn keyword_parse<'a>(
 
         Ok(word)
     }
+}
+
+/// Parses a VB6 string that may or may not contain double quotes (escaped by using two in a row).
+/// This parser will return the string without the double quotes.
+///
+/// # Example
+///
+/// ```
+/// use crate::*;
+/// use vb6parse::parsers::VB6Stream;
+/// use vb6parse::parsers::vb6::string_parse;
+///
+/// let input_line2 = b"\"This is a string\"";
+/// let input_line1 = b"\"This is also \"\"a\"\" string\"";
+///
+/// let mut stream1 = VB6Stream::new("", input_line1);
+/// let mut stream2 = VB6Stream::new("", input_line2);
+///
+/// let string1 = string_parse(&mut stream1).unwrap();
+/// let string2 = string_parse(&mut stream2).unwrap();
+///
+/// assert_eq!(string1, "This is also \"\"a\"\" string");
+/// assert_eq!(string2, "This is a string");
+/// ```
+pub fn string_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
+    // We parse and build the string even though we won't actually return it
+    // since we will just directly build a BStr from the input stream
+    // THIS IS A HORRIBLE HACK! but at least it works.
+    // TODO: Figure out how to actually get this right. Perhaps when we
+    // change over all the BStrs to be owned types.
+    let mut build_string =
+        repeat(0.., string_fragment_parse).fold(Vec::new, |mut string, fragment| {
+            match fragment {
+                StringFragment::Literal(literal) => {
+                    string.extend_from_slice(literal.as_bytes());
+                }
+                StringFragment::EscapedDoubleQuote(double_qoutes) => {
+                    string.extend_from_slice(double_qoutes.as_bytes());
+                }
+            }
+            string
+        });
+
+    "\"".parse_next(input)?;
+    let start_index = input.index;
+
+    build_string.parse_next(input)?;
+
+    let end_index = input.index;
+    "\"".parse_next(input)?;
+
+    Ok(&input.stream[start_index..end_index])
+}
+
+enum StringFragment<'a> {
+    Literal(&'a BStr),
+    EscapedDoubleQuote(&'a BStr),
+}
+
+fn string_fragment_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<StringFragment<'a>> {
+    let fragment = alt((
+        "\"\"".take().map(StringFragment::EscapedDoubleQuote),
+        take_until(1.., "\"").map(StringFragment::Literal),
+    ))
+    .parse_next(input)?;
+
+    Ok(fragment)
 }
 
 /// Parses VB6 code into a token stream.
@@ -345,6 +413,24 @@ fn vb6_token_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
 mod test {
     use super::*;
     use bstr::ByteSlice;
+
+    #[test]
+    fn no_escaped_double_quote_string_parse() {
+        let input_line = b"\"This is a string\"\r\n";
+        let mut stream = VB6Stream::new("", input_line);
+        let string = string_parse(&mut stream).unwrap();
+
+        assert_eq!(string, "This is a string");
+    }
+
+    #[test]
+    fn contains_escaped_double_quote_string_parse() {
+        let input_line = b"\"This is also \"\"a\"\" string\"\r\n";
+        let mut stream = VB6Stream::new("", input_line);
+        let string = string_parse(&mut stream).unwrap();
+
+        assert_eq!(string, "This is also \"\"a\"\" string");
+    }
 
     #[test]
     fn keyword() {
