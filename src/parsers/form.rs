@@ -343,7 +343,7 @@ fn build_control<'a>(
         }
         b"Frame" => {
             let frame_properties =
-                FrameProperties::construct_control(properties, _property_groups)?;
+                FrameProperties::construct_control(&properties, &_property_groups)?;
 
             VB6ControlKind::Frame {
                 controls,
