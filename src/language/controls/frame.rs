@@ -343,27 +343,9 @@ impl<'a> FrameProperties<'a> {
             };
         }
 
-        let whatsthishelpid_key = BStr::new("WhatsThisHelpID");
-        if properties.contains_key(whatsthishelpid_key) {
-            let whats_this_help_id = properties[whatsthishelpid_key];
+        frame_properties.whats_this_help_id = whats_this_help_id_property(properties)?;
 
-            let Ok(whats_this_help_id) = whats_this_help_id.to_str().unwrap().parse::<i32>() else {
-                return Err(VB6ErrorKind::PropertyValueAsciiConversionError);
-            };
-
-            frame_properties.whats_this_help_id = whats_this_help_id;
-        }
-
-        let width_key = BStr::new("Width");
-        if properties.contains_key(width_key) {
-            let width = properties[width_key];
-
-            let Ok(width) = width.to_str().unwrap().parse::<i32>() else {
-                return Err(VB6ErrorKind::PropertyValueAsciiConversionError);
-            };
-
-            frame_properties.width = width;
-        }
+        frame_properties.width = width_property(properties)?;
 
         Ok(frame_properties)
     }
@@ -380,8 +362,34 @@ fn right_to_left_property(properties: &HashMap<&BStr, &BStr>) -> Result<bool, VB
     match right_to_left.as_bytes() {
         b"0" => Ok(false),
         b"1" => Ok(true),
-        _ => {
-            return Err(VB6ErrorKind::RightToLeftPropertyInvalid);
-        }
+        _ => Err(VB6ErrorKind::RightToLeftPropertyInvalid),
+    }
+}
+
+fn whats_this_help_id_property(properties: &HashMap<&BStr, &BStr>) -> Result<i32, VB6ErrorKind> {
+    let help_id_key = BStr::new("WhatsThisHelpID");
+    if !properties.contains_key(help_id_key) {
+        return Ok(0);
+    }
+
+    let help_id = properties[help_id_key];
+
+    match help_id.to_str().unwrap().parse::<i32>() {
+        Ok(help_id) => Ok(help_id),
+        Err(_) => return Err(VB6ErrorKind::PropertyValueAsciiConversionError),
+    }
+}
+
+fn width_property(properties: &HashMap<&BStr, &BStr>) -> Result<i32, VB6ErrorKind> {
+    let width_key = BStr::new("Width");
+    if !properties.contains_key(width_key) {
+        return Ok(100);
+    }
+
+    let width = properties[width_key];
+
+    match width.to_str().unwrap().parse::<i32>() {
+        Ok(width) => Ok(width),
+        Err(_) => Err(VB6ErrorKind::PropertyValueAsciiConversionError),
     }
 }
