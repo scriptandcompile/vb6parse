@@ -306,6 +306,7 @@ pub struct VB6Error {
 }
 
 impl VB6Error {
+    #[must_use]
     pub fn new(input: &VB6Stream, kind: VB6ErrorKind) -> Self {
         let file_name = input.file_name.clone();
         let source_code = input.stream.to_string();
