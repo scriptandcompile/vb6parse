@@ -49,7 +49,7 @@ impl Default for DriveListBoxProperties<'_> {
             left: 480,
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
-            ole_drop_mode: OLEDropMode::None,
+            ole_drop_mode: OLEDropMode::default(),
             tab_index: 0,
             tab_stop: true,
             tool_tip_text: "",

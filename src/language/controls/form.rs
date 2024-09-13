@@ -213,7 +213,7 @@ impl Default for FormProperties<'_> {
             mouse_pointer: MousePointer::Default,
             moveable: true,
             negotiate_menus: true,
-            ole_drop_mode: OLEDropMode::None,
+            ole_drop_mode: OLEDropMode::default(),
             palette: None,
             palette_mode: PaletteMode::HalfTone,
             picture: None,

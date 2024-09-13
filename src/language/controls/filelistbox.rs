@@ -64,7 +64,7 @@ impl Default for FileListBoxProperties<'_> {
             multi_select: MultiSelect::None,
             normal: true,
             ole_drag_mode: OLEDragMode::Manual,
-            ole_drop_mode: OLEDropMode::None,
+            ole_drop_mode: OLEDropMode::default(),
             pattern: "*.*",
             read_only: true,
             system: false,

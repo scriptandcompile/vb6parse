@@ -54,7 +54,7 @@ impl Default for ImageProperties<'_> {
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
             ole_drag_mode: OLEDragMode::Manual,
-            ole_drop_mode: OLEDropMode::None,
+            ole_drop_mode: OLEDropMode::default(),
             picture: None,
             stretch: false,
             tool_tip_text: "",

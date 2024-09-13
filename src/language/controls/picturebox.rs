@@ -105,7 +105,7 @@ impl Default for PictureBoxProperties<'_> {
             mouse_pointer: MousePointer::Default,
             negotiate: false,
             ole_drag_mode: OLEDragMode::Manual,
-            ole_drop_mode: OLEDropMode::None,
+            ole_drop_mode: OLEDropMode::default(),
             picture: None,
             right_to_left: false,
             scale_height: 100,

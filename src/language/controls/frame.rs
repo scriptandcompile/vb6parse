@@ -60,7 +60,7 @@ impl Default for FrameProperties<'_> {
             left: 30,
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
-            ole_drop_mode: OLEDropMode::None,
+            ole_drop_mode: OLEDropMode::default(),
             right_to_left: false,
             tab_index: 0,
             tool_tip_text: BStr::new(""),
@@ -360,7 +360,7 @@ fn mouse_pointer_property(
 fn ole_drop_mode_property(properties: &HashMap<&BStr, &BStr>) -> Result<OLEDropMode, VB6ErrorKind> {
     let ole_drop_mode_key = BStr::new("OLEDropMode");
     if !properties.contains_key(ole_drop_mode_key) {
-        return Ok(OLEDropMode::None);
+        return Ok(OLEDropMode::default());
     }
 
     let ole_drop_mode = properties[ole_drop_mode_key];

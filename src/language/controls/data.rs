@@ -68,7 +68,7 @@ impl Default for DataProperties<'_> {
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
             negotitate: false,
-            ole_drop_mode: OLEDropMode::None,
+            ole_drop_mode: OLEDropMode::default(),
             options: 0,
             read_only: false,
             record_set_type: RecordSetType::Dynaset,
