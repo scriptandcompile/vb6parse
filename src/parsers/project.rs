@@ -2209,6 +2209,7 @@ impl<'a> VB6Project<'a> {
         Ok(project)
     }
 
+    #[must_use]
     pub fn get_project_references(&self) -> Vec<&VB6ProjectReference> {
         self.references
             .iter()
