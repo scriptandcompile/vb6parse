@@ -155,7 +155,7 @@ impl<'a> FindSlice<char> for VB6Stream<'a> {
     fn find_slice(&self, needle: char) -> Option<std::ops::Range<usize>> {
         if let Some(range) = self.stream[self.index..]
             .find(needle.to_string())
-            .map(|start| start..=start)
+            .map(|start| start..start + 1)
         {
             return Some(range);
         }
@@ -168,7 +168,7 @@ impl<'a> FindSlice<u8> for VB6Stream<'a> {
     fn find_slice(&self, needle: u8) -> Option<std::ops::Range<usize>> {
         if let Some(range) = self.stream[self.index..]
             .find(needle.to_string())
-            .map(|start| start..=start)
+            .map(|start| start..start + 1)
         {
             return Some(range);
         }
