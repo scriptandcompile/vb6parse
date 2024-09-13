@@ -35,6 +35,7 @@ header:
     pre_declared_id: "False"
     exposed: "False"
     description: ~
+    ext_key: {}
 tokens:
   - Comment:
       - 39

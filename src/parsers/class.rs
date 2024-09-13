@@ -1,14 +1,6 @@
-use bstr::{BStr, ByteSlice};
+use std::collections::HashMap;
 
-use crate::{
-    errors::{VB6Error, VB6ErrorKind},
-    language::VB6Token,
-    parsers::{
-        header::{key_value_line_parse, version_parse, HeaderKind, VB6FileFormatVersion},
-        VB6Stream,
-    },
-    vb6::{keyword_parse, line_comment_parse, string_parse, vb6_parse, VB6Result},
-};
+use bstr::{BStr, ByteSlice};
 
 use serde::Serialize;
 
@@ -18,6 +10,16 @@ use winnow::{
     error::ErrMode,
     token::literal,
     Parser,
+};
+
+use crate::{
+    errors::{VB6Error, VB6ErrorKind},
+    language::VB6Token,
+    parsers::{
+        header::{key_value_line_parse, version_parse, HeaderKind, VB6FileFormatVersion},
+        VB6Stream,
+    },
+    vb6::{keyword_parse, line_comment_parse, string_parse, vb6_parse, VB6Result},
 };
 
 /// Represents the COM usage of a class file.
@@ -249,12 +251,13 @@ pub struct VB6ClassVersion {
 /// They are only visible in the file property explorer.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct VB6ClassAttributes<'a> {
-    pub name: &'a BStr,                 // Attribute VB_Name = "Organism"
-    pub global_name_space: NameSpace,   // (True/False) Attribute VB_GlobalNameSpace = False
-    pub creatable: Creatable,           // (True/False) Attribute VB_Creatable = True
-    pub pre_declared_id: PreDeclaredID, // (True/False) Attribute VB_PredeclaredId = False
-    pub exposed: Exposed,               // (True/False) Attribute VB_Exposed = False
-    pub description: Option<&'a BStr>,  // Attribute VB_Description = "Description"
+    pub name: &'a BStr,                       // Attribute VB_Name = "Organism"
+    pub global_name_space: NameSpace,         // (True/False) Attribute VB_GlobalNameSpace = False
+    pub creatable: Creatable,                 // (True/False) Attribute VB_Creatable = True
+    pub pre_declared_id: PreDeclaredID,       // (True/False) Attribute VB_PredeclaredId = False
+    pub exposed: Exposed,                     // (True/False) Attribute VB_Exposed = False
+    pub description: Option<&'a BStr>,        // Attribute VB_Description = "Description"
+    pub ext_key: HashMap<&'a BStr, &'a BStr>, // Additional attributes
 }
 
 impl Default for VB6ClassAttributes<'_> {
@@ -266,6 +269,7 @@ impl Default for VB6ClassAttributes<'_> {
             pre_declared_id: PreDeclaredID::False,
             exposed: Exposed::False,
             description: None,
+            ext_key: HashMap::new(),
         }
     }
 }
@@ -488,6 +492,7 @@ enum Attributes {
     PredeclaredId,
     Exposed,
     Description,
+    ExtKey,
 }
 
 fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ClassAttributes<'a>> {
@@ -499,6 +504,7 @@ fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ClassAttribut
     let mut pre_declared_id = PreDeclaredID::False;
     let mut exposed = Exposed::False;
     let mut description = None;
+    let mut ext_key = HashMap::new();
 
     while let Ok(_) = (space0, keyword_parse("Attribute"), space0).parse_next(input) {
         space0.parse_next(input)?;
@@ -510,6 +516,7 @@ fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ClassAttribut
             keyword_parse("VB_PredeclaredId").map(|_| Attributes::PredeclaredId),
             keyword_parse("VB_Exposed").map(|_| Attributes::Exposed),
             keyword_parse("VB_Description").map(|_| Attributes::Description),
+            keyword_parse("VB_Ext_KEY").map(|_| Attributes::ExtKey),
         ))
         .parse_next(input) else {
             return Err(ErrMode::Cut(VB6ErrorKind::UnknownAttribute));
@@ -612,6 +619,26 @@ fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ClassAttribut
 
                 continue;
             }
+            Attributes::ExtKey => {
+                let key = match string_parse.parse_next(input) {
+                    Ok(key) => key,
+                    Err(_) => return Err(ErrMode::Cut(VB6ErrorKind::StringParseError)),
+                };
+
+                (space0, ",", space0).parse_next(input)?;
+
+                let value = match string_parse.parse_next(input) {
+                    Ok(value) => value,
+                    Err(_) => return Err(ErrMode::Cut(VB6ErrorKind::StringParseError)),
+                };
+
+                ext_key.insert(key, value);
+
+                space0.parse_next(input)?;
+                alt((line_comment_parse, line_ending, eof)).parse_next(input)?;
+
+                continue;
+            }
         }
     }
 
@@ -626,6 +653,7 @@ fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ClassAttribut
         pre_declared_id,
         exposed,
         description,
+        ext_key,
     })
 }
 
@@ -649,6 +677,8 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+Attribute VB_Ext_KEY = \"SavedWithClassBuilder6\" ,\"Yes\"
+Attribute VB_Ext_KEY = \"Saved\" ,\"False\"
 
 Option Explicit
 ";
