@@ -288,9 +288,11 @@ impl<'a> FrameProperties<'a> {
             };
         }
 
-        let righttoleft_key = BStr::new("RightToLeft");
-        if properties.contains_key(righttoleft_key) {
-            let right_to_left = properties[righttoleft_key];
+        frame_properties.right_to_left = right_to_left_property(&properties)?;
+
+        let right_to_left_key = BStr::new("RightToLeft");
+        if properties.contains_key(right_to_left_key) {
+            let right_to_left = properties[right_to_left_key];
 
             frame_properties.right_to_left = match right_to_left.as_bytes() {
                 b"0" => false,
@@ -364,5 +366,22 @@ impl<'a> FrameProperties<'a> {
         }
 
         Ok(frame_properties)
+    }
+}
+
+fn right_to_left_property(properties: &HashMap<&BStr, &BStr>) -> Result<bool, VB6ErrorKind> {
+    let right_to_left_key = BStr::new("RightToLeft");
+    if !properties.contains_key(right_to_left_key) {
+        return Ok(false);
+    }
+
+    let right_to_left = properties[right_to_left_key];
+
+    match right_to_left.as_bytes() {
+        b"0" => Ok(false),
+        b"1" => Ok(true),
+        _ => {
+            return Err(VB6ErrorKind::RightToLeftPropertyInvalid);
+        }
     }
 }
