@@ -76,9 +76,10 @@ pub struct VB6Project<'a> {
     pub property_page: Option<&'a BStr>,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
 pub enum CompatibilityMode {
     NoCompatibility = 0,
+    #[default]
     Project = 1,
     CompatibleExe = 2,
 }
@@ -102,12 +103,6 @@ pub enum OptimizationType {
     FavorFastCode = 0,
     FavorSmallCode = 1,
     NoOptimization = 2,
-}
-
-impl Default for CompatibilityMode {
-    fn default() -> Self {
-        CompatibilityMode::Project
-    }
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
