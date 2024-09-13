@@ -2379,7 +2379,7 @@ fn project_type_parse(input: &mut VB6Stream<'_>) -> VB6Result<CompileTargetType>
     ))
     .parse_next(input)?;
 
-    return Ok(project_type);
+    Ok(project_type)
 }
 
 #[cfg(test)]
