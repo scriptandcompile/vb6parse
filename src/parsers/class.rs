@@ -627,9 +627,8 @@ fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ClassAttribut
 
                 (space0, ",", space0).parse_next(input)?;
 
-                let value = match string_parse.parse_next(input) {
-                    Ok(value) => value,
-                    Err(_) => return Err(ErrMode::Cut(VB6ErrorKind::StringParseError)),
+                let Ok(value) = string_parse.parse_next(input) else {
+                    return Err(ErrMode::Cut(VB6ErrorKind::StringParseError));
                 };
 
                 ext_key.insert(key, value);
