@@ -2216,6 +2216,7 @@ impl<'a> VB6Project<'a> {
             .collect::<Vec<_>>()
     }
 
+    #[must_use]
     pub fn get_compiled_references(&self) -> Vec<&VB6ProjectReference> {
         self.references
             .iter()
