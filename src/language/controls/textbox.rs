@@ -93,7 +93,7 @@ impl Default for TextBoxProperties<'_> {
             mouse_pointer: MousePointer::Default,
             multi_line: false,
             ole_drag_mode: OLEDragMode::Manual,
-            ole_drop_mode: OLEDropMode::None,
+            ole_drop_mode: OLEDropMode::default(),
             password_char: None,
             right_to_left: false,
             scroll_bars: ScrollBars::None,

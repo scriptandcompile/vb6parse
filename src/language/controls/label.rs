@@ -75,7 +75,7 @@ impl Default for LabelProperties<'_> {
             link_topic: "",
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
-            ole_drop_mode: OLEDropMode::None,
+            ole_drop_mode: OLEDropMode::default(),
             right_to_left: false,
             tab_index: 0,
             tool_tip_text: "",

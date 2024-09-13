@@ -78,7 +78,7 @@ impl Default for ListBoxProperties<'_> {
             mouse_pointer: MousePointer::Default,
             multi_select: MultiSelect::None,
             ole_drag_mode: OLEDragMode::Manual,
-            ole_drop_mode: OLEDropMode::None,
+            ole_drop_mode: OLEDropMode::default(),
             right_to_left: false,
             sorted: false,
             style: ListBoxStyle::Standard,

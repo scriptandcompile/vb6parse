@@ -51,7 +51,7 @@ impl Default for DirListBoxProperties<'_> {
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
             ole_drag_mode: OLEDragMode::Manual,
-            ole_drop_mode: OLEDropMode::None,
+            ole_drop_mode: OLEDropMode::default(),
             tab_index: 0,
             tab_stop: true,
             tool_tip_text: "",

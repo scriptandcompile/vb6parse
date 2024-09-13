@@ -81,7 +81,7 @@ impl Default for CheckBoxProperties<'_> {
             mask_color: VB6Color::from_hex("&H00C0C0C0&").unwrap(),
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
-            ole_drop_mode: OLEDropMode::None,
+            ole_drop_mode: OLEDropMode::default(),
             picture: None,
             right_to_left: false,
             style: Style::Standard,
