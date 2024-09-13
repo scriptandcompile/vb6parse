@@ -1304,10 +1304,7 @@ impl<'a> VB6Project<'a> {
                 threading_model = match threading_model_text.to_string().trim().parse::<u16>() {
                     Ok(0) => ThreadingModel::SingleThreaded,
                     Ok(1) => ThreadingModel::ApartmentThreaded,
-                    Ok(_) => {
-                        return Err(input.error(VB6ErrorKind::ThreadingModelInvalid));
-                    }
-                    Err(_) => {
+                    Ok(_) | Err(_) => {
                         return Err(input.error(VB6ErrorKind::ThreadingModelInvalid));
                     }
                 };
