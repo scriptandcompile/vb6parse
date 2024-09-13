@@ -400,7 +400,7 @@ impl<'a> VB6Project<'a> {
 
             // Looks like we are no longer parsing the standard VB6 property section
             // Now we are parsing some third party properties.
-            if other_property_group != None {
+            if other_property_group.is_some() {
                 let property_name = match (opt(space0), take_until(0.., "=")).parse_next(&mut input)
                 {
                     Ok((_, property_name)) => property_name,
