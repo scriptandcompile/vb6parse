@@ -2,7 +2,9 @@ use std::collections::HashMap;
 
 use crate::errors::VB6ErrorKind;
 use crate::language::color::VB6Color;
-use crate::language::controls::{Appearance, BorderStyle, DragMode, MousePointer, OLEDropMode};
+use crate::language::controls::{
+    Appearance, BorderStyle, ClipControls, DragMode, MousePointer, OLEDropMode,
+};
 use crate::parsers::form::VB6PropertyGroup;
 
 use bstr::{BStr, ByteSlice};
@@ -21,7 +23,7 @@ pub struct FrameProperties<'a> {
     pub back_color: VB6Color,
     pub border_style: BorderStyle,
     pub caption: &'a BStr,
-    pub clip_controls: bool,
+    pub clip_controls: ClipControls,
     pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
     pub enabled: bool,
@@ -48,7 +50,7 @@ impl Default for FrameProperties<'_> {
             back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
             border_style: BorderStyle::FixedSingle,
             caption: BStr::new("Frame1"),
-            clip_controls: true,
+            clip_controls: ClipControls::True,
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: true,
@@ -222,17 +224,19 @@ fn border_style_property(properties: &HashMap<&BStr, &BStr>) -> Result<BorderSty
     }
 }
 
-fn clip_controls_property(properties: &HashMap<&BStr, &BStr>) -> Result<bool, VB6ErrorKind> {
+fn clip_controls_property(
+    properties: &HashMap<&BStr, &BStr>,
+) -> Result<ClipControls, VB6ErrorKind> {
     let clip_controls_key = BStr::new("ClipControls");
     if !properties.contains_key(clip_controls_key) {
-        return Ok(true);
+        return Ok(ClipControls::default());
     }
 
     let clip_controls = properties[clip_controls_key];
 
     match clip_controls.as_bytes() {
-        b"0" => Ok(false),
-        b"1" => Ok(true),
+        b"0" => Ok(ClipControls::False),
+        b"1" => Ok(ClipControls::True),
         _ => Err(VB6ErrorKind::ClipControlsPropertyInvalid),
     }
 }

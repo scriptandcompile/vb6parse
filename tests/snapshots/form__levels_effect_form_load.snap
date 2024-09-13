@@ -62,7 +62,7 @@ form:
           - 99
           - 111
           - 109
-        clip_controls: true
+        clip_controls: "True"
         control_box: true
         draw_mode: CopyPen
         draw_style: Solid
@@ -176,7 +176,7 @@ form:
                   - 108
                   - 115
                   - 58
-                clip_controls: true
+                clip_controls: "True"
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -891,7 +891,7 @@ form:
                     index: 15
                 border_style: FixedSingle
                 causes_validation: true
-                clip_controls: true
+                clip_controls: "True"
                 data_field: ""
                 data_format: ""
                 data_member: ""
@@ -954,7 +954,7 @@ form:
                     index: 15
                 border_style: FixedSingle
                 causes_validation: true
-                clip_controls: true
+                clip_controls: "True"
                 data_field: ""
                 data_format: ""
                 data_member: ""

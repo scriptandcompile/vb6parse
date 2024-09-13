@@ -329,6 +329,15 @@ pub enum OLEDropMode {
     Manual = 1,
 }
 
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+pub enum ClipControls {
+    /// The controls are not clipped to the bounds of the parent control.
+    False = 0,
+    /// The controls are clipped to the bounds of the parent control.
+    #[default]
+    True = 1,
+}
+
 /// Determines if the control uses standard styling or if it uses graphical styling from it's
 /// picture properties.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
