@@ -257,7 +257,7 @@ pub fn key_resource_offset_line_parse<'a>(
             return Err(ErrMode::Cut(VB6ErrorKind::NoColonForOffsetSplit));
         }
 
-        let offset = match take_while(4, ('0'..='9', 'A'..='F')).parse_next(input) {
+        let offset = match take_while(1.., ('0'..='9', 'A'..='F')).parse_next(input) {
             Ok(offset) => offset,
             Err(e) => {
                 input.reset(&checkpoint);
