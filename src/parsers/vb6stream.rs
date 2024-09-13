@@ -133,6 +133,24 @@ impl<'a> FindSlice<(&str, &str, &str, &str, &str)> for VB6Stream<'a> {
     }
 }
 
+impl<'a> FindSlice<(&str, &str, &str, &str, &str, &str)> for VB6Stream<'a> {
+    fn find_slice(
+        &self,
+        needle: (&str, &str, &str, &str, &str, &str),
+    ) -> Option<std::ops::Range<usize>> {
+        for needle in &[needle.0, needle.1, needle.2, needle.3, needle.4, needle.5] {
+            if let Some(range) = self.stream[self.index..]
+                .find(needle)
+                .map(|start| start..start + needle.len())
+            {
+                return Some(range);
+            }
+        }
+
+        None
+    }
+}
+
 impl<'a> FindSlice<char> for VB6Stream<'a> {
     fn find_slice(&self, needle: char) -> Option<std::ops::Range<usize>> {
         if let Some(range) = self.stream[self.index..]

@@ -34,11 +34,23 @@ pub enum VB6ErrorKind {
     #[error("Unable to parse the Uuid")]
     UnableToParseUuid,
 
+    #[error("Unable to parse the property name")]
+    PropertyNameUnparsable,
+
     #[error("Unable to find a semicolon ';' in this line.")]
     NoSemicolonSplit,
 
     #[error("Unable to find an equal '=' in this line.")]
     NoEqualSplit,
+
+    #[error("Unable to parse the resource file name")]
+    ResourceFileNameUnparsable,
+
+    #[error("While trying to parse the offset into the resource file, no colon ':' was found.")]
+    NoColonForOffsetSplit,
+
+    #[error("No key value divider found in the line.")]
+    NoKeyValueDividerFound,
 
     #[error("Unknown parser error")]
     Unparseable,
@@ -154,6 +166,9 @@ pub enum VB6ErrorKind {
     #[error("Thread Per Object is not a number.")]
     ThreadPerObjectUnparseable,
 
+    #[error("Unknown attribute in class header file. Must be one of: VB_Name, VB_GlobalNameSpace, VB_Creatable, VB_PredeclaredId, VB_Exposed, VB_Description")]
+    UnknownAttribute,
+
     #[error("Error parsing header")]
     Header,
 
@@ -219,6 +234,12 @@ pub enum VB6ErrorKind {
 
     #[error("Property name is not a valid ASCII string")]
     PropertyNameAsciiConversionError,
+
+    #[error("String is unterminated")]
+    UnterminatedString,
+
+    #[error("Unable to parse VB6 string.")]
+    StringParseError,
 
     #[error("Property value is not a valid ASCII string")]
     PropertyValueAsciiConversionError,

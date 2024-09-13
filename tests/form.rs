@@ -171,7 +171,6 @@ fn custom_image_form_load() {
 }
 
 #[test]
-#[ignore]
 fn diffuse_effect_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Diffuse-effect/Diffuse.frm");
 

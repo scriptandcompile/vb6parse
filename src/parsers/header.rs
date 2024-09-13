@@ -5,15 +5,15 @@ use uuid::Uuid;
 use crate::{
     errors::VB6ErrorKind,
     parsers::{VB6ObjectReference, VB6Stream},
-    vb6::{keyword_parse, line_comment_parse, take_until_line_ending, VB6Result},
+    vb6::{keyword_parse, line_comment_parse, string_parse, take_until_line_ending, VB6Result},
 };
 
 use winnow::{
     ascii::{digit1, line_ending, space0, space1},
-    combinator::{alt, delimited, eof, opt, separated_pair},
+    combinator::{alt, eof, opt},
     error::ErrMode,
     stream::Stream,
-    token::{literal, take_till, take_until, take_while},
+    token::{literal, take_until, take_while},
     Parser,
 };
 
@@ -157,38 +157,36 @@ pub fn key_value_parse<'a>(
     divider: &'static str,
 ) -> impl FnMut(&mut VB6Stream<'a>) -> VB6Result<(&'a BStr, &'a BStr)> {
     move |input: &mut VB6Stream<'a>| -> VB6Result<(&'a BStr, &'a BStr)> {
-        let (key, value) = separated_pair(
-            delimited(
-                space0,
-                take_while(1.., ('_', '-', '+', '&', 'a'..='z', 'A'..='Z', '0'..='9')),
-                space0,
-            ),
-            literal(divider),
-            alt((
-                delimited(space0, vb6_string_parse, space0),
-                delimited(
-                    space0,
-                    take_while(
-                        1..,
-                        (
-                            '_',
-                            '.',
-                            '^',
-                            '-',
-                            '+',
-                            '&',
-                            '/',
-                            ':',
-                            'a'..='z',
-                            'A'..='Z',
-                            '0'..='9',
-                        ),
-                    ),
-                    space0,
-                ),
-            )),
-        )
-        .parse_next(input)?;
+        let checkpoint = input.checkpoint();
+
+        space0.parse_next(input)?;
+
+        let Ok(key) = take_until::<_, _, VB6ErrorKind>(1.., (" ", "\t", divider)).parse_next(input)
+        else {
+            input.reset(&checkpoint);
+            return Err(ErrMode::Cut(VB6ErrorKind::PropertyNameUnparsable));
+        };
+
+        space0.parse_next(input)?;
+
+        if literal::<_, _, VB6ErrorKind>(divider)
+            .parse_next(input)
+            .is_err()
+        {
+            input.reset(&checkpoint);
+            return Err(ErrMode::Cut(VB6ErrorKind::NoKeyValueDividerFound));
+        }
+
+        space0.parse_next(input)?;
+
+        let Ok(value) =
+            alt((string_parse, take_until(1.., (" ", "\t", "\r", "\n")))).parse_next(input)
+        else {
+            input.reset(&checkpoint);
+            return Err(ErrMode::Cut(VB6ErrorKind::KeyValueParseError));
+        };
+
+        space0.parse_next(input)?;
 
         Ok((key, value))
     }
@@ -212,7 +210,13 @@ pub fn key_value_line_parse<'a>(
         // header file that is empty of actual code. This means the last line of the file
         // should be an empty line, but it might be that the filed ends at the end of the
         // header attribute section.
-        (space0, opt(line_comment_parse), alt((line_ending, eof))).parse_next(input)?;
+        if (space0, opt(line_comment_parse), alt((line_ending, eof)))
+            .parse_next(input)
+            .is_err()
+        {
+            input.reset(&checkpoint);
+            return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+        }
 
         Ok((key, value))
     }
@@ -224,63 +228,60 @@ pub fn key_resource_offset_line_parse<'a>(
     move |input: &mut VB6Stream<'a>| -> VB6Result<(&'a BStr, &'a BStr, &'a BStr)> {
         let checkpoint = input.checkpoint();
 
-        let (key, resource_file_name) = match separated_pair(
-            delimited(
-                space0,
-                take_while(1.., ('_', '-', '+', '&', 'a'..='z', 'A'..='Z', '0'..='9')),
-                space0,
-            ),
-            literal(divider),
-            delimited(
-                (space0, opt("$"), "\""),
-                take_while(1.., (' '..='!', '#'..='~', '\t')),
-                "\"",
-            ),
-        )
-        .parse_next(input)
+        space0.parse_next(input)?;
+
+        let Ok(key) = take_until::<_, _, VB6ErrorKind>(1.., (" ", "\t", divider)).parse_next(input)
+        else {
+            input.reset(&checkpoint);
+            return Err(ErrMode::Cut(VB6ErrorKind::PropertyNameUnparsable));
+        };
+
+        if (space0::<_, VB6ErrorKind>, divider, space0)
+            .parse_next(input)
+            .is_err()
         {
-            Ok((key, resource_file_name)) => (key, resource_file_name),
+            input.reset(&checkpoint);
+            return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+        }
+
+        let Ok(resource_file_name) = string_parse.parse_next(input) else {
+            input.reset(&checkpoint);
+            return Err(ErrMode::Cut(VB6ErrorKind::ResourceFileNameUnparsable));
+        };
+
+        if literal::<_, _, VB6ErrorKind>(":")
+            .parse_next(input)
+            .is_err()
+        {
+            input.reset(&checkpoint);
+            return Err(ErrMode::Cut(VB6ErrorKind::NoColonForOffsetSplit));
+        }
+
+        let offset = match take_while(4, ('0'..='9', 'A'..='F')).parse_next(input) {
+            Ok(offset) => offset,
             Err(e) => {
                 input.reset(&checkpoint);
                 return Err(e);
             }
         };
 
-        let offset = match (":", take_while(1.., ('0'..='9', 'A'..='F'))).parse_next(input) {
-            Ok((_, offset)) => offset,
-            Err(e) => {
-                input.reset(&checkpoint);
-                return Err(e);
-            }
-        };
+        space0.parse_next(input)?;
 
         // we have to check for eof here because it's perfectly possible to have a
         // header file that is empty of actual code. This means the last line of the file
         // should be an empty line, but it might be that the filed ends at the end of the
         // header attribute section.
-        (space0, opt(line_comment_parse), alt((line_ending, eof))).parse_next(input)?;
+        opt(line_comment_parse).parse_next(input)?;
 
-        Ok((key, resource_file_name, offset))
-    }
-}
-
-pub fn vb6_string_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
-    "\"".parse_next(input)?;
-
-    let start_index = input.index;
-
-    loop {
-        take_till(1.., ['"']).parse_next(input)?;
-
-        if literal::<_, _, VB6ErrorKind>("\"\"")
+        if alt((line_ending::<_, VB6ErrorKind>, eof))
             .parse_next(input)
             .is_err()
         {
-            let end_index = input.index;
-            "\"".parse_next(input)?;
-
-            return Ok(input.stream[start_index..end_index].as_bstr());
+            input.reset(&checkpoint);
+            return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
         }
+
+        Ok((key, resource_file_name, offset))
     }
 }
 
@@ -292,24 +293,6 @@ mod tests {
     use crate::parsers::VB6Stream;
 
     use super::HeaderKind;
-
-    #[test]
-    fn vb6_no_double_quote_string_parse() {
-        let input_line = b"\"This is a string\"\r\n";
-        let mut stream = VB6Stream::new("", input_line);
-        let string = vb6_string_parse(&mut stream).unwrap();
-
-        assert_eq!(string, "This is a string");
-    }
-
-    #[test]
-    fn vb6_with_double_quote_string_parse() {
-        let input_line = b"\"This is also \"\"a\"\" string\"\r\n";
-        let mut stream = VB6Stream::new("", input_line);
-        let string = vb6_string_parse(&mut stream).unwrap();
-
-        assert_eq!(string, "This is also \"\"a\"\" string");
-    }
 
     #[test]
     fn compiled_object_line_valid() {
@@ -376,7 +359,7 @@ mod tests {
 
     #[test]
     fn test_key_resource_offset_line_with_comment_parse() {
-        let input_line = b"      Picture         =   \"Brightness.frx\":0000\r\n";
+        let input_line = b"      Picture         =   \"Brightness.frx\":0000 'comment\r\n";
         let mut stream = VB6Stream::new("", input_line);
         let (key, resource_file_name, offset) =
             key_resource_offset_line_parse("=")(&mut stream).unwrap();
