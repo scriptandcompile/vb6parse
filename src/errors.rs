@@ -331,7 +331,7 @@ impl Display for VB6Error {
 
         let kind_label = Label::new((
             self.file_name.clone(),
-            self.source_offset..self.source_offset + 1,
+            self.source_offset..=self.source_offset,
         ))
         .with_message(self.kind.to_string());
 
