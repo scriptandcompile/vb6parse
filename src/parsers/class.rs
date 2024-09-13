@@ -506,7 +506,10 @@ fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ClassAttribut
     let mut description = None;
     let mut ext_key = HashMap::new();
 
-    while let Ok(_) = (space0, keyword_parse("Attribute"), space0).parse_next(input) {
+    while (space0, keyword_parse("Attribute"), space0)
+        .parse_next(input)
+        .is_ok()
+    {
         space0.parse_next(input)?;
 
         let Ok(key) = alt((
@@ -620,9 +623,8 @@ fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ClassAttribut
                 continue;
             }
             Attributes::ExtKey => {
-                let key = match string_parse.parse_next(input) {
-                    Ok(key) => key,
-                    Err(_) => return Err(ErrMode::Cut(VB6ErrorKind::StringParseError)),
+                let Ok(key) = string_parse.parse_next(input) else {
+                    return Err(ErrMode::Cut(VB6ErrorKind::StringParseError));
                 };
 
                 (space0, ",", space0).parse_next(input)?;
