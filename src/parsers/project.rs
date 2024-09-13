@@ -317,7 +317,7 @@ impl<'a> VB6Project<'a> {
         let mut title = Some(BStr::new(b""));
         let mut exe_32_file_name = Some(BStr::new(b""));
         let mut exe_32_compatible = Some(BStr::new(b""));
-        let mut dll_base_address = 0x11000000u32;
+        let mut dll_base_address = 0x1100_0000_u32;
         let mut version_32_compatibility = Some(BStr::new(b""));
         let mut path_32 = Some(BStr::new(b""));
         let mut command_line_arguments = Some(BStr::new(b""));
