@@ -114,8 +114,8 @@ impl Serialize for FrameProperties<'_> {
 
 impl<'a> FrameProperties<'a> {
     pub fn construct_control(
-        properties: HashMap<&'a BStr, &'a BStr>,
-        _property_groups: Vec<VB6PropertyGroup<'a>>,
+        properties: &HashMap<&'a BStr, &'a BStr>,
+        _property_groups: &Vec<VB6PropertyGroup<'a>>,
     ) -> Result<Self, VB6ErrorKind> {
         // TODO: We are not correctly handling property assignment for each control.
 
