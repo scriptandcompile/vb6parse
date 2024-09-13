@@ -1,6 +1,6 @@
 use crate::language::controls::{
-    Align, Appearance, BorderStyle, DragMode, DrawMode, DrawStyle, FillStyle, LinkMode,
-    MousePointer, OLEDragMode, OLEDropMode, ScaleMode,
+    Align, Appearance, BorderStyle, ClipControls, DragMode, DrawMode, DrawStyle, FillStyle,
+    LinkMode, MousePointer, OLEDragMode, OLEDropMode, ScaleMode,
 };
 use crate::VB6Color;
 
@@ -24,7 +24,7 @@ pub struct PictureBoxProperties<'a> {
     pub back_color: VB6Color,
     pub border_style: BorderStyle,
     pub causes_validation: bool,
-    pub clip_controls: bool,
+    pub clip_controls: ClipControls,
     pub data_field: &'a str,
     pub data_format: &'a str,
     pub data_member: &'a str,
@@ -78,7 +78,7 @@ impl Default for PictureBoxProperties<'_> {
             back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
             border_style: BorderStyle::FixedSingle,
             causes_validation: true,
-            clip_controls: true,
+            clip_controls: ClipControls::default(),
             data_field: "",
             data_format: "",
             data_member: "",

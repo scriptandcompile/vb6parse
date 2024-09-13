@@ -61,7 +61,7 @@ form:
           - 99
           - 111
           - 109
-        clip_controls: true
+        clip_controls: "True"
         control_box: true
         draw_mode: CopyPen
         draw_style: Solid

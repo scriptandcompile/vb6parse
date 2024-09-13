@@ -7,6 +7,8 @@ use bstr::BStr;
 use image::DynamicImage;
 use serde::Serialize;
 
+use super::ClipControls;
+
 #[derive(Debug, PartialEq, Eq, Clone, serde::Serialize)]
 pub enum FormLinkMode {
     None = 0,
@@ -60,7 +62,7 @@ pub struct FormProperties<'a> {
     pub back_color: VB6Color,
     pub border_style: FormBorderStyle,
     pub caption: &'a BStr,
-    pub clip_controls: bool,
+    pub clip_controls: ClipControls,
     pub control_box: bool,
     pub draw_mode: DrawMode,
     pub draw_style: DrawStyle,
@@ -186,7 +188,7 @@ impl Default for FormProperties<'_> {
             back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
             border_style: FormBorderStyle::Sizable,
             caption: BStr::new("Form1"),
-            clip_controls: true,
+            clip_controls: ClipControls::default(),
             control_box: true,
             draw_mode: DrawMode::CopyPen,
             draw_style: DrawStyle::Solid,
