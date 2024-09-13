@@ -165,7 +165,7 @@ pub enum Connection {
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum DefaultCursorType {
     Default = 0,
-    ODBC = 1,
+    Odbc = 1,
     ServerSide = 2,
 }
 
