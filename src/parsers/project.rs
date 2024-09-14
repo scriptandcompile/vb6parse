@@ -62,7 +62,7 @@ pub struct VB6Project<'a> {
     pub aliasing: Aliasing,
     pub bounds_check: BoundsCheck,
     pub overflow_check: OverflowCheck,
-    pub floating_point_check: bool,
+    pub floating_point_check: FloatingPointErrorCheck,
     pub pentium_fdiv_bug_check: bool,
     pub unrounded_floating_point: bool,
     pub start_mode: bool,
@@ -102,6 +102,13 @@ pub enum OverflowCheck {
     #[default]
     CheckOverflow = 0,
     NoOverflowCheck = -1,
+}
+
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+pub enum FloatingPointErrorCheck {
+    #[default]
+    CheckFloatingPointError = 0,
+    NoFloatingPointErrorCheck = -1,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
@@ -378,7 +385,7 @@ impl<'a> VB6Project<'a> {
         let mut aliasing = Aliasing::AssumeAliasing;
         let mut bounds_check = BoundsCheck::CheckBounds;
         let mut overflow_check = OverflowCheck::CheckOverflow;
-        let mut floating_point_check = false;
+        let mut floating_point_check = FloatingPointErrorCheck::CheckFloatingPointError;
         let mut pentium_fdiv_bug_check = false;
         let mut unrounded_floating_point = false;
         let mut start_mode = false;
@@ -1805,24 +1812,11 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
-                    .parse_next(&mut input)
-                    .is_err()
+                floating_point_check = match floating_point_error_check_parse.parse_next(&mut input)
                 {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                floating_point_check = match true_false_parse.parse_next(&mut input) {
                     Ok(floating_point_check) => floating_point_check,
-                    Err(_) => return Err(input.error(VB6ErrorKind::FlPointCheckUnparseable)),
+                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -2227,6 +2221,36 @@ fn overflow_check_parse(input: &mut VB6Stream<'_>) -> VB6Result<OverflowCheck> {
     {
         Ok(result) => Ok(result),
         Err(_) => Err(ErrMode::Cut(VB6ErrorKind::OverflowCheckUnparseable)),
+    };
+
+    if (space0, alt((line_ending, line_comment_parse)))
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+    }
+
+    result
+}
+
+fn floating_point_error_check_parse(
+    input: &mut VB6Stream<'_>,
+) -> VB6Result<FloatingPointErrorCheck> {
+    if (space0::<_, VB6ErrorKind>, "=", space0)
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+    };
+
+    let result = match alt::<_, _, VB6ErrorKind, _>((
+        "0".value(FloatingPointErrorCheck::CheckFloatingPointError),
+        "-1".value(FloatingPointErrorCheck::NoFloatingPointErrorCheck),
+    ))
+    .parse_next(input)
+    {
+        Ok(result) => Ok(result),
+        Err(_) => Err(ErrMode::Cut(VB6ErrorKind::FlPointCheckUnparseable)),
     };
 
     if (space0, alt((line_ending, line_comment_parse)))
@@ -2720,8 +2744,8 @@ mod tests {
         assert_eq!(project.bounds_check, BoundsCheck::CheckBounds);
         assert_eq!(project.overflow_check, OverflowCheck::CheckOverflow);
         assert_eq!(
-            project.floating_point_check, false,
-            "floating_point_check check"
+            project.floating_point_check,
+            FloatingPointErrorCheck::CheckFloatingPointError
         );
         assert_eq!(
             project.pentium_fdiv_bug_check, false,
@@ -2866,8 +2890,8 @@ mod tests {
         assert_eq!(project.bounds_check, BoundsCheck::CheckBounds);
         assert_eq!(project.overflow_check, OverflowCheck::CheckOverflow);
         assert_eq!(
-            project.floating_point_check, false,
-            "floating_point_check check"
+            project.floating_point_check,
+            FloatingPointErrorCheck::CheckFloatingPointError
         );
         assert_eq!(
             project.pentium_fdiv_bug_check, false,
@@ -3017,8 +3041,8 @@ mod tests {
         assert_eq!(project.bounds_check, BoundsCheck::CheckBounds);
         assert_eq!(project.overflow_check, OverflowCheck::CheckOverflow);
         assert_eq!(
-            project.floating_point_check, false,
-            "floating_point_check check"
+            project.floating_point_check,
+            FloatingPointErrorCheck::CheckFloatingPointError
         );
         assert_eq!(
             project.pentium_fdiv_bug_check, false,
