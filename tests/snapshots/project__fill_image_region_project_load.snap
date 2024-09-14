@@ -280,8 +280,8 @@ floating_point_check: NoFloatingPointErrorCheck
 pentium_fdiv_bug_check: NoPentiumFDivBugCheck
 unrounded_floating_point: Allow
 start_mode: StandAlone
-unattended: false
-retained: false
+unattended: "False"
+retained: UnloadOnExit
 thread_per_object: 0
 threading_model: ApartmentThreaded
 max_number_of_threads: 1
