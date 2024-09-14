@@ -2,7 +2,7 @@ use bstr::{ByteSlice, B};
 
 use vb6parse::parsers::{
     project::{
-        CompatibilityMode, CompilationType, DebugStartupOption, OptimizationType,
+        CompatibilityMode, CompilationType, DebugStartupOption, FavorPentiumPro, OptimizationType,
         ServerSupportFiles,
     },
     CompileTargetType, VB6Project,
@@ -51,7 +51,7 @@ fn ppdm_project_load() {
     );
     assert_eq!(project.compilation_type, CompilationType::NativeCode);
     assert_eq!(project.optimization_type, OptimizationType::FavorFastCode);
-    assert_eq!(project.favor_pentium_pro, false);
+    assert_eq!(project.favor_pentium_pro, FavorPentiumPro::False);
     assert_eq!(project.code_view_debug_info, false);
     assert_eq!(project.aliasing, true);
     assert_eq!(project.bounds_check, false);

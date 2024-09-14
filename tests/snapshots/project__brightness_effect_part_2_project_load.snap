@@ -317,7 +317,7 @@ server_support_files: Local
 conditional_compile: []
 compilation_type: NativeCode
 optimization_type: FavorFastCode
-favor_pentium_pro: true
+favor_pentium_pro: "True"
 code_view_debug_info: false
 aliasing: false
 bounds_check: true

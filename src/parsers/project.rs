@@ -57,7 +57,7 @@ pub struct VB6Project<'a> {
     pub conditional_compile: Option<&'a BStr>,
     pub compilation_type: CompilationType,
     pub optimization_type: OptimizationType,
-    pub favor_pentium_pro: bool,
+    pub favor_pentium_pro: FavorPentiumPro,
     pub code_view_debug_info: bool,
     pub aliasing: bool,
     pub bounds_check: bool,
@@ -81,6 +81,13 @@ pub enum ServerSupportFiles {
     #[default]
     Local = 0,
     Remote = 1,
+}
+
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+pub enum FavorPentiumPro {
+    #[default]
+    False = 0,
+    True = -1,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
@@ -338,7 +345,7 @@ impl<'a> VB6Project<'a> {
         let mut conditional_compile = Some(BStr::new(b""));
         let mut compilation_type = CompilationType::PCode;
         let mut optimization_type = OptimizationType::FavorFastCode;
-        let mut favor_pentium_pro = false;
+        let mut favor_pentium_pro = FavorPentiumPro::default();
         let mut code_view_debug_info = false;
         let mut aliasing = false;
         let mut bounds_check = false;
@@ -1710,24 +1717,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                favor_pentium_pro = match true_false_parse.parse_next(&mut input) {
+                favor_pentium_pro = match favor_pentium_pro_parse.parse_next(&mut input) {
                     Ok(favor_pentium_pro) => favor_pentium_pro,
-                    Err(_) => return Err(input.error(VB6ErrorKind::FavorPentiumProUnparseable)),
+                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -2219,6 +2212,34 @@ fn true_false_parse(input: &mut VB6Stream<'_>) -> VB6Result<bool> {
     Ok(result)
 }
 
+fn favor_pentium_pro_parse(input: &mut VB6Stream<'_>) -> VB6Result<FavorPentiumPro> {
+    if (space0::<_, VB6ErrorKind>, "=", space0)
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+    };
+
+    let result = match alt::<_, _, VB6ErrorKind, _>((
+        "0".value(FavorPentiumPro::False),
+        "-1".value(FavorPentiumPro::True),
+    ))
+    .parse_next(input)
+    {
+        Ok(result) => Ok(result),
+        Err(_) => Err(ErrMode::Cut(VB6ErrorKind::FavorPentiumProUnparseable)),
+    };
+
+    if (space0, alt((line_ending, line_comment_parse)))
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+    }
+
+    result
+}
+
 fn server_support_files_parse(input: &mut VB6Stream<'_>) -> VB6Result<ServerSupportFiles> {
     if (space0::<_, VB6Error>, "=", space0)
         .parse_next(input)
@@ -2610,7 +2631,7 @@ mod tests {
         assert_eq!(project.conditional_compile, Some(BStr::new(b"")));
         assert_eq!(project.compilation_type, CompilationType::NativeCode);
         assert_eq!(project.optimization_type, OptimizationType::FavorFastCode);
-        assert_eq!(project.favor_pentium_pro, false, "favor_pentium_pro check");
+        assert_eq!(project.favor_pentium_pro, FavorPentiumPro::False);
         assert_eq!(
             project.code_view_debug_info, false,
             "code_view_debug_info check"
@@ -2762,7 +2783,7 @@ mod tests {
         assert_eq!(project.conditional_compile, Some(BStr::new(b"")));
         assert_eq!(project.compilation_type, CompilationType::NativeCode);
         assert_eq!(project.optimization_type, OptimizationType::FavorFastCode);
-        assert_eq!(project.favor_pentium_pro, false, "favor_pentium_pro check");
+        assert_eq!(project.favor_pentium_pro, FavorPentiumPro::False);
         assert_eq!(
             project.code_view_debug_info, false,
             "code_view_debug_info check"
@@ -2919,7 +2940,7 @@ mod tests {
         assert_eq!(project.conditional_compile, Some(BStr::new(b"")));
         assert_eq!(project.compilation_type, CompilationType::NativeCode);
         assert_eq!(project.optimization_type, OptimizationType::FavorFastCode);
-        assert_eq!(project.favor_pentium_pro, false, "favor_pentium_pro check");
+        assert_eq!(project.favor_pentium_pro, FavorPentiumPro::False);
         assert_eq!(
             project.code_view_debug_info, false,
             "code_view_debug_info check"
