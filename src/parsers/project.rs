@@ -72,7 +72,7 @@ pub struct VB6Project<'a> {
     pub threading_model: ThreadingModel,
     pub max_number_of_threads: u16,
     pub debug_startup_option: DebugStartupOption,
-    pub use_existing_browser: bool,
+    pub use_existing_browser: UseExistingBrowser,
     pub property_page: Option<&'a BStr>,
 }
 
@@ -81,6 +81,13 @@ pub enum Retained {
     #[default]
     UnloadOnExit = 0,
     RetainedInMemory = 1,
+}
+
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+pub enum UseExistingBrowser {
+    DoNotUse = 0,
+    #[default]
+    Use = -1,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
@@ -457,7 +464,7 @@ impl<'a> VB6Project<'a> {
         let mut trademark = Some(BStr::new(b""));
         let mut product_name = Some(BStr::new(b""));
         let mut comments = Some(BStr::new(b""));
-        let mut use_existing_browser = true;
+        let mut use_existing_browser = UseExistingBrowser::Use;
         let mut property_page = Some(BStr::new(b""));
 
         let mut other_property_group: Option<&'a BStr> = None;
@@ -2008,24 +2015,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                use_existing_browser = match true_false_parse.parse_next(&mut input) {
+                use_existing_browser = match use_existing_browser_parse.parse_next(&mut input) {
                     Ok(use_existing_browser) => use_existing_browser,
-                    Err(_) => return Err(input.error(VB6ErrorKind::UseExistingBrowserUnparseable)),
+                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -2124,12 +2117,32 @@ impl<'a> VB6Project<'a> {
     }
 }
 
-fn true_false_parse(input: &mut VB6Stream<'_>) -> VB6Result<bool> {
-    // 0 is false...and -1 is true.
-    // Why vb6? What are you like this? Who hurt you?
-    let result = alt(('0'.value(false), "-1".value(true), "1".value(true))).parse_next(input)?;
+fn use_existing_browser_parse(input: &mut VB6Stream<'_>) -> VB6Result<UseExistingBrowser> {
+    if (space0::<_, VB6ErrorKind>, "=", space0)
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+    };
 
-    Ok(result)
+    let result = match alt::<_, _, VB6ErrorKind, _>((
+        "0".value(UseExistingBrowser::DoNotUse),
+        "-1".value(UseExistingBrowser::Use),
+    ))
+    .parse_next(input)
+    {
+        Ok(result) => Ok(result),
+        Err(_) => Err(ErrMode::Cut(VB6ErrorKind::UseExistingBrowserUnparseable)),
+    };
+
+    if (space0, alt((line_ending, line_comment_parse)))
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+    }
+
+    result
 }
 
 fn retained_parse(input: &mut VB6Stream<'_>) -> VB6Result<Retained> {
