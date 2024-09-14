@@ -1,15 +1,15 @@
 use std::collections::HashMap;
+use std::convert::TryFrom;
 
 use bstr::{BStr, ByteSlice};
-
+use num_enum::TryFromPrimitive;
 use serde::Serialize;
 use uuid::Uuid;
-
 use winnow::{
     ascii::{digit1, line_ending, space0},
     combinator::{alt, opt},
     error::ErrMode,
-    token::{literal, take_until},
+    token::{literal, take_until, take_while},
     Parser,
 };
 
@@ -76,112 +76,128 @@ pub struct VB6Project<'a> {
     pub property_page: Option<&'a BStr>,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i16)]
 pub enum Retained {
     #[default]
     UnloadOnExit = 0,
     RetainedInMemory = 1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i16)]
 pub enum UseExistingBrowser {
     DoNotUse = 0,
     #[default]
     Use = -1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i16)]
 pub enum StartMode {
     #[default]
     StandAlone = 0,
     Automation = 1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i16)]
 pub enum Unattended {
     #[default]
     False = 0,
     True = -1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i16)]
 pub enum ServerSupportFiles {
     #[default]
     Local = 0,
     Remote = 1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i16)]
 pub enum UnroundedFloatingPoint {
     #[default]
     DoNotAllow = 0,
     Allow = -1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i16)]
 pub enum UpgradeControls {
     #[default]
     Upgrade = 0,
     NoUpgrade = 1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i16)]
 pub enum UnusedControlInfo {
     Retain = 0,
     #[default]
     Remove = 1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i16)]
 pub enum Aliasing {
     #[default]
     AssumeAliasing = 0,
     AssumeNoAliasing = -1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i16)]
 pub enum PentiumFDivBugCheck {
     CheckPentiumFDivBug = 0,
     #[default]
     NoPentiumFDivBugCheck = -1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i16)]
 pub enum BoundsCheck {
     #[default]
     CheckBounds = 0,
     NoBoundsCheck = -1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i16)]
 pub enum OverflowCheck {
     #[default]
     CheckOverflow = 0,
     NoOverflowCheck = -1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i16)]
 pub enum FloatingPointErrorCheck {
     #[default]
     CheckFloatingPointError = 0,
     NoFloatingPointErrorCheck = -1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i16)]
 pub enum CodeViewDebugInfo {
     #[default]
     NotCreated = 0,
     Created = -1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i16)]
 pub enum FavorPentiumPro {
     #[default]
     False = 0,
     True = -1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i16)]
 pub enum CompatibilityMode {
     NoCompatibility = 0,
     #[default]
@@ -189,14 +205,16 @@ pub enum CompatibilityMode {
     CompatibleExe = 2,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i16)]
 pub enum CompilationType {
-    PCode = -1,
     #[default]
     NativeCode = 0,
+    PCode = -1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i16)]
 pub enum DebugStartupOption {
     #[default]
     WaitForComponentCreation = 0,
@@ -205,7 +223,8 @@ pub enum DebugStartupOption {
     StartBrowser = 3,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i16)]
 pub enum OptimizationType {
     #[default]
     FavorFastCode = 0,
@@ -235,7 +254,8 @@ pub enum CompileTargetType {
     OleDll,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i16)]
 pub enum ThreadingModel {
     /// Single-threaded.
     SingleThreaded = 0,
@@ -1273,11 +1293,8 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                unused_control_info = match unused_control_info_parse.parse_next(&mut input) {
-                    Ok(unused_control_info) => unused_control_info,
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
-
+                unused_control_info =
+                    process_parameter(&mut input, VB6ErrorKind::UnusedControlInfoUnparseable)?;
                 continue;
             }
 
@@ -1509,12 +1526,8 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                upgrade_controls = match upgrade_controls_parse.parse_next(&mut input) {
-                    Ok(upgrade_controls) => upgrade_controls,
-                    Err(e) => {
-                        return Err(input.error(e.into_inner().unwrap()));
-                    }
-                };
+                upgrade_controls =
+                    process_parameter(&mut input, VB6ErrorKind::NoControlUpgradeUnparsable)?;
 
                 continue;
             }
@@ -1523,13 +1536,8 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                server_support_files = match server_support_files_parse.parse_next(&mut input) {
-                    Ok(server_support_files) => server_support_files,
-                    Err(e) => {
-                        return Err(input.error(e.into_inner().unwrap()));
-                    }
-                };
-
+                server_support_files =
+                    process_parameter(&mut input, VB6ErrorKind::ServerSupportFilesUnparseable)?;
                 continue;
             }
 
@@ -1783,11 +1791,8 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                favor_pentium_pro = match favor_pentium_pro_parse.parse_next(&mut input) {
-                    Ok(favor_pentium_pro) => favor_pentium_pro,
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
-
+                favor_pentium_pro =
+                    process_parameter(&mut input, VB6ErrorKind::FavorPentiumProUnparseable)?;
                 continue;
             }
 
@@ -1795,11 +1800,8 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                code_view_debug_info = match code_view_debug_info_parse.parse_next(&mut input) {
-                    Ok(code_view_debug_info) => code_view_debug_info,
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
-
+                code_view_debug_info =
+                    process_parameter(&mut input, VB6ErrorKind::CodeViewDebugInfoUnparseable)?;
                 continue;
             }
 
@@ -1807,10 +1809,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                aliasing = match aliasing_parse.parse_next(&mut input) {
-                    Ok(aliasing) => aliasing,
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
+                aliasing = process_parameter(&mut input, VB6ErrorKind::NoAliasingUnparseable)?;
 
                 continue;
             }
@@ -1819,11 +1818,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                bounds_check = match bounds_check_parse.parse_next(&mut input) {
-                    Ok(bounds_check) => bounds_check,
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
-
+                bounds_check = process_parameter(&mut input, VB6ErrorKind::BoundsCheckUnparseable)?;
                 continue;
             }
 
@@ -1831,11 +1826,8 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                overflow_check = match overflow_check_parse.parse_next(&mut input) {
-                    Ok(overflow_check) => overflow_check,
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
-
+                overflow_check =
+                    process_parameter(&mut input, VB6ErrorKind::OverflowCheckUnparseable)?;
                 continue;
             }
 
@@ -1843,12 +1835,8 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                floating_point_check = match floating_point_error_check_parse.parse_next(&mut input)
-                {
-                    Ok(floating_point_check) => floating_point_check,
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
-
+                floating_point_check =
+                    process_parameter(&mut input, VB6ErrorKind::FlPointCheckUnparseable)?;
                 continue;
             }
 
@@ -1856,11 +1844,8 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                pentium_fdiv_bug_check = match pentium_fdiv_bug_check_parse.parse_next(&mut input) {
-                    Ok(pentium_fdiv_bug_check) => pentium_fdiv_bug_check,
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
-
+                pentium_fdiv_bug_check =
+                    process_parameter(&mut input, VB6ErrorKind::FDIVCheckUnparseable)?;
                 continue;
             }
 
@@ -1869,11 +1854,7 @@ impl<'a> VB6Project<'a> {
                 .is_ok()
             {
                 unrounded_floating_point =
-                    match unrounded_floating_point_parse.parse_next(&mut input) {
-                        Ok(unrounded_floating_point) => unrounded_floating_point,
-                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                    };
-
+                    process_parameter(&mut input, VB6ErrorKind::UnroundedFPUnparseable)?;
                 continue;
             }
 
@@ -1881,11 +1862,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                start_mode = match start_mode_parse.parse_next(&mut input) {
-                    Ok(start_mode) => start_mode,
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
-
+                start_mode = process_parameter(&mut input, VB6ErrorKind::StartModeUnparseable)?;
                 continue;
             }
 
@@ -1893,11 +1870,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                unattended = match unattended_parse.parse_next(&mut input) {
-                    Ok(unattended) => unattended,
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
-
+                unattended = process_parameter::<Unattended>(
+                    &mut input,
+                    VB6ErrorKind::UnattendedUnparseable,
+                )?;
                 continue;
             }
 
@@ -1905,11 +1881,8 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                retained = match retained_parse.parse_next(&mut input) {
-                    Ok(retained) => retained,
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
-
+                retained =
+                    process_parameter::<Retained>(&mut input, VB6ErrorKind::RetainedUnparseable)?;
                 continue;
             }
 
@@ -2015,10 +1988,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                use_existing_browser = match use_existing_browser_parse.parse_next(&mut input) {
-                    Ok(use_existing_browser) => use_existing_browser,
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
+                use_existing_browser = process_parameter::<UseExistingBrowser>(
+                    &mut input,
+                    VB6ErrorKind::UseExistingBrowserUnparseable,
+                )?;
 
                 continue;
             }
@@ -2117,426 +2090,42 @@ impl<'a> VB6Project<'a> {
     }
 }
 
-fn use_existing_browser_parse(input: &mut VB6Stream<'_>) -> VB6Result<UseExistingBrowser> {
-    if (space0::<_, VB6ErrorKind>, "=", space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    };
-
-    let result = match alt::<_, _, VB6ErrorKind, _>((
-        "0".value(UseExistingBrowser::DoNotUse),
-        "-1".value(UseExistingBrowser::Use),
-    ))
-    .parse_next(input)
-    {
-        Ok(result) => Ok(result),
-        Err(_) => Err(ErrMode::Cut(VB6ErrorKind::UseExistingBrowserUnparseable)),
-    };
-
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
-    }
-
-    result
-}
-
-fn retained_parse(input: &mut VB6Stream<'_>) -> VB6Result<Retained> {
-    if (space0::<_, VB6ErrorKind>, "=", space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    };
-
-    let result = match alt::<_, _, VB6ErrorKind, _>((
-        "0".value(Retained::UnloadOnExit),
-        "1".value(Retained::RetainedInMemory),
-    ))
-    .parse_next(input)
-    {
-        Ok(result) => Ok(result),
-        Err(_) => Err(ErrMode::Cut(VB6ErrorKind::RetainedUnparseable)),
-    };
-
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
-    }
-
-    result
-}
-
-fn unattended_parse(input: &mut VB6Stream<'_>) -> VB6Result<Unattended> {
-    if (space0::<_, VB6ErrorKind>, "=", space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    };
-
-    let result = match alt::<_, _, VB6ErrorKind, _>((
-        "0".value(Unattended::False),
-        "-1".value(Unattended::True),
-    ))
-    .parse_next(input)
-    {
-        Ok(result) => Ok(result),
-        Err(_) => Err(ErrMode::Cut(VB6ErrorKind::UnattendedUnparseable)),
-    };
-
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
-    }
-
-    result
-}
-
-fn unrounded_floating_point_parse(input: &mut VB6Stream<'_>) -> VB6Result<UnroundedFloatingPoint> {
-    if (space0::<_, VB6ErrorKind>, "=", space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    };
-
-    let result = match alt::<_, _, VB6ErrorKind, _>((
-        "0".value(UnroundedFloatingPoint::DoNotAllow),
-        "-1".value(UnroundedFloatingPoint::Allow),
-    ))
-    .parse_next(input)
-    {
-        Ok(result) => Ok(result),
-        Err(_) => Err(ErrMode::Cut(VB6ErrorKind::NoAliasingUnparseable)),
-    };
-
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
-    }
-
-    result
-}
-
-fn start_mode_parse(input: &mut VB6Stream<'_>) -> VB6Result<StartMode> {
-    if (space0::<_, VB6ErrorKind>, "=", space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    };
-
-    let result = match alt::<_, _, VB6ErrorKind, _>((
-        "0".value(StartMode::StandAlone),
-        "1".value(StartMode::Automation),
-    ))
-    .parse_next(input)
-    {
-        Ok(result) => Ok(result),
-        Err(_) => Err(ErrMode::Cut(VB6ErrorKind::StartModeUnparseable)),
-    };
-
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
-    }
-
-    result
-}
-
-fn aliasing_parse(input: &mut VB6Stream<'_>) -> VB6Result<Aliasing> {
-    if (space0::<_, VB6ErrorKind>, "=", space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    };
-
-    let result = match alt::<_, _, VB6ErrorKind, _>((
-        "0".value(Aliasing::AssumeAliasing),
-        "-1".value(Aliasing::AssumeNoAliasing),
-    ))
-    .parse_next(input)
-    {
-        Ok(result) => Ok(result),
-        Err(_) => Err(ErrMode::Cut(VB6ErrorKind::NoAliasingUnparseable)),
-    };
-
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
-    }
-
-    result
-}
-
-fn upgrade_controls_parse(input: &mut VB6Stream<'_>) -> VB6Result<UpgradeControls> {
-    if (space0::<_, VB6ErrorKind>, "=", space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    };
-
-    let result = match alt::<_, _, VB6ErrorKind, _>((
-        "0".value(UpgradeControls::Upgrade),
-        "1".value(UpgradeControls::NoUpgrade),
-    ))
-    .parse_next(input)
-    {
-        Ok(result) => Ok(result),
-        Err(_) => Err(ErrMode::Cut(VB6ErrorKind::NoControlUpgradeUnparsable)),
-    };
-
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
-    }
-
-    result
-}
-
-fn unused_control_info_parse(input: &mut VB6Stream<'_>) -> VB6Result<UnusedControlInfo> {
-    if (space0::<_, VB6ErrorKind>, "=", space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    };
-
-    let result = match alt::<_, _, VB6ErrorKind, _>((
-        "0".value(UnusedControlInfo::Retain),
-        "1".value(UnusedControlInfo::Remove),
-    ))
-    .parse_next(input)
-    {
-        Ok(result) => Ok(result),
-        Err(_) => Err(ErrMode::Cut(VB6ErrorKind::UnusedControlInfoUnparseable)),
-    };
-
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
-    }
-
-    result
-}
-
-fn overflow_check_parse(input: &mut VB6Stream<'_>) -> VB6Result<OverflowCheck> {
-    if (space0::<_, VB6ErrorKind>, "=", space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    };
-
-    let result = match alt::<_, _, VB6ErrorKind, _>((
-        "0".value(OverflowCheck::CheckOverflow),
-        "-1".value(OverflowCheck::NoOverflowCheck),
-    ))
-    .parse_next(input)
-    {
-        Ok(result) => Ok(result),
-        Err(_) => Err(ErrMode::Cut(VB6ErrorKind::OverflowCheckUnparseable)),
-    };
-
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
-    }
-
-    result
-}
-
-fn pentium_fdiv_bug_check_parse(input: &mut VB6Stream<'_>) -> VB6Result<PentiumFDivBugCheck> {
-    if (space0::<_, VB6ErrorKind>, "=", space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    };
-
-    let result = match alt::<_, _, VB6ErrorKind, _>((
-        "0".value(PentiumFDivBugCheck::CheckPentiumFDivBug),
-        "-1".value(PentiumFDivBugCheck::NoPentiumFDivBugCheck),
-    ))
-    .parse_next(input)
-    {
-        Ok(result) => Ok(result),
-        Err(_) => Err(ErrMode::Cut(VB6ErrorKind::FDIVCheckUnparseable)),
-    };
-
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
-    }
-
-    result
-}
-
-fn floating_point_error_check_parse(
+fn process_parameter<T>(
     input: &mut VB6Stream<'_>,
-) -> VB6Result<FloatingPointErrorCheck> {
+    error_on_conversion: VB6ErrorKind,
+) -> Result<T, VB6Error>
+where
+    T: TryFrom<i16>,
+{
     if (space0::<_, VB6ErrorKind>, "=", space0)
         .parse_next(input)
         .is_err()
     {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+        return Err(input.error(VB6ErrorKind::NoEqualSplit));
     };
 
-    let result = match alt::<_, _, VB6ErrorKind, _>((
-        "0".value(FloatingPointErrorCheck::CheckFloatingPointError),
-        "-1".value(FloatingPointErrorCheck::NoFloatingPointErrorCheck),
-    ))
-    .parse_next(input)
-    {
-        Ok(result) => Ok(result),
-        Err(_) => Err(ErrMode::Cut(VB6ErrorKind::FlPointCheckUnparseable)),
+    let Ok(result_ascii) =
+        take_while::<_, _, VB6ErrorKind>(1.., ('-', '0'..='9')).parse_next(input)
+    else {
+        return Err(input.error(error_on_conversion));
     };
 
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
-    }
-
-    result
-}
-
-fn bounds_check_parse(input: &mut VB6Stream<'_>) -> VB6Result<BoundsCheck> {
-    if (space0::<_, VB6ErrorKind>, "=", space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+    let Ok(result) = result_ascii.to_string().as_str().parse::<i16>() else {
+        return Err(input.error(error_on_conversion));
     };
 
-    let result = match alt::<_, _, VB6ErrorKind, _>((
-        "0".value(BoundsCheck::CheckBounds),
-        "-1".value(BoundsCheck::NoBoundsCheck),
-    ))
-    .parse_next(input)
-    {
-        Ok(result) => Ok(result),
-        Err(_) => Err(ErrMode::Cut(VB6ErrorKind::BoundsCheckUnparseable)),
+    let Ok(conversion) = T::try_from(result) else {
+        return Err(input.error(error_on_conversion));
     };
 
     if (space0, alt((line_ending, line_comment_parse)))
         .parse_next(input)
         .is_err()
     {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+        return Err(input.error(VB6ErrorKind::NoLineEnding));
     }
 
-    result
-}
-
-fn code_view_debug_info_parse(input: &mut VB6Stream<'_>) -> VB6Result<CodeViewDebugInfo> {
-    if (space0::<_, VB6ErrorKind>, "=", space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    };
-
-    let result = match alt::<_, _, VB6ErrorKind, _>((
-        "0".value(CodeViewDebugInfo::NotCreated),
-        "-1".value(CodeViewDebugInfo::Created),
-    ))
-    .parse_next(input)
-    {
-        Ok(result) => Ok(result),
-        Err(_) => Err(ErrMode::Cut(VB6ErrorKind::CodeViewDebugInfoUnparseable)),
-    };
-
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
-    }
-
-    result
-}
-
-fn favor_pentium_pro_parse(input: &mut VB6Stream<'_>) -> VB6Result<FavorPentiumPro> {
-    if (space0::<_, VB6ErrorKind>, "=", space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    };
-
-    let result = match alt::<_, _, VB6ErrorKind, _>((
-        "0".value(FavorPentiumPro::False),
-        "-1".value(FavorPentiumPro::True),
-    ))
-    .parse_next(input)
-    {
-        Ok(result) => Ok(result),
-        Err(_) => Err(ErrMode::Cut(VB6ErrorKind::FavorPentiumProUnparseable)),
-    };
-
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
-    }
-
-    result
-}
-
-fn server_support_files_parse(input: &mut VB6Stream<'_>) -> VB6Result<ServerSupportFiles> {
-    if (space0::<_, VB6Error>, "=", space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    };
-
-    let value = match alt::<_, _, VB6ErrorKind, _>((
-        '0'.value(ServerSupportFiles::Local),
-        '1'.value(ServerSupportFiles::Remote),
-    ))
-    .parse_next(input)
-    {
-        Ok(result) => Ok(result),
-        Err(_) => Err(ErrMode::Cut(VB6ErrorKind::ServerSupportFilesUnparseable)),
-    };
-
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
-    }
-
-    value
+    Ok(conversion)
 }
 
 fn title_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
