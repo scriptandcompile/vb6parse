@@ -308,7 +308,7 @@ version_info:
     - 99
     - 111
     - 109
-server_support_files: false
+server_support_files: Local
 conditional_compile: []
 compilation_type: NativeCode
 optimization_type: FavorFastCode

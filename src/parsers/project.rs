@@ -53,7 +53,7 @@ pub struct VB6Project<'a> {
     pub compatibility_mode: CompatibilityMode,
     pub version_32_compatibility: Option<&'a BStr>,
     pub version_info: VersionInformation<'a>,
-    pub server_support_files: bool,
+    pub server_support_files: ServerSupportFiles,
     pub conditional_compile: Option<&'a BStr>,
     pub compilation_type: CompilationType,
     pub optimization_type: OptimizationType,
@@ -74,6 +74,13 @@ pub struct VB6Project<'a> {
     pub debug_startup_option: DebugStartupOption,
     pub use_existing_browser: bool,
     pub property_page: Option<&'a BStr>,
+}
+
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+pub enum ServerSupportFiles {
+    #[default]
+    Local = 0,
+    Remote = 1,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
@@ -327,7 +334,7 @@ impl<'a> VB6Project<'a> {
         let mut compatibility_mode = CompatibilityMode::Project;
         let mut threading_model = ThreadingModel::ApartmentThreaded;
         let mut upgrade_activex_controls = true; // True is the default.
-        let mut server_support_files = false;
+        let mut server_support_files = ServerSupportFiles::Local;
         let mut conditional_compile = Some(BStr::new(b""));
         let mut compilation_type = CompilationType::PCode;
         let mut optimization_type = OptimizationType::FavorFastCode;
@@ -1443,26 +1450,12 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                server_support_files = match true_false_parse.parse_next(&mut input) {
+                server_support_files = match server_support_files_parse.parse_next(&mut input) {
                     Ok(server_support_files) => server_support_files,
-                    Err(_) => {
-                        return Err(input.error(VB6ErrorKind::ServerSupportFilesUnparseable));
+                    Err(e) => {
+                        return Err(input.error(e.into_inner().unwrap()));
                     }
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -2226,6 +2219,34 @@ fn true_false_parse(input: &mut VB6Stream<'_>) -> VB6Result<bool> {
     Ok(result)
 }
 
+fn server_support_files_parse(input: &mut VB6Stream<'_>) -> VB6Result<ServerSupportFiles> {
+    if (space0::<_, VB6Error>, "=", space0)
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+    };
+
+    let value = match alt::<_, _, VB6ErrorKind, _>((
+        '0'.value(ServerSupportFiles::Local),
+        '1'.value(ServerSupportFiles::Remote),
+    ))
+    .parse_next(input)
+    {
+        Ok(result) => Ok(result),
+        Err(_) => Err(ErrMode::Cut(VB6ErrorKind::ServerSupportFilesUnparseable)),
+    };
+
+    if (space0, alt((line_ending, line_comment_parse)))
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+    }
+
+    value
+}
+
 fn title_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
     // it's perfectly possible to use '"' within the title string.
     // VB6 being the language it is, there is no escape sequence for
@@ -2582,7 +2603,8 @@ mod tests {
         );
         assert_eq!(project.version_info.comments, Some(BStr::new(b"Comments")));
         assert_eq!(
-            project.server_support_files, false,
+            project.server_support_files,
+            ServerSupportFiles::Local,
             "server_support_files check"
         );
         assert_eq!(project.conditional_compile, Some(BStr::new(b"")));
@@ -2733,7 +2755,8 @@ mod tests {
         );
         assert_eq!(project.version_info.comments, Some(BStr::new(b"Comments")));
         assert_eq!(
-            project.server_support_files, false,
+            project.server_support_files,
+            ServerSupportFiles::Local,
             "server_support_files check"
         );
         assert_eq!(project.conditional_compile, Some(BStr::new(b"")));
@@ -2889,7 +2912,8 @@ mod tests {
         );
         assert_eq!(project.version_info.comments, Some(BStr::new(b"Comments")));
         assert_eq!(
-            project.server_support_files, false,
+            project.server_support_files,
+            ServerSupportFiles::Local,
             "server_support_files check"
         );
         assert_eq!(project.conditional_compile, Some(BStr::new(b"")));
