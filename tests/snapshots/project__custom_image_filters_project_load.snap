@@ -418,7 +418,7 @@ favor_pentium_pro: "True"
 code_view_debug_info: NotCreated
 aliasing: AssumeNoAliasing
 bounds_check: NoBoundsCheck
-overflow_check: true
+overflow_check: NoOverflowCheck
 floating_point_check: true
 pentium_fdiv_bug_check: true
 unrounded_floating_point: true
