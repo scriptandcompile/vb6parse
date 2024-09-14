@@ -145,7 +145,7 @@ pub enum VB6ErrorKind {
     #[error("FDIVCheck can only be a 0 (PentiumFDivBugCheck::CheckPentiumFDivBug) or a -1 (PentiumFDivBugCheck::NoPentiumFDivBugCheck)")]
     FDIVCheckUnparseable,
 
-    #[error("UnroundedFP can only be a 0 (false) or a -1 (true)")]
+    #[error("UnroundedFP can only be a 0 (UnroundedFloatingPoint::DoNotAllow) or a -1 (UnroundedFloatingPoint::Allow)")]
     UnroundedFPUnparseable,
 
     #[error("StartMode can only be a 0 (false) or a -1 (true)")]
