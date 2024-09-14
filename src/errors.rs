@@ -130,6 +130,9 @@ pub enum VB6ErrorKind {
     #[error("NoAliasing can only be a 0 (false) or a -1 (true)")]
     NoAliasingUnparseable,
 
+    #[error("RemoveUnusedControlInfo can only be 0 (UnusedControlInfo::Retain) or -1 (UnusedControlInfo::Remove)")]
+    UnusedControlInfoUnparseable,
+
     #[error("oundsCheck can only be a 0 (false) or a -1 (true)")]
     BoundsCheckUnparseable,
 

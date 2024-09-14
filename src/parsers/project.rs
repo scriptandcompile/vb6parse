@@ -33,7 +33,7 @@ pub struct VB6Project<'a> {
     pub user_documents: Vec<&'a BStr>,
     pub other_properties: HashMap<&'a BStr, HashMap<&'a BStr, &'a BStr>>,
 
-    pub remove_unused_control_info: bool,
+    pub unused_control_info: UnusedControlInfo,
     pub upgrade_activex_controls: bool,
     pub res_file_32_path: Option<&'a BStr>,
     pub icon_form: Option<&'a BStr>,
@@ -81,6 +81,13 @@ pub enum ServerSupportFiles {
     #[default]
     Local = 0,
     Remote = 1,
+}
+
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+pub enum UnusedControlInfo {
+    Retain = 0,
+    #[default]
+    Remove = 1,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
@@ -357,7 +364,7 @@ impl<'a> VB6Project<'a> {
         let mut other_properties = HashMap::new();
 
         let mut debug_startup_component = Some(BStr::new(b""));
-        let mut remove_unused_control_info = true;
+        let mut unused_control_info = UnusedControlInfo::Remove;
         let mut project_type: Option<CompileTargetType> = None;
         let mut res_file_32_path = Some(BStr::new(b""));
         let mut icon_form = Some(BStr::new(b""));
@@ -479,6 +486,7 @@ impl<'a> VB6Project<'a> {
 
                 continue;
             }
+
             let _: VB6Result<_> = space0.parse_next(&mut input);
 
             // Type
@@ -1212,24 +1220,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                remove_unused_control_info = match true_false_parse.parse_next(&mut input) {
-                    Ok(remove_unused_control_info) => remove_unused_control_info,
+                unused_control_info = match unused_control_info_parse.parse_next(&mut input) {
+                    Ok(unused_control_info) => unused_control_info,
                     Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -2107,7 +2101,7 @@ impl<'a> VB6Project<'a> {
             user_documents,
             related_documents,
             other_properties,
-            remove_unused_control_info,
+            unused_control_info,
             upgrade_activex_controls,
             debug_startup_component,
             res_file_32_path,
@@ -2193,6 +2187,34 @@ fn aliasing_parse(input: &mut VB6Stream<'_>) -> VB6Result<Aliasing> {
     {
         Ok(result) => Ok(result),
         Err(_) => Err(ErrMode::Cut(VB6ErrorKind::NoAliasingUnparseable)),
+    };
+
+    if (space0, alt((line_ending, line_comment_parse)))
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+    }
+
+    result
+}
+
+fn unused_control_info_parse(input: &mut VB6Stream<'_>) -> VB6Result<UnusedControlInfo> {
+    if (space0::<_, VB6ErrorKind>, "=", space0)
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+    };
+
+    let result = match alt::<_, _, VB6ErrorKind, _>((
+        "0".value(UnusedControlInfo::Retain),
+        "1".value(UnusedControlInfo::Remove),
+    ))
+    .parse_next(input)
+    {
+        Ok(result) => Ok(result),
+        Err(_) => Err(ErrMode::Cut(VB6ErrorKind::UnusedControlInfoUnparseable)),
     };
 
     if (space0, alt((line_ending, line_comment_parse)))
