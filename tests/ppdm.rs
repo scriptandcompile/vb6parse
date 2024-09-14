@@ -4,7 +4,7 @@ use vb6parse::parsers::{
     project::{
         Aliasing, BoundsCheck, CodeViewDebugInfo, CompatibilityMode, CompilationType,
         DebugStartupOption, FavorPentiumPro, FloatingPointErrorCheck, OptimizationType,
-        OverflowCheck, PentiumFDivBugCheck, ServerSupportFiles,
+        OverflowCheck, PentiumFDivBugCheck, ServerSupportFiles, UpgradeControls,
     },
     CompileTargetType, VB6Project,
 };
@@ -44,7 +44,7 @@ fn ppdm_project_load() {
         project.compatibility_mode,
         CompatibilityMode::NoCompatibility
     );
-    assert_eq!(project.upgrade_activex_controls, true);
+    assert_eq!(project.upgrade_controls, UpgradeControls::Upgrade);
     assert_eq!(project.server_support_files, ServerSupportFiles::Local);
     assert_eq!(
         project.conditional_compile,

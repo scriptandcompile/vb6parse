@@ -88,7 +88,7 @@ pub enum VB6ErrorKind {
     #[error("CompatibilityMode can only be a 0 (false) or a -1 (true)")]
     CompatibilityModeUnparseable,
 
-    #[error("NoControlUpgrade can only be a 0 (false) or a 1 (true)")]
+    #[error("NoControlUpgrade can only be a 0 (UpgradeControls::Upgrade) or a 1 (UpgradeControls::NoUpgrade)")]
     NoControlUpgradeUnparsable,
 
     #[error("ServerSupportFiles can only be a 0 (false) or a -1 (true)")]
