@@ -151,10 +151,12 @@ pub enum VB6ErrorKind {
     #[error("StartMode can only be a 0 (StartMode::StandAlone) or a 1 (StartMode::Automation)")]
     StartModeUnparseable,
 
-    #[error("Unattended can only be a 0 (false) or a -1 (true)")]
+    #[error("Unattended can only be a 0 (Unattended::False) or a -1 (Unattended::True)")]
     UnattendedUnparseable,
 
-    #[error("Retained can only be a 0 (false) or a -1 (true)")]
+    #[error(
+        "Retained can only be a 0 (Retained::UnloadOnExit) or a 1 (Retained::RetainedInMemory)"
+    )]
     RetainedUnparseable,
 
     #[error("DebugStartup can only be a 0 (false) or a -1 (true)")]

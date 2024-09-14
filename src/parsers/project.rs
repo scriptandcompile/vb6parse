@@ -66,8 +66,8 @@ pub struct VB6Project<'a> {
     pub pentium_fdiv_bug_check: PentiumFDivBugCheck,
     pub unrounded_floating_point: UnroundedFloatingPoint,
     pub start_mode: StartMode,
-    pub unattended: bool,
-    pub retained: bool,
+    pub unattended: Unattended,
+    pub retained: Retained,
     pub thread_per_object: Option<u16>,
     pub threading_model: ThreadingModel,
     pub max_number_of_threads: u16,
@@ -77,10 +77,24 @@ pub struct VB6Project<'a> {
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+pub enum Retained {
+    #[default]
+    UnloadOnExit = 0,
+    RetainedInMemory = 1,
+}
+
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
 pub enum StartMode {
     #[default]
     StandAlone = 0,
     Automation = 1,
+}
+
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+pub enum Unattended {
+    #[default]
+    False = 0,
+    True = -1,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
@@ -428,8 +442,8 @@ impl<'a> VB6Project<'a> {
         let mut pentium_fdiv_bug_check = PentiumFDivBugCheck::NoPentiumFDivBugCheck;
         let mut unrounded_floating_point = UnroundedFloatingPoint::DoNotAllow;
         let mut start_mode = StartMode::StandAlone;
-        let mut unattended = false;
-        let mut retained = false;
+        let mut unattended = Unattended::False;
+        let mut retained = Retained::UnloadOnExit;
         let mut thread_per_object = None;
         let mut max_number_of_threads = 1;
         let mut debug_startup_option = DebugStartupOption::WaitForComponentCreation;
@@ -1872,24 +1886,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                unattended = match true_false_parse.parse_next(&mut input) {
+                unattended = match unattended_parse.parse_next(&mut input) {
                     Ok(unattended) => unattended,
-                    Err(_) => return Err(input.error(VB6ErrorKind::UnattendedUnparseable)),
+                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -1898,24 +1898,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                retained = match true_false_parse.parse_next(&mut input) {
+                retained = match retained_parse.parse_next(&mut input) {
                     Ok(retained) => retained,
-                    Err(_) => return Err(input.error(VB6ErrorKind::RetainedUnparseable)),
+                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -2144,6 +2130,62 @@ fn true_false_parse(input: &mut VB6Stream<'_>) -> VB6Result<bool> {
     let result = alt(('0'.value(false), "-1".value(true), "1".value(true))).parse_next(input)?;
 
     Ok(result)
+}
+
+fn retained_parse(input: &mut VB6Stream<'_>) -> VB6Result<Retained> {
+    if (space0::<_, VB6ErrorKind>, "=", space0)
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+    };
+
+    let result = match alt::<_, _, VB6ErrorKind, _>((
+        "0".value(Retained::UnloadOnExit),
+        "1".value(Retained::RetainedInMemory),
+    ))
+    .parse_next(input)
+    {
+        Ok(result) => Ok(result),
+        Err(_) => Err(ErrMode::Cut(VB6ErrorKind::RetainedUnparseable)),
+    };
+
+    if (space0, alt((line_ending, line_comment_parse)))
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+    }
+
+    result
+}
+
+fn unattended_parse(input: &mut VB6Stream<'_>) -> VB6Result<Unattended> {
+    if (space0::<_, VB6ErrorKind>, "=", space0)
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+    };
+
+    let result = match alt::<_, _, VB6ErrorKind, _>((
+        "0".value(Unattended::False),
+        "-1".value(Unattended::True),
+    ))
+    .parse_next(input)
+    {
+        Ok(result) => Ok(result),
+        Err(_) => Err(ErrMode::Cut(VB6ErrorKind::UnattendedUnparseable)),
+    };
+
+    if (space0, alt((line_ending, line_comment_parse)))
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+    }
+
+    result
 }
 
 fn unrounded_floating_point_parse(input: &mut VB6Stream<'_>) -> VB6Result<UnroundedFloatingPoint> {
@@ -2862,8 +2904,8 @@ mod tests {
             UnroundedFloatingPoint::DoNotAllow
         );
         assert_eq!(project.start_mode, StartMode::StandAlone);
-        assert_eq!(project.unattended, false, "unattended check");
-        assert_eq!(project.retained, false, "retained check");
+        assert_eq!(project.unattended, Unattended::False);
+        assert_eq!(project.retained, Retained::UnloadOnExit);
         assert_eq!(project.thread_per_object, None);
         assert_eq!(project.max_number_of_threads, 1);
         assert_eq!(
@@ -3005,8 +3047,8 @@ mod tests {
             UnroundedFloatingPoint::DoNotAllow
         );
         assert_eq!(project.start_mode, StartMode::StandAlone);
-        assert_eq!(project.unattended, false, "unattended check");
-        assert_eq!(project.retained, false, "retained check");
+        assert_eq!(project.unattended, Unattended::False);
+        assert_eq!(project.retained, Retained::UnloadOnExit);
         assert_eq!(project.thread_per_object, Some(0));
         assert_eq!(project.max_number_of_threads, 1);
         assert_eq!(
@@ -3153,8 +3195,8 @@ mod tests {
             UnroundedFloatingPoint::DoNotAllow
         );
         assert_eq!(project.start_mode, StartMode::StandAlone);
-        assert_eq!(project.unattended, false, "unattended check");
-        assert_eq!(project.retained, false, "retained check");
+        assert_eq!(project.unattended, Unattended::False);
+        assert_eq!(project.retained, Retained::UnloadOnExit);
         assert_eq!(project.thread_per_object, Some(0));
         assert_eq!(project.max_number_of_threads, 1);
         assert_eq!(
