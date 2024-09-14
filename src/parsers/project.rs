@@ -956,29 +956,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                // it's perfectly possible to use '"' within the title string.
-                // VB6 being the language it is, there is no escape sequence for
-                // this. Instead, the title is wrapped in quotes and the quotes
-                // are just simply included in the text. This means we can't use
-                // the qouted_value parser here.
                 title = match title_parse.parse_next(&mut input) {
                     Ok(title) => Some(title),
                     Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -2129,14 +2110,22 @@ where
 }
 
 fn title_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
+    if (space0::<_, VB6Error>, "=", space0)
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+    };
+
+    if (space0::<_, VB6Error>, '"').parse_next(input).is_err() {
+        return Err(ErrMode::Cut(VB6ErrorKind::TitleUnparseable));
+    };
+
     // it's perfectly possible to use '"' within the title string.
     // VB6 being the language it is, there is no escape sequence for
     // this. Instead, the title is wrapped in quotes and the quotes
     // are just simply included in the text. This means we can't use
     // the qouted_value parser here.
-
-    let _: VB6Result<_> = (space0, "\"").parse_next(input);
-
     let Ok(title): VB6Result<_> =
         alt((take_until(1.., "\"\r\n"), take_until(1.., "\"\n"))).parse_next(input)
     else {
@@ -2147,7 +2136,14 @@ fn title_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
     // But we also need to make sure we don't skip the line ending.
     // This is a bit odd, but all the other one off line parsers don't read
     // the line ending, so we need to make sure this one doesn't either.
-    let _: VB6Result<_> = "\"".parse_next(input);
+    let _: VB6Result<_> = '"'.parse_next(input);
+
+    if (space0, alt((line_ending, line_comment_parse)))
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+    }
 
     Ok(title)
 }
