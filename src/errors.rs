@@ -148,7 +148,7 @@ pub enum VB6ErrorKind {
     #[error("UnroundedFP can only be a 0 (UnroundedFloatingPoint::DoNotAllow) or a -1 (UnroundedFloatingPoint::Allow)")]
     UnroundedFPUnparseable,
 
-    #[error("StartMode can only be a 0 (false) or a -1 (true)")]
+    #[error("StartMode can only be a 0 (StartMode::StandAlone) or a 1 (StartMode::Automation)")]
     StartModeUnparseable,
 
     #[error("Unattended can only be a 0 (false) or a -1 (true)")]

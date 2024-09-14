@@ -65,7 +65,7 @@ pub struct VB6Project<'a> {
     pub floating_point_check: FloatingPointErrorCheck,
     pub pentium_fdiv_bug_check: PentiumFDivBugCheck,
     pub unrounded_floating_point: UnroundedFloatingPoint,
-    pub start_mode: bool,
+    pub start_mode: StartMode,
     pub unattended: bool,
     pub retained: bool,
     pub thread_per_object: Option<u16>,
@@ -74,6 +74,13 @@ pub struct VB6Project<'a> {
     pub debug_startup_option: DebugStartupOption,
     pub use_existing_browser: bool,
     pub property_page: Option<&'a BStr>,
+}
+
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+pub enum StartMode {
+    #[default]
+    StandAlone = 0,
+    Automation = 1,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
@@ -420,7 +427,7 @@ impl<'a> VB6Project<'a> {
         let mut floating_point_check = FloatingPointErrorCheck::CheckFloatingPointError;
         let mut pentium_fdiv_bug_check = PentiumFDivBugCheck::NoPentiumFDivBugCheck;
         let mut unrounded_floating_point = UnroundedFloatingPoint::DoNotAllow;
-        let mut start_mode = false;
+        let mut start_mode = StartMode::StandAlone;
         let mut unattended = false;
         let mut retained = false;
         let mut thread_per_object = None;
@@ -1853,24 +1860,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                start_mode = match true_false_parse.parse_next(&mut input) {
+                start_mode = match start_mode_parse.parse_next(&mut input) {
                     Ok(start_mode) => start_mode,
-                    Err(_) => return Err(input.error(VB6ErrorKind::StartModeUnparseable)),
+                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -2169,6 +2162,34 @@ fn unrounded_floating_point_parse(input: &mut VB6Stream<'_>) -> VB6Result<Unroun
     {
         Ok(result) => Ok(result),
         Err(_) => Err(ErrMode::Cut(VB6ErrorKind::NoAliasingUnparseable)),
+    };
+
+    if (space0, alt((line_ending, line_comment_parse)))
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+    }
+
+    result
+}
+
+fn start_mode_parse(input: &mut VB6Stream<'_>) -> VB6Result<StartMode> {
+    if (space0::<_, VB6ErrorKind>, "=", space0)
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+    };
+
+    let result = match alt::<_, _, VB6ErrorKind, _>((
+        "0".value(StartMode::StandAlone),
+        "1".value(StartMode::Automation),
+    ))
+    .parse_next(input)
+    {
+        Ok(result) => Ok(result),
+        Err(_) => Err(ErrMode::Cut(VB6ErrorKind::StartModeUnparseable)),
     };
 
     if (space0, alt((line_ending, line_comment_parse)))
@@ -2840,7 +2861,7 @@ mod tests {
             project.unrounded_floating_point,
             UnroundedFloatingPoint::DoNotAllow
         );
-        assert_eq!(project.start_mode, false, "start_mode check");
+        assert_eq!(project.start_mode, StartMode::StandAlone);
         assert_eq!(project.unattended, false, "unattended check");
         assert_eq!(project.retained, false, "retained check");
         assert_eq!(project.thread_per_object, None);
@@ -2983,7 +3004,7 @@ mod tests {
             project.unrounded_floating_point,
             UnroundedFloatingPoint::DoNotAllow
         );
-        assert_eq!(project.start_mode, false, "start_mode check");
+        assert_eq!(project.start_mode, StartMode::StandAlone);
         assert_eq!(project.unattended, false, "unattended check");
         assert_eq!(project.retained, false, "retained check");
         assert_eq!(project.thread_per_object, Some(0));
@@ -3131,7 +3152,7 @@ mod tests {
             project.unrounded_floating_point,
             UnroundedFloatingPoint::DoNotAllow
         );
-        assert_eq!(project.start_mode, false, "start_mode check");
+        assert_eq!(project.start_mode, StartMode::StandAlone);
         assert_eq!(project.unattended, false, "unattended check");
         assert_eq!(project.retained, false, "retained check");
         assert_eq!(project.thread_per_object, Some(0));
