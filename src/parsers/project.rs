@@ -140,22 +140,25 @@ pub enum CompatibilityMode {
     CompatibleExe = 2,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
 pub enum CompilationType {
     PCode = -1,
+    #[default]
     NativeCode = 0,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
 pub enum DebugStartupOption {
+    #[default]
     WaitForComponentCreation = 0,
     StartComponent = 1,
     StartProgram = 2,
     StartBrowser = 3,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
 pub enum OptimizationType {
+    #[default]
     FavorFastCode = 0,
     FavorSmallCode = 1,
     NoOptimization = 2,
@@ -183,11 +186,12 @@ pub enum CompileTargetType {
     OleDll,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
 pub enum ThreadingModel {
     /// Single-threaded.
     SingleThreaded = 0,
-    /// Apartment-threaded. This is the default.
+    /// Apartment-threaded.
+    #[default]
     ApartmentThreaded = 1,
 }
 
