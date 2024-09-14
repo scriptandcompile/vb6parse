@@ -435,7 +435,7 @@ optimization_type: FavorFastCode
 favor_pentium_pro: "True"
 code_view_debug_info: NotCreated
 aliasing: AssumeNoAliasing
-bounds_check: true
+bounds_check: NoBoundsCheck
 overflow_check: true
 floating_point_check: true
 pentium_fdiv_bug_check: true
