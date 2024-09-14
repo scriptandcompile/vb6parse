@@ -59,7 +59,7 @@ pub struct VB6Project<'a> {
     pub optimization_type: OptimizationType,
     pub favor_pentium_pro: FavorPentiumPro,
     pub code_view_debug_info: CodeViewDebugInfo,
-    pub aliasing: bool,
+    pub aliasing: Aliasing,
     pub bounds_check: bool,
     pub overflow_check: bool,
     pub floating_point_check: bool,
@@ -81,6 +81,13 @@ pub enum ServerSupportFiles {
     #[default]
     Local = 0,
     Remote = 1,
+}
+
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+pub enum Aliasing {
+    #[default]
+    AssumeAliasing = 0,
+    AssumeNoAliasing = -1,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
@@ -354,7 +361,7 @@ impl<'a> VB6Project<'a> {
         let mut optimization_type = OptimizationType::FavorFastCode;
         let mut favor_pentium_pro = FavorPentiumPro::default();
         let mut code_view_debug_info = CodeViewDebugInfo::NotCreated;
-        let mut aliasing = false;
+        let mut aliasing = Aliasing::AssumeAliasing;
         let mut bounds_check = false;
         let mut overflow_check = false;
         let mut floating_point_check = false;
@@ -1748,25 +1755,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
+                aliasing = match aliasing_parse.parse_next(&mut input) {
+                    Ok(aliasing) => aliasing,
+                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                // Invert answer since we inverted the name.
-                aliasing = match true_false_parse.parse_next(&mut input) {
-                    Ok(inv_aliasing) => !inv_aliasing,
-                    Err(_) => return Err(input.error(VB6ErrorKind::NoAliasingUnparseable)),
-                };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -2203,6 +2195,34 @@ fn true_false_parse(input: &mut VB6Stream<'_>) -> VB6Result<bool> {
     let result = alt(('0'.value(false), "-1".value(true), "1".value(true))).parse_next(input)?;
 
     Ok(result)
+}
+
+fn aliasing_parse(input: &mut VB6Stream<'_>) -> VB6Result<Aliasing> {
+    if (space0::<_, VB6ErrorKind>, "=", space0)
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+    };
+
+    let result = match alt::<_, _, VB6ErrorKind, _>((
+        "0".value(Aliasing::AssumeAliasing),
+        "-1".value(Aliasing::AssumeNoAliasing),
+    ))
+    .parse_next(input)
+    {
+        Ok(result) => Ok(result),
+        Err(_) => Err(ErrMode::Cut(VB6ErrorKind::NoAliasingUnparseable)),
+    };
+
+    if (space0, alt((line_ending, line_comment_parse)))
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+    }
+
+    result
 }
 
 fn code_view_debug_info_parse(input: &mut VB6Stream<'_>) -> VB6Result<CodeViewDebugInfo> {
@@ -2654,10 +2674,7 @@ mod tests {
         assert_eq!(project.optimization_type, OptimizationType::FavorFastCode);
         assert_eq!(project.favor_pentium_pro, FavorPentiumPro::False);
         assert_eq!(project.code_view_debug_info, CodeViewDebugInfo::NotCreated,);
-        assert_eq!(
-            project.aliasing, true,
-            "NoAliasing is inverted from the file as aliasing"
-        );
+        assert_eq!(project.aliasing, Aliasing::AssumeAliasing);
         assert_eq!(project.bounds_check, false, "bounds_check check");
         assert_eq!(project.overflow_check, false, "overflow_check check");
         assert_eq!(
@@ -2803,10 +2820,7 @@ mod tests {
         assert_eq!(project.optimization_type, OptimizationType::FavorFastCode);
         assert_eq!(project.favor_pentium_pro, FavorPentiumPro::False);
         assert_eq!(project.code_view_debug_info, CodeViewDebugInfo::NotCreated,);
-        assert_eq!(
-            project.aliasing, true,
-            "NoAliasing is inverted from the file as aliasing"
-        );
+        assert_eq!(project.aliasing, Aliasing::AssumeAliasing);
         assert_eq!(project.bounds_check, false, "bounds_check check");
         assert_eq!(project.overflow_check, false, "overflow_check check");
         assert_eq!(
@@ -2957,10 +2971,7 @@ mod tests {
         assert_eq!(project.optimization_type, OptimizationType::FavorFastCode);
         assert_eq!(project.favor_pentium_pro, FavorPentiumPro::False);
         assert_eq!(project.code_view_debug_info, CodeViewDebugInfo::NotCreated,);
-        assert_eq!(
-            project.aliasing, true,
-            "NoAliasing is inverted from the file as aliasing"
-        );
+        assert_eq!(project.aliasing, Aliasing::AssumeAliasing);
         assert_eq!(project.bounds_check, false, "bounds_check check");
         assert_eq!(project.overflow_check, false, "overflow_check check");
         assert_eq!(
