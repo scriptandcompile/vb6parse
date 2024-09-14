@@ -333,7 +333,7 @@ bounds_check: NoBoundsCheck
 overflow_check: NoOverflowCheck
 floating_point_check: NoFloatingPointErrorCheck
 pentium_fdiv_bug_check: NoPentiumFDivBugCheck
-unrounded_floating_point: true
+unrounded_floating_point: Allow
 start_mode: false
 unattended: false
 retained: false
