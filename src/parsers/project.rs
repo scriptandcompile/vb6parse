@@ -34,7 +34,7 @@ pub struct VB6Project<'a> {
     pub other_properties: HashMap<&'a BStr, HashMap<&'a BStr, &'a BStr>>,
 
     pub unused_control_info: UnusedControlInfo,
-    pub upgrade_activex_controls: bool,
+    pub upgrade_controls: UpgradeControls,
     pub res_file_32_path: Option<&'a BStr>,
     pub icon_form: Option<&'a BStr>,
     pub startup: Option<&'a BStr>,
@@ -81,6 +81,13 @@ pub enum ServerSupportFiles {
     #[default]
     Local = 0,
     Remote = 1,
+}
+
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+pub enum UpgradeControls {
+    #[default]
+    Upgrade = 0,
+    NoUpgrade = 1,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
@@ -393,7 +400,7 @@ impl<'a> VB6Project<'a> {
         let mut help_context_id = Some(BStr::new(b""));
         let mut compatibility_mode = CompatibilityMode::Project;
         let mut threading_model = ThreadingModel::ApartmentThreaded;
-        let mut upgrade_activex_controls = true; // True is the default.
+        let mut upgrade_controls = UpgradeControls::Upgrade;
         let mut server_support_files = ServerSupportFiles::Local;
         let mut conditional_compile = Some(BStr::new(b""));
         let mut compilation_type = CompilationType::PCode;
@@ -1467,28 +1474,12 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                // Invert answer since we inverted the name.
-                // This defaults to true, and is the most common value.
-                upgrade_activex_controls = match true_false_parse.parse_next(&mut input) {
-                    Ok(inv_upgrade_activex_controls) => !inv_upgrade_activex_controls,
-                    Err(_) => {
-                        return Err(input.error(VB6ErrorKind::NoControlUpgradeUnparsable));
+                upgrade_controls = match upgrade_controls_parse.parse_next(&mut input) {
+                    Ok(upgrade_controls) => upgrade_controls,
+                    Err(e) => {
+                        return Err(input.error(e.into_inner().unwrap()));
                     }
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -2099,7 +2090,7 @@ impl<'a> VB6Project<'a> {
             related_documents,
             other_properties,
             unused_control_info,
-            upgrade_activex_controls,
+            upgrade_controls,
             debug_startup_component,
             res_file_32_path,
             icon_form,
@@ -2184,6 +2175,34 @@ fn aliasing_parse(input: &mut VB6Stream<'_>) -> VB6Result<Aliasing> {
     {
         Ok(result) => Ok(result),
         Err(_) => Err(ErrMode::Cut(VB6ErrorKind::NoAliasingUnparseable)),
+    };
+
+    if (space0, alt((line_ending, line_comment_parse)))
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+    }
+
+    result
+}
+
+fn upgrade_controls_parse(input: &mut VB6Stream<'_>) -> VB6Result<UpgradeControls> {
+    if (space0::<_, VB6ErrorKind>, "=", space0)
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+    };
+
+    let result = match alt::<_, _, VB6ErrorKind, _>((
+        "0".value(UpgradeControls::Upgrade),
+        "1".value(UpgradeControls::NoUpgrade),
+    ))
+    .parse_next(input)
+    {
+        Ok(result) => Ok(result),
+        Err(_) => Err(ErrMode::Cut(VB6ErrorKind::NoControlUpgradeUnparsable)),
     };
 
     if (space0, alt((line_ending, line_comment_parse)))
@@ -2737,10 +2756,7 @@ mod tests {
         assert_eq!(project.forms.len(), 2);
         assert_eq!(project.user_controls.len(), 1);
         assert_eq!(project.user_documents.len(), 1);
-        assert_eq!(
-            project.upgrade_activex_controls, true,
-            "NoControlUpgrade is inverted from the file as upgrade_activex_controls"
-        );
+        assert_eq!(project.upgrade_controls, UpgradeControls::Upgrade);
         assert_eq!(project.res_file_32_path, Some(BStr::new(b"")));
         assert_eq!(project.icon_form, Some(BStr::new(b"")));
         assert_eq!(project.startup, None);
@@ -2883,10 +2899,7 @@ mod tests {
         assert_eq!(project.forms.len(), 2);
         assert_eq!(project.user_controls.len(), 1);
         assert_eq!(project.user_documents.len(), 1);
-        assert_eq!(
-            project.upgrade_activex_controls, true,
-            "NoControlUpgrade is inverted from the file as upgrade_activex_controls"
-        );
+        assert_eq!(project.upgrade_controls, UpgradeControls::Upgrade);
         assert_eq!(project.res_file_32_path, Some(BStr::new(b"")));
         assert_eq!(project.icon_form, Some(BStr::new(b"")));
         assert_eq!(project.startup, None);
@@ -3034,10 +3047,7 @@ mod tests {
         assert_eq!(project.user_controls.len(), 1);
         assert_eq!(project.user_documents.len(), 1);
         assert_eq!(project.other_properties.len(), 2);
-        assert_eq!(
-            project.upgrade_activex_controls, true,
-            "NoControlUpgrade is inverted from the file as upgrade_activex_controls"
-        );
+        assert_eq!(project.upgrade_controls, UpgradeControls::Upgrade);
         assert_eq!(project.res_file_32_path, Some(BStr::new(b"")));
         assert_eq!(project.icon_form, Some(BStr::new(b"")));
         assert_eq!(project.startup, None);

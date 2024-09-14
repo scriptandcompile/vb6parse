@@ -92,7 +92,7 @@ user_controls: []
 user_documents: []
 other_properties: {}
 unused_control_info: Remove
-upgrade_activex_controls: true
+upgrade_controls: Upgrade
 res_file_32_path: []
 icon_form:
   - 102
