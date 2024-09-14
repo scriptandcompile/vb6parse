@@ -117,7 +117,7 @@ other_properties:
       - 115
       - 104
     : - 49
-remove_unused_control_info: true
+unused_control_info: Remove
 upgrade_activex_controls: true
 res_file_32_path: []
 icon_form:
