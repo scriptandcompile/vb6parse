@@ -166,7 +166,7 @@ pub enum VB6ErrorKind {
     #[error("Thread Per Object is not a number.")]
     ThreadPerObjectUnparseable,
 
-    #[error("Unknown attribute in class header file. Must be one of: VB_Name, VB_GlobalNameSpace, VB_Creatable, VB_PredeclaredId, VB_Exposed, VB_Description")]
+    #[error("Unknown attribute in class header file. Must be one of: VB_Name, VB_GlobalNameSpace, VB_Creatable, VB_PredeclaredId, VB_Exposed, VB_Description, VB_Ext_KEY")]
     UnknownAttribute,
 
     #[error("Error parsing header")]

@@ -3,7 +3,7 @@ use bstr::{BStr, ByteSlice};
 use winnow::{
     ascii::{digit1, line_ending, space1, Caseless},
     combinator::{alt, delimited, repeat},
-    error::{ContextError, ErrMode},
+    error::ErrMode,
     stream::Stream,
     token::{literal, one_of, take_till, take_until, take_while},
     Parser,
@@ -144,7 +144,7 @@ pub fn keyword_parse<'a>(
 
         let word = Caseless(keyword).parse_next(input)?;
 
-        if one_of::<VB6Stream, _, ContextError>(('_', 'a'..='z', 'A'..='Z', '0'..='9'))
+        if one_of::<VB6Stream, _, VB6ErrorKind>(('_', 'a'..='z', 'A'..='Z', '0'..='9'))
             .parse_next(input)
             .is_ok()
         {
