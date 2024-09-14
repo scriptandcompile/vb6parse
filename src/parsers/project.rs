@@ -63,7 +63,7 @@ pub struct VB6Project<'a> {
     pub bounds_check: BoundsCheck,
     pub overflow_check: OverflowCheck,
     pub floating_point_check: FloatingPointErrorCheck,
-    pub pentium_fdiv_bug_check: bool,
+    pub pentium_fdiv_bug_check: PentiumFDivBugCheck,
     pub unrounded_floating_point: bool,
     pub start_mode: bool,
     pub unattended: bool,
@@ -95,6 +95,13 @@ pub enum Aliasing {
     #[default]
     AssumeAliasing = 0,
     AssumeNoAliasing = -1,
+}
+
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+pub enum PentiumFDivBugCheck {
+    CheckPentiumFDivBug = 0,
+    #[default]
+    NoPentiumFDivBugCheck = -1,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
@@ -397,7 +404,7 @@ impl<'a> VB6Project<'a> {
         let mut bounds_check = BoundsCheck::CheckBounds;
         let mut overflow_check = OverflowCheck::CheckOverflow;
         let mut floating_point_check = FloatingPointErrorCheck::CheckFloatingPointError;
-        let mut pentium_fdiv_bug_check = false;
+        let mut pentium_fdiv_bug_check = PentiumFDivBugCheck::NoPentiumFDivBugCheck;
         let mut unrounded_floating_point = false;
         let mut start_mode = false;
         let mut unattended = false;
@@ -1823,24 +1830,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                pentium_fdiv_bug_check = match true_false_parse.parse_next(&mut input) {
+                pentium_fdiv_bug_check = match pentium_fdiv_bug_check_parse.parse_next(&mut input) {
                     Ok(pentium_fdiv_bug_check) => pentium_fdiv_bug_check,
-                    Err(_) => return Err(input.error(VB6ErrorKind::FDIVCheckUnparseable)),
+                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -2247,6 +2240,34 @@ fn overflow_check_parse(input: &mut VB6Stream<'_>) -> VB6Result<OverflowCheck> {
     {
         Ok(result) => Ok(result),
         Err(_) => Err(ErrMode::Cut(VB6ErrorKind::OverflowCheckUnparseable)),
+    };
+
+    if (space0, alt((line_ending, line_comment_parse)))
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+    }
+
+    result
+}
+
+fn pentium_fdiv_bug_check_parse(input: &mut VB6Stream<'_>) -> VB6Result<PentiumFDivBugCheck> {
+    if (space0::<_, VB6ErrorKind>, "=", space0)
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+    };
+
+    let result = match alt::<_, _, VB6ErrorKind, _>((
+        "0".value(PentiumFDivBugCheck::CheckPentiumFDivBug),
+        "-1".value(PentiumFDivBugCheck::NoPentiumFDivBugCheck),
+    ))
+    .parse_next(input)
+    {
+        Ok(result) => Ok(result),
+        Err(_) => Err(ErrMode::Cut(VB6ErrorKind::FDIVCheckUnparseable)),
     };
 
     if (space0, alt((line_ending, line_comment_parse)))
@@ -2774,8 +2795,8 @@ mod tests {
             FloatingPointErrorCheck::CheckFloatingPointError
         );
         assert_eq!(
-            project.pentium_fdiv_bug_check, false,
-            "pentium_fdiv_bug_check check"
+            project.pentium_fdiv_bug_check,
+            PentiumFDivBugCheck::CheckPentiumFDivBug
         );
         assert_eq!(
             project.unrounded_floating_point, false,
@@ -2920,8 +2941,8 @@ mod tests {
             FloatingPointErrorCheck::CheckFloatingPointError
         );
         assert_eq!(
-            project.pentium_fdiv_bug_check, false,
-            "pentium_fdiv_bug_check check"
+            project.pentium_fdiv_bug_check,
+            PentiumFDivBugCheck::CheckPentiumFDivBug
         );
         assert_eq!(
             project.unrounded_floating_point, false,
@@ -3071,8 +3092,8 @@ mod tests {
             FloatingPointErrorCheck::CheckFloatingPointError
         );
         assert_eq!(
-            project.pentium_fdiv_bug_check, false,
-            "pentium_fdiv_bug_check check"
+            project.pentium_fdiv_bug_check,
+            PentiumFDivBugCheck::CheckPentiumFDivBug
         );
         assert_eq!(
             project.unrounded_floating_point, false,
