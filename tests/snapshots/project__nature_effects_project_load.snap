@@ -396,7 +396,7 @@ compilation_type: NativeCode
 optimization_type: FavorFastCode
 favor_pentium_pro: "True"
 code_view_debug_info: NotCreated
-aliasing: false
+aliasing: AssumeNoAliasing
 bounds_check: true
 overflow_check: true
 floating_point_check: true
