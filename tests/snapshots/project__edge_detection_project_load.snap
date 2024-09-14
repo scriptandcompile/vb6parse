@@ -427,7 +427,7 @@ conditional_compile: []
 compilation_type: NativeCode
 optimization_type: FavorFastCode
 favor_pentium_pro: "True"
-code_view_debug_info: false
+code_view_debug_info: NotCreated
 aliasing: false
 bounds_check: true
 overflow_check: true
