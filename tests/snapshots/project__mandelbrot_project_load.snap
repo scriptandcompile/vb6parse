@@ -392,7 +392,7 @@ aliasing: AssumeNoAliasing
 bounds_check: NoBoundsCheck
 overflow_check: NoOverflowCheck
 floating_point_check: NoFloatingPointErrorCheck
-pentium_fdiv_bug_check: true
+pentium_fdiv_bug_check: NoPentiumFDivBugCheck
 unrounded_floating_point: true
 start_mode: false
 unattended: false
