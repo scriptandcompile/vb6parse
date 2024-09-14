@@ -4,7 +4,7 @@ use vb6parse::parsers::{
     project::{
         Aliasing, BoundsCheck, CodeViewDebugInfo, CompatibilityMode, CompilationType,
         DebugStartupOption, FavorPentiumPro, FloatingPointErrorCheck, OptimizationType,
-        OverflowCheck, PentiumFDivBugCheck, ServerSupportFiles, UnroundedFloatingPoint,
+        OverflowCheck, PentiumFDivBugCheck, ServerSupportFiles, StartMode, UnroundedFloatingPoint,
         UpgradeControls,
     },
     CompileTargetType, VB6Project,
@@ -70,7 +70,7 @@ fn ppdm_project_load() {
         project.unrounded_floating_point,
         UnroundedFloatingPoint::DoNotAllow
     );
-    assert_eq!(project.start_mode, false);
+    assert_eq!(project.start_mode, StartMode::StandAlone);
     assert_eq!(project.unattended, false);
     assert_eq!(project.retained, false);
     assert_eq!(project.thread_per_object, Some(0));
