@@ -14,7 +14,7 @@ form:
         back_color:
           System:
             index: 5
-        border_style: Sizable
+        border_style: FixedSingle
         caption:
           - 69
           - 100

@@ -9,11 +9,11 @@ use crate::{
     errors::{VB6Error, VB6ErrorKind},
     language::{
         Appearance, CheckBoxProperties, ComboBoxProperties, CommandButtonProperties,
-        DataProperties, DirListBoxProperties, FormProperties, FrameProperties, ImageProperties,
-        LabelProperties, LineProperties, ListBoxProperties, MenuProperties, OLEProperties,
-        OptionButtonProperties, PictureBoxProperties, ScrollBarProperties, ShapeProperties,
-        TextBoxProperties, TimerProperties, VB6Color, VB6Control, VB6ControlKind, VB6MenuControl,
-        VB6Token,
+        DataProperties, DirListBoxProperties, FormBorderStyle, FormProperties, FrameProperties,
+        ImageProperties, LabelProperties, LineProperties, ListBoxProperties, MenuProperties,
+        OLEProperties, OptionButtonProperties, PictureBoxProperties, ScrollBarProperties,
+        ShapeProperties, TextBoxProperties, TimerProperties, VB6Color, VB6Control, VB6ControlKind,
+        VB6MenuControl, VB6Token,
     },
     parsers::{
         header::{key_resource_offset_line_parse, version_parse, HeaderKind, VB6FileFormatVersion},
@@ -277,6 +277,12 @@ fn build_control<'a>(
             if properties.contains_key(caption_key) {
                 form_properties.caption = properties[caption_key];
             }
+
+            // auto_redraw
+
+            let border_style_key = BStr::new("BorderStyle");
+            form_properties.border_style =
+                build_property::<FormBorderStyle>(&properties, border_style_key);
 
             let backcolor_key = BStr::new("BackColor");
             if properties.contains_key(backcolor_key) {
