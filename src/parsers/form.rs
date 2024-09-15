@@ -161,11 +161,7 @@ fn form_object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6ObjectRe
             break;
         }
 
-        (space0, "=", space0).parse_next(input)?;
-
         let object = object_parse.parse_next(input)?;
-
-        line_ending.parse_next(input)?;
 
         objects.push(object);
     }
