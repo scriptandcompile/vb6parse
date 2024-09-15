@@ -601,26 +601,12 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
                 let module = match module_parse.parse_next(&mut input) {
                     Ok(module) => module,
                     Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
 
                 modules.push(module);
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -2132,7 +2118,21 @@ fn qouted_value<'a>(qoute_char: &'a str) -> impl FnMut(&mut VB6Stream<'a>) -> VB
 }
 
 fn module_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectModule<'a>> {
+    if (space0::<_, VB6Error>, '=', space0)
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+    };
+
     let (name, path) = semicolon_space_split_parse.parse_next(input)?;
+
+    if (space0, alt((line_ending, line_comment_parse)))
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+    }
 
     let name = name.as_bstr();
     let path = path.as_bstr();
@@ -2393,11 +2393,10 @@ mod tests {
     fn module_line_valid() {
         let mut input = VB6Stream::new("", b"Module=modDBAssist; ..\\DBCommon\\DBAssist.bas\r\n");
 
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Module=".parse_next(&mut input);
+        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Module".parse_next(&mut input);
         let result = module_parse.parse_next(&mut input).unwrap();
 
-        // we don't consume the line ending, so we should have 2 bytes left.
-        assert_eq!(input.complete(), 2);
+        assert_eq!(input.complete(), 0);
         assert_eq!(result.name, "modDBAssist");
         assert_eq!(result.path, "..\\DBCommon\\DBAssist.bas");
     }
