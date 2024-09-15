@@ -600,26 +600,12 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
                 let reference = match reference_parse.parse_next(&mut input) {
                     Ok(reference) => reference,
                     Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
 
                 references.push(reference);
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -2254,7 +2240,23 @@ fn compiled_reference_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Proje
 }
 
 fn reference_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectReference<'a>> {
-    alt((project_reference_parse, compiled_reference_parse)).parse_next(input)
+    if (space0::<_, VB6Error>, '=', space0)
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+    };
+
+    let reference = alt((project_reference_parse, compiled_reference_parse)).parse_next(input)?;
+
+    if (space0, alt((line_ending, line_comment_parse)))
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+    }
+
+    Ok(reference)
 }
 
 fn project_type_parse(input: &mut VB6Stream<'_>) -> VB6Result<CompileTargetType> {
@@ -2321,14 +2323,13 @@ mod tests {
     fn reference_line_valid() {
         let mut input = VB6Stream::new("", b"Reference=*\\G{000440D8-E9ED-4435-A9A2-06B05387BB16}#c.0#0#..\\DBCommon\\Libs\\VbIntellisenseFix.dll#VbIntellisenseFix\r\n");
 
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Reference=".parse_next(&mut input);
+        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Reference".parse_next(&mut input);
 
         let result = reference_parse.parse_next(&mut input).unwrap();
 
         let expected_uuid = Uuid::parse_str("000440D8-E9ED-4435-A9A2-06B05387BB16").unwrap();
 
-        // we don't consume the line ending, so we should have 2 bytes left.
-        assert_eq!(input.complete(), 2);
+        assert_eq!(input.complete(), 0);
         assert_eq!(matches!(result, VB6ProjectReference::Compiled { .. }), true);
         let result = match result {
             VB6ProjectReference::Compiled {
