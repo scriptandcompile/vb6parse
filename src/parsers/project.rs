@@ -739,24 +739,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                res_file_32_path = match qouted_value("\"").parse_next(&mut input) {
+                res_file_32_path = match qouted_parameter_parse.parse_next(&mut input) {
                     Ok(res_file_32_path) => Some(res_file_32_path),
                     Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -765,24 +751,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                icon_form = match qouted_value("\"").parse_next(&mut input) {
+                icon_form = match qouted_parameter_parse.parse_next(&mut input) {
                     Ok(icon_form) => Some(icon_form),
                     Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -827,24 +799,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                help_file_path = match qouted_value("\"").parse_next(&mut input) {
+                help_file_path = match qouted_parameter_parse.parse_next(&mut input) {
                     Ok(help_file_path) => Some(help_file_path),
                     Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -865,24 +823,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                exe_32_file_name = match qouted_value("\"").parse_next(&mut input) {
+                exe_32_file_name = match qouted_parameter_parse.parse_next(&mut input) {
                     Ok(exe_32_file_name) => Some(exe_32_file_name),
                     Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -891,24 +835,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                path_32 = match qouted_value("\"").parse_next(&mut input) {
+                path_32 = match qouted_parameter_parse.parse_next(&mut input) {
                     Ok(path_32) => Some(path_32),
                     Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -987,24 +917,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                description = match qouted_value("\"").parse_next(&mut input) {
+                description = match qouted_parameter_parse.parse_next(&mut input) {
                     Ok(description) => Some(description),
                     Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -1060,24 +976,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                version_32_compatibility = match qouted_value("\"").parse_next(&mut input) {
+                version_32_compatibility = match qouted_parameter_parse.parse_next(&mut input) {
                     Ok(version_32_compatibility) => Some(version_32_compatibility),
                     Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -1086,24 +988,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                exe_32_compatible = match qouted_value("\"").parse_next(&mut input) {
+                exe_32_compatible = match qouted_parameter_parse.parse_next(&mut input) {
                     Ok(exe_32_compatible) => Some(exe_32_compatible),
                     Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -1401,25 +1289,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                company_name = match qouted_value("\"").parse_next(&mut input) {
+                company_name = match qouted_parameter_parse.parse_next(&mut input) {
                     Ok(company_name) => Some(company_name),
                     Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
-
                 continue;
             }
 
@@ -1427,25 +1300,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                file_description = match qouted_value("\"").parse_next(&mut input) {
+                file_description = match qouted_parameter_parse.parse_next(&mut input) {
                     Ok(file_description) => Some(file_description),
                     Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
-
                 continue;
             }
 
@@ -1453,24 +1311,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                copyright = match qouted_value("\"").parse_next(&mut input) {
+                copyright = match qouted_parameter_parse.parse_next(&mut input) {
                     Ok(copyright) => Some(copyright),
                     Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -1479,24 +1323,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                trademark = match qouted_value("\"").parse_next(&mut input) {
+                trademark = match qouted_parameter_parse.parse_next(&mut input) {
                     Ok(trademark) => Some(trademark),
                     Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -1505,24 +1335,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                product_name = match qouted_value("\"").parse_next(&mut input) {
+                product_name = match qouted_parameter_parse.parse_next(&mut input) {
                     Ok(product_name) => Some(product_name),
                     Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -1531,24 +1347,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                comments = match qouted_value("\"").parse_next(&mut input) {
+                comments = match qouted_parameter_parse.parse_next(&mut input) {
                     Ok(comments) => Some(comments),
                     Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -1557,24 +1359,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                conditional_compile = match qouted_value("\"").parse_next(&mut input) {
+                conditional_compile = match qouted_parameter_parse.parse_next(&mut input) {
                     Ok(conditional_compile) => Some(conditional_compile),
                     Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -1962,6 +1750,29 @@ where
     }
 
     Ok(conversion)
+}
+
+fn qouted_parameter_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
+    if (space0::<_, VB6Error>, '=', space0)
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+    };
+
+    let value = match qouted_value("\"").parse_next(input) {
+        Ok(value) => value,
+        Err(e) => return Err(ErrMode::Cut(e.into_inner().unwrap())),
+    };
+
+    if (space0, alt((line_ending, line_comment_parse)))
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+    }
+
+    Ok(value)
 }
 
 fn other_property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<(&'a BStr, &'a BStr)> {
