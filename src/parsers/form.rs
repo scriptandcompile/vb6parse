@@ -3,6 +3,7 @@ use std::convert::TryFrom;
 use std::vec::Vec;
 
 use bstr::BStr;
+use num_enum::TryFromPrimitive;
 
 use crate::{
     errors::{VB6Error, VB6ErrorKind},
@@ -270,14 +271,7 @@ fn build_control<'a>(
             // TODO: We are not correctly handling property assignment for each control.
 
             let appearance_key = BStr::new("Appearance");
-            if properties.contains_key(appearance_key) {
-                let appearance_ascii = properties[appearance_key].to_str().unwrap();
-
-                form_properties.appearance = match i32::from_str_radix(appearance_ascii, 10) {
-                    Ok(appearance) => Appearance::try_from(appearance).unwrap_or_default(),
-                    Err(_) => Appearance::default(),
-                };
-            }
+            form_properties.appearance = build_property::<Appearance>(&properties, appearance_key);
 
             let caption_key = BStr::new("Caption");
             if properties.contains_key(caption_key) {
@@ -474,6 +468,24 @@ fn build_control<'a>(
     };
 
     Ok(parent_control)
+}
+
+fn build_property<T>(properties: &HashMap<&BStr, &BStr>, property_key: &BStr) -> T
+where
+    T: Default + TryFromPrimitive + TryFrom<i32>,
+{
+    if !properties.contains_key(property_key) {
+        return T::default();
+    }
+
+    let property_ascii = properties[property_key].to_str().unwrap();
+
+    let value = match i32::from_str_radix(property_ascii, 10) {
+        Ok(value) => T::try_from(value).unwrap_or_default(),
+        Err(_) => T::default(),
+    };
+
+    value
 }
 
 fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyGroup<'a>> {
