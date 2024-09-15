@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::convert::TryFrom;
 use std::vec::Vec;
 
 use bstr::BStr;
@@ -6,11 +7,12 @@ use bstr::BStr;
 use crate::{
     errors::{VB6Error, VB6ErrorKind},
     language::{
-        CheckBoxProperties, ComboBoxProperties, CommandButtonProperties, DataProperties,
-        DirListBoxProperties, FormProperties, FrameProperties, ImageProperties, LabelProperties,
-        LineProperties, ListBoxProperties, MenuProperties, OLEProperties, OptionButtonProperties,
-        PictureBoxProperties, ScrollBarProperties, ShapeProperties, TextBoxProperties,
-        TimerProperties, VB6Color, VB6Control, VB6ControlKind, VB6MenuControl, VB6Token,
+        Appearance, CheckBoxProperties, ComboBoxProperties, CommandButtonProperties,
+        DataProperties, DirListBoxProperties, FormProperties, FrameProperties, ImageProperties,
+        LabelProperties, LineProperties, ListBoxProperties, MenuProperties, OLEProperties,
+        OptionButtonProperties, PictureBoxProperties, ScrollBarProperties, ShapeProperties,
+        TextBoxProperties, TimerProperties, VB6Color, VB6Control, VB6ControlKind, VB6MenuControl,
+        VB6Token,
     },
     parsers::{
         header::{key_resource_offset_line_parse, version_parse, HeaderKind, VB6FileFormatVersion},
@@ -266,6 +268,17 @@ fn build_control<'a>(
             let mut form_properties = FormProperties::default();
 
             // TODO: We are not correctly handling property assignment for each control.
+
+            let appearance_key = BStr::new("Appearance");
+            if properties.contains_key(appearance_key) {
+                let appearance_ascii = properties[appearance_key].to_str().unwrap();
+
+                form_properties.appearance = match i32::from_str_radix(appearance_ascii, 10) {
+                    Ok(appearance) => Appearance::try_from(appearance).unwrap_or_default(),
+                    Err(_) => Appearance::default(),
+                };
+            }
+
             let caption_key = BStr::new("Caption");
             if properties.contains_key(caption_key) {
                 form_properties.caption = properties[caption_key];

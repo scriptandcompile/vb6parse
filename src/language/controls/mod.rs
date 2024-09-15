@@ -20,6 +20,7 @@ pub mod shape;
 pub mod textbox;
 pub mod timer;
 
+use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
 use crate::language::{
@@ -178,11 +179,13 @@ pub enum BackStyle {
 
 /// The appearance determines whether or not a control is painted at run time
 /// with 3D effects.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
+#[repr(i32)]
 pub enum Appearance {
     /// The control is painted with a flat style.
     Flat = 0,
     /// The control is painted with a 3D style.
+    #[default]
     ThreeD = 1,
 }
 
