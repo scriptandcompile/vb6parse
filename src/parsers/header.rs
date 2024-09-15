@@ -150,7 +150,26 @@ fn project_object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ObjectRef
 }
 
 pub fn object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ObjectReference<'a>> {
-    alt((compiled_object_parse, project_object_parse)).parse_next(input)
+    if (space0::<_, VB6ErrorKind>, '=', space0)
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+    };
+
+    let object = match alt((compiled_object_parse, project_object_parse)).parse_next(input) {
+        Ok(object) => object,
+        Err(e) => return Err(ErrMode::Cut(e.into_inner().unwrap())),
+    };
+
+    if (space0, alt((line_ending, line_comment_parse)))
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+    }
+
+    Ok(object)
 }
 
 pub fn key_value_parse<'a>(
@@ -301,14 +320,13 @@ mod tests {
             b"Object={C4847593-972C-11D0-9567-00A0C9273C2A}#8.0#0; crviewer.dll\r\n",
         );
 
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Object=".parse_next(&mut input);
+        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Object".parse_next(&mut input);
 
         let result = object_parse.parse_next(&mut input).unwrap();
 
         let expected_uuid = Uuid::parse_str("C4847593-972C-11D0-9567-00A0C9273C2A").unwrap();
 
-        // we don't consume the line ending, so we should have 2 bytes left.
-        assert_eq!(input.complete(), 2);
+        assert_eq!(input.complete(), 0);
 
         match result {
             VB6ObjectReference::Compiled {
@@ -330,12 +348,11 @@ mod tests {
     fn project_object_line_valid() {
         let mut input = VB6Stream::new("", b"Object=*\\A..\\vbGraph.vbp\r\n");
 
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Object=".parse_next(&mut input);
+        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Object".parse_next(&mut input);
 
         let result = object_parse.parse_next(&mut input).unwrap();
 
-        // we don't consume the line ending, so we should have 2 bytes left.
-        assert_eq!(input.complete(), 2);
+        assert_eq!(input.complete(), 0);
 
         match result {
             VB6ObjectReference::Project { path } => {
