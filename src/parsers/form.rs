@@ -9,7 +9,7 @@ use crate::{
     errors::{VB6Error, VB6ErrorKind},
     language::{
         Appearance, CheckBoxProperties, ClipControls, ComboBoxProperties, CommandButtonProperties,
-        DataProperties, DirListBoxProperties, DrawMode, FormBorderStyle, FormProperties,
+        DataProperties, DirListBoxProperties, DrawMode, DrawStyle, FormBorderStyle, FormProperties,
         FrameProperties, ImageProperties, LabelProperties, LineProperties, ListBoxProperties,
         MenuProperties, OLEProperties, OptionButtonProperties, PictureBoxProperties,
         ScrollBarProperties, ShapeProperties, TextBoxProperties, TimerProperties, VB6Color,
@@ -302,6 +302,9 @@ fn build_control<'a>(
 
             let draw_mode_key = BStr::new("DrawMode");
             form_properties.draw_mode = build_property::<DrawMode>(&properties, draw_mode_key);
+
+            let draw_style_key = BStr::new("DrawStyle");
+            form_properties.draw_style = build_property::<DrawStyle>(&properties, draw_style_key);
 
             let mut converted_menus = vec![];
 

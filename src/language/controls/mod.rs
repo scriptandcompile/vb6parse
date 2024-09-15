@@ -251,9 +251,11 @@ pub enum DrawMode {
 }
 
 /// Determines the line style of any drawing from any graphic method applied by the control.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum DrawStyle {
-    /// A solid line.
+    /// A solid line. This is the default.
+    #[default]
     Solid = 0,
     /// A dashed line.
     Dash = 1,
