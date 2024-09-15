@@ -256,7 +256,7 @@ fn build_control<'a>(
     controls: Vec<VB6Control<'a>>,
     menus: Vec<VB6Control<'a>>,
     properties: HashMap<&'a BStr, &'a BStr>,
-    _property_groups: Vec<VB6PropertyGroup<'a>>,
+    property_groups: Vec<VB6PropertyGroup<'a>>,
 ) -> Result<VB6Control<'a>, VB6ErrorKind> {
     // This is wrong.
     // TODO: When we start work on custom controls we will need
@@ -339,7 +339,7 @@ fn build_control<'a>(
         }
         b"Frame" => {
             let frame_properties =
-                FrameProperties::construct_control(&properties, &_property_groups)?;
+                FrameProperties::construct_control(&properties, &property_groups)?;
 
             VB6ControlKind::Frame {
                 controls,
