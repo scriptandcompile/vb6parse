@@ -6,7 +6,7 @@ use num_enum::TryFromPrimitive;
 use serde::Serialize;
 use uuid::Uuid;
 use winnow::{
-    ascii::{digit1, line_ending, space0},
+    ascii::{line_ending, space0},
     combinator::{alt, opt},
     error::ErrMode,
     token::{literal, take_until, take_while},
@@ -763,34 +763,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
                 // if the project lacks a startup object/function/etc it will be !(None)! or !! in the file
                 // which is distinct from the double qouted way of targeting a specific object.
-                startup = match alt((qouted_value("\""), qouted_value("!"))).parse_next(&mut input)
-                {
-                    Ok(startup) => {
-                        // if we have !(None)! or !! then we have no startup object.
-                        if startup == "(None)" || startup == "" {
-                            None
-                        } else {
-                            Some(startup)
-                        }
-                    }
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
+                startup =
+                    qouted_optional_parameter_parse(&mut input, VB6ErrorKind::StartupUnparseable)?;
 
                 continue;
             }
@@ -847,34 +823,12 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
                 // if the project lacks a commandline it will be !(None)! or !! or "" in the file
                 // which is distinct from the double qouted way of targeting a specific object.
-                command_line_arguments =
-                    match alt((qouted_value("\""), qouted_value("!"))).parse_next(&mut input) {
-                        Ok(command_line_arguments) => {
-                            // if we have !(None)! or !! then we have no command32 line.
-                            if command_line_arguments == "(None)" || command_line_arguments == "" {
-                                None
-                            } else {
-                                Some(command_line_arguments)
-                            }
-                        }
-                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                    };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
+                command_line_arguments = qouted_optional_parameter_parse(
+                    &mut input,
+                    VB6ErrorKind::CommandLineUnparseable,
+                )?;
 
                 continue;
             }
@@ -883,32 +837,8 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
                 // if the project lacks a name it will be !(None)! or !! or "" in the file..
-                name = match alt((qouted_value("\""), qouted_value("!"))).parse_next(&mut input) {
-                    Ok(name) => {
-                        // if we have !(None)! or !! then we have no command32 line.
-                        if name == "(None)" || name == "" {
-                            None
-                        } else {
-                            Some(name)
-                        }
-                    }
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
+                name = qouted_optional_parameter_parse(&mut input, VB6ErrorKind::NameUnparseable)?;
 
                 continue;
             }
@@ -929,33 +859,11 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
                 // if the project lacks a help_context_id it will be !(None)! or !! or "" in the file..
-                help_context_id =
-                    match alt((qouted_value("\""), qouted_value("!"))).parse_next(&mut input) {
-                        Ok(help_context_id) => {
-                            // if we have !(None)! or !! then we have no command32 line.
-                            if help_context_id == "(None)" || help_context_id == "" {
-                                None
-                            } else {
-                                Some(help_context_id)
-                            }
-                        }
-                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                    };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
+                help_context_id = qouted_optional_parameter_parse(
+                    &mut input,
+                    VB6ErrorKind::HelpContextIdUnparseable,
+                )?;
 
                 continue;
             }
@@ -1707,6 +1615,40 @@ fn qouted_parameter_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> 
         .is_err()
     {
         return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+    }
+
+    Ok(value)
+}
+
+fn qouted_optional_parameter_parse<'a>(
+    input: &mut VB6Stream<'a>,
+    error_on_conversion: VB6ErrorKind,
+) -> Result<Option<&'a BStr>, VB6Error> {
+    if (space0::<_, VB6Error>, '=', space0)
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(input.error(VB6ErrorKind::NoEqualSplit));
+    };
+
+    // if the project lacks this value it will be !(None)! or !! or "" in the file..
+    let value = match alt((qouted_value("\""), qouted_value("!"))).parse_next(input) {
+        Ok(value) => {
+            // if we have !(None)! or !! then we have no value line.
+            if value == "(None)" || value == "" {
+                None
+            } else {
+                Some(value)
+            }
+        }
+        Err(_) => return Err(input.error(error_on_conversion)),
+    };
+
+    if (space0, alt((line_ending, line_comment_parse)))
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(input.error(VB6ErrorKind::NoLineEnding));
     }
 
     Ok(value)

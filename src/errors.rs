@@ -61,6 +61,18 @@ pub enum VB6ErrorKind {
     #[error("Unable to parse hex address from DllBaseAddress key")]
     DllBaseAddressUnparseable,
 
+    #[error("The Startup object is not a valid parameter. Must be a qouted startup method/object, \"(None)\", !(None)!, \"\", or \"!!\"")]
+    StartupUnparseable,
+
+    #[error("Name is not a valid parameter line. Must be a qouted name, \"(None)\", !(None)!, \"\", or \"!!\"")]
+    NameUnparseable,
+
+    #[error("CommandLine is not a valid parameter line. Must be a qouted command line, \"(None)\", !(None)!, \"\", or \"!!\"")]
+    CommandLineUnparseable,
+
+    #[error("The HelpContextId is not a valid parameter line. Must be a qouted help context id, \"(None)\", !(None)!, \"\", or \"!!\"")]
+    HelpContextIdUnparseable,
+
     #[error("Minor version is not a number.")]
     MinorVersionUnparseable,
 
