@@ -5,6 +5,7 @@ use crate::VB6Color;
 
 use bstr::BStr;
 use image::DynamicImage;
+use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
 use super::ClipControls;
@@ -30,10 +31,12 @@ pub enum StartUpPosition {
     WindowsDefault = 3,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[repr(i32)]
 pub enum FormBorderStyle {
     None = 0,
     FixedSingle = 1,
+    #[default]
     Sizable = 2,
     FixedDialog = 3,
     FixedToolWindow = 4,

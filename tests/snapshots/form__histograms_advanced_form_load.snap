@@ -16,7 +16,7 @@ form:
             red: 192
             green: 192
             blue: 192
-        border_style: Sizable
+        border_style: FixedToolWindow
         caption:
           - 32
           - 72
