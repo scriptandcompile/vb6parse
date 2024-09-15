@@ -9,11 +9,11 @@ use crate::{
     errors::{VB6Error, VB6ErrorKind},
     language::{
         Appearance, CheckBoxProperties, ClipControls, ComboBoxProperties, CommandButtonProperties,
-        DataProperties, DirListBoxProperties, FormBorderStyle, FormProperties, FrameProperties,
-        ImageProperties, LabelProperties, LineProperties, ListBoxProperties, MenuProperties,
-        OLEProperties, OptionButtonProperties, PictureBoxProperties, ScrollBarProperties,
-        ShapeProperties, TextBoxProperties, TimerProperties, VB6Color, VB6Control, VB6ControlKind,
-        VB6MenuControl, VB6Token,
+        DataProperties, DirListBoxProperties, DrawMode, FormBorderStyle, FormProperties,
+        FrameProperties, ImageProperties, LabelProperties, LineProperties, ListBoxProperties,
+        MenuProperties, OLEProperties, OptionButtonProperties, PictureBoxProperties,
+        ScrollBarProperties, ShapeProperties, TextBoxProperties, TimerProperties, VB6Color,
+        VB6Control, VB6ControlKind, VB6MenuControl, VB6Token,
     },
     parsers::{
         header::{key_resource_offset_line_parse, version_parse, HeaderKind, VB6FileFormatVersion},
@@ -297,6 +297,11 @@ fn build_control<'a>(
             let clip_control_key = BStr::new("ClipControls");
             form_properties.clip_controls =
                 build_property::<ClipControls>(&properties, clip_control_key);
+
+            // ControlBox
+
+            let draw_mode_key = BStr::new("DrawMode");
+            form_properties.draw_mode = build_property::<DrawMode>(&properties, draw_mode_key);
 
             let mut converted_menus = vec![];
 
