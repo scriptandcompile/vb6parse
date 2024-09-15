@@ -8,7 +8,7 @@ use num_enum::TryFromPrimitive;
 use crate::{
     errors::{VB6Error, VB6ErrorKind},
     language::{
-        Appearance, CheckBoxProperties, ComboBoxProperties, CommandButtonProperties,
+        Appearance, CheckBoxProperties, ClipControls, ComboBoxProperties, CommandButtonProperties,
         DataProperties, DirListBoxProperties, FormBorderStyle, FormProperties, FrameProperties,
         ImageProperties, LabelProperties, LineProperties, ListBoxProperties, MenuProperties,
         OLEProperties, OptionButtonProperties, PictureBoxProperties, ScrollBarProperties,
@@ -273,16 +273,7 @@ fn build_control<'a>(
             let appearance_key = BStr::new("Appearance");
             form_properties.appearance = build_property::<Appearance>(&properties, appearance_key);
 
-            let caption_key = BStr::new("Caption");
-            if properties.contains_key(caption_key) {
-                form_properties.caption = properties[caption_key];
-            }
-
             // auto_redraw
-
-            let border_style_key = BStr::new("BorderStyle");
-            form_properties.border_style =
-                build_property::<FormBorderStyle>(&properties, border_style_key);
 
             let backcolor_key = BStr::new("BackColor");
             if properties.contains_key(backcolor_key) {
@@ -293,6 +284,19 @@ fn build_control<'a>(
                 };
                 form_properties.back_color = back_color;
             }
+
+            let border_style_key = BStr::new("BorderStyle");
+            form_properties.border_style =
+                build_property::<FormBorderStyle>(&properties, border_style_key);
+
+            let caption_key = BStr::new("Caption");
+            if properties.contains_key(caption_key) {
+                form_properties.caption = properties[caption_key];
+            }
+
+            let clip_control_key = BStr::new("ClipControls");
+            form_properties.clip_controls =
+                build_property::<ClipControls>(&properties, clip_control_key);
 
             let mut converted_menus = vec![];
 
