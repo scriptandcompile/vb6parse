@@ -36,12 +36,9 @@ pub use controls::{
     shape::{Shape, ShapeProperties},
     textbox::{ScrollBars, TextBoxProperties},
     timer::TimerProperties,
-    Style, VB6Control, VB6ControlKind,
-};
-
-pub use controls::{
-    Align, Alignment, Appearance, BackStyle, BorderStyle, DragMode, DrawMode, DrawStyle, FillStyle,
-    JustifyAlignment, LinkMode, MousePointer, OLEDragMode, OLEDropMode, ScaleMode,
+    Align, Alignment, Appearance, BackStyle, BorderStyle, ClipControls, DragMode, DrawMode,
+    DrawStyle, FillStyle, JustifyAlignment, LinkMode, MousePointer, OLEDragMode, OLEDropMode,
+    ScaleMode, Style, VB6Control, VB6ControlKind,
 };
 
 pub use tokens::VB6Token;

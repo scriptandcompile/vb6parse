@@ -1,5 +1,5 @@
 use crate::language::controls::{
-    Appearance, DrawMode, DrawStyle, FillStyle, MousePointer, OLEDropMode, ScaleMode,
+    Appearance, ClipControls, DrawMode, DrawStyle, FillStyle, MousePointer, OLEDropMode, ScaleMode,
 };
 use crate::VB6Color;
 
@@ -7,8 +7,6 @@ use bstr::BStr;
 use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
-
-use super::ClipControls;
 
 #[derive(Debug, PartialEq, Eq, Clone, serde::Serialize)]
 pub enum FormLinkMode {
