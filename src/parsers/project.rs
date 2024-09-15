@@ -1048,32 +1048,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
+                compatibility_mode = match compatibility_mode_parse.parse_next(&mut input) {
+                    Ok(compatibility_mode) => compatibility_mode,
+                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                compatibility_mode =
-                    match alt((qouted_value("\""), qouted_value("!"))).parse_next(&mut input) {
-                        Ok(compatible_mode) => match compatible_mode.as_bytes() {
-                            b"0" => CompatibilityMode::NoCompatibility,
-                            b"1" => CompatibilityMode::Project,
-                            b"2" => CompatibilityMode::CompatibleExe,
-                            _ => {
-                                return Err(input.error(VB6ErrorKind::CompatibleModeUnparseable));
-                            }
-                        },
-                        Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                    };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -2054,6 +2032,36 @@ fn designer_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
     Ok(designer)
 }
 
+fn compatibility_mode_parse(input: &mut VB6Stream<'_>) -> VB6Result<CompatibilityMode> {
+    if (space0::<_, VB6Error>, '=', space0)
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+    };
+
+    let compatibility_mode = match alt((qouted_value("\""), qouted_value("!"))).parse_next(input) {
+        Ok(compatible_mode) => match compatible_mode.as_bytes() {
+            b"0" => CompatibilityMode::NoCompatibility,
+            b"1" => CompatibilityMode::Project,
+            b"2" => CompatibilityMode::CompatibleExe,
+            _ => {
+                return Err(ErrMode::Cut(VB6ErrorKind::CompatibilityModeUnparseable));
+            }
+        },
+        Err(e) => return Err(ErrMode::Cut(e.into_inner().unwrap())),
+    };
+
+    if (space0, alt((line_ending, line_comment_parse)))
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+    }
+
+    Ok(compatibility_mode)
+}
+
 fn title_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
     if (space0::<_, VB6Error>, '=', space0)
         .parse_next(input)
@@ -2070,7 +2078,7 @@ fn title_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
     // VB6 being the language it is, there is no escape sequence for
     // this. Instead, the title is wrapped in quotes and the quotes
     // are just simply included in the text. This means we can't use
-    // the qouted_value parser here.
+    // string_parser here.
     let Ok(title): VB6Result<_> =
         alt((take_until(1.., "\"\r\n"), take_until(1.., "\"\n"))).parse_next(input)
     else {
@@ -2079,8 +2087,6 @@ fn title_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
 
     // We need to skip the closing quote.
     // But we also need to make sure we don't skip the line ending.
-    // This is a bit odd, but all the other one off line parsers don't read
-    // the line ending, so we need to make sure this one doesn't either.
     let _: VB6Result<_> = '"'.parse_next(input);
 
     if (space0, alt((line_ending, line_comment_parse)))
@@ -2284,6 +2290,52 @@ mod tests {
     use winnow::stream::StreamIsPartial;
 
     use super::*;
+
+    #[test]
+    fn compatibility_mode_is_unknown() {
+        let mut input = VB6Stream::new("", b"CompatibleMode=\"5\"\n");
+
+        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "CompatibleMode".parse_next(&mut input);
+
+        let result = compatibility_mode_parse.parse_next(&mut input);
+
+        assert_eq!(
+            result.err().unwrap().into_inner().unwrap(),
+            VB6ErrorKind::CompatibilityModeUnparseable
+        );
+    }
+
+    #[test]
+    fn compatibility_mode_is_no_compatibility() {
+        let mut input = VB6Stream::new("", b"CompatibleMode=\"0\"\n");
+
+        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "CompatibleMode".parse_next(&mut input);
+
+        let result = compatibility_mode_parse.parse_next(&mut input).unwrap();
+
+        assert_eq!(result, CompatibilityMode::NoCompatibility);
+    }
+
+    #[test]
+    fn compatibility_mode_is_project() {
+        let mut input = VB6Stream::new("", b"CompatibleMode=\"1\"\r\n");
+
+        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "CompatibleMode".parse_next(&mut input);
+
+        let result = compatibility_mode_parse.parse_next(&mut input).unwrap();
+        assert_eq!(result, CompatibilityMode::Project);
+    }
+
+    #[test]
+    fn compatibility_mode_is_compatible_exe() {
+        let mut input = VB6Stream::new("", b"CompatibleMode=\"2\"\n");
+
+        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "CompatibleMode".parse_next(&mut input);
+
+        let result = compatibility_mode_parse.parse_next(&mut input).unwrap();
+
+        assert_eq!(result, CompatibilityMode::CompatibleExe);
+    }
 
     #[test]
     fn project_type_is_exe() {
