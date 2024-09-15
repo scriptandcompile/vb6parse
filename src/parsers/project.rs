@@ -1145,33 +1145,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                let Ok(threading_model_text): VB6Result<_> =
-                    take_until_line_ending.parse_next(&mut input)
-                else {
-                    return Err(input.error(VB6ErrorKind::ThreadingModelUnparseable));
-                };
-
-                threading_model = match threading_model_text.to_string().trim().parse::<u16>() {
-                    Ok(0) => ThreadingModel::SingleThreaded,
-                    Ok(1) => ThreadingModel::ApartmentThreaded,
-                    Ok(_) | Err(_) => {
-                        return Err(input.error(VB6ErrorKind::ThreadingModelInvalid));
-                    }
-                };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
+                threading_model = process_parameter::<ThreadingModel>(
+                    &mut input,
+                    VB6ErrorKind::ThreadingModelInvalid,
+                )?;
 
                 continue;
             }
