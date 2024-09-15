@@ -9,7 +9,7 @@ form:
   kind:
     Form:
       properties:
-        appearance: ThreeD
+        appearance: Flat
         auto_redraw: false
         back_color:
           RGB:
