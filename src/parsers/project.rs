@@ -506,9 +506,9 @@ impl<'a> VB6Project<'a> {
             // We want to grab any '[MS Transaction Server]' or other section header lines.
             // Which we will use in parsing 'other properties.'
             if let Ok((_, other_property, _, _, _)) = (
-                "[",
-                take_until(0.., "]"),
-                "]",
+                '[',
+                take_until(0.., ']'),
+                ']',
                 space0,
                 line_ending::<_, VB6Error>,
             )
@@ -525,37 +525,17 @@ impl<'a> VB6Project<'a> {
             // Looks like we are no longer parsing the standard VB6 property section
             // Now we are parsing some third party properties.
             if other_property_group.is_some() {
-                let property_name = match (opt(space0), take_until(0.., "=")).parse_next(&mut input)
-                {
-                    Ok((_, property_name)) => property_name,
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
-
-                if (opt(space0::<_, VB6Error>), "=")
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                }
-
-                let property_value = match take_until::<_, _, VB6ErrorKind>(0.., ("\r", "\n"))
-                    .parse_next(&mut input)
-                {
-                    Ok(property_value) => property_value,
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
+                let (property_name, property_value) = match other_property_parse(&mut input) {
+                    Ok((property_name, property_value)) => (property_name, property_value),
+                    Err(e) => {
+                        return Err(input.error(e.into_inner().unwrap()));
+                    }
                 };
 
                 other_properties
                     .get_mut(other_property_group.unwrap())
                     .unwrap()
                     .insert(property_name, property_value);
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -567,7 +547,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -593,7 +573,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -620,7 +600,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -648,7 +628,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -676,7 +656,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -704,7 +684,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -732,7 +712,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -759,7 +739,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -786,7 +766,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -814,7 +794,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -842,7 +822,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -868,7 +848,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -894,7 +874,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -930,7 +910,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -968,7 +948,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -994,7 +974,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1020,7 +1000,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1056,7 +1036,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1090,7 +1070,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1116,7 +1096,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1151,7 +1131,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1185,7 +1165,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1211,7 +1191,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1237,7 +1217,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1283,7 +1263,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1316,7 +1296,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1349,7 +1329,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1382,7 +1362,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1417,7 +1397,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1451,7 +1431,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1479,7 +1459,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1526,7 +1506,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1552,7 +1532,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1578,7 +1558,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1604,7 +1584,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1630,7 +1610,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1656,7 +1636,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1682,7 +1662,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1708,7 +1688,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1741,7 +1721,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1871,7 +1851,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1906,7 +1886,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -1937,7 +1917,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, "=", space0)
+                if (space0::<_, VB6Error>, '=', space0)
                     .parse_next(&mut input)
                     .is_err()
                 {
@@ -2078,7 +2058,7 @@ fn process_parameter<T>(
 where
     T: TryFrom<i16>,
 {
-    if (space0::<_, VB6ErrorKind>, "=", space0)
+    if (space0::<_, VB6ErrorKind>, '=', space0)
         .parse_next(input)
         .is_err()
     {
@@ -2109,8 +2089,34 @@ where
     Ok(conversion)
 }
 
+fn other_property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<(&'a BStr, &'a BStr)> {
+    let property_name = match (opt(space0), take_until(0.., '=')).parse_next(input) {
+        Ok((_, property_name)) => property_name,
+        Err(e) => return Err(ErrMode::Cut(e.into_inner().unwrap())),
+    };
+
+    if (opt(space0::<_, VB6Error>), '=').parse_next(input).is_err() {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+    }
+
+    let property_value = match take_until::<_, _, VB6ErrorKind>(0.., ("\r", "\n")).parse_next(input)
+    {
+        Ok(property_value) => property_value,
+        Err(e) => return Err(ErrMode::Cut(e.into_inner().unwrap())),
+    };
+
+    if (space0, alt((line_ending, line_comment_parse)))
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+    }
+
+    Ok((property_name, property_value))
+}
+
 fn title_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
-    if (space0::<_, VB6Error>, "=", space0)
+    if (space0::<_, VB6Error>, '=', space0)
         .parse_next(input)
         .is_err()
     {
