@@ -11,7 +11,7 @@ use thiserror::Error;
 
 use crate::parsers::VB6Stream;
 
-#[derive(Error, Debug)]
+#[derive(Error, Debug, PartialEq, Eq)]
 pub enum VB6ErrorKind {
     #[error("The reference line has too many elements")]
     ReferenceExtraSections,
