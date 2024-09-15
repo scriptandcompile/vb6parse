@@ -615,26 +615,12 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
                 let class = match class_parse.parse_next(&mut input) {
                     Ok(class) => class,
                     Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
 
                 classes.push(class);
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -2143,7 +2129,21 @@ fn module_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectModule<'a>
 }
 
 fn class_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectClass<'a>> {
+    if (space0::<_, VB6Error>, '=', space0)
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+    };
+
     let (name, path) = semicolon_space_split_parse.parse_next(input)?;
+
+    if (space0, alt((line_ending, line_comment_parse)))
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+    }
 
     let name = name.as_bstr();
     let path = path.as_bstr();
@@ -2408,11 +2408,10 @@ mod tests {
             b"Class=CStatusBarClass; ..\\DBCommon\\CStatusBarClass.cls\r\n",
         );
 
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Class=".parse_next(&mut input);
+        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Class".parse_next(&mut input);
         let result = class_parse.parse_next(&mut input).unwrap();
 
-        // we don't consume the line ending, so we should have 2 bytes left.
-        assert_eq!(input.complete(), 2);
+        assert_eq!(input.complete(), 0);
         assert_eq!(result.name, "CStatusBarClass");
         assert_eq!(result.path, "..\\DBCommon\\CStatusBarClass.cls");
     }
