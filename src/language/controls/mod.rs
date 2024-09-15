@@ -211,7 +211,8 @@ pub enum DragMode {
 
 /// Specifies how the pen (the color used in drawing) interacts with the
 /// background.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum DrawMode {
     /// Black pen color is applied over the background.
     Blackness = 1,
@@ -239,6 +240,7 @@ pub enum DrawMode {
     MergeNotPen = 12,
     /// The color specified by the `ForeColor` property is applied over the background.
     /// This is the default setting.
+    #[default]
     CopyPen = 13,
     /// The combination of the pen color and inverse of the display color.
     MergePenNot = 14,
