@@ -559,25 +559,12 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
+                let designer = match designer_parse.parse_next(&mut input) {
+                    Ok(designer) => designer,
+                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
 
-                let Ok(designer) = take_until_line_ending.parse_next(&mut input) else {
-                    return Err(input.error(VB6ErrorKind::DesignerLineUnparseable));
-                };
-
-                designers.push(designer.as_bstr());
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
+                designers.push(designer);
 
                 continue;
             }
@@ -2085,6 +2072,28 @@ fn other_property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<(&'a BStr, &
     }
 
     Ok((property_name, property_value))
+}
+
+fn designer_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
+    if (space0::<_, VB6Error>, '=', space0)
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+    };
+
+    let Ok(designer) = take_until_line_ending.parse_next(input) else {
+        return Err(ErrMode::Cut(VB6ErrorKind::DesignerLineUnparseable));
+    };
+
+    if (space0, alt((line_ending, line_comment_parse)))
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+    }
+
+    Ok(designer)
 }
 
 fn title_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
