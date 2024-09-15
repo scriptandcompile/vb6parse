@@ -306,6 +306,19 @@ fn build_control<'a>(
             let draw_style_key = BStr::new("DrawStyle");
             form_properties.draw_style = build_property::<DrawStyle>(&properties, draw_style_key);
 
+            // DrawWidth
+            // Enabled
+
+            let fillcolor_key = BStr::new("FillColor");
+            if properties.contains_key(fillcolor_key) {
+                let color_ascii = properties[fillcolor_key];
+
+                let Ok(fill_color) = VB6Color::from_hex(color_ascii.to_str().unwrap()) else {
+                    return Err(VB6ErrorKind::HexColorParseError);
+                };
+                form_properties.fill_color = fill_color;
+            }
+
             let mut converted_menus = vec![];
 
             for menu in menus {
