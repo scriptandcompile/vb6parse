@@ -273,7 +273,7 @@ pub enum VB6ProjectReference<'a> {
         path: &'a BStr,
         description: &'a BStr,
     },
-    Project {
+    SubProject {
         path: &'a BStr,
     },
 }
@@ -303,8 +303,8 @@ impl Serialize for VB6ProjectReference<'_> {
 
                 state.end()
             }
-            VB6ProjectReference::Project { path } => {
-                let mut state = serializer.serialize_struct("ProjectReference", 1)?;
+            VB6ProjectReference::SubProject { path } => {
+                let mut state = serializer.serialize_struct("SubProjectReference", 1)?;
 
                 state.serialize_field("path", path)?;
 
@@ -547,24 +547,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
                 project_type = match project_type_parse.parse_next(&mut input) {
                     Ok(project_type) => Some(project_type),
                     Err(e) => return Err(input.error(e.into_inner().unwrap())),
                 };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
 
                 continue;
             }
@@ -2021,10 +2007,10 @@ impl<'a> VB6Project<'a> {
     }
 
     #[must_use]
-    pub fn get_project_references(&self) -> Vec<&VB6ProjectReference> {
+    pub fn get_subproject_references(&self) -> Vec<&VB6ProjectReference> {
         self.references
             .iter()
-            .filter(|reference| matches!(reference, VB6ProjectReference::Project { .. }))
+            .filter(|reference| matches!(reference, VB6ProjectReference::SubProject { .. }))
             .collect::<Vec<_>>()
     }
 
@@ -2191,7 +2177,7 @@ fn project_reference_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Projec
         return Err(ErrMode::Cut(VB6ErrorKind::ReferenceMissingSections));
     };
 
-    let reference = VB6ProjectReference::Project { path };
+    let reference = VB6ProjectReference::SubProject { path };
 
     Ok(reference)
 }
@@ -2260,6 +2246,13 @@ fn reference_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectReferen
 }
 
 fn project_type_parse(input: &mut VB6Stream<'_>) -> VB6Result<CompileTargetType> {
+    if (space0::<_, VB6Error>, '=', space0)
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+    };
+
     // The first line of any VB6 project file (vbp) is a type line that
     // tells us what kind of project we have.
     // this should be in every project file, even an empty one, and it must
@@ -2271,13 +2264,22 @@ fn project_type_parse(input: &mut VB6Stream<'_>) -> VB6Result<CompileTargetType>
     // By this point in the parse the "Type=" component should be stripped off
     // since that is how we knew to use this particular parse.
 
-    let project_type = alt::<_, CompileTargetType, VB6ErrorKind, _>((
+    let Ok(project_type) = alt::<_, CompileTargetType, VB6ErrorKind, _>((
         "Exe".value(CompileTargetType::Exe),
         "Control".value(CompileTargetType::Control),
         "OleExe".value(CompileTargetType::OleExe),
         "OleDll".value(CompileTargetType::OleDll),
     ))
-    .parse_next(input)?;
+    .parse_next(input) else {
+        return Err(ErrMode::Cut(VB6ErrorKind::ProjectTypeUnknown));
+    };
+
+    if (space0, alt((line_ending, line_comment_parse)))
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+    }
 
     Ok(project_type)
 }
@@ -2290,9 +2292,9 @@ mod tests {
 
     #[test]
     fn project_type_is_exe() {
-        let mut input = VB6Stream::new("", b"Type=Exe");
+        let mut input = VB6Stream::new("", b"Type=Exe\n");
 
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Type=".parse_next(&mut input);
+        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Type".parse_next(&mut input);
 
         let result = project_type_parse.parse_next(&mut input).unwrap();
 
@@ -2301,26 +2303,53 @@ mod tests {
 
     #[test]
     fn project_type_is_oledll() {
-        let mut input = VB6Stream::new("", b"Type=OleDll");
+        let mut input = VB6Stream::new("", b"Type=OleDll\r\n");
 
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Type=".parse_next(&mut input);
+        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Type".parse_next(&mut input);
 
         let result = project_type_parse.parse_next(&mut input).unwrap();
         assert_eq!(result, CompileTargetType::OleDll);
     }
 
     #[test]
-    fn project_type_is_unknown_type() {
-        let mut input = VB6Stream::new("", b"Type=blah");
+    fn project_type_is_control() {
+        let mut input = VB6Stream::new("", b"Type=Control\n");
 
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Type=".parse_next(&mut input);
+        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Type".parse_next(&mut input);
 
-        let result = project_type_parse.parse_next(&mut input);
-        assert!(result.is_err());
+        let result = project_type_parse.parse_next(&mut input).unwrap();
+
+        assert_eq!(result, CompileTargetType::Control);
     }
 
     #[test]
-    fn reference_line_valid() {
+    fn project_type_is_oleexe() {
+        let mut input = VB6Stream::new("", b"Type=OleExe\n");
+
+        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Type".parse_next(&mut input);
+
+        let result = project_type_parse.parse_next(&mut input).unwrap();
+
+        assert_eq!(result, CompileTargetType::OleExe);
+    }
+
+    #[test]
+    fn project_type_is_unknown_type() {
+        let mut input = VB6Stream::new("", b"Type=blah\r\n");
+
+        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Type".parse_next(&mut input);
+
+        let result = project_type_parse.parse_next(&mut input);
+
+        assert!(result.is_err());
+        assert_eq!(
+            result.err().unwrap().into_inner().unwrap(),
+            VB6ErrorKind::ProjectTypeUnknown
+        );
+    }
+
+    #[test]
+    fn reference_compiled_line_valid() {
         let mut input = VB6Stream::new("", b"Reference=*\\G{000440D8-E9ED-4435-A9A2-06B05387BB16}#c.0#0#..\\DBCommon\\Libs\\VbIntellisenseFix.dll#VbIntellisenseFix\r\n");
 
         let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Reference".parse_next(&mut input);
@@ -2346,6 +2375,23 @@ mod tests {
         assert_eq!(result.2, "0");
         assert_eq!(result.3, r"..\DBCommon\Libs\VbIntellisenseFix.dll");
         assert_eq!(result.4, r"VbIntellisenseFix");
+    }
+
+    #[test]
+    fn reference_subproject_line_valid() {
+        let mut input = VB6Stream::new("", b"Reference=*\\Atest.vbp\r\n");
+
+        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Reference".parse_next(&mut input);
+
+        let result = reference_parse.parse_next(&mut input).unwrap();
+
+        assert_eq!(input.complete(), 0);
+        assert_eq!(
+            result,
+            VB6ProjectReference::SubProject {
+                path: BStr::new("test.vbp")
+            }
+        );
     }
 
     #[test]
