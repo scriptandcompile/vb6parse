@@ -1371,31 +1371,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                compilation_type = match (opt("-"), digit1::<_, VB6ErrorKind>)
-                    .take()
-                    .parse_next(&mut input)
-                {
-                    Ok(compilation_type) => match compilation_type.as_bytes() {
-                        b"-1" => CompilationType::PCode,
-                        b"0" => CompilationType::NativeCode,
-                        _ => return Err(input.error(VB6ErrorKind::CompilationTypeUnparseable)),
-                    },
-                    Err(_) => return Err(input.error(VB6ErrorKind::CompilationTypeUnparseable)),
-                };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
+                compilation_type = process_parameter::<CompilationType>(
+                    &mut input,
+                    VB6ErrorKind::CompilationTypeUnparseable,
+                )?;
 
                 continue;
             }
@@ -1404,29 +1383,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                optimization_type = match digit1::<_, VB6ErrorKind>.parse_next(&mut input) {
-                    Ok(op) => match op.as_bytes() {
-                        b"0" => OptimizationType::FavorFastCode,
-                        b"1" => OptimizationType::FavorSmallCode,
-                        b"2" => OptimizationType::NoOptimization,
-                        _ => return Err(input.error(VB6ErrorKind::OptimizationTypeUnparseable)),
-                    },
-                    Err(_) => return Err(input.error(VB6ErrorKind::OptimizationTypeUnparseable)),
-                };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
+                optimization_type = process_parameter::<OptimizationType>(
+                    &mut input,
+                    VB6ErrorKind::OptimizationTypeUnparseable,
+                )?;
 
                 continue;
             }
