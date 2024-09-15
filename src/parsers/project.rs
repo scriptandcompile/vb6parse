@@ -739,10 +739,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                res_file_32_path = match qouted_parameter_parse.parse_next(&mut input) {
-                    Ok(res_file_32_path) => Some(res_file_32_path),
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
+                res_file_32_path = qouted_parameter_parse(&mut input)?;
 
                 continue;
             }
@@ -751,10 +748,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                icon_form = match qouted_parameter_parse.parse_next(&mut input) {
-                    Ok(icon_form) => Some(icon_form),
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
+                icon_form = qouted_parameter_parse(&mut input)?;
 
                 continue;
             }
@@ -775,10 +769,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                help_file_path = match qouted_parameter_parse.parse_next(&mut input) {
-                    Ok(help_file_path) => Some(help_file_path),
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
+                help_file_path = qouted_parameter_parse(&mut input)?;
 
                 continue;
             }
@@ -799,10 +790,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                exe_32_file_name = match qouted_parameter_parse.parse_next(&mut input) {
-                    Ok(exe_32_file_name) => Some(exe_32_file_name),
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
+                exe_32_file_name = qouted_parameter_parse(&mut input)?;
 
                 continue;
             }
@@ -811,10 +799,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                path_32 = match qouted_parameter_parse.parse_next(&mut input) {
-                    Ok(path_32) => Some(path_32),
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
+                path_32 = qouted_parameter_parse(&mut input)?;
 
                 continue;
             }
@@ -847,10 +832,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                description = match qouted_parameter_parse.parse_next(&mut input) {
-                    Ok(description) => Some(description),
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
+                description = qouted_parameter_parse(&mut input)?;
 
                 continue;
             }
@@ -884,11 +866,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                version_32_compatibility = match qouted_parameter_parse.parse_next(&mut input) {
-                    Ok(version_32_compatibility) => Some(version_32_compatibility),
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
-
+                version_32_compatibility = qouted_parameter_parse(&mut input)?;
                 continue;
             }
 
@@ -896,10 +874,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                exe_32_compatible = match qouted_parameter_parse.parse_next(&mut input) {
-                    Ok(exe_32_compatible) => Some(exe_32_compatible),
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
+                exe_32_compatible = qouted_parameter_parse(&mut input)?;
 
                 continue;
             }
@@ -908,35 +883,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                let Ok(base_address_hex_text): VB6Result<_> =
-                    take_until_line_ending.parse_next(&mut input)
-                else {
-                    return Err(input.error(VB6ErrorKind::DllBaseAddressUnparseable));
-                };
-
-                dll_base_address = match u32::from_str_radix(
-                    base_address_hex_text.to_string().trim_start_matches("&H"),
-                    16,
-                ) {
-                    Ok(dll_base_address) => dll_base_address,
-                    Err(_) => {
-                        return Err(input.error(VB6ErrorKind::DllBaseAddressUnparseable));
-                    }
-                };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
+                dll_base_address = dll_base_address_parse(&mut input)?;
 
                 continue;
             }
@@ -1174,10 +1121,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                company_name = match qouted_parameter_parse.parse_next(&mut input) {
-                    Ok(company_name) => Some(company_name),
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
+                company_name = qouted_parameter_parse(&mut input)?;
                 continue;
             }
 
@@ -1185,10 +1129,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                file_description = match qouted_parameter_parse.parse_next(&mut input) {
-                    Ok(file_description) => Some(file_description),
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
+                file_description = qouted_parameter_parse(&mut input)?;
                 continue;
             }
 
@@ -1196,11 +1137,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                copyright = match qouted_parameter_parse.parse_next(&mut input) {
-                    Ok(copyright) => Some(copyright),
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
-
+                copyright = qouted_parameter_parse(&mut input)?;
                 continue;
             }
 
@@ -1208,10 +1145,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                trademark = match qouted_parameter_parse.parse_next(&mut input) {
-                    Ok(trademark) => Some(trademark),
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
+                trademark = qouted_parameter_parse(&mut input)?;
 
                 continue;
             }
@@ -1220,10 +1154,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                product_name = match qouted_parameter_parse.parse_next(&mut input) {
-                    Ok(product_name) => Some(product_name),
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
+                product_name = qouted_parameter_parse(&mut input)?;
 
                 continue;
             }
@@ -1232,10 +1163,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                comments = match qouted_parameter_parse.parse_next(&mut input) {
-                    Ok(comments) => Some(comments),
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
+                comments = qouted_parameter_parse(&mut input)?;
 
                 continue;
             }
@@ -1244,10 +1172,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                conditional_compile = match qouted_parameter_parse.parse_next(&mut input) {
-                    Ok(conditional_compile) => Some(conditional_compile),
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
+                conditional_compile = qouted_parameter_parse(&mut input)?;
 
                 continue;
             }
@@ -1597,24 +1522,24 @@ where
     Ok(conversion)
 }
 
-fn qouted_parameter_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
+fn qouted_parameter_parse<'a>(input: &mut VB6Stream<'a>) -> Result<Option<&'a BStr>, VB6Error> {
     if (space0::<_, VB6Error>, '=', space0)
         .parse_next(input)
         .is_err()
     {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+        return Err(input.error(VB6ErrorKind::NoEqualSplit));
     };
 
     let value = match qouted_value("\"").parse_next(input) {
-        Ok(value) => value,
-        Err(e) => return Err(ErrMode::Cut(e.into_inner().unwrap())),
+        Ok(value) => Some(value),
+        Err(e) => return Err(input.error(e.into_inner().unwrap())),
     };
 
     if (space0, alt((line_ending, line_comment_parse)))
         .parse_next(input)
         .is_err()
     {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+        return Err(input.error(VB6ErrorKind::NoLineEnding));
     }
 
     Ok(value)
@@ -1652,6 +1577,38 @@ fn qouted_optional_parameter_parse<'a>(
     }
 
     Ok(value)
+}
+
+fn dll_base_address_parse(input: &mut VB6Stream<'_>) -> Result<u32, VB6Error> {
+    if (space0::<_, VB6Error>, '=', space0)
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(input.error(VB6ErrorKind::NoEqualSplit));
+    };
+
+    let Ok(base_address_hex_text): VB6Result<_> = take_until_line_ending.parse_next(input) else {
+        return Err(input.error(VB6ErrorKind::DllBaseAddressUnparseable));
+    };
+
+    let dll_base_address = match u32::from_str_radix(
+        base_address_hex_text.to_string().trim_start_matches("&H"),
+        16,
+    ) {
+        Ok(dll_base_address) => dll_base_address,
+        Err(_) => {
+            return Err(input.error(VB6ErrorKind::DllBaseAddressUnparseable));
+        }
+    };
+
+    if (space0, alt((line_ending, line_comment_parse)))
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(input.error(VB6ErrorKind::NoLineEnding));
+    }
+
+    Ok(dll_base_address)
 }
 
 fn other_property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<(&'a BStr, &'a BStr)> {
