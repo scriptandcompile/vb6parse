@@ -61,9 +61,6 @@ pub enum VB6ErrorKind {
     #[error("Unable to parse hex address from DllBaseAddress key")]
     DllBaseAddressUnparseable,
 
-    #[error("CompatibleMode Invalid. CompatibileMode can only be 0, 1, or 2.")]
-    CompatibleModeUnparseable,
-
     #[error("Minor version is not a number.")]
     MinorVersionUnparseable,
 
@@ -85,7 +82,7 @@ pub enum VB6ErrorKind {
     #[error("AutoIncrement can only be a 0 (false) or a -1 (true)")]
     AutoIncrementUnparseable,
 
-    #[error("CompatibilityMode can only be a 0 (false) or a -1 (true)")]
+    #[error("CompatibilityMode can only be a 0 (CompatibilityMode::NoCompatibility), 1 (CompatibilityMode::Project), or 2 (CompatibilityMode::CompatibleExe)")]
     CompatibilityModeUnparseable,
 
     #[error("NoControlUpgrade can only be a 0 (UpgradeControls::Upgrade) or a 1 (UpgradeControls::NoUpgrade)")]
