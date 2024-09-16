@@ -47,8 +47,10 @@ pub enum FormBorderStyle {
     SizableToolWindow = 5,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum WindowState {
+    #[default]
     Normal = 0,
     Minimized = 1,
     Maximized = 2,
