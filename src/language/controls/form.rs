@@ -25,11 +25,13 @@ pub enum PaletteMode {
     Custom = 2,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum StartUpPosition {
     Manual = 0,
     CenterOwner = 1,
     CenterScreen = 2,
+    #[default]
     WindowsDefault = 3,
 }
 

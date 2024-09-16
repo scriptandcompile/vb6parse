@@ -13,8 +13,8 @@ use crate::{
         FormLinkMode, FormProperties, FrameProperties, ImageProperties, LabelProperties,
         LineProperties, ListBoxProperties, MenuProperties, MousePointer, OLEDropMode,
         OLEProperties, OptionButtonProperties, PaletteMode, PictureBoxProperties, ScaleMode,
-        ScrollBarProperties, ShapeProperties, TextBoxProperties, TimerProperties, VB6Color,
-        VB6Control, VB6ControlKind, VB6MenuControl, VB6Token,
+        ScrollBarProperties, ShapeProperties, StartUpPosition, TextBoxProperties, TimerProperties,
+        VB6Color, VB6Control, VB6ControlKind, VB6MenuControl, VB6Token,
     },
     parsers::{
         header::{key_resource_offset_line_parse, version_parse, HeaderKind, VB6FileFormatVersion},
@@ -376,6 +376,14 @@ fn build_control<'a>(
 
             let scale_mode_key = BStr::new("ScaleMode");
             form_properties.scale_mode = build_property::<ScaleMode>(&properties, scale_mode_key);
+
+            // ScaleTop
+            // ScaleWidth
+            // ShowInTaskbar
+
+            let start_up_position_key = BStr::new("StartUpPosition");
+            form_properties.start_up_position =
+                build_property::<StartUpPosition>(&properties, start_up_position_key);
 
             let mut converted_menus = vec![];
 

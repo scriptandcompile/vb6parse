@@ -120,7 +120,7 @@ form:
         scale_top: 0
         scale_width: 240
         show_in_taskbar: true
-        start_up_position: WindowsDefault
+        start_up_position: CenterScreen
         top: 0
         visible: true
         whats_this_button: false
