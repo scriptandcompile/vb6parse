@@ -11,9 +11,10 @@ use crate::{
         Appearance, CheckBoxProperties, ClipControls, ComboBoxProperties, CommandButtonProperties,
         DataProperties, DirListBoxProperties, DrawMode, DrawStyle, FillStyle, FormBorderStyle,
         FormLinkMode, FormProperties, FrameProperties, ImageProperties, LabelProperties,
-        LineProperties, ListBoxProperties, MenuProperties, OLEProperties, OptionButtonProperties,
-        PictureBoxProperties, ScrollBarProperties, ShapeProperties, TextBoxProperties,
-        TimerProperties, VB6Color, VB6Control, VB6ControlKind, VB6MenuControl, VB6Token,
+        LineProperties, ListBoxProperties, MenuProperties, MousePointer, OLEProperties,
+        OptionButtonProperties, PictureBoxProperties, ScrollBarProperties, ShapeProperties,
+        TextBoxProperties, TimerProperties, VB6Color, VB6Control, VB6ControlKind, VB6MenuControl,
+        VB6Token,
     },
     parsers::{
         header::{key_resource_offset_line_parse, version_parse, HeaderKind, VB6FileFormatVersion},
@@ -344,6 +345,16 @@ fn build_control<'a>(
 
             let link_mode_key = BStr::new("LinkMode");
             form_properties.link_mode = build_property::<FormLinkMode>(&properties, link_mode_key);
+
+            // LinkTopic
+            // MaxButton
+            // MDIChild
+            // MinButton
+            // MouseIcon
+
+            let mouse_pointer_key = BStr::new("MousePointer");
+            form_properties.mouse_pointer =
+                build_property::<MousePointer>(&properties, mouse_pointer_key);
 
             let mut converted_menus = vec![];
 
