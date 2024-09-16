@@ -11,10 +11,10 @@ use crate::{
         Appearance, CheckBoxProperties, ClipControls, ComboBoxProperties, CommandButtonProperties,
         DataProperties, DirListBoxProperties, DrawMode, DrawStyle, FillStyle, FormBorderStyle,
         FormLinkMode, FormProperties, FrameProperties, ImageProperties, LabelProperties,
-        LineProperties, ListBoxProperties, MenuProperties, MousePointer, OLEProperties,
-        OptionButtonProperties, PictureBoxProperties, ScrollBarProperties, ShapeProperties,
-        TextBoxProperties, TimerProperties, VB6Color, VB6Control, VB6ControlKind, VB6MenuControl,
-        VB6Token,
+        LineProperties, ListBoxProperties, MenuProperties, MousePointer, OLEDropMode,
+        OLEProperties, OptionButtonProperties, PictureBoxProperties, ScrollBarProperties,
+        ShapeProperties, TextBoxProperties, TimerProperties, VB6Color, VB6Control, VB6ControlKind,
+        VB6MenuControl, VB6Token,
     },
     parsers::{
         header::{key_resource_offset_line_parse, version_parse, HeaderKind, VB6FileFormatVersion},
@@ -355,6 +355,13 @@ fn build_control<'a>(
             let mouse_pointer_key = BStr::new("MousePointer");
             form_properties.mouse_pointer =
                 build_property::<MousePointer>(&properties, mouse_pointer_key);
+
+            // Moveable
+            // NegotiateMenus
+
+            let ole_drop_mode_key = BStr::new("OLEDropMode");
+            form_properties.ole_drop_mode =
+                build_property::<OLEDropMode>(&properties, ole_drop_mode_key);
 
             let mut converted_menus = vec![];
 

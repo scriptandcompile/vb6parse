@@ -330,7 +330,8 @@ pub enum OLEDragMode {
 }
 
 /// Determines the style of drop operations.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum OLEDropMode {
     /// The control does not accept any OLE drop operations.
     #[default]
