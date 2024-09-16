@@ -16,8 +16,10 @@ pub enum FormLinkMode {
     Source = 1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum PaletteMode {
+    #[default]
     HalfTone = 0,
     UseZOrder = 1,
     Custom = 2,
