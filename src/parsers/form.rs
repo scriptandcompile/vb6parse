@@ -9,11 +9,11 @@ use crate::{
     errors::{VB6Error, VB6ErrorKind},
     language::{
         Appearance, CheckBoxProperties, ClipControls, ComboBoxProperties, CommandButtonProperties,
-        DataProperties, DirListBoxProperties, DrawMode, DrawStyle, FormBorderStyle, FormProperties,
-        FrameProperties, ImageProperties, LabelProperties, LineProperties, ListBoxProperties,
-        MenuProperties, OLEProperties, OptionButtonProperties, PictureBoxProperties,
-        ScrollBarProperties, ShapeProperties, TextBoxProperties, TimerProperties, VB6Color,
-        VB6Control, VB6ControlKind, VB6MenuControl, VB6Token,
+        DataProperties, DirListBoxProperties, DrawMode, DrawStyle, FillStyle, FormBorderStyle,
+        FormProperties, FrameProperties, ImageProperties, LabelProperties, LineProperties,
+        ListBoxProperties, MenuProperties, OLEProperties, OptionButtonProperties,
+        PictureBoxProperties, ScrollBarProperties, ShapeProperties, TextBoxProperties,
+        TimerProperties, VB6Color, VB6Control, VB6ControlKind, VB6MenuControl, VB6Token,
     },
     parsers::{
         header::{key_resource_offset_line_parse, version_parse, HeaderKind, VB6FileFormatVersion},
@@ -309,15 +309,18 @@ fn build_control<'a>(
             // DrawWidth
             // Enabled
 
-            let fillcolor_key = BStr::new("FillColor");
-            if properties.contains_key(fillcolor_key) {
-                let color_ascii = properties[fillcolor_key];
+            let fill_color_key = BStr::new("FillColor");
+            if properties.contains_key(fill_color_key) {
+                let color_ascii = properties[fill_color_key];
 
                 let Ok(fill_color) = VB6Color::from_hex(color_ascii.to_str().unwrap()) else {
                     return Err(VB6ErrorKind::HexColorParseError);
                 };
                 form_properties.fill_color = fill_color;
             }
+
+            let fill_style_key = BStr::new("FillStyle");
+            form_properties.fill_style = build_property::<FillStyle>(&properties, fill_style_key);
 
             let mut converted_menus = vec![];
 

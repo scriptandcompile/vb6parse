@@ -74,7 +74,7 @@ form:
             red: 0
             green: 0
             blue: 0
-        fill_style: Transparent
+        fill_style: Solid
         font_transparent: true
         fore_color:
           System:

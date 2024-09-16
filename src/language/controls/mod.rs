@@ -357,9 +357,11 @@ pub enum Style {
     Graphical = 1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum FillStyle {
     Solid = 0,
+    #[default]
     Transparent = 1,
     HorizontalLine = 2,
     VerticalLine = 3,
