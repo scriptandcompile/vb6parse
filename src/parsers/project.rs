@@ -1373,10 +1373,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                debug_startup_option = match debug_startup_option_parse.parse_next(&mut input) {
-                    Ok(debug_startup_option) => debug_startup_option,
-                    Err(_) => return Err(input.error(VB6ErrorKind::DebugStartupOptionUnparseable)),
-                };
+                debug_startup_option = process_parameter::<DebugStartupOption>(
+                    &mut input,
+                    VB6ErrorKind::DebugStartupOptionUnparseable,
+                )?;
 
                 continue;
             }
@@ -1635,35 +1635,6 @@ fn other_property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<(&'a BStr, &
     }
 
     Ok((property_name, property_value))
-}
-
-fn debug_startup_option_parse(input: &mut VB6Stream<'_>) -> VB6Result<DebugStartupOption> {
-    if (space0::<_, VB6Error>, '=', space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    };
-
-    let debug_startup_option = match take_until_line_ending.parse_next(input) {
-        Ok(debug_startup_option) => match debug_startup_option.as_bytes() {
-            b"0" => DebugStartupOption::WaitForComponentCreation,
-            b"1" => DebugStartupOption::StartComponent,
-            b"2" => DebugStartupOption::StartProgram,
-            b"3" => DebugStartupOption::StartBrowser,
-            _ => return Err(ErrMode::Cut(VB6ErrorKind::DebugStartupOptionUnparseable)),
-        },
-        Err(_) => return Err(ErrMode::Cut(VB6ErrorKind::DebugStartupOptionUnparseable)),
-    };
-
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
-    }
-
-    Ok(debug_startup_option)
 }
 
 fn designer_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
@@ -1994,62 +1965,6 @@ mod tests {
         let result = compatibility_mode_parse.parse_next(&mut input).unwrap();
 
         assert_eq!(result, CompatibilityMode::CompatibleExe);
-    }
-
-    #[test]
-    fn debug_startup_option_is_unknown() {
-        let mut input = VB6Stream::new("", b"DebugStartupOption =5\n");
-
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "DebugStartupOption".parse_next(&mut input);
-
-        let result = debug_startup_option_parse.parse_next(&mut input);
-
-        assert_eq!(
-            result.err().unwrap().into_inner().unwrap(),
-            VB6ErrorKind::DebugStartupOptionUnparseable
-        );
-    }
-
-    #[test]
-    fn debug_startup_option_is_() {
-        let mut input = VB6Stream::new("", b"DebugStartupOption=0\n");
-
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "DebugStartupOption".parse_next(&mut input);
-
-        let result = debug_startup_option_parse.parse_next(&mut input).unwrap();
-
-        assert_eq!(result, DebugStartupOption::WaitForComponentCreation);
-    }
-
-    #[test]
-    fn debug_startup_option_is_start_component() {
-        let mut input = VB6Stream::new("", b"DebugStartupOption = 1\r\n");
-
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "DebugStartupOption".parse_next(&mut input);
-
-        let result = debug_startup_option_parse.parse_next(&mut input).unwrap();
-        assert_eq!(result, DebugStartupOption::StartComponent);
-    }
-
-    #[test]
-    fn debug_startup_option_is_start_program() {
-        let mut input = VB6Stream::new("", b"DebugStartupOption= 2\n");
-
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "DebugStartupOption".parse_next(&mut input);
-
-        let result = debug_startup_option_parse.parse_next(&mut input).unwrap();
-
-        assert_eq!(result, DebugStartupOption::StartProgram);
-    }
-
-    #[test]
-    fn debug_startup_option_is_start_browser() {
-        let mut input = VB6Stream::new("", b"DebugStartupOption = 3\r\n");
-
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "DebugStartupOption".parse_next(&mut input);
-
-        let result = debug_startup_option_parse.parse_next(&mut input).unwrap();
-        assert_eq!(result, DebugStartupOption::StartBrowser);
     }
 
     #[test]
