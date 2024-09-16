@@ -322,6 +322,19 @@ fn build_control<'a>(
             let fill_style_key = BStr::new("FillStyle");
             form_properties.fill_style = build_property::<FillStyle>(&properties, fill_style_key);
 
+            // Font - group
+            // FontTransparent
+
+            let fore_color_key = BStr::new("ForeColor");
+            if properties.contains_key(fore_color_key) {
+                let color_ascii = properties[fore_color_key];
+
+                let Ok(fore_color) = VB6Color::from_hex(color_ascii.to_str().unwrap()) else {
+                    return Err(VB6ErrorKind::HexColorParseError);
+                };
+                form_properties.fore_color = fore_color;
+            }
+
             let mut converted_menus = vec![];
 
             for menu in menus {

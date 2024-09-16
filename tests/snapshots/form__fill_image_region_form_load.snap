@@ -77,8 +77,10 @@ form:
         fill_style: Solid
         font_transparent: true
         fore_color:
-          System:
-            index: 18
+          RGB:
+            red: 0
+            green: 0
+            blue: 0
         has_dc: true
         height: 240
         help_context_id: 0
