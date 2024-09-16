@@ -14,7 +14,7 @@ use crate::{
         LineProperties, ListBoxProperties, MenuProperties, MousePointer, OLEDropMode,
         OLEProperties, OptionButtonProperties, PaletteMode, PictureBoxProperties, ScaleMode,
         ScrollBarProperties, ShapeProperties, StartUpPosition, TextBoxProperties, TimerProperties,
-        VB6Color, VB6Control, VB6ControlKind, VB6MenuControl, VB6Token,
+        VB6Color, VB6Control, VB6ControlKind, VB6MenuControl, VB6Token, WindowState,
     },
     parsers::{
         header::{key_resource_offset_line_parse, version_parse, HeaderKind, VB6FileFormatVersion},
@@ -384,6 +384,17 @@ fn build_control<'a>(
             let start_up_position_key = BStr::new("StartUpPosition");
             form_properties.start_up_position =
                 build_property::<StartUpPosition>(&properties, start_up_position_key);
+
+            // Tag
+            // Top
+            // Visible
+            // WhatsThisButton
+            // WhatsThisHelp
+            // Width
+
+            let window_state_key = BStr::new("WindowState");
+            form_properties.window_state =
+                build_property::<WindowState>(&properties, window_state_key);
 
             let mut converted_menus = vec![];
 
