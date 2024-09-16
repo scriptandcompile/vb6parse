@@ -568,9 +568,16 @@ fn build_control<'a>(
         }
     };
 
+    let tag_key = BStr::new("Tag");
+    let tag = if properties.contains_key(tag_key) {
+        properties[tag_key].to_str().unwrap_or_default()
+    } else {
+        ""
+    };
+
     let parent_control = VB6Control {
         name: fully_qualified_name.name,
-        tag: "",
+        tag: tag,
         index: 0,
         kind,
     };
