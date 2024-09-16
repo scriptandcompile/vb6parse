@@ -10,8 +10,8 @@ use crate::{
     language::{
         Appearance, CheckBoxProperties, ClipControls, ComboBoxProperties, CommandButtonProperties,
         DataProperties, DirListBoxProperties, DrawMode, DrawStyle, FillStyle, FormBorderStyle,
-        FormProperties, FrameProperties, ImageProperties, LabelProperties, LineProperties,
-        ListBoxProperties, MenuProperties, OLEProperties, OptionButtonProperties,
+        FormLinkMode, FormProperties, FrameProperties, ImageProperties, LabelProperties,
+        LineProperties, ListBoxProperties, MenuProperties, OLEProperties, OptionButtonProperties,
         PictureBoxProperties, ScrollBarProperties, ShapeProperties, TextBoxProperties,
         TimerProperties, VB6Color, VB6Control, VB6ControlKind, VB6MenuControl, VB6Token,
     },
@@ -334,6 +334,16 @@ fn build_control<'a>(
                 };
                 form_properties.fore_color = fore_color;
             }
+
+            // HasDc
+            // Height
+            // HelpContextId
+            // Icon
+            // KeyPreview
+            // Left
+
+            let link_mode_key = BStr::new("LinkMode");
+            form_properties.link_mode = build_property::<FormLinkMode>(&properties, link_mode_key);
 
             let mut converted_menus = vec![];
 
