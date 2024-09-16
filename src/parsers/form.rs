@@ -12,7 +12,7 @@ use crate::{
         DataProperties, DirListBoxProperties, DrawMode, DrawStyle, FillStyle, FormBorderStyle,
         FormLinkMode, FormProperties, FrameProperties, ImageProperties, LabelProperties,
         LineProperties, ListBoxProperties, MenuProperties, MousePointer, OLEDropMode,
-        OLEProperties, OptionButtonProperties, PaletteMode, PictureBoxProperties,
+        OLEProperties, OptionButtonProperties, PaletteMode, PictureBoxProperties, ScaleMode,
         ScrollBarProperties, ShapeProperties, TextBoxProperties, TimerProperties, VB6Color,
         VB6Control, VB6ControlKind, VB6MenuControl, VB6Token,
     },
@@ -368,6 +368,14 @@ fn build_control<'a>(
             let palette_mode_key = BStr::new("PaletteMode");
             form_properties.palette_mode =
                 build_property::<PaletteMode>(&properties, palette_mode_key);
+
+            // Picture
+            // RightToLeft
+            // ScaleHeight
+            // ScaleLeft
+
+            let scale_mode_key = BStr::new("ScaleMode");
+            form_properties.scale_mode = build_property::<ScaleMode>(&properties, scale_mode_key);
 
             let mut converted_menus = vec![];
 
