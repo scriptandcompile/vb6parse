@@ -272,9 +272,11 @@ pub enum DrawStyle {
 }
 
 /// Determines the appearance of the mouse pointer when it is over the control.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum MousePointer {
     /// Standard pointer. the image is determined by the object (default).
+    #[default]
     Default = 0,
     /// Arrow pointer.
     Arrow = 1,
