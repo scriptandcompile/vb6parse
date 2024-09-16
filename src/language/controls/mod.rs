@@ -389,9 +389,11 @@ pub enum MultiSelect {
     Extended = 2,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum ScaleMode {
     User = 0,
+    #[default]
     Twip = 1,
     Point = 2,
     Pixel = 3,
