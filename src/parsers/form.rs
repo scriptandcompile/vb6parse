@@ -12,9 +12,9 @@ use crate::{
         DataProperties, DirListBoxProperties, DrawMode, DrawStyle, FillStyle, FormBorderStyle,
         FormLinkMode, FormProperties, FrameProperties, ImageProperties, LabelProperties,
         LineProperties, ListBoxProperties, MenuProperties, MousePointer, OLEDropMode,
-        OLEProperties, OptionButtonProperties, PictureBoxProperties, ScrollBarProperties,
-        ShapeProperties, TextBoxProperties, TimerProperties, VB6Color, VB6Control, VB6ControlKind,
-        VB6MenuControl, VB6Token,
+        OLEProperties, OptionButtonProperties, PaletteMode, PictureBoxProperties,
+        ScrollBarProperties, ShapeProperties, TextBoxProperties, TimerProperties, VB6Color,
+        VB6Control, VB6ControlKind, VB6MenuControl, VB6Token,
     },
     parsers::{
         header::{key_resource_offset_line_parse, version_parse, HeaderKind, VB6FileFormatVersion},
@@ -362,6 +362,12 @@ fn build_control<'a>(
             let ole_drop_mode_key = BStr::new("OLEDropMode");
             form_properties.ole_drop_mode =
                 build_property::<OLEDropMode>(&properties, ole_drop_mode_key);
+
+            // Palette
+
+            let palette_mode_key = BStr::new("PaletteMode");
+            form_properties.palette_mode =
+                build_property::<PaletteMode>(&properties, palette_mode_key);
 
             let mut converted_menus = vec![];
 
