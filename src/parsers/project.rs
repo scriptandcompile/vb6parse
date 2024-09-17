@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 use std::convert::TryFrom;
+use std::str::FromStr;
 
 use bstr::{BStr, ByteSlice};
 use num_enum::TryFromPrimitive;
@@ -904,31 +905,8 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                let Ok(major_ver): VB6Result<_> = take_until_line_ending.parse_next(&mut input)
-                else {
-                    return Err(input.error(VB6ErrorKind::MajorVersionUnparseable));
-                };
-
-                major = match major_ver.to_string().as_str().parse::<u16>() {
-                    Ok(major) => major,
-                    Err(_) => {
-                        return Err(input.error(VB6ErrorKind::MajorVersionUnparseable));
-                    }
-                };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
+                major =
+                    process_numeric_parameter(&mut input, VB6ErrorKind::MajorVersionUnparseable)?;
 
                 continue;
             }
@@ -937,31 +915,8 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                let Ok(minor_ver): VB6Result<_> = take_until_line_ending.parse_next(&mut input)
-                else {
-                    return Err(input.error(VB6ErrorKind::MinorVersionUnparseable));
-                };
-
-                minor = match minor_ver.to_string().as_str().parse::<u16>() {
-                    Ok(minor) => minor,
-                    Err(_) => {
-                        return Err(input.error(VB6ErrorKind::MinorVersionUnparseable));
-                    }
-                };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
+                minor =
+                    process_numeric_parameter(&mut input, VB6ErrorKind::MinorVersionUnparseable)?;
 
                 continue;
             }
@@ -970,31 +925,10 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                let Ok(revision_ver): VB6Result<_> = take_until_line_ending.parse_next(&mut input)
-                else {
-                    return Err(input.error(VB6ErrorKind::RevisionVersionUnparseable));
-                };
-
-                revision = match revision_ver.to_string().as_str().parse::<u16>() {
-                    Ok(revision) => revision,
-                    Err(_) => {
-                        return Err(input.error(VB6ErrorKind::RevisionVersionUnparseable));
-                    }
-                };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
+                revision = process_numeric_parameter(
+                    &mut input,
+                    VB6ErrorKind::RevisionVersionUnparseable,
+                )?;
 
                 continue;
             }
@@ -1015,32 +949,8 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
-
-                let Ok(auto_increment): VB6Result<_> =
-                    take_until_line_ending.parse_next(&mut input)
-                else {
-                    return Err(input.error(VB6ErrorKind::AutoIncrementUnparseable));
-                };
-
-                auto_increment_revision = match auto_increment.to_string().as_str().parse::<u16>() {
-                    Ok(auto_increment_revision) => auto_increment_revision,
-                    Err(_) => {
-                        return Err(input.error(VB6ErrorKind::AutoIncrementUnparseable));
-                    }
-                };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
+                auto_increment_revision =
+                    process_numeric_parameter(&mut input, VB6ErrorKind::AutoIncrementUnparseable)?;
 
                 continue;
             }
@@ -1523,6 +1433,43 @@ where
     }
 
     Ok(conversion)
+}
+
+fn process_numeric_parameter<'a, F>(
+    input: &mut VB6Stream<'a>,
+    error_on_conversion: VB6ErrorKind,
+) -> Result<F, VB6Error>
+where
+    F: FromStr,
+{
+    if (space0::<_, VB6Error>, '=', space0)
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(input.error(VB6ErrorKind::NoEqualSplit));
+    };
+
+    let Ok(result_ascii) =
+        take_while::<_, _, VB6ErrorKind>(1.., ('-', '0'..='9')).parse_next(input)
+    else {
+        return Err(input.error(error_on_conversion));
+    };
+
+    let value = match result_ascii.to_string().as_str().parse::<F>() {
+        Ok(value) => value,
+        Err(_) => {
+            return Err(input.error(error_on_conversion));
+        }
+    };
+
+    if (space0, alt((line_ending, line_comment_parse)))
+        .parse_next(input)
+        .is_err()
+    {
+        return Err(input.error(VB6ErrorKind::NoLineEnding));
+    }
+
+    Ok(value)
 }
 
 fn process_qouted_parameter<'a>(input: &mut VB6Stream<'a>) -> Result<Option<&'a BStr>, VB6Error> {
