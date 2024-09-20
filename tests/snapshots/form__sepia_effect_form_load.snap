@@ -338,6 +338,7 @@ form:
               - 105
               - 108
               - 101
+            checked: false
             enabled: true
             help_context_id: 0
             negotiate_position: None
@@ -361,6 +362,7 @@ form:
                   - 97
                   - 103
                   - 101
+                checked: false
                 enabled: true
                 help_context_id: 0
                 negotiate_position: None
