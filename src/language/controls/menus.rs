@@ -1,4 +1,5 @@
 use bstr::BStr;
+use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
 /// Represents a VB6 menu control.
@@ -28,6 +29,7 @@ pub struct VB6MenuControl<'a> {
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct MenuProperties<'a> {
     pub caption: &'a BStr,
+    pub checked: bool,
     pub enabled: bool,
     pub help_context_id: i32,
     pub negotiate_position: NegotiatePosition,
@@ -40,6 +42,7 @@ impl Default for MenuProperties<'_> {
     fn default() -> Self {
         MenuProperties {
             caption: BStr::new(""),
+            checked: false,
             enabled: true,
             help_context_id: 0,
             negotiate_position: NegotiatePosition::None,
@@ -50,8 +53,10 @@ impl Default for MenuProperties<'_> {
     }
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
+#[repr(i32)]
 pub enum NegotiatePosition {
+    #[default]
     None = 0,
     Left = 1,
     Middle = 2,
@@ -139,4 +144,87 @@ pub enum ShortCut {
     Del,
     ShiftDel,
     AltBKsp,
+}
+
+impl ShortCut {
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "^A" => Some(ShortCut::CtrlA),
+            "^B" => Some(ShortCut::CtrlB),
+            "^C" => Some(ShortCut::CtrlC),
+            "^D" => Some(ShortCut::CtrlD),
+            "^E" => Some(ShortCut::CtrlE),
+            "^F" => Some(ShortCut::CtrlF),
+            "^G" => Some(ShortCut::CtrlG),
+            "^H" => Some(ShortCut::CtrlH),
+            "^I" => Some(ShortCut::CtrlI),
+            "^J" => Some(ShortCut::CtrlJ),
+            "^K" => Some(ShortCut::CtrlK),
+            "^L" => Some(ShortCut::CtrlL),
+            "^M" => Some(ShortCut::CtrlM),
+            "^N" => Some(ShortCut::CtrlN),
+            "^O" => Some(ShortCut::CtrlO),
+            "^P" => Some(ShortCut::CtrlP),
+            "^Q" => Some(ShortCut::CtrlQ),
+            "^R" => Some(ShortCut::CtrlR),
+            "^S" => Some(ShortCut::CtrlS),
+            "^T" => Some(ShortCut::CtrlT),
+            "^U" => Some(ShortCut::CtrlU),
+            "^V" => Some(ShortCut::CtrlV),
+            "^W" => Some(ShortCut::CtrlW),
+            "^X" => Some(ShortCut::CtrlX),
+            "^Y" => Some(ShortCut::CtrlY),
+            "^Z" => Some(ShortCut::CtrlZ),
+            "{F1}" => Some(ShortCut::F1),
+            "{F2}" => Some(ShortCut::F2),
+            "{F3}" => Some(ShortCut::F3),
+            "{F4}" => Some(ShortCut::F4),
+            "{F5}" => Some(ShortCut::F5),
+            "{F6}" => Some(ShortCut::F6),
+            "{F7}" => Some(ShortCut::F7),
+            "{F8}" => Some(ShortCut::F8),
+            "{F9}" => Some(ShortCut::F9),
+            "{F11}" => Some(ShortCut::F11),
+            "{F12}" => Some(ShortCut::F12),
+            "^{F1}" => Some(ShortCut::CtrlF1),
+            "^{F2}" => Some(ShortCut::CtrlF2),
+            "^{F3}" => Some(ShortCut::CtrlF3),
+            "^{F4}" => Some(ShortCut::CtrlF4),
+            "^{F5}" => Some(ShortCut::CtrlF5),
+            "^{F6}" => Some(ShortCut::CtrlF6),
+            "^{F7}" => Some(ShortCut::CtrlF7),
+            "^{F8}" => Some(ShortCut::CtrlF8),
+            "^{F9}" => Some(ShortCut::CtrlF9),
+            "^{F11}" => Some(ShortCut::CtrlF11),
+            "^{F12}" => Some(ShortCut::CtrlF12),
+            "+{F1}" => Some(ShortCut::ShiftF1),
+            "+{F2}" => Some(ShortCut::ShiftF2),
+            "+{F3}" => Some(ShortCut::ShiftF3),
+            "+{F4}" => Some(ShortCut::ShiftF4),
+            "+{F5}" => Some(ShortCut::ShiftF5),
+            "+{F6}" => Some(ShortCut::ShiftF6),
+            "+{F7}" => Some(ShortCut::ShiftF7),
+            "+{F8}" => Some(ShortCut::ShiftF8),
+            "+{F9}" => Some(ShortCut::ShiftF9),
+            "+{F11}" => Some(ShortCut::ShiftF11),
+            "+{F12}" => Some(ShortCut::ShiftF12),
+            "+^{F1}" => Some(ShortCut::ShiftCtrlF1),
+            "+^{F2}" => Some(ShortCut::ShiftCtrlF2),
+            "+^{F3}" => Some(ShortCut::ShiftCtrlF3),
+            "+^{F4}" => Some(ShortCut::ShiftCtrlF4),
+            "+^{F5}" => Some(ShortCut::ShiftCtrlF5),
+            "+^{F6}" => Some(ShortCut::ShiftCtrlF6),
+            "+^{F7}" => Some(ShortCut::ShiftCtrlF7),
+            "+^{F8}" => Some(ShortCut::ShiftCtrlF8),
+            "+^{F9}" => Some(ShortCut::ShiftCtrlF9),
+            "+^{F11}" => Some(ShortCut::ShiftCtrlF11),
+            "+^{F12}" => Some(ShortCut::ShiftCtrlF12),
+            "^{INSERT}" => Some(ShortCut::CtrlIns),
+            "+{INSERT}" => Some(ShortCut::ShiftIns),
+            "{DEL}" => Some(ShortCut::Del),
+            "+{DEL}" => Some(ShortCut::ShiftDel),
+            "%{BKSP}" => Some(ShortCut::AltBKsp),
+            _ => None,
+        }
+    }
 }

@@ -503,6 +503,7 @@ form:
               - 105
               - 108
               - 101
+            checked: false
             enabled: true
             help_context_id: 0
             negotiate_position: None
@@ -523,10 +524,11 @@ form:
                   - 77
                   - 97
                   - 112
+                checked: false
                 enabled: true
                 help_context_id: 0
                 negotiate_position: None
-                shortcut: ~
+                shortcut: CtrlN
                 visible: true
                 window_list: false
               sub_menus: []
@@ -544,10 +546,11 @@ form:
                   - 77
                   - 97
                   - 112
+                checked: false
                 enabled: true
                 help_context_id: 0
                 negotiate_position: None
-                shortcut: ~
+                shortcut: CtrlO
                 visible: true
                 window_list: false
               sub_menus: []
@@ -573,10 +576,11 @@ form:
                   - 77
                   - 97
                   - 112
+                checked: false
                 enabled: true
                 help_context_id: 0
                 negotiate_position: None
-                shortcut: ~
+                shortcut: CtrlS
                 visible: true
                 window_list: false
               sub_menus: []
@@ -586,6 +590,7 @@ form:
               properties:
                 caption:
                   - 45
+                checked: false
                 enabled: true
                 help_context_id: 0
                 negotiate_position: None
@@ -603,10 +608,11 @@ form:
                   - 120
                   - 105
                   - 116
+                checked: false
                 enabled: true
                 help_context_id: 0
                 negotiate_position: None
-                shortcut: ~
+                shortcut: CtrlX
                 visible: true
                 window_list: false
               sub_menus: []
@@ -623,6 +629,7 @@ form:
               - 111
               - 110
               - 115
+            checked: false
             enabled: true
             help_context_id: 0
             negotiate_position: None
@@ -649,6 +656,7 @@ form:
                   - 77
                   - 97
                   - 112
+                checked: false
                 enabled: true
                 help_context_id: 0
                 negotiate_position: None
@@ -666,6 +674,7 @@ form:
               - 105
               - 101
               - 119
+            checked: false
             enabled: true
             help_context_id: 0
             negotiate_position: None
@@ -693,10 +702,11 @@ form:
                   - 101
                   - 101
                   - 110
+                checked: false
                 enabled: true
                 help_context_id: 0
                 negotiate_position: None
-                shortcut: ~
+                shortcut: CtrlR
                 visible: true
                 window_list: false
               sub_menus: []
@@ -706,6 +716,7 @@ form:
               properties:
                 caption:
                   - 45
+                checked: false
                 enabled: true
                 help_context_id: 0
                 negotiate_position: None
@@ -730,10 +741,11 @@ form:
                   - 111
                   - 111
                   - 109
+                checked: false
                 enabled: true
                 help_context_id: 0
                 negotiate_position: None
-                shortcut: ~
+                shortcut: CtrlZ
                 visible: true
                 window_list: false
               sub_menus: []
