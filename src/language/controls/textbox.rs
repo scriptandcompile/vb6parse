@@ -1,13 +1,26 @@
-use crate::language::controls::{
-    Alignment, Appearance, BorderStyle, DragMode, LinkMode, MousePointer, OLEDragMode, OLEDropMode,
-};
-use crate::VB6Color;
+use std::collections::HashMap;
 
+use crate::{
+    errors::VB6ErrorKind,
+    language::controls::{
+        Alignment, Appearance, BorderStyle, DragMode, LinkMode, MousePointer, OLEDragMode,
+        OLEDropMode,
+    },
+    parsers::form::{
+        build_bool_property, build_color_property, build_i32_property, build_property,
+    },
+    VB6Color,
+};
+
+use bstr::{BStr, ByteSlice};
 use image::DynamicImage;
+use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
+#[repr(i32)]
 pub enum ScrollBars {
+    #[default]
     None = 0,
     Horizontal = 1,
     Vertical = 2,
@@ -164,5 +177,189 @@ impl Serialize for TextBoxProperties<'_> {
         s.serialize_field("width", &self.width)?;
 
         s.end()
+    }
+}
+
+impl<'a> TextBoxProperties<'a> {
+    pub fn construct_control(
+        properties: &HashMap<&'a BStr, &'a BStr>,
+    ) -> Result<Self, VB6ErrorKind> {
+        let mut text_box_properties = TextBoxProperties::default();
+
+        text_box_properties.alignment =
+            build_property::<Alignment>(&properties, BStr::new("Alignment"));
+
+        text_box_properties.appearance =
+            build_property::<Appearance>(&properties, BStr::new("Appearance"));
+
+        text_box_properties.back_color = build_color_property(
+            &properties,
+            BStr::new("BackColor"),
+            text_box_properties.back_color,
+        );
+
+        text_box_properties.border_style =
+            build_property::<BorderStyle>(&properties, BStr::new("BorderStyle"));
+
+        text_box_properties.causes_validation = build_bool_property(
+            &properties,
+            BStr::new("CausesValidation"),
+            text_box_properties.causes_validation,
+        );
+
+        text_box_properties.data_field = properties
+            .get(BStr::new("DataField"))
+            .map(|s| s.to_str().unwrap_or(""))
+            .unwrap_or(text_box_properties.data_field);
+
+        text_box_properties.data_format = properties
+            .get(BStr::new("DataFormat"))
+            .map(|s| s.to_str().unwrap_or(""))
+            .unwrap_or(text_box_properties.data_format);
+
+        text_box_properties.data_member = properties
+            .get(BStr::new("DataMember"))
+            .map(|s| s.to_str().unwrap_or(""))
+            .unwrap_or(text_box_properties.data_member);
+
+        text_box_properties.data_source = properties
+            .get(BStr::new("DataSource"))
+            .map(|s| s.to_str().unwrap_or(""))
+            .unwrap_or(text_box_properties.data_source);
+
+        // drag_icon: Option<DynamicImage>,
+        text_box_properties.drag_mode =
+            build_property::<DragMode>(&properties, BStr::new("DragMode"));
+
+        text_box_properties.enabled = build_bool_property(
+            &properties,
+            BStr::new("Enabled"),
+            text_box_properties.enabled,
+        );
+
+        text_box_properties.fore_color = build_color_property(
+            &properties,
+            BStr::new("ForeColor"),
+            text_box_properties.fore_color,
+        );
+
+        text_box_properties.height =
+            build_i32_property(&properties, BStr::new("Height"), text_box_properties.height);
+
+        text_box_properties.help_context_id = build_i32_property(
+            &properties,
+            BStr::new("HelpContextID"),
+            text_box_properties.help_context_id,
+        );
+
+        text_box_properties.hide_selection = build_bool_property(
+            &properties,
+            BStr::new("HideSelection"),
+            text_box_properties.hide_selection,
+        );
+
+        text_box_properties.left =
+            build_i32_property(&properties, BStr::new("Left"), text_box_properties.left);
+
+        text_box_properties.link_item = properties
+            .get(BStr::new("LinkItem"))
+            .map(|s| s.to_str().unwrap_or(""))
+            .unwrap_or(text_box_properties.link_item);
+
+        text_box_properties.link_mode =
+            build_property::<LinkMode>(&properties, BStr::new("LinkMode"));
+
+        text_box_properties.link_timeout = build_i32_property(
+            &properties,
+            BStr::new("LinkTimeout"),
+            text_box_properties.link_timeout,
+        );
+
+        text_box_properties.link_topic = properties
+            .get(BStr::new("LinkTopic"))
+            .map(|s| s.to_str().unwrap_or(""))
+            .unwrap_or(text_box_properties.link_topic);
+
+        text_box_properties.locked =
+            build_bool_property(&properties, BStr::new("Locked"), text_box_properties.locked);
+
+        text_box_properties.max_length = build_i32_property(
+            &properties,
+            BStr::new("MaxLength"),
+            text_box_properties.max_length,
+        );
+
+        // mouse_icon: Option<DynamicImage>,
+
+        text_box_properties.mouse_pointer =
+            build_property::<MousePointer>(&properties, BStr::new("MousePointer"));
+
+        text_box_properties.multi_line = build_bool_property(
+            &properties,
+            BStr::new("MultiLine"),
+            text_box_properties.multi_line,
+        );
+
+        text_box_properties.ole_drag_mode =
+            build_property::<OLEDragMode>(&properties, BStr::new("OLEDragMode"));
+
+        text_box_properties.ole_drop_mode =
+            build_property::<OLEDropMode>(&properties, BStr::new("OLEDropMode"));
+
+        text_box_properties.password_char = properties
+            .get(BStr::new("PasswordChar"))
+            .map(|s| s.to_str().unwrap_or("").chars().next())
+            .flatten();
+
+        text_box_properties.right_to_left = build_bool_property(
+            &properties,
+            BStr::new("RightToLeft"),
+            text_box_properties.right_to_left,
+        );
+
+        text_box_properties.scroll_bars =
+            build_property::<ScrollBars>(&properties, BStr::new("ScrollBars"));
+
+        text_box_properties.tab_index = build_i32_property(
+            &properties,
+            BStr::new("TabIndex"),
+            text_box_properties.tab_index,
+        );
+
+        text_box_properties.tab_stop = build_bool_property(
+            &properties,
+            BStr::new("TabStop"),
+            text_box_properties.tab_stop,
+        );
+
+        text_box_properties.text = properties
+            .get(BStr::new("Text"))
+            .map(|s| s.to_str().unwrap_or(""))
+            .unwrap_or(text_box_properties.text);
+
+        text_box_properties.tool_tip_text = properties
+            .get(BStr::new("ToolTipText"))
+            .map(|s| s.to_str().unwrap_or(""))
+            .unwrap_or(text_box_properties.tool_tip_text);
+
+        text_box_properties.top =
+            build_i32_property(&properties, BStr::new("Top"), text_box_properties.top);
+
+        text_box_properties.visible = build_bool_property(
+            &properties,
+            BStr::new("Visible"),
+            text_box_properties.visible,
+        );
+
+        text_box_properties.whats_this_help_id = build_i32_property(
+            &properties,
+            BStr::new("WhatsThisHelpID"),
+            text_box_properties.whats_this_help_id,
+        );
+
+        text_box_properties.width =
+            build_i32_property(&properties, BStr::new("Width"), text_box_properties.width);
+
+        Ok(text_box_properties)
     }
 }
