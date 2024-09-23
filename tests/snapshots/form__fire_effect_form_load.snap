@@ -243,7 +243,7 @@ form:
             TextBox:
               properties:
                 alignment: LeftJustify
-                appearance: ThreeD
+                appearance: Flat
                 back_color:
                   System:
                     index: 5
@@ -259,13 +259,13 @@ form:
                 fore_color:
                   System:
                     index: 8
-                height: 30
+                height: 285
                 help_context_id: 0
                 hide_selection: true
-                left: 30
+                left: 2160
                 link_item: ""
                 link_mode: None
-                link_timeout: 50
+                link_timeout: 0
                 link_topic: ""
                 locked: false
                 max_length: 0
@@ -277,14 +277,14 @@ form:
                 password_char: ~
                 right_to_left: false
                 scroll_bars: None
-                tab_index: 0
+                tab_index: 4
                 tab_stop: true
-                text: ""
+                text: "128"
                 tool_tip_text: ""
-                top: 30
+                top: 120
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 495
         - name: txtWidth
           tag: ""
           index: 0
@@ -292,7 +292,7 @@ form:
             TextBox:
               properties:
                 alignment: LeftJustify
-                appearance: ThreeD
+                appearance: Flat
                 back_color:
                   System:
                     index: 5
@@ -308,13 +308,13 @@ form:
                 fore_color:
                   System:
                     index: 8
-                height: 30
+                height: 285
                 help_context_id: 0
                 hide_selection: true
-                left: 30
+                left: 720
                 link_item: ""
                 link_mode: None
-                link_timeout: 50
+                link_timeout: 0
                 link_topic: ""
                 locked: false
                 max_length: 0
@@ -326,14 +326,14 @@ form:
                 password_char: ~
                 right_to_left: false
                 scroll_bars: None
-                tab_index: 0
+                tab_index: 3
                 tab_stop: true
-                text: ""
+                text: "512"
                 tool_tip_text: ""
-                top: 30
+                top: 120
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 495
         - name: cmdStop
           tag: ""
           index: 0

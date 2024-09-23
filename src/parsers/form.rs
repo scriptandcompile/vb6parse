@@ -333,9 +333,10 @@ fn build_control<'a>(
             }
         }
         b"TextBox" => {
-            // TODO: We are not correctly handling property assignment for each control.
+            let textbox_properties = TextBoxProperties::construct_control(&properties)?;
+
             VB6ControlKind::TextBox {
-                properties: TextBoxProperties::default(),
+                properties: textbox_properties,
             }
         }
         b"Timer" => {

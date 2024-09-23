@@ -161,8 +161,10 @@ pub enum JustifyAlignment {
     RightJustify = 1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
+#[repr(i32)]
 pub enum Alignment {
+    #[default]
     LeftJustify = 0,
     RightJustify = 1,
     Center = 2,
@@ -325,9 +327,11 @@ pub enum MousePointer {
 }
 
 /// Determines the style of drag and drop operations.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum OLEDragMode {
     /// The programmer handles all OLE drag/drop events manually. (default).
+    #[default]
     Manual = 0,
     /// The control automatically handles all OLE drag/drop events.
     Automatic = 1,
@@ -378,8 +382,10 @@ pub enum FillStyle {
     DiagonalCross = 7,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
+#[repr(i32)]
 pub enum LinkMode {
+    #[default]
     None = 0,
     Automatic = 1,
     Manual = 2,

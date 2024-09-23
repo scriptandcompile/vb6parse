@@ -339,7 +339,7 @@ form:
                     TextBox:
                       properties:
                         alignment: LeftJustify
-                        appearance: ThreeD
+                        appearance: Flat
                         back_color:
                           System:
                             index: 5
@@ -355,13 +355,13 @@ form:
                         fore_color:
                           System:
                             index: 8
-                        height: 30
+                        height: 285
                         help_context_id: 0
                         hide_selection: true
-                        left: 30
+                        left: 2400
                         link_item: ""
                         link_mode: None
-                        link_timeout: 50
+                        link_timeout: 0
                         link_topic: ""
                         locked: false
                         max_length: 0
@@ -373,14 +373,14 @@ form:
                         password_char: ~
                         right_to_left: false
                         scroll_bars: None
-                        tab_index: 0
+                        tab_index: 24
                         tab_stop: true
-                        text: ""
+                        text: "15"
                         tool_tip_text: ""
-                        top: 30
+                        top: 3690
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 1695
                 - name: txtMutateTurns
                   tag: ""
                   index: 0
@@ -388,7 +388,7 @@ form:
                     TextBox:
                       properties:
                         alignment: LeftJustify
-                        appearance: ThreeD
+                        appearance: Flat
                         back_color:
                           System:
                             index: 5
@@ -404,13 +404,13 @@ form:
                         fore_color:
                           System:
                             index: 8
-                        height: 30
+                        height: 285
                         help_context_id: 0
                         hide_selection: true
-                        left: 30
+                        left: 2040
                         link_item: ""
                         link_mode: None
-                        link_timeout: 50
+                        link_timeout: 0
                         link_topic: ""
                         locked: false
                         max_length: 0
@@ -422,14 +422,14 @@ form:
                         password_char: ~
                         right_to_left: false
                         scroll_bars: None
-                        tab_index: 0
+                        tab_index: 22
                         tab_stop: true
-                        text: ""
+                        text: "750"
                         tool_tip_text: ""
-                        top: 30
+                        top: 3330
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 2055
                 - name: chkMultiply
                   tag: ""
                   index: 0
@@ -485,7 +485,7 @@ form:
                     TextBox:
                       properties:
                         alignment: LeftJustify
-                        appearance: ThreeD
+                        appearance: Flat
                         back_color:
                           System:
                             index: 5
@@ -501,13 +501,13 @@ form:
                         fore_color:
                           System:
                             index: 8
-                        height: 30
+                        height: 285
                         help_context_id: 0
                         hide_selection: true
-                        left: 30
+                        left: 2640
                         link_item: ""
                         link_mode: None
-                        link_timeout: 50
+                        link_timeout: 0
                         link_topic: ""
                         locked: false
                         max_length: 0
@@ -519,14 +519,14 @@ form:
                         password_char: ~
                         right_to_left: false
                         scroll_bars: None
-                        tab_index: 0
+                        tab_index: 18
                         tab_stop: true
-                        text: ""
+                        text: "35"
                         tool_tip_text: ""
-                        top: 30
+                        top: 2490
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 1455
                 - name: txtFoodGen
                   tag: ""
                   index: 0
@@ -534,7 +534,7 @@ form:
                     TextBox:
                       properties:
                         alignment: LeftJustify
-                        appearance: ThreeD
+                        appearance: Flat
                         back_color:
                           System:
                             index: 5
@@ -550,13 +550,13 @@ form:
                         fore_color:
                           System:
                             index: 8
-                        height: 30
+                        height: 285
                         help_context_id: 0
                         hide_selection: true
-                        left: 30
+                        left: 2400
                         link_item: ""
                         link_mode: None
-                        link_timeout: 50
+                        link_timeout: 0
                         link_topic: ""
                         locked: false
                         max_length: 0
@@ -568,14 +568,14 @@ form:
                         password_char: ~
                         right_to_left: false
                         scroll_bars: None
-                        tab_index: 0
+                        tab_index: 16
                         tab_stop: true
-                        text: ""
+                        text: "5"
                         tool_tip_text: ""
-                        top: 30
+                        top: 2130
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 1695
                 - name: txtFoodRegen
                   tag: ""
                   index: 0
@@ -583,7 +583,7 @@ form:
                     TextBox:
                       properties:
                         alignment: LeftJustify
-                        appearance: ThreeD
+                        appearance: Flat
                         back_color:
                           System:
                             index: 5
@@ -599,13 +599,13 @@ form:
                         fore_color:
                           System:
                             index: 8
-                        height: 30
+                        height: 285
                         help_context_id: 0
                         hide_selection: true
-                        left: 30
+                        left: 2760
                         link_item: ""
                         link_mode: None
-                        link_timeout: 50
+                        link_timeout: 0
                         link_topic: ""
                         locked: false
                         max_length: 0
@@ -617,14 +617,14 @@ form:
                         password_char: ~
                         right_to_left: false
                         scroll_bars: None
-                        tab_index: 0
+                        tab_index: 14
                         tab_stop: true
-                        text: ""
+                        text: "20"
                         tool_tip_text: ""
-                        top: 30
+                        top: 1770
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 1335
                 - name: txtInitialEnergy
                   tag: ""
                   index: 0
@@ -632,7 +632,7 @@ form:
                     TextBox:
                       properties:
                         alignment: LeftJustify
-                        appearance: ThreeD
+                        appearance: Flat
                         back_color:
                           System:
                             index: 5
@@ -648,13 +648,13 @@ form:
                         fore_color:
                           System:
                             index: 8
-                        height: 30
+                        height: 285
                         help_context_id: 0
                         hide_selection: true
-                        left: 30
+                        left: 1440
                         link_item: ""
                         link_mode: None
-                        link_timeout: 50
+                        link_timeout: 0
                         link_topic: ""
                         locked: false
                         max_length: 0
@@ -666,14 +666,14 @@ form:
                         password_char: ~
                         right_to_left: false
                         scroll_bars: None
-                        tab_index: 0
+                        tab_index: 12
                         tab_stop: true
-                        text: ""
+                        text: "500"
                         tool_tip_text: ""
-                        top: 30
+                        top: 690
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 2655
                 - name: txtInitialFood
                   tag: ""
                   index: 0
@@ -681,7 +681,7 @@ form:
                     TextBox:
                       properties:
                         alignment: LeftJustify
-                        appearance: ThreeD
+                        appearance: Flat
                         back_color:
                           System:
                             index: 5
@@ -697,13 +697,13 @@ form:
                         fore_color:
                           System:
                             index: 8
-                        height: 30
+                        height: 285
                         help_context_id: 0
                         hide_selection: true
-                        left: 30
+                        left: 1800
                         link_item: ""
                         link_mode: None
-                        link_timeout: 50
+                        link_timeout: 0
                         link_topic: ""
                         locked: false
                         max_length: 0
@@ -715,14 +715,14 @@ form:
                         password_char: ~
                         right_to_left: false
                         scroll_bars: None
-                        tab_index: 0
+                        tab_index: 10
                         tab_stop: true
-                        text: ""
+                        text: "1500"
                         tool_tip_text: ""
-                        top: 30
+                        top: 1410
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 2295
                 - name: txtOrganisms
                   tag: ""
                   index: 0
@@ -730,7 +730,7 @@ form:
                     TextBox:
                       properties:
                         alignment: LeftJustify
-                        appearance: ThreeD
+                        appearance: Flat
                         back_color:
                           System:
                             index: 5
@@ -746,13 +746,13 @@ form:
                         fore_color:
                           System:
                             index: 8
-                        height: 30
+                        height: 285
                         help_context_id: 0
                         hide_selection: true
-                        left: 30
+                        left: 1440
                         link_item: ""
                         link_mode: None
-                        link_timeout: 50
+                        link_timeout: 0
                         link_topic: ""
                         locked: false
                         max_length: 0
@@ -764,14 +764,14 @@ form:
                         password_char: ~
                         right_to_left: false
                         scroll_bars: None
-                        tab_index: 0
+                        tab_index: 9
                         tab_stop: true
-                        text: ""
+                        text: "15"
                         tool_tip_text: ""
-                        top: 30
+                        top: 330
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 2655
                 - name: Label8
                   tag: ""
                   index: 0
@@ -1177,7 +1177,7 @@ form:
                     TextBox:
                       properties:
                         alignment: LeftJustify
-                        appearance: ThreeD
+                        appearance: Flat
                         back_color:
                           System:
                             index: 5
@@ -1193,32 +1193,32 @@ form:
                         fore_color:
                           System:
                             index: 8
-                        height: 30
+                        height: 2055
                         help_context_id: 0
                         hide_selection: true
-                        left: 30
+                        left: 120
                         link_item: ""
                         link_mode: None
-                        link_timeout: 50
+                        link_timeout: 0
                         link_topic: ""
                         locked: false
                         max_length: 0
                         mouse_icon: ~
                         mouse_pointer: Default
-                        multi_line: false
+                        multi_line: true
                         ole_drag_mode: Manual
                         ole_drop_mode: None
                         password_char: ~
                         right_to_left: false
                         scroll_bars: None
-                        tab_index: 0
+                        tab_index: 6
                         tab_stop: true
                         text: ""
                         tool_tip_text: ""
-                        top: 30
+                        top: 840
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 3975
                 - name: cmbOrganisms
                   tag: ""
                   index: 0
