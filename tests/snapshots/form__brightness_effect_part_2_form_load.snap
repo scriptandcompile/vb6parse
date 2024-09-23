@@ -10,7 +10,7 @@ form:
     Form:
       properties:
         appearance: ThreeD
-        auto_redraw: false
+        auto_redraw: true
         back_color:
           RGB:
             red: 192
@@ -84,7 +84,7 @@ form:
         control_box: true
         draw_mode: CopyPen
         draw_style: Solid
-        draw_width: 1
+        draw_width: 0
         enabled: true
         fill_color:
           RGB:
@@ -97,7 +97,7 @@ form:
           System:
             index: 18
         has_dc: true
-        height: 240
+        height: 0
         help_context_id: 0
         icon: ~
         key_preview: false
@@ -121,18 +121,18 @@ form:
         palette_mode: HalfTone
         picture: ~
         right_to_left: false
-        scale_height: 240
+        scale_height: 377
         scale_left: 0
         scale_mode: Pixel
         scale_top: 0
-        scale_width: 240
+        scale_width: 419
         show_in_taskbar: true
         start_up_position: CenterScreen
         top: 0
         visible: true
         whats_this_button: false
         whats_this_help: false
-        width: 240
+        width: 0
         window_state: Normal
       controls:
         - name: ChkAutoRedraw

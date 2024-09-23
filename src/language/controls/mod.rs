@@ -190,19 +190,23 @@ pub enum Appearance {
 }
 
 /// The border style determines the appearance of the border of a control.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum BorderStyle {
     /// The control has no border.
     None = 0,
     /// The control has a single-line border.
+    #[default]
     FixedSingle = 1,
 }
 
 /// Determines the style of drag and drop operations.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum DragMode {
     /// The control does not support drag and drop operations until
     /// the program manually initiates the drag operation.
+    #[default]
     Manual = 0,
     /// The control automatically initiates a drag operation when the
     /// user presses the mouse button on the control.

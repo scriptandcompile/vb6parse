@@ -168,6 +168,9 @@ pub enum VB6ErrorKind {
     )]
     RetainedUnparseable,
 
+    #[error("Unable to parse the ShurtCut property.")]
+    ShortCutUnparseable,
+
     #[error("DebugStartup can only be a 0 (false) or a -1 (true)")]
     DebugStartupOptionUnparseable,
 
@@ -301,7 +304,7 @@ pub enum VB6ErrorKind {
     VariableNameTooLong,
 
     #[error("Internal Parser Error - please report this issue to the developers.")]
-    WinnowParseError,
+    InternalParseError,
 }
 
 #[derive(Debug, Error)]
@@ -368,7 +371,7 @@ impl Display for VB6Error {
 
 impl<'a> ParserError<VB6Stream<'a>> for VB6Error {
     fn from_error_kind(input: &VB6Stream<'a>, _: ErrorKind) -> Self {
-        VB6Error::new(input, VB6ErrorKind::WinnowParseError)
+        VB6Error::new(input, VB6ErrorKind::InternalParseError)
     }
 
     fn append(self, _: &VB6Stream, _: &<VB6Stream as Stream>::Checkpoint, _: ErrorKind) -> Self {
@@ -379,13 +382,13 @@ impl<'a> ParserError<VB6Stream<'a>> for VB6Error {
 impl<'a> From<ParseError<VB6Stream<'a>, ContextError>> for VB6Error {
     fn from(err: ParseError<VB6Stream<'a>, ContextError>) -> Self {
         let input = err.input();
-        VB6Error::new(input, VB6ErrorKind::WinnowParseError)
+        VB6Error::new(input, VB6ErrorKind::InternalParseError)
     }
 }
 
 impl<'a> ParserError<VB6Stream<'a>> for VB6ErrorKind {
     fn from_error_kind(_: &VB6Stream, _: ErrorKind) -> Self {
-        VB6ErrorKind::WinnowParseError
+        VB6ErrorKind::InternalParseError
     }
 
     fn append(self, _: &VB6Stream, _: &<VB6Stream as Stream>::Checkpoint, _: ErrorKind) -> Self {
@@ -395,6 +398,6 @@ impl<'a> ParserError<VB6Stream<'a>> for VB6ErrorKind {
 
 impl<'a> From<ParseError<VB6Stream<'a>, ContextError>> for VB6ErrorKind {
     fn from(_: ParseError<VB6Stream<'a>, ContextError>) -> Self {
-        VB6ErrorKind::WinnowParseError
+        VB6ErrorKind::InternalParseError
     }
 }

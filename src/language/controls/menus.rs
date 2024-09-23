@@ -1,6 +1,14 @@
+use std::collections::HashMap;
+
 use bstr::BStr;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
+
+use crate::parsers::form::{
+    build_bool_property, build_i32_property, build_option_property, build_property,
+};
+
+use crate::errors::VB6ErrorKind;
 
 /// Represents a VB6 menu control.
 /// This should only be used as a child of a Form.
@@ -50,6 +58,50 @@ impl Default for MenuProperties<'_> {
             visible: true,
             window_list: false,
         }
+    }
+}
+
+impl<'a> MenuProperties<'a> {
+    pub fn build_control(properties: &HashMap<&'a BStr, &'a BStr>) -> Result<Self, VB6ErrorKind> {
+        let mut menu_properties = MenuProperties::default();
+
+        // TODO: We are not correctly handling property assignment for each control.
+        let caption_key = BStr::new("Caption");
+        menu_properties.caption = properties
+            .get(caption_key)
+            .unwrap_or(&menu_properties.caption);
+
+        let checked_key = BStr::new("Checked");
+        menu_properties.checked =
+            build_bool_property(&properties, checked_key, menu_properties.checked);
+
+        let enabled_key = BStr::new("Enabled");
+        menu_properties.enabled =
+            build_bool_property(&properties, enabled_key, menu_properties.enabled);
+
+        let help_context_id_key = BStr::new("HelpContextID");
+        menu_properties.help_context_id = build_i32_property(
+            &properties,
+            help_context_id_key,
+            menu_properties.help_context_id,
+        );
+
+        let negotiation_position_key = BStr::new("NegotiationPosition");
+        menu_properties.negotiate_position =
+            build_property::<NegotiatePosition>(&properties, negotiation_position_key);
+
+        let shortcut_key = BStr::new("Shortcut");
+        menu_properties.shortcut = build_option_property::<ShortCut>(&properties, shortcut_key);
+
+        let visible_key = BStr::new("Visible");
+        menu_properties.visible =
+            build_bool_property(&properties, visible_key, menu_properties.visible);
+
+        let window_list_key = BStr::new("WindowList");
+        menu_properties.window_list =
+            build_bool_property(&properties, window_list_key, menu_properties.window_list);
+
+        Ok(menu_properties)
     }
 }
 
@@ -146,85 +198,87 @@ pub enum ShortCut {
     AltBKsp,
 }
 
-impl ShortCut {
-    pub fn from_str(s: &str) -> Option<Self> {
+impl TryFrom<&str> for ShortCut {
+    type Error = VB6ErrorKind;
+
+    fn try_from(s: &str) -> Result<Self, VB6ErrorKind> {
         match s {
-            "^A" => Some(ShortCut::CtrlA),
-            "^B" => Some(ShortCut::CtrlB),
-            "^C" => Some(ShortCut::CtrlC),
-            "^D" => Some(ShortCut::CtrlD),
-            "^E" => Some(ShortCut::CtrlE),
-            "^F" => Some(ShortCut::CtrlF),
-            "^G" => Some(ShortCut::CtrlG),
-            "^H" => Some(ShortCut::CtrlH),
-            "^I" => Some(ShortCut::CtrlI),
-            "^J" => Some(ShortCut::CtrlJ),
-            "^K" => Some(ShortCut::CtrlK),
-            "^L" => Some(ShortCut::CtrlL),
-            "^M" => Some(ShortCut::CtrlM),
-            "^N" => Some(ShortCut::CtrlN),
-            "^O" => Some(ShortCut::CtrlO),
-            "^P" => Some(ShortCut::CtrlP),
-            "^Q" => Some(ShortCut::CtrlQ),
-            "^R" => Some(ShortCut::CtrlR),
-            "^S" => Some(ShortCut::CtrlS),
-            "^T" => Some(ShortCut::CtrlT),
-            "^U" => Some(ShortCut::CtrlU),
-            "^V" => Some(ShortCut::CtrlV),
-            "^W" => Some(ShortCut::CtrlW),
-            "^X" => Some(ShortCut::CtrlX),
-            "^Y" => Some(ShortCut::CtrlY),
-            "^Z" => Some(ShortCut::CtrlZ),
-            "{F1}" => Some(ShortCut::F1),
-            "{F2}" => Some(ShortCut::F2),
-            "{F3}" => Some(ShortCut::F3),
-            "{F4}" => Some(ShortCut::F4),
-            "{F5}" => Some(ShortCut::F5),
-            "{F6}" => Some(ShortCut::F6),
-            "{F7}" => Some(ShortCut::F7),
-            "{F8}" => Some(ShortCut::F8),
-            "{F9}" => Some(ShortCut::F9),
-            "{F11}" => Some(ShortCut::F11),
-            "{F12}" => Some(ShortCut::F12),
-            "^{F1}" => Some(ShortCut::CtrlF1),
-            "^{F2}" => Some(ShortCut::CtrlF2),
-            "^{F3}" => Some(ShortCut::CtrlF3),
-            "^{F4}" => Some(ShortCut::CtrlF4),
-            "^{F5}" => Some(ShortCut::CtrlF5),
-            "^{F6}" => Some(ShortCut::CtrlF6),
-            "^{F7}" => Some(ShortCut::CtrlF7),
-            "^{F8}" => Some(ShortCut::CtrlF8),
-            "^{F9}" => Some(ShortCut::CtrlF9),
-            "^{F11}" => Some(ShortCut::CtrlF11),
-            "^{F12}" => Some(ShortCut::CtrlF12),
-            "+{F1}" => Some(ShortCut::ShiftF1),
-            "+{F2}" => Some(ShortCut::ShiftF2),
-            "+{F3}" => Some(ShortCut::ShiftF3),
-            "+{F4}" => Some(ShortCut::ShiftF4),
-            "+{F5}" => Some(ShortCut::ShiftF5),
-            "+{F6}" => Some(ShortCut::ShiftF6),
-            "+{F7}" => Some(ShortCut::ShiftF7),
-            "+{F8}" => Some(ShortCut::ShiftF8),
-            "+{F9}" => Some(ShortCut::ShiftF9),
-            "+{F11}" => Some(ShortCut::ShiftF11),
-            "+{F12}" => Some(ShortCut::ShiftF12),
-            "+^{F1}" => Some(ShortCut::ShiftCtrlF1),
-            "+^{F2}" => Some(ShortCut::ShiftCtrlF2),
-            "+^{F3}" => Some(ShortCut::ShiftCtrlF3),
-            "+^{F4}" => Some(ShortCut::ShiftCtrlF4),
-            "+^{F5}" => Some(ShortCut::ShiftCtrlF5),
-            "+^{F6}" => Some(ShortCut::ShiftCtrlF6),
-            "+^{F7}" => Some(ShortCut::ShiftCtrlF7),
-            "+^{F8}" => Some(ShortCut::ShiftCtrlF8),
-            "+^{F9}" => Some(ShortCut::ShiftCtrlF9),
-            "+^{F11}" => Some(ShortCut::ShiftCtrlF11),
-            "+^{F12}" => Some(ShortCut::ShiftCtrlF12),
-            "^{INSERT}" => Some(ShortCut::CtrlIns),
-            "+{INSERT}" => Some(ShortCut::ShiftIns),
-            "{DEL}" => Some(ShortCut::Del),
-            "+{DEL}" => Some(ShortCut::ShiftDel),
-            "%{BKSP}" => Some(ShortCut::AltBKsp),
-            _ => None,
+            "^A" => Ok(ShortCut::CtrlA),
+            "^B" => Ok(ShortCut::CtrlB),
+            "^C" => Ok(ShortCut::CtrlC),
+            "^D" => Ok(ShortCut::CtrlD),
+            "^E" => Ok(ShortCut::CtrlE),
+            "^F" => Ok(ShortCut::CtrlF),
+            "^G" => Ok(ShortCut::CtrlG),
+            "^H" => Ok(ShortCut::CtrlH),
+            "^I" => Ok(ShortCut::CtrlI),
+            "^J" => Ok(ShortCut::CtrlJ),
+            "^K" => Ok(ShortCut::CtrlK),
+            "^L" => Ok(ShortCut::CtrlL),
+            "^M" => Ok(ShortCut::CtrlM),
+            "^N" => Ok(ShortCut::CtrlN),
+            "^O" => Ok(ShortCut::CtrlO),
+            "^P" => Ok(ShortCut::CtrlP),
+            "^Q" => Ok(ShortCut::CtrlQ),
+            "^R" => Ok(ShortCut::CtrlR),
+            "^S" => Ok(ShortCut::CtrlS),
+            "^T" => Ok(ShortCut::CtrlT),
+            "^U" => Ok(ShortCut::CtrlU),
+            "^V" => Ok(ShortCut::CtrlV),
+            "^W" => Ok(ShortCut::CtrlW),
+            "^X" => Ok(ShortCut::CtrlX),
+            "^Y" => Ok(ShortCut::CtrlY),
+            "^Z" => Ok(ShortCut::CtrlZ),
+            "{F1}" => Ok(ShortCut::F1),
+            "{F2}" => Ok(ShortCut::F2),
+            "{F3}" => Ok(ShortCut::F3),
+            "{F4}" => Ok(ShortCut::F4),
+            "{F5}" => Ok(ShortCut::F5),
+            "{F6}" => Ok(ShortCut::F6),
+            "{F7}" => Ok(ShortCut::F7),
+            "{F8}" => Ok(ShortCut::F8),
+            "{F9}" => Ok(ShortCut::F9),
+            "{F11}" => Ok(ShortCut::F11),
+            "{F12}" => Ok(ShortCut::F12),
+            "^{F1}" => Ok(ShortCut::CtrlF1),
+            "^{F2}" => Ok(ShortCut::CtrlF2),
+            "^{F3}" => Ok(ShortCut::CtrlF3),
+            "^{F4}" => Ok(ShortCut::CtrlF4),
+            "^{F5}" => Ok(ShortCut::CtrlF5),
+            "^{F6}" => Ok(ShortCut::CtrlF6),
+            "^{F7}" => Ok(ShortCut::CtrlF7),
+            "^{F8}" => Ok(ShortCut::CtrlF8),
+            "^{F9}" => Ok(ShortCut::CtrlF9),
+            "^{F11}" => Ok(ShortCut::CtrlF11),
+            "^{F12}" => Ok(ShortCut::CtrlF12),
+            "+{F1}" => Ok(ShortCut::ShiftF1),
+            "+{F2}" => Ok(ShortCut::ShiftF2),
+            "+{F3}" => Ok(ShortCut::ShiftF3),
+            "+{F4}" => Ok(ShortCut::ShiftF4),
+            "+{F5}" => Ok(ShortCut::ShiftF5),
+            "+{F6}" => Ok(ShortCut::ShiftF6),
+            "+{F7}" => Ok(ShortCut::ShiftF7),
+            "+{F8}" => Ok(ShortCut::ShiftF8),
+            "+{F9}" => Ok(ShortCut::ShiftF9),
+            "+{F11}" => Ok(ShortCut::ShiftF11),
+            "+{F12}" => Ok(ShortCut::ShiftF12),
+            "+^{F1}" => Ok(ShortCut::ShiftCtrlF1),
+            "+^{F2}" => Ok(ShortCut::ShiftCtrlF2),
+            "+^{F3}" => Ok(ShortCut::ShiftCtrlF3),
+            "+^{F4}" => Ok(ShortCut::ShiftCtrlF4),
+            "+^{F5}" => Ok(ShortCut::ShiftCtrlF5),
+            "+^{F6}" => Ok(ShortCut::ShiftCtrlF6),
+            "+^{F7}" => Ok(ShortCut::ShiftCtrlF7),
+            "+^{F8}" => Ok(ShortCut::ShiftCtrlF8),
+            "+^{F9}" => Ok(ShortCut::ShiftCtrlF9),
+            "+^{F11}" => Ok(ShortCut::ShiftCtrlF11),
+            "+^{F12}" => Ok(ShortCut::ShiftCtrlF12),
+            "^{INSERT}" => Ok(ShortCut::CtrlIns),
+            "+{INSERT}" => Ok(ShortCut::ShiftIns),
+            "{DEL}" => Ok(ShortCut::Del),
+            "+{DEL}" => Ok(ShortCut::ShiftDel),
+            "%{BKSP}" => Ok(ShortCut::AltBKsp),
+            _ => Err(VB6ErrorKind::ShortCutUnparseable),
         }
     }
 }

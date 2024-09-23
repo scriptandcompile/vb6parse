@@ -8,14 +8,11 @@ use num_enum::TryFromPrimitive;
 use crate::{
     errors::{VB6Error, VB6ErrorKind},
     language::{
-        Appearance, CheckBoxProperties, ClipControls, ComboBoxProperties, CommandButtonProperties,
-        DataProperties, DirListBoxProperties, DrawMode, DrawStyle, FillStyle, FormBorderStyle,
-        FormLinkMode, FormProperties, FrameProperties, ImageProperties, LabelProperties,
-        LineProperties, ListBoxProperties, MenuProperties, MousePointer, NegotiatePosition,
-        OLEDropMode, OLEProperties, OptionButtonProperties, PaletteMode, PictureBoxProperties,
-        ScaleMode, ScrollBarProperties, ShapeProperties, ShortCut, StartUpPosition,
-        TextBoxProperties, TimerProperties, VB6Color, VB6Control, VB6ControlKind, VB6MenuControl,
-        VB6Token, WindowState,
+        CheckBoxProperties, ComboBoxProperties, CommandButtonProperties, DataProperties,
+        DirListBoxProperties, FormProperties, FrameProperties, ImageProperties, LabelProperties,
+        LineProperties, ListBoxProperties, MenuProperties, OLEProperties, OptionButtonProperties,
+        PictureBoxProperties, ScrollBarProperties, ShapeProperties, TextBoxProperties,
+        TimerProperties, VB6Color, VB6Control, VB6ControlKind, VB6MenuControl, VB6Token,
     },
     parsers::{
         header::{key_resource_offset_line_parse, version_parse, HeaderKind, VB6FileFormatVersion},
@@ -274,8 +271,58 @@ fn build_control<'a>(
     // TODO: When we start work on custom controls we will need
     // to handle fully verified name parsing. This will work for now though.
     let kind = match fully_qualified_name.kind.as_bytes() {
-        b"Form" => build_form_control_kind(controls, menus, properties, property_groups)?,
-        b"Menu" => build_menu_control_kind(menus, properties)?,
+        b"Form" => {
+            let form_properties = FormProperties::construct_control(properties, property_groups)?;
+
+            let mut converted_menus = vec![];
+
+            for menu in menus {
+                if let VB6ControlKind::Menu {
+                    properties: menu_properties,
+                    sub_menus,
+                } = menu.kind
+                {
+                    converted_menus.push(VB6MenuControl {
+                        name: menu.name,
+                        tag: menu.tag,
+                        index: menu.index,
+                        properties: menu_properties,
+                        sub_menus,
+                    });
+                }
+            }
+
+            VB6ControlKind::Form {
+                controls,
+                properties: form_properties,
+                menus: converted_menus,
+            }
+        }
+        b"Menu" => {
+            let menu_properties = MenuProperties::build_control(&properties)?;
+            let mut converted_menus = vec![];
+
+            for menu in menus {
+                if let VB6ControlKind::Menu {
+                    properties: menu_properties,
+                    sub_menus,
+                } = menu.kind
+                {
+                    converted_menus.push(VB6MenuControl {
+                        name: menu.name,
+                        tag: menu.tag,
+                        index: menu.index,
+                        properties: menu_properties,
+                        sub_menus,
+                    });
+                }
+            }
+
+            VB6ControlKind::Menu {
+                properties: menu_properties,
+                sub_menus: converted_menus,
+            }
+        }
         b"Frame" => {
             let frame_properties =
                 FrameProperties::construct_control(&properties, &property_groups)?;
@@ -402,238 +449,7 @@ fn build_control<'a>(
     Ok(parent_control)
 }
 
-fn build_menu_control_kind<'a>(
-    menus: Vec<VB6Control<'a>>,
-    properties: HashMap<&'a BStr, &'a BStr>,
-) -> Result<VB6ControlKind<'a>, VB6ErrorKind> {
-    let mut menu_properties = MenuProperties::default();
-
-    // TODO: We are not correctly handling property assignment for each control.
-    let caption_key = BStr::new("Caption");
-    if properties.contains_key(caption_key) {
-        menu_properties.caption = properties[caption_key];
-    }
-
-    // let checked_key = BStr::new("Checked");
-    // if properties.contains_key(checked_key) {
-    //     menu_properties.checked = properties[checked_key];
-    // }
-
-    // let enabled_key = BStr::new("Enabled");
-    // if properties.contains_key(enabled_key) {
-    //     menu_properties.enabled = properties[enabled_key];
-    // }
-
-    // let help_context_id_key = BStr::new("HelpContextID");
-    // if properties.contains_key(help_context_id_key) {
-    //     menu_properties.help_context_id = properties[help_context_id_key];
-    // }
-
-    let negotiation_position_key = BStr::new("NegotiationPosition");
-    if properties.contains_key(negotiation_position_key) {
-        menu_properties.negotiate_position =
-            build_property::<NegotiatePosition>(&properties, negotiation_position_key);
-    }
-
-    let shortcut_key = BStr::new("Shortcut");
-    if properties.contains_key(shortcut_key) {
-        let shortcut = ShortCut::from_str(&properties[shortcut_key].to_str().unwrap_or(""));
-        if shortcut.is_none() {
-            menu_properties.shortcut = None;
-        } else {
-            menu_properties.shortcut = Some(shortcut.unwrap());
-        }
-    }
-
-    // let visible_key = BStr::new("Visible");
-    // if properties.contains_key(visible_key) {
-    //     menu_properties.visible = properties[visible_key];
-    // }
-
-    // let window_list_key = BStr::new("WindowList");
-    // if properties.contains_key(window_list_key) {
-    //     menu_properties.window_list = properties[window_list_key];
-    // }
-
-    let mut converted_menus = vec![];
-
-    for menu in menus {
-        if let VB6ControlKind::Menu {
-            properties: menu_properties,
-            sub_menus,
-        } = menu.kind
-        {
-            converted_menus.push(VB6MenuControl {
-                name: menu.name,
-                tag: menu.tag,
-                index: menu.index,
-                properties: menu_properties,
-                sub_menus,
-            });
-        }
-    }
-
-    Ok(VB6ControlKind::Menu {
-        properties: menu_properties,
-        sub_menus: converted_menus,
-    })
-}
-
-fn build_form_control_kind<'a>(
-    controls: Vec<VB6Control<'a>>,
-    menus: Vec<VB6Control<'a>>,
-    properties: HashMap<&'a BStr, &'a BStr>,
-    property_groups: Vec<VB6PropertyGroup<'a>>,
-) -> Result<VB6ControlKind<'a>, VB6ErrorKind> {
-    let mut form_properties = FormProperties::default();
-
-    // TODO: We are not correctly handling property assignment for each control.
-
-    let appearance_key = BStr::new("Appearance");
-    form_properties.appearance = build_property::<Appearance>(&properties, appearance_key);
-
-    // auto_redraw
-
-    let backcolor_key = BStr::new("BackColor");
-    if properties.contains_key(backcolor_key) {
-        let color_ascii = properties[backcolor_key];
-
-        let Ok(back_color) = VB6Color::from_hex(color_ascii.to_str().unwrap()) else {
-            return Err(VB6ErrorKind::HexColorParseError);
-        };
-        form_properties.back_color = back_color;
-    }
-
-    let border_style_key = BStr::new("BorderStyle");
-    form_properties.border_style = build_property::<FormBorderStyle>(&properties, border_style_key);
-
-    let caption_key = BStr::new("Caption");
-    if properties.contains_key(caption_key) {
-        form_properties.caption = properties[caption_key];
-    }
-
-    let clip_control_key = BStr::new("ClipControls");
-    form_properties.clip_controls = build_property::<ClipControls>(&properties, clip_control_key);
-
-    // ControlBox
-
-    let draw_mode_key = BStr::new("DrawMode");
-    form_properties.draw_mode = build_property::<DrawMode>(&properties, draw_mode_key);
-
-    let draw_style_key = BStr::new("DrawStyle");
-    form_properties.draw_style = build_property::<DrawStyle>(&properties, draw_style_key);
-
-    // DrawWidth
-    // Enabled
-
-    let fill_color_key = BStr::new("FillColor");
-    if properties.contains_key(fill_color_key) {
-        let color_ascii = properties[fill_color_key];
-
-        let Ok(fill_color) = VB6Color::from_hex(color_ascii.to_str().unwrap()) else {
-            return Err(VB6ErrorKind::HexColorParseError);
-        };
-        form_properties.fill_color = fill_color;
-    }
-
-    let fill_style_key = BStr::new("FillStyle");
-    form_properties.fill_style = build_property::<FillStyle>(&properties, fill_style_key);
-
-    // Font - group
-    // FontTransparent
-
-    let fore_color_key = BStr::new("ForeColor");
-    if properties.contains_key(fore_color_key) {
-        let color_ascii = properties[fore_color_key];
-
-        let Ok(fore_color) = VB6Color::from_hex(color_ascii.to_str().unwrap()) else {
-            return Err(VB6ErrorKind::HexColorParseError);
-        };
-        form_properties.fore_color = fore_color;
-    }
-
-    // HasDc
-    // Height
-    // HelpContextId
-    // Icon
-    // KeyPreview
-    // Left
-
-    let link_mode_key = BStr::new("LinkMode");
-    form_properties.link_mode = build_property::<FormLinkMode>(&properties, link_mode_key);
-
-    // LinkTopic
-    // MaxButton
-    // MDIChild
-    // MinButton
-    // MouseIcon
-
-    let mouse_pointer_key = BStr::new("MousePointer");
-    form_properties.mouse_pointer = build_property::<MousePointer>(&properties, mouse_pointer_key);
-
-    // Moveable
-    // NegotiateMenus
-
-    let ole_drop_mode_key = BStr::new("OLEDropMode");
-    form_properties.ole_drop_mode = build_property::<OLEDropMode>(&properties, ole_drop_mode_key);
-
-    // Palette
-
-    let palette_mode_key = BStr::new("PaletteMode");
-    form_properties.palette_mode = build_property::<PaletteMode>(&properties, palette_mode_key);
-
-    // Picture
-    // RightToLeft
-    // ScaleHeight
-    // ScaleLeft
-
-    let scale_mode_key = BStr::new("ScaleMode");
-    form_properties.scale_mode = build_property::<ScaleMode>(&properties, scale_mode_key);
-
-    // ScaleTop
-    // ScaleWidth
-    // ShowInTaskbar
-
-    let start_up_position_key = BStr::new("StartUpPosition");
-    form_properties.start_up_position =
-        build_property::<StartUpPosition>(&properties, start_up_position_key);
-
-    // Tag
-    // Top
-    // Visible
-    // WhatsThisButton
-    // WhatsThisHelp
-    // Width
-
-    let window_state_key = BStr::new("WindowState");
-    form_properties.window_state = build_property::<WindowState>(&properties, window_state_key);
-
-    let mut converted_menus = vec![];
-
-    for menu in menus {
-        if let VB6ControlKind::Menu {
-            properties: menu_properties,
-            sub_menus,
-        } = menu.kind
-        {
-            converted_menus.push(VB6MenuControl {
-                name: menu.name,
-                tag: menu.tag,
-                index: menu.index,
-                properties: menu_properties,
-                sub_menus,
-            });
-        }
-    }
-
-    Ok(VB6ControlKind::Form {
-        controls,
-        properties: form_properties,
-        menus: converted_menus,
-    })
-}
-
-fn build_property<T>(properties: &HashMap<&BStr, &BStr>, property_key: &BStr) -> T
+pub fn build_property<T>(properties: &HashMap<&BStr, &BStr>, property_key: &BStr) -> T
 where
     T: Default + TryFromPrimitive + TryFrom<i32>,
 {
@@ -649,6 +465,78 @@ where
     };
 
     value
+}
+
+pub fn build_option_property<'a, T>(
+    properties: &HashMap<&'a BStr, &'a BStr>,
+    property_key: &'a BStr,
+) -> Option<T>
+where
+    T: TryFrom<&'a str>,
+{
+    if !properties.contains_key(property_key) {
+        return None;
+    }
+
+    let property_ascii = properties[property_key].to_str().unwrap();
+
+    match T::try_from(property_ascii) {
+        Ok(value) => Some(value),
+        Err(_) => None,
+    }
+}
+
+pub fn build_i32_property(
+    properties: &HashMap<&BStr, &BStr>,
+    property_key: &BStr,
+    default: i32,
+) -> i32 {
+    if !properties.contains_key(property_key) {
+        return 0;
+    }
+
+    let property_ascii = properties[property_key].to_str().unwrap();
+
+    match property_ascii.parse::<i32>() {
+        Ok(value) => value,
+        Err(_) => default,
+    }
+}
+
+pub fn build_color_property(
+    properties: &HashMap<&BStr, &BStr>,
+    property_key: &BStr,
+    default: VB6Color,
+) -> VB6Color {
+    if !properties.contains_key(property_key) {
+        return default;
+    }
+
+    let property_ascii = properties[property_key].to_str().unwrap();
+
+    match VB6Color::from_hex(property_ascii) {
+        Ok(color) => color,
+        Err(_) => default,
+    }
+}
+
+pub fn build_bool_property(
+    properties: &HashMap<&BStr, &BStr>,
+    property_key: &BStr,
+    default: bool,
+) -> bool {
+    if !properties.contains_key(property_key) {
+        return default;
+    }
+
+    let property_ascii = properties[property_key].to_str().unwrap();
+
+    match property_ascii.as_bytes() {
+        b"0" => false,
+        b"1" => true,
+        b"-1" => true,
+        _ => default,
+    }
 }
 
 fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyGroup<'a>> {
