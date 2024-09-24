@@ -155,8 +155,10 @@ pub enum Align {
     Right = 4,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
+#[repr(i32)]
 pub enum JustifyAlignment {
+    #[default]
     LeftJustify = 0,
     RightJustify = 1,
 }
@@ -360,9 +362,11 @@ pub enum ClipControls {
 
 /// Determines if the control uses standard styling or if it uses graphical styling from it's
 /// picture properties.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum Style {
     /// The control uses standard styling.
+    #[default]
     Standard = 0,
     /// The control uses graphical styling using its appropriate picture properties.
     Graphical = 1,

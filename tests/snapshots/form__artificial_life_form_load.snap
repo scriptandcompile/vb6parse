@@ -234,12 +234,18 @@ form:
                 back_color:
                   System:
                     index: 15
-                caption: Check1
+                caption:
+                  - 67
+                  - 104
+                  - 101
+                  - 99
+                  - 107
+                  - 49
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 disabled_picture: ~
                 down_picture: ~
                 drag_icon: ~
@@ -264,7 +270,7 @@ form:
                 style: Standard
                 tab_index: 0
                 tab_stop: true
-                tool_tip_text: ""
+                tool_tip_text: []
                 top: 30
                 use_mask_color: false
                 value: Unchecked
@@ -441,12 +447,18 @@ form:
                         back_color:
                           System:
                             index: 15
-                        caption: Check1
+                        caption:
+                          - 67
+                          - 104
+                          - 101
+                          - 99
+                          - 107
+                          - 49
                         causes_validation: true
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
+                        data_field: []
+                        data_format: []
+                        data_member: []
+                        data_source: []
                         disabled_picture: ~
                         down_picture: ~
                         drag_icon: ~
@@ -471,7 +483,7 @@ form:
                         style: Standard
                         tab_index: 0
                         tab_stop: true
-                        tool_tip_text: ""
+                        tool_tip_text: []
                         top: 30
                         use_mask_color: false
                         value: Unchecked

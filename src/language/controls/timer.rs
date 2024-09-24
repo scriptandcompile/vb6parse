@@ -1,3 +1,12 @@
+use std::collections::HashMap;
+
+use crate::{
+    errors::VB6ErrorKind,
+    parsers::form::{build_bool_property, build_i32_property},
+};
+
+use bstr::BStr;
+
 /// Properties for a `Timer` control.
 ///
 /// This is used as an enum variant of
@@ -20,5 +29,20 @@ impl Default for TimerProperties {
             left: 0,
             top: 0,
         }
+    }
+}
+
+impl TimerProperties {
+    pub fn construct_control(properties: &HashMap<&BStr, &BStr>) -> Result<Self, VB6ErrorKind> {
+        let mut timer_properties = TimerProperties::default();
+
+        timer_properties.enabled =
+            build_bool_property(properties, BStr::new("Enabled"), timer_properties.enabled);
+        timer_properties.interval =
+            build_i32_property(properties, BStr::new("Interval"), timer_properties.interval);
+        timer_properties.left =
+            build_i32_property(properties, BStr::new("Left"), timer_properties.left);
+
+        Ok(timer_properties)
     }
 }
