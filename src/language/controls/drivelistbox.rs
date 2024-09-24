@@ -1,6 +1,13 @@
+use std::collections::HashMap;
+
+use crate::errors::VB6ErrorKind;
 use crate::language::controls::{Appearance, DragMode, MousePointer, OLEDropMode};
+use crate::parsers::form::{
+    build_bool_property, build_color_property, build_i32_property, build_property,
+};
 use crate::VB6Color;
 
+use bstr::BStr;
 use image::DynamicImage;
 use serde::Serialize;
 
@@ -27,7 +34,7 @@ pub struct DriveListBoxProperties<'a> {
     pub ole_drop_mode: OLEDropMode,
     pub tab_index: i32,
     pub tab_stop: bool,
-    pub tool_tip_text: &'a str,
+    pub tool_tip_text: &'a BStr,
     pub top: i32,
     pub visible: bool,
     pub whats_this_help_id: i32,
@@ -52,7 +59,7 @@ impl Default for DriveListBoxProperties<'_> {
             ole_drop_mode: OLEDropMode::default(),
             tab_index: 0,
             tab_stop: true,
-            tool_tip_text: "",
+            tool_tip_text: BStr::new(""),
             top: 960,
             visible: true,
             whats_this_help_id: 0,
@@ -97,5 +104,92 @@ impl Serialize for DriveListBoxProperties<'_> {
         s.serialize_field("width", &self.width)?;
 
         s.end()
+    }
+}
+
+impl<'a> DriveListBoxProperties<'a> {
+    pub fn construct_control(
+        properties: &HashMap<&'a BStr, &'a BStr>,
+    ) -> Result<Self, VB6ErrorKind> {
+        let mut drive_list_box_properties = DriveListBoxProperties::default();
+
+        drive_list_box_properties.appearance =
+            build_property::<Appearance>(properties, BStr::new("Appearance"));
+        drive_list_box_properties.back_color = build_color_property(
+            properties,
+            BStr::new("BackColor"),
+            drive_list_box_properties.back_color,
+        );
+        drive_list_box_properties.causes_validation = build_bool_property(
+            properties,
+            BStr::new("CausesValidation"),
+            drive_list_box_properties.causes_validation,
+        );
+
+        // DragIcon
+
+        drive_list_box_properties.drag_mode =
+            build_property::<DragMode>(properties, BStr::new("DragMode"));
+        drive_list_box_properties.enabled = build_bool_property(
+            properties,
+            BStr::new("Enabled"),
+            drive_list_box_properties.enabled,
+        );
+        drive_list_box_properties.fore_color = build_color_property(
+            properties,
+            BStr::new("ForeColor"),
+            drive_list_box_properties.fore_color,
+        );
+        drive_list_box_properties.height = build_i32_property(
+            properties,
+            BStr::new("Height"),
+            drive_list_box_properties.height,
+        );
+        drive_list_box_properties.help_context_id = build_i32_property(
+            properties,
+            BStr::new("HelpContextID"),
+            drive_list_box_properties.help_context_id,
+        );
+        drive_list_box_properties.left = build_i32_property(
+            properties,
+            BStr::new("Left"),
+            drive_list_box_properties.left,
+        );
+        drive_list_box_properties.mouse_pointer =
+            build_property::<MousePointer>(properties, BStr::new("MousePointer"));
+        drive_list_box_properties.ole_drop_mode =
+            build_property::<OLEDropMode>(properties, BStr::new("OLEDropMode"));
+        drive_list_box_properties.tab_index = build_i32_property(
+            properties,
+            BStr::new("TabIndex"),
+            drive_list_box_properties.tab_index,
+        );
+        drive_list_box_properties.tab_stop = build_bool_property(
+            properties,
+            BStr::new("TabStop"),
+            drive_list_box_properties.tab_stop,
+        );
+        drive_list_box_properties.tool_tip_text = properties
+            .get(&BStr::new("ToolTipText"))
+            .unwrap_or(&BStr::new(""));
+        drive_list_box_properties.top =
+            build_i32_property(properties, BStr::new("Top"), drive_list_box_properties.top);
+        drive_list_box_properties.visible = build_bool_property(
+            properties,
+            BStr::new("Visible"),
+            drive_list_box_properties.visible,
+        );
+        drive_list_box_properties.whats_this_help_id = build_i32_property(
+            properties,
+            BStr::new("WhatsThisHelpID"),
+            drive_list_box_properties.whats_this_help_id,
+        );
+        drive_list_box_properties.width = build_i32_property(
+            properties,
+            BStr::new("Width"),
+            drive_list_box_properties.width,
+        );
+
+        Ok(drive_list_box_properties)
     }
 }
