@@ -230,17 +230,34 @@ form:
             CheckBox:
               properties:
                 alignment: LeftJustify
-                appearance: ThreeD
+                appearance: Flat
                 back_color:
                   System:
-                    index: 15
+                    index: 5
                 caption:
-                  - 67
-                  - 104
+                  - 68
+                  - 105
+                  - 115
+                  - 112
+                  - 108
+                  - 97
+                  - 121
+                  - 32
+                  - 100
                   - 101
+                  - 97
+                  - 100
+                  - 32
                   - 99
-                  - 107
-                  - 49
+                  - 114
+                  - 101
+                  - 97
+                  - 116
+                  - 117
+                  - 114
+                  - 101
+                  - 115
+                  - 63
                 causes_validation: true
                 data_field: []
                 data_format: []
@@ -253,10 +270,10 @@ form:
                 enabled: true
                 fore_color:
                   System:
-                    index: 18
-                height: 30
+                    index: 8
+                height: 255
                 help_context_id: 0
-                left: 30
+                left: 120
                 mask_color:
                   RGB:
                     red: 192
@@ -268,15 +285,15 @@ form:
                 picture: ~
                 right_to_left: false
                 style: Standard
-                tab_index: 0
+                tab_index: 21
                 tab_stop: true
                 tool_tip_text: []
-                top: 30
+                top: 8160
                 use_mask_color: false
-                value: Unchecked
+                value: Checked
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 2175
         - name: frmStartSettings
           tag: ""
           index: 0
@@ -443,17 +460,49 @@ form:
                     CheckBox:
                       properties:
                         alignment: LeftJustify
-                        appearance: ThreeD
+                        appearance: Flat
                         back_color:
                           System:
-                            index: 15
+                            index: 5
                         caption:
-                          - 67
-                          - 104
-                          - 101
+                          - 65
+                          - 108
+                          - 108
+                          - 111
+                          - 119
+                          - 32
                           - 99
-                          - 107
-                          - 49
+                          - 114
+                          - 101
+                          - 97
+                          - 116
+                          - 117
+                          - 114
+                          - 101
+                          - 115
+                          - 32
+                          - 116
+                          - 111
+                          - 32
+                          - 109
+                          - 117
+                          - 108
+                          - 116
+                          - 105
+                          - 112
+                          - 108
+                          - 121
+                          - 32
+                          - 97
+                          - 110
+                          - 100
+                          - 32
+                          - 109
+                          - 117
+                          - 116
+                          - 97
+                          - 116
+                          - 101
                         causes_validation: true
                         data_field: []
                         data_format: []
@@ -466,10 +515,10 @@ form:
                         enabled: true
                         fore_color:
                           System:
-                            index: 18
-                        height: 30
+                            index: 8
+                        height: 255
                         help_context_id: 0
-                        left: 30
+                        left: 120
                         mask_color:
                           RGB:
                             red: 192
@@ -481,15 +530,15 @@ form:
                         picture: ~
                         right_to_left: false
                         style: Standard
-                        tab_index: 0
+                        tab_index: 20
                         tab_stop: true
                         tool_tip_text: []
-                        top: 30
+                        top: 3000
                         use_mask_color: false
-                        value: Unchecked
+                        value: Checked
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 3975
                 - name: txtFoodWorth
                   tag: ""
                   index: 0
@@ -1242,20 +1291,20 @@ form:
                           System:
                             index: 5
                         causes_validation: true
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
+                        data_field: []
+                        data_format: []
+                        data_member: []
+                        data_source: []
                         drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         fore_color:
                           System:
                             index: 8
-                        height: 30
+                        height: 315
                         help_context_id: 0
                         integral_height: true
-                        left: 30
+                        left: 120
                         locked: false
                         mouse_icon: ~
                         mouse_pointer: Default
@@ -1264,14 +1313,40 @@ form:
                         right_to_left: false
                         sorted: false
                         style: DropDownCombo
-                        tab_index: 0
+                        tab_index: 5
                         tab_stop: true
-                        text: ""
-                        tool_tip_text: ""
-                        top: 30
+                        text:
+                          - 80
+                          - 108
+                          - 101
+                          - 97
+                          - 115
+                          - 101
+                          - 32
+                          - 115
+                          - 116
+                          - 97
+                          - 114
+                          - 116
+                          - 32
+                          - 116
+                          - 104
+                          - 101
+                          - 32
+                          - 115
+                          - 105
+                          - 109
+                          - 117
+                          - 108
+                          - 97
+                          - 116
+                          - 111
+                          - 114
+                        tool_tip_text: []
+                        top: 360
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 3975
         - name: cmdStop
           tag: ""
           index: 0

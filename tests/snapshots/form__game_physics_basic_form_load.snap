@@ -130,17 +130,35 @@ form:
             CheckBox:
               properties:
                 alignment: LeftJustify
-                appearance: ThreeD
+                appearance: Flat
                 back_color:
                   System:
-                    index: 15
+                    index: 5
                 caption:
-                  - 67
-                  - 104
-                  - 101
+                  - 76
+                  - 111
                   - 99
                   - 107
-                  - 49
+                  - 32
+                  - 70
+                  - 114
+                  - 97
+                  - 109
+                  - 101
+                  - 114
+                  - 97
+                  - 116
+                  - 101
+                  - 32
+                  - 97
+                  - 116
+                  - 32
+                  - 54
+                  - 48
+                  - 32
+                  - 102
+                  - 112
+                  - 115
                 causes_validation: true
                 data_field: []
                 data_format: []
@@ -153,10 +171,10 @@ form:
                 enabled: true
                 fore_color:
                   System:
-                    index: 18
-                height: 30
+                    index: 8
+                height: 375
                 help_context_id: 0
-                left: 30
+                left: 1440
                 mask_color:
                   RGB:
                     red: 192
@@ -168,15 +186,15 @@ form:
                 picture: ~
                 right_to_left: false
                 style: Standard
-                tab_index: 0
+                tab_index: 16
                 tab_stop: true
                 tool_tip_text: []
-                top: 30
+                top: 9360
                 use_mask_color: false
-                value: Unchecked
+                value: Checked
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 2175
         - name: cmdExit
           tag: ""
           index: 0

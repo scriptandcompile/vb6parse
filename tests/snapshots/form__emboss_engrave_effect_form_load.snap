@@ -239,17 +239,22 @@ form:
             CheckBox:
               properties:
                 alignment: LeftJustify
-                appearance: ThreeD
+                appearance: Flat
                 back_color:
                   System:
-                    index: 15
+                    index: 5
                 caption:
+                  - 116
+                  - 111
+                  - 32
                   - 67
-                  - 104
-                  - 101
-                  - 99
-                  - 107
-                  - 49
+                  - 111
+                  - 108
+                  - 111
+                  - 114
+                  - 46
+                  - 46
+                  - 46
                 causes_validation: true
                 data_field: []
                 data_format: []
@@ -262,10 +267,10 @@ form:
                 enabled: true
                 fore_color:
                   System:
-                    index: 18
-                height: 30
+                    index: 8
+                height: 255
                 help_context_id: 0
-                left: 30
+                left: 4200
                 mask_color:
                   RGB:
                     red: 192
@@ -277,15 +282,15 @@ form:
                 picture: ~
                 right_to_left: false
                 style: Standard
-                tab_index: 0
+                tab_index: 5
                 tab_stop: true
                 tool_tip_text: []
-                top: 30
+                top: 240
                 use_mask_color: false
                 value: Unchecked
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 1215
         - name: optEngrave
           tag: ""
           index: 0
