@@ -180,6 +180,9 @@ pub enum VB6ErrorKind {
     #[error("AutoRefresh can only be a 0 (false) or a -1 (true)")]
     AutoRefreshUnparseable,
 
+    #[error("Data control Connection type is not valid.")]
+    ConnectionTypeUnparseable,
+
     #[error("Thread Per Object is not a number.")]
     ThreadPerObjectUnparseable,
 

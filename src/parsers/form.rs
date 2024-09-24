@@ -365,6 +365,13 @@ fn build_control<'a>(
                 properties: command_button_properties,
             }
         }
+        b"Data" => {
+            let data_properties = DataProperties::construct_control(&properties)?;
+
+            VB6ControlKind::Data {
+                properties: data_properties,
+            }
+        }
         b"Ole" => {
             // TODO: We are not correctly handling property assignment for each control.
             VB6ControlKind::Ole {
@@ -429,12 +436,6 @@ fn build_control<'a>(
             // TODO: We are not correctly handling property assignment for each control.
             VB6ControlKind::Image {
                 properties: ImageProperties::default(),
-            }
-        }
-        b"Data" => {
-            // TODO: We are not correctly handling property assignment for each control.
-            VB6ControlKind::Data {
-                properties: DataProperties::default(),
             }
         }
         _ => {
