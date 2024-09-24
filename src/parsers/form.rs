@@ -416,6 +416,13 @@ fn build_control<'a>(
                 properties: line_properties,
             }
         }
+        b"ListBox" => {
+            let list_box_properties = ListBoxProperties::construct_control(&properties)?;
+
+            VB6ControlKind::ListBox {
+                properties: list_box_properties,
+            }
+        }
         b"Ole" => {
             // TODO: We are not correctly handling property assignment for each control.
             VB6ControlKind::Ole {
@@ -432,12 +439,6 @@ fn build_control<'a>(
             // TODO: We are not correctly handling property assignment for each control.
             VB6ControlKind::Shape {
                 properties: ShapeProperties::default(),
-            }
-        }
-        b"ListBox" => {
-            // TODO: We are not correctly handling property assignment for each control.
-            VB6ControlKind::ListBox {
-                properties: ListBoxProperties::default(),
             }
         }
         b"PictureBox" => {
