@@ -246,43 +246,45 @@ form:
             PictureBox:
               properties:
                 align: None
-                appearance: ThreeD
+                appearance: Flat
                 auto_redraw: false
                 auto_size: false
                 back_color:
-                  System:
-                    index: 15
+                  RGB:
+                    red: 0
+                    green: 0
+                    blue: 0
                 border_style: FixedSingle
                 causes_validation: true
                 clip_controls: "True"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 draw_mode: CopyPen
                 draw_style: Solid
-                draw_width: 1
+                draw_width: 0
                 enabled: true
                 fill_color:
                   RGB:
                     red: 0
                     green: 0
                     blue: 0
-                fill_style: Solid
+                fill_style: Transparent
                 font_transparent: true
                 fore_color:
                   System:
-                    index: 18
+                    index: 8
                 has_dc: true
-                height: 30
+                height: 8940
                 help_context_id: 0
-                left: 30
-                link_item: ""
+                left: 120
+                link_item: []
                 link_mode: None
-                link_timeout: 50
-                link_topic: ""
+                link_timeout: 0
+                link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
                 negotiate: false
@@ -290,18 +292,18 @@ form:
                 ole_drop_mode: None
                 picture: ~
                 right_to_left: false
-                scale_height: 100
+                scale_height: 594
                 scale_left: 0
-                scale_mode: Twip
+                scale_mode: Pixel
                 scale_top: 0
-                scale_width: 100
-                tab_index: 0
+                scale_width: 802
+                tab_index: 10
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
+                tool_tip_text: []
+                top: 120
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 12060
         - name: PicBulletM
           tag: ""
           index: 0
@@ -309,43 +311,43 @@ form:
             PictureBox:
               properties:
                 align: None
-                appearance: ThreeD
-                auto_redraw: false
-                auto_size: false
+                appearance: Flat
+                auto_redraw: true
+                auto_size: true
                 back_color:
                   System:
-                    index: 15
+                    index: 5
                 border_style: FixedSingle
                 causes_validation: true
                 clip_controls: "True"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 draw_mode: CopyPen
                 draw_style: Solid
-                draw_width: 1
+                draw_width: 0
                 enabled: true
                 fill_color:
                   RGB:
                     red: 0
                     green: 0
                     blue: 0
-                fill_style: Solid
+                fill_style: Transparent
                 font_transparent: true
                 fore_color:
                   System:
-                    index: 18
+                    index: 8
                 has_dc: true
-                height: 30
+                height: 90
                 help_context_id: 0
-                left: 30
-                link_item: ""
+                left: 9840
+                link_item: []
                 link_mode: None
-                link_timeout: 50
-                link_topic: ""
+                link_timeout: 0
+                link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
                 negotiate: false
@@ -353,18 +355,18 @@ form:
                 ole_drop_mode: None
                 picture: ~
                 right_to_left: false
-                scale_height: 100
+                scale_height: 4
                 scale_left: 0
-                scale_mode: Twip
+                scale_mode: Pixel
                 scale_top: 0
-                scale_width: 100
-                tab_index: 0
+                scale_width: 4
+                tab_index: 9
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
-                visible: true
+                tool_tip_text: []
+                top: 360
+                visible: false
                 whats_this_help_id: 0
-                width: 100
+                width: 90
         - name: PicBullet
           tag: ""
           index: 0
@@ -372,43 +374,43 @@ form:
             PictureBox:
               properties:
                 align: None
-                appearance: ThreeD
-                auto_redraw: false
-                auto_size: false
+                appearance: Flat
+                auto_redraw: true
+                auto_size: true
                 back_color:
                   System:
-                    index: 15
+                    index: 5
                 border_style: FixedSingle
                 causes_validation: true
                 clip_controls: "True"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 draw_mode: CopyPen
                 draw_style: Solid
-                draw_width: 1
+                draw_width: 0
                 enabled: true
                 fill_color:
                   RGB:
                     red: 0
                     green: 0
                     blue: 0
-                fill_style: Solid
+                fill_style: Transparent
                 font_transparent: true
                 fore_color:
                   System:
-                    index: 18
+                    index: 8
                 has_dc: true
-                height: 30
+                height: 90
                 help_context_id: 0
-                left: 30
-                link_item: ""
+                left: 9840
+                link_item: []
                 link_mode: None
-                link_timeout: 50
-                link_topic: ""
+                link_timeout: 0
+                link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
                 negotiate: false
@@ -416,18 +418,18 @@ form:
                 ole_drop_mode: None
                 picture: ~
                 right_to_left: false
-                scale_height: 100
+                scale_height: 4
                 scale_left: 0
-                scale_mode: Twip
+                scale_mode: Pixel
                 scale_top: 0
-                scale_width: 100
-                tab_index: 0
+                scale_width: 4
+                tab_index: 8
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
-                visible: true
+                tool_tip_text: []
+                top: 120
+                visible: false
                 whats_this_help_id: 0
-                width: 100
+                width: 90
         - name: PicTM
           tag: ""
           index: 0
@@ -435,43 +437,43 @@ form:
             PictureBox:
               properties:
                 align: None
-                appearance: ThreeD
-                auto_redraw: false
-                auto_size: false
+                appearance: Flat
+                auto_redraw: true
+                auto_size: true
                 back_color:
                   System:
-                    index: 15
+                    index: 5
                 border_style: FixedSingle
                 causes_validation: true
                 clip_controls: "True"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 draw_mode: CopyPen
                 draw_style: Solid
-                draw_width: 1
+                draw_width: 0
                 enabled: true
                 fill_color:
                   RGB:
                     red: 0
                     green: 0
                     blue: 0
-                fill_style: Solid
+                fill_style: Transparent
                 font_transparent: true
                 fore_color:
                   System:
-                    index: 18
+                    index: 8
                 has_dc: true
-                height: 30
+                height: 990
                 help_context_id: 0
-                left: 30
-                link_item: ""
+                left: 6600
+                link_item: []
                 link_mode: None
-                link_timeout: 50
-                link_topic: ""
+                link_timeout: 0
+                link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
                 negotiate: false
@@ -479,18 +481,18 @@ form:
                 ole_drop_mode: None
                 picture: ~
                 right_to_left: false
-                scale_height: 100
+                scale_height: 64
                 scale_left: 0
-                scale_mode: Twip
+                scale_mode: Pixel
                 scale_top: 0
-                scale_width: 100
-                tab_index: 0
+                scale_width: 64
+                tab_index: 7
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
-                visible: true
+                tool_tip_text: []
+                top: 120
+                visible: false
                 whats_this_help_id: 0
-                width: 100
+                width: 990
         - name: PicT
           tag: ""
           index: 0
@@ -498,43 +500,43 @@ form:
             PictureBox:
               properties:
                 align: None
-                appearance: ThreeD
-                auto_redraw: false
-                auto_size: false
+                appearance: Flat
+                auto_redraw: true
+                auto_size: true
                 back_color:
                   System:
-                    index: 15
+                    index: 5
                 border_style: FixedSingle
                 causes_validation: true
                 clip_controls: "True"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 draw_mode: CopyPen
                 draw_style: Solid
-                draw_width: 1
+                draw_width: 0
                 enabled: true
                 fill_color:
                   RGB:
                     red: 0
                     green: 0
                     blue: 0
-                fill_style: Solid
+                fill_style: Transparent
                 font_transparent: true
                 fore_color:
                   System:
-                    index: 18
+                    index: 8
                 has_dc: true
-                height: 30
+                height: 990
                 help_context_id: 0
-                left: 30
-                link_item: ""
+                left: 5520
+                link_item: []
                 link_mode: None
-                link_timeout: 50
-                link_topic: ""
+                link_timeout: 0
+                link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
                 negotiate: false
@@ -542,18 +544,18 @@ form:
                 ole_drop_mode: None
                 picture: ~
                 right_to_left: false
-                scale_height: 100
+                scale_height: 64
                 scale_left: 0
-                scale_mode: Twip
+                scale_mode: Pixel
                 scale_top: 0
-                scale_width: 100
-                tab_index: 0
+                scale_width: 64
+                tab_index: 6
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
-                visible: true
+                tool_tip_text: []
+                top: 120
+                visible: false
                 whats_this_help_id: 0
-                width: 100
+                width: 990
         - name: PicRM
           tag: ""
           index: 0
@@ -561,43 +563,43 @@ form:
             PictureBox:
               properties:
                 align: None
-                appearance: ThreeD
-                auto_redraw: false
-                auto_size: false
+                appearance: Flat
+                auto_redraw: true
+                auto_size: true
                 back_color:
                   System:
-                    index: 15
+                    index: 5
                 border_style: FixedSingle
                 causes_validation: true
                 clip_controls: "True"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 draw_mode: CopyPen
                 draw_style: Solid
-                draw_width: 1
+                draw_width: 0
                 enabled: true
                 fill_color:
                   RGB:
                     red: 0
                     green: 0
                     blue: 0
-                fill_style: Solid
+                fill_style: Transparent
                 font_transparent: true
                 fore_color:
                   System:
-                    index: 18
+                    index: 8
                 has_dc: true
-                height: 30
+                height: 990
                 help_context_id: 0
-                left: 30
-                link_item: ""
+                left: 4440
+                link_item: []
                 link_mode: None
-                link_timeout: 50
-                link_topic: ""
+                link_timeout: 0
+                link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
                 negotiate: false
@@ -605,18 +607,18 @@ form:
                 ole_drop_mode: None
                 picture: ~
                 right_to_left: false
-                scale_height: 100
+                scale_height: 64
                 scale_left: 0
-                scale_mode: Twip
+                scale_mode: Pixel
                 scale_top: 0
-                scale_width: 100
-                tab_index: 0
+                scale_width: 64
+                tab_index: 5
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
-                visible: true
+                tool_tip_text: []
+                top: 120
+                visible: false
                 whats_this_help_id: 0
-                width: 100
+                width: 990
         - name: PicR
           tag: ""
           index: 0
@@ -624,43 +626,43 @@ form:
             PictureBox:
               properties:
                 align: None
-                appearance: ThreeD
-                auto_redraw: false
-                auto_size: false
+                appearance: Flat
+                auto_redraw: true
+                auto_size: true
                 back_color:
                   System:
-                    index: 15
+                    index: 5
                 border_style: FixedSingle
                 causes_validation: true
                 clip_controls: "True"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 draw_mode: CopyPen
                 draw_style: Solid
-                draw_width: 1
+                draw_width: 0
                 enabled: true
                 fill_color:
                   RGB:
                     red: 0
                     green: 0
                     blue: 0
-                fill_style: Solid
+                fill_style: Transparent
                 font_transparent: true
                 fore_color:
                   System:
-                    index: 18
+                    index: 8
                 has_dc: true
-                height: 30
+                height: 990
                 help_context_id: 0
-                left: 30
-                link_item: ""
+                left: 3360
+                link_item: []
                 link_mode: None
-                link_timeout: 50
-                link_topic: ""
+                link_timeout: 0
+                link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
                 negotiate: false
@@ -668,18 +670,18 @@ form:
                 ole_drop_mode: None
                 picture: ~
                 right_to_left: false
-                scale_height: 100
+                scale_height: 64
                 scale_left: 0
-                scale_mode: Twip
+                scale_mode: Pixel
                 scale_top: 0
-                scale_width: 100
-                tab_index: 0
+                scale_width: 64
+                tab_index: 4
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
-                visible: true
+                tool_tip_text: []
+                top: 120
+                visible: false
                 whats_this_help_id: 0
-                width: 100
+                width: 990
         - name: PicLM
           tag: ""
           index: 0
@@ -687,43 +689,43 @@ form:
             PictureBox:
               properties:
                 align: None
-                appearance: ThreeD
-                auto_redraw: false
-                auto_size: false
+                appearance: Flat
+                auto_redraw: true
+                auto_size: true
                 back_color:
                   System:
-                    index: 15
+                    index: 5
                 border_style: FixedSingle
                 causes_validation: true
                 clip_controls: "True"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 draw_mode: CopyPen
                 draw_style: Solid
-                draw_width: 1
+                draw_width: 0
                 enabled: true
                 fill_color:
                   RGB:
                     red: 0
                     green: 0
                     blue: 0
-                fill_style: Solid
+                fill_style: Transparent
                 font_transparent: true
                 fore_color:
                   System:
-                    index: 18
+                    index: 8
                 has_dc: true
-                height: 30
+                height: 990
                 help_context_id: 0
-                left: 30
-                link_item: ""
+                left: 2280
+                link_item: []
                 link_mode: None
-                link_timeout: 50
-                link_topic: ""
+                link_timeout: 0
+                link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
                 negotiate: false
@@ -731,18 +733,18 @@ form:
                 ole_drop_mode: None
                 picture: ~
                 right_to_left: false
-                scale_height: 100
+                scale_height: 64
                 scale_left: 0
-                scale_mode: Twip
+                scale_mode: Pixel
                 scale_top: 0
-                scale_width: 100
-                tab_index: 0
+                scale_width: 64
+                tab_index: 3
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
-                visible: true
+                tool_tip_text: []
+                top: 120
+                visible: false
                 whats_this_help_id: 0
-                width: 100
+                width: 990
         - name: PicL
           tag: ""
           index: 0
@@ -750,43 +752,43 @@ form:
             PictureBox:
               properties:
                 align: None
-                appearance: ThreeD
-                auto_redraw: false
-                auto_size: false
+                appearance: Flat
+                auto_redraw: true
+                auto_size: true
                 back_color:
                   System:
-                    index: 15
+                    index: 5
                 border_style: FixedSingle
                 causes_validation: true
                 clip_controls: "True"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 draw_mode: CopyPen
                 draw_style: Solid
-                draw_width: 1
+                draw_width: 0
                 enabled: true
                 fill_color:
                   RGB:
                     red: 0
                     green: 0
                     blue: 0
-                fill_style: Solid
+                fill_style: Transparent
                 font_transparent: true
                 fore_color:
                   System:
-                    index: 18
+                    index: 8
                 has_dc: true
-                height: 30
+                height: 990
                 help_context_id: 0
-                left: 30
-                link_item: ""
+                left: 1200
+                link_item: []
                 link_mode: None
-                link_timeout: 50
-                link_topic: ""
+                link_timeout: 0
+                link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
                 negotiate: false
@@ -794,18 +796,18 @@ form:
                 ole_drop_mode: None
                 picture: ~
                 right_to_left: false
-                scale_height: 100
+                scale_height: 64
                 scale_left: 0
-                scale_mode: Twip
+                scale_mode: Pixel
                 scale_top: 0
-                scale_width: 100
-                tab_index: 0
+                scale_width: 64
+                tab_index: 2
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
-                visible: true
+                tool_tip_text: []
+                top: 120
+                visible: false
                 whats_this_help_id: 0
-                width: 100
+                width: 990
         - name: picShipMask
           tag: ""
           index: 0
@@ -813,43 +815,43 @@ form:
             PictureBox:
               properties:
                 align: None
-                appearance: ThreeD
-                auto_redraw: false
-                auto_size: false
+                appearance: Flat
+                auto_redraw: true
+                auto_size: true
                 back_color:
                   System:
-                    index: 15
+                    index: 5
                 border_style: FixedSingle
                 causes_validation: true
                 clip_controls: "True"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 draw_mode: CopyPen
                 draw_style: Solid
-                draw_width: 1
+                draw_width: 0
                 enabled: true
                 fill_color:
                   RGB:
                     red: 0
                     green: 0
                     blue: 0
-                fill_style: Solid
+                fill_style: Transparent
                 font_transparent: true
                 fore_color:
                   System:
-                    index: 18
+                    index: 8
                 has_dc: true
-                height: 30
+                height: 990
                 help_context_id: 0
-                left: 30
-                link_item: ""
+                left: 8760
+                link_item: []
                 link_mode: None
-                link_timeout: 50
-                link_topic: ""
+                link_timeout: 0
+                link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
                 negotiate: false
@@ -857,18 +859,18 @@ form:
                 ole_drop_mode: None
                 picture: ~
                 right_to_left: false
-                scale_height: 100
+                scale_height: 64
                 scale_left: 0
-                scale_mode: Twip
+                scale_mode: Pixel
                 scale_top: 0
-                scale_width: 100
-                tab_index: 0
+                scale_width: 64
+                tab_index: 1
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
-                visible: true
+                tool_tip_text: []
+                top: 120
+                visible: false
                 whats_this_help_id: 0
-                width: 100
+                width: 990
         - name: picShip
           tag: ""
           index: 0
@@ -876,43 +878,43 @@ form:
             PictureBox:
               properties:
                 align: None
-                appearance: ThreeD
-                auto_redraw: false
-                auto_size: false
+                appearance: Flat
+                auto_redraw: true
+                auto_size: true
                 back_color:
                   System:
-                    index: 15
+                    index: 5
                 border_style: FixedSingle
                 causes_validation: true
                 clip_controls: "True"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 draw_mode: CopyPen
                 draw_style: Solid
-                draw_width: 1
+                draw_width: 0
                 enabled: true
                 fill_color:
                   RGB:
                     red: 0
                     green: 0
                     blue: 0
-                fill_style: Solid
+                fill_style: Transparent
                 font_transparent: true
                 fore_color:
                   System:
-                    index: 18
+                    index: 8
                 has_dc: true
-                height: 30
+                height: 990
                 help_context_id: 0
-                left: 30
-                link_item: ""
+                left: 7680
+                link_item: []
                 link_mode: None
-                link_timeout: 50
-                link_topic: ""
+                link_timeout: 0
+                link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
                 negotiate: false
@@ -920,18 +922,18 @@ form:
                 ole_drop_mode: None
                 picture: ~
                 right_to_left: false
-                scale_height: 100
+                scale_height: 64
                 scale_left: 0
-                scale_mode: Twip
+                scale_mode: Pixel
                 scale_top: 0
-                scale_width: 100
+                scale_width: 64
                 tab_index: 0
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
-                visible: true
+                tool_tip_text: []
+                top: 120
+                visible: false
                 whats_this_help_id: 0
-                width: 100
+                width: 990
         - name: PicScreenBuffer
           tag: ""
           index: 0
@@ -939,43 +941,45 @@ form:
             PictureBox:
               properties:
                 align: None
-                appearance: ThreeD
-                auto_redraw: false
+                appearance: Flat
+                auto_redraw: true
                 auto_size: false
                 back_color:
-                  System:
-                    index: 15
+                  RGB:
+                    red: 0
+                    green: 0
+                    blue: 0
                 border_style: FixedSingle
                 causes_validation: true
                 clip_controls: "True"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 draw_mode: CopyPen
                 draw_style: Solid
-                draw_width: 1
+                draw_width: 0
                 enabled: true
                 fill_color:
                   RGB:
                     red: 0
                     green: 0
                     blue: 0
-                fill_style: Solid
+                fill_style: Transparent
                 font_transparent: true
                 fore_color:
                   System:
-                    index: 18
+                    index: 8
                 has_dc: true
-                height: 30
+                height: 8940
                 help_context_id: 0
-                left: 30
-                link_item: ""
+                left: 120
+                link_item: []
                 link_mode: None
-                link_timeout: 50
-                link_topic: ""
+                link_timeout: 0
+                link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
                 negotiate: false
@@ -983,18 +987,18 @@ form:
                 ole_drop_mode: None
                 picture: ~
                 right_to_left: false
-                scale_height: 100
+                scale_height: 594
                 scale_left: 0
-                scale_mode: Twip
+                scale_mode: Pixel
                 scale_top: 0
-                scale_width: 100
-                tab_index: 0
+                scale_width: 802
+                tab_index: 14
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
-                visible: true
+                tool_tip_text: []
+                top: 120
+                visible: false
                 whats_this_help_id: 0
-                width: 100
+                width: 12060
         - name: Label3
           tag: ""
           index: 0

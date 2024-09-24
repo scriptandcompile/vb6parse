@@ -1116,43 +1116,43 @@ form:
             PictureBox:
               properties:
                 align: None
-                appearance: ThreeD
-                auto_redraw: false
+                appearance: Flat
+                auto_redraw: true
                 auto_size: false
                 back_color:
                   System:
-                    index: 15
+                    index: 5
                 border_style: FixedSingle
                 causes_validation: true
                 clip_controls: "True"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 draw_mode: CopyPen
                 draw_style: Solid
-                draw_width: 1
+                draw_width: 0
                 enabled: true
                 fill_color:
                   RGB:
                     red: 0
                     green: 0
                     blue: 0
-                fill_style: Solid
+                fill_style: Transparent
                 font_transparent: true
                 fore_color:
                   System:
-                    index: 18
+                    index: 8
                 has_dc: true
-                height: 30
+                height: 4530
                 help_context_id: 0
-                left: 30
-                link_item: ""
+                left: 6240
+                link_item: []
                 link_mode: None
-                link_timeout: 50
-                link_topic: ""
+                link_timeout: 0
+                link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
                 negotiate: false
@@ -1160,18 +1160,18 @@ form:
                 ole_drop_mode: None
                 picture: ~
                 right_to_left: false
-                scale_height: 100
+                scale_height: 300
                 scale_left: 0
-                scale_mode: Twip
+                scale_mode: Pixel
                 scale_top: 0
-                scale_width: 100
+                scale_width: 400
                 tab_index: 0
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
+                tool_tip_text: []
+                top: 120
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 6030
         - name: picBack
           tag: ""
           index: 0
@@ -1179,43 +1179,43 @@ form:
             PictureBox:
               properties:
                 align: None
-                appearance: ThreeD
-                auto_redraw: false
-                auto_size: false
+                appearance: Flat
+                auto_redraw: true
+                auto_size: true
                 back_color:
                   System:
-                    index: 15
+                    index: 5
                 border_style: FixedSingle
                 causes_validation: true
                 clip_controls: "True"
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 draw_mode: CopyPen
                 draw_style: Solid
-                draw_width: 1
+                draw_width: 0
                 enabled: true
                 fill_color:
                   RGB:
                     red: 0
                     green: 0
                     blue: 0
-                fill_style: Solid
+                fill_style: Transparent
                 font_transparent: true
                 fore_color:
                   System:
-                    index: 18
+                    index: 8
                 has_dc: true
-                height: 30
+                height: 4530
                 help_context_id: 0
-                left: 30
-                link_item: ""
+                left: 6240
+                link_item: []
                 link_mode: None
-                link_timeout: 50
-                link_topic: ""
+                link_timeout: 0
+                link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
                 negotiate: false
@@ -1223,18 +1223,18 @@ form:
                 ole_drop_mode: None
                 picture: ~
                 right_to_left: false
-                scale_height: 100
+                scale_height: 300
                 scale_left: 0
-                scale_mode: Twip
+                scale_mode: Pixel
                 scale_top: 0
-                scale_width: 100
-                tab_index: 0
+                scale_width: 400
+                tab_index: 7
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
-                visible: true
+                tool_tip_text: []
+                top: 120
+                visible: false
                 whats_this_help_id: 0
-                width: 100
+                width: 6030
       menus:
         - name: mnuFile
           tag: ""
