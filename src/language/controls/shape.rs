@@ -1,7 +1,27 @@
-use crate::language::color::VB6Color;
-use crate::language::controls::{DrawMode, DrawStyle};
+use std::collections::HashMap;
 
-use super::BackStyle;
+use crate::errors::VB6ErrorKind;
+use crate::language::color::VB6Color;
+use crate::language::controls::{BackStyle, DrawMode, DrawStyle};
+use crate::parsers::form::{
+    build_bool_property, build_color_property, build_i32_property, build_property,
+};
+
+use bstr::BStr;
+use num_enum::TryFromPrimitive;
+use serde::Serialize;
+
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
+pub enum Shape {
+    #[default]
+    Rectangle = 0,
+    Square = 1,
+    Oval = 2,
+    Circle = 3,
+    RoundedRectangle = 4,
+    RoundSquare = 5,
+}
 
 /// Properties for a Shape control.
 ///
@@ -9,7 +29,7 @@ use super::BackStyle;
 /// [`VB6ControlKind::Shape`](crate::language::controls::VB6ControlKind::Shape).
 /// tag, name, and index are not included in this struct, but instead are part
 /// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct ShapeProperties {
     pub back_color: VB6Color,
     pub back_style: BackStyle,
@@ -25,17 +45,6 @@ pub struct ShapeProperties {
     pub top: i32,
     pub visible: bool,
     pub width: i32,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize)]
-
-pub enum Shape {
-    Rectangle = 0,
-    Square = 1,
-    Oval = 2,
-    Circle = 3,
-    RoundedRectangle = 4,
-    RoundSquare = 5,
 }
 
 impl Default for ShapeProperties {
@@ -60,5 +69,54 @@ impl Default for ShapeProperties {
             visible: true,
             width: 355,
         }
+    }
+}
+
+impl ShapeProperties {
+    pub fn construct_control(
+        properties: &HashMap<&BStr, &BStr>,
+    ) -> Result<Self, VB6ErrorKind> {
+        let mut shape_properties = ShapeProperties::default();
+
+        shape_properties.back_color = build_color_property(
+            properties,
+            BStr::new("BackColor"),
+            shape_properties.back_color,
+        );
+        shape_properties.back_style =
+            build_property::<BackStyle>(properties, BStr::new("BackStyle"));
+        shape_properties.border_color = build_color_property(
+            properties,
+            BStr::new("BorderColor"),
+            shape_properties.border_color,
+        );
+        shape_properties.border_style =
+            build_property::<DrawStyle>(properties, BStr::new("BorderStyle"));
+        shape_properties.border_width = build_i32_property(
+            properties,
+            BStr::new("BorderWidth"),
+            shape_properties.border_width,
+        );
+        shape_properties.draw_mode = build_property::<DrawMode>(properties, BStr::new("DrawMode"));
+        shape_properties.fill_color = build_color_property(
+            properties,
+            BStr::new("FillColor"),
+            shape_properties.fill_color,
+        );
+        shape_properties.fill_style =
+            build_property::<DrawStyle>(properties, BStr::new("FillStyle"));
+        shape_properties.height =
+            build_i32_property(properties, BStr::new("Height"), shape_properties.height);
+        shape_properties.left =
+            build_i32_property(properties, BStr::new("Left"), shape_properties.left);
+        shape_properties.shape = build_property::<Shape>(properties, BStr::new("Shape"));
+        shape_properties.top =
+            build_i32_property(properties, BStr::new("Top"), shape_properties.top);
+        shape_properties.visible =
+            build_bool_property(properties, BStr::new("Visible"), shape_properties.visible);
+        shape_properties.width =
+            build_i32_property(properties, BStr::new("Width"), shape_properties.width);
+
+        Ok(shape_properties)
     }
 }
