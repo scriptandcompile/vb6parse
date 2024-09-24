@@ -1012,13 +1012,13 @@ form:
                           System:
                             index: 8
                         border_style: Solid
-                        border_width: 1
+                        border_width: 0
                         draw_mode: CopyPen
                         visible: true
-                        x1: 0
-                        y1: 0
-                        x2: 100
-                        y2: 100
+                        x1: 120
+                        y1: 2880
+                        x2: 3360
+                        y2: 2880
                 - name: Label6
                   tag: ""
                   index: 0
@@ -1372,13 +1372,13 @@ form:
                           System:
                             index: 8
                         border_style: Solid
-                        border_width: 1
+                        border_width: 0
                         draw_mode: CopyPen
                         visible: true
-                        x1: 0
-                        y1: 0
-                        x2: 100
-                        y2: 100
+                        x1: 120
+                        y1: 1200
+                        x2: 4080
+                        y2: 1200
                 - name: Label1
                   tag: ""
                   index: 0

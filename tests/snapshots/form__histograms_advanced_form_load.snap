@@ -391,13 +391,13 @@ form:
                           System:
                             index: 8
                         border_style: Solid
-                        border_width: 1
+                        border_width: 0
                         draw_mode: CopyPen
                         visible: true
-                        x1: 0
-                        y1: 0
-                        x2: 100
-                        y2: 100
+                        x1: 120
+                        y1: 530
+                        x2: 3720
+                        y2: 530
                 - name: Label3
                   tag: ""
                   index: 0
