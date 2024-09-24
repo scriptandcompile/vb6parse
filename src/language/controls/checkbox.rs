@@ -178,14 +178,14 @@ impl<'a> CheckBoxProperties<'a> {
 
         let alignment_key = BStr::new("Alignment");
         checkbox_properties.alignment =
-            build_property::<JustifyAlignment>(&properties, alignment_key);
+            build_property::<JustifyAlignment>(properties, alignment_key);
 
         let appearance_key = BStr::new("Appearance");
-        checkbox_properties.appearance = build_property::<Appearance>(&properties, appearance_key);
+        checkbox_properties.appearance = build_property::<Appearance>(properties, appearance_key);
 
         let back_color_key = BStr::new("BackColor");
         checkbox_properties.back_color =
-            build_color_property(&properties, back_color_key, checkbox_properties.back_color);
+            build_color_property(properties, back_color_key, checkbox_properties.back_color);
 
         let caption_key = BStr::new("Caption");
         checkbox_properties.caption = properties
@@ -194,7 +194,7 @@ impl<'a> CheckBoxProperties<'a> {
 
         let causes_validation_key = BStr::new("CausesValidation");
         checkbox_properties.causes_validation = build_bool_property(
-            &properties,
+            properties,
             causes_validation_key,
             checkbox_properties.causes_validation,
         );
@@ -224,64 +224,64 @@ impl<'a> CheckBoxProperties<'a> {
         //DragIcon
 
         let drag_mode_key = BStr::new("DragMode");
-        checkbox_properties.drag_mode = build_property::<DragMode>(&properties, drag_mode_key);
+        checkbox_properties.drag_mode = build_property::<DragMode>(properties, drag_mode_key);
 
         let enabled_key = BStr::new("Enabled");
         checkbox_properties.enabled =
-            build_bool_property(&properties, enabled_key, checkbox_properties.enabled);
+            build_bool_property(properties, enabled_key, checkbox_properties.enabled);
 
         let fore_color_key = BStr::new("ForeColor");
         checkbox_properties.fore_color =
-            build_color_property(&properties, fore_color_key, checkbox_properties.fore_color);
+            build_color_property(properties, fore_color_key, checkbox_properties.fore_color);
 
         let height_key = BStr::new("Height");
         checkbox_properties.height =
-            build_i32_property(&properties, height_key, checkbox_properties.height);
+            build_i32_property(properties, height_key, checkbox_properties.height);
 
         let help_context_id_key = BStr::new("HelpContextID");
         checkbox_properties.help_context_id = build_i32_property(
-            &properties,
+            properties,
             help_context_id_key,
             checkbox_properties.help_context_id,
         );
 
         let left_key = BStr::new("Left");
         checkbox_properties.left =
-            build_i32_property(&properties, left_key, checkbox_properties.left);
+            build_i32_property(properties, left_key, checkbox_properties.left);
 
         let mask_color_key = BStr::new("MaskColor");
         checkbox_properties.mask_color =
-            build_color_property(&properties, mask_color_key, checkbox_properties.mask_color);
+            build_color_property(properties, mask_color_key, checkbox_properties.mask_color);
 
         //MouseIcon
 
         let mouse_pointer_key = BStr::new("MousePointer");
         checkbox_properties.mouse_pointer =
-            build_property::<MousePointer>(&properties, mouse_pointer_key);
+            build_property::<MousePointer>(properties, mouse_pointer_key);
 
         let ole_drop_mode_key = BStr::new("OLEDropMode");
         checkbox_properties.ole_drop_mode =
-            build_property::<OLEDropMode>(&properties, ole_drop_mode_key);
+            build_property::<OLEDropMode>(properties, ole_drop_mode_key);
 
         //Picture
 
         let right_to_left_key = BStr::new("RightToLeft");
         checkbox_properties.right_to_left = build_bool_property(
-            &properties,
+            properties,
             right_to_left_key,
             checkbox_properties.right_to_left,
         );
 
         let style_key = BStr::new("Style");
-        checkbox_properties.style = build_property::<Style>(&properties, style_key);
+        checkbox_properties.style = build_property::<Style>(properties, style_key);
 
         let tab_index_key = BStr::new("TabIndex");
         checkbox_properties.tab_index =
-            build_i32_property(&properties, tab_index_key, checkbox_properties.tab_index);
+            build_i32_property(properties, tab_index_key, checkbox_properties.tab_index);
 
         let tab_stop_key = BStr::new("TabStop");
         checkbox_properties.tab_stop =
-            build_bool_property(&properties, tab_stop_key, checkbox_properties.tab_stop);
+            build_bool_property(properties, tab_stop_key, checkbox_properties.tab_stop);
 
         let tool_tip_text_key = BStr::new("ToolTipText");
         checkbox_properties.tool_tip_text = properties
@@ -289,32 +289,32 @@ impl<'a> CheckBoxProperties<'a> {
             .unwrap_or(&checkbox_properties.tool_tip_text);
 
         let top_key = BStr::new("Top");
-        checkbox_properties.top = build_i32_property(&properties, top_key, checkbox_properties.top);
+        checkbox_properties.top = build_i32_property(properties, top_key, checkbox_properties.top);
 
         let use_mask_color_key = BStr::new("UseMaskColor");
         checkbox_properties.use_mask_color = build_bool_property(
-            &properties,
+            properties,
             use_mask_color_key,
             checkbox_properties.use_mask_color,
         );
 
         let value_key = BStr::new("Value");
-        checkbox_properties.value = build_property::<CheckBoxValue>(&properties, value_key);
+        checkbox_properties.value = build_property::<CheckBoxValue>(properties, value_key);
 
         let visible_key = BStr::new("Visible");
         checkbox_properties.visible =
-            build_bool_property(&properties, visible_key, checkbox_properties.visible);
+            build_bool_property(properties, visible_key, checkbox_properties.visible);
 
         let whats_this_help_key = BStr::new("WhatsThisHelp");
         checkbox_properties.whats_this_help_id = build_i32_property(
-            &properties,
+            properties,
             whats_this_help_key,
             checkbox_properties.whats_this_help_id,
         );
 
         let width_key = BStr::new("Width");
         checkbox_properties.width =
-            build_i32_property(&properties, width_key, checkbox_properties.width);
+            build_i32_property(properties, width_key, checkbox_properties.width);
 
         Ok(checkbox_properties)
     }
