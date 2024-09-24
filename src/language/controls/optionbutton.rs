@@ -1,13 +1,23 @@
+use std::collections::HashMap;
+
+use crate::errors::VB6ErrorKind;
 use crate::language::controls::{
     Appearance, DragMode, JustifyAlignment, MousePointer, OLEDropMode, Style,
 };
 use crate::language::VB6Color;
+use crate::parsers::form::{
+    build_bool_property, build_color_property, build_i32_property, build_property,
+};
 
+use bstr::BStr;
 use image::DynamicImage;
+use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum OptionButtonValue {
+    #[default]
     UnSelected = 0,
     Selected = 1,
 }
@@ -23,7 +33,7 @@ pub struct OptionButtonProperties<'a> {
     pub alignment: JustifyAlignment,
     pub appearance: Appearance,
     pub back_color: VB6Color,
-    pub caption: &'a str,
+    pub caption: &'a BStr,
     pub causes_validation: bool,
     pub disabled_picture: Option<DynamicImage>,
     pub down_picture: Option<DynamicImage>,
@@ -43,7 +53,7 @@ pub struct OptionButtonProperties<'a> {
     pub style: Style,
     pub tab_index: i32,
     pub tab_stop: bool,
-    pub tool_tip_text: &'a str,
+    pub tool_tip_text: &'a BStr,
     pub top: i32,
     pub use_mask_color: bool,
     pub value: OptionButtonValue,
@@ -58,7 +68,7 @@ impl Default for OptionButtonProperties<'_> {
             alignment: JustifyAlignment::LeftJustify,
             appearance: Appearance::ThreeD,
             back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
-            caption: "Option1",
+            caption: BStr::new("Option1"),
             causes_validation: true,
             disabled_picture: None,
             down_picture: None,
@@ -78,7 +88,7 @@ impl Default for OptionButtonProperties<'_> {
             style: Style::Standard,
             tab_index: 0,
             tab_stop: true,
-            tool_tip_text: "",
+            tool_tip_text: BStr::new(""),
             top: 30,
             use_mask_color: false,
             value: OptionButtonValue::UnSelected,
@@ -144,5 +154,120 @@ impl Serialize for OptionButtonProperties<'_> {
         s.serialize_field("width", &self.width)?;
 
         s.end()
+    }
+}
+
+impl<'a> OptionButtonProperties<'a> {
+    pub fn construct_control(
+        properties: &HashMap<&'a BStr, &'a BStr>,
+    ) -> Result<Self, VB6ErrorKind> {
+        let mut option_button_properties = OptionButtonProperties::default();
+
+        option_button_properties.alignment =
+            build_property::<JustifyAlignment>(properties, BStr::new("Alignment"));
+        option_button_properties.appearance =
+            build_property::<Appearance>(properties, BStr::new("Appearance"));
+        option_button_properties.back_color = build_color_property(
+            properties,
+            BStr::new("BackColor"),
+            option_button_properties.back_color,
+        );
+        option_button_properties.caption = properties
+            .get(&BStr::new("Caption"))
+            .unwrap_or(&option_button_properties.caption);
+        option_button_properties.causes_validation = build_bool_property(
+            properties,
+            BStr::new("CausesValidation"),
+            option_button_properties.causes_validation,
+        );
+
+        // DisabledPicture
+        // DownPicture
+        // DragIcon
+
+        option_button_properties.drag_mode =
+            build_property::<DragMode>(properties, BStr::new("DragMode"));
+        option_button_properties.enabled = build_bool_property(
+            properties,
+            BStr::new("Enabled"),
+            option_button_properties.enabled,
+        );
+        option_button_properties.fore_color = build_color_property(
+            properties,
+            BStr::new("ForeColor"),
+            option_button_properties.fore_color,
+        );
+        option_button_properties.height = build_i32_property(
+            properties,
+            BStr::new("Height"),
+            option_button_properties.height,
+        );
+        option_button_properties.help_context_id = build_i32_property(
+            properties,
+            BStr::new("HelpContextID"),
+            option_button_properties.help_context_id,
+        );
+        option_button_properties.left =
+            build_i32_property(properties, BStr::new("Left"), option_button_properties.left);
+        option_button_properties.mask_color = build_color_property(
+            properties,
+            BStr::new("MaskColor"),
+            option_button_properties.mask_color,
+        );
+
+        // MouseIcon
+
+        option_button_properties.mouse_pointer =
+            build_property::<MousePointer>(properties, BStr::new("MousePointer"));
+        option_button_properties.ole_drop_mode =
+            build_property::<OLEDropMode>(properties, BStr::new("OLEDropMode"));
+
+        // Picture
+
+        option_button_properties.right_to_left = build_bool_property(
+            properties,
+            BStr::new("RightToLeft"),
+            option_button_properties.right_to_left,
+        );
+        option_button_properties.style = build_property::<Style>(properties, BStr::new("Style"));
+        option_button_properties.tab_index = build_i32_property(
+            properties,
+            BStr::new("TabIndex"),
+            option_button_properties.tab_index,
+        );
+        option_button_properties.tab_stop = build_bool_property(
+            properties,
+            BStr::new("TabStop"),
+            option_button_properties.tab_stop,
+        );
+        option_button_properties.tool_tip_text = properties
+            .get(&BStr::new("ToolTipText"))
+            .unwrap_or(&option_button_properties.tool_tip_text);
+        option_button_properties.top =
+            build_i32_property(properties, BStr::new("Top"), option_button_properties.top);
+        option_button_properties.use_mask_color = build_bool_property(
+            properties,
+            BStr::new("UseMaskColor"),
+            option_button_properties.use_mask_color,
+        );
+        option_button_properties.value =
+            build_property::<OptionButtonValue>(properties, BStr::new("Value"));
+        option_button_properties.visible = build_bool_property(
+            properties,
+            BStr::new("Visible"),
+            option_button_properties.visible,
+        );
+        option_button_properties.whats_this_help_id = build_i32_property(
+            properties,
+            BStr::new("WhatsThisHelpID"),
+            option_button_properties.whats_this_help_id,
+        );
+        option_button_properties.width = build_i32_property(
+            properties,
+            BStr::new("Width"),
+            option_button_properties.width,
+        );
+
+        Ok(option_button_properties)
     }
 }

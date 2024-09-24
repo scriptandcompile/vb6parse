@@ -431,9 +431,10 @@ fn build_control<'a>(
             }
         }
         b"OptionButton" => {
-            // TODO: We are not correctly handling property assignment for each control.
+            let option_button_properties = OptionButtonProperties::construct_control(&properties)?;
+
             VB6ControlKind::OptionButton {
-                properties: OptionButtonProperties::default(),
+                properties: option_button_properties,
             }
         }
         b"Shape" => {

@@ -132,11 +132,17 @@ form:
             OptionButton:
               properties:
                 alignment: LeftJustify
-                appearance: ThreeD
+                appearance: Flat
                 back_color:
                   System:
-                    index: 15
-                caption: Option1
+                    index: 5
+                caption:
+                  - 82
+                  - 101
+                  - 108
+                  - 105
+                  - 101
+                  - 102
                 causes_validation: true
                 disabled_picture: ~
                 down_picture: ~
@@ -145,10 +151,10 @@ form:
                 enabled: true
                 fore_color:
                   System:
-                    index: 18
-                height: 30
+                    index: 8
+                height: 255
                 help_context_id: 0
-                left: 30
+                left: 240
                 mask_color:
                   RGB:
                     red: 192
@@ -160,15 +166,15 @@ form:
                 picture: ~
                 right_to_left: false
                 style: Standard
-                tab_index: 0
+                tab_index: 7
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
+                tool_tip_text: []
+                top: 240
                 use_mask_color: false
                 value: UnSelected
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 975
         - name: picColor
           tag: ""
           index: 0
@@ -298,11 +304,18 @@ form:
             OptionButton:
               properties:
                 alignment: LeftJustify
-                appearance: ThreeD
+                appearance: Flat
                 back_color:
                   System:
-                    index: 15
-                caption: Option1
+                    index: 5
+                caption:
+                  - 69
+                  - 110
+                  - 103
+                  - 114
+                  - 97
+                  - 118
+                  - 101
                 causes_validation: true
                 disabled_picture: ~
                 down_picture: ~
@@ -311,10 +324,10 @@ form:
                 enabled: true
                 fore_color:
                   System:
-                    index: 18
-                height: 30
+                    index: 8
+                height: 255
                 help_context_id: 0
-                left: 30
+                left: 2760
                 mask_color:
                   RGB:
                     red: 192
@@ -326,15 +339,15 @@ form:
                 picture: ~
                 right_to_left: false
                 style: Standard
-                tab_index: 0
+                tab_index: 4
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
+                tool_tip_text: []
+                top: 240
                 use_mask_color: false
                 value: UnSelected
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 1095
         - name: optEmboss
           tag: ""
           index: 0
@@ -342,11 +355,17 @@ form:
             OptionButton:
               properties:
                 alignment: LeftJustify
-                appearance: ThreeD
+                appearance: Flat
                 back_color:
                   System:
-                    index: 15
-                caption: Option1
+                    index: 5
+                caption:
+                  - 69
+                  - 109
+                  - 98
+                  - 111
+                  - 115
+                  - 115
                 causes_validation: true
                 disabled_picture: ~
                 down_picture: ~
@@ -355,10 +374,10 @@ form:
                 enabled: true
                 fore_color:
                   System:
-                    index: 18
-                height: 30
+                    index: 8
+                height: 255
                 help_context_id: 0
-                left: 30
+                left: 1440
                 mask_color:
                   RGB:
                     red: 192
@@ -370,15 +389,15 @@ form:
                 picture: ~
                 right_to_left: false
                 style: Standard
-                tab_index: 0
+                tab_index: 3
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
+                tool_tip_text: []
+                top: 240
                 use_mask_color: false
                 value: UnSelected
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 1095
         - name: cmdReset
           tag: ""
           index: 0
