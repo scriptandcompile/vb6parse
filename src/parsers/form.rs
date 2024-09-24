@@ -577,8 +577,7 @@ pub fn build_bool_property(
 
     match property_ascii.as_bytes() {
         b"0" => false,
-        b"1" => true,
-        b"-1" => true,
+        b"1" | b"-1" => true,
         _ => default,
     }
 }
