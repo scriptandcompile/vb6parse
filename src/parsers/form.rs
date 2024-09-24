@@ -444,9 +444,10 @@ fn build_control<'a>(
             }
         }
         b"Shape" => {
-            // TODO: We are not correctly handling property assignment for each control.
+            let shape_properties = ShapeProperties::construct_control(&properties)?;
+
             VB6ControlKind::Shape {
-                properties: ShapeProperties::default(),
+                properties: shape_properties,
             }
         }
         b"TextBox" => {
