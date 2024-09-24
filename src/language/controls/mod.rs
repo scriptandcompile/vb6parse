@@ -141,9 +141,12 @@ impl<'a> VB6ControlKind<'a> {
 }
 
 /// Determines which side of the parent control to dock this control to.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum Align {
     /// The control is not docked to any side of the parent control.
+    /// This is the default setting.
+    #[default]
     None = 0,
     /// The control is docked to the top of the parent control.
     Top = 1,

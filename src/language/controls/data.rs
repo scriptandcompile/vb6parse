@@ -1,7 +1,15 @@
+use std::collections::HashMap;
+
+use crate::errors::VB6ErrorKind;
 use crate::language::controls::{Align, Appearance, DragMode, MousePointer, OLEDropMode};
+use crate::parsers::form::{
+    build_bool_property, build_color_property, build_i32_property, build_property,
+};
 use crate::VB6Color;
 
+use bstr::{BStr, ByteSlice};
 use image::DynamicImage;
+use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
 /// Properties for a `Data` control.
@@ -16,9 +24,9 @@ pub struct DataProperties<'a> {
     pub appearance: Appearance,
     pub back_color: VB6Color,
     pub bof_action: BOFAction,
-    pub caption: &'a str,
+    pub caption: &'a BStr,
     pub connection: Connection,
-    pub database_name: &'a str,
+    pub database_name: &'a BStr,
     pub default_cursor_type: DefaultCursorType,
     pub default_type: DefaultType,
     pub drag_icon: Option<DynamicImage>,
@@ -36,9 +44,9 @@ pub struct DataProperties<'a> {
     pub options: i32,
     pub read_only: bool,
     pub record_set_type: RecordSetType,
-    pub record_source: &'a str,
+    pub record_source: &'a BStr,
     pub right_to_left: bool,
-    pub tool_tip_text: &'a str,
+    pub tool_tip_text: &'a BStr,
     pub top: i32,
     pub visible: bool,
     pub whats_this_help_id: i32,
@@ -52,9 +60,9 @@ impl Default for DataProperties<'_> {
             appearance: Appearance::ThreeD,
             back_color: VB6Color::System { index: 5 },
             bof_action: BOFAction::MoveFirst,
-            caption: "Data1",
+            caption: BStr::new("Data1"),
             connection: Connection::Access,
-            database_name: "",
+            database_name: BStr::new(""),
             default_cursor_type: DefaultCursorType::Default,
             default_type: DefaultType::UseJet,
             drag_icon: None,
@@ -72,9 +80,9 @@ impl Default for DataProperties<'_> {
             options: 0,
             read_only: false,
             record_set_type: RecordSetType::Dynaset,
-            record_source: "",
+            record_source: BStr::new(""),
             right_to_left: false,
-            tool_tip_text: "",
+            tool_tip_text: BStr::new(""),
             top: 840,
             visible: true,
             whats_this_help_id: 0,
@@ -133,14 +141,119 @@ impl Serialize for DataProperties<'_> {
     }
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+impl<'a> DataProperties<'a> {
+    pub fn construct_control(
+        properties: &HashMap<&'a BStr, &'a BStr>,
+    ) -> Result<Self, VB6ErrorKind> {
+        let mut data_properties = DataProperties::default();
+
+        data_properties.align = build_property::<Align>(properties, BStr::new("Align"));
+        data_properties.appearance =
+            build_property::<Appearance>(properties, BStr::new("Appearance"));
+        data_properties.back_color = build_color_property(
+            properties,
+            BStr::new("BackColor"),
+            data_properties.back_color,
+        );
+        data_properties.bof_action =
+            build_property::<BOFAction>(properties, BStr::new("BOFAction"));
+
+        let caption_key = BStr::new("Caption");
+        data_properties.caption = properties
+            .get(caption_key)
+            .unwrap_or(&data_properties.caption);
+
+        data_properties.connection = properties
+            .get(BStr::new("Connection"))
+            .map_or(Ok(Connection::Access), |v| {
+                Connection::try_from(v.to_str().unwrap_or("Access"))
+            })
+            .unwrap();
+
+        let database_name_key = BStr::new("DatabaseName");
+        data_properties.database_name = properties
+            .get(database_name_key)
+            .unwrap_or(&data_properties.database_name);
+
+        data_properties.default_cursor_type =
+            build_property::<DefaultCursorType>(properties, BStr::new("DefaultCursorType"));
+
+        data_properties.default_type =
+            build_property::<DefaultType>(properties, BStr::new("DefaultType"));
+
+        // DragIcon
+
+        data_properties.drag_mode = build_property::<DragMode>(properties, BStr::new("DragMode"));
+        data_properties.enabled =
+            build_bool_property(properties, BStr::new("Enabled"), data_properties.enabled);
+        data_properties.eof_action =
+            build_property::<EOFAction>(properties, BStr::new("EOFAction"));
+        data_properties.exclusive = build_bool_property(
+            properties,
+            BStr::new("Exclusive"),
+            data_properties.exclusive,
+        );
+        data_properties.fore_color = build_color_property(
+            properties,
+            BStr::new("ForeColor"),
+            data_properties.fore_color,
+        );
+        data_properties.height =
+            build_i32_property(properties, BStr::new("Height"), data_properties.height);
+        data_properties.left =
+            build_i32_property(properties, BStr::new("Left"), data_properties.left);
+        data_properties.mouse_pointer =
+            build_property::<MousePointer>(properties, BStr::new("MousePointer"));
+        data_properties.negotitate = build_bool_property(
+            properties,
+            BStr::new("Negotitate"),
+            data_properties.negotitate,
+        );
+        data_properties.ole_drop_mode =
+            build_property::<OLEDropMode>(properties, BStr::new("OLEDropMode"));
+        data_properties.options =
+            build_i32_property(properties, BStr::new("Options"), data_properties.options);
+        data_properties.read_only =
+            build_bool_property(properties, BStr::new("ReadOnly"), data_properties.read_only);
+        data_properties.record_set_type =
+            build_property::<RecordSetType>(properties, BStr::new("RecordsetType"));
+        data_properties.record_source = properties
+            .get(BStr::new("RecordSource"))
+            .unwrap_or(&data_properties.record_source);
+        data_properties.right_to_left = build_bool_property(
+            properties,
+            BStr::new("RightToLeft"),
+            data_properties.right_to_left,
+        );
+        data_properties.tool_tip_text = properties
+            .get(BStr::new("ToolTipText"))
+            .unwrap_or(&data_properties.tool_tip_text);
+        data_properties.top = build_i32_property(properties, BStr::new("Top"), data_properties.top);
+        data_properties.visible =
+            build_bool_property(properties, BStr::new("Visible"), data_properties.visible);
+        data_properties.whats_this_help_id = build_i32_property(
+            properties,
+            BStr::new("WhatsThisHelpID"),
+            data_properties.whats_this_help_id,
+        );
+        data_properties.width =
+            build_i32_property(properties, BStr::new("Width"), data_properties.width);
+
+        Ok(data_properties)
+    }
+}
+
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum BOFAction {
+    #[default]
     MoveFirst = 0,
     Bof = 1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
 pub enum Connection {
+    #[default]
     Access,
     DBaseIII,
     DBaseIV,
@@ -162,29 +275,66 @@ pub enum Connection {
     Text,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+impl TryFrom<&str> for Connection {
+    type Error = VB6ErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "Access" => Ok(Connection::Access),
+            "dBase III" => Ok(Connection::DBaseIII),
+            "dBase IV" => Ok(Connection::DBaseIV),
+            "dBase 5.0" => Ok(Connection::DBase5_0),
+            "Excel 3.0" => Ok(Connection::Excel3_0),
+            "Excel 4.0" => Ok(Connection::Excel4_0),
+            "Excel 5.0" => Ok(Connection::Excel5_0),
+            "Excel 8.0" => Ok(Connection::Excel8_0),
+            "FoxPro 2.0" => Ok(Connection::FoxPro2_0),
+            "FoxPro 2.5" => Ok(Connection::FoxPro2_5),
+            "FoxPro 2.6" => Ok(Connection::FoxPro2_6),
+            "FoxPro 3.0" => Ok(Connection::FoxPro3_0),
+            "Lotus WK1" => Ok(Connection::LotusWk1),
+            "Lotus WK3" => Ok(Connection::LotusWk3),
+            "Lotus WK4" => Ok(Connection::LotusWk4),
+            "Paradox 3.X" => Ok(Connection::Paradox3X),
+            "Paradox 4.X" => Ok(Connection::Paradox4X),
+            "Paradox 5.X" => Ok(Connection::Paradox5X),
+            "Text" => Ok(Connection::Text),
+            _ => Err(VB6ErrorKind::ConnectionTypeUnparseable),
+        }
+    }
+}
+
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum DefaultCursorType {
+    #[default]
     Default = 0,
     Odbc = 1,
     ServerSide = 2,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum DefaultType {
     UseODBC = 1,
+    #[default]
     UseJet = 2,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum EOFAction {
+    #[default]
     MoveLast = 0,
     Eof = 1,
     AddNew = 2,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum RecordSetType {
     Table = 0,
+    #[default]
     Dynaset = 1,
     Snapshot = 2,
 }
