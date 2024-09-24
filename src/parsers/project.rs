@@ -1455,11 +1455,8 @@ where
         return Err(input.error(error_on_conversion));
     };
 
-    let value = match result_ascii.to_string().as_str().parse::<F>() {
-        Ok(value) => value,
-        Err(_) => {
-            return Err(input.error(error_on_conversion));
-        }
+    let Ok(value) = result_ascii.to_string().as_str().parse::<F>() else {
+        return Err(input.error(error_on_conversion));
     };
 
     if (space0, alt((line_ending, line_comment_parse)))
