@@ -340,9 +340,10 @@ fn build_control<'a>(
             }
         }
         b"Timer" => {
-            // TODO: We are not correctly handling property assignment for each control.
+            let timer_properties = TimerProperties::construct_control(&properties)?;
+
             VB6ControlKind::Timer {
-                properties: TimerProperties::default(),
+                properties: timer_properties,
             }
         }
         b"CheckBox" => {
