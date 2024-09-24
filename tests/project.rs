@@ -7,7 +7,7 @@ fn artificial_life_project_load() {
     let project = match VB6Project::parse("Artificial Life.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'Artificial Life.vbp': {}", e);
+            panic!("Failed to parse class file 'Artificial Life.vbp': {e}");
         }
     };
 
@@ -21,7 +21,7 @@ fn blacklight_effect_project_load() {
     let project = match VB6Project::parse("Blacklight.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'Blacklight.vbp': {}", e);
+            panic!("Failed to parse class file 'Blacklight.vbp': {e}");
         }
     };
 
@@ -36,7 +36,7 @@ fn brightness_effect_part_1_project_load() {
     let project = match VB6Project::parse("Brightness.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'Brightness.vbp': {}", e);
+            panic!("Failed to parse class file 'Brightness.vbp': {e}");
         }
     };
 
@@ -52,7 +52,7 @@ fn brightness_effect_part_2_project_load() {
     let project = match VB6Project::parse("Brightness2.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'Brightness2.vbp': {}", e);
+            panic!("Failed to parse class file 'Brightness2.vbp': {e}");
         }
     };
 
@@ -67,7 +67,7 @@ fn brightness_effect_part_3_project_load() {
     let project = match VB6Project::parse("Brightness3.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'Brightness3.vbp': {}", e);
+            panic!("Failed to parse class file 'Brightness3.vbp': {e}");
         }
     };
 
@@ -81,7 +81,7 @@ fn color_shift_effect_project_load() {
     let project = match VB6Project::parse("ShiftColor.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'ShiftColor.vbp': {}", e);
+            panic!("Failed to parse class file 'ShiftColor.vbp': {e}");
         }
     };
 
@@ -95,7 +95,7 @@ fn colorize_effect_project_load() {
     let project = match VB6Project::parse("Colorize.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'Colorize.vbp': {}", e);
+            panic!("Failed to parse class file 'Colorize.vbp': {e}");
         }
     };
 
@@ -109,7 +109,7 @@ fn contrast_effect_project_load() {
     let project = match VB6Project::parse("Contrast.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'Contrast.vbp': {}", e);
+            panic!("Failed to parse class file 'Contrast.vbp': {e}");
         }
     };
 
@@ -123,7 +123,7 @@ fn curves_effect_project_load() {
     let project = match VB6Project::parse("Curves.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'Curves.vbp': {}", e);
+            panic!("Failed to parse class file 'Curves.vbp': {e}");
         }
     };
 
@@ -138,7 +138,7 @@ fn custom_image_filters_project_load() {
     let project = match VB6Project::parse("CustomFilters.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'CustomFilters.vbp': {}", e);
+            panic!("Failed to parse class file 'CustomFilters.vbp': {e}");
         }
     };
 
@@ -152,7 +152,7 @@ fn diffuse_effect_project_load() {
     let project = match VB6Project::parse("Diffuse.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'Diffuse.vbp': {}", e);
+            panic!("Failed to parse class file 'Diffuse.vbp': {e}");
         }
     };
 
@@ -166,7 +166,7 @@ fn edge_detection_project_load() {
     let project = match VB6Project::parse("EdgeDetection.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'EdgeDetection.vbp': {}", e);
+            panic!("Failed to parse class file 'EdgeDetection.vbp': {e}");
         }
     };
 
@@ -181,7 +181,7 @@ fn emboss_engrave_effect_project_load() {
     let project = match VB6Project::parse("EmbossEngrave.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'EmbossEngrave.vbp': {}", e);
+            panic!("Failed to parse class file 'EmbossEngrave.vbp': {e}");
         }
     };
 
@@ -195,7 +195,7 @@ fn fill_image_region_project_load() {
     let project = match VB6Project::parse("Fill_Region.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'Fill_Region.vbp': {}", e);
+            panic!("Failed to parse class file 'Fill_Region.vbp': {e}");
         }
     };
 
@@ -209,7 +209,7 @@ fn fire_effect_project_load() {
     let project = match VB6Project::parse("FlameTest.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'FlameTest.vbp': {}", e);
+            panic!("Failed to parse class file 'FlameTest.vbp': {e}");
         }
     };
 
@@ -223,7 +223,7 @@ fn game_physics_basic_project_load() {
     let project = match VB6Project::parse("Physics.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'Physics.vbp': {}", e);
+            panic!("Failed to parse class file 'Physics.vbp': {e}");
         }
     };
 
@@ -237,7 +237,7 @@ fn gradient_2d_project_load() {
     let project = match VB6Project::parse("Gradient.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'Gradient.vbp': {}", e);
+            panic!("Failed to parse class file 'Gradient.vbp': {e}");
         }
     };
 
@@ -251,7 +251,7 @@ fn grayscale_effect_project_load() {
     let project = match VB6Project::parse("Grayscale.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'Grayscale.vbp': {}", e);
+            panic!("Failed to parse class file 'Grayscale.vbp': {e}");
         }
     };
 
@@ -265,7 +265,7 @@ fn hidden_markov_model_project_load() {
     let project = match VB6Project::parse("HMM.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'HMM.vbp': {}", e);
+            panic!("Failed to parse class file 'HMM.vbp': {e}");
         }
     };
 
@@ -281,8 +281,7 @@ fn histograms_advanced_project_load() {
         Ok(project) => project,
         Err(e) => {
             panic!(
-                "Failed to parse class file 'Advanced Histograms.vbp': {}",
-                e
+                "Failed to parse class file 'Advanced Histograms.vbp': {e}"
             );
         }
     };
@@ -298,7 +297,7 @@ fn histogram_basic_project_load() {
     let project = match VB6Project::parse("Basic Histograms.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'Basic Histograms.vbp': {}", e);
+            panic!("Failed to parse class file 'Basic Histograms.vbp': {e}");
         }
     };
 
@@ -312,7 +311,7 @@ fn levels_effect_project_load() {
     let project = match VB6Project::parse("Image Levels.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'Image Levels.vbp': {}", e);
+            panic!("Failed to parse class file 'Image Levels.vbp': {e}");
         }
     };
 
@@ -326,7 +325,7 @@ fn mandelbrot_project_load() {
     let project = match VB6Project::parse("Mandelbrot.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'Mandelbrot.vbp': {}", e);
+            panic!("Failed to parse class file 'Mandelbrot.vbp': {e}");
         }
     };
 
@@ -340,7 +339,7 @@ fn map_editor_2d_project_load() {
     let project = match VB6Project::parse("Map Editor.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'Map Editor.vbp': {}", e);
+            panic!("Failed to parse class file 'Map Editor.vbp': {e}");
         }
     };
 
@@ -354,7 +353,7 @@ fn nature_effects_project_load() {
     let project = match VB6Project::parse("NatureFilters.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'NatureFilters.vbp': {}", e);
+            panic!("Failed to parse class file 'NatureFilters.vbp': {e}");
         }
     };
 
@@ -369,7 +368,7 @@ fn randomize_effects_project_load() {
     let project = match VB6Project::parse("RandomizationFX.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'RandomizationFX.vbp': {}", e);
+            panic!("Failed to parse class file 'RandomizationFX.vbp': {e}");
         }
     };
 
@@ -383,7 +382,7 @@ fn scanner_twain_project_load() {
     let project = match VB6Project::parse("VB_Scanner_Support.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'VB_Scanner_Support.vbp': {}", e);
+            panic!("Failed to parse class file 'VB_Scanner_Support.vbp': {e}");
         }
     };
 
@@ -397,7 +396,7 @@ fn screen_capture_project_load() {
     let project = match VB6Project::parse("ScreenCapture.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'ScreenCapture.vbp': {}", e);
+            panic!("Failed to parse class file 'ScreenCapture.vbp': {e}");
         }
     };
 
@@ -411,7 +410,7 @@ fn sepia_effect_project_load() {
     let project = match VB6Project::parse("Sepia.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'Sepia.vbp': {}", e);
+            panic!("Failed to parse class file 'Sepia.vbp': {e}");
         }
     };
 
@@ -425,7 +424,7 @@ fn threshold_effect_project_load() {
     let project = match VB6Project::parse("Threshold.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'Threshold.vbp': {}", e);
+            panic!("Failed to parse class file 'Threshold.vbp': {e}");
         }
     };
 
@@ -439,7 +438,7 @@ fn transparency_2d_project_load() {
     let project = match VB6Project::parse("Transparency.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!("Failed to parse class file 'Transparency.vbp': {}", e);
+            panic!("Failed to parse class file 'Transparency.vbp': {e}");
         }
     };
 
