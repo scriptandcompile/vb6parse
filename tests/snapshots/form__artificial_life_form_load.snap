@@ -194,7 +194,38 @@ form:
                   System:
                     index: 15
                 cancel: false
-                caption: Command1
+                caption:
+                  - 83
+                  - 97
+                  - 118
+                  - 101
+                  - 32
+                  - 115
+                  - 105
+                  - 109
+                  - 117
+                  - 108
+                  - 97
+                  - 116
+                  - 105
+                  - 111
+                  - 110
+                  - 32
+                  - 100
+                  - 97
+                  - 116
+                  - 97
+                  - 32
+                  - 116
+                  - 111
+                  - 32
+                  - 102
+                  - 105
+                  - 108
+                  - 101
+                  - 46
+                  - 46
+                  - 46
                 causes_validation: true
                 default: false
                 disabled_picture: ~
@@ -202,9 +233,9 @@ form:
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
-                height: 30
+                height: 495
                 help_context_id: 0
-                left: 30
+                left: 4920
                 mask_color:
                   RGB:
                     red: 192
@@ -216,13 +247,13 @@ form:
                 picture: ~
                 right_to_left: false
                 style: Standard
-                tab_index: 0
+                tab_index: 26
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
+                tool_tip_text: []
+                top: 8040
                 use_mask_color: false
                 whats_this_help_id: 0
-                width: 100
+                width: 2775
         - name: chkDisplayDead
           tag: ""
           index: 0
@@ -1358,7 +1389,30 @@ form:
                   System:
                     index: 15
                 cancel: false
-                caption: Command1
+                caption:
+                  - 83
+                  - 84
+                  - 79
+                  - 80
+                  - 32
+                  - 99
+                  - 117
+                  - 114
+                  - 114
+                  - 101
+                  - 110
+                  - 116
+                  - 32
+                  - 115
+                  - 105
+                  - 109
+                  - 117
+                  - 108
+                  - 97
+                  - 116
+                  - 105
+                  - 111
+                  - 110
                 causes_validation: true
                 default: false
                 disabled_picture: ~
@@ -1366,9 +1420,9 @@ form:
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
-                height: 30
+                height: 615
                 help_context_id: 0
-                left: 30
+                left: 9960
                 mask_color:
                   RGB:
                     red: 192
@@ -1380,13 +1434,13 @@ form:
                 picture: ~
                 right_to_left: false
                 style: Standard
-                tab_index: 0
+                tab_index: 3
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
+                tool_tip_text: []
+                top: 240
                 use_mask_color: false
                 whats_this_help_id: 0
-                width: 100
+                width: 2055
         - name: cmdStart
           tag: ""
           index: 0
@@ -1398,7 +1452,27 @@ form:
                   System:
                     index: 15
                 cancel: false
-                caption: Command1
+                caption:
+                  - 83
+                  - 84
+                  - 65
+                  - 82
+                  - 84
+                  - 32
+                  - 110
+                  - 101
+                  - 119
+                  - 32
+                  - 115
+                  - 105
+                  - 109
+                  - 117
+                  - 108
+                  - 97
+                  - 116
+                  - 105
+                  - 111
+                  - 110
                 causes_validation: true
                 default: false
                 disabled_picture: ~
@@ -1406,9 +1480,9 @@ form:
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
-                height: 30
+                height: 615
                 help_context_id: 0
-                left: 30
+                left: 7800
                 mask_color:
                   RGB:
                     red: 192
@@ -1420,13 +1494,13 @@ form:
                 picture: ~
                 right_to_left: false
                 style: Standard
-                tab_index: 0
+                tab_index: 2
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
+                tool_tip_text: []
+                top: 240
                 use_mask_color: false
                 whats_this_help_id: 0
-                width: 100
+                width: 2055
         - name: picMap
           tag: ""
           index: 0

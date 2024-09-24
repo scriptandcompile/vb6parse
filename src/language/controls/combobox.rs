@@ -176,6 +176,7 @@ impl<'a> ComboBoxProperties<'a> {
             BStr::new("CausesValidation"),
             combobox_properties.causes_validation,
         );
+
         let data_field_key = BStr::new("DataField");
         combobox_properties.data_field = properties
             .get(data_field_key)

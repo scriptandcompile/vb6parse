@@ -358,6 +358,13 @@ fn build_control<'a>(
                 properties: combobox_properties,
             }
         }
+        b"CommandButton" => {
+            let command_button_properties =
+                CommandButtonProperties::construct_control(&properties)?;
+            VB6ControlKind::CommandButton {
+                properties: command_button_properties,
+            }
+        }
         b"Ole" => {
             // TODO: We are not correctly handling property assignment for each control.
             VB6ControlKind::Ole {
@@ -392,13 +399,6 @@ fn build_control<'a>(
             // TODO: We are not correctly handling property assignment for each control.
             VB6ControlKind::Label {
                 properties: LabelProperties::default(),
-            }
-        }
-
-        b"CommandButton" => {
-            // TODO: We are not correctly handling property assignment for each control.
-            VB6ControlKind::CommandButton {
-                properties: CommandButtonProperties::default(),
             }
         }
         b"PictureBox" => {

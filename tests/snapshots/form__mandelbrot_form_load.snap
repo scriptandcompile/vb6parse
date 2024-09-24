@@ -124,12 +124,17 @@ form:
           kind:
             CommandButton:
               properties:
-                appearance: ThreeD
+                appearance: Flat
                 back_color:
                   System:
                     index: 15
                 cancel: false
-                caption: Command1
+                caption:
+                  - 82
+                  - 101
+                  - 115
+                  - 101
+                  - 116
                 causes_validation: true
                 default: false
                 disabled_picture: ~
@@ -137,9 +142,9 @@ form:
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
-                height: 30
+                height: 615
                 help_context_id: 0
-                left: 30
+                left: 8280
                 mask_color:
                   RGB:
                     red: 192
@@ -151,13 +156,13 @@ form:
                 picture: ~
                 right_to_left: false
                 style: Standard
-                tab_index: 0
+                tab_index: 14
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
+                tool_tip_text: []
+                top: 480
                 use_mask_color: false
                 whats_this_help_id: 0
-                width: 100
+                width: 855
         - name: scrAccuracy
           tag: ""
           index: 0
@@ -191,12 +196,28 @@ form:
           kind:
             CommandButton:
               properties:
-                appearance: ThreeD
+                appearance: Flat
                 back_color:
                   System:
                     index: 15
                 cancel: false
-                caption: Command1
+                caption:
+                  - 68
+                  - 114
+                  - 97
+                  - 119
+                  - 32
+                  - 116
+                  - 104
+                  - 101
+                  - 32
+                  - 70
+                  - 114
+                  - 97
+                  - 99
+                  - 116
+                  - 97
+                  - 108
                 causes_validation: true
                 default: false
                 disabled_picture: ~
@@ -204,9 +225,9 @@ form:
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
-                height: 30
+                height: 615
                 help_context_id: 0
-                left: 30
+                left: 6120
                 mask_color:
                   RGB:
                     red: 192
@@ -218,13 +239,13 @@ form:
                 picture: ~
                 right_to_left: false
                 style: Standard
-                tab_index: 0
+                tab_index: 5
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
+                tool_tip_text: []
+                top: 480
                 use_mask_color: false
                 whats_this_help_id: 0
-                width: 100
+                width: 2055
         - name: TxtYMax
           tag: ""
           index: 0

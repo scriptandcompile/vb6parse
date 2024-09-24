@@ -141,7 +141,82 @@ form:
                   System:
                     index: 15
                 cancel: false
-                caption: Command1
+                caption:
+                  - 67
+                  - 104
+                  - 97
+                  - 110
+                  - 103
+                  - 101
+                  - 32
+                  - 66
+                  - 114
+                  - 105
+                  - 103
+                  - 104
+                  - 116
+                  - 110
+                  - 101
+                  - 115
+                  - 115
+                  - 32
+                  - 117
+                  - 115
+                  - 105
+                  - 110
+                  - 103
+                  - 32
+                  - 66
+                  - 105
+                  - 116
+                  - 109
+                  - 97
+                  - 112
+                  - 66
+                  - 105
+                  - 116
+                  - 115
+                  - 32
+                  - 40
+                  - 85
+                  - 83
+                  - 69
+                  - 32
+                  - 84
+                  - 72
+                  - 73
+                  - 83
+                  - 32
+                  - 79
+                  - 78
+                  - 76
+                  - 89
+                  - 32
+                  - 73
+                  - 78
+                  - 32
+                  - 50
+                  - 52
+                  - 47
+                  - 51
+                  - 50
+                  - 45
+                  - 66
+                  - 73
+                  - 84
+                  - 32
+                  - 67
+                  - 79
+                  - 76
+                  - 79
+                  - 82
+                  - 32
+                  - 77
+                  - 79
+                  - 68
+                  - 69
+                  - 83
+                  - 41
                 causes_validation: true
                 default: false
                 disabled_picture: ~
@@ -149,9 +224,9 @@ form:
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
-                height: 30
+                height: 735
                 help_context_id: 0
-                left: 30
+                left: 120
                 mask_color:
                   RGB:
                     red: 192
@@ -163,13 +238,13 @@ form:
                 picture: ~
                 right_to_left: false
                 style: Standard
-                tab_index: 0
+                tab_index: 5
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
+                tool_tip_text: []
+                top: 5640
                 use_mask_color: false
                 whats_this_help_id: 0
-                width: 100
+                width: 2895
         - name: ChkAutoRedraw
           tag: ""
           index: 0
@@ -290,7 +365,43 @@ form:
                   System:
                     index: 15
                 cancel: false
-                caption: Command1
+                caption:
+                  - 67
+                  - 104
+                  - 97
+                  - 110
+                  - 103
+                  - 101
+                  - 32
+                  - 66
+                  - 114
+                  - 105
+                  - 103
+                  - 104
+                  - 116
+                  - 110
+                  - 101
+                  - 115
+                  - 115
+                  - 32
+                  - 117
+                  - 115
+                  - 105
+                  - 110
+                  - 103
+                  - 32
+                  - 68
+                  - 73
+                  - 66
+                  - 32
+                  - 83
+                  - 101
+                  - 99
+                  - 116
+                  - 105
+                  - 111
+                  - 110
+                  - 115
                 causes_validation: true
                 default: false
                 disabled_picture: ~
@@ -298,9 +409,9 @@ form:
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
-                height: 30
+                height: 615
                 help_context_id: 0
-                left: 30
+                left: 120
                 mask_color:
                   RGB:
                     red: 192
@@ -312,13 +423,13 @@ form:
                 picture: ~
                 right_to_left: false
                 style: Standard
-                tab_index: 0
+                tab_index: 1
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
+                tool_tip_text: []
+                top: 4920
                 use_mask_color: false
                 whats_this_help_id: 0
-                width: 100
+                width: 2895
         - name: Picture1
           tag: ""
           index: 0
