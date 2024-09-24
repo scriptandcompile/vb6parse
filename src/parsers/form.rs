@@ -493,6 +493,7 @@ fn build_control<'a>(
     Ok(parent_control)
 }
 
+#[must_use]
 pub fn build_property<T>(properties: &HashMap<&BStr, &BStr>, property_key: &BStr) -> T
 where
     T: Default + TryFromPrimitive + TryFrom<i32>,
@@ -503,7 +504,7 @@ where
 
     let property_ascii = properties[property_key].to_str().unwrap();
 
-    let value = match i32::from_str_radix(property_ascii, 10) {
+    let value = match property_ascii.parse::<i32>() {
         Ok(value) => T::try_from(value).unwrap_or_default(),
         Err(_) => T::default(),
     };
@@ -511,6 +512,7 @@ where
     value
 }
 
+#[must_use]
 pub fn build_option_property<'a, T>(
     properties: &HashMap<&'a BStr, &'a BStr>,
     property_key: &'a BStr,
@@ -530,6 +532,7 @@ where
     }
 }
 
+#[must_use]
 pub fn build_i32_property(
     properties: &HashMap<&BStr, &BStr>,
     property_key: &BStr,
@@ -547,6 +550,7 @@ pub fn build_i32_property(
     }
 }
 
+#[must_use]
 pub fn build_color_property(
     properties: &HashMap<&BStr, &BStr>,
     property_key: &BStr,
@@ -564,6 +568,7 @@ pub fn build_color_property(
     }
 }
 
+#[must_use]
 pub fn build_bool_property(
     properties: &HashMap<&BStr, &BStr>,
     property_key: &BStr,
