@@ -271,6 +271,21 @@ fn build_control<'a>(
     // This is wrong.
     // TODO: When we start work on custom controls we will need
     // to handle fully verified name parsing. This will work for now though.
+
+    if fully_qualified_name.namespace != "VB" {
+        let custom_control = VB6Control {
+            name: fully_qualified_name.name,
+            tag: tag,
+            index: 0,
+            kind: VB6ControlKind::Custom {
+                properties: properties,
+                property_groups: property_groups,
+            },
+        };
+
+        return Ok(custom_control);
+    }
+
     let kind = match fully_qualified_name.kind.as_bytes() {
         b"Form" => {
             let form_properties = FormProperties::construct_control(properties, property_groups)?;
