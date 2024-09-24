@@ -408,6 +408,14 @@ fn build_control<'a>(
                 properties: label_properties,
             }
         }
+
+        b"Line" => {
+            let line_properties = LineProperties::construct_control(&properties)?;
+
+            VB6ControlKind::Line {
+                properties: line_properties,
+            }
+        }
         b"Ole" => {
             // TODO: We are not correctly handling property assignment for each control.
             VB6ControlKind::Ole {
@@ -418,12 +426,6 @@ fn build_control<'a>(
             // TODO: We are not correctly handling property assignment for each control.
             VB6ControlKind::OptionButton {
                 properties: OptionButtonProperties::default(),
-            }
-        }
-        b"Line" => {
-            // TODO: We are not correctly handling property assignment for each control.
-            VB6ControlKind::Line {
-                properties: LineProperties::default(),
             }
         }
         b"Shape" => {
