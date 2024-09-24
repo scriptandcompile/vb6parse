@@ -372,6 +372,13 @@ fn build_control<'a>(
                 properties: data_properties,
             }
         }
+        b"DirListBox" => {
+            let dir_list_box_properties = DirListBoxProperties::construct_control(&properties)?;
+
+            VB6ControlKind::DirListBox {
+                properties: dir_list_box_properties,
+            }
+        }
         b"Ole" => {
             // TODO: We are not correctly handling property assignment for each control.
             VB6ControlKind::Ole {
@@ -424,12 +431,6 @@ fn build_control<'a>(
             // TODO: We are not correctly handling property assignment for each control.
             VB6ControlKind::VScrollBar {
                 properties: ScrollBarProperties::default(),
-            }
-        }
-        b"DirListBox" => {
-            // TODO: We are not correctly handling property assignment for each control.
-            VB6ControlKind::DirListBox {
-                properties: DirListBoxProperties::default(),
             }
         }
         b"Image" => {

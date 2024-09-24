@@ -1,6 +1,13 @@
+use std::collections::HashMap;
+
+use crate::errors::VB6ErrorKind;
 use crate::language::controls::{Appearance, DragMode, MousePointer, OLEDragMode, OLEDropMode};
+use crate::parsers::form::{
+    build_bool_property, build_color_property, build_i32_property, build_property,
+};
 use crate::VB6Color;
 
+use bstr::BStr;
 use image::DynamicImage;
 use serde::Serialize;
 
@@ -28,7 +35,7 @@ pub struct DirListBoxProperties<'a> {
     pub ole_drop_mode: OLEDropMode,
     pub tab_index: i32,
     pub tab_stop: bool,
-    pub tool_tip_text: &'a str,
+    pub tool_tip_text: &'a BStr,
     pub top: i32,
     pub visible: bool,
     pub whats_this_help_id: i32,
@@ -54,7 +61,7 @@ impl Default for DirListBoxProperties<'_> {
             ole_drop_mode: OLEDropMode::default(),
             tab_index: 0,
             tab_stop: true,
-            tool_tip_text: "",
+            tool_tip_text: BStr::new(""),
             top: 720,
             visible: true,
             whats_this_help_id: 0,
@@ -100,5 +107,91 @@ impl Serialize for DirListBoxProperties<'_> {
         s.serialize_field("width", &self.width)?;
 
         s.end()
+    }
+}
+
+impl<'a> DirListBoxProperties<'a> {
+    pub fn construct_control(
+        properties: &HashMap<&'a BStr, &'a BStr>,
+    ) -> Result<Self, VB6ErrorKind> {
+        let mut dir_list_box_properties = DirListBoxProperties::default();
+
+        dir_list_box_properties.appearance =
+            build_property::<Appearance>(properties, BStr::new("Appearance"));
+        dir_list_box_properties.back_color = build_color_property(
+            properties,
+            BStr::new("BackColor"),
+            dir_list_box_properties.back_color,
+        );
+        dir_list_box_properties.causes_validation = build_bool_property(
+            properties,
+            BStr::new("CausesValidation"),
+            dir_list_box_properties.causes_validation,
+        );
+
+        // DragIcon
+
+        dir_list_box_properties.drag_mode =
+            build_property::<DragMode>(properties, BStr::new("DragMode"));
+        dir_list_box_properties.enabled = build_bool_property(
+            properties,
+            BStr::new("Enabled"),
+            dir_list_box_properties.enabled,
+        );
+        dir_list_box_properties.fore_color = build_color_property(
+            properties,
+            BStr::new("ForeColor"),
+            dir_list_box_properties.fore_color,
+        );
+        dir_list_box_properties.height = build_i32_property(
+            properties,
+            BStr::new("Height"),
+            dir_list_box_properties.height,
+        );
+        dir_list_box_properties.help_context_id = build_i32_property(
+            properties,
+            BStr::new("HelpContextID"),
+            dir_list_box_properties.help_context_id,
+        );
+        dir_list_box_properties.left =
+            build_i32_property(properties, BStr::new("Left"), dir_list_box_properties.left);
+        dir_list_box_properties.mouse_pointer =
+            build_property::<MousePointer>(properties, BStr::new("MousePointer"));
+        dir_list_box_properties.ole_drag_mode =
+            build_property::<OLEDragMode>(properties, BStr::new("OLEDragMode"));
+        dir_list_box_properties.ole_drop_mode =
+            build_property::<OLEDropMode>(properties, BStr::new("OLEDropMode"));
+        dir_list_box_properties.tab_index = build_i32_property(
+            properties,
+            BStr::new("TabIndex"),
+            dir_list_box_properties.tab_index,
+        );
+        dir_list_box_properties.tab_stop = build_bool_property(
+            properties,
+            BStr::new("TabStop"),
+            dir_list_box_properties.tab_stop,
+        );
+        dir_list_box_properties.tool_tip_text = properties
+            .get(BStr::new("ToolTipText"))
+            .unwrap_or(&BStr::new(""));
+        dir_list_box_properties.top =
+            build_i32_property(properties, BStr::new("Top"), dir_list_box_properties.top);
+        dir_list_box_properties.visible = build_bool_property(
+            properties,
+            BStr::new("Visible"),
+            dir_list_box_properties.visible,
+        );
+        dir_list_box_properties.whats_this_help_id = build_i32_property(
+            properties,
+            BStr::new("WhatsThisHelpID"),
+            dir_list_box_properties.whats_this_help_id,
+        );
+        dir_list_box_properties.width = build_i32_property(
+            properties,
+            BStr::new("Width"),
+            dir_list_box_properties.width,
+        );
+
+        Ok(dir_list_box_properties)
     }
 }
