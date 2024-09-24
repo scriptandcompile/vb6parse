@@ -9,11 +9,11 @@ use crate::{
     errors::{VB6Error, VB6ErrorKind},
     language::{
         CheckBoxProperties, ComboBoxProperties, CommandButtonProperties, DataProperties,
-        DirListBoxProperties, DriveListBoxProperties, FormProperties, FrameProperties,
-        ImageProperties, LabelProperties, LineProperties, ListBoxProperties, MenuProperties,
-        OLEProperties, OptionButtonProperties, PictureBoxProperties, ScrollBarProperties,
-        ShapeProperties, TextBoxProperties, TimerProperties, VB6Color, VB6Control, VB6ControlKind,
-        VB6MenuControl, VB6Token,
+        DirListBoxProperties, DriveListBoxProperties, FileListBoxProperties, FormProperties,
+        FrameProperties, ImageProperties, LabelProperties, LineProperties, ListBoxProperties,
+        MenuProperties, OLEProperties, OptionButtonProperties, PictureBoxProperties,
+        ScrollBarProperties, ShapeProperties, TextBoxProperties, TimerProperties, VB6Color,
+        VB6Control, VB6ControlKind, VB6MenuControl, VB6Token,
     },
     parsers::{
         header::{key_resource_offset_line_parse, version_parse, HeaderKind, VB6FileFormatVersion},
@@ -385,6 +385,13 @@ fn build_control<'a>(
 
             VB6ControlKind::DriveListBox {
                 properties: drive_list_box_properties,
+            }
+        }
+        b"FileListBox" => {
+            let file_list_box_properties = FileListBoxProperties::construct_control(&properties)?;
+
+            VB6ControlKind::FileListBox {
+                properties: file_list_box_properties,
             }
         }
         b"Ole" => {

@@ -399,8 +399,10 @@ pub enum LinkMode {
     Notify = 3,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum MultiSelect {
+    #[default]
     None = 0,
     Simple = 1,
     Extended = 2,

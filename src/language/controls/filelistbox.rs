@@ -1,8 +1,15 @@
+use std::collections::HashMap;
+
+use crate::errors::VB6ErrorKind;
 use crate::language::color::VB6Color;
 use crate::language::controls::{
     Appearance, DragMode, MousePointer, MultiSelect, OLEDragMode, OLEDropMode,
 };
+use crate::parsers::form::{
+    build_bool_property, build_color_property, build_i32_property, build_property,
+};
 
+use bstr::BStr;
 use image::DynamicImage;
 use serde::Serialize;
 
@@ -32,12 +39,12 @@ pub struct FileListBoxProperties<'a> {
     pub normal: bool,
     pub ole_drag_mode: OLEDragMode,
     pub ole_drop_mode: OLEDropMode,
-    pub pattern: &'a str,
+    pub pattern: &'a BStr,
     pub read_only: bool,
     pub system: bool,
     pub tab_index: i32,
     pub tab_stop: bool,
-    pub tool_tip_text: &'a str,
+    pub tool_tip_text: &'a BStr,
     pub top: i32,
     pub visible: bool,
     pub whats_this_help_id: i32,
@@ -65,12 +72,12 @@ impl Default for FileListBoxProperties<'_> {
             normal: true,
             ole_drag_mode: OLEDragMode::Manual,
             ole_drop_mode: OLEDropMode::default(),
-            pattern: "*.*",
+            pattern: BStr::new("*.*"),
             read_only: true,
             system: false,
             tab_index: 0,
             tab_stop: true,
-            tool_tip_text: "",
+            tool_tip_text: BStr::new(""),
             top: 480,
             visible: true,
             whats_this_help_id: 0,
@@ -123,5 +130,118 @@ impl Serialize for FileListBoxProperties<'_> {
         s.serialize_field("width", &self.width)?;
 
         s.end()
+    }
+}
+
+impl<'a> FileListBoxProperties<'a> {
+    pub fn construct_control(
+        properties: &HashMap<&'a BStr, &'a BStr>,
+    ) -> Result<Self, VB6ErrorKind> {
+        let mut file_list_box_properties = FileListBoxProperties::default();
+
+        file_list_box_properties.appearance =
+            build_property::<Appearance>(properties, BStr::new("Appearance"));
+        file_list_box_properties.archive = build_bool_property(
+            properties,
+            BStr::new("Archive"),
+            file_list_box_properties.archive,
+        );
+        file_list_box_properties.back_color = build_color_property(
+            properties,
+            BStr::new("BackColor"),
+            file_list_box_properties.back_color,
+        );
+        file_list_box_properties.causes_validation = build_bool_property(
+            properties,
+            BStr::new("CausesValidation"),
+            file_list_box_properties.causes_validation,
+        );
+        file_list_box_properties.drag_mode =
+            build_property::<DragMode>(properties, BStr::new("DragMode"));
+        file_list_box_properties.enabled = build_bool_property(
+            properties,
+            BStr::new("Enabled"),
+            file_list_box_properties.enabled,
+        );
+        file_list_box_properties.fore_color = build_color_property(
+            properties,
+            BStr::new("ForeColor"),
+            file_list_box_properties.fore_color,
+        );
+        file_list_box_properties.height = build_i32_property(
+            properties,
+            BStr::new("Height"),
+            file_list_box_properties.height,
+        );
+        file_list_box_properties.help_context_id = build_i32_property(
+            properties,
+            BStr::new("HelpContextID"),
+            file_list_box_properties.help_context_id,
+        );
+        file_list_box_properties.hidden = build_bool_property(
+            properties,
+            BStr::new("Hidden"),
+            file_list_box_properties.hidden,
+        );
+        file_list_box_properties.left =
+            build_i32_property(properties, BStr::new("Left"), file_list_box_properties.left);
+        file_list_box_properties.mouse_pointer =
+            build_property::<MousePointer>(properties, BStr::new("MousePointer"));
+        file_list_box_properties.multi_select =
+            build_property::<MultiSelect>(properties, BStr::new("MultiSelect"));
+        file_list_box_properties.normal = build_bool_property(
+            properties,
+            BStr::new("Normal"),
+            file_list_box_properties.normal,
+        );
+        file_list_box_properties.ole_drag_mode =
+            build_property::<OLEDragMode>(properties, BStr::new("OLEDragMode"));
+        file_list_box_properties.ole_drop_mode =
+            build_property::<OLEDropMode>(properties, BStr::new("OLEDropMode"));
+        file_list_box_properties.pattern = properties
+            .get(&BStr::new("Pattern"))
+            .unwrap_or(&BStr::new("*.*"));
+        file_list_box_properties.read_only = build_bool_property(
+            properties,
+            BStr::new("ReadOnly"),
+            file_list_box_properties.read_only,
+        );
+        file_list_box_properties.system = build_bool_property(
+            properties,
+            BStr::new("System"),
+            file_list_box_properties.system,
+        );
+        file_list_box_properties.tab_index = build_i32_property(
+            properties,
+            BStr::new("TabIndex"),
+            file_list_box_properties.tab_index,
+        );
+        file_list_box_properties.tab_stop = build_bool_property(
+            properties,
+            BStr::new("TabStop"),
+            file_list_box_properties.tab_stop,
+        );
+        file_list_box_properties.tool_tip_text = properties
+            .get(&BStr::new("ToolTipText"))
+            .unwrap_or(&BStr::new(""));
+        file_list_box_properties.top =
+            build_i32_property(properties, BStr::new("Top"), file_list_box_properties.top);
+        file_list_box_properties.visible = build_bool_property(
+            properties,
+            BStr::new("Visible"),
+            file_list_box_properties.visible,
+        );
+        file_list_box_properties.whats_this_help_id = build_i32_property(
+            properties,
+            BStr::new("WhatsThisHelpID"),
+            file_list_box_properties.whats_this_help_id,
+        );
+        file_list_box_properties.width = build_i32_property(
+            properties,
+            BStr::new("Width"),
+            file_list_box_properties.width,
+        );
+
+        Ok(file_list_box_properties)
     }
 }
