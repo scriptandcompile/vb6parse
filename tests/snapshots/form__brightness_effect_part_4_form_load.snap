@@ -355,35 +355,76 @@ form:
           kind:
             Label:
               properties:
+                alignment: LeftJustify
                 appearance: ThreeD
-                border_style: None
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                auto_size: true
+                back_color:
+                  RGB:
+                    red: 192
+                    green: 192
+                    blue: 192
+                back_style: Opaque
+                border_style: FixedSingle
+                caption:
+                  - 66
+                  - 114
+                  - 105
+                  - 103
+                  - 104
+                  - 116
+                  - 110
+                  - 101
+                  - 115
+                  - 115
+                  - 32
+                  - 67
+                  - 104
+                  - 97
+                  - 110
+                  - 103
+                  - 101
+                  - 32
+                  - 40
+                  - 45
+                  - 50
+                  - 53
+                  - 53
+                  - 32
+                  - 116
+                  - 111
+                  - 32
+                  - 50
+                  - 53
+                  - 53
+                  - 41
+                  - 58
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
                   System:
                     index: 18
-                height: 30
-                left: 30
-                link_item: ""
+                height: 210
+                left: 120
+                link_item: []
                 link_mode: None
-                link_timeout: 50
-                link_topic: ""
+                link_timeout: 0
+                link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
                 right_to_left: false
-                tab_index: 0
-                tool_tip_text: ""
-                top: 30
+                tab_index: 1
+                tool_tip_text: []
+                top: 5160
                 use_mnemonic: true
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 2415
                 word_wrap: false
       menus: []
 objects: []

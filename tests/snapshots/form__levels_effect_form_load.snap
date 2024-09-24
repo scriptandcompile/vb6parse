@@ -400,35 +400,43 @@ form:
                   kind:
                     Label:
                       properties:
+                        alignment: RightJustify
                         appearance: ThreeD
-                        border_style: None
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
+                        auto_size: true
+                        back_color:
+                          System:
+                            index: 15
+                        back_style: Transparent
+                        border_style: FixedSingle
+                        caption:
+                          - 50
+                        data_field: []
+                        data_format: []
+                        data_member: []
+                        data_source: []
                         drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         fore_color:
                           System:
                             index: 18
-                        height: 30
-                        left: 30
-                        link_item: ""
+                        height: 255
+                        left: 1185
+                        link_item: []
                         link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
+                        link_timeout: 0
+                        link_topic: []
                         mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
                         right_to_left: false
-                        tab_index: 0
-                        tool_tip_text: ""
-                        top: 30
+                        tab_index: 22
+                        tool_tip_text: []
+                        top: 1200
                         use_mnemonic: true
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 105
                         word_wrap: false
                 - name: lblMiddleL
                   tag: ""
@@ -436,35 +444,43 @@ form:
                   kind:
                     Label:
                       properties:
+                        alignment: RightJustify
                         appearance: ThreeD
-                        border_style: None
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
+                        auto_size: true
+                        back_color:
+                          System:
+                            index: 15
+                        back_style: Transparent
+                        border_style: FixedSingle
+                        caption:
+                          - 49
+                        data_field: []
+                        data_format: []
+                        data_member: []
+                        data_source: []
                         drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         fore_color:
                           System:
                             index: 18
-                        height: 30
-                        left: 30
-                        link_item: ""
+                        height: 255
+                        left: 1185
+                        link_item: []
                         link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
+                        link_timeout: 0
+                        link_topic: []
                         mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
                         right_to_left: false
-                        tab_index: 0
-                        tool_tip_text: ""
-                        top: 30
+                        tab_index: 21
+                        tool_tip_text: []
+                        top: 960
                         use_mnemonic: true
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 105
                         word_wrap: false
                 - name: Label10
                   tag: ""
@@ -472,35 +488,51 @@ form:
                   kind:
                     Label:
                       properties:
+                        alignment: LeftJustify
                         appearance: ThreeD
-                        border_style: None
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
+                        auto_size: true
+                        back_color:
+                          System:
+                            index: 15
+                        back_style: Transparent
+                        border_style: FixedSingle
+                        caption:
+                          - 77
+                          - 105
+                          - 100
+                          - 116
+                          - 111
+                          - 110
+                          - 101
+                          - 115
+                          - 58
+                        data_field: []
+                        data_format: []
+                        data_member: []
+                        data_source: []
                         drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         fore_color:
                           System:
                             index: 18
-                        height: 30
-                        left: 30
-                        link_item: ""
+                        height: 255
+                        left: 120
+                        link_item: []
                         link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
+                        link_timeout: 0
+                        link_topic: []
                         mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
                         right_to_left: false
-                        tab_index: 0
-                        tool_tip_text: ""
-                        top: 30
+                        tab_index: 20
+                        tool_tip_text: []
+                        top: 960
                         use_mnemonic: true
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 870
                         word_wrap: false
                 - name: lblMiddleR
                   tag: ""
@@ -508,35 +540,45 @@ form:
                   kind:
                     Label:
                       properties:
-                        appearance: ThreeD
-                        border_style: None
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
+                        alignment: LeftJustify
+                        appearance: Flat
+                        auto_size: true
+                        back_color:
+                          System:
+                            index: 5
+                        back_style: Transparent
+                        border_style: FixedSingle
+                        caption:
+                          - 50
+                          - 53
+                          - 52
+                        data_field: []
+                        data_format: []
+                        data_member: []
+                        data_source: []
                         drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         fore_color:
                           System:
-                            index: 18
-                        height: 30
-                        left: 30
-                        link_item: ""
+                            index: 8
+                        height: 255
+                        left: 5520
+                        link_item: []
                         link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
+                        link_timeout: 0
+                        link_topic: []
                         mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
                         right_to_left: false
-                        tab_index: 0
-                        tool_tip_text: ""
-                        top: 30
+                        tab_index: 19
+                        tool_tip_text: []
+                        top: 960
                         use_mnemonic: true
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 315
                         word_wrap: false
                 - name: Label8
                   tag: ""
@@ -544,35 +586,59 @@ form:
                   kind:
                     Label:
                       properties:
+                        alignment: LeftJustify
                         appearance: ThreeD
-                        border_style: None
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
+                        auto_size: true
+                        back_color:
+                          System:
+                            index: 15
+                        back_style: Transparent
+                        border_style: FixedSingle
+                        caption:
+                          - 76
+                          - 101
+                          - 102
+                          - 116
+                          - 32
+                          - 108
+                          - 105
+                          - 109
+                          - 105
+                          - 116
+                          - 58
+                          - 32
+                          - 32
+                          - 32
+                          - 32
+                          - 32
+                          - 48
+                        data_field: []
+                        data_format: []
+                        data_member: []
+                        data_source: []
                         drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         fore_color:
                           System:
                             index: 18
-                        height: 30
-                        left: 30
-                        link_item: ""
+                        height: 255
+                        left: 120
+                        link_item: []
                         link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
+                        link_timeout: 0
+                        link_topic: []
                         mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
                         right_to_left: false
-                        tab_index: 0
-                        tool_tip_text: ""
-                        top: 30
+                        tab_index: 17
+                        tool_tip_text: []
+                        top: 720
                         use_mnemonic: true
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 1185
                         word_wrap: false
                 - name: lblLeftR
                   tag: ""
@@ -580,35 +646,45 @@ form:
                   kind:
                     Label:
                       properties:
-                        appearance: ThreeD
-                        border_style: None
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
+                        alignment: LeftJustify
+                        appearance: Flat
+                        auto_size: true
+                        back_color:
+                          System:
+                            index: 5
+                        back_style: Transparent
+                        border_style: FixedSingle
+                        caption:
+                          - 50
+                          - 53
+                          - 51
+                        data_field: []
+                        data_format: []
+                        data_member: []
+                        data_source: []
                         drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         fore_color:
                           System:
-                            index: 18
-                        height: 30
-                        left: 30
-                        link_item: ""
+                            index: 8
+                        height: 255
+                        left: 5520
+                        link_item: []
                         link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
+                        link_timeout: 0
+                        link_topic: []
                         mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
                         right_to_left: false
-                        tab_index: 0
-                        tool_tip_text: ""
-                        top: 30
+                        tab_index: 16
+                        tool_tip_text: []
+                        top: 720
                         use_mnemonic: true
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 315
                         word_wrap: false
                 - name: Label6
                   tag: ""
@@ -616,35 +692,54 @@ form:
                   kind:
                     Label:
                       properties:
+                        alignment: LeftJustify
                         appearance: ThreeD
-                        border_style: None
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
+                        auto_size: true
+                        back_color:
+                          System:
+                            index: 15
+                        back_style: Transparent
+                        border_style: FixedSingle
+                        caption:
+                          - 82
+                          - 105
+                          - 103
+                          - 104
+                          - 116
+                          - 32
+                          - 108
+                          - 105
+                          - 109
+                          - 105
+                          - 116
+                          - 58
+                        data_field: []
+                        data_format: []
+                        data_member: []
+                        data_source: []
                         drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         fore_color:
                           System:
                             index: 18
-                        height: 30
-                        left: 30
-                        link_item: ""
+                        height: 255
+                        left: 120
+                        link_item: []
                         link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
+                        link_timeout: 0
+                        link_topic: []
                         mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
                         right_to_left: false
-                        tab_index: 0
-                        tool_tip_text: ""
-                        top: 30
+                        tab_index: 15
+                        tool_tip_text: []
+                        top: 1200
                         use_mnemonic: true
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 915
                         word_wrap: false
                 - name: Label5
                   tag: ""
@@ -652,35 +747,45 @@ form:
                   kind:
                     Label:
                       properties:
-                        appearance: ThreeD
-                        border_style: None
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
+                        alignment: RightJustify
+                        appearance: Flat
+                        auto_size: true
+                        back_color:
+                          System:
+                            index: 5
+                        back_style: Transparent
+                        border_style: FixedSingle
+                        caption:
+                          - 50
+                          - 53
+                          - 53
+                        data_field: []
+                        data_format: []
+                        data_member: []
+                        data_source: []
                         drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         fore_color:
                           System:
-                            index: 18
-                        height: 30
-                        left: 30
-                        link_item: ""
+                            index: 8
+                        height: 255
+                        left: 5520
+                        link_item: []
                         link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
+                        link_timeout: 0
+                        link_topic: []
                         mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
                         right_to_left: false
-                        tab_index: 0
-                        tool_tip_text: ""
-                        top: 30
+                        tab_index: 14
+                        tool_tip_text: []
+                        top: 1200
                         use_mnemonic: true
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 315
                         word_wrap: false
                 - name: Label4
                   tag: ""
@@ -688,35 +793,55 @@ form:
                   kind:
                     Label:
                       properties:
+                        alignment: LeftJustify
                         appearance: ThreeD
-                        border_style: None
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
+                        auto_size: true
+                        back_color:
+                          System:
+                            index: 15
+                        back_style: Transparent
+                        border_style: FixedSingle
+                        caption:
+                          - 73
+                          - 110
+                          - 112
+                          - 117
+                          - 116
+                          - 32
+                          - 108
+                          - 101
+                          - 118
+                          - 101
+                          - 108
+                          - 115
+                          - 58
+                        data_field: []
+                        data_format: []
+                        data_member: []
+                        data_source: []
                         drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         fore_color:
                           System:
                             index: 18
-                        height: 30
-                        left: 30
-                        link_item: ""
+                        height: 255
+                        left: 120
+                        link_item: []
                         link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
+                        link_timeout: 0
+                        link_topic: []
                         mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
                         right_to_left: false
-                        tab_index: 0
-                        tool_tip_text: ""
-                        top: 30
+                        tab_index: 11
+                        tool_tip_text: []
+                        top: 360
                         use_mnemonic: true
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 1020
                         word_wrap: false
                 - name: Label3
                   tag: ""
@@ -724,35 +849,45 @@ form:
                   kind:
                     Label:
                       properties:
-                        appearance: ThreeD
-                        border_style: None
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
+                        alignment: RightJustify
+                        appearance: Flat
+                        auto_size: true
+                        back_color:
+                          System:
+                            index: 5
+                        back_style: Transparent
+                        border_style: FixedSingle
+                        caption:
+                          - 50
+                          - 53
+                          - 53
+                        data_field: []
+                        data_format: []
+                        data_member: []
+                        data_source: []
                         drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         fore_color:
                           System:
-                            index: 18
-                        height: 30
-                        left: 30
-                        link_item: ""
+                            index: 8
+                        height: 255
+                        left: 5520
+                        link_item: []
                         link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
+                        link_timeout: 0
+                        link_topic: []
                         mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
                         right_to_left: false
-                        tab_index: 0
-                        tool_tip_text: ""
-                        top: 30
+                        tab_index: 10
+                        tool_tip_text: []
+                        top: 2160
                         use_mnemonic: true
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 315
                         word_wrap: false
                 - name: Label2
                   tag: ""
@@ -760,35 +895,57 @@ form:
                   kind:
                     Label:
                       properties:
+                        alignment: LeftJustify
                         appearance: ThreeD
-                        border_style: None
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
+                        auto_size: true
+                        back_color:
+                          System:
+                            index: 15
+                        back_style: Transparent
+                        border_style: FixedSingle
+                        caption:
+                          - 82
+                          - 105
+                          - 103
+                          - 104
+                          - 116
+                          - 32
+                          - 108
+                          - 105
+                          - 109
+                          - 105
+                          - 116
+                          - 58
+                          - 32
+                          - 32
+                          - 48
+                        data_field: []
+                        data_format: []
+                        data_member: []
+                        data_source: []
                         drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         fore_color:
                           System:
                             index: 18
-                        height: 30
-                        left: 30
-                        link_item: ""
+                        height: 255
+                        left: 120
+                        link_item: []
                         link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
+                        link_timeout: 0
+                        link_topic: []
                         mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
                         right_to_left: false
-                        tab_index: 0
-                        tool_tip_text: ""
-                        top: 30
+                        tab_index: 8
+                        tool_tip_text: []
+                        top: 2160
                         use_mnemonic: true
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 1140
                         word_wrap: false
                 - name: Label1
                   tag: ""
@@ -796,35 +953,45 @@ form:
                   kind:
                     Label:
                       properties:
-                        appearance: ThreeD
-                        border_style: None
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
+                        alignment: RightJustify
+                        appearance: Flat
+                        auto_size: true
+                        back_color:
+                          System:
+                            index: 5
+                        back_style: Transparent
+                        border_style: FixedSingle
+                        caption:
+                          - 50
+                          - 53
+                          - 53
+                        data_field: []
+                        data_format: []
+                        data_member: []
+                        data_source: []
                         drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         fore_color:
                           System:
-                            index: 18
-                        height: 30
-                        left: 30
-                        link_item: ""
+                            index: 8
+                        height: 255
+                        left: 5520
+                        link_item: []
                         link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
+                        link_timeout: 0
+                        link_topic: []
                         mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
                         right_to_left: false
-                        tab_index: 0
-                        tool_tip_text: ""
-                        top: 30
+                        tab_index: 6
+                        tool_tip_text: []
+                        top: 1920
                         use_mnemonic: true
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 315
                         word_wrap: false
                 - name: lblOutputL
                   tag: ""
@@ -832,35 +999,58 @@ form:
                   kind:
                     Label:
                       properties:
+                        alignment: LeftJustify
                         appearance: ThreeD
-                        border_style: None
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
+                        auto_size: true
+                        back_color:
+                          System:
+                            index: 15
+                        back_style: Transparent
+                        border_style: FixedSingle
+                        caption:
+                          - 76
+                          - 101
+                          - 102
+                          - 116
+                          - 32
+                          - 108
+                          - 105
+                          - 109
+                          - 105
+                          - 116
+                          - 58
+                          - 32
+                          - 32
+                          - 32
+                          - 32
+                          - 48
+                        data_field: []
+                        data_format: []
+                        data_member: []
+                        data_source: []
                         drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         fore_color:
                           System:
                             index: 18
-                        height: 30
-                        left: 30
-                        link_item: ""
+                        height: 255
+                        left: 120
+                        link_item: []
                         link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
+                        link_timeout: 0
+                        link_topic: []
                         mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
                         right_to_left: false
-                        tab_index: 0
-                        tool_tip_text: ""
-                        top: 30
+                        tab_index: 4
+                        tool_tip_text: []
+                        top: 1920
                         use_mnemonic: true
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 1125
                         word_wrap: false
                 - name: lblOutputLevels
                   tag: ""
@@ -868,35 +1058,56 @@ form:
                   kind:
                     Label:
                       properties:
+                        alignment: LeftJustify
                         appearance: ThreeD
-                        border_style: None
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
+                        auto_size: true
+                        back_color:
+                          System:
+                            index: 15
+                        back_style: Transparent
+                        border_style: FixedSingle
+                        caption:
+                          - 79
+                          - 117
+                          - 116
+                          - 112
+                          - 117
+                          - 116
+                          - 32
+                          - 108
+                          - 101
+                          - 118
+                          - 101
+                          - 108
+                          - 115
+                          - 58
+                        data_field: []
+                        data_format: []
+                        data_member: []
+                        data_source: []
                         drag_icon: ~
                         drag_mode: Manual
                         enabled: true
                         fore_color:
                           System:
                             index: 18
-                        height: 30
-                        left: 30
-                        link_item: ""
+                        height: 255
+                        left: 120
+                        link_item: []
                         link_mode: None
-                        link_timeout: 50
-                        link_topic: ""
+                        link_timeout: 0
+                        link_topic: []
                         mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
                         right_to_left: false
-                        tab_index: 0
-                        tool_tip_text: ""
-                        top: 30
+                        tab_index: 3
+                        tool_tip_text: []
+                        top: 1560
                         use_mnemonic: true
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 1185
                         word_wrap: false
         - name: picMain
           tag: ""
