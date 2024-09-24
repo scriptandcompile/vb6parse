@@ -10,7 +10,7 @@ fn artificial_life_organism_class_load() {
     ) {
         Ok(class_file) => class_file,
         Err(e) => {
-            panic!("Failed to parse class file 'Organism.cls': {}", e);
+            panic!("Failed to parse class file 'Organism.cls': {e}");
         }
     };
 
@@ -27,7 +27,7 @@ fn blacklight_effect_class_load() {
     ) {
         Ok(class1_file) => class1_file,
         Err(e) => {
-            panic!("Failed to parse class file 'FastDrawing.cls': {}", e);
+            panic!("Failed to parse class file 'FastDrawing.cls': {e}");
         }
     };
 
@@ -40,7 +40,7 @@ fn blacklight_effect_class_load() {
     ) {
         Ok(class2_file) => class2_file,
         Err(e) => {
-            panic!("Failed to parse class file 'pdOpenSaveDialog.cls': {}", e);
+            panic!("Failed to parse class file 'pdOpenSaveDialog.cls': {e}");
         }
     };
 
@@ -59,8 +59,7 @@ fn gradient_2d_class_load() {
         Ok(class_file) => class_file,
         Err(e) => {
             panic!(
-                "Failed to parse class file 'cSystemColorDialog.cls' form : {}",
-                e
+                "Failed to parse class file 'cSystemColorDialog.cls' form : {e}"
             );
         }
     };
@@ -79,8 +78,7 @@ fn hidden_markov_model_class_load() {
         Ok(class_file) => class_file,
         Err(e) => {
             panic!(
-                "Failed to parse class file 'cCommonDialog.cls' form : {}",
-                e
+                "Failed to parse class file 'cCommonDialog.cls' form : {e}"
             );
         }
     };

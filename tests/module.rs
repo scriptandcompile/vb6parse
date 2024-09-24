@@ -7,7 +7,7 @@ fn artificial_life_module_load() {
     let module_file = match VB6ModuleFile::parse("Declarations.bas".to_owned(), module_file_bytes) {
         Ok(module_file) => module_file,
         Err(e) => {
-            eprintln!("{}", e);
+            eprintln!("{e}");
             panic!("Failed to parse 'Declarations.bas' module file");
         }
     };
@@ -23,7 +23,7 @@ fn game_physics_basic_module_load() {
     {
         Ok(module_file) => module_file,
         Err(e) => {
-            eprintln!("{}", e);
+            eprintln!("{e}");
             panic!("Failed to parse 'Physics_Logic.bas' module file");
         }
     };
@@ -40,7 +40,7 @@ fn histograms_advanced_module_load() {
     {
         Ok(module_file) => module_file,
         Err(e) => {
-            eprintln!("{}", e);
+            eprintln!("{e}");
             panic!("Failed to parse 'mod_PublicVars.bas' module file");
         }
     };
@@ -56,7 +56,7 @@ fn histograms_basic_module_load() {
     {
         Ok(module_file) => module_file,
         Err(e) => {
-            eprintln!("{}", e);
+            eprintln!("{e}");
             panic!("Failed to parse 'mod_PublicVars.bas' module file");
         }
     };
@@ -72,7 +72,7 @@ fn levels_effect_module_load() {
     {
         Ok(module_file) => module_file,
         Err(e) => {
-            eprintln!("{}", e);
+            eprintln!("{e}");
             panic!("Failed to parse 'mod_PublicVars.bas' module file");
         }
     };
@@ -87,7 +87,7 @@ fn map_editor_2d_module_load() {
     let module1_file = match VB6ModuleFile::parse("Subs.bas".to_owned(), module1_file_bytes) {
         Ok(module1_file) => module1_file,
         Err(e) => {
-            eprintln!("{}", e);
+            eprintln!("{e}");
             panic!("Failed to parse 'Subs.bas' module file");
         }
     };
@@ -98,7 +98,7 @@ fn map_editor_2d_module_load() {
     {
         Ok(module2_file) => module2_file,
         Err(e) => {
-            eprintln!("{}", e);
+            eprintln!("{e}");
             panic!("Failed to parse 'Declarations.bas' module file");
         }
     };
