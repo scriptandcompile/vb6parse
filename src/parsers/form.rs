@@ -401,6 +401,13 @@ fn build_control<'a>(
                 properties: image_properties,
             }
         }
+        b"Label" => {
+            let label_properties = LabelProperties::construct_control(&properties)?;
+
+            VB6ControlKind::Label {
+                properties: label_properties,
+            }
+        }
         b"Ole" => {
             // TODO: We are not correctly handling property assignment for each control.
             VB6ControlKind::Ole {
@@ -429,12 +436,6 @@ fn build_control<'a>(
             // TODO: We are not correctly handling property assignment for each control.
             VB6ControlKind::ListBox {
                 properties: ListBoxProperties::default(),
-            }
-        }
-        b"Label" => {
-            // TODO: We are not correctly handling property assignment for each control.
-            VB6ControlKind::Label {
-                properties: LabelProperties::default(),
             }
         }
         b"PictureBox" => {

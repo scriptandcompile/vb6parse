@@ -1001,35 +1001,108 @@ form:
           kind:
             Label:
               properties:
+                alignment: LeftJustify
                 appearance: ThreeD
-                border_style: None
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                auto_size: false
+                back_color:
+                  System:
+                    index: 15
+                back_style: Transparent
+                border_style: FixedSingle
+                caption:
+                  - 85
+                  - 115
+                  - 101
+                  - 32
+                  - 116
+                  - 104
+                  - 101
+                  - 32
+                  - 97
+                  - 114
+                  - 114
+                  - 111
+                  - 119
+                  - 32
+                  - 107
+                  - 101
+                  - 121
+                  - 115
+                  - 32
+                  - 116
+                  - 111
+                  - 32
+                  - 109
+                  - 111
+                  - 118
+                  - 101
+                  - 32
+                  - 116
+                  - 104
+                  - 101
+                  - 32
+                  - 115
+                  - 104
+                  - 105
+                  - 112
+                  - 32
+                  - 85
+                  - 115
+                  - 101
+                  - 32
+                  - 116
+                  - 104
+                  - 101
+                  - 32
+                  - 115
+                  - 112
+                  - 97
+                  - 99
+                  - 101
+                  - 32
+                  - 98
+                  - 117
+                  - 116
+                  - 116
+                  - 111
+                  - 110
+                  - 32
+                  - 116
+                  - 111
+                  - 32
+                  - 102
+                  - 105
+                  - 114
+                  - 101
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
-                  System:
-                    index: 18
-                height: 30
-                left: 30
-                link_item: ""
+                  RGB:
+                    red: 0
+                    green: 0
+                    blue: 64
+                height: 495
+                left: 5640
+                link_item: []
                 link_mode: None
-                link_timeout: 50
-                link_topic: ""
+                link_timeout: 0
+                link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
                 right_to_left: false
-                tab_index: 0
-                tool_tip_text: ""
-                top: 30
+                tab_index: 17
+                tool_tip_text: []
+                top: 9330
                 use_mnemonic: true
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 3015
                 word_wrap: false
         - name: Label2
           tag: ""
@@ -1037,35 +1110,52 @@ form:
           kind:
             Label:
               properties:
+                alignment: LeftJustify
                 appearance: ThreeD
-                border_style: None
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                auto_size: true
+                back_color:
+                  System:
+                    index: 15
+                back_style: Transparent
+                border_style: FixedSingle
+                caption:
+                  - 86
+                  - 69
+                  - 76
+                  - 79
+                  - 67
+                  - 73
+                  - 84
+                  - 89
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
-                  System:
-                    index: 18
-                height: 30
-                left: 30
-                link_item: ""
+                  RGB:
+                    red: 0
+                    green: 0
+                    blue: 255
+                height: 225
+                left: 120
+                link_item: []
                 link_mode: None
-                link_timeout: 50
-                link_topic: ""
+                link_timeout: 0
+                link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
                 right_to_left: false
-                tab_index: 0
-                tool_tip_text: ""
-                top: 30
+                tab_index: 13
+                tool_tip_text: []
+                top: 9360
                 use_mnemonic: true
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 840
                 word_wrap: false
         - name: LblVel
           tag: ""
@@ -1073,35 +1163,50 @@ form:
           kind:
             Label:
               properties:
+                alignment: LeftJustify
                 appearance: ThreeD
-                border_style: None
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                auto_size: true
+                back_color:
+                  System:
+                    index: 15
+                back_style: Transparent
+                border_style: FixedSingle
+                caption:
+                  - 76
+                  - 97
+                  - 98
+                  - 101
+                  - 108
+                  - 49
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
-                  System:
-                    index: 18
-                height: 30
-                left: 30
-                link_item: ""
+                  RGB:
+                    red: 0
+                    green: 0
+                    blue: 255
+                height: 225
+                left: 120
+                link_item: []
                 link_mode: None
-                link_timeout: 50
-                link_topic: ""
+                link_timeout: 0
+                link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
                 right_to_left: false
-                tab_index: 0
-                tool_tip_text: ""
-                top: 30
+                tab_index: 12
+                tool_tip_text: []
+                top: 9600
                 use_mnemonic: true
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 885
                 word_wrap: false
         - name: Label1
           tag: ""
@@ -1109,35 +1214,50 @@ form:
           kind:
             Label:
               properties:
+                alignment: LeftJustify
                 appearance: ThreeD
-                border_style: None
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                auto_size: true
+                back_color:
+                  System:
+                    index: 15
+                back_style: Transparent
+                border_style: FixedSingle
+                caption:
+                  - 76
+                  - 97
+                  - 98
+                  - 101
+                  - 108
+                  - 49
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
-                  System:
-                    index: 18
-                height: 30
-                left: 30
-                link_item: ""
+                  RGB:
+                    red: 0
+                    green: 0
+                    blue: 255
+                height: 180
+                left: 9960
+                link_item: []
                 link_mode: None
-                link_timeout: 50
-                link_topic: ""
+                link_timeout: 0
+                link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
                 right_to_left: false
-                tab_index: 0
-                tool_tip_text: ""
-                top: 30
+                tab_index: 11
+                tool_tip_text: []
+                top: 120
                 use_mnemonic: true
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 120
                 word_wrap: false
       menus: []
 objects: []

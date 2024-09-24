@@ -176,11 +176,13 @@ pub enum Alignment {
 }
 
 /// The back style determines whether the background of a control is opaque or transparent.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum BackStyle {
     /// The background of the control is transparent.
     Transparent = 0,
     /// The background of the control is opaque. (default)
+    #[default]
     Opaque = 1,
 }
 

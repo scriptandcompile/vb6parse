@@ -264,35 +264,50 @@ form:
           kind:
             Label:
               properties:
+                alignment: LeftJustify
                 appearance: ThreeD
-                border_style: None
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                auto_size: false
+                back_color:
+                  System:
+                    index: 15
+                back_style: Transparent
+                border_style: FixedSingle
+                caption:
+                  - 124
+                  - 32
+                  - 45
+                  - 32
+                  - 122
+                  - 101
+                  - 114
+                  - 111
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
                   System:
                     index: 18
-                height: 30
-                left: 30
-                link_item: ""
+                height: 255
+                left: 2220
+                link_item: []
                 link_mode: None
-                link_timeout: 50
-                link_topic: ""
+                link_timeout: 0
+                link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
                 right_to_left: false
-                tab_index: 0
-                tool_tip_text: ""
-                top: 30
+                tab_index: 4
+                tool_tip_text: []
+                top: 840
                 use_mnemonic: true
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 1455
                 word_wrap: false
         - name: Label1
           tag: ""
@@ -300,35 +315,78 @@ form:
           kind:
             Label:
               properties:
+                alignment: LeftJustify
                 appearance: ThreeD
-                border_style: None
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                auto_size: false
+                back_color:
+                  System:
+                    index: 15
+                back_style: Transparent
+                border_style: FixedSingle
+                caption:
+                  - 67
+                  - 111
+                  - 110
+                  - 116
+                  - 114
+                  - 97
+                  - 115
+                  - 116
+                  - 32
+                  - 97
+                  - 100
+                  - 106
+                  - 117
+                  - 115
+                  - 116
+                  - 109
+                  - 101
+                  - 110
+                  - 116
+                  - 32
+                  - 40
+                  - 45
+                  - 49
+                  - 48
+                  - 48
+                  - 37
+                  - 32
+                  - 116
+                  - 111
+                  - 32
+                  - 50
+                  - 48
+                  - 48
+                  - 37
+                  - 41
+                  - 58
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
                   System:
                     index: 18
-                height: 30
-                left: 30
-                link_item: ""
+                height: 255
+                left: 120
+                link_item: []
                 link_mode: None
-                link_timeout: 50
-                link_topic: ""
+                link_timeout: 0
+                link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
                 right_to_left: false
-                tab_index: 0
-                tool_tip_text: ""
-                top: 30
+                tab_index: 1
+                tool_tip_text: []
+                top: 120
                 use_mnemonic: true
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 4695
                 word_wrap: false
       menus:
         - name: MnuFile

@@ -1730,35 +1730,57 @@ form:
           kind:
             Label:
               properties:
-                appearance: ThreeD
-                border_style: None
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                alignment: LeftJustify
+                appearance: Flat
+                auto_size: true
+                back_color:
+                  System:
+                    index: 5
+                back_style: Transparent
+                border_style: FixedSingle
+                caption:
+                  - 83
+                  - 97
+                  - 109
+                  - 112
+                  - 108
+                  - 101
+                  - 32
+                  - 70
+                  - 105
+                  - 108
+                  - 116
+                  - 101
+                  - 114
+                  - 115
+                  - 58
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
                   System:
-                    index: 18
-                height: 30
-                left: 30
-                link_item: ""
+                    index: 8
+                height: 225
+                left: 3240
+                link_item: []
                 link_mode: None
-                link_timeout: 50
-                link_topic: ""
+                link_timeout: 0
+                link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
                 right_to_left: false
-                tab_index: 0
-                tool_tip_text: ""
-                top: 30
+                tab_index: 33
+                tool_tip_text: []
+                top: 1440
                 use_mnemonic: true
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 1245
                 word_wrap: false
         - name: lblScale
           tag: ""
@@ -1766,35 +1788,48 @@ form:
           kind:
             Label:
               properties:
+                alignment: LeftJustify
                 appearance: ThreeD
-                border_style: None
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                auto_size: true
+                back_color:
+                  System:
+                    index: 15
+                back_style: Transparent
+                border_style: FixedSingle
+                caption:
+                  - 83
+                  - 99
+                  - 97
+                  - 108
+                  - 101
+                  - 58
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
                   System:
                     index: 18
-                height: 30
-                left: 30
-                link_item: ""
+                height: 210
+                left: 120
+                link_item: []
                 link_mode: None
-                link_timeout: 50
-                link_topic: ""
+                link_timeout: 0
+                link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
                 right_to_left: false
-                tab_index: 0
-                tool_tip_text: ""
-                top: 30
+                tab_index: 32
+                tool_tip_text: []
+                top: 2085
                 use_mnemonic: true
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 480
                 word_wrap: false
         - name: lblBias
           tag: ""
@@ -1802,35 +1837,47 @@ form:
           kind:
             Label:
               properties:
+                alignment: LeftJustify
                 appearance: ThreeD
-                border_style: None
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                auto_size: true
+                back_color:
+                  System:
+                    index: 15
+                back_style: Transparent
+                border_style: FixedSingle
+                caption:
+                  - 66
+                  - 105
+                  - 97
+                  - 115
+                  - 58
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
                   System:
                     index: 18
-                height: 30
-                left: 30
-                link_item: ""
+                height: 210
+                left: 1680
+                link_item: []
                 link_mode: None
-                link_timeout: 50
-                link_topic: ""
+                link_timeout: 0
+                link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
                 right_to_left: false
-                tab_index: 0
-                tool_tip_text: ""
-                top: 30
+                tab_index: 31
+                tool_tip_text: []
+                top: 2085
                 use_mnemonic: true
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 360
                 word_wrap: false
       menus:
         - name: mnuFile

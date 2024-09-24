@@ -512,35 +512,45 @@ form:
           kind:
             Label:
               properties:
-                appearance: ThreeD
-                border_style: None
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                alignment: LeftJustify
+                appearance: Flat
+                auto_size: false
+                back_color:
+                  System:
+                    index: 5
+                back_style: Transparent
+                border_style: FixedSingle
+                caption:
+                  - 53
+                  - 48
+                  - 37
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
                   System:
-                    index: 18
-                height: 30
-                left: 30
-                link_item: ""
+                    index: 8
+                height: 255
+                left: 5340
+                link_item: []
                 link_mode: None
-                link_timeout: 50
-                link_topic: ""
+                link_timeout: 0
+                link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
                 right_to_left: false
-                tab_index: 0
-                tool_tip_text: ""
-                top: 30
+                tab_index: 8
+                tool_tip_text: []
+                top: 1200
                 use_mnemonic: true
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 615
                 word_wrap: false
         - name: Label2
           tag: ""
@@ -548,35 +558,46 @@ form:
           kind:
             Label:
               properties:
+                alignment: LeftJustify
                 appearance: ThreeD
-                border_style: None
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                auto_size: false
+                back_color:
+                  System:
+                    index: 15
+                back_style: Transparent
+                border_style: FixedSingle
+                caption:
+                  - 72
+                  - 117
+                  - 101
+                  - 58
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
                   System:
                     index: 18
-                height: 30
-                left: 30
-                link_item: ""
+                height: 255
+                left: 120
+                link_item: []
                 link_mode: None
-                link_timeout: 50
-                link_topic: ""
+                link_timeout: 0
+                link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
                 right_to_left: false
-                tab_index: 0
-                tool_tip_text: ""
-                top: 30
+                tab_index: 4
+                tool_tip_text: []
+                top: 240
                 use_mnemonic: true
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 735
                 word_wrap: false
       menus:
         - name: mnuFile
