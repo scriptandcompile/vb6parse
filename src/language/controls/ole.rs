@@ -1,35 +1,51 @@
+use std::collections::HashMap;
+
+use crate::errors::VB6ErrorKind;
 use crate::language::controls::{
     Appearance, BackStyle, BorderStyle, DragMode, MousePointer, SizeMode,
 };
 use crate::language::VB6Color;
+use crate::parsers::form::{
+    build_bool_property, build_color_property, build_i32_property, build_property,
+};
 
+use bstr::BStr;
 use image::DynamicImage;
+use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum OLETypeAllowed {
     Link = 0,
     Embedded = 1,
+    #[default]
     Either = 2,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum UpdateOptions {
+    #[default]
     Automatic = 0,
     Frozen = 1,
     Manual = 2,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum AutoActivate {
     Manual = 0,
     GetFocus = 1,
+    #[default]
     DoubleClick = 2,
     Automatic = 3,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum DisplayType {
+    #[default]
     Content = 0,
     Icon = 1,
 }
@@ -49,16 +65,16 @@ pub struct OLEProperties<'a> {
     pub back_style: BackStyle,
     pub border_style: BorderStyle,
     pub causes_validation: bool,
-    pub class: Option<&'a str>,
-    pub data_field: &'a str,
-    pub data_source: &'a str,
+    pub class: Option<&'a BStr>,
+    pub data_field: &'a BStr,
+    pub data_source: &'a BStr,
     pub display_type: DisplayType,
     pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
     pub enabled: bool,
     pub height: i32,
     pub help_context_id: i32,
-    pub host_name: &'a str,
+    pub host_name: &'a BStr,
     pub left: i32,
     pub misc_flags: i32,
     pub mouse_icon: Option<DynamicImage>,
@@ -66,8 +82,8 @@ pub struct OLEProperties<'a> {
     pub ole_drop_allowed: bool,
     pub ole_type_allowed: OLETypeAllowed,
     pub size_mode: SizeMode,
-    //pub source_doc: &'a str,
-    //pub source_item: &'a str,
+    //pub source_doc: &'a BStr,
+    //pub source_item: &'a BStr,
     pub tab_index: i32,
     pub tab_stop: bool,
     pub top: i32,
@@ -89,15 +105,15 @@ impl Default for OLEProperties<'_> {
             border_style: BorderStyle::FixedSingle,
             causes_validation: true,
             class: None,
-            data_field: "",
-            data_source: "",
+            data_field: BStr::new(""),
+            data_source: BStr::new(""),
             display_type: DisplayType::Content,
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: true,
             height: 375,
             help_context_id: 0,
-            host_name: "",
+            host_name: BStr::new(""),
             left: 600,
             misc_flags: 0,
             mouse_icon: None,
@@ -105,8 +121,8 @@ impl Default for OLEProperties<'_> {
             ole_drop_allowed: false,
             ole_type_allowed: OLETypeAllowed::Either,
             size_mode: SizeMode::Clip,
-            //source_doc: "",
-            //source_item: "",
+            //source_doc: BStr::new(""),
+            //source_item: BStr::new(""),
             tab_index: 0,
             tab_stop: true,
             top: 1200,
@@ -169,5 +185,100 @@ impl Serialize for OLEProperties<'_> {
         s.serialize_field("width", &self.width)?;
 
         s.end()
+    }
+}
+
+impl<'a> OLEProperties<'a> {
+    pub fn construct_control(
+        properties: &HashMap<&'a BStr, &'a BStr>,
+    ) -> Result<Self, VB6ErrorKind> {
+        let mut ole_properties = OLEProperties::default();
+
+        ole_properties.appearance =
+            build_property::<Appearance>(properties, BStr::new("Appearance"));
+        ole_properties.auto_activate =
+            build_property::<AutoActivate>(properties, BStr::new("AutoActivate"));
+        ole_properties.auto_verb_menu = build_bool_property(
+            properties,
+            BStr::new("AutoVerbMenu"),
+            ole_properties.auto_verb_menu,
+        );
+        ole_properties.back_color = build_color_property(
+            properties,
+            BStr::new("BackColor"),
+            ole_properties.back_color,
+        );
+        ole_properties.back_style = build_property::<BackStyle>(properties, BStr::new("BackStyle"));
+        ole_properties.border_style =
+            build_property::<BorderStyle>(properties, BStr::new("BorderStyle"));
+        ole_properties.causes_validation = build_bool_property(
+            properties,
+            BStr::new("CausesValidation"),
+            ole_properties.causes_validation,
+        );
+
+        // Class
+
+        ole_properties.data_field = properties
+            .get(&BStr::new("DataField"))
+            .unwrap_or(&ole_properties.data_field);
+        ole_properties.data_source = properties
+            .get(&BStr::new("DataSource"))
+            .unwrap_or(&ole_properties.data_source);
+        ole_properties.display_type =
+            build_property::<DisplayType>(properties, BStr::new("DisplayType"));
+
+        // DragIcon
+
+        ole_properties.drag_mode = build_property::<DragMode>(properties, BStr::new("DragMode"));
+        ole_properties.enabled =
+            build_bool_property(properties, BStr::new("Enabled"), ole_properties.enabled);
+        ole_properties.height =
+            build_i32_property(properties, BStr::new("Height"), ole_properties.height);
+        ole_properties.help_context_id = build_i32_property(
+            properties,
+            BStr::new("HelpContextID"),
+            ole_properties.help_context_id,
+        );
+        ole_properties.host_name = properties
+            .get(&BStr::new("HostName"))
+            .unwrap_or(&ole_properties.host_name);
+        ole_properties.left =
+            build_i32_property(properties, BStr::new("Left"), ole_properties.left);
+        ole_properties.misc_flags = build_i32_property(
+            properties,
+            BStr::new("MiscFlags"),
+            ole_properties.misc_flags,
+        );
+        ole_properties.mouse_pointer =
+            build_property::<MousePointer>(properties, BStr::new("MousePointer"));
+        ole_properties.ole_drop_allowed = build_bool_property(
+            properties,
+            BStr::new("OLEDropAllowed"),
+            ole_properties.ole_drop_allowed,
+        );
+        ole_properties.ole_type_allowed =
+            build_property::<OLETypeAllowed>(properties, BStr::new("OLETypeAllowed"));
+        ole_properties.size_mode = build_property::<SizeMode>(properties, BStr::new("SizeMode"));
+        ole_properties.tab_index =
+            build_i32_property(properties, BStr::new("TabIndex"), ole_properties.tab_index);
+        ole_properties.tab_stop =
+            build_bool_property(properties, BStr::new("TabStop"), ole_properties.tab_stop);
+        ole_properties.top = build_i32_property(properties, BStr::new("Top"), ole_properties.top);
+        ole_properties.update_options =
+            build_property::<UpdateOptions>(properties, BStr::new("UpdateOptions"));
+        ole_properties.verb =
+            build_i32_property(properties, BStr::new("Verb"), ole_properties.verb);
+        ole_properties.visible =
+            build_bool_property(properties, BStr::new("Visible"), ole_properties.visible);
+        ole_properties.whats_this_help_id = build_i32_property(
+            properties,
+            BStr::new("WhatsThisHelpID"),
+            ole_properties.whats_this_help_id,
+        );
+        ole_properties.width =
+            build_i32_property(properties, BStr::new("Width"), ole_properties.width);
+
+        Ok(ole_properties)
     }
 }
