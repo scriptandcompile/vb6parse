@@ -1435,8 +1435,8 @@ where
     Ok(conversion)
 }
 
-fn process_numeric_parameter<'a, F>(
-    input: &mut VB6Stream<'a>,
+fn process_numeric_parameter<F>(
+    input: &mut VB6Stream,
     error_on_conversion: VB6ErrorKind,
 ) -> Result<F, VB6Error>
 where
