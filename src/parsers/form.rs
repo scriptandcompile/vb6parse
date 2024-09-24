@@ -271,7 +271,6 @@ fn build_control<'a>(
     // This is wrong.
     // TODO: When we start work on custom controls we will need
     // to handle fully verified name parsing. This will work for now though.
-
     if fully_qualified_name.namespace != "VB" {
         let custom_control = VB6Control {
             name: fully_qualified_name.name,
