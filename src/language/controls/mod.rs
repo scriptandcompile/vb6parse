@@ -20,8 +20,13 @@ pub mod shape;
 pub mod textbox;
 pub mod timer;
 
+use std::collections::HashMap;
+
+use bstr::BStr;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
+
+use crate::parsers::form::VB6PropertyGroup;
 
 use crate::language::{
     controls::checkbox::CheckBoxProperties,
@@ -130,6 +135,10 @@ pub enum VB6ControlKind<'a> {
         properties: FormProperties<'a>,
         controls: Vec<VB6Control<'a>>,
         menus: Vec<VB6MenuControl<'a>>,
+    },
+    Custom {
+        properties: HashMap<&'a BStr, &'a BStr>,
+        property_groups: Vec<VB6PropertyGroup<'a>>,
     },
 }
 
