@@ -437,18 +437,20 @@ fn build_control<'a>(
                 properties: option_button_properties,
             }
         }
+        b"PictureBox" => {
+            let picture_box_properties = PictureBoxProperties::construct_control(&properties)?;
+
+            VB6ControlKind::PictureBox {
+                properties: picture_box_properties,
+            }
+        }
         b"Shape" => {
             // TODO: We are not correctly handling property assignment for each control.
             VB6ControlKind::Shape {
                 properties: ShapeProperties::default(),
             }
         }
-        b"PictureBox" => {
-            // TODO: We are not correctly handling property assignment for each control.
-            VB6ControlKind::PictureBox {
-                properties: PictureBoxProperties::default(),
-            }
-        }
+
         b"HScrollBar" => {
             // TODO: We are not correctly handling property assignment for each control.
             VB6ControlKind::HScrollBar {
