@@ -111,12 +111,33 @@ form:
           kind:
             CommandButton:
               properties:
-                appearance: ThreeD
+                appearance: Flat
                 back_color:
                   System:
                     index: 15
                 cancel: false
-                caption: Command1
+                caption:
+                  - 60
+                  - 60
+                  - 32
+                  - 32
+                  - 83
+                  - 104
+                  - 105
+                  - 102
+                  - 116
+                  - 32
+                  - 67
+                  - 111
+                  - 108
+                  - 111
+                  - 114
+                  - 115
+                  - 32
+                  - 76
+                  - 101
+                  - 102
+                  - 116
                 causes_validation: true
                 default: false
                 disabled_picture: ~
@@ -124,9 +145,9 @@ form:
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
-                height: 30
+                height: 375
                 help_context_id: 0
-                left: 30
+                left: 480
                 mask_color:
                   RGB:
                     red: 192
@@ -138,25 +159,47 @@ form:
                 picture: ~
                 right_to_left: false
                 style: Standard
-                tab_index: 0
+                tab_index: 3
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
+                tool_tip_text: []
+                top: 120
                 use_mask_color: false
                 whats_this_help_id: 0
-                width: 100
+                width: 2535
         - name: cmdRight
           tag: ""
           index: 0
           kind:
             CommandButton:
               properties:
-                appearance: ThreeD
+                appearance: Flat
                 back_color:
                   System:
                     index: 15
                 cancel: false
-                caption: Command1
+                caption:
+                  - 83
+                  - 104
+                  - 105
+                  - 102
+                  - 116
+                  - 32
+                  - 67
+                  - 111
+                  - 108
+                  - 111
+                  - 114
+                  - 115
+                  - 32
+                  - 82
+                  - 105
+                  - 103
+                  - 104
+                  - 116
+                  - 32
+                  - 32
+                  - 62
+                  - 62
                 causes_validation: true
                 default: false
                 disabled_picture: ~
@@ -164,9 +207,9 @@ form:
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
-                height: 30
+                height: 375
                 help_context_id: 0
-                left: 30
+                left: 3240
                 mask_color:
                   RGB:
                     red: 192
@@ -178,13 +221,13 @@ form:
                 picture: ~
                 right_to_left: false
                 style: Standard
-                tab_index: 0
+                tab_index: 2
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
+                tool_tip_text: []
+                top: 120
                 use_mask_color: false
                 whats_this_help_id: 0
-                width: 100
+                width: 2535
         - name: picMain
           tag: ""
           index: 0

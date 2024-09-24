@@ -206,7 +206,11 @@ form:
                   System:
                     index: 15
                 cancel: false
-                caption: Command1
+                caption:
+                  - 69
+                  - 120
+                  - 105
+                  - 116
                 causes_validation: true
                 default: false
                 disabled_picture: ~
@@ -214,9 +218,9 @@ form:
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
-                height: 30
+                height: 375
                 help_context_id: 0
-                left: 30
+                left: 11280
                 mask_color:
                   RGB:
                     red: 192
@@ -228,13 +232,13 @@ form:
                 picture: ~
                 right_to_left: false
                 style: Standard
-                tab_index: 0
+                tab_index: 15
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
+                tool_tip_text: []
+                top: 9360
                 use_mask_color: false
                 whats_this_help_id: 0
-                width: 100
+                width: 855
         - name: PicMain
           tag: ""
           index: 0
