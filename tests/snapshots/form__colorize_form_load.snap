@@ -122,23 +122,23 @@ form:
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
-                height: 30
+                height: 255
                 help_context_id: 0
-                large_change: 1
-                left: 30
-                max: 32767
+                large_change: 0
+                left: 6000
+                max: 100
                 min: 0
                 mouse_icon: ~
                 mouse_pointer: Default
                 right_to_left: false
-                small_change: 1
-                tab_index: 0
+                small_change: 0
+                tab_index: 9
                 tab_stop: true
-                top: 30
-                value: 0
+                top: 1200
+                value: 50
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 2175
         - name: optKeepSaturation
           tag: ""
           index: 0
@@ -223,23 +223,23 @@ form:
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
-                height: 30
+                height: 255
                 help_context_id: 0
-                large_change: 1
-                left: 30
-                max: 32767
+                large_change: 0
+                left: 720
+                max: 359
                 min: 0
                 mouse_icon: ~
                 mouse_pointer: Default
                 right_to_left: false
-                small_change: 1
-                tab_index: 0
+                small_change: 0
+                tab_index: 5
                 tab_stop: true
-                top: 30
-                value: 0
+                top: 240
+                value: 180
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 7455
         - name: picHueDemo
           tag: ""
           index: 0

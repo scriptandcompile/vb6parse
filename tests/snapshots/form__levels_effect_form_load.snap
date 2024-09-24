@@ -269,23 +269,23 @@ form:
                         drag_icon: ~
                         drag_mode: Manual
                         enabled: true
-                        height: 30
+                        height: 220
                         help_context_id: 0
-                        large_change: 1
-                        left: 30
-                        max: 32767
-                        min: 0
+                        large_change: 0
+                        left: 1560
+                        max: 254
+                        min: 1
                         mouse_icon: ~
                         mouse_pointer: Default
                         right_to_left: false
-                        small_change: 1
-                        tab_index: 0
+                        small_change: 0
+                        tab_index: 18
                         tab_stop: true
-                        top: 30
-                        value: 0
+                        top: 990
+                        value: 127
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 3855
                 - name: hsInL
                   tag: ""
                   index: 0
@@ -296,23 +296,23 @@ form:
                         drag_icon: ~
                         drag_mode: Manual
                         enabled: true
-                        height: 30
+                        height: 220
                         help_context_id: 0
-                        large_change: 1
-                        left: 30
-                        max: 32767
+                        large_change: 0
+                        left: 1560
+                        max: 253
                         min: 0
                         mouse_icon: ~
                         mouse_pointer: Default
                         right_to_left: false
-                        small_change: 1
-                        tab_index: 0
+                        small_change: 0
+                        tab_index: 13
                         tab_stop: true
-                        top: 30
+                        top: 735
                         value: 0
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 3855
                 - name: hsInR
                   tag: ""
                   index: 0
@@ -323,23 +323,23 @@ form:
                         drag_icon: ~
                         drag_mode: Manual
                         enabled: true
-                        height: 30
+                        height: 220
                         help_context_id: 0
-                        large_change: 1
-                        left: 30
-                        max: 32767
-                        min: 0
+                        large_change: 0
+                        left: 1560
+                        max: 255
+                        min: 2
                         mouse_icon: ~
                         mouse_pointer: Default
                         right_to_left: false
-                        small_change: 1
-                        tab_index: 0
+                        small_change: 0
+                        tab_index: 12
                         tab_stop: true
-                        top: 30
-                        value: 0
+                        top: 1250
+                        value: 255
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 3855
                 - name: hsOutR
                   tag: ""
                   index: 0
@@ -350,23 +350,23 @@ form:
                         drag_icon: ~
                         drag_mode: Manual
                         enabled: true
-                        height: 30
+                        height: 220
                         help_context_id: 0
-                        large_change: 1
-                        left: 30
-                        max: 32767
+                        large_change: 0
+                        left: 1560
+                        max: 255
                         min: 0
                         mouse_icon: ~
                         mouse_pointer: Default
                         right_to_left: false
-                        small_change: 1
-                        tab_index: 0
+                        small_change: 0
+                        tab_index: 9
                         tab_stop: true
-                        top: 30
-                        value: 0
+                        top: 2205
+                        value: 255
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 3855
                 - name: hsOutL
                   tag: ""
                   index: 0
@@ -377,23 +377,23 @@ form:
                         drag_icon: ~
                         drag_mode: Manual
                         enabled: true
-                        height: 30
+                        height: 220
                         help_context_id: 0
-                        large_change: 1
-                        left: 30
-                        max: 32767
+                        large_change: 0
+                        left: 1560
+                        max: 255
                         min: 0
                         mouse_icon: ~
                         mouse_pointer: Default
                         right_to_left: false
-                        small_change: 1
-                        tab_index: 0
+                        small_change: 0
+                        tab_index: 5
                         tab_stop: true
-                        top: 30
+                        top: 1950
                         value: 0
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 3855
                 - name: lblRightL
                   tag: ""
                   index: 0

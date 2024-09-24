@@ -173,23 +173,23 @@ form:
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
-                height: 30
+                height: 255
                 help_context_id: 0
-                large_change: 1
-                left: 30
-                max: 32767
-                min: 0
+                large_change: 0
+                left: 1200
+                max: 20
+                min: 1
                 mouse_icon: ~
                 mouse_pointer: Default
                 right_to_left: false
-                small_change: 1
-                tab_index: 0
+                small_change: 0
+                tab_index: 10
                 tab_stop: true
-                top: 30
-                value: 0
+                top: 90
+                value: 1
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 6255
         - name: CmdRedraw
           tag: ""
           index: 0

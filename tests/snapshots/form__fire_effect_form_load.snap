@@ -138,23 +138,23 @@ form:
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
-                height: 30
+                height: 255
                 help_context_id: 0
-                large_change: 1
-                left: 30
-                max: 32767
+                large_change: 0
+                left: 840
+                max: 300
                 min: 0
                 mouse_icon: ~
                 mouse_pointer: Default
                 right_to_left: false
-                small_change: 1
-                tab_index: 0
+                small_change: 0
+                tab_index: 16
                 tab_stop: true
-                top: 30
-                value: 0
+                top: 1800
+                value: 50
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 6975
         - name: hsGreen
           tag: ""
           index: 0
@@ -165,23 +165,23 @@ form:
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
-                height: 30
+                height: 255
                 help_context_id: 0
-                large_change: 1
-                left: 30
-                max: 32767
+                large_change: 0
+                left: 840
+                max: 300
                 min: 0
                 mouse_icon: ~
                 mouse_pointer: Default
                 right_to_left: false
-                small_change: 1
-                tab_index: 0
+                small_change: 0
+                tab_index: 15
                 tab_stop: true
-                top: 30
-                value: 0
+                top: 1440
+                value: 100
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 6975
         - name: hsRed
           tag: ""
           index: 0
@@ -192,23 +192,23 @@ form:
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
-                height: 30
+                height: 255
                 help_context_id: 0
-                large_change: 1
-                left: 30
-                max: 32767
+                large_change: 0
+                left: 840
+                max: 300
                 min: 0
                 mouse_icon: ~
                 mouse_pointer: Default
                 right_to_left: false
-                small_change: 1
-                tab_index: 0
+                small_change: 0
+                tab_index: 14
                 tab_stop: true
-                top: 30
-                value: 0
+                top: 1080
+                value: 200
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 6975
         - name: scrUniformity
           tag: ""
           index: 0
@@ -219,23 +219,23 @@ form:
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
-                height: 30
+                height: 255
                 help_context_id: 0
-                large_change: 1
-                left: 30
-                max: 32767
+                large_change: 0
+                left: 3840
+                max: 3
                 min: 0
                 mouse_icon: ~
                 mouse_pointer: Default
                 right_to_left: false
-                small_change: 1
-                tab_index: 0
+                small_change: 0
+                tab_index: 10
                 tab_stop: true
-                top: 30
-                value: 0
+                top: 120
+                value: 2
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 1695
         - name: txtHeight
           tag: ""
           index: 0

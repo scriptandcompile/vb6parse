@@ -1,5 +1,10 @@
-use crate::language::controls::{DragMode, MousePointer};
+use std::collections::HashMap;
 
+use crate::errors::VB6ErrorKind;
+use crate::language::controls::{DragMode, MousePointer};
+use crate::parsers::form::{build_bool_property, build_i32_property, build_property};
+
+use bstr::BStr;
 use image::DynamicImage;
 use serde::Serialize;
 
@@ -101,5 +106,91 @@ impl Serialize for ScrollBarProperties {
         s.serialize_field("width", &self.width)?;
 
         s.end()
+    }
+}
+
+impl ScrollBarProperties {
+    pub fn construct_control(properties: &HashMap<&BStr, &BStr>) -> Result<Self, VB6ErrorKind> {
+        let mut scroll_bar_properties = ScrollBarProperties::default();
+
+        scroll_bar_properties.causes_validation = build_bool_property(
+            properties,
+            BStr::new("CausesValidation"),
+            scroll_bar_properties.causes_validation,
+        );
+
+        // DragIcon
+
+        scroll_bar_properties.drag_mode =
+            build_property::<DragMode>(properties, BStr::new("DragMode"));
+        scroll_bar_properties.enabled = build_bool_property(
+            properties,
+            BStr::new("Enabled"),
+            scroll_bar_properties.enabled,
+        );
+        scroll_bar_properties.height = build_i32_property(
+            properties,
+            BStr::new("Height"),
+            scroll_bar_properties.height,
+        );
+        scroll_bar_properties.help_context_id = build_i32_property(
+            properties,
+            BStr::new("HelpContextID"),
+            scroll_bar_properties.help_context_id,
+        );
+        scroll_bar_properties.large_change = build_i32_property(
+            properties,
+            BStr::new("LargeChange"),
+            scroll_bar_properties.large_change,
+        );
+        scroll_bar_properties.left =
+            build_i32_property(properties, BStr::new("Left"), scroll_bar_properties.left);
+        scroll_bar_properties.max =
+            build_i32_property(properties, BStr::new("Max"), scroll_bar_properties.max);
+        scroll_bar_properties.min =
+            build_i32_property(properties, BStr::new("Min"), scroll_bar_properties.min);
+
+        // MouseIcon
+
+        scroll_bar_properties.mouse_pointer =
+            build_property::<MousePointer>(properties, BStr::new("MousePointer"));
+        scroll_bar_properties.right_to_left = build_bool_property(
+            properties,
+            BStr::new("RightToLeft"),
+            scroll_bar_properties.right_to_left,
+        );
+        scroll_bar_properties.small_change = build_i32_property(
+            properties,
+            BStr::new("SmallChange"),
+            scroll_bar_properties.small_change,
+        );
+        scroll_bar_properties.tab_index = build_i32_property(
+            properties,
+            BStr::new("TabIndex"),
+            scroll_bar_properties.tab_index,
+        );
+        scroll_bar_properties.tab_stop = build_bool_property(
+            properties,
+            BStr::new("TabStop"),
+            scroll_bar_properties.tab_stop,
+        );
+        scroll_bar_properties.top =
+            build_i32_property(properties, BStr::new("Top"), scroll_bar_properties.top);
+        scroll_bar_properties.value =
+            build_i32_property(properties, BStr::new("Value"), scroll_bar_properties.value);
+        scroll_bar_properties.visible = build_bool_property(
+            properties,
+            BStr::new("Visible"),
+            scroll_bar_properties.visible,
+        );
+        scroll_bar_properties.whats_this_help_id = build_i32_property(
+            properties,
+            BStr::new("WhatsThisHelpID"),
+            scroll_bar_properties.whats_this_help_id,
+        );
+        scroll_bar_properties.width =
+            build_i32_property(properties, BStr::new("Width"), scroll_bar_properties.width);
+
+        Ok(scroll_bar_properties)
     }
 }

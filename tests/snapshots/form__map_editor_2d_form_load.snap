@@ -169,23 +169,23 @@ form:
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
-                height: 30
+                height: 255
                 help_context_id: 0
-                large_change: 1
-                left: 30
-                max: 32767
+                large_change: 0
+                left: 120
+                max: 0
                 min: 0
                 mouse_icon: ~
                 mouse_pointer: Default
                 right_to_left: false
-                small_change: 1
-                tab_index: 0
+                small_change: 0
+                tab_index: 6
                 tab_stop: true
-                top: 30
+                top: 8400
                 value: 0
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 12135
         - name: VSMain
           tag: ""
           index: 0
@@ -196,23 +196,23 @@ form:
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
-                height: 30
+                height: 6735
                 help_context_id: 0
-                large_change: 1
-                left: 30
-                max: 32767
+                large_change: 0
+                left: 12360
+                max: 0
                 min: 0
                 mouse_icon: ~
                 mouse_pointer: Default
                 right_to_left: false
-                small_change: 1
-                tab_index: 0
+                small_change: 0
+                tab_index: 5
                 tab_stop: true
-                top: 30
+                top: 1560
                 value: 0
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 255
         - name: HSTileBar
           tag: ""
           index: 0
@@ -223,23 +223,23 @@ form:
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
-                height: 30
+                height: 255
                 help_context_id: 0
-                large_change: 1
-                left: 30
-                max: 32767
+                large_change: 0
+                left: 120
+                max: 5
                 min: 0
                 mouse_icon: ~
                 mouse_pointer: Default
                 right_to_left: false
-                small_change: 1
-                tab_index: 0
+                small_change: 0
+                tab_index: 4
                 tab_stop: true
-                top: 30
+                top: 1200
                 value: 0
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 12495
         - name: PicTiles
           tag: ""
           index: 0
