@@ -190,26 +190,26 @@ form:
           kind:
             ListBox:
               properties:
-                appearance: ThreeD
+                appearance: Flat
                 back_color:
                   System:
                     index: 15
                 causes_validation: true
                 columns: 0
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
                   System:
                     index: 18
-                height: 30
+                height: 2055
                 help_context_id: 0
                 integral_height: true
-                left: 30
+                left: 120
                 mouse_icon: ~
                 mouse_pointer: Default
                 multi_select: None
@@ -218,13 +218,13 @@ form:
                 right_to_left: false
                 sorted: false
                 style: Standard
-                tab_index: 0
+                tab_index: 2
                 tab_stop: true
-                tool_tip_text: ""
-                top: 30
+                tool_tip_text: []
+                top: 120
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 2655
         - name: picMain
           tag: ""
           index: 0
