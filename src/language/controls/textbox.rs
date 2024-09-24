@@ -209,23 +209,27 @@ impl<'a> TextBoxProperties<'a> {
 
         text_box_properties.data_field = properties
             .get(BStr::new("DataField"))
-            .map(|s| s.to_str().unwrap_or(""))
-            .unwrap_or(text_box_properties.data_field);
+            .map_or(text_box_properties.data_field, |s| {
+                s.to_str().unwrap_or(text_box_properties.data_field)
+            });
 
         text_box_properties.data_format = properties
             .get(BStr::new("DataFormat"))
-            .map(|s| s.to_str().unwrap_or(""))
-            .unwrap_or(text_box_properties.data_format);
+            .map_or(text_box_properties.data_format, |s| {
+                s.to_str().unwrap_or(text_box_properties.data_format)
+            });
 
         text_box_properties.data_member = properties
             .get(BStr::new("DataMember"))
-            .map(|s| s.to_str().unwrap_or(""))
-            .unwrap_or(text_box_properties.data_member);
+            .map_or(text_box_properties.data_member, |s| {
+                s.to_str().unwrap_or(text_box_properties.data_member)
+            });
 
         text_box_properties.data_source = properties
             .get(BStr::new("DataSource"))
-            .map(|s| s.to_str().unwrap_or(""))
-            .unwrap_or(text_box_properties.data_source);
+            .map_or(text_box_properties.data_source, |s| {
+                s.to_str().unwrap_or(text_box_properties.data_source)
+            });
 
         // drag_icon: Option<DynamicImage>,
         text_box_properties.drag_mode =
@@ -263,8 +267,9 @@ impl<'a> TextBoxProperties<'a> {
 
         text_box_properties.link_item = properties
             .get(BStr::new("LinkItem"))
-            .map(|s| s.to_str().unwrap_or(""))
-            .unwrap_or(text_box_properties.link_item);
+            .map_or(text_box_properties.link_item, |s| {
+                s.to_str().unwrap_or(text_box_properties.link_item)
+            });
 
         text_box_properties.link_mode =
             build_property::<LinkMode>(properties, BStr::new("LinkMode"));
@@ -277,8 +282,9 @@ impl<'a> TextBoxProperties<'a> {
 
         text_box_properties.link_topic = properties
             .get(BStr::new("LinkTopic"))
-            .map(|s| s.to_str().unwrap_or(""))
-            .unwrap_or(text_box_properties.link_topic);
+            .map_or(text_box_properties.link_topic, |s| {
+                s.to_str().unwrap_or(text_box_properties.link_topic)
+            });
 
         text_box_properties.locked =
             build_bool_property(properties, BStr::new("Locked"), text_box_properties.locked);
@@ -334,13 +340,15 @@ impl<'a> TextBoxProperties<'a> {
 
         text_box_properties.text = properties
             .get(BStr::new("Text"))
-            .map(|s| s.to_str().unwrap_or(""))
-            .unwrap_or(text_box_properties.text);
+            .map_or(text_box_properties.text, |s| {
+                s.to_str().unwrap_or(text_box_properties.text)
+            });
 
         text_box_properties.tool_tip_text = properties
             .get(BStr::new("ToolTipText"))
-            .map(|s| s.to_str().unwrap_or(""))
-            .unwrap_or(text_box_properties.tool_tip_text);
+            .map_or(text_box_properties.tool_tip_text, |s| {
+                s.to_str().unwrap_or(text_box_properties.tool_tip_text)
+            });
 
         text_box_properties.top =
             build_i32_property(properties, BStr::new("Top"), text_box_properties.top);
