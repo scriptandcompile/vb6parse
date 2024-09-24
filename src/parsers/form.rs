@@ -504,12 +504,10 @@ where
 
     let property_ascii = properties[property_key].to_str().unwrap();
 
-    let value = match property_ascii.parse::<i32>() {
+    match property_ascii.parse::<i32>() {
         Ok(value) => T::try_from(value).unwrap_or_default(),
         Err(_) => T::default(),
-    };
-
-    value
+    }
 }
 
 #[must_use]
