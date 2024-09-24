@@ -424,9 +424,10 @@ fn build_control<'a>(
             }
         }
         b"Ole" => {
-            // TODO: We are not correctly handling property assignment for each control.
+            let ole_properties = OLEProperties::construct_control(&properties)?;
+
             VB6ControlKind::Ole {
-                properties: OLEProperties::default(),
+                properties: ole_properties,
             }
         }
         b"OptionButton" => {

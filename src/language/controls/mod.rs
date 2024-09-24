@@ -424,8 +424,10 @@ pub enum ScaleMode {
     Centimeter = 7,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
 pub enum SizeMode {
+    #[default]
     Clip = 0,
     Stretch = 1,
     AutoSize = 2,
