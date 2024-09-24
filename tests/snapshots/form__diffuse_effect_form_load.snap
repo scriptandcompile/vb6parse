@@ -162,17 +162,42 @@ form:
             CheckBox:
               properties:
                 alignment: LeftJustify
-                appearance: ThreeD
+                appearance: Flat
                 back_color:
                   System:
-                    index: 15
+                    index: 5
                 caption:
-                  - 67
-                  - 104
+                  - 87
+                  - 114
+                  - 97
+                  - 112
+                  - 32
+                  - 112
+                  - 105
+                  - 120
                   - 101
-                  - 99
-                  - 107
-                  - 49
+                  - 108
+                  - 115
+                  - 32
+                  - 97
+                  - 114
+                  - 111
+                  - 117
+                  - 110
+                  - 100
+                  - 32
+                  - 105
+                  - 109
+                  - 97
+                  - 103
+                  - 101
+                  - 32
+                  - 101
+                  - 100
+                  - 103
+                  - 101
+                  - 115
+                  - 63
                 causes_validation: true
                 data_field: []
                 data_format: []
@@ -185,10 +210,10 @@ form:
                 enabled: true
                 fore_color:
                   System:
-                    index: 18
-                height: 30
+                    index: 8
+                height: 330
                 help_context_id: 0
-                left: 30
+                left: 120
                 mask_color:
                   RGB:
                     red: 192
@@ -200,15 +225,15 @@ form:
                 picture: ~
                 right_to_left: false
                 style: Standard
-                tab_index: 0
+                tab_index: 9
                 tab_stop: true
                 tool_tip_text: []
-                top: 30
+                top: 1080
                 use_mask_color: false
                 value: Unchecked
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 3855
         - name: hScrollY
           tag: ""
           index: 0

@@ -160,17 +160,33 @@ form:
             CheckBox:
               properties:
                 alignment: LeftJustify
-                appearance: ThreeD
+                appearance: Flat
                 back_color:
-                  System:
-                    index: 15
+                  RGB:
+                    red: 192
+                    green: 192
+                    blue: 192
                 caption:
-                  - 67
-                  - 104
+                  - 85
+                  - 115
                   - 101
-                  - 99
-                  - 107
-                  - 49
+                  - 32
+                  - 83
+                  - 116
+                  - 114
+                  - 101
+                  - 97
+                  - 109
+                  - 32
+                  - 40
+                  - 70
+                  - 97
+                  - 115
+                  - 116
+                  - 101
+                  - 115
+                  - 116
+                  - 41
                 causes_validation: true
                 data_field: []
                 data_format: []
@@ -183,10 +199,10 @@ form:
                 enabled: true
                 fore_color:
                   System:
-                    index: 18
-                height: 30
+                    index: 8
+                height: 255
                 help_context_id: 0
-                left: 30
+                left: 120
                 mask_color:
                   RGB:
                     red: 192
@@ -198,15 +214,15 @@ form:
                 picture: ~
                 right_to_left: false
                 style: Standard
-                tab_index: 0
+                tab_index: 2
                 tab_stop: true
                 tool_tip_text: []
-                top: 30
+                top: 4800
                 use_mask_color: false
-                value: Unchecked
+                value: Checked
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 2295
         - name: Picture2
           tag: ""
           index: 0

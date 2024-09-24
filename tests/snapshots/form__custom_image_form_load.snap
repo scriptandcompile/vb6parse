@@ -115,25 +115,25 @@ form:
           kind:
             ComboBox:
               properties:
-                appearance: ThreeD
+                appearance: Flat
                 back_color:
                   System:
                     index: 5
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
                   System:
                     index: 8
-                height: 30
+                height: 345
                 help_context_id: 0
                 integral_height: true
-                left: 30
+                left: 3240
                 locked: false
                 mouse_icon: ~
                 mouse_pointer: Default
@@ -142,14 +142,32 @@ form:
                 right_to_left: false
                 sorted: false
                 style: DropDownCombo
-                tab_index: 0
+                tab_index: 34
                 tab_stop: true
-                text: ""
-                tool_tip_text: ""
-                top: 30
+                text:
+                  - 83
+                  - 101
+                  - 108
+                  - 101
+                  - 99
+                  - 116
+                  - 32
+                  - 97
+                  - 32
+                  - 102
+                  - 105
+                  - 108
+                  - 116
+                  - 101
+                  - 114
+                  - 46
+                  - 46
+                  - 46
+                tool_tip_text: []
+                top: 1800
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 2775
         - name: TxtF
           tag: ""
           index: 0

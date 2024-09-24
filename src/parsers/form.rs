@@ -347,9 +347,15 @@ fn build_control<'a>(
             }
         }
         b"CheckBox" => {
-            // TODO: We are not correctly handling property assignment for each control.
+            let chechbox_properties = CheckBoxProperties::construct_control(&properties)?;
             VB6ControlKind::CheckBox {
-                properties: CheckBoxProperties::default(),
+                properties: chechbox_properties,
+            }
+        }
+        b"ComboBox" => {
+            let combobox_properties = ComboBoxProperties::construct_control(&properties)?;
+            VB6ControlKind::ComboBox {
+                properties: combobox_properties,
             }
         }
         b"Ole" => {
@@ -388,12 +394,7 @@ fn build_control<'a>(
                 properties: LabelProperties::default(),
             }
         }
-        b"ComboBox" => {
-            // TODO: We are not correctly handling property assignment for each control.
-            VB6ControlKind::ComboBox {
-                properties: ComboBoxProperties::default(),
-            }
-        }
+
         b"CommandButton" => {
             // TODO: We are not correctly handling property assignment for each control.
             VB6ControlKind::CommandButton {

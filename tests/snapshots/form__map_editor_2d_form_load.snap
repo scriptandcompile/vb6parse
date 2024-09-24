@@ -124,25 +124,25 @@ form:
           kind:
             ComboBox:
               properties:
-                appearance: ThreeD
+                appearance: Flat
                 back_color:
                   System:
                     index: 5
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
                   System:
                     index: 8
-                height: 30
+                height: 330
                 help_context_id: 0
                 integral_height: true
-                left: 30
+                left: 0
                 locked: false
                 mouse_icon: ~
                 mouse_pointer: Default
@@ -150,15 +150,15 @@ form:
                 ole_drop_mode: None
                 right_to_left: false
                 sorted: false
-                style: DropDownCombo
-                tab_index: 0
+                style: DropDownList
+                tab_index: 8
                 tab_stop: true
-                text: ""
-                tool_tip_text: ""
-                top: 30
+                text: []
+                tool_tip_text: []
+                top: 3720
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 1455
         - name: HSMain
           tag: ""
           index: 0

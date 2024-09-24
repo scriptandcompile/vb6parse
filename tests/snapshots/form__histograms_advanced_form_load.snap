@@ -466,25 +466,25 @@ form:
           kind:
             ComboBox:
               properties:
-                appearance: ThreeD
+                appearance: Flat
                 back_color:
                   System:
                     index: 5
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
                   System:
                     index: 8
-                height: 30
+                height: 330
                 help_context_id: 0
                 integral_height: true
-                left: 30
+                left: 1560
                 locked: false
                 mouse_icon: ~
                 mouse_pointer: Default
@@ -493,39 +493,39 @@ form:
                 right_to_left: false
                 sorted: false
                 style: DropDownCombo
-                tab_index: 0
+                tab_index: 2
                 tab_stop: true
-                text: ""
-                tool_tip_text: ""
-                top: 30
+                text: []
+                tool_tip_text: []
+                top: 120
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 2415
         - name: cmbHistMethod
           tag: ""
           index: 0
           kind:
             ComboBox:
               properties:
-                appearance: ThreeD
+                appearance: Flat
                 back_color:
                   System:
                     index: 5
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
                 fore_color:
                   System:
                     index: 8
-                height: 30
+                height: 330
                 help_context_id: 0
                 integral_height: true
-                left: 30
+                left: 1560
                 locked: false
                 mouse_icon: ~
                 mouse_pointer: Default
@@ -534,14 +534,14 @@ form:
                 right_to_left: false
                 sorted: false
                 style: DropDownCombo
-                tab_index: 0
+                tab_index: 1
                 tab_stop: true
-                text: ""
-                tool_tip_text: ""
-                top: 30
+                text: []
+                tool_tip_text: []
+                top: 480
                 visible: true
                 whats_this_help_id: 0
-                width: 100
+                width: 2415
         - name: picH
           tag: ""
           index: 0
