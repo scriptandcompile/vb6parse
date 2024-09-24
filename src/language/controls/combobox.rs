@@ -163,16 +163,16 @@ impl<'a> ComboBoxProperties<'a> {
         let mut combobox_properties = ComboBoxProperties::default();
 
         combobox_properties.appearance =
-            build_property::<Appearance>(&properties, BStr::new("Appearance"));
+            build_property::<Appearance>(properties, BStr::new("Appearance"));
 
         combobox_properties.back_color = build_color_property(
-            &properties,
+            properties,
             BStr::new("BackColor"),
             combobox_properties.back_color,
         );
 
         combobox_properties.causes_validation = build_bool_property(
-            &properties,
+            properties,
             BStr::new("CausesValidation"),
             combobox_properties.causes_validation,
         );
@@ -200,72 +200,71 @@ impl<'a> ComboBoxProperties<'a> {
         // drag_icon
 
         combobox_properties.drag_mode =
-            build_property::<DragMode>(&properties, BStr::new("DragMode"));
+            build_property::<DragMode>(properties, BStr::new("DragMode"));
 
         combobox_properties.enabled = build_bool_property(
-            &properties,
+            properties,
             BStr::new("Enabled"),
             combobox_properties.enabled,
         );
 
         combobox_properties.fore_color = build_color_property(
-            &properties,
+            properties,
             BStr::new("ForeColor"),
             combobox_properties.fore_color,
         );
 
         combobox_properties.height =
-            build_i32_property(&properties, BStr::new("Height"), combobox_properties.height);
+            build_i32_property(properties, BStr::new("Height"), combobox_properties.height);
 
         combobox_properties.help_context_id = build_i32_property(
-            &properties,
+            properties,
             BStr::new("HelpContextID"),
             combobox_properties.help_context_id,
         );
 
         combobox_properties.integral_height = build_bool_property(
-            &properties,
+            properties,
             BStr::new("IntegralHeight"),
             combobox_properties.integral_height,
         );
 
         combobox_properties.left =
-            build_i32_property(&properties, BStr::new("Left"), combobox_properties.left);
+            build_i32_property(properties, BStr::new("Left"), combobox_properties.left);
 
         combobox_properties.locked =
-            build_bool_property(&properties, BStr::new("Locked"), combobox_properties.locked);
+            build_bool_property(properties, BStr::new("Locked"), combobox_properties.locked);
 
         // mouse_icon
 
         combobox_properties.mouse_pointer =
-            build_property::<MousePointer>(&properties, BStr::new("MousePointer"));
+            build_property::<MousePointer>(properties, BStr::new("MousePointer"));
 
         combobox_properties.ole_drag_mode =
-            build_property::<OLEDragMode>(&properties, BStr::new("OLEDragMode"));
+            build_property::<OLEDragMode>(properties, BStr::new("OLEDragMode"));
 
         combobox_properties.ole_drop_mode =
-            build_property::<OLEDropMode>(&properties, BStr::new("OLEDropMode"));
+            build_property::<OLEDropMode>(properties, BStr::new("OLEDropMode"));
 
         combobox_properties.right_to_left = build_bool_property(
-            &properties,
+            properties,
             BStr::new("RightToLeft"),
             combobox_properties.right_to_left,
         );
 
         combobox_properties.sorted =
-            build_bool_property(&properties, BStr::new("Sorted"), combobox_properties.sorted);
+            build_bool_property(properties, BStr::new("Sorted"), combobox_properties.sorted);
 
-        combobox_properties.style =
-            build_property::<ComboBoxStyle>(&properties, BStr::new("Style"));
+        combobox_properties.style = build_property::<ComboBoxStyle>(properties, BStr::new("Style"));
 
         combobox_properties.tab_index = build_i32_property(
-            &properties,
+            properties,
             BStr::new("TabIndex"),
             combobox_properties.tab_index,
         );
 
         combobox_properties.tab_stop = build_bool_property(
-            &properties,
+            properties,
             BStr::new("TabStop"),
             combobox_properties.tab_stop,
         );
@@ -281,22 +280,22 @@ impl<'a> ComboBoxProperties<'a> {
             .unwrap_or(&combobox_properties.tool_tip_text);
 
         combobox_properties.top =
-            build_i32_property(&properties, BStr::new("Top"), combobox_properties.top);
+            build_i32_property(properties, BStr::new("Top"), combobox_properties.top);
 
         combobox_properties.visible = build_bool_property(
-            &properties,
+            properties,
             BStr::new("Visible"),
             combobox_properties.visible,
         );
 
         combobox_properties.whats_this_help_id = build_i32_property(
-            &properties,
+            properties,
             BStr::new("WhatsThisHelp"),
             combobox_properties.whats_this_help_id,
         );
 
         combobox_properties.width =
-            build_i32_property(&properties, BStr::new("Width"), combobox_properties.width);
+            build_i32_property(properties, BStr::new("Width"), combobox_properties.width);
 
         Ok(combobox_properties)
     }
