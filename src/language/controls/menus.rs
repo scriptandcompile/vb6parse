@@ -73,33 +73,33 @@ impl<'a> MenuProperties<'a> {
 
         let checked_key = BStr::new("Checked");
         menu_properties.checked =
-            build_bool_property(&properties, checked_key, menu_properties.checked);
+            build_bool_property(properties, checked_key, menu_properties.checked);
 
         let enabled_key = BStr::new("Enabled");
         menu_properties.enabled =
-            build_bool_property(&properties, enabled_key, menu_properties.enabled);
+            build_bool_property(properties, enabled_key, menu_properties.enabled);
 
         let help_context_id_key = BStr::new("HelpContextID");
         menu_properties.help_context_id = build_i32_property(
-            &properties,
+            properties,
             help_context_id_key,
             menu_properties.help_context_id,
         );
 
         let negotiation_position_key = BStr::new("NegotiationPosition");
         menu_properties.negotiate_position =
-            build_property::<NegotiatePosition>(&properties, negotiation_position_key);
+            build_property::<NegotiatePosition>(properties, negotiation_position_key);
 
         let shortcut_key = BStr::new("Shortcut");
-        menu_properties.shortcut = build_option_property::<ShortCut>(&properties, shortcut_key);
+        menu_properties.shortcut = build_option_property::<ShortCut>(properties, shortcut_key);
 
         let visible_key = BStr::new("Visible");
         menu_properties.visible =
-            build_bool_property(&properties, visible_key, menu_properties.visible);
+            build_bool_property(properties, visible_key, menu_properties.visible);
 
         let window_list_key = BStr::new("WindowList");
         menu_properties.window_list =
-            build_bool_property(&properties, window_list_key, menu_properties.window_list);
+            build_bool_property(properties, window_list_key, menu_properties.window_list);
 
         Ok(menu_properties)
     }
