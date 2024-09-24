@@ -321,11 +321,25 @@ form:
                     OptionButton:
                       properties:
                         alignment: LeftJustify
-                        appearance: ThreeD
+                        appearance: Flat
                         back_color:
                           System:
-                            index: 15
-                        caption: Option1
+                            index: 5
+                        caption:
+                          - 77
+                          - 97
+                          - 120
+                          - 105
+                          - 109
+                          - 117
+                          - 109
+                          - 32
+                          - 118
+                          - 97
+                          - 108
+                          - 117
+                          - 101
+                          - 115
                         causes_validation: true
                         disabled_picture: ~
                         down_picture: ~
@@ -334,10 +348,10 @@ form:
                         enabled: true
                         fore_color:
                           System:
-                            index: 18
-                        height: 30
+                            index: 8
+                        height: 255
                         help_context_id: 0
-                        left: 30
+                        left: 120
                         mask_color:
                           RGB:
                             red: 192
@@ -349,15 +363,15 @@ form:
                         picture: ~
                         right_to_left: false
                         style: Standard
-                        tab_index: 0
+                        tab_index: 11
                         tab_stop: true
-                        tool_tip_text: ""
-                        top: 30
+                        tool_tip_text: []
+                        top: 720
                         use_mask_color: false
                         value: UnSelected
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 2535
                 - name: optDecompose
                   tag: ""
                   index: 0
@@ -365,11 +379,25 @@ form:
                     OptionButton:
                       properties:
                         alignment: LeftJustify
-                        appearance: ThreeD
+                        appearance: Flat
                         back_color:
                           System:
-                            index: 15
-                        caption: Option1
+                            index: 5
+                        caption:
+                          - 77
+                          - 105
+                          - 110
+                          - 105
+                          - 109
+                          - 117
+                          - 109
+                          - 32
+                          - 118
+                          - 97
+                          - 108
+                          - 117
+                          - 101
+                          - 115
                         causes_validation: true
                         disabled_picture: ~
                         down_picture: ~
@@ -378,10 +406,10 @@ form:
                         enabled: true
                         fore_color:
                           System:
-                            index: 18
-                        height: 30
+                            index: 8
+                        height: 255
                         help_context_id: 0
-                        left: 30
+                        left: 120
                         mask_color:
                           RGB:
                             red: 192
@@ -393,15 +421,15 @@ form:
                         picture: ~
                         right_to_left: false
                         style: Standard
-                        tab_index: 0
+                        tab_index: 10
                         tab_stop: true
-                        tool_tip_text: ""
-                        top: 30
+                        tool_tip_text: []
+                        top: 360
                         use_mask_color: false
                         value: UnSelected
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 2535
         - name: frameChannel
           tag: ""
           index: 0
@@ -466,11 +494,15 @@ form:
                     OptionButton:
                       properties:
                         alignment: LeftJustify
-                        appearance: ThreeD
+                        appearance: Flat
                         back_color:
                           System:
-                            index: 15
-                        caption: Option1
+                            index: 5
+                        caption:
+                          - 66
+                          - 108
+                          - 117
+                          - 101
                         causes_validation: true
                         disabled_picture: ~
                         down_picture: ~
@@ -479,10 +511,10 @@ form:
                         enabled: true
                         fore_color:
                           System:
-                            index: 18
-                        height: 30
+                            index: 8
+                        height: 255
                         help_context_id: 0
-                        left: 30
+                        left: 120
                         mask_color:
                           RGB:
                             red: 192
@@ -494,15 +526,15 @@ form:
                         picture: ~
                         right_to_left: false
                         style: Standard
-                        tab_index: 0
+                        tab_index: 8
                         tab_stop: true
-                        tool_tip_text: ""
-                        top: 30
+                        tool_tip_text: []
+                        top: 1080
                         use_mask_color: false
                         value: UnSelected
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 2535
                 - name: optChannel
                   tag: ""
                   index: 0
@@ -510,11 +542,16 @@ form:
                     OptionButton:
                       properties:
                         alignment: LeftJustify
-                        appearance: ThreeD
+                        appearance: Flat
                         back_color:
                           System:
-                            index: 15
-                        caption: Option1
+                            index: 5
+                        caption:
+                          - 71
+                          - 114
+                          - 101
+                          - 101
+                          - 110
                         causes_validation: true
                         disabled_picture: ~
                         down_picture: ~
@@ -523,10 +560,10 @@ form:
                         enabled: true
                         fore_color:
                           System:
-                            index: 18
-                        height: 30
+                            index: 8
+                        height: 255
                         help_context_id: 0
-                        left: 30
+                        left: 120
                         mask_color:
                           RGB:
                             red: 192
@@ -538,15 +575,15 @@ form:
                         picture: ~
                         right_to_left: false
                         style: Standard
-                        tab_index: 0
+                        tab_index: 7
                         tab_stop: true
-                        tool_tip_text: ""
-                        top: 30
+                        tool_tip_text: []
+                        top: 720
                         use_mask_color: false
                         value: UnSelected
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 2535
                 - name: optChannel
                   tag: ""
                   index: 0
@@ -554,11 +591,14 @@ form:
                     OptionButton:
                       properties:
                         alignment: LeftJustify
-                        appearance: ThreeD
+                        appearance: Flat
                         back_color:
                           System:
-                            index: 15
-                        caption: Option1
+                            index: 5
+                        caption:
+                          - 82
+                          - 101
+                          - 100
                         causes_validation: true
                         disabled_picture: ~
                         down_picture: ~
@@ -567,10 +607,10 @@ form:
                         enabled: true
                         fore_color:
                           System:
-                            index: 18
-                        height: 30
+                            index: 8
+                        height: 255
                         help_context_id: 0
-                        left: 30
+                        left: 120
                         mask_color:
                           RGB:
                             red: 192
@@ -582,15 +622,15 @@ form:
                         picture: ~
                         right_to_left: false
                         style: Standard
-                        tab_index: 0
+                        tab_index: 6
                         tab_stop: true
-                        tool_tip_text: ""
-                        top: 30
+                        tool_tip_text: []
+                        top: 360
                         use_mask_color: false
                         value: UnSelected
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 2535
         - name: lstFilters
           tag: ""
           index: 0

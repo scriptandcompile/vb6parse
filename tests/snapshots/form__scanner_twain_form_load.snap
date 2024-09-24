@@ -187,11 +187,38 @@ form:
                     OptionButton:
                       properties:
                         alignment: LeftJustify
-                        appearance: ThreeD
+                        appearance: Flat
                         back_color:
                           System:
-                            index: 15
-                        caption: Option1
+                            index: 5
+                        caption:
+                          - 76
+                          - 111
+                          - 97
+                          - 100
+                          - 32
+                          - 105
+                          - 109
+                          - 97
+                          - 103
+                          - 101
+                          - 32
+                          - 97
+                          - 116
+                          - 32
+                          - 111
+                          - 114
+                          - 105
+                          - 103
+                          - 105
+                          - 110
+                          - 97
+                          - 108
+                          - 32
+                          - 115
+                          - 105
+                          - 122
+                          - 101
                         causes_validation: true
                         disabled_picture: ~
                         down_picture: ~
@@ -200,10 +227,10 @@ form:
                         enabled: true
                         fore_color:
                           System:
-                            index: 18
-                        height: 30
+                            index: 8
+                        height: 255
                         help_context_id: 0
-                        left: 30
+                        left: 120
                         mask_color:
                           RGB:
                             red: 192
@@ -215,15 +242,15 @@ form:
                         picture: ~
                         right_to_left: false
                         style: Standard
-                        tab_index: 0
+                        tab_index: 8
                         tab_stop: true
-                        tool_tip_text: ""
-                        top: 30
+                        tool_tip_text: []
+                        top: 480
                         use_mask_color: false
                         value: UnSelected
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 2655
                 - name: optLoadImage
                   tag: ""
                   index: 0
@@ -231,11 +258,59 @@ form:
                     OptionButton:
                       properties:
                         alignment: LeftJustify
-                        appearance: ThreeD
+                        appearance: Flat
                         back_color:
                           System:
-                            index: 15
-                        caption: Option1
+                            index: 5
+                        caption:
+                          - 82
+                          - 101
+                          - 115
+                          - 105
+                          - 122
+                          - 101
+                          - 32
+                          - 105
+                          - 109
+                          - 97
+                          - 103
+                          - 101
+                          - 32
+                          - 116
+                          - 111
+                          - 32
+                          - 102
+                          - 105
+                          - 116
+                          - 32
+                          - 116
+                          - 104
+                          - 101
+                          - 32
+                          - 112
+                          - 105
+                          - 99
+                          - 116
+                          - 117
+                          - 114
+                          - 101
+                          - 32
+                          - 98
+                          - 111
+                          - 120
+                          - 32
+                          - 111
+                          - 110
+                          - 32
+                          - 116
+                          - 104
+                          - 101
+                          - 32
+                          - 114
+                          - 105
+                          - 103
+                          - 104
+                          - 116
                         causes_validation: true
                         disabled_picture: ~
                         down_picture: ~
@@ -244,10 +319,10 @@ form:
                         enabled: true
                         fore_color:
                           System:
-                            index: 18
-                        height: 30
+                            index: 8
+                        height: 375
                         help_context_id: 0
-                        left: 30
+                        left: 120
                         mask_color:
                           RGB:
                             red: 192
@@ -259,15 +334,15 @@ form:
                         picture: ~
                         right_to_left: false
                         style: Standard
-                        tab_index: 0
+                        tab_index: 7
                         tab_stop: true
-                        tool_tip_text: ""
-                        top: 30
+                        tool_tip_text: []
+                        top: 840
                         use_mask_color: false
                         value: UnSelected
                         visible: true
                         whats_this_help_id: 0
-                        width: 100
+                        width: 2655
         - name: picBuffer
           tag: ""
           index: 0
