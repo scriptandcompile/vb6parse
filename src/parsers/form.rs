@@ -333,20 +333,6 @@ fn build_control<'a>(
                 properties: frame_properties,
             }
         }
-        b"TextBox" => {
-            let textbox_properties = TextBoxProperties::construct_control(&properties)?;
-
-            VB6ControlKind::TextBox {
-                properties: textbox_properties,
-            }
-        }
-        b"Timer" => {
-            let timer_properties = TimerProperties::construct_control(&properties)?;
-
-            VB6ControlKind::Timer {
-                properties: timer_properties,
-            }
-        }
         b"CheckBox" => {
             let chechbox_properties = CheckBoxProperties::construct_control(&properties)?;
             VB6ControlKind::CheckBox {
@@ -408,7 +394,6 @@ fn build_control<'a>(
                 properties: label_properties,
             }
         }
-
         b"Line" => {
             let line_properties = LineProperties::construct_control(&properties)?;
 
@@ -444,23 +429,38 @@ fn build_control<'a>(
                 properties: picture_box_properties,
             }
         }
+        b"HScrollBar" => {
+            let scroll_bar_properties = ScrollBarProperties::construct_control(&properties)?;
+
+            VB6ControlKind::HScrollBar {
+                properties: scroll_bar_properties,
+            }
+        }
+        b"VScrollBar" => {
+            let scroll_bar_properties = ScrollBarProperties::construct_control(&properties)?;
+
+            VB6ControlKind::VScrollBar {
+                properties: scroll_bar_properties,
+            }
+        }
         b"Shape" => {
             // TODO: We are not correctly handling property assignment for each control.
             VB6ControlKind::Shape {
                 properties: ShapeProperties::default(),
             }
         }
+        b"TextBox" => {
+            let textbox_properties = TextBoxProperties::construct_control(&properties)?;
 
-        b"HScrollBar" => {
-            // TODO: We are not correctly handling property assignment for each control.
-            VB6ControlKind::HScrollBar {
-                properties: ScrollBarProperties::default(),
+            VB6ControlKind::TextBox {
+                properties: textbox_properties,
             }
         }
-        b"VScrollBar" => {
-            // TODO: We are not correctly handling property assignment for each control.
-            VB6ControlKind::VScrollBar {
-                properties: ScrollBarProperties::default(),
+        b"Timer" => {
+            let timer_properties = TimerProperties::construct_control(&properties)?;
+
+            VB6ControlKind::Timer {
+                properties: timer_properties,
             }
         }
         _ => {
