@@ -159,8 +159,7 @@ impl<'a> ListBoxProperties<'a> {
     ) -> Result<Self, VB6ErrorKind> {
         let mut list_box_properties = ListBoxProperties::default();
 
-        list_box_properties.appearance =
-            build_property::<Appearance>(properties, BStr::new("Appearance"));
+        list_box_properties.appearance = build_property(properties, BStr::new("Appearance"));
         list_box_properties.back_color = build_color_property(
             properties,
             BStr::new("BackColor"),
@@ -191,8 +190,7 @@ impl<'a> ListBoxProperties<'a> {
 
         // DragIcon
 
-        list_box_properties.drag_mode =
-            build_property::<DragMode>(properties, BStr::new("DragMode"));
+        list_box_properties.drag_mode = build_property(properties, BStr::new("DragMode"));
         list_box_properties.enabled = build_bool_property(
             properties,
             BStr::new("Enabled"),
@@ -220,14 +218,10 @@ impl<'a> ListBoxProperties<'a> {
 
         // MouseIcon
 
-        list_box_properties.mouse_pointer =
-            build_property::<MousePointer>(properties, BStr::new("MousePointer"));
-        list_box_properties.multi_select =
-            build_property::<MultiSelect>(properties, BStr::new("MultiSelect"));
-        list_box_properties.ole_drag_mode =
-            build_property::<OLEDragMode>(properties, BStr::new("OLEDragMode"));
-        list_box_properties.ole_drop_mode =
-            build_property::<OLEDropMode>(properties, BStr::new("OLEDropMode"));
+        list_box_properties.mouse_pointer = build_property(properties, BStr::new("MousePointer"));
+        list_box_properties.multi_select = build_property(properties, BStr::new("MultiSelect"));
+        list_box_properties.ole_drag_mode = build_property(properties, BStr::new("OLEDragMode"));
+        list_box_properties.ole_drop_mode = build_property(properties, BStr::new("OLEDropMode"));
         list_box_properties.right_to_left = build_bool_property(
             properties,
             BStr::new("RightToLeft"),
@@ -235,7 +229,7 @@ impl<'a> ListBoxProperties<'a> {
         );
         list_box_properties.sorted =
             build_bool_property(properties, BStr::new("Sorted"), list_box_properties.sorted);
-        list_box_properties.style = build_property::<ListBoxStyle>(properties, BStr::new("Style"));
+        list_box_properties.style = build_property(properties, BStr::new("Style"));
         list_box_properties.tab_index = build_i32_property(
             properties,
             BStr::new("TabIndex"),

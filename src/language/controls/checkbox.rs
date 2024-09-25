@@ -177,11 +177,10 @@ impl<'a> CheckBoxProperties<'a> {
         let mut checkbox_properties = CheckBoxProperties::default();
 
         let alignment_key = BStr::new("Alignment");
-        checkbox_properties.alignment =
-            build_property::<JustifyAlignment>(properties, alignment_key);
+        checkbox_properties.alignment = build_property(properties, alignment_key);
 
         let appearance_key = BStr::new("Appearance");
-        checkbox_properties.appearance = build_property::<Appearance>(properties, appearance_key);
+        checkbox_properties.appearance = build_property(properties, appearance_key);
 
         let back_color_key = BStr::new("BackColor");
         checkbox_properties.back_color =
@@ -224,7 +223,7 @@ impl<'a> CheckBoxProperties<'a> {
         //DragIcon
 
         let drag_mode_key = BStr::new("DragMode");
-        checkbox_properties.drag_mode = build_property::<DragMode>(properties, drag_mode_key);
+        checkbox_properties.drag_mode = build_property(properties, drag_mode_key);
 
         let enabled_key = BStr::new("Enabled");
         checkbox_properties.enabled =
@@ -256,12 +255,10 @@ impl<'a> CheckBoxProperties<'a> {
         //MouseIcon
 
         let mouse_pointer_key = BStr::new("MousePointer");
-        checkbox_properties.mouse_pointer =
-            build_property::<MousePointer>(properties, mouse_pointer_key);
+        checkbox_properties.mouse_pointer = build_property(properties, mouse_pointer_key);
 
         let ole_drop_mode_key = BStr::new("OLEDropMode");
-        checkbox_properties.ole_drop_mode =
-            build_property::<OLEDropMode>(properties, ole_drop_mode_key);
+        checkbox_properties.ole_drop_mode = build_property(properties, ole_drop_mode_key);
 
         //Picture
 
@@ -273,7 +270,7 @@ impl<'a> CheckBoxProperties<'a> {
         );
 
         let style_key = BStr::new("Style");
-        checkbox_properties.style = build_property::<Style>(properties, style_key);
+        checkbox_properties.style = build_property(properties, style_key);
 
         let tab_index_key = BStr::new("TabIndex");
         checkbox_properties.tab_index =
@@ -299,7 +296,7 @@ impl<'a> CheckBoxProperties<'a> {
         );
 
         let value_key = BStr::new("Value");
-        checkbox_properties.value = build_property::<CheckBoxValue>(properties, value_key);
+        checkbox_properties.value = build_property(properties, value_key);
 
         let visible_key = BStr::new("Visible");
         checkbox_properties.visible =

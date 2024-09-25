@@ -494,7 +494,10 @@ fn build_control<'a>(
 }
 
 #[must_use]
-pub fn build_property<T>(properties: &HashMap<&BStr, &BStr>, property_key: &BStr) -> T
+pub fn build_property<T, S: std::hash::BuildHasher>(
+    properties: &HashMap<&BStr, &BStr, S>,
+    property_key: &BStr,
+) -> T
 where
     T: Default + TryFromPrimitive + TryFrom<i32>,
 {
@@ -511,8 +514,8 @@ where
 }
 
 #[must_use]
-pub fn build_option_property<'a, T>(
-    properties: &HashMap<&'a BStr, &'a BStr>,
+pub fn build_option_property<'a, S: std::hash::BuildHasher, T>(
+    properties: &HashMap<&'a BStr, &'a BStr, S>,
     property_key: &'a BStr,
 ) -> Option<T>
 where
@@ -531,8 +534,8 @@ where
 }
 
 #[must_use]
-pub fn build_i32_property(
-    properties: &HashMap<&BStr, &BStr>,
+pub fn build_i32_property<S: std::hash::BuildHasher>(
+    properties: &HashMap<&BStr, &BStr, S>,
     property_key: &BStr,
     default: i32,
 ) -> i32 {
@@ -549,8 +552,8 @@ pub fn build_i32_property(
 }
 
 #[must_use]
-pub fn build_color_property(
-    properties: &HashMap<&BStr, &BStr>,
+pub fn build_color_property<S: std::hash::BuildHasher>(
+    properties: &HashMap<&BStr, &BStr, S>,
     property_key: &BStr,
     default: VB6Color,
 ) -> VB6Color {
@@ -567,8 +570,8 @@ pub fn build_color_property(
 }
 
 #[must_use]
-pub fn build_bool_property(
-    properties: &HashMap<&BStr, &BStr>,
+pub fn build_bool_property<S: std::hash::BuildHasher>(
+    properties: &HashMap<&BStr, &BStr, S>,
     property_key: &BStr,
     default: bool,
 ) -> bool {

@@ -73,9 +73,7 @@ impl Default for ShapeProperties {
 }
 
 impl ShapeProperties {
-    pub fn construct_control(
-        properties: &HashMap<&BStr, &BStr>,
-    ) -> Result<Self, VB6ErrorKind> {
+    pub fn construct_control(properties: &HashMap<&BStr, &BStr>) -> Result<Self, VB6ErrorKind> {
         let mut shape_properties = ShapeProperties::default();
 
         shape_properties.back_color = build_color_property(
@@ -83,33 +81,30 @@ impl ShapeProperties {
             BStr::new("BackColor"),
             shape_properties.back_color,
         );
-        shape_properties.back_style =
-            build_property::<BackStyle>(properties, BStr::new("BackStyle"));
+        shape_properties.back_style = build_property(properties, BStr::new("BackStyle"));
         shape_properties.border_color = build_color_property(
             properties,
             BStr::new("BorderColor"),
             shape_properties.border_color,
         );
-        shape_properties.border_style =
-            build_property::<DrawStyle>(properties, BStr::new("BorderStyle"));
+        shape_properties.border_style = build_property(properties, BStr::new("BorderStyle"));
         shape_properties.border_width = build_i32_property(
             properties,
             BStr::new("BorderWidth"),
             shape_properties.border_width,
         );
-        shape_properties.draw_mode = build_property::<DrawMode>(properties, BStr::new("DrawMode"));
+        shape_properties.draw_mode = build_property(properties, BStr::new("DrawMode"));
         shape_properties.fill_color = build_color_property(
             properties,
             BStr::new("FillColor"),
             shape_properties.fill_color,
         );
-        shape_properties.fill_style =
-            build_property::<DrawStyle>(properties, BStr::new("FillStyle"));
+        shape_properties.fill_style = build_property(properties, BStr::new("FillStyle"));
         shape_properties.height =
             build_i32_property(properties, BStr::new("Height"), shape_properties.height);
         shape_properties.left =
             build_i32_property(properties, BStr::new("Left"), shape_properties.left);
-        shape_properties.shape = build_property::<Shape>(properties, BStr::new("Shape"));
+        shape_properties.shape = build_property(properties, BStr::new("Shape"));
         shape_properties.top =
             build_i32_property(properties, BStr::new("Top"), shape_properties.top);
         shape_properties.visible =

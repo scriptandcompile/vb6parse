@@ -163,10 +163,8 @@ impl<'a> OptionButtonProperties<'a> {
     ) -> Result<Self, VB6ErrorKind> {
         let mut option_button_properties = OptionButtonProperties::default();
 
-        option_button_properties.alignment =
-            build_property::<JustifyAlignment>(properties, BStr::new("Alignment"));
-        option_button_properties.appearance =
-            build_property::<Appearance>(properties, BStr::new("Appearance"));
+        option_button_properties.alignment = build_property(properties, BStr::new("Alignment"));
+        option_button_properties.appearance = build_property(properties, BStr::new("Appearance"));
         option_button_properties.back_color = build_color_property(
             properties,
             BStr::new("BackColor"),
@@ -185,8 +183,7 @@ impl<'a> OptionButtonProperties<'a> {
         // DownPicture
         // DragIcon
 
-        option_button_properties.drag_mode =
-            build_property::<DragMode>(properties, BStr::new("DragMode"));
+        option_button_properties.drag_mode = build_property(properties, BStr::new("DragMode"));
         option_button_properties.enabled = build_bool_property(
             properties,
             BStr::new("Enabled"),
@@ -218,9 +215,9 @@ impl<'a> OptionButtonProperties<'a> {
         // MouseIcon
 
         option_button_properties.mouse_pointer =
-            build_property::<MousePointer>(properties, BStr::new("MousePointer"));
+            build_property(properties, BStr::new("MousePointer"));
         option_button_properties.ole_drop_mode =
-            build_property::<OLEDropMode>(properties, BStr::new("OLEDropMode"));
+            build_property(properties, BStr::new("OLEDropMode"));
 
         // Picture
 
@@ -229,7 +226,7 @@ impl<'a> OptionButtonProperties<'a> {
             BStr::new("RightToLeft"),
             option_button_properties.right_to_left,
         );
-        option_button_properties.style = build_property::<Style>(properties, BStr::new("Style"));
+        option_button_properties.style = build_property(properties, BStr::new("Style"));
         option_button_properties.tab_index = build_i32_property(
             properties,
             BStr::new("TabIndex"),
@@ -250,8 +247,7 @@ impl<'a> OptionButtonProperties<'a> {
             BStr::new("UseMaskColor"),
             option_button_properties.use_mask_color,
         );
-        option_button_properties.value =
-            build_property::<OptionButtonValue>(properties, BStr::new("Value"));
+        option_button_properties.value = build_property(properties, BStr::new("Value"));
         option_button_properties.visible = build_bool_property(
             properties,
             BStr::new("Visible"),

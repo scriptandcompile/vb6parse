@@ -147,8 +147,7 @@ impl<'a> CommandButtonProperties<'a> {
         let mut command_button_properties = CommandButtonProperties::default();
 
         let appearance_key = BStr::new("Appearance");
-        command_button_properties.appearance =
-            build_property::<Appearance>(properties, appearance_key);
+        command_button_properties.appearance = build_property(properties, appearance_key);
 
         let back_color_key = BStr::new("BackColor");
         command_button_properties.back_color = build_color_property(
@@ -182,7 +181,7 @@ impl<'a> CommandButtonProperties<'a> {
         // drag_icon
 
         let drag_mode_key = BStr::new("DragMode");
-        command_button_properties.drag_mode = build_property::<DragMode>(properties, drag_mode_key);
+        command_button_properties.drag_mode = build_property(properties, drag_mode_key);
 
         let enabled_key = BStr::new("Enabled");
         command_button_properties.enabled =
@@ -213,12 +212,10 @@ impl<'a> CommandButtonProperties<'a> {
         // mouse_icon
 
         let mouse_pointer_key = BStr::new("MousePointer");
-        command_button_properties.mouse_pointer =
-            build_property::<MousePointer>(properties, mouse_pointer_key);
+        command_button_properties.mouse_pointer = build_property(properties, mouse_pointer_key);
 
         let ole_drop_mode_key = BStr::new("OLEDropMode");
-        command_button_properties.ole_drop_mode =
-            build_property::<OLEDropMode>(properties, ole_drop_mode_key);
+        command_button_properties.ole_drop_mode = build_property(properties, ole_drop_mode_key);
 
         // picture
 
@@ -230,7 +227,7 @@ impl<'a> CommandButtonProperties<'a> {
         );
 
         let style_key = BStr::new("Style");
-        command_button_properties.style = build_property::<Style>(properties, style_key);
+        command_button_properties.style = build_property(properties, style_key);
 
         let tab_index_key = BStr::new("TabIndex");
         command_button_properties.tab_index = build_i32_property(

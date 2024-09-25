@@ -154,10 +154,8 @@ impl<'a> LabelProperties<'a> {
     ) -> Result<Self, VB6ErrorKind> {
         let mut label_properties = LabelProperties::default();
 
-        label_properties.alignment =
-            build_property::<Alignment>(properties, BStr::new("Alignment"));
-        label_properties.appearance =
-            build_property::<Appearance>(properties, BStr::new("Appearance"));
+        label_properties.alignment = build_property(properties, BStr::new("Alignment"));
+        label_properties.appearance = build_property(properties, BStr::new("Appearance"));
         label_properties.auto_size = build_bool_property(
             properties,
             BStr::new("AutoSize"),
@@ -168,10 +166,8 @@ impl<'a> LabelProperties<'a> {
             BStr::new("BackColor"),
             label_properties.back_color,
         );
-        label_properties.back_style =
-            build_property::<BackStyle>(properties, BStr::new("BackStyle"));
-        label_properties.border_style =
-            build_property::<BorderStyle>(properties, BStr::new("BorderStyle"));
+        label_properties.back_style = build_property(properties, BStr::new("BackStyle"));
+        label_properties.border_style = build_property(properties, BStr::new("BorderStyle"));
         label_properties.caption = properties
             .get(&BStr::new("Caption"))
             .unwrap_or(&label_properties.caption);
@@ -190,7 +186,7 @@ impl<'a> LabelProperties<'a> {
 
         // DragIcon
 
-        label_properties.drag_mode = build_property::<DragMode>(properties, BStr::new("DragMode"));
+        label_properties.drag_mode = build_property(properties, BStr::new("DragMode"));
         label_properties.enabled =
             build_bool_property(properties, BStr::new("Enabled"), label_properties.enabled);
         label_properties.fore_color = build_color_property(
@@ -205,7 +201,7 @@ impl<'a> LabelProperties<'a> {
         label_properties.link_item = properties
             .get(&BStr::new("LinkItem"))
             .unwrap_or(&label_properties.link_item);
-        label_properties.link_mode = build_property::<LinkMode>(properties, BStr::new("LinkMode"));
+        label_properties.link_mode = build_property(properties, BStr::new("LinkMode"));
         label_properties.link_timeout = build_i32_property(
             properties,
             BStr::new("LinkTimeout"),
@@ -217,10 +213,8 @@ impl<'a> LabelProperties<'a> {
 
         // MouseIcon
 
-        label_properties.mouse_pointer =
-            build_property::<MousePointer>(properties, BStr::new("MousePointer"));
-        label_properties.ole_drop_mode =
-            build_property::<OLEDropMode>(properties, BStr::new("OLEDropMode"));
+        label_properties.mouse_pointer = build_property(properties, BStr::new("MousePointer"));
+        label_properties.ole_drop_mode = build_property(properties, BStr::new("OLEDropMode"));
         label_properties.right_to_left = build_bool_property(
             properties,
             BStr::new("RightToLeft"),

@@ -263,7 +263,7 @@ impl<'a> FormProperties<'a> {
         // TODO: We are not correctly handling property assignment for each control.
 
         let appearance_key = BStr::new("Appearance");
-        form_properties.appearance = build_property::<Appearance>(&properties, appearance_key);
+        form_properties.appearance = build_property(&properties, appearance_key);
 
         let auto_redraw_key = BStr::new("AutoRedraw");
         form_properties.auto_redraw =
@@ -274,8 +274,7 @@ impl<'a> FormProperties<'a> {
             build_color_property(&properties, backcolor_key, form_properties.back_color);
 
         let border_style_key = BStr::new("BorderStyle");
-        form_properties.border_style =
-            build_property::<FormBorderStyle>(&properties, border_style_key);
+        form_properties.border_style = build_property(&properties, border_style_key);
 
         let caption_key = BStr::new("Caption");
         form_properties.caption = properties
@@ -283,18 +282,17 @@ impl<'a> FormProperties<'a> {
             .unwrap_or(&form_properties.caption);
 
         let clip_control_key = BStr::new("ClipControls");
-        form_properties.clip_controls =
-            build_property::<ClipControls>(&properties, clip_control_key);
+        form_properties.clip_controls = build_property(&properties, clip_control_key);
 
         let control_box_key = BStr::new("ControlBox");
         form_properties.control_box =
             build_bool_property(&properties, control_box_key, form_properties.control_box);
 
         let draw_mode_key = BStr::new("DrawMode");
-        form_properties.draw_mode = build_property::<DrawMode>(&properties, draw_mode_key);
+        form_properties.draw_mode = build_property(&properties, draw_mode_key);
 
         let draw_style_key = BStr::new("DrawStyle");
-        form_properties.draw_style = build_property::<DrawStyle>(&properties, draw_style_key);
+        form_properties.draw_style = build_property(&properties, draw_style_key);
 
         let draw_width_key = BStr::new("DrawWidth");
         form_properties.draw_width =
@@ -309,7 +307,7 @@ impl<'a> FormProperties<'a> {
             build_color_property(&properties, fill_color_key, form_properties.fill_color);
 
         let fill_style_key = BStr::new("FillStyle");
-        form_properties.fill_style = build_property::<FillStyle>(&properties, fill_style_key);
+        form_properties.fill_style = build_property(&properties, fill_style_key);
 
         // Font - group
 
@@ -349,7 +347,7 @@ impl<'a> FormProperties<'a> {
         form_properties.left = build_i32_property(&properties, left_key, form_properties.left);
 
         let link_mode_key = BStr::new("LinkMode");
-        form_properties.link_mode = build_property::<FormLinkMode>(&properties, link_mode_key);
+        form_properties.link_mode = build_property(&properties, link_mode_key);
 
         let link_topic_key = BStr::new("LinkTopic");
         form_properties.link_topic = properties
@@ -371,8 +369,7 @@ impl<'a> FormProperties<'a> {
         // MouseIcon
 
         let mouse_pointer_key = BStr::new("MousePointer");
-        form_properties.mouse_pointer =
-            build_property::<MousePointer>(&properties, mouse_pointer_key);
+        form_properties.mouse_pointer = build_property(&properties, mouse_pointer_key);
 
         let moveable_key = BStr::new("Moveable");
         form_properties.moveable =
@@ -386,13 +383,12 @@ impl<'a> FormProperties<'a> {
         );
 
         let ole_drop_mode_key = BStr::new("OLEDropMode");
-        form_properties.ole_drop_mode =
-            build_property::<OLEDropMode>(&properties, ole_drop_mode_key);
+        form_properties.ole_drop_mode = build_property(&properties, ole_drop_mode_key);
 
         // Palette
 
         let palette_mode_key = BStr::new("PaletteMode");
-        form_properties.palette_mode = build_property::<PaletteMode>(&properties, palette_mode_key);
+        form_properties.palette_mode = build_property(&properties, palette_mode_key);
 
         // Picture
 
@@ -412,7 +408,7 @@ impl<'a> FormProperties<'a> {
             build_i32_property(&properties, scale_left_key, form_properties.scale_left);
 
         let scale_mode_key = BStr::new("ScaleMode");
-        form_properties.scale_mode = build_property::<ScaleMode>(&properties, scale_mode_key);
+        form_properties.scale_mode = build_property(&properties, scale_mode_key);
 
         let scale_top_key = BStr::new("ScaleTop");
         form_properties.scale_top =
@@ -430,8 +426,7 @@ impl<'a> FormProperties<'a> {
         );
 
         let start_up_position_key = BStr::new("StartUpPosition");
-        form_properties.start_up_position =
-            build_property::<StartUpPosition>(&properties, start_up_position_key);
+        form_properties.start_up_position = build_property(&properties, start_up_position_key);
 
         let top_key = BStr::new("Top");
         form_properties.top = build_i32_property(&properties, top_key, form_properties.top);
@@ -451,7 +446,7 @@ impl<'a> FormProperties<'a> {
         form_properties.width = build_i32_property(&properties, width_key, form_properties.width);
 
         let window_state_key = BStr::new("WindowState");
-        form_properties.window_state = build_property::<WindowState>(&properties, window_state_key);
+        form_properties.window_state = build_property(&properties, window_state_key);
 
         Ok(form_properties)
     }

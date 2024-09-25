@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::hash::RandomState;
 
 use crate::errors::VB6ErrorKind;
 use crate::language::controls::{
@@ -194,10 +195,8 @@ impl<'a> OLEProperties<'a> {
     ) -> Result<Self, VB6ErrorKind> {
         let mut ole_properties = OLEProperties::default();
 
-        ole_properties.appearance =
-            build_property::<Appearance>(properties, BStr::new("Appearance"));
-        ole_properties.auto_activate =
-            build_property::<AutoActivate>(properties, BStr::new("AutoActivate"));
+        ole_properties.appearance = build_property(properties, BStr::new("Appearance"));
+        ole_properties.auto_activate = build_property(properties, BStr::new("AutoActivate"));
         ole_properties.auto_verb_menu = build_bool_property(
             properties,
             BStr::new("AutoVerbMenu"),
@@ -208,9 +207,8 @@ impl<'a> OLEProperties<'a> {
             BStr::new("BackColor"),
             ole_properties.back_color,
         );
-        ole_properties.back_style = build_property::<BackStyle>(properties, BStr::new("BackStyle"));
-        ole_properties.border_style =
-            build_property::<BorderStyle>(properties, BStr::new("BorderStyle"));
+        ole_properties.back_style = build_property(properties, BStr::new("BackStyle"));
+        ole_properties.border_style = build_property(properties, BStr::new("BorderStyle"));
         ole_properties.causes_validation = build_bool_property(
             properties,
             BStr::new("CausesValidation"),
@@ -225,12 +223,12 @@ impl<'a> OLEProperties<'a> {
         ole_properties.data_source = properties
             .get(&BStr::new("DataSource"))
             .unwrap_or(&ole_properties.data_source);
-        ole_properties.display_type =
-            build_property::<DisplayType>(properties, BStr::new("DisplayType"));
+        ole_properties.display_type = build_property(properties, BStr::new("DisplayType"));
 
         // DragIcon
 
-        ole_properties.drag_mode = build_property::<DragMode>(properties, BStr::new("DragMode"));
+        ole_properties.drag_mode =
+            build_property::<DragMode, RandomState>(properties, BStr::new("DragMode"));
         ole_properties.enabled =
             build_bool_property(properties, BStr::new("Enabled"), ole_properties.enabled);
         ole_properties.height =
@@ -251,22 +249,20 @@ impl<'a> OLEProperties<'a> {
             ole_properties.misc_flags,
         );
         ole_properties.mouse_pointer =
-            build_property::<MousePointer>(properties, BStr::new("MousePointer"));
+            build_property::<MousePointer, RandomState>(properties, BStr::new("MousePointer"));
         ole_properties.ole_drop_allowed = build_bool_property(
             properties,
             BStr::new("OLEDropAllowed"),
             ole_properties.ole_drop_allowed,
         );
-        ole_properties.ole_type_allowed =
-            build_property::<OLETypeAllowed>(properties, BStr::new("OLETypeAllowed"));
-        ole_properties.size_mode = build_property::<SizeMode>(properties, BStr::new("SizeMode"));
+        ole_properties.ole_type_allowed = build_property(properties, BStr::new("OLETypeAllowed"));
+        ole_properties.size_mode = build_property(properties, BStr::new("SizeMode"));
         ole_properties.tab_index =
             build_i32_property(properties, BStr::new("TabIndex"), ole_properties.tab_index);
         ole_properties.tab_stop =
             build_bool_property(properties, BStr::new("TabStop"), ole_properties.tab_stop);
         ole_properties.top = build_i32_property(properties, BStr::new("Top"), ole_properties.top);
-        ole_properties.update_options =
-            build_property::<UpdateOptions>(properties, BStr::new("UpdateOptions"));
+        ole_properties.update_options = build_property(properties, BStr::new("UpdateOptions"));
         ole_properties.verb =
             build_i32_property(properties, BStr::new("Verb"), ole_properties.verb);
         ole_properties.visible =

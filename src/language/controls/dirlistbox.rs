@@ -116,8 +116,7 @@ impl<'a> DirListBoxProperties<'a> {
     ) -> Result<Self, VB6ErrorKind> {
         let mut dir_list_box_properties = DirListBoxProperties::default();
 
-        dir_list_box_properties.appearance =
-            build_property::<Appearance>(properties, BStr::new("Appearance"));
+        dir_list_box_properties.appearance = build_property(properties, BStr::new("Appearance"));
         dir_list_box_properties.back_color = build_color_property(
             properties,
             BStr::new("BackColor"),
@@ -131,8 +130,7 @@ impl<'a> DirListBoxProperties<'a> {
 
         // DragIcon
 
-        dir_list_box_properties.drag_mode =
-            build_property::<DragMode>(properties, BStr::new("DragMode"));
+        dir_list_box_properties.drag_mode = build_property(properties, BStr::new("DragMode"));
         dir_list_box_properties.enabled = build_bool_property(
             properties,
             BStr::new("Enabled"),
@@ -156,11 +154,11 @@ impl<'a> DirListBoxProperties<'a> {
         dir_list_box_properties.left =
             build_i32_property(properties, BStr::new("Left"), dir_list_box_properties.left);
         dir_list_box_properties.mouse_pointer =
-            build_property::<MousePointer>(properties, BStr::new("MousePointer"));
+            build_property(properties, BStr::new("MousePointer"));
         dir_list_box_properties.ole_drag_mode =
-            build_property::<OLEDragMode>(properties, BStr::new("OLEDragMode"));
+            build_property(properties, BStr::new("OLEDragMode"));
         dir_list_box_properties.ole_drop_mode =
-            build_property::<OLEDropMode>(properties, BStr::new("OLEDropMode"));
+            build_property(properties, BStr::new("OLEDropMode"));
         dir_list_box_properties.tab_index = build_i32_property(
             properties,
             BStr::new("TabIndex"),

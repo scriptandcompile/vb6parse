@@ -123,10 +123,8 @@ impl<'a> ImageProperties<'a> {
     ) -> Result<Self, VB6ErrorKind> {
         let mut image_properties = ImageProperties::default();
 
-        image_properties.appearance =
-            build_property::<Appearance>(properties, BStr::new("Appearance"));
-        image_properties.border_style =
-            build_property::<BorderStyle>(properties, BStr::new("BorderStyle"));
+        image_properties.appearance = build_property(properties, BStr::new("Appearance"));
+        image_properties.border_style = build_property(properties, BStr::new("BorderStyle"));
         image_properties.data_field = properties
             .get(BStr::new("DataField"))
             .unwrap_or(&image_properties.data_field);
@@ -142,7 +140,7 @@ impl<'a> ImageProperties<'a> {
 
         // DragIcon
 
-        image_properties.drag_mode = build_property::<DragMode>(properties, BStr::new("DragMode"));
+        image_properties.drag_mode = build_property(properties, BStr::new("DragMode"));
         image_properties.enabled =
             build_bool_property(properties, BStr::new("Enabled"), image_properties.enabled);
         image_properties.height =
@@ -152,12 +150,9 @@ impl<'a> ImageProperties<'a> {
 
         // MouseIcon
 
-        image_properties.mouse_pointer =
-            build_property::<MousePointer>(properties, BStr::new("MousePointer"));
-        image_properties.ole_drag_mode =
-            build_property::<OLEDragMode>(properties, BStr::new("OLEDragMode"));
-        image_properties.ole_drop_mode =
-            build_property::<OLEDropMode>(properties, BStr::new("OLEDropMode"));
+        image_properties.mouse_pointer = build_property(properties, BStr::new("MousePointer"));
+        image_properties.ole_drag_mode = build_property(properties, BStr::new("OLEDragMode"));
+        image_properties.ole_drop_mode = build_property(properties, BStr::new("OLEDropMode"));
 
         // Picture
 

@@ -186,11 +186,9 @@ impl<'a> TextBoxProperties<'a> {
     ) -> Result<Self, VB6ErrorKind> {
         let mut text_box_properties = TextBoxProperties::default();
 
-        text_box_properties.alignment =
-            build_property::<Alignment>(properties, BStr::new("Alignment"));
+        text_box_properties.alignment = build_property(properties, BStr::new("Alignment"));
 
-        text_box_properties.appearance =
-            build_property::<Appearance>(properties, BStr::new("Appearance"));
+        text_box_properties.appearance = build_property(properties, BStr::new("Appearance"));
 
         text_box_properties.back_color = build_color_property(
             properties,
@@ -198,8 +196,7 @@ impl<'a> TextBoxProperties<'a> {
             text_box_properties.back_color,
         );
 
-        text_box_properties.border_style =
-            build_property::<BorderStyle>(properties, BStr::new("BorderStyle"));
+        text_box_properties.border_style = build_property(properties, BStr::new("BorderStyle"));
 
         text_box_properties.causes_validation = build_bool_property(
             properties,
@@ -232,8 +229,7 @@ impl<'a> TextBoxProperties<'a> {
             });
 
         // drag_icon: Option<DynamicImage>,
-        text_box_properties.drag_mode =
-            build_property::<DragMode>(properties, BStr::new("DragMode"));
+        text_box_properties.drag_mode = build_property(properties, BStr::new("DragMode"));
 
         text_box_properties.enabled = build_bool_property(
             properties,
@@ -271,8 +267,7 @@ impl<'a> TextBoxProperties<'a> {
                 s.to_str().unwrap_or(text_box_properties.link_item)
             });
 
-        text_box_properties.link_mode =
-            build_property::<LinkMode>(properties, BStr::new("LinkMode"));
+        text_box_properties.link_mode = build_property(properties, BStr::new("LinkMode"));
 
         text_box_properties.link_timeout = build_i32_property(
             properties,
@@ -297,8 +292,7 @@ impl<'a> TextBoxProperties<'a> {
 
         // mouse_icon: Option<DynamicImage>,
 
-        text_box_properties.mouse_pointer =
-            build_property::<MousePointer>(properties, BStr::new("MousePointer"));
+        text_box_properties.mouse_pointer = build_property(properties, BStr::new("MousePointer"));
 
         text_box_properties.multi_line = build_bool_property(
             properties,
@@ -306,11 +300,9 @@ impl<'a> TextBoxProperties<'a> {
             text_box_properties.multi_line,
         );
 
-        text_box_properties.ole_drag_mode =
-            build_property::<OLEDragMode>(properties, BStr::new("OLEDragMode"));
+        text_box_properties.ole_drag_mode = build_property(properties, BStr::new("OLEDragMode"));
 
-        text_box_properties.ole_drop_mode =
-            build_property::<OLEDropMode>(properties, BStr::new("OLEDropMode"));
+        text_box_properties.ole_drop_mode = build_property(properties, BStr::new("OLEDropMode"));
 
         text_box_properties.password_char = properties
             .get(BStr::new("PasswordChar"))
@@ -323,8 +315,7 @@ impl<'a> TextBoxProperties<'a> {
             text_box_properties.right_to_left,
         );
 
-        text_box_properties.scroll_bars =
-            build_property::<ScrollBars>(properties, BStr::new("ScrollBars"));
+        text_box_properties.scroll_bars = build_property(properties, BStr::new("ScrollBars"));
 
         text_box_properties.tab_index = build_i32_property(
             properties,
