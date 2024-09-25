@@ -87,11 +87,10 @@ impl<'a> MenuProperties<'a> {
         );
 
         let negotiation_position_key = BStr::new("NegotiationPosition");
-        menu_properties.negotiate_position =
-            build_property::<NegotiatePosition>(properties, negotiation_position_key);
+        menu_properties.negotiate_position = build_property(properties, negotiation_position_key);
 
         let shortcut_key = BStr::new("Shortcut");
-        menu_properties.shortcut = build_option_property::<ShortCut>(properties, shortcut_key);
+        menu_properties.shortcut = build_option_property(properties, shortcut_key);
 
         let visible_key = BStr::new("Visible");
         menu_properties.visible =

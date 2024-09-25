@@ -208,9 +208,8 @@ impl<'a> PictureBoxProperties<'a> {
     ) -> Result<Self, VB6ErrorKind> {
         let mut picture_box_properties = PictureBoxProperties::default();
 
-        picture_box_properties.align = build_property::<Align>(properties, BStr::new("Align"));
-        picture_box_properties.appearance =
-            build_property::<Appearance>(properties, BStr::new("Appearance"));
+        picture_box_properties.align = build_property(properties, BStr::new("Align"));
+        picture_box_properties.appearance = build_property(properties, BStr::new("Appearance"));
         picture_box_properties.auto_redraw = build_bool_property(
             properties,
             BStr::new("AutoRedraw"),
@@ -226,15 +225,14 @@ impl<'a> PictureBoxProperties<'a> {
             BStr::new("BackColor"),
             picture_box_properties.back_color,
         );
-        picture_box_properties.border_style =
-            build_property::<BorderStyle>(properties, BStr::new("BorderStyle"));
+        picture_box_properties.border_style = build_property(properties, BStr::new("BorderStyle"));
         picture_box_properties.causes_validation = build_bool_property(
             properties,
             BStr::new("CausesValidation"),
             picture_box_properties.causes_validation,
         );
         picture_box_properties.clip_controls =
-            build_property::<ClipControls>(properties, BStr::new("ClipControls"));
+            build_property(properties, BStr::new("ClipControls"));
         picture_box_properties.data_field = properties
             .get(BStr::new("DataField"))
             .unwrap_or(&picture_box_properties.data_field);
@@ -250,12 +248,9 @@ impl<'a> PictureBoxProperties<'a> {
 
         // DragIcon
 
-        picture_box_properties.drag_mode =
-            build_property::<DragMode>(properties, BStr::new("DragMode"));
-        picture_box_properties.draw_mode =
-            build_property::<DrawMode>(properties, BStr::new("DrawMode"));
-        picture_box_properties.draw_style =
-            build_property::<DrawStyle>(properties, BStr::new("DrawStyle"));
+        picture_box_properties.drag_mode = build_property(properties, BStr::new("DragMode"));
+        picture_box_properties.draw_mode = build_property(properties, BStr::new("DrawMode"));
+        picture_box_properties.draw_style = build_property(properties, BStr::new("DrawStyle"));
         picture_box_properties.draw_width = build_i32_property(
             properties,
             BStr::new("DrawWidth"),
@@ -271,8 +266,7 @@ impl<'a> PictureBoxProperties<'a> {
             BStr::new("FillColor"),
             picture_box_properties.fill_color,
         );
-        picture_box_properties.fill_style =
-            build_property::<FillStyle>(properties, BStr::new("FillStyle"));
+        picture_box_properties.fill_style = build_property(properties, BStr::new("FillStyle"));
         picture_box_properties.font_transparent = build_bool_property(
             properties,
             BStr::new("FontTransparent"),
@@ -303,8 +297,7 @@ impl<'a> PictureBoxProperties<'a> {
         picture_box_properties.link_item = properties
             .get(BStr::new("LinkItem"))
             .unwrap_or(&picture_box_properties.link_item);
-        picture_box_properties.link_mode =
-            build_property::<LinkMode>(properties, BStr::new("LinkMode"));
+        picture_box_properties.link_mode = build_property(properties, BStr::new("LinkMode"));
         picture_box_properties.link_timeout = build_i32_property(
             properties,
             BStr::new("LinkTimeout"),
@@ -317,16 +310,14 @@ impl<'a> PictureBoxProperties<'a> {
         // MouseIcon
 
         picture_box_properties.mouse_pointer =
-            build_property::<MousePointer>(properties, BStr::new("MousePointer"));
+            build_property(properties, BStr::new("MousePointer"));
         picture_box_properties.negotiate = build_bool_property(
             properties,
             BStr::new("Negotiate"),
             picture_box_properties.negotiate,
         );
-        picture_box_properties.ole_drag_mode =
-            build_property::<OLEDragMode>(properties, BStr::new("OLEDragMode"));
-        picture_box_properties.ole_drop_mode =
-            build_property::<OLEDropMode>(properties, BStr::new("OLEDropMode"));
+        picture_box_properties.ole_drag_mode = build_property(properties, BStr::new("OLEDragMode"));
+        picture_box_properties.ole_drop_mode = build_property(properties, BStr::new("OLEDropMode"));
 
         // Picture
 
@@ -345,8 +336,7 @@ impl<'a> PictureBoxProperties<'a> {
             BStr::new("ScaleLeft"),
             picture_box_properties.scale_left,
         );
-        picture_box_properties.scale_mode =
-            build_property::<ScaleMode>(properties, BStr::new("ScaleMode"));
+        picture_box_properties.scale_mode = build_property(properties, BStr::new("ScaleMode"));
         picture_box_properties.scale_top = build_i32_property(
             properties,
             BStr::new("ScaleTop"),

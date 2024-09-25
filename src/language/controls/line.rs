@@ -54,14 +54,13 @@ impl LineProperties {
             BStr::new("BorderColor"),
             line_properties.border_color,
         );
-        line_properties.border_style =
-            build_property::<DrawStyle>(properties, BStr::new("BorderStyle"));
+        line_properties.border_style = build_property(properties, BStr::new("BorderStyle"));
         line_properties.border_width = build_i32_property(
             properties,
             BStr::new("BorderWidth"),
             line_properties.border_width,
         );
-        line_properties.draw_mode = build_property::<DrawMode>(properties, BStr::new("DrawMode"));
+        line_properties.draw_mode = build_property(properties, BStr::new("DrawMode"));
         line_properties.visible =
             build_bool_property(properties, BStr::new("Visible"), line_properties.visible);
         line_properties.x1 = build_i32_property(properties, BStr::new("X1"), line_properties.x1);

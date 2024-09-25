@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::hash::RandomState;
 
 use crate::errors::VB6ErrorKind;
 use crate::language::controls::{DragMode, MousePointer};
@@ -122,7 +123,7 @@ impl ScrollBarProperties {
         // DragIcon
 
         scroll_bar_properties.drag_mode =
-            build_property::<DragMode>(properties, BStr::new("DragMode"));
+            build_property::<DragMode, RandomState>(properties, BStr::new("DragMode"));
         scroll_bar_properties.enabled = build_bool_property(
             properties,
             BStr::new("Enabled"),
@@ -153,7 +154,7 @@ impl ScrollBarProperties {
         // MouseIcon
 
         scroll_bar_properties.mouse_pointer =
-            build_property::<MousePointer>(properties, BStr::new("MousePointer"));
+            build_property::<MousePointer, RandomState>(properties, BStr::new("MousePointer"));
         scroll_bar_properties.right_to_left = build_bool_property(
             properties,
             BStr::new("RightToLeft"),

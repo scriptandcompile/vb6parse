@@ -113,8 +113,7 @@ impl<'a> DriveListBoxProperties<'a> {
     ) -> Result<Self, VB6ErrorKind> {
         let mut drive_list_box_properties = DriveListBoxProperties::default();
 
-        drive_list_box_properties.appearance =
-            build_property::<Appearance>(properties, BStr::new("Appearance"));
+        drive_list_box_properties.appearance = build_property(properties, BStr::new("Appearance"));
         drive_list_box_properties.back_color = build_color_property(
             properties,
             BStr::new("BackColor"),
@@ -128,8 +127,7 @@ impl<'a> DriveListBoxProperties<'a> {
 
         // DragIcon
 
-        drive_list_box_properties.drag_mode =
-            build_property::<DragMode>(properties, BStr::new("DragMode"));
+        drive_list_box_properties.drag_mode = build_property(properties, BStr::new("DragMode"));
         drive_list_box_properties.enabled = build_bool_property(
             properties,
             BStr::new("Enabled"),
@@ -156,9 +154,9 @@ impl<'a> DriveListBoxProperties<'a> {
             drive_list_box_properties.left,
         );
         drive_list_box_properties.mouse_pointer =
-            build_property::<MousePointer>(properties, BStr::new("MousePointer"));
+            build_property(properties, BStr::new("MousePointer"));
         drive_list_box_properties.ole_drop_mode =
-            build_property::<OLEDropMode>(properties, BStr::new("OLEDropMode"));
+            build_property(properties, BStr::new("OLEDropMode"));
         drive_list_box_properties.tab_index = build_i32_property(
             properties,
             BStr::new("TabIndex"),

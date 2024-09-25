@@ -162,8 +162,7 @@ impl<'a> ComboBoxProperties<'a> {
     ) -> Result<Self, VB6ErrorKind> {
         let mut combobox_properties = ComboBoxProperties::default();
 
-        combobox_properties.appearance =
-            build_property::<Appearance>(properties, BStr::new("Appearance"));
+        combobox_properties.appearance = build_property(properties, BStr::new("Appearance"));
 
         combobox_properties.back_color = build_color_property(
             properties,
@@ -199,8 +198,7 @@ impl<'a> ComboBoxProperties<'a> {
 
         // drag_icon
 
-        combobox_properties.drag_mode =
-            build_property::<DragMode>(properties, BStr::new("DragMode"));
+        combobox_properties.drag_mode = build_property(properties, BStr::new("DragMode"));
 
         combobox_properties.enabled = build_bool_property(
             properties,
@@ -237,14 +235,11 @@ impl<'a> ComboBoxProperties<'a> {
 
         // mouse_icon
 
-        combobox_properties.mouse_pointer =
-            build_property::<MousePointer>(properties, BStr::new("MousePointer"));
+        combobox_properties.mouse_pointer = build_property(properties, BStr::new("MousePointer"));
 
-        combobox_properties.ole_drag_mode =
-            build_property::<OLEDragMode>(properties, BStr::new("OLEDragMode"));
+        combobox_properties.ole_drag_mode = build_property(properties, BStr::new("OLEDragMode"));
 
-        combobox_properties.ole_drop_mode =
-            build_property::<OLEDropMode>(properties, BStr::new("OLEDropMode"));
+        combobox_properties.ole_drop_mode = build_property(properties, BStr::new("OLEDropMode"));
 
         combobox_properties.right_to_left = build_bool_property(
             properties,
@@ -255,7 +250,7 @@ impl<'a> ComboBoxProperties<'a> {
         combobox_properties.sorted =
             build_bool_property(properties, BStr::new("Sorted"), combobox_properties.sorted);
 
-        combobox_properties.style = build_property::<ComboBoxStyle>(properties, BStr::new("Style"));
+        combobox_properties.style = build_property(properties, BStr::new("Style"));
 
         combobox_properties.tab_index = build_i32_property(
             properties,

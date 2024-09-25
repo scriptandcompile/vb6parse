@@ -147,16 +147,14 @@ impl<'a> DataProperties<'a> {
     ) -> Result<Self, VB6ErrorKind> {
         let mut data_properties = DataProperties::default();
 
-        data_properties.align = build_property::<Align>(properties, BStr::new("Align"));
-        data_properties.appearance =
-            build_property::<Appearance>(properties, BStr::new("Appearance"));
+        data_properties.align = build_property(properties, BStr::new("Align"));
+        data_properties.appearance = build_property(properties, BStr::new("Appearance"));
         data_properties.back_color = build_color_property(
             properties,
             BStr::new("BackColor"),
             data_properties.back_color,
         );
-        data_properties.bof_action =
-            build_property::<BOFAction>(properties, BStr::new("BOFAction"));
+        data_properties.bof_action = build_property(properties, BStr::new("BOFAction"));
 
         let caption_key = BStr::new("Caption");
         data_properties.caption = properties
@@ -176,18 +174,16 @@ impl<'a> DataProperties<'a> {
             .unwrap_or(&data_properties.database_name);
 
         data_properties.default_cursor_type =
-            build_property::<DefaultCursorType>(properties, BStr::new("DefaultCursorType"));
+            build_property(properties, BStr::new("DefaultCursorType"));
 
-        data_properties.default_type =
-            build_property::<DefaultType>(properties, BStr::new("DefaultType"));
+        data_properties.default_type = build_property(properties, BStr::new("DefaultType"));
 
         // DragIcon
 
-        data_properties.drag_mode = build_property::<DragMode>(properties, BStr::new("DragMode"));
+        data_properties.drag_mode = build_property(properties, BStr::new("DragMode"));
         data_properties.enabled =
             build_bool_property(properties, BStr::new("Enabled"), data_properties.enabled);
-        data_properties.eof_action =
-            build_property::<EOFAction>(properties, BStr::new("EOFAction"));
+        data_properties.eof_action = build_property(properties, BStr::new("EOFAction"));
         data_properties.exclusive = build_bool_property(
             properties,
             BStr::new("Exclusive"),
@@ -202,21 +198,18 @@ impl<'a> DataProperties<'a> {
             build_i32_property(properties, BStr::new("Height"), data_properties.height);
         data_properties.left =
             build_i32_property(properties, BStr::new("Left"), data_properties.left);
-        data_properties.mouse_pointer =
-            build_property::<MousePointer>(properties, BStr::new("MousePointer"));
+        data_properties.mouse_pointer = build_property(properties, BStr::new("MousePointer"));
         data_properties.negotitate = build_bool_property(
             properties,
             BStr::new("Negotitate"),
             data_properties.negotitate,
         );
-        data_properties.ole_drop_mode =
-            build_property::<OLEDropMode>(properties, BStr::new("OLEDropMode"));
+        data_properties.ole_drop_mode = build_property(properties, BStr::new("OLEDropMode"));
         data_properties.options =
             build_i32_property(properties, BStr::new("Options"), data_properties.options);
         data_properties.read_only =
             build_bool_property(properties, BStr::new("ReadOnly"), data_properties.read_only);
-        data_properties.record_set_type =
-            build_property::<RecordSetType>(properties, BStr::new("RecordsetType"));
+        data_properties.record_set_type = build_property(properties, BStr::new("RecordsetType"));
         data_properties.record_source = properties
             .get(BStr::new("RecordSource"))
             .unwrap_or(&data_properties.record_source);

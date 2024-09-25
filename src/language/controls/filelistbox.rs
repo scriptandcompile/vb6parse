@@ -139,8 +139,7 @@ impl<'a> FileListBoxProperties<'a> {
     ) -> Result<Self, VB6ErrorKind> {
         let mut file_list_box_properties = FileListBoxProperties::default();
 
-        file_list_box_properties.appearance =
-            build_property::<Appearance>(properties, BStr::new("Appearance"));
+        file_list_box_properties.appearance = build_property(properties, BStr::new("Appearance"));
         file_list_box_properties.archive = build_bool_property(
             properties,
             BStr::new("Archive"),
@@ -156,8 +155,7 @@ impl<'a> FileListBoxProperties<'a> {
             BStr::new("CausesValidation"),
             file_list_box_properties.causes_validation,
         );
-        file_list_box_properties.drag_mode =
-            build_property::<DragMode>(properties, BStr::new("DragMode"));
+        file_list_box_properties.drag_mode = build_property(properties, BStr::new("DragMode"));
         file_list_box_properties.enabled = build_bool_property(
             properties,
             BStr::new("Enabled"),
@@ -186,18 +184,18 @@ impl<'a> FileListBoxProperties<'a> {
         file_list_box_properties.left =
             build_i32_property(properties, BStr::new("Left"), file_list_box_properties.left);
         file_list_box_properties.mouse_pointer =
-            build_property::<MousePointer>(properties, BStr::new("MousePointer"));
+            build_property(properties, BStr::new("MousePointer"));
         file_list_box_properties.multi_select =
-            build_property::<MultiSelect>(properties, BStr::new("MultiSelect"));
+            build_property(properties, BStr::new("MultiSelect"));
         file_list_box_properties.normal = build_bool_property(
             properties,
             BStr::new("Normal"),
             file_list_box_properties.normal,
         );
         file_list_box_properties.ole_drag_mode =
-            build_property::<OLEDragMode>(properties, BStr::new("OLEDragMode"));
+            build_property(properties, BStr::new("OLEDragMode"));
         file_list_box_properties.ole_drop_mode =
-            build_property::<OLEDropMode>(properties, BStr::new("OLEDropMode"));
+            build_property(properties, BStr::new("OLEDropMode"));
         file_list_box_properties.pattern = properties
             .get(&BStr::new("Pattern"))
             .unwrap_or(&BStr::new("*.*"));

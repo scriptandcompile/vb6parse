@@ -126,14 +126,14 @@ impl<'a> FrameProperties<'a> {
         let mut frame_properties = FrameProperties::default();
 
         let appearance_key = BStr::new("Appearance");
-        frame_properties.appearance = build_property::<Appearance>(properties, appearance_key);
+        frame_properties.appearance = build_property(properties, appearance_key);
 
         let back_color_key = BStr::new("BackColor");
         frame_properties.back_color =
             build_color_property(properties, back_color_key, frame_properties.back_color);
 
         let border_style_key = BStr::new("BorderStyle");
-        frame_properties.border_style = build_property::<BorderStyle>(properties, border_style_key);
+        frame_properties.border_style = build_property(properties, border_style_key);
 
         let caption_key = BStr::new("Caption");
         if properties.contains_key(caption_key) {
@@ -141,13 +141,12 @@ impl<'a> FrameProperties<'a> {
         }
 
         let clip_control_key = BStr::new("ClipControls");
-        frame_properties.clip_controls =
-            build_property::<ClipControls>(properties, clip_control_key);
+        frame_properties.clip_controls = build_property(properties, clip_control_key);
 
         // TODO: Implement loading drag_icon picture loading.
 
         let drag_mode_key = BStr::new("DragMode");
-        frame_properties.drag_mode = build_property::<DragMode>(properties, drag_mode_key);
+        frame_properties.drag_mode = build_property(properties, drag_mode_key);
 
         let enabled_key = BStr::new("Enabled");
         frame_properties.enabled =
@@ -174,12 +173,10 @@ impl<'a> FrameProperties<'a> {
         // TODO: Implement mouse_icon picture loading.
 
         let mouse_pointer_key = BStr::new("MousePointer");
-        frame_properties.mouse_pointer =
-            build_property::<MousePointer>(properties, mouse_pointer_key);
+        frame_properties.mouse_pointer = build_property(properties, mouse_pointer_key);
 
         let ole_drop_mode_key = BStr::new("OLEDropMode");
-        frame_properties.ole_drop_mode =
-            build_property::<OLEDropMode>(properties, ole_drop_mode_key);
+        frame_properties.ole_drop_mode = build_property(properties, ole_drop_mode_key);
 
         let right_to_left_key = BStr::new("RightToLeft");
         frame_properties.right_to_left = build_bool_property(
