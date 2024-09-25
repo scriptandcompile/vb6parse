@@ -13,6 +13,9 @@ use crate::parsers::VB6Stream;
 
 #[derive(Error, Debug, PartialEq, Eq)]
 pub enum VB6ErrorKind {
+    #[error("The file contains more than a significant number of non-ASCII characters. This file was likely saved in a non-English character set. The vb6parse crate currently does not support non-english vb6 files.")]
+    LikelyNonEnglishCharacterSet,
+
     #[error("The reference line has too many elements")]
     ReferenceExtraSections,
 

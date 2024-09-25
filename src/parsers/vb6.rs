@@ -82,7 +82,7 @@ pub fn line_comment_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> 
 /// ```
 pub fn variable_name_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
     let variable_name = (
-        one_of(('a'..='z', 'A'..='Z')),
+        one_of(('a'..='z', 'A'..='Z', 128..=255)),
         take_while(0.., ('_', 'a'..='z', 'A'..='Z', '0'..='9', 128..=255)),
     )
         .take()
@@ -262,6 +262,15 @@ fn string_fragment_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<StringFragm
 pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6Token<'a>>> {
     let mut tokens = Vec::new();
 
+    // We are looking to see if we have a large-ish number of higher half ANSI characters.
+    let character_count = input.stream.len();
+    let higher_half_character_count = input.stream.iter().filter(|&c| *c >= 128).count();
+
+    if higher_half_character_count != 0 && (100 * higher_half_character_count / character_count) > 5
+    {
+        return Err(ErrMode::Cut(VB6ErrorKind::LikelyNonEnglishCharacterSet));
+    }
+
     while !input.is_empty() {
         // The file should end if there is a null byte.
         if literal::<_, _, VB6ErrorKind>('\0')
@@ -272,12 +281,14 @@ pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6Token<'a>>> 
         }
 
         if let Ok(token) = line_ending::<VB6Stream<'a>, VB6ErrorKind>.parse_next(input) {
-            tokens.push(VB6Token::Newline(token));
+            let token = VB6Token::Newline(token);
+            tokens.push(token);
             continue;
         }
 
         if let Ok(token) = line_comment_parse.parse_next(input) {
-            tokens.push(VB6Token::Comment(token));
+            let token = VB6Token::Comment(token);
+            tokens.push(token);
             continue;
         }
 
@@ -289,13 +300,12 @@ pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6Token<'a>>> 
         .take()
         .parse_next(input)
         {
-            tokens.push(VB6Token::StringLiteral(token));
+            let token = VB6Token::StringLiteral(token);
+            tokens.push(token);
             continue;
         }
 
-        let token = vb6_token_parse.parse_next(input);
-
-        if let Ok(token) = token {
+        if let Ok(token) = vb6_token_parse.parse_next(input) {
             tokens.push(token);
             continue;
         }
@@ -519,6 +529,35 @@ mod test {
         assert_eq!(tokens[4], VB6Token::AsKeyword("As".into()));
         assert_eq!(tokens[5], VB6Token::Whitespace(" ".into()));
         assert_eq!(tokens[6], VB6Token::IntegerKeyword("Integer".into()));
+    }
+
+    #[test]
+    fn non_english_parse() {
+        use crate::vb6::vb6_parse;
+        use crate::vb6::VB6Stream;
+
+        let code = "Option Explicit\r
+Public app_path As String  '���|�]�w�X\r
+Public ����H����ԤH��(1 To 2, 1 To 2) As Integer    '�����Ԩ���H�Ƭ�����(1.�ϥΪ�/2.�q��,1.�`�@�H��/2.�ثe�ĴX��)\r
+Public ����ݾ��H��������(1 To 2, 1 To 3) As Integer    '����ݾ�����H���s��������(1.�ϥΪ�/2.�q��,1.���W����/2~3.�ݾ������n��s��)\r
+Public �Ĥ@���Ұ�Ū�J�{�ǼаO As Boolean    '�Ĥ@���Ұʵ{��Ū�J�{�ǼаO��\r
+Attribute �Ĥ@���Ұ�Ū�J�{�ǼаO.VB_VarUserMemId = 1073741834\r
+Public �����ˬd����ؼм� As Integer    '�����ˬd����p�ƾ��ؼм�\r
+Attribute �����ˬd����ؼм�.VB_VarUserMemId = 1073741836\r
+Public �q������O�_�w�X�{ As Boolean    '���ҳq������O�_�w�g�X�{�Ȯ��ܼ�\r
+Attribute �q������O�_�w�X�{.VB_VarUserMemId = 1073741837\r
+Public ProgramIsOnWine As Boolean    '�{���O�_�B��Wine���ҤU����\r
+Attribute ProgramIsOnWine.VB_VarUserMemId = 1073741838";
+
+        let mut input = VB6Stream::new("", code.as_bytes());
+
+        let result = vb6_parse(&mut input);
+
+        assert!(result.is_err());
+        assert!(matches!(
+            result.unwrap_err(),
+            ErrMode::Cut(VB6ErrorKind::LikelyNonEnglishCharacterSet)
+        ));
     }
 
     #[test]
