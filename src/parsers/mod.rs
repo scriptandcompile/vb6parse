@@ -23,7 +23,7 @@ pub use project::{
     CompileTargetType, VB6Project, VB6ProjectClass, VB6ProjectModule, VB6ProjectReference,
 };
 
-pub use vb6::vb6_parse;
+pub use vb6::{is_english_code, vb6_parse};
 
 pub use vb6stream::VB6Stream;
 

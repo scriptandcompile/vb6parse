@@ -262,12 +262,7 @@ fn string_fragment_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<StringFragm
 pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6Token<'a>>> {
     let mut tokens = Vec::new();
 
-    // We are looking to see if we have a large-ish number of higher half ANSI characters.
-    let character_count = input.stream.len();
-    let higher_half_character_count = input.stream.iter().filter(|&c| *c >= 128).count();
-
-    if higher_half_character_count != 0 && (100 * higher_half_character_count / character_count) > 5
-    {
+    if !is_english_code(&input.stream) {
         return Err(ErrMode::Cut(VB6ErrorKind::LikelyNonEnglishCharacterSet));
     }
 
@@ -314,6 +309,14 @@ pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6Token<'a>>> 
     }
 
     Ok(tokens)
+}
+
+pub fn is_english_code(content: &BStr) -> bool {
+    // We are looking to see if we have a large-ish number of higher half ANSI characters.
+    let character_count = content.len();
+    let higher_half_character_count = content.iter().filter(|&c| *c >= 128).count();
+
+    higher_half_character_count == 0 || (100 * higher_half_character_count / character_count) < 1
 }
 
 fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
