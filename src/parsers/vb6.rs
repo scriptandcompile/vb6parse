@@ -83,7 +83,7 @@ pub fn line_comment_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> 
 pub fn variable_name_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
     let variable_name = (
         one_of(('a'..='z', 'A'..='Z')),
-        take_while(0.., ('_', 'a'..='z', 'A'..='Z', '0'..='9')),
+        take_while(0.., ('_', 'a'..='z', 'A'..='Z', '0'..='9', 128..=255)),
     )
         .take()
         .parse_next(input)?;
