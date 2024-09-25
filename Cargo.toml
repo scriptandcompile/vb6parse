@@ -1,6 +1,6 @@
 [package]
 name = "vb6parse"
-version = "0.2.0"
+version = "0.3.0"
 edition = "2021"
 license-file = "LICENSE"
 description = "vb6parse is a library for parsing and analyzing VB6 code, from projects, to controls, to modules, and forms."
@@ -62,9 +62,9 @@ exclude = [
     # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-winnow = "0.6.18"
+winnow = "0.6.19"
 uuid = "1.10.0"
-thiserror = "1.0.63"
+thiserror = "1.0.64"
 bstr = {version = "1.10.0", features = ["serde"]}
 
 ariadne = "0.4.1"
