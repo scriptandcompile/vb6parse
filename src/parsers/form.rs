@@ -733,6 +733,65 @@ mod tests {
     }
 
     #[test]
+    fn parse_english_code_non_english_text() {
+        use crate::errors::VB6ErrorKind;
+        use crate::parsers::form::VB6FormFile;
+
+        let input = "VERSION 5.00\r
+Object = \"{0E59F1D2-1FBE-11D0-8FF2-00A0D10038BC}#1.0#0\"; \"msscript.ocx\"\r
+Object = \"{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0\"; \"COMDLG32.OCX\"\r
+Object = \"{ACD4732E-2B7C-40C1-A56B-078848D41977}#1.0#0\"; \"Imagex.ocx\"\r
+Begin VB.Form FormMainMode \r
+   BorderStyle     =   1  '��u�T�w\r
+   Caption         =   \"UnlightVBE-QS Origin\"\r
+   ClientHeight    =   11100\r
+   ClientLeft      =   45\r
+   ClientTop       =   375\r
+   ClientWidth     =   20400\r
+   BeginProperty Font \r
+      Name            =   \"�L�n������\"\r
+      Size            =   12\r
+      Charset         =   136\r
+      Weight          =   400\r
+      Underline       =   0   'False\r
+      Italic          =   0   'False\r
+      Strikethrough   =   0   'False\r
+   EndProperty\r
+   Icon            =   \"FormMainMode.frx\":0000\r
+   LinkTopic       =   \"Form3\"\r
+   MaxButton       =   0   'False\r
+   ScaleHeight     =   11100\r
+   ScaleWidth      =   20400\r
+   StartUpPosition =   2  '�ù�����\r
+   Tag             =   \"UnlightVBE-QS Origin\"\r
+   Begin VB.CommandButton �v�l�]�w \r
+         Caption         =   \"�v�l�]�w\"\r
+         BeginProperty Font \r
+            Name            =   \"�L�n������\"\r
+            Size            =   8.25\r
+            Charset         =   136\r
+            Weight          =   400\r
+            Underline       =   0   'False\r
+            Italic          =   0   'False\r
+            Strikethrough   =   0   'False\r
+         EndProperty\r
+         Height          =   405\r
+         Left            =   8760\r
+         TabIndex        =   124\r
+         Top             =   9360\r
+         Width           =   975\r
+   End\r
+End\r\n";
+
+        let result = VB6FormFile::parse("form_parse.frm".to_owned(), input.as_bytes());
+
+        assert_eq!(
+            result.err().unwrap().kind,
+            VB6ErrorKind::LikelyNonEnglishCharacterSet
+        );
+    }
+
+    #[test]
     fn parse_indented_menu_valid() {
         use crate::language::VB_WINDOW_BACKGROUND;
 
