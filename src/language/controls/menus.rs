@@ -14,8 +14,8 @@ use crate::errors::VB6ErrorKind;
 /// This should only be used as a child of a Form.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct VB6MenuControl<'a> {
-    pub name: &'a str,
-    pub tag: &'a str,
+    pub name: &'a BStr,
+    pub tag: &'a BStr,
     pub index: i32,
     pub properties: MenuProperties<'a>,
     pub sub_menus: Vec<VB6MenuControl<'a>>,

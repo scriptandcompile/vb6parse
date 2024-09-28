@@ -3,8 +3,17 @@ source: tests/form.rs
 expression: form_file
 ---
 form:
-  name: frmCurves
-  tag: ""
+  name:
+    - 102
+    - 114
+    - 109
+    - 67
+    - 117
+    - 114
+    - 118
+    - 101
+    - 115
+  tag: []
   index: 0
   kind:
     Form:
@@ -103,8 +112,22 @@ form:
         width: 0
         window_state: Normal
       controls:
-        - name: txtExplanation
-          tag: ""
+        - name:
+            - 116
+            - 120
+            - 116
+            - 69
+            - 120
+            - 112
+            - 108
+            - 97
+            - 110
+            - 97
+            - 116
+            - 105
+            - 111
+            - 110
+          tag: []
           index: 0
           kind:
             TextBox:
@@ -152,8 +175,15 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 3735
-        - name: picMain
-          tag: ""
+        - name:
+            - 112
+            - 105
+            - 99
+            - 77
+            - 97
+            - 105
+            - 110
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -215,8 +245,15 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 6030
-        - name: picBack
-          tag: ""
+        - name:
+            - 112
+            - 105
+            - 99
+            - 66
+            - 97
+            - 99
+            - 107
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -278,8 +315,16 @@ form:
                 visible: false
                 whats_this_help_id: 0
                 width: 6030
-        - name: picCurve
-          tag: ""
+        - name:
+            - 112
+            - 105
+            - 99
+            - 67
+            - 117
+            - 114
+            - 118
+            - 101
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -344,8 +389,15 @@ form:
                 whats_this_help_id: 0
                 width: 3855
       menus:
-        - name: mnuFile
-          tag: ""
+        - name:
+            - 109
+            - 110
+            - 117
+            - 70
+            - 105
+            - 108
+            - 101
+          tag: []
           index: 0
           properties:
             caption:
@@ -362,8 +414,20 @@ form:
             visible: true
             window_list: false
           sub_menus:
-            - name: mnuOpenImage
-              tag: ""
+            - name:
+                - 109
+                - 110
+                - 117
+                - 79
+                - 112
+                - 101
+                - 110
+                - 73
+                - 109
+                - 97
+                - 103
+                - 101
+              tag: []
               index: 0
               properties:
                 caption:

@@ -3,8 +3,19 @@ source: tests/form.rs
 expression: form_file
 ---
 form:
-  name: frmContrast
-  tag: ""
+  name:
+    - 102
+    - 114
+    - 109
+    - 67
+    - 111
+    - 110
+    - 116
+    - 114
+    - 97
+    - 115
+    - 116
+  tag: []
   index: 0
   kind:
     Form:
@@ -105,8 +116,20 @@ form:
         width: 0
         window_state: Normal
       controls:
-        - name: hScrContrast
-          tag: ""
+        - name:
+            - 104
+            - 83
+            - 99
+            - 114
+            - 67
+            - 111
+            - 110
+            - 116
+            - 114
+            - 97
+            - 115
+            - 116
+          tag: []
           index: 0
           kind:
             HScrollBar:
@@ -132,8 +155,15 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 6015
-        - name: PicMain
-          tag: ""
+        - name:
+            - 80
+            - 105
+            - 99
+            - 77
+            - 97
+            - 105
+            - 110
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -195,8 +225,15 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 6030
-        - name: PicBack
-          tag: ""
+        - name:
+            - 80
+            - 105
+            - 99
+            - 66
+            - 97
+            - 99
+            - 107
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -258,8 +295,14 @@ form:
                 visible: false
                 whats_this_help_id: 0
                 width: 6030
-        - name: Label2
-          tag: ""
+        - name:
+            - 76
+            - 97
+            - 98
+            - 101
+            - 108
+            - 50
+          tag: []
           index: 0
           kind:
             Label:
@@ -309,8 +352,14 @@ form:
                 whats_this_help_id: 0
                 width: 1455
                 word_wrap: false
-        - name: Label1
-          tag: ""
+        - name:
+            - 76
+            - 97
+            - 98
+            - 101
+            - 108
+            - 49
+          tag: []
           index: 0
           kind:
             Label:
@@ -389,8 +438,15 @@ form:
                 width: 4695
                 word_wrap: false
       menus:
-        - name: MnuFile
-          tag: ""
+        - name:
+            - 77
+            - 110
+            - 117
+            - 70
+            - 105
+            - 108
+            - 101
+          tag: []
           index: 0
           properties:
             caption:
@@ -407,8 +463,20 @@ form:
             visible: true
             window_list: false
           sub_menus:
-            - name: MnuOpenImage
-              tag: ""
+            - name:
+                - 77
+                - 110
+                - 117
+                - 79
+                - 112
+                - 101
+                - 110
+                - 73
+                - 109
+                - 97
+                - 103
+                - 101
+              tag: []
               index: 0
               properties:
                 caption:

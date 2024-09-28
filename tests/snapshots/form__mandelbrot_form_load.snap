@@ -3,8 +3,18 @@ source: tests/form.rs
 expression: form_file
 ---
 form:
-  name: frmFractal
-  tag: ""
+  name:
+    - 102
+    - 114
+    - 109
+    - 70
+    - 114
+    - 97
+    - 99
+    - 116
+    - 97
+    - 108
+  tag: []
   index: 0
   kind:
     Form:
@@ -118,8 +128,16 @@ form:
         width: 0
         window_state: Normal
       controls:
-        - name: CmdReset
-          tag: ""
+        - name:
+            - 67
+            - 109
+            - 100
+            - 82
+            - 101
+            - 115
+            - 101
+            - 116
+          tag: []
           index: 0
           kind:
             CommandButton:
@@ -163,8 +181,19 @@ form:
                 use_mask_color: false
                 whats_this_help_id: 0
                 width: 855
-        - name: scrAccuracy
-          tag: ""
+        - name:
+            - 115
+            - 99
+            - 114
+            - 65
+            - 99
+            - 99
+            - 117
+            - 114
+            - 97
+            - 99
+            - 121
+          tag: []
           index: 0
           kind:
             HScrollBar:
@@ -190,8 +219,17 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 6255
-        - name: CmdRedraw
-          tag: ""
+        - name:
+            - 67
+            - 109
+            - 100
+            - 82
+            - 101
+            - 100
+            - 114
+            - 97
+            - 119
+          tag: []
           index: 0
           kind:
             CommandButton:
@@ -246,8 +284,15 @@ form:
                 use_mask_color: false
                 whats_this_help_id: 0
                 width: 2055
-        - name: TxtYMax
-          tag: ""
+        - name:
+            - 84
+            - 120
+            - 116
+            - 89
+            - 77
+            - 97
+            - 120
+          tag: []
           index: 0
           kind:
             TextBox:
@@ -295,8 +340,15 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 1365
-        - name: TxtYMin
-          tag: ""
+        - name:
+            - 84
+            - 120
+            - 116
+            - 89
+            - 77
+            - 105
+            - 110
+          tag: []
           index: 0
           kind:
             TextBox:
@@ -344,8 +396,15 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 1365
-        - name: TxtXMax
-          tag: ""
+        - name:
+            - 84
+            - 120
+            - 116
+            - 88
+            - 77
+            - 97
+            - 120
+          tag: []
           index: 0
           kind:
             TextBox:
@@ -393,8 +452,15 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 1365
-        - name: TxtXMin
-          tag: ""
+        - name:
+            - 84
+            - 120
+            - 116
+            - 88
+            - 77
+            - 105
+            - 110
+          tag: []
           index: 0
           kind:
             TextBox:
@@ -442,8 +508,15 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 1365
-        - name: PicDraw
-          tag: ""
+        - name:
+            - 80
+            - 105
+            - 99
+            - 68
+            - 114
+            - 97
+            - 119
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -505,8 +578,14 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 9015
-        - name: Label7
-          tag: ""
+        - name:
+            - 76
+            - 97
+            - 98
+            - 101
+            - 108
+            - 55
+          tag: []
           index: 0
           kind:
             Label:
@@ -669,8 +748,14 @@ form:
                 whats_this_help_id: 0
                 width: 9015
                 word_wrap: false
-        - name: Label6
-          tag: ""
+        - name:
+            - 76
+            - 97
+            - 98
+            - 101
+            - 108
+            - 54
+          tag: []
           index: 0
           kind:
             Label:
@@ -728,8 +813,14 @@ form:
                 whats_this_help_id: 0
                 width: 1290
                 word_wrap: false
-        - name: Label5
-          tag: ""
+        - name:
+            - 76
+            - 97
+            - 98
+            - 101
+            - 108
+            - 53
+          tag: []
           index: 0
           kind:
             Label:
@@ -783,8 +874,14 @@ form:
                 whats_this_help_id: 0
                 width: 1095
                 word_wrap: false
-        - name: Label4
-          tag: ""
+        - name:
+            - 76
+            - 97
+            - 98
+            - 101
+            - 108
+            - 52
+          tag: []
           index: 0
           kind:
             Label:
@@ -832,8 +929,14 @@ form:
                 whats_this_help_id: 0
                 width: 735
                 word_wrap: false
-        - name: Label3
-          tag: ""
+        - name:
+            - 76
+            - 97
+            - 98
+            - 101
+            - 108
+            - 51
+          tag: []
           index: 0
           kind:
             Label:
@@ -881,8 +984,14 @@ form:
                 whats_this_help_id: 0
                 width: 735
                 word_wrap: false
-        - name: Label2
-          tag: ""
+        - name:
+            - 76
+            - 97
+            - 98
+            - 101
+            - 108
+            - 50
+          tag: []
           index: 0
           kind:
             Label:
@@ -930,8 +1039,14 @@ form:
                 whats_this_help_id: 0
                 width: 735
                 word_wrap: false
-        - name: Label1
-          tag: ""
+        - name:
+            - 76
+            - 97
+            - 98
+            - 101
+            - 108
+            - 49
+          tag: []
           index: 0
           kind:
             Label:

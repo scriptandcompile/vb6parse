@@ -47,9 +47,9 @@ pub struct VB6FormFile<'a> {
 
 #[derive(Debug, PartialEq, Eq, Clone, Copy, Serialize)]
 struct VB6FullyQualifiedName<'a> {
-    pub namespace: &'a str,
-    pub kind: &'a str,
-    pub name: &'a str,
+    pub namespace: &'a BStr,
+    pub kind: &'a BStr,
+    pub name: &'a BStr,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
@@ -263,9 +263,9 @@ fn build_control<'a>(
 ) -> Result<VB6Control<'a>, VB6ErrorKind> {
     let tag_key = BStr::new("Tag");
     let tag = if properties.contains_key(tag_key) {
-        properties[tag_key].to_str().unwrap_or_default()
+        properties[tag_key]
     } else {
-        ""
+        BStr::new("")
     };
 
     // This is wrong.
@@ -662,20 +662,12 @@ fn begin_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FullyQualifiedName
         return Err(ErrMode::Cut(VB6ErrorKind::NoNamespaceAfterBegin));
     };
 
-    let Ok(namespace_ascii) = namespace.to_str() else {
-        return Err(ErrMode::Cut(VB6ErrorKind::NamespaceAsciiConversionError));
-    };
-
     if literal::<&str, _, VB6Error>(".").parse_next(input).is_err() {
         return Err(ErrMode::Cut(VB6ErrorKind::NoDotAfterNamespace));
     };
 
     let Ok(kind) = take_until::<_, _, VB6Error>(0.., (" ", "\t")).parse_next(input) else {
         return Err(ErrMode::Cut(VB6ErrorKind::NoUserControlNameAfterDot));
-    };
-
-    let Ok(kind_ascii) = kind.to_str() else {
-        return Err(ErrMode::Cut(VB6ErrorKind::ControlKindAsciiConversionError));
     };
 
     if space1::<_, VB6Error>.parse_next(input).is_err() {
@@ -687,11 +679,6 @@ fn begin_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FullyQualifiedName
     else {
         return Err(ErrMode::Cut(VB6ErrorKind::NoControlNameAfterControlKind));
     };
-    let Ok(name_ascii) = name.to_str() else {
-        return Err(ErrMode::Cut(
-            VB6ErrorKind::QualifiedControlNameAsciiConversionError,
-        ));
-    };
 
     // If there are spaces after the control name, eat those up since we don't care about them.
     space0.parse_next(input)?;
@@ -699,9 +686,9 @@ fn begin_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FullyQualifiedName
     line_ending.parse_next(input)?;
 
     Ok(VB6FullyQualifiedName {
-        namespace: namespace_ascii,
-        kind: kind_ascii,
-        name: name_ascii,
+        namespace,
+        kind,
+        name,
     })
 }
 
@@ -852,16 +839,16 @@ End\r\n";
             assert_eq!(
                 menus,
                 &vec![VB6MenuControl {
-                    name: "mnuFile",
-                    tag: "",
+                    name: BStr::new("mnuFile"),
+                    tag: BStr::new(""),
                     index: 0,
                     properties: MenuProperties {
                         caption: BStr::new("&File"),
                         ..Default::default()
                     },
                     sub_menus: vec![VB6MenuControl {
-                        name: "mnuOpenImage",
-                        tag: "",
+                        name: BStr::new("mnuOpenImage"),
+                        tag: BStr::new(""),
                         index: 0,
                         properties: MenuProperties {
                             caption: BStr::new("&Open image"),

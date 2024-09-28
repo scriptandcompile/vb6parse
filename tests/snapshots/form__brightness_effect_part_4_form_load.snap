@@ -3,8 +3,21 @@ source: tests/form.rs
 expression: form_file
 ---
 form:
-  name: frmBrightness
-  tag: ""
+  name:
+    - 102
+    - 114
+    - 109
+    - 66
+    - 114
+    - 105
+    - 103
+    - 104
+    - 116
+    - 110
+    - 101
+    - 115
+    - 115
+  tag: []
   index: 0
   kind:
     Form:
@@ -126,8 +139,25 @@ form:
         width: 0
         window_state: Normal
       controls:
-        - name: hScrollBrightness
-          tag: ""
+        - name:
+            - 104
+            - 83
+            - 99
+            - 114
+            - 111
+            - 108
+            - 108
+            - 66
+            - 114
+            - 105
+            - 103
+            - 104
+            - 116
+            - 110
+            - 101
+            - 115
+            - 115
+          tag: []
           index: 0
           kind:
             HScrollBar:
@@ -153,8 +183,17 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 3495
-        - name: ChkMethod
-          tag: ""
+        - name:
+            - 67
+            - 104
+            - 107
+            - 77
+            - 101
+            - 116
+            - 104
+            - 111
+            - 100
+          tag: []
           index: 0
           kind:
             CheckBox:
@@ -223,8 +262,16 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 2295
-        - name: Picture2
-          tag: ""
+        - name:
+            - 80
+            - 105
+            - 99
+            - 116
+            - 117
+            - 114
+            - 101
+            - 50
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -286,8 +333,16 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 6030
-        - name: Picture1
-          tag: ""
+        - name:
+            - 80
+            - 105
+            - 99
+            - 116
+            - 117
+            - 114
+            - 101
+            - 49
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -349,8 +404,14 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 6030
-        - name: Label1
-          tag: ""
+        - name:
+            - 76
+            - 97
+            - 98
+            - 101
+            - 108
+            - 49
+          tag: []
           index: 0
           kind:
             Label:

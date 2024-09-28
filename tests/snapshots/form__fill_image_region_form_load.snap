@@ -3,8 +3,15 @@ source: tests/form.rs
 expression: form_file
 ---
 form:
-  name: frmFill
-  tag: ""
+  name:
+    - 102
+    - 114
+    - 109
+    - 70
+    - 105
+    - 108
+    - 108
+  tag: []
   index: 0
   kind:
     Form:
@@ -120,8 +127,15 @@ form:
         width: 0
         window_state: Normal
       controls:
-        - name: picDemo
-          tag: ""
+        - name:
+            - 112
+            - 105
+            - 99
+            - 68
+            - 101
+            - 109
+            - 111
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -183,8 +197,23 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 7575
-        - name: lblInstructions
-          tag: ""
+        - name:
+            - 108
+            - 98
+            - 108
+            - 73
+            - 110
+            - 115
+            - 116
+            - 114
+            - 117
+            - 99
+            - 116
+            - 105
+            - 111
+            - 110
+            - 115
+          tag: []
           index: 0
           kind:
             Label:
