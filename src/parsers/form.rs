@@ -1,9 +1,10 @@
-use std::collections::HashMap;
 use std::convert::TryFrom;
 use std::vec::Vec;
+use std::{collections::HashMap, fmt::Debug};
 
 use bstr::BStr;
 use num_enum::TryFromPrimitive;
+use uuid::Uuid;
 
 use crate::{
     errors::{VB6Error, VB6ErrorKind},
@@ -52,10 +53,34 @@ struct VB6FullyQualifiedName<'a> {
     pub name: &'a BStr,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone)]
 pub struct VB6PropertyGroup<'a> {
     pub name: &'a BStr,
+    pub guid: Option<Uuid>,
     pub properties: HashMap<&'a BStr, &'a BStr>,
+}
+
+impl Serialize for VB6PropertyGroup<'_> {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+
+        let mut state = serializer.serialize_struct("VB6PropertyGroup", 3)?;
+
+        state.serialize_field("name", self.name)?;
+
+        if let Some(guid) = &self.guid {
+            state.serialize_field("guid", &guid.to_string())?;
+        } else {
+            state.serialize_field("guid", &"None")?;
+        }
+
+        state.serialize_field("properties", &self.properties)?;
+
+        state.end()
+    }
 }
 
 impl<'a> VB6FormFile<'a> {
@@ -591,18 +616,35 @@ pub fn build_bool_property<S: std::hash::BuildHasher>(
 fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyGroup<'a>> {
     (space0, keyword_parse("BeginProperty"), space1).parse_next(input)?;
 
-    let Ok(property_name) =
-        take_till::<(u8, u8, u8, u8), _, VB6Error>(1.., (b'\r', b'\t', b' ', b'\n'))
-            .parse_next(input)
-    else {
+    let Ok(property_name): VB6Result<&BStr> = take_till(1.., |c| {
+        c == b'{' || c == b'\r' || c == b'\t' || c == b' ' || c == b'\n'
+    })
+    .parse_next(input) else {
         return Err(ErrMode::Cut(VB6ErrorKind::NoPropertyName));
     };
 
     space0.parse_next(input)?;
 
+    // looks like we have a GUID here.
+    let guid = if literal::<_, _, VB6ErrorKind>('{').parse_next(input).is_ok() {
+        let uuid_segment = take_until(1.., '}').parse_next(input)?;
+        '}'.parse_next(input)?;
+
+        space0.parse_next(input)?;
+
+        let Ok(uuid) = Uuid::parse_str(uuid_segment.to_str().unwrap()) else {
+            return Err(ErrMode::Cut(VB6ErrorKind::UnableToParseUuid));
+        };
+
+        Some(uuid)
+    } else {
+        None
+    };
+
     alt((line_comment_parse, line_ending)).parse_next(input)?;
 
     let mut property_group = VB6PropertyGroup {
+        guid,
         name: property_name,
         properties: HashMap::new(),
     };
