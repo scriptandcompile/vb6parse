@@ -3,8 +3,15 @@ source: tests/form.rs
 expression: form_file
 ---
 form:
-  name: frmMain
-  tag: ""
+  name:
+    - 102
+    - 114
+    - 109
+    - 77
+    - 97
+    - 105
+    - 110
+  tag: []
   index: 0
   kind:
     Form:
@@ -123,8 +130,20 @@ form:
         width: 0
         window_state: Normal
       controls:
-        - name: chkFramerate
-          tag: ""
+        - name:
+            - 99
+            - 104
+            - 107
+            - 70
+            - 114
+            - 97
+            - 109
+            - 101
+            - 114
+            - 97
+            - 116
+            - 101
+          tag: []
           index: 0
           kind:
             CheckBox:
@@ -195,8 +214,15 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 2175
-        - name: cmdExit
-          tag: ""
+        - name:
+            - 99
+            - 109
+            - 100
+            - 69
+            - 120
+            - 105
+            - 116
+          tag: []
           index: 0
           kind:
             CommandButton:
@@ -239,8 +265,15 @@ form:
                 use_mask_color: false
                 whats_this_help_id: 0
                 width: 855
-        - name: PicMain
-          tag: ""
+        - name:
+            - 80
+            - 105
+            - 99
+            - 77
+            - 97
+            - 105
+            - 110
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -304,8 +337,18 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 12060
-        - name: PicBulletM
-          tag: ""
+        - name:
+            - 80
+            - 105
+            - 99
+            - 66
+            - 117
+            - 108
+            - 108
+            - 101
+            - 116
+            - 77
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -367,8 +410,17 @@ form:
                 visible: false
                 whats_this_help_id: 0
                 width: 90
-        - name: PicBullet
-          tag: ""
+        - name:
+            - 80
+            - 105
+            - 99
+            - 66
+            - 117
+            - 108
+            - 108
+            - 101
+            - 116
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -430,8 +482,13 @@ form:
                 visible: false
                 whats_this_help_id: 0
                 width: 90
-        - name: PicTM
-          tag: ""
+        - name:
+            - 80
+            - 105
+            - 99
+            - 84
+            - 77
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -493,8 +550,12 @@ form:
                 visible: false
                 whats_this_help_id: 0
                 width: 990
-        - name: PicT
-          tag: ""
+        - name:
+            - 80
+            - 105
+            - 99
+            - 84
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -556,8 +617,13 @@ form:
                 visible: false
                 whats_this_help_id: 0
                 width: 990
-        - name: PicRM
-          tag: ""
+        - name:
+            - 80
+            - 105
+            - 99
+            - 82
+            - 77
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -619,8 +685,12 @@ form:
                 visible: false
                 whats_this_help_id: 0
                 width: 990
-        - name: PicR
-          tag: ""
+        - name:
+            - 80
+            - 105
+            - 99
+            - 82
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -682,8 +752,13 @@ form:
                 visible: false
                 whats_this_help_id: 0
                 width: 990
-        - name: PicLM
-          tag: ""
+        - name:
+            - 80
+            - 105
+            - 99
+            - 76
+            - 77
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -745,8 +820,12 @@ form:
                 visible: false
                 whats_this_help_id: 0
                 width: 990
-        - name: PicL
-          tag: ""
+        - name:
+            - 80
+            - 105
+            - 99
+            - 76
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -808,8 +887,19 @@ form:
                 visible: false
                 whats_this_help_id: 0
                 width: 990
-        - name: picShipMask
-          tag: ""
+        - name:
+            - 112
+            - 105
+            - 99
+            - 83
+            - 104
+            - 105
+            - 112
+            - 77
+            - 97
+            - 115
+            - 107
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -871,8 +961,15 @@ form:
                 visible: false
                 whats_this_help_id: 0
                 width: 990
-        - name: picShip
-          tag: ""
+        - name:
+            - 112
+            - 105
+            - 99
+            - 83
+            - 104
+            - 105
+            - 112
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -934,8 +1031,23 @@ form:
                 visible: false
                 whats_this_help_id: 0
                 width: 990
-        - name: PicScreenBuffer
-          tag: ""
+        - name:
+            - 80
+            - 105
+            - 99
+            - 83
+            - 99
+            - 114
+            - 101
+            - 101
+            - 110
+            - 66
+            - 117
+            - 102
+            - 102
+            - 101
+            - 114
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -999,8 +1111,14 @@ form:
                 visible: false
                 whats_this_help_id: 0
                 width: 12060
-        - name: Label3
-          tag: ""
+        - name:
+            - 76
+            - 97
+            - 98
+            - 101
+            - 108
+            - 51
+          tag: []
           index: 0
           kind:
             Label:
@@ -1108,8 +1226,14 @@ form:
                 whats_this_help_id: 0
                 width: 3015
                 word_wrap: false
-        - name: Label2
-          tag: ""
+        - name:
+            - 76
+            - 97
+            - 98
+            - 101
+            - 108
+            - 50
+          tag: []
           index: 0
           kind:
             Label:
@@ -1161,8 +1285,14 @@ form:
                 whats_this_help_id: 0
                 width: 840
                 word_wrap: false
-        - name: LblVel
-          tag: ""
+        - name:
+            - 76
+            - 98
+            - 108
+            - 86
+            - 101
+            - 108
+          tag: []
           index: 0
           kind:
             Label:
@@ -1212,8 +1342,14 @@ form:
                 whats_this_help_id: 0
                 width: 885
                 word_wrap: false
-        - name: Label1
-          tag: ""
+        - name:
+            - 76
+            - 97
+            - 98
+            - 101
+            - 108
+            - 49
+          tag: []
           index: 0
           kind:
             Label:

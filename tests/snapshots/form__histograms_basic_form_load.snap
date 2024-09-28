@@ -3,8 +3,20 @@ source: tests/form.rs
 expression: form_file
 ---
 form:
-  name: frmHistogram
-  tag: ""
+  name:
+    - 102
+    - 114
+    - 109
+    - 72
+    - 105
+    - 115
+    - 116
+    - 111
+    - 103
+    - 114
+    - 97
+    - 109
+  tag: []
   index: 0
   kind:
     Form:
@@ -83,8 +95,14 @@ form:
         width: 0
         window_state: Normal
       controls:
-        - name: Frame1
-          tag: ""
+        - name:
+            - 70
+            - 114
+            - 97
+            - 109
+            - 101
+            - 49
+          tag: []
           index: 0
           kind:
             Frame:
@@ -128,8 +146,19 @@ form:
                 whats_this_help_id: 0
                 width: 3855
               controls:
-                - name: lblMaxCount
-                  tag: ""
+                - name:
+                    - 108
+                    - 98
+                    - 108
+                    - 77
+                    - 97
+                    - 120
+                    - 67
+                    - 111
+                    - 117
+                    - 110
+                    - 116
+                  tag: []
                   index: 0
                   kind:
                     Label:
@@ -177,8 +206,14 @@ form:
                         whats_this_help_id: 0
                         width: 2415
                         word_wrap: false
-                - name: Label5
-                  tag: ""
+                - name:
+                    - 76
+                    - 97
+                    - 98
+                    - 101
+                    - 108
+                    - 53
+                  tag: []
                   index: 0
                   kind:
                     Label:
@@ -234,8 +269,16 @@ form:
                         whats_this_help_id: 0
                         width: 1155
                         word_wrap: false
-                - name: lblCount
-                  tag: ""
+                - name:
+                    - 108
+                    - 98
+                    - 108
+                    - 67
+                    - 111
+                    - 117
+                    - 110
+                    - 116
+                  tag: []
                   index: 0
                   kind:
                     Label:
@@ -283,8 +326,14 @@ form:
                         whats_this_help_id: 0
                         width: 3135
                         word_wrap: false
-                - name: Label4
-                  tag: ""
+                - name:
+                    - 76
+                    - 97
+                    - 98
+                    - 101
+                    - 108
+                    - 52
+                  tag: []
                   index: 0
                   kind:
                     Label:
@@ -332,8 +381,16 @@ form:
                         whats_this_help_id: 0
                         width: 495
                         word_wrap: false
-                - name: lblLevel
-                  tag: ""
+                - name:
+                    - 108
+                    - 98
+                    - 108
+                    - 76
+                    - 101
+                    - 118
+                    - 101
+                    - 108
+                  tag: []
                   index: 0
                   kind:
                     Label:
@@ -381,8 +438,13 @@ form:
                         whats_this_help_id: 0
                         width: 3135
                         word_wrap: false
-                - name: Line1
-                  tag: ""
+                - name:
+                    - 76
+                    - 105
+                    - 110
+                    - 101
+                    - 49
+                  tag: []
                   index: 0
                   kind:
                     Line:
@@ -398,8 +460,14 @@ form:
                         y1: 530
                         x2: 3720
                         y2: 530
-                - name: Label3
-                  tag: ""
+                - name:
+                    - 76
+                    - 97
+                    - 98
+                    - 101
+                    - 108
+                    - 51
+                  tag: []
                   index: 0
                   kind:
                     Label:
@@ -447,8 +515,22 @@ form:
                         whats_this_help_id: 0
                         width: 495
                         word_wrap: false
-                - name: lblTotalPixels
-                  tag: ""
+                - name:
+                    - 108
+                    - 98
+                    - 108
+                    - 84
+                    - 111
+                    - 116
+                    - 97
+                    - 108
+                    - 80
+                    - 105
+                    - 120
+                    - 101
+                    - 108
+                    - 115
+                  tag: []
                   index: 0
                   kind:
                     Label:
@@ -503,8 +585,19 @@ form:
                         whats_this_help_id: 0
                         width: 855
                         word_wrap: false
-        - name: picGradient
-          tag: ""
+        - name:
+            - 112
+            - 105
+            - 99
+            - 71
+            - 114
+            - 97
+            - 100
+            - 105
+            - 101
+            - 110
+            - 116
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -566,8 +659,21 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 3870
-        - name: cmbHistSource
-          tag: ""
+        - name:
+            - 99
+            - 109
+            - 98
+            - 72
+            - 105
+            - 115
+            - 116
+            - 83
+            - 111
+            - 117
+            - 114
+            - 99
+            - 101
+          tag: []
           index: 0
           kind:
             ComboBox:
@@ -607,8 +713,21 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 2415
-        - name: cmbHistMethod
-          tag: ""
+        - name:
+            - 99
+            - 109
+            - 98
+            - 72
+            - 105
+            - 115
+            - 116
+            - 77
+            - 101
+            - 116
+            - 104
+            - 111
+            - 100
+          tag: []
           index: 0
           kind:
             ComboBox:
@@ -648,8 +767,12 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 2415
-        - name: picH
-          tag: ""
+        - name:
+            - 112
+            - 105
+            - 99
+            - 72
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -711,8 +834,14 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 3870
-        - name: Label2
-          tag: ""
+        - name:
+            - 76
+            - 97
+            - 98
+            - 101
+            - 108
+            - 50
+          tag: []
           index: 0
           kind:
             Label:
@@ -769,8 +898,14 @@ form:
                 whats_this_help_id: 0
                 width: 1230
                 word_wrap: false
-        - name: Label1
-          tag: ""
+        - name:
+            - 76
+            - 97
+            - 98
+            - 101
+            - 108
+            - 49
+          tag: []
           index: 0
           kind:
             Label:

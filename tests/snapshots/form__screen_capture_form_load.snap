@@ -3,8 +3,25 @@ source: tests/form.rs
 expression: form_file
 ---
 form:
-  name: FormScreenCapture
-  tag: ""
+  name:
+    - 70
+    - 111
+    - 114
+    - 109
+    - 83
+    - 99
+    - 114
+    - 101
+    - 101
+    - 110
+    - 67
+    - 97
+    - 112
+    - 116
+    - 117
+    - 114
+    - 101
+  tag: []
   index: 0
   kind:
     Form:
@@ -116,8 +133,14 @@ form:
         width: 0
         window_state: Normal
       controls:
-        - name: Label2
-          tag: ""
+        - name:
+            - 76
+            - 97
+            - 98
+            - 101
+            - 108
+            - 50
+          tag: []
           index: 0
           kind:
             Label:
@@ -205,8 +228,14 @@ form:
                 whats_this_help_id: 0
                 width: 3615
                 word_wrap: false
-        - name: Label1
-          tag: ""
+        - name:
+            - 76
+            - 97
+            - 98
+            - 101
+            - 108
+            - 49
+          tag: []
           index: 0
           kind:
             Label:

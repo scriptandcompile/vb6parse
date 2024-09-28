@@ -3,8 +3,12 @@ source: tests/form.rs
 expression: form_file
 ---
 form:
-  name: Main
-  tag: ""
+  name:
+    - 77
+    - 97
+    - 105
+    - 110
+  tag: []
   index: 0
   kind:
     Form:
@@ -118,8 +122,21 @@ form:
         width: 0
         window_state: Normal
       controls:
-        - name: cmbDrawMethod
-          tag: ""
+        - name:
+            - 99
+            - 109
+            - 98
+            - 68
+            - 114
+            - 97
+            - 119
+            - 77
+            - 101
+            - 116
+            - 104
+            - 111
+            - 100
+          tag: []
           index: 0
           kind:
             ComboBox:
@@ -159,8 +176,14 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 1455
-        - name: HSMain
-          tag: ""
+        - name:
+            - 72
+            - 83
+            - 77
+            - 97
+            - 105
+            - 110
+          tag: []
           index: 0
           kind:
             HScrollBar:
@@ -186,8 +209,14 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 12135
-        - name: VSMain
-          tag: ""
+        - name:
+            - 86
+            - 83
+            - 77
+            - 97
+            - 105
+            - 110
+          tag: []
           index: 0
           kind:
             VScrollBar:
@@ -213,8 +242,17 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 255
-        - name: HSTileBar
-          tag: ""
+        - name:
+            - 72
+            - 83
+            - 84
+            - 105
+            - 108
+            - 101
+            - 66
+            - 97
+            - 114
+          tag: []
           index: 0
           kind:
             HScrollBar:
@@ -240,8 +278,16 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 12495
-        - name: PicTiles
-          tag: ""
+        - name:
+            - 80
+            - 105
+            - 99
+            - 84
+            - 105
+            - 108
+            - 101
+            - 115
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -305,8 +351,22 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 12540
-        - name: PicTilesBuffer
-          tag: ""
+        - name:
+            - 80
+            - 105
+            - 99
+            - 84
+            - 105
+            - 108
+            - 101
+            - 115
+            - 66
+            - 117
+            - 102
+            - 102
+            - 101
+            - 114
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -368,8 +428,12 @@ form:
                 visible: false
                 whats_this_help_id: 0
                 width: 15390
-        - name: Pic1
-          tag: ""
+        - name:
+            - 80
+            - 105
+            - 99
+            - 49
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -431,8 +495,15 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 990
-        - name: MainPic
-          tag: ""
+        - name:
+            - 77
+            - 97
+            - 105
+            - 110
+            - 80
+            - 105
+            - 99
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -497,8 +568,15 @@ form:
                 whats_this_help_id: 0
                 width: 12135
       menus:
-        - name: MnuFile
-          tag: ""
+        - name:
+            - 77
+            - 110
+            - 117
+            - 70
+            - 105
+            - 108
+            - 101
+          tag: []
           index: 0
           properties:
             caption:
@@ -515,8 +593,14 @@ form:
             visible: true
             window_list: false
           sub_menus:
-            - name: MnuNew
-              tag: ""
+            - name:
+                - 77
+                - 110
+                - 117
+                - 78
+                - 101
+                - 119
+              tag: []
               index: 0
               properties:
                 caption:
@@ -536,8 +620,15 @@ form:
                 visible: true
                 window_list: false
               sub_menus: []
-            - name: MnuOpen
-              tag: ""
+            - name:
+                - 77
+                - 110
+                - 117
+                - 79
+                - 112
+                - 101
+                - 110
+              tag: []
               index: 0
               properties:
                 caption:
@@ -558,8 +649,15 @@ form:
                 visible: true
                 window_list: false
               sub_menus: []
-            - name: MnuSave
-              tag: ""
+            - name:
+                - 77
+                - 110
+                - 117
+                - 83
+                - 97
+                - 118
+                - 101
+              tag: []
               index: 0
               properties:
                 caption:
@@ -588,8 +686,18 @@ form:
                 visible: true
                 window_list: false
               sub_menus: []
-            - name: MnuSepBar1
-              tag: ""
+            - name:
+                - 77
+                - 110
+                - 117
+                - 83
+                - 101
+                - 112
+                - 66
+                - 97
+                - 114
+                - 49
+              tag: []
               index: 0
               properties:
                 caption:
@@ -602,8 +710,15 @@ form:
                 visible: true
                 window_list: false
               sub_menus: []
-            - name: MnuExit
-              tag: ""
+            - name:
+                - 77
+                - 110
+                - 117
+                - 69
+                - 120
+                - 105
+                - 116
+              tag: []
               index: 0
               properties:
                 caption:
@@ -620,8 +735,18 @@ form:
                 visible: true
                 window_list: false
               sub_menus: []
-        - name: MnuOptions
-          tag: ""
+        - name:
+            - 77
+            - 110
+            - 117
+            - 79
+            - 112
+            - 116
+            - 105
+            - 111
+            - 110
+            - 115
+          tag: []
           index: 0
           properties:
             caption:
@@ -641,8 +766,17 @@ form:
             visible: true
             window_list: false
           sub_menus:
-            - name: MnuResize
-              tag: ""
+            - name:
+                - 77
+                - 110
+                - 117
+                - 82
+                - 101
+                - 115
+                - 105
+                - 122
+                - 101
+              tag: []
               index: 0
               properties:
                 caption:
@@ -668,8 +802,15 @@ form:
                 visible: true
                 window_list: false
               sub_menus: []
-        - name: MnuView
-          tag: ""
+        - name:
+            - 77
+            - 110
+            - 117
+            - 86
+            - 105
+            - 101
+            - 119
+          tag: []
           index: 0
           properties:
             caption:
@@ -686,8 +827,18 @@ form:
             visible: true
             window_list: false
           sub_menus:
-            - name: MnuRefresh
-              tag: ""
+            - name:
+                - 77
+                - 110
+                - 117
+                - 82
+                - 101
+                - 102
+                - 114
+                - 101
+                - 115
+                - 104
+              tag: []
               index: 0
               properties:
                 caption:
@@ -714,8 +865,18 @@ form:
                 visible: true
                 window_list: false
               sub_menus: []
-            - name: MnuSepBar2
-              tag: ""
+            - name:
+                - 77
+                - 110
+                - 117
+                - 83
+                - 101
+                - 112
+                - 66
+                - 97
+                - 114
+                - 50
+              tag: []
               index: 0
               properties:
                 caption:
@@ -728,8 +889,15 @@ form:
                 visible: true
                 window_list: false
               sub_menus: []
-            - name: mnuZoom
-              tag: ""
+            - name:
+                - 109
+                - 110
+                - 117
+                - 90
+                - 111
+                - 111
+                - 109
+              tag: []
               index: 0
               properties:
                 caption:

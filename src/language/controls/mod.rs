@@ -55,8 +55,8 @@ use crate::language::{
 /// Represents a VB6 control.
 #[derive(Debug, PartialEq, Clone, Serialize)]
 pub struct VB6Control<'a> {
-    pub name: &'a str,
-    pub tag: &'a str,
+    pub name: &'a BStr,
+    pub tag: &'a BStr,
     pub index: i32,
     pub kind: VB6ControlKind<'a>,
 }

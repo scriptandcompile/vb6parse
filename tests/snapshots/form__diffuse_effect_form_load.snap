@@ -3,8 +3,18 @@ source: tests/form.rs
 expression: form_file
 ---
 form:
-  name: frmDiffuse
-  tag: ""
+  name:
+    - 102
+    - 114
+    - 109
+    - 68
+    - 105
+    - 102
+    - 102
+    - 117
+    - 115
+    - 101
+  tag: []
   index: 0
   kind:
     Form:
@@ -115,8 +125,24 @@ form:
         width: 0
         window_state: Normal
       controls:
-        - name: cmdDrawExplosion
-          tag: ""
+        - name:
+            - 99
+            - 109
+            - 100
+            - 68
+            - 114
+            - 97
+            - 119
+            - 69
+            - 120
+            - 112
+            - 108
+            - 111
+            - 115
+            - 105
+            - 111
+            - 110
+          tag: []
           index: 0
           kind:
             CommandButton:
@@ -176,8 +202,15 @@ form:
                 use_mask_color: false
                 whats_this_help_id: 0
                 width: 2535
-        - name: chkWrap
-          tag: ""
+        - name:
+            - 99
+            - 104
+            - 107
+            - 87
+            - 114
+            - 97
+            - 112
+          tag: []
           index: 0
           kind:
             CheckBox:
@@ -255,8 +288,16 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 3855
-        - name: hScrollY
-          tag: ""
+        - name:
+            - 104
+            - 83
+            - 99
+            - 114
+            - 111
+            - 108
+            - 108
+            - 89
+          tag: []
           index: 0
           kind:
             HScrollBar:
@@ -282,8 +323,16 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 6855
-        - name: hScrollX
-          tag: ""
+        - name:
+            - 104
+            - 83
+            - 99
+            - 114
+            - 111
+            - 108
+            - 108
+            - 88
+          tag: []
           index: 0
           kind:
             HScrollBar:
@@ -309,8 +358,16 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 6855
-        - name: cmdReset
-          tag: ""
+        - name:
+            - 99
+            - 109
+            - 100
+            - 82
+            - 101
+            - 115
+            - 101
+            - 116
+          tag: []
           index: 0
           kind:
             CommandButton:
@@ -372,8 +429,15 @@ form:
                 use_mask_color: false
                 whats_this_help_id: 0
                 width: 2535
-        - name: picMain
-          tag: ""
+        - name:
+            - 112
+            - 105
+            - 99
+            - 77
+            - 97
+            - 105
+            - 110
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -435,8 +499,15 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 1335
-        - name: picBack
-          tag: ""
+        - name:
+            - 112
+            - 105
+            - 99
+            - 66
+            - 97
+            - 99
+            - 107
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -498,8 +569,12 @@ form:
                 visible: false
                 whats_this_help_id: 0
                 width: 12030
-        - name: lblY
-          tag: ""
+        - name:
+            - 108
+            - 98
+            - 108
+            - 89
+          tag: []
           index: 0
           kind:
             Label:
@@ -545,8 +620,12 @@ form:
                 whats_this_help_id: 0
                 width: 360
                 word_wrap: false
-        - name: lblX
-          tag: ""
+        - name:
+            - 108
+            - 98
+            - 108
+            - 88
+          tag: []
           index: 0
           kind:
             Label:
@@ -593,8 +672,14 @@ form:
                 whats_this_help_id: 0
                 width: 465
                 word_wrap: false
-        - name: Label1
-          tag: ""
+        - name:
+            - 76
+            - 97
+            - 98
+            - 101
+            - 108
+            - 49
+          tag: []
           index: 0
           kind:
             Label:
@@ -655,8 +740,14 @@ form:
                 whats_this_help_id: 0
                 width: 1455
                 word_wrap: false
-        - name: Label2
-          tag: ""
+        - name:
+            - 76
+            - 97
+            - 98
+            - 101
+            - 108
+            - 50
+          tag: []
           index: 0
           kind:
             Label:
@@ -720,8 +811,15 @@ form:
                 width: 1650
                 word_wrap: false
       menus:
-        - name: mnuFile
-          tag: ""
+        - name:
+            - 109
+            - 110
+            - 117
+            - 70
+            - 105
+            - 108
+            - 101
+          tag: []
           index: 0
           properties:
             caption:
@@ -738,8 +836,20 @@ form:
             visible: true
             window_list: false
           sub_menus:
-            - name: mnuOpenImage
-              tag: ""
+            - name:
+                - 109
+                - 110
+                - 117
+                - 79
+                - 112
+                - 101
+                - 110
+                - 73
+                - 109
+                - 97
+                - 103
+                - 101
+              tag: []
               index: 0
               properties:
                 caption:

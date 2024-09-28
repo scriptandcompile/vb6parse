@@ -3,8 +3,19 @@ source: tests/form.rs
 expression: form_file
 ---
 form:
-  name: frmGradient
-  tag: ""
+  name:
+    - 102
+    - 114
+    - 109
+    - 71
+    - 114
+    - 97
+    - 100
+    - 105
+    - 101
+    - 110
+    - 116
+  tag: []
   index: 0
   kind:
     Form:
@@ -108,8 +119,16 @@ form:
         width: 0
         window_state: Normal
       controls:
-        - name: cmbStyle
-          tag: ""
+        - name:
+            - 99
+            - 109
+            - 98
+            - 83
+            - 116
+            - 121
+            - 108
+            - 101
+          tag: []
           index: 0
           kind:
             ComboBox:
@@ -159,8 +178,17 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 1695
-        - name: picColor2
-          tag: ""
+        - name:
+            - 112
+            - 105
+            - 99
+            - 67
+            - 111
+            - 108
+            - 111
+            - 114
+            - 50
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -224,8 +252,17 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 735
-        - name: picColor1
-          tag: ""
+        - name:
+            - 112
+            - 105
+            - 99
+            - 67
+            - 111
+            - 108
+            - 111
+            - 114
+            - 49
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -289,8 +326,22 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 735
-        - name: lblExplanation
-          tag: ""
+        - name:
+            - 108
+            - 98
+            - 108
+            - 69
+            - 120
+            - 112
+            - 108
+            - 97
+            - 110
+            - 97
+            - 116
+            - 105
+            - 111
+            - 110
+          tag: []
           index: 0
           kind:
             Label:

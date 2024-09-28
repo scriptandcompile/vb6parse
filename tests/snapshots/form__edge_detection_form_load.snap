@@ -3,8 +3,24 @@ source: tests/form.rs
 expression: form_file
 ---
 form:
-  name: frmEdgeDetection
-  tag: ""
+  name:
+    - 102
+    - 114
+    - 109
+    - 69
+    - 100
+    - 103
+    - 101
+    - 68
+    - 101
+    - 116
+    - 101
+    - 99
+    - 116
+    - 105
+    - 111
+    - 110
+  tag: []
   index: 0
   kind:
     Form:
@@ -120,8 +136,16 @@ form:
         width: 0
         window_state: Normal
       controls:
-        - name: cmdReset
-          tag: ""
+        - name:
+            - 99
+            - 109
+            - 100
+            - 82
+            - 101
+            - 115
+            - 101
+            - 116
+          tag: []
           index: 0
           kind:
             CommandButton:
@@ -175,8 +199,22 @@ form:
                 use_mask_color: false
                 whats_this_help_id: 0
                 width: 6015
-        - name: frmDescription
-          tag: ""
+        - name:
+            - 102
+            - 114
+            - 109
+            - 68
+            - 101
+            - 115
+            - 99
+            - 114
+            - 105
+            - 112
+            - 116
+            - 105
+            - 111
+            - 110
+          tag: []
           index: 0
           kind:
             Frame:
@@ -220,8 +258,15 @@ form:
                 whats_this_help_id: 0
                 width: 3255
               controls:
-                - name: lblDesc
-                  tag: ""
+                - name:
+                    - 108
+                    - 98
+                    - 108
+                    - 68
+                    - 101
+                    - 115
+                    - 99
+                  tag: []
                   index: 0
                   kind:
                     Label:
@@ -269,8 +314,22 @@ form:
                         whats_this_help_id: 0
                         width: 3015
                         word_wrap: false
-        - name: lstEdgeOptions
-          tag: ""
+        - name:
+            - 108
+            - 115
+            - 116
+            - 69
+            - 100
+            - 103
+            - 101
+            - 79
+            - 112
+            - 116
+            - 105
+            - 111
+            - 110
+            - 115
+          tag: []
           index: 0
           kind:
             ListBox:
@@ -310,8 +369,15 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 2655
-        - name: picMain
-          tag: ""
+        - name:
+            - 112
+            - 105
+            - 99
+            - 77
+            - 97
+            - 105
+            - 110
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -373,8 +439,15 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 6030
-        - name: picBack
-          tag: ""
+        - name:
+            - 112
+            - 105
+            - 99
+            - 66
+            - 97
+            - 99
+            - 107
+          tag: []
           index: 0
           kind:
             PictureBox:
@@ -437,8 +510,15 @@ form:
                 whats_this_help_id: 0
                 width: 6030
       menus:
-        - name: mnuFile
-          tag: ""
+        - name:
+            - 109
+            - 110
+            - 117
+            - 70
+            - 105
+            - 108
+            - 101
+          tag: []
           index: 0
           properties:
             caption:
@@ -455,8 +535,20 @@ form:
             visible: true
             window_list: false
           sub_menus:
-            - name: mnuOpenImage
-              tag: ""
+            - name:
+                - 109
+                - 110
+                - 117
+                - 79
+                - 112
+                - 101
+                - 110
+                - 73
+                - 109
+                - 97
+                - 103
+                - 101
+              tag: []
               index: 0
               properties:
                 caption:

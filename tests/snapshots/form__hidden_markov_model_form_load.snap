@@ -3,8 +3,15 @@ source: tests/form.rs
 expression: form_file
 ---
 form:
-  name: frmMain
-  tag: ""
+  name:
+    - 102
+    - 114
+    - 109
+    - 77
+    - 97
+    - 105
+    - 110
+  tag: []
   index: 0
   kind:
     Form:
@@ -140,8 +147,12 @@ form:
         width: 0
         window_state: Normal
       controls:
-        - name: frm4
-          tag: ""
+        - name:
+            - 102
+            - 114
+            - 109
+            - 52
+          tag: []
           index: 0
           kind:
             Frame:
@@ -254,8 +265,13 @@ form:
                 whats_this_help_id: 0
                 width: 13575
               controls:
-                - name: picOE
-                  tag: ""
+                - name:
+                    - 112
+                    - 105
+                    - 99
+                    - 79
+                    - 69
+                  tag: []
                   index: 0
                   kind:
                     PictureBox:
@@ -317,8 +333,18 @@ form:
                         visible: true
                         whats_this_help_id: 0
                         width: 13335
-                - name: picResults
-                  tag: ""
+                - name:
+                    - 112
+                    - 105
+                    - 99
+                    - 82
+                    - 101
+                    - 115
+                    - 117
+                    - 108
+                    - 116
+                    - 115
+                  tag: []
                   index: 0
                   kind:
                     PictureBox:
@@ -380,8 +406,21 @@ form:
                         visible: true
                         whats_this_help_id: 0
                         width: 13335
-                - name: txtWindowSize
-                  tag: ""
+                - name:
+                    - 116
+                    - 120
+                    - 116
+                    - 87
+                    - 105
+                    - 110
+                    - 100
+                    - 111
+                    - 119
+                    - 83
+                    - 105
+                    - 122
+                    - 101
+                  tag: []
                   index: 0
                   kind:
                     TextBox:
@@ -429,8 +468,17 @@ form:
                         visible: true
                         whats_this_help_id: 0
                         width: 855
-                - name: cmdWindow
-                  tag: ""
+                - name:
+                    - 99
+                    - 109
+                    - 100
+                    - 87
+                    - 105
+                    - 110
+                    - 100
+                    - 111
+                    - 119
+                  tag: []
                   index: 0
                   kind:
                     CommandButton:
@@ -493,8 +541,25 @@ form:
                         use_mask_color: false
                         whats_this_help_id: 0
                         width: 3015
-                - name: lblRecommendation
-                  tag: ""
+                - name:
+                    - 108
+                    - 98
+                    - 108
+                    - 82
+                    - 101
+                    - 99
+                    - 111
+                    - 109
+                    - 109
+                    - 101
+                    - 110
+                    - 100
+                    - 97
+                    - 116
+                    - 105
+                    - 111
+                    - 110
+                  tag: []
                   index: 0
                   kind:
                     Label:
@@ -608,8 +673,18 @@ form:
                         whats_this_help_id: 0
                         width: 6975
                         word_wrap: false
-                - name: lblPercent
-                  tag: ""
+                - name:
+                    - 108
+                    - 98
+                    - 108
+                    - 80
+                    - 101
+                    - 114
+                    - 99
+                    - 101
+                    - 110
+                    - 116
+                  tag: []
                   index: 0
                   kind:
                     Label:
@@ -662,8 +737,19 @@ form:
                         whats_this_help_id: 0
                         width: 13335
                         word_wrap: false
-                - name: lblCGHeader
-                  tag: ""
+                - name:
+                    - 108
+                    - 98
+                    - 108
+                    - 67
+                    - 71
+                    - 72
+                    - 101
+                    - 97
+                    - 100
+                    - 101
+                    - 114
+                  tag: []
                   index: 0
                   kind:
                     Label:
@@ -732,8 +818,15 @@ form:
                         whats_this_help_id: 0
                         width: 13335
                         word_wrap: false
-                - name: Label15
-                  tag: ""
+                - name:
+                    - 76
+                    - 97
+                    - 98
+                    - 101
+                    - 108
+                    - 49
+                    - 53
+                  tag: []
                   index: 0
                   kind:
                     Label:
@@ -795,8 +888,12 @@ form:
                         whats_this_help_id: 0
                         width: 1410
                         word_wrap: false
-        - name: frm3
-          tag: ""
+        - name:
+            - 102
+            - 114
+            - 109
+            - 51
+          tag: []
           index: 0
           kind:
             Frame:
@@ -885,8 +982,14 @@ form:
                 whats_this_help_id: 0
                 width: 7455
               controls:
-                - name: cmdHMM
-                  tag: ""
+                - name:
+                    - 99
+                    - 109
+                    - 100
+                    - 72
+                    - 77
+                    - 77
+                  tag: []
                   index: 0
                   kind:
                     CommandButton:
@@ -943,8 +1046,23 @@ form:
                         use_mask_color: false
                         whats_this_help_id: 0
                         width: 3015
-                - name: lblStep3Results
-                  tag: ""
+                - name:
+                    - 108
+                    - 98
+                    - 108
+                    - 83
+                    - 116
+                    - 101
+                    - 112
+                    - 51
+                    - 82
+                    - 101
+                    - 115
+                    - 117
+                    - 108
+                    - 116
+                    - 115
+                  tag: []
                   index: 0
                   kind:
                     Label:
@@ -1011,8 +1129,12 @@ form:
                         whats_this_help_id: 0
                         width: 3855
                         word_wrap: false
-        - name: frm2
-          tag: ""
+        - name:
+            - 102
+            - 114
+            - 109
+            - 50
+          tag: []
           index: 0
           kind:
             Frame:
@@ -1075,8 +1197,19 @@ form:
                 whats_this_help_id: 0
                 width: 7455
               controls:
-                - name: cmdEstimate
-                  tag: ""
+                - name:
+                    - 99
+                    - 109
+                    - 100
+                    - 69
+                    - 115
+                    - 116
+                    - 105
+                    - 109
+                    - 97
+                    - 116
+                    - 101
+                  tag: []
                   index: 0
                   kind:
                     CommandButton:
@@ -1143,8 +1276,18 @@ form:
                         use_mask_color: false
                         whats_this_help_id: 0
                         width: 2055
-                - name: frmInitial
-                  tag: ""
+                - name:
+                    - 102
+                    - 114
+                    - 109
+                    - 73
+                    - 110
+                    - 105
+                    - 116
+                    - 105
+                    - 97
+                    - 108
+                  tag: []
                   index: 0
                   kind:
                     Frame:
@@ -1200,8 +1343,19 @@ form:
                         whats_this_help_id: 0
                         width: 1695
                       controls:
-                        - name: txtInitProb
-                          tag: ""
+                        - name:
+                            - 116
+                            - 120
+                            - 116
+                            - 73
+                            - 110
+                            - 105
+                            - 116
+                            - 80
+                            - 114
+                            - 111
+                            - 98
+                          tag: []
                           index: 0
                           kind:
                             TextBox:
@@ -1249,8 +1403,19 @@ form:
                                 visible: true
                                 whats_this_help_id: 0
                                 width: 615
-                        - name: txtInitProb
-                          tag: ""
+                        - name:
+                            - 116
+                            - 120
+                            - 116
+                            - 73
+                            - 110
+                            - 105
+                            - 116
+                            - 80
+                            - 114
+                            - 111
+                            - 98
+                          tag: []
                           index: 0
                           kind:
                             TextBox:
@@ -1298,8 +1463,15 @@ form:
                                 visible: true
                                 whats_this_help_id: 0
                                 width: 615
-                        - name: Label14
-                          tag: ""
+                        - name:
+                            - 76
+                            - 97
+                            - 98
+                            - 101
+                            - 108
+                            - 49
+                            - 52
+                          tag: []
                           index: 0
                           kind:
                             Label:
@@ -1346,8 +1518,15 @@ form:
                                 whats_this_help_id: 0
                                 width: 375
                                 word_wrap: false
-                        - name: Label13
-                          tag: ""
+                        - name:
+                            - 76
+                            - 97
+                            - 98
+                            - 101
+                            - 108
+                            - 49
+                            - 51
+                          tag: []
                           index: 0
                           kind:
                             Label:
@@ -1394,8 +1573,16 @@ form:
                                 whats_this_help_id: 0
                                 width: 375
                                 word_wrap: false
-                - name: frmState
-                  tag: ""
+                - name:
+                    - 102
+                    - 114
+                    - 109
+                    - 83
+                    - 116
+                    - 97
+                    - 116
+                    - 101
+                  tag: []
                   index: 0
                   kind:
                     Frame:
@@ -1449,8 +1636,20 @@ form:
                         whats_this_help_id: 0
                         width: 2895
                       controls:
-                        - name: txtStateProb
-                          tag: ""
+                        - name:
+                            - 116
+                            - 120
+                            - 116
+                            - 83
+                            - 116
+                            - 97
+                            - 116
+                            - 101
+                            - 80
+                            - 114
+                            - 111
+                            - 98
+                          tag: []
                           index: 0
                           kind:
                             TextBox:
@@ -1498,8 +1697,20 @@ form:
                                 visible: true
                                 whats_this_help_id: 0
                                 width: 615
-                        - name: txtStateProb
-                          tag: ""
+                        - name:
+                            - 116
+                            - 120
+                            - 116
+                            - 83
+                            - 116
+                            - 97
+                            - 116
+                            - 101
+                            - 80
+                            - 114
+                            - 111
+                            - 98
+                          tag: []
                           index: 0
                           kind:
                             TextBox:
@@ -1547,8 +1758,20 @@ form:
                                 visible: true
                                 whats_this_help_id: 0
                                 width: 615
-                        - name: txtStateProb
-                          tag: ""
+                        - name:
+                            - 116
+                            - 120
+                            - 116
+                            - 83
+                            - 116
+                            - 97
+                            - 116
+                            - 101
+                            - 80
+                            - 114
+                            - 111
+                            - 98
+                          tag: []
                           index: 0
                           kind:
                             TextBox:
@@ -1596,8 +1819,20 @@ form:
                                 visible: true
                                 whats_this_help_id: 0
                                 width: 615
-                        - name: txtStateProb
-                          tag: ""
+                        - name:
+                            - 116
+                            - 120
+                            - 116
+                            - 83
+                            - 116
+                            - 97
+                            - 116
+                            - 101
+                            - 80
+                            - 114
+                            - 111
+                            - 98
+                          tag: []
                           index: 0
                           kind:
                             TextBox:
@@ -1645,8 +1880,20 @@ form:
                                 visible: true
                                 whats_this_help_id: 0
                                 width: 615
-                        - name: txtStateProb
-                          tag: ""
+                        - name:
+                            - 116
+                            - 120
+                            - 116
+                            - 83
+                            - 116
+                            - 97
+                            - 116
+                            - 101
+                            - 80
+                            - 114
+                            - 111
+                            - 98
+                          tag: []
                           index: 0
                           kind:
                             TextBox:
@@ -1694,8 +1941,20 @@ form:
                                 visible: true
                                 whats_this_help_id: 0
                                 width: 615
-                        - name: txtStateProb
-                          tag: ""
+                        - name:
+                            - 116
+                            - 120
+                            - 116
+                            - 83
+                            - 116
+                            - 97
+                            - 116
+                            - 101
+                            - 80
+                            - 114
+                            - 111
+                            - 98
+                          tag: []
                           index: 0
                           kind:
                             TextBox:
@@ -1743,8 +2002,20 @@ form:
                                 visible: true
                                 whats_this_help_id: 0
                                 width: 615
-                        - name: txtStateProb
-                          tag: ""
+                        - name:
+                            - 116
+                            - 120
+                            - 116
+                            - 83
+                            - 116
+                            - 97
+                            - 116
+                            - 101
+                            - 80
+                            - 114
+                            - 111
+                            - 98
+                          tag: []
                           index: 0
                           kind:
                             TextBox:
@@ -1792,8 +2063,20 @@ form:
                                 visible: true
                                 whats_this_help_id: 0
                                 width: 615
-                        - name: txtStateProb
-                          tag: ""
+                        - name:
+                            - 116
+                            - 120
+                            - 116
+                            - 83
+                            - 116
+                            - 97
+                            - 116
+                            - 101
+                            - 80
+                            - 114
+                            - 111
+                            - 98
+                          tag: []
                           index: 0
                           kind:
                             TextBox:
@@ -1841,8 +2124,15 @@ form:
                                 visible: true
                                 whats_this_help_id: 0
                                 width: 615
-                        - name: Label12
-                          tag: ""
+                        - name:
+                            - 76
+                            - 97
+                            - 98
+                            - 101
+                            - 108
+                            - 49
+                            - 50
+                          tag: []
                           index: 0
                           kind:
                             Label:
@@ -1891,8 +2181,15 @@ form:
                                 whats_this_help_id: 0
                                 width: 735
                                 word_wrap: false
-                        - name: Label11
-                          tag: ""
+                        - name:
+                            - 76
+                            - 97
+                            - 98
+                            - 101
+                            - 108
+                            - 49
+                            - 49
+                          tag: []
                           index: 0
                           kind:
                             Label:
@@ -1941,8 +2238,15 @@ form:
                                 whats_this_help_id: 0
                                 width: 735
                                 word_wrap: false
-                        - name: Label10
-                          tag: ""
+                        - name:
+                            - 76
+                            - 97
+                            - 98
+                            - 101
+                            - 108
+                            - 49
+                            - 48
+                          tag: []
                           index: 0
                           kind:
                             Label:
@@ -1991,8 +2295,14 @@ form:
                                 whats_this_help_id: 0
                                 width: 735
                                 word_wrap: false
-                        - name: Label9
-                          tag: ""
+                        - name:
+                            - 76
+                            - 97
+                            - 98
+                            - 101
+                            - 108
+                            - 57
+                          tag: []
                           index: 0
                           kind:
                             Label:
@@ -2041,8 +2351,14 @@ form:
                                 whats_this_help_id: 0
                                 width: 735
                                 word_wrap: false
-                        - name: Label8
-                          tag: ""
+                        - name:
+                            - 76
+                            - 97
+                            - 98
+                            - 101
+                            - 108
+                            - 56
+                          tag: []
                           index: 0
                           kind:
                             Label:
@@ -2091,8 +2407,14 @@ form:
                                 whats_this_help_id: 0
                                 width: 735
                                 word_wrap: false
-                        - name: Label7
-                          tag: ""
+                        - name:
+                            - 76
+                            - 97
+                            - 98
+                            - 101
+                            - 108
+                            - 55
+                          tag: []
                           index: 0
                           kind:
                             Label:
@@ -2141,8 +2463,14 @@ form:
                                 whats_this_help_id: 0
                                 width: 735
                                 word_wrap: false
-                        - name: Label6
-                          tag: ""
+                        - name:
+                            - 76
+                            - 97
+                            - 98
+                            - 101
+                            - 108
+                            - 54
+                          tag: []
                           index: 0
                           kind:
                             Label:
@@ -2191,8 +2519,14 @@ form:
                                 whats_this_help_id: 0
                                 width: 735
                                 word_wrap: false
-                        - name: Label5
-                          tag: ""
+                        - name:
+                            - 76
+                            - 97
+                            - 98
+                            - 101
+                            - 108
+                            - 53
+                          tag: []
                           index: 0
                           kind:
                             Label:
@@ -2241,8 +2575,22 @@ form:
                                 whats_this_help_id: 0
                                 width: 735
                                 word_wrap: false
-                - name: frmIslandOrNot
-                  tag: ""
+                - name:
+                    - 102
+                    - 114
+                    - 109
+                    - 73
+                    - 115
+                    - 108
+                    - 97
+                    - 110
+                    - 100
+                    - 79
+                    - 114
+                    - 78
+                    - 111
+                    - 116
+                  tag: []
                   index: 0
                   kind:
                     Frame:
@@ -2293,8 +2641,17 @@ form:
                         whats_this_help_id: 0
                         width: 1695
                       controls:
-                        - name: txtIBprob
-                          tag: ""
+                        - name:
+                            - 116
+                            - 120
+                            - 116
+                            - 73
+                            - 66
+                            - 112
+                            - 114
+                            - 111
+                            - 98
+                          tag: []
                           index: 0
                           kind:
                             TextBox:
@@ -2342,8 +2699,17 @@ form:
                                 visible: true
                                 whats_this_help_id: 0
                                 width: 615
-                        - name: txtIBprob
-                          tag: ""
+                        - name:
+                            - 116
+                            - 120
+                            - 116
+                            - 73
+                            - 66
+                            - 112
+                            - 114
+                            - 111
+                            - 98
+                          tag: []
                           index: 0
                           kind:
                             TextBox:
@@ -2391,8 +2757,17 @@ form:
                                 visible: true
                                 whats_this_help_id: 0
                                 width: 615
-                        - name: txtIBprob
-                          tag: ""
+                        - name:
+                            - 116
+                            - 120
+                            - 116
+                            - 73
+                            - 66
+                            - 112
+                            - 114
+                            - 111
+                            - 98
+                          tag: []
                           index: 0
                           kind:
                             TextBox:
@@ -2440,8 +2815,17 @@ form:
                                 visible: true
                                 whats_this_help_id: 0
                                 width: 615
-                        - name: txtIBprob
-                          tag: ""
+                        - name:
+                            - 116
+                            - 120
+                            - 116
+                            - 73
+                            - 66
+                            - 112
+                            - 114
+                            - 111
+                            - 98
+                          tag: []
                           index: 0
                           kind:
                             TextBox:
@@ -2489,8 +2873,14 @@ form:
                                 visible: true
                                 whats_this_help_id: 0
                                 width: 615
-                        - name: Label4
-                          tag: ""
+                        - name:
+                            - 76
+                            - 97
+                            - 98
+                            - 101
+                            - 108
+                            - 52
+                          tag: []
                           index: 0
                           kind:
                             Label:
@@ -2540,8 +2930,14 @@ form:
                                 whats_this_help_id: 0
                                 width: 735
                                 word_wrap: false
-                        - name: Label3
-                          tag: ""
+                        - name:
+                            - 76
+                            - 97
+                            - 98
+                            - 101
+                            - 108
+                            - 51
+                          tag: []
                           index: 0
                           kind:
                             Label:
@@ -2591,8 +2987,14 @@ form:
                                 whats_this_help_id: 0
                                 width: 735
                                 word_wrap: false
-                        - name: Label2
-                          tag: ""
+                        - name:
+                            - 76
+                            - 97
+                            - 98
+                            - 101
+                            - 108
+                            - 50
+                          tag: []
                           index: 0
                           kind:
                             Label:
@@ -2642,8 +3044,14 @@ form:
                                 whats_this_help_id: 0
                                 width: 735
                                 word_wrap: false
-                        - name: Label1
-                          tag: ""
+                        - name:
+                            - 76
+                            - 97
+                            - 98
+                            - 101
+                            - 108
+                            - 49
+                          tag: []
                           index: 0
                           kind:
                             Label:
@@ -2693,8 +3101,15 @@ form:
                                 whats_this_help_id: 0
                                 width: 735
                                 word_wrap: false
-        - name: txtTest
-          tag: ""
+        - name:
+            - 116
+            - 120
+            - 116
+            - 84
+            - 101
+            - 115
+            - 116
+          tag: []
           index: 0
           kind:
             TextBox:
@@ -2742,8 +3157,12 @@ form:
                 visible: true
                 whats_this_help_id: 0
                 width: 6015
-        - name: frm1
-          tag: ""
+        - name:
+            - 102
+            - 114
+            - 109
+            - 49
+          tag: []
           index: 0
           kind:
             Frame:
@@ -2820,8 +3239,20 @@ form:
                 whats_this_help_id: 0
                 width: 7455
               controls:
-                - name: cmdOpenFASTA
-                  tag: ""
+                - name:
+                    - 99
+                    - 109
+                    - 100
+                    - 79
+                    - 112
+                    - 101
+                    - 110
+                    - 70
+                    - 65
+                    - 83
+                    - 84
+                    - 65
+                  tag: []
                   index: 0
                   kind:
                     CommandButton:
@@ -2880,8 +3311,15 @@ form:
                         use_mask_color: false
                         whats_this_help_id: 0
                         width: 3015
-                - name: lblFile
-                  tag: ""
+                - name:
+                    - 108
+                    - 98
+                    - 108
+                    - 70
+                    - 105
+                    - 108
+                    - 101
+                  tag: []
                   index: 0
                   kind:
                     Label:
@@ -2954,8 +3392,18 @@ form:
                         whats_this_help_id: 0
                         width: 3975
                         word_wrap: false
-        - name: lblMessage
-          tag: ""
+        - name:
+            - 108
+            - 98
+            - 108
+            - 77
+            - 101
+            - 115
+            - 115
+            - 97
+            - 103
+            - 101
+          tag: []
           index: 0
           kind:
             Label:
