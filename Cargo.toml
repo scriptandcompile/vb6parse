@@ -62,7 +62,7 @@ exclude = [
     # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-winnow = "0.6.19"
+winnow = "0.6.20"
 uuid = "1.10.0"
 thiserror = "1.0.64"
 bstr = {version = "1.10.0", features = ["serde"]}
