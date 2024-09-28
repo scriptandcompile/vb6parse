@@ -54,8 +54,8 @@ struct VB6FullyQualifiedName<'a> {
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct VB6PropertyGroup<'a> {
-    pub name: &'a str,
-    pub properties: HashMap<&'a str, &'a str>,
+    pub name: &'a BStr,
+    pub properties: HashMap<&'a BStr, &'a BStr>,
 }
 
 impl<'a> VB6FormFile<'a> {
@@ -591,14 +591,11 @@ pub fn build_bool_property<S: std::hash::BuildHasher>(
 fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyGroup<'a>> {
     (space0, keyword_parse("BeginProperty"), space1).parse_next(input)?;
 
-    let Ok(name) = take_till::<(u8, u8, u8, u8), _, VB6Error>(1.., (b'\r', b'\t', b' ', b'\n'))
-        .parse_next(input)
+    let Ok(property_name) =
+        take_till::<(u8, u8, u8, u8), _, VB6Error>(1.., (b'\r', b'\t', b' ', b'\n'))
+            .parse_next(input)
     else {
         return Err(ErrMode::Cut(VB6ErrorKind::NoPropertyName));
-    };
-
-    let Ok(property_name) = name.to_str() else {
-        return Err(ErrMode::Cut(VB6ErrorKind::PropertyNameAsciiConversionError));
     };
 
     space0.parse_next(input)?;
@@ -626,10 +623,6 @@ fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyG
 
         let name = take_until(1.., ("\t", " ", "=")).parse_next(input)?;
 
-        let Ok(name_ascii) = name.to_str() else {
-            return Err(ErrMode::Cut(VB6ErrorKind::PropertyNameAsciiConversionError));
-        };
-
         space0.parse_next(input)?;
 
         "=".parse_next(input)?;
@@ -639,13 +632,7 @@ fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyG
         let value =
             alt((string_parse, take_till(1.., (' ', '\t', '\'', '\r', '\n')))).parse_next(input)?;
 
-        let Ok(value_ascii) = value.to_str() else {
-            return Err(ErrMode::Cut(
-                VB6ErrorKind::PropertyValueAsciiConversionError,
-            ));
-        };
-
-        property_group.properties.insert(name_ascii, value_ascii);
+        property_group.properties.insert(name, value);
 
         space0.parse_next(input)?;
 
