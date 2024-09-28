@@ -254,7 +254,7 @@ fn block_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Control<'a>> {
 
         space0.parse_next(input)?;
 
-        let name = take_until(1.., (" ", "\t", "=")).parse_next(input)?;
+        let name = take_till(1.., (b' ', b'\t', b'=')).parse_next(input)?;
 
         space0.parse_next(input)?;
 
