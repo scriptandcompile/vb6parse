@@ -3,6 +3,7 @@ use std::vec::Vec;
 use std::{collections::HashMap, fmt::Debug};
 
 use bstr::BStr;
+use either::Either;
 use num_enum::TryFromPrimitive;
 use uuid::Uuid;
 
@@ -57,7 +58,7 @@ struct VB6FullyQualifiedName<'a> {
 pub struct VB6PropertyGroup<'a> {
     pub name: &'a BStr,
     pub guid: Option<Uuid>,
-    pub properties: HashMap<&'a BStr, &'a BStr>,
+    pub properties: HashMap<&'a BStr, Either<&'a BStr, VB6PropertyGroup<'a>>>,
 }
 
 impl Serialize for VB6PropertyGroup<'_> {
@@ -198,7 +199,7 @@ fn form_object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6ObjectRe
 }
 
 fn block_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Control<'a>> {
-    let fully_qualified_name = begin_parse.parse_next(input)?;
+    let fully_qualified_name = property_parse.parse_next(input)?;
 
     let mut controls = vec![];
     let mut menus = vec![];
@@ -208,7 +209,7 @@ fn block_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Control<'a>> {
     while !input.is_empty() {
         space0.parse_next(input)?;
 
-        if let Ok(property_group) = begin_property_parse.parse_next(input) {
+        if let Ok(property_group) = property_group_parse.parse_next(input) {
             property_groups.push(property_group);
             continue;
         }
@@ -272,11 +273,130 @@ fn block_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Control<'a>> {
         opt(line_comment_parse).parse_next(input)?;
 
         line_ending.parse_next(input)?;
-
-        continue;
     }
 
     Err(ParserError::assert(input, "Unknown control kind"))
+}
+
+fn property_group_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyGroup<'a>> {
+    (space0, keyword_parse("BeginProperty"), space1).parse_next(input)?;
+
+    let Ok(property_group_name): VB6Result<&BStr> = take_till(1.., |c| {
+        c == b'{' || c == b'\r' || c == b'\t' || c == b' ' || c == b'\n'
+    })
+    .parse_next(input) else {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoPropertyName));
+    };
+
+    space0.parse_next(input)?;
+
+    // Check if we have a GUID here.
+    let guid = if literal::<_, _, VB6ErrorKind>('{').parse_next(input).is_ok() {
+        let uuid_segment = take_until(1.., '}').parse_next(input)?;
+        '}'.parse_next(input)?;
+
+        space0.parse_next(input)?;
+
+        let Ok(uuid) = Uuid::parse_str(uuid_segment.to_str().unwrap()) else {
+            return Err(ErrMode::Cut(VB6ErrorKind::UnableToParseUuid));
+        };
+
+        Some(uuid)
+    } else {
+        None
+    };
+
+    alt((line_comment_parse, line_ending)).parse_next(input)?;
+
+    let mut property_group = VB6PropertyGroup {
+        guid,
+        name: property_group_name,
+        properties: HashMap::new(),
+    };
+
+    while !input.is_empty() {
+        if (space0, keyword_parse("EndProperty"), space0)
+            .parse_next(input)
+            .is_ok()
+        {
+            if line_ending::<_, VB6Error>.parse_next(input).is_err() {
+                return Err(ErrMode::Cut(VB6ErrorKind::NoLineEndingAfterEndProperty));
+            }
+
+            break;
+        }
+
+        // looks like we have a nested property group.
+        if let Ok(nested_property_group) = property_group_parse.parse_next(input) {
+            property_group.properties.insert(
+                nested_property_group.name,
+                Either::Right(nested_property_group),
+            );
+
+            continue;
+        }
+
+        if let Ok((name, _resource_file, _offset)) =
+            key_resource_offset_line_parse("=").parse_next(input)
+        {
+            // TODO: At the moment we just eat the resource file look up.
+            property_group
+                .properties
+                .insert(name, Either::Left(BStr::new("")));
+
+            continue;
+        }
+
+        space0.parse_next(input)?;
+
+        let name = take_until(1.., ("\t", " ", "=")).parse_next(input)?;
+
+        (space0, "=", space0).parse_next(input)?;
+
+        let value =
+            alt((string_parse, take_till(1.., (' ', '\t', '\'', '\r', '\n')))).parse_next(input)?;
+
+        property_group.properties.insert(name, Either::Left(value));
+
+        (space0, opt(line_comment_parse), line_ending).parse_next(input)?;
+    }
+
+    Ok(property_group)
+}
+
+fn property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FullyQualifiedName<'a>> {
+    let Ok(namespace) = take_until::<_, _, VB6Error>(0.., ".").parse_next(input) else {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoNamespaceAfterBegin));
+    };
+
+    if literal::<&str, _, VB6Error>(".").parse_next(input).is_err() {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoDotAfterNamespace));
+    };
+
+    let Ok(kind) = take_until::<_, _, VB6Error>(0.., (" ", "\t")).parse_next(input) else {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoUserControlNameAfterDot));
+    };
+
+    if space1::<_, VB6Error>.parse_next(input).is_err() {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoSpaceAfterControlKind));
+    }
+
+    let Ok(name) =
+        take_till::<_, _, VB6Error>(0.., (b" ", b"\t", b"\r", b"\r\n", b"\n")).parse_next(input)
+    else {
+        return Err(ErrMode::Cut(VB6ErrorKind::NoControlNameAfterControlKind));
+    };
+
+    // If there are spaces after the control name, eat those up since we don't care about them.
+    space0.parse_next(input)?;
+    // eat the line ending and move on.
+    line_ending.parse_next(input)?;
+
+    Ok(VB6FullyQualifiedName {
+        namespace,
+        kind,
+        name,
+    })
 }
 
 fn build_control<'a>(
@@ -293,9 +413,6 @@ fn build_control<'a>(
         BStr::new("")
     };
 
-    // This is wrong.
-    // TODO: When we start work on custom controls we will need
-    // to handle fully verified name parsing. This will work for now though.
     if fully_qualified_name.namespace != "VB" {
         let custom_control = VB6Control {
             name: fully_qualified_name.name,
@@ -613,114 +730,6 @@ pub fn build_bool_property<S: std::hash::BuildHasher>(
     }
 }
 
-fn begin_property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyGroup<'a>> {
-    (space0, keyword_parse("BeginProperty"), space1).parse_next(input)?;
-
-    let Ok(property_name): VB6Result<&BStr> = take_till(1.., |c| {
-        c == b'{' || c == b'\r' || c == b'\t' || c == b' ' || c == b'\n'
-    })
-    .parse_next(input) else {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoPropertyName));
-    };
-
-    space0.parse_next(input)?;
-
-    // looks like we have a GUID here.
-    let guid = if literal::<_, _, VB6ErrorKind>('{').parse_next(input).is_ok() {
-        let uuid_segment = take_until(1.., '}').parse_next(input)?;
-        '}'.parse_next(input)?;
-
-        space0.parse_next(input)?;
-
-        let Ok(uuid) = Uuid::parse_str(uuid_segment.to_str().unwrap()) else {
-            return Err(ErrMode::Cut(VB6ErrorKind::UnableToParseUuid));
-        };
-
-        Some(uuid)
-    } else {
-        None
-    };
-
-    alt((line_comment_parse, line_ending)).parse_next(input)?;
-
-    let mut property_group = VB6PropertyGroup {
-        guid,
-        name: property_name,
-        properties: HashMap::new(),
-    };
-
-    while !input.is_empty() {
-        if (space0, keyword_parse("EndProperty"), space0)
-            .parse_next(input)
-            .is_ok()
-        {
-            if line_ending::<_, VB6Error>.parse_next(input).is_err() {
-                return Err(ErrMode::Cut(VB6ErrorKind::NoLineEndingAfterEndProperty));
-            }
-
-            break;
-        }
-
-        space0.parse_next(input)?;
-
-        let name = take_until(1.., ("\t", " ", "=")).parse_next(input)?;
-
-        space0.parse_next(input)?;
-
-        "=".parse_next(input)?;
-
-        space0.parse_next(input)?;
-
-        let value =
-            alt((string_parse, take_till(1.., (' ', '\t', '\'', '\r', '\n')))).parse_next(input)?;
-
-        property_group.properties.insert(name, value);
-
-        space0.parse_next(input)?;
-
-        opt(line_comment_parse).parse_next(input)?;
-
-        line_ending.parse_next(input)?;
-    }
-
-    Ok(property_group)
-}
-
-fn begin_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FullyQualifiedName<'a>> {
-    let Ok(namespace) = take_until::<_, _, VB6Error>(0.., ".").parse_next(input) else {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoNamespaceAfterBegin));
-    };
-
-    if literal::<&str, _, VB6Error>(".").parse_next(input).is_err() {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoDotAfterNamespace));
-    };
-
-    let Ok(kind) = take_until::<_, _, VB6Error>(0.., (" ", "\t")).parse_next(input) else {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoUserControlNameAfterDot));
-    };
-
-    if space1::<_, VB6Error>.parse_next(input).is_err() {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoSpaceAfterControlKind));
-    }
-
-    let Ok(name) =
-        take_till::<_, _, VB6Error>(0.., (b" ", b"\t", b"\r", b"\r\n", b"\n")).parse_next(input)
-    else {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoControlNameAfterControlKind));
-    };
-
-    // If there are spaces after the control name, eat those up since we don't care about them.
-    space0.parse_next(input)?;
-    // eat the line ending and move on.
-    line_ending.parse_next(input)?;
-
-    Ok(VB6FullyQualifiedName {
-        namespace,
-        kind,
-        name,
-    })
-}
-
 #[cfg(test)]
 mod tests {
 
@@ -739,13 +748,154 @@ mod tests {
                     EndProperty\r\n";
 
         let mut input = VB6Stream::new("", source);
-        let result = begin_property_parse.parse_next(&mut input);
+        let result = property_group_parse.parse_next(&mut input);
 
         assert!(result.is_ok());
 
         let result = result.unwrap();
         assert_eq!(result.name, "Font");
         assert_eq!(result.properties.len(), 7);
+    }
+
+    #[test]
+    #[ignore]
+    fn nested_property_group() {
+        use crate::language::VB6ControlKind;
+        use crate::parsers::form::VB6FormFile;
+
+        let input = b"VERSION 5.00\r
+Object = \"{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0\"; \"mscomctl.ocx\"\r
+Begin VB.Form Form_Main \r
+   BackColor       =   &H00000000&\r
+   BorderStyle     =   1  'Fixed Single\r
+   Caption         =   \"Audiostation\"\r
+   ClientHeight    =   10005\r
+   ClientLeft      =   4695\r
+   ClientTop       =   1275\r
+   ClientWidth     =   12960\r
+   BeginProperty Font \r
+      Name            =   \"Verdana\"\r
+      Size            =   8.25\r
+      Charset         =   0\r
+      Weight          =   400\r
+      Underline       =   0   'False\r
+      Italic          =   0   'False\r
+      Strikethrough   =   0   'False\r
+   EndProperty\r
+   Icon            =   \"Form_Main.frx\":0000\r
+   LinkTopic       =   \"Form1\"\r
+   MaxButton       =   0   'False\r
+   OLEDropMode     =   1  'Manual\r
+   ScaleHeight     =   10005\r
+   ScaleWidth      =   12960\r
+   StartUpPosition =   2  'CenterScreen\r
+   Begin MSComctlLib.ImageList Imagelist_CDDisplay \r
+      Left            =   12000\r
+      Top             =   120\r
+      _ExtentX        =   1005\r
+      _ExtentY        =   1005\r
+      BackColor       =   -2147483643\r
+      ImageWidth      =   53\r
+      ImageHeight     =   42\r
+      MaskColor       =   12632256\r
+      _Version        =   393216\r
+      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} \r
+         NumListImages   =   5\r
+         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} \r
+            Picture         =   \"Form_Main.frx\":17789\r
+            Key             =   \"\"\r
+         EndProperty\r
+         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} \r
+            Picture         =   \"Form_Main.frx\":1921B\r
+            Key             =   \"\"\r
+         EndProperty\r
+         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} \r
+            Picture         =   \"Form_Main.frx\":1ACAD\r
+            Key             =   \"\"\r
+         EndProperty\r
+         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} \r
+            Picture         =   \"Form_Main.frx\":1C73F\r
+            Key             =   \"\"\r
+         EndProperty\r
+         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} \r
+            Picture         =   \"Form_Main.frx\":1E1D1\r
+            Key             =   \"\"\r
+         EndProperty\r
+      EndProperty\r
+   End\r
+End\r
+";
+
+        let result = VB6FormFile::parse("form_parse.frm".to_owned(), input.as_bytes()).unwrap();
+
+        assert_eq!(result.objects.len(), 1);
+        assert_eq!(result.format_version.major, 5);
+        assert_eq!(result.format_version.minor, 0);
+        assert_eq!(result.form.name, "Form_Main");
+        assert_eq!(
+            matches!(result.form.kind, VB6ControlKind::Form { .. }),
+            true
+        );
+
+        if let VB6ControlKind::Form {
+            controls,
+            properties,
+            menus,
+        } = &result.form.kind
+        {
+            assert_eq!(controls.len(), 1);
+            assert_eq!(menus.len(), 1);
+            assert_eq!(properties.caption, "Audiostation");
+            assert_eq!(controls[0].name, "Imagelist_CDDisplay");
+            assert!(matches!(controls[0].kind, VB6ControlKind::Custom { .. }));
+
+            if let VB6ControlKind::Custom {
+                properties,
+                property_groups,
+            } = &controls[0].kind
+            {
+                assert_eq!(properties.len(), 7);
+                assert_eq!(property_groups.len(), 1);
+
+                if let Some(group) = property_groups.get(0) {
+                    assert_eq!(group.name, "Images");
+                    assert_eq!(group.properties.len(), 5);
+
+                    if let Some(Either::Right(image1)) =
+                        group.properties.get(BStr::new("ListImage1"))
+                    {
+                        assert_eq!(image1.name, BStr::new("ListImage1"));
+                        assert_eq!(image1.properties.len(), 2);
+                    } else {
+                        panic!("Expected nested ListImage1");
+                    }
+
+                    if let Some(Either::Right(image2)) =
+                        group.properties.get(BStr::new("ListImage2"))
+                    {
+                        assert_eq!(image2.name, BStr::new("ListImage2"));
+                        assert_eq!(image2.properties.len(), 2);
+                    } else {
+                        panic!("Expected nested ListImage2");
+                    }
+
+                    if let Some(Either::Right(image3)) =
+                        group.properties.get(BStr::new("ListImage3"))
+                    {
+                        assert_eq!(image3.name, BStr::new("ListImage3"));
+                        assert_eq!(image3.properties.len(), 2);
+                    } else {
+                        panic!("Expected nested ListImage3");
+                    }
+                } else {
+                    panic!("Expected property group");
+                }
+            } else {
+                panic!("Expected custom control");
+            }
+        } else {
+            panic!("Expected form kind");
+        }
     }
 
     #[test]

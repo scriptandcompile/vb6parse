@@ -66,7 +66,7 @@ winnow = "0.6.20"
 uuid = "1.10.0"
 thiserror = "1.0.64"
 bstr = {version = "1.10.0", features = ["serde"]}
-
+either = {version = "1.13.0", features = ["serde"]}
 ariadne = "0.4.1"
 image = "0.25.2"
 serde = { version = "1.0.209", features = ["derive"] }
