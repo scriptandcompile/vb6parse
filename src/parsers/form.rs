@@ -2,10 +2,19 @@ use std::convert::TryFrom;
 use std::vec::Vec;
 use std::{collections::HashMap, fmt::Debug};
 
-use bstr::BStr;
+use bstr::{BStr, ByteSlice};
 use either::Either;
 use num_enum::TryFromPrimitive;
+use serde::Serialize;
 use uuid::Uuid;
+use winnow::error::ParserError;
+use winnow::{
+    ascii::{line_ending, space0, space1},
+    combinator::{alt, opt},
+    error::ErrMode,
+    token::{literal, take_till, take_until},
+    Parser,
+};
 
 use crate::{
     errors::{VB6Error, VB6ErrorKind},
@@ -18,22 +27,13 @@ use crate::{
         VB6Control, VB6ControlKind, VB6MenuControl, VB6Token,
     },
     parsers::{
-        header::{key_resource_offset_line_parse, version_parse, HeaderKind, VB6FileFormatVersion},
+        header::{
+            attributes_parse, key_resource_offset_line_parse, version_parse, HeaderKind,
+            VB6FileAttributes, VB6FileFormatVersion,
+        },
         VB6ObjectReference, VB6Stream,
     },
     vb6::{keyword_parse, line_comment_parse, vb6_parse, VB6Result},
-};
-
-use bstr::ByteSlice;
-use serde::Serialize;
-
-use winnow::error::ParserError;
-use winnow::{
-    ascii::{line_ending, space0, space1},
-    combinator::{alt, opt},
-    error::ErrMode,
-    token::{literal, take_till, take_until},
-    Parser,
 };
 
 use super::{header::object_parse, vb6::string_parse};
@@ -44,6 +44,7 @@ pub struct VB6FormFile<'a> {
     pub form: VB6Control<'a>,
     pub objects: Vec<VB6ObjectReference<'a>>,
     pub format_version: VB6FileFormatVersion,
+    pub attributes: VB6FileAttributes<'a>,
     pub tokens: Vec<VB6Token<'a>>,
 }
 
@@ -133,6 +134,7 @@ impl<'a> VB6FormFile<'a> {
     ///       End\r
     ///    End\r
     /// End\r
+    /// Attribute VB_Name = \"frmExampleForm\"\r
     /// ";
     ///
     /// let result = VB6FormFile::parse("form_parse.frm".to_owned(), &mut input.as_ref());
@@ -163,6 +165,11 @@ impl<'a> VB6FormFile<'a> {
             Err(err) => return Err(input.error(err.into_inner().unwrap())),
         };
 
+        let attributes = match attributes_parse.parse_next(&mut input) {
+            Ok(attributes) => attributes,
+            Err(err) => return Err(input.error(err.into_inner().unwrap())),
+        };
+
         let tokens = match vb6_parse.parse_next(&mut input) {
             Ok(tokens) => tokens,
             Err(err) => return Err(input.error(err.into_inner().unwrap())),
@@ -172,6 +179,7 @@ impl<'a> VB6FormFile<'a> {
             form,
             objects,
             format_version,
+            attributes,
             tokens,
         })
     }
@@ -823,6 +831,7 @@ Begin VB.Form Form_Main \r
       EndProperty\r
    End\r
 End\r
+Attribute VB_Name = \"Form_Main\"\r
 ";
 
         let result = VB6FormFile::parse("form_parse.frm".to_owned(), input.as_bytes()).unwrap();
@@ -946,7 +955,9 @@ Begin VB.Form FormMainMode \r
          Top             =   9360\r
          Width           =   975\r
    End\r
-End\r\n";
+End\r
+Attribute VB_Name = \"FormMainMode\"\r
+";
 
         let result = VB6FormFile::parse("form_parse.frm".to_owned(), input.as_bytes());
 
@@ -989,6 +1000,7 @@ End\r\n";
            End\r
         End\r
     End\r
+    Attribute VB_Name = \"frmExampleForm\"\r
     ";
 
         let result = VB6FormFile::parse("form_parse.frm".to_owned(), &mut input.as_ref());
