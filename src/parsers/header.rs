@@ -13,7 +13,7 @@ use winnow::{
     combinator::{alt, eof, opt},
     error::ErrMode,
     stream::Stream,
-    token::{literal, take_until, take_while},
+    token::{literal, take_till, take_until, take_while},
     Parser,
 };
 
@@ -242,66 +242,63 @@ pub fn key_value_line_parse<'a>(
 }
 
 pub fn key_resource_offset_line_parse<'a>(
-    divider: &'static str,
-) -> impl FnMut(&mut VB6Stream<'a>) -> VB6Result<(&'a BStr, &'a BStr, &'a BStr)> {
-    move |input: &mut VB6Stream<'a>| -> VB6Result<(&'a BStr, &'a BStr, &'a BStr)> {
-        let checkpoint = input.checkpoint();
+    input: &mut VB6Stream<'a>,
+) -> VB6Result<(&'a BStr, &'a BStr, &'a BStr)> {
+    let checkpoint = input.checkpoint();
 
-        space0.parse_next(input)?;
+    space0.parse_next(input)?;
 
-        let Ok(key) = take_until::<_, _, VB6ErrorKind>(1.., (" ", "\t", divider)).parse_next(input)
-        else {
-            input.reset(&checkpoint);
-            return Err(ErrMode::Cut(VB6ErrorKind::PropertyNameUnparsable));
-        };
+    let Ok(key) = take_till::<_, _, VB6ErrorKind>(1.., (' ', '\t', '=')).parse_next(input) else {
+        input.reset(&checkpoint);
+        return Err(ErrMode::Cut(VB6ErrorKind::PropertyNameUnparsable));
+    };
 
-        if (space0::<_, VB6ErrorKind>, divider, space0)
-            .parse_next(input)
-            .is_err()
-        {
-            input.reset(&checkpoint);
-            return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-        }
-
-        let Ok(resource_file_name) = string_parse.parse_next(input) else {
-            input.reset(&checkpoint);
-            return Err(ErrMode::Cut(VB6ErrorKind::ResourceFileNameUnparsable));
-        };
-
-        if literal::<_, _, VB6ErrorKind>(":")
-            .parse_next(input)
-            .is_err()
-        {
-            input.reset(&checkpoint);
-            return Err(ErrMode::Cut(VB6ErrorKind::NoColonForOffsetSplit));
-        }
-
-        let offset = match take_while(1.., ('0'..='9', 'A'..='F')).parse_next(input) {
-            Ok(offset) => offset,
-            Err(e) => {
-                input.reset(&checkpoint);
-                return Err(e);
-            }
-        };
-
-        space0.parse_next(input)?;
-
-        // we have to check for eof here because it's perfectly possible to have a
-        // header file that is empty of actual code. This means the last line of the file
-        // should be an empty line, but it might be that the filed ends at the end of the
-        // header attribute section.
-        opt(line_comment_parse).parse_next(input)?;
-
-        if alt((line_ending::<_, VB6ErrorKind>, eof))
-            .parse_next(input)
-            .is_err()
-        {
-            input.reset(&checkpoint);
-            return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
-        }
-
-        Ok((key, resource_file_name, offset))
+    if (space0::<_, VB6ErrorKind>, "=", space0)
+        .parse_next(input)
+        .is_err()
+    {
+        input.reset(&checkpoint);
+        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
     }
+
+    let Ok(resource_file_name) = string_parse.parse_next(input) else {
+        input.reset(&checkpoint);
+        return Err(ErrMode::Cut(VB6ErrorKind::ResourceFileNameUnparsable));
+    };
+
+    if literal::<_, _, VB6ErrorKind>(":")
+        .parse_next(input)
+        .is_err()
+    {
+        input.reset(&checkpoint);
+        return Err(ErrMode::Cut(VB6ErrorKind::NoColonForOffsetSplit));
+    }
+
+    let offset = match take_while(1.., ('0'..='9', 'A'..='F')).parse_next(input) {
+        Ok(offset) => offset,
+        Err(e) => {
+            input.reset(&checkpoint);
+            return Err(e);
+        }
+    };
+
+    space0.parse_next(input)?;
+
+    // we have to check for eof here because it's perfectly possible to have a
+    // header file that is empty of actual code. This means the last line of the file
+    // should be an empty line, but it might be that the filed ends at the end of the
+    // header attribute section.
+    opt(line_comment_parse).parse_next(input)?;
+
+    if alt((line_ending::<_, VB6ErrorKind>, eof))
+        .parse_next(input)
+        .is_err()
+    {
+        input.reset(&checkpoint);
+        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+    }
+
+    Ok((key, resource_file_name, offset))
 }
 
 #[cfg(test)]
@@ -367,7 +364,7 @@ mod tests {
         let input_line = b"      Picture         =   \"Brightness.frx\":0000\r\n";
         let mut stream = VB6Stream::new("", input_line);
         let (key, resource_file_name, offset) =
-            key_resource_offset_line_parse("=")(&mut stream).unwrap();
+            key_resource_offset_line_parse.parse_next(&mut stream).unwrap();
 
         assert_eq!(key, "Picture".as_bytes());
         assert_eq!(resource_file_name, "Brightness.frx".as_bytes());
@@ -379,7 +376,7 @@ mod tests {
         let input_line = b"      Picture         =   \"Brightness.frx\":0000 'comment\r\n";
         let mut stream = VB6Stream::new("", input_line);
         let (key, resource_file_name, offset) =
-            key_resource_offset_line_parse("=")(&mut stream).unwrap();
+            key_resource_offset_line_parse.parse_next(&mut stream).unwrap();
 
         assert_eq!(key, "Picture".as_bytes());
         assert_eq!(resource_file_name, "Brightness.frx".as_bytes());

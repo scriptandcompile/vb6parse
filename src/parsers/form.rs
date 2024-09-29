@@ -245,7 +245,7 @@ fn block_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Control<'a>> {
         }
 
         if let Ok((name, _resource_file, _offset)) =
-            key_resource_offset_line_parse("=").parse_next(input)
+            key_resource_offset_line_parse.parse_next(input)
         {
             // TODO: At the moment we just eat the resource file look up.
 
@@ -337,7 +337,7 @@ fn property_group_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyG
         }
 
         if let Ok((name, _resource_file, _offset)) =
-            key_resource_offset_line_parse("=").parse_next(input)
+            key_resource_offset_line_parse.parse_next(input)
         {
             // TODO: At the moment we just eat the resource file look up.
             property_group
