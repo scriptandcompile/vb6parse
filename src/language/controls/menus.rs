@@ -65,40 +65,24 @@ impl<'a> MenuProperties<'a> {
     pub fn build_control(properties: &HashMap<&'a BStr, &'a BStr>) -> Result<Self, VB6ErrorKind> {
         let mut menu_properties = MenuProperties::default();
 
-        // TODO: We are not correctly handling property assignment for each control.
-        let caption_key = BStr::new("Caption");
         menu_properties.caption = properties
-            .get(caption_key)
+            .get(BStr::new("Caption"))
             .unwrap_or(&menu_properties.caption);
-
-        let checked_key = BStr::new("Checked");
         menu_properties.checked =
-            build_bool_property(properties, checked_key, menu_properties.checked);
-
-        let enabled_key = BStr::new("Enabled");
+            build_bool_property(properties, b"Checked", menu_properties.checked);
         menu_properties.enabled =
-            build_bool_property(properties, enabled_key, menu_properties.enabled);
-
-        let help_context_id_key = BStr::new("HelpContextID");
+            build_bool_property(properties, b"Enabled", menu_properties.enabled);
         menu_properties.help_context_id = build_i32_property(
             properties,
-            help_context_id_key,
+            b"HelpContextID",
             menu_properties.help_context_id,
         );
-
-        let negotiation_position_key = BStr::new("NegotiationPosition");
-        menu_properties.negotiate_position = build_property(properties, negotiation_position_key);
-
-        let shortcut_key = BStr::new("Shortcut");
-        menu_properties.shortcut = build_option_property(properties, shortcut_key);
-
-        let visible_key = BStr::new("Visible");
+        menu_properties.negotiate_position = build_property(properties, b"NegotiationPosition");
+        menu_properties.shortcut = build_option_property(properties, b"Shortcut");
         menu_properties.visible =
-            build_bool_property(properties, visible_key, menu_properties.visible);
-
-        let window_list_key = BStr::new("WindowList");
+            build_bool_property(properties, b"Visible", menu_properties.visible);
         menu_properties.window_list =
-            build_bool_property(properties, window_list_key, menu_properties.window_list);
+            build_bool_property(properties, b"WindowList", menu_properties.window_list);
 
         Ok(menu_properties)
     }

@@ -123,8 +123,8 @@ impl<'a> ImageProperties<'a> {
     ) -> Result<Self, VB6ErrorKind> {
         let mut image_properties = ImageProperties::default();
 
-        image_properties.appearance = build_property(properties, BStr::new("Appearance"));
-        image_properties.border_style = build_property(properties, BStr::new("BorderStyle"));
+        image_properties.appearance = build_property(properties, b"Appearance");
+        image_properties.border_style = build_property(properties, b"BorderStyle");
         image_properties.data_field = properties
             .get(BStr::new("DataField"))
             .unwrap_or(&image_properties.data_field);
@@ -140,38 +140,35 @@ impl<'a> ImageProperties<'a> {
 
         // DragIcon
 
-        image_properties.drag_mode = build_property(properties, BStr::new("DragMode"));
+        image_properties.drag_mode = build_property(properties, b"DragMode");
         image_properties.enabled =
-            build_bool_property(properties, BStr::new("Enabled"), image_properties.enabled);
+            build_bool_property(properties, b"Enabled", image_properties.enabled);
         image_properties.height =
-            build_i32_property(properties, BStr::new("Height"), image_properties.height);
-        image_properties.left =
-            build_i32_property(properties, BStr::new("Left"), image_properties.left);
+            build_i32_property(properties, b"Height", image_properties.height);
+        image_properties.left = build_i32_property(properties, b"Left", image_properties.left);
 
         // MouseIcon
 
-        image_properties.mouse_pointer = build_property(properties, BStr::new("MousePointer"));
-        image_properties.ole_drag_mode = build_property(properties, BStr::new("OLEDragMode"));
-        image_properties.ole_drop_mode = build_property(properties, BStr::new("OLEDropMode"));
+        image_properties.mouse_pointer = build_property(properties, b"MousePointer");
+        image_properties.ole_drag_mode = build_property(properties, b"OLEDragMode");
+        image_properties.ole_drop_mode = build_property(properties, b"OLEDropMode");
 
         // Picture
 
         image_properties.stretch =
-            build_bool_property(properties, BStr::new("Stretch"), image_properties.stretch);
+            build_bool_property(properties, b"Stretch", image_properties.stretch);
         image_properties.tool_tip_text = properties
             .get(BStr::new("ToolTipText"))
             .unwrap_or(&image_properties.tool_tip_text);
-        image_properties.top =
-            build_i32_property(properties, BStr::new("Top"), image_properties.top);
+        image_properties.top = build_i32_property(properties, b"Top", image_properties.top);
         image_properties.visible =
-            build_bool_property(properties, BStr::new("Visible"), image_properties.visible);
+            build_bool_property(properties, b"Visible", image_properties.visible);
         image_properties.whats_this_help_id = build_i32_property(
             properties,
-            BStr::new("WhatsThisHelpID"),
+            b"WhatsThisHelpID",
             image_properties.whats_this_help_id,
         );
-        image_properties.width =
-            build_i32_property(properties, BStr::new("Width"), image_properties.width);
+        image_properties.width = build_i32_property(properties, b"Width", image_properties.width);
 
         Ok(image_properties)
     }

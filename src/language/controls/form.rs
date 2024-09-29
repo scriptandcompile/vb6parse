@@ -233,193 +233,106 @@ impl<'a> FormProperties<'a> {
     ) -> Result<Self, VB6ErrorKind> {
         let mut form_properties = FormProperties::default();
 
-        // TODO: We are not correctly handling property assignment for each control.
-
-        let appearance_key = BStr::new("Appearance");
-        form_properties.appearance = build_property(&properties, appearance_key);
-
-        let auto_redraw_key = BStr::new("AutoRedraw");
+        form_properties.appearance = build_property(&properties, b"Appearance");
         form_properties.auto_redraw =
-            build_bool_property(&properties, auto_redraw_key, form_properties.auto_redraw);
-
-        let backcolor_key = BStr::new("BackColor");
+            build_bool_property(&properties, b"AutoRedraw", form_properties.auto_redraw);
         form_properties.back_color =
-            build_color_property(&properties, backcolor_key, form_properties.back_color);
-
-        let border_style_key = BStr::new("BorderStyle");
-        form_properties.border_style = build_property(&properties, border_style_key);
-
-        let caption_key = BStr::new("Caption");
+            build_color_property(&properties, b"BackColor", form_properties.back_color);
+        form_properties.border_style = build_property(&properties, b"BorderStyle");
         form_properties.caption = properties
-            .get(caption_key)
+            .get(BStr::new("Caption"))
             .unwrap_or(&form_properties.caption);
-
-        let clip_control_key = BStr::new("ClipControls");
-        form_properties.clip_controls = build_property(&properties, clip_control_key);
-
-        let control_box_key = BStr::new("ControlBox");
+        form_properties.clip_controls = build_property(&properties, b"ClipControls");
         form_properties.control_box =
-            build_bool_property(&properties, control_box_key, form_properties.control_box);
-
-        let draw_mode_key = BStr::new("DrawMode");
-        form_properties.draw_mode = build_property(&properties, draw_mode_key);
-
-        let draw_style_key = BStr::new("DrawStyle");
-        form_properties.draw_style = build_property(&properties, draw_style_key);
-
-        let draw_width_key = BStr::new("DrawWidth");
+            build_bool_property(&properties, b"ControlBox", form_properties.control_box);
+        form_properties.draw_mode = build_property(&properties, b"DrawMode");
+        form_properties.draw_style = build_property(&properties, b"DrawStyle");
         form_properties.draw_width =
-            build_i32_property(&properties, draw_width_key, form_properties.draw_width);
-
-        let enabled_key = BStr::new("Enabled");
+            build_i32_property(&properties, b"DrawWidth", form_properties.draw_width);
         form_properties.enabled =
-            build_bool_property(&properties, enabled_key, form_properties.enabled);
-
-        let fill_color_key = BStr::new("FillColor");
+            build_bool_property(&properties, b"Enabled", form_properties.enabled);
         form_properties.fill_color =
-            build_color_property(&properties, fill_color_key, form_properties.fill_color);
-
-        let fill_style_key = BStr::new("FillStyle");
-        form_properties.fill_style = build_property(&properties, fill_style_key);
+            build_color_property(&properties, b"FillColor", form_properties.fill_color);
+        form_properties.fill_style = build_property(&properties, b"FillStyle");
 
         // Font - group
 
-        let font_transparent_key = BStr::new("FontTransparent");
         form_properties.font_transparent = build_bool_property(
             &properties,
-            font_transparent_key,
+            b"FontTransparent",
             form_properties.font_transparent,
         );
-
-        let fore_color_key = BStr::new("ForeColor");
         form_properties.fore_color =
-            build_color_property(&properties, fore_color_key, form_properties.fore_color);
-
-        let has_dc_key = BStr::new("HasDC");
-        form_properties.has_dc =
-            build_bool_property(&properties, has_dc_key, form_properties.has_dc);
-
-        let height_key = BStr::new("Height");
-        form_properties.height =
-            build_i32_property(&properties, height_key, form_properties.height);
-
-        let help_context_id_key = BStr::new("HelpContextID");
+            build_color_property(&properties, b"ForeColor", form_properties.fore_color);
+        form_properties.has_dc = build_bool_property(&properties, b"HasDC", form_properties.has_dc);
+        form_properties.height = build_i32_property(&properties, b"Height", form_properties.height);
         form_properties.help_context_id = build_i32_property(
             &properties,
-            help_context_id_key,
+            b"HelpContextID",
             form_properties.help_context_id,
         );
 
         // Icon
 
-        let key_preview_key = BStr::new("KeyPreview");
         form_properties.key_preview =
-            build_bool_property(&properties, key_preview_key, form_properties.key_preview);
-
-        let left_key = BStr::new("Left");
-        form_properties.left = build_i32_property(&properties, left_key, form_properties.left);
-
-        let link_mode_key = BStr::new("LinkMode");
-        form_properties.link_mode = build_property(&properties, link_mode_key);
-
-        let link_topic_key = BStr::new("LinkTopic");
+            build_bool_property(&properties, b"KeyPreview", form_properties.key_preview);
+        form_properties.left = build_i32_property(&properties, b"Left", form_properties.left);
+        form_properties.link_mode = build_property(&properties, b"LinkMode");
         form_properties.link_topic = properties
-            .get(link_topic_key)
+            .get(BStr::new("LinkTopic"))
             .unwrap_or(&form_properties.link_topic);
-
-        let max_button_key = BStr::new("MaxButton");
         form_properties.max_button =
-            build_bool_property(&properties, max_button_key, form_properties.max_button);
-
-        let mdi_child_key = BStr::new("MDIChild");
+            build_bool_property(&properties, b"MaxButton", form_properties.max_button);
         form_properties.mdi_child =
-            build_bool_property(&properties, mdi_child_key, form_properties.mdi_child);
-
-        let min_button_key = BStr::new("MinButton");
+            build_bool_property(&properties, b"MDIChild", form_properties.mdi_child);
         form_properties.min_button =
-            build_bool_property(&properties, min_button_key, form_properties.min_button);
+            build_bool_property(&properties, b"MinButton", form_properties.min_button);
 
         // MouseIcon
 
-        let mouse_pointer_key = BStr::new("MousePointer");
-        form_properties.mouse_pointer = build_property(&properties, mouse_pointer_key);
-
-        let moveable_key = BStr::new("Moveable");
+        form_properties.mouse_pointer = build_property(&properties, b"MousePointer");
         form_properties.moveable =
-            build_bool_property(&properties, moveable_key, form_properties.moveable);
-
-        let negotiate_menus_key = BStr::new("NegotiateMenus");
+            build_bool_property(&properties, b"Moveable", form_properties.moveable);
         form_properties.negotiate_menus = build_bool_property(
             &properties,
-            negotiate_menus_key,
+            b"NegotiateMenus",
             form_properties.negotiate_menus,
         );
-
-        let ole_drop_mode_key = BStr::new("OLEDropMode");
-        form_properties.ole_drop_mode = build_property(&properties, ole_drop_mode_key);
+        form_properties.ole_drop_mode = build_property(&properties, b"OLEDropMode");
 
         // Palette
 
-        let palette_mode_key = BStr::new("PaletteMode");
-        form_properties.palette_mode = build_property(&properties, palette_mode_key);
+        form_properties.palette_mode = build_property(&properties, b"PaletteMode");
 
         // Picture
 
-        let right_to_left_key = BStr::new("RightToLeft");
-        form_properties.right_to_left = build_bool_property(
-            &properties,
-            right_to_left_key,
-            form_properties.right_to_left,
-        );
-
-        let scale_height_key = BStr::new("ScaleHeight");
+        form_properties.right_to_left =
+            build_bool_property(&properties, b"RightToLeft", form_properties.right_to_left);
         form_properties.scale_height =
-            build_i32_property(&properties, scale_height_key, form_properties.scale_height);
-
-        let scale_left_key = BStr::new("ScaleLeft");
+            build_i32_property(&properties, b"ScaleHeight", form_properties.scale_height);
         form_properties.scale_left =
-            build_i32_property(&properties, scale_left_key, form_properties.scale_left);
-
-        let scale_mode_key = BStr::new("ScaleMode");
-        form_properties.scale_mode = build_property(&properties, scale_mode_key);
-
-        let scale_top_key = BStr::new("ScaleTop");
+            build_i32_property(&properties, b"ScaleLeft", form_properties.scale_left);
+        form_properties.scale_mode = build_property(&properties, b"ScaleMode");
         form_properties.scale_top =
-            build_i32_property(&properties, scale_top_key, form_properties.scale_top);
-
-        let scale_width_key = BStr::new("ScaleWidth");
+            build_i32_property(&properties, b"ScaleTop", form_properties.scale_top);
         form_properties.scale_width =
-            build_i32_property(&properties, scale_width_key, form_properties.scale_width);
-
-        let show_in_taskbar_key = BStr::new("ShowInTaskbar");
+            build_i32_property(&properties, b"ScaleWidth", form_properties.scale_width);
         form_properties.show_in_taskbar = build_bool_property(
             &properties,
-            show_in_taskbar_key,
+            b"ShowInTaskbar",
             form_properties.show_in_taskbar,
         );
-
-        let start_up_position_key = BStr::new("StartUpPosition");
-        form_properties.start_up_position = build_property(&properties, start_up_position_key);
-
-        let top_key = BStr::new("Top");
-        form_properties.top = build_i32_property(&properties, top_key, form_properties.top);
-
-        let visible_key = BStr::new("Visible");
+        form_properties.start_up_position = build_property(&properties, b"StartUpPosition");
+        form_properties.top = build_i32_property(&properties, b"Top", form_properties.top);
         form_properties.visible =
-            build_bool_property(&properties, visible_key, form_properties.visible);
-
-        let whats_this_button_key = BStr::new("WhatsThisButton");
+            build_bool_property(&properties, b"Visible", form_properties.visible);
         form_properties.whats_this_button = build_bool_property(
             &properties,
-            whats_this_button_key,
+            b"WhatsThisButton",
             form_properties.whats_this_button,
         );
-
-        let width_key = BStr::new("Width");
-        form_properties.width = build_i32_property(&properties, width_key, form_properties.width);
-
-        let window_state_key = BStr::new("WindowState");
-        form_properties.window_state = build_property(&properties, window_state_key);
+        form_properties.width = build_i32_property(&properties, b"Width", form_properties.width);
+        form_properties.window_state = build_property(&properties, b"WindowState");
 
         Ok(form_properties)
     }

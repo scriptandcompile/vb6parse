@@ -146,126 +146,82 @@ impl<'a> CommandButtonProperties<'a> {
     ) -> Result<Self, VB6ErrorKind> {
         let mut command_button_properties = CommandButtonProperties::default();
 
-        let appearance_key = BStr::new("Appearance");
-        command_button_properties.appearance = build_property(properties, appearance_key);
-
-        let back_color_key = BStr::new("BackColor");
+        command_button_properties.appearance = build_property(properties, b"Appearance");
         command_button_properties.back_color = build_color_property(
             properties,
-            back_color_key,
+            b"BackColor",
             command_button_properties.back_color,
         );
-
-        let cancel_key = BStr::new("Cancel");
         command_button_properties.cancel =
-            build_bool_property(properties, cancel_key, command_button_properties.cancel);
+            build_bool_property(properties, b"Cancel", command_button_properties.cancel);
 
-        let caption_key = BStr::new("Caption");
         command_button_properties.caption = properties
-            .get(caption_key)
+            .get(BStr::new("Caption"))
             .unwrap_or(&command_button_properties.caption);
-
-        let causes_validation_key = BStr::new("CausesValidation");
         command_button_properties.causes_validation = build_bool_property(
             properties,
-            causes_validation_key,
+            b"CausesValidation",
             command_button_properties.causes_validation,
         );
-
-        let default_key = BStr::new("Default");
         command_button_properties.default =
-            build_bool_property(properties, default_key, command_button_properties.default);
+            build_bool_property(properties, b"Default", command_button_properties.default);
 
         // disabled_picture
         // down_picture
         // drag_icon
 
-        let drag_mode_key = BStr::new("DragMode");
-        command_button_properties.drag_mode = build_property(properties, drag_mode_key);
-
-        let enabled_key = BStr::new("Enabled");
+        command_button_properties.drag_mode = build_property(properties, b"DragMode");
         command_button_properties.enabled =
-            build_bool_property(properties, enabled_key, command_button_properties.enabled);
-
-        let height_key = BStr::new("Height");
+            build_bool_property(properties, b"Enabled", command_button_properties.enabled);
         command_button_properties.height =
-            build_i32_property(properties, height_key, command_button_properties.height);
-
-        let help_context_id_key = BStr::new("HelpContextID");
+            build_i32_property(properties, b"Height", command_button_properties.height);
         command_button_properties.help_context_id = build_i32_property(
             properties,
-            help_context_id_key,
+            b"HelpContextID",
             command_button_properties.help_context_id,
         );
-
-        let left_key = BStr::new("Left");
         command_button_properties.left =
-            build_i32_property(properties, left_key, command_button_properties.left);
-
-        let mask_color_key = BStr::new("MaskColor");
+            build_i32_property(properties, b"Left", command_button_properties.left);
         command_button_properties.mask_color = build_color_property(
             properties,
-            mask_color_key,
+            b"MaskColor",
             command_button_properties.mask_color,
         );
 
         // mouse_icon
 
-        let mouse_pointer_key = BStr::new("MousePointer");
-        command_button_properties.mouse_pointer = build_property(properties, mouse_pointer_key);
-
-        let ole_drop_mode_key = BStr::new("OLEDropMode");
-        command_button_properties.ole_drop_mode = build_property(properties, ole_drop_mode_key);
+        command_button_properties.mouse_pointer = build_property(properties, b"MousePointer");
+        command_button_properties.ole_drop_mode = build_property(properties, b"OLEDropMode");
 
         // picture
 
-        let right_to_left_key = BStr::new("RightToLeft");
         command_button_properties.right_to_left = build_bool_property(
             properties,
-            right_to_left_key,
+            b"RightToLeft",
             command_button_properties.right_to_left,
         );
-
-        let style_key = BStr::new("Style");
-        command_button_properties.style = build_property(properties, style_key);
-
-        let tab_index_key = BStr::new("TabIndex");
-        command_button_properties.tab_index = build_i32_property(
-            properties,
-            tab_index_key,
-            command_button_properties.tab_index,
-        );
-
-        let tab_stop_key = BStr::new("TabStop");
+        command_button_properties.style = build_property(properties, b"Style");
+        command_button_properties.tab_index =
+            build_i32_property(properties, b"TabIndex", command_button_properties.tab_index);
         command_button_properties.tab_stop =
-            build_bool_property(properties, tab_stop_key, command_button_properties.tab_stop);
-
-        let tool_tip_text_key = BStr::new("ToolTipText");
+            build_bool_property(properties, b"TabStop", command_button_properties.tab_stop);
         command_button_properties.tool_tip_text = properties
-            .get(tool_tip_text_key)
+            .get(BStr::new("ToolTipText"))
             .unwrap_or(&command_button_properties.tool_tip_text);
-
-        let top_key = BStr::new("Top");
         command_button_properties.top =
-            build_i32_property(properties, top_key, command_button_properties.top);
-
-        let use_mask_color_key = BStr::new("UseMaskColor");
+            build_i32_property(properties, b"Top", command_button_properties.top);
         command_button_properties.use_mask_color = build_bool_property(
             properties,
-            use_mask_color_key,
+            b"UseMaskColor",
             command_button_properties.use_mask_color,
         );
-
-        let whats_this_help_key = BStr::new("WhatsThisHelp");
         command_button_properties.whats_this_help_id = build_i32_property(
             properties,
-            whats_this_help_key,
+            b"WhatsThisHelp",
             command_button_properties.whats_this_help_id,
         );
-
-        let width_key = BStr::new("Width");
         command_button_properties.width =
-            build_i32_property(properties, width_key, command_button_properties.width);
+            build_i32_property(properties, b"Width", command_button_properties.width);
 
         Ok(command_button_properties)
     }

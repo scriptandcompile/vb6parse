@@ -1,5 +1,4 @@
 use std::collections::HashMap;
-use std::hash::RandomState;
 
 use crate::errors::VB6ErrorKind;
 use crate::language::controls::{DragMode, MousePointer};
@@ -116,81 +115,64 @@ impl ScrollBarProperties {
 
         scroll_bar_properties.causes_validation = build_bool_property(
             properties,
-            BStr::new("CausesValidation"),
+            b"CausesValidation",
             scroll_bar_properties.causes_validation,
         );
 
         // DragIcon
 
-        scroll_bar_properties.drag_mode =
-            build_property::<DragMode, RandomState>(properties, BStr::new("DragMode"));
-        scroll_bar_properties.enabled = build_bool_property(
-            properties,
-            BStr::new("Enabled"),
-            scroll_bar_properties.enabled,
-        );
-        scroll_bar_properties.height = build_i32_property(
-            properties,
-            BStr::new("Height"),
-            scroll_bar_properties.height,
-        );
+        scroll_bar_properties.drag_mode = build_property(properties, b"DragMode");
+        scroll_bar_properties.enabled =
+            build_bool_property(properties, b"Enabled", scroll_bar_properties.enabled);
+        scroll_bar_properties.height =
+            build_i32_property(properties, b"Height", scroll_bar_properties.height);
         scroll_bar_properties.help_context_id = build_i32_property(
             properties,
-            BStr::new("HelpContextID"),
+            b"HelpContextID",
             scroll_bar_properties.help_context_id,
         );
         scroll_bar_properties.large_change = build_i32_property(
             properties,
-            BStr::new("LargeChange"),
+            b"LargeChange",
             scroll_bar_properties.large_change,
         );
         scroll_bar_properties.left =
-            build_i32_property(properties, BStr::new("Left"), scroll_bar_properties.left);
+            build_i32_property(properties, b"Left", scroll_bar_properties.left);
         scroll_bar_properties.max =
-            build_i32_property(properties, BStr::new("Max"), scroll_bar_properties.max);
+            build_i32_property(properties, b"Max", scroll_bar_properties.max);
         scroll_bar_properties.min =
-            build_i32_property(properties, BStr::new("Min"), scroll_bar_properties.min);
+            build_i32_property(properties, b"Min", scroll_bar_properties.min);
 
         // MouseIcon
 
-        scroll_bar_properties.mouse_pointer =
-            build_property::<MousePointer, RandomState>(properties, BStr::new("MousePointer"));
+        scroll_bar_properties.mouse_pointer = build_property(properties, b"MousePointer");
         scroll_bar_properties.right_to_left = build_bool_property(
             properties,
-            BStr::new("RightToLeft"),
+            b"RightToLeft",
             scroll_bar_properties.right_to_left,
         );
         scroll_bar_properties.small_change = build_i32_property(
             properties,
-            BStr::new("SmallChange"),
+            b"SmallChange",
             scroll_bar_properties.small_change,
         );
-        scroll_bar_properties.tab_index = build_i32_property(
-            properties,
-            BStr::new("TabIndex"),
-            scroll_bar_properties.tab_index,
-        );
-        scroll_bar_properties.tab_stop = build_bool_property(
-            properties,
-            BStr::new("TabStop"),
-            scroll_bar_properties.tab_stop,
-        );
+        scroll_bar_properties.tab_index =
+            build_i32_property(properties, b"TabIndex", scroll_bar_properties.tab_index);
+        scroll_bar_properties.tab_stop =
+            build_bool_property(properties, b"TabStop", scroll_bar_properties.tab_stop);
         scroll_bar_properties.top =
-            build_i32_property(properties, BStr::new("Top"), scroll_bar_properties.top);
+            build_i32_property(properties, b"Top", scroll_bar_properties.top);
         scroll_bar_properties.value =
-            build_i32_property(properties, BStr::new("Value"), scroll_bar_properties.value);
-        scroll_bar_properties.visible = build_bool_property(
-            properties,
-            BStr::new("Visible"),
-            scroll_bar_properties.visible,
-        );
+            build_i32_property(properties, b"Value", scroll_bar_properties.value);
+        scroll_bar_properties.visible =
+            build_bool_property(properties, b"Visible", scroll_bar_properties.visible);
         scroll_bar_properties.whats_this_help_id = build_i32_property(
             properties,
-            BStr::new("WhatsThisHelpID"),
+            b"WhatsThisHelpID",
             scroll_bar_properties.whats_this_help_id,
         );
         scroll_bar_properties.width =
-            build_i32_property(properties, BStr::new("Width"), scroll_bar_properties.width);
+            build_i32_property(properties, b"Width", scroll_bar_properties.width);
 
         Ok(scroll_bar_properties)
     }

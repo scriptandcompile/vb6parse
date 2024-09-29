@@ -116,79 +116,52 @@ impl<'a> DirListBoxProperties<'a> {
     ) -> Result<Self, VB6ErrorKind> {
         let mut dir_list_box_properties = DirListBoxProperties::default();
 
-        dir_list_box_properties.appearance = build_property(properties, BStr::new("Appearance"));
-        dir_list_box_properties.back_color = build_color_property(
-            properties,
-            BStr::new("BackColor"),
-            dir_list_box_properties.back_color,
-        );
+        dir_list_box_properties.appearance = build_property(properties, b"Appearance");
+        dir_list_box_properties.back_color =
+            build_color_property(properties, b"BackColor", dir_list_box_properties.back_color);
         dir_list_box_properties.causes_validation = build_bool_property(
             properties,
-            BStr::new("CausesValidation"),
+            b"CausesValidation",
             dir_list_box_properties.causes_validation,
         );
 
         // DragIcon
 
-        dir_list_box_properties.drag_mode = build_property(properties, BStr::new("DragMode"));
-        dir_list_box_properties.enabled = build_bool_property(
-            properties,
-            BStr::new("Enabled"),
-            dir_list_box_properties.enabled,
-        );
-        dir_list_box_properties.fore_color = build_color_property(
-            properties,
-            BStr::new("ForeColor"),
-            dir_list_box_properties.fore_color,
-        );
-        dir_list_box_properties.height = build_i32_property(
-            properties,
-            BStr::new("Height"),
-            dir_list_box_properties.height,
-        );
+        dir_list_box_properties.drag_mode = build_property(properties, b"DragMode");
+        dir_list_box_properties.enabled =
+            build_bool_property(properties, b"Enabled", dir_list_box_properties.enabled);
+        dir_list_box_properties.fore_color =
+            build_color_property(properties, b"ForeColor", dir_list_box_properties.fore_color);
+        dir_list_box_properties.height =
+            build_i32_property(properties, b"Height", dir_list_box_properties.height);
         dir_list_box_properties.help_context_id = build_i32_property(
             properties,
-            BStr::new("HelpContextID"),
+            b"HelpContextID",
             dir_list_box_properties.help_context_id,
         );
         dir_list_box_properties.left =
-            build_i32_property(properties, BStr::new("Left"), dir_list_box_properties.left);
-        dir_list_box_properties.mouse_pointer =
-            build_property(properties, BStr::new("MousePointer"));
-        dir_list_box_properties.ole_drag_mode =
-            build_property(properties, BStr::new("OLEDragMode"));
-        dir_list_box_properties.ole_drop_mode =
-            build_property(properties, BStr::new("OLEDropMode"));
-        dir_list_box_properties.tab_index = build_i32_property(
-            properties,
-            BStr::new("TabIndex"),
-            dir_list_box_properties.tab_index,
-        );
-        dir_list_box_properties.tab_stop = build_bool_property(
-            properties,
-            BStr::new("TabStop"),
-            dir_list_box_properties.tab_stop,
-        );
+            build_i32_property(properties, b"Left", dir_list_box_properties.left);
+        dir_list_box_properties.mouse_pointer = build_property(properties, b"MousePointer");
+        dir_list_box_properties.ole_drag_mode = build_property(properties, b"OLEDragMode");
+        dir_list_box_properties.ole_drop_mode = build_property(properties, b"OLEDropMode");
+        dir_list_box_properties.tab_index =
+            build_i32_property(properties, b"TabIndex", dir_list_box_properties.tab_index);
+        dir_list_box_properties.tab_stop =
+            build_bool_property(properties, b"TabStop", dir_list_box_properties.tab_stop);
         dir_list_box_properties.tool_tip_text = properties
             .get(BStr::new("ToolTipText"))
             .unwrap_or(&BStr::new(""));
         dir_list_box_properties.top =
-            build_i32_property(properties, BStr::new("Top"), dir_list_box_properties.top);
-        dir_list_box_properties.visible = build_bool_property(
-            properties,
-            BStr::new("Visible"),
-            dir_list_box_properties.visible,
-        );
+            build_i32_property(properties, b"Top", dir_list_box_properties.top);
+        dir_list_box_properties.visible =
+            build_bool_property(properties, b"Visible", dir_list_box_properties.visible);
         dir_list_box_properties.whats_this_help_id = build_i32_property(
             properties,
-            BStr::new("WhatsThisHelpID"),
+            b"WhatsThisHelpID",
             dir_list_box_properties.whats_this_help_id,
         );
-        dir_list_box_properties.width = build_i32_property(
-            properties,
-            BStr::new("Width"),
-            dir_list_box_properties.width,
-        );
+        dir_list_box_properties.width =
+            build_i32_property(properties, b"Width", dir_list_box_properties.width);
 
         Ok(dir_list_box_properties)
     }

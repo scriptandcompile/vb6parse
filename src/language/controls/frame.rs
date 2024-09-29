@@ -125,92 +125,51 @@ impl<'a> FrameProperties<'a> {
 
         let mut frame_properties = FrameProperties::default();
 
-        let appearance_key = BStr::new("Appearance");
-        frame_properties.appearance = build_property(properties, appearance_key);
-
-        let back_color_key = BStr::new("BackColor");
+        frame_properties.appearance = build_property(properties, b"Appearance");
         frame_properties.back_color =
-            build_color_property(properties, back_color_key, frame_properties.back_color);
+            build_color_property(properties, b"BackColor", frame_properties.back_color);
+        frame_properties.border_style = build_property(properties, b"BorderStyle");
+        frame_properties.caption = properties
+            .get(BStr::new("Caption"))
+            .unwrap_or(&frame_properties.caption);
+        frame_properties.clip_controls = build_property(properties, b"ClipControls");
 
-        let border_style_key = BStr::new("BorderStyle");
-        frame_properties.border_style = build_property(properties, border_style_key);
+        // drag_icon
 
-        let caption_key = BStr::new("Caption");
-        if properties.contains_key(caption_key) {
-            frame_properties.caption = properties[caption_key];
-        }
-
-        let clip_control_key = BStr::new("ClipControls");
-        frame_properties.clip_controls = build_property(properties, clip_control_key);
-
-        // TODO: Implement loading drag_icon picture loading.
-
-        let drag_mode_key = BStr::new("DragMode");
-        frame_properties.drag_mode = build_property(properties, drag_mode_key);
-
-        let enabled_key = BStr::new("Enabled");
+        frame_properties.drag_mode = build_property(properties, b"DragMode");
         frame_properties.enabled =
-            build_bool_property(properties, enabled_key, frame_properties.enabled);
-
-        let fore_color_key = BStr::new("ForeColor");
+            build_bool_property(properties, b"Enabled", frame_properties.enabled);
         frame_properties.fore_color =
-            build_color_property(properties, fore_color_key, frame_properties.fore_color);
-
-        let height_key = BStr::new("Height");
+            build_color_property(properties, b"ForeColor", frame_properties.fore_color);
         frame_properties.height =
-            build_i32_property(properties, height_key, frame_properties.height);
-
-        let help_context_id_key = BStr::new("HelpContextID");
+            build_i32_property(properties, b"Height", frame_properties.height);
         frame_properties.help_context_id = build_i32_property(
             properties,
-            help_context_id_key,
+            b"HelpContextID",
             frame_properties.help_context_id,
         );
+        frame_properties.left = build_i32_property(properties, b"Left", frame_properties.left);
 
-        let left_key = BStr::new("Left");
-        frame_properties.left = build_i32_property(properties, left_key, frame_properties.left);
+        // Implement mouse_icon
 
-        // TODO: Implement mouse_icon picture loading.
-
-        let mouse_pointer_key = BStr::new("MousePointer");
-        frame_properties.mouse_pointer = build_property(properties, mouse_pointer_key);
-
-        let ole_drop_mode_key = BStr::new("OLEDropMode");
-        frame_properties.ole_drop_mode = build_property(properties, ole_drop_mode_key);
-
-        let right_to_left_key = BStr::new("RightToLeft");
-        frame_properties.right_to_left = build_bool_property(
-            properties,
-            right_to_left_key,
-            frame_properties.right_to_left,
-        );
-
-        let tab_index_key = BStr::new("TabIndex");
+        frame_properties.mouse_pointer = build_property(properties, b"MousePointer");
+        frame_properties.ole_drop_mode = build_property(properties, b"OLEDropMode");
+        frame_properties.right_to_left =
+            build_bool_property(properties, b"RightToLeft", frame_properties.right_to_left);
         frame_properties.tab_index =
-            build_i32_property(properties, tab_index_key, frame_properties.tab_index);
-
-        let tooltiptext_key = BStr::new("ToolTipText");
-        if properties.contains_key(tooltiptext_key) {
-            frame_properties.tool_tip_text = properties[tooltiptext_key];
-        }
-
-        let top_property_key = BStr::new("Top");
-        frame_properties.top =
-            build_i32_property(properties, top_property_key, frame_properties.top);
-
-        let visible_key = BStr::new("Visible");
+            build_i32_property(properties, b"TabIndex", frame_properties.tab_index);
+        frame_properties.tool_tip_text = properties
+            .get(BStr::new("ToolTipText"))
+            .unwrap_or(&frame_properties.tool_tip_text);
+        frame_properties.top = build_i32_property(properties, b"Top", frame_properties.top);
         frame_properties.visible =
-            build_bool_property(properties, visible_key, frame_properties.visible);
-
-        let whats_this_help_key = BStr::new("WhatsThisHelp");
+            build_bool_property(properties, b"Visible", frame_properties.visible);
         frame_properties.whats_this_help_id = build_i32_property(
             properties,
-            whats_this_help_key,
+            b"WhatsThisHelp",
             frame_properties.whats_this_help_id,
         );
-
-        let width_key = BStr::new("Width");
-        frame_properties.width = build_i32_property(properties, width_key, frame_properties.width);
+        frame_properties.width = build_i32_property(properties, b"Width", frame_properties.width);
 
         Ok(frame_properties)
     }

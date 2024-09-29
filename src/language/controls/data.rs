@@ -147,90 +147,64 @@ impl<'a> DataProperties<'a> {
     ) -> Result<Self, VB6ErrorKind> {
         let mut data_properties = DataProperties::default();
 
-        data_properties.align = build_property(properties, BStr::new("Align"));
-        data_properties.appearance = build_property(properties, BStr::new("Appearance"));
-        data_properties.back_color = build_color_property(
-            properties,
-            BStr::new("BackColor"),
-            data_properties.back_color,
-        );
-        data_properties.bof_action = build_property(properties, BStr::new("BOFAction"));
-
-        let caption_key = BStr::new("Caption");
+        data_properties.align = build_property(properties, b"Align");
+        data_properties.appearance = build_property(properties, b"Appearance");
+        data_properties.back_color =
+            build_color_property(properties, b"BackColor", data_properties.back_color);
+        data_properties.bof_action = build_property(properties, b"BOFAction");
         data_properties.caption = properties
-            .get(caption_key)
+            .get(BStr::new("Caption"))
             .unwrap_or(&data_properties.caption);
-
         data_properties.connection = properties
             .get(BStr::new("Connection"))
             .map_or(Ok(Connection::Access), |v| {
                 Connection::try_from(v.to_str().unwrap_or("Access"))
             })
             .unwrap();
-
-        let database_name_key = BStr::new("DatabaseName");
         data_properties.database_name = properties
-            .get(database_name_key)
+            .get(BStr::new("DatabaseName"))
             .unwrap_or(&data_properties.database_name);
-
-        data_properties.default_cursor_type =
-            build_property(properties, BStr::new("DefaultCursorType"));
-
-        data_properties.default_type = build_property(properties, BStr::new("DefaultType"));
+        data_properties.default_cursor_type = build_property(properties, b"DefaultCursorType");
+        data_properties.default_type = build_property(properties, b"DefaultType");
 
         // DragIcon
 
-        data_properties.drag_mode = build_property(properties, BStr::new("DragMode"));
+        data_properties.drag_mode = build_property(properties, b"DragMode");
         data_properties.enabled =
-            build_bool_property(properties, BStr::new("Enabled"), data_properties.enabled);
-        data_properties.eof_action = build_property(properties, BStr::new("EOFAction"));
-        data_properties.exclusive = build_bool_property(
-            properties,
-            BStr::new("Exclusive"),
-            data_properties.exclusive,
-        );
-        data_properties.fore_color = build_color_property(
-            properties,
-            BStr::new("ForeColor"),
-            data_properties.fore_color,
-        );
-        data_properties.height =
-            build_i32_property(properties, BStr::new("Height"), data_properties.height);
-        data_properties.left =
-            build_i32_property(properties, BStr::new("Left"), data_properties.left);
-        data_properties.mouse_pointer = build_property(properties, BStr::new("MousePointer"));
-        data_properties.negotitate = build_bool_property(
-            properties,
-            BStr::new("Negotitate"),
-            data_properties.negotitate,
-        );
-        data_properties.ole_drop_mode = build_property(properties, BStr::new("OLEDropMode"));
+            build_bool_property(properties, b"Enabled", data_properties.enabled);
+        data_properties.eof_action = build_property(properties, b"EOFAction");
+        data_properties.exclusive =
+            build_bool_property(properties, b"Exclusive", data_properties.exclusive);
+        data_properties.fore_color =
+            build_color_property(properties, b"ForeColor", data_properties.fore_color);
+        data_properties.height = build_i32_property(properties, b"Height", data_properties.height);
+        data_properties.left = build_i32_property(properties, b"Left", data_properties.left);
+        data_properties.mouse_pointer = build_property(properties, b"MousePointer");
+        data_properties.negotitate =
+            build_bool_property(properties, b"Negotitate", data_properties.negotitate);
+        data_properties.ole_drop_mode = build_property(properties, b"OLEDropMode");
         data_properties.options =
-            build_i32_property(properties, BStr::new("Options"), data_properties.options);
+            build_i32_property(properties, b"Options", data_properties.options);
         data_properties.read_only =
-            build_bool_property(properties, BStr::new("ReadOnly"), data_properties.read_only);
-        data_properties.record_set_type = build_property(properties, BStr::new("RecordsetType"));
+            build_bool_property(properties, b"ReadOnly", data_properties.read_only);
+        data_properties.record_set_type = build_property(properties, b"RecordsetType");
         data_properties.record_source = properties
             .get(BStr::new("RecordSource"))
             .unwrap_or(&data_properties.record_source);
-        data_properties.right_to_left = build_bool_property(
-            properties,
-            BStr::new("RightToLeft"),
-            data_properties.right_to_left,
-        );
+        data_properties.right_to_left =
+            build_bool_property(properties, b"RightToLeft", data_properties.right_to_left);
         data_properties.tool_tip_text = properties
             .get(BStr::new("ToolTipText"))
             .unwrap_or(&data_properties.tool_tip_text);
-        data_properties.top = build_i32_property(properties, BStr::new("Top"), data_properties.top);
+        data_properties.top = build_i32_property(properties, b"Top", data_properties.top);
         data_properties.visible =
-            build_bool_property(properties, BStr::new("Visible"), data_properties.visible);
+            build_bool_property(properties, b"Visible", data_properties.visible);
         data_properties.whats_this_help_id = build_i32_property(
             properties,
-            BStr::new("WhatsThisHelpID"),
+            b"WhatsThisHelpID",
             data_properties.whats_this_help_id,
         );
-        data_properties.width =
-            build_i32_property(properties, BStr::new("Width"), data_properties.width);
+        data_properties.width = build_i32_property(properties, b"Width", data_properties.width);
 
         Ok(data_properties)
     }
