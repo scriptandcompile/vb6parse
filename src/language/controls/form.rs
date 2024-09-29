@@ -4,9 +4,9 @@ use crate::errors::VB6ErrorKind;
 use crate::language::{
     controls::{
         Appearance, ClipControls, DrawMode, DrawStyle, FillStyle, MousePointer, OLEDropMode,
-        ScaleMode,
+        ScaleMode, StartUpPosition, WindowState,
     },
-    VB6Color,
+    FormLinkMode, VB6Color,
 };
 use crate::parsers::form::{
     build_bool_property, build_color_property, build_i32_property, build_property, VB6PropertyGroup,
@@ -19,29 +19,11 @@ use serde::Serialize;
 
 #[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
-pub enum FormLinkMode {
-    #[default]
-    None = 0,
-    Source = 1,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
-#[repr(i32)]
 pub enum PaletteMode {
     #[default]
     HalfTone = 0,
     UseZOrder = 1,
     Custom = 2,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
-#[repr(i32)]
-pub enum StartUpPosition {
-    Manual = 0,
-    CenterOwner = 1,
-    CenterScreen = 2,
-    #[default]
-    WindowsDefault = 3,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
@@ -54,15 +36,6 @@ pub enum FormBorderStyle {
     FixedDialog = 3,
     FixedToolWindow = 4,
     SizableToolWindow = 5,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
-#[repr(i32)]
-pub enum WindowState {
-    #[default]
-    Normal = 0,
-    Minimized = 1,
-    Maximized = 2,
 }
 
 /// Properties for a `Form` control.
@@ -176,7 +149,7 @@ impl Serialize for FormProperties<'_> {
         state.serialize_field("palette", &option_text)?;
         state.serialize_field("palette_mode", &self.palette_mode)?;
 
-        let option_text = self.palette.as_ref().map(|_| "Some(DynamicImage)");
+        let option_text = self.picture.as_ref().map(|_| "Some(DynamicImage)");
 
         state.serialize_field("picture", &option_text)?;
         state.serialize_field("right_to_left", &self.right_to_left)?;

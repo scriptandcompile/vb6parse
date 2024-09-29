@@ -11,6 +11,7 @@ pub mod image;
 pub mod label;
 pub mod line;
 pub mod listbox;
+pub mod mdiform;
 pub mod menus;
 pub mod ole;
 pub mod optionbutton;
@@ -28,29 +29,57 @@ use serde::Serialize;
 
 use crate::parsers::form::VB6PropertyGroup;
 
-use crate::language::{
-    controls::checkbox::CheckBoxProperties,
-    controls::combobox::ComboBoxProperties,
-    controls::commandbutton::CommandButtonProperties,
-    controls::data::DataProperties,
-    controls::dirlistbox::DirListBoxProperties,
-    controls::drivelistbox::DriveListBoxProperties,
-    controls::filelistbox::FileListBoxProperties,
-    controls::form::FormProperties,
-    controls::frame::FrameProperties,
-    controls::image::ImageProperties,
-    controls::label::LabelProperties,
-    controls::line::LineProperties,
-    controls::listbox::ListBoxProperties,
-    controls::menus::{MenuProperties, VB6MenuControl},
-    controls::ole::OLEProperties,
-    controls::optionbutton::OptionButtonProperties,
-    controls::picturebox::PictureBoxProperties,
-    controls::scrollbars::ScrollBarProperties,
-    controls::shape::ShapeProperties,
-    controls::textbox::TextBoxProperties,
-    controls::timer::TimerProperties,
+use crate::language::controls::{
+    checkbox::CheckBoxProperties,
+    combobox::ComboBoxProperties,
+    commandbutton::CommandButtonProperties,
+    data::DataProperties,
+    dirlistbox::DirListBoxProperties,
+    drivelistbox::DriveListBoxProperties,
+    filelistbox::FileListBoxProperties,
+    form::FormProperties,
+    frame::FrameProperties,
+    image::ImageProperties,
+    label::LabelProperties,
+    line::LineProperties,
+    listbox::ListBoxProperties,
+    mdiform::MDIFormProperties,
+    menus::{MenuProperties, VB6MenuControl},
+    ole::OLEProperties,
+    optionbutton::OptionButtonProperties,
+    picturebox::PictureBoxProperties,
+    scrollbars::ScrollBarProperties,
+    shape::ShapeProperties,
+    textbox::TextBoxProperties,
+    timer::TimerProperties,
 };
+
+#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
+pub enum FormLinkMode {
+    #[default]
+    None = 0,
+    Source = 1,
+}
+
+#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
+pub enum WindowState {
+    #[default]
+    Normal = 0,
+    Minimized = 1,
+    Maximized = 2,
+}
+
+#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
+pub enum StartUpPosition {
+    Manual = 0,
+    CenterOwner = 1,
+    CenterScreen = 2,
+    #[default]
+    WindowsDefault = 3,
+}
 
 /// Represents a VB6 control.
 #[derive(Debug, PartialEq, Clone, Serialize)]
@@ -133,6 +162,11 @@ pub enum VB6ControlKind<'a> {
     },
     Form {
         properties: FormProperties<'a>,
+        controls: Vec<VB6Control<'a>>,
+        menus: Vec<VB6MenuControl<'a>>,
+    },
+    MDIForm {
+        properties: MDIFormProperties<'a>,
         controls: Vec<VB6Control<'a>>,
         menus: Vec<VB6MenuControl<'a>>,
     },
