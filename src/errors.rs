@@ -195,8 +195,8 @@ pub enum VB6ErrorKind {
     #[error("Error parsing header")]
     Header,
 
-    #[error("No class name in the class file")]
-    MissingClassName,
+    #[error("No name in the attribute section of the VB6 file")]
+    MissingNameAttribute,
 
     #[error("Keyword not found")]
     KeywordNotFound,

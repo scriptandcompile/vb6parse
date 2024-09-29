@@ -1,13 +1,8 @@
+use std::collections::HashMap;
+
 use bstr::{BStr, ByteSlice};
-
+use serde::Serialize;
 use uuid::Uuid;
-
-use crate::{
-    errors::VB6ErrorKind,
-    parsers::{VB6ObjectReference, VB6Stream},
-    vb6::{keyword_parse, line_comment_parse, string_parse, take_until_line_ending, VB6Result},
-};
-
 use winnow::{
     ascii::{digit1, line_ending, space0, space1},
     combinator::{alt, eof, opt},
@@ -15,6 +10,12 @@ use winnow::{
     stream::Stream,
     token::{literal, take_till, take_until, take_while},
     Parser,
+};
+
+use crate::{
+    errors::VB6ErrorKind,
+    parsers::{VB6ObjectReference, VB6Stream},
+    vb6::{keyword_parse, line_comment_parse, string_parse, take_until_line_ending, VB6Result},
 };
 
 /// Represents a VB6 file format version.
@@ -29,6 +30,130 @@ pub enum HeaderKind {
     Class,
     Form,
     //UserControl,
+}
+
+/// Represents if a class is in the global or local name space.
+///
+/// The global name space is the default name space for a class.
+/// In the file, `VB_GlobalNameSpace` of 'False' means the class is in the local name space.
+/// `VB_GlobalNameSpace` of 'True' means the class is in the global name space.
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+pub enum NameSpace {
+    Global,
+    Local,
+}
+
+/// The creatable attribute is used to determine if the class can be created.
+///
+/// If True, the class can be created from anywhere. The class is essentially public.
+/// If False, the class can only be created from within the class itself.
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+pub enum Creatable {
+    False,
+    True,
+}
+
+/// Used to determine if the class has a pre-declared ID.
+///
+/// If True, the class has a pre-declared ID and can be accessed by
+/// the class name without creating an instance of the class.
+///
+/// If False, the class does not have a pre-declared ID and must be
+/// accessed by creating an instance of the class.
+///
+/// If True and the `VB_GlobalNameSpace` is True, the class shares namespace
+/// access semantics with the VB6 intrinsic classes.
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+pub enum PreDeclaredID {
+    False,
+    True,
+}
+
+/// Used to determine if the class is exposed.
+///
+/// The `VB_Exposed` attribute is not normally visible in the code editor region.
+///
+/// ----------------------------------------------------------------------------
+///
+/// True is public and False is internal.
+/// Used in combination with the Creatable attribute to create a matrix of
+/// scoping behavior.
+///
+/// ----------------------------------------------------------------------------
+///
+/// Private (Default).
+///
+/// `VB_Exposed` = False and `VB_Creatable` = False.
+/// The class is accessible only within the enclosing project.
+///
+/// Instances of the class can only be created by modules contained within the
+/// project that defines the class.
+///
+/// ----------------------------------------------------------------------------
+///
+/// Public Not Creatable.
+///
+/// `VB_Exposed` = True and `VB_Creatable` = False.
+/// The class is accessible within the enclosing project and within projects
+/// that reference the enclosing project.
+///
+/// Instances of the class can only be created by modules within the enclosing
+/// project. Modules in other projects can reference the class name as a
+/// declared type but can’t instantiate the class using new or the
+/// `CreateObject` function.
+///
+/// ----------------------------------------------------------------------------
+///
+/// Public Creatable.
+///
+/// `VB_Exposed` = True and `VB_Creatable` = True.
+/// The class is accessible within the enclosing project and within the
+/// enclosing project and within projects that reference the enclosing project.
+///
+/// Any module that can access the class can create instances of it.
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+pub enum Exposed {
+    False,
+    True,
+}
+
+/// Represents the attributes of a VB6 file file.
+/// The attributes contain the name, global name space, creatable, pre-declared id, and exposed.
+///
+/// None of these values are normally visible in the code editor region.
+/// They are only visible in the file property explorer.
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+pub struct VB6FileAttributes<'a> {
+    pub name: &'a BStr,                       // Attribute VB_Name = "Organism"
+    pub global_name_space: NameSpace,         // (True/False) Attribute VB_GlobalNameSpace = False
+    pub creatable: Creatable,                 // (True/False) Attribute VB_Creatable = True
+    pub pre_declared_id: PreDeclaredID,       // (True/False) Attribute VB_PredeclaredId = False
+    pub exposed: Exposed,                     // (True/False) Attribute VB_Exposed = False
+    pub description: Option<&'a BStr>,        // Attribute VB_Description = "Description"
+    pub ext_key: HashMap<&'a BStr, &'a BStr>, // Additional attributes
+}
+
+impl Default for VB6FileAttributes<'_> {
+    fn default() -> Self {
+        VB6FileAttributes {
+            name: BStr::new(""),
+            global_name_space: NameSpace::Local,
+            creatable: Creatable::True,
+            pre_declared_id: PreDeclaredID::False,
+            exposed: Exposed::False,
+            description: None,
+            ext_key: HashMap::new(),
+        }
+    }
+}
+enum Attributes {
+    Name,
+    GlobalNameSpace,
+    Creatable,
+    PredeclaredId,
+    Exposed,
+    Description,
+    ExtKey,
 }
 
 pub fn version_parse<'a>(
@@ -172,6 +297,169 @@ pub fn object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ObjectReferen
     Ok(object)
 }
 
+pub fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FileAttributes<'a>> {
+    let _ = space0::<_, VB6ErrorKind>.parse_next(input);
+
+    let mut name = None;
+    let mut global_name_space = NameSpace::Local;
+    let mut creatable = Creatable::True;
+    let mut pre_declared_id = PreDeclaredID::False;
+    let mut exposed = Exposed::False;
+    let mut description = None;
+    let mut ext_key = HashMap::new();
+
+    while (space0, keyword_parse("Attribute"), space0)
+        .parse_next(input)
+        .is_ok()
+    {
+        space0.parse_next(input)?;
+
+        let Ok(key) = alt((
+            keyword_parse("VB_Name").map(|_| Attributes::Name),
+            keyword_parse("VB_GlobalNameSpace").map(|_| Attributes::GlobalNameSpace),
+            keyword_parse("VB_Creatable").map(|_| Attributes::Creatable),
+            keyword_parse("VB_PredeclaredId").map(|_| Attributes::PredeclaredId),
+            keyword_parse("VB_Exposed").map(|_| Attributes::Exposed),
+            keyword_parse("VB_Description").map(|_| Attributes::Description),
+            keyword_parse("VB_Ext_KEY").map(|_| Attributes::ExtKey),
+        ))
+        .parse_next(input) else {
+            return Err(ErrMode::Cut(VB6ErrorKind::UnknownAttribute));
+        };
+
+        let _ = (space0, "=", space0).parse_next(input)?;
+
+        match key {
+            Attributes::Name => {
+                name = match string_parse.parse_next(input) {
+                    Ok(name) => Some(name),
+                    Err(_) => return Err(ErrMode::Cut(VB6ErrorKind::StringParseError)),
+                };
+
+                space0.parse_next(input)?;
+                alt((line_comment_parse, line_ending, eof)).parse_next(input)?;
+
+                continue;
+            }
+            Attributes::Description => {
+                description = match string_parse.parse_next(input) {
+                    Ok(description) => Some(description),
+                    Err(_) => return Err(ErrMode::Cut(VB6ErrorKind::StringParseError)),
+                };
+
+                space0.parse_next(input)?;
+                alt((line_comment_parse, line_ending, eof)).parse_next(input)?;
+
+                continue;
+            }
+            Attributes::GlobalNameSpace => {
+                global_name_space = match alt((
+                    literal::<_, _, VB6ErrorKind>("True").map(|_| NameSpace::Global),
+                    literal::<_, _, VB6ErrorKind>("False").map(|_| NameSpace::Local),
+                ))
+                .parse_next(input)
+                {
+                    Ok(global_name_space) => global_name_space,
+                    Err(_) => {
+                        return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueTrueFalse))
+                    }
+                };
+
+                space0.parse_next(input)?;
+                alt((line_comment_parse, line_ending, eof)).parse_next(input)?;
+
+                continue;
+            }
+            Attributes::Creatable => {
+                creatable = match alt((
+                    literal::<_, _, VB6ErrorKind>("True").map(|_| Creatable::True),
+                    literal::<_, _, VB6ErrorKind>("False").map(|_| Creatable::False),
+                ))
+                .parse_next(input)
+                {
+                    Ok(creatable) => creatable,
+                    Err(_) => {
+                        return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueTrueFalse))
+                    }
+                };
+
+                space0.parse_next(input)?;
+                alt((line_comment_parse, line_ending, eof)).parse_next(input)?;
+
+                continue;
+            }
+            Attributes::PredeclaredId => {
+                pre_declared_id = match alt((
+                    literal::<_, _, VB6ErrorKind>("True").map(|_| PreDeclaredID::True),
+                    literal::<_, _, VB6ErrorKind>("False").map(|_| PreDeclaredID::False),
+                ))
+                .parse_next(input)
+                {
+                    Ok(pre_declared_id) => pre_declared_id,
+                    Err(_) => {
+                        return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueTrueFalse))
+                    }
+                };
+
+                space0.parse_next(input)?;
+                alt((line_comment_parse, line_ending, eof)).parse_next(input)?;
+
+                continue;
+            }
+            Attributes::Exposed => {
+                exposed = match alt((
+                    literal::<_, _, VB6ErrorKind>("True").map(|_| Exposed::True),
+                    literal::<_, _, VB6ErrorKind>("False").map(|_| Exposed::False),
+                ))
+                .parse_next(input)
+                {
+                    Ok(exposed) => exposed,
+                    Err(_) => {
+                        return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueTrueFalse))
+                    }
+                };
+
+                space0.parse_next(input)?;
+                alt((line_comment_parse, line_ending, eof)).parse_next(input)?;
+
+                continue;
+            }
+            Attributes::ExtKey => {
+                let Ok(key) = string_parse.parse_next(input) else {
+                    return Err(ErrMode::Cut(VB6ErrorKind::StringParseError));
+                };
+
+                (space0, ",", space0).parse_next(input)?;
+
+                let Ok(value) = string_parse.parse_next(input) else {
+                    return Err(ErrMode::Cut(VB6ErrorKind::StringParseError));
+                };
+
+                ext_key.insert(key, value);
+
+                space0.parse_next(input)?;
+                alt((line_comment_parse, line_ending, eof)).parse_next(input)?;
+
+                continue;
+            }
+        }
+    }
+
+    if name.is_none() {
+        return Err(ErrMode::Cut(VB6ErrorKind::MissingNameAttribute));
+    }
+
+    Ok(VB6FileAttributes {
+        name: name.unwrap(),
+        global_name_space,
+        creatable,
+        pre_declared_id,
+        exposed,
+        description,
+        ext_key,
+    })
+}
+
 pub fn key_value_parse<'a>(
     divider: &'static str,
 ) -> impl FnMut(&mut VB6Stream<'a>) -> VB6Result<(&'a BStr, &'a BStr)> {
@@ -282,14 +570,12 @@ pub fn key_resource_offset_line_parse<'a>(
         }
     };
 
-    space0.parse_next(input)?;
+    (space0, opt(line_comment_parse)).parse_next(input)?;
 
     // we have to check for eof here because it's perfectly possible to have a
     // header file that is empty of actual code. This means the last line of the file
     // should be an empty line, but it might be that the filed ends at the end of the
     // header attribute section.
-    opt(line_comment_parse).parse_next(input)?;
-
     if alt((line_ending::<_, VB6ErrorKind>, eof))
         .parse_next(input)
         .is_err()
@@ -363,8 +649,9 @@ mod tests {
     fn test_key_resource_offset_line_parse() {
         let input_line = b"      Picture         =   \"Brightness.frx\":0000\r\n";
         let mut stream = VB6Stream::new("", input_line);
-        let (key, resource_file_name, offset) =
-            key_resource_offset_line_parse.parse_next(&mut stream).unwrap();
+        let (key, resource_file_name, offset) = key_resource_offset_line_parse
+            .parse_next(&mut stream)
+            .unwrap();
 
         assert_eq!(key, "Picture".as_bytes());
         assert_eq!(resource_file_name, "Brightness.frx".as_bytes());
@@ -375,8 +662,9 @@ mod tests {
     fn test_key_resource_offset_line_with_comment_parse() {
         let input_line = b"      Picture         =   \"Brightness.frx\":0000 'comment\r\n";
         let mut stream = VB6Stream::new("", input_line);
-        let (key, resource_file_name, offset) =
-            key_resource_offset_line_parse.parse_next(&mut stream).unwrap();
+        let (key, resource_file_name, offset) = key_resource_offset_line_parse
+            .parse_next(&mut stream)
+            .unwrap();
 
         assert_eq!(key, "Picture".as_bytes());
         assert_eq!(resource_file_name, "Brightness.frx".as_bytes());
