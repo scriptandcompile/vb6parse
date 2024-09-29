@@ -758,7 +758,6 @@ mod tests {
     }
 
     #[test]
-    #[ignore]
     fn nested_property_group() {
         use crate::language::VB6ControlKind;
         use crate::parsers::form::VB6FormFile;
@@ -844,7 +843,7 @@ End\r
         } = &result.form.kind
         {
             assert_eq!(controls.len(), 1);
-            assert_eq!(menus.len(), 1);
+            assert_eq!(menus.len(), 0);
             assert_eq!(properties.caption, "Audiostation");
             assert_eq!(controls[0].name, "Imagelist_CDDisplay");
             assert!(matches!(controls[0].kind, VB6ControlKind::Custom { .. }));
@@ -854,12 +853,12 @@ End\r
                 property_groups,
             } = &controls[0].kind
             {
-                assert_eq!(properties.len(), 7);
+                assert_eq!(properties.len(), 9);
                 assert_eq!(property_groups.len(), 1);
 
                 if let Some(group) = property_groups.get(0) {
                     assert_eq!(group.name, "Images");
-                    assert_eq!(group.properties.len(), 5);
+                    assert_eq!(group.properties.len(), 6);
 
                     if let Some(Either::Right(image1)) =
                         group.properties.get(BStr::new("ListImage1"))
