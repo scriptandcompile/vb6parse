@@ -22,9 +22,9 @@ use crate::{
         CheckBoxProperties, ComboBoxProperties, CommandButtonProperties, DataProperties,
         DirListBoxProperties, DriveListBoxProperties, FileListBoxProperties, FormProperties,
         FrameProperties, ImageProperties, LabelProperties, LineProperties, ListBoxProperties,
-        MenuProperties, OLEProperties, OptionButtonProperties, PictureBoxProperties,
-        ScrollBarProperties, ShapeProperties, TextBoxProperties, TimerProperties, VB6Color,
-        VB6Control, VB6ControlKind, VB6MenuControl, VB6Token,
+        MDIFormProperties, MenuProperties, OLEProperties, OptionButtonProperties,
+        PictureBoxProperties, ScrollBarProperties, ShapeProperties, TextBoxProperties,
+        TimerProperties, VB6Color, VB6Control, VB6ControlKind, VB6MenuControl, VB6Token,
     },
     parsers::{
         header::{
@@ -215,11 +215,20 @@ fn block_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Control<'a>> {
     let mut properties = HashMap::new();
 
     while !input.is_empty() {
-        space0.parse_next(input)?;
-
-        if let Ok(property_group) = property_group_parse.parse_next(input) {
-            property_groups.push(property_group);
-            continue;
+        if (space0, keyword_parse("END"), space0, line_ending)
+            .parse_next(input)
+            .is_ok()
+        {
+            match build_control(
+                fully_qualified_name,
+                controls,
+                menus,
+                properties,
+                property_groups,
+            ) {
+                Ok(control) => return Ok(control),
+                Err(err) => return Err(ErrMode::Cut(err)),
+            };
         }
 
         if (space0, keyword_parse("BEGIN"), space1)
@@ -236,20 +245,9 @@ fn block_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Control<'a>> {
             continue;
         }
 
-        if (space0, keyword_parse("END"), space0, line_ending)
-            .parse_next(input)
-            .is_ok()
-        {
-            match build_control(
-                fully_qualified_name,
-                controls,
-                menus,
-                properties,
-                property_groups,
-            ) {
-                Ok(control) => return Ok(control),
-                Err(err) => return Err(ErrMode::Cut(err)),
-            };
+        if let Ok(property_group) = property_group_parse.parse_next(input) {
+            property_groups.push(property_group);
+            continue;
         }
 
         if let Ok((name, _resource_file, _offset)) =
@@ -460,6 +458,34 @@ fn build_control<'a>(
             VB6ControlKind::Form {
                 controls,
                 properties: form_properties,
+                menus: converted_menus,
+            }
+        }
+        b"MDIForm" => {
+            let mdi_form_properties =
+                MDIFormProperties::construct_control(properties, property_groups)?;
+
+            let mut converted_menus = vec![];
+
+            for menu in menus {
+                if let VB6ControlKind::Menu {
+                    properties: menu_properties,
+                    sub_menus,
+                } = menu.kind
+                {
+                    converted_menus.push(VB6MenuControl {
+                        name: menu.name,
+                        tag: menu.tag,
+                        index: menu.index,
+                        properties: menu_properties,
+                        sub_menus,
+                    });
+                }
+            }
+
+            VB6ControlKind::MDIForm {
+                controls,
+                properties: mdi_form_properties,
                 menus: converted_menus,
             }
         }
@@ -763,6 +789,15 @@ mod tests {
         let result = result.unwrap();
         assert_eq!(result.name, "Font");
         assert_eq!(result.properties.len(), 7);
+    }
+
+    #[test]
+    fn mdi_main_frm() {
+        use crate::parsers::form::VB6FormFile;
+
+        let input = include_bytes!("../../tests/data/omelette-vb6/Forms/mdiMain.frm");
+
+        let _result = VB6FormFile::parse("mdiMain.frm".to_owned(), input).unwrap();
     }
 
     #[test]

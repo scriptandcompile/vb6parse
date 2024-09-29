@@ -20,14 +20,13 @@ pub use controls::{
     dirlistbox::DirListBoxProperties,
     drivelistbox::DriveListBoxProperties,
     filelistbox::FileListBoxProperties,
-    form::{
-        FormBorderStyle, FormLinkMode, FormProperties, PaletteMode, StartUpPosition, WindowState,
-    },
+    form::{FormBorderStyle, FormProperties, PaletteMode},
     frame::FrameProperties,
     image::ImageProperties,
     label::LabelProperties,
     line::LineProperties,
     listbox::ListBoxProperties,
+    mdiform::MDIFormProperties,
     menus::{MenuProperties, NegotiatePosition, ShortCut, VB6MenuControl},
     ole::OLEProperties,
     optionbutton::{OptionButtonProperties, OptionButtonValue},
@@ -37,8 +36,8 @@ pub use controls::{
     textbox::{ScrollBars, TextBoxProperties},
     timer::TimerProperties,
     Align, Alignment, Appearance, BackStyle, BorderStyle, ClipControls, DragMode, DrawMode,
-    DrawStyle, FillStyle, JustifyAlignment, LinkMode, MousePointer, OLEDragMode, OLEDropMode,
-    ScaleMode, Style, VB6Control, VB6ControlKind,
+    DrawStyle, FillStyle, FormLinkMode, JustifyAlignment, LinkMode, MousePointer, OLEDragMode,
+    OLEDropMode, ScaleMode, StartUpPosition, Style, VB6Control, VB6ControlKind, WindowState,
 };
 
 pub use tokens::VB6Token;
