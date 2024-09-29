@@ -141,130 +141,101 @@ impl<'a> MDIFormProperties<'a> {
     ) -> Result<Self, VB6ErrorKind> {
         let mut mdi_form_properties = MDIFormProperties::default();
 
-        let appearance_key = BStr::new("Appearance");
-        mdi_form_properties.appearance = build_property(&properties, appearance_key);
+        mdi_form_properties.appearance = build_property(&properties, b"Appearance");
 
-        let auto_show_children_key = BStr::new("AutoShowChildren");
         mdi_form_properties.auto_show_children = build_bool_property(
             &properties,
-            auto_show_children_key,
+            b"AutoShowChildren",
             mdi_form_properties.auto_show_children,
         );
 
-        let backcolor_key = BStr::new("BackColor");
         mdi_form_properties.back_color =
-            build_color_property(&properties, backcolor_key, mdi_form_properties.back_color);
+            build_color_property(&properties, b"BackColor", mdi_form_properties.back_color);
 
-        let caption_key = BStr::new("Caption");
         mdi_form_properties.caption = properties
-            .get(caption_key)
+            .get(BStr::new("Caption"))
             .unwrap_or(&mdi_form_properties.caption);
 
-        let client_height_key = BStr::new("ClientHeight");
         mdi_form_properties.client_height = build_i32_property(
             &properties,
-            client_height_key,
+            b"ClientHeight",
             mdi_form_properties.client_height,
         );
 
-        let client_left_key = BStr::new("ClientLeft");
-        mdi_form_properties.client_left = build_i32_property(
-            &properties,
-            client_left_key,
-            mdi_form_properties.client_left,
-        );
+        mdi_form_properties.client_left =
+            build_i32_property(&properties, b"ClientLeft", mdi_form_properties.client_left);
 
-        let client_top_key = BStr::new("ClientTop");
         mdi_form_properties.client_top =
-            build_i32_property(&properties, client_top_key, mdi_form_properties.client_top);
+            build_i32_property(&properties, b"ClientTop", mdi_form_properties.client_top);
 
-        let client_width_key = BStr::new("ClientWidth");
         mdi_form_properties.client_width = build_i32_property(
             &properties,
-            client_width_key,
+            b"ClientWidth",
             mdi_form_properties.client_width,
         );
 
-        let enabled_key = BStr::new("Enabled");
         mdi_form_properties.enabled =
-            build_bool_property(&properties, enabled_key, mdi_form_properties.enabled);
+            build_bool_property(&properties, b"Enabled", mdi_form_properties.enabled);
 
         // Font - group
 
-        let height_key = BStr::new("Height");
         mdi_form_properties.height =
-            build_i32_property(&properties, height_key, mdi_form_properties.height);
+            build_i32_property(&properties, b"Height", mdi_form_properties.height);
 
-        let help_context_id_key = BStr::new("HelpContextID");
         mdi_form_properties.help_context_id = build_i32_property(
             &properties,
-            help_context_id_key,
+            b"HelpContextID",
             mdi_form_properties.help_context_id,
         );
 
         // Icon
 
-        let left_key = BStr::new("Left");
         mdi_form_properties.left =
-            build_i32_property(&properties, left_key, mdi_form_properties.left);
+            build_i32_property(&properties, b"Left", mdi_form_properties.left);
 
-        let link_mode_key = BStr::new("LinkMode");
-        mdi_form_properties.link_mode = build_property(&properties, link_mode_key);
+        mdi_form_properties.link_mode = build_property(&properties, b"LinkMode");
 
-        let link_topic_key = BStr::new("LinkTopic");
         mdi_form_properties.link_topic = properties
-            .get(link_topic_key)
+            .get(BStr::new("LinkTopic"))
             .unwrap_or(&mdi_form_properties.link_topic);
 
         // MouseIcon
 
-        let mouse_pointer_key = BStr::new("MousePointer");
-        mdi_form_properties.mouse_pointer = build_property(&properties, mouse_pointer_key);
+        mdi_form_properties.mouse_pointer = build_property(&properties, b"MousePointer");
 
-        let moveable_key = BStr::new("Moveable");
         mdi_form_properties.moveable =
-            build_bool_property(&properties, moveable_key, mdi_form_properties.moveable);
+            build_bool_property(&properties, b"Moveable", mdi_form_properties.moveable);
 
-        let negotiate_toolbars_key = BStr::new("NegotiateToolbars");
         mdi_form_properties.negotiate_toolbars = build_bool_property(
             &properties,
-            negotiate_toolbars_key,
+            b"NegotiateToolbars",
             mdi_form_properties.negotiate_toolbars,
         );
 
-        let ole_drop_mode_key = BStr::new("OLEDropMode");
-        mdi_form_properties.ole_drop_mode = build_property(&properties, ole_drop_mode_key);
+        mdi_form_properties.ole_drop_mode = build_property(&properties, b"OLEDropMode");
 
         // Picture
 
         mdi_form_properties.right_to_left = build_bool_property(
             &properties,
-            BStr::new("RightToLeft"),
+            b"RightToLeft",
             mdi_form_properties.right_to_left,
         );
 
-        mdi_form_properties.scroll_bars = build_bool_property(
-            &properties,
-            BStr::new("Scrollbars"),
-            mdi_form_properties.scroll_bars,
-        );
+        mdi_form_properties.scroll_bars =
+            build_bool_property(&properties, b"Scrollbars", mdi_form_properties.scroll_bars);
 
-        mdi_form_properties.start_up_position =
-            build_property(&properties, BStr::new("StartUpPosition"));
+        mdi_form_properties.start_up_position = build_property(&properties, b"StartUpPosition");
 
-        mdi_form_properties.top =
-            build_i32_property(&properties, BStr::new("Top"), mdi_form_properties.top);
+        mdi_form_properties.top = build_i32_property(&properties, b"Top", mdi_form_properties.top);
 
-        mdi_form_properties.visible = build_bool_property(
-            &properties,
-            BStr::new("Visible"),
-            mdi_form_properties.visible,
-        );
+        mdi_form_properties.visible =
+            build_bool_property(&properties, b"Visible", mdi_form_properties.visible);
 
         mdi_form_properties.width =
-            build_i32_property(&properties, BStr::new("Width"), mdi_form_properties.width);
+            build_i32_property(&properties, b"Width", mdi_form_properties.width);
 
-        mdi_form_properties.window_state = build_property(&properties, BStr::new("WindowState"));
+        mdi_form_properties.window_state = build_property(&properties, b"WindowState");
 
         Ok(mdi_form_properties)
     }

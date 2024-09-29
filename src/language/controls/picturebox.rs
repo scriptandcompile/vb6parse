@@ -208,31 +208,24 @@ impl<'a> PictureBoxProperties<'a> {
     ) -> Result<Self, VB6ErrorKind> {
         let mut picture_box_properties = PictureBoxProperties::default();
 
-        picture_box_properties.align = build_property(properties, BStr::new("Align"));
-        picture_box_properties.appearance = build_property(properties, BStr::new("Appearance"));
+        picture_box_properties.align = build_property(properties, b"Align");
+        picture_box_properties.appearance = build_property(properties, b"Appearance");
         picture_box_properties.auto_redraw = build_bool_property(
             properties,
-            BStr::new("AutoRedraw"),
+            b"AutoRedraw",
             picture_box_properties.auto_redraw,
         );
-        picture_box_properties.auto_size = build_bool_property(
-            properties,
-            BStr::new("AutoSize"),
-            picture_box_properties.auto_size,
-        );
-        picture_box_properties.back_color = build_color_property(
-            properties,
-            BStr::new("BackColor"),
-            picture_box_properties.back_color,
-        );
-        picture_box_properties.border_style = build_property(properties, BStr::new("BorderStyle"));
+        picture_box_properties.auto_size =
+            build_bool_property(properties, b"AutoSize", picture_box_properties.auto_size);
+        picture_box_properties.back_color =
+            build_color_property(properties, b"BackColor", picture_box_properties.back_color);
+        picture_box_properties.border_style = build_property(properties, b"BorderStyle");
         picture_box_properties.causes_validation = build_bool_property(
             properties,
-            BStr::new("CausesValidation"),
+            b"CausesValidation",
             picture_box_properties.causes_validation,
         );
-        picture_box_properties.clip_controls =
-            build_property(properties, BStr::new("ClipControls"));
+        picture_box_properties.clip_controls = build_property(properties, b"ClipControls");
         picture_box_properties.data_field = properties
             .get(BStr::new("DataField"))
             .unwrap_or(&picture_box_properties.data_field);
@@ -248,59 +241,41 @@ impl<'a> PictureBoxProperties<'a> {
 
         // DragIcon
 
-        picture_box_properties.drag_mode = build_property(properties, BStr::new("DragMode"));
-        picture_box_properties.draw_mode = build_property(properties, BStr::new("DrawMode"));
-        picture_box_properties.draw_style = build_property(properties, BStr::new("DrawStyle"));
-        picture_box_properties.draw_width = build_i32_property(
-            properties,
-            BStr::new("DrawWidth"),
-            picture_box_properties.draw_width,
-        );
-        picture_box_properties.enabled = build_bool_property(
-            properties,
-            BStr::new("Enabled"),
-            picture_box_properties.enabled,
-        );
-        picture_box_properties.fill_color = build_color_property(
-            properties,
-            BStr::new("FillColor"),
-            picture_box_properties.fill_color,
-        );
-        picture_box_properties.fill_style = build_property(properties, BStr::new("FillStyle"));
+        picture_box_properties.drag_mode = build_property(properties, b"DragMode");
+        picture_box_properties.draw_mode = build_property(properties, b"DrawMode");
+        picture_box_properties.draw_style = build_property(properties, b"DrawStyle");
+        picture_box_properties.draw_width =
+            build_i32_property(properties, b"DrawWidth", picture_box_properties.draw_width);
+        picture_box_properties.enabled =
+            build_bool_property(properties, b"Enabled", picture_box_properties.enabled);
+        picture_box_properties.fill_color =
+            build_color_property(properties, b"FillColor", picture_box_properties.fill_color);
+        picture_box_properties.fill_style = build_property(properties, b"FillStyle");
         picture_box_properties.font_transparent = build_bool_property(
             properties,
-            BStr::new("FontTransparent"),
+            b"FontTransparent",
             picture_box_properties.font_transparent,
         );
-        picture_box_properties.fore_color = build_color_property(
-            properties,
-            BStr::new("ForeColor"),
-            picture_box_properties.fore_color,
-        );
-        picture_box_properties.has_dc = build_bool_property(
-            properties,
-            BStr::new("HasDC"),
-            picture_box_properties.has_dc,
-        );
-        picture_box_properties.height = build_i32_property(
-            properties,
-            BStr::new("Height"),
-            picture_box_properties.height,
-        );
+        picture_box_properties.fore_color =
+            build_color_property(properties, b"ForeColor", picture_box_properties.fore_color);
+        picture_box_properties.has_dc =
+            build_bool_property(properties, b"HasDC", picture_box_properties.has_dc);
+        picture_box_properties.height =
+            build_i32_property(properties, b"Height", picture_box_properties.height);
         picture_box_properties.help_context_id = build_i32_property(
             properties,
-            BStr::new("HelpContextID"),
+            b"HelpContextID",
             picture_box_properties.help_context_id,
         );
         picture_box_properties.left =
-            build_i32_property(properties, BStr::new("Left"), picture_box_properties.left);
+            build_i32_property(properties, b"Left", picture_box_properties.left);
         picture_box_properties.link_item = properties
             .get(BStr::new("LinkItem"))
             .unwrap_or(&picture_box_properties.link_item);
-        picture_box_properties.link_mode = build_property(properties, BStr::new("LinkMode"));
+        picture_box_properties.link_mode = build_property(properties, b"LinkMode");
         picture_box_properties.link_timeout = build_i32_property(
             properties,
-            BStr::new("LinkTimeout"),
+            b"LinkTimeout",
             picture_box_properties.link_timeout,
         );
         picture_box_properties.link_topic = properties
@@ -309,71 +284,52 @@ impl<'a> PictureBoxProperties<'a> {
 
         // MouseIcon
 
-        picture_box_properties.mouse_pointer =
-            build_property(properties, BStr::new("MousePointer"));
-        picture_box_properties.negotiate = build_bool_property(
-            properties,
-            BStr::new("Negotiate"),
-            picture_box_properties.negotiate,
-        );
-        picture_box_properties.ole_drag_mode = build_property(properties, BStr::new("OLEDragMode"));
-        picture_box_properties.ole_drop_mode = build_property(properties, BStr::new("OLEDropMode"));
+        picture_box_properties.mouse_pointer = build_property(properties, b"MousePointer");
+        picture_box_properties.negotiate =
+            build_bool_property(properties, b"Negotiate", picture_box_properties.negotiate);
+        picture_box_properties.ole_drag_mode = build_property(properties, b"OLEDragMode");
+        picture_box_properties.ole_drop_mode = build_property(properties, b"OLEDropMode");
 
         // Picture
 
         picture_box_properties.right_to_left = build_bool_property(
             properties,
-            BStr::new("RightToLeft"),
+            b"RightToLeft",
             picture_box_properties.right_to_left,
         );
         picture_box_properties.scale_height = build_i32_property(
             properties,
-            BStr::new("ScaleHeight"),
+            b"ScaleHeight",
             picture_box_properties.scale_height,
         );
-        picture_box_properties.scale_left = build_i32_property(
-            properties,
-            BStr::new("ScaleLeft"),
-            picture_box_properties.scale_left,
-        );
-        picture_box_properties.scale_mode = build_property(properties, BStr::new("ScaleMode"));
-        picture_box_properties.scale_top = build_i32_property(
-            properties,
-            BStr::new("ScaleTop"),
-            picture_box_properties.scale_top,
-        );
+        picture_box_properties.scale_left =
+            build_i32_property(properties, b"ScaleLeft", picture_box_properties.scale_left);
+        picture_box_properties.scale_mode = build_property(properties, b"ScaleMode");
+        picture_box_properties.scale_top =
+            build_i32_property(properties, b"ScaleTop", picture_box_properties.scale_top);
         picture_box_properties.scale_width = build_i32_property(
             properties,
-            BStr::new("ScaleWidth"),
+            b"ScaleWidth",
             picture_box_properties.scale_width,
         );
-        picture_box_properties.tab_index = build_i32_property(
-            properties,
-            BStr::new("TabIndex"),
-            picture_box_properties.tab_index,
-        );
-        picture_box_properties.tab_stop = build_bool_property(
-            properties,
-            BStr::new("TabStop"),
-            picture_box_properties.tab_stop,
-        );
+        picture_box_properties.tab_index =
+            build_i32_property(properties, b"TabIndex", picture_box_properties.tab_index);
+        picture_box_properties.tab_stop =
+            build_bool_property(properties, b"TabStop", picture_box_properties.tab_stop);
         picture_box_properties.tool_tip_text = properties
             .get(BStr::new("ToolTipText"))
             .unwrap_or(&picture_box_properties.tool_tip_text);
         picture_box_properties.top =
-            build_i32_property(properties, BStr::new("Top"), picture_box_properties.top);
-        picture_box_properties.visible = build_bool_property(
-            properties,
-            BStr::new("Visible"),
-            picture_box_properties.visible,
-        );
+            build_i32_property(properties, b"Top", picture_box_properties.top);
+        picture_box_properties.visible =
+            build_bool_property(properties, b"Visible", picture_box_properties.visible);
         picture_box_properties.whats_this_help_id = build_i32_property(
             properties,
-            BStr::new("WhatsThisHelpID"),
+            b"WhatsThisHelpID",
             picture_box_properties.whats_this_help_id,
         );
         picture_box_properties.width =
-            build_i32_property(properties, BStr::new("Width"), picture_box_properties.width);
+            build_i32_property(properties, b"Width", picture_box_properties.width);
 
         Ok(picture_box_properties)
     }

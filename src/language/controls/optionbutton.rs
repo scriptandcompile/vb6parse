@@ -163,11 +163,11 @@ impl<'a> OptionButtonProperties<'a> {
     ) -> Result<Self, VB6ErrorKind> {
         let mut option_button_properties = OptionButtonProperties::default();
 
-        option_button_properties.alignment = build_property(properties, BStr::new("Alignment"));
-        option_button_properties.appearance = build_property(properties, BStr::new("Appearance"));
+        option_button_properties.alignment = build_property(properties, b"Alignment");
+        option_button_properties.appearance = build_property(properties, b"Appearance");
         option_button_properties.back_color = build_color_property(
             properties,
-            BStr::new("BackColor"),
+            b"BackColor",
             option_button_properties.back_color,
         );
         option_button_properties.caption = properties
@@ -175,7 +175,7 @@ impl<'a> OptionButtonProperties<'a> {
             .unwrap_or(&option_button_properties.caption);
         option_button_properties.causes_validation = build_bool_property(
             properties,
-            BStr::new("CausesValidation"),
+            b"CausesValidation",
             option_button_properties.causes_validation,
         );
 
@@ -183,86 +183,66 @@ impl<'a> OptionButtonProperties<'a> {
         // DownPicture
         // DragIcon
 
-        option_button_properties.drag_mode = build_property(properties, BStr::new("DragMode"));
-        option_button_properties.enabled = build_bool_property(
-            properties,
-            BStr::new("Enabled"),
-            option_button_properties.enabled,
-        );
+        option_button_properties.drag_mode = build_property(properties, b"DragMode");
+        option_button_properties.enabled =
+            build_bool_property(properties, b"Enabled", option_button_properties.enabled);
         option_button_properties.fore_color = build_color_property(
             properties,
-            BStr::new("ForeColor"),
+            b"ForeColor",
             option_button_properties.fore_color,
         );
-        option_button_properties.height = build_i32_property(
-            properties,
-            BStr::new("Height"),
-            option_button_properties.height,
-        );
+        option_button_properties.height =
+            build_i32_property(properties, b"Height", option_button_properties.height);
         option_button_properties.help_context_id = build_i32_property(
             properties,
-            BStr::new("HelpContextID"),
+            b"HelpContextID",
             option_button_properties.help_context_id,
         );
         option_button_properties.left =
-            build_i32_property(properties, BStr::new("Left"), option_button_properties.left);
+            build_i32_property(properties, b"Left", option_button_properties.left);
         option_button_properties.mask_color = build_color_property(
             properties,
-            BStr::new("MaskColor"),
+            b"MaskColor",
             option_button_properties.mask_color,
         );
 
         // MouseIcon
 
-        option_button_properties.mouse_pointer =
-            build_property(properties, BStr::new("MousePointer"));
-        option_button_properties.ole_drop_mode =
-            build_property(properties, BStr::new("OLEDropMode"));
+        option_button_properties.mouse_pointer = build_property(properties, b"MousePointer");
+        option_button_properties.ole_drop_mode = build_property(properties, b"OLEDropMode");
 
         // Picture
 
         option_button_properties.right_to_left = build_bool_property(
             properties,
-            BStr::new("RightToLeft"),
+            b"RightToLeft",
             option_button_properties.right_to_left,
         );
-        option_button_properties.style = build_property(properties, BStr::new("Style"));
-        option_button_properties.tab_index = build_i32_property(
-            properties,
-            BStr::new("TabIndex"),
-            option_button_properties.tab_index,
-        );
-        option_button_properties.tab_stop = build_bool_property(
-            properties,
-            BStr::new("TabStop"),
-            option_button_properties.tab_stop,
-        );
+        option_button_properties.style = build_property(properties, b"Style");
+        option_button_properties.tab_index =
+            build_i32_property(properties, b"TabIndex", option_button_properties.tab_index);
+        option_button_properties.tab_stop =
+            build_bool_property(properties, b"TabStop", option_button_properties.tab_stop);
         option_button_properties.tool_tip_text = properties
             .get(&BStr::new("ToolTipText"))
             .unwrap_or(&option_button_properties.tool_tip_text);
         option_button_properties.top =
-            build_i32_property(properties, BStr::new("Top"), option_button_properties.top);
+            build_i32_property(properties, b"Top", option_button_properties.top);
         option_button_properties.use_mask_color = build_bool_property(
             properties,
-            BStr::new("UseMaskColor"),
+            b"UseMaskColor",
             option_button_properties.use_mask_color,
         );
-        option_button_properties.value = build_property(properties, BStr::new("Value"));
-        option_button_properties.visible = build_bool_property(
-            properties,
-            BStr::new("Visible"),
-            option_button_properties.visible,
-        );
+        option_button_properties.value = build_property(properties, b"Value");
+        option_button_properties.visible =
+            build_bool_property(properties, b"Visible", option_button_properties.visible);
         option_button_properties.whats_this_help_id = build_i32_property(
             properties,
-            BStr::new("WhatsThisHelpID"),
+            b"WhatsThisHelpID",
             option_button_properties.whats_this_help_id,
         );
-        option_button_properties.width = build_i32_property(
-            properties,
-            BStr::new("Width"),
-            option_button_properties.width,
-        );
+        option_button_properties.width =
+            build_i32_property(properties, b"Width", option_button_properties.width);
 
         Ok(option_button_properties)
     }

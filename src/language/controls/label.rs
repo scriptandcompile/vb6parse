@@ -154,20 +154,14 @@ impl<'a> LabelProperties<'a> {
     ) -> Result<Self, VB6ErrorKind> {
         let mut label_properties = LabelProperties::default();
 
-        label_properties.alignment = build_property(properties, BStr::new("Alignment"));
-        label_properties.appearance = build_property(properties, BStr::new("Appearance"));
-        label_properties.auto_size = build_bool_property(
-            properties,
-            BStr::new("AutoSize"),
-            label_properties.auto_size,
-        );
-        label_properties.back_color = build_color_property(
-            properties,
-            BStr::new("BackColor"),
-            label_properties.back_color,
-        );
-        label_properties.back_style = build_property(properties, BStr::new("BackStyle"));
-        label_properties.border_style = build_property(properties, BStr::new("BorderStyle"));
+        label_properties.alignment = build_property(properties, b"Alignment");
+        label_properties.appearance = build_property(properties, b"Appearance");
+        label_properties.auto_size =
+            build_bool_property(properties, b"AutoSize", label_properties.auto_size);
+        label_properties.back_color =
+            build_color_property(properties, b"BackColor", label_properties.back_color);
+        label_properties.back_style = build_property(properties, b"BackStyle");
+        label_properties.border_style = build_property(properties, b"BorderStyle");
         label_properties.caption = properties
             .get(&BStr::new("Caption"))
             .unwrap_or(&label_properties.caption);
@@ -186,69 +180,48 @@ impl<'a> LabelProperties<'a> {
 
         // DragIcon
 
-        label_properties.drag_mode = build_property(properties, BStr::new("DragMode"));
+        label_properties.drag_mode = build_property(properties, b"DragMode");
         label_properties.enabled =
-            build_bool_property(properties, BStr::new("Enabled"), label_properties.enabled);
-        label_properties.fore_color = build_color_property(
-            properties,
-            BStr::new("ForeColor"),
-            label_properties.fore_color,
-        );
+            build_bool_property(properties, b"Enabled", label_properties.enabled);
+        label_properties.fore_color =
+            build_color_property(properties, b"ForeColor", label_properties.fore_color);
         label_properties.height =
-            build_i32_property(properties, BStr::new("Height"), label_properties.height);
-        label_properties.left =
-            build_i32_property(properties, BStr::new("Left"), label_properties.left);
+            build_i32_property(properties, b"Height", label_properties.height);
+        label_properties.left = build_i32_property(properties, b"Left", label_properties.left);
         label_properties.link_item = properties
             .get(&BStr::new("LinkItem"))
             .unwrap_or(&label_properties.link_item);
-        label_properties.link_mode = build_property(properties, BStr::new("LinkMode"));
-        label_properties.link_timeout = build_i32_property(
-            properties,
-            BStr::new("LinkTimeout"),
-            label_properties.link_timeout,
-        );
+        label_properties.link_mode = build_property(properties, b"LinkMode");
+        label_properties.link_timeout =
+            build_i32_property(properties, b"LinkTimeout", label_properties.link_timeout);
         label_properties.link_topic = properties
             .get(&BStr::new("LinkTopic"))
             .unwrap_or(&label_properties.link_topic);
 
         // MouseIcon
 
-        label_properties.mouse_pointer = build_property(properties, BStr::new("MousePointer"));
-        label_properties.ole_drop_mode = build_property(properties, BStr::new("OLEDropMode"));
-        label_properties.right_to_left = build_bool_property(
-            properties,
-            BStr::new("RightToLeft"),
-            label_properties.right_to_left,
-        );
-        label_properties.tab_index = build_i32_property(
-            properties,
-            BStr::new("TabIndex"),
-            label_properties.tab_index,
-        );
+        label_properties.mouse_pointer = build_property(properties, b"MousePointer");
+        label_properties.ole_drop_mode = build_property(properties, b"OLEDropMode");
+        label_properties.right_to_left =
+            build_bool_property(properties, b"RightToLeft", label_properties.right_to_left);
+        label_properties.tab_index =
+            build_i32_property(properties, b"TabIndex", label_properties.tab_index);
         label_properties.tool_tip_text = properties
             .get(&BStr::new("ToolTipText"))
             .unwrap_or(&BStr::new(""));
-        label_properties.top =
-            build_i32_property(properties, BStr::new("Top"), label_properties.top);
-        label_properties.use_mnemonic = build_bool_property(
-            properties,
-            BStr::new("UseMnemonic"),
-            label_properties.use_mnemonic,
-        );
+        label_properties.top = build_i32_property(properties, b"Top", label_properties.top);
+        label_properties.use_mnemonic =
+            build_bool_property(properties, b"UseMnemonic", label_properties.use_mnemonic);
         label_properties.visible =
-            build_bool_property(properties, BStr::new("Visible"), label_properties.visible);
+            build_bool_property(properties, b"Visible", label_properties.visible);
         label_properties.whats_this_help_id = build_i32_property(
             properties,
-            BStr::new("WhatsThisHelpID"),
+            b"WhatsThisHelpID",
             label_properties.whats_this_help_id,
         );
-        label_properties.width =
-            build_i32_property(properties, BStr::new("Width"), label_properties.width);
-        label_properties.word_wrap = build_bool_property(
-            properties,
-            BStr::new("WordWrap"),
-            label_properties.word_wrap,
-        );
+        label_properties.width = build_i32_property(properties, b"Width", label_properties.width);
+        label_properties.word_wrap =
+            build_bool_property(properties, b"WordWrap", label_properties.word_wrap);
 
         Ok(label_properties)
     }

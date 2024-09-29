@@ -49,24 +49,18 @@ impl LineProperties {
     pub fn construct_control(properties: &HashMap<&BStr, &BStr>) -> Result<Self, VB6ErrorKind> {
         let mut line_properties = LineProperties::default();
 
-        line_properties.border_color = build_color_property(
-            properties,
-            BStr::new("BorderColor"),
-            line_properties.border_color,
-        );
-        line_properties.border_style = build_property(properties, BStr::new("BorderStyle"));
-        line_properties.border_width = build_i32_property(
-            properties,
-            BStr::new("BorderWidth"),
-            line_properties.border_width,
-        );
-        line_properties.draw_mode = build_property(properties, BStr::new("DrawMode"));
+        line_properties.border_color =
+            build_color_property(properties, b"BorderColor", line_properties.border_color);
+        line_properties.border_style = build_property(properties, b"BorderStyle");
+        line_properties.border_width =
+            build_i32_property(properties, b"BorderWidth", line_properties.border_width);
+        line_properties.draw_mode = build_property(properties, b"DrawMode");
         line_properties.visible =
-            build_bool_property(properties, BStr::new("Visible"), line_properties.visible);
-        line_properties.x1 = build_i32_property(properties, BStr::new("X1"), line_properties.x1);
-        line_properties.y1 = build_i32_property(properties, BStr::new("Y1"), line_properties.y1);
-        line_properties.x2 = build_i32_property(properties, BStr::new("X2"), line_properties.x2);
-        line_properties.y2 = build_i32_property(properties, BStr::new("Y2"), line_properties.y2);
+            build_bool_property(properties, b"Visible", line_properties.visible);
+        line_properties.x1 = build_i32_property(properties, b"X1", line_properties.x1);
+        line_properties.y1 = build_i32_property(properties, b"Y1", line_properties.y1);
+        line_properties.x2 = build_i32_property(properties, b"X2", line_properties.x2);
+        line_properties.y2 = build_i32_property(properties, b"Y2", line_properties.y2);
 
         Ok(line_properties)
     }

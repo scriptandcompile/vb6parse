@@ -113,80 +113,57 @@ impl<'a> DriveListBoxProperties<'a> {
     ) -> Result<Self, VB6ErrorKind> {
         let mut drive_list_box_properties = DriveListBoxProperties::default();
 
-        drive_list_box_properties.appearance = build_property(properties, BStr::new("Appearance"));
+        drive_list_box_properties.appearance = build_property(properties, b"Appearance");
         drive_list_box_properties.back_color = build_color_property(
             properties,
-            BStr::new("BackColor"),
+            b"BackColor",
             drive_list_box_properties.back_color,
         );
         drive_list_box_properties.causes_validation = build_bool_property(
             properties,
-            BStr::new("CausesValidation"),
+            b"CausesValidation",
             drive_list_box_properties.causes_validation,
         );
 
         // DragIcon
 
-        drive_list_box_properties.drag_mode = build_property(properties, BStr::new("DragMode"));
-        drive_list_box_properties.enabled = build_bool_property(
-            properties,
-            BStr::new("Enabled"),
-            drive_list_box_properties.enabled,
-        );
+        drive_list_box_properties.drag_mode = build_property(properties, b"DragMode");
+        drive_list_box_properties.enabled =
+            build_bool_property(properties, b"Enabled", drive_list_box_properties.enabled);
         drive_list_box_properties.fore_color = build_color_property(
             properties,
-            BStr::new("ForeColor"),
+            b"ForeColor",
             drive_list_box_properties.fore_color,
         );
-        drive_list_box_properties.height = build_i32_property(
-            properties,
-            BStr::new("Height"),
-            drive_list_box_properties.height,
-        );
+        drive_list_box_properties.height =
+            build_i32_property(properties, b"Height", drive_list_box_properties.height);
         drive_list_box_properties.help_context_id = build_i32_property(
             properties,
-            BStr::new("HelpContextID"),
+            b"HelpContextID",
             drive_list_box_properties.help_context_id,
         );
-        drive_list_box_properties.left = build_i32_property(
-            properties,
-            BStr::new("Left"),
-            drive_list_box_properties.left,
-        );
-        drive_list_box_properties.mouse_pointer =
-            build_property(properties, BStr::new("MousePointer"));
-        drive_list_box_properties.ole_drop_mode =
-            build_property(properties, BStr::new("OLEDropMode"));
-        drive_list_box_properties.tab_index = build_i32_property(
-            properties,
-            BStr::new("TabIndex"),
-            drive_list_box_properties.tab_index,
-        );
-        drive_list_box_properties.tab_stop = build_bool_property(
-            properties,
-            BStr::new("TabStop"),
-            drive_list_box_properties.tab_stop,
-        );
+        drive_list_box_properties.left =
+            build_i32_property(properties, b"Left", drive_list_box_properties.left);
+        drive_list_box_properties.mouse_pointer = build_property(properties, b"MousePointer");
+        drive_list_box_properties.ole_drop_mode = build_property(properties, b"OLEDropMode");
+        drive_list_box_properties.tab_index =
+            build_i32_property(properties, b"TabIndex", drive_list_box_properties.tab_index);
+        drive_list_box_properties.tab_stop =
+            build_bool_property(properties, b"TabStop", drive_list_box_properties.tab_stop);
         drive_list_box_properties.tool_tip_text = properties
             .get(&BStr::new("ToolTipText"))
             .unwrap_or(&BStr::new(""));
         drive_list_box_properties.top =
-            build_i32_property(properties, BStr::new("Top"), drive_list_box_properties.top);
-        drive_list_box_properties.visible = build_bool_property(
-            properties,
-            BStr::new("Visible"),
-            drive_list_box_properties.visible,
-        );
+            build_i32_property(properties, b"Top", drive_list_box_properties.top);
+        drive_list_box_properties.visible =
+            build_bool_property(properties, b"Visible", drive_list_box_properties.visible);
         drive_list_box_properties.whats_this_help_id = build_i32_property(
             properties,
-            BStr::new("WhatsThisHelpID"),
+            b"WhatsThisHelpID",
             drive_list_box_properties.whats_this_help_id,
         );
-        drive_list_box_properties.width = build_i32_property(
-            properties,
-            BStr::new("Width"),
-            drive_list_box_properties.width,
-        );
+        drive_list_box_properties.width =
+            build_i32_property(properties, b"Width", drive_list_box_properties.width);
 
         Ok(drive_list_box_properties)
     }

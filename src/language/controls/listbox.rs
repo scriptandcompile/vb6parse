@@ -159,22 +159,16 @@ impl<'a> ListBoxProperties<'a> {
     ) -> Result<Self, VB6ErrorKind> {
         let mut list_box_properties = ListBoxProperties::default();
 
-        list_box_properties.appearance = build_property(properties, BStr::new("Appearance"));
-        list_box_properties.back_color = build_color_property(
-            properties,
-            BStr::new("BackColor"),
-            list_box_properties.back_color,
-        );
+        list_box_properties.appearance = build_property(properties, b"Appearance");
+        list_box_properties.back_color =
+            build_color_property(properties, b"BackColor", list_box_properties.back_color);
         list_box_properties.causes_validation = build_bool_property(
             properties,
-            BStr::new("CausesValidation"),
+            b"CausesValidation",
             list_box_properties.causes_validation,
         );
-        list_box_properties.columns = build_i32_property(
-            properties,
-            BStr::new("Columns"),
-            list_box_properties.columns,
-        );
+        list_box_properties.columns =
+            build_i32_property(properties, b"Columns", list_box_properties.columns);
         list_box_properties.data_field = properties
             .get(BStr::new("DataField"))
             .unwrap_or(&list_box_properties.data_field);
@@ -190,73 +184,57 @@ impl<'a> ListBoxProperties<'a> {
 
         // DragIcon
 
-        list_box_properties.drag_mode = build_property(properties, BStr::new("DragMode"));
-        list_box_properties.enabled = build_bool_property(
-            properties,
-            BStr::new("Enabled"),
-            list_box_properties.enabled,
-        );
-        list_box_properties.fore_color = build_color_property(
-            properties,
-            BStr::new("ForeColor"),
-            list_box_properties.fore_color,
-        );
+        list_box_properties.drag_mode = build_property(properties, b"DragMode");
+        list_box_properties.enabled =
+            build_bool_property(properties, b"Enabled", list_box_properties.enabled);
+        list_box_properties.fore_color =
+            build_color_property(properties, b"ForeColor", list_box_properties.fore_color);
         list_box_properties.height =
-            build_i32_property(properties, BStr::new("Height"), list_box_properties.height);
+            build_i32_property(properties, b"Height", list_box_properties.height);
         list_box_properties.help_context_id = build_i32_property(
             properties,
-            BStr::new("HelpContextID"),
+            b"HelpContextID",
             list_box_properties.help_context_id,
         );
         list_box_properties.integral_height = build_bool_property(
             properties,
-            BStr::new("IntegralHeight"),
+            b"IntegralHeight",
             list_box_properties.integral_height,
         );
         list_box_properties.left =
-            build_i32_property(properties, BStr::new("Left"), list_box_properties.left);
+            build_i32_property(properties, b"Left", list_box_properties.left);
 
         // MouseIcon
 
-        list_box_properties.mouse_pointer = build_property(properties, BStr::new("MousePointer"));
-        list_box_properties.multi_select = build_property(properties, BStr::new("MultiSelect"));
-        list_box_properties.ole_drag_mode = build_property(properties, BStr::new("OLEDragMode"));
-        list_box_properties.ole_drop_mode = build_property(properties, BStr::new("OLEDropMode"));
+        list_box_properties.mouse_pointer = build_property(properties, b"MousePointer");
+        list_box_properties.multi_select = build_property(properties, b"MultiSelect");
+        list_box_properties.ole_drag_mode = build_property(properties, b"OLEDragMode");
+        list_box_properties.ole_drop_mode = build_property(properties, b"OLEDropMode");
         list_box_properties.right_to_left = build_bool_property(
             properties,
-            BStr::new("RightToLeft"),
+            b"RightToLeft",
             list_box_properties.right_to_left,
         );
         list_box_properties.sorted =
-            build_bool_property(properties, BStr::new("Sorted"), list_box_properties.sorted);
-        list_box_properties.style = build_property(properties, BStr::new("Style"));
-        list_box_properties.tab_index = build_i32_property(
-            properties,
-            BStr::new("TabIndex"),
-            list_box_properties.tab_index,
-        );
-        list_box_properties.tab_stop = build_bool_property(
-            properties,
-            BStr::new("TabStop"),
-            list_box_properties.tab_stop,
-        );
+            build_bool_property(properties, b"Sorted", list_box_properties.sorted);
+        list_box_properties.style = build_property(properties, b"Style");
+        list_box_properties.tab_index =
+            build_i32_property(properties, b"TabIndex", list_box_properties.tab_index);
+        list_box_properties.tab_stop =
+            build_bool_property(properties, b"TabStop", list_box_properties.tab_stop);
         list_box_properties.tool_tip_text = properties
             .get(BStr::new("ToolTipText"))
             .unwrap_or(&list_box_properties.tool_tip_text);
-        list_box_properties.top =
-            build_i32_property(properties, BStr::new("Top"), list_box_properties.top);
-        list_box_properties.visible = build_bool_property(
-            properties,
-            BStr::new("Visible"),
-            list_box_properties.visible,
-        );
+        list_box_properties.top = build_i32_property(properties, b"Top", list_box_properties.top);
+        list_box_properties.visible =
+            build_bool_property(properties, b"Visible", list_box_properties.visible);
         list_box_properties.whats_this_help_id = build_i32_property(
             properties,
-            BStr::new("WhatsThisHelpID"),
+            b"WhatsThisHelpID",
             list_box_properties.whats_this_help_id,
         );
         list_box_properties.width =
-            build_i32_property(properties, BStr::new("Width"), list_box_properties.width);
+            build_i32_property(properties, b"Width", list_box_properties.width);
 
         Ok(list_box_properties)
     }

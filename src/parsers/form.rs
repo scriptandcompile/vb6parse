@@ -670,18 +670,19 @@ fn build_control<'a>(
 }
 
 #[must_use]
-pub fn build_property<T, S: std::hash::BuildHasher>(
+pub fn build_property<T, B: AsRef<[u8]>, S: std::hash::BuildHasher>(
     properties: &HashMap<&BStr, &BStr, S>,
-    property_key: &BStr,
+    property_key: &B,
 ) -> T
 where
     T: Default + TryFromPrimitive + TryFrom<i32>,
 {
-    if !properties.contains_key(property_key) {
+    let key = property_key.as_ref().as_bstr();
+    if !properties.contains_key(key) {
         return T::default();
     }
 
-    let property_ascii = properties[property_key].to_str().unwrap();
+    let property_ascii = properties[key].to_str().unwrap();
 
     match property_ascii.parse::<i32>() {
         Ok(value) => T::try_from(value).unwrap_or_default(),
@@ -690,18 +691,19 @@ where
 }
 
 #[must_use]
-pub fn build_option_property<'a, S: std::hash::BuildHasher, T>(
+pub fn build_option_property<'a, B: AsRef<[u8]>, S: std::hash::BuildHasher, T>(
     properties: &HashMap<&'a BStr, &'a BStr, S>,
-    property_key: &'a BStr,
+    property_key: &B,
 ) -> Option<T>
 where
     T: TryFrom<&'a str>,
 {
-    if !properties.contains_key(property_key) {
+    let key = property_key.as_ref().as_bstr();
+    if !properties.contains_key(key) {
         return None;
     }
 
-    let property_ascii = properties[property_key].to_str().unwrap();
+    let property_ascii = properties[key].to_str().unwrap();
 
     match T::try_from(property_ascii) {
         Ok(value) => Some(value),
@@ -710,16 +712,17 @@ where
 }
 
 #[must_use]
-pub fn build_i32_property<S: std::hash::BuildHasher>(
+pub fn build_i32_property<B: AsRef<[u8]>, S: std::hash::BuildHasher>(
     properties: &HashMap<&BStr, &BStr, S>,
-    property_key: &BStr,
+    property_key: &B,
     default: i32,
 ) -> i32 {
-    if !properties.contains_key(property_key) {
+    let key = property_key.as_ref().as_bstr();
+    if !properties.contains_key(key) {
         return 0;
     }
 
-    let property_ascii = properties[property_key].to_str().unwrap();
+    let property_ascii = properties[key].to_str().unwrap();
 
     match property_ascii.parse::<i32>() {
         Ok(value) => value,
@@ -728,16 +731,17 @@ pub fn build_i32_property<S: std::hash::BuildHasher>(
 }
 
 #[must_use]
-pub fn build_color_property<S: std::hash::BuildHasher>(
+pub fn build_color_property<B: AsRef<[u8]>, S: std::hash::BuildHasher>(
     properties: &HashMap<&BStr, &BStr, S>,
-    property_key: &BStr,
+    property_key: &B,
     default: VB6Color,
 ) -> VB6Color {
-    if !properties.contains_key(property_key) {
+    let key = property_key.as_ref().as_bstr();
+    if !properties.contains_key(key) {
         return default;
     }
 
-    let property_ascii = properties[property_key].to_str().unwrap();
+    let property_ascii = properties[key].to_str().unwrap();
 
     match VB6Color::from_hex(property_ascii) {
         Ok(color) => color,
@@ -746,16 +750,17 @@ pub fn build_color_property<S: std::hash::BuildHasher>(
 }
 
 #[must_use]
-pub fn build_bool_property<S: std::hash::BuildHasher>(
+pub fn build_bool_property<B: AsRef<[u8]>, S: std::hash::BuildHasher>(
     properties: &HashMap<&BStr, &BStr, S>,
-    property_key: &BStr,
+    property_key: &B,
     default: bool,
 ) -> bool {
-    if !properties.contains_key(property_key) {
+    let key = property_key.as_ref().as_bstr();
+    if !properties.contains_key(key) {
         return default;
     }
 
-    let property_ascii = properties[property_key].to_str().unwrap();
+    let property_ascii = properties[key].to_str().unwrap();
 
     match property_ascii.as_bytes() {
         b"0" => false,

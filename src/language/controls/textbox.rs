@@ -185,43 +185,31 @@ impl<'a> TextBoxProperties<'a> {
         properties: &HashMap<&'a BStr, &'a BStr>,
     ) -> Result<Self, VB6ErrorKind> {
         let mut text_box_properties = TextBoxProperties::default();
-
-        text_box_properties.alignment = build_property(properties, BStr::new("Alignment"));
-
-        text_box_properties.appearance = build_property(properties, BStr::new("Appearance"));
-
-        text_box_properties.back_color = build_color_property(
-            properties,
-            BStr::new("BackColor"),
-            text_box_properties.back_color,
-        );
-
-        text_box_properties.border_style = build_property(properties, BStr::new("BorderStyle"));
-
+        text_box_properties.alignment = build_property(properties, b"Alignment");
+        text_box_properties.appearance = build_property(properties, b"Appearance");
+        text_box_properties.back_color =
+            build_color_property(properties, b"BackColor", text_box_properties.back_color);
+        text_box_properties.border_style = build_property(properties, b"BorderStyle");
         text_box_properties.causes_validation = build_bool_property(
             properties,
-            BStr::new("CausesValidation"),
+            b"CausesValidation",
             text_box_properties.causes_validation,
         );
-
         text_box_properties.data_field = properties
             .get(BStr::new("DataField"))
             .map_or(text_box_properties.data_field, |s| {
                 s.to_str().unwrap_or(text_box_properties.data_field)
             });
-
         text_box_properties.data_format = properties
             .get(BStr::new("DataFormat"))
             .map_or(text_box_properties.data_format, |s| {
                 s.to_str().unwrap_or(text_box_properties.data_format)
             });
-
         text_box_properties.data_member = properties
             .get(BStr::new("DataMember"))
             .map_or(text_box_properties.data_member, |s| {
                 s.to_str().unwrap_or(text_box_properties.data_member)
             });
-
         text_box_properties.data_source = properties
             .get(BStr::new("DataSource"))
             .map_or(text_box_properties.data_source, |s| {
@@ -229,80 +217,54 @@ impl<'a> TextBoxProperties<'a> {
             });
 
         // drag_icon: Option<DynamicImage>,
-        text_box_properties.drag_mode = build_property(properties, BStr::new("DragMode"));
 
-        text_box_properties.enabled = build_bool_property(
-            properties,
-            BStr::new("Enabled"),
-            text_box_properties.enabled,
-        );
-
-        text_box_properties.fore_color = build_color_property(
-            properties,
-            BStr::new("ForeColor"),
-            text_box_properties.fore_color,
-        );
-
+        text_box_properties.drag_mode = build_property(properties, b"DragMode");
+        text_box_properties.enabled =
+            build_bool_property(properties, b"Enabled", text_box_properties.enabled);
+        text_box_properties.fore_color =
+            build_color_property(properties, b"ForeColor", text_box_properties.fore_color);
         text_box_properties.height =
-            build_i32_property(properties, BStr::new("Height"), text_box_properties.height);
-
+            build_i32_property(properties, b"Height", text_box_properties.height);
         text_box_properties.help_context_id = build_i32_property(
             properties,
-            BStr::new("HelpContextID"),
+            b"HelpContextID",
             text_box_properties.help_context_id,
         );
-
         text_box_properties.hide_selection = build_bool_property(
             properties,
-            BStr::new("HideSelection"),
+            b"HideSelection",
             text_box_properties.hide_selection,
         );
-
         text_box_properties.left =
-            build_i32_property(properties, BStr::new("Left"), text_box_properties.left);
-
+            build_i32_property(properties, b"Left", text_box_properties.left);
         text_box_properties.link_item = properties
             .get(BStr::new("LinkItem"))
             .map_or(text_box_properties.link_item, |s| {
                 s.to_str().unwrap_or(text_box_properties.link_item)
             });
-
-        text_box_properties.link_mode = build_property(properties, BStr::new("LinkMode"));
-
-        text_box_properties.link_timeout = build_i32_property(
-            properties,
-            BStr::new("LinkTimeout"),
-            text_box_properties.link_timeout,
-        );
-
+        text_box_properties.link_mode = build_property(properties, b"LinkMode");
+        text_box_properties.link_timeout =
+            build_i32_property(properties, b"LinkTimeout", text_box_properties.link_timeout);
         text_box_properties.link_topic = properties
             .get(BStr::new("LinkTopic"))
             .map_or(text_box_properties.link_topic, |s| {
                 s.to_str().unwrap_or(text_box_properties.link_topic)
             });
-
         text_box_properties.locked =
-            build_bool_property(properties, BStr::new("Locked"), text_box_properties.locked);
-
-        text_box_properties.max_length = build_i32_property(
-            properties,
-            BStr::new("MaxLength"),
-            text_box_properties.max_length,
-        );
+            build_bool_property(properties, b"Locked", text_box_properties.locked);
+        text_box_properties.max_length =
+            build_i32_property(properties, b"MaxLength", text_box_properties.max_length);
 
         // mouse_icon: Option<DynamicImage>,
 
-        text_box_properties.mouse_pointer = build_property(properties, BStr::new("MousePointer"));
+        text_box_properties.mouse_pointer = build_property(properties, b"MousePointer");
 
-        text_box_properties.multi_line = build_bool_property(
-            properties,
-            BStr::new("MultiLine"),
-            text_box_properties.multi_line,
-        );
+        text_box_properties.multi_line =
+            build_bool_property(properties, b"MultiLine", text_box_properties.multi_line);
 
-        text_box_properties.ole_drag_mode = build_property(properties, BStr::new("OLEDragMode"));
+        text_box_properties.ole_drag_mode = build_property(properties, b"OLEDragMode");
 
-        text_box_properties.ole_drop_mode = build_property(properties, BStr::new("OLEDropMode"));
+        text_box_properties.ole_drop_mode = build_property(properties, b"OLEDropMode");
 
         text_box_properties.password_char = properties
             .get(BStr::new("PasswordChar"))
@@ -311,23 +273,17 @@ impl<'a> TextBoxProperties<'a> {
 
         text_box_properties.right_to_left = build_bool_property(
             properties,
-            BStr::new("RightToLeft"),
+            b"RightToLeft",
             text_box_properties.right_to_left,
         );
 
-        text_box_properties.scroll_bars = build_property(properties, BStr::new("ScrollBars"));
+        text_box_properties.scroll_bars = build_property(properties, b"ScrollBars");
 
-        text_box_properties.tab_index = build_i32_property(
-            properties,
-            BStr::new("TabIndex"),
-            text_box_properties.tab_index,
-        );
+        text_box_properties.tab_index =
+            build_i32_property(properties, b"TabIndex", text_box_properties.tab_index);
 
-        text_box_properties.tab_stop = build_bool_property(
-            properties,
-            BStr::new("TabStop"),
-            text_box_properties.tab_stop,
-        );
+        text_box_properties.tab_stop =
+            build_bool_property(properties, b"TabStop", text_box_properties.tab_stop);
 
         text_box_properties.text = properties
             .get(BStr::new("Text"))
@@ -341,23 +297,19 @@ impl<'a> TextBoxProperties<'a> {
                 s.to_str().unwrap_or(text_box_properties.tool_tip_text)
             });
 
-        text_box_properties.top =
-            build_i32_property(properties, BStr::new("Top"), text_box_properties.top);
+        text_box_properties.top = build_i32_property(properties, b"Top", text_box_properties.top);
 
-        text_box_properties.visible = build_bool_property(
-            properties,
-            BStr::new("Visible"),
-            text_box_properties.visible,
-        );
+        text_box_properties.visible =
+            build_bool_property(properties, b"Visible", text_box_properties.visible);
 
         text_box_properties.whats_this_help_id = build_i32_property(
             properties,
-            BStr::new("WhatsThisHelpID"),
+            b"WhatsThisHelpID",
             text_box_properties.whats_this_help_id,
         );
 
         text_box_properties.width =
-            build_i32_property(properties, BStr::new("Width"), text_box_properties.width);
+            build_i32_property(properties, b"Width", text_box_properties.width);
 
         Ok(text_box_properties)
     }

@@ -1,5 +1,4 @@
 use std::collections::HashMap;
-use std::hash::RandomState;
 
 use crate::errors::VB6ErrorKind;
 use crate::language::controls::{
@@ -195,23 +194,17 @@ impl<'a> OLEProperties<'a> {
     ) -> Result<Self, VB6ErrorKind> {
         let mut ole_properties = OLEProperties::default();
 
-        ole_properties.appearance = build_property(properties, BStr::new("Appearance"));
-        ole_properties.auto_activate = build_property(properties, BStr::new("AutoActivate"));
-        ole_properties.auto_verb_menu = build_bool_property(
-            properties,
-            BStr::new("AutoVerbMenu"),
-            ole_properties.auto_verb_menu,
-        );
-        ole_properties.back_color = build_color_property(
-            properties,
-            BStr::new("BackColor"),
-            ole_properties.back_color,
-        );
-        ole_properties.back_style = build_property(properties, BStr::new("BackStyle"));
-        ole_properties.border_style = build_property(properties, BStr::new("BorderStyle"));
+        ole_properties.appearance = build_property(properties, b"Appearance");
+        ole_properties.auto_activate = build_property(properties, b"AutoActivate");
+        ole_properties.auto_verb_menu =
+            build_bool_property(properties, b"AutoVerbMenu", ole_properties.auto_verb_menu);
+        ole_properties.back_color =
+            build_color_property(properties, b"BackColor", ole_properties.back_color);
+        ole_properties.back_style = build_property(properties, b"BackStyle");
+        ole_properties.border_style = build_property(properties, b"BorderStyle");
         ole_properties.causes_validation = build_bool_property(
             properties,
-            BStr::new("CausesValidation"),
+            b"CausesValidation",
             ole_properties.causes_validation,
         );
 
@@ -223,57 +216,45 @@ impl<'a> OLEProperties<'a> {
         ole_properties.data_source = properties
             .get(&BStr::new("DataSource"))
             .unwrap_or(&ole_properties.data_source);
-        ole_properties.display_type = build_property(properties, BStr::new("DisplayType"));
+        ole_properties.display_type = build_property(properties, b"DisplayType");
 
         // DragIcon
 
-        ole_properties.drag_mode =
-            build_property::<DragMode, RandomState>(properties, BStr::new("DragMode"));
+        ole_properties.drag_mode = build_property(properties, b"DragMode");
         ole_properties.enabled =
-            build_bool_property(properties, BStr::new("Enabled"), ole_properties.enabled);
-        ole_properties.height =
-            build_i32_property(properties, BStr::new("Height"), ole_properties.height);
-        ole_properties.help_context_id = build_i32_property(
-            properties,
-            BStr::new("HelpContextID"),
-            ole_properties.help_context_id,
-        );
+            build_bool_property(properties, b"Enabled", ole_properties.enabled);
+        ole_properties.height = build_i32_property(properties, b"Height", ole_properties.height);
+        ole_properties.help_context_id =
+            build_i32_property(properties, b"HelpContextID", ole_properties.help_context_id);
         ole_properties.host_name = properties
             .get(&BStr::new("HostName"))
             .unwrap_or(&ole_properties.host_name);
-        ole_properties.left =
-            build_i32_property(properties, BStr::new("Left"), ole_properties.left);
-        ole_properties.misc_flags = build_i32_property(
-            properties,
-            BStr::new("MiscFlags"),
-            ole_properties.misc_flags,
-        );
-        ole_properties.mouse_pointer =
-            build_property::<MousePointer, RandomState>(properties, BStr::new("MousePointer"));
+        ole_properties.left = build_i32_property(properties, b"Left", ole_properties.left);
+        ole_properties.misc_flags =
+            build_i32_property(properties, b"MiscFlags", ole_properties.misc_flags);
+        ole_properties.mouse_pointer = build_property(properties, b"MousePointer");
         ole_properties.ole_drop_allowed = build_bool_property(
             properties,
-            BStr::new("OLEDropAllowed"),
+            b"OLEDropAllowed",
             ole_properties.ole_drop_allowed,
         );
-        ole_properties.ole_type_allowed = build_property(properties, BStr::new("OLETypeAllowed"));
-        ole_properties.size_mode = build_property(properties, BStr::new("SizeMode"));
+        ole_properties.ole_type_allowed = build_property(properties, b"OLETypeAllowed");
+        ole_properties.size_mode = build_property(properties, b"SizeMode");
         ole_properties.tab_index =
-            build_i32_property(properties, BStr::new("TabIndex"), ole_properties.tab_index);
+            build_i32_property(properties, b"TabIndex", ole_properties.tab_index);
         ole_properties.tab_stop =
-            build_bool_property(properties, BStr::new("TabStop"), ole_properties.tab_stop);
-        ole_properties.top = build_i32_property(properties, BStr::new("Top"), ole_properties.top);
-        ole_properties.update_options = build_property(properties, BStr::new("UpdateOptions"));
-        ole_properties.verb =
-            build_i32_property(properties, BStr::new("Verb"), ole_properties.verb);
+            build_bool_property(properties, b"TabStop", ole_properties.tab_stop);
+        ole_properties.top = build_i32_property(properties, b"Top", ole_properties.top);
+        ole_properties.update_options = build_property(properties, b"UpdateOptions");
+        ole_properties.verb = build_i32_property(properties, b"Verb", ole_properties.verb);
         ole_properties.visible =
-            build_bool_property(properties, BStr::new("Visible"), ole_properties.visible);
+            build_bool_property(properties, b"Visible", ole_properties.visible);
         ole_properties.whats_this_help_id = build_i32_property(
             properties,
-            BStr::new("WhatsThisHelpID"),
+            b"WhatsThisHelpID",
             ole_properties.whats_this_help_id,
         );
-        ole_properties.width =
-            build_i32_property(properties, BStr::new("Width"), ole_properties.width);
+        ole_properties.width = build_i32_property(properties, b"Width", ole_properties.width);
 
         Ok(ole_properties)
     }

@@ -37,11 +37,10 @@ impl TimerProperties {
         let mut timer_properties = TimerProperties::default();
 
         timer_properties.enabled =
-            build_bool_property(properties, BStr::new("Enabled"), timer_properties.enabled);
+            build_bool_property(properties, b"Enabled", timer_properties.enabled);
         timer_properties.interval =
-            build_i32_property(properties, BStr::new("Interval"), timer_properties.interval);
-        timer_properties.left =
-            build_i32_property(properties, BStr::new("Left"), timer_properties.left);
+            build_i32_property(properties, b"Interval", timer_properties.interval);
+        timer_properties.left = build_i32_property(properties, b"Left", timer_properties.left);
 
         Ok(timer_properties)
     }

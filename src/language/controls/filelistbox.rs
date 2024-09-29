@@ -139,106 +139,69 @@ impl<'a> FileListBoxProperties<'a> {
     ) -> Result<Self, VB6ErrorKind> {
         let mut file_list_box_properties = FileListBoxProperties::default();
 
-        file_list_box_properties.appearance = build_property(properties, BStr::new("Appearance"));
-        file_list_box_properties.archive = build_bool_property(
-            properties,
-            BStr::new("Archive"),
-            file_list_box_properties.archive,
-        );
+        file_list_box_properties.appearance = build_property(properties, b"Appearance");
+        file_list_box_properties.archive =
+            build_bool_property(properties, b"Archive", file_list_box_properties.archive);
         file_list_box_properties.back_color = build_color_property(
             properties,
-            BStr::new("BackColor"),
+            b"BackColor",
             file_list_box_properties.back_color,
         );
         file_list_box_properties.causes_validation = build_bool_property(
             properties,
-            BStr::new("CausesValidation"),
+            b"CausesValidation",
             file_list_box_properties.causes_validation,
         );
-        file_list_box_properties.drag_mode = build_property(properties, BStr::new("DragMode"));
-        file_list_box_properties.enabled = build_bool_property(
-            properties,
-            BStr::new("Enabled"),
-            file_list_box_properties.enabled,
-        );
+        file_list_box_properties.drag_mode = build_property(properties, b"DragMode");
+        file_list_box_properties.enabled =
+            build_bool_property(properties, b"Enabled", file_list_box_properties.enabled);
         file_list_box_properties.fore_color = build_color_property(
             properties,
-            BStr::new("ForeColor"),
+            b"ForeColor",
             file_list_box_properties.fore_color,
         );
-        file_list_box_properties.height = build_i32_property(
-            properties,
-            BStr::new("Height"),
-            file_list_box_properties.height,
-        );
+        file_list_box_properties.height =
+            build_i32_property(properties, b"Height", file_list_box_properties.height);
         file_list_box_properties.help_context_id = build_i32_property(
             properties,
-            BStr::new("HelpContextID"),
+            b"HelpContextID",
             file_list_box_properties.help_context_id,
         );
-        file_list_box_properties.hidden = build_bool_property(
-            properties,
-            BStr::new("Hidden"),
-            file_list_box_properties.hidden,
-        );
+        file_list_box_properties.hidden =
+            build_bool_property(properties, b"Hidden", file_list_box_properties.hidden);
         file_list_box_properties.left =
-            build_i32_property(properties, BStr::new("Left"), file_list_box_properties.left);
-        file_list_box_properties.mouse_pointer =
-            build_property(properties, BStr::new("MousePointer"));
-        file_list_box_properties.multi_select =
-            build_property(properties, BStr::new("MultiSelect"));
-        file_list_box_properties.normal = build_bool_property(
-            properties,
-            BStr::new("Normal"),
-            file_list_box_properties.normal,
-        );
-        file_list_box_properties.ole_drag_mode =
-            build_property(properties, BStr::new("OLEDragMode"));
-        file_list_box_properties.ole_drop_mode =
-            build_property(properties, BStr::new("OLEDropMode"));
+            build_i32_property(properties, b"Left", file_list_box_properties.left);
+        file_list_box_properties.mouse_pointer = build_property(properties, b"MousePointer");
+        file_list_box_properties.multi_select = build_property(properties, b"MultiSelect");
+        file_list_box_properties.normal =
+            build_bool_property(properties, b"Normal", file_list_box_properties.normal);
+        file_list_box_properties.ole_drag_mode = build_property(properties, b"OLEDragMode");
+        file_list_box_properties.ole_drop_mode = build_property(properties, b"OLEDropMode");
         file_list_box_properties.pattern = properties
             .get(&BStr::new("Pattern"))
             .unwrap_or(&BStr::new("*.*"));
-        file_list_box_properties.read_only = build_bool_property(
-            properties,
-            BStr::new("ReadOnly"),
-            file_list_box_properties.read_only,
-        );
-        file_list_box_properties.system = build_bool_property(
-            properties,
-            BStr::new("System"),
-            file_list_box_properties.system,
-        );
-        file_list_box_properties.tab_index = build_i32_property(
-            properties,
-            BStr::new("TabIndex"),
-            file_list_box_properties.tab_index,
-        );
-        file_list_box_properties.tab_stop = build_bool_property(
-            properties,
-            BStr::new("TabStop"),
-            file_list_box_properties.tab_stop,
-        );
+        file_list_box_properties.read_only =
+            build_bool_property(properties, b"ReadOnly", file_list_box_properties.read_only);
+        file_list_box_properties.system =
+            build_bool_property(properties, b"System", file_list_box_properties.system);
+        file_list_box_properties.tab_index =
+            build_i32_property(properties, b"TabIndex", file_list_box_properties.tab_index);
+        file_list_box_properties.tab_stop =
+            build_bool_property(properties, b"TabStop", file_list_box_properties.tab_stop);
         file_list_box_properties.tool_tip_text = properties
             .get(&BStr::new("ToolTipText"))
             .unwrap_or(&BStr::new(""));
         file_list_box_properties.top =
-            build_i32_property(properties, BStr::new("Top"), file_list_box_properties.top);
-        file_list_box_properties.visible = build_bool_property(
-            properties,
-            BStr::new("Visible"),
-            file_list_box_properties.visible,
-        );
+            build_i32_property(properties, b"Top", file_list_box_properties.top);
+        file_list_box_properties.visible =
+            build_bool_property(properties, b"Visible", file_list_box_properties.visible);
         file_list_box_properties.whats_this_help_id = build_i32_property(
             properties,
-            BStr::new("WhatsThisHelpID"),
+            b"WhatsThisHelpID",
             file_list_box_properties.whats_this_help_id,
         );
-        file_list_box_properties.width = build_i32_property(
-            properties,
-            BStr::new("Width"),
-            file_list_box_properties.width,
-        );
+        file_list_box_properties.width =
+            build_i32_property(properties, b"Width", file_list_box_properties.width);
 
         Ok(file_list_box_properties)
     }
