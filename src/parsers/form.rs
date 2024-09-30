@@ -598,7 +598,7 @@ fn build_control<'a>(
                 properties: list_box_properties,
             }
         }
-        b"Ole" => {
+        b"OLE" => {
             let ole_properties = OLEProperties::construct_control(&properties)?;
 
             VB6ControlKind::Ole {
