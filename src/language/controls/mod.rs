@@ -71,14 +71,22 @@ pub enum WindowState {
     Maximized = 2,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
-#[repr(i32)]
+#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default)]
 pub enum StartUpPosition {
-    Manual = 0,
-    CenterOwner = 1,
-    CenterScreen = 2,
+    /// 0
+    Manual {
+        client_height: i32,
+        client_width: i32,
+        client_top: i32,
+        client_left: i32,
+    },
+    /// 1
+    CenterOwner,
+    /// 2
+    CenterScreen,
     #[default]
-    WindowsDefault = 3,
+    /// 3
+    WindowsDefault,
 }
 
 /// Represents a VB6 control.

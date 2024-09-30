@@ -6,7 +6,8 @@ use crate::language::{
     VB6Color,
 };
 use crate::parsers::form::{
-    build_bool_property, build_color_property, build_i32_property, build_property, VB6PropertyGroup,
+    build_bool_property, build_color_property, build_i32_property, build_property,
+    build_startup_position_property, VB6PropertyGroup,
 };
 
 use bstr::BStr;
@@ -19,10 +20,6 @@ pub struct MDIFormProperties<'a> {
     pub auto_show_children: bool,
     pub back_color: VB6Color,
     pub caption: &'a BStr,
-    pub client_height: i32,
-    pub client_left: i32,
-    pub client_top: i32,
-    pub client_width: i32,
     pub enabled: bool,
     pub height: i32,
     pub help_context_id: i32,
@@ -53,15 +50,11 @@ impl Serialize for MDIFormProperties<'_> {
     {
         use serde::ser::SerializeStruct;
 
-        let mut state = serializer.serialize_struct("MDIFormProperties", 29)?;
+        let mut state = serializer.serialize_struct("MDIFormProperties", 25)?;
         state.serialize_field("appearance", &self.appearance)?;
         state.serialize_field("auto_show_children", &self.auto_show_children)?;
         state.serialize_field("back_color", &self.back_color)?;
         state.serialize_field("caption", &self.caption)?;
-        state.serialize_field("client_height", &self.client_height)?;
-        state.serialize_field("client_left", &self.client_left)?;
-        state.serialize_field("client_top", &self.client_top)?;
-        state.serialize_field("client_width", &self.client_width)?;
         state.serialize_field("enabled", &self.enabled)?;
         state.serialize_field("height", &self.height)?;
         state.serialize_field("help_context_id", &self.help_context_id)?;
@@ -104,10 +97,6 @@ impl Default for MDIFormProperties<'_> {
             auto_show_children: true,
             back_color: VB6Color::from_hex("&H8000000C&").unwrap(),
             caption: BStr::new("MDIForm1"),
-            client_height: 0,
-            client_left: 0,
-            client_top: 0,
-            client_width: 0,
             enabled: true,
             //font
             height: 3600,
@@ -155,24 +144,6 @@ impl<'a> MDIFormProperties<'a> {
         mdi_form_properties.caption = properties
             .get(BStr::new("Caption"))
             .unwrap_or(&mdi_form_properties.caption);
-
-        mdi_form_properties.client_height = build_i32_property(
-            &properties,
-            b"ClientHeight",
-            mdi_form_properties.client_height,
-        );
-
-        mdi_form_properties.client_left =
-            build_i32_property(&properties, b"ClientLeft", mdi_form_properties.client_left);
-
-        mdi_form_properties.client_top =
-            build_i32_property(&properties, b"ClientTop", mdi_form_properties.client_top);
-
-        mdi_form_properties.client_width = build_i32_property(
-            &properties,
-            b"ClientWidth",
-            mdi_form_properties.client_width,
-        );
 
         mdi_form_properties.enabled =
             build_bool_property(&properties, b"Enabled", mdi_form_properties.enabled);
@@ -225,7 +196,8 @@ impl<'a> MDIFormProperties<'a> {
         mdi_form_properties.scroll_bars =
             build_bool_property(&properties, b"Scrollbars", mdi_form_properties.scroll_bars);
 
-        mdi_form_properties.start_up_position = build_property(&properties, b"StartUpPosition");
+        mdi_form_properties.start_up_position =
+            build_startup_position_property(&properties, b"StartUpPosition");
 
         mdi_form_properties.top = build_i32_property(&properties, b"Top", mdi_form_properties.top);
 

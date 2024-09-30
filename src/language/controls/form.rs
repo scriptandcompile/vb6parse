@@ -9,7 +9,8 @@ use crate::language::{
     FormLinkMode, VB6Color,
 };
 use crate::parsers::form::{
-    build_bool_property, build_color_property, build_i32_property, build_property, VB6PropertyGroup,
+    build_bool_property, build_color_property, build_i32_property, build_property,
+    build_startup_position_property, VB6PropertyGroup,
 };
 
 use bstr::BStr;
@@ -322,7 +323,8 @@ impl<'a> FormProperties<'a> {
             b"ShowInTaskbar",
             form_properties.show_in_taskbar,
         );
-        form_properties.start_up_position = build_property(&properties, b"StartUpPosition");
+        form_properties.start_up_position =
+            build_startup_position_property(&properties, b"StartUpPosition");
         form_properties.top = build_i32_property(&properties, b"Top", form_properties.top);
         form_properties.visible =
             build_bool_property(&properties, b"Visible", form_properties.visible);

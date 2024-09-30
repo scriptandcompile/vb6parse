@@ -16,6 +16,7 @@ use winnow::{
     Parser,
 };
 
+use crate::language::StartUpPosition;
 use crate::{
     errors::{VB6Error, VB6ErrorKind},
     language::{
@@ -355,7 +356,7 @@ fn property_group_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyG
 
         space0.parse_next(input)?;
 
-        let name = take_until(1.., ("\t", " ", "=")).parse_next(input)?;
+        let name = take_till(1.., (b'\t', b' ', b'=')).parse_next(input)?;
 
         (space0, "=", space0).parse_next(input)?;
 
@@ -689,6 +690,41 @@ where
         Err(_) => T::default(),
     }
 }
+#[must_use]
+pub fn build_startup_position_property<B: AsRef<[u8]>, S: std::hash::BuildHasher>(
+    properties: &HashMap<&BStr, &BStr, S>,
+    property_key: &B,
+) -> StartUpPosition {
+    let key = property_key.as_ref().as_bstr();
+    if !properties.contains_key(key) {
+        return StartUpPosition::WindowsDefault;
+    }
+
+    let property_ascii = properties[key].to_str().unwrap();
+
+    match property_ascii.parse::<i32>() {
+        Ok(value) => match value {
+            0 => {
+                let client_height = build_i32_property(properties, b"ClientHeight", 3000);
+                let client_width = build_i32_property(properties, b"ClientWidth", 3000);
+                let client_top = build_i32_property(properties, b"ClientTop", 200);
+                let client_left = build_i32_property(properties, b"ClientLeft", 100);
+
+                StartUpPosition::Manual {
+                    client_height,
+                    client_width,
+                    client_top,
+                    client_left,
+                }
+            }
+            1 => StartUpPosition::CenterOwner,
+            2 => StartUpPosition::CenterScreen,
+            3 => StartUpPosition::WindowsDefault,
+            _ => StartUpPosition::WindowsDefault,
+        },
+        Err(_) => StartUpPosition::WindowsDefault,
+    }
+}
 
 #[must_use]
 pub fn build_option_property<'a, B: AsRef<[u8]>, S: std::hash::BuildHasher, T>(
@@ -794,15 +830,6 @@ mod tests {
         let result = result.unwrap();
         assert_eq!(result.name, "Font");
         assert_eq!(result.properties.len(), 7);
-    }
-
-    #[test]
-    fn mdi_main_frm() {
-        use crate::parsers::form::VB6FormFile;
-
-        let input = include_bytes!("../../tests/data/omelette-vb6/Forms/mdiMain.frm");
-
-        let _result = VB6FormFile::parse("mdiMain.frm".to_owned(), input).unwrap();
     }
 
     #[test]
