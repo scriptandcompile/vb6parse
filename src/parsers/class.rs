@@ -442,13 +442,6 @@ Attribute VB_Exposed = False";
         let mut stream = VB6Stream::new("", &mut input.as_slice());
         let result = class_header_parse(&mut stream);
 
-        // eprintln!(
-        //     "{:?}",
-        //     stream.error(result.err().unwrap().into_inner().unwrap())
-        // );
-
-        // assert!(false);
-
         assert!(result.is_ok());
     }
 
