@@ -661,7 +661,7 @@ fn build_control<'a>(
 
     let parent_control = VB6Control {
         name: fully_qualified_name.name,
-        tag: tag,
+        tag,
         index: 0,
         kind,
     };
