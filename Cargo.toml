@@ -1,6 +1,6 @@
 [package]
 name = "vb6parse"
-version = "0.3.0"
+version = "0.4.0"
 edition = "2021"
 license-file = "LICENSE"
 description = "vb6parse is a library for parsing and analyzing VB6 code, from projects, to controls, to modules, and forms."
