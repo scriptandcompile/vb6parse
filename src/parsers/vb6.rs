@@ -311,6 +311,7 @@ pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6Token<'a>>> 
     Ok(tokens)
 }
 
+#[must_use]
 pub fn is_english_code(content: &BStr) -> bool {
     // We are looking to see if we have a large-ish number of higher half ANSI characters.
     let character_count = content.len();
