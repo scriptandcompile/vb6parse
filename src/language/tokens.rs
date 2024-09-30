@@ -118,8 +118,8 @@ pub enum VB6Token<'a> {
     AdditionOperator(&'a BStr),
     /// Represents a division operator '/'.
     DivisionOperator(&'a BStr),
-    /// Represents a forward slash operator '\\'.
-    ForwardSlashOperator(&'a BStr),
+    /// Represents a backward slash operator '\\'.
+    BackwardSlashOperator(&'a BStr),
     /// Represents a period operator '.'.
     PeriodOperator(&'a BStr),
     /// Represents a colon operator ':'.

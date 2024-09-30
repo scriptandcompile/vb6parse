@@ -1,5 +1,5 @@
 ---
-source: vb6parse/tests/module.rs
+source: tests/module.rs
 expression: module2_file
 ---
 name:
@@ -4388,7 +4388,7 @@ tokens:
       - 120
   - Whitespace:
       - 32
-  - ForwardSlashOperator:
+  - BackwardSlashOperator:
       - 92
   - Whitespace:
       - 32
@@ -4415,7 +4415,7 @@ tokens:
       - 88
   - Whitespace:
       - 32
-  - ForwardSlashOperator:
+  - BackwardSlashOperator:
       - 92
   - Whitespace:
       - 32
@@ -4451,7 +4451,7 @@ tokens:
       - 89
   - Whitespace:
       - 32
-  - ForwardSlashOperator:
+  - BackwardSlashOperator:
       - 92
   - Whitespace:
       - 32
@@ -4478,7 +4478,7 @@ tokens:
       - 89
   - Whitespace:
       - 32
-  - ForwardSlashOperator:
+  - BackwardSlashOperator:
       - 92
   - Whitespace:
       - 32

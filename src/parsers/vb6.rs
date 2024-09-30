@@ -390,7 +390,7 @@ fn vb6_symbol_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             "+".map(|token: &BStr| VB6Token::AdditionOperator(token)),
             "-".map(|token: &BStr| VB6Token::SubtractionOperator(token)),
             "*".map(|token: &BStr| VB6Token::MultiplicationOperator(token)),
-            "\\".map(|token: &BStr| VB6Token::ForwardSlashOperator(token)),
+            "\\".map(|token: &BStr| VB6Token::BackwardSlashOperator(token)),
             "/".map(|token: &BStr| VB6Token::DivisionOperator(token)),
             ".".map(|token: &BStr| VB6Token::PeriodOperator(token)),
             ":".map(|token: &BStr| VB6Token::ColonOperator(token)),
