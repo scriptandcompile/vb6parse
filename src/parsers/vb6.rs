@@ -262,7 +262,7 @@ fn string_fragment_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<StringFragm
 pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6Token<'a>>> {
     let mut tokens = Vec::new();
 
-    if !is_english_code(&input.stream) {
+    if !is_english_code(input.stream) {
         return Err(ErrMode::Cut(VB6ErrorKind::LikelyNonEnglishCharacterSet));
     }
 
