@@ -268,8 +268,7 @@ impl<'a> TextBoxProperties<'a> {
 
         text_box_properties.password_char = properties
             .get(BStr::new("PasswordChar"))
-            .map(|s| s.to_str().unwrap_or("").chars().next())
-            .flatten();
+            .and_then(|s| s.to_str().unwrap_or("").chars().next());
 
         text_box_properties.right_to_left = build_bool_property(
             properties,
