@@ -422,11 +422,11 @@ fn build_control<'a>(
     if fully_qualified_name.namespace != "VB" {
         let custom_control = VB6Control {
             name: fully_qualified_name.name,
-            tag: tag,
+            tag,
             index: 0,
             kind: VB6ControlKind::Custom {
-                properties: properties,
-                property_groups: property_groups,
+                properties,
+                property_groups,
             },
         };
 
