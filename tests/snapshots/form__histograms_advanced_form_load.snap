@@ -10146,7 +10146,7 @@ tokens:
       - 41
   - Whitespace:
       - 32
-  - ForwardSlashOperator:
+  - BackwardSlashOperator:
       - 92
   - Whitespace:
       - 32

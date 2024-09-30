@@ -12623,7 +12623,7 @@ tokens:
       - 108
   - Whitespace:
       - 32
-  - ForwardSlashOperator:
+  - BackwardSlashOperator:
       - 92
   - Whitespace:
       - 32

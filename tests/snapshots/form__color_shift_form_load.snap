@@ -4251,7 +4251,7 @@ tokens:
       - 104
   - Whitespace:
       - 32
-  - ForwardSlashOperator:
+  - BackwardSlashOperator:
       - 92
   - Whitespace:
       - 32
@@ -4582,7 +4582,7 @@ tokens:
       - 116
   - Whitespace:
       - 32
-  - ForwardSlashOperator:
+  - BackwardSlashOperator:
       - 92
   - Whitespace:
       - 32
