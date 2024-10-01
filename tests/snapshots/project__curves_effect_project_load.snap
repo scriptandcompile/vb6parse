@@ -324,16 +324,17 @@ version_info:
     - 109
 server_support_files: Local
 conditional_compile: []
-compilation_type: NativeCode
-optimization_type: FavorFastCode
-favor_pentium_pro: "True"
-code_view_debug_info: NotCreated
-aliasing: AssumeNoAliasing
-bounds_check: NoBoundsCheck
-overflow_check: NoOverflowCheck
-floating_point_check: NoFloatingPointErrorCheck
-pentium_fdiv_bug_check: NoPentiumFDivBugCheck
-unrounded_floating_point: Allow
+compilation_type:
+  NativeCode:
+    optimization_type: FavorFastCode
+    favor_pentium_pro: "True"
+    code_view_debug_info: NotCreated
+    aliasing: AssumeNoAliasing
+    bounds_check: NoBoundsCheck
+    overflow_check: NoOverflowCheck
+    floating_point_check: NoFloatingPointErrorCheck
+    pentium_fdiv_bug_check: NoPentiumFDivBugCheck
+    unrounded_floating_point: Allow
 start_mode: StandAlone
 unattended: "False"
 retained: UnloadOnExit

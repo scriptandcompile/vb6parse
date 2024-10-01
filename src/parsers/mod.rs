@@ -2,6 +2,7 @@ mod header;
 mod vb6stream;
 
 pub mod class;
+pub mod compilesettings;
 pub mod form;
 pub mod module;
 pub mod project;
@@ -13,12 +14,15 @@ use uuid::Uuid;
 
 pub use class::{
     FileUsage, MtsStatus, Persistance, VB6ClassFile, VB6ClassHeader, VB6ClassProperties,
-    VB6ClassVersion, 
+    VB6ClassVersion,
 };
 
-pub use header::VB6FileAttributes;
-
+pub use compilesettings::{
+    BoundsCheck, CompilationType, FloatingPointErrorCheck, OverflowCheck, PentiumFDivBugCheck,
+    UnroundedFloatingPoint,
+};
 pub use form::VB6FormFile;
+pub use header::VB6FileAttributes;
 pub use module::VB6ModuleFile;
 
 pub use project::{
