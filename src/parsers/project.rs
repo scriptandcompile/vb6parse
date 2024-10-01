@@ -16,7 +16,16 @@ use winnow::{
 
 use crate::{
     errors::{VB6Error, VB6ErrorKind},
-    parsers::{header::object_parse, vb6stream::VB6Stream, VB6ObjectReference},
+    parsers::{
+        compilesettings::{
+            Aliasing, BoundsCheck, CodeViewDebugInfo, CompilationType, FavorPentiumPro,
+            FloatingPointErrorCheck, OptimizationType, OverflowCheck, PentiumFDivBugCheck,
+            UnroundedFloatingPoint,
+        },
+        header::object_parse,
+        vb6stream::VB6Stream,
+        VB6ObjectReference,
+    },
     vb6::{line_comment_parse, take_until_line_ending, VB6Result},
 };
 
@@ -57,15 +66,7 @@ pub struct VB6Project<'a> {
     pub server_support_files: ServerSupportFiles,
     pub conditional_compile: Option<&'a BStr>,
     pub compilation_type: CompilationType,
-    pub optimization_type: OptimizationType,
-    pub favor_pentium_pro: FavorPentiumPro,
-    pub code_view_debug_info: CodeViewDebugInfo,
-    pub aliasing: Aliasing,
-    pub bounds_check: BoundsCheck,
-    pub overflow_check: OverflowCheck,
-    pub floating_point_check: FloatingPointErrorCheck,
-    pub pentium_fdiv_bug_check: PentiumFDivBugCheck,
-    pub unrounded_floating_point: UnroundedFloatingPoint,
+
     pub start_mode: StartMode,
     pub unattended: Unattended,
     pub retained: Retained,
@@ -119,14 +120,6 @@ pub enum ServerSupportFiles {
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i16)]
-pub enum UnroundedFloatingPoint {
-    #[default]
-    DoNotAllow = 0,
-    Allow = -1,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
-#[repr(i16)]
 pub enum UpgradeControls {
     #[default]
     Upgrade = 0,
@@ -143,75 +136,11 @@ pub enum UnusedControlInfo {
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i16)]
-pub enum Aliasing {
-    #[default]
-    AssumeAliasing = 0,
-    AssumeNoAliasing = -1,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
-#[repr(i16)]
-pub enum PentiumFDivBugCheck {
-    CheckPentiumFDivBug = 0,
-    #[default]
-    NoPentiumFDivBugCheck = -1,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
-#[repr(i16)]
-pub enum BoundsCheck {
-    #[default]
-    CheckBounds = 0,
-    NoBoundsCheck = -1,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
-#[repr(i16)]
-pub enum OverflowCheck {
-    #[default]
-    CheckOverflow = 0,
-    NoOverflowCheck = -1,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
-#[repr(i16)]
-pub enum FloatingPointErrorCheck {
-    #[default]
-    CheckFloatingPointError = 0,
-    NoFloatingPointErrorCheck = -1,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
-#[repr(i16)]
-pub enum CodeViewDebugInfo {
-    #[default]
-    NotCreated = 0,
-    Created = -1,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
-#[repr(i16)]
-pub enum FavorPentiumPro {
-    #[default]
-    False = 0,
-    True = -1,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
-#[repr(i16)]
 pub enum CompatibilityMode {
     NoCompatibility = 0,
     #[default]
     Project = 1,
     CompatibleExe = 2,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
-#[repr(i16)]
-pub enum CompilationType {
-    #[default]
-    NativeCode = 0,
-    PCode = -1,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
@@ -222,15 +151,6 @@ pub enum DebugStartupOption {
     StartComponent = 1,
     StartProgram = 2,
     StartBrowser = 3,
-}
-
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
-#[repr(i16)]
-pub enum OptimizationType {
-    #[default]
-    FavorFastCode = 0,
-    FavorSmallCode = 1,
-    NoOptimization = 2,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
@@ -460,6 +380,7 @@ impl<'a> VB6Project<'a> {
         let mut server_support_files = ServerSupportFiles::Local;
         let mut conditional_compile = Some(BStr::new(b""));
         let mut compilation_type = CompilationType::PCode;
+        let mut compilation_type_value = -1;
         let mut optimization_type = OptimizationType::FavorFastCode;
         let mut favor_pentium_pro = FavorPentiumPro::default();
         let mut code_view_debug_info = CodeViewDebugInfo::NotCreated;
@@ -1094,7 +1015,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                compilation_type = process_parameter::<CompilationType>(
+                compilation_type_value = process_numeric_parameter(
                     &mut input,
                     VB6ErrorKind::CompilationTypeUnparseable,
                 )?;
@@ -1323,6 +1244,21 @@ impl<'a> VB6Project<'a> {
             comments,
         };
 
+        // native code
+        if compilation_type_value == 0 {
+            compilation_type = CompilationType::NativeCode {
+                optimization_type,
+                favor_pentium_pro,
+                code_view_debug_info,
+                aliasing,
+                bounds_check,
+                overflow_check,
+                floating_point_check,
+                pentium_fdiv_bug_check,
+                unrounded_floating_point,
+            };
+        }
+
         let project = VB6Project {
             project_type: project_type.unwrap(),
             references,
@@ -1357,15 +1293,6 @@ impl<'a> VB6Project<'a> {
             server_support_files,
             conditional_compile,
             compilation_type,
-            optimization_type,
-            favor_pentium_pro,
-            code_view_debug_info,
-            aliasing,
-            bounds_check,
-            overflow_check,
-            floating_point_check,
-            pentium_fdiv_bug_check,
-            unrounded_floating_point,
             start_mode,
             unattended,
             retained,
@@ -2154,24 +2081,19 @@ mod tests {
             "server_support_files check"
         );
         assert_eq!(project.conditional_compile, Some(BStr::new(b"")));
-        assert_eq!(project.compilation_type, CompilationType::NativeCode);
-        assert_eq!(project.optimization_type, OptimizationType::FavorFastCode);
-        assert_eq!(project.favor_pentium_pro, FavorPentiumPro::False);
-        assert_eq!(project.code_view_debug_info, CodeViewDebugInfo::NotCreated,);
-        assert_eq!(project.aliasing, Aliasing::AssumeAliasing);
-        assert_eq!(project.bounds_check, BoundsCheck::CheckBounds);
-        assert_eq!(project.overflow_check, OverflowCheck::CheckOverflow);
         assert_eq!(
-            project.floating_point_check,
-            FloatingPointErrorCheck::CheckFloatingPointError
-        );
-        assert_eq!(
-            project.pentium_fdiv_bug_check,
-            PentiumFDivBugCheck::CheckPentiumFDivBug
-        );
-        assert_eq!(
-            project.unrounded_floating_point,
-            UnroundedFloatingPoint::DoNotAllow
+            project.compilation_type,
+            CompilationType::NativeCode {
+                optimization_type: OptimizationType::FavorFastCode,
+                favor_pentium_pro: FavorPentiumPro::False,
+                code_view_debug_info: CodeViewDebugInfo::NotCreated,
+                aliasing: Aliasing::AssumeAliasing,
+                bounds_check: BoundsCheck::CheckBounds,
+                overflow_check: OverflowCheck::CheckOverflow,
+                floating_point_check: FloatingPointErrorCheck::CheckFloatingPointError,
+                pentium_fdiv_bug_check: PentiumFDivBugCheck::CheckPentiumFDivBug,
+                unrounded_floating_point: UnroundedFloatingPoint::DoNotAllow,
+            }
         );
         assert_eq!(project.start_mode, StartMode::StandAlone);
         assert_eq!(project.unattended, Unattended::False);
@@ -2297,24 +2219,19 @@ mod tests {
             "server_support_files check"
         );
         assert_eq!(project.conditional_compile, Some(BStr::new(b"")));
-        assert_eq!(project.compilation_type, CompilationType::NativeCode);
-        assert_eq!(project.optimization_type, OptimizationType::FavorFastCode);
-        assert_eq!(project.favor_pentium_pro, FavorPentiumPro::False);
-        assert_eq!(project.code_view_debug_info, CodeViewDebugInfo::NotCreated,);
-        assert_eq!(project.aliasing, Aliasing::AssumeAliasing);
-        assert_eq!(project.bounds_check, BoundsCheck::CheckBounds);
-        assert_eq!(project.overflow_check, OverflowCheck::CheckOverflow);
         assert_eq!(
-            project.floating_point_check,
-            FloatingPointErrorCheck::CheckFloatingPointError
-        );
-        assert_eq!(
-            project.pentium_fdiv_bug_check,
-            PentiumFDivBugCheck::CheckPentiumFDivBug
-        );
-        assert_eq!(
-            project.unrounded_floating_point,
-            UnroundedFloatingPoint::DoNotAllow
+            project.compilation_type,
+            CompilationType::NativeCode {
+                optimization_type: OptimizationType::FavorFastCode,
+                favor_pentium_pro: FavorPentiumPro::False,
+                code_view_debug_info: CodeViewDebugInfo::NotCreated,
+                aliasing: Aliasing::AssumeAliasing,
+                bounds_check: BoundsCheck::CheckBounds,
+                overflow_check: OverflowCheck::CheckOverflow,
+                floating_point_check: FloatingPointErrorCheck::CheckFloatingPointError,
+                pentium_fdiv_bug_check: PentiumFDivBugCheck::CheckPentiumFDivBug,
+                unrounded_floating_point: UnroundedFloatingPoint::DoNotAllow,
+            }
         );
         assert_eq!(project.start_mode, StartMode::StandAlone);
         assert_eq!(project.unattended, Unattended::False);
@@ -2445,24 +2362,20 @@ mod tests {
             "server_support_files check"
         );
         assert_eq!(project.conditional_compile, Some(BStr::new(b"")));
-        assert_eq!(project.compilation_type, CompilationType::NativeCode);
-        assert_eq!(project.optimization_type, OptimizationType::FavorFastCode);
-        assert_eq!(project.favor_pentium_pro, FavorPentiumPro::False);
-        assert_eq!(project.code_view_debug_info, CodeViewDebugInfo::NotCreated,);
-        assert_eq!(project.aliasing, Aliasing::AssumeAliasing);
-        assert_eq!(project.bounds_check, BoundsCheck::CheckBounds);
-        assert_eq!(project.overflow_check, OverflowCheck::CheckOverflow);
+
         assert_eq!(
-            project.floating_point_check,
-            FloatingPointErrorCheck::CheckFloatingPointError
-        );
-        assert_eq!(
-            project.pentium_fdiv_bug_check,
-            PentiumFDivBugCheck::CheckPentiumFDivBug
-        );
-        assert_eq!(
-            project.unrounded_floating_point,
-            UnroundedFloatingPoint::DoNotAllow
+            project.compilation_type,
+            CompilationType::NativeCode {
+                optimization_type: OptimizationType::FavorFastCode,
+                favor_pentium_pro: FavorPentiumPro::False,
+                code_view_debug_info: CodeViewDebugInfo::NotCreated,
+                aliasing: Aliasing::AssumeAliasing,
+                bounds_check: BoundsCheck::CheckBounds,
+                overflow_check: OverflowCheck::CheckOverflow,
+                floating_point_check: FloatingPointErrorCheck::CheckFloatingPointError,
+                pentium_fdiv_bug_check: PentiumFDivBugCheck::CheckPentiumFDivBug,
+                unrounded_floating_point: UnroundedFloatingPoint::DoNotAllow,
+            }
         );
         assert_eq!(project.start_mode, StartMode::StandAlone);
         assert_eq!(project.unattended, Unattended::False);

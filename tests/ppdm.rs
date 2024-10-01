@@ -1,11 +1,14 @@
 use bstr::{ByteSlice, B};
 
 use vb6parse::parsers::{
+    compilesettings::{
+        Aliasing, BoundsCheck, CodeViewDebugInfo, CompilationType, FavorPentiumPro,
+        FloatingPointErrorCheck, OptimizationType, OverflowCheck, PentiumFDivBugCheck,
+        UnroundedFloatingPoint,
+    },
     project::{
-        Aliasing, BoundsCheck, CodeViewDebugInfo, CompatibilityMode, CompilationType,
-        DebugStartupOption, FavorPentiumPro, FloatingPointErrorCheck, OptimizationType,
-        OverflowCheck, PentiumFDivBugCheck, Retained, ServerSupportFiles, StartMode, Unattended,
-        UnroundedFloatingPoint, UpgradeControls,
+        CompatibilityMode, DebugStartupOption, Retained, ServerSupportFiles, StartMode, Unattended,
+        UpgradeControls,
     },
     CompileTargetType, VB6Project,
 };
@@ -51,25 +54,21 @@ fn ppdm_project_load() {
         project.conditional_compile,
         Some(b"PDMBuild = 1 : PDM_SHORTCUTS = 1 : PMData7Build = 0".as_bstr())
     );
-    assert_eq!(project.compilation_type, CompilationType::NativeCode);
-    assert_eq!(project.optimization_type, OptimizationType::FavorFastCode);
-    assert_eq!(project.favor_pentium_pro, FavorPentiumPro::False);
-    assert_eq!(project.code_view_debug_info, CodeViewDebugInfo::NotCreated);
-    assert_eq!(project.aliasing, Aliasing::AssumeAliasing);
-    assert_eq!(project.bounds_check, BoundsCheck::CheckBounds);
-    assert_eq!(project.overflow_check, OverflowCheck::CheckOverflow);
     assert_eq!(
-        project.floating_point_check,
-        FloatingPointErrorCheck::CheckFloatingPointError
+        project.compilation_type,
+        CompilationType::NativeCode {
+            optimization_type: OptimizationType::FavorFastCode,
+            favor_pentium_pro: FavorPentiumPro::False,
+            code_view_debug_info: CodeViewDebugInfo::NotCreated,
+            aliasing: Aliasing::AssumeAliasing,
+            bounds_check: BoundsCheck::CheckBounds,
+            overflow_check: OverflowCheck::CheckOverflow,
+            floating_point_check: FloatingPointErrorCheck::CheckFloatingPointError,
+            pentium_fdiv_bug_check: PentiumFDivBugCheck::CheckPentiumFDivBug,
+            unrounded_floating_point: UnroundedFloatingPoint::DoNotAllow,
+        }
     );
-    assert_eq!(
-        project.pentium_fdiv_bug_check,
-        PentiumFDivBugCheck::CheckPentiumFDivBug
-    );
-    assert_eq!(
-        project.unrounded_floating_point,
-        UnroundedFloatingPoint::DoNotAllow
-    );
+
     assert_eq!(project.start_mode, StartMode::StandAlone);
     assert_eq!(project.unattended, Unattended::False);
     assert_eq!(project.retained, Retained::UnloadOnExit);
