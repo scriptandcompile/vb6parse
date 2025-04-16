@@ -58,9 +58,7 @@ fn gradient_2d_class_load() {
     ) {
         Ok(class_file) => class_file,
         Err(e) => {
-            panic!(
-                "Failed to parse class file 'cSystemColorDialog.cls' form : {e}"
-            );
+            panic!("Failed to parse class file 'cSystemColorDialog.cls' form : {e}");
         }
     };
 
@@ -77,9 +75,7 @@ fn hidden_markov_model_class_load() {
     ) {
         Ok(class_file) => class_file,
         Err(e) => {
-            panic!(
-                "Failed to parse class file 'cCommonDialog.cls' form : {e}"
-            );
+            panic!("Failed to parse class file 'cCommonDialog.cls' form : {e}");
         }
     };
 

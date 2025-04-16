@@ -1,13 +1,8 @@
-use std::collections::HashMap;
-
-use crate::errors::VB6ErrorKind;
 use crate::language::controls::{Appearance, DragMode, MousePointer, OLEDragMode, OLEDropMode};
-use crate::parsers::form::{
-    build_bool_property, build_color_property, build_i32_property, build_property,
-};
+use crate::parsers::Properties;
 use crate::VB6Color;
 
-use bstr::BStr;
+use bstr::BString;
 use image::DynamicImage;
 use serde::Serialize;
 
@@ -18,7 +13,7 @@ use serde::Serialize;
 /// tag, name, and index are not included in this struct, but instead are part
 /// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
-pub struct DirListBoxProperties<'a> {
+pub struct DirListBoxProperties {
     pub appearance: Appearance,
     pub back_color: VB6Color,
     pub causes_validation: bool,
@@ -35,14 +30,14 @@ pub struct DirListBoxProperties<'a> {
     pub ole_drop_mode: OLEDropMode,
     pub tab_index: i32,
     pub tab_stop: bool,
-    pub tool_tip_text: &'a BStr,
+    pub tool_tip_text: BString,
     pub top: i32,
     pub visible: bool,
     pub whats_this_help_id: i32,
     pub width: i32,
 }
 
-impl Default for DirListBoxProperties<'_> {
+impl Default for DirListBoxProperties {
     fn default() -> Self {
         DirListBoxProperties {
             appearance: Appearance::ThreeD,
@@ -61,7 +56,7 @@ impl Default for DirListBoxProperties<'_> {
             ole_drop_mode: OLEDropMode::default(),
             tab_index: 0,
             tab_stop: true,
-            tool_tip_text: BStr::new(""),
+            tool_tip_text: "".into(),
             top: 720,
             visible: true,
             whats_this_help_id: 0,
@@ -70,7 +65,7 @@ impl Default for DirListBoxProperties<'_> {
     }
 }
 
-impl Serialize for DirListBoxProperties<'_> {
+impl Serialize for DirListBoxProperties {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -110,59 +105,50 @@ impl Serialize for DirListBoxProperties<'_> {
     }
 }
 
-impl<'a> DirListBoxProperties<'a> {
-    pub fn construct_control(
-        properties: &HashMap<&'a BStr, &'a BStr>,
-    ) -> Result<Self, VB6ErrorKind> {
-        let mut dir_list_box_properties = DirListBoxProperties::default();
+impl<'a> From<Properties<'a>> for DirListBoxProperties {
+    fn from(prop: Properties<'a>) -> Self {
+        let mut dir_list_box_prop = DirListBoxProperties::default();
 
-        dir_list_box_properties.appearance = build_property(properties, b"Appearance");
-        dir_list_box_properties.back_color =
-            build_color_property(properties, b"BackColor", dir_list_box_properties.back_color);
-        dir_list_box_properties.causes_validation = build_bool_property(
-            properties,
-            b"CausesValidation",
-            dir_list_box_properties.causes_validation,
+        dir_list_box_prop.appearance =
+            prop.get_property(b"Appearance".into(), dir_list_box_prop.appearance);
+        dir_list_box_prop.back_color =
+            prop.get_color(b"BackColor".into(), dir_list_box_prop.back_color);
+        dir_list_box_prop.causes_validation = prop.get_bool(
+            b"CausesValidation".into(),
+            dir_list_box_prop.causes_validation,
         );
 
         // DragIcon
 
-        dir_list_box_properties.drag_mode = build_property(properties, b"DragMode");
-        dir_list_box_properties.enabled =
-            build_bool_property(properties, b"Enabled", dir_list_box_properties.enabled);
-        dir_list_box_properties.fore_color =
-            build_color_property(properties, b"ForeColor", dir_list_box_properties.fore_color);
-        dir_list_box_properties.height =
-            build_i32_property(properties, b"Height", dir_list_box_properties.height);
-        dir_list_box_properties.help_context_id = build_i32_property(
-            properties,
-            b"HelpContextID",
-            dir_list_box_properties.help_context_id,
+        dir_list_box_prop.drag_mode =
+            prop.get_property(b"DragMode".into(), dir_list_box_prop.drag_mode);
+        dir_list_box_prop.enabled = prop.get_bool(b"Enabled".into(), dir_list_box_prop.enabled);
+        dir_list_box_prop.fore_color =
+            prop.get_color(b"ForeColor".into(), dir_list_box_prop.fore_color);
+        dir_list_box_prop.height = prop.get_i32(b"Height".into(), dir_list_box_prop.height);
+        dir_list_box_prop.help_context_id =
+            prop.get_i32(b"HelpContextID".into(), dir_list_box_prop.help_context_id);
+        dir_list_box_prop.left = prop.get_i32(b"Left".into(), dir_list_box_prop.left);
+        dir_list_box_prop.mouse_pointer =
+            prop.get_property(b"MousePointer".into(), dir_list_box_prop.mouse_pointer);
+        dir_list_box_prop.ole_drag_mode =
+            prop.get_property(b"OLEDragMode".into(), dir_list_box_prop.ole_drag_mode);
+        dir_list_box_prop.ole_drop_mode =
+            prop.get_property(b"OLEDropMode".into(), dir_list_box_prop.ole_drop_mode);
+        dir_list_box_prop.tab_index = prop.get_i32(b"TabIndex".into(), dir_list_box_prop.tab_index);
+        dir_list_box_prop.tab_stop = prop.get_bool(b"TabStop".into(), dir_list_box_prop.tab_stop);
+        dir_list_box_prop.tool_tip_text = match prop.get("ToolTipText".into()) {
+            Some(tool_tip_text) => tool_tip_text.into(),
+            None => "".into(),
+        };
+        dir_list_box_prop.top = prop.get_i32(b"Top".into(), dir_list_box_prop.top);
+        dir_list_box_prop.visible = prop.get_bool(b"Visible".into(), dir_list_box_prop.visible);
+        dir_list_box_prop.whats_this_help_id = prop.get_i32(
+            b"WhatsThisHelpID".into(),
+            dir_list_box_prop.whats_this_help_id,
         );
-        dir_list_box_properties.left =
-            build_i32_property(properties, b"Left", dir_list_box_properties.left);
-        dir_list_box_properties.mouse_pointer = build_property(properties, b"MousePointer");
-        dir_list_box_properties.ole_drag_mode = build_property(properties, b"OLEDragMode");
-        dir_list_box_properties.ole_drop_mode = build_property(properties, b"OLEDropMode");
-        dir_list_box_properties.tab_index =
-            build_i32_property(properties, b"TabIndex", dir_list_box_properties.tab_index);
-        dir_list_box_properties.tab_stop =
-            build_bool_property(properties, b"TabStop", dir_list_box_properties.tab_stop);
-        dir_list_box_properties.tool_tip_text = properties
-            .get(BStr::new("ToolTipText"))
-            .unwrap_or(&BStr::new(""));
-        dir_list_box_properties.top =
-            build_i32_property(properties, b"Top", dir_list_box_properties.top);
-        dir_list_box_properties.visible =
-            build_bool_property(properties, b"Visible", dir_list_box_properties.visible);
-        dir_list_box_properties.whats_this_help_id = build_i32_property(
-            properties,
-            b"WhatsThisHelpID",
-            dir_list_box_properties.whats_this_help_id,
-        );
-        dir_list_box_properties.width =
-            build_i32_property(properties, b"Width", dir_list_box_properties.width);
+        dir_list_box_prop.width = prop.get_i32(b"Width".into(), dir_list_box_prop.width);
 
-        Ok(dir_list_box_properties)
+        dir_list_box_prop
     }
 }

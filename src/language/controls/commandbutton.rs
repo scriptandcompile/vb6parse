@@ -1,13 +1,8 @@
-use std::collections::HashMap;
-
-use crate::errors::VB6ErrorKind;
 use crate::language::controls::{Appearance, DragMode, MousePointer, OLEDropMode, Style};
-use crate::parsers::form::{
-    build_bool_property, build_color_property, build_i32_property, build_property,
-};
+use crate::parsers::Properties;
 use crate::VB6Color;
 
-use bstr::BStr;
+use bstr::BString;
 use image::DynamicImage;
 use serde::Serialize;
 
@@ -18,11 +13,11 @@ use serde::Serialize;
 /// tag, name, and index are not included in this struct, but instead are part
 /// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
-pub struct CommandButtonProperties<'a> {
+pub struct CommandButtonProperties {
     pub appearance: Appearance,
     pub back_color: VB6Color,
     pub cancel: bool,
-    pub caption: &'a BStr,
+    pub caption: BString,
     pub causes_validation: bool,
     pub default: bool,
     pub disabled_picture: Option<DynamicImage>,
@@ -42,20 +37,20 @@ pub struct CommandButtonProperties<'a> {
     pub style: Style,
     pub tab_index: i32,
     pub tab_stop: bool,
-    pub tool_tip_text: &'a BStr,
+    pub tool_tip_text: BString,
     pub top: i32,
     pub use_mask_color: bool,
     pub whats_this_help_id: i32,
     pub width: i32,
 }
 
-impl Default for CommandButtonProperties<'_> {
+impl Default for CommandButtonProperties {
     fn default() -> Self {
         CommandButtonProperties {
             appearance: Appearance::ThreeD,
             back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
             cancel: false,
-            caption: BStr::new("Command1"),
+            caption: "".into(),
             causes_validation: true,
             default: false,
             disabled_picture: None,
@@ -75,7 +70,7 @@ impl Default for CommandButtonProperties<'_> {
             style: Style::Standard,
             tab_index: 0,
             tab_stop: true,
-            tool_tip_text: BStr::new(""),
+            tool_tip_text: "".into(),
             top: 30,
             use_mask_color: false,
             whats_this_help_id: 0,
@@ -84,7 +79,7 @@ impl Default for CommandButtonProperties<'_> {
     }
 }
 
-impl Serialize for CommandButtonProperties<'_> {
+impl Serialize for CommandButtonProperties {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -140,89 +135,69 @@ impl Serialize for CommandButtonProperties<'_> {
     }
 }
 
-impl<'a> CommandButtonProperties<'a> {
-    pub fn construct_control(
-        properties: &HashMap<&'a BStr, &'a BStr>,
-    ) -> Result<Self, VB6ErrorKind> {
-        let mut command_button_properties = CommandButtonProperties::default();
+impl<'a> From<Properties<'a>> for CommandButtonProperties {
+    fn from(prop: Properties<'a>) -> Self {
+        let mut command_button_prop = CommandButtonProperties::default();
 
-        command_button_properties.appearance = build_property(properties, b"Appearance");
-        command_button_properties.back_color = build_color_property(
-            properties,
-            b"BackColor",
-            command_button_properties.back_color,
-        );
-        command_button_properties.cancel =
-            build_bool_property(properties, b"Cancel", command_button_properties.cancel);
+        command_button_prop.appearance =
+            prop.get_property(b"Appearance".into(), command_button_prop.appearance);
+        command_button_prop.back_color =
+            prop.get_color(b"BackColor".into(), command_button_prop.back_color);
+        command_button_prop.cancel = prop.get_bool(b"Cancel".into(), command_button_prop.cancel);
 
-        command_button_properties.caption = properties
-            .get(BStr::new("Caption"))
-            .unwrap_or(&command_button_properties.caption);
-        command_button_properties.causes_validation = build_bool_property(
-            properties,
-            b"CausesValidation",
-            command_button_properties.causes_validation,
+        command_button_prop.caption = match prop.get("Caption".into()) {
+            Some(caption) => caption.into(),
+            None => command_button_prop.caption,
+        };
+        command_button_prop.causes_validation = prop.get_bool(
+            b"CausesValidation".into(),
+            command_button_prop.causes_validation,
         );
-        command_button_properties.default =
-            build_bool_property(properties, b"Default", command_button_properties.default);
+        command_button_prop.default = prop.get_bool(b"Default".into(), command_button_prop.default);
 
         // disabled_picture
         // down_picture
         // drag_icon
 
-        command_button_properties.drag_mode = build_property(properties, b"DragMode");
-        command_button_properties.enabled =
-            build_bool_property(properties, b"Enabled", command_button_properties.enabled);
-        command_button_properties.height =
-            build_i32_property(properties, b"Height", command_button_properties.height);
-        command_button_properties.help_context_id = build_i32_property(
-            properties,
-            b"HelpContextID",
-            command_button_properties.help_context_id,
-        );
-        command_button_properties.left =
-            build_i32_property(properties, b"Left", command_button_properties.left);
-        command_button_properties.mask_color = build_color_property(
-            properties,
-            b"MaskColor",
-            command_button_properties.mask_color,
-        );
+        command_button_prop.drag_mode =
+            prop.get_property(b"DragMode".into(), command_button_prop.drag_mode);
+        command_button_prop.enabled = prop.get_bool(b"Enabled".into(), command_button_prop.enabled);
+        command_button_prop.height = prop.get_i32(b"Height".into(), command_button_prop.height);
+        command_button_prop.help_context_id =
+            prop.get_i32(b"HelpContextID".into(), command_button_prop.help_context_id);
+        command_button_prop.left = prop.get_i32(b"Left".into(), command_button_prop.left);
+        command_button_prop.mask_color =
+            prop.get_color(b"MaskColor".into(), command_button_prop.mask_color);
 
         // mouse_icon
 
-        command_button_properties.mouse_pointer = build_property(properties, b"MousePointer");
-        command_button_properties.ole_drop_mode = build_property(properties, b"OLEDropMode");
+        command_button_prop.mouse_pointer =
+            prop.get_property(b"MousePointer".into(), command_button_prop.mouse_pointer);
+        command_button_prop.ole_drop_mode =
+            prop.get_property(b"OLEDropMode".into(), command_button_prop.ole_drop_mode);
 
         // picture
 
-        command_button_properties.right_to_left = build_bool_property(
-            properties,
-            b"RightToLeft",
-            command_button_properties.right_to_left,
+        command_button_prop.right_to_left =
+            prop.get_bool(b"RightToLeft".into(), command_button_prop.right_to_left);
+        command_button_prop.style = prop.get_property(b"Style".into(), command_button_prop.style);
+        command_button_prop.tab_index =
+            prop.get_i32(b"TabIndex".into(), command_button_prop.tab_index);
+        command_button_prop.tab_stop =
+            prop.get_bool(b"TabStop".into(), command_button_prop.tab_stop);
+        command_button_prop.tool_tip_text = match prop.get("ToolTipText".into()) {
+            Some(tool_tip_text) => tool_tip_text.into(),
+            None => "".into(),
+        };
+        command_button_prop.top = prop.get_i32(b"Top".into(), command_button_prop.top);
+        command_button_prop.use_mask_color =
+            prop.get_bool(b"UseMaskColor".into(), command_button_prop.use_mask_color);
+        command_button_prop.whats_this_help_id = prop.get_i32(
+            b"WhatsThisHelp".into(),
+            command_button_prop.whats_this_help_id,
         );
-        command_button_properties.style = build_property(properties, b"Style");
-        command_button_properties.tab_index =
-            build_i32_property(properties, b"TabIndex", command_button_properties.tab_index);
-        command_button_properties.tab_stop =
-            build_bool_property(properties, b"TabStop", command_button_properties.tab_stop);
-        command_button_properties.tool_tip_text = properties
-            .get(BStr::new("ToolTipText"))
-            .unwrap_or(&command_button_properties.tool_tip_text);
-        command_button_properties.top =
-            build_i32_property(properties, b"Top", command_button_properties.top);
-        command_button_properties.use_mask_color = build_bool_property(
-            properties,
-            b"UseMaskColor",
-            command_button_properties.use_mask_color,
-        );
-        command_button_properties.whats_this_help_id = build_i32_property(
-            properties,
-            b"WhatsThisHelp",
-            command_button_properties.whats_this_help_id,
-        );
-        command_button_properties.width =
-            build_i32_property(properties, b"Width", command_button_properties.width);
+        command_button_prop.width = prop.get_i32(b"Width".into(), command_button_prop.width);
 
-        Ok(command_button_properties)
+        command_button_prop
     }
 }

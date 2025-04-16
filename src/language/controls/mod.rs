@@ -1,6 +1,7 @@
 pub mod checkbox;
 pub mod combobox;
 pub mod commandbutton;
+pub mod custom;
 pub mod data;
 pub mod dirlistbox;
 pub mod drivelistbox;
@@ -21,9 +22,7 @@ pub mod shape;
 pub mod textbox;
 pub mod timer;
 
-use std::collections::HashMap;
-
-use bstr::BStr;
+use bstr::BString;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
@@ -33,6 +32,7 @@ use crate::language::controls::{
     checkbox::CheckBoxProperties,
     combobox::ComboBoxProperties,
     commandbutton::CommandButtonProperties,
+    custom::CustomControlProperties,
     data::DataProperties,
     dirlistbox::DirListBoxProperties,
     drivelistbox::DriveListBoxProperties,
@@ -91,29 +91,29 @@ pub enum StartUpPosition {
 
 /// Represents a VB6 control.
 #[derive(Debug, PartialEq, Clone, Serialize)]
-pub struct VB6Control<'a> {
-    pub name: &'a BStr,
-    pub tag: &'a BStr,
+pub struct VB6Control {
+    pub name: BString,
+    pub tag: BString,
     pub index: i32,
-    pub kind: VB6ControlKind<'a>,
+    pub kind: VB6ControlKind,
 }
 
 /// The `VB6ControlKind` determines the specific kind of control that the `VB6Control` represents.
 ///
 /// Each variant contains the properties that are specific to that kind of control.
 #[derive(Debug, PartialEq, Clone, Serialize)]
-pub enum VB6ControlKind<'a> {
+pub enum VB6ControlKind {
     CommandButton {
-        properties: CommandButtonProperties<'a>,
+        properties: CommandButtonProperties,
     },
     Data {
-        properties: DataProperties<'a>,
+        properties: DataProperties,
     },
     TextBox {
-        properties: TextBoxProperties<'a>,
+        properties: TextBoxProperties,
     },
     CheckBox {
-        properties: CheckBoxProperties<'a>,
+        properties: CheckBoxProperties,
     },
     Line {
         properties: LineProperties,
@@ -122,41 +122,41 @@ pub enum VB6ControlKind<'a> {
         properties: ShapeProperties,
     },
     ListBox {
-        properties: ListBoxProperties<'a>,
+        properties: ListBoxProperties,
     },
     Timer {
         properties: TimerProperties,
     },
     Label {
-        properties: LabelProperties<'a>,
+        properties: LabelProperties,
     },
     Frame {
-        properties: FrameProperties<'a>,
-        controls: Vec<VB6Control<'a>>,
+        properties: FrameProperties,
+        controls: Vec<VB6Control>,
     },
     PictureBox {
-        properties: PictureBoxProperties<'a>,
+        properties: PictureBoxProperties,
     },
     FileListBox {
-        properties: FileListBoxProperties<'a>,
+        properties: FileListBoxProperties,
     },
     DriveListBox {
-        properties: DriveListBoxProperties<'a>,
+        properties: DriveListBoxProperties,
     },
     DirListBox {
-        properties: DirListBoxProperties<'a>,
+        properties: DirListBoxProperties,
     },
     Ole {
-        properties: OLEProperties<'a>,
+        properties: OLEProperties,
     },
     OptionButton {
-        properties: OptionButtonProperties<'a>,
+        properties: OptionButtonProperties,
     },
     Image {
-        properties: ImageProperties<'a>,
+        properties: ImageProperties,
     },
     ComboBox {
-        properties: ComboBoxProperties<'a>,
+        properties: ComboBoxProperties,
     },
     HScrollBar {
         properties: ScrollBarProperties,
@@ -165,26 +165,26 @@ pub enum VB6ControlKind<'a> {
         properties: ScrollBarProperties,
     },
     Menu {
-        properties: MenuProperties<'a>,
-        sub_menus: Vec<VB6MenuControl<'a>>,
+        properties: MenuProperties,
+        sub_menus: Vec<VB6MenuControl>,
     },
     Form {
-        properties: FormProperties<'a>,
-        controls: Vec<VB6Control<'a>>,
-        menus: Vec<VB6MenuControl<'a>>,
+        properties: FormProperties,
+        controls: Vec<VB6Control>,
+        menus: Vec<VB6MenuControl>,
     },
     MDIForm {
-        properties: MDIFormProperties<'a>,
-        controls: Vec<VB6Control<'a>>,
-        menus: Vec<VB6MenuControl<'a>>,
+        properties: MDIFormProperties,
+        controls: Vec<VB6Control>,
+        menus: Vec<VB6MenuControl>,
     },
     Custom {
-        properties: HashMap<&'a BStr, &'a BStr>,
-        property_groups: Vec<VB6PropertyGroup<'a>>,
+        properties: CustomControlProperties,
+        property_groups: Vec<VB6PropertyGroup>,
     },
 }
 
-impl<'a> VB6ControlKind<'a> {
+impl VB6ControlKind {
     #[must_use]
     pub fn is_menu(&self) -> bool {
         matches!(self, VB6ControlKind::Menu { .. })

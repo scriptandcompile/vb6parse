@@ -7,12 +7,64 @@ use winnow::{
 
 use ariadne::{Label, Report, ReportKind, Source};
 
-use thiserror::Error;
-
 use crate::parsers::VB6Stream;
 
-#[derive(Error, Debug, PartialEq, Eq)]
+#[derive(thiserror::Error, PartialEq, Eq, Debug)]
+pub enum PropertyError {
+    #[error("Appearance can only be a 0 (Flat) or a 1 (ThreeD)")]
+    AppearanceInvalid,
+
+    #[error("BorderStyle can only be a 0 (None) or 1 (FixedSingle)")]
+    BorderStyleInvalid,
+
+    #[error("ClipControls can only be a 0 (false) or a 1 (true)")]
+    ClipControlsInvalid,
+
+    #[error("DragMode can only be 0 (Manual) or 1 (Automatic)")]
+    DragModeInvalid,
+
+    #[error("Enabled can only be 0 (false) or a 1 (true)")]
+    EnabledInvalid,
+
+    #[error("MousePointer can only be 0 (Default), 1 (Arrow), 2 (Cross), 3 (IBeam), 6 (SizeNESW), 7 (SizeNS), 8 (SizeNWSE), 9 (SizeWE), 10 (UpArrow), 11 (Hourglass), 12 (NoDrop), 13 (ArrowHourglass), 14 (ArrowQuestion), 15 (SizeAll), or 99 (Custom)")]
+    MousePointerInvalid,
+
+    #[error("OLEDropMode can only be 0 (None), or 1 (Manual)")]
+    OLEDropModeInvalid,
+
+    #[error("RightToLeft can only be 0 (false) or a 1 (true)")]
+    RightToLeftInvalid,
+
+    #[error("Visible can only be 0 (false) or a 1 (true)")]
+    VisibleInvalid,
+
+    #[error("Unknown property in header file")]
+    UnknownProperty,
+
+    #[error("Invalid property value. Only 0 or -1 are valid for this property")]
+    InvalidPropertyValueZeroNegOne,
+
+    #[error("Unable to parse the property name")]
+    NameUnparsable,
+
+    #[error("Unable to parse the resource file name")]
+    ResourceFileNameUnparsable,
+
+    #[error("Unable to parse the offset into the resource file for property")]
+    OffsetUnparsable,
+
+    #[error("Invalid property value. Only True or False are valid for this property")]
+    InvalidPropertyValueTrueFalse,
+}
+
+#[derive(thiserror::Error, Debug)]
 pub enum VB6ErrorKind {
+    #[error("Property parsing error")]
+    Property(#[from] PropertyError),
+
+    #[error("Resource file parsing error")]
+    ResourceFile(#[from] std::io::Error),
+
     #[error("The file contains more than a significant number of non-ASCII characters. This file was likely saved in a non-English character set. The vb6parse crate currently does not support non-english vb6 files.")]
     LikelyNonEnglishCharacterSet,
 
@@ -37,17 +89,11 @@ pub enum VB6ErrorKind {
     #[error("Unable to parse the Uuid")]
     UnableToParseUuid,
 
-    #[error("Unable to parse the property name")]
-    PropertyNameUnparsable,
-
     #[error("Unable to find a semicolon ';' in this line.")]
     NoSemicolonSplit,
 
     #[error("Unable to find an equal '=' in this line.")]
     NoEqualSplit,
-
-    #[error("Unable to parse the resource file name")]
-    ResourceFileNameUnparsable,
 
     #[error("While trying to parse the offset into the resource file, no colon ':' was found.")]
     NoColonForOffsetSplit,
@@ -67,13 +113,13 @@ pub enum VB6ErrorKind {
     #[error("The Startup object is not a valid parameter. Must be a qouted startup method/object, \"(None)\", !(None)!, \"\", or \"!!\"")]
     StartupUnparseable,
 
-    #[error("Name is not a valid parameter line. Must be a qouted name, \"(None)\", !(None)!, \"\", or \"!!\"")]
+    #[error("The Name parameter is invalid. Must be a qouted name, \"(None)\", !(None)!, \"\", or \"!!\"")]
     NameUnparseable,
 
-    #[error("CommandLine is not a valid parameter line. Must be a qouted command line, \"(None)\", !(None)!, \"\", or \"!!\"")]
+    #[error("The CommandLine parameter is invalid. Must be a qouted command line, \"(None)\", !(None)!, \"\", or \"!!\"")]
     CommandLineUnparseable,
 
-    #[error("The HelpContextId is not a valid parameter line. Must be a qouted help context id, \"(None)\", !(None)!, \"\", or \"!!\"")]
+    #[error("The HelpContextId parameter is not a valid parameter line. Must be a qouted help context id, \"(None)\", !(None)!, \"\", or \"!!\"")]
     HelpContextIdUnparseable,
 
     #[error("Minor version is not a number.")]
@@ -240,15 +286,6 @@ pub enum VB6ErrorKind {
     #[error("Title text was unparsable")]
     TitleUnparseable,
 
-    #[error("Unknown property in header file")]
-    UnknownProperty,
-
-    #[error("Invalid property value. Only 0 or -1 are valid for this property")]
-    InvalidPropertyValueZeroNegOne,
-
-    #[error("Invalid property value. Only True or False are valid for this property")]
-    InvalidPropertyValueTrueFalse,
-
     #[error("Unable to parse hex color value")]
     HexColorParseError,
 
@@ -279,33 +316,6 @@ pub enum VB6ErrorKind {
     #[error("Qualified control name is not a valid ASCII string")]
     QualifiedControlNameAsciiConversionError,
 
-    #[error("Appearance can only be a 0 (Flat) or a 1 (ThreeD)")]
-    AppearancePropertyInvalid,
-
-    #[error("BorderStyle can only be a 0 (None) or 1 (FixedSingle)")]
-    BorderStylePropertyInvalid,
-
-    #[error("ClipControls can only be a 0 (false) or a 1 (true)")]
-    ClipControlsPropertyInvalid,
-
-    #[error("DragMode can only be 0 (Manual) or 1 (Automatic)")]
-    DragModePropertyInvalid,
-
-    #[error("Enabled can only be 0 (false) or a 1 (true)")]
-    EnabledPropertyInvalid,
-
-    #[error("MousePointer can only be 0 (Default), 1 (Arrow), 2 (Cross), 3 (IBeam), 6 (SizeNESW), 7 (SizeNS), 8 (SizeNWSE), 9 (SizeWE), 10 (UpArrow), 11 (Hourglass), 12 (NoDrop), 13 (ArrowHourglass), 14 (ArrowQuestion), 15 (SizeAll), or 99 (Custom)")]
-    MousePointerPropertyInvalid,
-
-    #[error("OLEDropMode can only be 0 (None), or 1 (Manual)")]
-    OLEDropModePropertyInvalid,
-
-    #[error("RightToLeft can only be 0 (false) or a 1 (true)")]
-    RightToLeftPropertyInvalid,
-
-    #[error("Visible can only be 0 (false) or a 1 (true)")]
-    VisiblePropertyInvalid,
-
     #[error("Variable names must be less than 255 characters in VB6.")]
     VariableNameTooLong,
 
@@ -313,7 +323,7 @@ pub enum VB6ErrorKind {
     InternalParseError,
 }
 
-#[derive(Debug, Error)]
+#[derive(Debug, thiserror::Error)]
 pub struct VB6Error {
     pub file_name: String,
 

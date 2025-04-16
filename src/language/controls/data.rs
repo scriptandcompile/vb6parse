@@ -1,13 +1,9 @@
-use std::collections::HashMap;
-
 use crate::errors::VB6ErrorKind;
 use crate::language::controls::{Align, Appearance, DragMode, MousePointer, OLEDropMode};
-use crate::parsers::form::{
-    build_bool_property, build_color_property, build_i32_property, build_property,
-};
+use crate::parsers::Properties;
 use crate::VB6Color;
 
-use bstr::{BStr, ByteSlice};
+use bstr::{BString, ByteSlice};
 use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
@@ -19,14 +15,14 @@ use serde::Serialize;
 /// tag, name, and index are not included in this struct, but instead are part
 /// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
-pub struct DataProperties<'a> {
+pub struct DataProperties {
     pub align: Align,
     pub appearance: Appearance,
     pub back_color: VB6Color,
     pub bof_action: BOFAction,
-    pub caption: &'a BStr,
+    pub caption: BString,
     pub connection: Connection,
-    pub database_name: &'a BStr,
+    pub database_name: BString,
     pub default_cursor_type: DefaultCursorType,
     pub default_type: DefaultType,
     pub drag_icon: Option<DynamicImage>,
@@ -44,25 +40,25 @@ pub struct DataProperties<'a> {
     pub options: i32,
     pub read_only: bool,
     pub record_set_type: RecordSetType,
-    pub record_source: &'a BStr,
+    pub record_source: BString,
     pub right_to_left: bool,
-    pub tool_tip_text: &'a BStr,
+    pub tool_tip_text: BString,
     pub top: i32,
     pub visible: bool,
     pub whats_this_help_id: i32,
     pub width: i32,
 }
 
-impl Default for DataProperties<'_> {
+impl Default for DataProperties {
     fn default() -> Self {
         DataProperties {
             align: Align::None,
             appearance: Appearance::ThreeD,
             back_color: VB6Color::System { index: 5 },
             bof_action: BOFAction::MoveFirst,
-            caption: BStr::new("Data1"),
+            caption: "".into(),
             connection: Connection::Access,
-            database_name: BStr::new(""),
+            database_name: "".into(),
             default_cursor_type: DefaultCursorType::Default,
             default_type: DefaultType::UseJet,
             drag_icon: None,
@@ -80,9 +76,9 @@ impl Default for DataProperties<'_> {
             options: 0,
             read_only: false,
             record_set_type: RecordSetType::Dynaset,
-            record_source: BStr::new(""),
+            record_source: "".into(),
             right_to_left: false,
-            tool_tip_text: BStr::new(""),
+            tool_tip_text: "".into(),
             top: 840,
             visible: true,
             whats_this_help_id: 0,
@@ -91,7 +87,7 @@ impl Default for DataProperties<'_> {
     }
 }
 
-impl Serialize for DataProperties<'_> {
+impl Serialize for DataProperties {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -141,72 +137,66 @@ impl Serialize for DataProperties<'_> {
     }
 }
 
-impl<'a> DataProperties<'a> {
-    pub fn construct_control(
-        properties: &HashMap<&'a BStr, &'a BStr>,
-    ) -> Result<Self, VB6ErrorKind> {
-        let mut data_properties = DataProperties::default();
+impl<'a> From<Properties<'a>> for DataProperties {
+    fn from(prop: Properties<'a>) -> Self {
+        let mut data_prop = DataProperties::default();
 
-        data_properties.align = build_property(properties, b"Align");
-        data_properties.appearance = build_property(properties, b"Appearance");
-        data_properties.back_color =
-            build_color_property(properties, b"BackColor", data_properties.back_color);
-        data_properties.bof_action = build_property(properties, b"BOFAction");
-        data_properties.caption = properties
-            .get(BStr::new("Caption"))
-            .unwrap_or(&data_properties.caption);
-        data_properties.connection = properties
-            .get(BStr::new("Connection"))
+        data_prop.align = prop.get_property(b"Align".into(), data_prop.align);
+        data_prop.appearance = prop.get_property(b"Appearance".into(), data_prop.appearance);
+        data_prop.back_color = prop.get_color(b"BackColor".into(), data_prop.back_color);
+        data_prop.bof_action = prop.get_property(b"BOFAction".into(), data_prop.bof_action);
+        data_prop.caption = match prop.get(b"Caption".into()) {
+            Some(caption) => caption.into(),
+            None => data_prop.caption,
+        };
+        data_prop.connection = prop
+            .get(b"Connection".into())
             .map_or(Ok(Connection::Access), |v| {
                 Connection::try_from(v.to_str().unwrap_or("Access"))
             })
             .unwrap();
-        data_properties.database_name = properties
-            .get(BStr::new("DatabaseName"))
-            .unwrap_or(&data_properties.database_name);
-        data_properties.default_cursor_type = build_property(properties, b"DefaultCursorType");
-        data_properties.default_type = build_property(properties, b"DefaultType");
+        data_prop.database_name = match prop.get("DatabaseName".into()) {
+            Some(database_name) => database_name.into(),
+            None => "".into(),
+        };
+        data_prop.default_cursor_type =
+            prop.get_property(b"DefaultCursorType".into(), data_prop.default_cursor_type);
+        data_prop.default_type = prop.get_property(b"DefaultType".into(), data_prop.default_type);
 
         // DragIcon
 
-        data_properties.drag_mode = build_property(properties, b"DragMode");
-        data_properties.enabled =
-            build_bool_property(properties, b"Enabled", data_properties.enabled);
-        data_properties.eof_action = build_property(properties, b"EOFAction");
-        data_properties.exclusive =
-            build_bool_property(properties, b"Exclusive", data_properties.exclusive);
-        data_properties.fore_color =
-            build_color_property(properties, b"ForeColor", data_properties.fore_color);
-        data_properties.height = build_i32_property(properties, b"Height", data_properties.height);
-        data_properties.left = build_i32_property(properties, b"Left", data_properties.left);
-        data_properties.mouse_pointer = build_property(properties, b"MousePointer");
-        data_properties.negotitate =
-            build_bool_property(properties, b"Negotitate", data_properties.negotitate);
-        data_properties.ole_drop_mode = build_property(properties, b"OLEDropMode");
-        data_properties.options =
-            build_i32_property(properties, b"Options", data_properties.options);
-        data_properties.read_only =
-            build_bool_property(properties, b"ReadOnly", data_properties.read_only);
-        data_properties.record_set_type = build_property(properties, b"RecordsetType");
-        data_properties.record_source = properties
-            .get(BStr::new("RecordSource"))
-            .unwrap_or(&data_properties.record_source);
-        data_properties.right_to_left =
-            build_bool_property(properties, b"RightToLeft", data_properties.right_to_left);
-        data_properties.tool_tip_text = properties
-            .get(BStr::new("ToolTipText"))
-            .unwrap_or(&data_properties.tool_tip_text);
-        data_properties.top = build_i32_property(properties, b"Top", data_properties.top);
-        data_properties.visible =
-            build_bool_property(properties, b"Visible", data_properties.visible);
-        data_properties.whats_this_help_id = build_i32_property(
-            properties,
-            b"WhatsThisHelpID",
-            data_properties.whats_this_help_id,
-        );
-        data_properties.width = build_i32_property(properties, b"Width", data_properties.width);
+        data_prop.drag_mode = prop.get_property(b"DragMode".into(), data_prop.drag_mode);
+        data_prop.enabled = prop.get_bool(b"Enabled".into(), data_prop.enabled);
+        data_prop.eof_action = prop.get_property(b"EOFAction".into(), data_prop.eof_action);
+        data_prop.exclusive = prop.get_bool(b"Exclusive".into(), data_prop.exclusive);
+        data_prop.fore_color = prop.get_color(b"ForeColor".into(), data_prop.fore_color);
+        data_prop.height = prop.get_i32(b"Height".into(), data_prop.height);
+        data_prop.left = prop.get_i32(b"Left".into(), data_prop.left);
+        data_prop.mouse_pointer =
+            prop.get_property(b"MousePointer".into(), data_prop.mouse_pointer);
+        data_prop.negotitate = prop.get_bool(b"Negotitate".into(), data_prop.negotitate);
+        data_prop.ole_drop_mode = prop.get_property(b"OLEDropMode".into(), data_prop.ole_drop_mode);
+        data_prop.options = prop.get_i32(b"Options".into(), data_prop.options);
+        data_prop.read_only = prop.get_bool(b"ReadOnly".into(), data_prop.read_only);
+        data_prop.record_set_type =
+            prop.get_property(b"RecordsetType".into(), data_prop.record_set_type);
+        data_prop.record_source = match prop.get(b"RecordSource".into()) {
+            Some(record_source) => record_source.into(),
+            None => "".into(),
+        };
 
-        Ok(data_properties)
+        data_prop.right_to_left = prop.get_bool(b"RightToLeft".into(), data_prop.right_to_left);
+        data_prop.tool_tip_text = match prop.get(b"ToolTipText".into()) {
+            Some(tool_tip_text) => tool_tip_text.into(),
+            None => "".into(),
+        };
+        data_prop.top = prop.get_i32(b"Top".into(), data_prop.top);
+        data_prop.visible = prop.get_bool(b"Visible".into(), data_prop.visible);
+        data_prop.whats_this_help_id =
+            prop.get_i32(b"WhatsThisHelpID".into(), data_prop.whats_this_help_id);
+        data_prop.width = prop.get_i32(b"Width".into(), data_prop.width);
+
+        data_prop
     }
 }
 

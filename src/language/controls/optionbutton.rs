@@ -1,15 +1,10 @@
-use std::collections::HashMap;
-
-use crate::errors::VB6ErrorKind;
 use crate::language::controls::{
     Appearance, DragMode, JustifyAlignment, MousePointer, OLEDropMode, Style,
 };
 use crate::language::VB6Color;
-use crate::parsers::form::{
-    build_bool_property, build_color_property, build_i32_property, build_property,
-};
+use crate::parsers::Properties;
 
-use bstr::BStr;
+use bstr::BString;
 use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
@@ -29,11 +24,11 @@ pub enum OptionButtonValue {
 /// tag, name, and index are not included in this struct, but instead are part
 /// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
-pub struct OptionButtonProperties<'a> {
+pub struct OptionButtonProperties {
     pub alignment: JustifyAlignment,
     pub appearance: Appearance,
     pub back_color: VB6Color,
-    pub caption: &'a BStr,
+    pub caption: BString,
     pub causes_validation: bool,
     pub disabled_picture: Option<DynamicImage>,
     pub down_picture: Option<DynamicImage>,
@@ -53,7 +48,7 @@ pub struct OptionButtonProperties<'a> {
     pub style: Style,
     pub tab_index: i32,
     pub tab_stop: bool,
-    pub tool_tip_text: &'a BStr,
+    pub tool_tip_text: BString,
     pub top: i32,
     pub use_mask_color: bool,
     pub value: OptionButtonValue,
@@ -62,13 +57,13 @@ pub struct OptionButtonProperties<'a> {
     pub width: i32,
 }
 
-impl Default for OptionButtonProperties<'_> {
+impl Default for OptionButtonProperties {
     fn default() -> Self {
         OptionButtonProperties {
             alignment: JustifyAlignment::LeftJustify,
             appearance: Appearance::ThreeD,
             back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
-            caption: BStr::new("Option1"),
+            caption: "".into(),
             causes_validation: true,
             disabled_picture: None,
             down_picture: None,
@@ -88,7 +83,7 @@ impl Default for OptionButtonProperties<'_> {
             style: Style::Standard,
             tab_index: 0,
             tab_stop: true,
-            tool_tip_text: BStr::new(""),
+            tool_tip_text: "".into(),
             top: 30,
             use_mask_color: false,
             value: OptionButtonValue::UnSelected,
@@ -99,7 +94,7 @@ impl Default for OptionButtonProperties<'_> {
     }
 }
 
-impl Serialize for OptionButtonProperties<'_> {
+impl Serialize for OptionButtonProperties {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -157,93 +152,71 @@ impl Serialize for OptionButtonProperties<'_> {
     }
 }
 
-impl<'a> OptionButtonProperties<'a> {
-    pub fn construct_control(
-        properties: &HashMap<&'a BStr, &'a BStr>,
-    ) -> Result<Self, VB6ErrorKind> {
-        let mut option_button_properties = OptionButtonProperties::default();
+impl<'a> From<Properties<'a>> for OptionButtonProperties {
+    fn from(prop: Properties<'a>) -> Self {
+        let mut option_button_prop = OptionButtonProperties::default();
 
-        option_button_properties.alignment = build_property(properties, b"Alignment");
-        option_button_properties.appearance = build_property(properties, b"Appearance");
-        option_button_properties.back_color = build_color_property(
-            properties,
-            b"BackColor",
-            option_button_properties.back_color,
-        );
-        option_button_properties.caption = properties
-            .get(&BStr::new("Caption"))
-            .unwrap_or(&option_button_properties.caption);
-        option_button_properties.causes_validation = build_bool_property(
-            properties,
-            b"CausesValidation",
-            option_button_properties.causes_validation,
+        option_button_prop.alignment =
+            prop.get_property(b"Alignment".into(), option_button_prop.alignment);
+        option_button_prop.appearance =
+            prop.get_property(b"Appearance".into(), option_button_prop.appearance);
+        option_button_prop.back_color =
+            prop.get_color(b"BackColor".into(), option_button_prop.back_color);
+        option_button_prop.caption = match prop.get(b"Caption".into()) {
+            Some(caption) => caption.into(),
+            None => option_button_prop.caption,
+        };
+        option_button_prop.causes_validation = prop.get_bool(
+            b"CausesValidation".into(),
+            option_button_prop.causes_validation,
         );
 
         // DisabledPicture
         // DownPicture
         // DragIcon
 
-        option_button_properties.drag_mode = build_property(properties, b"DragMode");
-        option_button_properties.enabled =
-            build_bool_property(properties, b"Enabled", option_button_properties.enabled);
-        option_button_properties.fore_color = build_color_property(
-            properties,
-            b"ForeColor",
-            option_button_properties.fore_color,
-        );
-        option_button_properties.height =
-            build_i32_property(properties, b"Height", option_button_properties.height);
-        option_button_properties.help_context_id = build_i32_property(
-            properties,
-            b"HelpContextID",
-            option_button_properties.help_context_id,
-        );
-        option_button_properties.left =
-            build_i32_property(properties, b"Left", option_button_properties.left);
-        option_button_properties.mask_color = build_color_property(
-            properties,
-            b"MaskColor",
-            option_button_properties.mask_color,
-        );
+        option_button_prop.drag_mode =
+            prop.get_property(b"DragMode".into(), option_button_prop.drag_mode);
+        option_button_prop.enabled = prop.get_bool(b"Enabled".into(), option_button_prop.enabled);
+        option_button_prop.fore_color =
+            prop.get_color(b"ForeColor".into(), option_button_prop.fore_color);
+        option_button_prop.height = prop.get_i32(b"Height".into(), option_button_prop.height);
+        option_button_prop.help_context_id =
+            prop.get_i32(b"HelpContextID".into(), option_button_prop.help_context_id);
+        option_button_prop.left = prop.get_i32(b"Left".into(), option_button_prop.left);
+        option_button_prop.mask_color =
+            prop.get_color(b"MaskColor".into(), option_button_prop.mask_color);
 
         // MouseIcon
 
-        option_button_properties.mouse_pointer = build_property(properties, b"MousePointer");
-        option_button_properties.ole_drop_mode = build_property(properties, b"OLEDropMode");
+        option_button_prop.mouse_pointer =
+            prop.get_property(b"MousePointer".into(), option_button_prop.mouse_pointer);
+        option_button_prop.ole_drop_mode =
+            prop.get_property(b"OLEDropMode".into(), option_button_prop.ole_drop_mode);
 
         // Picture
 
-        option_button_properties.right_to_left = build_bool_property(
-            properties,
-            b"RightToLeft",
-            option_button_properties.right_to_left,
+        option_button_prop.right_to_left =
+            prop.get_bool(b"RightToLeft".into(), option_button_prop.right_to_left);
+        option_button_prop.style = prop.get_property(b"Style".into(), option_button_prop.style);
+        option_button_prop.tab_index =
+            prop.get_i32(b"TabIndex".into(), option_button_prop.tab_index);
+        option_button_prop.tab_stop = prop.get_bool(b"TabStop".into(), option_button_prop.tab_stop);
+        option_button_prop.tool_tip_text = match prop.get(b"ToolTipText".into()) {
+            Some(tool_tip_text) => tool_tip_text.into(),
+            None => option_button_prop.tool_tip_text,
+        };
+        option_button_prop.top = prop.get_i32(b"Top".into(), option_button_prop.top);
+        option_button_prop.use_mask_color =
+            prop.get_bool(b"UseMaskColor".into(), option_button_prop.use_mask_color);
+        option_button_prop.value = prop.get_property(b"Value".into(), option_button_prop.value);
+        option_button_prop.visible = prop.get_bool(b"Visible".into(), option_button_prop.visible);
+        option_button_prop.whats_this_help_id = prop.get_i32(
+            b"WhatsThisHelpID".into(),
+            option_button_prop.whats_this_help_id,
         );
-        option_button_properties.style = build_property(properties, b"Style");
-        option_button_properties.tab_index =
-            build_i32_property(properties, b"TabIndex", option_button_properties.tab_index);
-        option_button_properties.tab_stop =
-            build_bool_property(properties, b"TabStop", option_button_properties.tab_stop);
-        option_button_properties.tool_tip_text = properties
-            .get(&BStr::new("ToolTipText"))
-            .unwrap_or(&option_button_properties.tool_tip_text);
-        option_button_properties.top =
-            build_i32_property(properties, b"Top", option_button_properties.top);
-        option_button_properties.use_mask_color = build_bool_property(
-            properties,
-            b"UseMaskColor",
-            option_button_properties.use_mask_color,
-        );
-        option_button_properties.value = build_property(properties, b"Value");
-        option_button_properties.visible =
-            build_bool_property(properties, b"Visible", option_button_properties.visible);
-        option_button_properties.whats_this_help_id = build_i32_property(
-            properties,
-            b"WhatsThisHelpID",
-            option_button_properties.whats_this_help_id,
-        );
-        option_button_properties.width =
-            build_i32_property(properties, b"Width", option_button_properties.width);
+        option_button_prop.width = prop.get_i32(b"Width".into(), option_button_prop.width);
 
-        Ok(option_button_properties)
+        option_button_prop
     }
 }

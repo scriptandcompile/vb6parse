@@ -1,19 +1,15 @@
-use std::collections::HashMap;
-
-use crate::errors::VB6ErrorKind;
-use crate::language::{
-    controls::{
-        Appearance, ClipControls, DrawMode, DrawStyle, FillStyle, MousePointer, OLEDropMode,
-        ScaleMode, StartUpPosition, WindowState,
+use crate::{
+    language::{
+        controls::{
+            Appearance, ClipControls, DrawMode, DrawStyle, FillStyle, MousePointer, OLEDropMode,
+            ScaleMode, StartUpPosition, WindowState,
+        },
+        FormLinkMode, VB6Color,
     },
-    FormLinkMode, VB6Color,
-};
-use crate::parsers::form::{
-    build_bool_property, build_color_property, build_i32_property, build_property,
-    build_startup_position_property, VB6PropertyGroup,
+    parsers::Properties,
 };
 
-use bstr::BStr;
+use bstr::BString;
 use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
@@ -46,14 +42,14 @@ pub enum FormBorderStyle {
 /// tag, name, and index are not included in this struct, but instead are part
 /// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
-pub struct FormProperties<'a> {
+pub struct FormProperties {
     pub appearance: Appearance,
     /// Determines if the output from a graphics method is to a persistent bitmap
     /// which acts as a double buffer.
     pub auto_redraw: bool,
     pub back_color: VB6Color,
     pub border_style: FormBorderStyle,
-    pub caption: &'a BStr,
+    pub caption: BString,
     pub clip_controls: ClipControls,
     pub control_box: bool,
     pub draw_mode: DrawMode,
@@ -71,7 +67,7 @@ pub struct FormProperties<'a> {
     pub key_preview: bool,
     pub left: i32,
     pub link_mode: FormLinkMode,
-    pub link_topic: &'a BStr,
+    pub link_topic: BString,
     pub max_button: bool,
     pub mdi_child: bool,
     pub min_button: bool,
@@ -99,7 +95,7 @@ pub struct FormProperties<'a> {
     pub window_state: WindowState,
 }
 
-impl Serialize for FormProperties<'_> {
+impl Serialize for FormProperties {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -172,14 +168,14 @@ impl Serialize for FormProperties<'_> {
     }
 }
 
-impl Default for FormProperties<'_> {
+impl Default for FormProperties {
     fn default() -> Self {
         FormProperties {
             appearance: Appearance::ThreeD,
             auto_redraw: false,
             back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
             border_style: FormBorderStyle::Sizable,
-            caption: BStr::new("Form1"),
+            caption: "Form1".into(),
             clip_controls: ClipControls::default(),
             control_box: true,
             draw_mode: DrawMode::CopyPen,
@@ -197,7 +193,7 @@ impl Default for FormProperties<'_> {
             key_preview: false,
             left: 0,
             link_mode: FormLinkMode::None,
-            link_topic: BStr::new("Form1"),
+            link_topic: "".into(),
             max_button: true,
             mdi_child: false,
             min_button: true,
@@ -227,115 +223,83 @@ impl Default for FormProperties<'_> {
     }
 }
 
-impl<'a> FormProperties<'a> {
-    pub fn construct_control(
-        properties: HashMap<&'a BStr, &'a BStr>,
-        _property_groups: Vec<VB6PropertyGroup<'a>>,
-    ) -> Result<Self, VB6ErrorKind> {
-        let mut form_properties = FormProperties::default();
+impl<'a> From<Properties<'a>> for FormProperties {
+    fn from(prop: Properties) -> Self {
+        let mut form_prop = FormProperties::default();
 
-        form_properties.appearance = build_property(&properties, b"Appearance");
-        form_properties.auto_redraw =
-            build_bool_property(&properties, b"AutoRedraw", form_properties.auto_redraw);
-        form_properties.back_color =
-            build_color_property(&properties, b"BackColor", form_properties.back_color);
-        form_properties.border_style = build_property(&properties, b"BorderStyle");
-        form_properties.caption = properties
-            .get(BStr::new("Caption"))
-            .unwrap_or(&form_properties.caption);
-        form_properties.clip_controls = build_property(&properties, b"ClipControls");
-        form_properties.control_box =
-            build_bool_property(&properties, b"ControlBox", form_properties.control_box);
-        form_properties.draw_mode = build_property(&properties, b"DrawMode");
-        form_properties.draw_style = build_property(&properties, b"DrawStyle");
-        form_properties.draw_width =
-            build_i32_property(&properties, b"DrawWidth", form_properties.draw_width);
-        form_properties.enabled =
-            build_bool_property(&properties, b"Enabled", form_properties.enabled);
-        form_properties.fill_color =
-            build_color_property(&properties, b"FillColor", form_properties.fill_color);
-        form_properties.fill_style = build_property(&properties, b"FillStyle");
+        form_prop.appearance = prop.get_property(b"Appearance".into(), form_prop.appearance);
+        form_prop.auto_redraw = prop.get_bool(b"AutoRedraw".into(), form_prop.auto_redraw);
+        form_prop.back_color = prop.get_color(b"BackColor".into(), form_prop.back_color);
+        form_prop.border_style = prop.get_property(b"BorderStyle".into(), form_prop.border_style);
+        form_prop.caption = match prop.get(b"Caption".into()) {
+            Some(caption) => caption.into(),
+            None => form_prop.caption,
+        };
+        form_prop.clip_controls =
+            prop.get_property(b"ClipControls".into(), form_prop.clip_controls);
+        form_prop.control_box = prop.get_bool(b"ControlBox".into(), form_prop.control_box);
+        form_prop.draw_mode = prop.get_property(b"DrawMode".into(), form_prop.draw_mode);
+        form_prop.draw_style = prop.get_property(b"DrawStyle".into(), form_prop.draw_style);
+        form_prop.draw_width = prop.get_i32(b"DrawWidth".into(), form_prop.draw_width);
+        form_prop.enabled = prop.get_bool(b"Enabled".into(), form_prop.enabled);
+        form_prop.fill_color = prop.get_color(b"FillColor".into(), form_prop.fill_color);
+        form_prop.fill_style = prop.get_property(b"FillStyle".into(), form_prop.fill_style);
 
         // Font - group
 
-        form_properties.font_transparent = build_bool_property(
-            &properties,
-            b"FontTransparent",
-            form_properties.font_transparent,
-        );
-        form_properties.fore_color =
-            build_color_property(&properties, b"ForeColor", form_properties.fore_color);
-        form_properties.has_dc = build_bool_property(&properties, b"HasDC", form_properties.has_dc);
-        form_properties.height = build_i32_property(&properties, b"Height", form_properties.height);
-        form_properties.help_context_id = build_i32_property(
-            &properties,
-            b"HelpContextID",
-            form_properties.help_context_id,
-        );
+        form_prop.font_transparent =
+            prop.get_bool(b"FontTransparent".into(), form_prop.font_transparent);
+        form_prop.fore_color = prop.get_color(b"ForeColor".into(), form_prop.fore_color);
+        form_prop.has_dc = prop.get_bool(b"HasDC".into(), form_prop.has_dc);
+        form_prop.height = prop.get_i32(b"Height".into(), form_prop.height);
+        form_prop.help_context_id =
+            prop.get_i32(b"HelpContextID".into(), form_prop.help_context_id);
 
         // Icon
 
-        form_properties.key_preview =
-            build_bool_property(&properties, b"KeyPreview", form_properties.key_preview);
-        form_properties.left = build_i32_property(&properties, b"Left", form_properties.left);
-        form_properties.link_mode = build_property(&properties, b"LinkMode");
-        form_properties.link_topic = properties
-            .get(BStr::new("LinkTopic"))
-            .unwrap_or(&form_properties.link_topic);
-        form_properties.max_button =
-            build_bool_property(&properties, b"MaxButton", form_properties.max_button);
-        form_properties.mdi_child =
-            build_bool_property(&properties, b"MDIChild", form_properties.mdi_child);
-        form_properties.min_button =
-            build_bool_property(&properties, b"MinButton", form_properties.min_button);
+        form_prop.key_preview = prop.get_bool(b"KeyPreview".into(), form_prop.key_preview);
+        form_prop.left = prop.get_i32(b"Left".into(), form_prop.left);
+        form_prop.link_mode = prop.get_property(b"LinkMode".into(), form_prop.link_mode);
+        form_prop.link_topic = match prop.get(b"LinkTopic".into()) {
+            Some(link_topic) => link_topic.into(),
+            None => form_prop.link_topic,
+        };
+        form_prop.max_button = prop.get_bool(b"MaxButton".into(), form_prop.max_button);
+        form_prop.mdi_child = prop.get_bool(b"MDIChild".into(), form_prop.mdi_child);
+        form_prop.min_button = prop.get_bool(b"MinButton".into(), form_prop.min_button);
 
         // MouseIcon
 
-        form_properties.mouse_pointer = build_property(&properties, b"MousePointer");
-        form_properties.moveable =
-            build_bool_property(&properties, b"Moveable", form_properties.moveable);
-        form_properties.negotiate_menus = build_bool_property(
-            &properties,
-            b"NegotiateMenus",
-            form_properties.negotiate_menus,
-        );
-        form_properties.ole_drop_mode = build_property(&properties, b"OLEDropMode");
+        form_prop.mouse_pointer =
+            prop.get_property(b"MousePointer".into(), form_prop.mouse_pointer);
+        form_prop.moveable = prop.get_bool(b"Moveable".into(), form_prop.moveable);
+        form_prop.negotiate_menus =
+            prop.get_bool(b"NegotiateMenus".into(), form_prop.negotiate_menus);
+        form_prop.ole_drop_mode = prop.get_property(b"OLEDropMode".into(), form_prop.ole_drop_mode);
 
         // Palette
 
-        form_properties.palette_mode = build_property(&properties, b"PaletteMode");
+        form_prop.palette_mode = prop.get_property(b"PaletteMode".into(), form_prop.palette_mode);
 
         // Picture
 
-        form_properties.right_to_left =
-            build_bool_property(&properties, b"RightToLeft", form_properties.right_to_left);
-        form_properties.scale_height =
-            build_i32_property(&properties, b"ScaleHeight", form_properties.scale_height);
-        form_properties.scale_left =
-            build_i32_property(&properties, b"ScaleLeft", form_properties.scale_left);
-        form_properties.scale_mode = build_property(&properties, b"ScaleMode");
-        form_properties.scale_top =
-            build_i32_property(&properties, b"ScaleTop", form_properties.scale_top);
-        form_properties.scale_width =
-            build_i32_property(&properties, b"ScaleWidth", form_properties.scale_width);
-        form_properties.show_in_taskbar = build_bool_property(
-            &properties,
-            b"ShowInTaskbar",
-            form_properties.show_in_taskbar,
-        );
-        form_properties.start_up_position =
-            build_startup_position_property(&properties, b"StartUpPosition");
-        form_properties.top = build_i32_property(&properties, b"Top", form_properties.top);
-        form_properties.visible =
-            build_bool_property(&properties, b"Visible", form_properties.visible);
-        form_properties.whats_this_button = build_bool_property(
-            &properties,
-            b"WhatsThisButton",
-            form_properties.whats_this_button,
-        );
-        form_properties.width = build_i32_property(&properties, b"Width", form_properties.width);
-        form_properties.window_state = build_property(&properties, b"WindowState");
+        form_prop.right_to_left = prop.get_bool(b"RightToLeft".into(), form_prop.right_to_left);
+        form_prop.scale_height = prop.get_i32(b"ScaleHeight".into(), form_prop.scale_height);
+        form_prop.scale_left = prop.get_i32(b"ScaleLeft".into(), form_prop.scale_left);
+        form_prop.scale_mode = prop.get_property(b"ScaleMode".into(), form_prop.scale_mode);
+        form_prop.scale_top = prop.get_i32(b"ScaleTop".into(), form_prop.scale_top);
+        form_prop.scale_width = prop.get_i32(b"ScaleWidth".into(), form_prop.scale_width);
+        form_prop.show_in_taskbar =
+            prop.get_bool(b"ShowInTaskbar".into(), form_prop.show_in_taskbar);
+        form_prop.start_up_position =
+            prop.get_startup_position(b"StartUpPosition".into(), form_prop.start_up_position);
+        form_prop.top = prop.get_i32(b"Top".into(), form_prop.top);
+        form_prop.visible = prop.get_bool(b"Visible".into(), form_prop.visible);
+        form_prop.whats_this_button =
+            prop.get_bool(b"WhatsThisButton".into(), form_prop.whats_this_button);
+        form_prop.width = prop.get_i32(b"Width".into(), form_prop.width);
+        form_prop.window_state = prop.get_property(b"WindowState".into(), form_prop.window_state);
 
-        Ok(form_properties)
+        form_prop
     }
 }

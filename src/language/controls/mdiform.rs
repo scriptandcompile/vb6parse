@@ -1,32 +1,26 @@
-use std::collections::HashMap;
-
-use crate::errors::VB6ErrorKind;
 use crate::language::{
     controls::{Appearance, FormLinkMode, MousePointer, OLEDropMode, StartUpPosition, WindowState},
     VB6Color,
 };
-use crate::parsers::form::{
-    build_bool_property, build_color_property, build_i32_property, build_property,
-    build_startup_position_property, VB6PropertyGroup,
-};
+use crate::parsers::Properties;
 
-use bstr::BStr;
+use bstr::BString;
 use image::DynamicImage;
 use serde::Serialize;
 
 #[derive(Debug, PartialEq, Clone)]
-pub struct MDIFormProperties<'a> {
+pub struct MDIFormProperties {
     pub appearance: Appearance,
     pub auto_show_children: bool,
     pub back_color: VB6Color,
-    pub caption: &'a BStr,
+    pub caption: BString,
     pub enabled: bool,
     pub height: i32,
     pub help_context_id: i32,
     pub icon: Option<DynamicImage>,
     pub left: i32,
     pub link_mode: FormLinkMode,
-    pub link_topic: &'a BStr,
+    pub link_topic: BString,
     pub mouse_icon: Option<DynamicImage>,
     pub mouse_pointer: MousePointer,
     pub moveable: bool,
@@ -43,7 +37,7 @@ pub struct MDIFormProperties<'a> {
     pub window_state: WindowState,
 }
 
-impl Serialize for MDIFormProperties<'_> {
+impl Serialize for MDIFormProperties {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -90,13 +84,13 @@ impl Serialize for MDIFormProperties<'_> {
     }
 }
 
-impl Default for MDIFormProperties<'_> {
+impl Default for MDIFormProperties {
     fn default() -> Self {
         MDIFormProperties {
             appearance: Appearance::ThreeD,
             auto_show_children: true,
             back_color: VB6Color::from_hex("&H8000000C&").unwrap(),
-            caption: BStr::new("MDIForm1"),
+            caption: "".into(),
             enabled: true,
             //font
             height: 3600,
@@ -104,7 +98,7 @@ impl Default for MDIFormProperties<'_> {
             icon: None,
             left: 0,
             link_mode: FormLinkMode::None,
-            link_topic: BStr::new("MDIForm1"),
+            link_topic: "".into(),
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
             moveable: true,
@@ -123,92 +117,76 @@ impl Default for MDIFormProperties<'_> {
     }
 }
 
-impl<'a> MDIFormProperties<'a> {
-    pub fn construct_control(
-        properties: HashMap<&'a BStr, &'a BStr>,
-        _property_groups: Vec<VB6PropertyGroup<'a>>,
-    ) -> Result<Self, VB6ErrorKind> {
-        let mut mdi_form_properties = MDIFormProperties::default();
+impl<'a> From<Properties<'a>> for MDIFormProperties {
+    fn from(prop: Properties<'a>) -> Self {
+        let mut mdi_form_prop = MDIFormProperties::default();
 
-        mdi_form_properties.appearance = build_property(&properties, b"Appearance");
+        mdi_form_prop.appearance =
+            prop.get_property(b"Appearance".into(), mdi_form_prop.appearance);
 
-        mdi_form_properties.auto_show_children = build_bool_property(
-            &properties,
-            b"AutoShowChildren",
-            mdi_form_properties.auto_show_children,
-        );
+        mdi_form_prop.auto_show_children =
+            prop.get_bool(b"AutoShowChildren".into(), mdi_form_prop.auto_show_children);
 
-        mdi_form_properties.back_color =
-            build_color_property(&properties, b"BackColor", mdi_form_properties.back_color);
+        mdi_form_prop.back_color = prop.get_color(b"BackColor".into(), mdi_form_prop.back_color);
 
-        mdi_form_properties.caption = properties
-            .get(BStr::new("Caption"))
-            .unwrap_or(&mdi_form_properties.caption);
-
-        mdi_form_properties.enabled =
-            build_bool_property(&properties, b"Enabled", mdi_form_properties.enabled);
+        mdi_form_prop.caption = match prop.get(b"Caption".into()) {
+            Some(caption) => caption.into(),
+            None => mdi_form_prop.caption,
+        };
+        mdi_form_prop.enabled = prop.get_bool(b"Enabled".into(), mdi_form_prop.enabled);
 
         // Font - group
 
-        mdi_form_properties.height =
-            build_i32_property(&properties, b"Height", mdi_form_properties.height);
+        mdi_form_prop.height = prop.get_i32(b"Height".into(), mdi_form_prop.height);
 
-        mdi_form_properties.help_context_id = build_i32_property(
-            &properties,
-            b"HelpContextID",
-            mdi_form_properties.help_context_id,
-        );
+        mdi_form_prop.help_context_id =
+            prop.get_i32(b"HelpContextID".into(), mdi_form_prop.help_context_id);
 
         // Icon
 
-        mdi_form_properties.left =
-            build_i32_property(&properties, b"Left", mdi_form_properties.left);
+        mdi_form_prop.left = prop.get_i32(b"Left".into(), mdi_form_prop.left);
 
-        mdi_form_properties.link_mode = build_property(&properties, b"LinkMode");
+        mdi_form_prop.link_mode = prop.get_property(b"LinkMode".into(), mdi_form_prop.link_mode);
 
-        mdi_form_properties.link_topic = properties
-            .get(BStr::new("LinkTopic"))
-            .unwrap_or(&mdi_form_properties.link_topic);
+        mdi_form_prop.link_topic = match prop.get(b"LinkTopic".into()) {
+            Some(link_topic) => link_topic.into(),
+            None => mdi_form_prop.link_topic,
+        };
 
         // MouseIcon
 
-        mdi_form_properties.mouse_pointer = build_property(&properties, b"MousePointer");
+        mdi_form_prop.mouse_pointer =
+            prop.get_property(b"MousePointer".into(), mdi_form_prop.mouse_pointer);
 
-        mdi_form_properties.moveable =
-            build_bool_property(&properties, b"Moveable", mdi_form_properties.moveable);
+        mdi_form_prop.moveable = prop.get_bool(b"Moveable".into(), mdi_form_prop.moveable);
 
-        mdi_form_properties.negotiate_toolbars = build_bool_property(
-            &properties,
-            b"NegotiateToolbars",
-            mdi_form_properties.negotiate_toolbars,
+        mdi_form_prop.negotiate_toolbars = prop.get_bool(
+            b"NegotiateToolbars".into(),
+            mdi_form_prop.negotiate_toolbars,
         );
 
-        mdi_form_properties.ole_drop_mode = build_property(&properties, b"OLEDropMode");
+        mdi_form_prop.ole_drop_mode =
+            prop.get_property(b"OLEDropMode".into(), mdi_form_prop.ole_drop_mode);
 
         // Picture
 
-        mdi_form_properties.right_to_left = build_bool_property(
-            &properties,
-            b"RightToLeft",
-            mdi_form_properties.right_to_left,
-        );
+        mdi_form_prop.right_to_left =
+            prop.get_bool(b"RightToLeft".into(), mdi_form_prop.right_to_left);
 
-        mdi_form_properties.scroll_bars =
-            build_bool_property(&properties, b"Scrollbars", mdi_form_properties.scroll_bars);
+        mdi_form_prop.scroll_bars = prop.get_bool(b"Scrollbars".into(), mdi_form_prop.scroll_bars);
 
-        mdi_form_properties.start_up_position =
-            build_startup_position_property(&properties, b"StartUpPosition");
+        mdi_form_prop.start_up_position =
+            prop.get_startup_position(b"StartUpPosition".into(), mdi_form_prop.start_up_position);
 
-        mdi_form_properties.top = build_i32_property(&properties, b"Top", mdi_form_properties.top);
+        mdi_form_prop.top = prop.get_i32(b"Top".into(), mdi_form_prop.top);
 
-        mdi_form_properties.visible =
-            build_bool_property(&properties, b"Visible", mdi_form_properties.visible);
+        mdi_form_prop.visible = prop.get_bool(b"Visible".into(), mdi_form_prop.visible);
 
-        mdi_form_properties.width =
-            build_i32_property(&properties, b"Width", mdi_form_properties.width);
+        mdi_form_prop.width = prop.get_i32(b"Width".into(), mdi_form_prop.width);
 
-        mdi_form_properties.window_state = build_property(&properties, b"WindowState");
+        mdi_form_prop.window_state =
+            prop.get_property(b"WindowState".into(), mdi_form_prop.window_state);
 
-        Ok(mdi_form_properties)
+        mdi_form_prop
     }
 }

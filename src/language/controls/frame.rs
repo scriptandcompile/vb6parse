@@ -1,15 +1,10 @@
-use std::collections::HashMap;
-
-use crate::errors::VB6ErrorKind;
 use crate::language::color::VB6Color;
 use crate::language::controls::{
     Appearance, BorderStyle, ClipControls, DragMode, MousePointer, OLEDropMode,
 };
-use crate::parsers::form::{
-    build_bool_property, build_color_property, build_i32_property, build_property, VB6PropertyGroup,
-};
+use crate::parsers::Properties;
 
-use bstr::BStr;
+use bstr::BString;
 use image::DynamicImage;
 use serde::Serialize;
 
@@ -20,11 +15,11 @@ use serde::Serialize;
 /// tag, name, and index are not included in this struct, but instead are part
 /// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
-pub struct FrameProperties<'a> {
+pub struct FrameProperties {
     pub appearance: Appearance,
     pub back_color: VB6Color,
     pub border_style: BorderStyle,
-    pub caption: &'a BStr,
+    pub caption: BString,
     pub clip_controls: ClipControls,
     pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
@@ -38,20 +33,20 @@ pub struct FrameProperties<'a> {
     pub ole_drop_mode: OLEDropMode,
     pub right_to_left: bool,
     pub tab_index: i32,
-    pub tool_tip_text: &'a BStr,
+    pub tool_tip_text: BString,
     pub top: i32,
     pub visible: bool,
     pub whats_this_help_id: i32,
     pub width: i32,
 }
 
-impl Default for FrameProperties<'_> {
+impl Default for FrameProperties {
     fn default() -> Self {
         FrameProperties {
             appearance: Appearance::ThreeD,
             back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
             border_style: BorderStyle::FixedSingle,
-            caption: BStr::new("Frame1"),
+            caption: BString::from("Frame1"),
             clip_controls: ClipControls::True,
             drag_icon: None,
             drag_mode: DragMode::Manual,
@@ -65,7 +60,7 @@ impl Default for FrameProperties<'_> {
             ole_drop_mode: OLEDropMode::default(),
             right_to_left: false,
             tab_index: 0,
-            tool_tip_text: BStr::new(""),
+            tool_tip_text: BString::from(""),
             top: 30,
             visible: true,
             whats_this_help_id: 0,
@@ -74,7 +69,7 @@ impl Default for FrameProperties<'_> {
     }
 }
 
-impl Serialize for FrameProperties<'_> {
+impl Serialize for FrameProperties {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -116,61 +111,48 @@ impl Serialize for FrameProperties<'_> {
     }
 }
 
-impl<'a> FrameProperties<'a> {
-    pub fn construct_control(
-        properties: &HashMap<&'a BStr, &'a BStr>,
-        _property_groups: &[VB6PropertyGroup<'a>],
-    ) -> Result<Self, VB6ErrorKind> {
-        // TODO: We are not correctly handling property assignment for each control.
+impl<'a> From<Properties<'a>> for FrameProperties {
+    fn from(prop: Properties<'a>) -> Self {
+        let mut frame_prop = FrameProperties::default();
 
-        let mut frame_properties = FrameProperties::default();
-
-        frame_properties.appearance = build_property(properties, b"Appearance");
-        frame_properties.back_color =
-            build_color_property(properties, b"BackColor", frame_properties.back_color);
-        frame_properties.border_style = build_property(properties, b"BorderStyle");
-        frame_properties.caption = properties
-            .get(BStr::new("Caption"))
-            .unwrap_or(&frame_properties.caption);
-        frame_properties.clip_controls = build_property(properties, b"ClipControls");
+        frame_prop.appearance = prop.get_property(b"Appearance".into(), frame_prop.appearance);
+        frame_prop.back_color = prop.get_color(b"BackColor".into(), frame_prop.back_color);
+        frame_prop.border_style = prop.get_property(b"BorderStyle".into(), frame_prop.border_style);
+        frame_prop.caption = match prop.get(b"Caption".into()) {
+            Some(caption) => caption.into(),
+            None => frame_prop.caption,
+        };
+        frame_prop.clip_controls =
+            prop.get_property(b"ClipControls".into(), frame_prop.clip_controls);
 
         // drag_icon
 
-        frame_properties.drag_mode = build_property(properties, b"DragMode");
-        frame_properties.enabled =
-            build_bool_property(properties, b"Enabled", frame_properties.enabled);
-        frame_properties.fore_color =
-            build_color_property(properties, b"ForeColor", frame_properties.fore_color);
-        frame_properties.height =
-            build_i32_property(properties, b"Height", frame_properties.height);
-        frame_properties.help_context_id = build_i32_property(
-            properties,
-            b"HelpContextID",
-            frame_properties.help_context_id,
-        );
-        frame_properties.left = build_i32_property(properties, b"Left", frame_properties.left);
+        frame_prop.drag_mode = prop.get_property(b"DragMode".into(), frame_prop.drag_mode);
+        frame_prop.enabled = prop.get_bool(b"Enabled".into(), frame_prop.enabled);
+        frame_prop.fore_color = prop.get_color(b"ForeColor".into(), frame_prop.fore_color);
+        frame_prop.height = prop.get_i32(b"Height".into(), frame_prop.height);
+        frame_prop.help_context_id =
+            prop.get_i32(b"HelpContextID".into(), frame_prop.help_context_id);
+        frame_prop.left = prop.get_i32(b"Left".into(), frame_prop.left);
 
         // Implement mouse_icon
 
-        frame_properties.mouse_pointer = build_property(properties, b"MousePointer");
-        frame_properties.ole_drop_mode = build_property(properties, b"OLEDropMode");
-        frame_properties.right_to_left =
-            build_bool_property(properties, b"RightToLeft", frame_properties.right_to_left);
-        frame_properties.tab_index =
-            build_i32_property(properties, b"TabIndex", frame_properties.tab_index);
-        frame_properties.tool_tip_text = properties
-            .get(BStr::new("ToolTipText"))
-            .unwrap_or(&frame_properties.tool_tip_text);
-        frame_properties.top = build_i32_property(properties, b"Top", frame_properties.top);
-        frame_properties.visible =
-            build_bool_property(properties, b"Visible", frame_properties.visible);
-        frame_properties.whats_this_help_id = build_i32_property(
-            properties,
-            b"WhatsThisHelp",
-            frame_properties.whats_this_help_id,
-        );
-        frame_properties.width = build_i32_property(properties, b"Width", frame_properties.width);
+        frame_prop.mouse_pointer =
+            prop.get_property(b"MousePointer".into(), frame_prop.mouse_pointer);
+        frame_prop.ole_drop_mode =
+            prop.get_property(b"OLEDropMode".into(), frame_prop.ole_drop_mode);
+        frame_prop.right_to_left = prop.get_bool(b"RightToLeft".into(), frame_prop.right_to_left);
+        frame_prop.tab_index = prop.get_i32(b"TabIndex".into(), frame_prop.tab_index);
+        frame_prop.tool_tip_text = match prop.get("ToolTipText".into()) {
+            Some(tool_tip_text) => tool_tip_text.into(),
+            None => frame_prop.tool_tip_text,
+        };
+        frame_prop.top = prop.get_i32(b"Top".into(), frame_prop.top);
+        frame_prop.visible = prop.get_bool(b"Visible".into(), frame_prop.visible);
+        frame_prop.whats_this_help_id =
+            prop.get_i32(b"WhatsThisHelp".into(), frame_prop.whats_this_help_id);
+        frame_prop.width = prop.get_i32(b"Width".into(), frame_prop.width);
 
-        Ok(frame_properties)
+        frame_prop
     }
 }

@@ -1,13 +1,7 @@
-use std::collections::HashMap;
-
-use crate::errors::VB6ErrorKind;
 use crate::language::color::VB6Color;
 use crate::language::controls::{BackStyle, DrawMode, DrawStyle};
-use crate::parsers::form::{
-    build_bool_property, build_color_property, build_i32_property, build_property,
-};
+use crate::parsers::Properties;
 
-use bstr::BStr;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
@@ -72,31 +66,25 @@ impl Default for ShapeProperties {
     }
 }
 
-impl ShapeProperties {
-    pub fn construct_control(properties: &HashMap<&BStr, &BStr>) -> Result<Self, VB6ErrorKind> {
-        let mut shape_properties = ShapeProperties::default();
+impl<'a> From<Properties<'a>> for ShapeProperties {
+    fn from(prop: Properties<'a>) -> Self {
+        let mut shape_prop = ShapeProperties::default();
 
-        shape_properties.back_color =
-            build_color_property(properties, b"BackColor", shape_properties.back_color);
-        shape_properties.back_style = build_property(properties, b"BackStyle");
-        shape_properties.border_color =
-            build_color_property(properties, b"BorderColor", shape_properties.border_color);
-        shape_properties.border_style = build_property(properties, b"BorderStyle");
-        shape_properties.border_width =
-            build_i32_property(properties, b"BorderWidth", shape_properties.border_width);
-        shape_properties.draw_mode = build_property(properties, b"DrawMode");
-        shape_properties.fill_color =
-            build_color_property(properties, b"FillColor", shape_properties.fill_color);
-        shape_properties.fill_style = build_property(properties, b"FillStyle");
-        shape_properties.height =
-            build_i32_property(properties, b"Height", shape_properties.height);
-        shape_properties.left = build_i32_property(properties, b"Left", shape_properties.left);
-        shape_properties.shape = build_property(properties, b"Shape");
-        shape_properties.top = build_i32_property(properties, b"Top", shape_properties.top);
-        shape_properties.visible =
-            build_bool_property(properties, b"Visible", shape_properties.visible);
-        shape_properties.width = build_i32_property(properties, b"Width", shape_properties.width);
+        shape_prop.back_color = prop.get_color(b"BackColor".into(), shape_prop.back_color);
+        shape_prop.back_style = prop.get_property(b"BackStyle".into(), shape_prop.back_style);
+        shape_prop.border_color = prop.get_color(b"BorderColor".into(), shape_prop.border_color);
+        shape_prop.border_style = prop.get_property(b"BorderStyle".into(), shape_prop.border_style);
+        shape_prop.border_width = prop.get_i32(b"BorderWidth".into(), shape_prop.border_width);
+        shape_prop.draw_mode = prop.get_property(b"DrawMode".into(), shape_prop.draw_mode);
+        shape_prop.fill_color = prop.get_color(b"FillColor".into(), shape_prop.fill_color);
+        shape_prop.fill_style = prop.get_property(b"FillStyle".into(), shape_prop.fill_style);
+        shape_prop.height = prop.get_i32(b"Height".into(), shape_prop.height);
+        shape_prop.left = prop.get_i32(b"Left".into(), shape_prop.left);
+        shape_prop.shape = prop.get_property(b"Shape".into(), shape_prop.shape);
+        shape_prop.top = prop.get_i32(b"Top".into(), shape_prop.top);
+        shape_prop.visible = prop.get_bool(b"Visible".into(), shape_prop.visible);
+        shape_prop.width = prop.get_i32(b"Width".into(), shape_prop.width);
 
-        Ok(shape_properties)
+        shape_prop
     }
 }

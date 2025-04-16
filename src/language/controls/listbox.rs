@@ -1,15 +1,10 @@
-use std::collections::HashMap;
-
-use crate::errors::VB6ErrorKind;
 use crate::language::color::VB6Color;
 use crate::language::controls::{
     Appearance, DragMode, MousePointer, MultiSelect, OLEDragMode, OLEDropMode,
 };
-use crate::parsers::form::{
-    build_bool_property, build_color_property, build_i32_property, build_property,
-};
+use crate::parsers::Properties;
 
-use bstr::BStr;
+use bstr::BString;
 use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
@@ -29,15 +24,15 @@ pub enum ListBoxStyle {
 /// tag, name, and index are not included in this struct, but instead are part
 /// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
-pub struct ListBoxProperties<'a> {
+pub struct ListBoxProperties {
     pub appearance: Appearance,
     pub back_color: VB6Color,
     pub causes_validation: bool,
     pub columns: i32,
-    pub data_field: &'a BStr,
-    pub data_format: &'a BStr,
-    pub data_member: &'a BStr,
-    pub data_source: &'a BStr,
+    pub data_field: BString,
+    pub data_format: BString,
+    pub data_member: BString,
+    pub data_source: BString,
     pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
     pub enabled: bool,
@@ -45,9 +40,9 @@ pub struct ListBoxProperties<'a> {
     pub height: i32,
     pub help_context_id: i32,
     pub integral_height: bool,
-    // pub item_data: Vec<&'a BStr>,
+    // pub item_data: Vec<BString>,
     pub left: i32,
-    // pub list: Vec<&'a BStr>,
+    // pub list: Vec<BString>,
     pub mouse_icon: Option<DynamicImage>,
     pub mouse_pointer: MousePointer,
     pub multi_select: MultiSelect,
@@ -58,24 +53,24 @@ pub struct ListBoxProperties<'a> {
     pub style: ListBoxStyle,
     pub tab_index: i32,
     pub tab_stop: bool,
-    pub tool_tip_text: &'a BStr,
+    pub tool_tip_text: BString,
     pub top: i32,
     pub visible: bool,
     pub whats_this_help_id: i32,
     pub width: i32,
 }
 
-impl Default for ListBoxProperties<'_> {
+impl Default for ListBoxProperties {
     fn default() -> Self {
         ListBoxProperties {
             appearance: Appearance::ThreeD,
             back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
             causes_validation: true,
             columns: 0,
-            data_field: BStr::new(""),
-            data_format: BStr::new(""),
-            data_member: BStr::new(""),
-            data_source: BStr::new(""),
+            data_field: "".into(),
+            data_format: "".into(),
+            data_member: "".into(),
+            data_source: "".into(),
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: true,
@@ -94,7 +89,7 @@ impl Default for ListBoxProperties<'_> {
             style: ListBoxStyle::Standard,
             tab_index: 0,
             tab_stop: true,
-            tool_tip_text: BStr::new(""),
+            tool_tip_text: "".into(),
             top: 30,
             visible: true,
             whats_this_help_id: 0,
@@ -103,7 +98,7 @@ impl Default for ListBoxProperties<'_> {
     }
 }
 
-impl Serialize for ListBoxProperties<'_> {
+impl Serialize for ListBoxProperties {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -153,89 +148,71 @@ impl Serialize for ListBoxProperties<'_> {
     }
 }
 
-impl<'a> ListBoxProperties<'a> {
-    pub fn construct_control(
-        properties: &HashMap<&'a BStr, &'a BStr>,
-    ) -> Result<Self, VB6ErrorKind> {
-        let mut list_box_properties = ListBoxProperties::default();
+impl<'a> From<Properties<'a>> for ListBoxProperties {
+    fn from(prop: Properties<'a>) -> Self {
+        let mut list_box_prop = ListBoxProperties::default();
 
-        list_box_properties.appearance = build_property(properties, b"Appearance");
-        list_box_properties.back_color =
-            build_color_property(properties, b"BackColor", list_box_properties.back_color);
-        list_box_properties.causes_validation = build_bool_property(
-            properties,
-            b"CausesValidation",
-            list_box_properties.causes_validation,
-        );
-        list_box_properties.columns =
-            build_i32_property(properties, b"Columns", list_box_properties.columns);
-        list_box_properties.data_field = properties
-            .get(BStr::new("DataField"))
-            .unwrap_or(&list_box_properties.data_field);
-        list_box_properties.data_format = properties
-            .get(BStr::new("DataFormat"))
-            .unwrap_or(&list_box_properties.data_format);
-        list_box_properties.data_member = properties
-            .get(BStr::new("DataMember"))
-            .unwrap_or(&list_box_properties.data_member);
-        list_box_properties.data_source = properties
-            .get(BStr::new("DataSource"))
-            .unwrap_or(&list_box_properties.data_source);
+        list_box_prop.appearance =
+            prop.get_property(b"Appearance".into(), list_box_prop.appearance);
+        list_box_prop.back_color = prop.get_color(b"BackColor".into(), list_box_prop.back_color);
+        list_box_prop.causes_validation =
+            prop.get_bool(b"CausesValidation".into(), list_box_prop.causes_validation);
+        list_box_prop.columns = prop.get_i32(b"Columns".into(), list_box_prop.columns);
+        list_box_prop.data_field = match prop.get(b"DataField".into()) {
+            Some(data_field) => data_field.into(),
+            None => list_box_prop.data_field,
+        };
+        list_box_prop.data_format = match prop.get(b"DataFormat".into()) {
+            Some(data_format) => data_format.into(),
+            None => list_box_prop.data_format,
+        };
+        list_box_prop.data_member = match prop.get(b"DataMember".into()) {
+            Some(data_member) => data_member.into(),
+            None => list_box_prop.data_member,
+        };
+        list_box_prop.data_source = match prop.get(b"DataSource".into()) {
+            Some(data_source) => data_source.into(),
+            None => list_box_prop.data_source,
+        };
 
         // DragIcon
 
-        list_box_properties.drag_mode = build_property(properties, b"DragMode");
-        list_box_properties.enabled =
-            build_bool_property(properties, b"Enabled", list_box_properties.enabled);
-        list_box_properties.fore_color =
-            build_color_property(properties, b"ForeColor", list_box_properties.fore_color);
-        list_box_properties.height =
-            build_i32_property(properties, b"Height", list_box_properties.height);
-        list_box_properties.help_context_id = build_i32_property(
-            properties,
-            b"HelpContextID",
-            list_box_properties.help_context_id,
-        );
-        list_box_properties.integral_height = build_bool_property(
-            properties,
-            b"IntegralHeight",
-            list_box_properties.integral_height,
-        );
-        list_box_properties.left =
-            build_i32_property(properties, b"Left", list_box_properties.left);
+        list_box_prop.drag_mode = prop.get_property(b"DragMode".into(), list_box_prop.drag_mode);
+        list_box_prop.enabled = prop.get_bool(b"Enabled".into(), list_box_prop.enabled);
+        list_box_prop.fore_color = prop.get_color(b"ForeColor".into(), list_box_prop.fore_color);
+        list_box_prop.height = prop.get_i32(b"Height".into(), list_box_prop.height);
+        list_box_prop.help_context_id =
+            prop.get_i32(b"HelpContextID".into(), list_box_prop.help_context_id);
+        list_box_prop.integral_height =
+            prop.get_bool(b"IntegralHeight".into(), list_box_prop.integral_height);
+        list_box_prop.left = prop.get_i32(b"Left".into(), list_box_prop.left);
 
         // MouseIcon
 
-        list_box_properties.mouse_pointer = build_property(properties, b"MousePointer");
-        list_box_properties.multi_select = build_property(properties, b"MultiSelect");
-        list_box_properties.ole_drag_mode = build_property(properties, b"OLEDragMode");
-        list_box_properties.ole_drop_mode = build_property(properties, b"OLEDropMode");
-        list_box_properties.right_to_left = build_bool_property(
-            properties,
-            b"RightToLeft",
-            list_box_properties.right_to_left,
-        );
-        list_box_properties.sorted =
-            build_bool_property(properties, b"Sorted", list_box_properties.sorted);
-        list_box_properties.style = build_property(properties, b"Style");
-        list_box_properties.tab_index =
-            build_i32_property(properties, b"TabIndex", list_box_properties.tab_index);
-        list_box_properties.tab_stop =
-            build_bool_property(properties, b"TabStop", list_box_properties.tab_stop);
-        list_box_properties.tool_tip_text = properties
-            .get(BStr::new("ToolTipText"))
-            .unwrap_or(&list_box_properties.tool_tip_text);
-        list_box_properties.top = build_i32_property(properties, b"Top", list_box_properties.top);
-        list_box_properties.visible =
-            build_bool_property(properties, b"Visible", list_box_properties.visible);
-        list_box_properties.whats_this_help_id = build_i32_property(
-            properties,
-            b"WhatsThisHelpID",
-            list_box_properties.whats_this_help_id,
-        );
-        list_box_properties.width =
-            build_i32_property(properties, b"Width", list_box_properties.width);
+        list_box_prop.mouse_pointer =
+            prop.get_property(b"MousePointer".into(), list_box_prop.mouse_pointer);
+        list_box_prop.multi_select =
+            prop.get_property(b"MultiSelect".into(), list_box_prop.multi_select);
+        list_box_prop.ole_drag_mode =
+            prop.get_property(b"OLEDragMode".into(), list_box_prop.ole_drag_mode);
+        list_box_prop.ole_drop_mode =
+            prop.get_property(b"OLEDropMode".into(), list_box_prop.ole_drop_mode);
+        list_box_prop.right_to_left =
+            prop.get_bool(b"RightToLeft".into(), list_box_prop.right_to_left);
+        list_box_prop.sorted = prop.get_bool(b"Sorted".into(), list_box_prop.sorted);
+        list_box_prop.style = prop.get_property(b"Style".into(), list_box_prop.style);
+        list_box_prop.tab_index = prop.get_i32(b"TabIndex".into(), list_box_prop.tab_index);
+        list_box_prop.tab_stop = prop.get_bool(b"TabStop".into(), list_box_prop.tab_stop);
+        list_box_prop.tool_tip_text = match prop.get(b"ToolTipText".into()) {
+            Some(tool_tip_text) => tool_tip_text.into(),
+            None => list_box_prop.tool_tip_text,
+        };
+        list_box_prop.top = prop.get_i32(b"Top".into(), list_box_prop.top);
+        list_box_prop.visible = prop.get_bool(b"Visible".into(), list_box_prop.visible);
+        list_box_prop.whats_this_help_id =
+            prop.get_i32(b"WhatsThisHelpID".into(), list_box_prop.whats_this_help_id);
+        list_box_prop.width = prop.get_i32(b"Width".into(), list_box_prop.width);
 
-        Ok(list_box_properties)
+        list_box_prop
     }
 }

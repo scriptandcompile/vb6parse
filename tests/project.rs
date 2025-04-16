@@ -280,9 +280,7 @@ fn histograms_advanced_project_load() {
     let project = match VB6Project::parse("Advanced Histograms.vbp", project_file_bytes) {
         Ok(project) => project,
         Err(e) => {
-            panic!(
-                "Failed to parse class file 'Advanced Histograms.vbp': {e}"
-            );
+            panic!("Failed to parse class file 'Advanced Histograms.vbp': {e}");
         }
     };
 

@@ -1,69 +1,57 @@
-use std::convert::TryFrom;
+use std::collections::HashMap;
+use std::fmt::Debug;
 use std::vec::Vec;
-use std::{collections::HashMap, fmt::Debug};
 
-use bstr::{BStr, ByteSlice};
+use bstr::{BStr, BString, ByteSlice};
 use either::Either;
-use num_enum::TryFromPrimitive;
 use serde::Serialize;
 use uuid::Uuid;
-use winnow::error::ParserError;
 use winnow::{
     ascii::{line_ending, space0, space1},
     combinator::{alt, opt},
-    error::ErrMode,
+    error::{ErrMode, ParserError},
     token::{literal, take_till, take_until},
     Parser,
 };
 
-use crate::language::StartUpPosition;
 use crate::{
     errors::{VB6Error, VB6ErrorKind},
-    language::{
-        CheckBoxProperties, ComboBoxProperties, CommandButtonProperties, DataProperties,
-        DirListBoxProperties, DriveListBoxProperties, FileListBoxProperties, FormProperties,
-        FrameProperties, ImageProperties, LabelProperties, LineProperties, ListBoxProperties,
-        MDIFormProperties, MenuProperties, OLEProperties, OptionButtonProperties,
-        PictureBoxProperties, ScrollBarProperties, ShapeProperties, TextBoxProperties,
-        TimerProperties, VB6Color, VB6Control, VB6ControlKind, VB6MenuControl, VB6Token,
-    },
+    language::{VB6Control, VB6ControlKind, VB6MenuControl, VB6Token},
     parsers::{
         header::{
-            attributes_parse, key_resource_offset_line_parse, version_parse, HeaderKind,
-            VB6FileAttributes, VB6FileFormatVersion,
+            attributes_parse, key_resource_offset_line_parse, object_parse, version_parse,
+            HeaderKind, VB6FileAttributes, VB6FileFormatVersion,
         },
-        VB6ObjectReference, VB6Stream,
+        Properties, VB6ObjectReference, VB6Stream,
     },
-    vb6::{keyword_parse, line_comment_parse, vb6_parse, VB6Result},
+    vb6::{keyword_parse, line_comment_parse, string_parse, vb6_parse, VB6Result},
 };
-
-use super::{header::object_parse, vb6::string_parse};
 
 /// Represents a VB6 Form file.
 #[derive(Debug, PartialEq, Clone, Serialize)]
 pub struct VB6FormFile<'a> {
-    pub form: VB6Control<'a>,
+    pub form: VB6Control,
     pub objects: Vec<VB6ObjectReference<'a>>,
     pub format_version: VB6FileFormatVersion,
     pub attributes: VB6FileAttributes<'a>,
     pub tokens: Vec<VB6Token<'a>>,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Copy, Serialize)]
-struct VB6FullyQualifiedName<'a> {
-    pub namespace: &'a BStr,
-    pub kind: &'a BStr,
-    pub name: &'a BStr,
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+struct VB6FullyQualifiedName {
+    pub namespace: BString,
+    pub kind: BString,
+    pub name: BString,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
-pub struct VB6PropertyGroup<'a> {
-    pub name: &'a BStr,
+pub struct VB6PropertyGroup {
+    pub name: BString,
     pub guid: Option<Uuid>,
-    pub properties: HashMap<&'a BStr, Either<&'a BStr, VB6PropertyGroup<'a>>>,
+    pub properties: HashMap<BString, Either<BString, VB6PropertyGroup>>,
 }
 
-impl Serialize for VB6PropertyGroup<'_> {
+impl Serialize for VB6PropertyGroup {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -72,7 +60,7 @@ impl Serialize for VB6PropertyGroup<'_> {
 
         let mut state = serializer.serialize_struct("VB6PropertyGroup", 3)?;
 
-        state.serialize_field("name", self.name)?;
+        state.serialize_field("name", &self.name)?;
 
         if let Some(guid) = &self.guid {
             state.serialize_field("guid", &guid.to_string())?;
@@ -138,12 +126,16 @@ impl<'a> VB6FormFile<'a> {
     /// Attribute VB_Name = \"frmExampleForm\"\r
     /// ";
     ///
-    /// let result = VB6FormFile::parse("form_parse.frm".to_owned(), &mut input.as_ref());
+    /// let result = VB6FormFile::parse("form_parse.frm".to_owned(), &mut input.as_ref(), resource_file_resolver);
     ///
     ///
     /// assert!(result.is_ok());
     /// ```
-    pub fn parse(file_name: String, input: &'a [u8]) -> Result<Self, VB6Error> {
+    pub fn parse(
+        file_name: String,
+        input: &'a [u8],
+        resource_resolver: impl Fn(String, u32) -> Result<Vec<u8>, std::io::Error>,
+    ) -> Result<Self, VB6Error> {
         let mut input = VB6Stream::new(file_name, input);
 
         let format_version = match version_parse(HeaderKind::Form).parse_next(&mut input) {
@@ -161,7 +153,7 @@ impl<'a> VB6FormFile<'a> {
             Err(err) => return Err(input.error(err.into_inner().unwrap())),
         };
 
-        let form = match block_parse.parse_next(&mut input) {
+        let form = match block_parse(&resource_resolver).parse_next(&mut input) {
             Ok(form) => form,
             Err(err) => return Err(input.error(err.into_inner().unwrap())),
         };
@@ -186,6 +178,19 @@ impl<'a> VB6FormFile<'a> {
     }
 }
 
+pub fn resource_file_resolver<'a>(
+    filename: String,
+    _offset: u32,
+) -> Result<Vec<u8>, std::io::Error> {
+    // This is a stub for the resource file resolver.
+    // In a real implementation, this function would look up the resource file
+    // based on the filename and offset provided.
+    Err(std::io::Error::new(
+        std::io::ErrorKind::NotFound,
+        format!("Resource file not found: {}", filename),
+    ))
+}
+
 fn form_object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6ObjectReference<'a>>> {
     let mut objects = vec![];
 
@@ -207,85 +212,95 @@ fn form_object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6ObjectRe
     Ok(objects)
 }
 
-fn block_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Control<'a>> {
-    let fully_qualified_name = property_parse.parse_next(input)?;
+fn block_parse<'a>(
+    resource_resolver: impl Fn(String, u32) -> Result<Vec<u8>, std::io::Error>,
+) -> impl FnMut(&mut VB6Stream<'a>) -> VB6Result<VB6Control> {
+    move |input: &mut VB6Stream<'a>| -> VB6Result<VB6Control> {
+        let fully_qualified_name = property_parse.parse_next(input)?;
 
-    let mut controls = vec![];
-    let mut menus = vec![];
-    let mut property_groups = vec![];
-    let mut properties = HashMap::new();
+        let mut controls = vec![];
+        let mut menus = vec![];
+        let mut property_groups = vec![];
+        let mut properties = Properties::new();
 
-    while !input.is_empty() {
-        if (space0, keyword_parse("END"), space0, line_ending)
-            .parse_next(input)
-            .is_ok()
-        {
-            match build_control(
-                fully_qualified_name,
-                controls,
-                menus,
-                properties,
-                property_groups,
-            ) {
-                Ok(control) => return Ok(control),
-                Err(err) => return Err(ErrMode::Cut(err)),
-            };
-        }
-
-        if (space0, keyword_parse("BEGIN"), space1)
-            .parse_next(input)
-            .is_ok()
-        {
-            let control = block_parse.parse_next(input)?;
-            if control.kind.is_menu() {
-                menus.push(control);
-            } else {
-                controls.push(control);
+        while !input.is_empty() {
+            if (space0, keyword_parse("END"), space0, line_ending)
+                .parse_next(input)
+                .is_ok()
+            {
+                match build_control(
+                    fully_qualified_name,
+                    controls,
+                    menus,
+                    properties,
+                    property_groups,
+                ) {
+                    Ok(control) => return Ok(control),
+                    Err(err) => return Err(ErrMode::Cut(err)),
+                };
             }
 
-            continue;
+            if (space0, keyword_parse("BEGIN"), space1)
+                .parse_next(input)
+                .is_ok()
+            {
+                let control = block_parse(&resource_resolver).parse_next(input)?;
+                if control.kind.is_menu() {
+                    menus.push(control);
+                } else {
+                    controls.push(control);
+                }
+
+                continue;
+            }
+
+            if let Ok(property_group) = property_group_parse.parse_next(input) {
+                property_groups.push(property_group);
+                continue;
+            }
+
+            if let Ok((name, resource_file, offset)) =
+                key_resource_offset_line_parse.parse_next(input)
+            {
+                let resource = match resource_resolver(resource_file.to_string(), offset) {
+                    Ok(res) => res,
+                    Err(err) => {
+                        return Err(ErrMode::Cut(VB6ErrorKind::ResourceFile(err)));
+                    }
+                };
+
+                properties.insert_resource(name, resource);
+
+                continue;
+            }
+
+            space0.parse_next(input)?;
+
+            let name = take_till(1.., (b' ', b'\t', b'=')).parse_next(input)?;
+
+            space0.parse_next(input)?;
+
+            "=".parse_next(input)?;
+
+            space0.parse_next(input)?;
+
+            let value = alt((string_parse, take_till(1.., (' ', '\t', '\'', '\r', '\n'))))
+                .parse_next(input)?;
+
+            properties.insert(name, value.as_bytes());
+
+            space0.parse_next(input)?;
+
+            opt(line_comment_parse).parse_next(input)?;
+
+            line_ending.parse_next(input)?;
         }
 
-        if let Ok(property_group) = property_group_parse.parse_next(input) {
-            property_groups.push(property_group);
-            continue;
-        }
-
-        if let Ok((name, _resource_file, _offset)) =
-            key_resource_offset_line_parse.parse_next(input)
-        {
-            // TODO: At the moment we just eat the resource file look up.
-
-            properties.insert(name, BStr::new(""));
-            continue;
-        }
-
-        space0.parse_next(input)?;
-
-        let name = take_till(1.., (b' ', b'\t', b'=')).parse_next(input)?;
-
-        space0.parse_next(input)?;
-
-        "=".parse_next(input)?;
-
-        space0.parse_next(input)?;
-
-        let value =
-            alt((string_parse, take_till(1.., (' ', '\t', '\'', '\r', '\n')))).parse_next(input)?;
-
-        properties.insert(name, value);
-
-        space0.parse_next(input)?;
-
-        opt(line_comment_parse).parse_next(input)?;
-
-        line_ending.parse_next(input)?;
+        Err(ParserError::assert(input, "Unknown control kind"))
     }
-
-    Err(ParserError::assert(input, "Unknown control kind"))
 }
 
-fn property_group_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyGroup<'a>> {
+fn property_group_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyGroup> {
     (space0, keyword_parse("BeginProperty"), space1).parse_next(input)?;
 
     let Ok(property_group_name): VB6Result<&BStr> = take_till(1.., |c| {
@@ -317,7 +332,7 @@ fn property_group_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyG
 
     let mut property_group = VB6PropertyGroup {
         guid,
-        name: property_group_name,
+        name: property_group_name.into(),
         properties: HashMap::new(),
     };
 
@@ -336,7 +351,7 @@ fn property_group_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyG
         // looks like we have a nested property group.
         if let Ok(nested_property_group) = property_group_parse.parse_next(input) {
             property_group.properties.insert(
-                nested_property_group.name,
+                nested_property_group.name.clone(),
                 Either::Right(nested_property_group),
             );
 
@@ -349,7 +364,7 @@ fn property_group_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyG
             // TODO: At the moment we just eat the resource file look up.
             property_group
                 .properties
-                .insert(name, Either::Left(BStr::new("")));
+                .insert(name.into(), Either::Left("".into()));
 
             continue;
         }
@@ -363,7 +378,9 @@ fn property_group_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyG
         let value =
             alt((string_parse, take_till(1.., (' ', '\t', '\'', '\r', '\n')))).parse_next(input)?;
 
-        property_group.properties.insert(name, Either::Left(value));
+        property_group
+            .properties
+            .insert(name.into(), Either::Left(value.into()));
 
         (space0, opt(line_comment_parse), line_ending).parse_next(input)?;
     }
@@ -371,7 +388,7 @@ fn property_group_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyG
     Ok(property_group)
 }
 
-fn property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FullyQualifiedName<'a>> {
+fn property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FullyQualifiedName> {
     let Ok(namespace) = take_until::<_, _, VB6Error>(0.., ".").parse_next(input) else {
         return Err(ErrMode::Cut(VB6ErrorKind::NoNamespaceAfterBegin));
     };
@@ -400,33 +417,31 @@ fn property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FullyQualifiedN
     line_ending.parse_next(input)?;
 
     Ok(VB6FullyQualifiedName {
-        namespace,
-        kind,
-        name,
+        namespace: namespace.into(),
+        kind: kind.into(),
+        name: name.into(),
     })
 }
 
 fn build_control<'a>(
-    fully_qualified_name: VB6FullyQualifiedName<'a>,
-    controls: Vec<VB6Control<'a>>,
-    menus: Vec<VB6Control<'a>>,
-    properties: HashMap<&'a BStr, &'a BStr>,
-    property_groups: Vec<VB6PropertyGroup<'a>>,
-) -> Result<VB6Control<'a>, VB6ErrorKind> {
-    let tag_key = BStr::new("Tag");
-    let tag = if properties.contains_key(tag_key) {
-        properties[tag_key]
-    } else {
-        BStr::new("")
+    fully_qualified_name: VB6FullyQualifiedName,
+    controls: Vec<VB6Control>,
+    menus: Vec<VB6Control>,
+    properties: Properties<'a>,
+    property_groups: Vec<VB6PropertyGroup>,
+) -> Result<VB6Control, VB6ErrorKind> {
+    let tag = match properties.get(b"Tag".into()) {
+        Some(text) => text.into(),
+        None => b"".into(),
     };
 
     if fully_qualified_name.namespace != "VB" {
         let custom_control = VB6Control {
             name: fully_qualified_name.name,
-            tag,
+            tag: tag,
             index: 0,
             kind: VB6ControlKind::Custom {
-                properties,
+                properties: properties.into(),
                 property_groups,
             },
         };
@@ -436,8 +451,6 @@ fn build_control<'a>(
 
     let kind = match fully_qualified_name.kind.as_bytes() {
         b"Form" => {
-            let form_properties = FormProperties::construct_control(properties, property_groups)?;
-
             let mut converted_menus = vec![];
 
             for menu in menus {
@@ -458,14 +471,11 @@ fn build_control<'a>(
 
             VB6ControlKind::Form {
                 controls,
-                properties: form_properties,
+                properties: properties.into(),
                 menus: converted_menus,
             }
         }
         b"MDIForm" => {
-            let mdi_form_properties =
-                MDIFormProperties::construct_control(properties, property_groups)?;
-
             let mut converted_menus = vec![];
 
             for menu in menus {
@@ -486,12 +496,12 @@ fn build_control<'a>(
 
             VB6ControlKind::MDIForm {
                 controls,
-                properties: mdi_form_properties,
+                properties: properties.into(),
                 menus: converted_menus,
             }
         }
         b"Menu" => {
-            let menu_properties = MenuProperties::build_control(&properties)?;
+            let menu_properties = properties.into();
             let mut converted_menus = vec![];
 
             for menu in menus {
@@ -515,146 +525,67 @@ fn build_control<'a>(
                 sub_menus: converted_menus,
             }
         }
-        b"Frame" => {
-            let frame_properties =
-                FrameProperties::construct_control(&properties, &property_groups)?;
-
-            VB6ControlKind::Frame {
-                controls,
-                properties: frame_properties,
-            }
-        }
-        b"CheckBox" => {
-            let chechbox_properties = CheckBoxProperties::construct_control(&properties)?;
-            VB6ControlKind::CheckBox {
-                properties: chechbox_properties,
-            }
-        }
-        b"ComboBox" => {
-            let combobox_properties = ComboBoxProperties::construct_control(&properties)?;
-            VB6ControlKind::ComboBox {
-                properties: combobox_properties,
-            }
-        }
-        b"CommandButton" => {
-            let command_button_properties =
-                CommandButtonProperties::construct_control(&properties)?;
-            VB6ControlKind::CommandButton {
-                properties: command_button_properties,
-            }
-        }
-        b"Data" => {
-            let data_properties = DataProperties::construct_control(&properties)?;
-
-            VB6ControlKind::Data {
-                properties: data_properties,
-            }
-        }
-        b"DirListBox" => {
-            let dir_list_box_properties = DirListBoxProperties::construct_control(&properties)?;
-
-            VB6ControlKind::DirListBox {
-                properties: dir_list_box_properties,
-            }
-        }
-        b"DriveListBox" => {
-            let drive_list_box_properties = DriveListBoxProperties::construct_control(&properties)?;
-
-            VB6ControlKind::DriveListBox {
-                properties: drive_list_box_properties,
-            }
-        }
-        b"FileListBox" => {
-            let file_list_box_properties = FileListBoxProperties::construct_control(&properties)?;
-
-            VB6ControlKind::FileListBox {
-                properties: file_list_box_properties,
-            }
-        }
-        b"Image" => {
-            let image_properties = ImageProperties::construct_control(&properties)?;
-
-            VB6ControlKind::Image {
-                properties: image_properties,
-            }
-        }
-        b"Label" => {
-            let label_properties = LabelProperties::construct_control(&properties)?;
-
-            VB6ControlKind::Label {
-                properties: label_properties,
-            }
-        }
-        b"Line" => {
-            let line_properties = LineProperties::construct_control(&properties)?;
-
-            VB6ControlKind::Line {
-                properties: line_properties,
-            }
-        }
-        b"ListBox" => {
-            let list_box_properties = ListBoxProperties::construct_control(&properties)?;
-
-            VB6ControlKind::ListBox {
-                properties: list_box_properties,
-            }
-        }
-        b"OLE" => {
-            let ole_properties = OLEProperties::construct_control(&properties)?;
-
-            VB6ControlKind::Ole {
-                properties: ole_properties,
-            }
-        }
-        b"OptionButton" => {
-            let option_button_properties = OptionButtonProperties::construct_control(&properties)?;
-
-            VB6ControlKind::OptionButton {
-                properties: option_button_properties,
-            }
-        }
-        b"PictureBox" => {
-            let picture_box_properties = PictureBoxProperties::construct_control(&properties)?;
-
-            VB6ControlKind::PictureBox {
-                properties: picture_box_properties,
-            }
-        }
-        b"HScrollBar" => {
-            let scroll_bar_properties = ScrollBarProperties::construct_control(&properties)?;
-
-            VB6ControlKind::HScrollBar {
-                properties: scroll_bar_properties,
-            }
-        }
-        b"VScrollBar" => {
-            let scroll_bar_properties = ScrollBarProperties::construct_control(&properties)?;
-
-            VB6ControlKind::VScrollBar {
-                properties: scroll_bar_properties,
-            }
-        }
-        b"Shape" => {
-            let shape_properties = ShapeProperties::construct_control(&properties)?;
-
-            VB6ControlKind::Shape {
-                properties: shape_properties,
-            }
-        }
-        b"TextBox" => {
-            let textbox_properties = TextBoxProperties::construct_control(&properties)?;
-
-            VB6ControlKind::TextBox {
-                properties: textbox_properties,
-            }
-        }
-        b"Timer" => {
-            let timer_properties = TimerProperties::construct_control(&properties)?;
-
-            VB6ControlKind::Timer {
-                properties: timer_properties,
-            }
-        }
+        b"Frame" => VB6ControlKind::Frame {
+            controls,
+            properties: properties.into(),
+        },
+        b"CheckBox" => VB6ControlKind::CheckBox {
+            properties: properties.into(),
+        },
+        b"ComboBox" => VB6ControlKind::ComboBox {
+            properties: properties.into(),
+        },
+        b"CommandButton" => VB6ControlKind::CommandButton {
+            properties: properties.into(),
+        },
+        b"Data" => VB6ControlKind::Data {
+            properties: properties.into(),
+        },
+        b"DirListBox" => VB6ControlKind::DirListBox {
+            properties: properties.into(),
+        },
+        b"DriveListBox" => VB6ControlKind::DriveListBox {
+            properties: properties.into(),
+        },
+        b"FileListBox" => VB6ControlKind::FileListBox {
+            properties: properties.into(),
+        },
+        b"Image" => VB6ControlKind::Image {
+            properties: properties.into(),
+        },
+        b"Label" => VB6ControlKind::Label {
+            properties: properties.into(),
+        },
+        b"Line" => VB6ControlKind::Line {
+            properties: properties.into(),
+        },
+        b"ListBox" => VB6ControlKind::ListBox {
+            properties: properties.into(),
+        },
+        b"OLE" => VB6ControlKind::Ole {
+            properties: properties.into(),
+        },
+        b"OptionButton" => VB6ControlKind::OptionButton {
+            properties: properties.into(),
+        },
+        b"PictureBox" => VB6ControlKind::PictureBox {
+            properties: properties.into(),
+        },
+        b"HScrollBar" => VB6ControlKind::HScrollBar {
+            properties: properties.into(),
+        },
+        b"VScrollBar" => VB6ControlKind::VScrollBar {
+            properties: properties.into(),
+        },
+        b"Shape" => VB6ControlKind::Shape {
+            properties: properties.into(),
+        },
+        b"TextBox" => VB6ControlKind::TextBox {
+            properties: properties.into(),
+        },
+        b"Timer" => VB6ControlKind::Timer {
+            properties: properties.into(),
+        },
         _ => {
             return Err(VB6ErrorKind::UnknownControlKind);
         }
@@ -662,147 +593,12 @@ fn build_control<'a>(
 
     let parent_control = VB6Control {
         name: fully_qualified_name.name,
-        tag,
+        tag: tag.clone().into(),
         index: 0,
         kind,
     };
 
     Ok(parent_control)
-}
-
-#[must_use]
-pub fn build_property<T, B: AsRef<[u8]>, S: std::hash::BuildHasher>(
-    properties: &HashMap<&BStr, &BStr, S>,
-    property_key: &B,
-) -> T
-where
-    T: Default + TryFromPrimitive + TryFrom<i32>,
-{
-    let key = property_key.as_ref().as_bstr();
-    if !properties.contains_key(key) {
-        return T::default();
-    }
-
-    let property_ascii = properties[key].to_str().unwrap();
-
-    match property_ascii.parse::<i32>() {
-        Ok(value) => T::try_from(value).unwrap_or_default(),
-        Err(_) => T::default(),
-    }
-}
-#[must_use]
-pub fn build_startup_position_property<B: AsRef<[u8]>, S: std::hash::BuildHasher>(
-    properties: &HashMap<&BStr, &BStr, S>,
-    property_key: &B,
-) -> StartUpPosition {
-    let key = property_key.as_ref().as_bstr();
-    if !properties.contains_key(key) {
-        return StartUpPosition::WindowsDefault;
-    }
-
-    let property_ascii = properties[key].to_str().unwrap();
-
-    match property_ascii.parse::<i32>() {
-        Ok(value) => match value {
-            0 => {
-                let client_height = build_i32_property(properties, b"ClientHeight", 3000);
-                let client_width = build_i32_property(properties, b"ClientWidth", 3000);
-                let client_top = build_i32_property(properties, b"ClientTop", 200);
-                let client_left = build_i32_property(properties, b"ClientLeft", 100);
-
-                StartUpPosition::Manual {
-                    client_height,
-                    client_width,
-                    client_top,
-                    client_left,
-                }
-            }
-            1 => StartUpPosition::CenterOwner,
-            2 => StartUpPosition::CenterScreen,
-            3 => StartUpPosition::WindowsDefault,
-            _ => StartUpPosition::WindowsDefault,
-        },
-        Err(_) => StartUpPosition::WindowsDefault,
-    }
-}
-
-#[must_use]
-pub fn build_option_property<'a, B: AsRef<[u8]>, S: std::hash::BuildHasher, T>(
-    properties: &HashMap<&'a BStr, &'a BStr, S>,
-    property_key: &B,
-) -> Option<T>
-where
-    T: TryFrom<&'a str>,
-{
-    let key = property_key.as_ref().as_bstr();
-    if !properties.contains_key(key) {
-        return None;
-    }
-
-    let property_ascii = properties[key].to_str().unwrap();
-
-    match T::try_from(property_ascii) {
-        Ok(value) => Some(value),
-        Err(_) => None,
-    }
-}
-
-#[must_use]
-pub fn build_i32_property<B: AsRef<[u8]>, S: std::hash::BuildHasher>(
-    properties: &HashMap<&BStr, &BStr, S>,
-    property_key: &B,
-    default: i32,
-) -> i32 {
-    let key = property_key.as_ref().as_bstr();
-    if !properties.contains_key(key) {
-        return 0;
-    }
-
-    let property_ascii = properties[key].to_str().unwrap();
-
-    match property_ascii.parse::<i32>() {
-        Ok(value) => value,
-        Err(_) => default,
-    }
-}
-
-#[must_use]
-pub fn build_color_property<B: AsRef<[u8]>, S: std::hash::BuildHasher>(
-    properties: &HashMap<&BStr, &BStr, S>,
-    property_key: &B,
-    default: VB6Color,
-) -> VB6Color {
-    let key = property_key.as_ref().as_bstr();
-    if !properties.contains_key(key) {
-        return default;
-    }
-
-    let property_ascii = properties[key].to_str().unwrap();
-
-    match VB6Color::from_hex(property_ascii) {
-        Ok(color) => color,
-        Err(_) => default,
-    }
-}
-
-#[must_use]
-pub fn build_bool_property<B: AsRef<[u8]>, S: std::hash::BuildHasher>(
-    properties: &HashMap<&BStr, &BStr, S>,
-    property_key: &B,
-    default: bool,
-) -> bool {
-    let key = property_key.as_ref().as_bstr();
-    if !properties.contains_key(key) {
-        return default;
-    }
-
-    let property_ascii = properties[key].to_str().unwrap();
-
-    match property_ascii.as_bytes() {
-        b"0" => false,
-        b"1" | b"-1" => true,
-        _ => default,
-    }
 }
 
 #[cfg(test)]
@@ -901,7 +697,12 @@ End\r
 Attribute VB_Name = \"Form_Main\"\r
 ";
 
-        let result = VB6FormFile::parse("form_parse.frm".to_owned(), input.as_bytes()).unwrap();
+        let result = VB6FormFile::parse(
+            "form_parse.frm".to_owned(),
+            input.as_bytes(),
+            resource_file_resolver,
+        )
+        .unwrap();
 
         assert_eq!(result.objects.len(), 1);
         assert_eq!(result.format_version.major, 5);
@@ -1026,16 +827,21 @@ End\r
 Attribute VB_Name = \"FormMainMode\"\r
 ";
 
-        let result = VB6FormFile::parse("form_parse.frm".to_owned(), input.as_bytes());
+        let result = VB6FormFile::parse(
+            "form_parse.frm".to_owned(),
+            input.as_bytes(),
+            resource_file_resolver,
+        );
 
-        assert_eq!(
+        assert!(matches!(
             result.err().unwrap().kind,
             VB6ErrorKind::LikelyNonEnglishCharacterSet
-        );
+        ));
     }
 
     #[test]
     fn parse_indented_menu_valid() {
+        use crate::language::MenuProperties;
         use crate::language::VB_WINDOW_BACKGROUND;
 
         let input = b"VERSION 5.00\r
@@ -1070,7 +876,11 @@ Attribute VB_Name = \"FormMainMode\"\r
     Attribute VB_Name = \"frmExampleForm\"\r
     ";
 
-        let result = VB6FormFile::parse("form_parse.frm".to_owned(), &mut input.as_ref());
+        let result = VB6FormFile::parse(
+            "form_parse.frm".to_owned(),
+            &mut input.as_ref(),
+            resource_file_resolver,
+        );
 
         assert!(result.is_ok());
 
@@ -1096,19 +906,19 @@ Attribute VB_Name = \"FormMainMode\"\r
             assert_eq!(
                 menus,
                 &vec![VB6MenuControl {
-                    name: BStr::new("mnuFile"),
-                    tag: BStr::new(""),
+                    name: "mnuFile".into(),
+                    tag: "".into(),
                     index: 0,
                     properties: MenuProperties {
-                        caption: BStr::new("&File"),
+                        caption: "&File".into(),
                         ..Default::default()
                     },
                     sub_menus: vec![VB6MenuControl {
-                        name: BStr::new("mnuOpenImage"),
-                        tag: BStr::new(""),
+                        name: "mnuOpenImage".into(),
+                        tag: "".into(),
                         index: 0,
                         properties: MenuProperties {
-                            caption: BStr::new("&Open image"),
+                            caption: "&Open image".into(),
                             ..Default::default()
                         },
                         sub_menus: vec![],

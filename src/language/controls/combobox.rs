@@ -1,13 +1,8 @@
-use std::collections::HashMap;
-
-use crate::errors::VB6ErrorKind;
 use crate::language::controls::{Appearance, DragMode, MousePointer, OLEDragMode, OLEDropMode};
-use crate::parsers::form::{
-    build_bool_property, build_color_property, build_i32_property, build_property,
-};
+use crate::parsers::Properties;
 use crate::VB6Color;
 
-use bstr::BStr;
+use bstr::{BStr, BString};
 use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
@@ -28,14 +23,14 @@ pub enum ComboBoxStyle {
 /// tag, name, and index are not included in this struct, but instead are part
 /// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
-pub struct ComboBoxProperties<'a> {
+pub struct ComboBoxProperties {
     pub appearance: Appearance,
     pub back_color: VB6Color,
     pub causes_validation: bool,
-    pub data_field: &'a BStr,
-    pub data_format: &'a BStr,
-    pub data_member: &'a BStr,
-    pub data_source: &'a BStr,
+    pub data_field: BString,
+    pub data_format: BString,
+    pub data_member: BString,
+    pub data_source: BString,
     pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
     pub enabled: bool,
@@ -43,9 +38,9 @@ pub struct ComboBoxProperties<'a> {
     pub height: i32,
     pub help_context_id: i32,
     pub integral_height: bool,
-    //pub item_data: Vec<&'a BStr>,
+    //pub item_data: Vec<BString>,
     pub left: i32,
-    // pub list: Vec<&'a BStr>,
+    // pub list: Vec<BString>,
     pub locked: bool,
     pub mouse_icon: Option<DynamicImage>,
     pub mouse_pointer: MousePointer,
@@ -56,24 +51,24 @@ pub struct ComboBoxProperties<'a> {
     pub style: ComboBoxStyle,
     pub tab_index: i32,
     pub tab_stop: bool,
-    pub text: &'a BStr,
-    pub tool_tip_text: &'a BStr,
+    pub text: BString,
+    pub tool_tip_text: BString,
     pub top: i32,
     pub visible: bool,
     pub whats_this_help_id: i32,
     pub width: i32,
 }
 
-impl Default for ComboBoxProperties<'_> {
+impl Default for ComboBoxProperties {
     fn default() -> Self {
         ComboBoxProperties {
             appearance: Appearance::ThreeD,
             back_color: VB6Color::from_hex("&H80000005&").unwrap(),
             causes_validation: true,
-            data_field: BStr::new(""),
-            data_format: BStr::new(""),
-            data_member: BStr::new(""),
-            data_source: BStr::new(""),
+            data_field: "".into(),
+            data_format: "".into(),
+            data_member: "".into(),
+            data_source: "".into(),
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: true,
@@ -94,8 +89,8 @@ impl Default for ComboBoxProperties<'_> {
             style: ComboBoxStyle::DropDownCombo,
             tab_index: 0,
             tab_stop: true,
-            text: BStr::new(""),
-            tool_tip_text: BStr::new(""),
+            text: "".into(),
+            tool_tip_text: "".into(),
             top: 30,
             visible: true,
             whats_this_help_id: 0,
@@ -104,7 +99,7 @@ impl Default for ComboBoxProperties<'_> {
     }
 }
 
-impl Serialize for ComboBoxProperties<'_> {
+impl Serialize for ComboBoxProperties {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -156,91 +151,73 @@ impl Serialize for ComboBoxProperties<'_> {
     }
 }
 
-impl<'a> ComboBoxProperties<'a> {
-    pub fn construct_control(
-        properties: &HashMap<&'a BStr, &'a BStr>,
-    ) -> Result<Self, VB6ErrorKind> {
-        let mut combobox_properties = ComboBoxProperties::default();
+impl<'a> From<Properties<'a>> for ComboBoxProperties {
+    fn from(prop: Properties<'a>) -> Self {
+        let mut combobox_prop = ComboBoxProperties::default();
 
-        combobox_properties.appearance = build_property(properties, b"Appearance");
-        combobox_properties.back_color =
-            build_color_property(properties, b"BackColor", combobox_properties.back_color);
-        combobox_properties.causes_validation = build_bool_property(
-            properties,
-            b"CausesValidation",
-            combobox_properties.causes_validation,
-        );
-        combobox_properties.data_field = properties
-            .get(BStr::new("DataField"))
-            .unwrap_or(&combobox_properties.data_field);
-        combobox_properties.data_format = properties
-            .get(BStr::new("DataFormat"))
-            .unwrap_or(&combobox_properties.data_format);
-        combobox_properties.data_member = properties
-            .get(BStr::new("DataMember"))
-            .unwrap_or(&combobox_properties.data_member);
-        combobox_properties.data_source = properties
-            .get(BStr::new("DataSource"))
-            .unwrap_or(&combobox_properties.data_source);
+        combobox_prop.appearance =
+            prop.get_property(b"Appearance".into(), combobox_prop.appearance);
+        combobox_prop.back_color = prop.get_color(b"BackColor".into(), combobox_prop.back_color);
+        combobox_prop.causes_validation =
+            prop.get_bool(b"CausesValidation".into(), combobox_prop.causes_validation);
+        combobox_prop.data_field = match prop.get(b"DataField".into()) {
+            Some(data_field) => data_field.into(),
+            None => "".into(),
+        };
+        combobox_prop.data_format = match prop.get(b"DataFormat".into()) {
+            Some(data_format) => data_format.into(),
+            None => "".into(),
+        };
+        combobox_prop.data_member = match prop.get(b"DataMember".into()) {
+            Some(data_member) => data_member.into(),
+            None => "".into(),
+        };
+        combobox_prop.data_source = match prop.get(b"DataSource".into()) {
+            Some(data_source) => data_source.into(),
+            None => "".into(),
+        };
 
         // drag_icon
 
-        combobox_properties.drag_mode = build_property(properties, b"DragMode");
-        combobox_properties.enabled =
-            build_bool_property(properties, b"Enabled", combobox_properties.enabled);
-        combobox_properties.fore_color =
-            build_color_property(properties, b"ForeColor", combobox_properties.fore_color);
-        combobox_properties.height =
-            build_i32_property(properties, b"Height", combobox_properties.height);
-        combobox_properties.help_context_id = build_i32_property(
-            properties,
-            b"HelpContextID",
-            combobox_properties.help_context_id,
-        );
-        combobox_properties.integral_height = build_bool_property(
-            properties,
-            b"IntegralHeight",
-            combobox_properties.integral_height,
-        );
-        combobox_properties.left =
-            build_i32_property(properties, b"Left", combobox_properties.left);
-        combobox_properties.locked =
-            build_bool_property(properties, b"Locked", combobox_properties.locked);
+        combobox_prop.drag_mode = prop.get_property(b"DragMode".into(), combobox_prop.drag_mode);
+        combobox_prop.enabled = prop.get_bool(b"Enabled".into(), combobox_prop.enabled);
+        combobox_prop.fore_color = prop.get_color(b"ForeColor".into(), combobox_prop.fore_color);
+        combobox_prop.height = prop.get_i32(b"Height".into(), combobox_prop.height);
+        combobox_prop.help_context_id =
+            prop.get_i32(b"HelpContextID".into(), combobox_prop.help_context_id);
+        combobox_prop.integral_height =
+            prop.get_bool(b"IntegralHeight".into(), combobox_prop.integral_height);
+        combobox_prop.left = prop.get_i32(b"Left".into(), combobox_prop.left);
+        combobox_prop.locked = prop.get_bool(b"Locked".into(), combobox_prop.locked);
 
         // mouse_icon
 
-        combobox_properties.mouse_pointer = build_property(properties, b"MousePointer");
-        combobox_properties.ole_drag_mode = build_property(properties, b"OLEDragMode");
-        combobox_properties.ole_drop_mode = build_property(properties, b"OLEDropMode");
-        combobox_properties.right_to_left = build_bool_property(
-            properties,
-            b"RightToLeft",
-            combobox_properties.right_to_left,
-        );
-        combobox_properties.sorted =
-            build_bool_property(properties, b"Sorted", combobox_properties.sorted);
-        combobox_properties.style = build_property(properties, b"Style");
-        combobox_properties.tab_index =
-            build_i32_property(properties, b"TabIndex", combobox_properties.tab_index);
-        combobox_properties.tab_stop =
-            build_bool_property(properties, b"TabStop", combobox_properties.tab_stop);
-        combobox_properties.text = properties
-            .get(BStr::new("Text"))
-            .unwrap_or(&combobox_properties.text);
-        combobox_properties.tool_tip_text = properties
-            .get(BStr::new("ToolTipText"))
-            .unwrap_or(&combobox_properties.tool_tip_text);
-        combobox_properties.top = build_i32_property(properties, b"Top", combobox_properties.top);
-        combobox_properties.visible =
-            build_bool_property(properties, b"Visible", combobox_properties.visible);
-        combobox_properties.whats_this_help_id = build_i32_property(
-            properties,
-            b"WhatsThisHelp",
-            combobox_properties.whats_this_help_id,
-        );
-        combobox_properties.width =
-            build_i32_property(properties, b"Width", combobox_properties.width);
+        combobox_prop.mouse_pointer =
+            prop.get_property(b"MousePointer".into(), combobox_prop.mouse_pointer);
+        combobox_prop.ole_drag_mode =
+            prop.get_property(b"OLEDragMode".into(), combobox_prop.ole_drag_mode);
+        combobox_prop.ole_drop_mode =
+            prop.get_property(b"OLEDropMode".into(), combobox_prop.ole_drop_mode);
+        combobox_prop.right_to_left =
+            prop.get_bool(b"RightToLeft".into(), combobox_prop.right_to_left);
+        combobox_prop.sorted = prop.get_bool(b"Sorted".into(), combobox_prop.sorted);
+        combobox_prop.style = prop.get_property(b"Style".into(), combobox_prop.style);
+        combobox_prop.tab_index = prop.get_i32(b"TabIndex".into(), combobox_prop.tab_index);
+        combobox_prop.tab_stop = prop.get_bool(b"TabStop".into(), combobox_prop.tab_stop);
+        combobox_prop.text = match prop.get(BStr::new("Text")) {
+            Some(text) => text.into(),
+            None => combobox_prop.text,
+        };
+        combobox_prop.tool_tip_text = match prop.get("ToolTipText".into()) {
+            Some(tool_tip_text) => tool_tip_text.into(),
+            None => combobox_prop.tool_tip_text,
+        };
+        combobox_prop.top = prop.get_i32(b"Top".into(), combobox_prop.top);
+        combobox_prop.visible = prop.get_bool(b"Visible".into(), combobox_prop.visible);
+        combobox_prop.whats_this_help_id =
+            prop.get_i32(b"WhatsThisHelp".into(), combobox_prop.whats_this_help_id);
+        combobox_prop.width = prop.get_i32(b"Width".into(), combobox_prop.width);
 
-        Ok(combobox_properties)
+        combobox_prop
     }
 }
