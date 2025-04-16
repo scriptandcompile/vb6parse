@@ -8,7 +8,7 @@ use winnow::{
 };
 
 use crate::{
-    errors::{VB6Error, VB6ErrorKind},
+    errors::{PropertyError, VB6Error, VB6ErrorKind},
     language::VB6Token,
     parsers::{
         header::{
@@ -305,7 +305,9 @@ fn properties_parse(input: &mut VB6Stream<'_>) -> VB6Result<VB6ClassProperties> 
                 } else if value == "0" {
                     persistable = Persistance::NonPersistable;
                 } else {
-                    return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueZeroNegOne));
+                    return Err(ErrMode::Cut(VB6ErrorKind::Property(
+                        PropertyError::InvalidPropertyValueZeroNegOne,
+                    )));
                 }
             }
             b"MultiUse" => {
@@ -315,7 +317,9 @@ fn properties_parse(input: &mut VB6Stream<'_>) -> VB6Result<VB6ClassProperties> 
                 } else if value == "0" {
                     multi_use = FileUsage::SingleUse;
                 } else {
-                    return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueZeroNegOne));
+                    return Err(ErrMode::Cut(VB6ErrorKind::Property(
+                        PropertyError::InvalidPropertyValueZeroNegOne,
+                    )));
                 }
             }
             b"DataBindingBehavior" => {
@@ -326,7 +330,9 @@ fn properties_parse(input: &mut VB6Stream<'_>) -> VB6Result<VB6ClassProperties> 
                 } else if value == "2" {
                     data_binding_behavior = DataBindingBehavior::Complex;
                 } else {
-                    return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueZeroNegOne));
+                    return Err(ErrMode::Cut(VB6ErrorKind::Property(
+                        PropertyError::InvalidPropertyValueZeroNegOne,
+                    )));
                 }
             }
             b"DataSourceBehavior" => {
@@ -335,7 +341,9 @@ fn properties_parse(input: &mut VB6Stream<'_>) -> VB6Result<VB6ClassProperties> 
                 } else if value == "1" {
                     data_source_behavior = DataSourceBehavior::DataSource;
                 } else {
-                    return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueZeroNegOne));
+                    return Err(ErrMode::Cut(VB6ErrorKind::Property(
+                        PropertyError::InvalidPropertyValueZeroNegOne,
+                    )));
                 }
             }
             b"MTSTransactionMode" => {
@@ -350,11 +358,15 @@ fn properties_parse(input: &mut VB6Stream<'_>) -> VB6Result<VB6ClassProperties> 
                 } else if value == "4" {
                     mts_transaction_mode = MtsStatus::RequiresNewTransaction;
                 } else {
-                    return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueZeroNegOne));
+                    return Err(ErrMode::Cut(VB6ErrorKind::Property(
+                        PropertyError::InvalidPropertyValueZeroNegOne,
+                    )));
                 }
             }
             _ => {
-                return Err(ErrMode::Cut(VB6ErrorKind::UnknownProperty));
+                return Err(ErrMode::Cut(VB6ErrorKind::Property(
+                    PropertyError::UnknownProperty,
+                )));
             }
         }
     }

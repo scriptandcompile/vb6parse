@@ -1,16 +1,11 @@
-use std::collections::HashMap;
-
-use crate::errors::VB6ErrorKind;
 use crate::language::controls::{
     Align, Appearance, BorderStyle, ClipControls, DragMode, DrawMode, DrawStyle, FillStyle,
     LinkMode, MousePointer, OLEDragMode, OLEDropMode, ScaleMode,
 };
-use crate::parsers::form::{
-    build_bool_property, build_color_property, build_i32_property, build_property,
-};
+use crate::parsers::Properties;
 use crate::VB6Color;
 
-use bstr::BStr;
+use bstr::BString;
 use image::DynamicImage;
 use serde::Serialize;
 
@@ -21,7 +16,7 @@ use serde::Serialize;
 /// tag, name, and index are not included in this struct, but instead are part
 /// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
-pub struct PictureBoxProperties<'a> {
+pub struct PictureBoxProperties {
     pub align: Align,
     pub appearance: Appearance,
     /// Determines if the output from a graphics method is to a persistent bitmap
@@ -32,10 +27,10 @@ pub struct PictureBoxProperties<'a> {
     pub border_style: BorderStyle,
     pub causes_validation: bool,
     pub clip_controls: ClipControls,
-    pub data_field: &'a BStr,
-    pub data_format: &'a BStr,
-    pub data_member: &'a BStr,
-    pub data_source: &'a BStr,
+    pub data_field: BString,
+    pub data_format: BString,
+    pub data_member: BString,
+    pub data_source: BString,
     pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
     pub draw_mode: DrawMode,
@@ -50,10 +45,10 @@ pub struct PictureBoxProperties<'a> {
     pub height: i32,
     pub help_context_id: i32,
     pub left: i32,
-    pub link_item: &'a BStr,
+    pub link_item: BString,
     pub link_mode: LinkMode,
     pub link_timeout: i32,
-    pub link_topic: &'a BStr,
+    pub link_topic: BString,
     pub mouse_icon: Option<DynamicImage>,
     pub mouse_pointer: MousePointer,
     pub negotiate: bool,
@@ -68,14 +63,14 @@ pub struct PictureBoxProperties<'a> {
     pub scale_width: i32,
     pub tab_index: i32,
     pub tab_stop: bool,
-    pub tool_tip_text: &'a BStr,
+    pub tool_tip_text: BString,
     pub top: i32,
     pub visible: bool,
     pub whats_this_help_id: i32,
     pub width: i32,
 }
 
-impl Default for PictureBoxProperties<'_> {
+impl Default for PictureBoxProperties {
     fn default() -> Self {
         PictureBoxProperties {
             align: Align::None,
@@ -86,10 +81,10 @@ impl Default for PictureBoxProperties<'_> {
             border_style: BorderStyle::FixedSingle,
             causes_validation: true,
             clip_controls: ClipControls::default(),
-            data_field: BStr::new(""),
-            data_format: BStr::new(""),
-            data_member: BStr::new(""),
-            data_source: BStr::new(""),
+            data_field: "".into(),
+            data_format: "".into(),
+            data_member: "".into(),
+            data_source: "".into(),
             drag_icon: None,
             drag_mode: DragMode::Manual,
             draw_mode: DrawMode::CopyPen,
@@ -104,10 +99,10 @@ impl Default for PictureBoxProperties<'_> {
             height: 30,
             help_context_id: 0,
             left: 30,
-            link_item: BStr::new(""),
+            link_item: "".into(),
             link_mode: LinkMode::None,
             link_timeout: 50,
-            link_topic: BStr::new(""),
+            link_topic: "".into(),
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
             negotiate: false,
@@ -122,7 +117,7 @@ impl Default for PictureBoxProperties<'_> {
             scale_width: 100,
             tab_index: 0,
             tab_stop: true,
-            tool_tip_text: BStr::new(""),
+            tool_tip_text: "".into(),
             top: 30,
             visible: true,
             whats_this_help_id: 0,
@@ -131,7 +126,7 @@ impl Default for PictureBoxProperties<'_> {
     }
 }
 
-impl Serialize for PictureBoxProperties<'_> {
+impl Serialize for PictureBoxProperties {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -202,135 +197,117 @@ impl Serialize for PictureBoxProperties<'_> {
     }
 }
 
-impl<'a> PictureBoxProperties<'a> {
-    pub fn construct_control(
-        properties: &HashMap<&'a BStr, &'a BStr>,
-    ) -> Result<Self, VB6ErrorKind> {
-        let mut picture_box_properties = PictureBoxProperties::default();
+impl<'a> From<Properties<'a>> for PictureBoxProperties {
+    fn from(prop: Properties<'a>) -> Self {
+        let mut picture_box_prop = PictureBoxProperties::default();
 
-        picture_box_properties.align = build_property(properties, b"Align");
-        picture_box_properties.appearance = build_property(properties, b"Appearance");
-        picture_box_properties.auto_redraw = build_bool_property(
-            properties,
-            b"AutoRedraw",
-            picture_box_properties.auto_redraw,
+        picture_box_prop.align = prop.get_property(b"Align".into(), picture_box_prop.align);
+        picture_box_prop.appearance =
+            prop.get_property(b"Appearance".into(), picture_box_prop.appearance);
+        picture_box_prop.auto_redraw =
+            prop.get_bool(b"AutoRedraw".into(), picture_box_prop.auto_redraw);
+        picture_box_prop.auto_size = prop.get_bool(b"AutoSize".into(), picture_box_prop.auto_size);
+        picture_box_prop.back_color =
+            prop.get_color(b"BackColor".into(), picture_box_prop.back_color);
+        picture_box_prop.border_style =
+            prop.get_property(b"BorderStyle".into(), picture_box_prop.border_style);
+        picture_box_prop.causes_validation = prop.get_bool(
+            b"CausesValidation".into(),
+            picture_box_prop.causes_validation,
         );
-        picture_box_properties.auto_size =
-            build_bool_property(properties, b"AutoSize", picture_box_properties.auto_size);
-        picture_box_properties.back_color =
-            build_color_property(properties, b"BackColor", picture_box_properties.back_color);
-        picture_box_properties.border_style = build_property(properties, b"BorderStyle");
-        picture_box_properties.causes_validation = build_bool_property(
-            properties,
-            b"CausesValidation",
-            picture_box_properties.causes_validation,
-        );
-        picture_box_properties.clip_controls = build_property(properties, b"ClipControls");
-        picture_box_properties.data_field = properties
-            .get(BStr::new("DataField"))
-            .unwrap_or(&picture_box_properties.data_field);
-        picture_box_properties.data_format = properties
-            .get(BStr::new("DataFormat"))
-            .unwrap_or(&picture_box_properties.data_format);
-        picture_box_properties.data_member = properties
-            .get(BStr::new("DataMember"))
-            .unwrap_or(&picture_box_properties.data_member);
-        picture_box_properties.data_source = properties
-            .get(BStr::new("DataSource"))
-            .unwrap_or(&picture_box_properties.data_source);
+        picture_box_prop.clip_controls =
+            prop.get_property(b"ClipControls".into(), picture_box_prop.clip_controls);
+        picture_box_prop.data_field = match prop.get(b"DataField".into()) {
+            Some(data_field) => data_field.into(),
+            None => picture_box_prop.data_field,
+        };
+        picture_box_prop.data_format = match prop.get(b"DataFormat".into()) {
+            Some(data_format) => data_format.into(),
+            None => picture_box_prop.data_format,
+        };
+        picture_box_prop.data_member = match prop.get(b"DataMember".into()) {
+            Some(data_member) => data_member.into(),
+            None => picture_box_prop.data_member,
+        };
+        picture_box_prop.data_source = match prop.get(b"DataSource".into()) {
+            Some(data_source) => data_source.into(),
+            None => picture_box_prop.data_source,
+        };
 
         // DragIcon
 
-        picture_box_properties.drag_mode = build_property(properties, b"DragMode");
-        picture_box_properties.draw_mode = build_property(properties, b"DrawMode");
-        picture_box_properties.draw_style = build_property(properties, b"DrawStyle");
-        picture_box_properties.draw_width =
-            build_i32_property(properties, b"DrawWidth", picture_box_properties.draw_width);
-        picture_box_properties.enabled =
-            build_bool_property(properties, b"Enabled", picture_box_properties.enabled);
-        picture_box_properties.fill_color =
-            build_color_property(properties, b"FillColor", picture_box_properties.fill_color);
-        picture_box_properties.fill_style = build_property(properties, b"FillStyle");
-        picture_box_properties.font_transparent = build_bool_property(
-            properties,
-            b"FontTransparent",
-            picture_box_properties.font_transparent,
-        );
-        picture_box_properties.fore_color =
-            build_color_property(properties, b"ForeColor", picture_box_properties.fore_color);
-        picture_box_properties.has_dc =
-            build_bool_property(properties, b"HasDC", picture_box_properties.has_dc);
-        picture_box_properties.height =
-            build_i32_property(properties, b"Height", picture_box_properties.height);
-        picture_box_properties.help_context_id = build_i32_property(
-            properties,
-            b"HelpContextID",
-            picture_box_properties.help_context_id,
-        );
-        picture_box_properties.left =
-            build_i32_property(properties, b"Left", picture_box_properties.left);
-        picture_box_properties.link_item = properties
-            .get(BStr::new("LinkItem"))
-            .unwrap_or(&picture_box_properties.link_item);
-        picture_box_properties.link_mode = build_property(properties, b"LinkMode");
-        picture_box_properties.link_timeout = build_i32_property(
-            properties,
-            b"LinkTimeout",
-            picture_box_properties.link_timeout,
-        );
-        picture_box_properties.link_topic = properties
-            .get(BStr::new("LinkTopic"))
-            .unwrap_or(&picture_box_properties.link_topic);
+        picture_box_prop.drag_mode =
+            prop.get_property(b"DragMode".into(), picture_box_prop.drag_mode);
+        picture_box_prop.draw_mode =
+            prop.get_property(b"DrawMode".into(), picture_box_prop.draw_mode);
+        picture_box_prop.draw_style =
+            prop.get_property(b"DrawStyle".into(), picture_box_prop.draw_style);
+        picture_box_prop.draw_width =
+            prop.get_i32(b"DrawWidth".into(), picture_box_prop.draw_width);
+        picture_box_prop.enabled = prop.get_bool(b"Enabled".into(), picture_box_prop.enabled);
+        picture_box_prop.fill_color =
+            prop.get_color(b"FillColor".into(), picture_box_prop.fill_color);
+        picture_box_prop.fill_style =
+            prop.get_property(b"FillStyle".into(), picture_box_prop.fill_style);
+        picture_box_prop.font_transparent =
+            prop.get_bool(b"FontTransparent".into(), picture_box_prop.font_transparent);
+        picture_box_prop.fore_color =
+            prop.get_color(b"ForeColor".into(), picture_box_prop.fore_color);
+        picture_box_prop.has_dc = prop.get_bool(b"HasDC".into(), picture_box_prop.has_dc);
+        picture_box_prop.height = prop.get_i32(b"Height".into(), picture_box_prop.height);
+        picture_box_prop.help_context_id =
+            prop.get_i32(b"HelpContextID".into(), picture_box_prop.help_context_id);
+        picture_box_prop.left = prop.get_i32(b"Left".into(), picture_box_prop.left);
+        picture_box_prop.link_item = match prop.get(b"LinkItem".into()) {
+            Some(link_item) => link_item.into(),
+            None => picture_box_prop.link_item,
+        };
+        picture_box_prop.link_mode =
+            prop.get_property(b"LinkMode".into(), picture_box_prop.link_mode);
+        picture_box_prop.link_timeout =
+            prop.get_i32(b"LinkTimeout".into(), picture_box_prop.link_timeout);
+        picture_box_prop.link_topic = match prop.get(b"LinkTopic".into()) {
+            Some(link_topic) => link_topic.into(),
+            None => picture_box_prop.link_topic,
+        };
 
         // MouseIcon
 
-        picture_box_properties.mouse_pointer = build_property(properties, b"MousePointer");
-        picture_box_properties.negotiate =
-            build_bool_property(properties, b"Negotiate", picture_box_properties.negotiate);
-        picture_box_properties.ole_drag_mode = build_property(properties, b"OLEDragMode");
-        picture_box_properties.ole_drop_mode = build_property(properties, b"OLEDropMode");
+        picture_box_prop.mouse_pointer =
+            prop.get_property(b"MousePointer".into(), picture_box_prop.mouse_pointer);
+        picture_box_prop.negotiate = prop.get_bool(b"Negotiate".into(), picture_box_prop.negotiate);
+        picture_box_prop.ole_drag_mode =
+            prop.get_property(b"OLEDragMode".into(), picture_box_prop.ole_drag_mode);
+        picture_box_prop.ole_drop_mode =
+            prop.get_property(b"OLEDropMode".into(), picture_box_prop.ole_drop_mode);
 
         // Picture
 
-        picture_box_properties.right_to_left = build_bool_property(
-            properties,
-            b"RightToLeft",
-            picture_box_properties.right_to_left,
+        picture_box_prop.right_to_left =
+            prop.get_bool(b"RightToLeft".into(), picture_box_prop.right_to_left);
+        picture_box_prop.scale_height =
+            prop.get_i32(b"ScaleHeight".into(), picture_box_prop.scale_height);
+        picture_box_prop.scale_left =
+            prop.get_i32(b"ScaleLeft".into(), picture_box_prop.scale_left);
+        picture_box_prop.scale_mode =
+            prop.get_property(b"ScaleMode".into(), picture_box_prop.scale_mode);
+        picture_box_prop.scale_top = prop.get_i32(b"ScaleTop".into(), picture_box_prop.scale_top);
+        picture_box_prop.scale_width =
+            prop.get_i32(b"ScaleWidth".into(), picture_box_prop.scale_width);
+        picture_box_prop.tab_index = prop.get_i32(b"TabIndex".into(), picture_box_prop.tab_index);
+        picture_box_prop.tab_stop = prop.get_bool(b"TabStop".into(), picture_box_prop.tab_stop);
+        picture_box_prop.tool_tip_text = match prop.get(b"ToolTipText".into()) {
+            Some(tool_tip_text) => tool_tip_text.into(),
+            None => "".into(),
+        };
+        picture_box_prop.top = prop.get_i32(b"Top".into(), picture_box_prop.top);
+        picture_box_prop.visible = prop.get_bool(b"Visible".into(), picture_box_prop.visible);
+        picture_box_prop.whats_this_help_id = prop.get_i32(
+            b"WhatsThisHelpID".into(),
+            picture_box_prop.whats_this_help_id,
         );
-        picture_box_properties.scale_height = build_i32_property(
-            properties,
-            b"ScaleHeight",
-            picture_box_properties.scale_height,
-        );
-        picture_box_properties.scale_left =
-            build_i32_property(properties, b"ScaleLeft", picture_box_properties.scale_left);
-        picture_box_properties.scale_mode = build_property(properties, b"ScaleMode");
-        picture_box_properties.scale_top =
-            build_i32_property(properties, b"ScaleTop", picture_box_properties.scale_top);
-        picture_box_properties.scale_width = build_i32_property(
-            properties,
-            b"ScaleWidth",
-            picture_box_properties.scale_width,
-        );
-        picture_box_properties.tab_index =
-            build_i32_property(properties, b"TabIndex", picture_box_properties.tab_index);
-        picture_box_properties.tab_stop =
-            build_bool_property(properties, b"TabStop", picture_box_properties.tab_stop);
-        picture_box_properties.tool_tip_text = properties
-            .get(BStr::new("ToolTipText"))
-            .unwrap_or(&picture_box_properties.tool_tip_text);
-        picture_box_properties.top =
-            build_i32_property(properties, b"Top", picture_box_properties.top);
-        picture_box_properties.visible =
-            build_bool_property(properties, b"Visible", picture_box_properties.visible);
-        picture_box_properties.whats_this_help_id = build_i32_property(
-            properties,
-            b"WhatsThisHelpID",
-            picture_box_properties.whats_this_help_id,
-        );
-        picture_box_properties.width =
-            build_i32_property(properties, b"Width", picture_box_properties.width);
+        picture_box_prop.width = prop.get_i32(b"Width".into(), picture_box_prop.width);
 
-        Ok(picture_box_properties)
+        picture_box_prop
     }
 }

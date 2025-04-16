@@ -1,15 +1,12 @@
-use std::collections::HashMap;
-
-use crate::errors::VB6ErrorKind;
-use crate::language::controls::{
-    Appearance, DragMode, JustifyAlignment, MousePointer, OLEDropMode, Style,
-};
-use crate::language::VB6Color;
-use crate::parsers::form::{
-    build_bool_property, build_color_property, build_i32_property, build_property,
+use crate::{
+    language::{
+        controls::{Appearance, DragMode, JustifyAlignment, MousePointer, OLEDropMode, Style},
+        VB6Color,
+    },
+    parsers::Properties,
 };
 
-use bstr::BStr;
+use bstr::BString;
 use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
@@ -30,16 +27,16 @@ pub enum CheckBoxValue {
 /// tag, name, and index are not included in this struct, but instead are part
 /// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
-pub struct CheckBoxProperties<'a> {
+pub struct CheckBoxProperties {
     pub alignment: JustifyAlignment,
     pub appearance: Appearance,
     pub back_color: VB6Color,
-    pub caption: &'a BStr,
+    pub caption: BString,
     pub causes_validation: bool,
-    pub data_field: &'a BStr,
-    pub data_format: &'a BStr,
-    pub data_member: &'a BStr,
-    pub data_source: &'a BStr,
+    pub data_field: BString,
+    pub data_format: BString,
+    pub data_member: BString,
+    pub data_source: BString,
     pub disabled_picture: Option<DynamicImage>,
     pub down_picture: Option<DynamicImage>,
     pub drag_icon: Option<DynamicImage>,
@@ -58,7 +55,7 @@ pub struct CheckBoxProperties<'a> {
     pub style: Style,
     pub tab_index: i32,
     pub tab_stop: bool,
-    pub tool_tip_text: &'a BStr,
+    pub tool_tip_text: BString,
     pub top: i32,
     pub use_mask_color: bool,
     pub value: CheckBoxValue,
@@ -67,18 +64,18 @@ pub struct CheckBoxProperties<'a> {
     pub width: i32,
 }
 
-impl Default for CheckBoxProperties<'_> {
+impl Default for CheckBoxProperties {
     fn default() -> Self {
         CheckBoxProperties {
             alignment: JustifyAlignment::LeftJustify,
             appearance: Appearance::ThreeD,
             back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
-            caption: BStr::new("Check1"),
+            caption: "".into(),
             causes_validation: true,
-            data_field: BStr::new(""),
-            data_format: BStr::new(""),
-            data_member: BStr::new(""),
-            data_source: BStr::new(""),
+            data_field: "".into(),
+            data_format: "".into(),
+            data_member: "".into(),
+            data_source: "".into(),
             disabled_picture: None,
             down_picture: None,
             drag_icon: None,
@@ -97,7 +94,7 @@ impl Default for CheckBoxProperties<'_> {
             style: Style::Standard,
             tab_index: 0,
             tab_stop: true,
-            tool_tip_text: BStr::new(""),
+            tool_tip_text: "".into(),
             top: 30,
             use_mask_color: false,
             value: CheckBoxValue::Unchecked,
@@ -108,7 +105,7 @@ impl Default for CheckBoxProperties<'_> {
     }
 }
 
-impl Serialize for CheckBoxProperties<'_> {
+impl Serialize for CheckBoxProperties {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -170,95 +167,76 @@ impl Serialize for CheckBoxProperties<'_> {
     }
 }
 
-impl<'a> CheckBoxProperties<'a> {
-    pub fn construct_control(
-        properties: &HashMap<&'a BStr, &'a BStr>,
-    ) -> Result<Self, VB6ErrorKind> {
-        let mut checkbox_properties = CheckBoxProperties::default();
+impl<'a> From<Properties<'a>> for CheckBoxProperties {
+    fn from(prop: Properties<'a>) -> Self {
+        let mut checkbox_prop = CheckBoxProperties::default();
 
-        checkbox_properties.alignment = build_property(properties, b"Alignment");
-        checkbox_properties.appearance = build_property(properties, b"Appearance");
-        checkbox_properties.back_color =
-            build_color_property(properties, b"BackColor", checkbox_properties.back_color);
-        checkbox_properties.caption = properties
-            .get(BStr::new("Caption"))
-            .unwrap_or(&checkbox_properties.caption);
-        checkbox_properties.causes_validation = build_bool_property(
-            properties,
-            b"CausesValidation",
-            checkbox_properties.causes_validation,
-        );
-        checkbox_properties.data_field = properties
-            .get(BStr::new("DataField"))
-            .unwrap_or(&checkbox_properties.data_field);
-        checkbox_properties.data_format = properties
-            .get(BStr::new("DataFormat"))
-            .unwrap_or(&checkbox_properties.data_format);
-        checkbox_properties.data_member = properties
-            .get(BStr::new("DataMember"))
-            .unwrap_or(&checkbox_properties.data_member);
-        checkbox_properties.data_source = properties
-            .get(BStr::new("DataSource"))
-            .unwrap_or(&checkbox_properties.data_source);
-
+        checkbox_prop.alignment = prop.get_property(b"Alignment".into(), checkbox_prop.alignment);
+        checkbox_prop.appearance =
+            prop.get_property(b"Appearance".into(), checkbox_prop.appearance);
+        checkbox_prop.back_color = prop.get_color(b"BackColor".into(), checkbox_prop.back_color);
+        checkbox_prop.caption = match prop.get("Caption".into()) {
+            Some(caption) => caption.into(),
+            None => checkbox_prop.caption,
+        };
+        checkbox_prop.causes_validation =
+            prop.get_bool(b"CausesValidation".into(), checkbox_prop.causes_validation);
+        checkbox_prop.data_field = match prop.get(b"DataField".into()) {
+            Some(data_field) => data_field.into(),
+            None => checkbox_prop.data_field,
+        };
+        checkbox_prop.data_format = match prop.get("DataFormat".into()) {
+            Some(data_format) => data_format.into(),
+            None => checkbox_prop.data_format,
+        };
+        checkbox_prop.data_member = match prop.get("DataMember".into()) {
+            Some(data_member) => data_member.into(),
+            None => checkbox_prop.data_member,
+        };
+        checkbox_prop.data_source = match prop.get("DataSource".into()) {
+            Some(data_source) => data_source.into(),
+            None => checkbox_prop.data_source,
+        };
         //DisabledPicture
         //DownPicture
         //DragIcon
 
-        checkbox_properties.drag_mode = build_property(properties, b"DragMode");
-        checkbox_properties.enabled =
-            build_bool_property(properties, b"Enabled", checkbox_properties.enabled);
-        checkbox_properties.fore_color =
-            build_color_property(properties, b"ForeColor", checkbox_properties.fore_color);
-        checkbox_properties.height =
-            build_i32_property(properties, b"Height", checkbox_properties.height);
-        checkbox_properties.help_context_id = build_i32_property(
-            properties,
-            b"HelpContextID",
-            checkbox_properties.help_context_id,
-        );
-        checkbox_properties.left =
-            build_i32_property(properties, b"Left", checkbox_properties.left);
-        checkbox_properties.mask_color =
-            build_color_property(properties, b"MaskColor", checkbox_properties.mask_color);
+        checkbox_prop.drag_mode = prop.get_property(b"DragMode".into(), checkbox_prop.drag_mode);
+        checkbox_prop.enabled = prop.get_bool(b"Enabled".into(), checkbox_prop.enabled);
+        checkbox_prop.fore_color = prop.get_color(b"ForeColor".into(), checkbox_prop.fore_color);
+        checkbox_prop.height = prop.get_i32(b"Height".into(), checkbox_prop.height);
+        checkbox_prop.help_context_id =
+            prop.get_i32(b"HelpContextID".into(), checkbox_prop.help_context_id);
+        checkbox_prop.left = prop.get_i32(b"Left".into(), checkbox_prop.left);
+        checkbox_prop.mask_color = prop.get_color(b"MaskColor".into(), checkbox_prop.mask_color);
 
         //MouseIcon
 
-        checkbox_properties.mouse_pointer = build_property(properties, b"MousePointer");
-        checkbox_properties.ole_drop_mode = build_property(properties, b"OLEDropMode");
+        checkbox_prop.mouse_pointer =
+            prop.get_property(b"MousePointer".into(), checkbox_prop.mouse_pointer);
+        checkbox_prop.ole_drop_mode =
+            prop.get_property(b"OLEDropMode".into(), checkbox_prop.ole_drop_mode);
 
         //Picture
 
-        checkbox_properties.right_to_left = build_bool_property(
-            properties,
-            b"RightToLeft",
-            checkbox_properties.right_to_left,
-        );
-        checkbox_properties.style = build_property(properties, b"Style");
-        checkbox_properties.tab_index =
-            build_i32_property(properties, b"TabIndex", checkbox_properties.tab_index);
-        checkbox_properties.tab_stop =
-            build_bool_property(properties, b"TabStop", checkbox_properties.tab_stop);
-        checkbox_properties.tool_tip_text = properties
-            .get(BStr::new("ToolTipText"))
-            .unwrap_or(&checkbox_properties.tool_tip_text);
-        checkbox_properties.top = build_i32_property(properties, b"Top", checkbox_properties.top);
-        checkbox_properties.use_mask_color = build_bool_property(
-            properties,
-            b"UseMaskColor",
-            checkbox_properties.use_mask_color,
-        );
-        checkbox_properties.value = build_property(properties, b"Value");
-        checkbox_properties.visible =
-            build_bool_property(properties, b"Visible", checkbox_properties.visible);
-        checkbox_properties.whats_this_help_id = build_i32_property(
-            properties,
-            b"WhatsThisHelp",
-            checkbox_properties.whats_this_help_id,
-        );
-        checkbox_properties.width =
-            build_i32_property(properties, b"Width", checkbox_properties.width);
+        checkbox_prop.right_to_left =
+            prop.get_bool(b"RightToLeft".into(), checkbox_prop.right_to_left);
+        checkbox_prop.style = prop.get_property(b"Style".into(), checkbox_prop.style);
+        checkbox_prop.tab_index = prop.get_i32(b"TabIndex".into(), checkbox_prop.tab_index);
+        checkbox_prop.tab_stop = prop.get_bool(b"TabStop".into(), checkbox_prop.tab_stop);
+        checkbox_prop.tool_tip_text = match prop.get("ToolTipText".into()) {
+            Some(tool_tip_text) => tool_tip_text.into(),
+            None => checkbox_prop.tool_tip_text,
+        };
+        checkbox_prop.top = prop.get_i32(b"Top".into(), checkbox_prop.top);
+        checkbox_prop.use_mask_color =
+            prop.get_bool(b"UseMaskColor".into(), checkbox_prop.use_mask_color);
+        checkbox_prop.value = prop.get_property(b"Value".into(), checkbox_prop.value);
+        checkbox_prop.visible = prop.get_bool(b"Visible".into(), checkbox_prop.visible);
+        checkbox_prop.whats_this_help_id =
+            prop.get_i32(b"WhatsThisHelp".into(), checkbox_prop.whats_this_help_id);
+        checkbox_prop.width = prop.get_i32(b"Width".into(), checkbox_prop.width);
 
-        Ok(checkbox_properties)
+        checkbox_prop
     }
 }

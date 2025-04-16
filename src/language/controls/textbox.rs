@@ -1,18 +1,13 @@
-use std::collections::HashMap;
-
 use crate::{
-    errors::VB6ErrorKind,
     language::controls::{
         Alignment, Appearance, BorderStyle, DragMode, LinkMode, MousePointer, OLEDragMode,
         OLEDropMode,
     },
-    parsers::form::{
-        build_bool_property, build_color_property, build_i32_property, build_property,
-    },
+    parsers::Properties,
     VB6Color,
 };
 
-use bstr::{BStr, ByteSlice};
+use bstr::BString;
 use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
@@ -34,16 +29,16 @@ pub enum ScrollBars {
 /// tag, name, and index are not included in this struct, but instead are part
 /// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
-pub struct TextBoxProperties<'a> {
+pub struct TextBoxProperties {
     pub alignment: Alignment,
     pub appearance: Appearance,
     pub back_color: VB6Color,
     pub border_style: BorderStyle,
     pub causes_validation: bool,
-    pub data_field: &'a str,
-    pub data_format: &'a str,
-    pub data_member: &'a str,
-    pub data_source: &'a str,
+    pub data_field: BString,
+    pub data_format: BString,
+    pub data_member: BString,
+    pub data_source: BString,
     pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
     pub enabled: bool,
@@ -52,10 +47,10 @@ pub struct TextBoxProperties<'a> {
     pub help_context_id: i32,
     pub hide_selection: bool,
     pub left: i32,
-    pub link_item: &'a str,
+    pub link_item: BString,
     pub link_mode: LinkMode,
     pub link_timeout: i32,
-    pub link_topic: &'a str,
+    pub link_topic: BString,
     pub locked: bool,
     pub max_length: i32,
     pub mouse_icon: Option<DynamicImage>,
@@ -68,15 +63,15 @@ pub struct TextBoxProperties<'a> {
     pub scroll_bars: ScrollBars,
     pub tab_index: i32,
     pub tab_stop: bool,
-    pub text: &'a str,
-    pub tool_tip_text: &'a str,
+    pub text: BString,
+    pub tool_tip_text: BString,
     pub top: i32,
     pub visible: bool,
     pub whats_this_help_id: i32,
     pub width: i32,
 }
 
-impl Default for TextBoxProperties<'_> {
+impl Default for TextBoxProperties {
     fn default() -> Self {
         TextBoxProperties {
             alignment: Alignment::LeftJustify,
@@ -84,10 +79,10 @@ impl Default for TextBoxProperties<'_> {
             back_color: VB6Color::from_hex("&H80000005&").unwrap(),
             border_style: BorderStyle::FixedSingle,
             causes_validation: true,
-            data_field: "",
-            data_format: "",
-            data_member: "",
-            data_source: "",
+            data_field: "".into(),
+            data_format: "".into(),
+            data_member: "".into(),
+            data_source: "".into(),
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: true,
@@ -96,10 +91,10 @@ impl Default for TextBoxProperties<'_> {
             help_context_id: 0,
             hide_selection: true,
             left: 30,
-            link_item: "",
+            link_item: "".into(),
             link_mode: LinkMode::None,
             link_timeout: 50,
-            link_topic: "",
+            link_topic: "".into(),
             locked: false,
             max_length: 0,
             mouse_icon: None,
@@ -112,8 +107,8 @@ impl Default for TextBoxProperties<'_> {
             scroll_bars: ScrollBars::None,
             tab_index: 0,
             tab_stop: true,
-            text: "",
-            tool_tip_text: "",
+            text: "".into(),
+            tool_tip_text: "".into(),
             top: 30,
             visible: true,
             whats_this_help_id: 0,
@@ -122,7 +117,7 @@ impl Default for TextBoxProperties<'_> {
     }
 }
 
-impl Serialize for TextBoxProperties<'_> {
+impl Serialize for TextBoxProperties {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -180,136 +175,111 @@ impl Serialize for TextBoxProperties<'_> {
     }
 }
 
-impl<'a> TextBoxProperties<'a> {
-    pub fn construct_control(
-        properties: &HashMap<&'a BStr, &'a BStr>,
-    ) -> Result<Self, VB6ErrorKind> {
-        let mut text_box_properties = TextBoxProperties::default();
-        text_box_properties.alignment = build_property(properties, b"Alignment");
-        text_box_properties.appearance = build_property(properties, b"Appearance");
-        text_box_properties.back_color =
-            build_color_property(properties, b"BackColor", text_box_properties.back_color);
-        text_box_properties.border_style = build_property(properties, b"BorderStyle");
-        text_box_properties.causes_validation = build_bool_property(
-            properties,
-            b"CausesValidation",
-            text_box_properties.causes_validation,
-        );
-        text_box_properties.data_field = properties
-            .get(BStr::new("DataField"))
-            .map_or(text_box_properties.data_field, |s| {
-                s.to_str().unwrap_or(text_box_properties.data_field)
-            });
-        text_box_properties.data_format = properties
-            .get(BStr::new("DataFormat"))
-            .map_or(text_box_properties.data_format, |s| {
-                s.to_str().unwrap_or(text_box_properties.data_format)
-            });
-        text_box_properties.data_member = properties
-            .get(BStr::new("DataMember"))
-            .map_or(text_box_properties.data_member, |s| {
-                s.to_str().unwrap_or(text_box_properties.data_member)
-            });
-        text_box_properties.data_source = properties
-            .get(BStr::new("DataSource"))
-            .map_or(text_box_properties.data_source, |s| {
-                s.to_str().unwrap_or(text_box_properties.data_source)
-            });
+impl<'a> From<Properties<'a>> for TextBoxProperties {
+    fn from(prop: Properties<'a>) -> Self {
+        let mut text_box_prop = TextBoxProperties::default();
+
+        text_box_prop.alignment = prop.get_property(b"Alignment".into(), text_box_prop.alignment);
+        text_box_prop.appearance =
+            prop.get_property(b"Appearance".into(), text_box_prop.appearance);
+        text_box_prop.back_color = prop.get_color(b"BackColor".into(), text_box_prop.back_color);
+        text_box_prop.border_style =
+            prop.get_property(b"BorderStyle".into(), text_box_prop.border_style);
+        text_box_prop.causes_validation =
+            prop.get_bool(b"CausesValidation".into(), text_box_prop.causes_validation);
+        text_box_prop.data_field = match prop.get(b"DataField".into()) {
+            Some(data_field) => data_field.into(),
+            None => text_box_prop.data_field,
+        };
+        text_box_prop.data_format = match prop.get(b"DataFormat".into()) {
+            Some(data_format) => data_format.into(),
+            None => text_box_prop.data_format,
+        };
+        text_box_prop.data_member = match prop.get(b"DataMember".into()) {
+            Some(data_member) => data_member.into(),
+            None => text_box_prop.data_member,
+        };
+        text_box_prop.data_source = match prop.get(b"DataSource".into()) {
+            Some(data_source) => data_source.into(),
+            None => text_box_prop.data_source,
+        };
 
         // drag_icon: Option<DynamicImage>,
 
-        text_box_properties.drag_mode = build_property(properties, b"DragMode");
-        text_box_properties.enabled =
-            build_bool_property(properties, b"Enabled", text_box_properties.enabled);
-        text_box_properties.fore_color =
-            build_color_property(properties, b"ForeColor", text_box_properties.fore_color);
-        text_box_properties.height =
-            build_i32_property(properties, b"Height", text_box_properties.height);
-        text_box_properties.help_context_id = build_i32_property(
-            properties,
-            b"HelpContextID",
-            text_box_properties.help_context_id,
-        );
-        text_box_properties.hide_selection = build_bool_property(
-            properties,
-            b"HideSelection",
-            text_box_properties.hide_selection,
-        );
-        text_box_properties.left =
-            build_i32_property(properties, b"Left", text_box_properties.left);
-        text_box_properties.link_item = properties
-            .get(BStr::new("LinkItem"))
-            .map_or(text_box_properties.link_item, |s| {
-                s.to_str().unwrap_or(text_box_properties.link_item)
-            });
-        text_box_properties.link_mode = build_property(properties, b"LinkMode");
-        text_box_properties.link_timeout =
-            build_i32_property(properties, b"LinkTimeout", text_box_properties.link_timeout);
-        text_box_properties.link_topic = properties
-            .get(BStr::new("LinkTopic"))
-            .map_or(text_box_properties.link_topic, |s| {
-                s.to_str().unwrap_or(text_box_properties.link_topic)
-            });
-        text_box_properties.locked =
-            build_bool_property(properties, b"Locked", text_box_properties.locked);
-        text_box_properties.max_length =
-            build_i32_property(properties, b"MaxLength", text_box_properties.max_length);
+        text_box_prop.drag_mode = prop.get_property(b"DragMode".into(), text_box_prop.drag_mode);
+        text_box_prop.enabled = prop.get_bool(b"Enabled".into(), text_box_prop.enabled);
+        text_box_prop.fore_color = prop.get_color(b"ForeColor".into(), text_box_prop.fore_color);
+        text_box_prop.height = prop.get_i32(b"Height".into(), text_box_prop.height);
+        text_box_prop.help_context_id =
+            prop.get_i32(b"HelpContextID".into(), text_box_prop.help_context_id);
+        text_box_prop.hide_selection =
+            prop.get_bool(b"HideSelection".into(), text_box_prop.hide_selection);
+        text_box_prop.left = prop.get_i32(b"Left".into(), text_box_prop.left);
+        text_box_prop.link_item = match prop.get(b"LinkItem".into()) {
+            Some(link_item) => link_item.into(),
+            None => text_box_prop.link_item,
+        };
+        text_box_prop.link_mode = prop.get_property(b"LinkMode".into(), text_box_prop.link_mode);
+        text_box_prop.link_timeout =
+            prop.get_i32(b"LinkTimeout".into(), text_box_prop.link_timeout);
+        text_box_prop.link_topic = match prop.get(b"LinkTopic".into()) {
+            Some(link_topic) => link_topic.into(),
+            None => text_box_prop.link_topic,
+        };
+        text_box_prop.locked = prop.get_bool(b"Locked".into(), text_box_prop.locked);
+        text_box_prop.max_length = prop.get_i32(b"MaxLength".into(), text_box_prop.max_length);
 
         // mouse_icon: Option<DynamicImage>,
 
-        text_box_properties.mouse_pointer = build_property(properties, b"MousePointer");
+        text_box_prop.mouse_pointer =
+            prop.get_property(b"MousePointer".into(), text_box_prop.mouse_pointer);
 
-        text_box_properties.multi_line =
-            build_bool_property(properties, b"MultiLine", text_box_properties.multi_line);
+        text_box_prop.multi_line = prop.get_bool(b"MultiLine".into(), text_box_prop.multi_line);
 
-        text_box_properties.ole_drag_mode = build_property(properties, b"OLEDragMode");
+        text_box_prop.ole_drag_mode =
+            prop.get_property(b"OLEDragMode".into(), text_box_prop.ole_drag_mode);
 
-        text_box_properties.ole_drop_mode = build_property(properties, b"OLEDropMode");
+        text_box_prop.ole_drop_mode =
+            prop.get_property(b"OLEDropMode".into(), text_box_prop.ole_drop_mode);
 
-        text_box_properties.password_char = properties
-            .get(BStr::new("PasswordChar"))
-            .and_then(|s| s.to_str().unwrap_or("").chars().next());
+        text_box_prop.password_char = match prop.get(b"PasswordChar".into()) {
+            Some(password_char) => {
+                if password_char.is_empty() {
+                    None
+                } else {
+                    Some(password_char[0] as char)
+                }
+            }
+            None => text_box_prop.password_char,
+        };
 
-        text_box_properties.right_to_left = build_bool_property(
-            properties,
-            b"RightToLeft",
-            text_box_properties.right_to_left,
-        );
+        text_box_prop.right_to_left =
+            prop.get_bool(b"RightToLeft".into(), text_box_prop.right_to_left);
 
-        text_box_properties.scroll_bars = build_property(properties, b"ScrollBars");
+        text_box_prop.scroll_bars =
+            prop.get_property(b"ScrollBars".into(), text_box_prop.scroll_bars);
 
-        text_box_properties.tab_index =
-            build_i32_property(properties, b"TabIndex", text_box_properties.tab_index);
+        text_box_prop.tab_index = prop.get_i32(b"TabIndex".into(), text_box_prop.tab_index);
 
-        text_box_properties.tab_stop =
-            build_bool_property(properties, b"TabStop", text_box_properties.tab_stop);
+        text_box_prop.tab_stop = prop.get_bool(b"TabStop".into(), text_box_prop.tab_stop);
 
-        text_box_properties.text = properties
-            .get(BStr::new("Text"))
-            .map_or(text_box_properties.text, |s| {
-                s.to_str().unwrap_or(text_box_properties.text)
-            });
+        text_box_prop.text = match prop.get("Text".into()) {
+            Some(text) => text.into(),
+            None => "".into(),
+        };
+        text_box_prop.tool_tip_text = match prop.get(b"ToolTipText".into()) {
+            Some(tool_tip_text) => tool_tip_text.into(),
+            None => "".into(),
+        };
+        text_box_prop.top = prop.get_i32(b"Top".into(), text_box_prop.top);
 
-        text_box_properties.tool_tip_text = properties
-            .get(BStr::new("ToolTipText"))
-            .map_or(text_box_properties.tool_tip_text, |s| {
-                s.to_str().unwrap_or(text_box_properties.tool_tip_text)
-            });
+        text_box_prop.visible = prop.get_bool(b"Visible".into(), text_box_prop.visible);
 
-        text_box_properties.top = build_i32_property(properties, b"Top", text_box_properties.top);
+        text_box_prop.whats_this_help_id =
+            prop.get_i32(b"WhatsThisHelpID".into(), text_box_prop.whats_this_help_id);
 
-        text_box_properties.visible =
-            build_bool_property(properties, b"Visible", text_box_properties.visible);
+        text_box_prop.width = prop.get_i32(b"Width".into(), text_box_prop.width);
 
-        text_box_properties.whats_this_help_id = build_i32_property(
-            properties,
-            b"WhatsThisHelpID",
-            text_box_properties.whats_this_help_id,
-        );
-
-        text_box_properties.width =
-            build_i32_property(properties, b"Width", text_box_properties.width);
-
-        Ok(text_box_properties)
+        text_box_prop
     }
 }

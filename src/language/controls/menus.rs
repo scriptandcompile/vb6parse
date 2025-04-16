@@ -1,24 +1,20 @@
-use std::collections::HashMap;
-
-use bstr::BStr;
+use bstr::BString;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
-use crate::parsers::form::{
-    build_bool_property, build_i32_property, build_option_property, build_property,
-};
+use crate::parsers::Properties;
 
 use crate::errors::VB6ErrorKind;
 
 /// Represents a VB6 menu control.
 /// This should only be used as a child of a Form.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
-pub struct VB6MenuControl<'a> {
-    pub name: &'a BStr,
-    pub tag: &'a BStr,
+pub struct VB6MenuControl {
+    pub name: BString,
+    pub tag: BString,
     pub index: i32,
-    pub properties: MenuProperties<'a>,
-    pub sub_menus: Vec<VB6MenuControl<'a>>,
+    pub properties: MenuProperties,
+    pub sub_menus: Vec<VB6MenuControl>,
 }
 
 /// Properties for a Menu control.
@@ -30,13 +26,13 @@ pub struct VB6MenuControl<'a> {
 /// This is represented within the parsing code independently of
 /// [`VB6MenuControl`](crate::language::controls::VB6MenuControl)'s.
 ///
-/// This currently redundant, but is included for the future where the correct
+/// This is currently redundant, but is included for the future where the correct
 /// behavior of a menu control only being a child of a form is enforced.
 ///
 /// As is, the parser will not enforce this, but the VB6 IDE will.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
-pub struct MenuProperties<'a> {
-    pub caption: &'a BStr,
+pub struct MenuProperties {
+    pub caption: BString,
     pub checked: bool,
     pub enabled: bool,
     pub help_context_id: i32,
@@ -46,10 +42,10 @@ pub struct MenuProperties<'a> {
     pub window_list: bool,
 }
 
-impl Default for MenuProperties<'_> {
+impl Default for MenuProperties {
     fn default() -> Self {
         MenuProperties {
-            caption: BStr::new(""),
+            caption: BString::from(""),
             checked: false,
             enabled: true,
             help_context_id: 0,
@@ -61,30 +57,25 @@ impl Default for MenuProperties<'_> {
     }
 }
 
-impl<'a> MenuProperties<'a> {
-    pub fn build_control(properties: &HashMap<&'a BStr, &'a BStr>) -> Result<Self, VB6ErrorKind> {
-        let mut menu_properties = MenuProperties::default();
+impl<'a> From<Properties<'a>> for MenuProperties {
+    fn from(prop: Properties<'a>) -> Self {
+        let mut menu_prop = MenuProperties::default();
 
-        menu_properties.caption = properties
-            .get(BStr::new("Caption"))
-            .unwrap_or(&menu_properties.caption);
-        menu_properties.checked =
-            build_bool_property(properties, b"Checked", menu_properties.checked);
-        menu_properties.enabled =
-            build_bool_property(properties, b"Enabled", menu_properties.enabled);
-        menu_properties.help_context_id = build_i32_property(
-            properties,
-            b"HelpContextID",
-            menu_properties.help_context_id,
-        );
-        menu_properties.negotiate_position = build_property(properties, b"NegotiationPosition");
-        menu_properties.shortcut = build_option_property(properties, b"Shortcut");
-        menu_properties.visible =
-            build_bool_property(properties, b"Visible", menu_properties.visible);
-        menu_properties.window_list =
-            build_bool_property(properties, b"WindowList", menu_properties.window_list);
+        menu_prop.caption = match prop.get(b"Caption".into()) {
+            Some(caption) => caption.into(),
+            None => menu_prop.caption,
+        };
+        menu_prop.checked = prop.get_bool(b"Checked".into(), menu_prop.checked);
+        menu_prop.enabled = prop.get_bool(b"Enabled".into(), menu_prop.enabled);
+        menu_prop.help_context_id =
+            prop.get_i32(b"HelpContextID".into(), menu_prop.help_context_id);
+        menu_prop.negotiate_position =
+            prop.get_property(b"NegotiationPosition".into(), menu_prop.negotiate_position);
+        menu_prop.shortcut = prop.get_option(b"Shortcut".into(), menu_prop.shortcut);
+        menu_prop.visible = prop.get_bool(b"Visible".into(), menu_prop.visible);
+        menu_prop.window_list = prop.get_bool(b"WindowList".into(), menu_prop.window_list);
 
-        Ok(menu_properties)
+        menu_prop
     }
 }
 

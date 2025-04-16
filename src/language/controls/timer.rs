@@ -1,11 +1,4 @@
-use std::collections::HashMap;
-
-use crate::{
-    errors::VB6ErrorKind,
-    parsers::form::{build_bool_property, build_i32_property},
-};
-
-use bstr::BStr;
+use crate::parsers::Properties;
 
 /// Properties for a `Timer` control.
 ///
@@ -32,16 +25,14 @@ impl Default for TimerProperties {
     }
 }
 
-impl TimerProperties {
-    pub fn construct_control(properties: &HashMap<&BStr, &BStr>) -> Result<Self, VB6ErrorKind> {
-        let mut timer_properties = TimerProperties::default();
+impl<'a> From<Properties<'a>> for TimerProperties {
+    fn from(prop: Properties<'a>) -> Self {
+        let mut timer_prop = TimerProperties::default();
 
-        timer_properties.enabled =
-            build_bool_property(properties, b"Enabled", timer_properties.enabled);
-        timer_properties.interval =
-            build_i32_property(properties, b"Interval", timer_properties.interval);
-        timer_properties.left = build_i32_property(properties, b"Left", timer_properties.left);
+        timer_prop.enabled = prop.get_bool(b"Enabled".into(), timer_prop.enabled);
+        timer_prop.interval = prop.get_i32(b"Interval".into(), timer_prop.interval);
+        timer_prop.left = prop.get_i32(b"Left".into(), timer_prop.left);
 
-        Ok(timer_properties)
+        timer_prop
     }
 }

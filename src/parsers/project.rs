@@ -1800,10 +1800,10 @@ mod tests {
 
         let result = compatibility_mode_parse.parse_next(&mut input);
 
-        assert_eq!(
+        assert!(matches!(
             result.err().unwrap().into_inner().unwrap(),
             VB6ErrorKind::CompatibilityModeUnparseable
-        );
+        ));
     }
 
     #[test]
@@ -1890,10 +1890,10 @@ mod tests {
         let result = project_type_parse.parse_next(&mut input);
 
         assert!(result.is_err());
-        assert_eq!(
+        assert!(matches!(
             result.err().unwrap().into_inner().unwrap(),
             VB6ErrorKind::ProjectTypeUnknown
-        );
+        ));
     }
 
     #[test]

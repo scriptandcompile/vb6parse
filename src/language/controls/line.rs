@@ -1,13 +1,7 @@
-use std::collections::HashMap;
-
-use crate::errors::VB6ErrorKind;
 use crate::language::color::VB6Color;
 use crate::language::controls::{DrawMode, DrawStyle};
-use crate::parsers::form::{
-    build_bool_property, build_color_property, build_i32_property, build_property,
-};
+use crate::parsers::Properties;
 
-use bstr::BStr;
 use serde::Serialize;
 
 /// Properties for a Line control.
@@ -45,23 +39,20 @@ impl Default for LineProperties {
     }
 }
 
-impl LineProperties {
-    pub fn construct_control(properties: &HashMap<&BStr, &BStr>) -> Result<Self, VB6ErrorKind> {
-        let mut line_properties = LineProperties::default();
+impl<'a> From<Properties<'a>> for LineProperties {
+    fn from(prop: Properties<'a>) -> Self {
+        let mut line_prop = LineProperties::default();
 
-        line_properties.border_color =
-            build_color_property(properties, b"BorderColor", line_properties.border_color);
-        line_properties.border_style = build_property(properties, b"BorderStyle");
-        line_properties.border_width =
-            build_i32_property(properties, b"BorderWidth", line_properties.border_width);
-        line_properties.draw_mode = build_property(properties, b"DrawMode");
-        line_properties.visible =
-            build_bool_property(properties, b"Visible", line_properties.visible);
-        line_properties.x1 = build_i32_property(properties, b"X1", line_properties.x1);
-        line_properties.y1 = build_i32_property(properties, b"Y1", line_properties.y1);
-        line_properties.x2 = build_i32_property(properties, b"X2", line_properties.x2);
-        line_properties.y2 = build_i32_property(properties, b"Y2", line_properties.y2);
+        line_prop.border_color = prop.get_color(b"BorderColor".into(), line_prop.border_color);
+        line_prop.border_style = prop.get_property(b"BorderStyle".into(), line_prop.border_style);
+        line_prop.border_width = prop.get_i32(b"BorderWidth".into(), line_prop.border_width);
+        line_prop.draw_mode = prop.get_property(b"DrawMode".into(), line_prop.draw_mode);
+        line_prop.visible = prop.get_bool(b"Visible".into(), line_prop.visible);
+        line_prop.x1 = prop.get_i32(b"X1".into(), line_prop.x1);
+        line_prop.y1 = prop.get_i32(b"Y1".into(), line_prop.y1);
+        line_prop.x2 = prop.get_i32(b"X2".into(), line_prop.x2);
+        line_prop.y2 = prop.get_i32(b"Y2".into(), line_prop.y2);
 
-        Ok(line_properties)
+        line_prop
     }
 }

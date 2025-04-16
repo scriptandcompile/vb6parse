@@ -1,14 +1,10 @@
-use std::collections::HashMap;
-
-use crate::errors::VB6ErrorKind;
 use crate::language::controls::{
     Appearance, BorderStyle, DragMode, MousePointer, OLEDragMode, OLEDropMode,
 };
 
-use crate::parsers::form::{build_bool_property, build_i32_property, build_property};
+use crate::parsers::Properties;
 
-use bstr::BStr;
-
+use bstr::BString;
 use image::DynamicImage;
 use serde::Serialize;
 
@@ -19,13 +15,13 @@ use serde::Serialize;
 /// tag, name, and index are not included in this struct, but instead are part
 /// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
-pub struct ImageProperties<'a> {
+pub struct ImageProperties {
     pub appearance: Appearance,
     pub border_style: BorderStyle,
-    pub data_field: &'a BStr,
-    pub data_format: &'a BStr,
-    pub data_member: &'a BStr,
-    pub data_source: &'a BStr,
+    pub data_field: BString,
+    pub data_format: BString,
+    pub data_member: BString,
+    pub data_source: BString,
     pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
     pub enabled: bool,
@@ -37,22 +33,22 @@ pub struct ImageProperties<'a> {
     pub ole_drop_mode: OLEDropMode,
     pub picture: Option<DynamicImage>,
     pub stretch: bool,
-    pub tool_tip_text: &'a BStr,
+    pub tool_tip_text: BString,
     pub top: i32,
     pub visible: bool,
     pub whats_this_help_id: i32,
     pub width: i32,
 }
 
-impl Default for ImageProperties<'_> {
+impl Default for ImageProperties {
     fn default() -> Self {
         ImageProperties {
             appearance: Appearance::ThreeD,
             border_style: BorderStyle::None,
-            data_field: BStr::new(""),
-            data_format: BStr::new(""),
-            data_member: BStr::new(""),
-            data_source: BStr::new(""),
+            data_field: "".into(),
+            data_format: "".into(),
+            data_member: "".into(),
+            data_source: "".into(),
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: true,
@@ -64,7 +60,7 @@ impl Default for ImageProperties<'_> {
             ole_drop_mode: OLEDropMode::default(),
             picture: None,
             stretch: false,
-            tool_tip_text: BStr::new(""),
+            tool_tip_text: "".into(),
             top: 960,
             visible: true,
             whats_this_help_id: 0,
@@ -73,7 +69,7 @@ impl Default for ImageProperties<'_> {
     }
 }
 
-impl Serialize for ImageProperties<'_> {
+impl Serialize for ImageProperties {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -117,59 +113,58 @@ impl Serialize for ImageProperties<'_> {
     }
 }
 
-impl<'a> ImageProperties<'a> {
-    pub fn construct_control(
-        properties: &HashMap<&'a BStr, &'a BStr>,
-    ) -> Result<Self, VB6ErrorKind> {
-        let mut image_properties = ImageProperties::default();
+impl<'a> From<Properties<'a>> for ImageProperties {
+    fn from(prop: Properties<'a>) -> Self {
+        let mut image_prop = ImageProperties::default();
 
-        image_properties.appearance = build_property(properties, b"Appearance");
-        image_properties.border_style = build_property(properties, b"BorderStyle");
-        image_properties.data_field = properties
-            .get(BStr::new("DataField"))
-            .unwrap_or(&image_properties.data_field);
-        image_properties.data_format = properties
-            .get(BStr::new("DataFormat"))
-            .unwrap_or(&image_properties.data_format);
-        image_properties.data_member = properties
-            .get(BStr::new("DataMember"))
-            .unwrap_or(&image_properties.data_member);
-        image_properties.data_source = properties
-            .get(BStr::new("DataSource"))
-            .unwrap_or(&image_properties.data_source);
+        image_prop.appearance = prop.get_property(b"Appearance".into(), image_prop.appearance);
+        image_prop.border_style = prop.get_property(b"BorderStyle".into(), image_prop.border_style);
+        image_prop.data_field = match prop.get(b"DataField".into()) {
+            Some(data_field) => data_field.into(),
+            None => image_prop.data_field,
+        };
+        image_prop.data_format = match prop.get(b"DataFormat".into()) {
+            Some(data_format) => data_format.into(),
+            None => image_prop.data_format,
+        };
+        image_prop.data_member = match prop.get(b"DataMember".into()) {
+            Some(data_member) => data_member.into(),
+            None => image_prop.data_member,
+        };
+        image_prop.data_source = match prop.get(b"DataSource".into()) {
+            Some(data_source) => data_source.into(),
+            None => image_prop.data_source,
+        };
 
         // DragIcon
 
-        image_properties.drag_mode = build_property(properties, b"DragMode");
-        image_properties.enabled =
-            build_bool_property(properties, b"Enabled", image_properties.enabled);
-        image_properties.height =
-            build_i32_property(properties, b"Height", image_properties.height);
-        image_properties.left = build_i32_property(properties, b"Left", image_properties.left);
+        image_prop.drag_mode = prop.get_property(b"DragMode".into(), image_prop.drag_mode);
+        image_prop.enabled = prop.get_bool(b"Enabled".into(), image_prop.enabled);
+        image_prop.height = prop.get_i32(b"Height".into(), image_prop.height);
+        image_prop.left = prop.get_i32(b"Left".into(), image_prop.left);
 
         // MouseIcon
 
-        image_properties.mouse_pointer = build_property(properties, b"MousePointer");
-        image_properties.ole_drag_mode = build_property(properties, b"OLEDragMode");
-        image_properties.ole_drop_mode = build_property(properties, b"OLEDropMode");
+        image_prop.mouse_pointer =
+            prop.get_property(b"MousePointer".into(), image_prop.mouse_pointer);
+        image_prop.ole_drag_mode =
+            prop.get_property(b"OLEDragMode".into(), image_prop.ole_drag_mode);
+        image_prop.ole_drop_mode =
+            prop.get_property(b"OLEDropMode".into(), image_prop.ole_drop_mode);
 
         // Picture
 
-        image_properties.stretch =
-            build_bool_property(properties, b"Stretch", image_properties.stretch);
-        image_properties.tool_tip_text = properties
-            .get(BStr::new("ToolTipText"))
-            .unwrap_or(&image_properties.tool_tip_text);
-        image_properties.top = build_i32_property(properties, b"Top", image_properties.top);
-        image_properties.visible =
-            build_bool_property(properties, b"Visible", image_properties.visible);
-        image_properties.whats_this_help_id = build_i32_property(
-            properties,
-            b"WhatsThisHelpID",
-            image_properties.whats_this_help_id,
-        );
-        image_properties.width = build_i32_property(properties, b"Width", image_properties.width);
+        image_prop.stretch = prop.get_bool(b"Stretch".into(), image_prop.stretch);
+        image_prop.tool_tip_text = match prop.get("ToolTipText".into()) {
+            Some(tool_tip_text) => tool_tip_text.into(),
+            None => "".into(),
+        };
+        image_prop.top = prop.get_i32(b"Top".into(), image_prop.top);
+        image_prop.visible = prop.get_bool(b"Visible".into(), image_prop.visible);
+        image_prop.whats_this_help_id =
+            prop.get_i32(b"WhatsThisHelpID".into(), image_prop.whats_this_help_id);
+        image_prop.width = prop.get_i32(b"Width".into(), image_prop.width);
 
-        Ok(image_properties)
+        image_prop
     }
 }

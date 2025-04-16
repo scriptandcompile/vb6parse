@@ -1,10 +1,6 @@
-use std::collections::HashMap;
-
-use crate::errors::VB6ErrorKind;
 use crate::language::controls::{DragMode, MousePointer};
-use crate::parsers::form::{build_bool_property, build_i32_property, build_property};
+use crate::parsers::Properties;
 
-use bstr::BStr;
 use image::DynamicImage;
 use serde::Serialize;
 
@@ -109,71 +105,48 @@ impl Serialize for ScrollBarProperties {
     }
 }
 
-impl ScrollBarProperties {
-    pub fn construct_control(properties: &HashMap<&BStr, &BStr>) -> Result<Self, VB6ErrorKind> {
-        let mut scroll_bar_properties = ScrollBarProperties::default();
+impl<'a> From<Properties<'a>> for ScrollBarProperties {
+    fn from(prop: Properties<'a>) -> Self {
+        let mut scroll_bar_prop = ScrollBarProperties::default();
 
-        scroll_bar_properties.causes_validation = build_bool_property(
-            properties,
-            b"CausesValidation",
-            scroll_bar_properties.causes_validation,
+        scroll_bar_prop.causes_validation = prop.get_bool(
+            b"CausesValidation".into(),
+            scroll_bar_prop.causes_validation,
         );
 
         // DragIcon
 
-        scroll_bar_properties.drag_mode = build_property(properties, b"DragMode");
-        scroll_bar_properties.enabled =
-            build_bool_property(properties, b"Enabled", scroll_bar_properties.enabled);
-        scroll_bar_properties.height =
-            build_i32_property(properties, b"Height", scroll_bar_properties.height);
-        scroll_bar_properties.help_context_id = build_i32_property(
-            properties,
-            b"HelpContextID",
-            scroll_bar_properties.help_context_id,
-        );
-        scroll_bar_properties.large_change = build_i32_property(
-            properties,
-            b"LargeChange",
-            scroll_bar_properties.large_change,
-        );
-        scroll_bar_properties.left =
-            build_i32_property(properties, b"Left", scroll_bar_properties.left);
-        scroll_bar_properties.max =
-            build_i32_property(properties, b"Max", scroll_bar_properties.max);
-        scroll_bar_properties.min =
-            build_i32_property(properties, b"Min", scroll_bar_properties.min);
+        scroll_bar_prop.drag_mode =
+            prop.get_property(b"DragMode".into(), scroll_bar_prop.drag_mode);
+        scroll_bar_prop.enabled = prop.get_bool(b"Enabled".into(), scroll_bar_prop.enabled);
+        scroll_bar_prop.height = prop.get_i32(b"Height".into(), scroll_bar_prop.height);
+        scroll_bar_prop.help_context_id =
+            prop.get_i32(b"HelpContextID".into(), scroll_bar_prop.help_context_id);
+        scroll_bar_prop.large_change =
+            prop.get_i32(b"LargeChange".into(), scroll_bar_prop.large_change);
+        scroll_bar_prop.left = prop.get_i32(b"Left".into(), scroll_bar_prop.left);
+        scroll_bar_prop.max = prop.get_i32(b"Max".into(), scroll_bar_prop.max);
+        scroll_bar_prop.min = prop.get_i32(b"Min".into(), scroll_bar_prop.min);
 
         // MouseIcon
 
-        scroll_bar_properties.mouse_pointer = build_property(properties, b"MousePointer");
-        scroll_bar_properties.right_to_left = build_bool_property(
-            properties,
-            b"RightToLeft",
-            scroll_bar_properties.right_to_left,
+        scroll_bar_prop.mouse_pointer =
+            prop.get_property(b"MousePointer".into(), scroll_bar_prop.mouse_pointer);
+        scroll_bar_prop.right_to_left =
+            prop.get_bool(b"RightToLeft".into(), scroll_bar_prop.right_to_left);
+        scroll_bar_prop.small_change =
+            prop.get_i32(b"SmallChange".into(), scroll_bar_prop.small_change);
+        scroll_bar_prop.tab_index = prop.get_i32(b"TabIndex".into(), scroll_bar_prop.tab_index);
+        scroll_bar_prop.tab_stop = prop.get_bool(b"TabStop".into(), scroll_bar_prop.tab_stop);
+        scroll_bar_prop.top = prop.get_i32(b"Top".into(), scroll_bar_prop.top);
+        scroll_bar_prop.value = prop.get_i32(b"Value".into(), scroll_bar_prop.value);
+        scroll_bar_prop.visible = prop.get_bool(b"Visible".into(), scroll_bar_prop.visible);
+        scroll_bar_prop.whats_this_help_id = prop.get_i32(
+            b"WhatsThisHelpID".into(),
+            scroll_bar_prop.whats_this_help_id,
         );
-        scroll_bar_properties.small_change = build_i32_property(
-            properties,
-            b"SmallChange",
-            scroll_bar_properties.small_change,
-        );
-        scroll_bar_properties.tab_index =
-            build_i32_property(properties, b"TabIndex", scroll_bar_properties.tab_index);
-        scroll_bar_properties.tab_stop =
-            build_bool_property(properties, b"TabStop", scroll_bar_properties.tab_stop);
-        scroll_bar_properties.top =
-            build_i32_property(properties, b"Top", scroll_bar_properties.top);
-        scroll_bar_properties.value =
-            build_i32_property(properties, b"Value", scroll_bar_properties.value);
-        scroll_bar_properties.visible =
-            build_bool_property(properties, b"Visible", scroll_bar_properties.visible);
-        scroll_bar_properties.whats_this_help_id = build_i32_property(
-            properties,
-            b"WhatsThisHelpID",
-            scroll_bar_properties.whats_this_help_id,
-        );
-        scroll_bar_properties.width =
-            build_i32_property(properties, b"Width", scroll_bar_properties.width);
+        scroll_bar_prop.width = prop.get_i32(b"Width".into(), scroll_bar_prop.width);
 
-        Ok(scroll_bar_properties)
+        scroll_bar_prop
     }
 }

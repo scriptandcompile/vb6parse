@@ -1,15 +1,10 @@
-use std::collections::HashMap;
-
-use crate::errors::VB6ErrorKind;
 use crate::language::controls::{
     Appearance, BackStyle, BorderStyle, DragMode, MousePointer, SizeMode,
 };
 use crate::language::VB6Color;
-use crate::parsers::form::{
-    build_bool_property, build_color_property, build_i32_property, build_property,
-};
+use crate::parsers::Properties;
 
-use bstr::BStr;
+use bstr::BString;
 use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
@@ -57,7 +52,7 @@ pub enum DisplayType {
 /// tag, name, and index are not included in this struct, but instead are part
 /// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
-pub struct OLEProperties<'a> {
+pub struct OLEProperties {
     pub appearance: Appearance,
     pub auto_activate: AutoActivate,
     pub auto_verb_menu: bool,
@@ -65,16 +60,16 @@ pub struct OLEProperties<'a> {
     pub back_style: BackStyle,
     pub border_style: BorderStyle,
     pub causes_validation: bool,
-    pub class: Option<&'a BStr>,
-    pub data_field: &'a BStr,
-    pub data_source: &'a BStr,
+    pub class: Option<BString>,
+    pub data_field: BString,
+    pub data_source: BString,
     pub display_type: DisplayType,
     pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
     pub enabled: bool,
     pub height: i32,
     pub help_context_id: i32,
-    pub host_name: &'a BStr,
+    pub host_name: BString,
     pub left: i32,
     pub misc_flags: i32,
     pub mouse_icon: Option<DynamicImage>,
@@ -82,8 +77,8 @@ pub struct OLEProperties<'a> {
     pub ole_drop_allowed: bool,
     pub ole_type_allowed: OLETypeAllowed,
     pub size_mode: SizeMode,
-    //pub source_doc: &'a BStr,
-    //pub source_item: &'a BStr,
+    //pub source_doc: BString,
+    //pub source_item: BString,
     pub tab_index: i32,
     pub tab_stop: bool,
     pub top: i32,
@@ -94,7 +89,7 @@ pub struct OLEProperties<'a> {
     pub width: i32,
 }
 
-impl Default for OLEProperties<'_> {
+impl Default for OLEProperties {
     fn default() -> Self {
         OLEProperties {
             appearance: Appearance::ThreeD,
@@ -105,15 +100,15 @@ impl Default for OLEProperties<'_> {
             border_style: BorderStyle::FixedSingle,
             causes_validation: true,
             class: None,
-            data_field: BStr::new(""),
-            data_source: BStr::new(""),
+            data_field: "".into(),
+            data_source: "".into(),
             display_type: DisplayType::Content,
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: true,
             height: 375,
             help_context_id: 0,
-            host_name: BStr::new(""),
+            host_name: "".into(),
             left: 600,
             misc_flags: 0,
             mouse_icon: None,
@@ -121,8 +116,8 @@ impl Default for OLEProperties<'_> {
             ole_drop_allowed: false,
             ole_type_allowed: OLETypeAllowed::Either,
             size_mode: SizeMode::Clip,
-            //source_doc: BStr::new(""),
-            //source_item: BStr::new(""),
+            //source_doc: "".into(),
+            //source_item: "".into(),
             tab_index: 0,
             tab_stop: true,
             top: 1200,
@@ -135,7 +130,7 @@ impl Default for OLEProperties<'_> {
     }
 }
 
-impl Serialize for OLEProperties<'_> {
+impl Serialize for OLEProperties {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -188,74 +183,60 @@ impl Serialize for OLEProperties<'_> {
     }
 }
 
-impl<'a> OLEProperties<'a> {
-    pub fn construct_control(
-        properties: &HashMap<&'a BStr, &'a BStr>,
-    ) -> Result<Self, VB6ErrorKind> {
-        let mut ole_properties = OLEProperties::default();
+impl<'a> From<Properties<'a>> for OLEProperties {
+    fn from(prop: Properties<'a>) -> Self {
+        let mut ole_prop = OLEProperties::default();
 
-        ole_properties.appearance = build_property(properties, b"Appearance");
-        ole_properties.auto_activate = build_property(properties, b"AutoActivate");
-        ole_properties.auto_verb_menu =
-            build_bool_property(properties, b"AutoVerbMenu", ole_properties.auto_verb_menu);
-        ole_properties.back_color =
-            build_color_property(properties, b"BackColor", ole_properties.back_color);
-        ole_properties.back_style = build_property(properties, b"BackStyle");
-        ole_properties.border_style = build_property(properties, b"BorderStyle");
-        ole_properties.causes_validation = build_bool_property(
-            properties,
-            b"CausesValidation",
-            ole_properties.causes_validation,
-        );
+        ole_prop.appearance = prop.get_property(b"Appearance".into(), ole_prop.appearance);
+        ole_prop.auto_activate = prop.get_property(b"AutoActivate".into(), ole_prop.auto_activate);
+        ole_prop.auto_verb_menu = prop.get_bool(b"AutoVerbMenu".into(), ole_prop.auto_verb_menu);
+        ole_prop.back_color = prop.get_color(b"BackColor".into(), ole_prop.back_color);
+        ole_prop.back_style = prop.get_property(b"BackStyle".into(), ole_prop.back_style);
+        ole_prop.border_style = prop.get_property(b"BorderStyle".into(), ole_prop.border_style);
+        ole_prop.causes_validation =
+            prop.get_bool(b"CausesValidation".into(), ole_prop.causes_validation);
 
         // Class
 
-        ole_properties.data_field = properties
-            .get(&BStr::new("DataField"))
-            .unwrap_or(&ole_properties.data_field);
-        ole_properties.data_source = properties
-            .get(&BStr::new("DataSource"))
-            .unwrap_or(&ole_properties.data_source);
-        ole_properties.display_type = build_property(properties, b"DisplayType");
+        ole_prop.data_field = match prop.get(b"DataField".into()) {
+            Some(data_field) => data_field.into(),
+            None => ole_prop.data_field,
+        };
+        ole_prop.data_source = match prop.get(b"DataSource".into()) {
+            Some(data_source) => data_source.into(),
+            None => ole_prop.data_source,
+        };
+        ole_prop.display_type = prop.get_property(b"DisplayType".into(), ole_prop.display_type);
 
         // DragIcon
 
-        ole_properties.drag_mode = build_property(properties, b"DragMode");
-        ole_properties.enabled =
-            build_bool_property(properties, b"Enabled", ole_properties.enabled);
-        ole_properties.height = build_i32_property(properties, b"Height", ole_properties.height);
-        ole_properties.help_context_id =
-            build_i32_property(properties, b"HelpContextID", ole_properties.help_context_id);
-        ole_properties.host_name = properties
-            .get(&BStr::new("HostName"))
-            .unwrap_or(&ole_properties.host_name);
-        ole_properties.left = build_i32_property(properties, b"Left", ole_properties.left);
-        ole_properties.misc_flags =
-            build_i32_property(properties, b"MiscFlags", ole_properties.misc_flags);
-        ole_properties.mouse_pointer = build_property(properties, b"MousePointer");
-        ole_properties.ole_drop_allowed = build_bool_property(
-            properties,
-            b"OLEDropAllowed",
-            ole_properties.ole_drop_allowed,
-        );
-        ole_properties.ole_type_allowed = build_property(properties, b"OLETypeAllowed");
-        ole_properties.size_mode = build_property(properties, b"SizeMode");
-        ole_properties.tab_index =
-            build_i32_property(properties, b"TabIndex", ole_properties.tab_index);
-        ole_properties.tab_stop =
-            build_bool_property(properties, b"TabStop", ole_properties.tab_stop);
-        ole_properties.top = build_i32_property(properties, b"Top", ole_properties.top);
-        ole_properties.update_options = build_property(properties, b"UpdateOptions");
-        ole_properties.verb = build_i32_property(properties, b"Verb", ole_properties.verb);
-        ole_properties.visible =
-            build_bool_property(properties, b"Visible", ole_properties.visible);
-        ole_properties.whats_this_help_id = build_i32_property(
-            properties,
-            b"WhatsThisHelpID",
-            ole_properties.whats_this_help_id,
-        );
-        ole_properties.width = build_i32_property(properties, b"Width", ole_properties.width);
+        ole_prop.drag_mode = prop.get_property(b"DragMode".into(), ole_prop.drag_mode);
+        ole_prop.enabled = prop.get_bool(b"Enabled".into(), ole_prop.enabled);
+        ole_prop.height = prop.get_i32(b"Height".into(), ole_prop.height);
+        ole_prop.help_context_id = prop.get_i32(b"HelpContextID".into(), ole_prop.help_context_id);
+        ole_prop.host_name = match prop.get(b"HostName".into()) {
+            Some(host_name) => host_name.into(),
+            None => ole_prop.host_name,
+        };
+        ole_prop.left = prop.get_i32(b"Left".into(), ole_prop.left);
+        ole_prop.misc_flags = prop.get_i32(b"MiscFlags".into(), ole_prop.misc_flags);
+        ole_prop.mouse_pointer = prop.get_property(b"MousePointer".into(), ole_prop.mouse_pointer);
+        ole_prop.ole_drop_allowed =
+            prop.get_bool(b"OLEDropAllowed".into(), ole_prop.ole_drop_allowed);
+        ole_prop.ole_type_allowed =
+            prop.get_property(b"OLETypeAllowed".into(), ole_prop.ole_type_allowed);
+        ole_prop.size_mode = prop.get_property(b"SizeMode".into(), ole_prop.size_mode);
+        ole_prop.tab_index = prop.get_i32(b"TabIndex".into(), ole_prop.tab_index);
+        ole_prop.tab_stop = prop.get_bool(b"TabStop".into(), ole_prop.tab_stop);
+        ole_prop.top = prop.get_i32(b"Top".into(), ole_prop.top);
+        ole_prop.update_options =
+            prop.get_property(b"UpdateOptions".into(), ole_prop.update_options);
+        ole_prop.verb = prop.get_i32(b"Verb".into(), ole_prop.verb);
+        ole_prop.visible = prop.get_bool(b"Visible".into(), ole_prop.visible);
+        ole_prop.whats_this_help_id =
+            prop.get_i32(b"WhatsThisHelpID".into(), ole_prop.whats_this_help_id);
+        ole_prop.width = prop.get_i32(b"Width".into(), ole_prop.width);
 
-        Ok(ole_properties)
+        ole_prop
     }
 }

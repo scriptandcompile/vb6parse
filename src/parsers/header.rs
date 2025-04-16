@@ -13,8 +13,8 @@ use winnow::{
 };
 
 use crate::{
-    errors::VB6ErrorKind,
-    parsers::{VB6ObjectReference, VB6Stream},
+    errors::{PropertyError, VB6ErrorKind},
+    parsers::{objectreference::VB6ObjectReference, VB6Stream},
     vb6::{keyword_parse, line_comment_parse, string_parse, take_until_line_ending, VB6Result},
 };
 
@@ -361,7 +361,9 @@ pub fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FileAttri
                 {
                     Ok(global_name_space) => global_name_space,
                     Err(_) => {
-                        return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueTrueFalse))
+                        return Err(ErrMode::Cut(VB6ErrorKind::Property(
+                            PropertyError::InvalidPropertyValueTrueFalse,
+                        )))
                     }
                 };
 
@@ -379,7 +381,9 @@ pub fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FileAttri
                 {
                     Ok(creatable) => creatable,
                     Err(_) => {
-                        return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueTrueFalse))
+                        return Err(ErrMode::Cut(VB6ErrorKind::Property(
+                            PropertyError::InvalidPropertyValueTrueFalse,
+                        )))
                     }
                 };
 
@@ -397,7 +401,9 @@ pub fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FileAttri
                 {
                     Ok(pre_declared_id) => pre_declared_id,
                     Err(_) => {
-                        return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueTrueFalse))
+                        return Err(ErrMode::Cut(VB6ErrorKind::Property(
+                            PropertyError::InvalidPropertyValueTrueFalse,
+                        )))
                     }
                 };
 
@@ -415,7 +421,9 @@ pub fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FileAttri
                 {
                     Ok(exposed) => exposed,
                     Err(_) => {
-                        return Err(ErrMode::Cut(VB6ErrorKind::InvalidPropertyValueTrueFalse))
+                        return Err(ErrMode::Cut(VB6ErrorKind::Property(
+                            PropertyError::InvalidPropertyValueTrueFalse,
+                        )))
                     }
                 };
 
@@ -471,7 +479,9 @@ pub fn key_value_parse<'a>(
         let Ok(key) = take_until::<_, _, VB6ErrorKind>(1.., (" ", "\t", divider)).parse_next(input)
         else {
             input.reset(&checkpoint);
-            return Err(ErrMode::Cut(VB6ErrorKind::PropertyNameUnparsable));
+            return Err(ErrMode::Cut(VB6ErrorKind::Property(
+                PropertyError::NameUnparsable,
+            )));
         };
 
         space0.parse_next(input)?;
@@ -531,14 +541,16 @@ pub fn key_value_line_parse<'a>(
 
 pub fn key_resource_offset_line_parse<'a>(
     input: &mut VB6Stream<'a>,
-) -> VB6Result<(&'a BStr, &'a BStr, &'a BStr)> {
+) -> VB6Result<(&'a BStr, &'a BStr, u32)> {
     let checkpoint = input.checkpoint();
 
     space0.parse_next(input)?;
 
     let Ok(key) = take_till::<_, _, VB6ErrorKind>(1.., (' ', '\t', '=')).parse_next(input) else {
         input.reset(&checkpoint);
-        return Err(ErrMode::Cut(VB6ErrorKind::PropertyNameUnparsable));
+        return Err(ErrMode::Cut(VB6ErrorKind::Property(
+            PropertyError::NameUnparsable,
+        )));
     };
 
     if (space0::<_, VB6ErrorKind>, "=", space0)
@@ -551,7 +563,9 @@ pub fn key_resource_offset_line_parse<'a>(
 
     let Ok(resource_file_name) = string_parse.parse_next(input) else {
         input.reset(&checkpoint);
-        return Err(ErrMode::Cut(VB6ErrorKind::ResourceFileNameUnparsable));
+        return Err(ErrMode::Cut(VB6ErrorKind::Property(
+            PropertyError::ResourceFileNameUnparsable,
+        )));
     };
 
     if literal::<_, _, VB6ErrorKind>(":")
@@ -562,11 +576,20 @@ pub fn key_resource_offset_line_parse<'a>(
         return Err(ErrMode::Cut(VB6ErrorKind::NoColonForOffsetSplit));
     }
 
-    let offset = match take_while(1.., ('0'..='9', 'A'..='F')).parse_next(input) {
-        Ok(offset) => offset,
+    let offset_txt = match take_while(1.., ('0'..='9', 'A'..='F')).parse_next(input) {
+        Ok(offset_txt) => offset_txt,
         Err(e) => {
             input.reset(&checkpoint);
             return Err(e);
+        }
+    };
+
+    let offset = match u32::from_str_radix(offset_txt.to_str().unwrap(), 16) {
+        Ok(offset) => offset,
+        Err(_) => {
+            return Err(ErrMode::Cut(VB6ErrorKind::Property(
+                PropertyError::OffsetUnparsable,
+            )));
         }
     };
 
@@ -574,7 +597,7 @@ pub fn key_resource_offset_line_parse<'a>(
 
     // we have to check for eof here because it's perfectly possible to have a
     // header file that is empty of actual code. This means the last line of the file
-    // should be an empty line, but it might be that the filed ends at the end of the
+    // should be an empty line, but it might be that the file ends at the end of the
     // header attribute section.
     if alt((line_ending::<_, VB6ErrorKind>, eof))
         .parse_next(input)
@@ -655,7 +678,7 @@ mod tests {
 
         assert_eq!(key, "Picture".as_bytes());
         assert_eq!(resource_file_name, "Brightness.frx".as_bytes());
-        assert_eq!(offset, "0000".as_bytes());
+        assert_eq!(offset, 0u32);
     }
 
     #[test]
@@ -668,7 +691,7 @@ mod tests {
 
         assert_eq!(key, "Picture".as_bytes());
         assert_eq!(resource_file_name, "Brightness.frx".as_bytes());
-        assert_eq!(offset, "0000".as_bytes());
+        assert_eq!(offset, 0u32);
     }
 
     #[test]
