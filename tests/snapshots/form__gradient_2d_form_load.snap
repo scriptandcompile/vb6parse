@@ -64,11 +64,15 @@ form:
           - 99
           - 111
           - 109
+        client_height: 5175
+        client_left: 60
+        client_top: 345
+        client_width: 6540
         clip_controls: "True"
         control_box: true
         draw_mode: CopyPen
         draw_style: Solid
-        draw_width: 0
+        draw_width: 1
         enabled: true
         fill_color:
           RGB:
@@ -81,7 +85,7 @@ form:
           System:
             index: 18
         has_dc: true
-        height: 0
+        height: 240
         help_context_id: 0
         icon: ~
         key_preview: false
@@ -116,7 +120,7 @@ form:
         visible: true
         whats_this_button: false
         whats_this_help: false
-        width: 0
+        width: 240
         window_state: Normal
       controls:
         - name:
@@ -213,7 +217,7 @@ form:
                 drag_mode: Manual
                 draw_mode: CopyPen
                 draw_style: Solid
-                draw_width: 0
+                draw_width: 1
                 enabled: true
                 fill_color:
                   RGB:
@@ -231,7 +235,7 @@ form:
                 left: 480
                 link_item: []
                 link_mode: None
-                link_timeout: 0
+                link_timeout: 50
                 link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
@@ -287,7 +291,7 @@ form:
                 drag_mode: Manual
                 draw_mode: CopyPen
                 draw_style: Solid
-                draw_width: 0
+                draw_width: 1
                 enabled: true
                 fill_color:
                   RGB:
@@ -305,7 +309,7 @@ form:
                 left: 120
                 link_item: []
                 link_mode: None
-                link_timeout: 0
+                link_timeout: 50
                 link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
@@ -353,7 +357,7 @@ form:
                   System:
                     index: 15
                 back_style: Transparent
-                border_style: FixedSingle
+                border_style: None
                 caption:
                   - 36
                   - 34
@@ -389,7 +393,7 @@ form:
                 left: 120
                 link_item: []
                 link_mode: None
-                link_timeout: 0
+                link_timeout: 50
                 link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default

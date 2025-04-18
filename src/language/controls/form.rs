@@ -50,6 +50,10 @@ pub struct FormProperties {
     pub back_color: VB6Color,
     pub border_style: FormBorderStyle,
     pub caption: BString,
+    pub client_height: i32,
+    pub client_left: i32,
+    pub client_top: i32,
+    pub client_width: i32,
     pub clip_controls: ClipControls,
     pub control_box: bool,
     pub draw_mode: DrawMode,
@@ -102,12 +106,17 @@ impl Serialize for FormProperties {
     {
         use serde::ser::SerializeStruct;
 
-        let mut state = serializer.serialize_struct("FormProperties", 38)?;
+        let mut state = serializer.serialize_struct("FormProperties", 42)?;
         state.serialize_field("appearance", &self.appearance)?;
         state.serialize_field("auto_redraw", &self.auto_redraw)?;
         state.serialize_field("back_color", &self.back_color)?;
         state.serialize_field("border_style", &self.border_style)?;
         state.serialize_field("caption", &self.caption)?;
+        state.serialize_field("client_height", &self.client_height)?;
+        state.serialize_field("client_left", &self.client_left)?;
+        state.serialize_field("client_top", &self.client_top)?;
+        state.serialize_field("client_width", &self.client_width)?;
+
         state.serialize_field("clip_controls", &self.clip_controls)?;
         state.serialize_field("control_box", &self.control_box)?;
         state.serialize_field("draw_mode", &self.draw_mode)?;
@@ -176,6 +185,10 @@ impl Default for FormProperties {
             back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
             border_style: FormBorderStyle::Sizable,
             caption: "Form1".into(),
+            client_height: 200,
+            client_left: 0,
+            client_top: 0,
+            client_width: 300,
             clip_controls: ClipControls::default(),
             control_box: true,
             draw_mode: DrawMode::CopyPen,
@@ -235,13 +248,22 @@ impl<'a> From<Properties<'a>> for FormProperties {
             Some(caption) => caption.into(),
             None => form_prop.caption,
         };
+
+        form_prop.client_height = prop.get_i32(b"ClientHeight".into(), form_prop.client_height);
+        form_prop.client_left = prop.get_i32(b"ClientLeft".into(), form_prop.client_left);
+        form_prop.client_top = prop.get_i32(b"ClientTop".into(), form_prop.client_top);
+        form_prop.client_width = prop.get_i32(b"ClientWidth".into(), form_prop.client_width);
+
         form_prop.clip_controls =
             prop.get_property(b"ClipControls".into(), form_prop.clip_controls);
         form_prop.control_box = prop.get_bool(b"ControlBox".into(), form_prop.control_box);
+
         form_prop.draw_mode = prop.get_property(b"DrawMode".into(), form_prop.draw_mode);
         form_prop.draw_style = prop.get_property(b"DrawStyle".into(), form_prop.draw_style);
         form_prop.draw_width = prop.get_i32(b"DrawWidth".into(), form_prop.draw_width);
+
         form_prop.enabled = prop.get_bool(b"Enabled".into(), form_prop.enabled);
+
         form_prop.fill_color = prop.get_color(b"FillColor".into(), form_prop.fill_color);
         form_prop.fill_style = prop.get_property(b"FillStyle".into(), form_prop.fill_style);
 

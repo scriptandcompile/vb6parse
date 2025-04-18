@@ -324,6 +324,18 @@ impl<'a> Stream for VB6Stream<'a> {
         self.stream[self.index..].len()
     }
 
+    fn peek_token(&self) -> Option<Self::Token> {
+        self.stream[self.index..].first().copied()
+    }
+
+    fn peek_slice(&self, offset: usize) -> Self::Slice {
+        if offset > self.stream[self.index..].len() {
+            panic!("Offset is out of bounds");
+        }
+
+        self.stream[self.index..(self.index + offset)].as_bstr()
+    }
+
     fn next_token(&mut self) -> Option<Self::Token> {
         let (token, _) = self.stream[self.index..].split_first()?;
         self.index += 1;
