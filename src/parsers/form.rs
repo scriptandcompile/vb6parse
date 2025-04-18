@@ -153,7 +153,7 @@ impl<'a> VB6FormFile<'a> {
             Err(err) => return Err(input.error(err.into_inner().unwrap())),
         };
 
-        let form = match block_parse(&resource_resolver).parse_next(&mut input) {
+        let form = match control_parse(&resource_resolver).parse_next(&mut input) {
             Ok(form) => form,
             Err(err) => return Err(input.error(err.into_inner().unwrap())),
         };
@@ -212,53 +212,95 @@ fn form_object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6ObjectRe
     Ok(objects)
 }
 
-fn block_parse<'a>(
+struct ControlBlock<'a> {
+    pub fully_qualified_name: VB6FullyQualifiedName,
+    pub sub_controls: Vec<VB6Control>,
+    pub sub_menus: Vec<VB6Control>,
+    pub property_groups: Vec<VB6PropertyGroup>,
+    pub properties: Properties<'a>,
+}
+
+fn control_parse<'a>(
     resource_resolver: impl Fn(String, u32) -> Result<Vec<u8>, std::io::Error>,
 ) -> impl FnMut(&mut VB6Stream<'a>) -> VB6Result<VB6Control> {
     move |input: &mut VB6Stream<'a>| -> VB6Result<VB6Control> {
-        let fully_qualified_name = property_parse.parse_next(input)?;
+        let mut fully_qualified_name = property_parse.parse_next(input)?;
 
-        let mut controls = vec![];
-        let mut menus = vec![];
-        let mut property_groups = vec![];
-        let mut properties = Properties::new();
+        let mut current_control_block = ControlBlock {
+            fully_qualified_name,
+            sub_controls: vec![],
+            sub_menus: vec![],
+            property_groups: vec![],
+            properties: Properties::new(),
+        };
+
+        let mut control_block_stack: Vec<ControlBlock<'_>> = vec![];
 
         while !input.is_empty() {
+            // Check if we are at the end of the control block.
             if (space0, keyword_parse("END"), space0, line_ending)
                 .parse_next(input)
                 .is_ok()
             {
-                match build_control(
-                    fully_qualified_name,
-                    controls,
-                    menus,
-                    properties,
-                    property_groups,
-                ) {
-                    Ok(control) => return Ok(control),
+                // We are at the end of the control block, so we need to build the control.
+                match build_control(current_control_block) {
+                    Ok(control) => {
+                        // We have a valid control, so we need to check if we have a parent control block.
+                        match control_block_stack.pop() {
+                            // If we have a parent control block, we need to add the control to it.
+                            Some(mut parent_control_block) => {
+                                if control.kind.is_menu() {
+                                    parent_control_block.sub_menus.push(control);
+                                } else {
+                                    parent_control_block.sub_controls.push(control);
+                                }
+
+                                // the current control block is now the parent control block.
+                                current_control_block = parent_control_block;
+                            }
+                            // If we don't have a parent control block, we are done parsing the control and its sub-controls.
+                            None => return Ok(control), // We are done parsing the control.
+                        }
+                    }
+                    // If we had and error while trying to build the control, we return the error.
                     Err(err) => return Err(ErrMode::Cut(err)),
                 };
+
+                continue;
             }
 
+            // Check if we have a nested control.
             if (space0, keyword_parse("BEGIN"), space1)
                 .parse_next(input)
                 .is_ok()
             {
-                let control = block_parse(&resource_resolver).parse_next(input)?;
-                if control.kind.is_menu() {
-                    menus.push(control);
-                } else {
-                    controls.push(control);
-                }
+                // push the current control block onto the stack and create a new one for the nested control.
+                control_block_stack.push(current_control_block);
+
+                // Parse the next control's fully qualified name.
+                fully_qualified_name = property_parse.parse_next(input)?;
+
+                // Create a new control block for the nested control.
+                current_control_block = ControlBlock {
+                    fully_qualified_name,
+                    sub_controls: vec![],
+                    sub_menus: vec![],
+                    property_groups: vec![],
+                    properties: Properties::new(),
+                };
 
                 continue;
             }
 
+            // Property groups start with "BeginProperty" and end with "EndProperty".
             if let Ok(property_group) = property_group_parse.parse_next(input) {
-                property_groups.push(property_group);
+                // We have a property group.
+
+                current_control_block.property_groups.push(property_group);
                 continue;
             }
 
+            // We have a resource file reference property.
             if let Ok((name, resource_file, offset)) =
                 key_resource_offset_line_parse.parse_next(input)
             {
@@ -269,35 +311,44 @@ fn block_parse<'a>(
                     }
                 };
 
-                properties.insert_resource(name, resource);
+                current_control_block
+                    .properties
+                    .insert_resource(name, resource);
 
                 continue;
             }
 
-            space0.parse_next(input)?;
+            // We have a property key-value pair.
+            let (name, value) = property_key_value_parse.parse_next(input)?;
 
-            let name = take_till(1.., (b' ', b'\t', b'=')).parse_next(input)?;
-
-            space0.parse_next(input)?;
-
-            "=".parse_next(input)?;
-
-            space0.parse_next(input)?;
-
-            let value = alt((string_parse, take_till(1.., (' ', '\t', '\'', '\r', '\n'))))
-                .parse_next(input)?;
-
-            properties.insert(name, value.as_bytes());
-
-            space0.parse_next(input)?;
-
-            opt(line_comment_parse).parse_next(input)?;
-
-            line_ending.parse_next(input)?;
+            current_control_block.properties.insert(name, value);
         }
 
         Err(ParserError::assert(input, "Unknown control kind"))
     }
+}
+
+fn property_key_value_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<(&'a BStr, &'a [u8])> {
+    space0.parse_next(input)?;
+
+    let name = take_till(1.., (b' ', b'\t', b'=')).parse_next(input)?;
+
+    space0.parse_next(input)?;
+
+    "=".parse_next(input)?;
+
+    space0.parse_next(input)?;
+
+    let value =
+        alt((string_parse, take_till(1.., (' ', '\t', '\'', '\r', '\n')))).parse_next(input)?;
+
+    space0.parse_next(input)?;
+
+    opt(line_comment_parse).parse_next(input)?;
+
+    line_ending.parse_next(input)?;
+
+    Ok((name, value.as_bytes()))
 }
 
 fn property_group_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyGroup> {
@@ -423,37 +474,31 @@ fn property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FullyQualifiedN
     })
 }
 
-fn build_control<'a>(
-    fully_qualified_name: VB6FullyQualifiedName,
-    controls: Vec<VB6Control>,
-    menus: Vec<VB6Control>,
-    properties: Properties<'a>,
-    property_groups: Vec<VB6PropertyGroup>,
-) -> Result<VB6Control, VB6ErrorKind> {
-    let tag = match properties.get(b"Tag".into()) {
+fn build_control<'a>(control_block: ControlBlock<'a>) -> Result<VB6Control, VB6ErrorKind> {
+    let tag = match control_block.properties.get(b"Tag".into()) {
         Some(text) => text.into(),
         None => b"".into(),
     };
 
-    if fully_qualified_name.namespace != "VB" {
+    if control_block.fully_qualified_name.namespace != "VB" {
         let custom_control = VB6Control {
-            name: fully_qualified_name.name,
+            name: control_block.fully_qualified_name.name,
             tag: tag,
             index: 0,
             kind: VB6ControlKind::Custom {
-                properties: properties.into(),
-                property_groups,
+                properties: control_block.properties.into(),
+                property_groups: control_block.property_groups,
             },
         };
 
         return Ok(custom_control);
     }
 
-    let kind = match fully_qualified_name.kind.as_bytes() {
+    let kind = match control_block.fully_qualified_name.kind.as_bytes() {
         b"Form" => {
             let mut converted_menus = vec![];
 
-            for menu in menus {
+            for menu in control_block.sub_menus {
                 if let VB6ControlKind::Menu {
                     properties: menu_properties,
                     sub_menus,
@@ -470,15 +515,15 @@ fn build_control<'a>(
             }
 
             VB6ControlKind::Form {
-                controls,
-                properties: properties.into(),
+                controls: control_block.sub_controls,
+                properties: control_block.properties.into(),
                 menus: converted_menus,
             }
         }
         b"MDIForm" => {
             let mut converted_menus = vec![];
 
-            for menu in menus {
+            for menu in control_block.sub_menus {
                 if let VB6ControlKind::Menu {
                     properties: menu_properties,
                     sub_menus,
@@ -495,16 +540,16 @@ fn build_control<'a>(
             }
 
             VB6ControlKind::MDIForm {
-                controls,
-                properties: properties.into(),
+                controls: control_block.sub_controls,
+                properties: control_block.properties.into(),
                 menus: converted_menus,
             }
         }
         b"Menu" => {
-            let menu_properties = properties.into();
+            let menu_properties = control_block.properties.into();
             let mut converted_menus = vec![];
 
-            for menu in menus {
+            for menu in control_block.sub_menus {
                 if let VB6ControlKind::Menu {
                     properties: menu_properties,
                     sub_menus,
@@ -526,65 +571,65 @@ fn build_control<'a>(
             }
         }
         b"Frame" => VB6ControlKind::Frame {
-            controls,
-            properties: properties.into(),
+            controls: control_block.sub_controls,
+            properties: control_block.properties.into(),
         },
         b"CheckBox" => VB6ControlKind::CheckBox {
-            properties: properties.into(),
+            properties: control_block.properties.into(),
         },
         b"ComboBox" => VB6ControlKind::ComboBox {
-            properties: properties.into(),
+            properties: control_block.properties.into(),
         },
         b"CommandButton" => VB6ControlKind::CommandButton {
-            properties: properties.into(),
+            properties: control_block.properties.into(),
         },
         b"Data" => VB6ControlKind::Data {
-            properties: properties.into(),
+            properties: control_block.properties.into(),
         },
         b"DirListBox" => VB6ControlKind::DirListBox {
-            properties: properties.into(),
+            properties: control_block.properties.into(),
         },
         b"DriveListBox" => VB6ControlKind::DriveListBox {
-            properties: properties.into(),
+            properties: control_block.properties.into(),
         },
         b"FileListBox" => VB6ControlKind::FileListBox {
-            properties: properties.into(),
+            properties: control_block.properties.into(),
         },
         b"Image" => VB6ControlKind::Image {
-            properties: properties.into(),
+            properties: control_block.properties.into(),
         },
         b"Label" => VB6ControlKind::Label {
-            properties: properties.into(),
+            properties: control_block.properties.into(),
         },
         b"Line" => VB6ControlKind::Line {
-            properties: properties.into(),
+            properties: control_block.properties.into(),
         },
         b"ListBox" => VB6ControlKind::ListBox {
-            properties: properties.into(),
+            properties: control_block.properties.into(),
         },
         b"OLE" => VB6ControlKind::Ole {
-            properties: properties.into(),
+            properties: control_block.properties.into(),
         },
         b"OptionButton" => VB6ControlKind::OptionButton {
-            properties: properties.into(),
+            properties: control_block.properties.into(),
         },
         b"PictureBox" => VB6ControlKind::PictureBox {
-            properties: properties.into(),
+            properties: control_block.properties.into(),
         },
         b"HScrollBar" => VB6ControlKind::HScrollBar {
-            properties: properties.into(),
+            properties: control_block.properties.into(),
         },
         b"VScrollBar" => VB6ControlKind::VScrollBar {
-            properties: properties.into(),
+            properties: control_block.properties.into(),
         },
         b"Shape" => VB6ControlKind::Shape {
-            properties: properties.into(),
+            properties: control_block.properties.into(),
         },
         b"TextBox" => VB6ControlKind::TextBox {
-            properties: properties.into(),
+            properties: control_block.properties.into(),
         },
         b"Timer" => VB6ControlKind::Timer {
-            properties: properties.into(),
+            properties: control_block.properties.into(),
         },
         _ => {
             return Err(VB6ErrorKind::UnknownControlKind);
@@ -592,7 +637,7 @@ fn build_control<'a>(
     };
 
     let parent_control = VB6Control {
-        name: fully_qualified_name.name,
+        name: control_block.fully_qualified_name.name,
         tag: tag.clone().into(),
         index: 0,
         kind,
@@ -630,7 +675,7 @@ mod tests {
 
     #[test]
     fn nested_property_group() {
-        use crate::language::VB6ControlKind;
+        //use crate::language::VB6ControlKind;
         use crate::parsers::form::VB6FormFile;
 
         let input = b"VERSION 5.00\r
@@ -652,7 +697,6 @@ Begin VB.Form Form_Main \r
       Italic          =   0   'False\r
       Strikethrough   =   0   'False\r
    EndProperty\r
-   Icon            =   \"Form_Main.frx\":0000\r
    LinkTopic       =   \"Form1\"\r
    MaxButton       =   0   'False\r
    OLEDropMode     =   1  'Manual\r
@@ -672,23 +716,23 @@ Begin VB.Form Form_Main \r
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} \r
          NumListImages   =   5\r
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} \r
-            Picture         =   \"Form_Main.frx\":17789\r
+            _Version        =   9\r
             Key             =   \"\"\r
          EndProperty\r
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} \r
-            Picture         =   \"Form_Main.frx\":1921B\r
+            _Version        =   1\r
             Key             =   \"\"\r
          EndProperty\r
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} \r
-            Picture         =   \"Form_Main.frx\":1ACAD\r
+            _Version        =   1\r
             Key             =   \"\"\r
          EndProperty\r
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} \r
-            Picture         =   \"Form_Main.frx\":1C73F\r
+            _Version        =   5\r
             Key             =   \"\"\r
          EndProperty\r
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} \r
-            Picture         =   \"Form_Main.frx\":1E1D1\r
+            _Version        =   1\r
             Key             =   \"\"\r
          EndProperty\r
       EndProperty\r
@@ -701,8 +745,11 @@ Attribute VB_Name = \"Form_Main\"\r
             "form_parse.frm".to_owned(),
             input.as_bytes(),
             resource_file_resolver,
-        )
-        .unwrap();
+        );
+
+        assert!(result.is_ok());
+
+        let result = result.unwrap();
 
         assert_eq!(result.objects.len(), 1);
         assert_eq!(result.format_version.major, 5);
@@ -799,7 +846,6 @@ Begin VB.Form FormMainMode \r
       Italic          =   0   'False\r
       Strikethrough   =   0   'False\r
    EndProperty\r
-   Icon            =   \"FormMainMode.frx\":0000\r
    LinkTopic       =   \"Form3\"\r
    MaxButton       =   0   'False\r
    ScaleHeight     =   11100\r

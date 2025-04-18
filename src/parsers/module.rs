@@ -1,5 +1,5 @@
 use crate::{
-    errors::VB6Error,
+    errors::{VB6Error, VB6ErrorKind},
     language::VB6Token,
     parsers::VB6Stream,
     vb6::{keyword_parse, vb6_parse},
@@ -77,13 +77,19 @@ impl<'a> VB6ModuleFile<'a> {
             }
         }
 
-        let name = match ("\"", take_until(0.., "\""), "\"", space0, line_ending)
+        let name = match (
+            "\"",
+            take_until(0.., "\""),
+            "\"",
+            space0::<VB6Stream, VB6ErrorKind>,
+            line_ending,
+        )
             .take()
             .parse_next(&mut input)
         {
             Ok(name) => name,
             Err(e) => {
-                return Err(input.error(e.into_inner().unwrap()));
+                return Err(input.error(e));
             }
         };
 

@@ -1,7 +1,7 @@
 use std::fmt::{Debug, Display, Formatter};
 
 use winnow::{
-    error::{ContextError, ErrorKind, ParseError, ParserError},
+    error::{ContextError, ParseError, ParserError},
     stream::Stream,
 };
 
@@ -386,11 +386,17 @@ impl Display for VB6Error {
 }
 
 impl<'a> ParserError<VB6Stream<'a>> for VB6Error {
-    fn from_error_kind(input: &VB6Stream<'a>, _: ErrorKind) -> Self {
+    type Inner = VB6ErrorKind;
+
+    fn from_input(input: &VB6Stream<'a>) -> Self {
         VB6Error::new(input, VB6ErrorKind::InternalParseError)
     }
 
-    fn append(self, _: &VB6Stream, _: &<VB6Stream as Stream>::Checkpoint, _: ErrorKind) -> Self {
+    fn into_inner(self) -> winnow::Result<Self::Inner, Self> {
+        Ok(self.kind)
+    }
+
+    fn append(self, _: &VB6Stream, _: &<VB6Stream as Stream>::Checkpoint) -> Self {
         self
     }
 }
@@ -403,11 +409,17 @@ impl<'a> From<ParseError<VB6Stream<'a>, ContextError>> for VB6Error {
 }
 
 impl<'a> ParserError<VB6Stream<'a>> for VB6ErrorKind {
-    fn from_error_kind(_: &VB6Stream, _: ErrorKind) -> Self {
+    type Inner = VB6ErrorKind;
+
+    fn into_inner(self) -> winnow::Result<Self::Inner, Self> {
+        Ok(self)
+    }
+
+    fn from_input(_: &VB6Stream) -> Self {
         VB6ErrorKind::InternalParseError
     }
 
-    fn append(self, _: &VB6Stream, _: &<VB6Stream as Stream>::Checkpoint, _: ErrorKind) -> Self {
+    fn append(self, _: &VB6Stream, _: &<VB6Stream as Stream>::Checkpoint) -> Self {
         self
     }
 }

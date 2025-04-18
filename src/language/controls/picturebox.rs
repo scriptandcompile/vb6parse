@@ -92,7 +92,7 @@ impl Default for PictureBoxProperties {
             draw_width: 1,
             enabled: true,
             fill_color: VB6Color::from_hex("&H00000000&").unwrap(),
-            fill_style: FillStyle::Solid,
+            fill_style: FillStyle::Transparent,
             font_transparent: true,
             fore_color: VB6Color::from_hex("&H80000012&").unwrap(),
             has_dc: true,

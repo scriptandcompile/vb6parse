@@ -1483,10 +1483,11 @@ fn process_dll_base_address(input: &mut VB6Stream<'_>) -> Result<u32, VB6Error> 
 }
 
 fn other_property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<(&'a BStr, &'a BStr)> {
-    let property_name = match (opt(space0), take_until(0.., '=')).parse_next(input) {
-        Ok((_, property_name)) => property_name,
-        Err(e) => return Err(ErrMode::Cut(e.into_inner().unwrap())),
-    };
+    let property_name =
+        match (opt(space0::<_, VB6ErrorKind>), take_until(0.., '=')).parse_next(input) {
+            Ok((_, property_name)) => property_name,
+            Err(e) => return Err(ErrMode::Cut(e)),
+        };
 
     if (opt(space0::<_, VB6Error>), '=').parse_next(input).is_err() {
         return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
@@ -1495,7 +1496,7 @@ fn other_property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<(&'a BStr, &
     let property_value = match take_until::<_, _, VB6ErrorKind>(0.., ("\r", "\n")).parse_next(input)
     {
         Ok(property_value) => property_value,
-        Err(e) => return Err(ErrMode::Cut(e.into_inner().unwrap())),
+        Err(e) => return Err(ErrMode::Cut(e)),
     };
 
     if (space0, alt((line_ending, line_comment_parse)))

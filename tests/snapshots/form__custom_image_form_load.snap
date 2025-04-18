@@ -70,11 +70,15 @@ form:
           - 99
           - 111
           - 109
+        client_height: 7095
+        client_left: 45
+        client_top: 630
+        client_width: 6255
         clip_controls: "True"
         control_box: true
         draw_mode: CopyPen
         draw_style: Solid
-        draw_width: 0
+        draw_width: 1
         enabled: true
         fill_color:
           RGB:
@@ -87,7 +91,7 @@ form:
           System:
             index: 18
         has_dc: true
-        height: 0
+        height: 240
         help_context_id: 0
         icon: ~
         key_preview: false
@@ -122,7 +126,7 @@ form:
         visible: true
         whats_this_button: false
         whats_this_help: false
-        width: 0
+        width: 240
         window_state: Normal
       controls:
         - name:
@@ -210,10 +214,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -224,10 +228,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 120
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -240,8 +244,9 @@ form:
                 scroll_bars: None
                 tab_index: 30
                 tab_stop: true
-                text: "0"
-                tool_tip_text: ""
+                text:
+                  - 48
+                tool_tip_text: []
                 top: 120
                 visible: true
                 whats_this_help_id: 0
@@ -263,10 +268,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -277,10 +282,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 720
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -293,8 +298,9 @@ form:
                 scroll_bars: None
                 tab_index: 29
                 tab_stop: true
-                text: "0"
-                tool_tip_text: ""
+                text:
+                  - 48
+                tool_tip_text: []
                 top: 120
                 visible: true
                 whats_this_help_id: 0
@@ -316,10 +322,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -330,10 +336,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 1320
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -346,8 +352,9 @@ form:
                 scroll_bars: None
                 tab_index: 28
                 tab_stop: true
-                text: "0"
-                tool_tip_text: ""
+                text:
+                  - 48
+                tool_tip_text: []
                 top: 120
                 visible: true
                 whats_this_help_id: 0
@@ -369,10 +376,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -383,10 +390,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 1920
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -399,8 +406,9 @@ form:
                 scroll_bars: None
                 tab_index: 27
                 tab_stop: true
-                text: "0"
-                tool_tip_text: ""
+                text:
+                  - 48
+                tool_tip_text: []
                 top: 120
                 visible: true
                 whats_this_help_id: 0
@@ -422,10 +430,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -436,10 +444,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 2520
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -452,8 +460,9 @@ form:
                 scroll_bars: None
                 tab_index: 26
                 tab_stop: true
-                text: "0"
-                tool_tip_text: ""
+                text:
+                  - 48
+                tool_tip_text: []
                 top: 120
                 visible: true
                 whats_this_help_id: 0
@@ -475,10 +484,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -489,10 +498,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 120
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -505,8 +514,9 @@ form:
                 scroll_bars: None
                 tab_index: 25
                 tab_stop: true
-                text: "0"
-                tool_tip_text: ""
+                text:
+                  - 48
+                tool_tip_text: []
                 top: 480
                 visible: true
                 whats_this_help_id: 0
@@ -528,10 +538,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -542,10 +552,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 720
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -558,8 +568,9 @@ form:
                 scroll_bars: None
                 tab_index: 24
                 tab_stop: true
-                text: "0"
-                tool_tip_text: ""
+                text:
+                  - 48
+                tool_tip_text: []
                 top: 480
                 visible: true
                 whats_this_help_id: 0
@@ -581,10 +592,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -595,10 +606,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 1320
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -611,8 +622,9 @@ form:
                 scroll_bars: None
                 tab_index: 23
                 tab_stop: true
-                text: "0"
-                tool_tip_text: ""
+                text:
+                  - 48
+                tool_tip_text: []
                 top: 480
                 visible: true
                 whats_this_help_id: 0
@@ -634,10 +646,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -648,10 +660,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 1920
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -664,8 +676,9 @@ form:
                 scroll_bars: None
                 tab_index: 22
                 tab_stop: true
-                text: "0"
-                tool_tip_text: ""
+                text:
+                  - 48
+                tool_tip_text: []
                 top: 480
                 visible: true
                 whats_this_help_id: 0
@@ -687,10 +700,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -701,10 +714,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 2520
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -717,8 +730,9 @@ form:
                 scroll_bars: None
                 tab_index: 21
                 tab_stop: true
-                text: "0"
-                tool_tip_text: ""
+                text:
+                  - 48
+                tool_tip_text: []
                 top: 480
                 visible: true
                 whats_this_help_id: 0
@@ -740,10 +754,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -754,10 +768,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 120
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -770,8 +784,9 @@ form:
                 scroll_bars: None
                 tab_index: 20
                 tab_stop: true
-                text: "0"
-                tool_tip_text: ""
+                text:
+                  - 48
+                tool_tip_text: []
                 top: 840
                 visible: true
                 whats_this_help_id: 0
@@ -793,10 +808,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -807,10 +822,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 720
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -823,8 +838,9 @@ form:
                 scroll_bars: None
                 tab_index: 19
                 tab_stop: true
-                text: "0"
-                tool_tip_text: ""
+                text:
+                  - 48
+                tool_tip_text: []
                 top: 840
                 visible: true
                 whats_this_help_id: 0
@@ -846,10 +862,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -860,10 +876,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 1320
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -876,8 +892,9 @@ form:
                 scroll_bars: None
                 tab_index: 18
                 tab_stop: true
-                text: "0"
-                tool_tip_text: ""
+                text:
+                  - 48
+                tool_tip_text: []
                 top: 840
                 visible: true
                 whats_this_help_id: 0
@@ -899,10 +916,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -913,10 +930,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 1920
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -929,8 +946,9 @@ form:
                 scroll_bars: None
                 tab_index: 17
                 tab_stop: true
-                text: "0"
-                tool_tip_text: ""
+                text:
+                  - 48
+                tool_tip_text: []
                 top: 840
                 visible: true
                 whats_this_help_id: 0
@@ -952,10 +970,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -966,10 +984,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 2520
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -982,8 +1000,9 @@ form:
                 scroll_bars: None
                 tab_index: 16
                 tab_stop: true
-                text: "0"
-                tool_tip_text: ""
+                text:
+                  - 48
+                tool_tip_text: []
                 top: 840
                 visible: true
                 whats_this_help_id: 0
@@ -1005,10 +1024,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -1019,10 +1038,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 120
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -1035,8 +1054,9 @@ form:
                 scroll_bars: None
                 tab_index: 15
                 tab_stop: true
-                text: "0"
-                tool_tip_text: ""
+                text:
+                  - 48
+                tool_tip_text: []
                 top: 1200
                 visible: true
                 whats_this_help_id: 0
@@ -1058,10 +1078,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -1072,10 +1092,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 720
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -1088,8 +1108,9 @@ form:
                 scroll_bars: None
                 tab_index: 14
                 tab_stop: true
-                text: "0"
-                tool_tip_text: ""
+                text:
+                  - 48
+                tool_tip_text: []
                 top: 1200
                 visible: true
                 whats_this_help_id: 0
@@ -1111,10 +1132,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -1125,10 +1146,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 1320
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -1141,8 +1162,9 @@ form:
                 scroll_bars: None
                 tab_index: 13
                 tab_stop: true
-                text: "0"
-                tool_tip_text: ""
+                text:
+                  - 48
+                tool_tip_text: []
                 top: 1200
                 visible: true
                 whats_this_help_id: 0
@@ -1164,10 +1186,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -1178,10 +1200,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 1920
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -1194,8 +1216,9 @@ form:
                 scroll_bars: None
                 tab_index: 12
                 tab_stop: true
-                text: "0"
-                tool_tip_text: ""
+                text:
+                  - 48
+                tool_tip_text: []
                 top: 1200
                 visible: true
                 whats_this_help_id: 0
@@ -1217,10 +1240,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -1231,10 +1254,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 2520
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -1247,8 +1270,9 @@ form:
                 scroll_bars: None
                 tab_index: 11
                 tab_stop: true
-                text: "0"
-                tool_tip_text: ""
+                text:
+                  - 48
+                tool_tip_text: []
                 top: 1200
                 visible: true
                 whats_this_help_id: 0
@@ -1270,10 +1294,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -1284,10 +1308,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 120
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -1300,8 +1324,9 @@ form:
                 scroll_bars: None
                 tab_index: 10
                 tab_stop: true
-                text: "0"
-                tool_tip_text: ""
+                text:
+                  - 48
+                tool_tip_text: []
                 top: 1560
                 visible: true
                 whats_this_help_id: 0
@@ -1323,10 +1348,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -1337,10 +1362,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 720
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -1353,8 +1378,9 @@ form:
                 scroll_bars: None
                 tab_index: 9
                 tab_stop: true
-                text: "0"
-                tool_tip_text: ""
+                text:
+                  - 48
+                tool_tip_text: []
                 top: 1560
                 visible: true
                 whats_this_help_id: 0
@@ -1376,10 +1402,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -1390,10 +1416,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 1320
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -1406,8 +1432,9 @@ form:
                 scroll_bars: None
                 tab_index: 8
                 tab_stop: true
-                text: "0"
-                tool_tip_text: ""
+                text:
+                  - 48
+                tool_tip_text: []
                 top: 1560
                 visible: true
                 whats_this_help_id: 0
@@ -1429,10 +1456,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -1443,10 +1470,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 1920
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -1459,8 +1486,9 @@ form:
                 scroll_bars: None
                 tab_index: 7
                 tab_stop: true
-                text: "0"
-                tool_tip_text: ""
+                text:
+                  - 48
+                tool_tip_text: []
                 top: 1560
                 visible: true
                 whats_this_help_id: 0
@@ -1482,10 +1510,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -1496,10 +1524,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 2520
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -1512,8 +1540,9 @@ form:
                 scroll_bars: None
                 tab_index: 6
                 tab_stop: true
-                text: "0"
-                tool_tip_text: ""
+                text:
+                  - 48
+                tool_tip_text: []
                 top: 1560
                 visible: true
                 whats_this_help_id: 0
@@ -1540,10 +1569,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -1554,10 +1583,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 720
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -1570,8 +1599,9 @@ form:
                 scroll_bars: None
                 tab_index: 5
                 tab_stop: true
-                text: "1"
-                tool_tip_text: ""
+                text:
+                  - 49
+                tool_tip_text: []
                 top: 2040
                 visible: true
                 whats_this_help_id: 0
@@ -1656,10 +1686,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -1670,10 +1700,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 2160
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -1686,8 +1716,9 @@ form:
                 scroll_bars: None
                 tab_index: 3
                 tab_stop: true
-                text: "0"
-                tool_tip_text: ""
+                text:
+                  - 48
+                tool_tip_text: []
                 top: 2040
                 visible: true
                 whats_this_help_id: 0
@@ -1786,7 +1817,7 @@ form:
                 drag_mode: Manual
                 draw_mode: CopyPen
                 draw_style: Solid
-                draw_width: 0
+                draw_width: 1
                 enabled: true
                 fill_color:
                   RGB:
@@ -1804,7 +1835,7 @@ form:
                 left: 120
                 link_item: []
                 link_mode: None
-                link_timeout: 0
+                link_timeout: 50
                 link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
@@ -1856,7 +1887,7 @@ form:
                 drag_mode: Manual
                 draw_mode: CopyPen
                 draw_style: Solid
-                draw_width: 0
+                draw_width: 1
                 enabled: true
                 fill_color:
                   RGB:
@@ -1874,7 +1905,7 @@ form:
                 left: 120
                 link_item: []
                 link_mode: None
-                link_timeout: 0
+                link_timeout: 50
                 link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
@@ -1917,7 +1948,7 @@ form:
                   System:
                     index: 5
                 back_style: Transparent
-                border_style: FixedSingle
+                border_style: None
                 caption:
                   - 83
                   - 97
@@ -1948,7 +1979,7 @@ form:
                 left: 3240
                 link_item: []
                 link_mode: None
-                link_timeout: 0
+                link_timeout: 50
                 link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
@@ -1983,7 +2014,7 @@ form:
                   System:
                     index: 15
                 back_style: Transparent
-                border_style: FixedSingle
+                border_style: None
                 caption:
                   - 83
                   - 99
@@ -2005,7 +2036,7 @@ form:
                 left: 120
                 link_item: []
                 link_mode: None
-                link_timeout: 0
+                link_timeout: 50
                 link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
@@ -2039,7 +2070,7 @@ form:
                   System:
                     index: 15
                 back_style: Transparent
-                border_style: FixedSingle
+                border_style: None
                 caption:
                   - 66
                   - 105
@@ -2060,7 +2091,7 @@ form:
                 left: 1680
                 link_item: []
                 link_mode: None
-                link_timeout: 0
+                link_timeout: 50
                 link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
