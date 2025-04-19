@@ -337,7 +337,10 @@ fn grayscale_effect_form_load() {
 fn hidden_markov_model_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Hidden-Markov-model/frmHMM.frm");
 
-    let form_file = match VB6FormFile::parse("frmHMM.frm".to_owned(), form_file_bytes) {
+    let form_file = match VB6FormFile::parse(
+        "./tests/data/vb6-code/Hidden-Markov-model/frmHMM.frm".to_owned(),
+        form_file_bytes,
+    ) {
         Ok(form_file) => form_file,
         Err(e) => {
             eprintln!("{e}");
@@ -412,7 +415,10 @@ fn mandelbrot_form_load() {
 fn map_editor_2d_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Map-editor-2D/Main Editor.frm");
 
-    let form_file = match VB6FormFile::parse("Main Editor.frm".to_owned(), form_file_bytes) {
+    let form_file = match VB6FormFile::parse(
+        "./tests/data/vb6-code/Map-editor-2D/Main Editor.frm".to_owned(),
+        form_file_bytes,
+    ) {
         Ok(form_file) => form_file,
         Err(e) => {
             eprintln!("{e}");
@@ -517,7 +523,10 @@ fn threshold_effect_form_load() {
 fn transparency_2d_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Transparency-2D/frmTransparency.frm");
 
-    let form_file = match VB6FormFile::parse("frmTransparency.frm".to_owned(), form_file_bytes) {
+    let form_file = match VB6FormFile::parse(
+        "./tests/data/vb6-code/Transparency-2D/frmTransparency.frm".to_owned(),
+        form_file_bytes,
+    ) {
         Ok(form_file) => form_file,
         Err(e) => {
             eprintln!("{e}");

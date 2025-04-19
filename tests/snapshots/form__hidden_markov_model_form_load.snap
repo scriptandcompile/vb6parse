@@ -92,11 +92,15 @@ form:
           - 99
           - 111
           - 109
+        client_height: 8790
+        client_left: 60
+        client_top: 450
+        client_width: 13830
         clip_controls: "True"
         control_box: true
         draw_mode: CopyPen
         draw_style: Solid
-        draw_width: 0
+        draw_width: 1
         enabled: true
         fill_color:
           RGB:
@@ -109,7 +113,7 @@ form:
           System:
             index: 18
         has_dc: true
-        height: 0
+        height: 240
         help_context_id: 0
         icon: ~
         key_preview: false
@@ -144,7 +148,7 @@ form:
         visible: true
         whats_this_button: false
         whats_this_help: false
-        width: 0
+        width: 240
         window_state: Normal
       controls:
         - name:
@@ -294,7 +298,7 @@ form:
                         drag_mode: Manual
                         draw_mode: CopyPen
                         draw_style: Solid
-                        draw_width: 0
+                        draw_width: 1
                         enabled: true
                         fill_color:
                           RGB:
@@ -312,7 +316,7 @@ form:
                         left: 120
                         link_item: []
                         link_mode: None
-                        link_timeout: 0
+                        link_timeout: 50
                         link_topic: []
                         mouse_icon: ~
                         mouse_pointer: Default
@@ -367,7 +371,7 @@ form:
                         drag_mode: Manual
                         draw_mode: CopyPen
                         draw_style: Solid
-                        draw_width: 0
+                        draw_width: 1
                         enabled: true
                         fill_color:
                           RGB:
@@ -385,7 +389,7 @@ form:
                         left: 120
                         link_item: []
                         link_mode: None
-                        link_timeout: 0
+                        link_timeout: 50
                         link_topic: []
                         mouse_icon: ~
                         mouse_pointer: Default
@@ -432,10 +436,10 @@ form:
                             index: 5
                         border_style: FixedSingle
                         causes_validation: true
-                        data_field: ""
-                        data_format: ""
-                        data_member: ""
-                        data_source: ""
+                        data_field: []
+                        data_format: []
+                        data_member: []
+                        data_source: []
                         drag_icon: ~
                         drag_mode: Manual
                         enabled: true
@@ -446,10 +450,10 @@ form:
                         help_context_id: 0
                         hide_selection: true
                         left: 5040
-                        link_item: ""
+                        link_item: []
                         link_mode: None
-                        link_timeout: 0
-                        link_topic: ""
+                        link_timeout: 50
+                        link_topic: []
                         locked: false
                         max_length: 0
                         mouse_icon: ~
@@ -462,8 +466,11 @@ form:
                         scroll_bars: None
                         tab_index: 42
                         tab_stop: true
-                        text: "200"
-                        tool_tip_text: ""
+                        text:
+                          - 50
+                          - 48
+                          - 48
+                        tool_tip_text: []
                         top: 480
                         visible: true
                         whats_this_help_id: 0
@@ -571,7 +578,7 @@ form:
                           System:
                             index: 15
                         back_style: Transparent
-                        border_style: FixedSingle
+                        border_style: None
                         caption:
                           - 32
                           - 65
@@ -659,7 +666,7 @@ form:
                         left: 6360
                         link_item: []
                         link_mode: None
-                        link_timeout: 0
+                        link_timeout: 50
                         link_topic: []
                         mouse_icon: ~
                         mouse_pointer: Default
@@ -696,7 +703,7 @@ form:
                           System:
                             index: 15
                         back_style: Transparent
-                        border_style: FixedSingle
+                        border_style: None
                         caption:
                           - 32
                           - 73
@@ -723,7 +730,7 @@ form:
                         left: 120
                         link_item: []
                         link_mode: None
-                        link_timeout: 0
+                        link_timeout: 50
                         link_topic: []
                         mouse_icon: ~
                         mouse_pointer: Default
@@ -761,7 +768,7 @@ form:
                           System:
                             index: 15
                         back_style: Transparent
-                        border_style: FixedSingle
+                        border_style: None
                         caption:
                           - 32
                           - 67
@@ -804,7 +811,7 @@ form:
                         left: 120
                         link_item: []
                         link_mode: None
-                        link_timeout: 0
+                        link_timeout: 50
                         link_topic: []
                         mouse_icon: ~
                         mouse_pointer: Default
@@ -838,7 +845,7 @@ form:
                           System:
                             index: 15
                         back_style: Transparent
-                        border_style: FixedSingle
+                        border_style: None
                         caption:
                           - 83
                           - 108
@@ -874,7 +881,7 @@ form:
                         left: 3480
                         link_item: []
                         link_mode: None
-                        link_timeout: 0
+                        link_timeout: 50
                         link_topic: []
                         mouse_icon: ~
                         mouse_pointer: Default
@@ -1074,7 +1081,7 @@ form:
                           System:
                             index: 5
                         back_style: Transparent
-                        border_style: FixedSingle
+                        border_style: None
                         caption:
                           - 82
                           - 101
@@ -1115,7 +1122,7 @@ form:
                         left: 3480
                         link_item: []
                         link_mode: None
-                        link_timeout: 0
+                        link_timeout: 50
                         link_topic: []
                         mouse_icon: ~
                         mouse_pointer: Default
@@ -1367,10 +1374,10 @@ form:
                                     index: 5
                                 border_style: FixedSingle
                                 causes_validation: true
-                                data_field: ""
-                                data_format: ""
-                                data_member: ""
-                                data_source: ""
+                                data_field: []
+                                data_format: []
+                                data_member: []
+                                data_source: []
                                 drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
@@ -1381,10 +1388,10 @@ form:
                                 help_context_id: 0
                                 hide_selection: true
                                 left: 600
-                                link_item: ""
+                                link_item: []
                                 link_mode: None
-                                link_timeout: 0
-                                link_topic: ""
+                                link_timeout: 50
+                                link_topic: []
                                 locked: false
                                 max_length: 0
                                 mouse_icon: ~
@@ -1397,8 +1404,10 @@ form:
                                 scroll_bars: None
                                 tab_index: 36
                                 tab_stop: true
-                                text: ".5"
-                                tool_tip_text: ""
+                                text:
+                                  - 46
+                                  - 53
+                                tool_tip_text: []
                                 top: 720
                                 visible: true
                                 whats_this_help_id: 0
@@ -1427,10 +1436,10 @@ form:
                                     index: 5
                                 border_style: FixedSingle
                                 causes_validation: true
-                                data_field: ""
-                                data_format: ""
-                                data_member: ""
-                                data_source: ""
+                                data_field: []
+                                data_format: []
+                                data_member: []
+                                data_source: []
                                 drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
@@ -1441,10 +1450,10 @@ form:
                                 help_context_id: 0
                                 hide_selection: true
                                 left: 600
-                                link_item: ""
+                                link_item: []
                                 link_mode: None
-                                link_timeout: 0
-                                link_topic: ""
+                                link_timeout: 50
+                                link_topic: []
                                 locked: false
                                 max_length: 0
                                 mouse_icon: ~
@@ -1457,8 +1466,10 @@ form:
                                 scroll_bars: None
                                 tab_index: 35
                                 tab_stop: true
-                                text: ".5"
-                                tool_tip_text: ""
+                                text:
+                                  - 46
+                                  - 53
+                                tool_tip_text: []
                                 top: 360
                                 visible: true
                                 whats_this_help_id: 0
@@ -1483,7 +1494,7 @@ form:
                                   System:
                                     index: 5
                                 back_style: Transparent
-                                border_style: FixedSingle
+                                border_style: None
                                 caption:
                                   - 112
                                   - 40
@@ -1504,7 +1515,7 @@ form:
                                 left: 120
                                 link_item: []
                                 link_mode: None
-                                link_timeout: 0
+                                link_timeout: 50
                                 link_topic: []
                                 mouse_icon: ~
                                 mouse_pointer: Default
@@ -1538,7 +1549,7 @@ form:
                                   System:
                                     index: 5
                                 back_style: Transparent
-                                border_style: FixedSingle
+                                border_style: None
                                 caption:
                                   - 112
                                   - 40
@@ -1559,7 +1570,7 @@ form:
                                 left: 120
                                 link_item: []
                                 link_mode: None
-                                link_timeout: 0
+                                link_timeout: 50
                                 link_topic: []
                                 mouse_icon: ~
                                 mouse_pointer: Default
@@ -1661,10 +1672,10 @@ form:
                                     index: 5
                                 border_style: FixedSingle
                                 causes_validation: true
-                                data_field: ""
-                                data_format: ""
-                                data_member: ""
-                                data_source: ""
+                                data_field: []
+                                data_format: []
+                                data_member: []
+                                data_source: []
                                 drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
@@ -1675,10 +1686,10 @@ form:
                                 help_context_id: 0
                                 hide_selection: true
                                 left: 2040
-                                link_item: ""
+                                link_item: []
                                 link_mode: None
-                                link_timeout: 0
-                                link_topic: ""
+                                link_timeout: 50
+                                link_topic: []
                                 locked: false
                                 max_length: 0
                                 mouse_icon: ~
@@ -1691,8 +1702,11 @@ form:
                                 scroll_bars: None
                                 tab_index: 31
                                 tab_stop: true
-                                text: ".25"
-                                tool_tip_text: ""
+                                text:
+                                  - 46
+                                  - 50
+                                  - 53
+                                tool_tip_text: []
                                 top: 1440
                                 visible: true
                                 whats_this_help_id: 0
@@ -1722,10 +1736,10 @@ form:
                                     index: 5
                                 border_style: FixedSingle
                                 causes_validation: true
-                                data_field: ""
-                                data_format: ""
-                                data_member: ""
-                                data_source: ""
+                                data_field: []
+                                data_format: []
+                                data_member: []
+                                data_source: []
                                 drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
@@ -1736,10 +1750,10 @@ form:
                                 help_context_id: 0
                                 hide_selection: true
                                 left: 2040
-                                link_item: ""
+                                link_item: []
                                 link_mode: None
-                                link_timeout: 0
-                                link_topic: ""
+                                link_timeout: 50
+                                link_topic: []
                                 locked: false
                                 max_length: 0
                                 mouse_icon: ~
@@ -1752,8 +1766,11 @@ form:
                                 scroll_bars: None
                                 tab_index: 29
                                 tab_stop: true
-                                text: ".25"
-                                tool_tip_text: ""
+                                text:
+                                  - 46
+                                  - 50
+                                  - 53
+                                tool_tip_text: []
                                 top: 1080
                                 visible: true
                                 whats_this_help_id: 0
@@ -1783,10 +1800,10 @@ form:
                                     index: 5
                                 border_style: FixedSingle
                                 causes_validation: true
-                                data_field: ""
-                                data_format: ""
-                                data_member: ""
-                                data_source: ""
+                                data_field: []
+                                data_format: []
+                                data_member: []
+                                data_source: []
                                 drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
@@ -1797,10 +1814,10 @@ form:
                                 help_context_id: 0
                                 hide_selection: true
                                 left: 2040
-                                link_item: ""
+                                link_item: []
                                 link_mode: None
-                                link_timeout: 0
-                                link_topic: ""
+                                link_timeout: 50
+                                link_topic: []
                                 locked: false
                                 max_length: 0
                                 mouse_icon: ~
@@ -1813,8 +1830,11 @@ form:
                                 scroll_bars: None
                                 tab_index: 27
                                 tab_stop: true
-                                text: ".25"
-                                tool_tip_text: ""
+                                text:
+                                  - 46
+                                  - 50
+                                  - 53
+                                tool_tip_text: []
                                 top: 720
                                 visible: true
                                 whats_this_help_id: 0
@@ -1844,10 +1864,10 @@ form:
                                     index: 5
                                 border_style: FixedSingle
                                 causes_validation: true
-                                data_field: ""
-                                data_format: ""
-                                data_member: ""
-                                data_source: ""
+                                data_field: []
+                                data_format: []
+                                data_member: []
+                                data_source: []
                                 drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
@@ -1858,10 +1878,10 @@ form:
                                 help_context_id: 0
                                 hide_selection: true
                                 left: 2040
-                                link_item: ""
+                                link_item: []
                                 link_mode: None
-                                link_timeout: 0
-                                link_topic: ""
+                                link_timeout: 50
+                                link_topic: []
                                 locked: false
                                 max_length: 0
                                 mouse_icon: ~
@@ -1874,8 +1894,11 @@ form:
                                 scroll_bars: None
                                 tab_index: 25
                                 tab_stop: true
-                                text: ".25"
-                                tool_tip_text: ""
+                                text:
+                                  - 46
+                                  - 50
+                                  - 53
+                                tool_tip_text: []
                                 top: 360
                                 visible: true
                                 whats_this_help_id: 0
@@ -1905,10 +1928,10 @@ form:
                                     index: 5
                                 border_style: FixedSingle
                                 causes_validation: true
-                                data_field: ""
-                                data_format: ""
-                                data_member: ""
-                                data_source: ""
+                                data_field: []
+                                data_format: []
+                                data_member: []
+                                data_source: []
                                 drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
@@ -1919,10 +1942,10 @@ form:
                                 help_context_id: 0
                                 hide_selection: true
                                 left: 720
-                                link_item: ""
+                                link_item: []
                                 link_mode: None
-                                link_timeout: 0
-                                link_topic: ""
+                                link_timeout: 50
+                                link_topic: []
                                 locked: false
                                 max_length: 0
                                 mouse_icon: ~
@@ -1935,8 +1958,10 @@ form:
                                 scroll_bars: None
                                 tab_index: 23
                                 tab_stop: true
-                                text: ".4"
-                                tool_tip_text: ""
+                                text:
+                                  - 46
+                                  - 52
+                                tool_tip_text: []
                                 top: 1440
                                 visible: true
                                 whats_this_help_id: 0
@@ -1966,10 +1991,10 @@ form:
                                     index: 5
                                 border_style: FixedSingle
                                 causes_validation: true
-                                data_field: ""
-                                data_format: ""
-                                data_member: ""
-                                data_source: ""
+                                data_field: []
+                                data_format: []
+                                data_member: []
+                                data_source: []
                                 drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
@@ -1980,10 +2005,10 @@ form:
                                 help_context_id: 0
                                 hide_selection: true
                                 left: 720
-                                link_item: ""
+                                link_item: []
                                 link_mode: None
-                                link_timeout: 0
-                                link_topic: ""
+                                link_timeout: 50
+                                link_topic: []
                                 locked: false
                                 max_length: 0
                                 mouse_icon: ~
@@ -1996,8 +2021,11 @@ form:
                                 scroll_bars: None
                                 tab_index: 21
                                 tab_stop: true
-                                text: ".25"
-                                tool_tip_text: ""
+                                text:
+                                  - 46
+                                  - 50
+                                  - 53
+                                tool_tip_text: []
                                 top: 1080
                                 visible: true
                                 whats_this_help_id: 0
@@ -2027,10 +2055,10 @@ form:
                                     index: 5
                                 border_style: FixedSingle
                                 causes_validation: true
-                                data_field: ""
-                                data_format: ""
-                                data_member: ""
-                                data_source: ""
+                                data_field: []
+                                data_format: []
+                                data_member: []
+                                data_source: []
                                 drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
@@ -2041,10 +2069,10 @@ form:
                                 help_context_id: 0
                                 hide_selection: true
                                 left: 720
-                                link_item: ""
+                                link_item: []
                                 link_mode: None
-                                link_timeout: 0
-                                link_topic: ""
+                                link_timeout: 50
+                                link_topic: []
                                 locked: false
                                 max_length: 0
                                 mouse_icon: ~
@@ -2057,8 +2085,10 @@ form:
                                 scroll_bars: None
                                 tab_index: 19
                                 tab_stop: true
-                                text: ".1"
-                                tool_tip_text: ""
+                                text:
+                                  - 46
+                                  - 49
+                                tool_tip_text: []
                                 top: 720
                                 visible: true
                                 whats_this_help_id: 0
@@ -2088,10 +2118,10 @@ form:
                                     index: 5
                                 border_style: FixedSingle
                                 causes_validation: true
-                                data_field: ""
-                                data_format: ""
-                                data_member: ""
-                                data_source: ""
+                                data_field: []
+                                data_format: []
+                                data_member: []
+                                data_source: []
                                 drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
@@ -2102,10 +2132,10 @@ form:
                                 help_context_id: 0
                                 hide_selection: true
                                 left: 720
-                                link_item: ""
+                                link_item: []
                                 link_mode: None
-                                link_timeout: 0
-                                link_topic: ""
+                                link_timeout: 50
+                                link_topic: []
                                 locked: false
                                 max_length: 0
                                 mouse_icon: ~
@@ -2118,8 +2148,11 @@ form:
                                 scroll_bars: None
                                 tab_index: 17
                                 tab_stop: true
-                                text: ".25"
-                                tool_tip_text: ""
+                                text:
+                                  - 46
+                                  - 50
+                                  - 53
+                                tool_tip_text: []
                                 top: 360
                                 visible: true
                                 whats_this_help_id: 0
@@ -2144,7 +2177,7 @@ form:
                                   System:
                                     index: 5
                                 back_style: Transparent
-                                border_style: FixedSingle
+                                border_style: None
                                 caption:
                                   - 112
                                   - 40
@@ -2167,7 +2200,7 @@ form:
                                 left: 1440
                                 link_item: []
                                 link_mode: None
-                                link_timeout: 0
+                                link_timeout: 50
                                 link_topic: []
                                 mouse_icon: ~
                                 mouse_pointer: Default
@@ -2201,7 +2234,7 @@ form:
                                   System:
                                     index: 5
                                 back_style: Transparent
-                                border_style: FixedSingle
+                                border_style: None
                                 caption:
                                   - 112
                                   - 40
@@ -2224,7 +2257,7 @@ form:
                                 left: 1440
                                 link_item: []
                                 link_mode: None
-                                link_timeout: 0
+                                link_timeout: 50
                                 link_topic: []
                                 mouse_icon: ~
                                 mouse_pointer: Default
@@ -2258,7 +2291,7 @@ form:
                                   System:
                                     index: 5
                                 back_style: Transparent
-                                border_style: FixedSingle
+                                border_style: None
                                 caption:
                                   - 112
                                   - 40
@@ -2281,7 +2314,7 @@ form:
                                 left: 1440
                                 link_item: []
                                 link_mode: None
-                                link_timeout: 0
+                                link_timeout: 50
                                 link_topic: []
                                 mouse_icon: ~
                                 mouse_pointer: Default
@@ -2314,7 +2347,7 @@ form:
                                   System:
                                     index: 5
                                 back_style: Transparent
-                                border_style: FixedSingle
+                                border_style: None
                                 caption:
                                   - 112
                                   - 40
@@ -2337,7 +2370,7 @@ form:
                                 left: 1440
                                 link_item: []
                                 link_mode: None
-                                link_timeout: 0
+                                link_timeout: 50
                                 link_topic: []
                                 mouse_icon: ~
                                 mouse_pointer: Default
@@ -2370,7 +2403,7 @@ form:
                                   System:
                                     index: 5
                                 back_style: Transparent
-                                border_style: FixedSingle
+                                border_style: None
                                 caption:
                                   - 112
                                   - 40
@@ -2393,7 +2426,7 @@ form:
                                 left: 120
                                 link_item: []
                                 link_mode: None
-                                link_timeout: 0
+                                link_timeout: 50
                                 link_topic: []
                                 mouse_icon: ~
                                 mouse_pointer: Default
@@ -2426,7 +2459,7 @@ form:
                                   System:
                                     index: 5
                                 back_style: Transparent
-                                border_style: FixedSingle
+                                border_style: None
                                 caption:
                                   - 112
                                   - 40
@@ -2449,7 +2482,7 @@ form:
                                 left: 120
                                 link_item: []
                                 link_mode: None
-                                link_timeout: 0
+                                link_timeout: 50
                                 link_topic: []
                                 mouse_icon: ~
                                 mouse_pointer: Default
@@ -2482,7 +2515,7 @@ form:
                                   System:
                                     index: 5
                                 back_style: Transparent
-                                border_style: FixedSingle
+                                border_style: None
                                 caption:
                                   - 112
                                   - 40
@@ -2505,7 +2538,7 @@ form:
                                 left: 120
                                 link_item: []
                                 link_mode: None
-                                link_timeout: 0
+                                link_timeout: 50
                                 link_topic: []
                                 mouse_icon: ~
                                 mouse_pointer: Default
@@ -2538,7 +2571,7 @@ form:
                                   System:
                                     index: 5
                                 back_style: Transparent
-                                border_style: FixedSingle
+                                border_style: None
                                 caption:
                                   - 112
                                   - 40
@@ -2561,7 +2594,7 @@ form:
                                 left: 120
                                 link_item: []
                                 link_mode: None
-                                link_timeout: 0
+                                link_timeout: 50
                                 link_topic: []
                                 mouse_icon: ~
                                 mouse_pointer: Default
@@ -2663,10 +2696,10 @@ form:
                                     index: 5
                                 border_style: FixedSingle
                                 causes_validation: true
-                                data_field: ""
-                                data_format: ""
-                                data_member: ""
-                                data_source: ""
+                                data_field: []
+                                data_format: []
+                                data_member: []
+                                data_source: []
                                 drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
@@ -2677,10 +2710,10 @@ form:
                                 help_context_id: 0
                                 hide_selection: true
                                 left: 840
-                                link_item: ""
+                                link_item: []
                                 link_mode: None
-                                link_timeout: 0
-                                link_topic: ""
+                                link_timeout: 50
+                                link_topic: []
                                 locked: false
                                 max_length: 0
                                 mouse_icon: ~
@@ -2693,8 +2726,10 @@ form:
                                 scroll_bars: None
                                 tab_index: 14
                                 tab_stop: true
-                                text: ".5"
-                                tool_tip_text: ""
+                                text:
+                                  - 46
+                                  - 53
+                                tool_tip_text: []
                                 top: 1440
                                 visible: true
                                 whats_this_help_id: 0
@@ -2721,10 +2756,10 @@ form:
                                     index: 5
                                 border_style: FixedSingle
                                 causes_validation: true
-                                data_field: ""
-                                data_format: ""
-                                data_member: ""
-                                data_source: ""
+                                data_field: []
+                                data_format: []
+                                data_member: []
+                                data_source: []
                                 drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
@@ -2735,10 +2770,10 @@ form:
                                 help_context_id: 0
                                 hide_selection: true
                                 left: 840
-                                link_item: ""
+                                link_item: []
                                 link_mode: None
-                                link_timeout: 0
-                                link_topic: ""
+                                link_timeout: 50
+                                link_topic: []
                                 locked: false
                                 max_length: 0
                                 mouse_icon: ~
@@ -2751,8 +2786,10 @@ form:
                                 scroll_bars: None
                                 tab_index: 12
                                 tab_stop: true
-                                text: ".5"
-                                tool_tip_text: ""
+                                text:
+                                  - 46
+                                  - 53
+                                tool_tip_text: []
                                 top: 1080
                                 visible: true
                                 whats_this_help_id: 0
@@ -2779,10 +2816,10 @@ form:
                                     index: 5
                                 border_style: FixedSingle
                                 causes_validation: true
-                                data_field: ""
-                                data_format: ""
-                                data_member: ""
-                                data_source: ""
+                                data_field: []
+                                data_format: []
+                                data_member: []
+                                data_source: []
                                 drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
@@ -2793,10 +2830,10 @@ form:
                                 help_context_id: 0
                                 hide_selection: true
                                 left: 840
-                                link_item: ""
+                                link_item: []
                                 link_mode: None
-                                link_timeout: 0
-                                link_topic: ""
+                                link_timeout: 50
+                                link_topic: []
                                 locked: false
                                 max_length: 0
                                 mouse_icon: ~
@@ -2809,8 +2846,10 @@ form:
                                 scroll_bars: None
                                 tab_index: 10
                                 tab_stop: true
-                                text: ".3"
-                                tool_tip_text: ""
+                                text:
+                                  - 46
+                                  - 51
+                                tool_tip_text: []
                                 top: 720
                                 visible: true
                                 whats_this_help_id: 0
@@ -2837,10 +2876,10 @@ form:
                                     index: 5
                                 border_style: FixedSingle
                                 causes_validation: true
-                                data_field: ""
-                                data_format: ""
-                                data_member: ""
-                                data_source: ""
+                                data_field: []
+                                data_format: []
+                                data_member: []
+                                data_source: []
                                 drag_icon: ~
                                 drag_mode: Manual
                                 enabled: true
@@ -2851,10 +2890,10 @@ form:
                                 help_context_id: 0
                                 hide_selection: true
                                 left: 840
-                                link_item: ""
+                                link_item: []
                                 link_mode: None
-                                link_timeout: 0
-                                link_topic: ""
+                                link_timeout: 50
+                                link_topic: []
                                 locked: false
                                 max_length: 0
                                 mouse_icon: ~
@@ -2867,8 +2906,10 @@ form:
                                 scroll_bars: None
                                 tab_index: 8
                                 tab_stop: true
-                                text: ".7"
-                                tool_tip_text: ""
+                                text:
+                                  - 46
+                                  - 55
+                                tool_tip_text: []
                                 top: 360
                                 visible: true
                                 whats_this_help_id: 0
@@ -2892,7 +2933,7 @@ form:
                                   System:
                                     index: 5
                                 back_style: Transparent
-                                border_style: FixedSingle
+                                border_style: None
                                 caption:
                                   - 112
                                   - 40
@@ -2916,7 +2957,7 @@ form:
                                 left: 120
                                 link_item: []
                                 link_mode: None
-                                link_timeout: 0
+                                link_timeout: 50
                                 link_topic: []
                                 mouse_icon: ~
                                 mouse_pointer: Default
@@ -2949,7 +2990,7 @@ form:
                                   System:
                                     index: 5
                                 back_style: Transparent
-                                border_style: FixedSingle
+                                border_style: None
                                 caption:
                                   - 112
                                   - 40
@@ -2973,7 +3014,7 @@ form:
                                 left: 120
                                 link_item: []
                                 link_mode: None
-                                link_timeout: 0
+                                link_timeout: 50
                                 link_topic: []
                                 mouse_icon: ~
                                 mouse_pointer: Default
@@ -3006,7 +3047,7 @@ form:
                                   System:
                                     index: 5
                                 back_style: Transparent
-                                border_style: FixedSingle
+                                border_style: None
                                 caption:
                                   - 112
                                   - 40
@@ -3030,7 +3071,7 @@ form:
                                 left: 120
                                 link_item: []
                                 link_mode: None
-                                link_timeout: 0
+                                link_timeout: 50
                                 link_topic: []
                                 mouse_icon: ~
                                 mouse_pointer: Default
@@ -3063,7 +3104,7 @@ form:
                                   System:
                                     index: 5
                                 back_style: Transparent
-                                border_style: FixedSingle
+                                border_style: None
                                 caption:
                                   - 112
                                   - 40
@@ -3087,7 +3128,7 @@ form:
                                 left: 120
                                 link_item: []
                                 link_mode: None
-                                link_timeout: 0
+                                link_timeout: 50
                                 link_topic: []
                                 mouse_icon: ~
                                 mouse_pointer: Default
@@ -3121,10 +3162,10 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: true
-                data_field: ""
-                data_format: ""
-                data_member: ""
-                data_source: ""
+                data_field: []
+                data_format: []
+                data_member: []
+                data_source: []
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: true
@@ -3135,10 +3176,10 @@ form:
                 help_context_id: 0
                 hide_selection: true
                 left: 7680
-                link_item: ""
+                link_item: []
                 link_mode: None
-                link_timeout: 0
-                link_topic: ""
+                link_timeout: 50
+                link_topic: []
                 locked: false
                 max_length: 0
                 mouse_icon: ~
@@ -3151,8 +3192,63 @@ form:
                 scroll_bars: Both
                 tab_index: 3
                 tab_stop: true
-                text: ""
-                tool_tip_text: ""
+                text:
+                  - 32
+                  - 89
+                  - 111
+                  - 117
+                  - 114
+                  - 32
+                  - 72
+                  - 77
+                  - 77
+                  - 32
+                  - 97
+                  - 110
+                  - 97
+                  - 108
+                  - 121
+                  - 115
+                  - 101
+                  - 115
+                  - 32
+                  - 111
+                  - 117
+                  - 116
+                  - 112
+                  - 117
+                  - 116
+                  - 32
+                  - 119
+                  - 105
+                  - 108
+                  - 108
+                  - 32
+                  - 97
+                  - 112
+                  - 112
+                  - 101
+                  - 97
+                  - 114
+                  - 32
+                  - 105
+                  - 110
+                  - 32
+                  - 116
+                  - 104
+                  - 105
+                  - 115
+                  - 32
+                  - 116
+                  - 101
+                  - 120
+                  - 116
+                  - 32
+                  - 98
+                  - 111
+                  - 120
+                  - 10
+                tool_tip_text: []
                 top: 240
                 visible: true
                 whats_this_help_id: 0
@@ -3333,7 +3429,7 @@ form:
                             green: 192
                             blue: 192
                         back_style: Opaque
-                        border_style: FixedSingle
+                        border_style: None
                         caption:
                           - 67
                           - 117
@@ -3378,7 +3474,7 @@ form:
                         left: 3360
                         link_item: []
                         link_mode: None
-                        link_timeout: 0
+                        link_timeout: 50
                         link_topic: []
                         mouse_icon: ~
                         mouse_pointer: Default
@@ -3504,7 +3600,7 @@ form:
                 left: 120
                 link_item: []
                 link_mode: None
-                link_timeout: 0
+                link_timeout: 50
                 link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
