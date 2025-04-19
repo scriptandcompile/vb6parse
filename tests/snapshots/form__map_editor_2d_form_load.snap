@@ -67,11 +67,15 @@ form:
           - 99
           - 111
           - 109
+        client_height: 8775
+        client_left: 165
+        client_top: 450
+        client_width: 12735
         clip_controls: "True"
         control_box: true
         draw_mode: CopyPen
         draw_style: Solid
-        draw_width: 0
+        draw_width: 1
         enabled: true
         fill_color:
           RGB:
@@ -84,7 +88,7 @@ form:
           System:
             index: 18
         has_dc: true
-        height: 0
+        height: 240
         help_context_id: 0
         icon: ~
         key_preview: false
@@ -119,7 +123,7 @@ form:
         visible: true
         whats_this_button: false
         whats_this_help: false
-        width: 0
+        width: 240
         window_state: Normal
       controls:
         - name:
@@ -194,14 +198,14 @@ form:
                 enabled: true
                 height: 255
                 help_context_id: 0
-                large_change: 0
+                large_change: 1
                 left: 120
-                max: 0
+                max: 32767
                 min: 0
                 mouse_icon: ~
                 mouse_pointer: Default
                 right_to_left: false
-                small_change: 0
+                small_change: 1
                 tab_index: 6
                 tab_stop: true
                 top: 8400
@@ -227,14 +231,14 @@ form:
                 enabled: true
                 height: 6735
                 help_context_id: 0
-                large_change: 0
+                large_change: 1
                 left: 12360
-                max: 0
+                max: 32767
                 min: 0
                 mouse_icon: ~
                 mouse_pointer: Default
                 right_to_left: false
-                small_change: 0
+                small_change: 1
                 tab_index: 5
                 tab_stop: true
                 top: 1560
@@ -263,14 +267,14 @@ form:
                 enabled: true
                 height: 255
                 help_context_id: 0
-                large_change: 0
+                large_change: 1
                 left: 120
                 max: 5
                 min: 0
                 mouse_icon: ~
                 mouse_pointer: Default
                 right_to_left: false
-                small_change: 0
+                small_change: 1
                 tab_index: 4
                 tab_stop: true
                 top: 1200
@@ -312,7 +316,7 @@ form:
                 drag_mode: Manual
                 draw_mode: CopyPen
                 draw_style: Solid
-                draw_width: 0
+                draw_width: 1
                 enabled: true
                 fill_color:
                   RGB:
@@ -330,7 +334,7 @@ form:
                 left: 120
                 link_item: []
                 link_mode: None
-                link_timeout: 0
+                link_timeout: 50
                 link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
@@ -389,7 +393,7 @@ form:
                 drag_mode: Manual
                 draw_mode: CopyPen
                 draw_style: Solid
-                draw_width: 0
+                draw_width: 1
                 enabled: true
                 fill_color:
                   RGB:
@@ -407,7 +411,7 @@ form:
                 left: 0
                 link_item: []
                 link_mode: None
-                link_timeout: 0
+                link_timeout: 50
                 link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
@@ -456,7 +460,7 @@ form:
                 drag_mode: Manual
                 draw_mode: CopyPen
                 draw_style: Solid
-                draw_width: 0
+                draw_width: 1
                 enabled: true
                 fill_color:
                   RGB:
@@ -474,7 +478,7 @@ form:
                 left: 0
                 link_item: []
                 link_mode: None
-                link_timeout: 0
+                link_timeout: 50
                 link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default
@@ -528,7 +532,7 @@ form:
                 drag_mode: Manual
                 draw_mode: CopyPen
                 draw_style: Solid
-                draw_width: 0
+                draw_width: 1
                 enabled: true
                 fill_color:
                   RGB:
@@ -546,7 +550,7 @@ form:
                 left: 120
                 link_item: []
                 link_mode: None
-                link_timeout: 0
+                link_timeout: 50
                 link_topic: []
                 mouse_icon: ~
                 mouse_pointer: Default

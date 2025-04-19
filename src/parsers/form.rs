@@ -224,36 +224,21 @@ pub fn resource_file_resolver<'a>(
         ));
     }
 
-    // The offset is valid, so we can read the 12 bytes of the header.
-    let header_start = offset as usize;
-    let header_end = header_start + 12;
-    if header_end > buffer.len() {
-        return Err(std::io::Error::new(
-            std::io::ErrorKind::InvalidInput,
-            format!(
-                "Header for resource file {} is out of bounds: {}-{}",
-                file_path, header_start, header_end
-            ),
-        ));
-    }
-    let header = &buffer[header_start..header_end];
-
-    // The header is 12 bytes long, and the last 4 bytes are the size of the record.
-    let record_size = u32::from_le_bytes(header[8..12].try_into().unwrap()) as usize;
-
-    // Check if the record size is valid.
-    if record_size < 12 || record_size + header_start > buffer.len() {
-        return Err(std::io::Error::new(
-            std::io::ErrorKind::InvalidInput,
-            format!(
-                "Invalid record size {} for resource file {} at offset {}",
-                record_size, file_path, offset
-            ),
-        ));
-    }
+    let (header_size, record_size) = if buffer[offset as usize] == 0xFF {
+        (
+            2,
+            u16::from_le_bytes(buffer[1..2].try_into().unwrap()) as usize,
+        )
+    } else {
+        (
+            1,
+            u8::from_le_bytes(buffer[0..1].try_into().unwrap()) as usize,
+        )
+    };
 
     // Read the record data.
-    let record_data = &buffer[header_start..header_start + record_size];
+    let record_data = &buffer[(header_size + offset as usize)..(offset as usize + record_size)];
+
     // Return the record data as a vector of bytes.
     Ok(record_data.to_vec())
 }
@@ -374,12 +359,11 @@ fn control_parse<'a>(
             if let Ok((name, resource_file, offset)) =
                 key_resource_offset_line_parse.parse_next(input)
             {
-                let resource = match resource_resolver(
-                    Path::join(parent_folder, resource_file.to_string())
-                        .to_string_lossy()
-                        .to_string(),
-                    offset,
-                ) {
+                let resource_path = Path::join(parent_folder, resource_file.to_string())
+                    .to_string_lossy()
+                    .to_string();
+
+                let resource = match resource_resolver(resource_path, offset) {
                     Ok(res) => res,
                     Err(err) => {
                         return Err(ErrMode::Cut(VB6ErrorKind::ResourceFile(err)));
