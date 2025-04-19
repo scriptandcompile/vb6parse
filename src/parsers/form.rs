@@ -1,6 +1,6 @@
-use std::collections::HashMap;
 use std::fmt::Debug;
 use std::vec::Vec;
+use std::{collections::HashMap, path::Path};
 
 use bstr::{BStr, BString, ByteSlice};
 use either::Either;
@@ -75,11 +75,13 @@ impl Serialize for VB6PropertyGroup {
 }
 
 impl<'a> VB6FormFile<'a> {
-    /// Parses a VB6 form file from a byte slice.
+    /// Parses a VB6 form file from a byte slice using the selected resource_file_resolver.
     ///
     /// # Arguments
     ///
+    /// * `file_name` The name of the file being parsed.
     /// * `input` The byte slice to parse.
+    /// * `resource_resolver` A function that resolves resource files based on their name and offset.
     ///
     /// # Returns
     ///
@@ -126,17 +128,17 @@ impl<'a> VB6FormFile<'a> {
     /// Attribute VB_Name = \"frmExampleForm\"\r
     /// ";
     ///
-    /// let result = VB6FormFile::parse("form_parse.frm".to_owned(), &mut input.as_ref(), resource_file_resolver);
+    /// let result = VB6FormFile::parse_with_resolver("form_parse.frm".to_owned(), &mut input.as_ref(), resource_file_resolver);
     ///
     ///
     /// assert!(result.is_ok());
     /// ```
-    pub fn parse(
-        file_name: String,
+    pub fn parse_with_resolver(
+        form_path: String,
         input: &'a [u8],
         resource_resolver: impl Fn(String, u32) -> Result<Vec<u8>, std::io::Error>,
     ) -> Result<Self, VB6Error> {
-        let mut input = VB6Stream::new(file_name, input);
+        let mut input = VB6Stream::new(form_path, input);
 
         let format_version = match version_parse(HeaderKind::Form).parse_next(&mut input) {
             Ok(version) => version,
@@ -176,19 +178,84 @@ impl<'a> VB6FormFile<'a> {
             tokens,
         })
     }
+
+    pub fn parse(form_path: String, input: &'a [u8]) -> Result<Self, VB6Error> {
+        VB6FormFile::parse_with_resolver(form_path, input, resource_file_resolver)
+    }
 }
 
 pub fn resource_file_resolver<'a>(
-    filename: String,
-    _offset: u32,
+    file_path: String,
+    offset: u32,
 ) -> Result<Vec<u8>, std::io::Error> {
-    // This is a stub for the resource file resolver.
-    // In a real implementation, this function would look up the resource file
-    // based on the filename and offset provided.
-    Err(std::io::Error::new(
-        std::io::ErrorKind::NotFound,
-        format!("Resource file not found: {}", filename),
-    ))
+    // VB6 FRX files are resource files that contain binary data for controls, forms, and other UI elements.
+    // They are typically used in conjunction with VB6 FRM files.
+    // The overall format of a VB6 FRX file is not well documented, but it generally consists of a
+    // 12 byte header per record, followed by the binary data for the control or form. There
+    // is no overall header for the FRX file itself, and the records are not necessarily in any
+    // particular order.
+    //
+    // The last 4 bytes of the record header is the size of the record, which is used to
+    // determine how many bytes to read for the record.
+    //
+    // worse, the records can be of variable length, so we cannot just read a fixed number of bytes
+    // from the file. Instead, we need to parse the file record by record, looking for the specific
+    // records that we are interested in from the frm offset.
+
+    // load the bytes from the frx file.
+    let buffer = match std::fs::read(&file_path) {
+        Ok(bytes) => bytes,
+        Err(err) => {
+            return Err(std::io::Error::new(
+                std::io::ErrorKind::NotFound,
+                format!("Failed to read resource file {}: {}", file_path, err),
+            ));
+        }
+    };
+
+    // Check if the offset is within the bounds of the file.
+    if offset as usize >= buffer.len() {
+        return Err(std::io::Error::new(
+            std::io::ErrorKind::InvalidInput,
+            format!(
+                "Offset {} is out of bounds for resource file {}",
+                offset, file_path
+            ),
+        ));
+    }
+
+    // The offset is valid, so we can read the 12 bytes of the header.
+    let header_start = offset as usize;
+    let header_end = header_start + 12;
+    if header_end > buffer.len() {
+        return Err(std::io::Error::new(
+            std::io::ErrorKind::InvalidInput,
+            format!(
+                "Header for resource file {} is out of bounds: {}-{}",
+                file_path, header_start, header_end
+            ),
+        ));
+    }
+    let header = &buffer[header_start..header_end];
+
+    // The header is 12 bytes long, and the last 4 bytes are the size of the record.
+    let record_size = u32::from_le_bytes(header[8..12].try_into().unwrap()) as usize;
+
+    // Check if the record size is valid.
+    if record_size < 12 || record_size + header_start > buffer.len() {
+        return Err(std::io::Error::new(
+            std::io::ErrorKind::InvalidInput,
+            format!(
+                "Invalid record size {} for resource file {} at offset {}",
+                record_size, file_path, offset
+            ),
+        ));
+    }
+
+    // Read the record data.
+    let record_data = &buffer[header_start..header_start + record_size];
+    // Return the record data as a vector of bytes.
+    Ok(record_data.to_vec())
 }
 
 fn form_object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6ObjectReference<'a>>> {
@@ -224,6 +291,9 @@ fn control_parse<'a>(
     resource_resolver: impl Fn(String, u32) -> Result<Vec<u8>, std::io::Error>,
 ) -> impl FnMut(&mut VB6Stream<'a>) -> VB6Result<VB6Control> {
     move |input: &mut VB6Stream<'a>| -> VB6Result<VB6Control> {
+        let file_path = input.file_path.clone();
+        let parent_folder = Path::new(&file_path).parent().unwrap_or(Path::new(""));
+
         let mut fully_qualified_name = property_parse.parse_next(input)?;
 
         let mut current_control_block = ControlBlock {
@@ -304,7 +374,12 @@ fn control_parse<'a>(
             if let Ok((name, resource_file, offset)) =
                 key_resource_offset_line_parse.parse_next(input)
             {
-                let resource = match resource_resolver(resource_file.to_string(), offset) {
+                let resource = match resource_resolver(
+                    Path::join(parent_folder, resource_file.to_string())
+                        .to_string_lossy()
+                        .to_string(),
+                    offset,
+                ) {
                     Ok(res) => res,
                     Err(err) => {
                         return Err(ErrMode::Cut(VB6ErrorKind::ResourceFile(err)));
@@ -741,11 +816,7 @@ End\r
 Attribute VB_Name = \"Form_Main\"\r
 ";
 
-        let result = VB6FormFile::parse(
-            "form_parse.frm".to_owned(),
-            input.as_bytes(),
-            resource_file_resolver,
-        );
+        let result = VB6FormFile::parse("form_parse.frm".to_owned(), input.as_bytes());
 
         assert!(result.is_ok());
 
@@ -873,11 +944,7 @@ End\r
 Attribute VB_Name = \"FormMainMode\"\r
 ";
 
-        let result = VB6FormFile::parse(
-            "form_parse.frm".to_owned(),
-            input.as_bytes(),
-            resource_file_resolver,
-        );
+        let result = VB6FormFile::parse("form_parse.frm".to_owned(), input.as_bytes());
 
         assert!(matches!(
             result.err().unwrap().kind,
@@ -922,11 +989,7 @@ Attribute VB_Name = \"FormMainMode\"\r
     Attribute VB_Name = \"frmExampleForm\"\r
     ";
 
-        let result = VB6FormFile::parse(
-            "form_parse.frm".to_owned(),
-            &mut input.as_ref(),
-            resource_file_resolver,
-        );
+        let result = VB6FormFile::parse("form_parse.frm".to_owned(), &mut input.as_ref());
 
         assert!(result.is_ok());
 

@@ -1,4 +1,5 @@
 use std::fmt::{Debug, Display, Formatter};
+use std::path::Path;
 
 use winnow::{
     error::{ContextError, ParseError, ParserError},
@@ -64,6 +65,9 @@ pub enum VB6ErrorKind {
 
     #[error("Resource file parsing error")]
     ResourceFile(#[from] std::io::Error),
+
+    #[error("Error reading the source file")]
+    SourceFileError(std::io::Error),
 
     #[error("The file contains more than a significant number of non-ASCII characters. This file was likely saved in a non-English character set. The vb6parse crate currently does not support non-english vb6 files.")]
     LikelyNonEnglishCharacterSet,
@@ -341,7 +345,16 @@ pub struct VB6Error {
 impl VB6Error {
     #[must_use]
     pub fn new(input: &VB6Stream, kind: VB6ErrorKind) -> Self {
-        let file_name = input.file_name.clone();
+        // Get the file name from the file path in the input stream.
+
+        // If the file path is empty, use "unknown" as a placeholder.
+        // This is useful for errors that occur in the input stream
+        // that do not have a file path associated with them.
+        let file_name = Path::new(&input.file_path)
+            .file_name()
+            .map(|name| name.to_string_lossy().to_string())
+            .unwrap_or_else(|| "unknown".to_string());
+
         let source_code = input.stream.to_string();
         let source_offset = input.index;
         let column = input.column;
@@ -353,6 +366,18 @@ impl VB6Error {
             source_offset,
             column,
             line_number,
+            kind,
+        }
+    }
+
+    #[must_use]
+    pub fn new_without_stream(kind: VB6ErrorKind) -> Self {
+        VB6Error {
+            file_name: "unknown".to_string(),
+            source_code: String::new(),
+            source_offset: 0,
+            column: 0,
+            line_number: 0,
             kind,
         }
     }
