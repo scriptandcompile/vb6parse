@@ -74,6 +74,108 @@ impl Serialize for VB6PropertyGroup {
     }
 }
 
+pub fn resource_file_resolver<'a>(
+    file_path: String,
+    offset: usize,
+) -> Result<Vec<u8>, std::io::Error> {
+    // VB6 FRX files are resource files that contain binary data for controls, forms, and other UI elements.
+    // They are typically used in conjunction with VB6 FRM files.
+    // The overall format of a VB6 FRX file is not well documented, but it generally consists of a
+    // header per record, followed by the binary data for the control or form. There
+    // is no overall header for the FRX file itself, and the records are not necessarily in any
+    // particular order.
+    //
+    // The records can be of variable length, so we cannot just read a fixed number of bytes
+    // from the file. Instead, we need to parse the file record by record, looking for the specific
+    // records that we are interested in from the frm offset.
+
+    // load the bytes from the frx file.
+    let buffer = match std::fs::read(&file_path) {
+        Ok(bytes) => bytes,
+        Err(err) => {
+            return Err(std::io::Error::new(
+                std::io::ErrorKind::NotFound,
+                format!("Failed to read resource file {}: {}", file_path, err),
+            ));
+        }
+    };
+
+    // Check if the offset is within the bounds of the file.
+    if offset as usize >= buffer.len() {
+        return Err(std::io::Error::new(
+            std::io::ErrorKind::InvalidInput,
+            format!(
+                "Offset {} is out of bounds for resource file {}",
+                offset, file_path
+            ),
+        ));
+    }
+
+    let (record_start, record_end) = if buffer[offset as usize] == 0xFF {
+        // If the first byte of the record is 0xFF, then the record is a 16-bit record.
+
+        // it's a bit excessive to lay out the record size offset/ length/end, but it makes it easier to read.
+        let header_size_element_offset = offset + 1;
+        let header_size_element_length = 2 as usize;
+        let header_size_element_end = header_size_element_offset + header_size_element_length;
+
+        let header_size_element_bytes = buffer[header_size_element_offset..header_size_element_end]
+            .try_into()
+            .unwrap();
+        let mut record_size =
+            u16::from_le_bytes(header_size_element_bytes) as usize - header_size_element_length;
+
+        // Unfortunately, vb6 has this goofy way of handling small resource files where if you
+        // only have a single short record, it will not include the last byte in the record.
+        // This almost only ever happens with string resources.
+        // It will indicate that the record is, say, 56 bytes long, when in fact, it's only
+        // 55. This usually means that instead of ending on a \r\n, it will end on a \r.
+        // This is a bit of a hack, but we need to check if the record size is greater than the
+        // buffer length, and if so, we need to subtract 1 from the record size.
+        if record_size > buffer.len() {
+            record_size -= 1;
+        }
+
+        let record_offset = header_size_element_offset + header_size_element_length;
+
+        (record_offset, record_offset + record_size)
+    } else {
+        // If the first byte of the record is not 0xFF, then the record is likely an 8-bit record.
+        // It's a bit excessive to lay out the record size offset/ length/end, but it makes it easier to read.
+        let header_size_element_offset = offset;
+        let header_size_element_length = 1;
+        let header_size_element_end = header_size_element_offset + header_size_element_length;
+
+        let header_size_element_bytes = buffer[header_size_element_offset..header_size_element_end]
+            .try_into()
+            .unwrap();
+
+        let mut record_size =
+            u8::from_le_bytes(header_size_element_bytes) as usize - header_size_element_length;
+
+        // Unfortunately, vb6 has this goofy way of handling small resource files where if you
+        // only have a single short record, it will not include the last byte in the record.
+        // This almost only ever happens with string resources.
+        // It will indicate that the record is, say, 56 bytes long, when in fact, it's only
+        // 55. This usually means that instead of ending on a \r\n, it will end on a \r.
+        // This is a bit of a hack, but we need to check if the record size is greater than the
+        // buffer length, and if so, we need to subtract 1 from the record size.
+        if record_size > buffer.len() {
+            record_size -= 1;
+        }
+
+        let record_offset = header_size_element_offset + header_size_element_length;
+
+        (record_offset, record_offset + record_size)
+    };
+
+    // Read the record data.
+    let record_data = &buffer[record_start..record_end];
+
+    // Return the record data as a vector of bytes.
+    Ok(record_data.to_vec())
+}
+
 impl<'a> VB6FormFile<'a> {
     /// Parses a VB6 form file from a byte slice using the selected resource_file_resolver.
     ///
@@ -95,6 +197,7 @@ impl<'a> VB6FormFile<'a> {
     ///
     /// ```rust
     /// use vb6parse::parsers::VB6FormFile;
+    /// use vb6parse::parsers::resource_file_resolver;
     ///
     /// let input = b"VERSION 5.00\r
     /// Begin VB.Form frmExampleForm\r
@@ -136,7 +239,7 @@ impl<'a> VB6FormFile<'a> {
     pub fn parse_with_resolver(
         form_path: String,
         input: &'a [u8],
-        resource_resolver: impl Fn(String, u32) -> Result<Vec<u8>, std::io::Error>,
+        resource_resolver: impl Fn(String, usize) -> Result<Vec<u8>, std::io::Error>,
     ) -> Result<Self, VB6Error> {
         let mut input = VB6Stream::new(form_path, input);
 
@@ -184,65 +287,6 @@ impl<'a> VB6FormFile<'a> {
     }
 }
 
-pub fn resource_file_resolver<'a>(
-    file_path: String,
-    offset: u32,
-) -> Result<Vec<u8>, std::io::Error> {
-    // VB6 FRX files are resource files that contain binary data for controls, forms, and other UI elements.
-    // They are typically used in conjunction with VB6 FRM files.
-    // The overall format of a VB6 FRX file is not well documented, but it generally consists of a
-    // 12 byte header per record, followed by the binary data for the control or form. There
-    // is no overall header for the FRX file itself, and the records are not necessarily in any
-    // particular order.
-    //
-    // The last 4 bytes of the record header is the size of the record, which is used to
-    // determine how many bytes to read for the record.
-    //
-    // worse, the records can be of variable length, so we cannot just read a fixed number of bytes
-    // from the file. Instead, we need to parse the file record by record, looking for the specific
-    // records that we are interested in from the frm offset.
-
-    // load the bytes from the frx file.
-    let buffer = match std::fs::read(&file_path) {
-        Ok(bytes) => bytes,
-        Err(err) => {
-            return Err(std::io::Error::new(
-                std::io::ErrorKind::NotFound,
-                format!("Failed to read resource file {}: {}", file_path, err),
-            ));
-        }
-    };
-
-    // Check if the offset is within the bounds of the file.
-    if offset as usize >= buffer.len() {
-        return Err(std::io::Error::new(
-            std::io::ErrorKind::InvalidInput,
-            format!(
-                "Offset {} is out of bounds for resource file {}",
-                offset, file_path
-            ),
-        ));
-    }
-
-    let (header_size, record_size) = if buffer[offset as usize] == 0xFF {
-        (
-            2,
-            u16::from_le_bytes(buffer[1..2].try_into().unwrap()) as usize,
-        )
-    } else {
-        (
-            1,
-            u8::from_le_bytes(buffer[0..1].try_into().unwrap()) as usize,
-        )
-    };
-
-    // Read the record data.
-    let record_data = &buffer[(header_size + offset as usize)..(offset as usize + record_size)];
-
-    // Return the record data as a vector of bytes.
-    Ok(record_data.to_vec())
-}
-
 fn form_object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6ObjectReference<'a>>> {
     let mut objects = vec![];
 
@@ -273,7 +317,7 @@ struct ControlBlock<'a> {
 }
 
 fn control_parse<'a>(
-    resource_resolver: impl Fn(String, u32) -> Result<Vec<u8>, std::io::Error>,
+    resource_resolver: impl Fn(String, usize) -> Result<Vec<u8>, std::io::Error>,
 ) -> impl FnMut(&mut VB6Stream<'a>) -> VB6Result<VB6Control> {
     move |input: &mut VB6Stream<'a>| -> VB6Result<VB6Control> {
         let file_path = input.file_path.clone();
@@ -363,7 +407,7 @@ fn control_parse<'a>(
                     .to_string_lossy()
                     .to_string();
 
-                let resource = match resource_resolver(resource_path, offset) {
+                let resource = match resource_resolver(resource_path, offset as usize) {
                     Ok(res) => res,
                     Err(err) => {
                         return Err(ErrMode::Cut(VB6ErrorKind::ResourceFile(err)));

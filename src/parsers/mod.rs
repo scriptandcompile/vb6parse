@@ -19,7 +19,7 @@ pub use compilesettings::{
     BoundsCheck, CompilationType, FloatingPointErrorCheck, OverflowCheck, PentiumFDivBugCheck,
     UnroundedFloatingPoint,
 };
-pub use form::VB6FormFile;
+pub use form::{resource_file_resolver, VB6FormFile};
 pub use header::VB6FileAttributes;
 pub use module::VB6ModuleFile;
 
