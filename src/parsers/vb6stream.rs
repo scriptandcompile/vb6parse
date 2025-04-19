@@ -17,7 +17,7 @@ use crate::errors::{VB6Error, VB6ErrorKind};
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Default)]
 pub struct VB6Stream<'a> {
-    pub file_name: String,
+    pub file_path: String,
     pub stream: &'a bstr::BStr,
     pub index: usize,
     pub line_number: usize,
@@ -44,9 +44,9 @@ impl Offset<VB6StreamCheckpoint> for VB6Stream<'_> {
 
 impl<'a> VB6Stream<'a> {
     #[must_use]
-    pub fn new(file_name: impl Into<String>, stream: &'a [u8]) -> Self {
+    pub fn new(file_path: impl Into<String>, stream: &'a [u8]) -> Self {
         Self {
-            file_name: file_name.into(),
+            file_path: file_path.into(),
             stream: stream.as_bstr(),
             index: 0,
             line_number: 1,
