@@ -111,10 +111,10 @@ pub fn resource_file_resolver<'a>(
         ));
     }
 
-    let (record_start, record_end) = if buffer[offset as usize] == 0xFF {
+    if buffer[offset as usize] == 0xFF {
         // If the first byte of the record is 0xFF, then the record is a 16-bit record.
 
-        // it's a bit excessive to lay out the record size offset/ length/end, but it makes it easier to read.
+        // it's a bit excessive to lay out the record size offset/length/end, but it makes it easier to read.
         let header_size_element_offset = offset + 1;
         let header_size_element_length = 2 as usize;
         let header_size_element_end = header_size_element_offset + header_size_element_length;
@@ -122,8 +122,7 @@ pub fn resource_file_resolver<'a>(
         let header_size_element_bytes = buffer[header_size_element_offset..header_size_element_end]
             .try_into()
             .unwrap();
-        let mut record_size =
-            u16::from_le_bytes(header_size_element_bytes) as usize - header_size_element_length;
+        let mut record_size = u16::from_le_bytes(header_size_element_bytes) as usize;
 
         // Unfortunately, vb6 has this goofy way of handling small resource files where if you
         // only have a single short record, it will not include the last byte in the record.
@@ -132,42 +131,91 @@ pub fn resource_file_resolver<'a>(
         // 55. This usually means that instead of ending on a \r\n, it will end on a \r.
         // This is a bit of a hack, but we need to check if the record size is greater than the
         // buffer length, and if so, we need to subtract 1 from the record size.
-        if record_size > buffer.len() {
+        //
+        // This is an off by one error in the IDE and almost always results in a string resource
+        // that is missing the last byte.
+        if header_size_element_offset + record_size > buffer.len() {
             record_size -= 1;
         }
 
         let record_offset = header_size_element_offset + header_size_element_length;
 
-        (record_offset, record_offset + record_size)
-    } else {
-        // If the first byte of the record is not 0xFF, then the record is likely an 8-bit record.
-        // It's a bit excessive to lay out the record size offset/ length/end, but it makes it easier to read.
-        let header_size_element_offset = offset;
-        let header_size_element_length = 1;
-        let header_size_element_end = header_size_element_offset + header_size_element_length;
+        println!(
+            "Double byte header: record start: {}, record end: {}",
+            record_offset,
+            record_offset + record_size,
+        );
 
-        let header_size_element_bytes = buffer[header_size_element_offset..header_size_element_end]
-            .try_into()
-            .unwrap();
+        let (record_start, record_end) = (record_offset, record_offset + record_size);
+        let record_data = &buffer[record_start..record_end];
 
-        let mut record_size =
-            u8::from_le_bytes(header_size_element_bytes) as usize - header_size_element_length;
+        println!(
+            "Resource file: {}, offset: {}, record data: {:?}",
+            file_path,
+            offset,
+            record_data.as_bstr().to_str_lossy()
+        );
 
-        // Unfortunately, vb6 has this goofy way of handling small resource files where if you
-        // only have a single short record, it will not include the last byte in the record.
-        // This almost only ever happens with string resources.
-        // It will indicate that the record is, say, 56 bytes long, when in fact, it's only
-        // 55. This usually means that instead of ending on a \r\n, it will end on a \r.
-        // This is a bit of a hack, but we need to check if the record size is greater than the
-        // buffer length, and if so, we need to subtract 1 from the record size.
-        if record_size > buffer.len() {
-            record_size -= 1;
+        println!();
+
+        return Ok(record_data.to_vec());
+    }
+
+    if buffer.len() >= 12 && buffer[4..8].iter().as_slice() == b"lt\0\0" {
+        // this is almost certainly a 12 byte header (0-12) where the first 4 bytes
+        // is the offset of the record from the end of the signature (exclusive).
+        // the next 4 bytes is the magic signature b"lt\0\0".
+        // The next four bytes after the 12 byte record heading should be
+        // the size of the record from the start of the record buffer.
+        // which should be 8 less than the record size from the start of the header.
+
+        let buffer_size_1 = u32::from_le_bytes(buffer[0..4].try_into().unwrap()) as usize;
+        // the next 4 bytes after the 12 byte record heading should be
+        // the size of the record from the start of the record buffer.
+        // which should be 8 less than the record size from the start of the header.
+        let buffer_size_2 = u32::from_le_bytes(buffer[8..12].try_into().unwrap()) as usize;
+
+        if buffer_size_1 == 8 && buffer_size_2 == 0 {
+            // This is a special case where the record is empty.
+            // We can just return an empty vector.
+            // This usually is the case when someone adds an icon to the form
+            // then later removes it.
+
+            return Ok(vec![]);
         }
 
-        let record_offset = header_size_element_offset + header_size_element_length;
+        // we subtract 8 since the offset is zero index based.
+        if buffer_size_2 != buffer_size_1 - 8 {
+            return Err(std::io::Error::new(
+                    std::io::ErrorKind::InvalidData,
+                    format!(
+                        "Record size from start of record buffer does not match record size from header: {} != {}. This likely indicates a corrupted resource file.",
+                        // We subtract 8 since the record header is 8 bytes (4 for initial size, 4 for magic signature).
+                        // the next four bytes is the confirmation buffer size (which brings the total header size to 12).
+                        buffer_size_2, buffer_size_1 - 8
+                    ),
+                ));
+        }
 
-        (record_offset, record_offset + record_size)
-    };
+        let header_size = 12;
+        // The record start is the header size element offset + the header size element length.
+        let record_start = offset + header_size;
+        let record_end = record_start + buffer_size_2;
+
+        // Read the record data.
+        let record_data = &buffer[record_start..record_end];
+
+        // Return the record data as a vector of bytes.
+        return Ok(record_data.to_vec());
+    }
+
+    // If the first byte of the record is not 0xFF, then the record is likely an 8-bit record.
+    // It's a bit excessive to lay out the record size offset/ length/end, but it makes it easier to read.
+    let header_size = 1; // 1 byte header size element.
+    let record_size = buffer[offset] as usize - header_size;
+    let record_start = offset + header_size;
+
+    let record_end = record_start + record_size;
 
     // Read the record data.
     let record_data = &buffer[record_start..record_end];
