@@ -161,7 +161,7 @@ pub fn resource_file_resolver<'a>(
         return Ok(record_data.to_vec());
     }
 
-    if buffer.len() >= 12 && buffer[4..8].iter().as_slice() == b"lt\0\0" {
+    if buffer.len() >= 12 && buffer[(offset + 4)..(offset + 8)].iter().as_slice() == b"lt\0\0" {
         // this is almost certainly a 12 byte header (0-12) where the first 4 bytes
         // is the offset of the record from the end of the signature (exclusive).
         // the next 4 bytes is the magic signature b"lt\0\0".
@@ -169,11 +169,13 @@ pub fn resource_file_resolver<'a>(
         // the size of the record from the start of the record buffer.
         // which should be 8 less than the record size from the start of the header.
 
-        let buffer_size_1 = u32::from_le_bytes(buffer[0..4].try_into().unwrap()) as usize;
+        let buffer_size_1 =
+            u32::from_le_bytes(buffer[(offset + 0)..(offset + 4)].try_into().unwrap()) as usize;
         // the next 4 bytes after the 12 byte record heading should be
         // the size of the record from the start of the record buffer.
         // which should be 8 less than the record size from the start of the header.
-        let buffer_size_2 = u32::from_le_bytes(buffer[8..12].try_into().unwrap()) as usize;
+        let buffer_size_2 =
+            u32::from_le_bytes(buffer[(offset + 8)..(offset + 12)].try_into().unwrap()) as usize;
 
         if buffer_size_1 == 8 && buffer_size_2 == 0 {
             // This is a special case where the record is empty.
@@ -206,6 +208,26 @@ pub fn resource_file_resolver<'a>(
         let record_data = &buffer[record_start..record_end];
 
         // Return the record data as a vector of bytes.
+        return Ok(record_data.to_vec());
+    }
+
+    // If the first byte of the record is not 0xFF, then the record is likely a 4 byte header record.
+    // check if we have any null bytes in the first 4 bytes of the record.
+    // this probably indicates that the record is a 4 byte header record.
+    if buffer.len() >= 12 && buffer[(offset)..(offset + 4)].contains(&0u8) {
+        // this looks like a 4 byte header (0-4) where the 4 bytes
+        // is the size of the record from the start of the record + header.
+
+        // often, this is what is used when we have a larger chunk of text data.
+
+        let header_size = 4;
+        let record_size =
+            u32::from_le_bytes(buffer[(offset)..(offset + 4)].try_into().unwrap()) as usize;
+
+        let record_start = offset + header_size;
+        let record_end = record_start + record_size;
+        let record_data = &buffer[record_start..record_end];
+
         return Ok(record_data.to_vec());
     }
 
