@@ -35,12 +35,12 @@ fn audiostation_about_frx_load() {
         Err(e) => panic!("Failed to resolve resource file: {}", e),
     };
 
-    assert!(matches!(about_icon.len(), 0));
-    assert!(matches!(about_picture.len(), 775));
-    assert!(matches!(label6_caption.len(), 141));
-    assert!(matches!(label4_caption.len(), 299));
+    assert_eq!(about_icon.len(), 0);
+    assert_eq!(about_picture.len(), 775);
+    assert_eq!(label6_caption.len(), 141);
+    assert_eq!(label4_caption.len(), 299);
 
-    assert_eq!(about_icon, resource_file_bytes[0..(0 + 0)].to_vec());
+    assert_eq!(about_icon, resource_file_bytes[12..(12 + 0)].to_vec());
     assert_eq!(about_picture, resource_file_bytes[24..(24 + 775)].to_vec());
     assert_eq!(
         label6_caption,
@@ -50,4 +50,22 @@ fn audiostation_about_frx_load() {
         label4_caption,
         resource_file_bytes[948..(948 + 299)].to_vec()
     );
+}
+
+#[test]
+fn audiostation_busy_frx_load() {
+    let resource_file_bytes =
+        include_bytes!("./data/audiostation/Audiostation/src/Forms/Form_Busy.frx");
+
+    let busy_icon = match vb6parse::parsers::resource_file_resolver(
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Busy.frx".to_owned(),
+        0x00,
+    ) {
+        Ok(busy_icon) => busy_icon,
+        Err(e) => panic!("Failed to resolve resource file: {}", e),
+    };
+
+    assert_eq!(busy_icon.len(), 0);
+
+    assert_eq!(busy_icon, resource_file_bytes[12..(12 + 0)].to_vec());
 }
