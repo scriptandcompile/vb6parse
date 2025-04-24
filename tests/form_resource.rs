@@ -2329,3 +2329,28 @@ fn audiostation_main_frx_load() {
         elements_diabled_image_list_image7_picture_buffer
     );
 }
+
+#[test]
+fn audiostation_normalize_frx_load() {
+    let resource_file_bytes =
+        include_bytes!("./data/audiostation/Audiostation/src/Forms/Form_Normalize.frx");
+
+    let normalize_icon_offset = 0x00;
+    let normalize_icon_header_size = 12;
+    let normalize_icon_buffer_size = 0;
+    let normalize_icon_buffer_start = normalize_icon_offset + normalize_icon_header_size;
+    let normalize_icon_buffer_end = normalize_icon_buffer_start + normalize_icon_buffer_size;
+    let normalize_icon_buffer =
+        resource_file_bytes[normalize_icon_buffer_start..normalize_icon_buffer_end].to_vec();
+
+    let normalize_icon = match vb6parse::parsers::resource_file_resolver(
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Normalize.frx".to_owned(),
+        normalize_icon_offset,
+    ) {
+        Ok(normalize_icon) => normalize_icon,
+        Err(e) => panic!("Failed to resolve resource file: {}", e),
+    };
+
+    assert_eq!(normalize_icon.len(), normalize_icon_buffer_size);
+    assert_eq!(normalize_icon, normalize_icon_buffer);
+}
