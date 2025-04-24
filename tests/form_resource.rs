@@ -3,9 +3,41 @@ fn audiostation_about_frx_load() {
     let resource_file_bytes =
         include_bytes!("./data/audiostation/Audiostation/src/Forms/Form_About.frx");
 
+    let about_icon_offset = 0x00;
+    let about_icon_header_size = 12;
+    let about_icon_buffer_size = 0;
+    let about_icon_buffer_start = about_icon_offset + about_icon_header_size;
+    let about_icon_buffer_end = about_icon_buffer_start + about_icon_buffer_size;
+    let about_icon_buffer =
+        resource_file_bytes[about_icon_buffer_start..about_icon_buffer_end].to_vec();
+
+    let about_picture_offset = 0x0C;
+    let about_picture_header_size = 12;
+    let about_picture_buffer_size = 775;
+    let about_picture_buffer_start = about_picture_offset + about_picture_header_size;
+    let about_picture_buffer_end = about_picture_buffer_start + about_picture_buffer_size;
+    let about_picture_buffer =
+        resource_file_bytes[about_picture_buffer_start..about_picture_buffer_end].to_vec();
+
+    let label6_caption_offset = 0x031F;
+    let label6_caption_header_size = 4;
+    let label6_caption_buffer_size = 141;
+    let label6_caption_buffer_start = label6_caption_offset + label6_caption_header_size;
+    let label6_caption_buffer_end = label6_caption_buffer_start + label6_caption_buffer_size;
+    let label6_caption_buffer =
+        resource_file_bytes[label6_caption_buffer_start..label6_caption_buffer_end].to_vec();
+
+    let label4_caption_offset = 0x03B0;
+    let label4_caption_header_size = 4;
+    let label4_caption_buffer_size = 299;
+    let label4_caption_buffer_start = label4_caption_offset + label4_caption_header_size;
+    let label4_caption_buffer_end = label4_caption_buffer_start + label4_caption_buffer_size;
+    let label4_caption_buffer =
+        resource_file_bytes[label4_caption_buffer_start..label4_caption_buffer_end].to_vec();
+
     let about_icon = match vb6parse::parsers::resource_file_resolver(
         "./tests/data/audiostation/Audiostation/src/Forms/Form_About.frx".to_owned(),
-        0x00,
+        about_icon_offset,
     ) {
         Ok(about_icon) => about_icon,
         Err(e) => panic!("Failed to resolve resource file: {}", e),
@@ -13,7 +45,7 @@ fn audiostation_about_frx_load() {
 
     let about_picture = match vb6parse::parsers::resource_file_resolver(
         "./tests/data/audiostation/Audiostation/src/Forms/Form_About.frx".to_owned(),
-        0x0C,
+        about_picture_offset,
     ) {
         Ok(about_picture) => about_picture,
         Err(e) => panic!("Failed to resolve resource file: {}", e),
@@ -21,7 +53,7 @@ fn audiostation_about_frx_load() {
 
     let label6_caption = match vb6parse::parsers::resource_file_resolver(
         "./tests/data/audiostation/Audiostation/src/Forms/Form_About.frx".to_owned(),
-        0x031F,
+        label6_caption_offset,
     ) {
         Ok(label6_caption) => label6_caption,
         Err(e) => panic!("Failed to resolve resource file: {}", e),
@@ -29,27 +61,21 @@ fn audiostation_about_frx_load() {
 
     let label4_caption = match vb6parse::parsers::resource_file_resolver(
         "./tests/data/audiostation/Audiostation/src/Forms/Form_About.frx".to_owned(),
-        0x03B0,
+        label4_caption_offset,
     ) {
         Ok(label4_caption) => label4_caption,
         Err(e) => panic!("Failed to resolve resource file: {}", e),
     };
 
-    assert_eq!(about_icon.len(), 0);
-    assert_eq!(about_picture.len(), 775);
-    assert_eq!(label6_caption.len(), 141);
-    assert_eq!(label4_caption.len(), 299);
+    assert_eq!(about_icon.len(), about_icon_buffer_size);
+    assert_eq!(about_picture.len(), about_picture_buffer_size);
+    assert_eq!(label6_caption.len(), label6_caption_buffer_size);
+    assert_eq!(label4_caption.len(), label4_caption_buffer_size);
 
-    assert_eq!(about_icon, resource_file_bytes[12..(12 + 0)].to_vec());
-    assert_eq!(about_picture, resource_file_bytes[24..(24 + 775)].to_vec());
-    assert_eq!(
-        label6_caption,
-        resource_file_bytes[803..(803 + 141)].to_vec()
-    );
-    assert_eq!(
-        label4_caption,
-        resource_file_bytes[948..(948 + 299)].to_vec()
-    );
+    assert_eq!(about_icon, about_icon_buffer);
+    assert_eq!(about_picture, about_picture_buffer);
+    assert_eq!(label6_caption, label6_caption_buffer);
+    assert_eq!(label4_caption, label4_caption_buffer);
 }
 
 #[test]
