@@ -2354,3 +2354,113 @@ fn audiostation_normalize_frx_load() {
     assert_eq!(normalize_icon.len(), normalize_icon_buffer_size);
     assert_eq!(normalize_icon, normalize_icon_buffer);
 }
+
+#[test]
+fn audiostation_open_dialog_frx_load() {
+    let resource_file_bytes =
+        include_bytes!("./data/audiostation/Audiostation/src/Forms/Form_OpenDialog.frx");
+
+    let open_stream_form_icon_offset = 0x0000;
+    let open_stream_form_icon_header_size = 12;
+    let open_stream_form_icon_buffer_size = 0;
+    let open_stream_form_icon_buffer_start =
+        open_stream_form_icon_offset + open_stream_form_icon_header_size;
+    let open_stream_form_icon_buffer_end =
+        open_stream_form_icon_buffer_start + open_stream_form_icon_buffer_size;
+    let open_stream_form_icon_buffer = resource_file_bytes
+        [open_stream_form_icon_buffer_start..open_stream_form_icon_buffer_end]
+        .to_vec();
+
+    let tab_strip_tab_picture0_offset = 0x000C;
+    let tab_strip_tab_picture0_header_size = 4;
+    let tab_strip_tab_picture0_buffer_size = 24;
+    let tab_strip_tab_picture0_buffer_start =
+        tab_strip_tab_picture0_offset + tab_strip_tab_picture0_header_size;
+    let tab_strip_tab_picture0_buffer_end =
+        tab_strip_tab_picture0_buffer_start + tab_strip_tab_picture0_buffer_size;
+    let tab_strip_tab_picture0_buffer = resource_file_bytes
+        [tab_strip_tab_picture0_buffer_start..tab_strip_tab_picture0_buffer_end]
+        .to_vec();
+
+    let list_view_list_image1_picture_offset = 0x0028;
+    let list_view_list_image1_picture_header_size = 4;
+    let list_view_list_image1_picture_buffer_size = 343;
+    let list_view_list_image1_picture_buffer_start =
+        list_view_list_image1_picture_offset + list_view_list_image1_picture_header_size;
+    let list_view_list_image1_picture_buffer_end =
+        list_view_list_image1_picture_buffer_start + list_view_list_image1_picture_buffer_size;
+    let list_view_list_image1_picture_buffer = resource_file_bytes
+        [list_view_list_image1_picture_buffer_start..list_view_list_image1_picture_buffer_end]
+        .to_vec();
+
+    let list_view_list_image2_picture_offset = 0x0183;
+    let list_view_list_image2_picture_header_size = 4;
+    let list_view_list_image2_picture_buffer_size = 1430;
+    let list_view_list_image2_picture_buffer_start =
+        list_view_list_image2_picture_offset + list_view_list_image2_picture_header_size;
+    let list_view_list_image2_picture_buffer_end =
+        list_view_list_image2_picture_buffer_start + list_view_list_image2_picture_buffer_size;
+    let list_view_list_image2_picture_buffer = resource_file_bytes
+        [list_view_list_image2_picture_buffer_start..list_view_list_image2_picture_buffer_end]
+        .to_vec();
+
+    let open_stream_form_icon = match vb6parse::parsers::resource_file_resolver(
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_OpenDialog.frx".to_owned(),
+        open_stream_form_icon_offset,
+    ) {
+        Ok(open_stream_form_icon) => open_stream_form_icon,
+        Err(e) => panic!("Failed to resolve resource file: {}", e),
+    };
+
+    let tab_strip_tab_picture0 = match vb6parse::parsers::resource_file_resolver(
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_OpenDialog.frx".to_owned(),
+        tab_strip_tab_picture0_offset,
+    ) {
+        Ok(tab_strip_tab_picture0) => tab_strip_tab_picture0,
+        Err(e) => panic!("Failed to resolve resource file: {}", e),
+    };
+
+    let list_view_list_image1_picture = match vb6parse::parsers::resource_file_resolver(
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_OpenDialog.frx".to_owned(),
+        list_view_list_image1_picture_offset,
+    ) {
+        Ok(list_view_list_image1_picture) => list_view_list_image1_picture,
+        Err(e) => panic!("Failed to resolve resource file: {}", e),
+    };
+
+    let list_view_list_image2_picture = match vb6parse::parsers::resource_file_resolver(
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_OpenDialog.frx".to_owned(),
+        list_view_list_image2_picture_offset,
+    ) {
+        Ok(list_view_list_image2_picture) => list_view_list_image2_picture,
+        Err(e) => panic!("Failed to resolve resource file: {}", e),
+    };
+
+    assert_eq!(
+        open_stream_form_icon.len(),
+        open_stream_form_icon_buffer_size
+    );
+    assert_eq!(
+        tab_strip_tab_picture0.len(),
+        tab_strip_tab_picture0_buffer_size
+    );
+    assert_eq!(
+        list_view_list_image1_picture.len(),
+        list_view_list_image1_picture_buffer_size
+    );
+    assert_eq!(
+        list_view_list_image2_picture.len(),
+        list_view_list_image2_picture_buffer_size
+    );
+
+    assert_eq!(open_stream_form_icon, open_stream_form_icon_buffer);
+    assert_eq!(tab_strip_tab_picture0, tab_strip_tab_picture0_buffer);
+    assert_eq!(
+        list_view_list_image1_picture,
+        list_view_list_image1_picture_buffer
+    );
+    assert_eq!(
+        list_view_list_image2_picture,
+        list_view_list_image2_picture_buffer
+    );
+}
