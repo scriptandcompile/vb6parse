@@ -69,3 +69,133 @@ fn audiostation_busy_frx_load() {
 
     assert_eq!(busy_icon, resource_file_bytes[12..(12 + 0)].to_vec());
 }
+
+#[test]
+fn audiostation_init_frx_load() {
+    let resource_file_bytes =
+        include_bytes!("./data/audiostation/Audiostation/src/Forms/Form_Init.frx");
+
+    let init_icon_offset = 0x00;
+    let init_icon_header_size = 12;
+    let init_icon_buffer_size = 0;
+
+    let alpha_img_ctl2_image_offset = 0x0C;
+    let alpha_img_ctl2_image_header_size = 4;
+    let alpha_img_ctl2_image_buffer_size = 113643;
+
+    let alpha_img_ctl2_effects_offset = 0x1BBFB;
+    let alpha_img_ctl2_effects_header_size = 4;
+    let alpha_img_ctl2_effects_buffer_size = 20;
+
+    let alpha_img_ctl1_image_offset = 0x1BC13;
+    let alpha_img_ctl1_image_header_size = 4;
+    let alpha_img_ctl1_image_buffer_size = 34141;
+
+    let alpha_img_ctl1_effects_offset = 0x24174;
+    let alpha_img_ctl1_effects_header_size = 4;
+    let alpha_img_ctl1_effects_buffer_size = 20;
+
+    let init_icon = match vb6parse::parsers::resource_file_resolver(
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Init.frx".to_owned(),
+        init_icon_offset,
+    ) {
+        Ok(init_icon) => init_icon,
+        Err(e) => panic!("Failed to resolve resource file: {}", e),
+    };
+
+    let alpha_img_ctl2_image = match vb6parse::parsers::resource_file_resolver(
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Init.frx".to_owned(),
+        alpha_img_ctl2_image_offset,
+    ) {
+        Ok(alpha_img_ctl2_image) => alpha_img_ctl2_image,
+        Err(e) => panic!("Failed to resolve resource file: {}", e),
+    };
+
+    let alpha_img_ctl2_effects = match vb6parse::parsers::resource_file_resolver(
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Init.frx".to_owned(),
+        alpha_img_ctl2_effects_offset,
+    ) {
+        Ok(alpha_img_ctl2_effects) => alpha_img_ctl2_effects,
+        Err(e) => panic!("Failed to resolve resource file: {}", e),
+    };
+
+    let alpha_img_ctl1_image = match vb6parse::parsers::resource_file_resolver(
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Init.frx".to_owned(),
+        alpha_img_ctl1_image_offset,
+    ) {
+        Ok(alpha_img_ctl1_image) => alpha_img_ctl1_image,
+        Err(e) => panic!("Failed to resolve resource file: {}", e),
+    };
+
+    let alpha_img_ctl1_effects = match vb6parse::parsers::resource_file_resolver(
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Init.frx".to_owned(),
+        alpha_img_ctl1_effects_offset,
+    ) {
+        Ok(alpha_img_ctl1_effects) => alpha_img_ctl1_effects,
+        Err(e) => panic!("Failed to resolve resource file: {}", e),
+    };
+
+    assert_eq!(init_icon.len(), init_icon_buffer_size);
+    assert_eq!(alpha_img_ctl2_image.len(), alpha_img_ctl2_image_buffer_size);
+    assert_eq!(
+        alpha_img_ctl2_effects.len(),
+        alpha_img_ctl2_effects_buffer_size
+    );
+    assert_eq!(alpha_img_ctl1_image.len(), alpha_img_ctl1_image_buffer_size);
+    assert_eq!(
+        alpha_img_ctl1_effects.len(),
+        alpha_img_ctl1_effects_buffer_size
+    );
+
+    let init_icon_buffer_start = init_icon_offset + init_icon_header_size;
+    let init_icon_buffer_end = init_icon_buffer_start + init_icon.len();
+
+    assert_eq!(
+        init_icon,
+        resource_file_bytes[init_icon_buffer_start..init_icon_buffer_end].to_vec()
+    );
+
+    let alpha_img_ctl2_image_buffer_start =
+        alpha_img_ctl2_image_offset + alpha_img_ctl2_image_header_size;
+    let alpha_img_ctl2_image_buffer_end =
+        alpha_img_ctl2_image_buffer_start + alpha_img_ctl2_image.len();
+
+    assert_eq!(
+        alpha_img_ctl2_image,
+        resource_file_bytes[alpha_img_ctl2_image_buffer_start..alpha_img_ctl2_image_buffer_end]
+            .to_vec()
+    );
+
+    let alpha_img_ctl2_effects_buffer_start =
+        alpha_img_ctl2_effects_offset + alpha_img_ctl2_effects_header_size;
+    let alpha_img_ctl2_effects_buffer_end =
+        alpha_img_ctl2_effects_buffer_start + alpha_img_ctl2_effects.len();
+
+    assert_eq!(
+        alpha_img_ctl2_effects,
+        resource_file_bytes[alpha_img_ctl2_effects_buffer_start..alpha_img_ctl2_effects_buffer_end]
+            .to_vec()
+    );
+
+    let alpha_img_ctl1_image_buffer_start =
+        alpha_img_ctl1_image_offset + alpha_img_ctl1_image_header_size;
+    let alpha_img_ctl1_image_buffer_end =
+        alpha_img_ctl1_image_buffer_start + alpha_img_ctl1_image.len();
+
+    assert_eq!(
+        alpha_img_ctl1_image,
+        resource_file_bytes[alpha_img_ctl1_image_buffer_start..alpha_img_ctl1_image_buffer_end]
+            .to_vec()
+    );
+
+    let alpha_img_ctl1_effects_buffer_start =
+        alpha_img_ctl1_effects_offset + alpha_img_ctl1_effects_header_size;
+    let alpha_img_ctl1_effects_buffer_end =
+        alpha_img_ctl1_effects_buffer_start + alpha_img_ctl1_effects.len();
+
+    assert_eq!(
+        alpha_img_ctl1_effects,
+        resource_file_bytes[alpha_img_ctl1_effects_buffer_start..alpha_img_ctl1_effects_buffer_end]
+            .to_vec()
+    );
+}
