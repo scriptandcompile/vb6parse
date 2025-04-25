@@ -2464,3 +2464,30 @@ fn audiostation_open_dialog_frx_load() {
         list_view_list_image2_picture_buffer
     );
 }
+
+#[test]
+fn audiostation_playlist_frx_load() {
+    let resource_file_bytes =
+        include_bytes!("./data/audiostation/Audiostation/src/Forms/Form_Playlist.frx");
+
+    let playlist_form_icon_offset = 0x0000;
+    let playlist_form_icon_header_size = 12;
+    let playlist_form_icon_buffer_size = 0;
+    let playlist_form_icon_buffer_start =
+        playlist_form_icon_offset + playlist_form_icon_header_size;
+    let playlist_form_icon_buffer_end =
+        playlist_form_icon_buffer_start + playlist_form_icon_buffer_size;
+    let playlist_form_icon_buffer = resource_file_bytes
+        [playlist_form_icon_buffer_start..playlist_form_icon_buffer_end]
+        .to_vec();
+
+    let playlist_form_icon = match vb6parse::parsers::resource_file_resolver(
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Playlist.frx".to_owned(),
+        playlist_form_icon_offset,
+    ) {
+        Ok(playlist_form_icon) => playlist_form_icon,
+        Err(e) => panic!("Failed to resolve resource file: {}", e),
+    };
+    assert_eq!(playlist_form_icon.len(), playlist_form_icon_buffer_size);
+    assert_eq!(playlist_form_icon, playlist_form_icon_buffer);
+}
