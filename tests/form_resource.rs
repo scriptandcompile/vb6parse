@@ -2711,3 +2711,29 @@ fn audiostation_settings_recorder_frx_load() {
         settings_recorder_form_icon_buffer
     );
 }
+
+#[test]
+fn audiostation_streams_frx_load() {
+    let resource_file_bytes =
+        include_bytes!("./data/audiostation/Audiostation/src/Forms/Form_Streams.frx");
+
+    let streams_form_icon_offset = 0x0000;
+    let streams_form_icon_header_size = 12;
+    let streams_form_icon_buffer_size = 0;
+    let streams_form_icon_buffer_start = streams_form_icon_offset + streams_form_icon_header_size;
+    let streams_form_icon_buffer_end =
+        streams_form_icon_buffer_start + streams_form_icon_buffer_size;
+    let streams_form_icon_buffer =
+        resource_file_bytes[streams_form_icon_buffer_start..streams_form_icon_buffer_end].to_vec();
+
+    let streams_form_icon = match vb6parse::parsers::resource_file_resolver(
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Streams.frx".to_owned(),
+        streams_form_icon_offset,
+    ) {
+        Ok(streams_form_icon) => streams_form_icon,
+        Err(e) => panic!("Failed to resolve resource file: {}", e),
+    };
+
+    assert_eq!(streams_form_icon.len(), streams_form_icon_buffer_size);
+    assert_eq!(streams_form_icon, streams_form_icon_buffer);
+}
