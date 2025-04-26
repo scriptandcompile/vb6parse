@@ -155,6 +155,16 @@ pub fn resource_file_resolver<'a>(
         let record_start = offset + header_size;
         let record_end = record_start + buffer_size_2;
 
+        if record_end > buffer.len() {
+            return Err(std::io::Error::new(
+                std::io::ErrorKind::InvalidData,
+                format!(
+                    "Record end is out of bounds for resource file {}: {}",
+                    file_path, record_end
+                ),
+            ));
+        }
+
         // Read the record data.
         let record_data = &buffer[record_start..record_end];
 
@@ -170,9 +180,20 @@ pub fn resource_file_resolver<'a>(
         let header_size_element_length = 2 as usize;
         let header_size_element_end = header_size_element_offset + header_size_element_length;
 
+        if header_size_element_end > buffer.len() {
+            return Err(std::io::Error::new(
+                std::io::ErrorKind::InvalidData,
+                format!(
+                    "Header size element end is out of bounds for resource file {}: {}",
+                    file_path, header_size_element_end
+                ),
+            ));
+        }
+
         let header_size_element_bytes = buffer[header_size_element_offset..header_size_element_end]
             .try_into()
             .unwrap();
+
         let mut record_size = u16::from_le_bytes(header_size_element_bytes) as usize;
 
         // Unfortunately, vb6 has this goofy way of handling small resource files where if you
@@ -192,6 +213,27 @@ pub fn resource_file_resolver<'a>(
         let record_offset = header_size_element_offset + header_size_element_length;
 
         let (record_start, record_end) = (record_offset, record_offset + record_size);
+
+        if record_start > buffer.len() || record_end > buffer.len() {
+            return Err(std::io::Error::new(
+                std::io::ErrorKind::InvalidData,
+                format!(
+                    "Record start or end is out of bounds for resource file {}: {}-{}",
+                    file_path, record_start, record_end
+                ),
+            ));
+        }
+
+        if record_end > buffer.len() {
+            return Err(std::io::Error::new(
+                std::io::ErrorKind::InvalidData,
+                format!(
+                    "Record end is out of bounds for resource file {}: {}",
+                    file_path, record_end
+                ),
+            ));
+        }
+
         let record_data = &buffer[record_start..record_end];
 
         return Ok(record_data.to_vec());
@@ -219,11 +261,30 @@ pub fn resource_file_resolver<'a>(
         let mut record_offset = offset + header_size;
         let list_item_header_size = 2;
         for _ in 0..list_item_count {
-            let list_item_size = u16::from_le_bytes(
-                buffer[record_offset..record_offset + list_item_header_size]
-                    .try_into()
-                    .unwrap(),
-            ) as usize;
+            if record_offset > buffer.len() {
+                return Err(std::io::Error::new(
+                    std::io::ErrorKind::InvalidData,
+                    format!(
+                        "Record offset of list is out of bounds for resource file {}: {}",
+                        file_path, record_offset
+                    ),
+                ));
+            }
+
+            let record_end = record_offset + list_item_header_size;
+
+            if record_end > buffer.len() {
+                return Err(std::io::Error::new(
+                    std::io::ErrorKind::InvalidData,
+                    format!(
+                        "Record end of list is out of bounds for resource file {}: {}",
+                        file_path, record_end
+                    ),
+                ));
+            }
+
+            let list_item_size =
+                u16::from_le_bytes(buffer[record_offset..record_end].try_into().unwrap()) as usize;
 
             // If we were trying to pull out a list from this, this is where we would do it.
             //
@@ -231,6 +292,16 @@ pub fn resource_file_resolver<'a>(
             // let list_item = &buffer[record_item_start..record_item_start + list_item_size];
 
             record_offset += list_item_header_size + list_item_size;
+        }
+
+        if record_offset > buffer.len() {
+            return Err(std::io::Error::new(
+                std::io::ErrorKind::InvalidData,
+                format!(
+                    "Record end of list is out of bounds for resource file {}: {}",
+                    file_path, record_offset
+                ),
+            ));
         }
 
         return Ok(buffer[offset..record_offset].to_vec());
@@ -251,6 +322,17 @@ pub fn resource_file_resolver<'a>(
 
         let record_start = offset + header_size;
         let record_end = record_start + record_size;
+
+        if record_end > buffer.len() {
+            return Err(std::io::Error::new(
+                std::io::ErrorKind::InvalidData,
+                format!(
+                    "Record end is out of bounds for resource file {}: {}",
+                    file_path, record_end
+                ),
+            ));
+        }
+
         let record_data = &buffer[record_start..record_end];
 
         return Ok(record_data.to_vec());
@@ -262,6 +344,16 @@ pub fn resource_file_resolver<'a>(
     let record_size = buffer[offset] as usize;
     let record_start = offset + header_size;
 
+    if record_start > buffer.len() {
+        return Err(std::io::Error::new(
+            std::io::ErrorKind::InvalidData,
+            format!(
+                "Record start is out of bounds for resource file {}: {}",
+                file_path, record_start
+            ),
+        ));
+    }
+
     let record_end = match buffer.len() {
         // If the record size is greater than the buffer length, then we need to subtract 1 from the record size.
         // This is a bit of a hack, but we need to check if the record size is greater than the buffer length,
@@ -271,6 +363,16 @@ pub fn resource_file_resolver<'a>(
         _ if record_size >= buffer.len() => record_start + record_size - 1,
         _ => record_start + record_size,
     };
+
+    if record_end > buffer.len() {
+        return Err(std::io::Error::new(
+            std::io::ErrorKind::InvalidData,
+            format!(
+                "Record end is out of bounds for resource file {}: {}",
+                file_path, record_end
+            ),
+        ));
+    }
 
     // Read the record data.
     let record_data = &buffer[record_start..record_end];
