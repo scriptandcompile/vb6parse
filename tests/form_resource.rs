@@ -1,3 +1,4 @@
+use bstr::ByteSlice;
 use vb6parse::parsers::form::list_resolver;
 
 #[test]
@@ -2736,4 +2737,74 @@ fn audiostation_streams_frx_load() {
 
     assert_eq!(streams_form_icon.len(), streams_form_icon_buffer_size);
     assert_eq!(streams_form_icon, streams_form_icon_buffer);
+}
+
+#[test]
+fn audiostation_track_properties_frx_load() {
+    let resource_file_bytes =
+        include_bytes!("./data/audiostation/Audiostation/src/Forms/Form_Track_Properties.frx");
+
+    let track_properties_form_icon_offset = 0x0000;
+    let track_properties_form_icon_header_size = 12;
+    let track_properties_form_icon_buffer_size = 0;
+    let track_properties_form_icon_buffer_start =
+        track_properties_form_icon_offset + track_properties_form_icon_header_size;
+    let track_properties_form_icon_buffer_end =
+        track_properties_form_icon_buffer_start + track_properties_form_icon_buffer_size;
+    let track_properties_form_icon_buffer = resource_file_bytes
+        [track_properties_form_icon_buffer_start..track_properties_form_icon_buffer_end]
+        .to_vec();
+
+    let track_properties_text_properties_text_offset = 0x000C;
+    let track_properties_text_properties_text_header_size = 1;
+    let track_properties_text_properties_text_buffer_size = 20;
+    let track_properties_text_properties_text_buffer_start =
+        track_properties_text_properties_text_offset
+            + track_properties_text_properties_text_header_size;
+    let track_properties_text_properties_text_buffer_end =
+        track_properties_text_properties_text_buffer_start
+            + track_properties_text_properties_text_buffer_size;
+    let track_properties_text_properties_text_buffer = resource_file_bytes
+        [track_properties_text_properties_text_buffer_start
+            ..track_properties_text_properties_text_buffer_end]
+        .to_vec();
+
+    let track_properties_form_icon = match vb6parse::parsers::resource_file_resolver(
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Track_Properties.frx".to_owned(),
+        track_properties_form_icon_offset,
+    ) {
+        Ok(track_properties_form_icon) => track_properties_form_icon,
+        Err(e) => panic!("Failed to resolve resource file: {}", e),
+    };
+
+    let track_properties_text_properties_text = match vb6parse::parsers::resource_file_resolver(
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Track_Properties.frx".to_owned(),
+        track_properties_text_properties_text_offset,
+    ) {
+        Ok(track_properties_text_properties_text) => track_properties_text_properties_text,
+        Err(e) => panic!("Failed to resolve resource file: {}", e),
+    };
+
+    assert_eq!(
+        track_properties_form_icon.len(),
+        track_properties_form_icon_buffer_size
+    );
+    assert_eq!(
+        track_properties_text_properties_text.len(),
+        track_properties_text_properties_text_buffer_size
+    );
+
+    assert_eq!(
+        track_properties_form_icon,
+        track_properties_form_icon_buffer
+    );
+    assert_eq!(
+        track_properties_text_properties_text,
+        track_properties_text_properties_text_buffer
+    );
+
+    assert_eq!(
+        track_properties_text_properties_text.to_str_lossy(),
+        "Textbox_Properties\r\n"
+    );
 }

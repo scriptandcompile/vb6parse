@@ -191,23 +191,8 @@ pub fn resource_file_resolver<'a>(
 
         let record_offset = header_size_element_offset + header_size_element_length;
 
-        println!(
-            "Double byte header: record start: {}, record end: {}",
-            record_offset,
-            record_offset + record_size,
-        );
-
         let (record_start, record_end) = (record_offset, record_offset + record_size);
         let record_data = &buffer[record_start..record_end];
-
-        println!(
-            "Resource file: {}, offset: {}, record data: {:?}",
-            file_path,
-            offset,
-            record_data.as_bstr().to_str_lossy()
-        );
-
-        println!();
 
         return Ok(record_data.to_vec());
     }
@@ -216,7 +201,6 @@ pub fn resource_file_resolver<'a>(
     // This means we can't just remove the header and return the rest of the buffer like we do with
     // the other records.
     let list_signature = buffer[offset + 2..offset + 4].to_vec();
-
     if buffer.len() >= 12 && (list_signature == [0x03, 0x00] || list_signature == [0x07, 0x00]) {
         // looks like we have a list items record.
 
@@ -275,10 +259,18 @@ pub fn resource_file_resolver<'a>(
     // If the first byte of the record is not 0xFF, then the record is likely an 8-bit record.
     // It's a bit excessive to lay out the record size offset/ length/end, but it makes it easier to read.
     let header_size = 1; // 1 byte header size element.
-    let record_size = buffer[offset] as usize - header_size;
+    let record_size = buffer[offset] as usize;
     let record_start = offset + header_size;
 
-    let record_end = record_start + record_size;
+    let record_end = match buffer.len() {
+        // If the record size is greater than the buffer length, then we need to subtract 1 from the record size.
+        // This is a bit of a hack, but we need to check if the record size is greater than the buffer length,
+        // and if so, we need to subtract 1 from the record size.
+        // This is an off by one error in the IDE and almost always results in a string resource
+        // that is missing the last byte.
+        _ if record_size >= buffer.len() => record_start + record_size - 1,
+        _ => record_start + record_size,
+    };
 
     // Read the record data.
     let record_data = &buffer[record_start..record_end];
