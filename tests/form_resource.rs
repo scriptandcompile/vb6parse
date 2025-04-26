@@ -1,3 +1,5 @@
+use vb6parse::parsers::form::list_resolver;
+
 #[test]
 fn audiostation_about_frx_load() {
     let resource_file_bytes =
@@ -2515,4 +2517,163 @@ fn audiostation_plugins_frx_load() {
     };
     assert_eq!(plugins_form_icon.len(), plugins_form_icon_buffer_size);
     assert_eq!(plugins_form_icon, plugins_form_icon_buffer);
+}
+
+#[test]
+fn audiostation_settings_record_frx_load() {
+    let resource_file_bytes =
+        include_bytes!("./data/audiostation/Audiostation/src/Forms/Form_Settings_Record.frx");
+
+    let settings_record_form_icon_offset = 0x0000;
+    let settings_record_form_icon_header_size = 12;
+    let settings_record_form_icon_buffer_size = 0;
+    let settings_record_form_icon_buffer_start =
+        settings_record_form_icon_offset + settings_record_form_icon_header_size;
+    let settings_record_form_icon_buffer_end =
+        settings_record_form_icon_buffer_start + settings_record_form_icon_buffer_size;
+    let settings_record_form_icon_buffer = resource_file_bytes
+        [settings_record_form_icon_buffer_start..settings_record_form_icon_buffer_end]
+        .to_vec();
+
+    // lists are a bit special since we need the list item count and that's in the
+    // resource header which means unlike the other resources we need to read the header
+    // and include that in the buffer size, that is why the header_size is listed as 0.
+    let combo_language_item_data_offset = 0x000C;
+    let combo_language_item_data_header_size = 0;
+    let combo_language_item_data_buffer_size = 13;
+    let combo_language_item_data_buffer_start =
+        combo_language_item_data_offset + combo_language_item_data_header_size;
+    let combo_language_item_data_buffer_end =
+        combo_language_item_data_buffer_start + combo_language_item_data_buffer_size;
+    let combo_language_item_data_buffer = resource_file_bytes
+        [combo_language_item_data_buffer_start..combo_language_item_data_buffer_end]
+        .to_vec();
+
+    let combo_language_data_items = list_resolver(&combo_language_item_data_buffer);
+
+    let combo_language_list_offset = 0x0019;
+    let combo_language_list_header_size = 0;
+    let combo_language_list_buffer_size = 28;
+    let combo_language_list_buffer_start =
+        combo_language_list_offset + combo_language_list_header_size;
+    let combo_language_list_buffer_end =
+        combo_language_list_buffer_start + combo_language_list_buffer_size;
+    let combo_language_list_buffer = resource_file_bytes
+        [combo_language_list_buffer_start..combo_language_list_buffer_end]
+        .to_vec();
+
+    let combo_language_list_items = list_resolver(&combo_language_list_buffer);
+
+    let combo_midi_device_item_data_offset = 0x0035;
+    let combo_midi_device_item_data_header_size = 0;
+    let combo_midi_device_item_data_buffer_size = 13;
+    let combo_midi_device_item_data_buffer_start =
+        combo_midi_device_item_data_offset + combo_midi_device_item_data_header_size;
+    let combo_midi_device_item_data_buffer_end =
+        combo_midi_device_item_data_buffer_start + combo_midi_device_item_data_buffer_size;
+    let combo_midi_device_item_data_buffer = resource_file_bytes
+        [combo_midi_device_item_data_buffer_start..combo_midi_device_item_data_buffer_end]
+        .to_vec();
+
+    let combo_midi_device_data_items = list_resolver(&combo_midi_device_item_data_buffer);
+
+    let combo_midi_device_list_offset = 0x0042;
+    let combo_midi_device_list_header_size = 0;
+    let combo_midi_device_list_buffer_size = 28;
+    let combo_midi_device_list_buffer_start =
+        combo_midi_device_list_offset + combo_midi_device_list_header_size;
+    let combo_midi_device_list_buffer_end =
+        combo_midi_device_list_buffer_start + combo_midi_device_list_buffer_size;
+    let combo_midi_device_list_buffer = resource_file_bytes
+        [combo_midi_device_list_buffer_start..combo_midi_device_list_buffer_end]
+        .to_vec();
+
+    let combo_midi_device_list_items = list_resolver(&combo_midi_device_list_buffer);
+
+    let settings_record_form_icon = match vb6parse::parsers::resource_file_resolver(
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Settings_Record.frx".to_owned(),
+        settings_record_form_icon_offset,
+    ) {
+        Ok(settings_record_form_icon) => settings_record_form_icon,
+        Err(e) => panic!("Failed to resolve resource file: {}", e),
+    };
+
+    let combo_language_item_data = match vb6parse::parsers::resource_file_resolver(
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Settings_Record.frx".to_owned(),
+        combo_language_item_data_offset,
+    ) {
+        Ok(combo_language_item_data) => combo_language_item_data,
+        Err(e) => panic!("Failed to resolve resource file: {}", e),
+    };
+
+    let combo_language_list = match vb6parse::parsers::resource_file_resolver(
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Settings_Record.frx".to_owned(),
+        combo_language_list_offset,
+    ) {
+        Ok(combo_language_list) => combo_language_list,
+        Err(e) => panic!("Failed to resolve resource file: {}", e),
+    };
+
+    let combo_midi_device_item_data = match vb6parse::parsers::resource_file_resolver(
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Settings_Record.frx".to_owned(),
+        combo_midi_device_item_data_offset,
+    ) {
+        Ok(combo_midi_device_item_data) => combo_midi_device_item_data,
+        Err(e) => panic!("Failed to resolve resource file: {}", e),
+    };
+
+    let combo_midi_device_list = match vb6parse::parsers::resource_file_resolver(
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Settings_Record.frx".to_owned(),
+        combo_midi_device_list_offset,
+    ) {
+        Ok(combo_midi_device_list) => combo_midi_device_list,
+        Err(e) => panic!("Failed to resolve resource file: {}", e),
+    };
+
+    assert_eq!(
+        settings_record_form_icon.len(),
+        settings_record_form_icon_buffer_size
+    );
+    assert_eq!(
+        combo_language_item_data.len(),
+        combo_language_item_data_buffer_size
+    );
+    assert_eq!(combo_language_list.len(), combo_language_list_buffer_size);
+    assert_eq!(
+        combo_midi_device_item_data.len(),
+        combo_midi_device_item_data_buffer_size
+    );
+    assert_eq!(
+        combo_midi_device_list.len(),
+        combo_midi_device_list_buffer_size
+    );
+
+    assert_eq!(settings_record_form_icon, settings_record_form_icon_buffer);
+    assert_eq!(combo_language_item_data, combo_language_item_data_buffer);
+    assert_eq!(combo_language_list, combo_language_list_buffer);
+    assert_eq!(
+        combo_midi_device_item_data,
+        combo_midi_device_item_data_buffer
+    );
+    assert_eq!(combo_midi_device_list, combo_midi_device_list_buffer);
+
+    assert_eq!(combo_language_data_items.len(), 3);
+    assert_eq!(combo_language_data_items[0], "0");
+    assert_eq!(combo_language_data_items[1], "0");
+    assert_eq!(combo_language_data_items[2], "0");
+
+    assert_eq!(combo_language_list_items.len(), 3);
+    assert_eq!(combo_language_list_items[0], "English");
+    assert_eq!(combo_language_list_items[1], "Dutch");
+    assert_eq!(combo_language_list_items[2], "German");
+
+    assert_eq!(combo_midi_device_data_items.len(), 3);
+    assert_eq!(combo_midi_device_data_items[0], "0");
+    assert_eq!(combo_midi_device_data_items[1], "0");
+    assert_eq!(combo_midi_device_data_items[2], "0");
+
+    assert_eq!(combo_midi_device_list_items.len(), 3);
+    assert_eq!(combo_midi_device_list_items[0], "English");
+    assert_eq!(combo_midi_device_list_items[1], "Dutch");
+    assert_eq!(combo_midi_device_list_items[2], "German");
 }
