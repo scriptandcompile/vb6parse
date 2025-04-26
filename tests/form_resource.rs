@@ -2677,3 +2677,37 @@ fn audiostation_settings_record_frx_load() {
     assert_eq!(combo_midi_device_list_items[1], "Dutch");
     assert_eq!(combo_midi_device_list_items[2], "German");
 }
+
+#[test]
+fn audiostation_settings_recorder_frx_load() {
+    let resource_file_bytes =
+        include_bytes!("./data/audiostation/Audiostation/src/Forms/Form_Settings_Recorder.frx");
+
+    let settings_recorder_form_icon_offset = 0x0000;
+    let settings_recorder_form_icon_header_size = 12;
+    let settings_recorder_form_icon_buffer_size = 0;
+    let settings_recorder_form_icon_buffer_start =
+        settings_recorder_form_icon_offset + settings_recorder_form_icon_header_size;
+    let settings_recorder_form_icon_buffer_end =
+        settings_recorder_form_icon_buffer_start + settings_recorder_form_icon_buffer_size;
+    let settings_recorder_form_icon_buffer = resource_file_bytes
+        [settings_recorder_form_icon_buffer_start..settings_recorder_form_icon_buffer_end]
+        .to_vec();
+
+    let settings_recorder_form_icon = match vb6parse::parsers::resource_file_resolver(
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Settings_Recorder.frx".to_owned(),
+        settings_recorder_form_icon_offset,
+    ) {
+        Ok(settings_recorder_form_icon) => settings_recorder_form_icon,
+        Err(e) => panic!("Failed to resolve resource file: {}", e),
+    };
+
+    assert_eq!(
+        settings_recorder_form_icon.len(),
+        settings_recorder_form_icon_buffer_size
+    );
+    assert_eq!(
+        settings_recorder_form_icon,
+        settings_recorder_form_icon_buffer
+    );
+}
