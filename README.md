@@ -93,16 +93,59 @@ First work has focused on the (vbp) project files since is the method to discove
 
 </details>
 
+<details>
+    <summary> (*.frm) VB6 form file parser feature support: </summary>
+
+- [x] **Header**
+    - [x] Create Forms.
+    - [x] Create MDIForms.
+    - [x] Create Menu controls.
+    - [x] Create Frame controls.
+    - [x] Create CheckBox controls.
+    - [x] Create ComboBox controls.
+    - [x] Create CommandButton controls.
+    - [x] Create Data controls.
+    - [x] Create DirListBox controls.
+    - [x] Create DriveListBox controls.
+    - [x] Create FileListBox controls.
+    - [x] Create Image controls.
+    - [x] Create Label controls.
+    - [x] Create Line controls.
+    - [x] Create ListBox controls.
+    - [x] Create OLE controls.
+    - [x] Create OptionButton controls.
+    - [x] Create PictureBox controls.
+    - [x] Create HScrollBar controls.
+    - [x] Create VScrollBar controls.
+    - [x] Create Shape controls.
+    - [x] Create TextBox controls.
+    - [x] Create Timer controls.
+    - [ ] Create UserControl controls.
+    - [x] Load form property resources from frx files. 
+          (loads resources, but doesn't apply all of them to the correct property locations in all cases yet.)
+
+- [x] **VB6 Token Stream lexxed**
+
+</details>
+
+<details>
+    <summary> (*.frx) VB6 form resource file parser feature support: </summary>
+
+- [x] Binary blobs.
+- [x] List items.
+- [x] Strings.
+
+</details>
 
 #### VB6Project API:
-- [x] Unit Testing (partial).
+- [-] Unit Testing.
 - [x] Integration/End-to-End Testing.
 - [x] Benchmarking.
 - [ ] Top level API finalization.
-- [x] Documentation.
-- [x] Examples.
+- [-] Documentation.
+- [-] Examples.
 
 
 ### Test:
 
-Be sure to use ```git submodule update --init --recursive``` to get all integration test submodule data.
+Be sure to use ```git submodule update --init --recursive``` to get all integration test submodule data if you plan to run ```cargo test```.
