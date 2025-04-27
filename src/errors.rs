@@ -350,10 +350,10 @@ impl VB6Error {
         // If the file path is empty, use "unknown" as a placeholder.
         // This is useful for errors that occur in the input stream
         // that do not have a file path associated with them.
-        let file_name = Path::new(&input.file_path)
-            .file_name()
-            .map(|name| name.to_string_lossy().to_string())
-            .unwrap_or_else(|| "unknown".to_string());
+        let file_name = Path::new(&input.file_path).file_name().map_or_else(
+            || "unknown".to_string(),
+            |name| name.to_string_lossy().to_string(),
+        );
 
         let source_code = input.stream.to_string();
         let source_offset = input.index;
