@@ -126,9 +126,9 @@ impl<'a> Properties<'a> {
             return default;
         }
 
-        let property_ascii = match self.key_value_store[property_key].to_str() {
-            Ok(value) => value,
-            Err(_) => return default, // If conversion fails, return default color
+        let Ok(property_ascii) = self.key_value_store[property_key].to_str() else {
+            // If conversion fails, return default color
+            return default;
         };
 
         match VB6Color::from_hex(property_ascii) {
