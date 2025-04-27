@@ -818,7 +818,7 @@ fn build_control<'a>(control_block: ControlBlock<'a>) -> Result<VB6Control, VB6E
     if control_block.fully_qualified_name.namespace != "VB" {
         let custom_control = VB6Control {
             name: control_block.fully_qualified_name.name,
-            tag: tag,
+            tag,
             index: 0,
             kind: VB6ControlKind::Custom {
                 properties: control_block.properties.into(),
