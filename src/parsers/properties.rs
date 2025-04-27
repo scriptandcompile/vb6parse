@@ -77,7 +77,7 @@ impl<'a> Properties<'a> {
     }
 
     pub fn get_keys(&self) -> Vec<&'a BStr> {
-        self.key_value_store.keys().cloned().collect()
+        self.key_value_store.keys().copied().collect()
     }
 
     pub fn remove(&mut self, property_key: &BStr) -> Option<Cow<'a, [u8]>> {
