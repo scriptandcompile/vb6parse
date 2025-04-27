@@ -49,6 +49,7 @@ impl<'a> Default for Properties<'a> {
 }
 
 impl<'a> Properties<'a> {
+    #[must_use]
     pub fn new() -> Self {
         Properties {
             key_value_store: HashMap::new(),
@@ -64,18 +65,22 @@ impl<'a> Properties<'a> {
         self.key_value_store.insert(property_key, Cow::Owned(value));
     }
 
+    #[must_use]
     pub fn len(&self) -> usize {
         self.key_value_store.len()
     }
 
+    #[must_use]
     pub fn is_empty(&self) -> bool {
         self.key_value_store.is_empty()
     }
 
+    #[must_use]
     pub fn contains_key(&self, property_key: &BStr) -> bool {
         self.key_value_store.contains_key(property_key)
     }
 
+    #[must_use]
     pub fn get_keys(&self) -> Vec<&'a BStr> {
         self.key_value_store.keys().copied().collect()
     }
