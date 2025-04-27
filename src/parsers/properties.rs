@@ -19,6 +19,7 @@ pub struct PropertiesIter<'a> {
 }
 
 impl<'a> Properties<'a> {
+    #[must_use]
     pub fn iter(&self) -> PropertiesIter<'_> {
         PropertiesIter {
             iter: self.key_value_store.iter(),
@@ -34,7 +35,7 @@ impl<'a> Iterator for PropertiesIter<'a> {
     }
 }
 
-impl<'a> Clone for Properties<'a> {
+impl Clone for Properties<'_> {
     fn clone(&self) -> Self {
         Properties {
             key_value_store: self.key_value_store.clone(),
