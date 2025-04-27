@@ -178,7 +178,10 @@ impl<'a> Properties<'a> {
             return default;
         }
 
-        let property_ascii = self.key_value_store[property_key].to_str().unwrap();
+        let Ok(property_ascii) = self.key_value_store[property_key].to_str() else {
+            // If conversion fails, return default position
+            return default;
+        };
 
         match property_ascii.parse::<i32>() {
             Ok(value) => match value {
