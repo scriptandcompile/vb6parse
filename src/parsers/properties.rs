@@ -94,10 +94,7 @@ impl<'a> Properties<'a> {
             return None;
         }
 
-        match &self.key_value_store[property_key] {
-            Cow::Borrowed(b) => Some(b),
-            Cow::Owned(b) => Some(&b),
-        }
+        Some(&self.key_value_store[property_key])
     }
 
     #[must_use]
