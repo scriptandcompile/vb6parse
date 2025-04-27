@@ -42,7 +42,7 @@ impl<'a> Clone for Properties<'a> {
     }
 }
 
-impl<'a> Default for Properties<'a> {
+impl Default for Properties<'_> {
     fn default() -> Self {
         Properties::new()
     }
