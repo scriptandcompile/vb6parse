@@ -154,6 +154,6 @@ Further work is needed to correctly assign the binary resources to the their pro
 - [ ] Examples - Partially supported.
 
 
-### Test:
+### Tests:
 
 Be sure to use ```git submodule update --init --recursive``` to get all integration test submodule data if you plan to run ```cargo test```.
