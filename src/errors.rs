@@ -433,7 +433,7 @@ impl<'a> From<ParseError<VB6Stream<'a>, ContextError>> for VB6Error {
     }
 }
 
-impl<'a> ParserError<VB6Stream<'a>> for VB6ErrorKind {
+impl ParserError<VB6Stream<'_>> for VB6ErrorKind {
     type Inner = VB6ErrorKind;
 
     fn into_inner(self) -> winnow::Result<Self::Inner, Self> {
