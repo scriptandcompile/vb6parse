@@ -199,7 +199,7 @@ impl<'a> Properties<'a> {
                 2 => StartUpPosition::CenterScreen,
                 // 3 is the default value for Windows, but we also want
                 // to default to WindowsDefault if the value is not found.
-                // just commenting this out since leaving this in will
+                // I've just commented this out since leaving it in will
                 // cause Clippy to complain about the unknown value and the
                 // default value in the match arm being the same.
                 //
