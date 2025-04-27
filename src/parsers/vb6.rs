@@ -95,6 +95,32 @@ pub fn variable_name_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr>
     Ok(variable_name)
 }
 
+/// Grabs until the end of line. This is usually used to grab the rest of the
+/// line for a line comment.
+///
+/// # Arguments
+///
+/// * `input` - The input stream to parse.
+///
+/// # Errors
+///
+/// If the parser encounters an error, it will return a 'Cut' error and backup the stream.
+///
+/// # Returns
+///
+/// The rest of the line.
+///
+/// # Example
+///
+/// ```rust
+/// use vb6parse::parsers::{vb6::take_until_line_ending, VB6Stream};
+/// use bstr::{BStr, ByteSlice};
+///
+/// let mut input = VB6Stream::new("test.bas", b"Dim x As Integer\r\nDim y as String\r\n");
+/// let line = take_until_line_ending(&mut input).unwrap();
+///
+/// assert_eq!(line, b"Dim x As Integer");
+/// ```
 pub fn take_until_line_ending<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
     alt((take_until(1.., "\r\n"), take_until(1.., "\n"))).parse_next(input)
 }
@@ -159,6 +185,14 @@ pub fn keyword_parse<'a>(
 
 /// Parses a VB6 string that may or may not contain double quotes (escaped by using two in a row).
 /// This parser will return the string without the double quotes.
+///
+/// # Arguments
+///
+/// * `input` - The input stream to parse.
+///
+/// # Errors
+///
+/// If the string is not properly formatted, it will return a 'Cut' error and backup the stream.
 ///
 /// # Example
 ///
