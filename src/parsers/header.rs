@@ -338,8 +338,6 @@ pub fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FileAttri
 
                 space0.parse_next(input)?;
                 alt((line_comment_parse, line_ending, eof)).parse_next(input)?;
-
-                continue;
             }
             Attributes::Description => {
                 description = match string_parse.parse_next(input) {
@@ -349,8 +347,6 @@ pub fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FileAttri
 
                 space0.parse_next(input)?;
                 alt((line_comment_parse, line_ending, eof)).parse_next(input)?;
-
-                continue;
             }
             Attributes::GlobalNameSpace => {
                 global_name_space = match alt((
@@ -369,8 +365,6 @@ pub fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FileAttri
 
                 space0.parse_next(input)?;
                 alt((line_comment_parse, line_ending, eof)).parse_next(input)?;
-
-                continue;
             }
             Attributes::Creatable => {
                 creatable = match alt((
@@ -389,8 +383,6 @@ pub fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FileAttri
 
                 space0.parse_next(input)?;
                 alt((line_comment_parse, line_ending, eof)).parse_next(input)?;
-
-                continue;
             }
             Attributes::PredeclaredId => {
                 pre_declared_id = match alt((
@@ -409,8 +401,6 @@ pub fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FileAttri
 
                 space0.parse_next(input)?;
                 alt((line_comment_parse, line_ending, eof)).parse_next(input)?;
-
-                continue;
             }
             Attributes::Exposed => {
                 exposed = match alt((
@@ -429,8 +419,6 @@ pub fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FileAttri
 
                 space0.parse_next(input)?;
                 alt((line_comment_parse, line_ending, eof)).parse_next(input)?;
-
-                continue;
             }
             Attributes::ExtKey => {
                 let Ok(key) = string_parse.parse_next(input) else {
@@ -447,8 +435,6 @@ pub fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FileAttri
 
                 space0.parse_next(input)?;
                 alt((line_comment_parse, line_ending, eof)).parse_next(input)?;
-
-                continue;
             }
         }
     }
