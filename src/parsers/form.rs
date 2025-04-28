@@ -355,6 +355,7 @@ pub fn resource_file_resolver(file_path: String, offset: usize) -> Result<Vec<u8
     Ok(record_data.to_vec())
 }
 
+#[must_use]
 pub fn list_resolver(buffer: &[u8]) -> Vec<BString> {
     let mut list_items = vec![];
 
