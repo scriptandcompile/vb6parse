@@ -442,7 +442,7 @@ impl<'a> VB6Project<'a> {
                     other_property_group = Some(other_property);
                 }
                 continue;
-            };
+            }
 
             // Looks like we are no longer parsing the standard VB6 property section
             // Now we are parsing some third party properties.
@@ -556,7 +556,7 @@ impl<'a> VB6Project<'a> {
                     .is_err()
                 {
                     return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
+                }
 
                 let Ok(related_document) = take_until_line_ending.parse_next(&mut input) else {
                     return Err(input.error(VB6ErrorKind::RelatedDocLineUnparseable));
@@ -583,7 +583,7 @@ impl<'a> VB6Project<'a> {
                     .is_err()
                 {
                     return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
+                }
 
                 let Ok(form): VB6Result<_> = take_until_line_ending.parse_next(&mut input) else {
                     return Err(input.error(VB6ErrorKind::FormLineUnparseable));
@@ -610,7 +610,7 @@ impl<'a> VB6Project<'a> {
                     .is_err()
                 {
                     return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
+                }
 
                 let Ok(user_control): VB6Result<_> = take_until_line_ending.parse_next(&mut input)
                 else {
@@ -638,7 +638,7 @@ impl<'a> VB6Project<'a> {
                     .is_err()
                 {
                     return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
+                }
 
                 let Ok(user_document): VB6Result<_> = take_until_line_ending.parse_next(&mut input)
                 else {
@@ -885,7 +885,7 @@ impl<'a> VB6Project<'a> {
                     .is_err()
                 {
                     return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
+                }
 
                 property_page = match take_until_line_ending.parse_next(&mut input) {
                     Ok(property_page) => Some(property_page),
@@ -913,7 +913,7 @@ impl<'a> VB6Project<'a> {
                     .is_err()
                 {
                     return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
+                }
 
                 debug_startup_component = match take_until_line_ending.parse_next(&mut input) {
                     Ok(debug_startup_component) => Some(debug_startup_component),
@@ -1143,7 +1143,7 @@ impl<'a> VB6Project<'a> {
                     .is_err()
                 {
                     return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
+                }
 
                 let Ok(threads): VB6Result<_> = take_until_line_ending.parse_next(&mut input)
                 else {
@@ -1178,7 +1178,7 @@ impl<'a> VB6Project<'a> {
                     .is_err()
                 {
                     return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                };
+                }
 
                 let Ok(max_threads): VB6Result<_> = take_until_line_ending.parse_next(&mut input)
                 else {
@@ -1336,7 +1336,7 @@ where
         .is_err()
     {
         return Err(input.error(VB6ErrorKind::NoEqualSplit));
-    };
+    }
 
     let Ok(result_ascii) =
         take_while::<_, _, VB6ErrorKind>(1.., ('-', '0'..='9')).parse_next(input)
@@ -1374,7 +1374,7 @@ where
         .is_err()
     {
         return Err(input.error(VB6ErrorKind::NoEqualSplit));
-    };
+    }
 
     let Ok(result_ascii) =
         take_while::<_, _, VB6ErrorKind>(1.., ('-', '0'..='9')).parse_next(input)
@@ -1402,7 +1402,7 @@ fn process_qouted_parameter<'a>(input: &mut VB6Stream<'a>) -> Result<Option<&'a 
         .is_err()
     {
         return Err(input.error(VB6ErrorKind::NoEqualSplit));
-    };
+    }
 
     let value = match qouted_value_parse("\"").parse_next(input) {
         Ok(value) => Some(value),
@@ -1428,7 +1428,7 @@ fn process_qouted_optional_parameter<'a>(
         .is_err()
     {
         return Err(input.error(VB6ErrorKind::NoEqualSplit));
-    };
+    }
 
     // if the project lacks this value it will be !(None)! or !! or "" in the file..
     let value = match alt((qouted_value_parse("\""), qouted_value_parse("!"))).parse_next(input) {
@@ -1459,7 +1459,7 @@ fn process_dll_base_address(input: &mut VB6Stream<'_>) -> Result<u32, VB6Error> 
         .is_err()
     {
         return Err(input.error(VB6ErrorKind::NoEqualSplit));
-    };
+    }
 
     let Ok(base_address_hex_text): VB6Result<_> = take_until_line_ending.parse_next(input) else {
         return Err(input.error(VB6ErrorKind::DllBaseAddressUnparseable));
@@ -1515,7 +1515,7 @@ fn designer_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
         .is_err()
     {
         return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    };
+    }
 
     let Ok(designer) = take_until_line_ending.parse_next(input) else {
         return Err(ErrMode::Cut(VB6ErrorKind::DesignerLineUnparseable));
@@ -1537,7 +1537,7 @@ fn compatibility_mode_parse(input: &mut VB6Stream<'_>) -> VB6Result<Compatibilit
         .is_err()
     {
         return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    };
+    }
 
     let compatibility_mode =
         match alt((qouted_value_parse("\""), qouted_value_parse("!"))).parse_next(input) {
@@ -1568,11 +1568,11 @@ fn title_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
         .is_err()
     {
         return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    };
+    }
 
     if (space0::<_, VB6Error>, '"').parse_next(input).is_err() {
         return Err(ErrMode::Cut(VB6ErrorKind::TitleUnparseable));
-    };
+    }
 
     // it's perfectly possible to use '"' within the title string.
     // VB6 being the language it is, there is no escape sequence for
@@ -1617,7 +1617,7 @@ fn module_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectModule<'a>
         .is_err()
     {
         return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    };
+    }
 
     let (name, path) = semicolon_space_split_parse.parse_next(input)?;
 
@@ -1642,7 +1642,7 @@ fn class_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectClass<'a>> 
         .is_err()
     {
         return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    };
+    }
 
     let (name, path) = semicolon_space_split_parse.parse_next(input)?;
 
@@ -1734,7 +1734,7 @@ fn reference_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectReferen
         .is_err()
     {
         return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    };
+    }
 
     let reference = alt((project_reference_parse, compiled_reference_parse)).parse_next(input)?;
 
@@ -1754,7 +1754,7 @@ fn project_type_parse(input: &mut VB6Stream<'_>) -> VB6Result<CompileTargetType>
         .is_err()
     {
         return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    };
+    }
 
     // The first line of any VB6 project file (vbp) is a type line that
     // tells us what kind of project we have.
