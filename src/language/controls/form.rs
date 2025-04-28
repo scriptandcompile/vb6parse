@@ -236,7 +236,7 @@ impl Default for FormProperties {
     }
 }
 
-impl<'a> From<Properties<'a>> for FormProperties {
+impl From<Properties<'_>> for FormProperties {
     fn from(prop: Properties) -> Self {
         let mut form_prop = FormProperties::default();
 
