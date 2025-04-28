@@ -92,7 +92,7 @@ pub fn resource_file_resolver(file_path: String, offset: usize) -> Result<Vec<u8
         Err(err) => {
             return Err(std::io::Error::new(
                 std::io::ErrorKind::NotFound,
-                format!("Failed to read resource file {}: {}", file_path, err),
+                format!("Failed to read resource file {file_path}: {err}"),
             ));
         }
     };
@@ -101,10 +101,7 @@ pub fn resource_file_resolver(file_path: String, offset: usize) -> Result<Vec<u8
     if offset as usize >= buffer.len() {
         return Err(std::io::Error::new(
             std::io::ErrorKind::InvalidInput,
-            format!(
-                "Offset {} is out of bounds for resource file {}",
-                offset, file_path
-            ),
+            format!("Offset is out of bounds for resource file {file_path}: {offset}"),
         ));
     }
 
@@ -155,10 +152,7 @@ pub fn resource_file_resolver(file_path: String, offset: usize) -> Result<Vec<u8
         if record_end > buffer.len() {
             return Err(std::io::Error::new(
                 std::io::ErrorKind::InvalidData,
-                format!(
-                    "Record end is out of bounds for resource file {}: {}",
-                    file_path, record_end
-                ),
+                format!("Record end is out of bounds for resource file {file_path}: {record_end}"),
             ));
         }
 
@@ -181,8 +175,7 @@ pub fn resource_file_resolver(file_path: String, offset: usize) -> Result<Vec<u8
             return Err(std::io::Error::new(
                 std::io::ErrorKind::InvalidData,
                 format!(
-                    "Header size element end is out of bounds for resource file {}: {}",
-                    file_path, header_size_element_end
+                    "Header size element end is out of bounds for resource file {file_path}: {header_size_element_end}"
                 ),
             ));
         }
@@ -211,12 +204,11 @@ pub fn resource_file_resolver(file_path: String, offset: usize) -> Result<Vec<u8
 
         let (record_start, record_end) = (record_offset, record_offset + record_size);
 
-        if record_start > buffer.len() || record_end > buffer.len() {
+        if record_start > buffer.len() {
             return Err(std::io::Error::new(
                 std::io::ErrorKind::InvalidData,
                 format!(
-                    "Record start or end is out of bounds for resource file {}: {}-{}",
-                    file_path, record_start, record_end
+                    "Record start is out of bounds for resource file {file_path}: {record_start}"
                 ),
             ));
         }
@@ -224,10 +216,7 @@ pub fn resource_file_resolver(file_path: String, offset: usize) -> Result<Vec<u8
         if record_end > buffer.len() {
             return Err(std::io::Error::new(
                 std::io::ErrorKind::InvalidData,
-                format!(
-                    "Record end is out of bounds for resource file {}: {}",
-                    file_path, record_end
-                ),
+                format!("Record end is out of bounds for resource file {file_path}: {record_end}"),
             ));
         }
 
@@ -262,8 +251,7 @@ pub fn resource_file_resolver(file_path: String, offset: usize) -> Result<Vec<u8
                 return Err(std::io::Error::new(
                     std::io::ErrorKind::InvalidData,
                     format!(
-                        "Record offset of list is out of bounds for resource file {}: {}",
-                        file_path, record_offset
+                        "Record offset of list is out of bounds for resource file {file_path}: {record_offset}"
                     ),
                 ));
             }
@@ -274,8 +262,7 @@ pub fn resource_file_resolver(file_path: String, offset: usize) -> Result<Vec<u8
                 return Err(std::io::Error::new(
                     std::io::ErrorKind::InvalidData,
                     format!(
-                        "Record end of list is out of bounds for resource file {}: {}",
-                        file_path, record_end
+                        "Record end of list is out of bounds for resource file {file_path}: {record_end}"
                     ),
                 ));
             }
@@ -295,8 +282,7 @@ pub fn resource_file_resolver(file_path: String, offset: usize) -> Result<Vec<u8
             return Err(std::io::Error::new(
                 std::io::ErrorKind::InvalidData,
                 format!(
-                    "Record end of list is out of bounds for resource file {}: {}",
-                    file_path, record_offset
+                    "Record end of list is out of bounds for resource file {file_path}: {record_offset}"
                 ),
             ));
         }
@@ -323,10 +309,7 @@ pub fn resource_file_resolver(file_path: String, offset: usize) -> Result<Vec<u8
         if record_end > buffer.len() {
             return Err(std::io::Error::new(
                 std::io::ErrorKind::InvalidData,
-                format!(
-                    "Record end is out of bounds for resource file {}: {}",
-                    file_path, record_end
-                ),
+                format!("Record end is out of bounds for resource file {file_path}: {record_end}"),
             ));
         }
 
@@ -344,10 +327,7 @@ pub fn resource_file_resolver(file_path: String, offset: usize) -> Result<Vec<u8
     if record_start > buffer.len() {
         return Err(std::io::Error::new(
             std::io::ErrorKind::InvalidData,
-            format!(
-                "Record start is out of bounds for resource file {}: {}",
-                file_path, record_start
-            ),
+            format!("Record start is out of bounds for resource file {file_path}: {record_start}"),
         ));
     }
 
@@ -364,10 +344,7 @@ pub fn resource_file_resolver(file_path: String, offset: usize) -> Result<Vec<u8
     if record_end > buffer.len() {
         return Err(std::io::Error::new(
             std::io::ErrorKind::InvalidData,
-            format!(
-                "Record end is out of bounds for resource file {}: {}",
-                file_path, record_end
-            ),
+            format!("Record end is out of bounds for resource file {file_path}: {record_end}"),
         ));
     }
 
