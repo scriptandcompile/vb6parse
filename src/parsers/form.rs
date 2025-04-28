@@ -809,7 +809,7 @@ fn property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FullyQualifiedN
     })
 }
 
-fn build_control<'a>(control_block: ControlBlock<'a>) -> Result<VB6Control, VB6ErrorKind> {
+fn build_control(control_block: ControlBlock<'_>) -> Result<VB6Control, VB6ErrorKind> {
     let tag = match control_block.properties.get(b"Tag".into()) {
         Some(text) => text.into(),
         None => b"".into(),
