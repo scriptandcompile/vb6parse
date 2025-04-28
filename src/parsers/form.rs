@@ -74,10 +74,7 @@ impl Serialize for VB6PropertyGroup {
     }
 }
 
-pub fn resource_file_resolver<'a>(
-    file_path: String,
-    offset: usize,
-) -> Result<Vec<u8>, std::io::Error> {
+pub fn resource_file_resolver(file_path: String, offset: usize) -> Result<Vec<u8>, std::io::Error> {
     // VB6 FRX files are resource files that contain binary data for controls, forms, and other UI elements.
     // They are typically used in conjunction with VB6 FRM files.
     // The overall format of a VB6 FRX file is not well documented, but it generally consists of a
@@ -686,7 +683,7 @@ fn property_key_value_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<(&'a BSt
     Ok((name, value.as_bytes()))
 }
 
-fn property_group_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyGroup> {
+fn property_group_parse(input: &mut VB6Stream<'_>) -> VB6Result<VB6PropertyGroup> {
     (space0, keyword_parse("BeginProperty"), space1).parse_next(input)?;
 
     let Ok(property_group_name): VB6Result<&BStr> = take_till(1.., |c| {
@@ -774,7 +771,7 @@ fn property_group_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6PropertyG
     Ok(property_group)
 }
 
-fn property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FullyQualifiedName> {
+fn property_parse(input: &mut VB6Stream<'_>) -> VB6Result<VB6FullyQualifiedName> {
     let Ok(namespace) = take_until::<_, _, VB6Error>(0.., ".").parse_next(input) else {
         return Err(ErrMode::Cut(VB6ErrorKind::NoNamespaceAfterBegin));
     };
