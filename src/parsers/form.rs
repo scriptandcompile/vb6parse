@@ -383,7 +383,7 @@ pub fn list_resolver(buffer: &[u8]) -> Vec<BString> {
 }
 
 impl<'a> VB6FormFile<'a> {
-    /// Parses a VB6 form file from a byte slice using the selected resource_file_resolver.
+    /// Parses a VB6 form file from a byte slice using the selected `resource_file_resolver`.
     ///
     /// # Arguments
     ///
