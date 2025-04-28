@@ -98,7 +98,7 @@ pub fn resource_file_resolver(file_path: String, offset: usize) -> Result<Vec<u8
     };
 
     // Check if the offset is within the bounds of the file.
-    if offset as usize >= buffer.len() {
+    if offset >= buffer.len() {
         return Err(std::io::Error::new(
             std::io::ErrorKind::InvalidInput,
             format!("Offset is out of bounds for resource file {file_path}: {offset}"),
@@ -163,12 +163,12 @@ pub fn resource_file_resolver(file_path: String, offset: usize) -> Result<Vec<u8
         return Ok(record_data.to_vec());
     }
 
-    if buffer[offset as usize] == 0xFF {
+    if buffer[offset] == 0xFF {
         // If the first byte of the record is 0xFF, then the record is a 16-bit record.
 
         // it's a bit excessive to lay out the record size offset/length/end, but it makes it easier to read.
         let header_size_element_offset = offset + 1;
-        let header_size_element_length = 2 as usize;
+        let header_size_element_length = 2usize;
         let header_size_element_end = header_size_element_offset + header_size_element_length;
 
         if header_size_element_end > buffer.len() {
