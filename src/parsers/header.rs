@@ -570,13 +570,10 @@ pub fn key_resource_offset_line_parse<'a>(
         }
     };
 
-    let offset = match u32::from_str_radix(offset_txt.to_str().unwrap(), 16) {
-        Ok(offset) => offset,
-        Err(_) => {
-            return Err(ErrMode::Cut(VB6ErrorKind::Property(
-                PropertyError::OffsetUnparsable,
-            )));
-        }
+    let Ok(offset) = u32::from_str_radix(offset_txt.to_str().unwrap(), 16) else {
+        return Err(ErrMode::Cut(VB6ErrorKind::Property(
+            PropertyError::OffsetUnparsable,
+        )));
     };
 
     (space0, opt(line_comment_parse)).parse_next(input)?;
