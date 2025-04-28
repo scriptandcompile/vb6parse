@@ -384,9 +384,8 @@ pub fn list_resolver(buffer: &[u8]) -> Vec<BString> {
             return list_items;
         }
 
-        let list_item_buffer = match buffer[record_offset..record_end].try_into() {
-            Ok(bytes) => bytes,
-            Err(_) => return list_items,
+        let Ok(list_item_buffer) = buffer[record_offset..record_end].try_into() else {
+            return list_items;
         };
 
         let list_item_size = u16::from_le_bytes(list_item_buffer) as usize;
