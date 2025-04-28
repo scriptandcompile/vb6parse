@@ -488,7 +488,7 @@ impl<'a> VB6FormFile<'a> {
         match (space0, keyword_parse("BEGIN"), space1).parse_next(&mut input) {
             Ok(_) => (),
             Err(err) => return Err(input.error(err.into_inner().unwrap())),
-        };
+        }
 
         let form = match control_parse(&resource_resolver).parse_next(&mut input) {
             Ok(form) => form,
@@ -595,7 +595,7 @@ fn control_parse<'a>(
                     }
                     // If we had and error while trying to build the control, we return the error.
                     Err(err) => return Err(ErrMode::Cut(err)),
-                };
+                }
 
                 continue;
             }
@@ -781,7 +781,7 @@ fn property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FullyQualifiedN
 
     if literal::<&str, _, VB6Error>(".").parse_next(input).is_err() {
         return Err(ErrMode::Cut(VB6ErrorKind::NoDotAfterNamespace));
-    };
+    }
 
     let Ok(kind) = take_until::<_, _, VB6Error>(0.., (" ", "\t")).parse_next(input) else {
         return Err(ErrMode::Cut(VB6ErrorKind::NoUserControlNameAfterDot));
