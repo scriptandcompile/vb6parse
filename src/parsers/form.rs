@@ -115,7 +115,7 @@ pub fn resource_file_resolver(file_path: String, offset: usize) -> Result<Vec<u8
         // which should be 8 less than the record size from the start of the header.
 
         let buffer_size_1 =
-            u32::from_le_bytes(buffer[(offset + 0)..(offset + 4)].try_into().unwrap()) as usize;
+            u32::from_le_bytes(buffer[offset..(offset + 4)].try_into().unwrap()) as usize;
         // the next 4 bytes after the 12 byte record heading should be
         // the size of the record from the start of the record buffer.
         // which should be 8 less than the record size from the start of the header.
