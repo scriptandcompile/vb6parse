@@ -329,9 +329,10 @@ impl<'a> Stream for VB6Stream<'a> {
     }
 
     fn peek_slice(&self, offset: usize) -> Self::Slice {
-        if offset > self.stream[self.index..].len() {
-            panic!("Offset is out of bounds");
-        }
+        assert!(
+            (offset <= self.stream[self.index..].len()),
+            "Offset is out of bounds"
+        );
 
         self.stream[self.index..(self.index + offset)].as_bstr()
     }
