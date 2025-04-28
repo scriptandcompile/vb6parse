@@ -18,7 +18,7 @@ pub struct PropertiesIter<'a> {
     iter: std::collections::hash_map::Iter<'a, &'a BStr, Cow<'a, [u8]>>,
 }
 
-impl<'a> Properties<'a> {
+impl Properties<'_> {
     #[must_use]
     pub fn iter(&self) -> PropertiesIter<'_> {
         PropertiesIter {
