@@ -358,18 +358,38 @@ pub fn resource_file_resolver(file_path: String, offset: usize) -> Result<Vec<u8
 pub fn list_resolver(buffer: &[u8]) -> Vec<BString> {
     let mut list_items = vec![];
 
-    let list_item_count = u16::from_le_bytes(buffer[0..2].try_into().unwrap()) as usize;
+    if buffer.len() < 2 {
+        return list_items;
+    }
+
+    let item_count_buffer: [u8; 2] = match buffer[0..2].try_into() {
+        Ok(bytes) => bytes,
+        Err(_) => return list_items,
+    };
+
+    let list_item_count = u16::from_le_bytes(item_count_buffer) as usize;
 
     // we are going to read the header and the list items into a single vector.
     let header_size = 4;
     let mut record_offset = header_size;
     let list_item_header_size = 2;
     for _ in 0..list_item_count {
-        let list_item_size = u16::from_le_bytes(
-            buffer[record_offset..record_offset + list_item_header_size]
-                .try_into()
-                .unwrap(),
-        ) as usize;
+        if record_offset > buffer.len() {
+            return list_items;
+        }
+
+        let record_end = record_offset + list_item_header_size;
+
+        if record_end > buffer.len() {
+            return list_items;
+        }
+
+        let list_item_buffer = match buffer[record_offset..record_end].try_into() {
+            Ok(bytes) => bytes,
+            Err(_) => return list_items,
+        };
+
+        let list_item_size = u16::from_le_bytes(list_item_buffer) as usize;
 
         let record_item_start = record_offset + list_item_header_size;
         let list_item = &buffer[record_item_start..record_item_start + list_item_size];
