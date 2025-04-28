@@ -1434,7 +1434,7 @@ fn process_qouted_optional_parameter<'a>(
     let value = match alt((qouted_value_parse("\""), qouted_value_parse("!"))).parse_next(input) {
         Ok(value) => {
             // if we have !(None)! or !! then we have no value line.
-            if value == "(None)" || value == "" {
+            if value == "(None)" || value.is_empty() {
                 None
             } else {
                 Some(value)
