@@ -973,7 +973,7 @@ fn build_control<'a>(control_block: ControlBlock<'a>) -> Result<VB6Control, VB6E
 
     let parent_control = VB6Control {
         name: control_block.fully_qualified_name.name,
-        tag: tag.clone().into(),
+        tag: tag.clone(),
         index: 0,
         kind,
     };
