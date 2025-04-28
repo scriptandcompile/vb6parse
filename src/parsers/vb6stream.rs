@@ -65,7 +65,7 @@ impl<'a> VB6Stream<'a> {
     }
 }
 
-impl<'a> FindSlice<&str> for VB6Stream<'a> {
+impl FindSlice<&str> for VB6Stream<'_> {
     fn find_slice(&self, needle: &str) -> Option<std::ops::Range<usize>> {
         self.stream[self.index..]
             .find(needle)
@@ -73,7 +73,7 @@ impl<'a> FindSlice<&str> for VB6Stream<'a> {
     }
 }
 
-impl<'a> FindSlice<(&str, &str)> for VB6Stream<'a> {
+impl FindSlice<(&str, &str)> for VB6Stream<'_> {
     fn find_slice(&self, needle: (&str, &str)) -> Option<std::ops::Range<usize>> {
         for needle in &[needle.0, needle.1] {
             if let Some(range) = self.stream[self.index..]
@@ -88,7 +88,7 @@ impl<'a> FindSlice<(&str, &str)> for VB6Stream<'a> {
     }
 }
 
-impl<'a> FindSlice<(&str, &str, &str)> for VB6Stream<'a> {
+impl FindSlice<(&str, &str, &str)> for VB6Stream<'_> {
     fn find_slice(&self, needle: (&str, &str, &str)) -> Option<std::ops::Range<usize>> {
         for needle in &[needle.0, needle.1, needle.2] {
             if let Some(range) = self.stream[self.index..]
@@ -103,7 +103,7 @@ impl<'a> FindSlice<(&str, &str, &str)> for VB6Stream<'a> {
     }
 }
 
-impl<'a> FindSlice<(&str, &str, &str, &str)> for VB6Stream<'a> {
+impl FindSlice<(&str, &str, &str, &str)> for VB6Stream<'_> {
     fn find_slice(&self, needle: (&str, &str, &str, &str)) -> Option<std::ops::Range<usize>> {
         for needle in &[needle.0, needle.1, needle.2, needle.3] {
             if let Some(range) = self.stream[self.index..]
@@ -118,7 +118,7 @@ impl<'a> FindSlice<(&str, &str, &str, &str)> for VB6Stream<'a> {
     }
 }
 
-impl<'a> FindSlice<(&str, &str, &str, &str, &str)> for VB6Stream<'a> {
+impl FindSlice<(&str, &str, &str, &str, &str)> for VB6Stream<'_> {
     fn find_slice(&self, needle: (&str, &str, &str, &str, &str)) -> Option<std::ops::Range<usize>> {
         for needle in &[needle.0, needle.1, needle.2, needle.3, needle.4] {
             if let Some(range) = self.stream[self.index..]
@@ -133,7 +133,7 @@ impl<'a> FindSlice<(&str, &str, &str, &str, &str)> for VB6Stream<'a> {
     }
 }
 
-impl<'a> FindSlice<(&str, &str, &str, &str, &str, &str)> for VB6Stream<'a> {
+impl FindSlice<(&str, &str, &str, &str, &str, &str)> for VB6Stream<'_> {
     fn find_slice(
         &self,
         needle: (&str, &str, &str, &str, &str, &str),
@@ -151,7 +151,7 @@ impl<'a> FindSlice<(&str, &str, &str, &str, &str, &str)> for VB6Stream<'a> {
     }
 }
 
-impl<'a> FindSlice<char> for VB6Stream<'a> {
+impl FindSlice<char> for VB6Stream<'_> {
     fn find_slice(&self, needle: char) -> Option<std::ops::Range<usize>> {
         #[allow(clippy::range_plus_one)]
         if let Some(range) = self.stream[self.index..]
@@ -165,7 +165,7 @@ impl<'a> FindSlice<char> for VB6Stream<'a> {
     }
 }
 
-impl<'a> FindSlice<u8> for VB6Stream<'a> {
+impl FindSlice<u8> for VB6Stream<'_> {
     fn find_slice(&self, needle: u8) -> Option<std::ops::Range<usize>> {
         #[allow(clippy::range_plus_one)]
         if let Some(range) = self.stream[self.index..]
@@ -179,7 +179,7 @@ impl<'a> FindSlice<u8> for VB6Stream<'a> {
     }
 }
 
-impl<'a> FindSlice<(char, char)> for VB6Stream<'a> {
+impl FindSlice<(char, char)> for VB6Stream<'_> {
     fn find_slice(&self, needle: (char, char)) -> Option<std::ops::Range<usize>> {
         for needle in &[needle.0.to_string(), needle.1.to_string()] {
             if let Some(range) = self.stream[self.index..]
@@ -194,7 +194,7 @@ impl<'a> FindSlice<(char, char)> for VB6Stream<'a> {
     }
 }
 
-impl<'a> FindSlice<(u8, u8)> for VB6Stream<'a> {
+impl FindSlice<(u8, u8)> for VB6Stream<'_> {
     fn find_slice(&self, needle: (u8, u8)) -> Option<std::ops::Range<usize>> {
         for needle in &[needle.0.to_string(), needle.1.to_string()] {
             if let Some(range) = self.stream[self.index..]
@@ -209,7 +209,7 @@ impl<'a> FindSlice<(u8, u8)> for VB6Stream<'a> {
     }
 }
 
-impl<'a> FindSlice<(u8, u8, u8)> for VB6Stream<'a> {
+impl FindSlice<(u8, u8, u8)> for VB6Stream<'_> {
     fn find_slice(&self, needle: (u8, u8, u8)) -> Option<std::ops::Range<usize>> {
         for needle in &[
             needle.0.to_string(),
@@ -228,7 +228,7 @@ impl<'a> FindSlice<(u8, u8, u8)> for VB6Stream<'a> {
     }
 }
 
-impl<'a> FindSlice<(u8, u8, u8, u8)> for VB6Stream<'a> {
+impl FindSlice<(u8, u8, u8, u8)> for VB6Stream<'_> {
     fn find_slice(&self, needle: (u8, u8, u8, u8)) -> Option<std::ops::Range<usize>> {
         for needle in &[
             needle.0.to_string(),
@@ -248,7 +248,7 @@ impl<'a> FindSlice<(u8, u8, u8, u8)> for VB6Stream<'a> {
     }
 }
 
-impl<'a> Compare<char> for VB6Stream<'a> {
+impl Compare<char> for VB6Stream<'_> {
     fn compare(&self, other: char) -> CompareResult {
         if self.stream[self.index..].len() < 1 {
             CompareResult::Incomplete
@@ -260,7 +260,7 @@ impl<'a> Compare<char> for VB6Stream<'a> {
     }
 }
 
-impl<'a> Compare<&str> for VB6Stream<'a> {
+impl Compare<&str> for VB6Stream<'_> {
     fn compare(&self, other: &str) -> CompareResult {
         let other = other.as_bytes();
         let len = other.len();
@@ -275,7 +275,7 @@ impl<'a> Compare<&str> for VB6Stream<'a> {
     }
 }
 
-impl<'a> Compare<Caseless<&str>> for VB6Stream<'a> {
+impl Compare<Caseless<&str>> for VB6Stream<'_> {
     fn compare(&self, other: Caseless<&str>) -> CompareResult {
         let other = other.as_bytes();
         let len = other.0.len();
@@ -290,7 +290,7 @@ impl<'a> Compare<Caseless<&str>> for VB6Stream<'a> {
     }
 }
 
-impl<'a> StreamIsPartial for VB6Stream<'a> {
+impl StreamIsPartial for VB6Stream<'_> {
     type PartialState = usize;
 
     fn complete(&mut self) -> usize {
