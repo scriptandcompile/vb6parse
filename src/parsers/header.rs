@@ -280,7 +280,7 @@ pub fn object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ObjectReferen
         .is_err()
     {
         return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    };
+    }
 
     let object = match alt((compiled_object_parse, project_object_parse)).parse_next(input) {
         Ok(object) => object,
