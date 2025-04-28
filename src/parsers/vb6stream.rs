@@ -250,7 +250,7 @@ impl FindSlice<(u8, u8, u8, u8)> for VB6Stream<'_> {
 
 impl Compare<char> for VB6Stream<'_> {
     fn compare(&self, other: char) -> CompareResult {
-        if self.stream[self.index..].len() < 1 {
+        if self.stream[self.index..].is_empty() {
             CompareResult::Incomplete
         } else if self.stream[self.index..].starts_with(other.to_string().as_bytes()) {
             CompareResult::Ok(1)
