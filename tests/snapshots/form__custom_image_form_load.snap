@@ -114,7 +114,7 @@ form:
         palette: ~
         palette_mode: HalfTone
         picture: ~
-        right_to_left: false
+        right_to_left: LeftToRight
         scale_height: 473
         scale_left: 0
         scale_mode: Pixel
@@ -168,7 +168,7 @@ form:
                 mouse_pointer: Default
                 ole_drag_mode: Manual
                 ole_drop_mode: None
-                right_to_left: false
+                right_to_left: LeftToRight
                 sorted: false
                 style: DropDownCombo
                 tab_index: 34
@@ -240,7 +240,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 30
                 tab_stop: true
@@ -294,7 +294,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 29
                 tab_stop: true
@@ -348,7 +348,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 28
                 tab_stop: true
@@ -402,7 +402,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 27
                 tab_stop: true
@@ -456,7 +456,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 26
                 tab_stop: true
@@ -510,7 +510,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 25
                 tab_stop: true
@@ -564,7 +564,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 24
                 tab_stop: true
@@ -618,7 +618,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 23
                 tab_stop: true
@@ -672,7 +672,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 22
                 tab_stop: true
@@ -726,7 +726,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 21
                 tab_stop: true
@@ -780,7 +780,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 20
                 tab_stop: true
@@ -834,7 +834,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 19
                 tab_stop: true
@@ -888,7 +888,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 18
                 tab_stop: true
@@ -942,7 +942,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 17
                 tab_stop: true
@@ -996,7 +996,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 16
                 tab_stop: true
@@ -1050,7 +1050,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 15
                 tab_stop: true
@@ -1104,7 +1104,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 14
                 tab_stop: true
@@ -1158,7 +1158,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 13
                 tab_stop: true
@@ -1212,7 +1212,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 12
                 tab_stop: true
@@ -1266,7 +1266,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 11
                 tab_stop: true
@@ -1320,7 +1320,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 10
                 tab_stop: true
@@ -1374,7 +1374,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 9
                 tab_stop: true
@@ -1428,7 +1428,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 8
                 tab_stop: true
@@ -1482,7 +1482,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 7
                 tab_stop: true
@@ -1536,7 +1536,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 6
                 tab_stop: true
@@ -1595,7 +1595,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 5
                 tab_stop: true
@@ -1657,7 +1657,7 @@ form:
                 mouse_pointer: Custom
                 ole_drop_mode: None
                 picture: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 style: Standard
                 tab_index: 4
                 tab_stop: true
@@ -1712,7 +1712,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 3
                 tab_stop: true
@@ -1777,7 +1777,7 @@ form:
                 mouse_pointer: Default
                 ole_drop_mode: None
                 picture: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 style: Standard
                 tab_index: 2
                 tab_stop: true
@@ -1843,7 +1843,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 picture: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scale_height: 300
                 scale_left: 0
                 scale_mode: Pixel
@@ -1913,7 +1913,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 picture: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scale_height: 300
                 scale_left: 0
                 scale_mode: Pixel
@@ -1984,7 +1984,7 @@ form:
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
-                right_to_left: false
+                right_to_left: LeftToRight
                 tab_index: 33
                 tool_tip_text: []
                 top: 1440
@@ -2041,7 +2041,7 @@ form:
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
-                right_to_left: false
+                right_to_left: LeftToRight
                 tab_index: 32
                 tool_tip_text: []
                 top: 2085
@@ -2096,7 +2096,7 @@ form:
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
-                right_to_left: false
+                right_to_left: LeftToRight
                 tab_index: 31
                 tool_tip_text: []
                 top: 2085

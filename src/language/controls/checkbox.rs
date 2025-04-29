@@ -1,7 +1,8 @@
 use crate::{
     language::{
         controls::{
-            Appearance, DragMode, JustifyAlignment, MousePointer, OLEDropMode, Style, Visibility,
+            Appearance, DragMode, JustifyAlignment, MousePointer, OLEDropMode, Style,
+            TextDirection, Visibility,
         },
         VB6Color,
     },
@@ -53,7 +54,7 @@ pub struct CheckBoxProperties {
     pub mouse_pointer: MousePointer,
     pub ole_drop_mode: OLEDropMode,
     pub picture: Option<DynamicImage>,
-    pub right_to_left: bool,
+    pub right_to_left: TextDirection,
     pub style: Style,
     pub tab_index: i32,
     pub tab_stop: bool,
@@ -92,7 +93,7 @@ impl Default for CheckBoxProperties {
             mouse_pointer: MousePointer::Default,
             ole_drop_mode: OLEDropMode::default(),
             picture: None,
-            right_to_left: false,
+            right_to_left: TextDirection::LeftToRight,
             style: Style::Standard,
             tab_index: 0,
             tab_stop: true,
@@ -222,7 +223,7 @@ impl<'a> From<Properties<'a>> for CheckBoxProperties {
         //Picture
 
         checkbox_prop.right_to_left =
-            prop.get_bool(b"RightToLeft".into(), checkbox_prop.right_to_left);
+            prop.get_property(b"RightToLeft".into(), checkbox_prop.right_to_left);
         checkbox_prop.style = prop.get_property(b"Style".into(), checkbox_prop.style);
         checkbox_prop.tab_index = prop.get_i32(b"TabIndex".into(), checkbox_prop.tab_index);
         checkbox_prop.tab_stop = prop.get_bool(b"TabStop".into(), checkbox_prop.tab_stop);

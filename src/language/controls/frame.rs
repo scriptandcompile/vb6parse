@@ -1,6 +1,7 @@
 use crate::language::color::VB6Color;
 use crate::language::controls::{
-    Appearance, BorderStyle, ClipControls, DragMode, MousePointer, OLEDropMode, Visibility,
+    Appearance, BorderStyle, ClipControls, DragMode, MousePointer, OLEDropMode, TextDirection,
+    Visibility,
 };
 use crate::parsers::Properties;
 
@@ -31,7 +32,7 @@ pub struct FrameProperties {
     pub mouse_icon: Option<DynamicImage>,
     pub mouse_pointer: MousePointer,
     pub ole_drop_mode: OLEDropMode,
-    pub right_to_left: bool,
+    pub right_to_left: TextDirection,
     pub tab_index: i32,
     pub tool_tip_text: BString,
     pub top: i32,
@@ -58,7 +59,7 @@ impl Default for FrameProperties {
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
             ole_drop_mode: OLEDropMode::default(),
-            right_to_left: false,
+            right_to_left: TextDirection::LeftToRight,
             tab_index: 0,
             tool_tip_text: BString::from(""),
             top: 30,
@@ -141,7 +142,8 @@ impl<'a> From<Properties<'a>> for FrameProperties {
             prop.get_property(b"MousePointer".into(), frame_prop.mouse_pointer);
         frame_prop.ole_drop_mode =
             prop.get_property(b"OLEDropMode".into(), frame_prop.ole_drop_mode);
-        frame_prop.right_to_left = prop.get_bool(b"RightToLeft".into(), frame_prop.right_to_left);
+        frame_prop.right_to_left =
+            prop.get_property(b"RightToLeft".into(), frame_prop.right_to_left);
         frame_prop.tab_index = prop.get_i32(b"TabIndex".into(), frame_prop.tab_index);
         frame_prop.tool_tip_text = match prop.get("ToolTipText".into()) {
             Some(tool_tip_text) => tool_tip_text.into(),

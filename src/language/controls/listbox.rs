@@ -1,6 +1,7 @@
 use crate::language::color::VB6Color;
 use crate::language::controls::{
-    Appearance, DragMode, MousePointer, MultiSelect, OLEDragMode, OLEDropMode, Visibility,
+    Appearance, DragMode, MousePointer, MultiSelect, OLEDragMode, OLEDropMode, TextDirection,
+    Visibility,
 };
 use crate::parsers::Properties;
 
@@ -48,7 +49,7 @@ pub struct ListBoxProperties {
     pub multi_select: MultiSelect,
     pub ole_drag_mode: OLEDragMode,
     pub ole_drop_mode: OLEDropMode,
-    pub right_to_left: bool,
+    pub right_to_left: TextDirection,
     pub sorted: bool,
     pub style: ListBoxStyle,
     pub tab_index: i32,
@@ -84,7 +85,7 @@ impl Default for ListBoxProperties {
             multi_select: MultiSelect::None,
             ole_drag_mode: OLEDragMode::Manual,
             ole_drop_mode: OLEDropMode::default(),
-            right_to_left: false,
+            right_to_left: TextDirection::LeftToRight,
             sorted: false,
             style: ListBoxStyle::Standard,
             tab_index: 0,
@@ -198,7 +199,7 @@ impl<'a> From<Properties<'a>> for ListBoxProperties {
         list_box_prop.ole_drop_mode =
             prop.get_property(b"OLEDropMode".into(), list_box_prop.ole_drop_mode);
         list_box_prop.right_to_left =
-            prop.get_bool(b"RightToLeft".into(), list_box_prop.right_to_left);
+            prop.get_property(b"RightToLeft".into(), list_box_prop.right_to_left);
         list_box_prop.sorted = prop.get_bool(b"Sorted".into(), list_box_prop.sorted);
         list_box_prop.style = prop.get_property(b"Style".into(), list_box_prop.style);
         list_box_prop.tab_index = prop.get_i32(b"TabIndex".into(), list_box_prop.tab_index);

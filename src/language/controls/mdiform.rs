@@ -1,7 +1,7 @@
 use crate::language::{
     controls::{
-        Appearance, FormLinkMode, MousePointer, OLEDropMode, StartUpPosition, Visibility,
-        WindowState,
+        Appearance, FormLinkMode, MousePointer, OLEDropMode, StartUpPosition, TextDirection,
+        Visibility, WindowState,
     },
     VB6Color,
 };
@@ -30,7 +30,7 @@ pub struct MDIFormProperties {
     pub negotiate_toolbars: bool,
     pub ole_drop_mode: OLEDropMode,
     pub picture: Option<DynamicImage>,
-    pub right_to_left: bool,
+    pub right_to_left: TextDirection,
     pub scroll_bars: bool,
     pub start_up_position: StartUpPosition,
     pub top: i32,
@@ -108,7 +108,7 @@ impl Default for MDIFormProperties {
             negotiate_toolbars: true,
             ole_drop_mode: OLEDropMode::default(),
             picture: None,
-            right_to_left: false,
+            right_to_left: TextDirection::LeftToRight,
             scroll_bars: true,
             start_up_position: StartUpPosition::WindowsDefault,
             top: 0,
@@ -165,7 +165,7 @@ impl<'a> From<Properties<'a>> for MDIFormProperties {
         // Picture
 
         mdi_form_prop.right_to_left =
-            prop.get_bool(b"RightToLeft".into(), mdi_form_prop.right_to_left);
+            prop.get_property(b"RightToLeft".into(), mdi_form_prop.right_to_left);
         mdi_form_prop.scroll_bars = prop.get_bool(b"Scrollbars".into(), mdi_form_prop.scroll_bars);
         mdi_form_prop.start_up_position =
             prop.get_startup_position(b"StartUpPosition".into(), mdi_form_prop.start_up_position);

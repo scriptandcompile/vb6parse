@@ -108,7 +108,7 @@ form:
         palette: ~
         palette_mode: HalfTone
         picture: ~
-        right_to_left: false
+        right_to_left: LeftToRight
         scale_height: 345
         scale_left: 0
         scale_mode: Pixel
@@ -161,7 +161,7 @@ form:
                 mouse_pointer: Default
                 ole_drag_mode: Manual
                 ole_drop_mode: None
-                right_to_left: false
+                right_to_left: LeftToRight
                 sorted: false
                 style: DropDownCombo
                 tab_index: 3
@@ -243,7 +243,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 picture: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scale_height: 705
                 scale_left: 0
                 scale_mode: Twip
@@ -317,7 +317,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 picture: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scale_height: 705
                 scale_left: 0
                 scale_mode: Twip
@@ -398,7 +398,7 @@ form:
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
-                right_to_left: false
+                right_to_left: LeftToRight
                 tab_index: 2
                 tool_tip_text: []
                 top: 120

@@ -111,7 +111,7 @@ form:
         palette: ~
         palette_mode: HalfTone
         picture: ~
-        right_to_left: false
+        right_to_left: LeftToRight
         scale_height: 585
         scale_left: 0
         scale_mode: Pixel
@@ -169,7 +169,7 @@ form:
                 mouse_pointer: Default
                 ole_drag_mode: Manual
                 ole_drop_mode: None
-                right_to_left: false
+                right_to_left: LeftToRight
                 sorted: false
                 style: DropDownList
                 tab_index: 8
@@ -204,7 +204,7 @@ form:
                 min: 0
                 mouse_icon: ~
                 mouse_pointer: Default
-                right_to_left: false
+                right_to_left: LeftToRight
                 small_change: 1
                 tab_index: 6
                 tab_stop: true
@@ -237,7 +237,7 @@ form:
                 min: 0
                 mouse_icon: ~
                 mouse_pointer: Default
-                right_to_left: false
+                right_to_left: LeftToRight
                 small_change: 1
                 tab_index: 5
                 tab_stop: true
@@ -273,7 +273,7 @@ form:
                 min: 0
                 mouse_icon: ~
                 mouse_pointer: Default
-                right_to_left: false
+                right_to_left: LeftToRight
                 small_change: 1
                 tab_index: 4
                 tab_stop: true
@@ -342,7 +342,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 picture: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scale_height: 64
                 scale_left: 0
                 scale_mode: Pixel
@@ -419,7 +419,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 picture: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scale_height: 64
                 scale_left: 0
                 scale_mode: Pixel
@@ -486,7 +486,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 picture: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scale_height: 64
                 scale_left: 0
                 scale_mode: Pixel
@@ -558,7 +558,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 picture: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scale_height: 447
                 scale_left: 0
                 scale_mode: Pixel

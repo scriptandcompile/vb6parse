@@ -1,5 +1,6 @@
 use crate::language::controls::{
-    Appearance, DragMode, JustifyAlignment, MousePointer, OLEDropMode, Style, Visibility,
+    Appearance, DragMode, JustifyAlignment, MousePointer, OLEDropMode, Style, TextDirection,
+    Visibility,
 };
 use crate::language::VB6Color;
 use crate::parsers::Properties;
@@ -44,7 +45,7 @@ pub struct OptionButtonProperties {
     pub mouse_pointer: MousePointer,
     pub ole_drop_mode: OLEDropMode,
     pub picture: Option<DynamicImage>,
-    pub right_to_left: bool,
+    pub right_to_left: TextDirection,
     pub style: Style,
     pub tab_index: i32,
     pub tab_stop: bool,
@@ -79,7 +80,7 @@ impl Default for OptionButtonProperties {
             mouse_pointer: MousePointer::Default,
             ole_drop_mode: OLEDropMode::default(),
             picture: None,
-            right_to_left: false,
+            right_to_left: TextDirection::LeftToRight,
             style: Style::Standard,
             tab_index: 0,
             tab_stop: true,
@@ -197,7 +198,7 @@ impl<'a> From<Properties<'a>> for OptionButtonProperties {
         // Picture
 
         option_button_prop.right_to_left =
-            prop.get_bool(b"RightToLeft".into(), option_button_prop.right_to_left);
+            prop.get_property(b"RightToLeft".into(), option_button_prop.right_to_left);
         option_button_prop.style = prop.get_property(b"Style".into(), option_button_prop.style);
         option_button_prop.tab_index =
             prop.get_i32(b"TabIndex".into(), option_button_prop.tab_index);

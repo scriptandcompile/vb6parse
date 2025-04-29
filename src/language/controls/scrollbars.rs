@@ -1,4 +1,4 @@
-use crate::language::controls::{DragMode, MousePointer, Visibility};
+use crate::language::controls::{DragMode, MousePointer, TextDirection, Visibility};
 use crate::parsers::Properties;
 
 use image::DynamicImage;
@@ -25,7 +25,7 @@ pub struct ScrollBarProperties {
     pub min: i32,
     pub mouse_icon: Option<DynamicImage>,
     pub mouse_pointer: MousePointer,
-    pub right_to_left: bool,
+    pub right_to_left: TextDirection,
     pub small_change: i32,
     pub tab_index: i32,
     pub tab_stop: bool,
@@ -51,7 +51,7 @@ impl Default for ScrollBarProperties {
             min: 0,
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
-            right_to_left: false,
+            right_to_left: TextDirection::LeftToRight,
             small_change: 1,
             tab_index: 0,
             tab_stop: true,
@@ -133,7 +133,7 @@ impl<'a> From<Properties<'a>> for ScrollBarProperties {
         scroll_bar_prop.mouse_pointer =
             prop.get_property(b"MousePointer".into(), scroll_bar_prop.mouse_pointer);
         scroll_bar_prop.right_to_left =
-            prop.get_bool(b"RightToLeft".into(), scroll_bar_prop.right_to_left);
+            prop.get_property(b"RightToLeft".into(), scroll_bar_prop.right_to_left);
         scroll_bar_prop.small_change =
             prop.get_i32(b"SmallChange".into(), scroll_bar_prop.small_change);
         scroll_bar_prop.tab_index = prop.get_i32(b"TabIndex".into(), scroll_bar_prop.tab_index);

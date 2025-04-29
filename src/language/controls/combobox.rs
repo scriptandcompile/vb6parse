@@ -1,5 +1,5 @@
 use crate::language::controls::{
-    Appearance, DragMode, MousePointer, OLEDragMode, OLEDropMode, Visibility,
+    Appearance, DragMode, MousePointer, OLEDragMode, OLEDropMode, TextDirection, Visibility,
 };
 use crate::parsers::Properties;
 use crate::VB6Color;
@@ -48,7 +48,7 @@ pub struct ComboBoxProperties {
     pub mouse_pointer: MousePointer,
     pub ole_drag_mode: OLEDragMode,
     pub ole_drop_mode: OLEDropMode,
-    pub right_to_left: bool,
+    pub right_to_left: TextDirection,
     pub sorted: bool,
     pub style: ComboBoxStyle,
     pub tab_index: i32,
@@ -86,7 +86,7 @@ impl Default for ComboBoxProperties {
             mouse_pointer: MousePointer::Default,
             ole_drag_mode: OLEDragMode::Manual,
             ole_drop_mode: OLEDropMode::default(),
-            right_to_left: false,
+            right_to_left: TextDirection::LeftToRight,
             sorted: false,
             style: ComboBoxStyle::DropDownCombo,
             tab_index: 0,
@@ -201,7 +201,7 @@ impl<'a> From<Properties<'a>> for ComboBoxProperties {
         combobox_prop.ole_drop_mode =
             prop.get_property(b"OLEDropMode".into(), combobox_prop.ole_drop_mode);
         combobox_prop.right_to_left =
-            prop.get_bool(b"RightToLeft".into(), combobox_prop.right_to_left);
+            prop.get_property(b"RightToLeft".into(), combobox_prop.right_to_left);
         combobox_prop.sorted = prop.get_bool(b"Sorted".into(), combobox_prop.sorted);
         combobox_prop.style = prop.get_property(b"Style".into(), combobox_prop.style);
         combobox_prop.tab_index = prop.get_i32(b"TabIndex".into(), combobox_prop.tab_index);

@@ -2,7 +2,7 @@ use crate::{
     language::{
         controls::{
             Appearance, AutoRedraw, ClipControls, DrawMode, DrawStyle, FillStyle, MousePointer,
-            OLEDropMode, ScaleMode, StartUpPosition, Visibility, WindowState,
+            OLEDropMode, ScaleMode, StartUpPosition, TextDirection, Visibility, WindowState,
         },
         FormLinkMode, VB6Color,
     },
@@ -81,7 +81,7 @@ pub struct FormProperties {
     pub palette: Option<DynamicImage>,
     pub palette_mode: PaletteMode,
     pub picture: Option<DynamicImage>,
-    pub right_to_left: bool,
+    pub right_to_left: TextDirection,
     pub scale_height: i32,
     pub scale_left: i32,
     pub scale_mode: ScaleMode,
@@ -216,7 +216,7 @@ impl Default for FormProperties {
             palette: None,
             palette_mode: PaletteMode::HalfTone,
             picture: None,
-            right_to_left: false,
+            right_to_left: TextDirection::LeftToRight,
             scale_height: 240,
             scale_left: 0,
             scale_mode: ScaleMode::Twip,
@@ -303,7 +303,7 @@ impl From<Properties<'_>> for FormProperties {
 
         // Picture
 
-        form_prop.right_to_left = prop.get_bool(b"RightToLeft".into(), form_prop.right_to_left);
+        form_prop.right_to_left = prop.get_property(b"RightToLeft".into(), form_prop.right_to_left);
         form_prop.scale_height = prop.get_i32(b"ScaleHeight".into(), form_prop.scale_height);
         form_prop.scale_left = prop.get_i32(b"ScaleLeft".into(), form_prop.scale_left);
         form_prop.scale_mode = prop.get_property(b"ScaleMode".into(), form_prop.scale_mode);

@@ -1,6 +1,6 @@
 use crate::errors::VB6ErrorKind;
 use crate::language::controls::{
-    Align, Appearance, DragMode, MousePointer, OLEDropMode, Visibility,
+    Align, Appearance, DragMode, MousePointer, OLEDropMode, TextDirection, Visibility,
 };
 use crate::parsers::Properties;
 use crate::VB6Color;
@@ -43,7 +43,7 @@ pub struct DataProperties {
     pub read_only: bool,
     pub record_set_type: RecordSetType,
     pub record_source: BString,
-    pub right_to_left: bool,
+    pub right_to_left: TextDirection,
     pub tool_tip_text: BString,
     pub top: i32,
     pub visible: Visibility,
@@ -79,7 +79,7 @@ impl Default for DataProperties {
             read_only: false,
             record_set_type: RecordSetType::Dynaset,
             record_source: "".into(),
-            right_to_left: false,
+            right_to_left: TextDirection::LeftToRight,
             tool_tip_text: "".into(),
             top: 840,
             visible: Visibility::Visible,
@@ -187,7 +187,7 @@ impl<'a> From<Properties<'a>> for DataProperties {
             None => "".into(),
         };
 
-        data_prop.right_to_left = prop.get_bool(b"RightToLeft".into(), data_prop.right_to_left);
+        data_prop.right_to_left = prop.get_property(b"RightToLeft".into(), data_prop.right_to_left);
         data_prop.tool_tip_text = match prop.get(b"ToolTipText".into()) {
             Some(tool_tip_text) => tool_tip_text.into(),
             None => "".into(),
