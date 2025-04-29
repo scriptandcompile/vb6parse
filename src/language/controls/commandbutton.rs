@@ -1,4 +1,6 @@
-use crate::language::controls::{Appearance, DragMode, MousePointer, OLEDropMode, Style};
+use crate::language::controls::{
+    Appearance, DragMode, MousePointer, OLEDropMode, Style, TextDirection,
+};
 use crate::parsers::Properties;
 use crate::VB6Color;
 
@@ -33,7 +35,7 @@ pub struct CommandButtonProperties {
     pub mouse_pointer: MousePointer,
     pub ole_drop_mode: OLEDropMode,
     pub picture: Option<DynamicImage>,
-    pub right_to_left: bool,
+    pub right_to_left: TextDirection,
     pub style: Style,
     pub tab_index: i32,
     pub tab_stop: bool,
@@ -66,7 +68,7 @@ impl Default for CommandButtonProperties {
             mouse_pointer: MousePointer::Default,
             ole_drop_mode: OLEDropMode::default(),
             picture: None,
-            right_to_left: false,
+            right_to_left: TextDirection::LeftToRight,
             style: Style::Standard,
             tab_index: 0,
             tab_stop: true,
@@ -179,7 +181,7 @@ impl<'a> From<Properties<'a>> for CommandButtonProperties {
         // picture
 
         command_button_prop.right_to_left =
-            prop.get_bool(b"RightToLeft".into(), command_button_prop.right_to_left);
+            prop.get_property(b"RightToLeft".into(), command_button_prop.right_to_left);
         command_button_prop.style = prop.get_property(b"Style".into(), command_button_prop.style);
         command_button_prop.tab_index =
             prop.get_i32(b"TabIndex".into(), command_button_prop.tab_index);

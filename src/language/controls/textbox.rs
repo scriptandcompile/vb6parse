@@ -1,7 +1,7 @@
 use crate::{
     language::controls::{
         Alignment, Appearance, BorderStyle, DragMode, LinkMode, MousePointer, OLEDragMode,
-        OLEDropMode, Visibility,
+        OLEDropMode, TextDirection, Visibility,
     },
     parsers::Properties,
     VB6Color,
@@ -59,7 +59,7 @@ pub struct TextBoxProperties {
     pub ole_drag_mode: OLEDragMode,
     pub ole_drop_mode: OLEDropMode,
     pub password_char: Option<char>,
-    pub right_to_left: bool,
+    pub right_to_left: TextDirection,
     pub scroll_bars: ScrollBars,
     pub tab_index: i32,
     pub tab_stop: bool,
@@ -103,7 +103,7 @@ impl Default for TextBoxProperties {
             ole_drag_mode: OLEDragMode::Manual,
             ole_drop_mode: OLEDropMode::default(),
             password_char: None,
-            right_to_left: false,
+            right_to_left: TextDirection::LeftToRight,
             scroll_bars: ScrollBars::None,
             tab_index: 0,
             tab_stop: true,
@@ -254,7 +254,7 @@ impl<'a> From<Properties<'a>> for TextBoxProperties {
         };
 
         text_box_prop.right_to_left =
-            prop.get_bool(b"RightToLeft".into(), text_box_prop.right_to_left);
+            prop.get_property(b"RightToLeft".into(), text_box_prop.right_to_left);
 
         text_box_prop.scroll_bars =
             prop.get_property(b"ScrollBars".into(), text_box_prop.scroll_bars);

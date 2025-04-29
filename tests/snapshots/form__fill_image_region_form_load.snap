@@ -116,7 +116,7 @@ form:
         palette: ~
         palette_mode: HalfTone
         picture: ~
-        right_to_left: false
+        right_to_left: LeftToRight
         scale_height: 441
         scale_left: 0
         scale_mode: Pixel
@@ -188,7 +188,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 picture: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scale_height: 399
                 scale_left: 0
                 scale_mode: Pixel
@@ -340,7 +340,7 @@ form:
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
-                right_to_left: false
+                right_to_left: LeftToRight
                 tab_index: 0
                 tool_tip_text: []
                 top: 120

@@ -1,6 +1,6 @@
 use crate::language::controls::{
     Alignment, Appearance, BackStyle, BorderStyle, DragMode, LinkMode, MousePointer, OLEDropMode,
-    Visibility,
+    TextDirection, Visibility,
 };
 use crate::parsers::Properties;
 use crate::VB6Color;
@@ -41,7 +41,7 @@ pub struct LabelProperties {
     pub mouse_icon: Option<DynamicImage>,
     pub mouse_pointer: MousePointer,
     pub ole_drop_mode: OLEDropMode,
-    pub right_to_left: bool,
+    pub right_to_left: TextDirection,
     pub tab_index: i32,
     pub tool_tip_text: BString,
     pub top: i32,
@@ -79,7 +79,7 @@ impl Default for LabelProperties {
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
             ole_drop_mode: OLEDropMode::default(),
-            right_to_left: false,
+            right_to_left: TextDirection::LeftToRight,
             tab_index: 0,
             tool_tip_text: "".into(),
             top: 30,
@@ -199,7 +199,8 @@ impl<'a> From<Properties<'a>> for LabelProperties {
             prop.get_property(b"MousePointer".into(), label_prop.mouse_pointer);
         label_prop.ole_drop_mode =
             prop.get_property(b"OLEDropMode".into(), label_prop.ole_drop_mode);
-        label_prop.right_to_left = prop.get_bool(b"RightToLeft".into(), label_prop.right_to_left);
+        label_prop.right_to_left =
+            prop.get_property(b"RightToLeft".into(), label_prop.right_to_left);
         label_prop.tab_index = prop.get_i32(b"TabIndex".into(), label_prop.tab_index);
         label_prop.tool_tip_text = match prop.get("ToolTipText".into()) {
             Some(tool_tip_text) => tool_tip_text.into(),

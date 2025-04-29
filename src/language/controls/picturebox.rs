@@ -1,6 +1,7 @@
 use crate::language::controls::{
     Align, Appearance, AutoRedraw, BorderStyle, ClipControls, DragMode, DrawMode, DrawStyle,
-    FillStyle, LinkMode, MousePointer, OLEDragMode, OLEDropMode, ScaleMode, Visibility,
+    FillStyle, LinkMode, MousePointer, OLEDragMode, OLEDropMode, ScaleMode, TextDirection,
+    Visibility,
 };
 use crate::parsers::Properties;
 use crate::VB6Color;
@@ -53,7 +54,7 @@ pub struct PictureBoxProperties {
     pub ole_drag_mode: OLEDragMode,
     pub ole_drop_mode: OLEDropMode,
     pub picture: Option<DynamicImage>,
-    pub right_to_left: bool,
+    pub right_to_left: TextDirection,
     pub scale_height: i32,
     pub scale_left: i32,
     pub scale_mode: ScaleMode,
@@ -107,7 +108,7 @@ impl Default for PictureBoxProperties {
             ole_drag_mode: OLEDragMode::Manual,
             ole_drop_mode: OLEDropMode::default(),
             picture: None,
-            right_to_left: false,
+            right_to_left: TextDirection::LeftToRight,
             scale_height: 100,
             scale_left: 0,
             scale_mode: ScaleMode::Twip,
@@ -282,7 +283,7 @@ impl<'a> From<Properties<'a>> for PictureBoxProperties {
         // Picture
 
         picture_box_prop.right_to_left =
-            prop.get_bool(b"RightToLeft".into(), picture_box_prop.right_to_left);
+            prop.get_property(b"RightToLeft".into(), picture_box_prop.right_to_left);
         picture_box_prop.scale_height =
             prop.get_i32(b"ScaleHeight".into(), picture_box_prop.scale_height);
         picture_box_prop.scale_left =

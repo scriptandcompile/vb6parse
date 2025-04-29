@@ -67,6 +67,18 @@ pub enum AutoRedraw {
     Automatic = -1,
 }
 
+/// `TextDirection` determines the orderdirection in which text is displayed in the control.
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
+pub enum TextDirection {
+    /// The text is ordered from right to left.
+    /// Yes, they used -1 for true.
+    RightToLeft = -1,
+    /// The text is ordered from left to right.
+    #[default]
+    LeftToRight = 0,
+}
+
 /// Determines if the control is visible or not.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]

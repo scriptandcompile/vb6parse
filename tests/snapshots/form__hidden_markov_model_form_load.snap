@@ -136,7 +136,7 @@ form:
         palette: ~
         palette_mode: HalfTone
         picture: ~
-        right_to_left: false
+        right_to_left: LeftToRight
         scale_height: 586
         scale_left: 0
         scale_mode: Pixel
@@ -261,7 +261,7 @@ form:
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
-                right_to_left: false
+                right_to_left: LeftToRight
                 tab_index: 39
                 tool_tip_text: []
                 top: 4920
@@ -324,7 +324,7 @@ form:
                         ole_drag_mode: Manual
                         ole_drop_mode: None
                         picture: ~
-                        right_to_left: false
+                        right_to_left: LeftToRight
                         scale_height: 63
                         scale_left: 0
                         scale_mode: Pixel
@@ -397,7 +397,7 @@ form:
                         ole_drag_mode: Manual
                         ole_drop_mode: None
                         picture: ~
-                        right_to_left: false
+                        right_to_left: LeftToRight
                         scale_height: 63
                         scale_left: 0
                         scale_mode: Pixel
@@ -462,7 +462,7 @@ form:
                         ole_drag_mode: Manual
                         ole_drop_mode: None
                         password_char: ~
-                        right_to_left: false
+                        right_to_left: LeftToRight
                         scroll_bars: None
                         tab_index: 42
                         tab_stop: true
@@ -539,7 +539,7 @@ form:
                         mouse_pointer: Default
                         ole_drop_mode: None
                         picture: ~
-                        right_to_left: false
+                        right_to_left: LeftToRight
                         style: Standard
                         tab_index: 40
                         tab_stop: true
@@ -671,7 +671,7 @@ form:
                         mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
-                        right_to_left: false
+                        right_to_left: LeftToRight
                         tab_index: 49
                         tool_tip_text: []
                         top: 480
@@ -735,7 +735,7 @@ form:
                         mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
-                        right_to_left: false
+                        right_to_left: LeftToRight
                         tab_index: 47
                         tool_tip_text: []
                         top: 2040
@@ -816,7 +816,7 @@ form:
                         mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
-                        right_to_left: false
+                        right_to_left: LeftToRight
                         tab_index: 46
                         tool_tip_text: []
                         top: 840
@@ -886,7 +886,7 @@ form:
                         mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
-                        right_to_left: false
+                        right_to_left: LeftToRight
                         tab_index: 41
                         tool_tip_text: []
                         top: 480
@@ -981,7 +981,7 @@ form:
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
-                right_to_left: false
+                right_to_left: LeftToRight
                 tab_index: 37
                 tool_tip_text: []
                 top: 3840
@@ -1044,7 +1044,7 @@ form:
                         mouse_pointer: Default
                         ole_drop_mode: None
                         picture: ~
-                        right_to_left: false
+                        right_to_left: LeftToRight
                         style: Standard
                         tab_index: 38
                         tab_stop: true
@@ -1127,7 +1127,7 @@ form:
                         mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
-                        right_to_left: false
+                        right_to_left: LeftToRight
                         tab_index: 43
                         tool_tip_text: []
                         top: 360
@@ -1196,7 +1196,7 @@ form:
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
-                right_to_left: false
+                right_to_left: LeftToRight
                 tab_index: 5
                 tool_tip_text: []
                 top: 1200
@@ -1274,7 +1274,7 @@ form:
                         mouse_pointer: Default
                         ole_drop_mode: None
                         picture: ~
-                        right_to_left: false
+                        right_to_left: LeftToRight
                         style: Standard
                         tab_index: 48
                         tab_stop: true
@@ -1342,7 +1342,7 @@ form:
                         mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
-                        right_to_left: false
+                        right_to_left: LeftToRight
                         tab_index: 32
                         tool_tip_text: []
                         top: 360
@@ -1400,7 +1400,7 @@ form:
                                 ole_drag_mode: Manual
                                 ole_drop_mode: None
                                 password_char: ~
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 scroll_bars: None
                                 tab_index: 36
                                 tab_stop: true
@@ -1462,7 +1462,7 @@ form:
                                 ole_drag_mode: Manual
                                 ole_drop_mode: None
                                 password_char: ~
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 scroll_bars: None
                                 tab_index: 35
                                 tab_stop: true
@@ -1520,7 +1520,7 @@ form:
                                 mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 tab_index: 34
                                 tool_tip_text: []
                                 top: 720
@@ -1575,7 +1575,7 @@ form:
                                 mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 tab_index: 33
                                 tool_tip_text: []
                                 top: 360
@@ -1639,7 +1639,7 @@ form:
                         mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
-                        right_to_left: false
+                        right_to_left: LeftToRight
                         tab_index: 15
                         tool_tip_text: []
                         top: 360
@@ -1698,7 +1698,7 @@ form:
                                 ole_drag_mode: Manual
                                 ole_drop_mode: None
                                 password_char: ~
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 scroll_bars: None
                                 tab_index: 31
                                 tab_stop: true
@@ -1762,7 +1762,7 @@ form:
                                 ole_drag_mode: Manual
                                 ole_drop_mode: None
                                 password_char: ~
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 scroll_bars: None
                                 tab_index: 29
                                 tab_stop: true
@@ -1826,7 +1826,7 @@ form:
                                 ole_drag_mode: Manual
                                 ole_drop_mode: None
                                 password_char: ~
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 scroll_bars: None
                                 tab_index: 27
                                 tab_stop: true
@@ -1890,7 +1890,7 @@ form:
                                 ole_drag_mode: Manual
                                 ole_drop_mode: None
                                 password_char: ~
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 scroll_bars: None
                                 tab_index: 25
                                 tab_stop: true
@@ -1954,7 +1954,7 @@ form:
                                 ole_drag_mode: Manual
                                 ole_drop_mode: None
                                 password_char: ~
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 scroll_bars: None
                                 tab_index: 23
                                 tab_stop: true
@@ -2017,7 +2017,7 @@ form:
                                 ole_drag_mode: Manual
                                 ole_drop_mode: None
                                 password_char: ~
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 scroll_bars: None
                                 tab_index: 21
                                 tab_stop: true
@@ -2081,7 +2081,7 @@ form:
                                 ole_drag_mode: Manual
                                 ole_drop_mode: None
                                 password_char: ~
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 scroll_bars: None
                                 tab_index: 19
                                 tab_stop: true
@@ -2144,7 +2144,7 @@ form:
                                 ole_drag_mode: Manual
                                 ole_drop_mode: None
                                 password_char: ~
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 scroll_bars: None
                                 tab_index: 17
                                 tab_stop: true
@@ -2205,7 +2205,7 @@ form:
                                 mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 tab_index: 30
                                 tool_tip_text: []
                                 top: 1440
@@ -2262,7 +2262,7 @@ form:
                                 mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 tab_index: 28
                                 tool_tip_text: []
                                 top: 1080
@@ -2319,7 +2319,7 @@ form:
                                 mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 tab_index: 26
                                 tool_tip_text: []
                                 top: 720
@@ -2375,7 +2375,7 @@ form:
                                 mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 tab_index: 24
                                 tool_tip_text: []
                                 top: 360
@@ -2431,7 +2431,7 @@ form:
                                 mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 tab_index: 22
                                 tool_tip_text: []
                                 top: 1440
@@ -2487,7 +2487,7 @@ form:
                                 mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 tab_index: 20
                                 tool_tip_text: []
                                 top: 1080
@@ -2543,7 +2543,7 @@ form:
                                 mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 tab_index: 18
                                 tool_tip_text: []
                                 top: 720
@@ -2599,7 +2599,7 @@ form:
                                 mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 tab_index: 16
                                 tool_tip_text: []
                                 top: 360
@@ -2666,7 +2666,7 @@ form:
                         mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
-                        right_to_left: false
+                        right_to_left: LeftToRight
                         tab_index: 6
                         tool_tip_text: []
                         top: 360
@@ -2722,7 +2722,7 @@ form:
                                 ole_drag_mode: Manual
                                 ole_drop_mode: None
                                 password_char: ~
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 scroll_bars: None
                                 tab_index: 14
                                 tab_stop: true
@@ -2782,7 +2782,7 @@ form:
                                 ole_drag_mode: Manual
                                 ole_drop_mode: None
                                 password_char: ~
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 scroll_bars: None
                                 tab_index: 12
                                 tab_stop: true
@@ -2842,7 +2842,7 @@ form:
                                 ole_drag_mode: Manual
                                 ole_drop_mode: None
                                 password_char: ~
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 scroll_bars: None
                                 tab_index: 10
                                 tab_stop: true
@@ -2902,7 +2902,7 @@ form:
                                 ole_drag_mode: Manual
                                 ole_drop_mode: None
                                 password_char: ~
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 scroll_bars: None
                                 tab_index: 8
                                 tab_stop: true
@@ -2962,7 +2962,7 @@ form:
                                 mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 tab_index: 13
                                 tool_tip_text: []
                                 top: 1440
@@ -3019,7 +3019,7 @@ form:
                                 mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 tab_index: 11
                                 tool_tip_text: []
                                 top: 1080
@@ -3076,7 +3076,7 @@ form:
                                 mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 tab_index: 9
                                 tool_tip_text: []
                                 top: 720
@@ -3133,7 +3133,7 @@ form:
                                 mouse_icon: ~
                                 mouse_pointer: Default
                                 ole_drop_mode: None
-                                right_to_left: false
+                                right_to_left: LeftToRight
                                 tab_index: 7
                                 tool_tip_text: []
                                 top: 360
@@ -3188,7 +3188,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scroll_bars: Both
                 tab_index: 3
                 tab_stop: true
@@ -3327,7 +3327,7 @@ form:
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
-                right_to_left: false
+                right_to_left: LeftToRight
                 tab_index: 0
                 tool_tip_text: []
                 top: 120
@@ -3398,7 +3398,7 @@ form:
                         mouse_pointer: Default
                         ole_drop_mode: None
                         picture: ~
-                        right_to_left: false
+                        right_to_left: LeftToRight
                         style: Standard
                         tab_index: 1
                         tab_stop: true
@@ -3479,7 +3479,7 @@ form:
                         mouse_icon: ~
                         mouse_pointer: Default
                         ole_drop_mode: None
-                        right_to_left: false
+                        right_to_left: LeftToRight
                         tab_index: 2
                         tool_tip_text: []
                         top: 360
@@ -3605,7 +3605,7 @@ form:
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
-                right_to_left: false
+                right_to_left: LeftToRight
                 tab_index: 4
                 tool_tip_text: []
                 top: 8400

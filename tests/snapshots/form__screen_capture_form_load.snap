@@ -122,7 +122,7 @@ form:
         palette: ~
         palette_mode: HalfTone
         picture: ~
-        right_to_left: false
+        right_to_left: LeftToRight
         scale_height: 240
         scale_left: 0
         scale_mode: Pixel
@@ -223,7 +223,7 @@ form:
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
-                right_to_left: false
+                right_to_left: LeftToRight
                 tab_index: 1
                 tool_tip_text: []
                 top: 240
@@ -316,7 +316,7 @@ form:
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
-                right_to_left: false
+                right_to_left: LeftToRight
                 tab_index: 0
                 tool_tip_text: []
                 top: 255

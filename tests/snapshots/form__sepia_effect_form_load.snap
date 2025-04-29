@@ -118,7 +118,7 @@ form:
         palette: ~
         palette_mode: HalfTone
         picture: ~
-        right_to_left: false
+        right_to_left: LeftToRight
         scale_height: 371
         scale_left: 0
         scale_mode: Pixel
@@ -183,7 +183,7 @@ form:
                 mouse_pointer: Default
                 ole_drop_mode: None
                 picture: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 style: Standard
                 tab_index: 3
                 tab_stop: true
@@ -249,7 +249,7 @@ form:
                 mouse_pointer: Default
                 ole_drop_mode: None
                 picture: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 style: Standard
                 tab_index: 2
                 tab_stop: true
@@ -315,7 +315,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 picture: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scale_height: 300
                 scale_left: 0
                 scale_mode: Pixel
@@ -385,7 +385,7 @@ form:
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 picture: ~
-                right_to_left: false
+                right_to_left: LeftToRight
                 scale_height: 300
                 scale_left: 0
                 scale_mode: Pixel
