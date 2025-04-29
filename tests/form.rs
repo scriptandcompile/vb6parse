@@ -4,7 +4,7 @@ use vb6parse::parsers::VB6FormFile;
 fn artificial_life_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Artificial-life/frmMain.frm");
 
-    let form_file = match VB6FormFile::parse("frmMain.frm".to_owned(), form_file_bytes) {
+    let form_file = match VB6FormFile::parse("frmMain.frm", form_file_bytes) {
         Ok(form_file) => form_file,
         Err(e) => {
             eprintln!("{e}");
@@ -19,7 +19,7 @@ fn artificial_life_form_load() {
 fn blacklight_effect_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Blacklight-effect/Blacklight.frm");
 
-    let form_file = match VB6FormFile::parse("Blacklight.frm".to_owned(), form_file_bytes) {
+    let form_file = match VB6FormFile::parse("Blacklight.frm", form_file_bytes) {
         Ok(form_file) => form_file,
         Err(e) => {
             eprintln!("{e}");
@@ -36,7 +36,7 @@ fn brightness_effect_part_1_form_load() {
         include_bytes!("./data/vb6-code/Brightness-effect/Part 1 - Pure VB6/Brightness.frm");
 
     let form_file = match VB6FormFile::parse(
-        "./tests/data/vb6-code/Brightness-effect/Part 1 - Pure VB6/Brightness.frm".to_owned(),
+        "./tests/data/vb6-code/Brightness-effect/Part 1 - Pure VB6/Brightness.frm",
         form_file_bytes,
     ) {
         Ok(form_file) => form_file,
@@ -55,7 +55,7 @@ fn brightness_effect_part_2_form_load() {
         "./data/vb6-code/Brightness-effect/Part 2 - API - GetPixel and SetPixel/Brightness2.frm"
     );
 
-    let form_file = match VB6FormFile::parse("./tests/data/vb6-code/Brightness-effect/Part 2 - API - GetPixel and SetPixel/Brightness2.frm".to_owned(), form_file_bytes) {
+    let form_file = match VB6FormFile::parse("./tests/data/vb6-code/Brightness-effect/Part 2 - API - GetPixel and SetPixel/Brightness2.frm", form_file_bytes) {
         Ok(form_file) => form_file,
         Err(e) => {
             eprintln!("{e}");
@@ -72,7 +72,7 @@ fn brightness_effect_part_3_form_load() {
         include_bytes!("./data/vb6-code/Brightness-effect/Part 3 - DIBs/Brightness3.frm");
 
     let form_file = match VB6FormFile::parse(
-        "./tests/data/vb6-code/Brightness-effect/Part 3 - DIBs/Brightness3.frm".to_owned(),
+        "./tests/data/vb6-code/Brightness-effect/Part 3 - DIBs/Brightness3.frm",
         form_file_bytes,
     ) {
         Ok(form_file) => form_file,
@@ -92,8 +92,7 @@ fn brightness_effect_part_4_form_load() {
     );
 
     let form_file = match VB6FormFile::parse(
-        "./tests/data/vb6-code/Brightness-effect/Part 4 - Even faster DIBs/Brightness.frm"
-            .to_owned(),
+        "./tests/data/vb6-code/Brightness-effect/Part 4 - Even faster DIBs/Brightness.frm",
         form_file_bytes,
     ) {
         Ok(form_file) => form_file,
@@ -111,7 +110,7 @@ fn color_shift_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Color-shift-effect/ShiftColors.frm");
 
     let form_file = match VB6FormFile::parse(
-        "./tests/data/vb6-code/Color-shift-effect/ShiftColors.frm".to_owned(),
+        "./tests/data/vb6-code/Color-shift-effect/ShiftColors.frm",
         form_file_bytes,
     ) {
         Ok(form_file) => form_file,
@@ -129,7 +128,7 @@ fn colorize_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Colorize-effect/Colorize.frm");
 
     let form_file = match VB6FormFile::parse(
-        "./tests/data/vb6-code/Colorize-effect/Colorize.frm".to_owned(),
+        "./tests/data/vb6-code/Colorize-effect/Colorize.frm",
         form_file_bytes,
     ) {
         Ok(form_file) => form_file,
@@ -147,7 +146,7 @@ fn contrast_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Contrast-effect/Contrast.frm");
 
     let form_file = match VB6FormFile::parse(
-        "./tests/data/vb6-code/Contrast-effect/Contrast.frm".to_owned(),
+        "./tests/data/vb6-code/Contrast-effect/Contrast.frm",
         form_file_bytes,
     ) {
         Ok(form_file) => form_file,
@@ -165,7 +164,7 @@ fn curves_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Curves-effect/Curves.frm");
 
     let form_file = match VB6FormFile::parse(
-        "./tests/data/vb6-code/Curves-effect/Curves.frm".to_owned(),
+        "./tests/data/vb6-code/Curves-effect/Curves.frm",
         form_file_bytes,
     ) {
         Ok(form_file) => form_file,
@@ -182,7 +181,7 @@ fn custom_image_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Custom-image-filters/CustomFilters.frm");
 
     let form_file = match VB6FormFile::parse(
-        "./tests/data/vb6-code/Custom-image-filters/CustomFilters.frm".to_owned(),
+        "./tests/data/vb6-code/Custom-image-filters/CustomFilters.frm",
         form_file_bytes,
     ) {
         Ok(form_file) => form_file,
@@ -200,7 +199,7 @@ fn diffuse_effect_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Diffuse-effect/Diffuse.frm");
 
     let form_file = match VB6FormFile::parse(
-        "./tests/data/vb6-code/Diffuse-effect/Diffuse.frm".to_owned(),
+        "./tests/data/vb6-code/Diffuse-effect/Diffuse.frm",
         form_file_bytes,
     ) {
         Ok(form_file) => form_file,
@@ -218,7 +217,7 @@ fn edge_detection_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Edge-detection/EdgeDetection.frm");
 
     let form_file = match VB6FormFile::parse(
-        "./tests/data/vb6-code/Edge-detection/EdgeDetection.frm".to_owned(),
+        "./tests/data/vb6-code/Edge-detection/EdgeDetection.frm",
         form_file_bytes,
     ) {
         Ok(form_file) => form_file,
@@ -236,7 +235,7 @@ fn emboss_engrave_effect_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Emboss-engrave-effect/EmbossEngrave.frm");
 
     let form_file = match VB6FormFile::parse(
-        "./tests/data/vb6-code/Emboss-engrave-effect/EmbossEngrave.frm".to_owned(),
+        "./tests/data/vb6-code/Emboss-engrave-effect/EmbossEngrave.frm",
         form_file_bytes,
     ) {
         Ok(form_file) => form_file,
@@ -254,7 +253,7 @@ fn fill_image_region_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Fill-image-region/frmFill.frm");
 
     let form_file = match VB6FormFile::parse(
-        "./tests/data/vb6-code/Fill-image-region/frmFill.frm".to_owned(),
+        "./tests/data/vb6-code/Fill-image-region/frmFill.frm",
         form_file_bytes,
     ) {
         Ok(form_file) => form_file,
@@ -272,7 +271,7 @@ fn fire_effect_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Fire-effect/frmFire.frm");
 
     let form_file = match VB6FormFile::parse(
-        "./tests/data/vb6-code/Fire-effect/frmFire.frm".to_owned(),
+        "./tests/data/vb6-code/Fire-effect/frmFire.frm",
         form_file_bytes,
     ) {
         Ok(form_file) => form_file,
@@ -290,7 +289,7 @@ fn game_physics_basic_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Game-physics-basic/FormPhysics.frm");
 
     let form_file = match VB6FormFile::parse(
-        "./tests/data/vb6-code/Game-physics-basic/FormPhysics.frm".to_owned(),
+        "./tests/data/vb6-code/Game-physics-basic/FormPhysics.frm",
         form_file_bytes,
     ) {
         Ok(form_file) => form_file,
@@ -307,7 +306,7 @@ fn game_physics_basic_form_load() {
 fn gradient_2d_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Gradient-2D/Gradient.frm");
 
-    let form_file = match VB6FormFile::parse("Gradient.frm".to_owned(), form_file_bytes) {
+    let form_file = match VB6FormFile::parse("Gradient.frm", form_file_bytes) {
         Ok(form_file) => form_file,
         Err(e) => {
             eprintln!("{e}");
@@ -322,7 +321,7 @@ fn gradient_2d_form_load() {
 fn grayscale_effect_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Grayscale-effect/Grayscale.frm");
 
-    let form_file = match VB6FormFile::parse("Grayscale.frm".to_owned(), form_file_bytes) {
+    let form_file = match VB6FormFile::parse("Grayscale.frm", form_file_bytes) {
         Ok(form_file) => form_file,
         Err(e) => {
             eprintln!("{e}");
@@ -338,7 +337,7 @@ fn hidden_markov_model_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Hidden-Markov-model/frmHMM.frm");
 
     let form_file = match VB6FormFile::parse(
-        "./tests/data/vb6-code/Hidden-Markov-model/frmHMM.frm".to_owned(),
+        "./tests/data/vb6-code/Hidden-Markov-model/frmHMM.frm",
         form_file_bytes,
     ) {
         Ok(form_file) => form_file,
@@ -355,7 +354,7 @@ fn hidden_markov_model_form_load() {
 fn histograms_advanced_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Histograms-advanced/Histogram.frm");
 
-    let form_file = match VB6FormFile::parse("Histogram.frm".to_owned(), form_file_bytes) {
+    let form_file = match VB6FormFile::parse("Histogram.frm", form_file_bytes) {
         Ok(form_file) => form_file,
         Err(e) => {
             eprintln!("{e}");
@@ -370,7 +369,7 @@ fn histograms_advanced_form_load() {
 fn histograms_basic_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Histograms-basic/Histogram.frm");
 
-    let form_file = match VB6FormFile::parse("Histogram.frm".to_owned(), form_file_bytes) {
+    let form_file = match VB6FormFile::parse("Histogram.frm", form_file_bytes) {
         Ok(form_file) => form_file,
         Err(e) => {
             eprintln!("{e}");
@@ -385,7 +384,7 @@ fn histograms_basic_form_load() {
 fn levels_effect_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Levels-effect/Main.frm");
 
-    let form_file = match VB6FormFile::parse("Main.frm".to_owned(), form_file_bytes) {
+    let form_file = match VB6FormFile::parse("Main.frm", form_file_bytes) {
         Ok(form_file) => form_file,
         Err(e) => {
             eprintln!("{e}");
@@ -400,7 +399,7 @@ fn levels_effect_form_load() {
 fn mandelbrot_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Mandelbrot/Mandelbrot.frm");
 
-    let form_file = match VB6FormFile::parse("Mandelbrot.frm".to_owned(), form_file_bytes) {
+    let form_file = match VB6FormFile::parse("Mandelbrot.frm", form_file_bytes) {
         Ok(form_file) => form_file,
         Err(e) => {
             eprintln!("{e}");
@@ -416,7 +415,7 @@ fn map_editor_2d_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Map-editor-2D/Main Editor.frm");
 
     let form_file = match VB6FormFile::parse(
-        "./tests/data/vb6-code/Map-editor-2D/Main Editor.frm".to_owned(),
+        "./tests/data/vb6-code/Map-editor-2D/Main Editor.frm",
         form_file_bytes,
     ) {
         Ok(form_file) => form_file,
@@ -433,7 +432,7 @@ fn map_editor_2d_form_load() {
 fn nature_effects_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Nature-effects/NatureFilters.frm");
 
-    let form_file = match VB6FormFile::parse("NatureFilters.frm".to_owned(), form_file_bytes) {
+    let form_file = match VB6FormFile::parse("NatureFilters.frm", form_file_bytes) {
         Ok(form_file) => form_file,
         Err(e) => {
             eprintln!("{e}");
@@ -448,7 +447,7 @@ fn nature_effects_form_load() {
 fn randomize_effects_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Randomize-effects/RandomizationFX.frm");
 
-    let form_file = match VB6FormFile::parse("RandomizationFX.frm".to_owned(), form_file_bytes) {
+    let form_file = match VB6FormFile::parse("RandomizationFX.frm", form_file_bytes) {
         Ok(form_file) => form_file,
         Err(e) => {
             eprintln!("{e}");
@@ -463,7 +462,7 @@ fn randomize_effects_form_load() {
 fn scanner_twain_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Scanner-TWAIN/frmScanner.frm");
 
-    let form_file = match VB6FormFile::parse("frmScanner.frm".to_owned(), form_file_bytes) {
+    let form_file = match VB6FormFile::parse("frmScanner.frm", form_file_bytes) {
         Ok(form_file) => form_file,
         Err(e) => {
             eprintln!("{e}");
@@ -478,7 +477,7 @@ fn scanner_twain_form_load() {
 fn screen_capture_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Screen-capture/FormScreenCapture.frm");
 
-    let form_file = match VB6FormFile::parse("FormScreenCapture.frm".to_owned(), form_file_bytes) {
+    let form_file = match VB6FormFile::parse("FormScreenCapture.frm", form_file_bytes) {
         Ok(form_file) => form_file,
         Err(e) => {
             eprintln!("{e}");
@@ -493,7 +492,7 @@ fn screen_capture_form_load() {
 fn sepia_effect_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Sepia-effect/Sepia.frm");
 
-    let form_file = match VB6FormFile::parse("Sepia.frm".to_owned(), form_file_bytes) {
+    let form_file = match VB6FormFile::parse("Sepia.frm", form_file_bytes) {
         Ok(form_file) => form_file,
         Err(e) => {
             eprintln!("{e}");
@@ -508,7 +507,7 @@ fn sepia_effect_form_load() {
 fn threshold_effect_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Threshold-effect/Threshold.frm");
 
-    let form_file = match VB6FormFile::parse("Threshold.frm".to_owned(), form_file_bytes) {
+    let form_file = match VB6FormFile::parse("Threshold.frm", form_file_bytes) {
         Ok(form_file) => form_file,
         Err(e) => {
             eprintln!("{e}");
@@ -524,7 +523,7 @@ fn transparency_2d_form_load() {
     let form_file_bytes = include_bytes!("./data/vb6-code/Transparency-2D/frmTransparency.frm");
 
     let form_file = match VB6FormFile::parse(
-        "./tests/data/vb6-code/Transparency-2D/frmTransparency.frm".to_owned(),
+        "./tests/data/vb6-code/Transparency-2D/frmTransparency.frm",
         form_file_bytes,
     ) {
         Ok(form_file) => form_file,
