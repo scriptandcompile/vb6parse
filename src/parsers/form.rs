@@ -74,7 +74,7 @@ impl Serialize for VB6PropertyGroup {
     }
 }
 
-pub fn resource_file_resolver(file_path: String, offset: usize) -> Result<Vec<u8>, std::io::Error> {
+pub fn resource_file_resolver(file_path: &str, offset: usize) -> Result<Vec<u8>, std::io::Error> {
     // VB6 FRX files are resource files that contain binary data for controls, forms, and other UI elements.
     // They are typically used in conjunction with VB6 FRM files.
     // The overall format of a VB6 FRX file is not well documented, but it generally consists of a
@@ -457,15 +457,15 @@ impl<'a> VB6FormFile<'a> {
     /// Attribute VB_Name = \"frmExampleForm\"\r
     /// ";
     ///
-    /// let result = VB6FormFile::parse_with_resolver("form_parse.frm".to_owned(), &mut input.as_ref(), resource_file_resolver);
+    /// let result = VB6FormFile::parse_with_resolver("form_parse.frm", &mut input.as_ref(), resource_file_resolver);
     ///
     ///
     /// assert!(result.is_ok());
     /// ```
     pub fn parse_with_resolver(
-        form_path: String,
+        form_path: &str,
         input: &'a [u8],
-        resource_resolver: impl Fn(String, usize) -> Result<Vec<u8>, std::io::Error>,
+        resource_resolver: impl Fn(&str, usize) -> Result<Vec<u8>, std::io::Error>,
     ) -> Result<Self, VB6Error> {
         let mut input = VB6Stream::new(form_path, input);
 
@@ -508,7 +508,7 @@ impl<'a> VB6FormFile<'a> {
         })
     }
 
-    pub fn parse(form_path: String, input: &'a [u8]) -> Result<Self, VB6Error> {
+    pub fn parse(form_path: &str, input: &'a [u8]) -> Result<Self, VB6Error> {
         VB6FormFile::parse_with_resolver(form_path, input, resource_file_resolver)
     }
 }
@@ -543,7 +543,7 @@ struct ControlBlock<'a> {
 }
 
 fn control_parse<'a>(
-    resource_resolver: impl Fn(String, usize) -> Result<Vec<u8>, std::io::Error>,
+    resource_resolver: impl Fn(&str, usize) -> Result<Vec<u8>, std::io::Error>,
 ) -> impl FnMut(&mut VB6Stream<'a>) -> VB6Result<VB6Control> {
     move |input: &mut VB6Stream<'a>| -> VB6Result<VB6Control> {
         let file_path = input.file_path.clone();
@@ -633,7 +633,7 @@ fn control_parse<'a>(
                     .to_string_lossy()
                     .to_string();
 
-                let resource = match resource_resolver(resource_path, offset as usize) {
+                let resource = match resource_resolver(&resource_path, offset as usize) {
                     Ok(res) => res,
                     Err(err) => {
                         return Err(ErrMode::Cut(VB6ErrorKind::ResourceFile(err)));
@@ -1070,7 +1070,7 @@ End\r
 Attribute VB_Name = \"Form_Main\"\r
 ";
 
-        let result = VB6FormFile::parse("form_parse.frm".to_owned(), input.as_bytes());
+        let result = VB6FormFile::parse("form_parse.frm", input.as_bytes());
 
         assert!(result.is_ok());
 
@@ -1198,7 +1198,7 @@ End\r
 Attribute VB_Name = \"FormMainMode\"\r
 ";
 
-        let result = VB6FormFile::parse("form_parse.frm".to_owned(), input.as_bytes());
+        let result = VB6FormFile::parse("form_parse.frm", input.as_bytes());
 
         assert!(matches!(
             result.err().unwrap().kind,
@@ -1243,7 +1243,7 @@ Attribute VB_Name = \"FormMainMode\"\r
     Attribute VB_Name = \"frmExampleForm\"\r
     ";
 
-        let result = VB6FormFile::parse("form_parse.frm".to_owned(), &mut input.as_ref());
+        let result = VB6FormFile::parse("form_parse.frm", &mut input.as_ref());
 
         assert!(result.is_ok());
 

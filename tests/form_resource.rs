@@ -39,7 +39,7 @@ fn audiostation_about_frx_load() {
         resource_file_bytes[label4_caption_buffer_start..label4_caption_buffer_end].to_vec();
 
     let about_icon = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_About.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_About.frx",
         about_icon_offset,
     ) {
         Ok(about_icon) => about_icon,
@@ -47,7 +47,7 @@ fn audiostation_about_frx_load() {
     };
 
     let about_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_About.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_About.frx",
         about_picture_offset,
     ) {
         Ok(about_picture) => about_picture,
@@ -55,7 +55,7 @@ fn audiostation_about_frx_load() {
     };
 
     let label6_caption = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_About.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_About.frx",
         label6_caption_offset,
     ) {
         Ok(label6_caption) => label6_caption,
@@ -63,7 +63,7 @@ fn audiostation_about_frx_load() {
     };
 
     let label4_caption = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_About.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_About.frx",
         label4_caption_offset,
     ) {
         Ok(label4_caption) => label4_caption,
@@ -95,7 +95,7 @@ fn audiostation_busy_frx_load() {
         resource_file_bytes[busy_icon_buffer_start..busy_icon_buffer_end].to_vec();
 
     let busy_icon = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Busy.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Busy.frx",
         busy_icon_offset,
     ) {
         Ok(busy_icon) => busy_icon,
@@ -165,7 +165,7 @@ fn audiostation_init_frx_load() {
         .to_vec();
 
     let init_icon = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Init.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Init.frx",
         init_icon_offset,
     ) {
         Ok(init_icon) => init_icon,
@@ -173,7 +173,7 @@ fn audiostation_init_frx_load() {
     };
 
     let alpha_img_ctl2_image = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Init.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Init.frx",
         alpha_img_ctl2_image_offset,
     ) {
         Ok(alpha_img_ctl2_image) => alpha_img_ctl2_image,
@@ -181,7 +181,7 @@ fn audiostation_init_frx_load() {
     };
 
     let alpha_img_ctl2_effects = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Init.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Init.frx",
         alpha_img_ctl2_effects_offset,
     ) {
         Ok(alpha_img_ctl2_effects) => alpha_img_ctl2_effects,
@@ -189,7 +189,7 @@ fn audiostation_init_frx_load() {
     };
 
     let alpha_img_ctl1_image = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Init.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Init.frx",
         alpha_img_ctl1_image_offset,
     ) {
         Ok(alpha_img_ctl1_image) => alpha_img_ctl1_image,
@@ -197,7 +197,7 @@ fn audiostation_init_frx_load() {
     };
 
     let alpha_img_ctl1_effects = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Init.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Init.frx",
         alpha_img_ctl1_effects_offset,
     ) {
         Ok(alpha_img_ctl1_effects) => alpha_img_ctl1_effects,
@@ -1149,7 +1149,7 @@ fn audiostation_main_frx_load() {
         .to_vec();
 
     let main_icon = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         main_icon_offset,
     ) {
         Ok(main_icon) => main_icon,
@@ -1157,7 +1157,7 @@ fn audiostation_main_frx_load() {
     };
 
     let element1_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         element1_picture_offset,
     ) {
         Ok(element1_picture) => element1_picture,
@@ -1165,7 +1165,7 @@ fn audiostation_main_frx_load() {
     };
 
     let cd_display_list_image1_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         cd_display_list_image1_picture_offset,
     ) {
         Ok(cd_display_list_image1_picture) => cd_display_list_image1_picture,
@@ -1173,7 +1173,7 @@ fn audiostation_main_frx_load() {
     };
 
     let cd_display_list_image2_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         cd_display_list_image2_picture_offset,
     ) {
         Ok(cd_display_list_image2_picture) => cd_display_list_image2_picture,
@@ -1181,7 +1181,7 @@ fn audiostation_main_frx_load() {
     };
 
     let cd_display_list_image3_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         cd_display_list_image3_picture_offset,
     ) {
         Ok(cd_display_list_image3_picture) => cd_display_list_image3_picture,
@@ -1189,7 +1189,7 @@ fn audiostation_main_frx_load() {
     };
 
     let cd_display_list_image4_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         cd_display_list_image4_picture_offset,
     ) {
         Ok(cd_display_list_image4_picture) => cd_display_list_image4_picture,
@@ -1197,7 +1197,7 @@ fn audiostation_main_frx_load() {
     };
 
     let cd_display_list_image5_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         cd_display_list_image5_picture_offset,
     ) {
         Ok(cd_display_list_image5_picture) => cd_display_list_image5_picture,
@@ -1205,7 +1205,7 @@ fn audiostation_main_frx_load() {
     };
 
     let cd_animation_list_image1_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         cd_animation_list_image1_picture_offset,
     ) {
         Ok(cd_animation_list_image1_picture) => cd_animation_list_image1_picture,
@@ -1213,7 +1213,7 @@ fn audiostation_main_frx_load() {
     };
 
     let cd_animation_list_image2_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         cd_animation_list_image2_picture_offset,
     ) {
         Ok(cd_animation_list_image2_picture) => cd_animation_list_image2_picture,
@@ -1221,7 +1221,7 @@ fn audiostation_main_frx_load() {
     };
 
     let cd_animation_list_image3_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         cd_animation_list_image3_picture_offset,
     ) {
         Ok(cd_animation_list_image3_picture) => cd_animation_list_image3_picture,
@@ -1229,7 +1229,7 @@ fn audiostation_main_frx_load() {
     };
 
     let cd_animation_list_image4_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         cd_animation_list_image4_picture_offset,
     ) {
         Ok(cd_animation_list_image4_picture) => cd_animation_list_image4_picture,
@@ -1237,7 +1237,7 @@ fn audiostation_main_frx_load() {
     };
 
     let cd_animation_list_image5_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         cd_animation_list_image5_picture_offset,
     ) {
         Ok(cd_animation_list_image5_picture) => cd_animation_list_image5_picture,
@@ -1245,7 +1245,7 @@ fn audiostation_main_frx_load() {
     };
 
     let cd_animation_list_image6_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         cd_animation_list_image6_picture_offset,
     ) {
         Ok(cd_animation_list_image6_picture) => cd_animation_list_image6_picture,
@@ -1253,7 +1253,7 @@ fn audiostation_main_frx_load() {
     };
 
     let cd_animation_list_image7_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         cd_animation_list_image7_picture_offset,
     ) {
         Ok(cd_animation_list_image7_picture) => cd_animation_list_image7_picture,
@@ -1261,7 +1261,7 @@ fn audiostation_main_frx_load() {
     };
 
     let element2_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         element2_picture_offset,
     ) {
         Ok(element2_picture) => element2_picture,
@@ -1269,7 +1269,7 @@ fn audiostation_main_frx_load() {
     };
 
     let switch_master_glyph = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         switch_master_glyph_offset,
     ) {
         Ok(switch_master_glyph) => switch_master_glyph,
@@ -1277,7 +1277,7 @@ fn audiostation_main_frx_load() {
     };
 
     let switch_rec_glyph = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         switch_rec_glyph_offset,
     ) {
         Ok(switch_rec_glyph) => switch_rec_glyph,
@@ -1285,7 +1285,7 @@ fn audiostation_main_frx_load() {
     };
 
     let switch_cd_glyph = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         switch_cd_glyph_offset,
     ) {
         Ok(switch_cd_glyph) => switch_cd_glyph,
@@ -1293,7 +1293,7 @@ fn audiostation_main_frx_load() {
     };
 
     let switch_dat_glyph = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         switch_dat_glyph_offset,
     ) {
         Ok(switch_dat_glyph) => switch_dat_glyph,
@@ -1301,7 +1301,7 @@ fn audiostation_main_frx_load() {
     };
 
     let switch_midi_glyph = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         switch_midi_glyph_offset,
     ) {
         Ok(switch_midi_glyph) => switch_midi_glyph,
@@ -1309,7 +1309,7 @@ fn audiostation_main_frx_load() {
     };
 
     let image1_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         image1_picture_offset,
     ) {
         Ok(image1_picture) => image1_picture,
@@ -1317,7 +1317,7 @@ fn audiostation_main_frx_load() {
     };
 
     let image3_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         image3_picture_offset,
     ) {
         Ok(image3_picture) => image3_picture,
@@ -1325,7 +1325,7 @@ fn audiostation_main_frx_load() {
     };
 
     let media_player_animation_list_image1_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         media_player_animation_list_image1_picture_offset,
     ) {
         Ok(media_player_animation_list_image1_picture) => {
@@ -1335,7 +1335,7 @@ fn audiostation_main_frx_load() {
     };
 
     let media_player_animation_list_image2_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         media_player_animation_list_image2_picture_offset,
     ) {
         Ok(media_player_animation_list_image2_picture) => {
@@ -1345,7 +1345,7 @@ fn audiostation_main_frx_load() {
     };
 
     let media_player_animation_list_image3_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         media_player_animation_list_image3_picture_offset,
     ) {
         Ok(media_player_animation_list_image3_picture) => {
@@ -1355,7 +1355,7 @@ fn audiostation_main_frx_load() {
     };
 
     let media_player_animation_list_image4_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         media_player_animation_list_image4_picture_offset,
     ) {
         Ok(media_player_animation_list_image4_picture) => {
@@ -1365,7 +1365,7 @@ fn audiostation_main_frx_load() {
     };
 
     let media_player_animation_list_image5_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         media_player_animation_list_image5_picture_offset,
     ) {
         Ok(media_player_animation_list_image5_picture) => {
@@ -1375,7 +1375,7 @@ fn audiostation_main_frx_load() {
     };
 
     let media_player_animation_list_image6_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         media_player_animation_list_image6_picture_offset,
     ) {
         Ok(media_player_animation_list_image6_picture) => {
@@ -1385,7 +1385,7 @@ fn audiostation_main_frx_load() {
     };
 
     let media_player_animation_list_image7_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         media_player_animation_list_image7_picture_offset,
     ) {
         Ok(media_player_animation_list_image7_picture) => {
@@ -1395,7 +1395,7 @@ fn audiostation_main_frx_load() {
     };
 
     let media_player_animation_list_image8_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         media_player_animation_list_image8_picture_offset,
     ) {
         Ok(media_player_animation_list_image8_picture) => {
@@ -1405,7 +1405,7 @@ fn audiostation_main_frx_load() {
     };
 
     let element3_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         element3_picture_offset,
     ) {
         Ok(element3_picture) => element3_picture,
@@ -1413,7 +1413,7 @@ fn audiostation_main_frx_load() {
     };
 
     let button_cd_player1_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         button_cd_player1_picture_offset,
     ) {
         Ok(button_cd_player1_picture) => button_cd_player1_picture,
@@ -1421,7 +1421,7 @@ fn audiostation_main_frx_load() {
     };
 
     let button_cd_player2_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         button_cd_player2_picture_offset,
     ) {
         Ok(button_cd_player2_picture) => button_cd_player2_picture,
@@ -1429,7 +1429,7 @@ fn audiostation_main_frx_load() {
     };
 
     let button_cd_player3_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         button_cd_player3_picture_offset,
     ) {
         Ok(button_cd_player3_picture) => button_cd_player3_picture,
@@ -1437,7 +1437,7 @@ fn audiostation_main_frx_load() {
     };
 
     let button_cd_player4_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         button_cd_player4_picture_offset,
     ) {
         Ok(button_cd_player4_picture) => button_cd_player4_picture,
@@ -1445,7 +1445,7 @@ fn audiostation_main_frx_load() {
     };
 
     let button_cd_player5_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         button_cd_player5_picture_offset,
     ) {
         Ok(button_cd_player5_picture) => button_cd_player5_picture,
@@ -1453,7 +1453,7 @@ fn audiostation_main_frx_load() {
     };
 
     let button_cd_player6_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         button_cd_player6_picture_offset,
     ) {
         Ok(button_cd_player6_picture) => button_cd_player6_picture,
@@ -1461,7 +1461,7 @@ fn audiostation_main_frx_load() {
     };
 
     let button_cd_player7_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         button_cd_player7_picture_offset,
     ) {
         Ok(button_cd_player7_picture) => button_cd_player7_picture,
@@ -1469,7 +1469,7 @@ fn audiostation_main_frx_load() {
     };
 
     let button_cd_player8_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         button_cd_player8_picture_offset,
     ) {
         Ok(button_cd_player8_picture) => button_cd_player8_picture,
@@ -1477,7 +1477,7 @@ fn audiostation_main_frx_load() {
     };
 
     let light_cd_play_on_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         light_cd_play_on_picture_offset,
     ) {
         Ok(light_cd_play_on_picture) => light_cd_play_on_picture,
@@ -1485,7 +1485,7 @@ fn audiostation_main_frx_load() {
     };
 
     let light_cd_pause_on_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         light_cd_pause_on_picture_offset,
     ) {
         Ok(light_cd_pause_on_picture) => light_cd_pause_on_picture,
@@ -1493,7 +1493,7 @@ fn audiostation_main_frx_load() {
     };
 
     let element4_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         element4_picture_offset,
     ) {
         Ok(element4_picture) => element4_picture,
@@ -1501,7 +1501,7 @@ fn audiostation_main_frx_load() {
     };
 
     let button_open_stream_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         button_open_stream_picture_offset,
     ) {
         Ok(button_open_stream_picture) => button_open_stream_picture,
@@ -1509,7 +1509,7 @@ fn audiostation_main_frx_load() {
     };
 
     let button_stop_stream_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         button_stop_stream_picture_offset,
     ) {
         Ok(button_stop_stream_picture) => button_stop_stream_picture,
@@ -1517,7 +1517,7 @@ fn audiostation_main_frx_load() {
     };
 
     let button_play_stream_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         button_play_stream_picture_offset,
     ) {
         Ok(button_play_stream_picture) => button_play_stream_picture,
@@ -1525,7 +1525,7 @@ fn audiostation_main_frx_load() {
     };
 
     let element5_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         element5_picture_offset,
     ) {
         Ok(element5_picture) => element5_picture,
@@ -1533,7 +1533,7 @@ fn audiostation_main_frx_load() {
     };
 
     let image_recording_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         recording_picture_offset,
     ) {
         Ok(image_recording_picture) => image_recording_picture,
@@ -1541,7 +1541,7 @@ fn audiostation_main_frx_load() {
     };
 
     let image4_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         image4_picture_offset,
     ) {
         Ok(image4_picture) => image4_picture,
@@ -1549,7 +1549,7 @@ fn audiostation_main_frx_load() {
     };
 
     let picture17_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         picture17_picture_offset,
     ) {
         Ok(picture17_picture) => picture17_picture,
@@ -1557,7 +1557,7 @@ fn audiostation_main_frx_load() {
     };
 
     let cmd_audioplayer1_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         cmd_audioplayer1_picture_offset,
     ) {
         Ok(cmd_audioplayer1_picture) => cmd_audioplayer1_picture,
@@ -1565,7 +1565,7 @@ fn audiostation_main_frx_load() {
     };
 
     let cmd_audioplayer2_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         cmd_audioplayer2_picture_offset,
     ) {
         Ok(cmd_audioplayer2_picture) => cmd_audioplayer2_picture,
@@ -1573,7 +1573,7 @@ fn audiostation_main_frx_load() {
     };
 
     let cmd_audioplayer3_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         cmd_audioplayer3_picture_offset,
     ) {
         Ok(cmd_audioplayer3_picture) => cmd_audioplayer3_picture,
@@ -1581,7 +1581,7 @@ fn audiostation_main_frx_load() {
     };
 
     let cmd_audioplayer4_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         cmd_audioplayer4_picture_offset,
     ) {
         Ok(cmd_audioplayer4_picture) => cmd_audioplayer4_picture,
@@ -1589,7 +1589,7 @@ fn audiostation_main_frx_load() {
     };
 
     let cmd_audioplayer5_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         cmd_audioplayer5_picture_offset,
     ) {
         Ok(cmd_audioplayer5_picture) => cmd_audioplayer5_picture,
@@ -1597,7 +1597,7 @@ fn audiostation_main_frx_load() {
     };
 
     let cmd_audioplayer6_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         cmd_audioplayer6_picture_offset,
     ) {
         Ok(cmd_audioplayer6_picture) => cmd_audioplayer6_picture,
@@ -1605,7 +1605,7 @@ fn audiostation_main_frx_load() {
     };
 
     let cmd_audioplayer7_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         cmd_audioplayer7_picture_offset,
     ) {
         Ok(cmd_audioplayer7_picture) => cmd_audioplayer7_picture,
@@ -1613,7 +1613,7 @@ fn audiostation_main_frx_load() {
     };
 
     let cmd_audioplayer8_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         cmd_audioplayer8_picture_offset,
     ) {
         Ok(cmd_audioplayer8_picture) => cmd_audioplayer8_picture,
@@ -1621,7 +1621,7 @@ fn audiostation_main_frx_load() {
     };
 
     let cmd_audioplayer9_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         cmd_audioplayer9_picture_offset,
     ) {
         Ok(cmd_audioplayer9_picture) => cmd_audioplayer9_picture,
@@ -1629,7 +1629,7 @@ fn audiostation_main_frx_load() {
     };
 
     let light_dat_play_on_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         light_dat_play_on_picture_offset,
     ) {
         Ok(light_dat_play_on_picture) => light_dat_play_on_picture,
@@ -1637,7 +1637,7 @@ fn audiostation_main_frx_load() {
     };
 
     let light_dat_pause_on_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         light_dat_pause_on_picture_offset,
     ) {
         Ok(light_dat_pause_on_picture) => light_dat_pause_on_picture,
@@ -1645,7 +1645,7 @@ fn audiostation_main_frx_load() {
     };
 
     let element6_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         element6_picture_offset,
     ) {
         Ok(element6_picture) => element6_picture,
@@ -1653,7 +1653,7 @@ fn audiostation_main_frx_load() {
     };
 
     let button_midi_player1_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         button_midi_player1_picture_offset,
     ) {
         Ok(button_midi_player1_picture) => button_midi_player1_picture,
@@ -1661,7 +1661,7 @@ fn audiostation_main_frx_load() {
     };
 
     let button_midi_player2_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         button_midi_player2_picture_offset,
     ) {
         Ok(button_midi_player2_picture) => button_midi_player2_picture,
@@ -1669,7 +1669,7 @@ fn audiostation_main_frx_load() {
     };
 
     let button_midi_player3_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         button_midi_player3_picture_offset,
     ) {
         Ok(button_midi_player3_picture) => button_midi_player3_picture,
@@ -1677,7 +1677,7 @@ fn audiostation_main_frx_load() {
     };
 
     let button_midi_player4_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         button_midi_player4_picture_offset,
     ) {
         Ok(button_midi_player4_picture) => button_midi_player4_picture,
@@ -1685,7 +1685,7 @@ fn audiostation_main_frx_load() {
     };
 
     let button_midi_player5_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         button_midi_player5_picture_offset,
     ) {
         Ok(button_midi_player5_picture) => button_midi_player5_picture,
@@ -1693,7 +1693,7 @@ fn audiostation_main_frx_load() {
     };
 
     let button_midi_player6_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         button_midi_player6_picture_offset,
     ) {
         Ok(button_midi_player6_picture) => button_midi_player6_picture,
@@ -1701,7 +1701,7 @@ fn audiostation_main_frx_load() {
     };
 
     let button_midi_player7_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         button_midi_player7_picture_offset,
     ) {
         Ok(button_midi_player7_picture) => button_midi_player7_picture,
@@ -1709,7 +1709,7 @@ fn audiostation_main_frx_load() {
     };
 
     let light_midi_floppy_drive_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         light_midi_floppy_drive_picture_offset,
     ) {
         Ok(light_midi_floppy_drive_picture) => light_midi_floppy_drive_picture,
@@ -1717,7 +1717,7 @@ fn audiostation_main_frx_load() {
     };
 
     let image6_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         image6_picture_offset,
     ) {
         Ok(image6_picture) => image6_picture,
@@ -1725,7 +1725,7 @@ fn audiostation_main_frx_load() {
     };
 
     let floppy_in_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         floppy_in_picture_offset,
     ) {
         Ok(floppy_in_picture) => floppy_in_picture,
@@ -1733,7 +1733,7 @@ fn audiostation_main_frx_load() {
     };
 
     let floppy_out_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         floppy_out_picture_offset,
     ) {
         Ok(floppy_out_picture) => floppy_out_picture,
@@ -1741,7 +1741,7 @@ fn audiostation_main_frx_load() {
     };
 
     let light_midi_play_on_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         light_midi_play_on_picture_offset,
     ) {
         Ok(light_midi_play_on_picture) => light_midi_play_on_picture,
@@ -1749,7 +1749,7 @@ fn audiostation_main_frx_load() {
     };
 
     let light_midi_pause_on_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         light_midi_pause_on_picture_offset,
     ) {
         Ok(light_midi_pause_on_picture) => light_midi_pause_on_picture,
@@ -1757,7 +1757,7 @@ fn audiostation_main_frx_load() {
     };
 
     let element7_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         element7_picture_offset,
     ) {
         Ok(element7_picture) => element7_picture,
@@ -1765,7 +1765,7 @@ fn audiostation_main_frx_load() {
     };
 
     let options_menu_button_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         options_menu_button_picture_offset,
     ) {
         Ok(options_menu_button_picture) => options_menu_button_picture,
@@ -1773,7 +1773,7 @@ fn audiostation_main_frx_load() {
     };
 
     let image5_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         image5_picture_offset,
     ) {
         Ok(image5_picture) => image5_picture,
@@ -1781,7 +1781,7 @@ fn audiostation_main_frx_load() {
     };
 
     let elements_diabled_image_list_image1_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         elements_diabled_image_list_image1_picture_offset,
     ) {
         Ok(elements_diabled_image_list_image1_picture) => {
@@ -1791,7 +1791,7 @@ fn audiostation_main_frx_load() {
     };
 
     let elements_diabled_image_list_image2_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         elements_diabled_image_list_image2_picture_offset,
     ) {
         Ok(elements_diabled_image_list_image2_picture) => {
@@ -1801,7 +1801,7 @@ fn audiostation_main_frx_load() {
     };
 
     let elements_diabled_image_list_image3_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         elements_diabled_image_list_image3_picture_offset,
     ) {
         Ok(elements_diabled_image_list_image3_picture) => {
@@ -1811,7 +1811,7 @@ fn audiostation_main_frx_load() {
     };
 
     let elements_diabled_image_list_image4_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         elements_diabled_image_list_image4_picture_offset,
     ) {
         Ok(elements_diabled_image_list_image4_picture) => {
@@ -1821,7 +1821,7 @@ fn audiostation_main_frx_load() {
     };
 
     let elements_diabled_image_list_image5_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         elements_diabled_image_list_image5_picture_offset,
     ) {
         Ok(elements_diabled_image_list_image5_picture) => {
@@ -1831,7 +1831,7 @@ fn audiostation_main_frx_load() {
     };
 
     let elements_diabled_image_list_image6_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         elements_diabled_image_list_image6_picture_offset,
     ) {
         Ok(elements_diabled_image_list_image6_picture) => {
@@ -1841,7 +1841,7 @@ fn audiostation_main_frx_load() {
     };
 
     let elements_diabled_image_list_image7_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
         elements_diabled_image_list_image7_picture_offset,
     ) {
         Ok(elements_diabled_image_list_image7_picture) => {
@@ -2347,7 +2347,7 @@ fn audiostation_normalize_frx_load() {
         resource_file_bytes[normalize_icon_buffer_start..normalize_icon_buffer_end].to_vec();
 
     let normalize_icon = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Normalize.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Normalize.frx",
         normalize_icon_offset,
     ) {
         Ok(normalize_icon) => normalize_icon,
@@ -2408,7 +2408,7 @@ fn audiostation_open_dialog_frx_load() {
         .to_vec();
 
     let open_stream_form_icon = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_OpenDialog.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_OpenDialog.frx",
         open_stream_form_icon_offset,
     ) {
         Ok(open_stream_form_icon) => open_stream_form_icon,
@@ -2416,7 +2416,7 @@ fn audiostation_open_dialog_frx_load() {
     };
 
     let tab_strip_tab_picture0 = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_OpenDialog.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_OpenDialog.frx",
         tab_strip_tab_picture0_offset,
     ) {
         Ok(tab_strip_tab_picture0) => tab_strip_tab_picture0,
@@ -2424,7 +2424,7 @@ fn audiostation_open_dialog_frx_load() {
     };
 
     let list_view_list_image1_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_OpenDialog.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_OpenDialog.frx",
         list_view_list_image1_picture_offset,
     ) {
         Ok(list_view_list_image1_picture) => list_view_list_image1_picture,
@@ -2432,7 +2432,7 @@ fn audiostation_open_dialog_frx_load() {
     };
 
     let list_view_list_image2_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_OpenDialog.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_OpenDialog.frx",
         list_view_list_image2_picture_offset,
     ) {
         Ok(list_view_list_image2_picture) => list_view_list_image2_picture,
@@ -2485,7 +2485,7 @@ fn audiostation_playlist_frx_load() {
         .to_vec();
 
     let playlist_form_icon = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Playlist.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Playlist.frx",
         playlist_form_icon_offset,
     ) {
         Ok(playlist_form_icon) => playlist_form_icon,
@@ -2510,7 +2510,7 @@ fn audiostation_plugins_frx_load() {
         resource_file_bytes[plugins_form_icon_buffer_start..plugins_form_icon_buffer_end].to_vec();
 
     let plugins_form_icon = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Plugins.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Plugins.frx",
         plugins_form_icon_offset,
     ) {
         Ok(plugins_form_icon) => plugins_form_icon,
@@ -2592,7 +2592,7 @@ fn audiostation_settings_record_frx_load() {
     let combo_midi_device_list_items = list_resolver(&combo_midi_device_list_buffer);
 
     let settings_record_form_icon = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Settings_Record.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Settings_Record.frx",
         settings_record_form_icon_offset,
     ) {
         Ok(settings_record_form_icon) => settings_record_form_icon,
@@ -2600,7 +2600,7 @@ fn audiostation_settings_record_frx_load() {
     };
 
     let combo_language_item_data = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Settings_Record.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Settings_Record.frx",
         combo_language_item_data_offset,
     ) {
         Ok(combo_language_item_data) => combo_language_item_data,
@@ -2608,7 +2608,7 @@ fn audiostation_settings_record_frx_load() {
     };
 
     let combo_language_list = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Settings_Record.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Settings_Record.frx",
         combo_language_list_offset,
     ) {
         Ok(combo_language_list) => combo_language_list,
@@ -2616,7 +2616,7 @@ fn audiostation_settings_record_frx_load() {
     };
 
     let combo_midi_device_item_data = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Settings_Record.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Settings_Record.frx",
         combo_midi_device_item_data_offset,
     ) {
         Ok(combo_midi_device_item_data) => combo_midi_device_item_data,
@@ -2624,7 +2624,7 @@ fn audiostation_settings_record_frx_load() {
     };
 
     let combo_midi_device_list = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Settings_Record.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Settings_Record.frx",
         combo_midi_device_list_offset,
     ) {
         Ok(combo_midi_device_list) => combo_midi_device_list,
@@ -2696,7 +2696,7 @@ fn audiostation_settings_recorder_frx_load() {
         .to_vec();
 
     let settings_recorder_form_icon = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Settings_Recorder.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Settings_Recorder.frx",
         settings_recorder_form_icon_offset,
     ) {
         Ok(settings_recorder_form_icon) => settings_recorder_form_icon,
@@ -2728,7 +2728,7 @@ fn audiostation_streams_frx_load() {
         resource_file_bytes[streams_form_icon_buffer_start..streams_form_icon_buffer_end].to_vec();
 
     let streams_form_icon = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Streams.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Streams.frx",
         streams_form_icon_offset,
     ) {
         Ok(streams_form_icon) => streams_form_icon,
@@ -2770,7 +2770,7 @@ fn audiostation_track_properties_frx_load() {
         .to_vec();
 
     let track_properties_form_icon = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Track_Properties.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Track_Properties.frx",
         track_properties_form_icon_offset,
     ) {
         Ok(track_properties_form_icon) => track_properties_form_icon,
@@ -2778,7 +2778,7 @@ fn audiostation_track_properties_frx_load() {
     };
 
     let track_properties_text_properties_text = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Track_Properties.frx".to_owned(),
+        "./tests/data/audiostation/Audiostation/src/Forms/Form_Track_Properties.frx",
         track_properties_text_properties_text_offset,
     ) {
         Ok(track_properties_text_properties_text) => track_properties_text_properties_text,
