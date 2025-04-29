@@ -17,7 +17,7 @@ form:
     Form:
       properties:
         appearance: Flat
-        auto_redraw: true
+        auto_redraw: Automatic
         back_color:
           System:
             index: 5
@@ -284,7 +284,7 @@ form:
               properties:
                 align: None
                 appearance: Flat
-                auto_redraw: false
+                auto_redraw: Manual
                 auto_size: false
                 back_color:
                   RGB:
@@ -359,7 +359,7 @@ form:
               properties:
                 align: None
                 appearance: Flat
-                auto_redraw: true
+                auto_redraw: Automatic
                 auto_size: true
                 back_color:
                   System:
@@ -431,7 +431,7 @@ form:
               properties:
                 align: None
                 appearance: Flat
-                auto_redraw: true
+                auto_redraw: Automatic
                 auto_size: true
                 back_color:
                   System:
@@ -499,7 +499,7 @@ form:
               properties:
                 align: None
                 appearance: Flat
-                auto_redraw: true
+                auto_redraw: Automatic
                 auto_size: true
                 back_color:
                   System:
@@ -566,7 +566,7 @@ form:
               properties:
                 align: None
                 appearance: Flat
-                auto_redraw: true
+                auto_redraw: Automatic
                 auto_size: true
                 back_color:
                   System:
@@ -634,7 +634,7 @@ form:
               properties:
                 align: None
                 appearance: Flat
-                auto_redraw: true
+                auto_redraw: Automatic
                 auto_size: true
                 back_color:
                   System:
@@ -701,7 +701,7 @@ form:
               properties:
                 align: None
                 appearance: Flat
-                auto_redraw: true
+                auto_redraw: Automatic
                 auto_size: true
                 back_color:
                   System:
@@ -769,7 +769,7 @@ form:
               properties:
                 align: None
                 appearance: Flat
-                auto_redraw: true
+                auto_redraw: Automatic
                 auto_size: true
                 back_color:
                   System:
@@ -836,7 +836,7 @@ form:
               properties:
                 align: None
                 appearance: Flat
-                auto_redraw: true
+                auto_redraw: Automatic
                 auto_size: true
                 back_color:
                   System:
@@ -910,7 +910,7 @@ form:
               properties:
                 align: None
                 appearance: Flat
-                auto_redraw: true
+                auto_redraw: Automatic
                 auto_size: true
                 back_color:
                   System:
@@ -980,7 +980,7 @@ form:
               properties:
                 align: None
                 appearance: Flat
-                auto_redraw: true
+                auto_redraw: Automatic
                 auto_size: true
                 back_color:
                   System:
@@ -1058,7 +1058,7 @@ form:
               properties:
                 align: None
                 appearance: Flat
-                auto_redraw: true
+                auto_redraw: Automatic
                 auto_size: false
                 back_color:
                   RGB:

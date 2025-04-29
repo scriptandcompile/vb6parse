@@ -22,7 +22,7 @@ form:
     Form:
       properties:
         appearance: ThreeD
-        auto_redraw: true
+        auto_redraw: Automatic
         back_color:
           RGB:
             red: 192
@@ -590,7 +590,7 @@ form:
               properties:
                 align: None
                 appearance: Flat
-                auto_redraw: true
+                auto_redraw: Automatic
                 auto_size: false
                 back_color:
                   System:
@@ -765,7 +765,7 @@ form:
               properties:
                 align: None
                 appearance: Flat
-                auto_redraw: true
+                auto_redraw: Automatic
                 auto_size: false
                 back_color:
                   System:
