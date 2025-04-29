@@ -9,17 +9,9 @@ use std::collections::HashMap;
 /// [`VB6ControlKind::CustomControl`](crate::language::controls::VB6ControlKind::Custom).
 /// tag, name, and index are not included in this struct, but instead are part
 /// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
-#[derive(Debug, PartialEq, Clone, serde::Serialize)]
+#[derive(Debug, PartialEq, Clone, Default, serde::Serialize)]
 pub struct CustomControlProperties {
     property_store: HashMap<BString, Vec<u8>>,
-}
-
-impl Default for CustomControlProperties {
-    fn default() -> Self {
-        CustomControlProperties {
-            property_store: HashMap::new(),
-        }
-    }
 }
 
 impl<'a> From<Properties<'a>> for CustomControlProperties {
