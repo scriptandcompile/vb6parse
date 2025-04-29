@@ -1,5 +1,5 @@
 use crate::language::controls::{
-    Appearance, BorderStyle, DragMode, MousePointer, OLEDragMode, OLEDropMode,
+    Appearance, BorderStyle, DragMode, MousePointer, OLEDragMode, OLEDropMode, Visibility,
 };
 
 use crate::parsers::Properties;
@@ -35,7 +35,7 @@ pub struct ImageProperties {
     pub stretch: bool,
     pub tool_tip_text: BString,
     pub top: i32,
-    pub visible: bool,
+    pub visible: Visibility,
     pub whats_this_help_id: i32,
     pub width: i32,
 }
@@ -62,7 +62,7 @@ impl Default for ImageProperties {
             stretch: false,
             tool_tip_text: "".into(),
             top: 960,
-            visible: true,
+            visible: Visibility::Visible,
             whats_this_help_id: 0,
             width: 615,
         }
@@ -160,7 +160,7 @@ impl<'a> From<Properties<'a>> for ImageProperties {
             None => "".into(),
         };
         image_prop.top = prop.get_i32(b"Top".into(), image_prop.top);
-        image_prop.visible = prop.get_bool(b"Visible".into(), image_prop.visible);
+        image_prop.visible = prop.get_property(b"Visible".into(), image_prop.visible);
         image_prop.whats_this_help_id =
             prop.get_i32(b"WhatsThisHelpID".into(), image_prop.whats_this_help_id);
         image_prop.width = prop.get_i32(b"Width".into(), image_prop.width);

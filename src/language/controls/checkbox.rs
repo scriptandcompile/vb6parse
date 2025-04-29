@@ -1,6 +1,8 @@
 use crate::{
     language::{
-        controls::{Appearance, DragMode, JustifyAlignment, MousePointer, OLEDropMode, Style},
+        controls::{
+            Appearance, DragMode, JustifyAlignment, MousePointer, OLEDropMode, Style, Visibility,
+        },
         VB6Color,
     },
     parsers::Properties,
@@ -59,7 +61,7 @@ pub struct CheckBoxProperties {
     pub top: i32,
     pub use_mask_color: bool,
     pub value: CheckBoxValue,
-    pub visible: bool,
+    pub visible: Visibility,
     pub whats_this_help_id: i32,
     pub width: i32,
 }
@@ -98,7 +100,7 @@ impl Default for CheckBoxProperties {
             top: 30,
             use_mask_color: false,
             value: CheckBoxValue::Unchecked,
-            visible: true,
+            visible: Visibility::Visible,
             whats_this_help_id: 0,
             width: 100,
         }
@@ -232,7 +234,7 @@ impl<'a> From<Properties<'a>> for CheckBoxProperties {
         checkbox_prop.use_mask_color =
             prop.get_bool(b"UseMaskColor".into(), checkbox_prop.use_mask_color);
         checkbox_prop.value = prop.get_property(b"Value".into(), checkbox_prop.value);
-        checkbox_prop.visible = prop.get_bool(b"Visible".into(), checkbox_prop.visible);
+        checkbox_prop.visible = prop.get_property(b"Visible".into(), checkbox_prop.visible);
         checkbox_prop.whats_this_help_id =
             prop.get_i32(b"WhatsThisHelp".into(), checkbox_prop.whats_this_help_id);
         checkbox_prop.width = prop.get_i32(b"Width".into(), checkbox_prop.width);

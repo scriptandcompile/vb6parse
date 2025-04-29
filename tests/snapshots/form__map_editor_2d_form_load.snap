@@ -120,7 +120,7 @@ form:
         show_in_taskbar: true
         start_up_position: CenterScreen
         top: 0
-        visible: true
+        visible: Visible
         whats_this_button: false
         whats_this_help: false
         width: 240
@@ -177,7 +177,7 @@ form:
                 text: []
                 tool_tip_text: []
                 top: 3720
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 1455
         - name:
@@ -210,7 +210,7 @@ form:
                 tab_stop: true
                 top: 8400
                 value: 0
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 12135
         - name:
@@ -243,7 +243,7 @@ form:
                 tab_stop: true
                 top: 1560
                 value: 0
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 255
         - name:
@@ -279,7 +279,7 @@ form:
                 tab_stop: true
                 top: 1200
                 value: 0
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 12495
         - name:
@@ -352,7 +352,7 @@ form:
                 tab_stop: true
                 tool_tip_text: []
                 top: 120
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 12540
         - name:
@@ -429,7 +429,7 @@ form:
                 tab_stop: true
                 tool_tip_text: []
                 top: 0
-                visible: false
+                visible: Invisible
                 whats_this_help_id: 0
                 width: 15390
         - name:
@@ -496,7 +496,7 @@ form:
                 tab_stop: true
                 tool_tip_text: []
                 top: 4560
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 990
         - name:
@@ -568,7 +568,7 @@ form:
                 tab_stop: true
                 tool_tip_text: []
                 top: 1560
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 12135
       menus:
@@ -594,7 +594,7 @@ form:
             help_context_id: 0
             negotiate_position: None
             shortcut: ~
-            visible: true
+            visible: Visible
             window_list: false
           sub_menus:
             - name:
@@ -621,7 +621,7 @@ form:
                 help_context_id: 0
                 negotiate_position: None
                 shortcut: CtrlN
-                visible: true
+                visible: Visible
                 window_list: false
               sub_menus: []
             - name:
@@ -650,7 +650,7 @@ form:
                 help_context_id: 0
                 negotiate_position: None
                 shortcut: CtrlO
-                visible: true
+                visible: Visible
                 window_list: false
               sub_menus: []
             - name:
@@ -687,7 +687,7 @@ form:
                 help_context_id: 0
                 negotiate_position: None
                 shortcut: CtrlS
-                visible: true
+                visible: Visible
                 window_list: false
               sub_menus: []
             - name:
@@ -711,7 +711,7 @@ form:
                 help_context_id: 0
                 negotiate_position: None
                 shortcut: ~
-                visible: true
+                visible: Visible
                 window_list: false
               sub_menus: []
             - name:
@@ -736,7 +736,7 @@ form:
                 help_context_id: 0
                 negotiate_position: None
                 shortcut: CtrlX
-                visible: true
+                visible: Visible
                 window_list: false
               sub_menus: []
         - name:
@@ -767,7 +767,7 @@ form:
             help_context_id: 0
             negotiate_position: None
             shortcut: ~
-            visible: true
+            visible: Visible
             window_list: false
           sub_menus:
             - name:
@@ -803,7 +803,7 @@ form:
                 help_context_id: 0
                 negotiate_position: None
                 shortcut: ~
-                visible: true
+                visible: Visible
                 window_list: false
               sub_menus: []
         - name:
@@ -828,7 +828,7 @@ form:
             help_context_id: 0
             negotiate_position: None
             shortcut: ~
-            visible: true
+            visible: Visible
             window_list: false
           sub_menus:
             - name:
@@ -866,7 +866,7 @@ form:
                 help_context_id: 0
                 negotiate_position: None
                 shortcut: CtrlR
-                visible: true
+                visible: Visible
                 window_list: false
               sub_menus: []
             - name:
@@ -890,7 +890,7 @@ form:
                 help_context_id: 0
                 negotiate_position: None
                 shortcut: ~
-                visible: true
+                visible: Visible
                 window_list: false
               sub_menus: []
             - name:
@@ -922,7 +922,7 @@ form:
                 help_context_id: 0
                 negotiate_position: None
                 shortcut: CtrlZ
-                visible: true
+                visible: Visible
                 window_list: false
               sub_menus: []
 objects: []

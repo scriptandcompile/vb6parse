@@ -1,5 +1,8 @@
 use crate::language::{
-    controls::{Appearance, FormLinkMode, MousePointer, OLEDropMode, StartUpPosition, WindowState},
+    controls::{
+        Appearance, FormLinkMode, MousePointer, OLEDropMode, StartUpPosition, Visibility,
+        WindowState,
+    },
     VB6Color,
 };
 use crate::parsers::Properties;
@@ -31,7 +34,7 @@ pub struct MDIFormProperties {
     pub scroll_bars: bool,
     pub start_up_position: StartUpPosition,
     pub top: i32,
-    pub visible: bool,
+    pub visible: Visibility,
     pub whats_this_help: bool,
     pub width: i32,
     pub window_state: WindowState,
@@ -109,7 +112,7 @@ impl Default for MDIFormProperties {
             scroll_bars: true,
             start_up_position: StartUpPosition::WindowsDefault,
             top: 0,
-            visible: true,
+            visible: Visibility::Visible,
             whats_this_help: false,
             width: 4800,
             window_state: WindowState::Normal,
@@ -123,12 +126,9 @@ impl<'a> From<Properties<'a>> for MDIFormProperties {
 
         mdi_form_prop.appearance =
             prop.get_property(b"Appearance".into(), mdi_form_prop.appearance);
-
         mdi_form_prop.auto_show_children =
             prop.get_bool(b"AutoShowChildren".into(), mdi_form_prop.auto_show_children);
-
         mdi_form_prop.back_color = prop.get_color(b"BackColor".into(), mdi_form_prop.back_color);
-
         mdi_form_prop.caption = match prop.get(b"Caption".into()) {
             Some(caption) => caption.into(),
             None => mdi_form_prop.caption,
@@ -138,16 +138,13 @@ impl<'a> From<Properties<'a>> for MDIFormProperties {
         // Font - group
 
         mdi_form_prop.height = prop.get_i32(b"Height".into(), mdi_form_prop.height);
-
         mdi_form_prop.help_context_id =
             prop.get_i32(b"HelpContextID".into(), mdi_form_prop.help_context_id);
 
         // Icon
 
         mdi_form_prop.left = prop.get_i32(b"Left".into(), mdi_form_prop.left);
-
         mdi_form_prop.link_mode = prop.get_property(b"LinkMode".into(), mdi_form_prop.link_mode);
-
         mdi_form_prop.link_topic = match prop.get(b"LinkTopic".into()) {
             Some(link_topic) => link_topic.into(),
             None => mdi_form_prop.link_topic,
@@ -157,14 +154,11 @@ impl<'a> From<Properties<'a>> for MDIFormProperties {
 
         mdi_form_prop.mouse_pointer =
             prop.get_property(b"MousePointer".into(), mdi_form_prop.mouse_pointer);
-
         mdi_form_prop.moveable = prop.get_bool(b"Moveable".into(), mdi_form_prop.moveable);
-
         mdi_form_prop.negotiate_toolbars = prop.get_bool(
             b"NegotiateToolbars".into(),
             mdi_form_prop.negotiate_toolbars,
         );
-
         mdi_form_prop.ole_drop_mode =
             prop.get_property(b"OLEDropMode".into(), mdi_form_prop.ole_drop_mode);
 
@@ -172,18 +166,12 @@ impl<'a> From<Properties<'a>> for MDIFormProperties {
 
         mdi_form_prop.right_to_left =
             prop.get_bool(b"RightToLeft".into(), mdi_form_prop.right_to_left);
-
         mdi_form_prop.scroll_bars = prop.get_bool(b"Scrollbars".into(), mdi_form_prop.scroll_bars);
-
         mdi_form_prop.start_up_position =
             prop.get_startup_position(b"StartUpPosition".into(), mdi_form_prop.start_up_position);
-
         mdi_form_prop.top = prop.get_i32(b"Top".into(), mdi_form_prop.top);
-
-        mdi_form_prop.visible = prop.get_bool(b"Visible".into(), mdi_form_prop.visible);
-
+        mdi_form_prop.visible = prop.get_property(b"Visible".into(), mdi_form_prop.visible);
         mdi_form_prop.width = prop.get_i32(b"Width".into(), mdi_form_prop.width);
-
         mdi_form_prop.window_state =
             prop.get_property(b"WindowState".into(), mdi_form_prop.window_state);
 

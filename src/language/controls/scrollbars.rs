@@ -1,4 +1,4 @@
-use crate::language::controls::{DragMode, MousePointer};
+use crate::language::controls::{DragMode, MousePointer, Visibility};
 use crate::parsers::Properties;
 
 use image::DynamicImage;
@@ -31,7 +31,7 @@ pub struct ScrollBarProperties {
     pub tab_stop: bool,
     pub top: i32,
     pub value: i32,
-    pub visible: bool,
+    pub visible: Visibility,
     pub whats_this_help_id: i32,
     pub width: i32,
 }
@@ -57,7 +57,7 @@ impl Default for ScrollBarProperties {
             tab_stop: true,
             top: 30,
             value: 0,
-            visible: true,
+            visible: Visibility::Visible,
             whats_this_help_id: 0,
             width: 100,
         }
@@ -140,7 +140,7 @@ impl<'a> From<Properties<'a>> for ScrollBarProperties {
         scroll_bar_prop.tab_stop = prop.get_bool(b"TabStop".into(), scroll_bar_prop.tab_stop);
         scroll_bar_prop.top = prop.get_i32(b"Top".into(), scroll_bar_prop.top);
         scroll_bar_prop.value = prop.get_i32(b"Value".into(), scroll_bar_prop.value);
-        scroll_bar_prop.visible = prop.get_bool(b"Visible".into(), scroll_bar_prop.visible);
+        scroll_bar_prop.visible = prop.get_property(b"Visible".into(), scroll_bar_prop.visible);
         scroll_bar_prop.whats_this_help_id = prop.get_i32(
             b"WhatsThisHelpID".into(),
             scroll_bar_prop.whats_this_help_id,

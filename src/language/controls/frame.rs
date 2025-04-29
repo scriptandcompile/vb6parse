@@ -1,6 +1,6 @@
 use crate::language::color::VB6Color;
 use crate::language::controls::{
-    Appearance, BorderStyle, ClipControls, DragMode, MousePointer, OLEDropMode,
+    Appearance, BorderStyle, ClipControls, DragMode, MousePointer, OLEDropMode, Visibility,
 };
 use crate::parsers::Properties;
 
@@ -35,7 +35,7 @@ pub struct FrameProperties {
     pub tab_index: i32,
     pub tool_tip_text: BString,
     pub top: i32,
-    pub visible: bool,
+    pub visible: Visibility,
     pub whats_this_help_id: i32,
     pub width: i32,
 }
@@ -62,7 +62,7 @@ impl Default for FrameProperties {
             tab_index: 0,
             tool_tip_text: BString::from(""),
             top: 30,
-            visible: true,
+            visible: Visibility::Visible,
             whats_this_help_id: 0,
             width: 100,
         }
@@ -148,7 +148,7 @@ impl<'a> From<Properties<'a>> for FrameProperties {
             None => frame_prop.tool_tip_text,
         };
         frame_prop.top = prop.get_i32(b"Top".into(), frame_prop.top);
-        frame_prop.visible = prop.get_bool(b"Visible".into(), frame_prop.visible);
+        frame_prop.visible = prop.get_property(b"Visible".into(), frame_prop.visible);
         frame_prop.whats_this_help_id =
             prop.get_i32(b"WhatsThisHelp".into(), frame_prop.whats_this_help_id);
         frame_prop.width = prop.get_i32(b"Width".into(), frame_prop.width);

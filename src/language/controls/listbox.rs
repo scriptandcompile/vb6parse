@@ -1,6 +1,6 @@
 use crate::language::color::VB6Color;
 use crate::language::controls::{
-    Appearance, DragMode, MousePointer, MultiSelect, OLEDragMode, OLEDropMode,
+    Appearance, DragMode, MousePointer, MultiSelect, OLEDragMode, OLEDropMode, Visibility,
 };
 use crate::parsers::Properties;
 
@@ -55,7 +55,7 @@ pub struct ListBoxProperties {
     pub tab_stop: bool,
     pub tool_tip_text: BString,
     pub top: i32,
-    pub visible: bool,
+    pub visible: Visibility,
     pub whats_this_help_id: i32,
     pub width: i32,
 }
@@ -91,7 +91,7 @@ impl Default for ListBoxProperties {
             tab_stop: true,
             tool_tip_text: "".into(),
             top: 30,
-            visible: true,
+            visible: Visibility::Visible,
             whats_this_help_id: 0,
             width: 100,
         }
@@ -208,7 +208,7 @@ impl<'a> From<Properties<'a>> for ListBoxProperties {
             None => list_box_prop.tool_tip_text,
         };
         list_box_prop.top = prop.get_i32(b"Top".into(), list_box_prop.top);
-        list_box_prop.visible = prop.get_bool(b"Visible".into(), list_box_prop.visible);
+        list_box_prop.visible = prop.get_property(b"Visible".into(), list_box_prop.visible);
         list_box_prop.whats_this_help_id =
             prop.get_i32(b"WhatsThisHelpID".into(), list_box_prop.whats_this_help_id);
         list_box_prop.width = prop.get_i32(b"Width".into(), list_box_prop.width);

@@ -1,7 +1,7 @@
 use crate::{
     language::controls::{
         Alignment, Appearance, BorderStyle, DragMode, LinkMode, MousePointer, OLEDragMode,
-        OLEDropMode,
+        OLEDropMode, Visibility,
     },
     parsers::Properties,
     VB6Color,
@@ -66,7 +66,7 @@ pub struct TextBoxProperties {
     pub text: BString,
     pub tool_tip_text: BString,
     pub top: i32,
-    pub visible: bool,
+    pub visible: Visibility,
     pub whats_this_help_id: i32,
     pub width: i32,
 }
@@ -110,7 +110,7 @@ impl Default for TextBoxProperties {
             text: "".into(),
             tool_tip_text: "".into(),
             top: 30,
-            visible: true,
+            visible: Visibility::Visible,
             whats_this_help_id: 0,
             width: 100,
         }
@@ -273,7 +273,7 @@ impl<'a> From<Properties<'a>> for TextBoxProperties {
         };
         text_box_prop.top = prop.get_i32(b"Top".into(), text_box_prop.top);
 
-        text_box_prop.visible = prop.get_bool(b"Visible".into(), text_box_prop.visible);
+        text_box_prop.visible = prop.get_property(b"Visible".into(), text_box_prop.visible);
 
         text_box_prop.whats_this_help_id =
             prop.get_i32(b"WhatsThisHelpID".into(), text_box_prop.whats_this_help_id);

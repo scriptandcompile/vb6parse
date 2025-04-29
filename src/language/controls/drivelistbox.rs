@@ -1,4 +1,4 @@
-use crate::language::controls::{Appearance, DragMode, MousePointer, OLEDropMode};
+use crate::language::controls::{Appearance, DragMode, MousePointer, OLEDropMode, Visibility};
 use crate::parsers::Properties;
 use crate::VB6Color;
 
@@ -31,7 +31,7 @@ pub struct DriveListBoxProperties {
     pub tab_stop: bool,
     pub tool_tip_text: BString,
     pub top: i32,
-    pub visible: bool,
+    pub visible: Visibility,
     pub whats_this_help_id: i32,
     pub width: i32,
 }
@@ -56,7 +56,7 @@ impl Default for DriveListBoxProperties {
             tab_stop: true,
             tool_tip_text: "".into(),
             top: 960,
-            visible: true,
+            visible: Visibility::Visible,
             whats_this_help_id: 0,
             width: 1455,
         }
@@ -139,7 +139,8 @@ impl<'a> From<Properties<'a>> for DriveListBoxProperties {
             None => drive_list_box_prop.tool_tip_text,
         };
         drive_list_box_prop.top = prop.get_i32(b"Top".into(), drive_list_box_prop.top);
-        drive_list_box_prop.visible = prop.get_bool(b"Visible".into(), drive_list_box_prop.visible);
+        drive_list_box_prop.visible =
+            prop.get_property(b"Visible".into(), drive_list_box_prop.visible);
         drive_list_box_prop.whats_this_help_id = prop.get_i32(
             b"WhatsThisHelpID".into(),
             drive_list_box_prop.whats_this_help_id,

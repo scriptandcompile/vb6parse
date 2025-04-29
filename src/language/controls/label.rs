@@ -1,5 +1,6 @@
 use crate::language::controls::{
     Alignment, Appearance, BackStyle, BorderStyle, DragMode, LinkMode, MousePointer, OLEDropMode,
+    Visibility,
 };
 use crate::parsers::Properties;
 use crate::VB6Color;
@@ -45,7 +46,7 @@ pub struct LabelProperties {
     pub tool_tip_text: BString,
     pub top: i32,
     pub use_mnemonic: bool,
-    pub visible: bool,
+    pub visible: Visibility,
     pub whats_this_help_id: i32,
     pub width: i32,
     pub word_wrap: bool,
@@ -83,7 +84,7 @@ impl Default for LabelProperties {
             tool_tip_text: "".into(),
             top: 30,
             use_mnemonic: true,
-            visible: true,
+            visible: Visibility::Visible,
             whats_this_help_id: 0,
             width: 100,
             word_wrap: false,
@@ -206,7 +207,7 @@ impl<'a> From<Properties<'a>> for LabelProperties {
         };
         label_prop.top = prop.get_i32(b"Top".into(), label_prop.top);
         label_prop.use_mnemonic = prop.get_bool(b"UseMnemonic".into(), label_prop.use_mnemonic);
-        label_prop.visible = prop.get_bool(b"Visible".into(), label_prop.visible);
+        label_prop.visible = prop.get_property(b"Visible".into(), label_prop.visible);
         label_prop.whats_this_help_id =
             prop.get_i32(b"WhatsThisHelpID".into(), label_prop.whats_this_help_id);
         label_prop.width = prop.get_i32(b"Width".into(), label_prop.width);

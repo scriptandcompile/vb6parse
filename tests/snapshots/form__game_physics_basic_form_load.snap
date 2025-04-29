@@ -128,7 +128,7 @@ form:
         show_in_taskbar: true
         start_up_position: CenterScreen
         top: 0
-        visible: true
+        visible: Visible
         whats_this_button: false
         whats_this_help: false
         width: 240
@@ -215,7 +215,7 @@ form:
                 top: 9360
                 use_mask_color: false
                 value: Checked
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 2175
         - name:
@@ -338,7 +338,7 @@ form:
                 tab_stop: true
                 tool_tip_text: []
                 top: 120
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 12060
         - name:
@@ -411,7 +411,7 @@ form:
                 tab_stop: true
                 tool_tip_text: []
                 top: 360
-                visible: false
+                visible: Invisible
                 whats_this_help_id: 0
                 width: 90
         - name:
@@ -483,7 +483,7 @@ form:
                 tab_stop: true
                 tool_tip_text: []
                 top: 120
-                visible: false
+                visible: Invisible
                 whats_this_help_id: 0
                 width: 90
         - name:
@@ -551,7 +551,7 @@ form:
                 tab_stop: true
                 tool_tip_text: []
                 top: 120
-                visible: false
+                visible: Invisible
                 whats_this_help_id: 0
                 width: 990
         - name:
@@ -618,7 +618,7 @@ form:
                 tab_stop: true
                 tool_tip_text: []
                 top: 120
-                visible: false
+                visible: Invisible
                 whats_this_help_id: 0
                 width: 990
         - name:
@@ -686,7 +686,7 @@ form:
                 tab_stop: true
                 tool_tip_text: []
                 top: 120
-                visible: false
+                visible: Invisible
                 whats_this_help_id: 0
                 width: 990
         - name:
@@ -753,7 +753,7 @@ form:
                 tab_stop: true
                 tool_tip_text: []
                 top: 120
-                visible: false
+                visible: Invisible
                 whats_this_help_id: 0
                 width: 990
         - name:
@@ -821,7 +821,7 @@ form:
                 tab_stop: true
                 tool_tip_text: []
                 top: 120
-                visible: false
+                visible: Invisible
                 whats_this_help_id: 0
                 width: 990
         - name:
@@ -888,7 +888,7 @@ form:
                 tab_stop: true
                 tool_tip_text: []
                 top: 120
-                visible: false
+                visible: Invisible
                 whats_this_help_id: 0
                 width: 990
         - name:
@@ -962,7 +962,7 @@ form:
                 tab_stop: true
                 tool_tip_text: []
                 top: 120
-                visible: false
+                visible: Invisible
                 whats_this_help_id: 0
                 width: 990
         - name:
@@ -1032,7 +1032,7 @@ form:
                 tab_stop: true
                 tool_tip_text: []
                 top: 120
-                visible: false
+                visible: Invisible
                 whats_this_help_id: 0
                 width: 990
         - name:
@@ -1112,7 +1112,7 @@ form:
                 tab_stop: true
                 tool_tip_text: []
                 top: 120
-                visible: false
+                visible: Invisible
                 whats_this_help_id: 0
                 width: 12060
         - name:
@@ -1226,7 +1226,7 @@ form:
                 tool_tip_text: []
                 top: 9330
                 use_mnemonic: true
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 3015
                 word_wrap: false
@@ -1285,7 +1285,7 @@ form:
                 tool_tip_text: []
                 top: 9360
                 use_mnemonic: true
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 840
                 word_wrap: false
@@ -1336,7 +1336,7 @@ form:
                 tool_tip_text: []
                 top: 9600
                 use_mnemonic: true
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 885
                 word_wrap: false
@@ -1387,7 +1387,7 @@ form:
                 tool_tip_text: []
                 top: 120
                 use_mnemonic: true
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 120
                 word_wrap: false
