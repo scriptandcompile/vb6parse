@@ -137,7 +137,7 @@ form:
         show_in_taskbar: true
         start_up_position: CenterScreen
         top: 0
-        visible: true
+        visible: Visible
         whats_this_button: false
         whats_this_help: false
         width: 240
@@ -184,7 +184,7 @@ form:
                 tab_stop: true
                 top: 5160
                 value: 0
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 3495
         - name:
@@ -263,7 +263,7 @@ form:
                 top: 4800
                 use_mask_color: false
                 value: Checked
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 2295
         - name:
@@ -334,7 +334,7 @@ form:
                 tab_stop: true
                 tool_tip_text: []
                 top: 120
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 6030
         - name:
@@ -405,7 +405,7 @@ form:
                 tab_stop: true
                 tool_tip_text: []
                 top: 120
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 6030
         - name:
@@ -487,7 +487,7 @@ form:
                 tool_tip_text: []
                 top: 5160
                 use_mnemonic: true
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 2415
                 word_wrap: false

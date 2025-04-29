@@ -1,6 +1,6 @@
 use crate::language::color::VB6Color;
 use crate::language::controls::{
-    Appearance, DragMode, MousePointer, MultiSelect, OLEDragMode, OLEDropMode,
+    Appearance, DragMode, MousePointer, MultiSelect, OLEDragMode, OLEDropMode, Visibility,
 };
 use crate::parsers::Properties;
 
@@ -41,7 +41,7 @@ pub struct FileListBoxProperties {
     pub tab_stop: bool,
     pub tool_tip_text: BString,
     pub top: i32,
-    pub visible: bool,
+    pub visible: Visibility,
     pub whats_this_help_id: i32,
     pub width: i32,
 }
@@ -74,7 +74,7 @@ impl Default for FileListBoxProperties {
             tab_stop: true,
             tool_tip_text: "".into(),
             top: 480,
-            visible: true,
+            visible: Visibility::Visible,
             whats_this_help_id: 0,
             width: 735,
         }
@@ -175,7 +175,8 @@ impl<'a> From<Properties<'a>> for FileListBoxProperties {
             None => file_list_box_prop.tool_tip_text,
         };
         file_list_box_prop.top = prop.get_i32(b"Top".into(), file_list_box_prop.top);
-        file_list_box_prop.visible = prop.get_bool(b"Visible".into(), file_list_box_prop.visible);
+        file_list_box_prop.visible =
+            prop.get_property(b"Visible".into(), file_list_box_prop.visible);
         file_list_box_prop.whats_this_help_id = prop.get_i32(
             b"WhatsThisHelpID".into(),
             file_list_box_prop.whats_this_help_id,

@@ -139,7 +139,7 @@ form:
         show_in_taskbar: true
         start_up_position: CenterScreen
         top: 0
-        visible: true
+        visible: Visible
         whats_this_button: false
         whats_this_help: false
         width: 240
@@ -201,7 +201,7 @@ form:
                 top: 240
                 use_mask_color: false
                 value: UnSelected
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 975
         - name:
@@ -274,7 +274,7 @@ form:
                 tab_stop: true
                 tool_tip_text: []
                 top: 120
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 975
         - name:
@@ -341,7 +341,7 @@ form:
                 top: 240
                 use_mask_color: false
                 value: Unchecked
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 1215
         - name:
@@ -402,7 +402,7 @@ form:
                 top: 240
                 use_mask_color: false
                 value: UnSelected
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 1095
         - name:
@@ -461,7 +461,7 @@ form:
                 top: 240
                 use_mask_color: false
                 value: UnSelected
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 1095
         - name:
@@ -594,7 +594,7 @@ form:
                 tab_stop: true
                 tool_tip_text: []
                 top: 720
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 1335
         - name:
@@ -664,7 +664,7 @@ form:
                 tab_stop: true
                 tool_tip_text: []
                 top: 720
-                visible: false
+                visible: Invisible
                 whats_this_help_id: 0
                 width: 9330
       menus:
@@ -690,7 +690,7 @@ form:
             help_context_id: 0
             negotiate_position: None
             shortcut: ~
-            visible: true
+            visible: Visible
             window_list: false
           sub_menus:
             - name:
@@ -726,7 +726,7 @@ form:
                 help_context_id: 0
                 negotiate_position: None
                 shortcut: ~
-                visible: true
+                visible: Visible
                 window_list: false
               sub_menus: []
 objects: []

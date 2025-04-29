@@ -1,10 +1,10 @@
+use crate::errors::VB6ErrorKind;
+use crate::language::controls::Visibility;
+use crate::parsers::Properties;
+
 use bstr::BString;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
-
-use crate::parsers::Properties;
-
-use crate::errors::VB6ErrorKind;
 
 /// Represents a VB6 menu control.
 /// This should only be used as a child of a Form.
@@ -38,7 +38,7 @@ pub struct MenuProperties {
     pub help_context_id: i32,
     pub negotiate_position: NegotiatePosition,
     pub shortcut: Option<ShortCut>,
-    pub visible: bool,
+    pub visible: Visibility,
     pub window_list: bool,
 }
 
@@ -51,7 +51,7 @@ impl Default for MenuProperties {
             help_context_id: 0,
             negotiate_position: NegotiatePosition::None,
             shortcut: None,
-            visible: true,
+            visible: Visibility::Visible,
             window_list: false,
         }
     }
@@ -72,7 +72,7 @@ impl<'a> From<Properties<'a>> for MenuProperties {
         menu_prop.negotiate_position =
             prop.get_property(b"NegotiationPosition".into(), menu_prop.negotiate_position);
         menu_prop.shortcut = prop.get_option(b"Shortcut".into(), menu_prop.shortcut);
-        menu_prop.visible = prop.get_bool(b"Visible".into(), menu_prop.visible);
+        menu_prop.visible = prop.get_property(b"Visible".into(), menu_prop.visible);
         menu_prop.window_list = prop.get_bool(b"WindowList".into(), menu_prop.window_list);
 
         menu_prop

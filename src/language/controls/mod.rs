@@ -67,6 +67,17 @@ pub enum AutoRedraw {
     Automatic = -1,
 }
 
+/// Determines if the control is visible or not.
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
+pub enum Visibility {
+    /// The control is not visible.
+    Invisible = 0,
+    /// The control is visible.
+    #[default]
+    Visible = -1,
+}
+
 #[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum FormLinkMode {

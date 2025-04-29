@@ -1,6 +1,6 @@
 use crate::language::controls::{
     Align, Appearance, AutoRedraw, BorderStyle, ClipControls, DragMode, DrawMode, DrawStyle,
-    FillStyle, LinkMode, MousePointer, OLEDragMode, OLEDropMode, ScaleMode,
+    FillStyle, LinkMode, MousePointer, OLEDragMode, OLEDropMode, ScaleMode, Visibility,
 };
 use crate::parsers::Properties;
 use crate::VB6Color;
@@ -63,7 +63,7 @@ pub struct PictureBoxProperties {
     pub tab_stop: bool,
     pub tool_tip_text: BString,
     pub top: i32,
-    pub visible: bool,
+    pub visible: Visibility,
     pub whats_this_help_id: i32,
     pub width: i32,
 }
@@ -117,7 +117,7 @@ impl Default for PictureBoxProperties {
             tab_stop: true,
             tool_tip_text: "".into(),
             top: 30,
-            visible: true,
+            visible: Visibility::Visible,
             whats_this_help_id: 0,
             width: 100,
         }
@@ -299,7 +299,7 @@ impl<'a> From<Properties<'a>> for PictureBoxProperties {
             None => "".into(),
         };
         picture_box_prop.top = prop.get_i32(b"Top".into(), picture_box_prop.top);
-        picture_box_prop.visible = prop.get_bool(b"Visible".into(), picture_box_prop.visible);
+        picture_box_prop.visible = prop.get_property(b"Visible".into(), picture_box_prop.visible);
         picture_box_prop.whats_this_help_id = prop.get_i32(
             b"WhatsThisHelpID".into(),
             picture_box_prop.whats_this_help_id,

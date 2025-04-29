@@ -1,5 +1,5 @@
 use crate::language::controls::{
-    Appearance, DragMode, JustifyAlignment, MousePointer, OLEDropMode, Style,
+    Appearance, DragMode, JustifyAlignment, MousePointer, OLEDropMode, Style, Visibility,
 };
 use crate::language::VB6Color;
 use crate::parsers::Properties;
@@ -52,7 +52,7 @@ pub struct OptionButtonProperties {
     pub top: i32,
     pub use_mask_color: bool,
     pub value: OptionButtonValue,
-    pub visible: bool,
+    pub visible: Visibility,
     pub whats_this_help_id: i32,
     pub width: i32,
 }
@@ -87,7 +87,7 @@ impl Default for OptionButtonProperties {
             top: 30,
             use_mask_color: false,
             value: OptionButtonValue::UnSelected,
-            visible: true,
+            visible: Visibility::Visible,
             whats_this_help_id: 0,
             width: 100,
         }
@@ -210,7 +210,8 @@ impl<'a> From<Properties<'a>> for OptionButtonProperties {
         option_button_prop.use_mask_color =
             prop.get_bool(b"UseMaskColor".into(), option_button_prop.use_mask_color);
         option_button_prop.value = prop.get_property(b"Value".into(), option_button_prop.value);
-        option_button_prop.visible = prop.get_bool(b"Visible".into(), option_button_prop.visible);
+        option_button_prop.visible =
+            prop.get_property(b"Visible".into(), option_button_prop.visible);
         option_button_prop.whats_this_help_id = prop.get_i32(
             b"WhatsThisHelpID".into(),
             option_button_prop.whats_this_help_id,

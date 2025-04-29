@@ -2,7 +2,7 @@ use crate::{
     language::{
         controls::{
             Appearance, AutoRedraw, ClipControls, DrawMode, DrawStyle, FillStyle, MousePointer,
-            OLEDropMode, ScaleMode, StartUpPosition, WindowState,
+            OLEDropMode, ScaleMode, StartUpPosition, Visibility, WindowState,
         },
         FormLinkMode, VB6Color,
     },
@@ -90,7 +90,7 @@ pub struct FormProperties {
     pub show_in_taskbar: bool,
     pub start_up_position: StartUpPosition,
     pub top: i32,
-    pub visible: bool,
+    pub visible: Visibility,
     pub whats_this_button: bool,
     pub whats_this_help: bool,
     pub width: i32,
@@ -225,7 +225,7 @@ impl Default for FormProperties {
             show_in_taskbar: true,
             start_up_position: StartUpPosition::WindowsDefault,
             top: 0,
-            visible: true,
+            visible: Visibility::Visible,
             whats_this_button: false,
             whats_this_help: false,
             width: 240,
@@ -314,7 +314,7 @@ impl From<Properties<'_>> for FormProperties {
         form_prop.start_up_position =
             prop.get_startup_position(b"StartUpPosition".into(), form_prop.start_up_position);
         form_prop.top = prop.get_i32(b"Top".into(), form_prop.top);
-        form_prop.visible = prop.get_bool(b"Visible".into(), form_prop.visible);
+        form_prop.visible = prop.get_property(b"Visible".into(), form_prop.visible);
         form_prop.whats_this_button =
             prop.get_bool(b"WhatsThisButton".into(), form_prop.whats_this_button);
         form_prop.width = prop.get_i32(b"Width".into(), form_prop.width);

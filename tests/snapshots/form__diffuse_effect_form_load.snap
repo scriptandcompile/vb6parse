@@ -123,7 +123,7 @@ form:
         show_in_taskbar: true
         start_up_position: CenterScreen
         top: 0
-        visible: true
+        visible: Visible
         whats_this_button: false
         whats_this_help: false
         width: 240
@@ -289,7 +289,7 @@ form:
                 top: 1080
                 use_mask_color: false
                 value: Unchecked
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 3855
         - name:
@@ -324,7 +324,7 @@ form:
                 tab_stop: true
                 top: 720
                 value: 0
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 6855
         - name:
@@ -359,7 +359,7 @@ form:
                 tab_stop: true
                 top: 360
                 value: 20
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 6855
         - name:
@@ -500,7 +500,7 @@ form:
                 tab_stop: true
                 tool_tip_text: []
                 top: 1680
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 1335
         - name:
@@ -570,7 +570,7 @@ form:
                 tab_stop: true
                 tool_tip_text: []
                 top: 1680
-                visible: false
+                visible: Invisible
                 whats_this_help_id: 0
                 width: 12030
         - name:
@@ -620,7 +620,7 @@ form:
                 tool_tip_text: []
                 top: 720
                 use_mnemonic: true
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 360
                 word_wrap: false
@@ -672,7 +672,7 @@ form:
                 tool_tip_text: []
                 top: 360
                 use_mnemonic: true
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 465
                 word_wrap: false
@@ -740,7 +740,7 @@ form:
                 tool_tip_text: []
                 top: 720
                 use_mnemonic: true
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 1455
                 word_wrap: false
@@ -810,7 +810,7 @@ form:
                 tool_tip_text: []
                 top: 360
                 use_mnemonic: true
-                visible: true
+                visible: Visible
                 whats_this_help_id: 0
                 width: 1650
                 word_wrap: false
@@ -837,7 +837,7 @@ form:
             help_context_id: 0
             negotiate_position: None
             shortcut: ~
-            visible: true
+            visible: Visible
             window_list: false
           sub_menus:
             - name:
@@ -873,7 +873,7 @@ form:
                 help_context_id: 0
                 negotiate_position: None
                 shortcut: ~
-                visible: true
+                visible: Visible
                 window_list: false
               sub_menus: []
 objects: []

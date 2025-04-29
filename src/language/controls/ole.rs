@@ -1,5 +1,5 @@
 use crate::language::controls::{
-    Appearance, BackStyle, BorderStyle, DragMode, MousePointer, SizeMode,
+    Appearance, BackStyle, BorderStyle, DragMode, MousePointer, SizeMode, Visibility,
 };
 use crate::language::VB6Color;
 use crate::parsers::Properties;
@@ -84,7 +84,7 @@ pub struct OLEProperties {
     pub top: i32,
     pub update_options: UpdateOptions,
     pub verb: i32,
-    pub visible: bool,
+    pub visible: Visibility,
     pub whats_this_help_id: i32,
     pub width: i32,
 }
@@ -123,7 +123,7 @@ impl Default for OLEProperties {
             top: 1200,
             update_options: UpdateOptions::Automatic,
             verb: 0,
-            visible: true,
+            visible: Visibility::Visible,
             whats_this_help_id: 0,
             width: 1335,
         }
@@ -232,7 +232,7 @@ impl<'a> From<Properties<'a>> for OLEProperties {
         ole_prop.update_options =
             prop.get_property(b"UpdateOptions".into(), ole_prop.update_options);
         ole_prop.verb = prop.get_i32(b"Verb".into(), ole_prop.verb);
-        ole_prop.visible = prop.get_bool(b"Visible".into(), ole_prop.visible);
+        ole_prop.visible = prop.get_property(b"Visible".into(), ole_prop.visible);
         ole_prop.whats_this_help_id =
             prop.get_i32(b"WhatsThisHelpID".into(), ole_prop.whats_this_help_id);
         ole_prop.width = prop.get_i32(b"Width".into(), ole_prop.width);

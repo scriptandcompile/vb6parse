@@ -1,5 +1,5 @@
 use crate::language::color::VB6Color;
-use crate::language::controls::{BackStyle, DrawMode, DrawStyle};
+use crate::language::controls::{BackStyle, DrawMode, DrawStyle, Visibility};
 use crate::parsers::Properties;
 
 use num_enum::TryFromPrimitive;
@@ -37,7 +37,7 @@ pub struct ShapeProperties {
     pub left: i32,
     pub shape: Shape,
     pub top: i32,
-    pub visible: bool,
+    pub visible: Visibility,
     pub width: i32,
 }
 
@@ -60,7 +60,7 @@ impl Default for ShapeProperties {
             left: 30,
             shape: Shape::Rectangle,
             top: 200,
-            visible: true,
+            visible: Visibility::Visible,
             width: 355,
         }
     }
@@ -82,7 +82,7 @@ impl<'a> From<Properties<'a>> for ShapeProperties {
         shape_prop.left = prop.get_i32(b"Left".into(), shape_prop.left);
         shape_prop.shape = prop.get_property(b"Shape".into(), shape_prop.shape);
         shape_prop.top = prop.get_i32(b"Top".into(), shape_prop.top);
-        shape_prop.visible = prop.get_bool(b"Visible".into(), shape_prop.visible);
+        shape_prop.visible = prop.get_property(b"Visible".into(), shape_prop.visible);
         shape_prop.width = prop.get_i32(b"Width".into(), shape_prop.width);
 
         shape_prop

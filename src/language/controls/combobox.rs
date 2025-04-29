@@ -1,4 +1,6 @@
-use crate::language::controls::{Appearance, DragMode, MousePointer, OLEDragMode, OLEDropMode};
+use crate::language::controls::{
+    Appearance, DragMode, MousePointer, OLEDragMode, OLEDropMode, Visibility,
+};
 use crate::parsers::Properties;
 use crate::VB6Color;
 
@@ -54,7 +56,7 @@ pub struct ComboBoxProperties {
     pub text: BString,
     pub tool_tip_text: BString,
     pub top: i32,
-    pub visible: bool,
+    pub visible: Visibility,
     pub whats_this_help_id: i32,
     pub width: i32,
 }
@@ -92,7 +94,7 @@ impl Default for ComboBoxProperties {
             text: "".into(),
             tool_tip_text: "".into(),
             top: 30,
-            visible: true,
+            visible: Visibility::Visible,
             whats_this_help_id: 0,
             width: 100,
         }
@@ -213,7 +215,7 @@ impl<'a> From<Properties<'a>> for ComboBoxProperties {
             None => combobox_prop.tool_tip_text,
         };
         combobox_prop.top = prop.get_i32(b"Top".into(), combobox_prop.top);
-        combobox_prop.visible = prop.get_bool(b"Visible".into(), combobox_prop.visible);
+        combobox_prop.visible = prop.get_property(b"Visible".into(), combobox_prop.visible);
         combobox_prop.whats_this_help_id =
             prop.get_i32(b"WhatsThisHelp".into(), combobox_prop.whats_this_help_id);
         combobox_prop.width = prop.get_i32(b"Width".into(), combobox_prop.width);

@@ -1,5 +1,7 @@
 use crate::errors::VB6ErrorKind;
-use crate::language::controls::{Align, Appearance, DragMode, MousePointer, OLEDropMode};
+use crate::language::controls::{
+    Align, Appearance, DragMode, MousePointer, OLEDropMode, Visibility,
+};
 use crate::parsers::Properties;
 use crate::VB6Color;
 
@@ -44,7 +46,7 @@ pub struct DataProperties {
     pub right_to_left: bool,
     pub tool_tip_text: BString,
     pub top: i32,
-    pub visible: bool,
+    pub visible: Visibility,
     pub whats_this_help_id: i32,
     pub width: i32,
 }
@@ -80,7 +82,7 @@ impl Default for DataProperties {
             right_to_left: false,
             tool_tip_text: "".into(),
             top: 840,
-            visible: true,
+            visible: Visibility::Visible,
             whats_this_help_id: 0,
             width: 1140,
         }
@@ -191,7 +193,7 @@ impl<'a> From<Properties<'a>> for DataProperties {
             None => "".into(),
         };
         data_prop.top = prop.get_i32(b"Top".into(), data_prop.top);
-        data_prop.visible = prop.get_bool(b"Visible".into(), data_prop.visible);
+        data_prop.visible = prop.get_property(b"Visible".into(), data_prop.visible);
         data_prop.whats_this_help_id =
             prop.get_i32(b"WhatsThisHelpID".into(), data_prop.whats_this_help_id);
         data_prop.width = prop.get_i32(b"Width".into(), data_prop.width);
