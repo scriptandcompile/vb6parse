@@ -1,8 +1,8 @@
 use crate::{
     language::{
         controls::{
-            Appearance, ClipControls, DrawMode, DrawStyle, FillStyle, MousePointer, OLEDropMode,
-            ScaleMode, StartUpPosition, WindowState,
+            Appearance, AutoRedraw, ClipControls, DrawMode, DrawStyle, FillStyle, MousePointer,
+            OLEDropMode, ScaleMode, StartUpPosition, WindowState,
         },
         FormLinkMode, VB6Color,
     },
@@ -44,9 +44,7 @@ pub enum FormBorderStyle {
 #[derive(Debug, PartialEq, Clone)]
 pub struct FormProperties {
     pub appearance: Appearance,
-    /// Determines if the output from a graphics method is to a persistent bitmap
-    /// which acts as a double buffer.
-    pub auto_redraw: bool,
+    pub auto_redraw: AutoRedraw,
     pub back_color: VB6Color,
     pub border_style: FormBorderStyle,
     pub caption: BString,
@@ -181,7 +179,7 @@ impl Default for FormProperties {
     fn default() -> Self {
         FormProperties {
             appearance: Appearance::ThreeD,
-            auto_redraw: false,
+            auto_redraw: AutoRedraw::Manual,
             back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
             border_style: FormBorderStyle::Sizable,
             caption: "Form1".into(),
@@ -241,7 +239,7 @@ impl From<Properties<'_>> for FormProperties {
         let mut form_prop = FormProperties::default();
 
         form_prop.appearance = prop.get_property(b"Appearance".into(), form_prop.appearance);
-        form_prop.auto_redraw = prop.get_bool(b"AutoRedraw".into(), form_prop.auto_redraw);
+        form_prop.auto_redraw = prop.get_property(b"AutoRedraw".into(), form_prop.auto_redraw);
         form_prop.back_color = prop.get_color(b"BackColor".into(), form_prop.back_color);
         form_prop.border_style = prop.get_property(b"BorderStyle".into(), form_prop.border_style);
         form_prop.caption = match prop.get(b"Caption".into()) {

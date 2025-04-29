@@ -1,6 +1,6 @@
 use crate::language::controls::{
-    Align, Appearance, BorderStyle, ClipControls, DragMode, DrawMode, DrawStyle, FillStyle,
-    LinkMode, MousePointer, OLEDragMode, OLEDropMode, ScaleMode,
+    Align, Appearance, AutoRedraw, BorderStyle, ClipControls, DragMode, DrawMode, DrawStyle,
+    FillStyle, LinkMode, MousePointer, OLEDragMode, OLEDropMode, ScaleMode,
 };
 use crate::parsers::Properties;
 use crate::VB6Color;
@@ -19,9 +19,7 @@ use serde::Serialize;
 pub struct PictureBoxProperties {
     pub align: Align,
     pub appearance: Appearance,
-    /// Determines if the output from a graphics method is to a persistent bitmap
-    /// which acts as a double buffer.
-    pub auto_redraw: bool,
+    pub auto_redraw: AutoRedraw,
     pub auto_size: bool,
     pub back_color: VB6Color,
     pub border_style: BorderStyle,
@@ -75,7 +73,7 @@ impl Default for PictureBoxProperties {
         PictureBoxProperties {
             align: Align::None,
             appearance: Appearance::ThreeD,
-            auto_redraw: false,
+            auto_redraw: AutoRedraw::Manual,
             auto_size: false,
             back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
             border_style: BorderStyle::FixedSingle,
@@ -205,7 +203,7 @@ impl<'a> From<Properties<'a>> for PictureBoxProperties {
         picture_box_prop.appearance =
             prop.get_property(b"Appearance".into(), picture_box_prop.appearance);
         picture_box_prop.auto_redraw =
-            prop.get_bool(b"AutoRedraw".into(), picture_box_prop.auto_redraw);
+            prop.get_property(b"AutoRedraw".into(), picture_box_prop.auto_redraw);
         picture_box_prop.auto_size = prop.get_bool(b"AutoSize".into(), picture_box_prop.auto_size);
         picture_box_prop.back_color =
             prop.get_color(b"BackColor".into(), picture_box_prop.back_color);

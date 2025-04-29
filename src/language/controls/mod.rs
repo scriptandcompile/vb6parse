@@ -54,6 +54,19 @@ use crate::language::controls::{
     timer::TimerProperties,
 };
 
+/// AutoRedraw determines if the control is redrawn automatically when something is
+/// moved in front of it.
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
+pub enum AutoRedraw {
+    /// The control is not redrawn automatically.
+    #[default]
+    Manual = 0,
+    /// The control is redrawn automatically.
+    /// Yes, they used -1 for this.
+    Automatic = -1,
+}
+
 #[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum FormLinkMode {
