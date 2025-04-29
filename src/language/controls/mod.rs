@@ -54,7 +54,7 @@ use crate::language::controls::{
     timer::TimerProperties,
 };
 
-/// AutoRedraw determines if the control is redrawn automatically when something is
+/// `AutoRedraw` determines if the control is redrawn automatically when something is
 /// moved in front of it.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
