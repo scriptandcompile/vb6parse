@@ -22,6 +22,18 @@ pub enum ScrollBars {
     Both = 3,
 }
 
+///
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
+#[repr(i32)]
+pub enum MultiLine {
+    // The `TextBox` control is a single-line text box.
+    #[default]
+    SingleLine = 0,
+    // The `TextBox` control is a multi-line text box.
+    // Yes, the they used -1 to indicate true here.
+    MultiLine = -1,
+}
+
 /// Properties for a `TextBox` control.
 ///
 /// This is used as an enum variant of
@@ -55,7 +67,7 @@ pub struct TextBoxProperties {
     pub max_length: i32,
     pub mouse_icon: Option<DynamicImage>,
     pub mouse_pointer: MousePointer,
-    pub multi_line: bool,
+    pub multi_line: MultiLine,
     pub ole_drag_mode: OLEDragMode,
     pub ole_drop_mode: OLEDropMode,
     pub password_char: Option<char>,
@@ -99,7 +111,7 @@ impl Default for TextBoxProperties {
             max_length: 0,
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
-            multi_line: false,
+            multi_line: MultiLine::SingleLine,
             ole_drag_mode: OLEDragMode::Manual,
             ole_drop_mode: OLEDropMode::default(),
             password_char: None,
@@ -234,7 +246,7 @@ impl<'a> From<Properties<'a>> for TextBoxProperties {
         text_box_prop.mouse_pointer =
             prop.get_property(b"MousePointer".into(), text_box_prop.mouse_pointer);
 
-        text_box_prop.multi_line = prop.get_bool(b"MultiLine".into(), text_box_prop.multi_line);
+        text_box_prop.multi_line = prop.get_property(b"MultiLine".into(), text_box_prop.multi_line);
 
         text_box_prop.ole_drag_mode =
             prop.get_property(b"OLEDragMode".into(), text_box_prop.ole_drag_mode);
