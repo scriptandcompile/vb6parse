@@ -242,8 +242,7 @@ fn form_benchmark(c: &mut Criterion) {
         b.iter(|| {
             for form_pair in &forms_pairs {
                 black_box({
-                    let _class =
-                        VB6FormFile::parse(form_pair.0.to_string(), &mut form_pair.1.as_slice());
+                    let _class = VB6FormFile::parse(form_pair.0, &mut form_pair.1.as_slice());
                 });
             }
         })
