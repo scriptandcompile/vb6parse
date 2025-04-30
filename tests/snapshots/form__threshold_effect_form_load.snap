@@ -569,7 +569,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 2775
-                word_wrap: false
+                word_wrap: NonWrapping
         - name:
             - 108
             - 98
@@ -627,7 +627,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 2775
-                word_wrap: false
+                word_wrap: NonWrapping
         - name:
             - 108
             - 98
@@ -770,7 +770,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 12015
-                word_wrap: false
+                word_wrap: NonWrapping
       menus:
         - name:
             - 109

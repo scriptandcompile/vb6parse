@@ -1992,7 +1992,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 1245
-                word_wrap: false
+                word_wrap: NonWrapping
         - name:
             - 108
             - 98
@@ -2049,7 +2049,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 480
-                word_wrap: false
+                word_wrap: NonWrapping
         - name:
             - 108
             - 98
@@ -2104,7 +2104,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 360
-                word_wrap: false
+                word_wrap: NonWrapping
       menus:
         - name:
             - 109

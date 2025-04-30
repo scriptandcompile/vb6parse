@@ -503,7 +503,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 1815
-                word_wrap: false
+                word_wrap: NonWrapping
       menus: []
 objects: []
 format_version:

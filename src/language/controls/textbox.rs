@@ -26,11 +26,12 @@ pub enum ScrollBars {
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
 #[repr(i32)]
 pub enum MultiLine {
-    // The `TextBox` control is a single-line text box.
+    /// The `TextBox` control is a single-line text box.
     #[default]
     SingleLine = 0,
-    // The `TextBox` control is a multi-line text box.
-    // Yes, the they used -1 to indicate true here.
+    /// The `TextBox` control is a multi-line text box.
+    /// Yes, the they used -1 to indicate true here.
+    // TODO: Check to confirm that multi-line text boxes use -1 as the value.
     MultiLine = -1,
 }
 

@@ -300,7 +300,7 @@ form:
                         visible: Visible
                         whats_this_help_id: 0
                         width: 2535
-                        word_wrap: false
+                        word_wrap: NonWrapping
         - name:
             - 102
             - 114
@@ -1089,7 +1089,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 1755
-                word_wrap: false
+                word_wrap: NonWrapping
       menus:
         - name:
             - 109
