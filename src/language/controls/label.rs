@@ -7,7 +7,21 @@ use crate::VB6Color;
 
 use bstr::BString;
 use image::DynamicImage;
+use num_enum::TryFromPrimitive;
 use serde::Serialize;
+
+/// Determines if a `Label` control will wrap text.
+#[derive(Debug, PartialEq, Clone, Copy, TryFromPrimitive, Default, serde::Serialize)]
+#[repr(i32)]
+pub enum WordWrap {
+    /// The `Label` control will not wrap text.
+    #[default]
+    NonWrapping = 0,
+    /// The `Label` control will wrap text.
+    /// Yes, It uses -1 as the value.
+    // TODO: Check to confirm that wrapping labels use -1 as the value.
+    Wrapping = -1,
+}
 
 /// Properties for a `Label` control.
 ///
@@ -49,7 +63,7 @@ pub struct LabelProperties {
     pub visible: Visibility,
     pub whats_this_help_id: i32,
     pub width: i32,
-    pub word_wrap: bool,
+    pub word_wrap: WordWrap,
 }
 
 impl Default for LabelProperties {
@@ -87,7 +101,7 @@ impl Default for LabelProperties {
             visible: Visibility::Visible,
             whats_this_help_id: 0,
             width: 100,
-            word_wrap: false,
+            word_wrap: WordWrap::NonWrapping,
         }
     }
 }
@@ -212,7 +226,7 @@ impl<'a> From<Properties<'a>> for LabelProperties {
         label_prop.whats_this_help_id =
             prop.get_i32(b"WhatsThisHelpID".into(), label_prop.whats_this_help_id);
         label_prop.width = prop.get_i32(b"Width".into(), label_prop.width);
-        label_prop.word_wrap = prop.get_bool(b"WordWrap".into(), label_prop.word_wrap);
+        label_prop.word_wrap = prop.get_property(b"WordWrap".into(), label_prop.word_wrap);
 
         label_prop
     }

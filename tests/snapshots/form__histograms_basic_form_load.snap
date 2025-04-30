@@ -203,7 +203,7 @@ form:
                         visible: Visible
                         whats_this_help_id: 0
                         width: 2415
-                        word_wrap: false
+                        word_wrap: NonWrapping
                 - name:
                     - 76
                     - 97
@@ -266,7 +266,7 @@ form:
                         visible: Visible
                         whats_this_help_id: 0
                         width: 1155
-                        word_wrap: false
+                        word_wrap: NonWrapping
                 - name:
                     - 108
                     - 98
@@ -317,7 +317,7 @@ form:
                         visible: Visible
                         whats_this_help_id: 0
                         width: 3135
-                        word_wrap: false
+                        word_wrap: NonWrapping
                 - name:
                     - 76
                     - 97
@@ -372,7 +372,7 @@ form:
                         visible: Visible
                         whats_this_help_id: 0
                         width: 495
-                        word_wrap: false
+                        word_wrap: NonWrapping
                 - name:
                     - 108
                     - 98
@@ -423,7 +423,7 @@ form:
                         visible: Visible
                         whats_this_help_id: 0
                         width: 3135
-                        word_wrap: false
+                        word_wrap: NonWrapping
                 - name:
                     - 76
                     - 105
@@ -500,7 +500,7 @@ form:
                         visible: Visible
                         whats_this_help_id: 0
                         width: 495
-                        word_wrap: false
+                        word_wrap: NonWrapping
                 - name:
                     - 108
                     - 98
@@ -570,7 +570,7 @@ form:
                         visible: Visible
                         whats_this_help_id: 0
                         width: 855
-                        word_wrap: false
+                        word_wrap: NonWrapping
         - name:
             - 112
             - 105
@@ -883,7 +883,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 1230
-                word_wrap: false
+                word_wrap: NonWrapping
         - name:
             - 76
             - 97
@@ -949,7 +949,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 1335
-                word_wrap: false
+                word_wrap: NonWrapping
       menus: []
 objects: []
 format_version:

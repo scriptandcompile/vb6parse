@@ -836,7 +836,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 2895
-                word_wrap: false
+                word_wrap: NonWrapping
         - name:
             - 108
             - 98
@@ -919,7 +919,7 @@ form:
                 visible: Invisible
                 whats_this_help_id: 0
                 width: 2895
-                word_wrap: false
+                word_wrap: NonWrapping
       menus: []
 objects: []
 format_version:
