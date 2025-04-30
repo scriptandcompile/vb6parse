@@ -200,7 +200,7 @@ form:
                 align: None
                 appearance: Flat
                 auto_redraw: Automatic
-                auto_size: false
+                auto_size: Fixed
                 back_color:
                   RGB:
                     red: 0
@@ -274,7 +274,7 @@ form:
                 align: None
                 appearance: Flat
                 auto_redraw: Automatic
-                auto_size: false
+                auto_size: Fixed
                 back_color:
                   RGB:
                     red: 255
@@ -352,7 +352,7 @@ form:
               properties:
                 alignment: LeftJustify
                 appearance: ThreeD
-                auto_size: false
+                auto_size: Fixed
                 back_color:
                   System:
                     index: 15

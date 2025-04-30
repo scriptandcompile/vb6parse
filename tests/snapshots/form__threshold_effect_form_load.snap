@@ -354,7 +354,7 @@ form:
                 align: None
                 appearance: Flat
                 auto_redraw: Automatic
-                auto_size: true
+                auto_size: Resize
                 back_color:
                   System:
                     index: 5
@@ -424,7 +424,7 @@ form:
                 align: None
                 appearance: Flat
                 auto_redraw: Automatic
-                auto_size: true
+                auto_size: Resize
                 back_color:
                   System:
                     index: 5
@@ -497,7 +497,7 @@ form:
               properties:
                 alignment: LeftJustify
                 appearance: ThreeD
-                auto_size: false
+                auto_size: Fixed
                 back_color:
                   System:
                     index: 15
@@ -590,7 +590,7 @@ form:
               properties:
                 alignment: Center
                 appearance: Flat
-                auto_size: false
+                auto_size: Fixed
                 back_color:
                   System:
                     index: 5
@@ -648,7 +648,7 @@ form:
               properties:
                 alignment: Center
                 appearance: Flat
-                auto_size: false
+                auto_size: Fixed
                 back_color:
                   System:
                     index: 5

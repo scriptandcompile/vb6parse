@@ -79,6 +79,23 @@ pub enum TextDirection {
     LeftToRight = 0,
 }
 
+/// `AutoSize` determines if the control is automatically resized to fit its contents.
+/// This is used with the `Label` control and the `PictureBox` control.
+///
+/// In a `PictureBox`, this property is used to determine if the control is automatically resized
+/// to fit the size of the picture. If set to `Fixed` the control is not resized and the picture
+/// will be scaled or clipped depending on other properties like `SizeMode`.
+#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
+pub enum AutoSize {
+    /// The control is not automatically resized.
+    #[default]
+    Fixed = 0,
+    /// The control is automatically resized.
+    // TODO: Check to confirm that this is the correct value.
+    Resize = -1,
+}
+
 /// Determines if the control is visible or not.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
