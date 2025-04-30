@@ -497,7 +497,7 @@ form:
                         max_length: 0
                         mouse_icon: ~
                         mouse_pointer: Default
-                        multi_line: false
+                        multi_line: SingleLine
                         ole_drag_mode: Manual
                         ole_drop_mode: None
                         password_char: ~
@@ -562,7 +562,7 @@ form:
                         max_length: 0
                         mouse_icon: ~
                         mouse_pointer: Default
-                        multi_line: false
+                        multi_line: SingleLine
                         ole_drag_mode: Manual
                         ole_drop_mode: None
                         password_char: ~
@@ -723,7 +723,7 @@ form:
                         max_length: 0
                         mouse_icon: ~
                         mouse_pointer: Default
-                        multi_line: false
+                        multi_line: SingleLine
                         ole_drag_mode: Manual
                         ole_drop_mode: None
                         password_char: ~
@@ -784,7 +784,7 @@ form:
                         max_length: 0
                         mouse_icon: ~
                         mouse_pointer: Default
-                        multi_line: false
+                        multi_line: SingleLine
                         ole_drag_mode: Manual
                         ole_drop_mode: None
                         password_char: ~
@@ -846,7 +846,7 @@ form:
                         max_length: 0
                         mouse_icon: ~
                         mouse_pointer: Default
-                        multi_line: false
+                        multi_line: SingleLine
                         ole_drag_mode: Manual
                         ole_drop_mode: None
                         password_char: ~
@@ -913,7 +913,7 @@ form:
                         max_length: 0
                         mouse_icon: ~
                         mouse_pointer: Default
-                        multi_line: false
+                        multi_line: SingleLine
                         ole_drag_mode: Manual
                         ole_drop_mode: None
                         password_char: ~
@@ -979,7 +979,7 @@ form:
                         max_length: 0
                         mouse_icon: ~
                         mouse_pointer: Default
-                        multi_line: false
+                        multi_line: SingleLine
                         ole_drag_mode: Manual
                         ole_drop_mode: None
                         password_char: ~
@@ -1044,7 +1044,7 @@ form:
                         max_length: 0
                         mouse_icon: ~
                         mouse_pointer: Default
-                        multi_line: false
+                        multi_line: SingleLine
                         ole_drag_mode: Manual
                         ole_drop_mode: None
                         password_char: ~
@@ -1822,7 +1822,7 @@ form:
                         max_length: 0
                         mouse_icon: ~
                         mouse_pointer: Default
-                        multi_line: true
+                        multi_line: MultiLine
                         ole_drag_mode: Manual
                         ole_drop_mode: None
                         password_char: ~

@@ -398,7 +398,7 @@ form:
                 max_length: 0
                 mouse_icon: ~
                 mouse_pointer: Default
-                multi_line: false
+                multi_line: SingleLine
                 ole_drag_mode: Manual
                 ole_drop_mode: None
                 password_char: ~
