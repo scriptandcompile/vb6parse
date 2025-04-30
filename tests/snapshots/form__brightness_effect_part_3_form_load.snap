@@ -271,7 +271,7 @@ form:
                 right_to_left: LeftToRight
                 style: Standard
                 tab_index: 5
-                tab_stop: true
+                tab_stop: Included
                 tool_tip_text: []
                 top: 5640
                 use_mask_color: false
@@ -342,7 +342,7 @@ form:
                 right_to_left: LeftToRight
                 style: Standard
                 tab_index: 4
-                tab_stop: true
+                tab_stop: Included
                 tool_tip_text: []
                 top: 5280
                 use_mask_color: false
@@ -405,7 +405,7 @@ form:
                 right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 2
-                tab_stop: true
+                tab_stop: Included
                 text:
                   - 49
                   - 53
@@ -498,7 +498,7 @@ form:
                 right_to_left: LeftToRight
                 style: Standard
                 tab_index: 1
-                tab_stop: true
+                tab_stop: Included
                 tool_tip_text: []
                 top: 4920
                 use_mask_color: false
@@ -569,7 +569,7 @@ form:
                 scale_top: 0
                 scale_width: 400
                 tab_index: 0
-                tab_stop: true
+                tab_stop: Included
                 tool_tip_text: []
                 top: 120
                 visible: Visible

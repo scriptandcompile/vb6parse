@@ -1,7 +1,7 @@
 use crate::language::color::VB6Color;
 use crate::language::controls::{
-    Appearance, DragMode, MousePointer, MultiSelect, OLEDragMode, OLEDropMode, TextDirection,
-    Visibility,
+    Appearance, DragMode, MousePointer, MultiSelect, OLEDragMode, OLEDropMode, TabStop,
+    TextDirection, Visibility,
 };
 use crate::parsers::Properties;
 
@@ -53,7 +53,7 @@ pub struct ListBoxProperties {
     pub sorted: bool,
     pub style: ListBoxStyle,
     pub tab_index: i32,
-    pub tab_stop: bool,
+    pub tab_stop: TabStop,
     pub tool_tip_text: BString,
     pub top: i32,
     pub visible: Visibility,
@@ -89,7 +89,7 @@ impl Default for ListBoxProperties {
             sorted: false,
             style: ListBoxStyle::Standard,
             tab_index: 0,
-            tab_stop: true,
+            tab_stop: TabStop::Included,
             tool_tip_text: "".into(),
             top: 30,
             visible: Visibility::Visible,
@@ -203,7 +203,7 @@ impl<'a> From<Properties<'a>> for ListBoxProperties {
         list_box_prop.sorted = prop.get_bool(b"Sorted".into(), list_box_prop.sorted);
         list_box_prop.style = prop.get_property(b"Style".into(), list_box_prop.style);
         list_box_prop.tab_index = prop.get_i32(b"TabIndex".into(), list_box_prop.tab_index);
-        list_box_prop.tab_stop = prop.get_bool(b"TabStop".into(), list_box_prop.tab_stop);
+        list_box_prop.tab_stop = prop.get_property(b"TabStop".into(), list_box_prop.tab_stop);
         list_box_prop.tool_tip_text = match prop.get(b"ToolTipText".into()) {
             Some(tool_tip_text) => tool_tip_text.into(),
             None => list_box_prop.tool_tip_text,

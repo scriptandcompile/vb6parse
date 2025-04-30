@@ -1,5 +1,5 @@
 use crate::language::controls::{
-    Appearance, BackStyle, BorderStyle, DragMode, MousePointer, SizeMode, Visibility,
+    Appearance, BackStyle, BorderStyle, DragMode, MousePointer, SizeMode, TabStop, Visibility,
 };
 use crate::language::VB6Color;
 use crate::parsers::Properties;
@@ -80,7 +80,7 @@ pub struct OLEProperties {
     //pub source_doc: BString,
     //pub source_item: BString,
     pub tab_index: i32,
-    pub tab_stop: bool,
+    pub tab_stop: TabStop,
     pub top: i32,
     pub update_options: UpdateOptions,
     pub verb: i32,
@@ -119,7 +119,7 @@ impl Default for OLEProperties {
             //source_doc: "".into(),
             //source_item: "".into(),
             tab_index: 0,
-            tab_stop: true,
+            tab_stop: TabStop::Included,
             top: 1200,
             update_options: UpdateOptions::Automatic,
             verb: 0,
@@ -227,7 +227,7 @@ impl<'a> From<Properties<'a>> for OLEProperties {
             prop.get_property(b"OLETypeAllowed".into(), ole_prop.ole_type_allowed);
         ole_prop.size_mode = prop.get_property(b"SizeMode".into(), ole_prop.size_mode);
         ole_prop.tab_index = prop.get_i32(b"TabIndex".into(), ole_prop.tab_index);
-        ole_prop.tab_stop = prop.get_bool(b"TabStop".into(), ole_prop.tab_stop);
+        ole_prop.tab_stop = prop.get_property(b"TabStop".into(), ole_prop.tab_stop);
         ole_prop.top = prop.get_i32(b"Top".into(), ole_prop.top);
         ole_prop.update_options =
             prop.get_property(b"UpdateOptions".into(), ole_prop.update_options);

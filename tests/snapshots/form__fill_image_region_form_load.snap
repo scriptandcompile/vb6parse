@@ -195,7 +195,7 @@ form:
                 scale_top: 0
                 scale_width: 503
                 tab_index: 1
-                tab_stop: true
+                tab_stop: Included
                 tool_tip_text: []
                 top: 480
                 visible: Visible

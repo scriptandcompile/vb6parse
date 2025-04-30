@@ -96,6 +96,26 @@ pub enum AutoSize {
     Resize = -1,
 }
 
+/// `TabStop` determines if the control is included in the tab order.
+/// In VB6, the `TabStop` property determines whether a control can receive focus
+/// when the user navigates through controls using the Tab key.
+/// When `TabStop` is set to `Included`, the control is included in the tab order
+/// and can receive focus when the user presses the Tab key.
+/// When `TabStop` is set to `ProgrammaticOnly`, the control is skipped in the
+/// tab order and cannot receive focus via the Tab key.
+/// However, it can still receive focus programmatically or through other user interactions.
+#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
+
+pub enum TabStop {
+    /// The control is not included in the tab order but can be focused programmatically.
+    ProgrammaticOnly = 0,
+    /// The control is included in the tab order.
+    // TODO: Check to confirm that this is the correct value.
+    #[default]
+    Included = -1,
+}
+
 /// Determines if the control is visible or not.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]

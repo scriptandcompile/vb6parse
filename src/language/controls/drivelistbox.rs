@@ -1,4 +1,6 @@
-use crate::language::controls::{Appearance, DragMode, MousePointer, OLEDropMode, Visibility};
+use crate::language::controls::{
+    Appearance, DragMode, MousePointer, OLEDropMode, TabStop, Visibility,
+};
 use crate::parsers::Properties;
 use crate::VB6Color;
 
@@ -28,7 +30,7 @@ pub struct DriveListBoxProperties {
     pub mouse_pointer: MousePointer,
     pub ole_drop_mode: OLEDropMode,
     pub tab_index: i32,
-    pub tab_stop: bool,
+    pub tab_stop: TabStop,
     pub tool_tip_text: BString,
     pub top: i32,
     pub visible: Visibility,
@@ -53,7 +55,7 @@ impl Default for DriveListBoxProperties {
             mouse_pointer: MousePointer::Default,
             ole_drop_mode: OLEDropMode::default(),
             tab_index: 0,
-            tab_stop: true,
+            tab_stop: TabStop::Included,
             tool_tip_text: "".into(),
             top: 960,
             visible: Visibility::Visible,
@@ -133,7 +135,7 @@ impl<'a> From<Properties<'a>> for DriveListBoxProperties {
         drive_list_box_prop.tab_index =
             prop.get_i32(b"TabIndex".into(), drive_list_box_prop.tab_index);
         drive_list_box_prop.tab_stop =
-            prop.get_bool(b"TabStop".into(), drive_list_box_prop.tab_stop);
+            prop.get_property(b"TabStop".into(), drive_list_box_prop.tab_stop);
         drive_list_box_prop.tool_tip_text = match prop.get("ToolTipText".into()) {
             Some(tool_tip_text) => tool_tip_text.into(),
             None => drive_list_box_prop.tool_tip_text,

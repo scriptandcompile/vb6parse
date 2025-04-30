@@ -1,5 +1,6 @@
 use crate::language::controls::{
-    Appearance, DragMode, MousePointer, OLEDragMode, OLEDropMode, TextDirection, Visibility,
+    Appearance, DragMode, MousePointer, OLEDragMode, OLEDropMode, TabStop, TextDirection,
+    Visibility,
 };
 use crate::parsers::Properties;
 use crate::VB6Color;
@@ -52,7 +53,7 @@ pub struct ComboBoxProperties {
     pub sorted: bool,
     pub style: ComboBoxStyle,
     pub tab_index: i32,
-    pub tab_stop: bool,
+    pub tab_stop: TabStop,
     pub text: BString,
     pub tool_tip_text: BString,
     pub top: i32,
@@ -90,7 +91,7 @@ impl Default for ComboBoxProperties {
             sorted: false,
             style: ComboBoxStyle::DropDownCombo,
             tab_index: 0,
-            tab_stop: true,
+            tab_stop: TabStop::Included,
             text: "".into(),
             tool_tip_text: "".into(),
             top: 30,
@@ -205,7 +206,7 @@ impl<'a> From<Properties<'a>> for ComboBoxProperties {
         combobox_prop.sorted = prop.get_bool(b"Sorted".into(), combobox_prop.sorted);
         combobox_prop.style = prop.get_property(b"Style".into(), combobox_prop.style);
         combobox_prop.tab_index = prop.get_i32(b"TabIndex".into(), combobox_prop.tab_index);
-        combobox_prop.tab_stop = prop.get_bool(b"TabStop".into(), combobox_prop.tab_stop);
+        combobox_prop.tab_stop = prop.get_property(b"TabStop".into(), combobox_prop.tab_stop);
         combobox_prop.text = match prop.get(BStr::new("Text")) {
             Some(text) => text.into(),
             None => combobox_prop.text,

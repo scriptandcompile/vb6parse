@@ -1,6 +1,6 @@
 use crate::language::color::VB6Color;
 use crate::language::controls::{
-    Appearance, DragMode, MousePointer, MultiSelect, OLEDragMode, OLEDropMode, Visibility,
+    Appearance, DragMode, MousePointer, MultiSelect, OLEDragMode, OLEDropMode, TabStop, Visibility,
 };
 use crate::parsers::Properties;
 
@@ -38,7 +38,7 @@ pub struct FileListBoxProperties {
     pub read_only: bool,
     pub system: bool,
     pub tab_index: i32,
-    pub tab_stop: bool,
+    pub tab_stop: TabStop,
     pub tool_tip_text: BString,
     pub top: i32,
     pub visible: Visibility,
@@ -71,7 +71,7 @@ impl Default for FileListBoxProperties {
             read_only: true,
             system: false,
             tab_index: 0,
-            tab_stop: true,
+            tab_stop: TabStop::Included,
             tool_tip_text: "".into(),
             top: 480,
             visible: Visibility::Visible,
@@ -169,7 +169,8 @@ impl<'a> From<Properties<'a>> for FileListBoxProperties {
         file_list_box_prop.system = prop.get_bool(b"System".into(), file_list_box_prop.system);
         file_list_box_prop.tab_index =
             prop.get_i32(b"TabIndex".into(), file_list_box_prop.tab_index);
-        file_list_box_prop.tab_stop = prop.get_bool(b"TabStop".into(), file_list_box_prop.tab_stop);
+        file_list_box_prop.tab_stop =
+            prop.get_property(b"TabStop".into(), file_list_box_prop.tab_stop);
         file_list_box_prop.tool_tip_text = match prop.get("ToolTipText".into()) {
             Some(tool_tip_text) => tool_tip_text.into(),
             None => file_list_box_prop.tool_tip_text,

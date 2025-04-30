@@ -1,5 +1,5 @@
 use crate::language::controls::{
-    Appearance, DragMode, MousePointer, OLEDragMode, OLEDropMode, Visibility,
+    Appearance, DragMode, MousePointer, OLEDragMode, OLEDropMode, TabStop, Visibility,
 };
 use crate::parsers::Properties;
 use crate::VB6Color;
@@ -31,7 +31,7 @@ pub struct DirListBoxProperties {
     pub ole_drag_mode: OLEDragMode,
     pub ole_drop_mode: OLEDropMode,
     pub tab_index: i32,
-    pub tab_stop: bool,
+    pub tab_stop: TabStop,
     pub tool_tip_text: BString,
     pub top: i32,
     pub visible: Visibility,
@@ -57,7 +57,7 @@ impl Default for DirListBoxProperties {
             ole_drag_mode: OLEDragMode::Manual,
             ole_drop_mode: OLEDropMode::default(),
             tab_index: 0,
-            tab_stop: true,
+            tab_stop: TabStop::Included,
             tool_tip_text: "".into(),
             top: 720,
             visible: Visibility::Visible,
@@ -138,7 +138,8 @@ impl<'a> From<Properties<'a>> for DirListBoxProperties {
         dir_list_box_prop.ole_drop_mode =
             prop.get_property(b"OLEDropMode".into(), dir_list_box_prop.ole_drop_mode);
         dir_list_box_prop.tab_index = prop.get_i32(b"TabIndex".into(), dir_list_box_prop.tab_index);
-        dir_list_box_prop.tab_stop = prop.get_bool(b"TabStop".into(), dir_list_box_prop.tab_stop);
+        dir_list_box_prop.tab_stop =
+            prop.get_property(b"TabStop".into(), dir_list_box_prop.tab_stop);
         dir_list_box_prop.tool_tip_text = match prop.get("ToolTipText".into()) {
             Some(tool_tip_text) => tool_tip_text.into(),
             None => "".into(),

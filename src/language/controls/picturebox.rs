@@ -1,6 +1,6 @@
 use crate::language::controls::{
     Align, Appearance, AutoRedraw, AutoSize, BorderStyle, ClipControls, DragMode, DrawMode,
-    DrawStyle, FillStyle, LinkMode, MousePointer, OLEDragMode, OLEDropMode, ScaleMode,
+    DrawStyle, FillStyle, LinkMode, MousePointer, OLEDragMode, OLEDropMode, ScaleMode, TabStop,
     TextDirection, Visibility,
 };
 use crate::parsers::Properties;
@@ -61,7 +61,7 @@ pub struct PictureBoxProperties {
     pub scale_top: i32,
     pub scale_width: i32,
     pub tab_index: i32,
-    pub tab_stop: bool,
+    pub tab_stop: TabStop,
     pub tool_tip_text: BString,
     pub top: i32,
     pub visible: Visibility,
@@ -115,7 +115,7 @@ impl Default for PictureBoxProperties {
             scale_top: 0,
             scale_width: 100,
             tab_index: 0,
-            tab_stop: true,
+            tab_stop: TabStop::Included,
             tool_tip_text: "".into(),
             top: 30,
             visible: Visibility::Visible,
@@ -295,7 +295,7 @@ impl<'a> From<Properties<'a>> for PictureBoxProperties {
         picture_box_prop.scale_width =
             prop.get_i32(b"ScaleWidth".into(), picture_box_prop.scale_width);
         picture_box_prop.tab_index = prop.get_i32(b"TabIndex".into(), picture_box_prop.tab_index);
-        picture_box_prop.tab_stop = prop.get_bool(b"TabStop".into(), picture_box_prop.tab_stop);
+        picture_box_prop.tab_stop = prop.get_property(b"TabStop".into(), picture_box_prop.tab_stop);
         picture_box_prop.tool_tip_text = match prop.get(b"ToolTipText".into()) {
             Some(tool_tip_text) => tool_tip_text.into(),
             None => "".into(),
