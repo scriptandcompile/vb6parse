@@ -22,7 +22,7 @@ pub enum ScrollBars {
     Both = 3,
 }
 
-/// 'TextBox' controls can be either multi-line or single-line.
+/// `TextBox` controls can be either multi-line or single-line.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
 #[repr(i32)]
 pub enum MultiLine {
