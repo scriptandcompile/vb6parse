@@ -97,7 +97,7 @@ form:
         draw_mode: CopyPen
         draw_style: Solid
         draw_width: 1
-        enabled: true
+        enabled: Enabled
         fill_color:
           RGB:
             red: 0
@@ -255,7 +255,7 @@ form:
                 down_picture: ~
                 drag_icon: ~
                 drag_mode: Manual
-                enabled: true
+                enabled: Enabled
                 height: 735
                 help_context_id: 0
                 left: 120
@@ -323,7 +323,7 @@ form:
                 down_picture: ~
                 drag_icon: ~
                 drag_mode: Manual
-                enabled: true
+                enabled: Enabled
                 fore_color:
                   System:
                     index: 8
@@ -382,7 +382,7 @@ form:
                 data_source: []
                 drag_icon: ~
                 drag_mode: Manual
-                enabled: true
+                enabled: Enabled
                 fore_color:
                   System:
                     index: 8
@@ -482,7 +482,7 @@ form:
                 down_picture: ~
                 drag_icon: ~
                 drag_mode: Manual
-                enabled: true
+                enabled: Enabled
                 height: 615
                 help_context_id: 0
                 left: 120
@@ -537,7 +537,7 @@ form:
                 draw_mode: CopyPen
                 draw_style: Solid
                 draw_width: 1
-                enabled: true
+                enabled: Enabled
                 fill_color:
                   RGB:
                     red: 0
@@ -626,7 +626,7 @@ form:
                 data_source: []
                 drag_icon: ~
                 drag_mode: Manual
-                enabled: true
+                enabled: Enabled
                 fore_color:
                   System:
                     index: 18

@@ -1,6 +1,6 @@
 use crate::language::color::VB6Color;
 use crate::language::controls::{
-    Appearance, DragMode, MousePointer, MultiSelect, OLEDragMode, OLEDropMode, TabStop,
+    Activation, Appearance, DragMode, MousePointer, MultiSelect, OLEDragMode, OLEDropMode, TabStop,
     TextDirection, Visibility,
 };
 use crate::parsers::Properties;
@@ -36,7 +36,7 @@ pub struct ListBoxProperties {
     pub data_source: BString,
     pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
-    pub enabled: bool,
+    pub enabled: Activation,
     pub fore_color: VB6Color,
     pub height: i32,
     pub help_context_id: i32,
@@ -74,7 +74,7 @@ impl Default for ListBoxProperties {
             data_source: "".into(),
             drag_icon: None,
             drag_mode: DragMode::Manual,
-            enabled: true,
+            enabled: Activation::Enabled,
             fore_color: VB6Color::from_hex("&H80000012&").unwrap(),
             height: 30,
             help_context_id: 0,
@@ -179,7 +179,7 @@ impl<'a> From<Properties<'a>> for ListBoxProperties {
         // DragIcon
 
         list_box_prop.drag_mode = prop.get_property(b"DragMode".into(), list_box_prop.drag_mode);
-        list_box_prop.enabled = prop.get_bool(b"Enabled".into(), list_box_prop.enabled);
+        list_box_prop.enabled = prop.get_property(b"Enabled".into(), list_box_prop.enabled);
         list_box_prop.fore_color = prop.get_color(b"ForeColor".into(), list_box_prop.fore_color);
         list_box_prop.height = prop.get_i32(b"Height".into(), list_box_prop.height);
         list_box_prop.help_context_id =

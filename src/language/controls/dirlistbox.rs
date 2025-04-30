@@ -1,5 +1,5 @@
 use crate::language::controls::{
-    Appearance, DragMode, MousePointer, OLEDragMode, OLEDropMode, TabStop, Visibility,
+    Activation, Appearance, DragMode, MousePointer, OLEDragMode, OLEDropMode, TabStop, Visibility,
 };
 use crate::parsers::Properties;
 use crate::VB6Color;
@@ -21,7 +21,7 @@ pub struct DirListBoxProperties {
     pub causes_validation: bool,
     pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
-    pub enabled: bool,
+    pub enabled: Activation,
     pub fore_color: VB6Color,
     pub height: i32,
     pub help_context_id: i32,
@@ -47,7 +47,7 @@ impl Default for DirListBoxProperties {
             causes_validation: true,
             drag_icon: None,
             drag_mode: DragMode::Manual,
-            enabled: true,
+            enabled: Activation::Enabled,
             fore_color: VB6Color::System { index: 8 },
             height: 3195,
             help_context_id: 0,
@@ -124,7 +124,7 @@ impl<'a> From<Properties<'a>> for DirListBoxProperties {
 
         dir_list_box_prop.drag_mode =
             prop.get_property(b"DragMode".into(), dir_list_box_prop.drag_mode);
-        dir_list_box_prop.enabled = prop.get_bool(b"Enabled".into(), dir_list_box_prop.enabled);
+        dir_list_box_prop.enabled = prop.get_property(b"Enabled".into(), dir_list_box_prop.enabled);
         dir_list_box_prop.fore_color =
             prop.get_color(b"ForeColor".into(), dir_list_box_prop.fore_color);
         dir_list_box_prop.height = prop.get_i32(b"Height".into(), dir_list_box_prop.height);

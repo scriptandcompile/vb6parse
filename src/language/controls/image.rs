@@ -1,5 +1,6 @@
 use crate::language::controls::{
-    Appearance, BorderStyle, DragMode, MousePointer, OLEDragMode, OLEDropMode, Visibility,
+    Activation, Appearance, BorderStyle, DragMode, MousePointer, OLEDragMode, OLEDropMode,
+    Visibility,
 };
 
 use crate::parsers::Properties;
@@ -24,7 +25,7 @@ pub struct ImageProperties {
     pub data_source: BString,
     pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
-    pub enabled: bool,
+    pub enabled: Activation,
     pub height: i32,
     pub left: i32,
     pub mouse_icon: Option<DynamicImage>,
@@ -51,7 +52,7 @@ impl Default for ImageProperties {
             data_source: "".into(),
             drag_icon: None,
             drag_mode: DragMode::Manual,
-            enabled: true,
+            enabled: Activation::Enabled,
             height: 975,
             left: 1080,
             mouse_icon: None,
@@ -139,7 +140,7 @@ impl<'a> From<Properties<'a>> for ImageProperties {
         // DragIcon
 
         image_prop.drag_mode = prop.get_property(b"DragMode".into(), image_prop.drag_mode);
-        image_prop.enabled = prop.get_bool(b"Enabled".into(), image_prop.enabled);
+        image_prop.enabled = prop.get_property(b"Enabled".into(), image_prop.enabled);
         image_prop.height = prop.get_i32(b"Height".into(), image_prop.height);
         image_prop.left = prop.get_i32(b"Left".into(), image_prop.left);
 

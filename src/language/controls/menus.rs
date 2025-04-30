@@ -1,5 +1,5 @@
 use crate::errors::VB6ErrorKind;
-use crate::language::controls::Visibility;
+use crate::language::controls::{Activation, Visibility};
 use crate::parsers::Properties;
 
 use bstr::BString;
@@ -34,7 +34,7 @@ pub struct VB6MenuControl {
 pub struct MenuProperties {
     pub caption: BString,
     pub checked: bool,
-    pub enabled: bool,
+    pub enabled: Activation,
     pub help_context_id: i32,
     pub negotiate_position: NegotiatePosition,
     pub shortcut: Option<ShortCut>,
@@ -47,7 +47,7 @@ impl Default for MenuProperties {
         MenuProperties {
             caption: BString::from(""),
             checked: false,
-            enabled: true,
+            enabled: Activation::Enabled,
             help_context_id: 0,
             negotiate_position: NegotiatePosition::None,
             shortcut: None,
@@ -66,7 +66,7 @@ impl<'a> From<Properties<'a>> for MenuProperties {
             None => menu_prop.caption,
         };
         menu_prop.checked = prop.get_bool(b"Checked".into(), menu_prop.checked);
-        menu_prop.enabled = prop.get_bool(b"Enabled".into(), menu_prop.enabled);
+        menu_prop.enabled = prop.get_property(b"Enabled".into(), menu_prop.enabled);
         menu_prop.help_context_id =
             prop.get_i32(b"HelpContextID".into(), menu_prop.help_context_id);
         menu_prop.negotiate_position =

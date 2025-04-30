@@ -1,6 +1,6 @@
 use crate::language::controls::{
-    Appearance, DragMode, MousePointer, OLEDragMode, OLEDropMode, TabStop, TextDirection,
-    Visibility,
+    Activation, Appearance, DragMode, MousePointer, OLEDragMode, OLEDropMode, TabStop,
+    TextDirection, Visibility,
 };
 use crate::parsers::Properties;
 use crate::VB6Color;
@@ -36,7 +36,7 @@ pub struct ComboBoxProperties {
     pub data_source: BString,
     pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
-    pub enabled: bool,
+    pub enabled: Activation,
     pub fore_color: VB6Color,
     pub height: i32,
     pub help_context_id: i32,
@@ -74,7 +74,7 @@ impl Default for ComboBoxProperties {
             data_source: "".into(),
             drag_icon: None,
             drag_mode: DragMode::Manual,
-            enabled: true,
+            enabled: Activation::Enabled,
             fore_color: VB6Color::from_hex("&H80000008&").unwrap(),
             height: 30,
             help_context_id: 0,
@@ -183,7 +183,7 @@ impl<'a> From<Properties<'a>> for ComboBoxProperties {
         // drag_icon
 
         combobox_prop.drag_mode = prop.get_property(b"DragMode".into(), combobox_prop.drag_mode);
-        combobox_prop.enabled = prop.get_bool(b"Enabled".into(), combobox_prop.enabled);
+        combobox_prop.enabled = prop.get_property(b"Enabled".into(), combobox_prop.enabled);
         combobox_prop.fore_color = prop.get_color(b"ForeColor".into(), combobox_prop.fore_color);
         combobox_prop.height = prop.get_i32(b"Height".into(), combobox_prop.height);
         combobox_prop.help_context_id =

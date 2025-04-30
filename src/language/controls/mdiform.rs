@@ -1,7 +1,7 @@
 use crate::language::{
     controls::{
-        Appearance, FormLinkMode, MousePointer, OLEDropMode, StartUpPosition, TextDirection,
-        Visibility, WindowState,
+        Activation, Appearance, FormLinkMode, MousePointer, OLEDropMode, StartUpPosition,
+        TextDirection, Visibility, WindowState,
     },
     VB6Color,
 };
@@ -17,7 +17,7 @@ pub struct MDIFormProperties {
     pub auto_show_children: bool,
     pub back_color: VB6Color,
     pub caption: BString,
-    pub enabled: bool,
+    pub enabled: Activation,
     pub height: i32,
     pub help_context_id: i32,
     pub icon: Option<DynamicImage>,
@@ -94,7 +94,7 @@ impl Default for MDIFormProperties {
             auto_show_children: true,
             back_color: VB6Color::from_hex("&H8000000C&").unwrap(),
             caption: "".into(),
-            enabled: true,
+            enabled: Activation::Enabled,
             //font
             height: 3600,
             help_context_id: 0,
@@ -133,7 +133,7 @@ impl<'a> From<Properties<'a>> for MDIFormProperties {
             Some(caption) => caption.into(),
             None => mdi_form_prop.caption,
         };
-        mdi_form_prop.enabled = prop.get_bool(b"Enabled".into(), mdi_form_prop.enabled);
+        mdi_form_prop.enabled = prop.get_property(b"Enabled".into(), mdi_form_prop.enabled);
 
         // Font - group
 
