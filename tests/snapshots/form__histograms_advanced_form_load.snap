@@ -639,7 +639,7 @@ form:
                 scale_top: 0
                 scale_width: 256
                 tab_index: 5
-                tab_stop: true
+                tab_stop: Included
                 tool_tip_text: []
                 top: 4950
                 visible: Visible
@@ -692,7 +692,7 @@ form:
                 sorted: false
                 style: DropDownCombo
                 tab_index: 2
-                tab_stop: true
+                tab_stop: Included
                 text: []
                 tool_tip_text: []
                 top: 120
@@ -746,7 +746,7 @@ form:
                 sorted: false
                 style: DropDownCombo
                 tab_index: 1
-                tab_stop: true
+                tab_stop: Included
                 text: []
                 tool_tip_text: []
                 top: 480
@@ -814,7 +814,7 @@ form:
                 scale_top: 0
                 scale_width: 256
                 tab_index: 0
-                tab_stop: true
+                tab_stop: Included
                 tool_tip_text: []
                 top: 960
                 visible: Visible

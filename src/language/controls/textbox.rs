@@ -1,7 +1,7 @@
 use crate::{
     language::controls::{
         Alignment, Appearance, BorderStyle, DragMode, LinkMode, MousePointer, OLEDragMode,
-        OLEDropMode, TextDirection, Visibility,
+        OLEDropMode, TabStop, TextDirection, Visibility,
     },
     parsers::Properties,
     VB6Color,
@@ -75,7 +75,7 @@ pub struct TextBoxProperties {
     pub right_to_left: TextDirection,
     pub scroll_bars: ScrollBars,
     pub tab_index: i32,
-    pub tab_stop: bool,
+    pub tab_stop: TabStop,
     pub text: BString,
     pub tool_tip_text: BString,
     pub top: i32,
@@ -119,7 +119,7 @@ impl Default for TextBoxProperties {
             right_to_left: TextDirection::LeftToRight,
             scroll_bars: ScrollBars::None,
             tab_index: 0,
-            tab_stop: true,
+            tab_stop: TabStop::Included,
             text: "".into(),
             tool_tip_text: "".into(),
             top: 30,
@@ -274,7 +274,7 @@ impl<'a> From<Properties<'a>> for TextBoxProperties {
 
         text_box_prop.tab_index = prop.get_i32(b"TabIndex".into(), text_box_prop.tab_index);
 
-        text_box_prop.tab_stop = prop.get_bool(b"TabStop".into(), text_box_prop.tab_stop);
+        text_box_prop.tab_stop = prop.get_property(b"TabStop".into(), text_box_prop.tab_stop);
 
         text_box_prop.text = match prop.get("Text".into()) {
             Some(text) => text.into(),

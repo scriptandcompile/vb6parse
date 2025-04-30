@@ -242,7 +242,7 @@ form:
                         right_to_left: LeftToRight
                         small_change: 1
                         tab_index: 13
-                        tab_stop: true
+                        tab_stop: Included
                         top: 480
                         value: 6
                         visible: Visible
@@ -436,7 +436,7 @@ form:
                         right_to_left: LeftToRight
                         style: Standard
                         tab_index: 11
-                        tab_stop: true
+                        tab_stop: Included
                         tool_tip_text: []
                         top: 720
                         use_mask_color: false
@@ -506,7 +506,7 @@ form:
                         right_to_left: LeftToRight
                         style: Standard
                         tab_index: 10
-                        tab_stop: true
+                        tab_stop: Included
                         tool_tip_text: []
                         top: 360
                         use_mask_color: false
@@ -633,7 +633,7 @@ form:
                         right_to_left: LeftToRight
                         style: Standard
                         tab_index: 8
-                        tab_stop: true
+                        tab_stop: Included
                         tool_tip_text: []
                         top: 1080
                         use_mask_color: false
@@ -692,7 +692,7 @@ form:
                         right_to_left: LeftToRight
                         style: Standard
                         tab_index: 7
-                        tab_stop: true
+                        tab_stop: Included
                         tool_tip_text: []
                         top: 720
                         use_mask_color: false
@@ -749,7 +749,7 @@ form:
                         right_to_left: LeftToRight
                         style: Standard
                         tab_index: 6
-                        tab_stop: true
+                        tab_stop: Included
                         tool_tip_text: []
                         top: 360
                         use_mask_color: false
@@ -802,7 +802,7 @@ form:
                 sorted: false
                 style: Standard
                 tab_index: 4
-                tab_stop: true
+                tab_stop: Included
                 tool_tip_text: []
                 top: 600
                 visible: Visible
@@ -873,7 +873,7 @@ form:
                 right_to_left: LeftToRight
                 style: Standard
                 tab_index: 2
-                tab_stop: true
+                tab_stop: Included
                 tool_tip_text: []
                 top: 7080
                 use_mask_color: false
@@ -943,7 +943,7 @@ form:
                 scale_top: 0
                 scale_width: 87
                 tab_index: 0
-                tab_stop: true
+                tab_stop: Included
                 tool_tip_text: []
                 top: 120
                 visible: Visible
@@ -1013,7 +1013,7 @@ form:
                 scale_top: 0
                 scale_width: 800
                 tab_index: 1
-                tab_stop: true
+                tab_stop: Included
                 tool_tip_text: []
                 top: 120
                 visible: Invisible

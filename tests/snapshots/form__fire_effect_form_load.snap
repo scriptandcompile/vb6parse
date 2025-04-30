@@ -166,7 +166,7 @@ form:
                 right_to_left: LeftToRight
                 small_change: 1
                 tab_index: 16
-                tab_stop: true
+                tab_stop: Included
                 top: 1800
                 value: 50
                 visible: Visible
@@ -200,7 +200,7 @@ form:
                 right_to_left: LeftToRight
                 small_change: 1
                 tab_index: 15
-                tab_stop: true
+                tab_stop: Included
                 top: 1440
                 value: 100
                 visible: Visible
@@ -232,7 +232,7 @@ form:
                 right_to_left: LeftToRight
                 small_change: 1
                 tab_index: 14
-                tab_stop: true
+                tab_stop: Included
                 top: 1080
                 value: 200
                 visible: Visible
@@ -272,7 +272,7 @@ form:
                 right_to_left: LeftToRight
                 small_change: 1
                 tab_index: 10
-                tab_stop: true
+                tab_stop: Included
                 top: 120
                 value: 2
                 visible: Visible
@@ -329,7 +329,7 @@ form:
                 right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 4
-                tab_stop: true
+                tab_stop: Included
                 text:
                   - 49
                   - 50
@@ -389,7 +389,7 @@ form:
                 right_to_left: LeftToRight
                 scroll_bars: None
                 tab_index: 3
-                tab_stop: true
+                tab_stop: Included
                 text:
                   - 53
                   - 49
@@ -449,7 +449,7 @@ form:
                 right_to_left: LeftToRight
                 style: Standard
                 tab_index: 2
-                tab_stop: true
+                tab_stop: Included
                 tool_tip_text: []
                 top: 600
                 use_mask_color: false
@@ -507,7 +507,7 @@ form:
                 right_to_left: LeftToRight
                 style: Standard
                 tab_index: 1
-                tab_stop: true
+                tab_stop: Included
                 tool_tip_text: []
                 top: 600
                 use_mask_color: false
@@ -579,7 +579,7 @@ form:
                 scale_top: 0
                 scale_width: 512
                 tab_index: 0
-                tab_stop: true
+                tab_stop: Included
                 tool_tip_text:
                   - 72
                   - 101

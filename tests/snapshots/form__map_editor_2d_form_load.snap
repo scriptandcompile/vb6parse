@@ -173,7 +173,7 @@ form:
                 sorted: false
                 style: DropDownList
                 tab_index: 8
-                tab_stop: true
+                tab_stop: Included
                 text: []
                 tool_tip_text: []
                 top: 3720
@@ -207,7 +207,7 @@ form:
                 right_to_left: LeftToRight
                 small_change: 1
                 tab_index: 6
-                tab_stop: true
+                tab_stop: Included
                 top: 8400
                 value: 0
                 visible: Visible
@@ -240,7 +240,7 @@ form:
                 right_to_left: LeftToRight
                 small_change: 1
                 tab_index: 5
-                tab_stop: true
+                tab_stop: Included
                 top: 1560
                 value: 0
                 visible: Visible
@@ -276,7 +276,7 @@ form:
                 right_to_left: LeftToRight
                 small_change: 1
                 tab_index: 4
-                tab_stop: true
+                tab_stop: Included
                 top: 1200
                 value: 0
                 visible: Visible
@@ -349,7 +349,7 @@ form:
                 scale_top: 0
                 scale_width: 834
                 tab_index: 0
-                tab_stop: true
+                tab_stop: Included
                 tool_tip_text: []
                 top: 120
                 visible: Visible
@@ -426,7 +426,7 @@ form:
                 scale_top: 0
                 scale_width: 1024
                 tab_index: 3
-                tab_stop: true
+                tab_stop: Included
                 tool_tip_text: []
                 top: 0
                 visible: Invisible
@@ -493,7 +493,7 @@ form:
                 scale_top: 0
                 scale_width: 64
                 tab_index: 1
-                tab_stop: true
+                tab_stop: Included
                 tool_tip_text: []
                 top: 4560
                 visible: Visible
@@ -565,7 +565,7 @@ form:
                 scale_top: 0
                 scale_width: 807
                 tab_index: 2
-                tab_stop: true
+                tab_stop: Included
                 tool_tip_text: []
                 top: 1560
                 visible: Visible

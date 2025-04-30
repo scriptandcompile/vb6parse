@@ -195,7 +195,7 @@ form:
                 right_to_left: LeftToRight
                 style: Standard
                 tab_index: 1
-                tab_stop: true
+                tab_stop: Included
                 tool_tip_text: []
                 top: 120
                 use_mask_color: false
@@ -297,7 +297,7 @@ form:
                         right_to_left: LeftToRight
                         style: Standard
                         tab_index: 23
-                        tab_stop: true
+                        tab_stop: Included
                         tool_tip_text: []
                         top: 2640
                         use_mask_color: false
@@ -329,7 +329,7 @@ form:
                         right_to_left: LeftToRight
                         small_change: 1
                         tab_index: 18
-                        tab_stop: true
+                        tab_stop: Included
                         top: 990
                         value: 127
                         visible: Visible
@@ -361,7 +361,7 @@ form:
                         right_to_left: LeftToRight
                         small_change: 1
                         tab_index: 13
-                        tab_stop: true
+                        tab_stop: Included
                         top: 735
                         value: 0
                         visible: Visible
@@ -393,7 +393,7 @@ form:
                         right_to_left: LeftToRight
                         small_change: 1
                         tab_index: 12
-                        tab_stop: true
+                        tab_stop: Included
                         top: 1250
                         value: 255
                         visible: Visible
@@ -426,7 +426,7 @@ form:
                         right_to_left: LeftToRight
                         small_change: 1
                         tab_index: 9
-                        tab_stop: true
+                        tab_stop: Included
                         top: 2205
                         value: 255
                         visible: Visible
@@ -459,7 +459,7 @@ form:
                         right_to_left: LeftToRight
                         small_change: 1
                         tab_index: 5
-                        tab_stop: true
+                        tab_stop: Included
                         top: 1950
                         value: 0
                         visible: Visible
@@ -1355,7 +1355,7 @@ form:
                 scale_top: 0
                 scale_width: 400
                 tab_index: 0
-                tab_stop: true
+                tab_stop: Included
                 tool_tip_text: []
                 top: 120
                 visible: Visible
@@ -1425,7 +1425,7 @@ form:
                 scale_top: 0
                 scale_width: 400
                 tab_index: 7
-                tab_stop: true
+                tab_stop: Included
                 tool_tip_text: []
                 top: 120
                 visible: Invisible

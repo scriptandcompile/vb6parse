@@ -1,6 +1,6 @@
 use crate::language::controls::{
-    Appearance, DragMode, JustifyAlignment, MousePointer, OLEDropMode, Style, TextDirection,
-    Visibility,
+    Appearance, DragMode, JustifyAlignment, MousePointer, OLEDropMode, Style, TabStop,
+    TextDirection, Visibility,
 };
 use crate::language::VB6Color;
 use crate::parsers::Properties;
@@ -48,7 +48,7 @@ pub struct OptionButtonProperties {
     pub right_to_left: TextDirection,
     pub style: Style,
     pub tab_index: i32,
-    pub tab_stop: bool,
+    pub tab_stop: TabStop,
     pub tool_tip_text: BString,
     pub top: i32,
     pub use_mask_color: bool,
@@ -83,7 +83,7 @@ impl Default for OptionButtonProperties {
             right_to_left: TextDirection::LeftToRight,
             style: Style::Standard,
             tab_index: 0,
-            tab_stop: true,
+            tab_stop: TabStop::Included,
             tool_tip_text: "".into(),
             top: 30,
             use_mask_color: false,
@@ -202,7 +202,8 @@ impl<'a> From<Properties<'a>> for OptionButtonProperties {
         option_button_prop.style = prop.get_property(b"Style".into(), option_button_prop.style);
         option_button_prop.tab_index =
             prop.get_i32(b"TabIndex".into(), option_button_prop.tab_index);
-        option_button_prop.tab_stop = prop.get_bool(b"TabStop".into(), option_button_prop.tab_stop);
+        option_button_prop.tab_stop =
+            prop.get_property(b"TabStop".into(), option_button_prop.tab_stop);
         option_button_prop.tool_tip_text = match prop.get(b"ToolTipText".into()) {
             Some(tool_tip_text) => tool_tip_text.into(),
             None => option_button_prop.tool_tip_text,

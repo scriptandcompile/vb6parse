@@ -200,7 +200,7 @@ form:
                 right_to_left: LeftToRight
                 style: Standard
                 tab_index: 10
-                tab_stop: true
+                tab_stop: Included
                 tool_tip_text: []
                 top: 1080
                 use_mask_color: false
@@ -284,7 +284,7 @@ form:
                 right_to_left: LeftToRight
                 style: Standard
                 tab_index: 9
-                tab_stop: true
+                tab_stop: Included
                 tool_tip_text: []
                 top: 1080
                 use_mask_color: false
@@ -321,7 +321,7 @@ form:
                 right_to_left: LeftToRight
                 small_change: 1
                 tab_index: 5
-                tab_stop: true
+                tab_stop: Included
                 top: 720
                 value: 0
                 visible: Visible
@@ -356,7 +356,7 @@ form:
                 right_to_left: LeftToRight
                 small_change: 1
                 tab_index: 4
-                tab_stop: true
+                tab_stop: Included
                 top: 360
                 value: 20
                 visible: Visible
@@ -427,7 +427,7 @@ form:
                 right_to_left: LeftToRight
                 style: Standard
                 tab_index: 2
-                tab_stop: true
+                tab_stop: Included
                 tool_tip_text: []
                 top: 240
                 use_mask_color: false
@@ -497,7 +497,7 @@ form:
                 scale_top: 0
                 scale_width: 87
                 tab_index: 0
-                tab_stop: true
+                tab_stop: Included
                 tool_tip_text: []
                 top: 1680
                 visible: Visible
@@ -567,7 +567,7 @@ form:
                 scale_top: 0
                 scale_width: 800
                 tab_index: 1
-                tab_stop: true
+                tab_stop: Included
                 tool_tip_text: []
                 top: 1680
                 visible: Invisible
