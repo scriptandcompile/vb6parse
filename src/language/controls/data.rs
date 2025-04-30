@@ -1,6 +1,6 @@
 use crate::errors::VB6ErrorKind;
 use crate::language::controls::{
-    Align, Appearance, DragMode, MousePointer, OLEDropMode, TextDirection, Visibility,
+    Activation, Align, Appearance, DragMode, MousePointer, OLEDropMode, TextDirection, Visibility,
 };
 use crate::parsers::Properties;
 use crate::VB6Color;
@@ -29,7 +29,7 @@ pub struct DataProperties {
     pub default_type: DefaultType,
     pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
-    pub enabled: bool,
+    pub enabled: Activation,
     pub eof_action: EOFAction,
     pub exclusive: bool,
     pub fore_color: VB6Color,
@@ -65,7 +65,7 @@ impl Default for DataProperties {
             default_type: DefaultType::UseJet,
             drag_icon: None,
             drag_mode: DragMode::Manual,
-            enabled: true,
+            enabled: Activation::Enabled,
             eof_action: EOFAction::MoveLast,
             exclusive: false,
             fore_color: VB6Color::System { index: 8 },
@@ -168,7 +168,7 @@ impl<'a> From<Properties<'a>> for DataProperties {
         // DragIcon
 
         data_prop.drag_mode = prop.get_property(b"DragMode".into(), data_prop.drag_mode);
-        data_prop.enabled = prop.get_bool(b"Enabled".into(), data_prop.enabled);
+        data_prop.enabled = prop.get_property(b"Enabled".into(), data_prop.enabled);
         data_prop.eof_action = prop.get_property(b"EOFAction".into(), data_prop.eof_action);
         data_prop.exclusive = prop.get_bool(b"Exclusive".into(), data_prop.exclusive);
         data_prop.fore_color = prop.get_color(b"ForeColor".into(), data_prop.fore_color);

@@ -96,6 +96,18 @@ pub enum AutoSize {
     Resize = -1,
 }
 
+/// `Activation` determines if the control is enabled or disabled.
+/// In VB6, the `enabled` property determines whether a control can respond to user input.
+#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
+pub enum Activation {
+    /// The control is not disabled.
+    Disabled = 0,
+    /// The control is enabled.
+    #[default]
+    Enabled = -1,
+}
+
 /// `TabStop` determines if the control is included in the tab order.
 /// In VB6, the `TabStop` property determines whether a control can receive focus
 /// when the user navigates through controls using the Tab key.

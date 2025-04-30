@@ -1,5 +1,5 @@
 use crate::language::controls::{
-    Appearance, DragMode, MousePointer, OLEDropMode, Style, TabStop, TextDirection,
+    Activation, Appearance, DragMode, MousePointer, OLEDropMode, Style, TabStop, TextDirection,
 };
 use crate::parsers::Properties;
 use crate::VB6Color;
@@ -26,7 +26,7 @@ pub struct CommandButtonProperties {
     pub down_picture: Option<DynamicImage>,
     pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
-    pub enabled: bool,
+    pub enabled: Activation,
     pub height: i32,
     pub help_context_id: i32,
     pub left: i32,
@@ -59,7 +59,7 @@ impl Default for CommandButtonProperties {
             down_picture: None,
             drag_icon: None,
             drag_mode: DragMode::Manual,
-            enabled: true,
+            enabled: Activation::Enabled,
             height: 30,
             help_context_id: 0,
             left: 30,
@@ -163,7 +163,8 @@ impl<'a> From<Properties<'a>> for CommandButtonProperties {
 
         command_button_prop.drag_mode =
             prop.get_property(b"DragMode".into(), command_button_prop.drag_mode);
-        command_button_prop.enabled = prop.get_bool(b"Enabled".into(), command_button_prop.enabled);
+        command_button_prop.enabled =
+            prop.get_property(b"Enabled".into(), command_button_prop.enabled);
         command_button_prop.height = prop.get_i32(b"Height".into(), command_button_prop.height);
         command_button_prop.help_context_id =
             prop.get_i32(b"HelpContextID".into(), command_button_prop.help_context_id);

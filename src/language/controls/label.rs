@@ -1,6 +1,6 @@
 use crate::language::controls::{
-    Alignment, Appearance, AutoSize, BackStyle, BorderStyle, DragMode, LinkMode, MousePointer,
-    OLEDropMode, TextDirection, Visibility,
+    Activation, Alignment, Appearance, AutoSize, BackStyle, BorderStyle, DragMode, LinkMode,
+    MousePointer, OLEDropMode, TextDirection, Visibility,
 };
 use crate::parsers::Properties;
 use crate::VB6Color;
@@ -44,7 +44,7 @@ pub struct LabelProperties {
     pub data_source: BString,
     pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
-    pub enabled: bool,
+    pub enabled: Activation,
     pub fore_color: VB6Color,
     pub height: i32,
     pub left: i32,
@@ -82,7 +82,7 @@ impl Default for LabelProperties {
             data_source: "".into(),
             drag_icon: None,
             drag_mode: DragMode::Manual,
-            enabled: true,
+            enabled: Activation::Enabled,
             fore_color: VB6Color::from_hex("&H80000012&").unwrap(),
             height: 30,
             left: 30,
@@ -192,7 +192,7 @@ impl<'a> From<Properties<'a>> for LabelProperties {
         // DragIcon
 
         label_prop.drag_mode = prop.get_property(b"DragMode".into(), label_prop.drag_mode);
-        label_prop.enabled = prop.get_bool(b"Enabled".into(), label_prop.enabled);
+        label_prop.enabled = prop.get_property(b"Enabled".into(), label_prop.enabled);
         label_prop.fore_color = prop.get_color(b"ForeColor".into(), label_prop.fore_color);
         label_prop.height = prop.get_i32(b"Height".into(), label_prop.height);
         label_prop.left = prop.get_i32(b"Left".into(), label_prop.left);

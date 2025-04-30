@@ -81,7 +81,7 @@ form:
         draw_mode: CopyPen
         draw_style: Solid
         draw_width: 1
-        enabled: true
+        enabled: Enabled
         fill_color:
           RGB:
             red: 0
@@ -166,7 +166,7 @@ form:
                 draw_mode: CopyPen
                 draw_style: Solid
                 draw_width: 2
-                enabled: true
+                enabled: Enabled
                 fill_color:
                   RGB:
                     red: 0
@@ -266,7 +266,7 @@ form:
                 down_picture: ~
                 drag_icon: ~
                 drag_mode: Manual
-                enabled: true
+                enabled: Enabled
                 height: 495
                 help_context_id: 0
                 left: 4920
@@ -346,7 +346,7 @@ form:
                 down_picture: ~
                 drag_icon: ~
                 drag_mode: Manual
-                enabled: true
+                enabled: Enabled
                 fore_color:
                   System:
                     index: 8
@@ -432,7 +432,7 @@ form:
                 clip_controls: "True"
                 drag_icon: ~
                 drag_mode: Manual
-                enabled: true
+                enabled: Enabled
                 fore_color:
                   System:
                     index: 8
@@ -481,7 +481,7 @@ form:
                         data_source: []
                         drag_icon: ~
                         drag_mode: Manual
-                        enabled: true
+                        enabled: Enabled
                         fore_color:
                           System:
                             index: 8
@@ -546,7 +546,7 @@ form:
                         data_source: []
                         drag_icon: ~
                         drag_mode: Manual
-                        enabled: true
+                        enabled: Enabled
                         fore_color:
                           System:
                             index: 8
@@ -649,7 +649,7 @@ form:
                         down_picture: ~
                         drag_icon: ~
                         drag_mode: Manual
-                        enabled: true
+                        enabled: Enabled
                         fore_color:
                           System:
                             index: 8
@@ -707,7 +707,7 @@ form:
                         data_source: []
                         drag_icon: ~
                         drag_mode: Manual
-                        enabled: true
+                        enabled: Enabled
                         fore_color:
                           System:
                             index: 8
@@ -768,7 +768,7 @@ form:
                         data_source: []
                         drag_icon: ~
                         drag_mode: Manual
-                        enabled: true
+                        enabled: Enabled
                         fore_color:
                           System:
                             index: 8
@@ -830,7 +830,7 @@ form:
                         data_source: []
                         drag_icon: ~
                         drag_mode: Manual
-                        enabled: true
+                        enabled: Enabled
                         fore_color:
                           System:
                             index: 8
@@ -897,7 +897,7 @@ form:
                         data_source: []
                         drag_icon: ~
                         drag_mode: Manual
-                        enabled: true
+                        enabled: Enabled
                         fore_color:
                           System:
                             index: 8
@@ -963,7 +963,7 @@ form:
                         data_source: []
                         drag_icon: ~
                         drag_mode: Manual
-                        enabled: true
+                        enabled: Enabled
                         fore_color:
                           System:
                             index: 8
@@ -1028,7 +1028,7 @@ form:
                         data_source: []
                         drag_icon: ~
                         drag_mode: Manual
-                        enabled: true
+                        enabled: Enabled
                         fore_color:
                           System:
                             index: 8
@@ -1113,7 +1113,7 @@ form:
                         data_source: []
                         drag_icon: ~
                         drag_mode: Manual
-                        enabled: true
+                        enabled: Enabled
                         fore_color:
                           System:
                             index: 18
@@ -1188,7 +1188,7 @@ form:
                         data_source: []
                         drag_icon: ~
                         drag_mode: Manual
-                        enabled: true
+                        enabled: Enabled
                         fore_color:
                           System:
                             index: 18
@@ -1289,7 +1289,7 @@ form:
                         data_source: []
                         drag_icon: ~
                         drag_mode: Manual
-                        enabled: true
+                        enabled: Enabled
                         fore_color:
                           System:
                             index: 18
@@ -1365,7 +1365,7 @@ form:
                         data_source: []
                         drag_icon: ~
                         drag_mode: Manual
-                        enabled: true
+                        enabled: Enabled
                         fore_color:
                           System:
                             index: 18
@@ -1448,7 +1448,7 @@ form:
                         data_source: []
                         drag_icon: ~
                         drag_mode: Manual
-                        enabled: true
+                        enabled: Enabled
                         fore_color:
                           System:
                             index: 18
@@ -1513,7 +1513,7 @@ form:
                         data_source: []
                         drag_icon: ~
                         drag_mode: Manual
-                        enabled: true
+                        enabled: Enabled
                         fore_color:
                           System:
                             index: 18
@@ -1583,7 +1583,7 @@ form:
                         data_source: []
                         drag_icon: ~
                         drag_mode: Manual
-                        enabled: true
+                        enabled: Enabled
                         fore_color:
                           System:
                             index: 18
@@ -1670,7 +1670,7 @@ form:
                         data_source: []
                         drag_icon: ~
                         drag_mode: Manual
-                        enabled: true
+                        enabled: Enabled
                         fore_color:
                           System:
                             index: 18
@@ -1762,7 +1762,7 @@ form:
                 clip_controls: "True"
                 drag_icon: ~
                 drag_mode: Manual
-                enabled: true
+                enabled: Enabled
                 fore_color:
                   System:
                     index: 8
@@ -1806,7 +1806,7 @@ form:
                         data_source: []
                         drag_icon: ~
                         drag_mode: Manual
-                        enabled: true
+                        enabled: Enabled
                         fore_color:
                           System:
                             index: 8
@@ -1865,7 +1865,7 @@ form:
                         data_source: []
                         drag_icon: ~
                         drag_mode: Manual
-                        enabled: true
+                        enabled: Enabled
                         fore_color:
                           System:
                             index: 8
@@ -1963,7 +1963,7 @@ form:
                 down_picture: ~
                 drag_icon: ~
                 drag_mode: Manual
-                enabled: true
+                enabled: Enabled
                 height: 615
                 help_context_id: 0
                 left: 9960
@@ -2031,7 +2031,7 @@ form:
                 down_picture: ~
                 drag_icon: ~
                 drag_mode: Manual
-                enabled: true
+                enabled: Enabled
                 height: 615
                 help_context_id: 0
                 left: 7800
@@ -2086,7 +2086,7 @@ form:
                 draw_mode: CopyPen
                 draw_style: Solid
                 draw_width: 2
-                enabled: true
+                enabled: Enabled
                 fill_color:
                   RGB:
                     red: 224
@@ -2160,7 +2160,7 @@ form:
                 draw_mode: CopyPen
                 draw_style: Solid
                 draw_width: 2
-                enabled: true
+                enabled: Enabled
                 fill_color:
                   RGB:
                     red: 0
@@ -2326,7 +2326,7 @@ form:
                 data_source: []
                 drag_icon: ~
                 drag_mode: Manual
-                enabled: true
+                enabled: Enabled
                 fore_color:
                   System:
                     index: 8

@@ -1,7 +1,7 @@
 use crate::language::color::VB6Color;
 use crate::language::controls::{
-    Appearance, BorderStyle, ClipControls, DragMode, MousePointer, OLEDropMode, TextDirection,
-    Visibility,
+    Activation, Appearance, BorderStyle, ClipControls, DragMode, MousePointer, OLEDropMode,
+    TextDirection, Visibility,
 };
 use crate::parsers::Properties;
 
@@ -24,7 +24,7 @@ pub struct FrameProperties {
     pub clip_controls: ClipControls,
     pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
-    pub enabled: bool,
+    pub enabled: Activation,
     pub fore_color: VB6Color,
     pub height: i32,
     pub help_context_id: i32,
@@ -51,7 +51,7 @@ impl Default for FrameProperties {
             clip_controls: ClipControls::True,
             drag_icon: None,
             drag_mode: DragMode::Manual,
-            enabled: true,
+            enabled: Activation::Enabled,
             fore_color: VB6Color::from_hex("&H80000012&").unwrap(),
             height: 30,
             help_context_id: 0,
@@ -129,7 +129,7 @@ impl<'a> From<Properties<'a>> for FrameProperties {
         // drag_icon
 
         frame_prop.drag_mode = prop.get_property(b"DragMode".into(), frame_prop.drag_mode);
-        frame_prop.enabled = prop.get_bool(b"Enabled".into(), frame_prop.enabled);
+        frame_prop.enabled = prop.get_property(b"Enabled".into(), frame_prop.enabled);
         frame_prop.fore_color = prop.get_color(b"ForeColor".into(), frame_prop.fore_color);
         frame_prop.height = prop.get_i32(b"Height".into(), frame_prop.height);
         frame_prop.help_context_id =

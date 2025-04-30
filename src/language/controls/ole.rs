@@ -1,5 +1,6 @@
 use crate::language::controls::{
-    Appearance, BackStyle, BorderStyle, DragMode, MousePointer, SizeMode, TabStop, Visibility,
+    Activation, Appearance, BackStyle, BorderStyle, DragMode, MousePointer, SizeMode, TabStop,
+    Visibility,
 };
 use crate::language::VB6Color;
 use crate::parsers::Properties;
@@ -66,7 +67,7 @@ pub struct OLEProperties {
     pub display_type: DisplayType,
     pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
-    pub enabled: bool,
+    pub enabled: Activation,
     pub height: i32,
     pub help_context_id: i32,
     pub host_name: BString,
@@ -105,7 +106,7 @@ impl Default for OLEProperties {
             display_type: DisplayType::Content,
             drag_icon: None,
             drag_mode: DragMode::Manual,
-            enabled: true,
+            enabled: Activation::Enabled,
             height: 375,
             help_context_id: 0,
             host_name: "".into(),
@@ -211,7 +212,7 @@ impl<'a> From<Properties<'a>> for OLEProperties {
         // DragIcon
 
         ole_prop.drag_mode = prop.get_property(b"DragMode".into(), ole_prop.drag_mode);
-        ole_prop.enabled = prop.get_bool(b"Enabled".into(), ole_prop.enabled);
+        ole_prop.enabled = prop.get_property(b"Enabled".into(), ole_prop.enabled);
         ole_prop.height = prop.get_i32(b"Height".into(), ole_prop.height);
         ole_prop.help_context_id = prop.get_i32(b"HelpContextID".into(), ole_prop.help_context_id);
         ole_prop.host_name = match prop.get(b"HostName".into()) {

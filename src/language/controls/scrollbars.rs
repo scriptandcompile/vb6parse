@@ -1,4 +1,6 @@
-use crate::language::controls::{DragMode, MousePointer, TabStop, TextDirection, Visibility};
+use crate::language::controls::{
+    Activation, DragMode, MousePointer, TabStop, TextDirection, Visibility,
+};
 use crate::parsers::Properties;
 
 use image::DynamicImage;
@@ -16,7 +18,7 @@ pub struct ScrollBarProperties {
     pub causes_validation: bool,
     pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
-    pub enabled: bool,
+    pub enabled: Activation,
     pub height: i32,
     pub help_context_id: i32,
     pub large_change: i32,
@@ -42,7 +44,7 @@ impl Default for ScrollBarProperties {
             causes_validation: true,
             drag_icon: None,
             drag_mode: DragMode::Manual,
-            enabled: true,
+            enabled: Activation::Enabled,
             height: 30,
             help_context_id: 0,
             large_change: 1,
@@ -118,7 +120,7 @@ impl<'a> From<Properties<'a>> for ScrollBarProperties {
 
         scroll_bar_prop.drag_mode =
             prop.get_property(b"DragMode".into(), scroll_bar_prop.drag_mode);
-        scroll_bar_prop.enabled = prop.get_bool(b"Enabled".into(), scroll_bar_prop.enabled);
+        scroll_bar_prop.enabled = prop.get_property(b"Enabled".into(), scroll_bar_prop.enabled);
         scroll_bar_prop.height = prop.get_i32(b"Height".into(), scroll_bar_prop.height);
         scroll_bar_prop.help_context_id =
             prop.get_i32(b"HelpContextID".into(), scroll_bar_prop.help_context_id);

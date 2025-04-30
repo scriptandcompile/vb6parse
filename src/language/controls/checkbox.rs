@@ -1,8 +1,8 @@
 use crate::{
     language::{
         controls::{
-            Appearance, DragMode, JustifyAlignment, MousePointer, OLEDropMode, Style, TabStop,
-            TextDirection, Visibility,
+            Activation, Appearance, DragMode, JustifyAlignment, MousePointer, OLEDropMode, Style,
+            TabStop, TextDirection, Visibility,
         },
         VB6Color,
     },
@@ -44,7 +44,7 @@ pub struct CheckBoxProperties {
     pub down_picture: Option<DynamicImage>,
     pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
-    pub enabled: bool,
+    pub enabled: Activation,
     pub fore_color: VB6Color,
     pub height: i32,
     pub help_context_id: i32,
@@ -83,7 +83,7 @@ impl Default for CheckBoxProperties {
             down_picture: None,
             drag_icon: None,
             drag_mode: DragMode::Manual,
-            enabled: true,
+            enabled: Activation::Enabled,
             fore_color: VB6Color::from_hex("&H80000012&").unwrap(),
             height: 30,
             help_context_id: 0,
@@ -205,7 +205,7 @@ impl<'a> From<Properties<'a>> for CheckBoxProperties {
         //DragIcon
 
         checkbox_prop.drag_mode = prop.get_property(b"DragMode".into(), checkbox_prop.drag_mode);
-        checkbox_prop.enabled = prop.get_bool(b"Enabled".into(), checkbox_prop.enabled);
+        checkbox_prop.enabled = prop.get_property(b"Enabled".into(), checkbox_prop.enabled);
         checkbox_prop.fore_color = prop.get_color(b"ForeColor".into(), checkbox_prop.fore_color);
         checkbox_prop.height = prop.get_i32(b"Height".into(), checkbox_prop.height);
         checkbox_prop.help_context_id =

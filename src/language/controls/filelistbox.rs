@@ -1,6 +1,7 @@
 use crate::language::color::VB6Color;
 use crate::language::controls::{
-    Appearance, DragMode, MousePointer, MultiSelect, OLEDragMode, OLEDropMode, TabStop, Visibility,
+    Activation, Appearance, DragMode, MousePointer, MultiSelect, OLEDragMode, OLEDropMode, TabStop,
+    Visibility,
 };
 use crate::parsers::Properties;
 
@@ -22,7 +23,7 @@ pub struct FileListBoxProperties {
     pub causes_validation: bool,
     pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
-    pub enabled: bool,
+    pub enabled: Activation,
     pub fore_color: VB6Color,
     pub height: i32,
     pub help_context_id: i32,
@@ -55,7 +56,7 @@ impl Default for FileListBoxProperties {
             causes_validation: true,
             drag_icon: None,
             drag_mode: DragMode::Manual,
-            enabled: true,
+            enabled: Activation::Enabled,
             fore_color: VB6Color::System { index: 8 },
             height: 1260,
             help_context_id: 0,
@@ -143,7 +144,8 @@ impl<'a> From<Properties<'a>> for FileListBoxProperties {
         );
         file_list_box_prop.drag_mode =
             prop.get_property(b"DragMode".into(), file_list_box_prop.drag_mode);
-        file_list_box_prop.enabled = prop.get_bool(b"Enabled".into(), file_list_box_prop.enabled);
+        file_list_box_prop.enabled =
+            prop.get_property(b"Enabled".into(), file_list_box_prop.enabled);
         file_list_box_prop.fore_color =
             prop.get_color(b"ForeColor".into(), file_list_box_prop.fore_color);
         file_list_box_prop.height = prop.get_i32(b"Height".into(), file_list_box_prop.height);

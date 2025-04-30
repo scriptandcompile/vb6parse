@@ -1,8 +1,9 @@
 use crate::{
     language::{
         controls::{
-            Appearance, AutoRedraw, ClipControls, DrawMode, DrawStyle, FillStyle, MousePointer,
-            OLEDropMode, ScaleMode, StartUpPosition, TextDirection, Visibility, WindowState,
+            Activation, Appearance, AutoRedraw, ClipControls, DrawMode, DrawStyle, FillStyle,
+            MousePointer, OLEDropMode, ScaleMode, StartUpPosition, TextDirection, Visibility,
+            WindowState,
         },
         FormLinkMode, VB6Color,
     },
@@ -57,7 +58,7 @@ pub struct FormProperties {
     pub draw_mode: DrawMode,
     pub draw_style: DrawStyle,
     pub draw_width: i32,
-    pub enabled: bool,
+    pub enabled: Activation,
     pub fill_color: VB6Color,
     pub fill_style: FillStyle,
     pub font_transparent: bool,
@@ -192,7 +193,7 @@ impl Default for FormProperties {
             draw_mode: DrawMode::CopyPen,
             draw_style: DrawStyle::Solid,
             draw_width: 1,
-            enabled: true,
+            enabled: Activation::Enabled,
             fill_color: VB6Color::from_hex("&H00000000&").unwrap(),
             fill_style: FillStyle::Transparent,
             font_transparent: true,
@@ -260,7 +261,7 @@ impl From<Properties<'_>> for FormProperties {
         form_prop.draw_style = prop.get_property(b"DrawStyle".into(), form_prop.draw_style);
         form_prop.draw_width = prop.get_i32(b"DrawWidth".into(), form_prop.draw_width);
 
-        form_prop.enabled = prop.get_bool(b"Enabled".into(), form_prop.enabled);
+        form_prop.enabled = prop.get_property(b"Enabled".into(), form_prop.enabled);
 
         form_prop.fill_color = prop.get_color(b"FillColor".into(), form_prop.fill_color);
         form_prop.fill_style = prop.get_property(b"FillStyle".into(), form_prop.fill_style);

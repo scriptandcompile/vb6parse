@@ -1,7 +1,7 @@
 use crate::language::controls::{
-    Align, Appearance, AutoRedraw, AutoSize, BorderStyle, ClipControls, DragMode, DrawMode,
-    DrawStyle, FillStyle, LinkMode, MousePointer, OLEDragMode, OLEDropMode, ScaleMode, TabStop,
-    TextDirection, Visibility,
+    Activation, Align, Appearance, AutoRedraw, AutoSize, BorderStyle, ClipControls, DragMode,
+    DrawMode, DrawStyle, FillStyle, LinkMode, MousePointer, OLEDragMode, OLEDropMode, ScaleMode,
+    TabStop, TextDirection, Visibility,
 };
 use crate::parsers::Properties;
 use crate::VB6Color;
@@ -35,7 +35,7 @@ pub struct PictureBoxProperties {
     pub draw_mode: DrawMode,
     pub draw_style: DrawStyle,
     pub draw_width: i32,
-    pub enabled: bool,
+    pub enabled: Activation,
     pub fill_color: VB6Color,
     pub fill_style: FillStyle,
     pub font_transparent: bool,
@@ -89,7 +89,7 @@ impl Default for PictureBoxProperties {
             draw_mode: DrawMode::CopyPen,
             draw_style: DrawStyle::Solid,
             draw_width: 1,
-            enabled: true,
+            enabled: Activation::Enabled,
             fill_color: VB6Color::from_hex("&H00000000&").unwrap(),
             fill_style: FillStyle::Transparent,
             font_transparent: true,
@@ -244,7 +244,7 @@ impl<'a> From<Properties<'a>> for PictureBoxProperties {
             prop.get_property(b"DrawStyle".into(), picture_box_prop.draw_style);
         picture_box_prop.draw_width =
             prop.get_i32(b"DrawWidth".into(), picture_box_prop.draw_width);
-        picture_box_prop.enabled = prop.get_bool(b"Enabled".into(), picture_box_prop.enabled);
+        picture_box_prop.enabled = prop.get_property(b"Enabled".into(), picture_box_prop.enabled);
         picture_box_prop.fill_color =
             prop.get_color(b"FillColor".into(), picture_box_prop.fill_color);
         picture_box_prop.fill_style =

@@ -1,7 +1,7 @@
 use crate::{
     language::controls::{
-        Alignment, Appearance, BorderStyle, DragMode, LinkMode, MousePointer, OLEDragMode,
-        OLEDropMode, TabStop, TextDirection, Visibility,
+        Activation, Alignment, Appearance, BorderStyle, DragMode, LinkMode, MousePointer,
+        OLEDragMode, OLEDropMode, TabStop, TextDirection, Visibility,
     },
     parsers::Properties,
     VB6Color,
@@ -54,7 +54,7 @@ pub struct TextBoxProperties {
     pub data_source: BString,
     pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
-    pub enabled: bool,
+    pub enabled: Activation,
     pub fore_color: VB6Color,
     pub height: i32,
     pub help_context_id: i32,
@@ -98,7 +98,7 @@ impl Default for TextBoxProperties {
             data_source: "".into(),
             drag_icon: None,
             drag_mode: DragMode::Manual,
-            enabled: true,
+            enabled: Activation::Enabled,
             fore_color: VB6Color::from_hex("&H80000008&").unwrap(),
             height: 30,
             help_context_id: 0,
@@ -220,7 +220,7 @@ impl<'a> From<Properties<'a>> for TextBoxProperties {
         // drag_icon: Option<DynamicImage>,
 
         text_box_prop.drag_mode = prop.get_property(b"DragMode".into(), text_box_prop.drag_mode);
-        text_box_prop.enabled = prop.get_bool(b"Enabled".into(), text_box_prop.enabled);
+        text_box_prop.enabled = prop.get_property(b"Enabled".into(), text_box_prop.enabled);
         text_box_prop.fore_color = prop.get_color(b"ForeColor".into(), text_box_prop.fore_color);
         text_box_prop.height = prop.get_i32(b"Height".into(), text_box_prop.height);
         text_box_prop.help_context_id =
