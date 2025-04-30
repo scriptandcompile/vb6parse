@@ -1,6 +1,6 @@
 use crate::language::controls::{
-    Alignment, Appearance, BackStyle, BorderStyle, DragMode, LinkMode, MousePointer, OLEDropMode,
-    TextDirection, Visibility,
+    Alignment, Appearance, AutoSize, BackStyle, BorderStyle, DragMode, LinkMode, MousePointer,
+    OLEDropMode, TextDirection, Visibility,
 };
 use crate::parsers::Properties;
 use crate::VB6Color;
@@ -33,7 +33,7 @@ pub enum WordWrap {
 pub struct LabelProperties {
     pub alignment: Alignment,
     pub appearance: Appearance,
-    pub auto_size: bool,
+    pub auto_size: AutoSize,
     pub back_color: VB6Color,
     pub back_style: BackStyle,
     pub border_style: BorderStyle,
@@ -71,7 +71,7 @@ impl Default for LabelProperties {
         LabelProperties {
             alignment: Alignment::LeftJustify,
             appearance: Appearance::ThreeD,
-            auto_size: false,
+            auto_size: AutoSize::Fixed,
             back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
             back_style: BackStyle::Opaque,
             border_style: BorderStyle::None,
@@ -164,7 +164,7 @@ impl<'a> From<Properties<'a>> for LabelProperties {
 
         label_prop.alignment = prop.get_property(b"Alignment".into(), label_prop.alignment);
         label_prop.appearance = prop.get_property(b"Appearance".into(), label_prop.appearance);
-        label_prop.auto_size = prop.get_bool(b"AutoSize".into(), label_prop.auto_size);
+        label_prop.auto_size = prop.get_property(b"AutoSize".into(), label_prop.auto_size);
         label_prop.back_color = prop.get_color(b"BackColor".into(), label_prop.back_color);
         label_prop.back_style = prop.get_property(b"BackStyle".into(), label_prop.back_style);
         label_prop.border_style = prop.get_property(b"BorderStyle".into(), label_prop.border_style);

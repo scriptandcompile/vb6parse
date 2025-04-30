@@ -279,7 +279,7 @@ form:
                 align: None
                 appearance: Flat
                 auto_redraw: Automatic
-                auto_size: true
+                auto_size: Resize
                 back_color:
                   System:
                     index: 5
@@ -349,7 +349,7 @@ form:
                 align: None
                 appearance: Flat
                 auto_redraw: Automatic
-                auto_size: true
+                auto_size: Resize
                 back_color:
                   System:
                     index: 5

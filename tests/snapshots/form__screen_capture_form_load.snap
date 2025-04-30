@@ -151,7 +151,7 @@ form:
               properties:
                 alignment: LeftJustify
                 appearance: ThreeD
-                auto_size: true
+                auto_size: Resize
                 back_color:
                   System:
                     index: 15
@@ -246,7 +246,7 @@ form:
               properties:
                 alignment: LeftJustify
                 appearance: ThreeD
-                auto_size: true
+                auto_size: Resize
                 back_color:
                   System:
                     index: 15

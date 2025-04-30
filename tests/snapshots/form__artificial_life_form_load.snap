@@ -148,7 +148,7 @@ form:
                 align: None
                 appearance: Flat
                 auto_redraw: Manual
-                auto_size: false
+                auto_size: Fixed
                 back_color:
                   RGB:
                     red: 255
@@ -1074,7 +1074,7 @@ form:
                       properties:
                         alignment: LeftJustify
                         appearance: ThreeD
-                        auto_size: true
+                        auto_size: Resize
                         back_color:
                           System:
                             index: 15
@@ -1149,7 +1149,7 @@ form:
                       properties:
                         alignment: LeftJustify
                         appearance: ThreeD
-                        auto_size: true
+                        auto_size: Resize
                         back_color:
                           System:
                             index: 15
@@ -1246,7 +1246,7 @@ form:
                       properties:
                         alignment: LeftJustify
                         appearance: ThreeD
-                        auto_size: true
+                        auto_size: Resize
                         back_color:
                           System:
                             index: 15
@@ -1325,7 +1325,7 @@ form:
                       properties:
                         alignment: LeftJustify
                         appearance: ThreeD
-                        auto_size: true
+                        auto_size: Resize
                         back_color:
                           System:
                             index: 15
@@ -1401,7 +1401,7 @@ form:
                       properties:
                         alignment: LeftJustify
                         appearance: ThreeD
-                        auto_size: true
+                        auto_size: Resize
                         back_color:
                           System:
                             index: 15
@@ -1484,7 +1484,7 @@ form:
                       properties:
                         alignment: LeftJustify
                         appearance: ThreeD
-                        auto_size: true
+                        auto_size: Resize
                         back_color:
                           System:
                             index: 15
@@ -1549,7 +1549,7 @@ form:
                       properties:
                         alignment: LeftJustify
                         appearance: ThreeD
-                        auto_size: true
+                        auto_size: Resize
                         back_color:
                           System:
                             index: 15
@@ -1641,7 +1641,7 @@ form:
                       properties:
                         alignment: LeftJustify
                         appearance: ThreeD
-                        auto_size: true
+                        auto_size: Resize
                         back_color:
                           System:
                             index: 15
@@ -2068,7 +2068,7 @@ form:
                 align: None
                 appearance: Flat
                 auto_redraw: Automatic
-                auto_size: false
+                auto_size: Fixed
                 back_color:
                   RGB:
                     red: 255
@@ -2142,7 +2142,7 @@ form:
                 align: None
                 appearance: Flat
                 auto_redraw: Automatic
-                auto_size: false
+                auto_size: Fixed
                 back_color:
                   RGB:
                     red: 255
@@ -2216,7 +2216,7 @@ form:
               properties:
                 alignment: LeftJustify
                 appearance: Flat
-                auto_size: false
+                auto_size: Fixed
                 back_color:
                   System:
                     index: 5

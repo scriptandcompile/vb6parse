@@ -1,7 +1,7 @@
 use crate::language::controls::{
-    Align, Appearance, AutoRedraw, BorderStyle, ClipControls, DragMode, DrawMode, DrawStyle,
-    FillStyle, LinkMode, MousePointer, OLEDragMode, OLEDropMode, ScaleMode, TextDirection,
-    Visibility,
+    Align, Appearance, AutoRedraw, AutoSize, BorderStyle, ClipControls, DragMode, DrawMode,
+    DrawStyle, FillStyle, LinkMode, MousePointer, OLEDragMode, OLEDropMode, ScaleMode,
+    TextDirection, Visibility,
 };
 use crate::parsers::Properties;
 use crate::VB6Color;
@@ -21,7 +21,7 @@ pub struct PictureBoxProperties {
     pub align: Align,
     pub appearance: Appearance,
     pub auto_redraw: AutoRedraw,
-    pub auto_size: bool,
+    pub auto_size: AutoSize,
     pub back_color: VB6Color,
     pub border_style: BorderStyle,
     pub causes_validation: bool,
@@ -75,7 +75,7 @@ impl Default for PictureBoxProperties {
             align: Align::None,
             appearance: Appearance::ThreeD,
             auto_redraw: AutoRedraw::Manual,
-            auto_size: false,
+            auto_size: AutoSize::Fixed,
             back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
             border_style: BorderStyle::FixedSingle,
             causes_validation: true,
@@ -205,7 +205,8 @@ impl<'a> From<Properties<'a>> for PictureBoxProperties {
             prop.get_property(b"Appearance".into(), picture_box_prop.appearance);
         picture_box_prop.auto_redraw =
             prop.get_property(b"AutoRedraw".into(), picture_box_prop.auto_redraw);
-        picture_box_prop.auto_size = prop.get_bool(b"AutoSize".into(), picture_box_prop.auto_size);
+        picture_box_prop.auto_size =
+            prop.get_property(b"AutoSize".into(), picture_box_prop.auto_size);
         picture_box_prop.back_color =
             prop.get_color(b"BackColor".into(), picture_box_prop.back_color);
         picture_box_prop.border_style =
