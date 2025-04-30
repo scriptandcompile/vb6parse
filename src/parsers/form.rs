@@ -87,7 +87,7 @@ pub fn resource_file_resolver(file_path: &str, offset: usize) -> Result<Vec<u8>,
     // records that we are interested in from the frm offset.
 
     // load the bytes from the frx file.
-    let buffer = match std::fs::read(&file_path) {
+    let buffer = match std::fs::read(file_path) {
         Ok(bytes) => bytes,
         Err(err) => {
             return Err(std::io::Error::new(
