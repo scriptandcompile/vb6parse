@@ -90,7 +90,7 @@ form:
           - 114
           - 109
           - 49
-        max_button: false
+        max_button: Excluded
         mdi_child: false
         min_button: false
         mouse_icon: ~
