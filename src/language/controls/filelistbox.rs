@@ -49,6 +49,19 @@ pub enum ReadOnlyAttribute {
     Include = -1,
 }
 
+/// The `SystemAttribute` enum represents the system attribute of a file.
+/// It is used to indicate whether a file should be included or excluded from being
+/// shown in the `FileListBox` control based on its system status.
+#[derive(Debug, PartialEq, Default, Clone, Copy, serde::Serialize, TryFromPrimitive)]
+#[repr(i32)]
+pub enum SystemAttribute {
+    /// The file is excluded in the `FileListBox` if it has the system attribute bit is set.
+    #[default]
+    Exclude = 0,
+    /// The file is included in the `FileListBox` if it has the system attribute bit is set.
+    Include = -1,
+}
+
 /// Properties for a `FileListBox` control.
 ///
 /// This is used as an enum variant of
@@ -77,7 +90,7 @@ pub struct FileListBoxProperties {
     pub ole_drop_mode: OLEDropMode,
     pub pattern: BString,
     pub read_only: ReadOnlyAttribute,
-    pub system: bool,
+    pub system: SystemAttribute,
     pub tab_index: i32,
     pub tab_stop: TabStop,
     pub tool_tip_text: BString,
@@ -110,7 +123,7 @@ impl Default for FileListBoxProperties {
             ole_drop_mode: OLEDropMode::default(),
             pattern: "*.*".into(), // Default pattern for file selection
             read_only: ReadOnlyAttribute::Include,
-            system: false,
+            system: SystemAttribute::Include,
             tab_index: 0,
             tab_stop: TabStop::Included,
             tool_tip_text: "".into(),
@@ -209,7 +222,7 @@ impl<'a> From<Properties<'a>> for FileListBoxProperties {
         };
         file_list_box_prop.read_only =
             prop.get_property(b"ReadOnly".into(), file_list_box_prop.read_only);
-        file_list_box_prop.system = prop.get_bool(b"System".into(), file_list_box_prop.system);
+        file_list_box_prop.system = prop.get_property(b"System".into(), file_list_box_prop.system);
         file_list_box_prop.tab_index =
             prop.get_i32(b"TabIndex".into(), file_list_box_prop.tab_index);
         file_list_box_prop.tab_stop =
