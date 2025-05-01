@@ -36,6 +36,19 @@ pub enum HiddenAttribute {
     Include = -1,
 }
 
+/// The `ReadOnlyAttribute` enum represents the read only attribute of a file.
+/// It is used to indicate whether a file should be included or excluded from being
+/// shown in the `FileListBox` control based on its read only status.
+#[derive(Debug, PartialEq, Default, Clone, Copy, serde::Serialize, TryFromPrimitive)]
+#[repr(i32)]
+pub enum ReadOnlyAttribute {
+    /// The file is excluded in the `FileListBox` if it has the read only attribute bit is set.
+    Exclude = 0,
+    /// The file is included in the `FileListBox` if it has the read only attribute bit is set.
+    #[default]
+    Include = -1,
+}
+
 /// Properties for a `FileListBox` control.
 ///
 /// This is used as an enum variant of
@@ -63,7 +76,7 @@ pub struct FileListBoxProperties {
     pub ole_drag_mode: OLEDragMode,
     pub ole_drop_mode: OLEDropMode,
     pub pattern: BString,
-    pub read_only: bool,
+    pub read_only: ReadOnlyAttribute,
     pub system: bool,
     pub tab_index: i32,
     pub tab_stop: TabStop,
@@ -96,7 +109,7 @@ impl Default for FileListBoxProperties {
             ole_drag_mode: OLEDragMode::Manual,
             ole_drop_mode: OLEDropMode::default(),
             pattern: "*.*".into(), // Default pattern for file selection
-            read_only: true,
+            read_only: ReadOnlyAttribute::Include,
             system: false,
             tab_index: 0,
             tab_stop: TabStop::Included,
@@ -195,7 +208,7 @@ impl<'a> From<Properties<'a>> for FileListBoxProperties {
             None => file_list_box_prop.pattern,
         };
         file_list_box_prop.read_only =
-            prop.get_bool(b"ReadOnly".into(), file_list_box_prop.read_only);
+            prop.get_property(b"ReadOnly".into(), file_list_box_prop.read_only);
         file_list_box_prop.system = prop.get_bool(b"System".into(), file_list_box_prop.system);
         file_list_box_prop.tab_index =
             prop.get_i32(b"TabIndex".into(), file_list_box_prop.tab_index);
