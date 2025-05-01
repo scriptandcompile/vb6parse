@@ -36,15 +36,15 @@ pub enum HiddenAttribute {
     Include = -1,
 }
 
-/// The `ReadOnlyAttribute` enum represents the read only attribute of a file.
+/// The `ReadOnlyAttribute` enum represents the read-only attribute of a file.
 /// It is used to indicate whether a file should be included or excluded from being
-/// shown in the `FileListBox` control based on its read only status.
+/// shown in the `FileListBox` control based on its read-only status.
 #[derive(Debug, PartialEq, Default, Clone, Copy, serde::Serialize, TryFromPrimitive)]
 #[repr(i32)]
 pub enum ReadOnlyAttribute {
-    /// The file is excluded in the `FileListBox` if it has the read only attribute bit is set.
+    /// The file is excluded in the `FileListBox` if it has the read-only attribute bit is set.
     Exclude = 0,
-    /// The file is included in the `FileListBox` if it has the read only attribute bit is set.
+    /// The file is included in the `FileListBox` if it has the read-only attribute bit is set.
     #[default]
     Include = -1,
 }
@@ -59,6 +59,18 @@ pub enum SystemAttribute {
     #[default]
     Exclude = 0,
     /// The file is included in the `FileListBox` if it has the system attribute bit is set.
+    Include = -1,
+}
+
+/// The `NormalAttribute` determines if the `FileListBox` control will include
+/// files that are not hidden, read-only, archive, or system files.
+#[derive(Debug, PartialEq, Default, Clone, Copy, serde::Serialize, TryFromPrimitive)]
+#[repr(i32)]
+pub enum NormalAttribute {
+    /// The file is excluded in the `FileListBox` if it has none of the hidden, read-only, archive, or system attributes set.
+    Exclude = 0,
+    /// The file is included in the `FileListBox` if it has none of the hidden, read-only, archive, or system attributes set.
+    #[default]
     Include = -1,
 }
 
@@ -85,7 +97,7 @@ pub struct FileListBoxProperties {
     pub mouse_icon: Option<DynamicImage>,
     pub mouse_pointer: MousePointer,
     pub multi_select: MultiSelect,
-    pub normal: bool,
+    pub normal: NormalAttribute,
     pub ole_drag_mode: OLEDragMode,
     pub ole_drop_mode: OLEDropMode,
     pub pattern: BString,
@@ -118,7 +130,7 @@ impl Default for FileListBoxProperties {
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
             multi_select: MultiSelect::None,
-            normal: true,
+            normal: NormalAttribute::Include,
             ole_drag_mode: OLEDragMode::Manual,
             ole_drop_mode: OLEDropMode::default(),
             pattern: "*.*".into(), // Default pattern for file selection
@@ -211,7 +223,7 @@ impl<'a> From<Properties<'a>> for FileListBoxProperties {
             prop.get_property(b"MousePointer".into(), file_list_box_prop.mouse_pointer);
         file_list_box_prop.multi_select =
             prop.get_property(b"MultiSelect".into(), file_list_box_prop.multi_select);
-        file_list_box_prop.normal = prop.get_bool(b"Normal".into(), file_list_box_prop.normal);
+        file_list_box_prop.normal = prop.get_property(b"Normal".into(), file_list_box_prop.normal);
         file_list_box_prop.ole_drag_mode =
             prop.get_property(b"OLEDragMode".into(), file_list_box_prop.ole_drag_mode);
         file_list_box_prop.ole_drop_mode =
