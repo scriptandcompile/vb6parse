@@ -7,7 +7,21 @@ use crate::parsers::Properties;
 
 use bstr::BString;
 use image::DynamicImage;
+use num_enum::TryFromPrimitive;
 use serde::Serialize;
+
+/// The `ArchiveAttribute` enum represents the archive attribute of a file.
+/// It is used to indicate whether a file should be included or excluded from being
+/// shown in the `FileListBox` control based on its archive status.
+#[derive(Debug, PartialEq, Default, Clone, Copy, serde::Serialize, TryFromPrimitive)]
+#[repr(i32)]
+pub enum ArchiveAttribute {
+    /// The file is excluded in the `FileListBox` if it has the archive attribute bit is set.
+    Exclude = 0,
+    /// The file is included in the `FileListBox` if it has the archive attribute bit is set.
+    #[default]
+    Include = -1,
+}
 
 /// Properties for a `FileListBox` control.
 ///
@@ -18,7 +32,7 @@ use serde::Serialize;
 #[derive(Debug, PartialEq, Clone)]
 pub struct FileListBoxProperties {
     pub appearance: Appearance,
-    pub archive: bool,
+    pub archive: ArchiveAttribute,
     pub back_color: VB6Color,
     pub causes_validation: bool,
     pub drag_icon: Option<DynamicImage>,
@@ -51,7 +65,7 @@ impl Default for FileListBoxProperties {
     fn default() -> Self {
         FileListBoxProperties {
             appearance: Appearance::ThreeD,
-            archive: true,
+            archive: ArchiveAttribute::Include,
             back_color: VB6Color::System { index: 5 },
             causes_validation: true,
             drag_icon: None,
@@ -135,7 +149,8 @@ impl<'a> From<Properties<'a>> for FileListBoxProperties {
 
         file_list_box_prop.appearance =
             prop.get_property(b"Appearance".into(), file_list_box_prop.appearance);
-        file_list_box_prop.archive = prop.get_bool(b"Archive".into(), file_list_box_prop.archive);
+        file_list_box_prop.archive =
+            prop.get_property(b"Archive".into(), file_list_box_prop.archive);
         file_list_box_prop.back_color =
             prop.get_color(b"BackColor".into(), file_list_box_prop.back_color);
         file_list_box_prop.causes_validation = prop.get_bool(
