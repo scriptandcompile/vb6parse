@@ -128,7 +128,7 @@ form:
         start_up_position: CenterScreen
         top: 0
         visible: Visible
-        whats_this_button: false
+        whats_this_button: Excluded
         whats_this_help: false
         width: 240
         window_state: Normal

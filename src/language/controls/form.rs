@@ -72,6 +72,18 @@ pub enum MinButton {
     Included = -1,
 }
 
+/// The `WhatsThisButton` property of a `Form` control determines whether the
+/// 'What's This?' button is displayed in the form's title bar.
+#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[repr(i32)]
+pub enum WhatsThisButton {
+    /// The 'What's This?' button is not displayed.
+    Excluded = 0,
+    /// The 'What's This?' button is displayed.
+    #[default]
+    Included = -1,
+}
+
 /// Properties for a `Form` control.
 ///
 /// This is used as an enum variant of
@@ -128,7 +140,7 @@ pub struct FormProperties {
     pub start_up_position: StartUpPosition,
     pub top: i32,
     pub visible: Visibility,
-    pub whats_this_button: bool,
+    pub whats_this_button: WhatsThisButton,
     pub whats_this_help: bool,
     pub width: i32,
     pub window_state: WindowState,
@@ -263,7 +275,7 @@ impl Default for FormProperties {
             start_up_position: StartUpPosition::WindowsDefault,
             top: 0,
             visible: Visibility::Visible,
-            whats_this_button: false,
+            whats_this_button: WhatsThisButton::Excluded,
             whats_this_help: false,
             width: 240,
             window_state: WindowState::Normal,
@@ -353,7 +365,7 @@ impl From<Properties<'_>> for FormProperties {
         form_prop.top = prop.get_i32(b"Top".into(), form_prop.top);
         form_prop.visible = prop.get_property(b"Visible".into(), form_prop.visible);
         form_prop.whats_this_button =
-            prop.get_bool(b"WhatsThisButton".into(), form_prop.whats_this_button);
+            prop.get_property(b"WhatsThisButton".into(), form_prop.whats_this_button);
         form_prop.width = prop.get_i32(b"Width".into(), form_prop.width);
         form_prop.window_state = prop.get_property(b"WindowState".into(), form_prop.window_state);
 
