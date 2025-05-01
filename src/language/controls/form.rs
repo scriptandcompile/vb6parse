@@ -60,6 +60,18 @@ pub enum MaxButton {
     Included = -1,
 }
 
+/// The `MinButton` property of a `Form` control determines whether the
+/// minimize button is displayed in the form's title bar.
+#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[repr(i32)]
+pub enum MinButton {
+    /// The minimize button is not displayed.
+    Excluded = 0,
+    /// The minimize button is displayed.
+    #[default]
+    Included = -1,
+}
+
 /// Properties for a `Form` control.
 ///
 /// This is used as an enum variant of
@@ -97,7 +109,7 @@ pub struct FormProperties {
     pub link_topic: BString,
     pub max_button: MaxButton,
     pub mdi_child: bool,
-    pub min_button: bool,
+    pub min_button: MinButton,
     pub mouse_icon: Option<DynamicImage>,
     pub mouse_pointer: MousePointer,
     pub moveable: bool,
@@ -232,7 +244,7 @@ impl Default for FormProperties {
             link_topic: "".into(),
             max_button: MaxButton::Included,
             mdi_child: false,
-            min_button: true,
+            min_button: MinButton::Included,
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
             moveable: true,
@@ -311,7 +323,7 @@ impl From<Properties<'_>> for FormProperties {
         };
         form_prop.max_button = prop.get_property(b"MaxButton".into(), form_prop.max_button);
         form_prop.mdi_child = prop.get_bool(b"MDIChild".into(), form_prop.mdi_child);
-        form_prop.min_button = prop.get_bool(b"MinButton".into(), form_prop.min_button);
+        form_prop.min_button = prop.get_property(b"MinButton".into(), form_prop.min_button);
 
         // MouseIcon
 

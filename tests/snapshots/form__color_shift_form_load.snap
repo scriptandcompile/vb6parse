@@ -98,7 +98,7 @@ form:
           - 49
         max_button: Excluded
         mdi_child: false
-        min_button: false
+        min_button: Excluded
         mouse_icon: ~
         mouse_pointer: Default
         moveable: true
