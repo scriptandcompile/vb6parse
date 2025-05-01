@@ -36,6 +36,18 @@ pub enum FormBorderStyle {
     SizableToolWindow = 5,
 }
 
+/// The `ControlBox` property of a `Form` control determines whether the
+/// control box is displayed in the form's title bar.
+#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[repr(i32)]
+pub enum ControlBox {
+    /// The control box is not displayed.
+    Excluded = 0,
+    /// The control box is displayed.
+    #[default]
+    Included = -1,
+}
+
 /// Properties for a `Form` control.
 ///
 /// This is used as an enum variant of
@@ -54,7 +66,7 @@ pub struct FormProperties {
     pub client_top: i32,
     pub client_width: i32,
     pub clip_controls: ClipControls,
-    pub control_box: bool,
+    pub control_box: ControlBox,
     pub draw_mode: DrawMode,
     pub draw_style: DrawStyle,
     pub draw_width: i32,
@@ -189,7 +201,7 @@ impl Default for FormProperties {
             client_top: 0,
             client_width: 300,
             clip_controls: ClipControls::default(),
-            control_box: true,
+            control_box: ControlBox::Included,
             draw_mode: DrawMode::CopyPen,
             draw_style: DrawStyle::Solid,
             draw_width: 1,
@@ -255,7 +267,7 @@ impl From<Properties<'_>> for FormProperties {
 
         form_prop.clip_controls =
             prop.get_property(b"ClipControls".into(), form_prop.clip_controls);
-        form_prop.control_box = prop.get_bool(b"ControlBox".into(), form_prop.control_box);
+        form_prop.control_box = prop.get_property(b"ControlBox".into(), form_prop.control_box);
 
         form_prop.draw_mode = prop.get_property(b"DrawMode".into(), form_prop.draw_mode);
         form_prop.draw_style = prop.get_property(b"DrawStyle".into(), form_prop.draw_style);

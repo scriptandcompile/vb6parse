@@ -77,7 +77,7 @@ form:
         client_top: 450
         client_width: 12270
         clip_controls: "True"
-        control_box: true
+        control_box: Included
         draw_mode: CopyPen
         draw_style: Solid
         draw_width: 1
