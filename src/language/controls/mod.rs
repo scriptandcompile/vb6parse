@@ -118,7 +118,6 @@ pub enum Activation {
 /// However, it can still receive focus programmatically or through other user interactions.
 #[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
-
 pub enum TabStop {
     /// The control is not included in the tab order but can be focused programmatically.
     ProgrammaticOnly = 0,
