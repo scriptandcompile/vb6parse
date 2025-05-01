@@ -48,6 +48,18 @@ pub enum ControlBox {
     Included = -1,
 }
 
+/// The `MaxButton` property of a `Form` control determines whether the
+/// maximize button is displayed in the form's title bar.
+#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[repr(i32)]
+pub enum MaxButton {
+    /// The maximize button is not displayed.
+    Excluded = 0,
+    /// The maximize button is displayed.
+    #[default]
+    Included = -1,
+}
+
 /// Properties for a `Form` control.
 ///
 /// This is used as an enum variant of
@@ -83,7 +95,7 @@ pub struct FormProperties {
     pub left: i32,
     pub link_mode: FormLinkMode,
     pub link_topic: BString,
-    pub max_button: bool,
+    pub max_button: MaxButton,
     pub mdi_child: bool,
     pub min_button: bool,
     pub mouse_icon: Option<DynamicImage>,
@@ -218,7 +230,7 @@ impl Default for FormProperties {
             left: 0,
             link_mode: FormLinkMode::None,
             link_topic: "".into(),
-            max_button: true,
+            max_button: MaxButton::Included,
             mdi_child: false,
             min_button: true,
             mouse_icon: None,
@@ -297,7 +309,7 @@ impl From<Properties<'_>> for FormProperties {
             Some(link_topic) => link_topic.into(),
             None => form_prop.link_topic,
         };
-        form_prop.max_button = prop.get_bool(b"MaxButton".into(), form_prop.max_button);
+        form_prop.max_button = prop.get_property(b"MaxButton".into(), form_prop.max_button);
         form_prop.mdi_child = prop.get_bool(b"MDIChild".into(), form_prop.mdi_child);
         form_prop.min_button = prop.get_bool(b"MinButton".into(), form_prop.min_button);
 
