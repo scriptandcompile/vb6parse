@@ -23,6 +23,19 @@ pub enum ArchiveAttribute {
     Include = -1,
 }
 
+/// The `HiddenAttribute` enum represents the hidden attribute of a file.
+/// It is used to indicate whether a file should be included or excluded from being
+/// shown in the `FileListBox` control based on its hidden status.
+#[derive(Debug, PartialEq, Default, Clone, Copy, serde::Serialize, TryFromPrimitive)]
+#[repr(i32)]
+pub enum HiddenAttribute {
+    /// The file is excluded in the `FileListBox` if it has the hidden attribute bit is set.
+    #[default]
+    Exclude = 0,
+    /// The file is included in the `FileListBox` if it has the hidden attribute bit is set.
+    Include = -1,
+}
+
 /// Properties for a `FileListBox` control.
 ///
 /// This is used as an enum variant of
@@ -41,7 +54,7 @@ pub struct FileListBoxProperties {
     pub fore_color: VB6Color,
     pub height: i32,
     pub help_context_id: i32,
-    pub hidden: bool,
+    pub hidden: HiddenAttribute,
     pub left: i32,
     pub mouse_icon: Option<DynamicImage>,
     pub mouse_pointer: MousePointer,
@@ -74,7 +87,7 @@ impl Default for FileListBoxProperties {
             fore_color: VB6Color::System { index: 8 },
             height: 1260,
             help_context_id: 0,
-            hidden: false,
+            hidden: HiddenAttribute::Exclude,
             left: 710,
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
@@ -166,7 +179,7 @@ impl<'a> From<Properties<'a>> for FileListBoxProperties {
         file_list_box_prop.height = prop.get_i32(b"Height".into(), file_list_box_prop.height);
         file_list_box_prop.help_context_id =
             prop.get_i32(b"HelpContextID".into(), file_list_box_prop.help_context_id);
-        file_list_box_prop.hidden = prop.get_bool(b"Hidden".into(), file_list_box_prop.hidden);
+        file_list_box_prop.hidden = prop.get_property(b"Hidden".into(), file_list_box_prop.hidden);
         file_list_box_prop.left = prop.get_i32(b"Left".into(), file_list_box_prop.left);
         file_list_box_prop.mouse_pointer =
             prop.get_property(b"MousePointer".into(), file_list_box_prop.mouse_pointer);
