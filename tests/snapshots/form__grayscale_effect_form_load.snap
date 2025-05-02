@@ -103,7 +103,7 @@ form:
         fore_color:
           System:
             index: 18
-        has_dc: true
+        has_dc: "Yes"
         height: 240
         help_context_id: 0
         icon: ~
@@ -922,7 +922,7 @@ form:
                 fore_color:
                   System:
                     index: 8
-                has_dc: true
+                has_dc: "Yes"
                 height: 735
                 help_context_id: 0
                 left: 3000
@@ -992,7 +992,7 @@ form:
                 fore_color:
                   System:
                     index: 8
-                has_dc: true
+                has_dc: "Yes"
                 height: 7530
                 help_context_id: 0
                 left: 3000
