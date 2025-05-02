@@ -148,7 +148,7 @@ form:
                 back_color:
                   System:
                     index: 5
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -213,7 +213,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -267,7 +267,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -321,7 +321,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -375,7 +375,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -429,7 +429,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -483,7 +483,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -537,7 +537,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -591,7 +591,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -645,7 +645,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -699,7 +699,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -753,7 +753,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -807,7 +807,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -861,7 +861,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -915,7 +915,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -969,7 +969,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -1023,7 +1023,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -1077,7 +1077,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -1131,7 +1131,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -1185,7 +1185,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -1239,7 +1239,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -1293,7 +1293,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -1347,7 +1347,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -1401,7 +1401,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -1455,7 +1455,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -1509,7 +1509,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -1568,7 +1568,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -1638,7 +1638,7 @@ form:
                   - 116
                   - 101
                   - 114
-                causes_validation: true
+                causes_validation: "Yes"
                 default: true
                 disabled_picture: ~
                 down_picture: ~
@@ -1685,7 +1685,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -1758,7 +1758,7 @@ form:
                   - 97
                   - 103
                   - 101
-                causes_validation: true
+                causes_validation: "Yes"
                 default: false
                 disabled_picture: ~
                 down_picture: ~
@@ -1807,7 +1807,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 clip_controls: "True"
                 data_field: []
                 data_format: []
@@ -1877,7 +1877,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 clip_controls: "True"
                 data_field: []
                 data_format: []

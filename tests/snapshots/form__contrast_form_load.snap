@@ -138,7 +138,7 @@ form:
           kind:
             HScrollBar:
               properties:
-                causes_validation: true
+                causes_validation: "Yes"
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: Enabled
@@ -180,7 +180,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 clip_controls: "True"
                 data_field: []
                 data_format: []
@@ -250,7 +250,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 clip_controls: "True"
                 data_field: []
                 data_format: []

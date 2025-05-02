@@ -178,7 +178,7 @@ form:
                   - 110
                   - 34
                   - 34
-                causes_validation: true
+                causes_validation: "Yes"
                 default: false
                 disabled_picture: ~
                 down_picture: ~
@@ -256,7 +256,7 @@ form:
                   - 101
                   - 115
                   - 63
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -306,7 +306,7 @@ form:
           kind:
             HScrollBar:
               properties:
-                causes_validation: true
+                causes_validation: "Yes"
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: Enabled
@@ -341,7 +341,7 @@ form:
           kind:
             HScrollBar:
               properties:
-                causes_validation: true
+                causes_validation: "Yes"
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: Enabled
@@ -405,7 +405,7 @@ form:
                   - 97
                   - 103
                   - 101
-                causes_validation: true
+                causes_validation: "Yes"
                 default: false
                 disabled_picture: ~
                 down_picture: ~
@@ -454,7 +454,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 clip_controls: "True"
                 data_field: []
                 data_format: []
@@ -524,7 +524,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 clip_controls: "True"
                 data_field: []
                 data_format: []

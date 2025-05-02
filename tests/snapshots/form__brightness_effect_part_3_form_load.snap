@@ -249,7 +249,7 @@ form:
                   - 69
                   - 83
                   - 41
-                causes_validation: true
+                causes_validation: "Yes"
                 default: false
                 disabled_picture: ~
                 down_picture: ~
@@ -314,7 +314,7 @@ form:
                   - 114
                   - 97
                   - 119
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -375,7 +375,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -476,7 +476,7 @@ form:
                   - 111
                   - 110
                   - 115
-                causes_validation: true
+                causes_validation: "Yes"
                 default: false
                 disabled_picture: ~
                 down_picture: ~
@@ -526,7 +526,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 clip_controls: "True"
                 data_field: []
                 data_format: []

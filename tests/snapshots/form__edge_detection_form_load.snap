@@ -175,7 +175,7 @@ form:
                   - 97
                   - 103
                   - 101
-                causes_validation: true
+                causes_validation: "Yes"
                 default: false
                 disabled_picture: ~
                 down_picture: ~
@@ -336,7 +336,7 @@ form:
                 back_color:
                   System:
                     index: 15
-                causes_validation: true
+                causes_validation: "Yes"
                 columns: 0
                 data_field: []
                 data_format: []
@@ -388,7 +388,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 clip_controls: "True"
                 data_field: []
                 data_format: []
@@ -458,7 +458,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 clip_controls: "True"
                 data_field: []
                 data_format: []

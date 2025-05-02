@@ -1,6 +1,6 @@
 use crate::language::controls::{
-    Activation, Appearance, DragMode, JustifyAlignment, MousePointer, OLEDropMode, Style, TabStop,
-    TextDirection, UseMaskColor, Visibility,
+    Activation, Appearance, CausesValidation, DragMode, JustifyAlignment, MousePointer,
+    OLEDropMode, Style, TabStop, TextDirection, UseMaskColor, Visibility,
 };
 use crate::language::VB6Color;
 use crate::parsers::Properties;
@@ -30,7 +30,7 @@ pub struct OptionButtonProperties {
     pub appearance: Appearance,
     pub back_color: VB6Color,
     pub caption: BString,
-    pub causes_validation: bool,
+    pub causes_validation: CausesValidation,
     pub disabled_picture: Option<DynamicImage>,
     pub down_picture: Option<DynamicImage>,
     pub drag_icon: Option<DynamicImage>,
@@ -65,7 +65,7 @@ impl Default for OptionButtonProperties {
             appearance: Appearance::ThreeD,
             back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
             caption: "".into(),
-            causes_validation: true,
+            causes_validation: CausesValidation::Yes,
             disabled_picture: None,
             down_picture: None,
             drag_icon: None,
@@ -167,7 +167,7 @@ impl<'a> From<Properties<'a>> for OptionButtonProperties {
             Some(caption) => caption.into(),
             None => option_button_prop.caption,
         };
-        option_button_prop.causes_validation = prop.get_bool(
+        option_button_prop.causes_validation = prop.get_property(
             b"CausesValidation".into(),
             option_button_prop.causes_validation,
         );

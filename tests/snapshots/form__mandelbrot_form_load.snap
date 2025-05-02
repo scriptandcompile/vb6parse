@@ -157,7 +157,7 @@ form:
                   - 115
                   - 101
                   - 116
-                causes_validation: true
+                causes_validation: "Yes"
                 default: false
                 disabled_picture: ~
                 down_picture: ~
@@ -202,7 +202,7 @@ form:
           kind:
             HScrollBar:
               properties:
-                causes_validation: true
+                causes_validation: "Yes"
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: Enabled
@@ -260,7 +260,7 @@ form:
                   - 116
                   - 97
                   - 108
-                causes_validation: true
+                causes_validation: "Yes"
                 default: false
                 disabled_picture: ~
                 down_picture: ~
@@ -307,7 +307,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -366,7 +366,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -426,7 +426,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -485,7 +485,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -548,7 +548,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 clip_controls: "True"
                 data_field: []
                 data_format: []

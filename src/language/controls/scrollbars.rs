@@ -1,5 +1,5 @@
 use crate::language::controls::{
-    Activation, DragMode, MousePointer, TabStop, TextDirection, Visibility,
+    Activation, CausesValidation, DragMode, MousePointer, TabStop, TextDirection, Visibility,
 };
 use crate::parsers::Properties;
 
@@ -15,7 +15,7 @@ use serde::Serialize;
 /// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct ScrollBarProperties {
-    pub causes_validation: bool,
+    pub causes_validation: CausesValidation,
     pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
     pub enabled: Activation,
@@ -41,7 +41,7 @@ pub struct ScrollBarProperties {
 impl Default for ScrollBarProperties {
     fn default() -> Self {
         ScrollBarProperties {
-            causes_validation: true,
+            causes_validation: CausesValidation::Yes,
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
@@ -111,7 +111,7 @@ impl<'a> From<Properties<'a>> for ScrollBarProperties {
     fn from(prop: Properties<'a>) -> Self {
         let mut scroll_bar_prop = ScrollBarProperties::default();
 
-        scroll_bar_prop.causes_validation = prop.get_bool(
+        scroll_bar_prop.causes_validation = prop.get_property(
             b"CausesValidation".into(),
             scroll_bar_prop.causes_validation,
         );

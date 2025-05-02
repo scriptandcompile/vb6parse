@@ -1,7 +1,7 @@
 use crate::language::color::VB6Color;
 use crate::language::controls::{
-    Activation, Appearance, DragMode, MousePointer, MultiSelect, OLEDragMode, OLEDropMode, TabStop,
-    Visibility,
+    Activation, Appearance, CausesValidation, DragMode, MousePointer, MultiSelect, OLEDragMode,
+    OLEDropMode, TabStop, Visibility,
 };
 use crate::parsers::Properties;
 
@@ -85,7 +85,7 @@ pub struct FileListBoxProperties {
     pub appearance: Appearance,
     pub archive: ArchiveAttribute,
     pub back_color: VB6Color,
-    pub causes_validation: bool,
+    pub causes_validation: CausesValidation,
     pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
     pub enabled: Activation,
@@ -118,7 +118,7 @@ impl Default for FileListBoxProperties {
             appearance: Appearance::ThreeD,
             archive: ArchiveAttribute::Include,
             back_color: VB6Color::System { index: 5 },
-            causes_validation: true,
+            causes_validation: CausesValidation::Yes,
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
@@ -204,7 +204,7 @@ impl<'a> From<Properties<'a>> for FileListBoxProperties {
             prop.get_property(b"Archive".into(), file_list_box_prop.archive);
         file_list_box_prop.back_color =
             prop.get_color(b"BackColor".into(), file_list_box_prop.back_color);
-        file_list_box_prop.causes_validation = prop.get_bool(
+        file_list_box_prop.causes_validation = prop.get_property(
             b"CausesValidation".into(),
             file_list_box_prop.causes_validation,
         );

@@ -1,6 +1,6 @@
 use crate::language::controls::{
-    Activation, Appearance, DragMode, MousePointer, OLEDragMode, OLEDropMode, TabStop,
-    TextDirection, Visibility,
+    Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDragMode, OLEDropMode,
+    TabStop, TextDirection, Visibility,
 };
 use crate::parsers::Properties;
 use crate::VB6Color;
@@ -29,7 +29,7 @@ pub enum ComboBoxStyle {
 pub struct ComboBoxProperties {
     pub appearance: Appearance,
     pub back_color: VB6Color,
-    pub causes_validation: bool,
+    pub causes_validation: CausesValidation,
     pub data_field: BString,
     pub data_format: BString,
     pub data_member: BString,
@@ -67,7 +67,7 @@ impl Default for ComboBoxProperties {
         ComboBoxProperties {
             appearance: Appearance::ThreeD,
             back_color: VB6Color::from_hex("&H80000005&").unwrap(),
-            causes_validation: true,
+            causes_validation: CausesValidation::Yes,
             data_field: "".into(),
             data_format: "".into(),
             data_member: "".into(),
@@ -162,7 +162,7 @@ impl<'a> From<Properties<'a>> for ComboBoxProperties {
             prop.get_property(b"Appearance".into(), combobox_prop.appearance);
         combobox_prop.back_color = prop.get_color(b"BackColor".into(), combobox_prop.back_color);
         combobox_prop.causes_validation =
-            prop.get_bool(b"CausesValidation".into(), combobox_prop.causes_validation);
+            prop.get_property(b"CausesValidation".into(), combobox_prop.causes_validation);
         combobox_prop.data_field = match prop.get(b"DataField".into()) {
             Some(data_field) => data_field.into(),
             None => "".into(),

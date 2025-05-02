@@ -1,7 +1,7 @@
 use crate::language::color::VB6Color;
 use crate::language::controls::{
-    Activation, Appearance, DragMode, MousePointer, MultiSelect, OLEDragMode, OLEDropMode, TabStop,
-    TextDirection, Visibility,
+    Activation, Appearance, CausesValidation, DragMode, MousePointer, MultiSelect, OLEDragMode,
+    OLEDropMode, TabStop, TextDirection, Visibility,
 };
 use crate::parsers::Properties;
 
@@ -28,7 +28,7 @@ pub enum ListBoxStyle {
 pub struct ListBoxProperties {
     pub appearance: Appearance,
     pub back_color: VB6Color,
-    pub causes_validation: bool,
+    pub causes_validation: CausesValidation,
     pub columns: i32,
     pub data_field: BString,
     pub data_format: BString,
@@ -66,7 +66,7 @@ impl Default for ListBoxProperties {
         ListBoxProperties {
             appearance: Appearance::ThreeD,
             back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
-            causes_validation: true,
+            causes_validation: CausesValidation::Yes,
             columns: 0,
             data_field: "".into(),
             data_format: "".into(),
@@ -157,7 +157,7 @@ impl<'a> From<Properties<'a>> for ListBoxProperties {
             prop.get_property(b"Appearance".into(), list_box_prop.appearance);
         list_box_prop.back_color = prop.get_color(b"BackColor".into(), list_box_prop.back_color);
         list_box_prop.causes_validation =
-            prop.get_bool(b"CausesValidation".into(), list_box_prop.causes_validation);
+            prop.get_property(b"CausesValidation".into(), list_box_prop.causes_validation);
         list_box_prop.columns = prop.get_i32(b"Columns".into(), list_box_prop.columns);
         list_box_prop.data_field = match prop.get(b"DataField".into()) {
             Some(data_field) => data_field.into(),

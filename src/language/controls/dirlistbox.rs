@@ -1,5 +1,6 @@
 use crate::language::controls::{
-    Activation, Appearance, DragMode, MousePointer, OLEDragMode, OLEDropMode, TabStop, Visibility,
+    Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDragMode, OLEDropMode,
+    TabStop, Visibility,
 };
 use crate::parsers::Properties;
 use crate::VB6Color;
@@ -18,7 +19,7 @@ use serde::Serialize;
 pub struct DirListBoxProperties {
     pub appearance: Appearance,
     pub back_color: VB6Color,
-    pub causes_validation: bool,
+    pub causes_validation: CausesValidation,
     pub drag_icon: Option<DynamicImage>,
     pub drag_mode: DragMode,
     pub enabled: Activation,
@@ -44,7 +45,7 @@ impl Default for DirListBoxProperties {
         DirListBoxProperties {
             appearance: Appearance::ThreeD,
             back_color: VB6Color::System { index: 5 },
-            causes_validation: true,
+            causes_validation: CausesValidation::Yes,
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
@@ -115,7 +116,7 @@ impl<'a> From<Properties<'a>> for DirListBoxProperties {
             prop.get_property(b"Appearance".into(), dir_list_box_prop.appearance);
         dir_list_box_prop.back_color =
             prop.get_color(b"BackColor".into(), dir_list_box_prop.back_color);
-        dir_list_box_prop.causes_validation = prop.get_bool(
+        dir_list_box_prop.causes_validation = prop.get_property(
             b"CausesValidation".into(),
             dir_list_box_prop.causes_validation,
         );
