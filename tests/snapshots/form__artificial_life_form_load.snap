@@ -285,7 +285,7 @@ form:
                 tab_stop: Included
                 tool_tip_text: []
                 top: 8040
-                use_mask_color: false
+                use_mask_color: DoNotUseMaskColor
                 whats_this_help_id: 0
                 width: 2775
         - name:
@@ -368,7 +368,7 @@ form:
                 tab_stop: Included
                 tool_tip_text: []
                 top: 8160
-                use_mask_color: false
+                use_mask_color: DoNotUseMaskColor
                 value: Checked
                 visible: Visible
                 whats_this_help_id: 0
@@ -671,7 +671,7 @@ form:
                         tab_stop: Included
                         tool_tip_text: []
                         top: 3000
-                        use_mask_color: false
+                        use_mask_color: DoNotUseMaskColor
                         value: Checked
                         visible: Visible
                         whats_this_help_id: 0
@@ -1982,7 +1982,7 @@ form:
                 tab_stop: Included
                 tool_tip_text: []
                 top: 240
-                use_mask_color: false
+                use_mask_color: DoNotUseMaskColor
                 whats_this_help_id: 0
                 width: 2055
         - name:
@@ -2050,7 +2050,7 @@ form:
                 tab_stop: Included
                 tool_tip_text: []
                 top: 240
-                use_mask_color: false
+                use_mask_color: DoNotUseMaskColor
                 whats_this_help_id: 0
                 width: 2055
         - name:

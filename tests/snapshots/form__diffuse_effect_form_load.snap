@@ -203,7 +203,7 @@ form:
                 tab_stop: Included
                 tool_tip_text: []
                 top: 1080
-                use_mask_color: false
+                use_mask_color: DoNotUseMaskColor
                 whats_this_help_id: 0
                 width: 2535
         - name:
@@ -287,7 +287,7 @@ form:
                 tab_stop: Included
                 tool_tip_text: []
                 top: 1080
-                use_mask_color: false
+                use_mask_color: DoNotUseMaskColor
                 value: Unchecked
                 visible: Visible
                 whats_this_help_id: 0
@@ -430,7 +430,7 @@ form:
                 tab_stop: Included
                 tool_tip_text: []
                 top: 240
-                use_mask_color: false
+                use_mask_color: DoNotUseMaskColor
                 whats_this_help_id: 0
                 width: 2535
         - name:

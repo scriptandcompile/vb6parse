@@ -439,7 +439,7 @@ form:
                         tab_stop: Included
                         tool_tip_text: []
                         top: 720
-                        use_mask_color: false
+                        use_mask_color: DoNotUseMaskColor
                         value: UnSelected
                         visible: Visible
                         whats_this_help_id: 0
@@ -509,7 +509,7 @@ form:
                         tab_stop: Included
                         tool_tip_text: []
                         top: 360
-                        use_mask_color: false
+                        use_mask_color: DoNotUseMaskColor
                         value: UnSelected
                         visible: Visible
                         whats_this_help_id: 0
@@ -636,7 +636,7 @@ form:
                         tab_stop: Included
                         tool_tip_text: []
                         top: 1080
-                        use_mask_color: false
+                        use_mask_color: DoNotUseMaskColor
                         value: UnSelected
                         visible: Visible
                         whats_this_help_id: 0
@@ -695,7 +695,7 @@ form:
                         tab_stop: Included
                         tool_tip_text: []
                         top: 720
-                        use_mask_color: false
+                        use_mask_color: DoNotUseMaskColor
                         value: UnSelected
                         visible: Visible
                         whats_this_help_id: 0
@@ -752,7 +752,7 @@ form:
                         tab_stop: Included
                         tool_tip_text: []
                         top: 360
-                        use_mask_color: false
+                        use_mask_color: DoNotUseMaskColor
                         value: UnSelected
                         visible: Visible
                         whats_this_help_id: 0
@@ -876,7 +876,7 @@ form:
                 tab_stop: Included
                 tool_tip_text: []
                 top: 7080
-                use_mask_color: false
+                use_mask_color: DoNotUseMaskColor
                 whats_this_help_id: 0
                 width: 2535
         - name:

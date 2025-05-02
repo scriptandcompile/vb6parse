@@ -2,7 +2,7 @@ use crate::{
     language::{
         controls::{
             Activation, Appearance, DragMode, JustifyAlignment, MousePointer, OLEDropMode, Style,
-            TabStop, TextDirection, Visibility,
+            TabStop, TextDirection, UseMaskColor, Visibility,
         },
         VB6Color,
     },
@@ -60,7 +60,7 @@ pub struct CheckBoxProperties {
     pub tab_stop: TabStop,
     pub tool_tip_text: BString,
     pub top: i32,
-    pub use_mask_color: bool,
+    pub use_mask_color: UseMaskColor,
     pub value: CheckBoxValue,
     pub visible: Visibility,
     pub whats_this_help_id: i32,
@@ -99,7 +99,7 @@ impl Default for CheckBoxProperties {
             tab_stop: TabStop::Included,
             tool_tip_text: "".into(),
             top: 30,
-            use_mask_color: false,
+            use_mask_color: UseMaskColor::DoNotUseMaskColor,
             value: CheckBoxValue::Unchecked,
             visible: Visibility::Visible,
             whats_this_help_id: 0,
@@ -233,7 +233,7 @@ impl<'a> From<Properties<'a>> for CheckBoxProperties {
         };
         checkbox_prop.top = prop.get_i32(b"Top".into(), checkbox_prop.top);
         checkbox_prop.use_mask_color =
-            prop.get_bool(b"UseMaskColor".into(), checkbox_prop.use_mask_color);
+            prop.get_property(b"UseMaskColor".into(), checkbox_prop.use_mask_color);
         checkbox_prop.value = prop.get_property(b"Value".into(), checkbox_prop.value);
         checkbox_prop.visible = prop.get_property(b"Visible".into(), checkbox_prop.visible);
         checkbox_prop.whats_this_help_id =

@@ -1,6 +1,6 @@
 use crate::language::controls::{
     Activation, Appearance, DragMode, JustifyAlignment, MousePointer, OLEDropMode, Style, TabStop,
-    TextDirection, Visibility,
+    TextDirection, UseMaskColor, Visibility,
 };
 use crate::language::VB6Color;
 use crate::parsers::Properties;
@@ -51,7 +51,7 @@ pub struct OptionButtonProperties {
     pub tab_stop: TabStop,
     pub tool_tip_text: BString,
     pub top: i32,
-    pub use_mask_color: bool,
+    pub use_mask_color: UseMaskColor,
     pub value: OptionButtonValue,
     pub visible: Visibility,
     pub whats_this_help_id: i32,
@@ -86,7 +86,7 @@ impl Default for OptionButtonProperties {
             tab_stop: TabStop::Included,
             tool_tip_text: "".into(),
             top: 30,
-            use_mask_color: false,
+            use_mask_color: UseMaskColor::DoNotUseMaskColor,
             value: OptionButtonValue::UnSelected,
             visible: Visibility::Visible,
             whats_this_help_id: 0,
@@ -211,7 +211,7 @@ impl<'a> From<Properties<'a>> for OptionButtonProperties {
         };
         option_button_prop.top = prop.get_i32(b"Top".into(), option_button_prop.top);
         option_button_prop.use_mask_color =
-            prop.get_bool(b"UseMaskColor".into(), option_button_prop.use_mask_color);
+            prop.get_property(b"UseMaskColor".into(), option_button_prop.use_mask_color);
         option_button_prop.value = prop.get_property(b"Value".into(), option_button_prop.value);
         option_button_prop.visible =
             prop.get_property(b"Visible".into(), option_button_prop.visible);
