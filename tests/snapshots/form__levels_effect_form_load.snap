@@ -107,7 +107,7 @@ form:
         min_button: Included
         mouse_icon: ~
         mouse_pointer: Default
-        moveable: true
+        moveable: Moveable
         negotiate_menus: true
         ole_drop_mode: None
         palette: ~
