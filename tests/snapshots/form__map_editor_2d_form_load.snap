@@ -122,7 +122,7 @@ form:
         top: 0
         visible: Visible
         whats_this_button: Excluded
-        whats_this_help: false
+        whats_this_help: F1Help
         width: 240
         window_state: Normal
       controls:

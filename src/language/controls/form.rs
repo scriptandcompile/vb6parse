@@ -84,6 +84,21 @@ pub enum WhatsThisButton {
     Included = -1,
 }
 
+/// The `WhatsThisHelp` property of a `Form` control determines whether the
+/// context-sensitive Help uses the pop-up window provided by Windows 95 Help
+/// or the main Help window.
+#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[repr(i32)]
+pub enum WhatsThisHelp {
+    /// The application uses the F1 key to start Windows Help and load the topic
+    /// identified by the `help_context_id` property.
+    #[default]
+    F1Help = 0,
+    // The application uses one of the 'What's This' access techniques to start
+    // Windows Help.
+    WhatsThisHelp = -1,
+}
+
 /// Properties for a `Form` control.
 ///
 /// This is used as an enum variant of
@@ -141,7 +156,7 @@ pub struct FormProperties {
     pub top: i32,
     pub visible: Visibility,
     pub whats_this_button: WhatsThisButton,
-    pub whats_this_help: bool,
+    pub whats_this_help: WhatsThisHelp,
     pub width: i32,
     pub window_state: WindowState,
 }
@@ -276,7 +291,7 @@ impl Default for FormProperties {
             top: 0,
             visible: Visibility::Visible,
             whats_this_button: WhatsThisButton::Excluded,
-            whats_this_help: false,
+            whats_this_help: WhatsThisHelp::F1Help,
             width: 240,
             window_state: WindowState::Normal,
         }
@@ -366,6 +381,8 @@ impl From<Properties<'_>> for FormProperties {
         form_prop.visible = prop.get_property(b"Visible".into(), form_prop.visible);
         form_prop.whats_this_button =
             prop.get_property(b"WhatsThisButton".into(), form_prop.whats_this_button);
+        form_prop.whats_this_help =
+            prop.get_property(b"WhatsThisHelp".into(), form_prop.whats_this_help);
         form_prop.width = prop.get_i32(b"Width".into(), form_prop.width);
         form_prop.window_state = prop.get_property(b"WindowState".into(), form_prop.window_state);
 
