@@ -2,8 +2,8 @@ use crate::{
     language::{
         controls::{
             Activation, Appearance, AutoRedraw, ClipControls, DrawMode, DrawStyle, FillStyle,
-            HasDeviceContext, MousePointer, Movability, OLEDropMode, ScaleMode, StartUpPosition,
-            TextDirection, Visibility, WhatsThisHelp, WindowState,
+            FontTransparency, HasDeviceContext, MousePointer, Movability, OLEDropMode, ScaleMode,
+            StartUpPosition, TextDirection, Visibility, WhatsThisHelp, WindowState,
         },
         FormLinkMode, VB6Color,
     },
@@ -121,7 +121,7 @@ pub struct FormProperties {
     pub enabled: Activation,
     pub fill_color: VB6Color,
     pub fill_style: FillStyle,
-    pub font_transparent: bool,
+    pub font_transparent: FontTransparency,
     pub fore_color: VB6Color,
     pub has_dc: HasDeviceContext,
     pub height: i32,
@@ -256,7 +256,7 @@ impl Default for FormProperties {
             enabled: Activation::Enabled,
             fill_color: VB6Color::from_hex("&H00000000&").unwrap(),
             fill_style: FillStyle::Transparent,
-            font_transparent: true,
+            font_transparent: FontTransparency::Transparent,
             fore_color: VB6Color::from_hex("&H80000012&").unwrap(),
             has_dc: HasDeviceContext::Yes,
             height: 240,
@@ -329,7 +329,7 @@ impl From<Properties<'_>> for FormProperties {
         // Font - group
 
         form_prop.font_transparent =
-            prop.get_bool(b"FontTransparent".into(), form_prop.font_transparent);
+            prop.get_property(b"FontTransparent".into(), form_prop.font_transparent);
         form_prop.fore_color = prop.get_color(b"ForeColor".into(), form_prop.fore_color);
         form_prop.has_dc = prop.get_property(b"HasDC".into(), form_prop.has_dc);
         form_prop.height = prop.get_i32(b"Height".into(), form_prop.height);

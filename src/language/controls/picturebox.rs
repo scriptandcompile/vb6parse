@@ -1,7 +1,8 @@
 use crate::language::controls::{
     Activation, Align, Appearance, AutoRedraw, AutoSize, BorderStyle, CausesValidation,
-    ClipControls, DragMode, DrawMode, DrawStyle, FillStyle, HasDeviceContext, LinkMode,
-    MousePointer, OLEDragMode, OLEDropMode, ScaleMode, TabStop, TextDirection, Visibility,
+    ClipControls, DragMode, DrawMode, DrawStyle, FillStyle, FontTransparency, HasDeviceContext,
+    LinkMode, MousePointer, OLEDragMode, OLEDropMode, ScaleMode, TabStop, TextDirection,
+    Visibility,
 };
 use crate::parsers::Properties;
 use crate::VB6Color;
@@ -38,7 +39,7 @@ pub struct PictureBoxProperties {
     pub enabled: Activation,
     pub fill_color: VB6Color,
     pub fill_style: FillStyle,
-    pub font_transparent: bool,
+    pub font_transparent: FontTransparency,
     pub fore_color: VB6Color,
     pub has_dc: HasDeviceContext,
     pub height: i32,
@@ -92,7 +93,7 @@ impl Default for PictureBoxProperties {
             enabled: Activation::Enabled,
             fill_color: VB6Color::from_hex("&H00000000&").unwrap(),
             fill_style: FillStyle::Transparent,
-            font_transparent: true,
+            font_transparent: FontTransparency::Transparent,
             fore_color: VB6Color::from_hex("&H80000012&").unwrap(),
             has_dc: HasDeviceContext::Yes,
             height: 30,
@@ -250,7 +251,7 @@ impl<'a> From<Properties<'a>> for PictureBoxProperties {
         picture_box_prop.fill_style =
             prop.get_property(b"FillStyle".into(), picture_box_prop.fill_style);
         picture_box_prop.font_transparent =
-            prop.get_bool(b"FontTransparent".into(), picture_box_prop.font_transparent);
+            prop.get_property(b"FontTransparent".into(), picture_box_prop.font_transparent);
         picture_box_prop.fore_color =
             prop.get_color(b"ForeColor".into(), picture_box_prop.fore_color);
         picture_box_prop.has_dc = prop.get_property(b"HasDC".into(), picture_box_prop.has_dc);
