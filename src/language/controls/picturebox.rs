@@ -1,7 +1,7 @@
 use crate::language::controls::{
     Activation, Align, Appearance, AutoRedraw, AutoSize, BorderStyle, ClipControls, DragMode,
-    DrawMode, DrawStyle, FillStyle, LinkMode, MousePointer, OLEDragMode, OLEDropMode, ScaleMode,
-    TabStop, TextDirection, Visibility,
+    DrawMode, DrawStyle, FillStyle, HasDeviceContext, LinkMode, MousePointer, OLEDragMode,
+    OLEDropMode, ScaleMode, TabStop, TextDirection, Visibility,
 };
 use crate::parsers::Properties;
 use crate::VB6Color;
@@ -40,7 +40,7 @@ pub struct PictureBoxProperties {
     pub fill_style: FillStyle,
     pub font_transparent: bool,
     pub fore_color: VB6Color,
-    pub has_dc: bool,
+    pub has_dc: HasDeviceContext,
     pub height: i32,
     pub help_context_id: i32,
     pub left: i32,
@@ -94,7 +94,7 @@ impl Default for PictureBoxProperties {
             fill_style: FillStyle::Transparent,
             font_transparent: true,
             fore_color: VB6Color::from_hex("&H80000012&").unwrap(),
-            has_dc: true,
+            has_dc: HasDeviceContext::Yes,
             height: 30,
             help_context_id: 0,
             left: 30,
@@ -253,7 +253,7 @@ impl<'a> From<Properties<'a>> for PictureBoxProperties {
             prop.get_bool(b"FontTransparent".into(), picture_box_prop.font_transparent);
         picture_box_prop.fore_color =
             prop.get_color(b"ForeColor".into(), picture_box_prop.fore_color);
-        picture_box_prop.has_dc = prop.get_bool(b"HasDC".into(), picture_box_prop.has_dc);
+        picture_box_prop.has_dc = prop.get_property(b"HasDC".into(), picture_box_prop.has_dc);
         picture_box_prop.height = prop.get_i32(b"Height".into(), picture_box_prop.height);
         picture_box_prop.help_context_id =
             prop.get_i32(b"HelpContextID".into(), picture_box_prop.help_context_id);

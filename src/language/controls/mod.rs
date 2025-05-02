@@ -138,6 +138,20 @@ pub enum Visibility {
     Visible = -1,
 }
 
+/// Determines if the control has a device context.
+/// A device context is a Windows data structure that defines a set of graphic objects
+/// and their associated attributes, and it defines a mapping between the logical
+/// coordinates and device coordinates for a particular device, such as a display or printer.
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
+pub enum HasDeviceContext {
+    /// The control does not have a device context.
+    No = 0,
+    /// The control has a device context.
+    #[default]
+    Yes = -1,
+}
+
 #[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum FormLinkMode {

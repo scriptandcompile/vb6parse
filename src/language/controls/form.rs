@@ -2,8 +2,8 @@ use crate::{
     language::{
         controls::{
             Activation, Appearance, AutoRedraw, ClipControls, DrawMode, DrawStyle, FillStyle,
-            MousePointer, OLEDropMode, ScaleMode, StartUpPosition, TextDirection, Visibility,
-            WindowState,
+            HasDeviceContext, MousePointer, OLEDropMode, ScaleMode, StartUpPosition, TextDirection,
+            Visibility, WindowState,
         },
         FormLinkMode, VB6Color,
     },
@@ -153,7 +153,7 @@ pub struct FormProperties {
     pub fill_style: FillStyle,
     pub font_transparent: bool,
     pub fore_color: VB6Color,
-    pub has_dc: bool,
+    pub has_dc: HasDeviceContext,
     pub height: i32,
     pub help_context_id: i32,
     pub icon: Option<DynamicImage>,
@@ -288,7 +288,7 @@ impl Default for FormProperties {
             fill_style: FillStyle::Transparent,
             font_transparent: true,
             fore_color: VB6Color::from_hex("&H80000012&").unwrap(),
-            has_dc: true,
+            has_dc: HasDeviceContext::Yes,
             height: 240,
             help_context_id: 0,
             icon: None,
@@ -361,7 +361,7 @@ impl From<Properties<'_>> for FormProperties {
         form_prop.font_transparent =
             prop.get_bool(b"FontTransparent".into(), form_prop.font_transparent);
         form_prop.fore_color = prop.get_color(b"ForeColor".into(), form_prop.fore_color);
-        form_prop.has_dc = prop.get_bool(b"HasDC".into(), form_prop.has_dc);
+        form_prop.has_dc = prop.get_property(b"HasDC".into(), form_prop.has_dc);
         form_prop.height = prop.get_i32(b"Height".into(), form_prop.height);
         form_prop.help_context_id =
             prop.get_i32(b"HelpContextID".into(), form_prop.help_context_id);
