@@ -87,6 +87,24 @@ pub enum VB6ErrorKind {
     #[error("Project type is not Exe, OleDll, Control, or OleExe")]
     ProjectTypeUnknown,
 
+    #[error("Project lacks a version number.")]
+    NoVersion,
+
+    #[error("Project parse error while processing an Object line.")]
+    NoObjects,
+
+    #[error("Form parse error. No Form found in form file.")]
+    NoForm,
+
+    #[error("Parse error while processing Form attributes.")]
+    AttributeParseError,
+
+    #[error("Parse error while attempting to parse Form tokens.")]
+    TokenParseError,
+
+    #[error("Project parse error, failure to find BEGIN element.")]
+    NoBegin,
+
     #[error("Project line entry is not ended with a recognized line ending.")]
     NoLineEnding,
 
