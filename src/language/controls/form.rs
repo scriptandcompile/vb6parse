@@ -2,8 +2,8 @@ use crate::{
     language::{
         controls::{
             Activation, Appearance, AutoRedraw, ClipControls, DrawMode, DrawStyle, FillStyle,
-            HasDeviceContext, MousePointer, OLEDropMode, ScaleMode, StartUpPosition, TextDirection,
-            Visibility, WhatsThisHelp, WindowState,
+            HasDeviceContext, MousePointer, Movability, OLEDropMode, ScaleMode, StartUpPosition,
+            TextDirection, Visibility, WhatsThisHelp, WindowState,
         },
         FormLinkMode, VB6Color,
     },
@@ -94,21 +94,6 @@ pub enum ShowInTaskbar {
     /// The form is shown in the taskbar.
     #[default]
     Show = -1,
-}
-
-/// The `Movability` property of a `Form` control determines whether the
-/// form can be moved by the user. If the form is not moveable, the user cannot
-/// move the form by dragging its title bar or by using the arrow keys.
-/// If the form is moveable, the user can move the form by dragging its title
-/// bar or by using the arrow keys.
-#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
-#[repr(i32)]
-pub enum Movability {
-    /// The form is not moveable.
-    Fixed = 0,
-    /// The form is moveable.
-    #[default]
-    Moveable = -1,
 }
 
 /// Properties for a `Form` control.
