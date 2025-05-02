@@ -526,6 +526,20 @@ impl<'a> VB6FormFile<'a> {
         })
     }
 
+    /// Parses a VB6 form file from a byte slice using the default `resource_file_resolver`.
+    ///
+    /// # Arguments
+    /// * `form_path` The path of the form file being parsed.
+    /// * `input` The bytes of the form file to be parsed.
+    ///
+    /// # Returns
+    ///
+    /// A result containing the parsed VB6 form file or an error.
+    ///
+    /// # Errors
+    ///
+    /// An error will be returned if the input is not a valid VB6 form file.
+    ///
     pub fn parse(form_path: &str, input: &'a [u8]) -> Result<Self, VB6Error> {
         VB6FormFile::parse_with_resolver(form_path, input, resource_file_resolver)
     }
