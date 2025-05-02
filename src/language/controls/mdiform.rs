@@ -1,7 +1,7 @@
 use crate::language::{
     controls::{
         Activation, Appearance, FormLinkMode, MousePointer, OLEDropMode, StartUpPosition,
-        TextDirection, Visibility, WindowState,
+        TextDirection, Visibility, WhatsThisHelp, WindowState,
     },
     VB6Color,
 };
@@ -35,7 +35,7 @@ pub struct MDIFormProperties {
     pub start_up_position: StartUpPosition,
     pub top: i32,
     pub visible: Visibility,
-    pub whats_this_help: bool,
+    pub whats_this_help: WhatsThisHelp,
     pub width: i32,
     pub window_state: WindowState,
 }
@@ -113,7 +113,7 @@ impl Default for MDIFormProperties {
             start_up_position: StartUpPosition::WindowsDefault,
             top: 0,
             visible: Visibility::Visible,
-            whats_this_help: false,
+            whats_this_help: WhatsThisHelp::F1Help,
             width: 4800,
             window_state: WindowState::Normal,
         }
@@ -171,6 +171,8 @@ impl<'a> From<Properties<'a>> for MDIFormProperties {
             prop.get_startup_position(b"StartUpPosition".into(), mdi_form_prop.start_up_position);
         mdi_form_prop.top = prop.get_i32(b"Top".into(), mdi_form_prop.top);
         mdi_form_prop.visible = prop.get_property(b"Visible".into(), mdi_form_prop.visible);
+        mdi_form_prop.whats_this_help =
+            prop.get_property(b"WhatsThisHelp".into(), mdi_form_prop.whats_this_help);
         mdi_form_prop.width = prop.get_i32(b"Width".into(), mdi_form_prop.width);
         mdi_form_prop.window_state =
             prop.get_property(b"WindowState".into(), mdi_form_prop.window_state);

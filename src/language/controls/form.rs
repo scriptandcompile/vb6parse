@@ -3,7 +3,7 @@ use crate::{
         controls::{
             Activation, Appearance, AutoRedraw, ClipControls, DrawMode, DrawStyle, FillStyle,
             HasDeviceContext, MousePointer, OLEDropMode, ScaleMode, StartUpPosition, TextDirection,
-            Visibility, WindowState,
+            Visibility, WhatsThisHelp, WindowState,
         },
         FormLinkMode, VB6Color,
     },
@@ -82,21 +82,6 @@ pub enum WhatsThisButton {
     /// The 'What's This?' button is displayed.
     #[default]
     Included = -1,
-}
-
-/// The `WhatsThisHelp` property of a `Form` control determines whether the
-/// context-sensitive Help uses the pop-up window provided by Windows 95 Help
-/// or the main Help window.
-#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
-#[repr(i32)]
-pub enum WhatsThisHelp {
-    /// The application uses the F1 key to start Windows Help and load the topic
-    /// identified by the `help_context_id` property.
-    #[default]
-    F1Help = 0,
-    // The application uses one of the 'What's This' access techniques to start
-    // Windows Help.
-    WhatsThisHelp = -1,
 }
 
 /// The `ShowInTaskbar` property of a `Form` control determines whether the
