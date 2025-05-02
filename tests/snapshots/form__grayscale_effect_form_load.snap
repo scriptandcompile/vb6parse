@@ -133,7 +133,7 @@ form:
         scale_mode: Pixel
         scale_top: 0
         scale_width: 1009
-        show_in_taskbar: true
+        show_in_taskbar: Show
         start_up_position: CenterScreen
         top: 0
         visible: Visible
