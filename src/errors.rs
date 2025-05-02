@@ -385,25 +385,22 @@ impl VB6Error {
 
 impl Display for VB6Error {
     fn fmt(&self, _: &mut Formatter) -> Result<(), std::fmt::Error> {
-        let source = Source::from(self.source_code.clone());
-
-        let kind_label = Label::new((
-            self.file_name.clone(),
-            // TODO: Use RangeInclusive variant when new
-            // version of ariadne is released.
-            self.source_offset..self.source_offset + 1,
-        ))
-        .with_message(self.kind.to_string());
+        let error_range = self.source_offset..=self.source_offset;
 
         Report::build(
             ReportKind::Error,
-            self.file_name.clone(),
-            self.source_offset,
+            (self.file_name.clone(), error_range.clone()),
         )
         .with_message("Parsing error")
-        .with_label(kind_label)
+        .with_label(
+            Label::new((self.file_name.clone(), error_range.clone()))
+                .with_message(self.kind.to_string()),
+        )
         .finish()
-        .eprint((self.file_name.clone(), source))
+        .eprint((
+            self.file_name.clone(),
+            Source::from(self.source_code.clone()),
+        ))
         .unwrap();
 
         Ok(())

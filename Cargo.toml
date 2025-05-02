@@ -67,7 +67,7 @@ uuid = "1.10.0"
 thiserror = "2.0.12"
 bstr = {version = "1.10.0", features = ["serde"]}
 either = {version = "1.13.0", features = ["serde"]}
-ariadne = "0.4.1"
+ariadne = "0.5.1"
 image = "0.25.2"
 serde = { version = "1.0.209", features = ["derive"] }
 num_enum = "0.7.3"
