@@ -181,6 +181,21 @@ pub enum CausesValidation {
     Yes = -1,
 }
 
+/// The `Movability` property of a `Form` control determines whether the
+/// form can be moved by the user. If the form is not moveable, the user cannot
+/// move the form by dragging its title bar or by using the arrow keys.
+/// If the form is moveable, the user can move the form by dragging its title
+/// bar or by using the arrow keys.
+#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[repr(i32)]
+pub enum Movability {
+    /// The form is not moveable.
+    Fixed = 0,
+    /// The form is moveable.
+    #[default]
+    Moveable = -1,
+}
+
 /// The `WhatsThisHelp` property of a `Form` control determines whether the
 /// context-sensitive Help uses the pop-up window provided by Windows 95 Help
 /// or the main Help window.

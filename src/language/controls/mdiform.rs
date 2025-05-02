@@ -1,7 +1,7 @@
 use crate::language::{
     controls::{
-        Activation, Appearance, FormLinkMode, MousePointer, OLEDropMode, StartUpPosition,
-        TextDirection, Visibility, WhatsThisHelp, WindowState,
+        Activation, Appearance, FormLinkMode, MousePointer, Movability, OLEDropMode,
+        StartUpPosition, TextDirection, Visibility, WhatsThisHelp, WindowState,
     },
     VB6Color,
 };
@@ -26,7 +26,7 @@ pub struct MDIFormProperties {
     pub link_topic: BString,
     pub mouse_icon: Option<DynamicImage>,
     pub mouse_pointer: MousePointer,
-    pub moveable: bool,
+    pub moveable: Movability,
     pub negotiate_toolbars: bool,
     pub ole_drop_mode: OLEDropMode,
     pub picture: Option<DynamicImage>,
@@ -104,7 +104,7 @@ impl Default for MDIFormProperties {
             link_topic: "".into(),
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
-            moveable: true,
+            moveable: Movability::Moveable,
             negotiate_toolbars: true,
             ole_drop_mode: OLEDropMode::default(),
             picture: None,
@@ -154,7 +154,7 @@ impl<'a> From<Properties<'a>> for MDIFormProperties {
 
         mdi_form_prop.mouse_pointer =
             prop.get_property(b"MousePointer".into(), mdi_form_prop.mouse_pointer);
-        mdi_form_prop.moveable = prop.get_bool(b"Moveable".into(), mdi_form_prop.moveable);
+        mdi_form_prop.moveable = prop.get_property(b"Moveable".into(), mdi_form_prop.moveable);
         mdi_form_prop.negotiate_toolbars = prop.get_bool(
             b"NegotiateToolbars".into(),
             mdi_form_prop.negotiate_toolbars,
