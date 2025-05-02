@@ -74,6 +74,21 @@ impl Serialize for VB6PropertyGroup {
     }
 }
 
+/// Resolves a resource file from the given file path and offset.
+///
+/// # Arguments
+///
+/// * `file_path` - The path to the resource file.
+/// * `offset` - The offset of the resource in the file.
+///
+/// # Returns
+///
+/// A result containing the resource data as a vector of bytes or an error.
+///
+/// # Errors
+///
+/// An error will be returned if the resource file cannot be read or if the offset is out of bounds.
+///
 pub fn resource_file_resolver(file_path: &str, offset: usize) -> Result<Vec<u8>, std::io::Error> {
     // VB6 FRX files are resource files that contain binary data for controls, forms, and other UI elements.
     // They are typically used in conjunction with VB6 FRM files.
