@@ -261,7 +261,7 @@ form:
                           - 105
                           - 122
                           - 101
-                        causes_validation: true
+                        causes_validation: "Yes"
                         disabled_picture: ~
                         down_picture: ~
                         drag_icon: ~
@@ -365,7 +365,7 @@ form:
                           - 103
                           - 104
                           - 116
-                        causes_validation: true
+                        causes_validation: "Yes"
                         disabled_picture: ~
                         down_picture: ~
                         drag_icon: ~
@@ -420,7 +420,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 clip_controls: "True"
                 data_field: []
                 data_format: []
@@ -490,7 +490,7 @@ form:
                   System:
                     index: 5
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 clip_controls: "True"
                 data_field: []
                 data_format: []
@@ -581,7 +581,7 @@ form:
                   - 97
                   - 103
                   - 101
-                causes_validation: true
+                causes_validation: "Yes"
                 default: false
                 disabled_picture: ~
                 down_picture: ~
@@ -670,7 +670,7 @@ form:
                   - 97
                   - 108
                   - 41
-                causes_validation: true
+                causes_validation: "Yes"
                 default: false
                 disabled_picture: ~
                 down_picture: ~

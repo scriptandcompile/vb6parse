@@ -141,7 +141,7 @@ form:
                 back_color:
                   System:
                     index: 5
-                causes_validation: true
+                causes_validation: "Yes"
                 data_field: []
                 data_format: []
                 data_member: []
@@ -207,7 +207,7 @@ form:
                     green: 0
                     blue: 0
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 clip_controls: "True"
                 data_field: []
                 data_format: []
@@ -281,7 +281,7 @@ form:
                     green: 0
                     blue: 0
                 border_style: FixedSingle
-                causes_validation: true
+                causes_validation: "Yes"
                 clip_controls: "True"
                 data_field: []
                 data_format: []

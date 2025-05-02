@@ -164,6 +164,23 @@ pub enum UseMaskColor {
     UseMaskColor = -1,
 }
 
+/// Determines if the control causes validation.
+/// In VB6, the `CausesValidation` property determines whether a control causes validation
+/// to occur when the user attempts to move focus from the control.
+/// If `CausesValidation` is set to `True`, validation occurs when the user attempts to move
+/// focus from the control to another control.
+/// If `CausesValidation` is set to `False`, validation does not occur when the user attempts
+/// to move focus from the control to another control.
+#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
+pub enum CausesValidation {
+    /// The control does not cause validation.
+    No = 0,
+    /// The control causes validation.
+    #[default]
+    Yes = -1,
+}
+
 #[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum FormLinkMode {

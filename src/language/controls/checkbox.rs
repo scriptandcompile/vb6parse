@@ -1,8 +1,8 @@
 use crate::{
     language::{
         controls::{
-            Activation, Appearance, DragMode, JustifyAlignment, MousePointer, OLEDropMode, Style,
-            TabStop, TextDirection, UseMaskColor, Visibility,
+            Activation, Appearance, CausesValidation, DragMode, JustifyAlignment, MousePointer,
+            OLEDropMode, Style, TabStop, TextDirection, UseMaskColor, Visibility,
         },
         VB6Color,
     },
@@ -35,7 +35,7 @@ pub struct CheckBoxProperties {
     pub appearance: Appearance,
     pub back_color: VB6Color,
     pub caption: BString,
-    pub causes_validation: bool,
+    pub causes_validation: CausesValidation,
     pub data_field: BString,
     pub data_format: BString,
     pub data_member: BString,
@@ -74,7 +74,7 @@ impl Default for CheckBoxProperties {
             appearance: Appearance::ThreeD,
             back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
             caption: "".into(),
-            causes_validation: true,
+            causes_validation: CausesValidation::Yes,
             data_field: "".into(),
             data_format: "".into(),
             data_member: "".into(),
@@ -183,7 +183,7 @@ impl<'a> From<Properties<'a>> for CheckBoxProperties {
             None => checkbox_prop.caption,
         };
         checkbox_prop.causes_validation =
-            prop.get_bool(b"CausesValidation".into(), checkbox_prop.causes_validation);
+            prop.get_property(b"CausesValidation".into(), checkbox_prop.causes_validation);
         checkbox_prop.data_field = match prop.get(b"DataField".into()) {
             Some(data_field) => data_field.into(),
             None => checkbox_prop.data_field,

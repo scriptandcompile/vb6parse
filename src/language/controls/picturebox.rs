@@ -1,7 +1,7 @@
 use crate::language::controls::{
-    Activation, Align, Appearance, AutoRedraw, AutoSize, BorderStyle, ClipControls, DragMode,
-    DrawMode, DrawStyle, FillStyle, HasDeviceContext, LinkMode, MousePointer, OLEDragMode,
-    OLEDropMode, ScaleMode, TabStop, TextDirection, Visibility,
+    Activation, Align, Appearance, AutoRedraw, AutoSize, BorderStyle, CausesValidation,
+    ClipControls, DragMode, DrawMode, DrawStyle, FillStyle, HasDeviceContext, LinkMode,
+    MousePointer, OLEDragMode, OLEDropMode, ScaleMode, TabStop, TextDirection, Visibility,
 };
 use crate::parsers::Properties;
 use crate::VB6Color;
@@ -24,7 +24,7 @@ pub struct PictureBoxProperties {
     pub auto_size: AutoSize,
     pub back_color: VB6Color,
     pub border_style: BorderStyle,
-    pub causes_validation: bool,
+    pub causes_validation: CausesValidation,
     pub clip_controls: ClipControls,
     pub data_field: BString,
     pub data_format: BString,
@@ -78,7 +78,7 @@ impl Default for PictureBoxProperties {
             auto_size: AutoSize::Fixed,
             back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
             border_style: BorderStyle::FixedSingle,
-            causes_validation: true,
+            causes_validation: CausesValidation::Yes,
             clip_controls: ClipControls::default(),
             data_field: "".into(),
             data_format: "".into(),
@@ -211,7 +211,7 @@ impl<'a> From<Properties<'a>> for PictureBoxProperties {
             prop.get_color(b"BackColor".into(), picture_box_prop.back_color);
         picture_box_prop.border_style =
             prop.get_property(b"BorderStyle".into(), picture_box_prop.border_style);
-        picture_box_prop.causes_validation = prop.get_bool(
+        picture_box_prop.causes_validation = prop.get_property(
             b"CausesValidation".into(),
             picture_box_prop.causes_validation,
         );

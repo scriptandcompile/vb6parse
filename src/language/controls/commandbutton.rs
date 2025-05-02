@@ -1,6 +1,6 @@
 use crate::language::controls::{
-    Activation, Appearance, DragMode, MousePointer, OLEDropMode, Style, TabStop, TextDirection,
-    UseMaskColor,
+    Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDropMode, Style, TabStop,
+    TextDirection, UseMaskColor,
 };
 use crate::parsers::Properties;
 use crate::VB6Color;
@@ -21,7 +21,7 @@ pub struct CommandButtonProperties {
     pub back_color: VB6Color,
     pub cancel: bool,
     pub caption: BString,
-    pub causes_validation: bool,
+    pub causes_validation: CausesValidation,
     pub default: bool,
     pub disabled_picture: Option<DynamicImage>,
     pub down_picture: Option<DynamicImage>,
@@ -54,7 +54,7 @@ impl Default for CommandButtonProperties {
             back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
             cancel: false,
             caption: "".into(),
-            causes_validation: true,
+            causes_validation: CausesValidation::Yes,
             default: false,
             disabled_picture: None,
             down_picture: None,
@@ -152,7 +152,7 @@ impl<'a> From<Properties<'a>> for CommandButtonProperties {
             Some(caption) => caption.into(),
             None => command_button_prop.caption,
         };
-        command_button_prop.causes_validation = prop.get_bool(
+        command_button_prop.causes_validation = prop.get_property(
             b"CausesValidation".into(),
             command_button_prop.causes_validation,
         );

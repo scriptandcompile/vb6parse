@@ -1,6 +1,6 @@
 use crate::language::controls::{
-    Activation, Appearance, BackStyle, BorderStyle, DragMode, MousePointer, SizeMode, TabStop,
-    Visibility,
+    Activation, Appearance, BackStyle, BorderStyle, CausesValidation, DragMode, MousePointer,
+    SizeMode, TabStop, Visibility,
 };
 use crate::language::VB6Color;
 use crate::parsers::Properties;
@@ -60,7 +60,7 @@ pub struct OLEProperties {
     pub back_color: VB6Color,
     pub back_style: BackStyle,
     pub border_style: BorderStyle,
-    pub causes_validation: bool,
+    pub causes_validation: CausesValidation,
     pub class: Option<BString>,
     pub data_field: BString,
     pub data_source: BString,
@@ -99,7 +99,7 @@ impl Default for OLEProperties {
             back_color: VB6Color::System { index: 5 },
             back_style: BackStyle::Opaque,
             border_style: BorderStyle::FixedSingle,
-            causes_validation: true,
+            causes_validation: CausesValidation::Yes,
             class: None,
             data_field: "".into(),
             data_source: "".into(),
@@ -195,7 +195,7 @@ impl<'a> From<Properties<'a>> for OLEProperties {
         ole_prop.back_style = prop.get_property(b"BackStyle".into(), ole_prop.back_style);
         ole_prop.border_style = prop.get_property(b"BorderStyle".into(), ole_prop.border_style);
         ole_prop.causes_validation =
-            prop.get_bool(b"CausesValidation".into(), ole_prop.causes_validation);
+            prop.get_property(b"CausesValidation".into(), ole_prop.causes_validation);
 
         // Class
 

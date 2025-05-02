@@ -1,7 +1,7 @@
 use crate::{
     language::controls::{
-        Activation, Alignment, Appearance, BorderStyle, DragMode, LinkMode, MousePointer,
-        OLEDragMode, OLEDropMode, TabStop, TextDirection, Visibility,
+        Activation, Alignment, Appearance, BorderStyle, CausesValidation, DragMode, LinkMode,
+        MousePointer, OLEDragMode, OLEDropMode, TabStop, TextDirection, Visibility,
     },
     parsers::Properties,
     VB6Color,
@@ -47,7 +47,7 @@ pub struct TextBoxProperties {
     pub appearance: Appearance,
     pub back_color: VB6Color,
     pub border_style: BorderStyle,
-    pub causes_validation: bool,
+    pub causes_validation: CausesValidation,
     pub data_field: BString,
     pub data_format: BString,
     pub data_member: BString,
@@ -91,7 +91,7 @@ impl Default for TextBoxProperties {
             appearance: Appearance::ThreeD,
             back_color: VB6Color::from_hex("&H80000005&").unwrap(),
             border_style: BorderStyle::FixedSingle,
-            causes_validation: true,
+            causes_validation: CausesValidation::Yes,
             data_field: "".into(),
             data_format: "".into(),
             data_member: "".into(),
@@ -199,7 +199,7 @@ impl<'a> From<Properties<'a>> for TextBoxProperties {
         text_box_prop.border_style =
             prop.get_property(b"BorderStyle".into(), text_box_prop.border_style);
         text_box_prop.causes_validation =
-            prop.get_bool(b"CausesValidation".into(), text_box_prop.causes_validation);
+            prop.get_property(b"CausesValidation".into(), text_box_prop.causes_validation);
         text_box_prop.data_field = match prop.get(b"DataField".into()) {
             Some(data_field) => data_field.into(),
             None => text_box_prop.data_field,
