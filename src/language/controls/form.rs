@@ -111,6 +111,21 @@ pub enum ShowInTaskbar {
     Show = -1,
 }
 
+/// The `Movability` property of a `Form` control determines whether the
+/// form can be moved by the user. If the form is not moveable, the user cannot
+/// move the form by dragging its title bar or by using the arrow keys.
+/// If the form is moveable, the user can move the form by dragging its title
+/// bar or by using the arrow keys.
+#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[repr(i32)]
+pub enum Movability {
+    /// The form is not moveable.
+    Fixed = 0,
+    /// The form is moveable.
+    #[default]
+    Moveable = -1,
+}
+
 /// Properties for a `Form` control.
 ///
 /// This is used as an enum variant of
@@ -151,7 +166,7 @@ pub struct FormProperties {
     pub min_button: MinButton,
     pub mouse_icon: Option<DynamicImage>,
     pub mouse_pointer: MousePointer,
-    pub moveable: bool,
+    pub moveable: Movability,
     pub negotiate_menus: bool,
     pub ole_drop_mode: OLEDropMode,
     pub palette: Option<DynamicImage>,
@@ -286,7 +301,7 @@ impl Default for FormProperties {
             min_button: MinButton::Included,
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
-            moveable: true,
+            moveable: Movability::Moveable,
             negotiate_menus: true,
             ole_drop_mode: OLEDropMode::default(),
             palette: None,
@@ -368,7 +383,7 @@ impl From<Properties<'_>> for FormProperties {
 
         form_prop.mouse_pointer =
             prop.get_property(b"MousePointer".into(), form_prop.mouse_pointer);
-        form_prop.moveable = prop.get_bool(b"Moveable".into(), form_prop.moveable);
+        form_prop.moveable = prop.get_property(b"Moveable".into(), form_prop.moveable);
         form_prop.negotiate_menus =
             prop.get_bool(b"NegotiateMenus".into(), form_prop.negotiate_menus);
         form_prop.ole_drop_mode = prop.get_property(b"OLEDropMode".into(), form_prop.ole_drop_mode);
