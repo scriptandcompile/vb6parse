@@ -114,7 +114,7 @@ form:
         scale_mode: Pixel
         scale_top: 0
         scale_width: 436
-        show_in_taskbar: true
+        show_in_taskbar: Show
         start_up_position: WindowsDefault
         top: 0
         visible: Visible

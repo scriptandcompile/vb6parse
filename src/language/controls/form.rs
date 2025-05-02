@@ -99,6 +99,18 @@ pub enum WhatsThisHelp {
     WhatsThisHelp = -1,
 }
 
+/// The `ShowInTaskbar` property of a `Form` control determines whether the
+/// form is shown in the taskbar.
+#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[repr(i32)]
+pub enum ShowInTaskbar {
+    /// The form is not shown in the taskbar.
+    Hide = 0,
+    /// The form is shown in the taskbar.
+    #[default]
+    Show = -1,
+}
+
 /// Properties for a `Form` control.
 ///
 /// This is used as an enum variant of
@@ -151,7 +163,7 @@ pub struct FormProperties {
     pub scale_mode: ScaleMode,
     pub scale_top: i32,
     pub scale_width: i32,
-    pub show_in_taskbar: bool,
+    pub show_in_taskbar: ShowInTaskbar,
     pub start_up_position: StartUpPosition,
     pub top: i32,
     pub visible: Visibility,
@@ -286,7 +298,7 @@ impl Default for FormProperties {
             scale_mode: ScaleMode::Twip,
             scale_top: 0,
             scale_width: 240,
-            show_in_taskbar: true,
+            show_in_taskbar: ShowInTaskbar::Show,
             start_up_position: StartUpPosition::WindowsDefault,
             top: 0,
             visible: Visibility::Visible,
@@ -374,7 +386,7 @@ impl From<Properties<'_>> for FormProperties {
         form_prop.scale_top = prop.get_i32(b"ScaleTop".into(), form_prop.scale_top);
         form_prop.scale_width = prop.get_i32(b"ScaleWidth".into(), form_prop.scale_width);
         form_prop.show_in_taskbar =
-            prop.get_bool(b"ShowInTaskbar".into(), form_prop.show_in_taskbar);
+            prop.get_property(b"ShowInTaskbar".into(), form_prop.show_in_taskbar);
         form_prop.start_up_position =
             prop.get_startup_position(b"StartUpPosition".into(), form_prop.start_up_position);
         form_prop.top = prop.get_i32(b"Top".into(), form_prop.top);
