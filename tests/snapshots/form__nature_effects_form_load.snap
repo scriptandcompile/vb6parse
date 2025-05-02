@@ -106,7 +106,7 @@ form:
             green: 0
             blue: 0
         fill_style: Transparent
-        font_transparent: true
+        font_transparent: Transparent
         fore_color:
           System:
             index: 18
@@ -302,7 +302,7 @@ form:
                     green: 0
                     blue: 0
                 fill_style: Transparent
-                font_transparent: true
+                font_transparent: Transparent
                 fore_color:
                   System:
                     index: 8
@@ -372,7 +372,7 @@ form:
                     green: 0
                     blue: 0
                 fill_style: Transparent
-                font_transparent: true
+                font_transparent: Transparent
                 fore_color:
                   System:
                     index: 8

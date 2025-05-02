@@ -196,6 +196,18 @@ pub enum Movability {
     Moveable = -1,
 }
 
+/// The `FontTransparency` property of a `Form` or `PictureBox` control determines
+/// whether the `Font` property is transparent or opaque.
+#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[repr(i32)]
+pub enum FontTransparency {
+    /// The font is not transparent.
+    Opaque = 0,
+    /// The font is transparent.
+    #[default]
+    Transparent = -1,
+}
+
 /// The `WhatsThisHelp` property of a `Form` control determines whether the
 /// context-sensitive Help uses the pop-up window provided by Windows 95 Help
 /// or the main Help window.
