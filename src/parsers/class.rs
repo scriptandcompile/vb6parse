@@ -201,12 +201,18 @@ impl<'a> VB6ClassFile<'a> {
 
         let header = match class_header_parse.parse_next(input) {
             Ok(header) => header,
-            Err(e) => return Err(input.error(e.into_inner().unwrap())),
+            Err(e) => match e.into_inner() {
+                Err(_) => return Err(input.error(VB6ErrorKind::Header)),
+                Ok(err) => return Err(input.error(err)),
+            },
         };
 
         let tokens = match vb6_parse.parse_next(input) {
             Ok(tokens) => tokens,
-            Err(e) => return Err(input.error(e.into_inner().unwrap())),
+            Err(e) => match e.into_inner() {
+                Err(_) => return Err(input.error(VB6ErrorKind::TokenParseError)),
+                Ok(err) => return Err(input.error(err)),
+            },
         };
 
         Ok(VB6ClassFile { header, tokens })
