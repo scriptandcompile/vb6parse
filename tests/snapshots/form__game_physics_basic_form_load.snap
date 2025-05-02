@@ -213,7 +213,7 @@ form:
                 tab_stop: Included
                 tool_tip_text: []
                 top: 9360
-                use_mask_color: false
+                use_mask_color: DoNotUseMaskColor
                 value: Checked
                 visible: Visible
                 whats_this_help_id: 0
@@ -266,7 +266,7 @@ form:
                 tab_stop: Included
                 tool_tip_text: []
                 top: 9360
-                use_mask_color: false
+                use_mask_color: DoNotUseMaskColor
                 whats_this_help_id: 0
                 width: 855
         - name:

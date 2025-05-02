@@ -1,5 +1,6 @@
 use crate::language::controls::{
     Activation, Appearance, DragMode, MousePointer, OLEDropMode, Style, TabStop, TextDirection,
+    UseMaskColor,
 };
 use crate::parsers::Properties;
 use crate::VB6Color;
@@ -41,7 +42,7 @@ pub struct CommandButtonProperties {
     pub tab_stop: TabStop,
     pub tool_tip_text: BString,
     pub top: i32,
-    pub use_mask_color: bool,
+    pub use_mask_color: UseMaskColor,
     pub whats_this_help_id: i32,
     pub width: i32,
 }
@@ -74,7 +75,7 @@ impl Default for CommandButtonProperties {
             tab_stop: TabStop::Included,
             tool_tip_text: "".into(),
             top: 30,
-            use_mask_color: false,
+            use_mask_color: UseMaskColor::DoNotUseMaskColor,
             whats_this_help_id: 0,
             width: 100,
         }
@@ -194,7 +195,7 @@ impl<'a> From<Properties<'a>> for CommandButtonProperties {
         };
         command_button_prop.top = prop.get_i32(b"Top".into(), command_button_prop.top);
         command_button_prop.use_mask_color =
-            prop.get_bool(b"UseMaskColor".into(), command_button_prop.use_mask_color);
+            prop.get_property(b"UseMaskColor".into(), command_button_prop.use_mask_color);
         command_button_prop.whats_this_help_id = prop.get_i32(
             b"WhatsThisHelp".into(),
             command_button_prop.whats_this_help_id,

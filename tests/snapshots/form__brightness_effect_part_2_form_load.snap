@@ -220,7 +220,7 @@ form:
                 tab_stop: Included
                 tool_tip_text: []
                 top: 5280
-                use_mask_color: false
+                use_mask_color: DoNotUseMaskColor
                 value: Checked
                 visible: Visible
                 whats_this_help_id: 0
@@ -357,7 +357,7 @@ form:
                 tab_stop: Included
                 tool_tip_text: []
                 top: 4920
-                use_mask_color: false
+                use_mask_color: DoNotUseMaskColor
                 whats_this_help_id: 0
                 width: 2895
         - name:

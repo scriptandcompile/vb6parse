@@ -152,6 +152,18 @@ pub enum HasDeviceContext {
     Yes = -1,
 }
 
+/// Determines if the control uses the `mask_color` property as the trnsparent color
+/// on the control.
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[repr(i32)]
+pub enum UseMaskColor {
+    /// The control does not use the mask color.
+    DoNotUseMaskColor = 0,
+    /// The control uses the mask color.
+    #[default]
+    UseMaskColor = -1,
+}
+
 #[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum FormLinkMode {

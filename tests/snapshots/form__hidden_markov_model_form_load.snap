@@ -545,7 +545,7 @@ form:
                         tab_stop: Included
                         tool_tip_text: []
                         top: 360
-                        use_mask_color: false
+                        use_mask_color: DoNotUseMaskColor
                         whats_this_help_id: 0
                         width: 3015
                 - name:
@@ -1050,7 +1050,7 @@ form:
                         tab_stop: Included
                         tool_tip_text: []
                         top: 360
-                        use_mask_color: false
+                        use_mask_color: DoNotUseMaskColor
                         whats_this_help_id: 0
                         width: 3015
                 - name:
@@ -1280,7 +1280,7 @@ form:
                         tab_stop: Included
                         tool_tip_text: []
                         top: 1800
-                        use_mask_color: false
+                        use_mask_color: DoNotUseMaskColor
                         whats_this_help_id: 0
                         width: 2055
                 - name:
@@ -3404,7 +3404,7 @@ form:
                         tab_stop: Included
                         tool_tip_text: []
                         top: 360
-                        use_mask_color: false
+                        use_mask_color: DoNotUseMaskColor
                         whats_this_help_id: 0
                         width: 3015
                 - name:

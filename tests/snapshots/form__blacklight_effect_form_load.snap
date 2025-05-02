@@ -201,7 +201,7 @@ form:
                 tab_stop: Included
                 tool_tip_text: []
                 top: 120
-                use_mask_color: false
+                use_mask_color: DoNotUseMaskColor
                 value: Checked
                 visible: Visible
                 whats_this_help_id: 0
