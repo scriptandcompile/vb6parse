@@ -129,13 +129,25 @@ pub fn resource_file_resolver(file_path: &str, offset: usize) -> Result<Vec<u8>,
         // the size of the record from the start of the record buffer.
         // which should be 8 less than the record size from the start of the header.
 
-        let buffer_size_1 =
-            u32::from_le_bytes(buffer[offset..(offset + 4)].try_into().unwrap()) as usize;
+        let Ok(size_buffer) = buffer[offset..(offset + 4)].try_into() else {
+            return Err(std::io::Error::new(
+                std::io::ErrorKind::InvalidData,
+                format!("Failed to read size buffer for resource file {file_path}"),
+            ));
+        };
+        let buffer_size_1 = u32::from_le_bytes(size_buffer) as usize;
+
         // the next 4 bytes after the 12 byte record heading should be
         // the size of the record from the start of the record buffer.
         // which should be 8 less than the record size from the start of the header.
-        let buffer_size_2 =
-            u32::from_le_bytes(buffer[(offset + 8)..(offset + 12)].try_into().unwrap()) as usize;
+
+        let Ok(secondary_buffer_size) = buffer[(offset + 8)..(offset + 12)].try_into() else {
+            return Err(std::io::Error::new(
+                std::io::ErrorKind::InvalidData,
+                format!("Failed to read secondary buffer size for resource file {file_path}"),
+            ));
+        };
+        let buffer_size_2 = u32::from_le_bytes(secondary_buffer_size) as usize;
 
         if buffer_size_1 == 8 && buffer_size_2 == 0 {
             // This is a special case where the record is empty.
@@ -195,9 +207,14 @@ pub fn resource_file_resolver(file_path: &str, offset: usize) -> Result<Vec<u8>,
             ));
         }
 
-        let header_size_element_bytes = buffer[header_size_element_offset..header_size_element_end]
-            .try_into()
-            .unwrap();
+        let Ok(header_size_element_bytes) =
+            buffer[header_size_element_offset..header_size_element_end].try_into()
+        else {
+            return Err(std::io::Error::new(
+                std::io::ErrorKind::InvalidData,
+                format!("Failed to read header size element bytes for resource file {file_path}"),
+            ));
+        };
 
         let mut record_size = u16::from_le_bytes(header_size_element_bytes) as usize;
 
@@ -254,8 +271,14 @@ pub fn resource_file_resolver(file_path: &str, offset: usize) -> Result<Vec<u8>,
         //      16 bit size of the next list item.
         //      list item without null terminator.
 
-        let list_item_count =
-            u16::from_le_bytes(buffer[offset..offset + 2].try_into().unwrap()) as usize;
+        let Ok(list_item_buffer) = buffer[offset..(offset + 2)].try_into() else {
+            return Err(std::io::Error::new(
+                std::io::ErrorKind::InvalidData,
+                format!("Failed to read list item buffer for resource file {file_path}"),
+            ));
+        };
+
+        let list_item_count = u16::from_le_bytes(list_item_buffer) as usize;
 
         // we are going to read the header and the list items into a single vector.
         let header_size = 4;
@@ -282,8 +305,14 @@ pub fn resource_file_resolver(file_path: &str, offset: usize) -> Result<Vec<u8>,
                 ));
             }
 
-            let list_item_size =
-                u16::from_le_bytes(buffer[record_offset..record_end].try_into().unwrap()) as usize;
+            let Ok(list_item_size_buffer) = buffer[record_offset..record_end].try_into() else {
+                return Err(std::io::Error::new(
+                    std::io::ErrorKind::InvalidData,
+                    format!("Failed to read list item size buffer for resource file {file_path}"),
+                ));
+            };
+
+            let list_item_size = u16::from_le_bytes(list_item_size_buffer) as usize;
 
             // If we were trying to pull out a list from this, this is where we would do it.
             //
@@ -311,13 +340,15 @@ pub fn resource_file_resolver(file_path: &str, offset: usize) -> Result<Vec<u8>,
     if buffer.len() >= 12 && buffer[(offset)..(offset + 4)].contains(&0u8) {
         // this looks like a 4 byte header (0-4) where the 4 bytes
         // is the size of the record from the start of the record + header.
-
         // often, this is what is used when we have a larger chunk of text data.
-
+        let Ok(record_size_buffer) = buffer[offset..(offset + 4)].try_into() else {
+            return Err(std::io::Error::new(
+                std::io::ErrorKind::InvalidData,
+                format!("Failed to read record size buffer for resource file {file_path}"),
+            ));
+        };
+        let record_size = u32::from_le_bytes(record_size_buffer) as usize;
         let header_size = 4;
-        let record_size =
-            u32::from_le_bytes(buffer[(offset)..(offset + 4)].try_into().unwrap()) as usize;
-
         let record_start = offset + header_size;
         let record_end = record_start + record_size;
 
