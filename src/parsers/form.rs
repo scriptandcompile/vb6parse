@@ -471,32 +471,50 @@ impl<'a> VB6FormFile<'a> {
 
         let format_version = match version_parse(HeaderKind::Form).parse_next(&mut input) {
             Ok(version) => version,
-            Err(err) => return Err(input.error(err.into_inner().unwrap())),
+            Err(err) => match err.into_inner() {
+                Err(_) => return Err(input.error(VB6ErrorKind::NoVersion)),
+                Ok(err) => return Err(input.error(err)),
+            },
         };
 
         let objects = match form_object_parse.parse_next(&mut input) {
             Ok(objects) => objects,
-            Err(err) => return Err(input.error(err.into_inner().unwrap())),
+            Err(err) => match err.into_inner() {
+                Err(_) => return Err(input.error(VB6ErrorKind::NoObjects)),
+                Ok(err) => return Err(input.error(err)),
+            },
         };
 
         match (space0, keyword_parse("BEGIN"), space1).parse_next(&mut input) {
             Ok(_) => (),
-            Err(err) => return Err(input.error(err.into_inner().unwrap())),
+            Err(err) => match err.into_inner() {
+                Err(_) => return Err(input.error(VB6ErrorKind::NoBegin)),
+                Ok(err) => return Err(input.error(err)),
+            },
         }
 
         let form = match control_parse(&resource_resolver).parse_next(&mut input) {
             Ok(form) => form,
-            Err(err) => return Err(input.error(err.into_inner().unwrap())),
+            Err(err) => match err.into_inner() {
+                Err(_) => return Err(input.error(VB6ErrorKind::NoForm)),
+                Ok(err) => return Err(input.error(err)),
+            },
         };
 
         let attributes = match attributes_parse.parse_next(&mut input) {
             Ok(attributes) => attributes,
-            Err(err) => return Err(input.error(err.into_inner().unwrap())),
+            Err(err) => match err.into_inner() {
+                Err(_) => return Err(input.error(VB6ErrorKind::AttributeParseError)),
+                Ok(err) => return Err(input.error(err)),
+            },
         };
 
         let tokens = match vb6_parse.parse_next(&mut input) {
             Ok(tokens) => tokens,
-            Err(err) => return Err(input.error(err.into_inner().unwrap())),
+            Err(err) => match err.into_inner() {
+                Err(_) => return Err(input.error(VB6ErrorKind::TokenParseError)),
+                Ok(err) => return Err(input.error(err)),
+            },
         };
 
         Ok(VB6FormFile {
