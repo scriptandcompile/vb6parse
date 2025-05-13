@@ -297,7 +297,7 @@ compilation_type:
     pentium_fdiv_bug_check: NoPentiumFDivBugCheck
     unrounded_floating_point: Allow
 start_mode: StandAlone
-unattended: "False"
+unattended: Interactive
 retained: UnloadOnExit
 thread_per_object: 0
 threading_model: ApartmentThreaded

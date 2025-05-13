@@ -7,8 +7,8 @@ use vb6parse::parsers::{
         UnroundedFloatingPoint,
     },
     project::{
-        CompatibilityMode, DebugStartupOption, Retained, ServerSupportFiles, StartMode, Unattended,
-        UpgradeControls,
+        CompatibilityMode, DebugStartupOption, InteractionMode, Retained, ServerSupportFiles,
+        StartMode, UpgradeControls,
     },
     CompileTargetType, VB6Project,
 };
@@ -70,7 +70,7 @@ fn ppdm_project_load() {
     );
 
     assert_eq!(project.start_mode, StartMode::StandAlone);
-    assert_eq!(project.unattended, Unattended::False);
+    assert_eq!(project.unattended, InteractionMode::Interactive);
     assert_eq!(project.retained, Retained::UnloadOnExit);
     assert_eq!(project.thread_per_object, Some(0));
     assert_eq!(project.max_number_of_threads, 1);

@@ -68,7 +68,7 @@ pub struct VB6Project<'a> {
     pub compilation_type: CompilationType,
 
     pub start_mode: StartMode,
-    pub unattended: Unattended,
+    pub unattended: InteractionMode,
     pub retained: Retained,
     pub thread_per_object: Option<u16>,
     pub threading_model: ThreadingModel,
@@ -78,18 +78,32 @@ pub struct VB6Project<'a> {
     pub property_page: Option<&'a BStr>,
 }
 
+/// Retained mode of the VB6 project.
+///
+/// Hints to the loading program whether the project DLL should be retained in
+/// memory or unloaded when no longer in use.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i16)]
 pub enum Retained {
+    /// The DLL is unloaded when no longer in use.
     #[default]
     UnloadOnExit = 0,
+    /// `RetainedInMemory` only indicates to the loading program that the DLL
+    /// should be retained in memory, it does not guarantee that the DLL will be
+    /// retained in memory. Retaining a DLL in memory comes with a memory and
+    /// performance cost that the host program may not wish to sustain.
     RetainedInMemory = 1,
 }
 
+/// Indicates whether to use an existing browser instance.
+///
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i16)]
 pub enum UseExistingBrowser {
+    /// Do not use an existing browser instance.
     DoNotUse = 0,
+    /// If Internet Explorer is already running, use the existing instance.
+    /// Otherwise, launch a new instance.
     #[default]
     Use = -1,
 }
@@ -102,12 +116,23 @@ pub enum StartMode {
     Automation = 1,
 }
 
+/// Interaction mode for VB6 projects.
+///
+/// Indicates if the project is intended to run without user interaction.
+/// Unattended projects have no interface elements.
+/// Any run-time functions such as messages that normally result in user
+/// interaction are written to an event log.
+///
+/// Interactive is the default mode, where the program can show dialogs and
+/// interact with the user.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i16)]
-pub enum Unattended {
+pub enum InteractionMode {
+    /// The program can show dialogs and interact with the user.
     #[default]
-    False = 0,
-    True = -1,
+    Interactive = 0,
+    /// The program cannot show dialogs and will not interact with the user.
+    Unattended = -1,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
@@ -391,7 +416,7 @@ impl<'a> VB6Project<'a> {
         let mut pentium_fdiv_bug_check = PentiumFDivBugCheck::NoPentiumFDivBugCheck;
         let mut unrounded_floating_point = UnroundedFloatingPoint::DoNotAllow;
         let mut start_mode = StartMode::StandAlone;
-        let mut unattended = Unattended::False;
+        let mut unattended = InteractionMode::Interactive;
         let mut retained = Retained::UnloadOnExit;
         let mut thread_per_object = None;
         let mut max_number_of_threads = 1;
@@ -1118,7 +1143,7 @@ impl<'a> VB6Project<'a> {
                 .parse_next(&mut input)
                 .is_ok()
             {
-                unattended = process_parameter::<Unattended>(
+                unattended = process_parameter::<InteractionMode>(
                     &mut input,
                     VB6ErrorKind::UnattendedUnparseable,
                 )?;
@@ -2097,7 +2122,7 @@ mod tests {
             }
         );
         assert_eq!(project.start_mode, StartMode::StandAlone);
-        assert_eq!(project.unattended, Unattended::False);
+        assert_eq!(project.unattended, InteractionMode::Interactive);
         assert_eq!(project.retained, Retained::UnloadOnExit);
         assert_eq!(project.thread_per_object, None);
         assert_eq!(project.max_number_of_threads, 1);
@@ -2235,7 +2260,7 @@ mod tests {
             }
         );
         assert_eq!(project.start_mode, StartMode::StandAlone);
-        assert_eq!(project.unattended, Unattended::False);
+        assert_eq!(project.unattended, InteractionMode::Interactive);
         assert_eq!(project.retained, Retained::UnloadOnExit);
         assert_eq!(project.thread_per_object, Some(0));
         assert_eq!(project.max_number_of_threads, 1);
@@ -2379,7 +2404,7 @@ mod tests {
             }
         );
         assert_eq!(project.start_mode, StartMode::StandAlone);
-        assert_eq!(project.unattended, Unattended::False);
+        assert_eq!(project.unattended, InteractionMode::Interactive);
         assert_eq!(project.retained, Retained::UnloadOnExit);
         assert_eq!(project.thread_per_object, Some(0));
         assert_eq!(project.max_number_of_threads, 1);
