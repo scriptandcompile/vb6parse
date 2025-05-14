@@ -649,17 +649,31 @@ pub enum Style {
     Graphical = 1,
 }
 
+/// Determines the fill style of the control for drawing purposes.
+/// This is used with the `Form` and `PictureBox` controls.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum FillStyle {
+    /// The background is filled with a solid color.
     Solid = 0,
+    /// The background is not filled.
+    ///
+    /// This is the default setting.
     #[default]
     Transparent = 1,
+    /// The background is filled with a horizontal line pattern.
     HorizontalLine = 2,
+    /// The background is filled with a vertical line pattern.
     VerticalLine = 3,
+    /// The background is filled with a diagonal line pattern.
     UpwardDiagonal = 4,
+    /// The background is filled with a diagonal line pattern that goes from the bottom left to the top right.
+    /// This is the same as `UpwardDiagonal` but rotated 90 degrees.
     DownwardDiagonal = 5,
+    /// The background is filled with a cross-hatch pattern.
     Cross = 6,
+    /// The background is filled with a diagonal cross-hatch pattern.
+    /// This is the same as `Cross` but rotated 45 degrees.
     DiagonalCross = 7,
 }
 
