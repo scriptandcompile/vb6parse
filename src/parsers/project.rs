@@ -208,13 +208,35 @@ pub enum CompatibilityMode {
     CompatibleExe = 2,
 }
 
+/// When debugging the VB6 project, this option determines how the
+/// debugging session will start.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i16)]
 pub enum DebugStartupOption {
+    /// When debugging, the IDE will wait for the component to be created before
+    /// attaching the debugging session.
     #[default]
     WaitForComponentCreation = 0,
+    /// Lets the component determine what happens. The types of components include
+    /// ActiveX Designers like the DHTML Designer and the WebClass Designer, and
+    /// also User Controls and User Documents. If a User Control or User Document
+    /// is selected, Visual Basic will launch the browser and display a dummy test
+    /// page that contains the component. The component can tell Visual Basic to
+    /// either launch the browser with a URL or start another program.
+    ///
+    /// Selecting a startup component on the Debugging tab does not affest the
+    /// Startup Object specified on the General tab.
+    ///
+    /// For example: an ActiveX.dll project could specify 'Startup Object=Sub Main'
+    /// and 'Start Component=DHTMLPage1'.
+    ///
+    /// When the project runs, Visual Basic would register the DHTMLPage1 component
+    /// as well as other components, execute and then launch Internet Explorer,
+    /// and navigate to a URL that create an instance of DHTMLPage1.
     StartComponent = 1,
+    /// Specifies an executable program to be used.
     StartProgram = 2,
+    /// Specifies which URL the browser should naigate to.
     StartBrowser = 3,
 }
 
