@@ -11,6 +11,7 @@ use bstr::BString;
 use image::DynamicImage;
 use serde::Serialize;
 
+/// Properties for a `MDIForm` control.
 #[derive(Debug, PartialEq, Clone)]
 pub struct MDIFormProperties {
     pub appearance: Appearance,
