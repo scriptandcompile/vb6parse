@@ -168,20 +168,43 @@ pub enum UpgradeControls {
     NoUpgrade = 1,
 }
 
+/// Determines if licensing information for ActiveX Controls unused, but
+/// referenced within the project, should be retained or removed.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i16)]
 pub enum UnusedControlInfo {
+    /// The licensing information for ActiveX Controls unused, but referenced
+    /// within the project, should be retained.
     Retain = 0,
+    /// The licensing information for ActiveX Controls unused, but referenced
+    /// within the project, should be removed.
     #[default]
     Remove = 1,
 }
 
+/// Determines the level of compatibility required for each compile of the project.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i16)]
 pub enum CompatibilityMode {
+    /// Each time the component is compiled, new type library information is
+    /// generated, including new class ID's and new interface ID's. There is no
+    /// relation betweeen versions of a component, and programs compiled to use
+    /// one version cannot use another subsequent version.
     NoCompatibility = 0,
+    /// Each time the component is compiled, the type library identifier is kept,
+    /// so that projects can maintain their references to the component. All class
+    /// ID's from the previous version are maintained. Interface Id's are changed
+    /// only for classes that are no longer binary-compatible with their earlier
+    /// counterparts.
     #[default]
     Project = 1,
+    /// When the component is compiled, if any binary-incompatible changes are
+    /// detected, the IDE will present a warning dialog. If accepted, the component
+    /// will retain the type library identifier and the class ID's from the previous
+    /// version. The interface ID's are changed only for classes that are no longer
+    /// binary-compatible with their earlier counterparts. Otherwise, the component
+    /// will maintain the type library identifier and the class ID's from the previous
+    /// version regardless of whether the changes are binary-compatible or not.
     CompatibleExe = 2,
 }
 
