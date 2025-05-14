@@ -231,30 +231,50 @@ pub enum FormLinkMode {
     Source = 1,
 }
 
+/// Controls the display state of a form from normal, minimized, or maximized.
+/// This is used with the `Form` and `MDIForm` controls.
 #[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum WindowState {
+    /// The form is in its normal state.
     #[default]
     Normal = 0,
+    /// The form is minimized.
     Minimized = 1,
+    /// The form is maximized.
     Maximized = 2,
 }
 
+/// The `StartUpPosition` property of a `Form` or `MDIForm` control determines
+/// the initial position of the form when it is displayed.
 #[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default)]
 pub enum StartUpPosition {
-    /// 0
+    /// The form is positioned based on the `client_height`, `client_width`,
+    /// `client_top`, and `client_left` properties.
+    ///
+    /// The `Manual` variant is saved as a 0 in the VB6 file.
     Manual {
+        /// The height of the client area of the form.
         client_height: i32,
+        /// The width of the client area of the form.
         client_width: i32,
+        /// The top position of the client area of the form.
         client_top: i32,
+        /// The left position of the client area of the form.
         client_left: i32,
     },
-    /// 1
+    /// The form is centered in the parent window.
+    ///
+    /// The `CenterOwner` variant is saved as a 1 in the VB6 file.
     CenterOwner,
-    /// 2
+    /// The form is centered on the screen.
+    ///
+    /// The `CenterScreen` variant is saved as a 2 in the VB6 file.
     CenterScreen,
     #[default]
-    /// 3
+    /// The form requests the operating system to position the form.
+    ///
+    /// The `WindowsDefault` variant is saved as a 3 in the VB6 file.
     WindowsDefault,
 }
 
