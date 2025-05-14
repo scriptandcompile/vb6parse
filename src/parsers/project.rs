@@ -240,28 +240,45 @@ pub enum DebugStartupOption {
     StartBrowser = 3,
 }
 
+/// Determines the version information of the VB6 project.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct VersionInformation<'a> {
+    /// The major version number of the project.
     pub major: u16,
+    /// The minor version number of the project.
     pub minor: u16,
+    /// The revision version number of the project.
     pub revision: u16,
+    /// How much the revision number should be incremented per compile.
     pub auto_increment_revision: u16,
+    /// The name of the company that created the project.
     pub company_name: Option<&'a BStr>,
+    /// The description of the project.
     pub file_description: Option<&'a BStr>,
+    /// The copyright information of the project.
     pub copyright: Option<&'a BStr>,
+    /// The trademark information of the project.
     pub trademark: Option<&'a BStr>,
+    /// The product name of the project.
     pub product_name: Option<&'a BStr>,
+    /// Additional comments about the project.
     pub comments: Option<&'a BStr>,
 }
 
+/// Determines the type of compile target for the VB6 project.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum CompileTargetType {
+    /// The project is a standard EXE.
     Exe,
+    /// The project is a UserControl.
     Control,
+    /// The project is a OLE Executable.
     OleExe,
+    /// The project is an OLE DLL.
     OleDll,
 }
 
+/// Determines the threading model for the VB6 project.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i16)]
 pub enum ThreadingModel {
