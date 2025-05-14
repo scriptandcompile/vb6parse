@@ -17,7 +17,7 @@ pub struct VB6MenuControl {
     pub sub_menus: Vec<VB6MenuControl>,
 }
 
-/// Properties for a Menu control.
+/// Properties for a `Menu` control.
 ///
 /// This is used as an enum variant of
 /// [`VB6ControlKind::Menu`](crate::language::controls::VB6ControlKind::Menu).

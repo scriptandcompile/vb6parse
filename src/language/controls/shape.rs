@@ -17,7 +17,7 @@ pub enum Shape {
     RoundSquare = 5,
 }
 
-/// Properties for a Shape control.
+/// Properties for a `Shape` control.
 ///
 /// This is used as an enum variant of
 /// [`VB6ControlKind::Shape`](crate::language::controls::VB6ControlKind::Shape).
