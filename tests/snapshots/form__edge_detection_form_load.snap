@@ -85,7 +85,7 @@ form:
         client_left: 45
         client_top: 630
         client_width: 6270
-        clip_controls: "True"
+        clip_controls: Clipped
         control_box: Included
         draw_mode: CopyPen
         draw_style: Solid
@@ -241,7 +241,7 @@ form:
                   - 111
                   - 110
                   - 58
-                clip_controls: "True"
+                clip_controls: Clipped
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: Enabled
@@ -389,7 +389,7 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: "Yes"
-                clip_controls: "True"
+                clip_controls: Clipped
                 data_field: []
                 data_format: []
                 data_member: []
@@ -459,7 +459,7 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: "Yes"
-                clip_controls: "True"
+                clip_controls: Clipped
                 data_field: []
                 data_format: []
                 data_member: []

@@ -48,7 +48,7 @@ impl Default for FrameProperties {
             back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
             border_style: BorderStyle::FixedSingle,
             caption: BString::from("Frame1"),
-            clip_controls: ClipControls::True,
+            clip_controls: ClipControls::Clipped,
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
