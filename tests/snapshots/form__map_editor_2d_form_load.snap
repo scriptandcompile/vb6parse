@@ -71,7 +71,7 @@ form:
         client_left: 165
         client_top: 450
         client_width: 12735
-        clip_controls: "True"
+        clip_controls: Clipped
         control_box: Included
         draw_mode: CopyPen
         draw_style: Solid
@@ -307,7 +307,7 @@ form:
                     blue: 224
                 border_style: FixedSingle
                 causes_validation: "Yes"
-                clip_controls: "True"
+                clip_controls: Clipped
                 data_field: []
                 data_format: []
                 data_member: []
@@ -384,7 +384,7 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: "Yes"
-                clip_controls: "True"
+                clip_controls: Clipped
                 data_field: []
                 data_format: []
                 data_member: []
@@ -451,7 +451,7 @@ form:
                     index: 5
                 border_style: FixedSingle
                 causes_validation: "Yes"
-                clip_controls: "True"
+                clip_controls: Clipped
                 data_field: []
                 data_format: []
                 data_member: []
@@ -523,7 +523,7 @@ form:
                     blue: 64
                 border_style: FixedSingle
                 causes_validation: "Yes"
-                clip_controls: "True"
+                clip_controls: Clipped
                 data_field: []
                 data_format: []
                 data_member: []

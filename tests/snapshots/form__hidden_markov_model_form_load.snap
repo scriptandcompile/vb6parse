@@ -96,7 +96,7 @@ form:
         client_left: 60
         client_top: 450
         client_width: 13830
-        clip_controls: "True"
+        clip_controls: Clipped
         control_box: Included
         draw_mode: CopyPen
         draw_style: Solid
@@ -248,7 +248,7 @@ form:
                   - 111
                   - 110
                   - 115
-                clip_controls: "True"
+                clip_controls: Clipped
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: Enabled
@@ -289,7 +289,7 @@ form:
                             index: 5
                         border_style: FixedSingle
                         causes_validation: "Yes"
-                        clip_controls: "True"
+                        clip_controls: Clipped
                         data_field: []
                         data_format: []
                         data_member: []
@@ -362,7 +362,7 @@ form:
                             index: 5
                         border_style: FixedSingle
                         causes_validation: "Yes"
-                        clip_controls: "True"
+                        clip_controls: Clipped
                         data_field: []
                         data_format: []
                         data_member: []
@@ -968,7 +968,7 @@ form:
                   - 116
                   - 97
                   - 32
-                clip_controls: "True"
+                clip_controls: Clipped
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: Enabled
@@ -1183,7 +1183,7 @@ form:
                   - 114
                   - 115
                   - 32
-                clip_controls: "True"
+                clip_controls: Clipped
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: Enabled
@@ -1329,7 +1329,7 @@ form:
                           - 101
                           - 115
                           - 58
-                        clip_controls: "True"
+                        clip_controls: Clipped
                         drag_icon: ~
                         drag_mode: Manual
                         enabled: Enabled
@@ -1626,7 +1626,7 @@ form:
                           - 101
                           - 115
                           - 58
-                        clip_controls: "True"
+                        clip_controls: Clipped
                         drag_icon: ~
                         drag_mode: Manual
                         enabled: Enabled
@@ -2653,7 +2653,7 @@ form:
                           - 105
                           - 101
                           - 115
-                        clip_controls: "True"
+                        clip_controls: Clipped
                         drag_icon: ~
                         drag_mode: Manual
                         enabled: Enabled
@@ -3314,7 +3314,7 @@ form:
                   - 108
                   - 101
                   - 32
-                clip_controls: "True"
+                clip_controls: Clipped
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: Enabled

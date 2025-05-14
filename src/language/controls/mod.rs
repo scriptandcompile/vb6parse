@@ -406,27 +406,38 @@ pub enum JustifyAlignment {
     RightJustify = 1,
 }
 
+/// The `Alignment` property of a `Label`, `TextBox`, or `ComboBox` control determines
+/// the alignment of the text within the control. The `Alignment` property is used
+/// to specify how the text is aligned within the control, such as left-aligned,
+/// right-aligned, or centered.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
 #[repr(i32)]
 pub enum Alignment {
+    /// The text is aligned to the left side of the control.
+    ///
+    /// This is the default setting.
     #[default]
     LeftJustify = 0,
+    /// The text is aligned to the right side of the control.
     RightJustify = 1,
+    /// The text is centered within the control.
     Center = 2,
 }
 
-/// The back style determines whether the background of a control is opaque or transparent.
+/// The `BackStyle` determines whether the background of a control is opaque or transparent.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum BackStyle {
     /// The background of the control is transparent.
     Transparent = 0,
-    /// The background of the control is opaque. (default)
+    /// The background of the control is opaque.
+    ///
+    /// This is the default setting.
     #[default]
     Opaque = 1,
 }
 
-/// The appearance determines whether or not a control is painted at run time
+/// The `Appearance` determines whether or not a control is painted at run time
 /// with 3D effects.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
 #[repr(i32)]
@@ -434,17 +445,21 @@ pub enum Appearance {
     /// The control is painted with a flat style.
     Flat = 0,
     /// The control is painted with a 3D style.
+    ///
+    /// This is the default setting.
     #[default]
     ThreeD = 1,
 }
 
-/// The border style determines the appearance of the border of a control.
+/// The `BorderStyle` determines the appearance of the border of a control.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum BorderStyle {
     /// The control has no border.
     None = 0,
     /// The control has a single-line border.
+    ///
+    /// This is the default setting.
     #[default]
     FixedSingle = 1,
 }
@@ -455,6 +470,8 @@ pub enum BorderStyle {
 pub enum DragMode {
     /// The control does not support drag and drop operations until
     /// the program manually initiates the drag operation.
+    ///
+    /// This is the default setting.
     #[default]
     Manual = 0,
     /// The control automatically initiates a drag operation when the
@@ -492,6 +509,7 @@ pub enum DrawMode {
     /// The combinaton of the display color and the inverse of the pen color.
     MergeNotPen = 12,
     /// The color specified by the `ForeColor` property is applied over the background.
+    ///
     /// This is the default setting.
     #[default]
     CopyPen = 13,
@@ -507,7 +525,9 @@ pub enum DrawMode {
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum DrawStyle {
-    /// A solid line. This is the default.
+    /// A solid line.
+    ///
+    /// This is the default setting.
     #[default]
     Solid = 0,
     /// A dashed line.
@@ -528,7 +548,9 @@ pub enum DrawStyle {
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum MousePointer {
-    /// Standard pointer. the image is determined by the object (default).
+    /// Standard pointer. The image is determined by the hovered over object.
+    ///
+    /// This is the default setting.
     #[default]
     Default = 0,
     /// Arrow pointer.
@@ -577,7 +599,9 @@ pub enum MousePointer {
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum OLEDragMode {
-    /// The programmer handles all OLE drag/drop events manually. (default).
+    /// The programmer handles all OLE drag/drop events manually.
+    ///
+    /// This is the default setting.
     #[default]
     Manual = 0,
     /// The control automatically handles all OLE drag/drop events.
@@ -589,20 +613,26 @@ pub enum OLEDragMode {
 #[repr(i32)]
 pub enum OLEDropMode {
     /// The control does not accept any OLE drop operations.
+    ///
+    /// This is the default setting.
     #[default]
     None = 0,
     /// The programmer handles all OLE drop events manually.
     Manual = 1,
 }
 
+/// Determines if the control is clipped to the bounds of the parent control.
+/// This is used with the `Form` and `MDIForm` controls.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum ClipControls {
     /// The controls are not clipped to the bounds of the parent control.
-    False = 0,
+    Unbounded = 0,
     /// The controls are clipped to the bounds of the parent control.
+    ///
+    /// This is the default setting.
     #[default]
-    True = 1,
+    Clipped = 1,
 }
 
 /// Determines if the control uses standard styling or if it uses graphical styling from it's
@@ -611,6 +641,8 @@ pub enum ClipControls {
 #[repr(i32)]
 pub enum Style {
     /// The control uses standard styling.
+    ///
+    /// This is the default setting.
     #[default]
     Standard = 0,
     /// The control uses graphical styling using its appropriate picture properties.

@@ -82,7 +82,7 @@ form:
         client_left: 60
         client_top: 345
         client_width: 6675
-        clip_controls: "True"
+        clip_controls: Clipped
         control_box: Included
         draw_mode: CopyPen
         draw_style: Solid
