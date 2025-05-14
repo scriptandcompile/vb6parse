@@ -108,11 +108,17 @@ pub enum UseExistingBrowser {
     Use = -1,
 }
 
+/// Start mode of the VB6 project.
+///
+/// Indicates whether the project is a stand-alone application or an ActiveX
+/// component.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i16)]
 pub enum StartMode {
+    /// The project is a stand-alone application. Essentially, a normal EXE.
     #[default]
     StandAlone = 0,
+    /// The project is an ActiveX component.
     Automation = 1,
 }
 
@@ -128,18 +134,24 @@ pub enum StartMode {
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i16)]
 pub enum InteractionMode {
-    /// The program can show dialogs and interact with the user.
+    /// The program can show dialogs and interacts with the user.
     #[default]
     Interactive = 0,
     /// The program cannot show dialogs and will not interact with the user.
     Unattended = -1,
 }
 
+/// Indicates if the project will produce the server support VBR & TLB files.
+///
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i16)]
 pub enum ServerSupportFiles {
+    /// The project will not produce the VBR and TLB files since this is a
+    /// local only project.
     #[default]
     Local = 0,
+    /// The project will produce the VBR and TLB files needed for packaging
+    /// the client applications which use this server project.
     Remote = 1,
 }
 
