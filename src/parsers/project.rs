@@ -155,11 +155,16 @@ pub enum ServerSupportFiles {
     Remote = 1,
 }
 
+/// If the ActiveX control has been updated in windows since the last time
+/// the project was opened this setting determines if the project should
+/// be updated to use the new control or not.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i16)]
 pub enum UpgradeControls {
+    /// The project should be updated to use the new control.
     #[default]
     Upgrade = 0,
+    /// The project should not be updated to use the new control.
     NoUpgrade = 1,
 }
 
