@@ -4,7 +4,7 @@ use crate::parsers::Properties;
 
 use serde::Serialize;
 
-/// Properties for a Line control.
+/// Properties for a `Line` control.
 ///
 /// This is used as an enum variant of
 /// [`VB6ControlKind::Line`](crate::language::controls::VB6ControlKind::Line).
