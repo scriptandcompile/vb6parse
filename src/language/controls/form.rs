@@ -15,24 +15,88 @@ use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
+/// The palette drawing mode of a form.
+///
+/// The PaletteMode property only applies to 256-color displays. On high-color
+/// or true-color displays, color selection is handled by the video driver using
+/// a palette of 32,000 or 16 million colors respectively. Even if you’re
+/// rogramming on a system with a high-color or true-color display, you still
+/// may want to set the PaletteMode, because many of your users may be using
+/// 256-color displays.
+///
+/// [reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa733659(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum PaletteMode {
+    /// In this mode, any controls, images contained on the form, or graphics
+    /// methods draw using the system halftone palette.
+    ///
+    /// Halftone mode is a good choice in most cases because it provides a
+    /// compromise between the images in your form, and colors used in other
+    /// forms or images. It may, however, result in a degradation of quality for
+    /// some images. For example, an image with a palette containing 256 shades
+    /// of gray may lose detail or display unexpected traces of other colors.
+    ///
+    /// This is the default value.
+    ///
+    /// [reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa733659(v=vs.60))
     #[default]
     HalfTone = 0,
+    /// Z-order is a relative ordering that determines how controls overlap each
+    /// other on a form. When the PaletteMode of the form with the focus is set
+    /// to UseZOrder, the palette of the topmost control always has precedence.
+    /// This means that each time a new control becomes topmost (for instance,
+    /// when you load a new image into a picture box), the hardware palette will
+    /// be remapped. This will often cause a side effect known as palette flash:
+    /// The display appears to flash as the new colors are displayed, both in
+    /// the current form and in any other visible forms or applications.
+    ///
+    /// Although the UseZOrder setting provides the most accurate color
+    /// rendition, it comes at the expense of speed. Additionally, this method
+    /// can cause the background color of the form or of controls that have no
+    /// image to appear dithered. Setting the PaletteMode to UseZOrder is the
+    /// best choice when accurate display of the topmost image outweighs the
+    /// annoyance of palette flash, or when you need to maintain backward
+    /// compatibility with earlier versions of Visual Basic.
+    ///
+    /// [reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa733659(v=vs.60))
     UseZOrder = 1,
+    /// If you need more precise control over the actual display of colors, you
+    /// can use a 256-color image to define a custom palette. To do this, assign
+    /// a 256-color image (.gif, .cur, .ico, .dib, or .gif) to the Palette
+    /// property of the form and set the PaletteMode property to Custom.
+    /// The bitmap doesn’t have to be very large; even a single pixel can define
+    /// up to 256 colors for the form or picture box. This is because the
+    /// logical palette of a bitmap can list up to 256 colors, regardless of
+    /// whether all those colors appear in the bitmap.
+    ///
+    /// As with the default method, colors that you define using the RGB
+    /// function must also exist in the bitmap. If the color doesn’t match, it
+    /// will be mapped to the closest match in the logical palette of the bitmap
+    /// assigned to the Palette property.
+    ///
+    /// [reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa733659(v=vs.60))
     Custom = 2,
 }
 
+/// The property that determines th appearance of a forms border.
 #[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
 #[repr(i32)]
 pub enum FormBorderStyle {
+    /// The form has no border.
     None = 0,
+    /// The form has a fixed border.
     FixedSingle = 1,
+    /// The form has a sizable border.
+    ///
+    /// This is the default value.
     #[default]
     Sizable = 2,
+    /// The form has a fixed dialog border.
     FixedDialog = 3,
+    /// The form has a fixed tool window border.
     FixedToolWindow = 4,
+    /// The form has a sizable tool window border.
     SizableToolWindow = 5,
 }
 
