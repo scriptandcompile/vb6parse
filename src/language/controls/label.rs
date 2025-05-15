@@ -15,11 +15,11 @@ use serde::Serialize;
 #[repr(i32)]
 pub enum WordWrap {
     /// The `Label` control will not wrap text.
+    ///
+    /// This is the default value.
     #[default]
     NonWrapping = 0,
     /// The `Label` control will wrap text.
-    /// Yes, It uses -1 as the value.
-    // TODO: Check to confirm that wrapping labels use -1 as the value.
     Wrapping = -1,
 }
 
