@@ -14,12 +14,21 @@ use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
+/// Represents the current state of a checkbox control.
+///
+/// This is used as a property of the [`CheckBoxProperties`](crate::language::controls::CheckBoxProperties)
+/// struct.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
 #[repr(i32)]
 pub enum CheckBoxValue {
+    /// The checkbox is unchecked.
+    ///
+    /// This is the default value.
     #[default]
     Unchecked = 0,
+    /// The checkbox is checked.
     Checked = 1,
+    /// The checkbox is grayed out and cannot be checked or unchecked.
     Grayed = 2,
 }
 
