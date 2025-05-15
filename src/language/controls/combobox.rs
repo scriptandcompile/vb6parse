@@ -10,12 +10,23 @@ use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
+/// The `ComboBoxStyle` enum represents the different styles of a ComboBox control.
+/// It can be either a drop-down list, a simple list, or a drop-down
+/// list with a text box.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum ComboBoxStyle {
+    /// A drop-down combo box that allows the user to select an item from a list
+    /// or enter a new value.
+    ///
+    /// This is the default style.
     #[default]
     DropDownCombo = 0,
+    /// A simple combo box that allows the user to select an item from a list
+    /// but does not allow the user to enter a new value.
     SimpleCombo = 1,
+    /// A drop-down list that allows the user to select an item from a list
+    /// but does not allow the user to enter a new value.
     DropDownList = 2,
 }
 
