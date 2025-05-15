@@ -202,11 +202,19 @@ impl<'a> From<Properties<'a>> for DataProperties {
     }
 }
 
+/// BOFAction is used to determine what action the ADODC takes when the BOF
+/// property is true.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum BOFAction {
+    /// Keeps tthe first record as the current record.
+    ///
+    /// This is the default value.
     #[default]
     MoveFirst = 0,
+    /// Moving past the start of a RecordSet triggers the Validate event on the
+    /// first record, followed by a Reposition event on the invalid (BOF) record.
+    /// At this point, the Move Previous button on the ADODC is disabled.
     Bof = 1,
 }
 
