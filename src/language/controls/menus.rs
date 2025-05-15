@@ -79,96 +79,346 @@ impl<'a> From<Properties<'a>> for MenuProperties {
     }
 }
 
+/// Determines whether or not top-level Menu controls are displayed on the menu
+/// bar while a linked object or embedded object  on a form is active and
+/// displaying its menus.
+///
+/// Using the NegotiatePosition property, you determine the individual menus on
+/// the menu bar of your form that share (or negotiate) menu bar space with the
+/// menus of an active object on the form. Any menu with NegotiatePosition set
+/// to a nonzero value is displayed on the menu bar of the form along with menus
+/// from the active object.
+///
+/// If the `NegotiateMenus` property of the corresponding `FormProperties` is
+/// false, the setting of the `NegotiatePosition` property has no effect.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa278135(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
 #[repr(i32)]
 pub enum NegotiatePosition {
+    /// The menu is not displayed on the menu bar.
+    ///
+    /// This is the default value.
     #[default]
     None = 0,
+    /// The menu is displayed at the left end of the menu bar when the object is active.
     Left = 1,
+    /// The menu is displayed in the middle of the menu bar when the object is active.
     Middle = 2,
+    /// The menu is displayed at the right end of the menu bar when the object is active.
     Right = 3,
 }
 
+/// Represents a keyboard shortcut for a menu item.
+///
+/// Note:
+///
+/// In addition to shortcut keys, you can also assign access keys to
+/// commands, menus, and controls by using an ampersand (&) in the `Caption`
+/// property setting.
+///
+/// The F10, Ctrl+F10, Shift+F10, and Ctrl+Shift+F10 keys are not valid shortcut keys.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub enum ShortCut {
+    /// Ctrl + A
+    ///
+    /// This is stored in the Form file as "^A"
     CtrlA,
+    /// Ctrl + B
+    ///
+    /// This is stored in the Form file as "^B"
     CtrlB,
+    /// Ctrl + C
+    ///
+    /// This is stored in the Form file as "^C"
     CtrlC,
+    /// Ctrl + D
+    ///
+    /// This is stored in the Form file as "^D"
     CtrlD,
+    /// Ctrl + E
+    ///
+    /// This is stored in the Form file as "^E"
     CtrlE,
+    /// Ctrl + F
+    ///
+    /// This is stored in the Form file as "^F"
     CtrlF,
+    /// Ctrl + G
+    ///
+    /// This is stored in the Form file as "^G"
     CtrlG,
+    /// Ctrl + H
+    ///
+    /// This is stored in the Form file as "^H"
     CtrlH,
+    /// Ctrl + I
+    ///
+    /// This is stored in the Form file as "^I"
     CtrlI,
+    /// Ctrl + J
+    ///
+    /// This is stored in the Form file as "^J"
     CtrlJ,
+    /// Ctrl + K
+    ///
+    /// This is stored in the Form file as "^K"
     CtrlK,
+    /// Ctrl + L
+    ///
+    /// This is stored in the Form file as "^L"
     CtrlL,
+    /// Ctrl + M
+    ///
+    /// This is stored in the Form file as "^M"
     CtrlM,
+    /// Ctrl + N
+    ///
+    /// This is stored in the Form file as "^N"
     CtrlN,
+    /// Ctrl + O
+    ///
+    /// This is stored in the Form file as "^O"
     CtrlO,
+    /// Ctrl + P
+    ///
+    /// This is stored in the Form file as "^P"
     CtrlP,
+    /// Ctrl + Q
+    ///
+    /// This is stored in the Form file as "^Q"
     CtrlQ,
+    /// Ctrl + R
+    ///
+    /// This is stored in the Form file as "^R"
     CtrlR,
+    /// Ctrl + S
+    ///
+    /// This is stored in the Form file as "^S"
     CtrlS,
+    /// Ctrl + T
+    ///
+    /// This is stored in the Form file as "^T"
     CtrlT,
+    /// Ctrl + U
+    ///
+    /// This is stored in the Form file as "^U"
     CtrlU,
+    /// Ctrl + V
+    ///
+    /// This is stored in the Form file as "^V"
     CtrlV,
+    /// Ctrl + W
+    ///
+    /// This is stored in the Form file as "^W"
     CtrlW,
+    /// Ctrl + X
+    ///
+    /// This is stored in the Form file as "^X"
     CtrlX,
+    /// Ctrl + Y
+    ///
+    /// This is stored in the Form file as "^Y"
     CtrlY,
+    /// Ctrl + Z
+    ///
+    /// This is stored in the Form file as "^Z"
     CtrlZ,
+    /// The F1 function key.
+    ///
+    /// This is stored in the Form file as "{F1}"
     F1,
+    /// The F2 function key.
+    ///
+    /// This is stored in the Form file as "{F2}"
     F2,
+    /// The F3 function key.
+    ///
+    /// This is stored in the Form file as "{F3}"
     F3,
+    /// The F4 function key.
+    ///
+    /// This is stored in the Form file as "{F4}"
     F4,
+    /// The F5 function key.
+    ///
+    /// This is stored in the Form file as "{F5}"
     F5,
+    /// The F6 function key.
+    ///
+    /// This is stored in the Form file as "{F6}"
     F6,
+    /// The F7 function key.
+    ///
+    /// This is stored in the Form file as "{F7}"
     F7,
+    /// The F8 function key.
+    ///
+    /// This is stored in the Form file as "{F8}"
     F8,
+    /// The F9 function key.
+    ///
+    /// This is stored in the Form file as "{F9}"
     F9,
-    // F10 is not included.
+    /// The F11 function key.
+    ///
+    /// This is stored in the Form file as "{F11}"
     F11,
+    /// The F12 function key.
+    ///
+    /// This is stored in the Form file as "{F12}"
     F12,
+    /// Ctrl + F1
+    ///
+    /// This is stored in the Form file as "^{F1}"
     CtrlF1,
+    /// Ctrl + F2
+    ///
+    /// This is stored in the Form file as "^{F2}"
     CtrlF2,
+    /// Ctrl + F3
+    ///
+    /// This is stored in the Form file as "^{F3}"
     CtrlF3,
+    /// Ctrl + F4
+    ///
+    /// This is stored in the Form file as "^{F4}"
     CtrlF4,
+    /// Ctrl + F5
+    ///
+    /// This is stored in the Form file as "^{F5}"
     CtrlF5,
+    /// Ctrl + F6
+    ///
+    /// This is stored in the Form file as "^{F6}"
     CtrlF6,
+    /// Ctrl + F7
+    ///
+    /// This is stored in the Form file as "^{F7}"
     CtrlF7,
+    /// Ctrl + F8
+    ///
+    /// This is stored in the Form file as "^{F8}"
     CtrlF8,
+    /// Ctrl + F9
+    ///
+    /// This is stored in the Form file as "^{F9}"
     CtrlF9,
-    // CtrlF10 is not included.
+    /// Ctrl + F11
+    ///
+    /// This is stored in the Form file as "^{F11}"
     CtrlF11,
+    /// Ctrl + F12
+    ///
+    /// This is stored in the Form file as "^{F12}"
     CtrlF12,
+    /// Shift + F1
+    ///
+    /// This is stored in the Form file as "+{F1}"
     ShiftF1,
+    /// Shift + F2
+    ///
+    /// This is stored in the Form file as "+{F2}"
     ShiftF2,
+    /// Shift + F3
+    ///
+    /// This is stored in the Form file as "+{F3}"
     ShiftF3,
+    /// Shift + F4
+    ///
+    /// This is stored in the Form file as "+{F4}"
     ShiftF4,
+    /// Shift + F5
+    ///
+    /// This is stored in the Form file as "+{F5}"
     ShiftF5,
+    /// Shift + F6
+    ///
+    /// This is stored in the Form file as "+{F6}"
     ShiftF6,
+    /// Shift + F7
+    ///
+    /// This is stored in the Form file as "+{F7}"
     ShiftF7,
+    /// Shift + F8
+    ///
+    /// This is stored in the Form file as "+{F8}"
     ShiftF8,
+    /// Shift + F9
+    ///
+    /// This is stored in the Form file as "+{F9}"
     ShiftF9,
-    // ShiftF10 is not included.
+    /// Shift + F11
+    ///
+    /// This is stored in the Form file as "+{F11}"
     ShiftF11,
+    /// Shift + F12
+    ///
+    /// This is stored in the Form file as "+{F12}"
     ShiftF12,
+    /// Shift + Ctrl + F1
+    ///
+    /// This is stored in the Form file as "+^{F1}"
     ShiftCtrlF1,
+    /// Shift + Ctrl + F2
+    ///
+    /// This is stored in the Form file as "+^{F2}"
     ShiftCtrlF2,
+    /// Shift + Ctrl + F3
+    ///
+    /// This is stored in the Form file as "+^{F3}"
     ShiftCtrlF3,
+    /// Shift + Ctrl + F4
+    ///
+    /// This is stored in the Form file as "+^{F4}"
     ShiftCtrlF4,
+    /// Shift + Ctrl + F5
+    ///
+    /// This is stored in the Form file as "+^{F5}"
     ShiftCtrlF5,
+    /// Shift + Ctrl + F6
+    ///
+    /// This is stored in the Form file as "+^{F6}"
     ShiftCtrlF6,
+    /// Shift + Ctrl + F7
+    ///
+    /// This is stored in the Form file as "+^{F7}"
     ShiftCtrlF7,
+    /// Shift + Ctrl + F8
+    ///
+    /// This is stored in the Form file as "+^{F8}"
     ShiftCtrlF8,
+    /// Shift + Ctrl + F9
+    ///
+    /// This is stored in the Form file as "+^{F9}"
     ShiftCtrlF9,
-    // ShiftCtrlF10 is not included.
+    /// Shift + Ctrl + F11
+    ///
+    /// This is stored in the Form file as "+^{F11}"
     ShiftCtrlF11,
+    /// Shift + Ctrl + F12
+    ///
+    /// This is stored in the Form file as "+^{F12}"
     ShiftCtrlF12,
+    /// Ctrl + Insert
+    ///
+    /// This is stored in the Form file as "^{INSERT}"
     CtrlIns,
+    /// Shift + Insert
+    ///
+    /// This is stored in the Form file as "+{INSERT}"
     ShiftIns,
+    /// Delete
+    ///
+    /// This is stored in the Form file as "{DEL}"
     Del,
+    /// Shift + Delete
+    ///
+    /// This is stored in the Form file as "+{DEL}"
     ShiftDel,
+    /// Alt + Backspace
+    ///
+    /// This is stored in the Form file as "%{BKSP}"
     AltBKsp,
 }
 
