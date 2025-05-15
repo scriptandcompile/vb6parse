@@ -16,10 +16,16 @@ pub use controls::{
     checkbox::{CheckBoxProperties, CheckBoxValue},
     combobox::{ComboBoxProperties, ComboBoxStyle},
     commandbutton::CommandButtonProperties,
-    data::DataProperties,
+    data::{
+        BOFAction, Connection, DataProperties, DefaultCursorType, DefaultType, EOFAction,
+        RecordSetType,
+    },
     dirlistbox::DirListBoxProperties,
     drivelistbox::DriveListBoxProperties,
-    filelistbox::FileListBoxProperties,
+    filelistbox::{
+        ArchiveAttribute, FileListBoxProperties, HiddenAttribute, NormalAttribute,
+        ReadOnlyAttribute, SystemAttribute,
+    },
     form::{FormBorderStyle, FormProperties, PaletteMode},
     frame::FrameProperties,
     image::ImageProperties,
@@ -35,9 +41,12 @@ pub use controls::{
     shape::{Shape, ShapeProperties},
     textbox::{ScrollBars, TextBoxProperties},
     timer::TimerProperties,
-    Align, Alignment, Appearance, BackStyle, BorderStyle, ClipControls, DragMode, DrawMode,
-    DrawStyle, FillStyle, FormLinkMode, JustifyAlignment, LinkMode, MousePointer, OLEDragMode,
-    OLEDropMode, ScaleMode, StartUpPosition, Style, VB6Control, VB6ControlKind, WindowState,
+    Activation, Align, Alignment, Appearance, AutoRedraw, AutoSize, BackStyle, BorderStyle,
+    CausesValidation, ClipControls, DragMode, DrawMode, DrawStyle, FillStyle, FontTransparency,
+    FormLinkMode, HasDeviceContext, JustifyAlignment, LinkMode, MousePointer, Movability,
+    MultiSelect, OLEDragMode, OLEDropMode, ScaleMode, SizeMode, StartUpPosition, Style, TabStop,
+    TextDirection, UseMaskColor, VB6Control, VB6ControlKind, Visibility, WhatsThisHelp,
+    WindowState,
 };
 
 pub use tokens::VB6Token;
