@@ -5,15 +5,26 @@ use crate::parsers::Properties;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
+/// The specific kind of shape to draw for a `Shape` control.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445683(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum Shape {
+    /// A rectangle.
+    ///
+    /// This is the default shape.
     #[default]
     Rectangle = 0,
+    /// A square.
     Square = 1,
+    /// An oval.
     Oval = 2,
+    /// A circle.
     Circle = 3,
+    /// A rounded rectangle.
     RoundedRectangle = 4,
+    /// A rounded square.
     RoundSquare = 5,
 }
 
