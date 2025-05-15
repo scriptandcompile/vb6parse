@@ -79,7 +79,7 @@ pub enum PaletteMode {
     Custom = 2,
 }
 
-/// The property that determines th appearance of a forms border.
+/// The property that determines the appearance of a forms border.
 #[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
 #[repr(i32)]
 pub enum FormBorderStyle {
