@@ -10,39 +10,83 @@ use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
+/// Determines the type of object an OLE container control can contain.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245856(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum OLETypeAllowed {
+    /// The OLE container control can contain only a linked object.
     Link = 0,
+    /// The OLE container control can contain only an embedded object.
     Embedded = 1,
+    /// The OLE container control can contain either a linked or an embedded object.
+    ///
+    /// This is the default value.
     #[default]
     Either = 2,
 }
 
+/// Specifies how an object is updated when linked data is modified.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445752(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum UpdateOptions {
+    /// The object is updated each time the linked data changes.
+    ///
+    /// This is the default value.
     #[default]
     Automatic = 0,
+    /// The object is updated whenever the user saves the linked data from within
+    /// the application in which it was created.
     Frozen = 1,
+    /// The object is updated only by using the Update method.
     Manual = 2,
 }
 
+/// Determines how the user can activate an object by double-clicking the OLE
+/// container control or by moving the focus to the OLE container control.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245027(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum AutoActivate {
+    /// The object isn't automatically activated. You can activate an object
+    /// programmatically using the `DoVerb` method.
     Manual = 0,
+    /// If the OLE container control contains an object that supports single
+    /// click activation, the application that provides the object is activated
+    /// when the OLE container control receives the focus.
     GetFocus = 1,
+    /// If the OLE container control contains an object, the application that
+    /// provides the object is activated when the user double-clicks the OLE
+    /// container control or presses ENTER when the control has the focus.
+    ///
+    /// This is the default value.
     #[default]
     DoubleClick = 2,
+    /// If the OLE container control contains an object, the application that
+    /// provides the object is activated based on the object's normal method of
+    /// activation either when the control receives the focus or when the user
+    /// double-clicks the control.
     Automatic = 3,
 }
 
+/// Determines whether an object displays its contents or an icon.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa234850(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum DisplayType {
+    /// When the OLE container control contains an object, the object's data is
+    /// displayed in the control.
+    ///
+    /// This is the default value.
     #[default]
     Content = 0,
+    /// When the OLE container control contains an object, the object's icon is
+    /// displayed in the control.
     Icon = 1,
 }
 
