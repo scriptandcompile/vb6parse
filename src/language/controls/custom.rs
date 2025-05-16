@@ -5,6 +5,10 @@ use std::collections::HashMap;
 
 /// Properties for a `Custom` control.
 ///
+/// This is used to represent a non-standard control that is not part of the
+/// standard VB6 controls. This can include third-party controls and user-defined
+/// controls.
+///
 /// This is used as an enum variant of
 /// [`VB6ControlKind::CustomControl`](crate::language::controls::VB6ControlKind::Custom).
 /// tag, name, and index are not included in this struct, but instead are part
