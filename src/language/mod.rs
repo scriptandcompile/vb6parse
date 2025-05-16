@@ -16,6 +16,7 @@ pub use controls::{
     checkbox::{CheckBoxProperties, CheckBoxValue},
     combobox::{ComboBoxProperties, ComboBoxStyle},
     commandbutton::CommandButtonProperties,
+    custom::CustomControlProperties,
     data::{
         BOFAction, Connection, DataProperties, DefaultCursorType, DefaultType, EOFAction,
         RecordSetType,
