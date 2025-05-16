@@ -55,28 +55,39 @@ use crate::language::controls::{
 };
 
 /// `AutoRedraw` determines if the control is redrawn automatically when something is
-/// moved in front of it.
+/// moved in front of it or if it is redrawn manually.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245029(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum AutoRedraw {
-    /// The control is not redrawn automatically.
+    /// Disables automatic repainting of an object and writes graphics or text
+    /// only to the screen. Visual Basic invokes the object's `Paint` event when
+    /// necessary to repaint the object.
+    ///
+    /// This is the default setting.
     #[default]
     Manual = 0,
-    /// The control is redrawn automatically.
-    /// Yes, they used -1 for this.
+    /// Enables automatic repainting of a `Form` object or `PictureBox` control.
+    /// Graphics and text are written to the screen and to an image stored in memory.
+    /// The object doesn't receive `Paint` events; it's repainted when necessary,
+    /// using the image stored in memory.
     Automatic = -1,
 }
 
-/// `TextDirection` determines the orderdirection in which text is displayed in the control.
+/// `TextDirection` determines the direction in which text is displayed in the control.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa442921(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum TextDirection {
-    /// The text is ordered from right to left.
-    /// Yes, they used -1 for true.
-    RightToLeft = -1,
     /// The text is ordered from left to right.
+    ///
+    /// This is the default setting.
     #[default]
     LeftToRight = 0,
+    /// The text is ordered from right to left.
+    RightToLeft = -1,
 }
 
 /// `AutoSize` determines if the control is automatically resized to fit its contents.
@@ -85,25 +96,32 @@ pub enum TextDirection {
 /// In a `PictureBox`, this property is used to determine if the control is automatically resized
 /// to fit the size of the picture. If set to `Fixed` the control is not resized and the picture
 /// will be scaled or clipped depending on other properties like `SizeMode`.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245034(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum AutoSize {
-    /// The control is not automatically resized.
+    /// Keeps the size of the control constant. Contents are clipped when they
+    /// exceed the area of the control.
+    ///
+    /// This is the default setting.
     #[default]
     Fixed = 0,
-    /// The control is automatically resized.
-    // TODO: Check to confirm that this is the correct value.
+    /// Automatically resizes the control to display its entire contents.
     Resize = -1,
 }
 
-/// `Activation` determines if the control is enabled or disabled.
-/// In VB6, the `enabled` property determines whether a control can respond to user input.
+/// Determines if a control or form can respond to user-generated events.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa267301(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum Activation {
-    /// The control is not disabled.
+    /// The control is disabled and will not respond to user-generated events.
     Disabled = 0,
-    /// The control is enabled.
+    /// The control is enabled and will respond to user-generated events.
+    ///
+    /// This is the default setting.
     #[default]
     Enabled = -1,
 }
@@ -111,29 +129,40 @@ pub enum Activation {
 /// `TabStop` determines if the control is included in the tab order.
 /// In VB6, the `TabStop` property determines whether a control can receive focus
 /// when the user navigates through controls using the Tab key.
+///
 /// When `TabStop` is set to `Included`, the control is included in the tab order
 /// and can receive focus when the user presses the Tab key.
+///
 /// When `TabStop` is set to `ProgrammaticOnly`, the control is skipped in the
 /// tab order and cannot receive focus via the Tab key.
 /// However, it can still receive focus programmatically or through other user interactions.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445721(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum TabStop {
-    /// The control is not included in the tab order but can be focused programmatically.
+    /// Bypasses the object when the user is tabbing, although the object still
+    /// holds its place in the actual tab order, as determined by the `TabIndex`
+    /// property.
     ProgrammaticOnly = 0,
-    /// The control is included in the tab order.
-    // TODO: Check to confirm that this is the correct value.
+    /// Designates the object as a tab stop.
+    ///
+    /// This is the default setting.
     #[default]
     Included = -1,
 }
 
-/// Determines if the control is visible or not.
+/// Determines if the control is visible or hidden.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445768(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum Visibility {
     /// The control is not visible.
-    Invisible = 0,
+    Hidden = 0,
     /// The control is visible.
+    ///
+    /// This is the default setting.
     #[default]
     Visible = -1,
 }

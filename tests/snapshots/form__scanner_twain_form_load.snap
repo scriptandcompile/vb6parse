@@ -466,7 +466,7 @@ form:
                 tab_stop: Included
                 tool_tip_text: []
                 top: 5400
-                visible: Invisible
+                visible: Hidden
                 whats_this_help_id: 0
                 width: 615
         - name:
@@ -916,7 +916,7 @@ form:
                 tool_tip_text: []
                 top: 4320
                 use_mnemonic: true
-                visible: Invisible
+                visible: Hidden
                 whats_this_help_id: 0
                 width: 2895
                 word_wrap: NonWrapping

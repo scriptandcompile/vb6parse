@@ -2123,7 +2123,7 @@ form:
                 tab_stop: Included
                 tool_tip_text: []
                 top: 360
-                visible: Invisible
+                visible: Hidden
                 whats_this_help_id: 0
                 width: 7530
         - name:
@@ -2197,7 +2197,7 @@ form:
                 tab_stop: Included
                 tool_tip_text: []
                 top: 360
-                visible: Invisible
+                visible: Hidden
                 whats_this_help_id: 0
                 width: 7530
         - name:
