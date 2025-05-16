@@ -168,28 +168,40 @@ pub enum Visibility {
 }
 
 /// Determines if the control has a device context.
-/// A device context is a Windows data structure that defines a set of graphic objects
-/// and their associated attributes, and it defines a mapping between the logical
-/// coordinates and device coordinates for a particular device, such as a display or printer.
+///
+/// A device context is a Windows data structure that defines a set of graphic
+/// objects and their associated attributes, and it defines a mapping between
+/// the logical coordinates and device coordinates for a particular device, such
+/// as a display or printer.
+///
+/// [Reference[(https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245860(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum HasDeviceContext {
     /// The control does not have a device context.
     No = 0,
     /// The control has a device context.
+    ///
+    /// This is the default setting.
     #[default]
     Yes = -1,
 }
 
-/// Determines if the control uses the `mask_color` property as the trnsparent color
-/// on the control.
+/// Determines whether the color assigned in the `mask_color` property is used
+/// as a mask.
+/// That is, if it is used to create transparent regions.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445753(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum UseMaskColor {
     /// The control does not use the mask color.
-    DoNotUseMaskColor = 0,
-    /// The control uses the mask color.
+    ///
+    /// This is the default setting.
     #[default]
+    DoNotUseMaskColor = 0,
+    /// The color assigned to the `mask_color` property is used as a mask,
+    /// creating a transparent region wherever that color is.
     UseMaskColor = -1,
 }
 
