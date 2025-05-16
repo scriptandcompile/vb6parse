@@ -12,13 +12,25 @@ use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
+/// Determines whether an object has horizontal or vertical scroll bars.
+///
+/// Note:
+/// For a `TextBox` control, the multiline property must be set to `true`
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445672(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
 #[repr(i32)]
 pub enum ScrollBars {
+    /// No scroll bars are displayed.
+    ///
+    /// This is the default value.
     #[default]
     None = 0,
+    /// A horizontal scroll bar is displayed.
     Horizontal = 1,
+    /// A vertical scroll bar is displayed.
     Vertical = 2,
+    /// Both horizontal and vertical scroll bars are displayed.
     Both = 3,
 }
 
@@ -30,8 +42,6 @@ pub enum MultiLine {
     #[default]
     SingleLine = 0,
     /// The `TextBox` control is a multi-line text box.
-    /// Yes, the they used -1 to indicate true here.
-    // TODO: Check to confirm that multi-line text boxes use -1 as the value.
     MultiLine = -1,
 }
 
