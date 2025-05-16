@@ -207,7 +207,7 @@ form:
                 tab_index: 12
                 tool_tip_text: []
                 top: 5520
-                visible: Invisible
+                visible: Hidden
                 whats_this_help_id: 0
                 width: 2775
               controls:
@@ -370,7 +370,7 @@ form:
                 tab_index: 9
                 tool_tip_text: []
                 top: 4200
-                visible: Invisible
+                visible: Hidden
                 whats_this_help_id: 0
                 width: 2775
               controls:
@@ -579,7 +579,7 @@ form:
                 tab_index: 5
                 tool_tip_text: []
                 top: 2520
-                visible: Invisible
+                visible: Hidden
                 whats_this_help_id: 0
                 width: 2775
               controls:
@@ -1016,7 +1016,7 @@ form:
                 tab_stop: Included
                 tool_tip_text: []
                 top: 120
-                visible: Invisible
+                visible: Hidden
                 whats_this_help_id: 0
                 width: 12030
         - name:

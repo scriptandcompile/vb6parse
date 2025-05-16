@@ -397,7 +397,7 @@ form:
                 tab_stop: Included
                 tool_tip_text: []
                 top: 600
-                visible: Invisible
+                visible: Hidden
                 whats_this_help_id: 0
                 width: 6030
       menus:

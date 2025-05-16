@@ -400,7 +400,7 @@ form:
                 tab_stop: Included
                 tool_tip_text: []
                 top: 120
-                visible: Invisible
+                visible: Hidden
                 whats_this_help_id: 0
                 width: 10110
       menus:
