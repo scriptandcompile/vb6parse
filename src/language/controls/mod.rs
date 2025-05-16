@@ -209,10 +209,10 @@ pub enum UseMaskColor {
 /// In VB6, the `CausesValidation` property determines whether a control causes validation
 /// to occur when the user attempts to move focus from the control.
 ///
-/// If `CausesValidation` is set to `True`, validation occurs when the user attempts to move
+/// If `CausesValidation` is set to `true`, validation occurs when the user attempts to move
 /// focus from the control to another control.
 ///
-/// If `CausesValidation` is set to `False`, validation does not occur when the user attempts
+/// If `CausesValidation` is set to `false`, validation does not occur when the user attempts
 /// to move focus from the control to another control.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245065(v=vs.60))
@@ -221,10 +221,10 @@ pub enum UseMaskColor {
 pub enum CausesValidation {
     /// The control does not cause validation.
     ///
-    /// The control from which the focus has shifted does not fire its Validate event.
+    /// The control from which the focus has shifted does not fire its `Validate` event.
     No = 0,
     /// The control causes validation.
-    /// The control from which the focus has shifted fires its Validate event.
+    /// The control from which the focus has shifted fires its `Validate` event.
     ///
     /// This is the default setting.
     #[default]
@@ -236,40 +236,55 @@ pub enum CausesValidation {
 /// move the form by dragging its title bar or by using the arrow keys.
 /// If the form is moveable, the user can move the form by dragging its title
 /// bar or by using the arrow keys.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa235194(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
 #[repr(i32)]
 pub enum Movability {
     /// The form is not moveable.
     Fixed = 0,
     /// The form is moveable.
+    ///
+    /// This is the default setting.
     #[default]
     Moveable = -1,
 }
 
-/// The `FontTransparency` property of a `Form` or `PictureBox` control determines
-/// whether the `Font` property is transparent or opaque.
+/// Determines whether background text and graphics on a `Form` or a `PictureBox`
+/// control are displayed in the spaces around characters.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa267490(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
 #[repr(i32)]
 pub enum FontTransparency {
-    /// The font is not transparent.
+    /// Masks existing background graphics and text around the characters of a
+    /// font.
     Opaque = 0,
-    /// The font is transparent.
+    /// Permits background graphics and text to show around the spaces of the
+    /// characters in a font.
+    ///
+    /// This is the default setting.
     #[default]
     Transparent = -1,
 }
 
-/// The `WhatsThisHelp` property of a `Form` control determines whether the
-/// context-sensitive Help uses the pop-up window provided by Windows 95 Help
-/// or the main Help window.
+/// Determines whether context-sensitive Help uses the What's This pop-up
+/// (provided by Help in 32-bit Windows operating systems) or the main Help
+/// window.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445772(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
 #[repr(i32)]
 pub enum WhatsThisHelp {
     /// The application uses the F1 key to start Windows Help and load the topic
     /// identified by the `help_context_id` property.
+    ///
+    /// This is the default setting.
     #[default]
     F1Help = 0,
-    // The application uses one of the 'What's This' access techniques to start
-    // Windows Help.
+    /// The application uses one of the "What's This?" access techniques to
+    /// start Windows Help and load a topic identified by the
+    /// `help_context_id` property.
     WhatsThisHelp = -1,
 }
 
