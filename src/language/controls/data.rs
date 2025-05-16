@@ -204,6 +204,8 @@ impl<'a> From<Properties<'a>> for DataProperties {
 
 /// BOFAction is used to determine what action the ADODC takes when the BOF
 /// property is true.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245042(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum BOFAction {
@@ -212,9 +214,9 @@ pub enum BOFAction {
     /// This is the default value.
     #[default]
     MoveFirst = 0,
-    /// Moving past the start of a RecordSet triggers the Validate event on the
-    /// first record, followed by a Reposition event on the invalid (BOF) record.
-    /// At this point, the Move Previous button on the ADODC is disabled.
+    /// Moving past the start of a `RecordSet` triggers the `Validate` event on the
+    /// first record, followed by a `Reposition` event on the invalid (BOF) record.
+    /// At this point, the "Move Previous" button on the `Data` control is disabled.
     Bof = 1,
 }
 
@@ -293,37 +295,79 @@ impl TryFrom<&str> for Connection {
     }
 }
 
+/// Controls what type of cursor driver is used on the connection (ODBCDirect only)
+/// created by the `Data` control.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa234557(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum DefaultCursorType {
+    /// Let the ODBC driver determine which type of cursor to use.
+    ///
+    /// This is the default value.
     #[default]
     Default = 0,
+    /// Use the ODBC cursor library. This option gives better performance for
+    /// small result sets, but degrades quickly for larger result sets.
     Odbc = 1,
+    /// Use server side cutsors. For most large operations this gives
+    /// better performance, but might cause more network traffic.
     ServerSide = 2,
 }
 
+/// Determines the type of data source (Jet or ODBCDirect) that is used by the
+/// `Data` control.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa234568(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum DefaultType {
+    /// Use the ODBCDirect driver to access the data source.
     UseODBC = 1,
+    /// Use the Microsoft Jet database engine to access the data source.
+    ///
+    /// This is the default value.
     #[default]
     UseJet = 2,
 }
 
+/// Determines what actions to take within the `Data` control when the EOF
+/// property is true.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245042(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum EOFAction {
+    /// Keep the last record as the current record.
+    ///
+    /// This is the default value.
     #[default]
     MoveLast = 0,
+    /// Moving past the end of a `Recordset` triggers the `Data` constrol's
+    /// `Validation` event on the last record, followed by a `Reposition` event
+    /// on the invalid (EOF) record. At that point, the `MoveNext` button on the
+    /// `Data` control is disabled.
     Eof = 1,
+    /// Moving past the last record triggers the `Data` control's `Validation`
+    /// event to occur on the current record, followed by an automatic `AddNew`,
+    /// followed by a `Reposition` event on the new record.
     AddNew = 2,
 }
 
+/// Determines the type of `Recordset` object you want the `Data` control to
+/// create.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa268103(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum RecordSetType {
+    /// Use a `Table` type `Recordset` object.
     Table = 0,
+    /// Use a `Dynaset` type `Recordset` object.
+    ///
+    /// This is the default value.
     #[default]
     Dynaset = 1,
+    /// Use a `Snapshot` type `Recordset` object.
     Snapshot = 2,
 }
