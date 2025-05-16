@@ -174,7 +174,7 @@ pub enum Visibility {
 /// the logical coordinates and device coordinates for a particular device, such
 /// as a display or printer.
 ///
-/// [Reference[(https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245860(v=vs.60))
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245860(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum HasDeviceContext {
@@ -208,16 +208,25 @@ pub enum UseMaskColor {
 /// Determines if the control causes validation.
 /// In VB6, the `CausesValidation` property determines whether a control causes validation
 /// to occur when the user attempts to move focus from the control.
+///
 /// If `CausesValidation` is set to `True`, validation occurs when the user attempts to move
 /// focus from the control to another control.
+///
 /// If `CausesValidation` is set to `False`, validation does not occur when the user attempts
 /// to move focus from the control to another control.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245065(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum CausesValidation {
     /// The control does not cause validation.
+    ///
+    /// The control from which the focus has shifted does not fire its Validate event.
     No = 0,
     /// The control causes validation.
+    /// The control from which the focus has shifted fires its Validate event.
+    ///
+    /// This is the default setting.
     #[default]
     Yes = -1,
 }
