@@ -38,7 +38,7 @@ pub use controls::{
     listbox::{ListBoxProperties, ListBoxStyle},
     mdiform::MDIFormProperties,
     menus::{MenuProperties, NegotiatePosition, ShortCut, VB6MenuControl},
-    ole::OLEProperties,
+    ole::{AutoActivate, DisplayType, OLEProperties, OLETypeAllowed, UpdateOptions},
     optionbutton::{OptionButtonProperties, OptionButtonValue},
     picturebox::PictureBoxProperties,
     scrollbars::ScrollBarProperties,
