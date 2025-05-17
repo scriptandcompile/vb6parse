@@ -28,8 +28,8 @@ pub use controls::{
         ReadOnlyAttribute, SystemAttribute,
     },
     form::{
-        FormBorderStyle, FormProperties, MaxButton, MinButton, PaletteMode, ShowInTaskbar,
-        WhatsThisButton,
+        ControlBox, FormBorderStyle, FormProperties, MaxButton, MinButton, PaletteMode,
+        ShowInTaskbar, WhatsThisButton,
     },
     frame::FrameProperties,
     image::ImageProperties,
