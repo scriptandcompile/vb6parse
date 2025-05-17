@@ -288,25 +288,48 @@ pub enum WhatsThisHelp {
     WhatsThisHelp = -1,
 }
 
+/// Determines the type of link used for a DDEconversation and activates the
+/// connection.
+///
+/// Forms allow a destination application to initiate a conversation with a
+/// Visual Basic source form as specified by the destination applications
+/// `application**|topic!**item` expression.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa235154(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum FormLinkMode {
+    /// No DDE interaction. No destination application can initiate a conversation
+    /// with the source form as the topic, and no application can poke data to
+    /// the form.
+    ///
+    /// This is the default setting.
     #[default]
     None = 0,
+    /// Allows any `Label`, `PictureBox`, or `TextBox` control on a form to supply
+    /// data to any destination application that establishes a DDE conversation
+    /// with the form. If such a link exists, Visual Basic automatically
+    /// notifies the destination whenever the contents of a control are changed.
+    /// In addition, a destination application can poke data to any `Label`,
+    /// `PictureBox`, or `TextBox` control on the form.
     Source = 1,
 }
 
 /// Controls the display state of a form from normal, minimized, or maximized.
 /// This is used with the `Form` and `MDIForm` controls.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445778(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum WindowState {
     /// The form is in its normal state.
+    ///
+    /// This is the default setting.
     #[default]
     Normal = 0,
-    /// The form is minimized.
+    /// The form is minimized (minimized to an icon0).
     Minimized = 1,
-    /// The form is maximized.
+    /// The form is maximized (enlarged to maximum size).
     Maximized = 2,
 }
 
