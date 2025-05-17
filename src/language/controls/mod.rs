@@ -472,21 +472,33 @@ impl VB6ControlKind {
     }
 }
 
-/// Determines which side of the parent control to dock this control to.
+/// Determines whether an object is displayed in any size anywhere on a form or
+/// whether it's displayed at the top, bottom, left, or right of the form and is
+/// automatically sized to fit the form's width.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa267259(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum Align {
     /// The control is not docked to any side of the parent control.
-    /// This is the default setting.
+    /// This setting is ignored if the object is on an `MDIForm`.
+    ///
+    /// This is the default setting in a non-MDI form.
     #[default]
     None = 0,
-    /// The control is docked to the top of the parent control.
+    /// The top of the control is at the top of the form, and its width is equal
+    /// to the form's `ScaleWidth` property setting.
+    ///
+    /// This is the default setting in an MDI form.
     Top = 1,
-    /// The control is docked to the bottom of the parent control.
+    /// The bottom of the control is at the bottom of the form, and its width is
+    /// equal to the form's `ScaleWidth` property setting.
     Bottom = 2,
-    /// The control is docked to the left of the parent control.
+    /// The left side of the control is at the left of the form, and its width
+    /// is equal to the form's `ScaleWidth` property setting.
     Left = 3,
-    /// The control is docked to the right of the parent control.
+    /// The right side of the control is at the right of the form, and its width
+    /// is equal to the form's `ScaleWidth` property setting.
     Right = 4,
 }
 
