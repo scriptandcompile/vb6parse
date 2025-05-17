@@ -20,7 +20,7 @@ pub use compilesettings::{
     UnroundedFloatingPoint,
 };
 pub use form::{resource_file_resolver, VB6FormFile};
-pub use header::VB6FileAttributes;
+pub use header::{VB6FileAttributes, VB6FileFormatVersion};
 pub use module::VB6ModuleFile;
 
 pub use properties::Properties;
