@@ -334,7 +334,9 @@ pub enum WindowState {
 }
 
 /// The `StartUpPosition` property of a `Form` or `MDIForm` control determines
-/// the initial position of the form when it is displayed.
+/// the initial position of the form when it first appears.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445708(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default)]
 pub enum StartUpPosition {
     /// The form is positioned based on the `client_height`, `client_width`,
@@ -360,9 +362,11 @@ pub enum StartUpPosition {
     /// The `CenterScreen` variant is saved as a 2 in the VB6 file.
     CenterScreen,
     #[default]
-    /// The form requests the operating system to position the form.
+    /// Position in upper-left corner of screen.
     ///
     /// The `WindowsDefault` variant is saved as a 3 in the VB6 file.
+    ///
+    /// This is the default setting.
     WindowsDefault,
 }
 
