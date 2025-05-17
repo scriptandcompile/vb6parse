@@ -43,7 +43,7 @@ pub use controls::{
     picturebox::PictureBoxProperties,
     scrollbars::ScrollBarProperties,
     shape::{Shape, ShapeProperties},
-    textbox::{ScrollBars, TextBoxProperties},
+    textbox::{MultiLine, ScrollBars, TextBoxProperties},
     timer::TimerProperties,
     Activation, Align, Alignment, Appearance, AutoRedraw, AutoSize, BackStyle, BorderStyle,
     CausesValidation, ClipControls, DragMode, DrawMode, DrawStyle, FillStyle, FontTransparency,
