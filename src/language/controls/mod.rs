@@ -540,13 +540,18 @@ pub enum Alignment {
     Center = 2,
 }
 
-/// The `BackStyle` determines whether the background of a control is opaque or transparent.
+/// Indicates whether a `Label` control or the background of a `Shape` control
+/// is transparent or opaque.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245038(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum BackStyle {
-    /// The background of the control is transparent.
+    /// The transparent background color and any graphics are visible behind the
+    /// control.
     Transparent = 0,
-    /// The background of the control is opaque.
+    /// The control's `BackColor` property setting fills the control and
+    /// obscures any color or graphics behind it.
     ///
     /// This is the default setting.
     #[default]
