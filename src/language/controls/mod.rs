@@ -502,27 +502,39 @@ pub enum Align {
     Right = 4,
 }
 
+/// Determines the alignment of a `CheckBox` or `OptionButton` control.
+///
+/// This enum is the 'Alignment' property in VB6 specifically for `CheckBox` and
+/// `OptionButton` controls only.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa267261(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
 #[repr(i32)]
 pub enum JustifyAlignment {
-    #[default]
-    LeftJustify = 0,
-    RightJustify = 1,
-}
-
-/// The `Alignment` property of a `Label`, `TextBox`, or `ComboBox` control determines
-/// the alignment of the text within the control. The `Alignment` property is used
-/// to specify how the text is aligned within the control, such as left-aligned,
-/// right-aligned, or centered.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
-#[repr(i32)]
-pub enum Alignment {
-    /// The text is aligned to the left side of the control.
+    /// The text is left-aligned. The control is right-aligned.
     ///
     /// This is the default setting.
     #[default]
     LeftJustify = 0,
-    /// The text is aligned to the right side of the control.
+    /// The text is right-aligned. The control is left-aligned.
+    RightJustify = 1,
+}
+
+/// The `Alignment` property of a `Label` and `TextBox` control determines
+/// the alignment of the text within the control. The `Alignment` property is used
+/// to specify how the text is aligned within the control, such as left-aligned,
+/// right-aligned, or centered.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa267261(v=vs.60))
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
+#[repr(i32)]
+pub enum Alignment {
+    /// The text is left-aligned within the control.
+    ///
+    /// This is the default setting.
+    #[default]
+    LeftJustify = 0,
+    /// The text is right-aligned within the control.
     RightJustify = 1,
     /// The text is centered within the control.
     Center = 2,
