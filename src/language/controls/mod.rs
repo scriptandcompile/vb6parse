@@ -560,6 +560,25 @@ pub enum BackStyle {
 
 /// The `Appearance` determines whether or not a control is painted at run time
 /// with 3D effects.
+///
+/// Note:
+///
+/// If set to ThreeD (1) at design time, the `Appearance` property draws
+/// controls with three-dimensional effects. If the form's `BorderStyle`
+/// property is set to `FixedDouble` (vbFixedDouble, or 3), the caption and
+/// border of the form are also painted with three-dimensional effects.
+///
+/// Setting the `Appearance` property to ThreeD (1) also causes the form and its
+/// controls to have their `BackColor` property set to the color selected for 3D
+/// Objects in the `Appearance` tab of the operating system's Display Properties
+/// dialog box.
+///
+/// Setting the `Appearance` property to ThreeD (1) for an `MDIForm` object
+/// affects only the MDI parent form. To have three-dimensional effects on MDI
+/// child forms, you must set each child form's `Appearance` property to
+/// ThreeD (1).
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa244932(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
 #[repr(i32)]
 pub enum Appearance {
@@ -573,14 +592,19 @@ pub enum Appearance {
 }
 
 /// The `BorderStyle` determines the appearance of the border of a control.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245047(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum BorderStyle {
     /// The control has no border.
+    ///
+    /// This is the default setting for `Image` and `Label` controls.
     None = 0,
     /// The control has a single-line border.
     ///
-    /// This is the default setting.
+    /// This is the default setting for `PictureBox`, `TextBox`, `OLE` container
+    /// controls.
     #[default]
     FixedSingle = 1,
 }
