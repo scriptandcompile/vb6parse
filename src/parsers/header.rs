@@ -20,9 +20,17 @@ use crate::{
 
 /// Represents a VB6 file format version.
 /// A VB6 file format version contains a major version number and a minor version number.
+///
+/// The file format version is locked to the version of the language and IDE but
+/// the file format version is not the same as the language version. Some files
+/// may be at version 4.0 while others might be at version 5.0. It really depends
+/// on how things changed as the language and IDE evolved between major versions
+/// of the language.
 #[derive(Debug, PartialEq, Eq, Clone, serde::Serialize)]
 pub struct VB6FileFormatVersion {
+    /// The files major version number.
     pub major: u8,
+    /// The files minor version number.
     pub minor: u8,
 }
 
