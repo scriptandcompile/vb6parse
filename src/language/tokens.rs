@@ -164,6 +164,14 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243374(v=vs.60))
     FunctionKeyword(&'a BStr),
+    /// Represents the 'Static' keyword.
+    ///
+    /// Used at the procedure level to declare variable and allocate storage space.
+    /// Variables declared the with Static statement retain their values as long
+    /// as the module is loaded in memory.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266296(v=vs.60))
+    StaticKeyword(&'a BStr),
     SubKeyword(&'a BStr),
     EndKeyword(&'a BStr),
 
