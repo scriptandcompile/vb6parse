@@ -80,6 +80,12 @@ pub enum VB6Token<'a> {
     ///
     ///[Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266179(v=vs.60))
     BaseKeyword(&'a BStr),
+    /// Represents the 'Compare' keyword.
+    ///
+    /// Used at module level to declare the default comparison method to use when string data is compared.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266181(v=vs.60))
+    CompareKeyword(&'a BStr),
     OptionKeyword(&'a BStr),
     ExplicitKeyword(&'a BStr),
 
