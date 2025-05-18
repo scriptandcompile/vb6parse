@@ -232,6 +232,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263420(v=vs.60))
     CurrencyKeyword(&'a BStr),
+    /// Represents the 'Decimal' keyword.
+    ///
+    /// Used to declare a variable that can contain a decimal value.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263420(v=vs.60))
+    DecimalKeyword(&'a BStr),
     ByteKeyword(&'a BStr),
     LongKeyword(&'a BStr),
     SingleKeyword(&'a BStr),
