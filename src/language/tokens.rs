@@ -199,7 +199,11 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445157(v=vs.60))
     FalseKeyword(&'a BStr),
-
+    /// Represents the 'Enum' keyword.
+    ///
+    /// Used to declare a type for an enumeration.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243358(v=vs.60))
     EnumKeyword(&'a BStr),
     TypeKeyword(&'a BStr),
 
