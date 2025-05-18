@@ -33931,7 +33931,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - VariantKeyword:
       - 86
       - 97
       - 114
@@ -33979,7 +33979,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - VariantKeyword:
       - 86
       - 97
       - 114

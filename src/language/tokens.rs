@@ -250,6 +250,13 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263420(v=vs.60))
     ObjectKeyword(&'a BStr),
+    /// Represents the 'Variant' keyword.
+    ///
+    /// Used to declare a variable that can contain multiple kinds of types of
+    /// data.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263420(v=vs.60))
+    VariantKeyword(&'a BStr),
     ByteKeyword(&'a BStr),
     LongKeyword(&'a BStr),
     SingleKeyword(&'a BStr),
