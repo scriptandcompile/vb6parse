@@ -325,6 +325,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242850(v=vs.60))
     OrKeyword(&'a BStr),
+    /// Represents the 'Xor' keyword.
+    ///
+    /// Used to perform a logical exclusive disjunction on two expressions.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242859(v=vs.60))
+    XorKeyword(&'a BStr),
     NotKeyword(&'a BStr),
     ThenKeyword(&'a BStr),
 
