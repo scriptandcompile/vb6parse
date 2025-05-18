@@ -244,6 +244,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263420(v=vs.60))
     DateKeyword(&'a BStr),
+    /// Represents the 'Object' keyword.
+    ///
+    /// Used to declare a variable that can contain an object reference.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263420(v=vs.60))
+    ObjectKeyword(&'a BStr),
     ByteKeyword(&'a BStr),
     LongKeyword(&'a BStr),
     SingleKeyword(&'a BStr),
