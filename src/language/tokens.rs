@@ -401,6 +401,15 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243370(v=vs.60))
     ForKeyword(&'a BStr),
+    /// Represents the 'To' keyword.
+    ///
+    /// The To keyword is used in these contexts:
+    ///
+    /// Dim statement, For...Next statement, Lock statement, Unlock statement,
+    /// Private statement, Public statement, ReDim statement, Select Case statement,
+    /// Static statement, and Type statement.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445229(v=vs.60))
     ToKeyword(&'a BStr),
     StepKeyword(&'a BStr),
     NextKeyword(&'a BStr),
