@@ -154,15 +154,6 @@ impl Default for VB6FileAttributes<'_> {
         }
     }
 }
-enum Attributes {
-    Name,
-    GlobalNameSpace,
-    Creatable,
-    PredeclaredId,
-    Exposed,
-    Description,
-    ExtKey,
-}
 
 pub fn version_parse<'a>(
     header_kind: HeaderKind,
@@ -307,6 +298,16 @@ pub fn object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ObjectReferen
 
 pub fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FileAttributes<'a>> {
     let _ = space0::<_, VB6ErrorKind>.parse_next(input);
+
+    enum Attributes {
+        Name,
+        GlobalNameSpace,
+        Creatable,
+        PredeclaredId,
+        Exposed,
+        Description,
+        ExtKey,
+    }
 
     let mut name = None;
     let mut global_name_space = NameSpace::Local;
