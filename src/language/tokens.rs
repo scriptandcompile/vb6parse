@@ -388,6 +388,11 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243380(v=vs.60))
     GotoKeyword(&'a BStr),
+    /// Represents the 'Exit' keyword.
+    ///
+    /// Exits a block of Do..Loop, For..Next, Function, Sub, or Property code.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243366(v=vs.60))
     ExitKeyword(&'a BStr),
 
     ForKeyword(&'a BStr),
