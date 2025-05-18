@@ -42,6 +42,18 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243324(v=vs.60))
     DeclareKeyword(&'a BStr),
+    /// Represents the Alias keyword.
+    ///
+    /// Used optionally in a Declate statement. Indicates that the procedure
+    /// being called has another name in the DLL. This is useful when the
+    /// external procedure name is the same as a keyword. You can also use Alias
+    /// when a DLL procedure has the same name as a public variable, constant,
+    /// or any other procedure in the same scope. Alias is also useful if any
+    /// characters in the DLL procedure name aren't allowed by the DLL naming
+    /// convention.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243324(v=vs.60))
+    AliasKeyword(&'a BStr),
     LibKeyword(&'a BStr),
     WithKeyword(&'a BStr),
     /// Represents the 'WithEvents' keyword.
