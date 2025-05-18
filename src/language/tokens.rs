@@ -489,6 +489,13 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266279(v=vs.60))
     SendKeysKeyword(&'a BStr),
+    /// Represents the 'Select' keyword.
+    ///
+    /// Used to execute one of a seveeral groups of statements, depending on the
+    /// value of an expression.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266274(v=vs.60))
+    SelectKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
