@@ -157,7 +157,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445195(v=vs.60))
     OptionalKeyword(&'a BStr),
-
+    /// Represents the 'Function' keyword.
+    ///
+    /// Used to declare the name, argument, and code that forms the body of a
+    /// function procedure.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243374(v=vs.60))
     FunctionKeyword(&'a BStr),
     SubKeyword(&'a BStr),
     EndKeyword(&'a BStr),
