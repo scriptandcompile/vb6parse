@@ -516,6 +516,13 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266261(v=vs.60))
     SaveSettingKeyword(&'a BStr),
+    /// Represents the 'SavePicture' keyword.
+    ///
+    /// Saves a graphic from the `Picture` or `Image` property of an object or
+    /// control (if one is associated with it) to a file.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445827(v=vs.60))
+    SavePictureKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
