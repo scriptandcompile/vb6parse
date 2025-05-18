@@ -179,6 +179,11 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266305(v=vs.60))
     SubKeyword(&'a BStr),
+    /// Represents the 'End' keyword.
+    ///
+    /// Used to end a procedure or block.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243356(v=vs.60))
     EndKeyword(&'a BStr),
 
     /// Represents the boolean literal `True`.
