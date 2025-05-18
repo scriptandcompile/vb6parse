@@ -430,6 +430,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
         alt((
             keyword_parse("Width").map(|token: &BStr| VB6Token::WidthKeyword(token)),
             keyword_parse("Write").map(|token: &BStr| VB6Token::WriteKeyword(token)),
+            keyword_parse("Time").map(|token: &BStr| VB6Token::TimeKeyword(token)),
         )),
     ))
     .parse_next(input)
