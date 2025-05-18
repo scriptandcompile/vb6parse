@@ -149,6 +149,13 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445151(v=vs.60))
     ByRefKeyword(&'a BStr),
+    /// Represents the 'Optional' keyword.
+    ///
+    /// Used in the following contexts:
+    /// Declare statement, Function statement, Property Get statement,
+    /// Property Let statement, Property Set statement, and Sub statement.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445195(v=vs.60))
     OptionalKeyword(&'a BStr),
 
     FunctionKeyword(&'a BStr),
