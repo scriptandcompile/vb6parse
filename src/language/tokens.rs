@@ -11,11 +11,15 @@ pub enum VB6Token<'a> {
     /// Represents a newline.
     /// This can be a carriage return, a newline, or a carriage return followed by a newline.
     Newline(&'a BStr),
-
     /// Represents a comment.
     /// Includes the single quote character.
     Comment(&'a BStr),
-
+    /// Represents the ReDim keyword.
+    ///
+    /// Used at a procedure level to reallocate storage space for a dynamic
+    /// array.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266231(v=vs.60))
     ReDimKeyword(&'a BStr),
     DimKeyword(&'a BStr),
     DeclareKeyword(&'a BStr),
