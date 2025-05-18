@@ -212,7 +212,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266315(v=vs.60))
     TypeKeyword(&'a BStr),
-
+    /// Represents the 'Boolean' keyword.
+    ///
+    /// Used to declare a variable that can contain one of two values: True or
+    /// False.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263420(v=vs.60))
     BooleanKeyword(&'a BStr),
     ByteKeyword(&'a BStr),
     LongKeyword(&'a BStr),
