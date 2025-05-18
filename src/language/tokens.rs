@@ -15,34 +15,34 @@ pub enum VB6Token<'a> {
     /// Represents a comment.
     /// Includes the single quote character.
     Comment(&'a BStr),
-    /// Represents the ReDim keyword.
+    /// Represents the 'ReDim' keyword.
     ///
     /// Used at a procedure level to reallocate storage space for a dynamic
     /// array.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266231(v=vs.60))
     ReDimKeyword(&'a BStr),
-    /// Represents the Preserve keyword.
+    /// Represents the 'Preserve' keyword.
     ///
     /// Used with the ReDim keyword to preserve the contents of an array when
     /// reallocating storage space.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266231(v=vs.60))
     PreserveKeyword(&'a BStr),
-    /// Represents the Dim keyword.
+    /// Represents the 'Dim' keyword.
     ///
     /// Used to declare variables and allocate storage space.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243352(v=vs.60))
     DimKeyword(&'a BStr),
-    /// Represents the Declare keyword.
+    /// Represents the 'Declare' keyword.
     ///
     /// Used at the module level to declare references to external procedures
     /// in a dynamic-link library (DLL).
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243324(v=vs.60))
     DeclareKeyword(&'a BStr),
-    /// Represents the Alias keyword.
+    /// Represents the 'Alias' keyword.
     ///
     /// Used optionally in a Declate statement. Indicates that the procedure
     /// being called has another name in the DLL. This is useful when the
@@ -54,14 +54,14 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243324(v=vs.60))
     AliasKeyword(&'a BStr),
-    /// Represents the Lib keyword.
+    /// Represents the 'Lib' keyword.
     ///
     /// Indicates that a DLL or code resource contains the procedure being declared.
     /// The Lib clause is required for all declarations.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243324(v=vs.60))
     LibKeyword(&'a BStr),
-    /// Represents the With keyword.
+    /// Represents the 'With' keyword.
     ///
     /// Executes a series of statements on a single object or a user-defined type.
     ///
@@ -76,16 +76,24 @@ pub enum VB6Token<'a> {
     WithEventsKeyword(&'a BStr),
     /// Represents the 'Base' keyword.
     ///
-    /// Used at module level to declare the default lower bound for array subscripts.
+    /// Used at module level to declare the default lower bound for array
+    /// subscripts.
     ///
     ///[Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266179(v=vs.60))
     BaseKeyword(&'a BStr),
     /// Represents the 'Compare' keyword.
     ///
-    /// Used at module level to declare the default comparison method to use when string data is compared.
+    /// Used at module level to declare the default comparison method to use
+    /// when string data is compared.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266181(v=vs.60))
     CompareKeyword(&'a BStr),
+    /// Represents the 'Option' keyword.
+    ///
+    /// Used at the modular level in the Option Base, Option Compare, Option
+    /// Explicit, or Option Private statements.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266185(v=vs.60))
     OptionKeyword(&'a BStr),
     ExplicitKeyword(&'a BStr),
 
