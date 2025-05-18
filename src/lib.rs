@@ -1,21 +1,21 @@
 #![warn(missing_docs)]
 
-//! # VB6Parse
+//! # Summary
 //!
-//! VB6Parse is a library for parsing Visual Basic 6 (VB6) code. It is the
+//! `VB6Parse` is a library for parsing Visual Basic 6 (VB6) code. It is the
 //! foundational library  for the tools and utilities for parsing / analysing / converting
 //! VB6 code. It is designed to be used as a base library for other tools and utilities.
 //!
 //! ## Design Goals
 //!
-//! VB6Parse is designed to be a fast and efficient library for parsing VB6 code.
+//! `VB6Parse` is designed to be a fast and efficient library for parsing VB6 code.
 //! Despite focusing on speed, ease of use has a high priority. While it should
 //! be possible for the library to be used to create things like real-time syntax
 //! highlighting, a language server, an interpreeter, or a high speed compiler,
 //! the primary goal is focused around offline analysis, legacy utilities,
 //! and tools that convert VB6 code to more modern languages.
 
-//! ### Project File Parsing:
+//! ## Project File Parsing
 //!
 //! To load a VB6 project file, you can use the `VB6Project::parse` method.
 //! This method takes a `file_name` and a byte slice as input, and returns a
@@ -113,7 +113,7 @@
 //! or parsed. This makes it possible to read a project file in parts or to
 //! read a project file without having to load all the files in the project.
 //!
-//! ### Form File Parsing:
+//! ## Form File Parsing
 //!
 //! To load a VB6 form file, you can use the `VB6Form::parse` method. This
 //! method takes a `file_name`, a byte slice as input, and a `resource_resolver`,
