@@ -8,6 +8,10 @@ use crate::errors::VB6ErrorKind;
 /// but rather the index of a system color.
 #[derive(Debug, PartialEq, Clone, Eq, serde::Serialize)]
 pub enum VB6Color {
+    /// A color represented by red, green, and blue values.
+    /// The values are 8 bits each.
+    /// The values are stored in the order of red, green, blue.
+    /// This is the same as calling `VB6Color::new(red, green, blue)`.
     RGB {
         /// The red value.
         red: u8,
@@ -16,6 +20,9 @@ pub enum VB6Color {
         /// The blue value.
         blue: u8,
     },
+    /// A system color represented by an index.
+    /// The index is the index of the system color.
+    /// This is the same as calling `VB6Color::system(index)`.
     System {
         /// The system color index.
         index: u8,
