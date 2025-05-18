@@ -313,6 +313,11 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243382(v=vs.60))
     ElseIfKeyword(&'a BStr),
+    /// Represents the 'And' keyword.
+    ///
+    /// Used to perform a logical conjunction on two expressions.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242751(v=vs.60))
     AndKeyword(&'a BStr),
     OrKeyword(&'a BStr),
     NotKeyword(&'a BStr),
