@@ -1,3 +1,11 @@
+//! This module contains the definitions for the Visual Basic 6 language.
+//!
+//! The two major components of this module are:
+//! the `VB6Token` enum, which defines the different types of tokens
+//! that can be found in VB6 code, and the `VB6Control` enum and the associated
+//! types, which define the different kinds of controls that can be used in VB6
+//! forms.
+
 mod color;
 mod controls;
 mod tokens;
