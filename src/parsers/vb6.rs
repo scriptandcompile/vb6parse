@@ -367,6 +367,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("Public").map(|token: &BStr| VB6Token::PublicKeyword(token)),
             keyword_parse("Dim").map(|token: &BStr| VB6Token::DimKeyword(token)),
             keyword_parse("With").map(|token: &BStr| VB6Token::WithKeyword(token)),
+            keyword_parse("WithEvents").map(|token: &BStr| VB6Token::WithEventsKeyword(token)),
             keyword_parse("Declare").map(|token: &BStr| VB6Token::DeclareKeyword(token)),
             keyword_parse("Lib").map(|token: &BStr| VB6Token::LibKeyword(token)),
             keyword_parse("Const").map(|token: &BStr| VB6Token::ConstKeyword(token)),
