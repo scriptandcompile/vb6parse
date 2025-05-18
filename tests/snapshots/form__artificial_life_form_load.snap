@@ -16311,7 +16311,7 @@ tokens:
       - 111
   - Whitespace:
       - 32
-  - VariableName:
+  - WhileKeyword:
       - 87
       - 104
       - 105

@@ -28439,7 +28439,7 @@ tokens:
       - 112
   - Whitespace:
       - 32
-  - VariableName:
+  - WhileKeyword:
       - 87
       - 104
       - 105
