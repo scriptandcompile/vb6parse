@@ -402,7 +402,10 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("ByVal").map(|token: &BStr| VB6Token::ByValKeyword(token)),
             keyword_parse("ByRef").map(|token: &BStr| VB6Token::ByRefKeyword(token)),
             keyword_parse("Goto").map(|token: &BStr| VB6Token::GotoKeyword(token)),
+        )),
+        alt((
             keyword_parse("Exit").map(|token: &BStr| VB6Token::ExitKeyword(token)),
+            keyword_parse("Base").map(|token: &BStr| VB6Token::BaseKeyword(token)),
         )),
     ))
     .parse_next(input)

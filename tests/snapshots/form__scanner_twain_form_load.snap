@@ -2862,7 +2862,7 @@ tokens:
       - 34
   - Whitespace:
       - 32
-  - VariableName:
+  - AliasKeyword:
       - 65
       - 108
       - 105
