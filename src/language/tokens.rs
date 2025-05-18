@@ -425,7 +425,19 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266161(v=vs.60))
     UnlockKeyword(&'a BStr),
+    /// Represents the 'Step' keyword.
+    ///
+    /// Used in the For...Next statement to specify the increment of the loop
+    /// variable.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445219(v=vs.60))
     StepKeyword(&'a BStr),
+    /// Represents the 'Stop' keyword.
+    ///
+    /// Used to suspend execution of a program.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266300(v=vs.60))
+    StopKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.

@@ -422,6 +422,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("Is").map(|token: &BStr| VB6Token::IsKeyword(token)),
             keyword_parse("Lock").map(|token: &BStr| VB6Token::LockKeyword(token)),
             keyword_parse("Unlock").map(|token: &BStr| VB6Token::UnlockKeyword(token)),
+            keyword_parse("Stop").map(|token: &BStr| VB6Token::StopKeyword(token)),
             keyword_parse("AddressOf").map(|token: &BStr| VB6Token::AddressOfKeyword(token)),
         )),
     ))
