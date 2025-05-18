@@ -276,6 +276,11 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263420(v=vs.60))
     SingleKeyword(&'a BStr),
+    /// Represents the 'String' keyword.
+    ///
+    /// Used to declare a variable that can contain a string value.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263420(v=vs.60))
     StringKeyword(&'a BStr),
     IntegerKeyword(&'a BStr),
 
