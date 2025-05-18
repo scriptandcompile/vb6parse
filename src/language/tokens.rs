@@ -187,12 +187,17 @@ pub enum VB6Token<'a> {
     EndKeyword(&'a BStr),
     /// Represents the 'True' keyword.
     ///
-    /// The True keyword is used to represent the boolean value true and as a
+    /// The True keyword is used to represent the boolean value true and has a
     /// value equal to -1.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445231(v=vs.60))
     TrueKeyword(&'a BStr),
-    /// Represents the boolean literal `False`.
+    /// Represents the 'False' keyword.
+    ///
+    /// The False keyword is used to represent the boolean value false and has a
+    /// value equal to 0.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445157(v=vs.60))
     FalseKeyword(&'a BStr),
 
     EnumKeyword(&'a BStr),
