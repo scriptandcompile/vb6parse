@@ -427,6 +427,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("While").map(|token: &BStr| VB6Token::WhileKeyword(token)),
             keyword_parse("AddressOf").map(|token: &BStr| VB6Token::AddressOfKeyword(token)),
         )),
+        alt((keyword_parse("Width").map(|token: &BStr| VB6Token::WidthKeyword(token)),)),
     ))
     .parse_next(input)
 }

@@ -3522,7 +3522,7 @@ tokens:
       - 110
   - PeriodOperator:
       - 46
-  - VariableName:
+  - WidthKeyword:
       - 87
       - 105
       - 100
@@ -4123,7 +4123,7 @@ tokens:
       - 116
   - PeriodOperator:
       - 46
-  - VariableName:
+  - WidthKeyword:
       - 87
       - 105
       - 100
@@ -4211,7 +4211,7 @@ tokens:
       - 110
   - PeriodOperator:
       - 46
-  - VariableName:
+  - WidthKeyword:
       - 87
       - 105
       - 100
@@ -4461,7 +4461,7 @@ tokens:
       - 101
   - PeriodOperator:
       - 46
-  - VariableName:
+  - WidthKeyword:
       - 87
       - 105
       - 100
