@@ -1501,7 +1501,7 @@ tokens:
       - 49
   - Whitespace:
       - 32
-  - VariableName:
+  - ModKeyword:
       - 77
       - 111
       - 100
@@ -1637,7 +1637,7 @@ tokens:
       - 50
   - Whitespace:
       - 32
-  - VariableName:
+  - ModKeyword:
       - 77
       - 111
       - 100

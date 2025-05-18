@@ -416,6 +416,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("Base").map(|token: &BStr| VB6Token::BaseKeyword(token)),
             keyword_parse("Else").map(|token: &BStr| VB6Token::ElseKeyword(token)),
             keyword_parse("Xor").map(|token: &BStr| VB6Token::XorKeyword(token)),
+            keyword_parse("Mod").map(|token: &BStr| VB6Token::ModKeyword(token)),
         )),
     ))
     .parse_next(input)

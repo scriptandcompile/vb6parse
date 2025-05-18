@@ -8792,7 +8792,7 @@ tokens:
       - 120
   - Whitespace:
       - 32
-  - VariableName:
+  - ModKeyword:
       - 77
       - 111
       - 100
@@ -9558,7 +9558,7 @@ tokens:
       - 120
   - Whitespace:
       - 32
-  - VariableName:
+  - ModKeyword:
       - 77
       - 111
       - 100
@@ -10654,7 +10654,7 @@ tokens:
       - 120
   - Whitespace:
       - 32
-  - VariableName:
+  - ModKeyword:
       - 77
       - 111
       - 100
@@ -18841,7 +18841,7 @@ tokens:
       - 120
   - Whitespace:
       - 32
-  - VariableName:
+  - ModKeyword:
       - 77
       - 111
       - 100
