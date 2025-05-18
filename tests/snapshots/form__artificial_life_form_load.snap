@@ -17571,7 +17571,7 @@ tokens:
       - 109
   - Whitespace:
       - 32
-  - VariableName:
+  - PreserveKeyword:
       - 80
       - 114
       - 101
