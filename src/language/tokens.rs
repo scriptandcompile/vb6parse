@@ -445,6 +445,13 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266320(v=vs.60))
     WhileKeyword(&'a BStr),
+    /// Represents the 'Wend' keyword.
+    ///
+    /// Used to execute a series of statements as long as a given condition is
+    /// True.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266320(v=vs.60))
+    WendKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
