@@ -54,7 +54,18 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243324(v=vs.60))
     AliasKeyword(&'a BStr),
+    /// Represents the Lib keyword.
+    ///
+    /// Indicates that a DLL or code resource contains the procedure being declared.
+    /// The Lib clause is required for all declarations.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243324(v=vs.60))
     LibKeyword(&'a BStr),
+    /// Represents the With keyword.
+    ///
+    /// Executes a series of statements on a single object or a user-defined type.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266330(v=vs.60))
     WithKeyword(&'a BStr),
     /// Represents the 'WithEvents' keyword.
     ///
