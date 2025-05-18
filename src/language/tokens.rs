@@ -382,7 +382,11 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445224(v=vs.60))
     ThenKeyword(&'a BStr),
-
+    /// Represents the 'Goto' keyword.
+    ///
+    /// Branches unconditionally to a specific line within a procedure.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243380(v=vs.60))
     GotoKeyword(&'a BStr),
     ExitKeyword(&'a BStr),
 
