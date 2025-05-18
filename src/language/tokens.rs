@@ -74,7 +74,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243352(v=vs.60))
     WithEventsKeyword(&'a BStr),
-
+    /// Represents the 'Base' keyword.
+    ///
+    /// Used at module level to declare the default lower bound for array subscripts.
+    ///
+    ///[Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266179(v=vs.60))
+    BaseKeyword(&'a BStr),
     OptionKeyword(&'a BStr),
     ExplicitKeyword(&'a BStr),
 
