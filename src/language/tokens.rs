@@ -369,6 +369,11 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242817(v=vs.60))
     LikeKeyword(&'a BStr),
+    /// Represents the 'Not' keyword.
+    ///
+    /// Used to perform a logical negation on an expression.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242842(v=vs.60))
     NotKeyword(&'a BStr),
     ThenKeyword(&'a BStr),
 
