@@ -4711,7 +4711,7 @@ tokens:
       - 116
   - Whitespace:
       - 32
-  - VariableName:
+  - CaseKeyword:
       - 67
       - 97
       - 115
@@ -4753,7 +4753,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - CaseKeyword:
       - 67
       - 97
       - 115
@@ -4856,7 +4856,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - CaseKeyword:
       - 67
       - 97
       - 115
@@ -4958,7 +4958,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - CaseKeyword:
       - 67
       - 97
       - 115
@@ -5065,7 +5065,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - CaseKeyword:
       - 67
       - 97
       - 115

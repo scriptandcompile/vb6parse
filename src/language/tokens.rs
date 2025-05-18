@@ -496,6 +496,20 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266274(v=vs.60))
     SelectKeyword(&'a BStr),
+    /// Represents the 'Case' keyword.
+    ///
+    /// Used to execute one of a seveeral groups of statements, depending on the
+    /// value of an expression.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266274(v=vs.60))
+    CaseKeyword(&'a BStr),
+    /// Represents the 'Seek' keyword.
+    ///
+    /// Used to set the position for the next read/write operation on a file
+    /// opened using the Open statement.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266268(v=vs.60))
+    SeekKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
