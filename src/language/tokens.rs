@@ -357,6 +357,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242794(v=vs.60))
     ImpKeyword(&'a BStr),
+    /// Represents the 'Is' keyword.
+    ///
+    /// Used to perform a reference comparison between two object variables.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242809(v=vs.60))
+    IsKeyword(&'a BStr),
     NotKeyword(&'a BStr),
     ThenKeyword(&'a BStr),
 
