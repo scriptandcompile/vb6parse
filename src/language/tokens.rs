@@ -375,6 +375,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242842(v=vs.60))
     NotKeyword(&'a BStr),
+    /// Represents the 'Then' keyword.
+    ///
+    /// Used to indicate the start of a block of code that is executed if the
+    /// condition in an If statement is true.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445224(v=vs.60))
     ThenKeyword(&'a BStr),
 
     GotoKeyword(&'a BStr),
