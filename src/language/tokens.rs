@@ -172,6 +172,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266296(v=vs.60))
     StaticKeyword(&'a BStr),
+    /// Represents the 'Sub' keyword.
+    ///
+    /// Used to declare the name, argument, and code that form the body of a sub
+    /// procedure.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266305(v=vs.60))
     SubKeyword(&'a BStr),
     EndKeyword(&'a BStr),
 
