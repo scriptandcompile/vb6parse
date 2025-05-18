@@ -3819,7 +3819,7 @@ tokens:
       - 116
   - PeriodOperator:
       - 46
-  - VariableName:
+  - WidthKeyword:
       - 87
       - 105
       - 100
