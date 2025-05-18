@@ -21,6 +21,13 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266231(v=vs.60))
     ReDimKeyword(&'a BStr),
+    /// Represents the Preserve keyword.
+    ///
+    /// Used with the ReDim keyword to preserve the contents of an array when
+    /// reallocating storage space.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266231(v=vs.60))
+    PreserveKeyword(&'a BStr),
     DimKeyword(&'a BStr),
     DeclareKeyword(&'a BStr),
     LibKeyword(&'a BStr),

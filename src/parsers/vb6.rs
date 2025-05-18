@@ -396,6 +396,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("Step").map(|token: &BStr| VB6Token::StepKeyword(token)),
             keyword_parse("Next").map(|token: &BStr| VB6Token::NextKeyword(token)),
             keyword_parse("ReDim").map(|token: &BStr| VB6Token::ReDimKeyword(token)),
+            keyword_parse("Preserve").map(|token: &BStr| VB6Token::PreserveKeyword(token)),
             keyword_parse("ByVal").map(|token: &BStr| VB6Token::ByValKeyword(token)),
             keyword_parse("ByRef").map(|token: &BStr| VB6Token::ByRefKeyword(token)),
             keyword_parse("Goto").map(|token: &BStr| VB6Token::GotoKeyword(token)),
