@@ -363,6 +363,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242809(v=vs.60))
     IsKeyword(&'a BStr),
+    /// Represents the 'Like' keyword.
+    ///
+    /// Used to compare two strings.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242817(v=vs.60))
+    LikeKeyword(&'a BStr),
     NotKeyword(&'a BStr),
     ThenKeyword(&'a BStr),
 
