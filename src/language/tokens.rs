@@ -269,6 +269,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263420(v=vs.60))
     LongKeyword(&'a BStr),
+    /// Represents the 'Single' keyword.
+    ///
+    /// Used to declare a variable that can contain a single-precision
+    /// floating-point value.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263420(v=vs.60))
     SingleKeyword(&'a BStr),
     StringKeyword(&'a BStr),
     IntegerKeyword(&'a BStr),
