@@ -90,13 +90,23 @@ pub enum VB6Token<'a> {
     CompareKeyword(&'a BStr),
     /// Represents the 'Option' keyword.
     ///
-    /// Used at the modular level in the Option Base, Option Compare, Option
+    /// Used at the module level in the Option Base, Option Compare, Option
     /// Explicit, or Option Private statements.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266185(v=vs.60))
     OptionKeyword(&'a BStr),
+    /// Represents the 'Explicit' keyword.
+    ///
+    /// Used at the module level in the Option Explicit statement to force
+    /// explicit declaration of all variables in that module.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266183(v=vs.60))
     ExplicitKeyword(&'a BStr),
-
+    /// Represents the 'Private' keyword.
+    ///
+    /// Used at the module level to declare private vairables and allocate storage space.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266189(v=vs.60))
     PrivateKeyword(&'a BStr),
     PublicKeyword(&'a BStr),
 
