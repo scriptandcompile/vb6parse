@@ -282,6 +282,11 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263420(v=vs.60))
     StringKeyword(&'a BStr),
+    /// Represents the 'Integer' keyword.
+    ///
+    /// Used to declare a variable that can contain an integer value.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263420(v=vs.60))
     IntegerKeyword(&'a BStr),
 
     /// Represents a string literal.
