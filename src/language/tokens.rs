@@ -510,6 +510,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266268(v=vs.60))
     SeekKeyword(&'a BStr),
+    /// Represents the 'SaveSetting' keyword.
+    ///
+    /// Saves or creates an application entry in the application's entry in the Windows registry.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266261(v=vs.60))
+    SaveSettingKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
