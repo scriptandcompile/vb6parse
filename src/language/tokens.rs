@@ -114,7 +114,11 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266207(v=vs.60))
     PublicKeyword(&'a BStr),
-
+    /// Represents the 'Const' keyword.
+    ///
+    /// Declares constants for use in place of literal values.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243294(v=vs.60))
     ConstKeyword(&'a BStr),
     AsKeyword(&'a BStr),
     ByValKeyword(&'a BStr),
