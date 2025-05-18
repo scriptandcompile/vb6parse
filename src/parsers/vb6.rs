@@ -379,6 +379,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("Byte").map(|token: &BStr| VB6Token::ByteKeyword(token)),
             keyword_parse("Single").map(|token: &BStr| VB6Token::SingleKeyword(token)),
             keyword_parse("String").map(|token: &BStr| VB6Token::StringKeyword(token)),
+            keyword_parse("Alias").map(|token: &BStr| VB6Token::AliasKeyword(token)),
         )),
         alt((
             keyword_parse("True").map(|token: &BStr| VB6Token::TrueKeyword(token)),

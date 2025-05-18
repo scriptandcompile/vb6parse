@@ -233,7 +233,7 @@ tokens:
       - 34
   - Whitespace:
       - 32
-  - VariableName:
+  - AliasKeyword:
       - 65
       - 108
       - 105
@@ -1222,7 +1222,7 @@ tokens:
       - 34
   - Whitespace:
       - 32
-  - VariableName:
+  - AliasKeyword:
       - 65
       - 108
       - 105
@@ -1403,7 +1403,7 @@ tokens:
       - 34
   - Whitespace:
       - 32
-  - VariableName:
+  - AliasKeyword:
       - 65
       - 108
       - 105
@@ -3103,7 +3103,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - AliasKeyword:
       - 65
       - 108
       - 105
@@ -3254,7 +3254,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - AliasKeyword:
       - 65
       - 108
       - 105
@@ -3402,7 +3402,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - AliasKeyword:
       - 65
       - 108
       - 105
@@ -4865,7 +4865,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - AliasKeyword:
       - 65
       - 108
       - 105
@@ -6615,7 +6615,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - AliasKeyword:
       - 65
       - 108
       - 105
@@ -9634,7 +9634,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - AliasKeyword:
       - 65
       - 108
       - 105
@@ -15930,7 +15930,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - AliasKeyword:
       - 65
       - 108
       - 105
