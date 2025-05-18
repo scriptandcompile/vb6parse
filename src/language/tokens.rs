@@ -120,6 +120,16 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243294(v=vs.60))
     ConstKeyword(&'a BStr),
+    /// Represents the 'As' keyword.
+    ///
+    /// The 'As' keyword is used in these contexts:
+    /// Const statement, Declare statemenet, Dim statement, Function statenement,
+    /// Name statement, Open statement, Open statement, private statement,
+    /// Property Get statement, Property Let statement, Property Set statement,
+    /// Public statement, ReDim statement, Static statement, Sub statement, and
+    /// Type statement.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445149(v=vs.60))
     AsKeyword(&'a BStr),
     ByValKeyword(&'a BStr),
     ByRefKeyword(&'a BStr),
