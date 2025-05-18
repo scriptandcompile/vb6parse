@@ -25425,7 +25425,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - ElseIfKeyword:
       - 69
       - 108
       - 115
@@ -25533,7 +25533,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - ElseIfKeyword:
       - 69
       - 108
       - 115
@@ -26575,7 +26575,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - ElseIfKeyword:
       - 69
       - 108
       - 115

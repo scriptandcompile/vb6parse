@@ -388,7 +388,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("Sub").map(|token: &BStr| VB6Token::SubKeyword(token)),
             keyword_parse("End").map(|token: &BStr| VB6Token::EndKeyword(token)),
             keyword_parse("If").map(|token: &BStr| VB6Token::IfKeyword(token)),
-            keyword_parse("Else").map(|token: &BStr| VB6Token::ElseKeyword(token)),
+            keyword_parse("ElseIf").map(|token: &BStr| VB6Token::ElseIfKeyword(token)),
             keyword_parse("And").map(|token: &BStr| VB6Token::AndKeyword(token)),
             keyword_parse("Or").map(|token: &BStr| VB6Token::OrKeyword(token)),
             keyword_parse("Not").map(|token: &BStr| VB6Token::NotKeyword(token)),
@@ -414,6 +414,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("Object").map(|token: &BStr| VB6Token::ObjectKeyword(token)),
             keyword_parse("Currency").map(|token: &BStr| VB6Token::CurrencyKeyword(token)),
             keyword_parse("Base").map(|token: &BStr| VB6Token::BaseKeyword(token)),
+            keyword_parse("Else").map(|token: &BStr| VB6Token::ElseKeyword(token)),
         )),
     ))
     .parse_next(input)
