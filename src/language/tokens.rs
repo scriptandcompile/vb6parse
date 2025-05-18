@@ -35,6 +35,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243352(v=vs.60))
     DimKeyword(&'a BStr),
+    /// Represents the Declare keyword.
+    ///
+    /// Used at the module level to declare references to external procedures
+    /// in a dynamic-link library (DLL).
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243324(v=vs.60))
     DeclareKeyword(&'a BStr),
     LibKeyword(&'a BStr),
     WithKeyword(&'a BStr),
