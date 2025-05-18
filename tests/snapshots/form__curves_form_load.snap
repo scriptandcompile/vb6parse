@@ -21004,7 +21004,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117

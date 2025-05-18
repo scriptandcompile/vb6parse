@@ -1844,7 +1844,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -1865,7 +1865,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -1891,7 +1891,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -1912,7 +1912,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -1942,7 +1942,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -1968,7 +1968,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -2108,7 +2108,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -2774,7 +2774,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -2880,7 +2880,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -2903,7 +2903,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -2926,7 +2926,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -2949,7 +2949,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -2983,7 +2983,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -3007,7 +3007,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -3031,7 +3031,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -3055,7 +3055,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -3123,7 +3123,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -3149,7 +3149,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -4305,7 +4305,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -4534,7 +4534,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -5766,7 +5766,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -10372,7 +10372,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -10393,7 +10393,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -10424,7 +10424,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -10445,61 +10445,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
-      - 68
-      - 111
-      - 117
-      - 98
-      - 108
-      - 101
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-  - DimKeyword:
-      - 68
-      - 105
-      - 109
-  - Whitespace:
-      - 32
-  - VariableName:
-      - 111
-      - 83
-      - 88
-  - Whitespace:
-      - 32
-  - AsKeyword:
-      - 65
-      - 115
-  - Whitespace:
-      - 32
-  - VariableName:
-      - 68
-      - 111
-      - 117
-      - 98
-      - 108
-      - 101
-  - Comma:
-      - 44
-  - Whitespace:
-      - 32
-  - VariableName:
-      - 111
-      - 69
-      - 88
-  - Whitespace:
-      - 32
-  - AsKeyword:
-      - 65
-      - 115
-  - Whitespace:
-      - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -10523,6 +10469,60 @@ tokens:
   - VariableName:
       - 111
       - 83
+      - 88
+  - Whitespace:
+      - 32
+  - AsKeyword:
+      - 65
+      - 115
+  - Whitespace:
+      - 32
+  - DoubleKeyword:
+      - 68
+      - 111
+      - 117
+      - 98
+      - 108
+      - 101
+  - Comma:
+      - 44
+  - Whitespace:
+      - 32
+  - VariableName:
+      - 111
+      - 69
+      - 88
+  - Whitespace:
+      - 32
+  - AsKeyword:
+      - 65
+      - 115
+  - Whitespace:
+      - 32
+  - DoubleKeyword:
+      - 68
+      - 111
+      - 117
+      - 98
+      - 108
+      - 101
+  - Newline:
+      - 13
+      - 10
+  - Whitespace:
+      - 32
+      - 32
+      - 32
+      - 32
+  - DimKeyword:
+      - 68
+      - 105
+      - 109
+  - Whitespace:
+      - 32
+  - VariableName:
+      - 111
+      - 83
       - 89
   - Whitespace:
       - 32
@@ -10531,7 +10531,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -10553,7 +10553,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -11799,7 +11799,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -11831,7 +11831,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -11862,7 +11862,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -11893,7 +11893,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -11983,7 +11983,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
@@ -12006,7 +12006,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - DoubleKeyword:
       - 68
       - 111
       - 117
