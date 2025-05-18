@@ -331,6 +331,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242859(v=vs.60))
     XorKeyword(&'a BStr),
+    /// Represents the 'Mod' keyword.
+    ///
+    /// Used to perform a modulus operation on two expressions.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242823(v=vs.60))
+    ModKeyword(&'a BStr),
     NotKeyword(&'a BStr),
     ThenKeyword(&'a BStr),
 

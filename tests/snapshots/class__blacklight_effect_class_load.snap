@@ -5128,7 +5128,7 @@ tokens:
       - 104
   - Whitespace:
       - 32
-  - VariableName:
+  - ModKeyword:
       - 77
       - 111
       - 100
