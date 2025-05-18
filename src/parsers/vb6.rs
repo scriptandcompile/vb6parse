@@ -405,6 +405,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
         )),
         alt((
             keyword_parse("Exit").map(|token: &BStr| VB6Token::ExitKeyword(token)),
+            keyword_parse("Compare").map(|token: &BStr| VB6Token::CompareKeyword(token)),
             keyword_parse("Base").map(|token: &BStr| VB6Token::BaseKeyword(token)),
         )),
     ))
