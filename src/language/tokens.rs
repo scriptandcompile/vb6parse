@@ -226,6 +226,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263420(v=vs.60))
     DoubleKeyword(&'a BStr),
+    /// Represents the 'Currency' keyword.
+    ///
+    /// Used to declare a variable that can contain a currency value.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263420(v=vs.60))
+    CurrencyKeyword(&'a BStr),
     ByteKeyword(&'a BStr),
     LongKeyword(&'a BStr),
     SingleKeyword(&'a BStr),
