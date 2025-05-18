@@ -1,3 +1,9 @@
+//! This module contains the error types used in the VB6 parser.
+//! It defines the `VB6Error` type, which is used to represent
+//! errors that occur during parsing. The `VB6Error` type contains
+//! information about the error, including the file name, source code,
+//! source offset, column, line number, and the kind of error.
+
 use std::fmt::{Debug, Display, Formatter};
 use std::path::Path;
 
