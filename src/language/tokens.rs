@@ -108,6 +108,11 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266189(v=vs.60))
     PrivateKeyword(&'a BStr),
+    /// Represents the 'Public' keyword.
+    ///
+    /// Used at the module level to declare public variables and allocate storage space.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266207(v=vs.60))
     PublicKeyword(&'a BStr),
 
     ConstKeyword(&'a BStr),
