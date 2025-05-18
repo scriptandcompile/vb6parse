@@ -411,6 +411,13 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445229(v=vs.60))
     ToKeyword(&'a BStr),
+    /// Represents the 'Lock' keyword.
+    ///
+    /// Controls access by other processess to all or part of a file opened using
+    /// the Open statement.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266161(v=vs.60))
+    LockKeyword(&'a BStr),
     StepKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
