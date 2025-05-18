@@ -7,6 +7,7 @@ use bstr::BStr;
 #[derive(Debug, PartialEq, Clone, Eq, serde::Serialize)]
 pub enum VB6Token<'a> {
     /// Represents whitespace.
+    /// This is a collection of spaces, tabs, and other whitespace characters.
     Whitespace(&'a BStr),
     /// Represents a newline.
     /// This can be a carriage return, a newline, or a carriage return followed by a newline.
@@ -28,10 +29,22 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266231(v=vs.60))
     PreserveKeyword(&'a BStr),
+    /// Represents the Dim keyword.
+    ///
+    /// Used to declare variables and allocate storage space.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243352(v=vs.60))
     DimKeyword(&'a BStr),
     DeclareKeyword(&'a BStr),
     LibKeyword(&'a BStr),
     WithKeyword(&'a BStr),
+    /// Represents the 'WithEvents' keyword.
+    ///
+    /// Used with the 'Dim' keyword to declare a variable that can respond to
+    /// events raised by an object.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243352(v=vs.60))
+    WithEventsKeyword(&'a BStr),
 
     OptionKeyword(&'a BStr),
     ExplicitKeyword(&'a BStr),
