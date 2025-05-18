@@ -373,9 +373,7 @@ impl<'a> VB6Project<'a> {
     /// # Example
     ///
     /// ```rust
-    /// use crate::vb6parse::VB6Project;
-    /// use crate::vb6parse::parsers::CompileTargetType;
-    /// use crate::vb6parse::parsers::project::CompatibilityMode;
+    /// use vb6parse::*;
     /// use bstr::BStr;
     ///
     /// let input = r#"Type=Exe
