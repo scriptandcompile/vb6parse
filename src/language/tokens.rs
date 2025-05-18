@@ -131,7 +131,23 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445149(v=vs.60))
     AsKeyword(&'a BStr),
+    /// Represents the 'ByVal' keyword.
+    ///
+    /// Used in the following contexts:
+    /// Call statement, Declare statement, Function statement, Property Get
+    /// statement, Property Let statement, Property Set statement, and Sub
+    /// statement.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445152(v=vs.60))
     ByValKeyword(&'a BStr),
+    /// Represents the 'ByRef' keyword.
+    ///
+    /// Used in the following contexts:
+    /// Call statement, Declare statement, Function statement, Property Get
+    /// statement, Property Let statement, Property Set statement, and Sub
+    /// statement.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445151(v=vs.60))
     ByRefKeyword(&'a BStr),
     OptionalKeyword(&'a BStr),
 
