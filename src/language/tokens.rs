@@ -205,6 +205,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243358(v=vs.60))
     EnumKeyword(&'a BStr),
+    /// Represents the 'Type' keyword.
+    ///
+    /// Used at the module level to declare a user-defined data type containing
+    /// one or more elements.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266315(v=vs.60))
     TypeKeyword(&'a BStr),
 
     BooleanKeyword(&'a BStr),
