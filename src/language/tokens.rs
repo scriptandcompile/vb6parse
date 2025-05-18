@@ -337,6 +337,26 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242823(v=vs.60))
     ModKeyword(&'a BStr),
+    /// Represents the 'Eqv' keyword.
+    ///
+    /// Used to perform a logical equivalence operation on two expressions.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242780(v=vs.60))
+    EqvKeyword(&'a BStr),
+    /// Represents the 'AddressOf' keyword.
+    ///
+    /// A unary operator that obtains the address of the procedure it precedes
+    /// and is used with API procedures that expect a function pointer at that
+    /// position in the argument list.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242738(v=vs.60))
+    AddressOfKeyword(&'a BStr),
+    /// Represents the 'Imp' keyword.
+    ///
+    /// Used to perform a logical implication operation on two expressions.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242794(v=vs.60))
+    ImpKeyword(&'a BStr),
     NotKeyword(&'a BStr),
     ThenKeyword(&'a BStr),
 
