@@ -5643,7 +5643,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - StaticKeyword:
       - 83
       - 116
       - 97
