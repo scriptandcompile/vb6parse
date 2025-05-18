@@ -4763,7 +4763,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - SetKeyword:
       - 83
       - 101
       - 116

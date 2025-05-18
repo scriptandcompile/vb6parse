@@ -470,6 +470,18 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266310(v=vs.60))
     TimeKeyword(&'a BStr),
+    /// Represents the 'SetAttr' keyword.
+    ///
+    /// Used to set attribute information for a file.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266286(v=vs.60))
+    SetAttrKeyword(&'a BStr),
+    /// Represents the 'Set' keyword.
+    ///
+    /// Used to assign an object reference to a variable or property.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266283(v=vs.60))
+    SetKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
