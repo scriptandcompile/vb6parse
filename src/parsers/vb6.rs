@@ -434,6 +434,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("SetAttr").map(|token: &BStr| VB6Token::SetAttrKeyword(token)),
             keyword_parse("Set").map(|token: &BStr| VB6Token::SetKeyword(token)),
             keyword_parse("SendKeys").map(|token: &BStr| VB6Token::SendKeysKeyword(token)),
+            keyword_parse("Select").map(|token: &BStr| VB6Token::SelectKeyword(token)),
         )),
     ))
     .parse_next(input)

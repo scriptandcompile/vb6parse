@@ -5518,7 +5518,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - SelectKeyword:
       - 83
       - 101
       - 108
@@ -6461,7 +6461,7 @@ tokens:
       - 100
   - Whitespace:
       - 32
-  - VariableName:
+  - SelectKeyword:
       - 83
       - 101
       - 108
