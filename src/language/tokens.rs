@@ -482,6 +482,13 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266283(v=vs.60))
     SetKeyword(&'a BStr),
+    /// Represents the 'SendKeys' keyword.
+    ///
+    /// Used to send one or more keystrokes to the active window as if typed at
+    /// the keyboard.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266279(v=vs.60))
+    SendKeysKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
