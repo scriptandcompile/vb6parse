@@ -410,6 +410,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("Double").map(|token: &BStr| VB6Token::DoubleKeyword(token)),
             keyword_parse("Decimal").map(|token: &BStr| VB6Token::DecimalKeyword(token)),
             keyword_parse("Date").map(|token: &BStr| VB6Token::DateKeyword(token)),
+            keyword_parse("Variant").map(|token: &BStr| VB6Token::VariantKeyword(token)),
             keyword_parse("Object").map(|token: &BStr| VB6Token::ObjectKeyword(token)),
             keyword_parse("Currency").map(|token: &BStr| VB6Token::CurrencyKeyword(token)),
             keyword_parse("Base").map(|token: &BStr| VB6Token::BaseKeyword(token)),
