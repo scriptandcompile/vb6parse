@@ -394,7 +394,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243366(v=vs.60))
     ExitKeyword(&'a BStr),
-
+    /// Represents the 'For' keyword.
+    ///
+    /// Used to declare a For..Next loop, or a For Each...Next loop.
+    /// Repeates a group of statements a specified number of times.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243370(v=vs.60))
     ForKeyword(&'a BStr),
     ToKeyword(&'a BStr),
     StepKeyword(&'a BStr),
