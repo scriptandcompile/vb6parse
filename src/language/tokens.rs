@@ -306,6 +306,13 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243382(v=vs.60))
     ElseKeyword(&'a BStr),
+    /// Represents the 'ElseIf' keyword.
+    ///
+    /// Used to to conditionally execute a block of code depending on the value
+    /// of an expression.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243382(v=vs.60))
+    ElseIfKeyword(&'a BStr),
     AndKeyword(&'a BStr),
     OrKeyword(&'a BStr),
     NotKeyword(&'a BStr),
