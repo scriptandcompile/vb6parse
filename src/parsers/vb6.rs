@@ -467,6 +467,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("Get").map(|token: &BStr| VB6Token::GetKeyword(token)),
             keyword_parse("FileCopy").map(|token: &BStr| VB6Token::FileCopyKeyword(token)),
             keyword_parse("Event").map(|token: &BStr| VB6Token::EventKeyword(token)),
+            keyword_parse("Error").map(|token: &BStr| VB6Token::ErrorKeyword(token)),
         )),
     ))
     .parse_next(input)

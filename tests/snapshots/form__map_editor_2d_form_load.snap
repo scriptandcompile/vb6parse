@@ -2563,7 +2563,7 @@ tokens:
       - 110
   - Whitespace:
       - 32
-  - VariableName:
+  - ErrorKeyword:
       - 69
       - 114
       - 114
