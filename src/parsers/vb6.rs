@@ -474,7 +474,10 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("DeleteSetting")
                 .map(|token: &BStr| VB6Token::DeleteSettingKeyword(token)),
         )),
-        alt((keyword_parse("DefBool").map(|token: &BStr| VB6Token::DefBoolKeyword(token)),)),
+        alt((
+            keyword_parse("DefBool").map(|token: &BStr| VB6Token::DefBoolKeyword(token)),
+            keyword_parse("DefByte").map(|token: &BStr| VB6Token::DefByteKeyword(token)),
+        )),
     ))
     .parse_next(input)
 }
