@@ -3580,7 +3580,7 @@ tokens:
       - 44
   - Whitespace:
       - 32
-  - VariableName:
+  - LenKeyword:
       - 76
       - 101
       - 110
@@ -3875,7 +3875,7 @@ tokens:
       - 44
   - Whitespace:
       - 32
-  - VariableName:
+  - LenKeyword:
       - 76
       - 101
       - 110
@@ -4712,7 +4712,7 @@ tokens:
       - 44
   - Whitespace:
       - 32
-  - VariableName:
+  - LenKeyword:
       - 76
       - 101
       - 110
@@ -7088,7 +7088,7 @@ tokens:
       - 44
   - Whitespace:
       - 32
-  - VariableName:
+  - LenKeyword:
       - 76
       - 101
       - 110

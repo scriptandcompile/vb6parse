@@ -2830,7 +2830,7 @@ tokens:
       - 61
   - Whitespace:
       - 32
-  - VariableName:
+  - LenKeyword:
       - 76
       - 101
       - 110

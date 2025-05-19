@@ -904,6 +904,14 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445155(v=vs.60))
     EmptyKeyword(&'a BStr),
+    /// Represents the 'Len' keyword.
+    ///
+    /// The Len keyword is used in these contexts:
+    ///
+    /// Len function, and Open Statement.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445169(v=vs.60))
+    LenKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
