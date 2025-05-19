@@ -481,6 +481,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("DefLng").map(|token: &BStr| VB6Token::DefLngKeyword(token)),
             keyword_parse("DefCur").map(|token: &BStr| VB6Token::DefCurKeyword(token)),
             keyword_parse("DefSng").map(|token: &BStr| VB6Token::DefSngKeyword(token)),
+            keyword_parse("DefDbl").map(|token: &BStr| VB6Token::DefDblKeyword(token)),
         )),
     ))
     .parse_next(input)
