@@ -660,6 +660,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243390(v=vs.60))
     LetKeyword(&'a BStr),
+    /// Represents the 'Kill' keyword.
+    ///
+    /// Deletes files from a disk.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243388(v=vs.60))
+    KillKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
