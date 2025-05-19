@@ -2605,7 +2605,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - OpenKeyword:
       - 79
       - 112
       - 101
@@ -6156,7 +6156,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - OpenKeyword:
       - 79
       - 112
       - 101
@@ -7760,7 +7760,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - OpenKeyword:
       - 79
       - 112
       - 101
