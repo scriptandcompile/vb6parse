@@ -684,6 +684,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243368(v=vs.60))
     FileCopyKeyword(&'a BStr),
+    /// Represents the 'Event' keyword.
+    ///
+    /// Declares a user-defined event.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243364(v=vs.60))
+    EventKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
