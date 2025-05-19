@@ -897,6 +897,13 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445150(v=vs.60))
     BinaryKeyword(&'a BStr),
+    /// Represents the 'Empty' keyword.
+    ///
+    /// The Empty keyword is used as a Variant subtype. It indicates an
+    /// uninitialized variable value.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445155(v=vs.60))
+    EmptyKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
