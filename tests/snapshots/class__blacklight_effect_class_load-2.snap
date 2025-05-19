@@ -6760,7 +6760,7 @@ tokens:
   - Newline:
       - 13
       - 10
-  - VariableName:
+  - FriendKeyword:
       - 70
       - 114
       - 105
@@ -12871,7 +12871,7 @@ tokens:
   - Newline:
       - 13
       - 10
-  - VariableName:
+  - FriendKeyword:
       - 70
       - 114
       - 105
