@@ -497,16 +497,6 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("Binary").map(|token: &BStr| VB6Token::BinaryKeyword(token)),
             keyword_parse("Empty").map(|token: &BStr| VB6Token::EmptyKeyword(token)),
         )),
-        alt((
-            keyword_parse("LenB").map(|token: &BStr| VB6Token::LenBKeyword(token)),
-            keyword_parse("Len").map(|token: &BStr| VB6Token::LenKeyword(token)),
-            keyword_parse("LoadPicture").map(|token: &BStr| VB6Token::LoadPictureKeyword(token)),
-            keyword_parse("LoadResData").map(|token: &BStr| VB6Token::LoadResDataKeyword(token)),
-            keyword_parse("LoadResPicture")
-                .map(|token: &BStr| VB6Token::LoadResPictureKeyword(token)),
-            keyword_parse("LoadResString")
-                .map(|token: &BStr| VB6Token::LoadResStringKeyword(token)),
-        )),
     ))
     .parse_next(input)
 }

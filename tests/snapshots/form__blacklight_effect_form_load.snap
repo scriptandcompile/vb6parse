@@ -3222,7 +3222,7 @@ tokens:
       - 32
   - LeftParanthesis:
       - 40
-  - LenBKeyword:
+  - VariableName:
       - 76
       - 101
       - 110
@@ -3288,7 +3288,7 @@ tokens:
       - 61
   - Whitespace:
       - 32
-  - LoadPictureKeyword:
+  - VariableName:
       - 76
       - 111
       - 97

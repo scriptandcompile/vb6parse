@@ -904,48 +904,6 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445155(v=vs.60))
     EmptyKeyword(&'a BStr),
-    /// Represents the 'Len' keyword.
-    ///
-    /// The Len keyword is used in these contexts:
-    ///
-    /// Len function, and Open Statement.
-    ///
-    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445169(v=vs.60))
-    LenKeyword(&'a BStr),
-    /// Represents the 'LenB' keyword.
-    ///
-    /// Returns a Long containing the number of bytes used to store the string
-    /// or the number of bytes required to store a variable. This is useful for
-    /// manipulating double-byte character set (DBCS) strings.
-    ///
-    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445063(v=vs.60))
-    LenBKeyword(&'a BStr),
-    /// Represents the 'LoadPicture' keyword.
-    ///
-    /// Loads a graphic into a forms `Picture` property, a `PictureBox` control,
-    /// or an `Image` control..
-    ///
-    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa264946(v=vs.60))
-    LoadPictureKeyword(&'a BStr),
-    /// Represents the 'LoadResData' keyword.
-    ///
-    /// Loads data of several possible types from a resource (.res) file and
-    /// returns a Byte array.
-    ///
-    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa244129(v=vs.60))
-    LoadResDataKeyword(&'a BStr),
-    /// Represents the 'LoadResPicture' keyword.
-    ///
-    /// Loads a bitmap, icon, or cursor from a resource (.res) file.
-    ///
-    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa244130(v=vs.60))
-    LoadResPictureKeyword(&'a BStr),
-    /// Represents the 'LoadResString' keyword.
-    ///
-    /// Loads a string from a resource (.res) file.
-    ///
-    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa244131(v=vs.60))
-    LoadResStringKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
