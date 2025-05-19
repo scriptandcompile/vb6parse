@@ -672,6 +672,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243384(v=vs.60))
     ImplementsKeyword(&'a BStr),
+    /// Represents the 'Get' keyword.
+    ///
+    /// Reads data from an open disk file into a variable.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243376(v=vs.60))
+    GetKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.

@@ -18926,7 +18926,7 @@ tokens:
       - 121
   - Whitespace:
       - 32
-  - VariableName:
+  - GetKeyword:
       - 71
       - 101
       - 116
@@ -19080,7 +19080,7 @@ tokens:
       - 121
   - Whitespace:
       - 32
-  - VariableName:
+  - GetKeyword:
       - 71
       - 101
       - 116
@@ -31527,7 +31527,7 @@ tokens:
       - 121
   - Whitespace:
       - 32
-  - VariableName:
+  - GetKeyword:
       - 71
       - 101
       - 116
@@ -32209,7 +32209,7 @@ tokens:
       - 121
   - Whitespace:
       - 32
-  - VariableName:
+  - GetKeyword:
       - 71
       - 101
       - 116
