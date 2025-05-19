@@ -559,6 +559,13 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266225(v=vs.60))
     RandomizeKeyword(&'a BStr),
+    /// Represents the 'RaiseEvent' keyword.
+    ///
+    /// Fires an event declared at module level within a class, form, or
+    /// document.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266219(v=vs.60))
+    RaiseEventKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
