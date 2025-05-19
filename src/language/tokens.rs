@@ -710,6 +710,13 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243354(v=vs.60))
     DoKeyword(&'a BStr),
+    /// Represents the 'Until' keyword.
+    ///
+    /// Used in the Do...Loop statement to specify the condition under which
+    /// the loop terminates.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243354(v=vs.60))
+    UntilKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.

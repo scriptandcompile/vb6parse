@@ -470,6 +470,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("Error").map(|token: &BStr| VB6Token::ErrorKeyword(token)),
             keyword_parse("Erase").map(|token: &BStr| VB6Token::EraseKeyword(token)),
             keyword_parse("Do").map(|token: &BStr| VB6Token::DoKeyword(token)),
+            keyword_parse("Until").map(|token: &BStr| VB6Token::UntilKeyword(token)),
         )),
     ))
     .parse_next(input)
