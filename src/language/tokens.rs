@@ -934,6 +934,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa244129(v=vs.60))
     LoadResDataKeyword(&'a BStr),
+    /// Represents the 'LoadResPicture' keyword.
+    ///
+    /// Loads a bitmap, icon, or cursor from a resource (.res) file.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa244130(v=vs.60))
+    LoadResPictureKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
