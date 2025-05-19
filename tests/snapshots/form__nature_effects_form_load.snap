@@ -3649,7 +3649,7 @@ tokens:
       - 32
   - LeftParanthesis:
       - 40
-  - VariableName:
+  - LenBKeyword:
       - 76
       - 101
       - 110

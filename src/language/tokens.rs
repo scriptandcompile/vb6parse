@@ -912,6 +912,14 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445169(v=vs.60))
     LenKeyword(&'a BStr),
+    /// Represents the 'LenB' keyword.
+    ///
+    /// Returns a Long containing the number of bytes used to store the string
+    /// or the number of bytes required to store a variable. This is useful for
+    /// manipulating double-byte character set (DBCS) strings.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445063(v=vs.60))
+    LenBKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
