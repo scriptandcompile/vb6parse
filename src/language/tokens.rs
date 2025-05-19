@@ -608,6 +608,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266171(v=vs.60))
     NameKeyword(&'a BStr),
+    /// Represents the 'MkDir' keyword.
+    ///
+    /// Creates a new directory or folder.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266169(v=vs.60))
+    MkDirKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
