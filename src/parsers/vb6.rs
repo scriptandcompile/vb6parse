@@ -445,6 +445,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("Reset").map(|token: &BStr| VB6Token::ResetKeyword(token)),
             keyword_parse("Rem").map(|token: &BStr| VB6Token::RemKeyword(token)),
             keyword_parse("Randomize").map(|token: &BStr| VB6Token::RandomizeKeyword(token)),
+            keyword_parse("RaiseEvent").map(|token: &BStr| VB6Token::RaiseEventKeyword(token)),
         )),
     ))
     .parse_next(input)
