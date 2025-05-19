@@ -8456,7 +8456,7 @@ tokens:
       - 110
   - Whitespace:
       - 32
-  - VariableName:
+  - KillKeyword:
       - 75
       - 105
       - 108
