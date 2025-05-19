@@ -593,6 +593,15 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266177(v=vs.60))
     OpenKeyword(&'a BStr),
+    /// Represents the 'On' keyword.
+    ///
+    /// Branch to one of several specified lines, dependin on the value of an expression.
+    /// Used in the following contexts:
+    ///
+    /// On...GoSub statement, On...Goto statement, and On...Error statements.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266175(v=vs.60))
+    OnKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
