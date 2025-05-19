@@ -7928,7 +7928,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - PutKeyword:
       - 80
       - 117
       - 116
@@ -7970,7 +7970,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - PutKeyword:
       - 80
       - 117
       - 116
@@ -8010,7 +8010,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - PutKeyword:
       - 80
       - 117
       - 116
