@@ -10772,7 +10772,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - CloseKeyword:
       - 67
       - 108
       - 111

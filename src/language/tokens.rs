@@ -844,6 +844,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
     DefVarKeyword(&'a BStr),
+    /// Represents the 'Close' keyword.
+    ///
+    /// Concludes input/output (I/O) to a file opened using the Open statement.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243283(v=vs.60))
+    CloseKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
