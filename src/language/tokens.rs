@@ -541,6 +541,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266247(v=vs.60))
     ResumeKeyword(&'a BStr),
+    /// Represents the 'Reset' keyword.
+    ///
+    /// Closes all disk files opened using the Open statement.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266242(v=vs.60))
+    ResetKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
