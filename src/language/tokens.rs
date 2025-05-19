@@ -869,6 +869,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243242(v=vs.60))
     CallKeyword(&'a BStr),
+    /// Represents the 'Beep' keyword.
+    ///
+    /// Sounds a tone through the computer's speaker.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243233(v=vs.60))
+    BeepKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
