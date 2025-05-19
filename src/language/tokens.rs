@@ -949,8 +949,11 @@ pub enum VB6Token<'a> {
 
     /// Represents an exclamation mark '!'.
     ExclamationMark(&'a BStr),
-
     /// Represents an equality operator '=' can also be the assignment operator.
+    ///
+    /// Used to assign a value to a variable or property.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242760(v=vs.60))
     EqualityOperator(&'a BStr),
     /// Represents a less than operator '<'.
     LessThanOperator(&'a BStr),
