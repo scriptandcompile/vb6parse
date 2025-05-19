@@ -453,6 +453,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
         alt((
             keyword_parse("Open").map(|token: &BStr| VB6Token::OpenKeyword(token)),
             keyword_parse("On").map(|token: &BStr| VB6Token::OnKeyword(token)),
+            keyword_parse("Name").map(|token: &BStr| VB6Token::NameKeyword(token)),
         )),
     ))
     .parse_next(input)
