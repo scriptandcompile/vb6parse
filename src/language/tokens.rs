@@ -744,6 +744,16 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
     DefByteKeyword(&'a BStr),
+    /// Represents the 'DefInt' keyword.
+    ///
+    /// Used at module level to set the default data type for variables,
+    /// arguments passed to procedures, and the return type for Function and
+    /// PropertyGet procedures whose names start with the specified characters.
+    ///
+    /// Defaults to the Int data type.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
+    DefIntKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
