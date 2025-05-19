@@ -621,6 +621,14 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266166(v=vs.60))
     MidKeyword(&'a BStr),
+    /// Represents the 'MidB' keyword.
+    ///
+    /// Replaces a specified number of bytes in a Variant (String) variable
+    /// with bytes from another string. This is useful for manipulating double-byte
+    /// character set (DBCS) strings.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266166(v=vs.60))
+    MidBKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
