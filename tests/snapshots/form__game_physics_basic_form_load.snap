@@ -4649,7 +4649,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - DoKeyword:
       - 68
       - 111
   - Whitespace:
@@ -4739,7 +4739,7 @@ tokens:
       - 116
   - Whitespace:
       - 32
-  - VariableName:
+  - DoKeyword:
       - 68
       - 111
   - Newline:
@@ -5280,7 +5280,7 @@ tokens:
       - 116
   - Whitespace:
       - 32
-  - VariableName:
+  - DoKeyword:
       - 68
       - 111
   - Newline:
@@ -5460,7 +5460,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - DoKeyword:
       - 68
       - 111
   - Whitespace:
@@ -5628,7 +5628,7 @@ tokens:
       - 116
   - Whitespace:
       - 32
-  - VariableName:
+  - DoKeyword:
       - 68
       - 111
   - Newline:

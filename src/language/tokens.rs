@@ -703,6 +703,13 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243360(v=vs.60))
     EraseKeyword(&'a BStr),
+    /// Represents the 'Do' keyword.
+    ///
+    /// Repeats a block of statements while a condition is True or until a
+    /// condition becomes True.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243354(v=vs.60))
+    DoKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
