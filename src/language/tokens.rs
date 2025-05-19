@@ -642,6 +642,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445825(v=vs.60))
     LoadKeyword(&'a BStr),
+    /// Represents the 'Line' keyword.
+    ///
+    /// Reads a single line from an open sequential file and assigns it to a string variable.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243392(v=vs.60))
+    LineKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.

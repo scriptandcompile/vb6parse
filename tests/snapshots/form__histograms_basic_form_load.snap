@@ -6923,7 +6923,7 @@ tokens:
       - 72
   - PeriodOperator:
       - 46
-  - VariableName:
+  - LineKeyword:
       - 76
       - 105
       - 110
@@ -7216,7 +7216,7 @@ tokens:
       - 72
   - PeriodOperator:
       - 46
-  - VariableName:
+  - LineKeyword:
       - 76
       - 105
       - 110
