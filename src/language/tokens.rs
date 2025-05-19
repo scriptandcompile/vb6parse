@@ -654,6 +654,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243386(v=vs.60))
     InputKeyword(&'a BStr),
+    //// Represents the 'Let' keyword.
+    ///
+    /// Assigns the value of an expression to a variable or property.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243390(v=vs.60))
+    LetKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
