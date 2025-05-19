@@ -666,6 +666,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243388(v=vs.60))
     KillKeyword(&'a BStr),
+    /// Represents the 'Implements' keyword.
+    ///
+    /// Specifies an interface or class that will be implemented in the class module in which it appears.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243384(v=vs.60))
+    ImplementsKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
