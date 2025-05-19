@@ -717,6 +717,13 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243354(v=vs.60))
     UntilKeyword(&'a BStr),
+    /// Represents the 'DeleteSetting' keyword.
+    ///
+    /// Deletes a section or key setting from an application's entry in the
+    /// Windows registry.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243347(v=vs.60))
+    DeleteSettingKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
