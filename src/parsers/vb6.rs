@@ -443,6 +443,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("RmDir").map(|token: &BStr| VB6Token::RmDirKeyword(token)),
             keyword_parse("Resume").map(|token: &BStr| VB6Token::ResumeKeyword(token)),
             keyword_parse("Reset").map(|token: &BStr| VB6Token::ResetKeyword(token)),
+            keyword_parse("Rem").map(|token: &BStr| VB6Token::RemKeyword(token)),
         )),
     ))
     .parse_next(input)
