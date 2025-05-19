@@ -2327,7 +2327,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - NewKeyword:
       - 78
       - 101
       - 119
@@ -3251,7 +3251,7 @@ tokens:
       - 61
   - Whitespace:
       - 32
-  - VariableName:
+  - NewKeyword:
       - 78
       - 101
       - 119
@@ -4498,7 +4498,7 @@ tokens:
       - 61
   - Whitespace:
       - 32
-  - VariableName:
+  - NewKeyword:
       - 78
       - 101
       - 119
@@ -6901,7 +6901,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - NewKeyword:
       - 78
       - 101
       - 119
@@ -11115,7 +11115,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - NewKeyword:
       - 78
       - 101
       - 119

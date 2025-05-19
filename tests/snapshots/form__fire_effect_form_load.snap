@@ -6704,7 +6704,7 @@ tokens:
       - 115
   - Whitespace:
       - 32
-  - VariableName:
+  - NewKeyword:
       - 78
       - 101
       - 119
