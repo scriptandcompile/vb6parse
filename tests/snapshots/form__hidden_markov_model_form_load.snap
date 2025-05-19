@@ -13032,7 +13032,7 @@ tokens:
       - 114
   - Whitespace:
       - 32
-  - VariableName:
+  - InputKeyword:
       - 73
       - 110
       - 112
@@ -13719,7 +13719,7 @@ tokens:
       - 101
   - Whitespace:
       - 32
-  - VariableName:
+  - InputKeyword:
       - 73
       - 110
       - 112
