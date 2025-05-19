@@ -31884,7 +31884,7 @@ tokens:
       - 121
   - Whitespace:
       - 32
-  - VariableName:
+  - LetKeyword:
       - 76
       - 101
       - 116
