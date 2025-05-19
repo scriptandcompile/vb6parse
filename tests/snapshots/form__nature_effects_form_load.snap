@@ -3715,7 +3715,7 @@ tokens:
       - 61
   - Whitespace:
       - 32
-  - VariableName:
+  - LoadPictureKeyword:
       - 76
       - 111
       - 97
