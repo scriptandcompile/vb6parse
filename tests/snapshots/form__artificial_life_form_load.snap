@@ -13717,7 +13717,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - RandomizeKeyword:
       - 82
       - 97
       - 110
