@@ -490,6 +490,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("Close").map(|token: &BStr| VB6Token::CloseKeyword(token)),
             keyword_parse("ChDrive").map(|token: &BStr| VB6Token::ChDriveKeyword(token)),
             keyword_parse("ChDir").map(|token: &BStr| VB6Token::ChDirKeyword(token)),
+            keyword_parse("Call").map(|token: &BStr| VB6Token::CallKeyword(token)),
         )),
     ))
     .parse_next(input)
