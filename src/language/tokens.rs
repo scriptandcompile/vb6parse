@@ -572,6 +572,15 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266212(v=vs.60))
     PutKeyword(&'a BStr),
+    /// Represents the 'Property' keyword.
+    ///
+    /// Declares the name, argument, and code that forms the body of a property
+    /// procedure, which sets a reference to a property of an object.
+    ///
+    /// Used in Property Get, Property Let, and Property Set statements.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266202(v=vs.60))
+    PropertyKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.

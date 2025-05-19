@@ -18915,7 +18915,7 @@ tokens:
       - 99
   - Whitespace:
       - 32
-  - VariableName:
+  - PropertyKeyword:
       - 80
       - 114
       - 111
@@ -19048,7 +19048,7 @@ tokens:
       - 100
   - Whitespace:
       - 32
-  - VariableName:
+  - PropertyKeyword:
       - 80
       - 114
       - 111
@@ -19069,7 +19069,7 @@ tokens:
       - 99
   - Whitespace:
       - 32
-  - VariableName:
+  - PropertyKeyword:
       - 80
       - 114
       - 111
@@ -19218,7 +19218,7 @@ tokens:
       - 100
   - Whitespace:
       - 32
-  - VariableName:
+  - PropertyKeyword:
       - 80
       - 114
       - 111
@@ -31516,7 +31516,7 @@ tokens:
       - 99
   - Whitespace:
       - 32
-  - VariableName:
+  - PropertyKeyword:
       - 80
       - 114
       - 111
@@ -31849,7 +31849,7 @@ tokens:
       - 100
   - Whitespace:
       - 32
-  - VariableName:
+  - PropertyKeyword:
       - 80
       - 114
       - 111
@@ -31873,7 +31873,7 @@ tokens:
       - 99
   - Whitespace:
       - 32
-  - VariableName:
+  - PropertyKeyword:
       - 80
       - 114
       - 111
@@ -32173,7 +32173,7 @@ tokens:
       - 100
   - Whitespace:
       - 32
-  - VariableName:
+  - PropertyKeyword:
       - 80
       - 114
       - 111
@@ -32198,7 +32198,7 @@ tokens:
       - 101
   - Whitespace:
       - 32
-  - VariableName:
+  - PropertyKeyword:
       - 80
       - 114
       - 111
@@ -32282,7 +32282,7 @@ tokens:
       - 100
   - Whitespace:
       - 32
-  - VariableName:
+  - PropertyKeyword:
       - 80
       - 114
       - 111
