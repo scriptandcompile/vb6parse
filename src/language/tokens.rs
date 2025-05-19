@@ -614,6 +614,13 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266169(v=vs.60))
     MkDirKeyword(&'a BStr),
+    /// Represents the 'Mid' keyword.
+    ///
+    /// Replaces a specified number of characters in a Variant (String) variable
+    /// with characters from another string.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266166(v=vs.60))
+    MidKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.

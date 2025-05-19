@@ -455,6 +455,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("On").map(|token: &BStr| VB6Token::OnKeyword(token)),
             keyword_parse("Name").map(|token: &BStr| VB6Token::NameKeyword(token)),
             keyword_parse("MkDir").map(|token: &BStr| VB6Token::MkDirKeyword(token)),
+            keyword_parse("Mid").map(|token: &BStr| VB6Token::MidKeyword(token)),
         )),
     ))
     .parse_next(input)
