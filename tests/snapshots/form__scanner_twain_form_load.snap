@@ -5907,7 +5907,7 @@ tokens:
       - 61
   - Whitespace:
       - 32
-  - LoadPictureKeyword:
+  - VariableName:
       - 76
       - 111
       - 97

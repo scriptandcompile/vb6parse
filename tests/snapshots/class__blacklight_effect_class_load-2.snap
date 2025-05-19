@@ -7845,7 +7845,7 @@ tokens:
       - 61
   - Whitespace:
       - 32
-  - LenKeyword:
+  - VariableName:
       - 76
       - 101
       - 110
@@ -8894,7 +8894,7 @@ tokens:
       - 111
   - Whitespace:
       - 32
-  - LenKeyword:
+  - VariableName:
       - 76
       - 101
       - 110
@@ -9732,7 +9732,7 @@ tokens:
       - 45
   - Whitespace:
       - 32
-  - LenKeyword:
+  - VariableName:
       - 76
       - 101
       - 110
@@ -9906,7 +9906,7 @@ tokens:
       - 45
   - Whitespace:
       - 32
-  - LenKeyword:
+  - VariableName:
       - 76
       - 101
       - 110
@@ -11769,7 +11769,7 @@ tokens:
       - 61
   - Whitespace:
       - 32
-  - LenKeyword:
+  - VariableName:
       - 76
       - 101
       - 110
@@ -13858,7 +13858,7 @@ tokens:
       - 61
   - Whitespace:
       - 32
-  - LenKeyword:
+  - VariableName:
       - 76
       - 101
       - 110
@@ -15443,7 +15443,7 @@ tokens:
       - 45
   - Whitespace:
       - 32
-  - LenKeyword:
+  - VariableName:
       - 76
       - 101
       - 110
@@ -15617,7 +15617,7 @@ tokens:
       - 45
   - Whitespace:
       - 32
-  - LenKeyword:
+  - VariableName:
       - 76
       - 101
       - 110
@@ -16757,7 +16757,7 @@ tokens:
       - 61
   - Whitespace:
       - 32
-  - LenKeyword:
+  - VariableName:
       - 76
       - 101
       - 110
