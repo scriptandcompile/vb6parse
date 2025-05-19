@@ -504,6 +504,8 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("LoadResData").map(|token: &BStr| VB6Token::LoadResDataKeyword(token)),
             keyword_parse("LoadResPicture")
                 .map(|token: &BStr| VB6Token::LoadResPictureKeyword(token)),
+            keyword_parse("LoadResString")
+                .map(|token: &BStr| VB6Token::LoadResStringKeyword(token)),
         )),
     ))
     .parse_next(input)
