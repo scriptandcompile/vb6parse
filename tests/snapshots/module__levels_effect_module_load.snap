@@ -2317,7 +2317,7 @@ tokens:
       - 116
   - PeriodOperator:
       - 46
-  - VariableName:
+  - LineKeyword:
       - 76
       - 105
       - 110
