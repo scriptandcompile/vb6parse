@@ -862,6 +862,13 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243256(v=vs.60))
     ChDirKeyword(&'a BStr),
+    /// Represents the 'Call' keyword.
+    ///
+    /// Transfers control to a sub procedure, Function procedure, or dynamic-link
+    /// library (DLL) procedure.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243242(v=vs.60))
+    CallKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
