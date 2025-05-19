@@ -581,6 +581,13 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266202(v=vs.60))
     PropertyKeyword(&'a BStr),
+    /// Represents the 'Print' keyword.
+    ///
+    /// Writes display-formatted data to a sequential file.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266187(v=vs.60))
+    PrintKeyword(&'a BStr),
+
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.

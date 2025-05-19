@@ -448,6 +448,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("RaiseEvent").map(|token: &BStr| VB6Token::RaiseEventKeyword(token)),
             keyword_parse("Put").map(|token: &BStr| VB6Token::PutKeyword(token)),
             keyword_parse("Property").map(|token: &BStr| VB6Token::PropertyKeyword(token)),
+            keyword_parse("Print").map(|token: &BStr| VB6Token::PrintKeyword(token)),
         )),
     ))
     .parse_next(input)
