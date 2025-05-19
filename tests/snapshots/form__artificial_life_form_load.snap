@@ -8852,7 +8852,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - PrintKeyword:
       - 80
       - 114
       - 105
@@ -10652,7 +10652,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - PrintKeyword:
       - 80
       - 114
       - 105
