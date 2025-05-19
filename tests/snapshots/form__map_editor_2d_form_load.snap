@@ -2558,7 +2558,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - OnKeyword:
       - 79
       - 110
   - Whitespace:
