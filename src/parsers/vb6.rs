@@ -495,6 +495,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("AppActivate").map(|token: &BStr| VB6Token::AppActivateKeyword(token)),
             keyword_parse("Friend").map(|token: &BStr| VB6Token::FriendKeyword(token)),
             keyword_parse("Binary").map(|token: &BStr| VB6Token::BinaryKeyword(token)),
+            keyword_parse("Empty").map(|token: &BStr| VB6Token::EmptyKeyword(token)),
         )),
     ))
     .parse_next(input)
