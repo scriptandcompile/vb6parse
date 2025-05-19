@@ -629,6 +629,13 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266166(v=vs.60))
     MidBKeyword(&'a BStr),
+    /// Represents the 'LSet' keyword.
+    ///
+    /// Left alligns a string within a string variable, or copies a variable of
+    /// one user-defined type to another variable of a different user-defined type.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266163(v=vs.60))
+    LSetKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
