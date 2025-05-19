@@ -458,6 +458,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("MidB").map(|token: &BStr| VB6Token::MidBKeyword(token)),
             keyword_parse("Mid").map(|token: &BStr| VB6Token::MidKeyword(token)),
             keyword_parse("LSet").map(|token: &BStr| VB6Token::LSetKeyword(token)),
+            keyword_parse("Load").map(|token: &BStr| VB6Token::LoadKeyword(token)),
         )),
     ))
     .parse_next(input)
