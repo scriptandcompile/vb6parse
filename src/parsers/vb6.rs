@@ -493,6 +493,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("Call").map(|token: &BStr| VB6Token::CallKeyword(token)),
             keyword_parse("Beep").map(|token: &BStr| VB6Token::BeepKeyword(token)),
             keyword_parse("AppActivate").map(|token: &BStr| VB6Token::AppActivateKeyword(token)),
+            keyword_parse("Friend").map(|token: &BStr| VB6Token::FriendKeyword(token)),
         )),
     ))
     .parse_next(input)

@@ -881,6 +881,15 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243211(v=vs.60))
     AppActivateKeyword(&'a BStr),
+    /// Represents the 'Friend' keyword.
+    ///
+    /// Modifies the definition of a procedure in a form module or class moduel
+    /// to make the procedure callable from modules that are outside the class,
+    /// but part of the project within which the class is defined. Friend
+    /// procedures cannot be used in standard modules.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445159(v=vs.60))
+    FriendKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
