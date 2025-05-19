@@ -919,6 +919,10 @@ pub enum VB6Token<'a> {
     /// Represents an underscore '_'.
     Underscore(&'a BStr),
     /// Represents an ampersand '&'.
+    ///
+    /// Used to force string concatenation of two expressions.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242763(v=vs.60))
     Ampersand(&'a BStr),
     /// Represents a percent sign '%'.
     Percent(&'a BStr),
