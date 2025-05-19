@@ -856,6 +856,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243270(v=vs.60))
     ChDriveKeyword(&'a BStr),
+    /// Represents the 'ChDir' keyword.
+    ///
+    /// Changes the current directory or folder.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243256(v=vs.60))
+    ChDirKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
