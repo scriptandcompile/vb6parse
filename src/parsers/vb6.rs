@@ -487,6 +487,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("DefStr").map(|token: &BStr| VB6Token::DefStrKeyword(token)),
             keyword_parse("DefObj").map(|token: &BStr| VB6Token::DefObjKeyword(token)),
             keyword_parse("DefVar").map(|token: &BStr| VB6Token::DefVarKeyword(token)),
+            keyword_parse("Close").map(|token: &BStr| VB6Token::CloseKeyword(token)),
         )),
     ))
     .parse_next(input)

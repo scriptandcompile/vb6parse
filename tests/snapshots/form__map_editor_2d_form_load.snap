@@ -2976,7 +2976,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - CloseKeyword:
       - 67
       - 108
       - 111
@@ -6528,7 +6528,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - CloseKeyword:
       - 67
       - 108
       - 111
@@ -8049,7 +8049,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - CloseKeyword:
       - 67
       - 108
       - 111
