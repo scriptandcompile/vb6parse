@@ -920,6 +920,13 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445063(v=vs.60))
     LenBKeyword(&'a BStr),
+    /// Represents the 'LoadPicture' keyword.
+    ///
+    /// Loads a graphic into a forms `Picture` property, a `PictureBox` control,
+    /// or an `Image` control..
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa264946(v=vs.60))
+    LoadPictureKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
