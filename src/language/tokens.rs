@@ -913,7 +913,17 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445184(v=vs.60))
     NextKeyword(&'a BStr),
-
+    /// Represents the 'New' keyword.
+    ///
+    /// Keyword that enables implicit creation of an object. If you use New when
+    /// declaring the object variable, a new instance of the object is created
+    /// on first reference to it, so you don't have to use the Set statement to
+    /// assign the object reference. The New keyword can't be used to declare
+    /// variables of any intrinsic data types, can't be used to declare
+    /// instances of dependent objects, and can't be used with WithEvents.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243352(v=vs.60))
+    NewKeyword(&'a BStr),
     /// Represents a dollar sign '$'.
     DollarSign(&'a BStr),
     /// Represents an underscore '_'.
