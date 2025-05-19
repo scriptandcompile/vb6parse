@@ -2788,7 +2788,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - GetKeyword:
       - 71
       - 101
       - 116
@@ -2826,7 +2826,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - GetKeyword:
       - 71
       - 101
       - 116
@@ -2941,7 +2941,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - GetKeyword:
       - 71
       - 101
       - 116
@@ -6324,7 +6324,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - GetKeyword:
       - 71
       - 101
       - 116
@@ -6366,7 +6366,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - GetKeyword:
       - 71
       - 101
       - 116
@@ -6489,7 +6489,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - GetKeyword:
       - 71
       - 101
       - 116
