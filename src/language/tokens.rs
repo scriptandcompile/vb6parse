@@ -696,6 +696,13 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243362(v=vs.60))
     ErrorKeyword(&'a BStr),
+    /// Represents the 'Erase' keyword.
+    ///
+    /// Reinitializes the elements of a fixed-size array and releases dynamic-array
+    /// storage space.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243360(v=vs.60))
+    EraseKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.

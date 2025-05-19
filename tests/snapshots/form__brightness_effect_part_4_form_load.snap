@@ -3358,7 +3358,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - EraseKeyword:
       - 69
       - 114
       - 97
@@ -4804,7 +4804,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - EraseKeyword:
       - 69
       - 114
       - 97
