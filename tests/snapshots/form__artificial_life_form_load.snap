@@ -23656,7 +23656,7 @@ tokens:
       - 114
   - Whitespace:
       - 32
-  - VariableName:
+  - ResumeKeyword:
       - 82
       - 101
       - 115
