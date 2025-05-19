@@ -15744,7 +15744,7 @@ tokens:
       - 61
   - Whitespace:
       - 32
-  - VariableName:
+  - MidKeyword:
       - 77
       - 105
       - 100
