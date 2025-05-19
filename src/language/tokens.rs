@@ -875,6 +875,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243233(v=vs.60))
     BeepKeyword(&'a BStr),
+    /// Represents the 'AppActivate' keyword.
+    ///
+    /// Activates an application window.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243211(v=vs.60))
+    AppActivateKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
