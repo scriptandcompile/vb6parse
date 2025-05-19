@@ -636,6 +636,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266163(v=vs.60))
     LSetKeyword(&'a BStr),
+    /// Represents the 'Load' keyword.
+    ///
+    /// Loads a form or control into memory.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445825(v=vs.60))
+    LoadKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
