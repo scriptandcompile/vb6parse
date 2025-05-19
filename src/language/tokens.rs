@@ -904,6 +904,14 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445155(v=vs.60))
     EmptyKeyword(&'a BStr),
+    /// Represents the 'Next' keyword.
+    ///
+    /// The next keyword is used in these contexts:
+    ///
+    /// For...Next statement, For Each...Next statement, On Error statement, and
+    /// a Resume statement.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445184(v=vs.60))
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
