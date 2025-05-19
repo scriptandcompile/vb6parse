@@ -2649,7 +2649,7 @@ tokens:
       - 114
   - Whitespace:
       - 32
-  - VariableName:
+  - BinaryKeyword:
       - 66
       - 105
       - 110
@@ -6177,7 +6177,7 @@ tokens:
       - 114
   - Whitespace:
       - 32
-  - VariableName:
+  - BinaryKeyword:
       - 66
       - 105
       - 110
@@ -7781,7 +7781,7 @@ tokens:
       - 114
   - Whitespace:
       - 32
-  - VariableName:
+  - BinaryKeyword:
       - 66
       - 105
       - 110

@@ -890,6 +890,13 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445159(v=vs.60))
     FriendKeyword(&'a BStr),
+    /// Represents the 'Binary' keyword.
+    ///
+    /// The Binary keyword is used in these contexts:
+    /// Open statement, Option Compare statement.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445150(v=vs.60))
+    BinaryKeyword(&'a BStr),
     NextKeyword(&'a BStr),
 
     /// Represents a dollar sign '$'.
