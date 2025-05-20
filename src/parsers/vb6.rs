@@ -501,6 +501,8 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("New").map(|token: &BStr| VB6Token::NewKeyword(token)),
             keyword_parse("Len").map(|token: &BStr| VB6Token::LenKeyword(token)),
             keyword_parse("Me").map(|token: &BStr| VB6Token::MeKeyword(token)),
+            keyword_parse("Null").map(|token: &BStr| VB6Token::NullKeyword(token)),
+            keyword_parse("ParamArray").map(|token: &BStr| VB6Token::ParamArrayKeyword(token)),
         )),
     ))
     .parse_next(input)
