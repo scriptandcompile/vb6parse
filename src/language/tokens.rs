@@ -547,12 +547,12 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266242(v=vs.60))
     ResetKeyword(&'a BStr),
-    /// Represents the 'Rem' keyword.
+    /// Represents a 'REM' line comment.
     ///
-    /// Used to include explanator remarks in a program.
+    /// Includes the 'REM' characters and the comment text but not the newline.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266237(v=vs.60))
-    RemKeyword(&'a BStr),
+    RemComment(&'a BStr),
     /// Represents the 'Randomize' keyword.
     ///
     /// Initializes the random-number generator with a seed value.
