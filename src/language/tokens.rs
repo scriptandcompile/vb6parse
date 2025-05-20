@@ -965,6 +965,9 @@ pub enum VB6Token<'a> {
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445198(v=vs.60))
     ParamArrayKeyword(&'a BStr),
     /// Represents a dollar sign '$'.
+    ///
+    /// Often used to indicate a variable is a string or that a function
+    /// works with strings.
     DollarSign(&'a BStr),
     /// Represents an underscore '_'.
     Underscore(&'a BStr),
