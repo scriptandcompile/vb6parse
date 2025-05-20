@@ -11,6 +11,7 @@ use winnow::{
 
 use crate::{errors::VB6ErrorKind, language::VB6Token, parsers::VB6Stream};
 
+/// The result type for winnow based VB6 parsers.
 pub type VB6Result<T> = Result<T, ErrMode<VB6ErrorKind>>;
 
 /// Parses a VB6 end-of-line comment.
