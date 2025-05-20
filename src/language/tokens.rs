@@ -970,6 +970,10 @@ pub enum VB6Token<'a> {
     /// works with strings.
     DollarSign(&'a BStr),
     /// Represents an underscore '_'.
+    ///
+    /// Used to indicate that a statement continues on the next line.
+    /// It must be preceded by at least one white space and must be the last
+    /// character on the line.
     Underscore(&'a BStr),
     /// Represents an ampersand '&'.
     ///
@@ -981,25 +985,20 @@ pub enum VB6Token<'a> {
     Percent(&'a BStr),
     /// Represents an octothorpe '#'.
     Octothorpe(&'a BStr),
-
     /// Represents a left paranthesis '('.
     LeftParanthesis(&'a BStr),
     /// Represents a right paranthesis ')'.
     RightParanthesis(&'a BStr),
-
     /// Represents a left square bracket '['.
     LeftSquareBracket(&'a BStr),
     /// Represents a right square bracket ']'.
     RightSquareBracket(&'a BStr),
-
     /// Represents a comma ','.
     Comma(&'a BStr),
     /// Represents a semicolon ';'.
     Semicolon(&'a BStr),
-
     /// Represents the 'at' symbol '@'.
     AtSign(&'a BStr),
-
     /// Represents an exclamation mark '!'.
     ExclamationMark(&'a BStr),
     /// Represents an equality operator '=' can also be the assignment operator.
@@ -1028,10 +1027,9 @@ pub enum VB6Token<'a> {
     ColonOperator(&'a BStr),
     /// Represents an exponentiation operator '^'.
     ExponentiationOperator(&'a BStr),
-
-    /// Represents a variable name.
+    /// Represents an Identifier, variable, or function name.
     /// This is a name that starts with a letter and can contain letters, numbers, and underscores.
-    VariableName(&'a BStr),
+    Identifier(&'a BStr),
     /// Represents a number.
     /// This is just a collection of digits and hasn't been parsed into a
     /// specific kind of number yet.

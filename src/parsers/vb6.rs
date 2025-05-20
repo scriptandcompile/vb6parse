@@ -287,7 +287,7 @@ fn string_fragment_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<StringFragm
 /// assert_eq!(tokens.len(), 7);
 /// assert_eq!(tokens[0], VB6Token::DimKeyword("Dim".into()));
 /// assert_eq!(tokens[1], VB6Token::Whitespace(" ".into()));
-/// assert_eq!(tokens[2], VB6Token::VariableName("x".into()));
+/// assert_eq!(tokens[2], VB6Token::Identifier("x".into()));
 /// assert_eq!(tokens[3], VB6Token::Whitespace(" ".into()));
 /// assert_eq!(tokens[4], VB6Token::AsKeyword("As".into()));
 /// assert_eq!(tokens[5], VB6Token::Whitespace(" ".into()));
@@ -553,7 +553,7 @@ fn vb6_token_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
         vb6_symbol_parse,
         alt((
             digit1.map(|token: &BStr| VB6Token::Number(token)),
-            variable_name_parse.map(|token: &BStr| VB6Token::VariableName(token)),
+            variable_name_parse.map(|token: &BStr| VB6Token::Identifier(token)),
             space1.map(|token: &BStr| VB6Token::Whitespace(token)),
         )),
     ))
@@ -665,7 +665,7 @@ mod test {
         assert_eq!(tokens.len(), 7);
         assert_eq!(tokens[0], VB6Token::DimKeyword("Dim".into()));
         assert_eq!(tokens[1], VB6Token::Whitespace(" ".into()));
-        assert_eq!(tokens[2], VB6Token::VariableName("x".into()));
+        assert_eq!(tokens[2], VB6Token::Identifier("x".into()));
         assert_eq!(tokens[3], VB6Token::Whitespace(" ".into()));
         assert_eq!(tokens[4], VB6Token::AsKeyword("As".into()));
         assert_eq!(tokens[5], VB6Token::Whitespace(" ".into()));

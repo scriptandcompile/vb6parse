@@ -1059,7 +1059,7 @@ tokens:
       - 110
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 71
       - 101
       - 116
@@ -1209,7 +1209,7 @@ tokens:
       - 110
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 71
       - 101
       - 116
@@ -1244,7 +1244,7 @@ tokens:
       - 108
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 104
       - 87
       - 110
@@ -1451,7 +1451,7 @@ tokens:
       - 110
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 66
       - 105
       - 116
@@ -1486,7 +1486,7 @@ tokens:
       - 108
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 104
       - 68
       - 67
@@ -1514,7 +1514,7 @@ tokens:
       - 108
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 120
   - Whitespace:
       - 32
@@ -1540,7 +1540,7 @@ tokens:
       - 108
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 121
   - Whitespace:
       - 32
@@ -1566,7 +1566,7 @@ tokens:
       - 108
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 110
       - 87
       - 105
@@ -1597,7 +1597,7 @@ tokens:
       - 108
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 110
       - 72
       - 101
@@ -1629,7 +1629,7 @@ tokens:
       - 108
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 104
       - 83
       - 114
@@ -1660,7 +1660,7 @@ tokens:
       - 108
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 120
       - 83
       - 114
@@ -1689,7 +1689,7 @@ tokens:
       - 108
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 121
       - 83
       - 114
@@ -1718,7 +1718,7 @@ tokens:
       - 108
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 111
       - 112
       - 67
@@ -1862,7 +1862,7 @@ tokens:
       - 110
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 82
       - 101
       - 108
@@ -1901,7 +1901,7 @@ tokens:
       - 108
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 104
       - 87
       - 110
@@ -1930,7 +1930,7 @@ tokens:
       - 108
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 104
       - 68
       - 67
@@ -2117,7 +2117,7 @@ tokens:
       - 98
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 70
       - 111
       - 114
@@ -2184,7 +2184,7 @@ tokens:
       - 101
   - PeriodOperator:
       - 46
-  - VariableName:
+  - Identifier:
       - 87
       - 105
       - 110
@@ -2202,7 +2202,7 @@ tokens:
       - 61
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 118
       - 98
       - 77
@@ -2272,7 +2272,7 @@ tokens:
       - 109
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 115
       - 99
       - 114
@@ -2300,7 +2300,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - Identifier:
       - 115
       - 99
       - 114
@@ -2314,7 +2314,7 @@ tokens:
       - 61
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 71
       - 101
       - 116
@@ -2406,7 +2406,7 @@ tokens:
       - 109
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 115
       - 104
       - 68
@@ -2431,7 +2431,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - Identifier:
       - 115
       - 104
       - 68
@@ -2442,7 +2442,7 @@ tokens:
       - 61
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 71
       - 101
       - 116
@@ -2450,7 +2450,7 @@ tokens:
       - 67
   - LeftParanthesis:
       - 40
-  - VariableName:
+  - Identifier:
       - 115
       - 99
       - 114
@@ -2524,7 +2524,7 @@ tokens:
       - 109
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 115
       - 99
       - 114
@@ -2552,7 +2552,7 @@ tokens:
       - 44
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 115
       - 99
       - 114
@@ -2585,7 +2585,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - Identifier:
       - 115
       - 99
       - 114
@@ -2603,7 +2603,7 @@ tokens:
       - 61
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 83
       - 99
       - 114
@@ -2624,7 +2624,7 @@ tokens:
       - 92
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 83
       - 99
       - 114
@@ -2633,7 +2633,7 @@ tokens:
       - 110
   - PeriodOperator:
       - 46
-  - VariableName:
+  - Identifier:
       - 84
       - 119
       - 105
@@ -2656,7 +2656,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - Identifier:
       - 115
       - 99
       - 114
@@ -2675,7 +2675,7 @@ tokens:
       - 61
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 83
       - 99
       - 114
@@ -2684,7 +2684,7 @@ tokens:
       - 110
   - PeriodOperator:
       - 46
-  - VariableName:
+  - Identifier:
       - 72
       - 101
       - 105
@@ -2697,7 +2697,7 @@ tokens:
       - 92
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 83
       - 99
       - 114
@@ -2706,7 +2706,7 @@ tokens:
       - 110
   - PeriodOperator:
       - 46
-  - VariableName:
+  - Identifier:
       - 84
       - 119
       - 105
@@ -2800,7 +2800,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - Identifier:
       - 66
       - 105
       - 116
@@ -2814,7 +2814,7 @@ tokens:
       - 101
   - PeriodOperator:
       - 46
-  - VariableName:
+  - Identifier:
       - 104
       - 68
       - 67
@@ -2834,7 +2834,7 @@ tokens:
       - 44
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 115
       - 99
       - 114
@@ -2850,7 +2850,7 @@ tokens:
       - 44
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 115
       - 99
       - 114
@@ -2867,7 +2867,7 @@ tokens:
       - 44
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 115
       - 104
       - 68
@@ -2888,7 +2888,7 @@ tokens:
       - 44
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 118
       - 98
       - 83
@@ -2961,7 +2961,7 @@ tokens:
       - 32
       - 32
       - 32
-  - VariableName:
+  - Identifier:
       - 82
       - 101
       - 108
@@ -2973,7 +2973,7 @@ tokens:
       - 67
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 115
       - 99
       - 114
@@ -2985,7 +2985,7 @@ tokens:
       - 44
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 115
       - 104
       - 68
@@ -3011,7 +3011,7 @@ tokens:
       - 101
   - PeriodOperator:
       - 46
-  - VariableName:
+  - Identifier:
       - 80
       - 105
       - 99
@@ -3030,7 +3030,7 @@ tokens:
       - 101
   - PeriodOperator:
       - 46
-  - VariableName:
+  - Identifier:
       - 73
       - 109
       - 97
@@ -3085,7 +3085,7 @@ tokens:
       - 101
   - PeriodOperator:
       - 46
-  - VariableName:
+  - Identifier:
       - 87
       - 105
       - 110
@@ -3103,7 +3103,7 @@ tokens:
       - 61
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 118
       - 98
       - 78
