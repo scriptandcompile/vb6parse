@@ -932,6 +932,18 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445169(v=vs.60))
     LenKeyword(&'a BStr),
+    /// Represents the 'Me' keyword.
+    ///
+    /// The 'Me' keyword behaves like an implicitly declared variable. It is
+    /// automatically available to every procedure in a class module. When a
+    /// class can have more than one instance, 'Me' provides a way to refer to
+    /// the specific instance of the class where the code is executing. Using
+    /// 'Me' is particularly useful for passing information about the currently
+    /// executing instance of a class to a procedure in another module.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445177(v=vs.60))
+    MeKeyword(&'a BStr),
+
     /// Represents a dollar sign '$'.
     DollarSign(&'a BStr),
     /// Represents an underscore '_'.

@@ -7470,7 +7470,7 @@ tokens:
       - 102
   - Whitespace:
       - 32
-  - VariableName:
+  - MeKeyword:
       - 77
       - 101
   - PeriodOperator:
@@ -8014,7 +8014,7 @@ tokens:
       - 102
   - Whitespace:
       - 32
-  - VariableName:
+  - MeKeyword:
       - 77
       - 101
   - PeriodOperator:

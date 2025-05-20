@@ -3029,7 +3029,7 @@ tokens:
       - 44
   - Whitespace:
       - 32
-  - VariableName:
+  - MeKeyword:
       - 77
       - 101
   - PeriodOperator:
@@ -3540,7 +3540,7 @@ tokens:
       - 44
   - Whitespace:
       - 32
-  - VariableName:
+  - MeKeyword:
       - 77
       - 101
   - PeriodOperator:

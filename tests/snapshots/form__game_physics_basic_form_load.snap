@@ -5808,7 +5808,7 @@ tokens:
       - 100
   - Whitespace:
       - 32
-  - VariableName:
+  - MeKeyword:
       - 77
       - 101
   - Newline:
