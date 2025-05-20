@@ -15,12 +15,23 @@ use core::{
 
 use crate::errors::{VB6Error, VB6ErrorKind};
 
+/// A stream for parsing VB6 files.
+///
+/// This stream is used to parse VB6 files and provides methods for
+/// finding and comparing slices of the stream.
+/// It also keeps track of the current position in the stream,
+/// the line number, and the column number.
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Default)]
 pub struct VB6Stream<'a> {
+    /// The file path of the stream.
     pub file_path: String,
+    /// The byte string of the content of the VB6 file.
     pub stream: &'a bstr::BStr,
+    /// The current location within the stream.
     pub index: usize,
+    /// The current line number within the stream.
     pub line_number: usize,
+    /// The current column number within the stream.
     pub column: usize,
 }
 
@@ -43,6 +54,15 @@ impl Offset<VB6StreamCheckpoint> for VB6Stream<'_> {
 }
 
 impl<'a> VB6Stream<'a> {
+    /// Creates a new `VB6Stream` with the given file path and byte string.
+    ///
+    /// # Arguments
+    /// * `file_path` - The file path of the stream.
+    /// * `stream` - The byte string of the content of the VB6 file.
+    ///
+    /// # Returns
+    ///
+    /// A new `VB6Stream` instance.
     #[must_use]
     pub fn new(file_path: impl Into<String>, stream: &'a [u8]) -> Self {
         Self {
@@ -54,11 +74,26 @@ impl<'a> VB6Stream<'a> {
         }
     }
 
+    /// Returns if the stream is empty or has reached the end.
+    ///
+    /// # Returns
+    ///
+    /// `true` if the stream is empty or has reached the end, `false` otherwise.
     #[must_use]
     pub fn is_empty(&self) -> bool {
         self.stream.len() == self.index
     }
 
+    /// Returns an error with the given kind where the error is located at
+    /// the current line number and column number within the stream.
+    ///
+    /// # Arguments
+    ///
+    /// * `kind` - The kind of error to create.
+    ///
+    /// # Returns
+    ///
+    /// A new `VB6Error` instance.
     #[must_use]
     pub fn error(&self, kind: VB6ErrorKind) -> VB6Error {
         VB6Error::new(self, kind)
