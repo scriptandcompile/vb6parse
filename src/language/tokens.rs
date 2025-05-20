@@ -943,7 +943,27 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445177(v=vs.60))
     MeKeyword(&'a BStr),
-
+    /// Represents the 'Null' keyword.
+    ///
+    /// The Null keyword is used as a Variant subtype. It indicates that a
+    /// variable contains no valid data.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445190(v=vs.60))
+    NullKeyword(&'a BStr),
+    /// Represents the 'ParamArray' keyword.
+    ///
+    /// The ParamArray keyword is used in these contexts:
+    ///
+    /// Declare statement, Function statement, Property Get statement,
+    /// Property Let statement, and Sub statement.
+    ///
+    /// Used only as the last argument in arglist to indicate that the final
+    /// argument is an Optional array of Variant elements. The ParamArray
+    /// keyword allows you to provide an arbitrary number of arguments. It may
+    /// not be used with ByVal, ByRef, or Optional.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445198(v=vs.60))
+    ParamArrayKeyword(&'a BStr),
     /// Represents a dollar sign '$'.
     DollarSign(&'a BStr),
     /// Represents an underscore '_'.
