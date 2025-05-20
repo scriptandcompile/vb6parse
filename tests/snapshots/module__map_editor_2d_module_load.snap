@@ -1,5 +1,5 @@
 ---
-source: vb6parse/tests/module.rs
+source: tests/module.rs
 expression: module1_file
 ---
 name:
@@ -750,7 +750,7 @@ tokens:
       - 110
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 83
       - 116
       - 114
@@ -789,7 +789,7 @@ tokens:
       - 108
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 104
       - 68
       - 101
@@ -821,7 +821,7 @@ tokens:
       - 108
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 120
   - Whitespace:
       - 32
@@ -847,7 +847,7 @@ tokens:
       - 108
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 89
   - Whitespace:
       - 32
@@ -873,7 +873,7 @@ tokens:
       - 108
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 110
       - 87
       - 105
@@ -904,7 +904,7 @@ tokens:
       - 108
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 110
       - 72
       - 101
@@ -936,7 +936,7 @@ tokens:
       - 108
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 104
       - 83
       - 114
@@ -967,7 +967,7 @@ tokens:
       - 108
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 120
       - 83
       - 114
@@ -996,7 +996,7 @@ tokens:
       - 108
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 121
       - 83
       - 114
@@ -1025,7 +1025,7 @@ tokens:
       - 108
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 67
       - 108
       - 105
@@ -1055,7 +1055,7 @@ tokens:
       - 108
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 67
       - 108
       - 105
@@ -1085,7 +1085,7 @@ tokens:
       - 108
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 82
       - 97
       - 115
@@ -1194,7 +1194,7 @@ tokens:
       - 99
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 77
       - 97
       - 112
@@ -1253,7 +1253,7 @@ tokens:
       - 99
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 120
   - Whitespace:
       - 32
@@ -1271,7 +1271,7 @@ tokens:
       - 44
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 89
   - Whitespace:
       - 32
@@ -1336,7 +1336,7 @@ tokens:
       - 99
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 67
       - 117
       - 114
@@ -1357,7 +1357,7 @@ tokens:
       - 44
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 67
       - 117
       - 114
@@ -1415,7 +1415,7 @@ tokens:
       - 99
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 86
       - 105
       - 101
@@ -1437,7 +1437,7 @@ tokens:
       - 44
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 86
       - 105
       - 101
@@ -1494,7 +1494,7 @@ tokens:
       - 99
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 83
       - 105
       - 122
@@ -1519,7 +1519,7 @@ tokens:
       - 44
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 83
       - 105
       - 122
@@ -1596,7 +1596,7 @@ tokens:
       - 99
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 77
       - 111
       - 117
@@ -1672,7 +1672,7 @@ tokens:
       - 99
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 67
       - 117
       - 114
@@ -1700,7 +1700,7 @@ tokens:
       - 44
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 67
       - 117
       - 114
@@ -1759,7 +1759,7 @@ tokens:
       - 99
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 90
       - 111
       - 111
@@ -1856,7 +1856,7 @@ tokens:
       - 99
   - Whitespace:
       - 32
-  - VariableName:
+  - Identifier:
       - 85
       - 115
       - 101
