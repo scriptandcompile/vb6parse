@@ -345,6 +345,34 @@ pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6Token<'a>>> 
     Ok(tokens)
 }
 
+/// Checks if the content is likely to be in English.
+///
+/// This function checks if the content contains a large number of higher half ANSI characters.
+/// If the content contains a large number of higher half ANSI characters, it is likely not in English.
+///
+/// # Arguments
+///
+/// * `content` - The content to check.
+///
+/// # Returns
+///
+/// `true` if the content is likely in English, `false` otherwise.
+///
+/// # Example
+///
+/// ```rust
+/// use vb6parse::parsers::vb6::is_english_code;
+///
+/// let content = b"Hello, World!";
+/// let is_english = is_english_code(content.into());
+///
+/// assert_eq!(is_english, true);
+///
+/// let non_english_content = b"\xEF\xBF\xBD\xEF\xBF\xBD\xEF\xBF\xBD";
+/// let is_english = is_english_code(non_english_content.into());
+///
+/// assert_eq!(is_english, false);
+/// ```
 #[must_use]
 pub fn is_english_code(content: &BStr) -> bool {
     // We are looking to see if we have a large-ish number of higher half ANSI characters.
