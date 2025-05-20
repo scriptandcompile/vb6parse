@@ -55,6 +55,56 @@ pub fn line_comment_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> 
     Ok(comment)
 }
 
+/// Parses a VB6 REM full line comment.
+///
+/// The comment starts with 'REM' and continues until the end of the
+/// line. It includes the 'REM' characters, but excludes the carriage return
+/// character, the newline character, and it does not consume the carriage
+/// return or newline character.
+///
+/// # Arguments
+///
+/// * `input` - The input to parse.
+///
+/// # Errors
+///
+/// Will return an error if it is not able to parse a comment. This can happen
+/// if the comment is not terminated by a newline character, or if the comment
+/// does not start with 'REM'.
+///
+/// Note:
+/// 'REM' must be followed by a whitespace character, a newline character, or a
+/// non-alphanumeric character. This is to prevent 'REM' from being used as a
+/// variable name, as well as to prevent parsing a variable such as 'reminder'
+/// as a comment.
+///
+/// # Returns
+///
+/// The comment with the keyword 'REM', but without carriage return, and
+/// newline characters.
+///
+/// # Example
+///
+/// ```rust
+/// use winnow::Parser;
+/// use vb6parse::parsers::{vb6::rem_comment_parse, VB6Stream};
+///
+/// let mut input = VB6Stream::new("rem_comment.bas".to_owned(), "REM This is a comment\r\n".as_bytes());
+/// let comment = rem_comment_parse.parse_next(&mut input).unwrap();
+///
+/// assert_eq!(comment, "REM This is a comment");
+/// ```
+pub fn rem_comment_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
+    let comment = (
+        keyword_parse("REM"),
+        take_till(0.., (b"\r\n", b"\n", b"\r")),
+    )
+        .take()
+        .parse_next(input)?;
+
+    Ok(comment)
+}
+
 /// Parses a VB6 variable name.
 ///
 /// The variable name starts with a letter and can contain letters, numbers, and underscores.
@@ -322,6 +372,12 @@ pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6Token<'a>>> 
             continue;
         }
 
+        if let Ok(token) = rem_comment_parse.parse_next(input) {
+            let token = VB6Token::RemComment(token);
+            tokens.push(token);
+            continue;
+        }
+
         if let Ok(token) = delimited::<VB6Stream<'a>, _, &BStr, _, VB6ErrorKind, _, _, _>(
             '\"',
             take_till(0.., '\"'),
@@ -498,14 +554,13 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("RaiseEvent").map(|token: &BStr| VB6Token::RaiseEventKeyword(token)),
             keyword_parse("Randomize").map(|token: &BStr| VB6Token::RandomizeKeyword(token)),
             keyword_parse("ReDim").map(|token: &BStr| VB6Token::ReDimKeyword(token)),
-            keyword_parse("Rem").map(|token: &BStr| VB6Token::RemKeyword(token)),
             keyword_parse("Reset").map(|token: &BStr| VB6Token::ResetKeyword(token)),
             keyword_parse("Resume").map(|token: &BStr| VB6Token::ResumeKeyword(token)),
             keyword_parse("RmDir").map(|token: &BStr| VB6Token::RmDirKeyword(token)),
             keyword_parse("RSet").map(|token: &BStr| VB6Token::RSetKeyword(token)),
+            keyword_parse("SavePicture").map(|token: &BStr| VB6Token::SavePictureKeyword(token)),
         )),
         alt((
-            keyword_parse("SavePicture").map(|token: &BStr| VB6Token::SavePictureKeyword(token)),
             keyword_parse("SaveSetting").map(|token: &BStr| VB6Token::SaveSettingKeyword(token)),
             keyword_parse("Seek").map(|token: &BStr| VB6Token::SeekKeyword(token)),
             keyword_parse("Select").map(|token: &BStr| VB6Token::SelectKeyword(token)),
@@ -527,9 +582,9 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("Unlock").map(|token: &BStr| VB6Token::UnlockKeyword(token)),
             keyword_parse("Until").map(|token: &BStr| VB6Token::UntilKeyword(token)),
             keyword_parse("Variant").map(|token: &BStr| VB6Token::VariantKeyword(token)),
+            keyword_parse("Wend").map(|token: &BStr| VB6Token::WendKeyword(token)),
         )),
         alt((
-            keyword_parse("Wend").map(|token: &BStr| VB6Token::WendKeyword(token)),
             keyword_parse("While").map(|token: &BStr| VB6Token::WhileKeyword(token)),
             keyword_parse("Width").map(|token: &BStr| VB6Token::WidthKeyword(token)),
             // Switched so that With isn't selected before WithEvents.
