@@ -1,10 +1,18 @@
-pub enum ParserResults<T, E> {
+pub enum ParserResults<T, E>
+where
+    T: Clone,
+    E: Clone,
+{
     Success(T),
     SuccessWithFailures(T, Vec<E>),
-    Failures(E),
+    Failures(Vec<E>),
 }
 
-impl<T, E> ParserResults<T, E> {
+impl<T, E> ParserResults<T, E>
+where
+    T: Clone,
+    E: Clone,
+{
     pub fn is_success(&self) -> bool {
         matches!(self, ParserResults::Success(_))
     }
@@ -28,7 +36,7 @@ impl<T, E> ParserResults<T, E> {
         match self {
             ParserResults::Success(_) => None,
             ParserResults::SuccessWithFailures(_, failures) => Some(failures),
-            ParserResults::Failures(failures) => Some(&vec![failures.clone()]),
+            ParserResults::Failures(failures) => Some(failures),
         }
     }
 
@@ -48,31 +56,39 @@ impl<T, E> ParserResults<T, E> {
         }
     }
 
-    pub fn append_failures(&mut self, failures: Vec<E>) {
+    pub fn append_failure(&mut self, failure: E) {
         match self {
-            ParserResults::Success(_) => {
-                *self = ParserResults::SuccessWithFailures(self.unwrap(), failures);
+            ParserResults::Success(value) => {
+                *self = ParserResults::SuccessWithFailures(value.clone(), vec![failure]);
             }
-            ParserResults::SuccessWithFailures(_, existing_failures) => {
-                existing_failures.append(failures);
+            ParserResults::SuccessWithFailures(_, failures) => {
+                failures.push(failure);
             }
-            ParserResults::Failures(existing_failures) => {
-                existing_failures.append(failures);
+            ParserResults::Failures(failures) => {
+                failures.push(failure);
             }
         }
     }
 
-    pub fn append_failure(&mut self, failure: E) {
+    pub fn extend_failures(&mut self, failures: Vec<E>) {
         match self {
-            ParserResults::Success(_) => {
-                *self = ParserResults::SuccessWithFailures(self.unwrap(), vec![failure]);
+            ParserResults::Success(value) => {
+                *self = ParserResults::SuccessWithFailures(value.clone(), failures);
             }
             ParserResults::SuccessWithFailures(_, existing_failures) => {
-                existing_failures.push(failure);
+                existing_failures.extend(failures);
             }
             ParserResults::Failures(existing_failures) => {
-                existing_failures.push(failure);
+                existing_failures.extend(failures);
             }
+        }
+    }
+
+    pub fn into_inner(self) -> (Option<T>, Vec<E>) {
+        match self {
+            ParserResults::Success(value) => (Some(value), vec![]),
+            ParserResults::SuccessWithFailures(value, failures) => (Some(value), failures),
+            ParserResults::Failures(failures) => (None, failures),
         }
     }
 }
