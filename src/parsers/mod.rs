@@ -29,6 +29,7 @@ pub mod module;
 pub mod objectreference;
 pub mod project;
 pub mod properties;
+pub mod sourcestream;
 pub mod vb6;
 
 pub use class::{
