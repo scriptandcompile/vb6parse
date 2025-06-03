@@ -30,32 +30,41 @@ fn ppdm_project_load() {
     assert_eq!(project.user_documents.len(), 0);
 
     assert_eq!(
-        project.res_file_32_path,
+        project.properties.res_file_32_path,
         Some(b"..\\DBCommon\\PSFC.RES".as_bstr())
     );
-    assert_eq!(project.icon_form, Some(b"frmMain".as_bstr()));
-    assert_eq!(project.startup, Some(b"Sub Main".as_bstr()));
-    assert_eq!(project.help_file_path, Some(b"".as_bstr()));
-    assert_eq!(project.title, Some(b"PPDM".as_bstr()));
-    assert_eq!(project.exe_32_file_name, Some(b"PPDM.exe".as_bstr()));
+    assert_eq!(project.properties.icon_form, Some(b"frmMain".as_bstr()));
+    assert_eq!(project.properties.startup, Some(b"Sub Main".as_bstr()));
+    assert_eq!(project.properties.help_file_path, Some(b"".as_bstr()));
+    assert_eq!(project.properties.title, Some(b"PPDM".as_bstr()));
     assert_eq!(
-        project.command_line_arguments,
+        project.properties.exe_32_file_name,
+        Some(b"PPDM.exe".as_bstr())
+    );
+    assert_eq!(
+        project.properties.command_line_arguments,
         Some(b"-DisableRememberPassword%20-CHARTING -U -language %22english%7d".as_bstr())
     );
-    assert_eq!(project.name, Some(b"PPDM".as_bstr()));
-    assert_eq!(project.help_context_id, Some(b"0".as_bstr()));
+    assert_eq!(project.properties.name, Some(b"PPDM".as_bstr()));
+    assert_eq!(project.properties.help_context_id, Some(b"0".as_bstr()));
     assert_eq!(
-        project.compatibility_mode,
+        project.properties.compatibility_mode,
         CompatibilityMode::NoCompatibility
     );
-    assert_eq!(project.upgrade_controls, UpgradeControls::Upgrade);
-    assert_eq!(project.server_support_files, ServerSupportFiles::Local);
     assert_eq!(
-        project.conditional_compile,
+        project.properties.upgrade_controls,
+        UpgradeControls::Upgrade
+    );
+    assert_eq!(
+        project.properties.server_support_files,
+        ServerSupportFiles::Local
+    );
+    assert_eq!(
+        project.properties.conditional_compile,
         Some(b"PDMBuild = 1 : PDM_SHORTCUTS = 1 : PMData7Build = 0".as_bstr())
     );
     assert_eq!(
-        project.compilation_type,
+        project.properties.compilation_type,
         CompilationType::NativeCode {
             optimization_type: OptimizationType::FavorFastCode,
             favor_pentium_pro: FavorPentiumPro::False,
@@ -69,39 +78,39 @@ fn ppdm_project_load() {
         }
     );
 
-    assert_eq!(project.start_mode, StartMode::StandAlone);
-    assert_eq!(project.unattended, InteractionMode::Interactive);
-    assert_eq!(project.retained, Retained::UnloadOnExit);
-    assert_eq!(project.thread_per_object, Some(0));
-    assert_eq!(project.max_number_of_threads, 1);
+    assert_eq!(project.properties.start_mode, StartMode::StandAlone);
+    assert_eq!(project.properties.unattended, InteractionMode::Interactive);
+    assert_eq!(project.properties.retained, Retained::UnloadOnExit);
+    assert_eq!(project.properties.thread_per_object, Some(0));
+    assert_eq!(project.properties.max_number_of_threads, 1);
     assert_eq!(
-        project.debug_startup_option,
+        project.properties.debug_startup_option,
         DebugStartupOption::WaitForComponentCreation
     );
 
     // version information.
-    assert_eq!(project.version_info.major, 11);
-    assert_eq!(project.version_info.minor, 0);
-    assert_eq!(project.version_info.revision, 288);
-    assert_eq!(project.version_info.auto_increment_revision, 0);
+    assert_eq!(project.properties.version_info.major, 11);
+    assert_eq!(project.properties.version_info.minor, 0);
+    assert_eq!(project.properties.version_info.revision, 288);
+    assert_eq!(project.properties.version_info.auto_increment_revision, 0);
     assert_eq!(
-        project.version_info.company_name,
+        project.properties.version_info.company_name,
         Some(b"Predator Software Inc.".as_bstr())
     );
     assert_eq!(
-        project.version_info.file_description,
+        project.properties.version_info.file_description,
         Some(b"Predator PDM ".as_bstr())
     );
     assert_eq!(
-        project.version_info.copyright,
+        project.properties.version_info.copyright,
         Some(B("Copyright �1994 - 2022 Predator Software Inc.  All Rights Reserved.").as_bstr())
     );
     assert_eq!(
-        project.version_info.trademark,
+        project.properties.version_info.trademark,
         Some(B("Predator SFC� and Predator PDM� are Registered Trademarks of Predator Software Inc.").as_bstr())
     );
     assert_eq!(
-        project.version_info.product_name,
+        project.properties.version_info.product_name,
         Some(B("Predator PDM").as_bstr())
     );
 }

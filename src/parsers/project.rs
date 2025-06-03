@@ -43,6 +43,11 @@ pub struct VB6Project<'a> {
     pub user_documents: Vec<&'a BStr>,
     pub other_properties: HashMap<&'a BStr, HashMap<&'a BStr, &'a BStr>>,
 
+    pub properties: VB6ProjectProperties<'a>,
+}
+
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+pub struct VB6ProjectProperties<'a> {
     pub unused_control_info: UnusedControlInfo,
     pub upgrade_controls: UpgradeControls,
     pub res_file_32_path: Option<&'a BStr>,
@@ -441,9 +446,9 @@ impl<'a> VB6Project<'a> {
     /// assert_eq!(project.forms.len(), 2);
     /// assert_eq!(project.user_controls.len(), 1);
     /// assert_eq!(project.user_documents.len(), 1);
-    /// assert_eq!(project.startup, Some(BStr::new(b"Form1")));
-    /// assert_eq!(project.title, Some(BStr::new(b"Project1")));
-    /// assert_eq!(project.exe_32_file_name, Some(BStr::new(b"Project1.exe")));
+    /// assert_eq!(project.properties.startup, Some(BStr::new(b"Form1")));
+    /// assert_eq!(project.properties.title, Some(BStr::new(b"Project1")));
+    /// assert_eq!(project.properties.exe_32_file_name, Some(BStr::new(b"Project1.exe")));
     /// ```
     pub fn parse(file_name: impl Into<String>, source_code: &'a [u8]) -> Result<Self, VB6Error> {
         let mut input = VB6Stream::new(file_name, source_code);
@@ -1373,37 +1378,39 @@ impl<'a> VB6Project<'a> {
             user_documents,
             related_documents,
             other_properties,
-            unused_control_info,
-            upgrade_controls,
-            debug_startup_component,
-            res_file_32_path,
-            icon_form,
-            startup,
-            help_file_path,
-            title,
-            exe_32_file_name,
-            exe_32_compatible,
-            dll_base_address,
-            version_32_compatibility,
-            path_32,
-            command_line_arguments,
-            name,
-            description,
-            help_context_id,
-            compatibility_mode,
-            version_info,
-            server_support_files,
-            conditional_compile,
-            compilation_type,
-            start_mode,
-            unattended,
-            retained,
-            thread_per_object,
-            max_number_of_threads,
-            threading_model,
-            debug_startup_option,
-            use_existing_browser,
-            property_page,
+            properties: VB6ProjectProperties {
+                unused_control_info,
+                upgrade_controls,
+                debug_startup_component,
+                res_file_32_path,
+                icon_form,
+                startup,
+                help_file_path,
+                title,
+                exe_32_file_name,
+                exe_32_compatible,
+                dll_base_address,
+                version_32_compatibility,
+                path_32,
+                command_line_arguments,
+                name,
+                description,
+                help_context_id,
+                compatibility_mode,
+                version_info,
+                server_support_files,
+                conditional_compile,
+                compilation_type,
+                start_mode,
+                unattended,
+                retained,
+                thread_per_object,
+                max_number_of_threads,
+                threading_model,
+                debug_startup_option,
+                use_existing_browser,
+                property_page,
+            },
         };
 
         Ok(project)
@@ -2141,51 +2148,60 @@ mod tests {
         assert_eq!(project.forms.len(), 2);
         assert_eq!(project.user_controls.len(), 1);
         assert_eq!(project.user_documents.len(), 1);
-        assert_eq!(project.upgrade_controls, UpgradeControls::Upgrade);
-        assert_eq!(project.res_file_32_path, Some(BStr::new(b"")));
-        assert_eq!(project.icon_form, Some(BStr::new(b"")));
-        assert_eq!(project.startup, None);
-        assert_eq!(project.help_file_path, Some(BStr::new(b"")));
-        assert_eq!(project.title, Some(BStr::new(b"Project1")));
-        assert_eq!(project.exe_32_file_name, Some(BStr::new(b"Project1.exe")));
-        assert_eq!(project.exe_32_compatible, Some(BStr::new(b"")));
-        assert_eq!(project.command_line_arguments, None);
-        assert_eq!(project.path_32, Some(BStr::new(b"")));
-        assert_eq!(project.name, Some(BStr::new(b"Project1")));
-        assert_eq!(project.help_context_id, Some(BStr::new(b"0")));
         assert_eq!(
-            project.compatibility_mode,
+            project.properties.upgrade_controls,
+            UpgradeControls::Upgrade
+        );
+        assert_eq!(project.properties.res_file_32_path, Some(BStr::new(b"")));
+        assert_eq!(project.properties.icon_form, Some(BStr::new(b"")));
+        assert_eq!(project.properties.startup, None);
+        assert_eq!(project.properties.help_file_path, Some(BStr::new(b"")));
+        assert_eq!(project.properties.title, Some(BStr::new(b"Project1")));
+        assert_eq!(
+            project.properties.exe_32_file_name,
+            Some(BStr::new(b"Project1.exe"))
+        );
+        assert_eq!(project.properties.exe_32_compatible, Some(BStr::new(b"")));
+        assert_eq!(project.properties.command_line_arguments, None);
+        assert_eq!(project.properties.path_32, Some(BStr::new(b"")));
+        assert_eq!(project.properties.name, Some(BStr::new(b"Project1")));
+        assert_eq!(project.properties.help_context_id, Some(BStr::new(b"0")));
+        assert_eq!(
+            project.properties.compatibility_mode,
             CompatibilityMode::NoCompatibility
         );
-        assert_eq!(project.version_info.major, 1);
-        assert_eq!(project.version_info.minor, 0);
-        assert_eq!(project.version_info.revision, 0);
-        assert_eq!(project.version_info.auto_increment_revision, 0);
+        assert_eq!(project.properties.version_info.major, 1);
+        assert_eq!(project.properties.version_info.minor, 0);
+        assert_eq!(project.properties.version_info.revision, 0);
+        assert_eq!(project.properties.version_info.auto_increment_revision, 0);
         assert_eq!(
-            project.version_info.company_name,
+            project.properties.version_info.company_name,
             Some(BStr::new(b"Company Name"))
         );
         assert_eq!(
-            project.version_info.file_description,
+            project.properties.version_info.file_description,
             Some(BStr::new(b"File Description"))
         );
         assert_eq!(
-            project.version_info.trademark,
+            project.properties.version_info.trademark,
             Some(BStr::new(b"Trademark"))
         );
         assert_eq!(
-            project.version_info.product_name,
+            project.properties.version_info.product_name,
             Some(BStr::new(b"Product Name"))
         );
-        assert_eq!(project.version_info.comments, Some(BStr::new(b"Comments")));
         assert_eq!(
-            project.server_support_files,
+            project.properties.version_info.comments,
+            Some(BStr::new(b"Comments"))
+        );
+        assert_eq!(
+            project.properties.server_support_files,
             ServerSupportFiles::Local,
             "server_support_files check"
         );
-        assert_eq!(project.conditional_compile, Some(BStr::new(b"")));
+        assert_eq!(project.properties.conditional_compile, Some(BStr::new(b"")));
         assert_eq!(
-            project.compilation_type,
+            project.properties.compilation_type,
             CompilationType::NativeCode {
                 optimization_type: OptimizationType::FavorFastCode,
                 favor_pentium_pro: FavorPentiumPro::False,
@@ -2198,13 +2214,13 @@ mod tests {
                 unrounded_floating_point: UnroundedFloatingPoint::DoNotAllow,
             }
         );
-        assert_eq!(project.start_mode, StartMode::StandAlone);
-        assert_eq!(project.unattended, InteractionMode::Interactive);
-        assert_eq!(project.retained, Retained::UnloadOnExit);
-        assert_eq!(project.thread_per_object, None);
-        assert_eq!(project.max_number_of_threads, 1);
+        assert_eq!(project.properties.start_mode, StartMode::StandAlone);
+        assert_eq!(project.properties.unattended, InteractionMode::Interactive);
+        assert_eq!(project.properties.retained, Retained::UnloadOnExit);
+        assert_eq!(project.properties.thread_per_object, None);
+        assert_eq!(project.properties.max_number_of_threads, 1);
         assert_eq!(
-            project.debug_startup_option,
+            project.properties.debug_startup_option,
             DebugStartupOption::WaitForComponentCreation,
             "debug_startup_option check"
         );
@@ -2279,51 +2295,60 @@ mod tests {
         assert_eq!(project.forms.len(), 2);
         assert_eq!(project.user_controls.len(), 1);
         assert_eq!(project.user_documents.len(), 1);
-        assert_eq!(project.upgrade_controls, UpgradeControls::Upgrade);
-        assert_eq!(project.res_file_32_path, Some(BStr::new(b"")));
-        assert_eq!(project.icon_form, Some(BStr::new(b"")));
-        assert_eq!(project.startup, None);
-        assert_eq!(project.help_file_path, Some(BStr::new(b"")));
-        assert_eq!(project.title, Some(BStr::new(b"Project1")));
-        assert_eq!(project.exe_32_file_name, Some(BStr::new(b"Project1.exe")));
-        assert_eq!(project.exe_32_compatible, Some(BStr::new(b"")));
-        assert_eq!(project.command_line_arguments, None);
-        assert_eq!(project.path_32, Some(BStr::new(b"")));
-        assert_eq!(project.name, Some(BStr::new(b"Project1")));
-        assert_eq!(project.help_context_id, Some(BStr::new(b"0")));
         assert_eq!(
-            project.compatibility_mode,
+            project.properties.upgrade_controls,
+            UpgradeControls::Upgrade
+        );
+        assert_eq!(project.properties.res_file_32_path, Some(BStr::new(b"")));
+        assert_eq!(project.properties.icon_form, Some(BStr::new(b"")));
+        assert_eq!(project.properties.startup, None);
+        assert_eq!(project.properties.help_file_path, Some(BStr::new(b"")));
+        assert_eq!(project.properties.title, Some(BStr::new(b"Project1")));
+        assert_eq!(
+            project.properties.exe_32_file_name,
+            Some(BStr::new(b"Project1.exe"))
+        );
+        assert_eq!(project.properties.exe_32_compatible, Some(BStr::new(b"")));
+        assert_eq!(project.properties.command_line_arguments, None);
+        assert_eq!(project.properties.path_32, Some(BStr::new(b"")));
+        assert_eq!(project.properties.name, Some(BStr::new(b"Project1")));
+        assert_eq!(project.properties.help_context_id, Some(BStr::new(b"0")));
+        assert_eq!(
+            project.properties.compatibility_mode,
             CompatibilityMode::NoCompatibility
         );
-        assert_eq!(project.version_info.major, 1);
-        assert_eq!(project.version_info.minor, 0);
-        assert_eq!(project.version_info.revision, 0);
-        assert_eq!(project.version_info.auto_increment_revision, 0);
+        assert_eq!(project.properties.version_info.major, 1);
+        assert_eq!(project.properties.version_info.minor, 0);
+        assert_eq!(project.properties.version_info.revision, 0);
+        assert_eq!(project.properties.version_info.auto_increment_revision, 0);
         assert_eq!(
-            project.version_info.company_name,
+            project.properties.version_info.company_name,
             Some(BStr::new(b"Company Name"))
         );
         assert_eq!(
-            project.version_info.file_description,
+            project.properties.version_info.file_description,
             Some(BStr::new(b"File Description"))
         );
         assert_eq!(
-            project.version_info.trademark,
+            project.properties.version_info.trademark,
             Some(BStr::new(b"Trademark"))
         );
         assert_eq!(
-            project.version_info.product_name,
+            project.properties.version_info.product_name,
             Some(BStr::new(b"Product Name"))
         );
-        assert_eq!(project.version_info.comments, Some(BStr::new(b"Comments")));
         assert_eq!(
-            project.server_support_files,
+            project.properties.version_info.comments,
+            Some(BStr::new(b"Comments"))
+        );
+        assert_eq!(
+            project.properties.server_support_files,
             ServerSupportFiles::Local,
             "server_support_files check"
         );
-        assert_eq!(project.conditional_compile, Some(BStr::new(b"")));
+        assert_eq!(project.properties.conditional_compile, Some(BStr::new(b"")));
         assert_eq!(
-            project.compilation_type,
+            project.properties.compilation_type,
             CompilationType::NativeCode {
                 optimization_type: OptimizationType::FavorFastCode,
                 favor_pentium_pro: FavorPentiumPro::False,
@@ -2336,13 +2361,13 @@ mod tests {
                 unrounded_floating_point: UnroundedFloatingPoint::DoNotAllow,
             }
         );
-        assert_eq!(project.start_mode, StartMode::StandAlone);
-        assert_eq!(project.unattended, InteractionMode::Interactive);
-        assert_eq!(project.retained, Retained::UnloadOnExit);
-        assert_eq!(project.thread_per_object, Some(0));
-        assert_eq!(project.max_number_of_threads, 1);
+        assert_eq!(project.properties.start_mode, StartMode::StandAlone);
+        assert_eq!(project.properties.unattended, InteractionMode::Interactive);
+        assert_eq!(project.properties.retained, Retained::UnloadOnExit);
+        assert_eq!(project.properties.thread_per_object, Some(0));
+        assert_eq!(project.properties.max_number_of_threads, 1);
         assert_eq!(
-            project.debug_startup_option,
+            project.properties.debug_startup_option,
             DebugStartupOption::WaitForComponentCreation,
             "debug_startup_option check"
         );
@@ -2422,52 +2447,61 @@ mod tests {
         assert_eq!(project.user_controls.len(), 1);
         assert_eq!(project.user_documents.len(), 1);
         assert_eq!(project.other_properties.len(), 2);
-        assert_eq!(project.upgrade_controls, UpgradeControls::Upgrade);
-        assert_eq!(project.res_file_32_path, Some(BStr::new(b"")));
-        assert_eq!(project.icon_form, Some(BStr::new(b"")));
-        assert_eq!(project.startup, None);
-        assert_eq!(project.help_file_path, Some(BStr::new(b"")));
-        assert_eq!(project.title, Some(BStr::new(b"Project1")));
-        assert_eq!(project.exe_32_file_name, Some(BStr::new(b"Project1.exe")));
-        assert_eq!(project.exe_32_compatible, Some(BStr::new(b"")));
-        assert_eq!(project.command_line_arguments, None);
-        assert_eq!(project.path_32, Some(BStr::new(b"")));
-        assert_eq!(project.name, Some(BStr::new(b"Project1")));
-        assert_eq!(project.help_context_id, Some(BStr::new(b"0")));
         assert_eq!(
-            project.compatibility_mode,
+            project.properties.upgrade_controls,
+            UpgradeControls::Upgrade
+        );
+        assert_eq!(project.properties.res_file_32_path, Some(BStr::new(b"")));
+        assert_eq!(project.properties.icon_form, Some(BStr::new(b"")));
+        assert_eq!(project.properties.startup, None);
+        assert_eq!(project.properties.help_file_path, Some(BStr::new(b"")));
+        assert_eq!(project.properties.title, Some(BStr::new(b"Project1")));
+        assert_eq!(
+            project.properties.exe_32_file_name,
+            Some(BStr::new(b"Project1.exe"))
+        );
+        assert_eq!(project.properties.exe_32_compatible, Some(BStr::new(b"")));
+        assert_eq!(project.properties.command_line_arguments, None);
+        assert_eq!(project.properties.path_32, Some(BStr::new(b"")));
+        assert_eq!(project.properties.name, Some(BStr::new(b"Project1")));
+        assert_eq!(project.properties.help_context_id, Some(BStr::new(b"0")));
+        assert_eq!(
+            project.properties.compatibility_mode,
             CompatibilityMode::NoCompatibility
         );
-        assert_eq!(project.version_info.major, 1);
-        assert_eq!(project.version_info.minor, 0);
-        assert_eq!(project.version_info.revision, 0);
-        assert_eq!(project.version_info.auto_increment_revision, 0);
+        assert_eq!(project.properties.version_info.major, 1);
+        assert_eq!(project.properties.version_info.minor, 0);
+        assert_eq!(project.properties.version_info.revision, 0);
+        assert_eq!(project.properties.version_info.auto_increment_revision, 0);
         assert_eq!(
-            project.version_info.company_name,
+            project.properties.version_info.company_name,
             Some(BStr::new(b"Company Name"))
         );
         assert_eq!(
-            project.version_info.file_description,
+            project.properties.version_info.file_description,
             Some(BStr::new(b"File Description"))
         );
         assert_eq!(
-            project.version_info.trademark,
+            project.properties.version_info.trademark,
             Some(BStr::new(b"Trademark"))
         );
         assert_eq!(
-            project.version_info.product_name,
+            project.properties.version_info.product_name,
             Some(BStr::new(b"Product Name"))
         );
-        assert_eq!(project.version_info.comments, Some(BStr::new(b"Comments")));
         assert_eq!(
-            project.server_support_files,
+            project.properties.version_info.comments,
+            Some(BStr::new(b"Comments"))
+        );
+        assert_eq!(
+            project.properties.server_support_files,
             ServerSupportFiles::Local,
             "server_support_files check"
         );
-        assert_eq!(project.conditional_compile, Some(BStr::new(b"")));
+        assert_eq!(project.properties.conditional_compile, Some(BStr::new(b"")));
 
         assert_eq!(
-            project.compilation_type,
+            project.properties.compilation_type,
             CompilationType::NativeCode {
                 optimization_type: OptimizationType::FavorFastCode,
                 favor_pentium_pro: FavorPentiumPro::False,
@@ -2480,13 +2514,13 @@ mod tests {
                 unrounded_floating_point: UnroundedFloatingPoint::DoNotAllow,
             }
         );
-        assert_eq!(project.start_mode, StartMode::StandAlone);
-        assert_eq!(project.unattended, InteractionMode::Interactive);
-        assert_eq!(project.retained, Retained::UnloadOnExit);
-        assert_eq!(project.thread_per_object, Some(0));
-        assert_eq!(project.max_number_of_threads, 1);
+        assert_eq!(project.properties.start_mode, StartMode::StandAlone);
+        assert_eq!(project.properties.unattended, InteractionMode::Interactive);
+        assert_eq!(project.properties.retained, Retained::UnloadOnExit);
+        assert_eq!(project.properties.thread_per_object, Some(0));
+        assert_eq!(project.properties.max_number_of_threads, 1);
         assert_eq!(
-            project.debug_startup_option,
+            project.properties.debug_startup_option,
             DebugStartupOption::WaitForComponentCreation,
             "debug_startup_option check"
         );
