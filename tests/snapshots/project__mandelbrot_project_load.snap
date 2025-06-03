@@ -120,214 +120,34 @@ other_properties:
       - 115
       - 104
     : - 49
-unused_control_info: Remove
-upgrade_controls: Upgrade
-res_file_32_path: []
-icon_form:
-  - 102
-  - 114
-  - 109
-  - 70
-  - 114
-  - 97
-  - 99
-  - 116
-  - 97
-  - 108
-startup:
-  - 102
-  - 114
-  - 109
-  - 70
-  - 114
-  - 97
-  - 99
-  - 116
-  - 97
-  - 108
-help_file_path: []
-title:
-  - 77
-  - 97
-  - 110
-  - 100
-  - 101
-  - 108
-  - 98
-  - 114
-  - 111
-  - 116
-  - 32
-  - 70
-  - 114
-  - 97
-  - 99
-  - 116
-  - 97
-  - 108
-  - 32
-  - 68
-  - 101
-  - 109
-  - 111
-exe_32_file_name:
-  - 77
-  - 97
-  - 110
-  - 100
-  - 101
-  - 108
-  - 98
-  - 114
-  - 111
-  - 116
-  - 46
-  - 101
-  - 120
-  - 101
-exe_32_compatible: []
-dll_base_address: 285212672
-path_32: []
-command_line_arguments: ~
-name:
-  - 77
-  - 97
-  - 110
-  - 100
-  - 101
-  - 108
-  - 98
-  - 114
-  - 111
-  - 116
-  - 95
-  - 70
-  - 114
-  - 97
-  - 99
-  - 116
-  - 97
-  - 108
-  - 95
-  - 68
-  - 101
-  - 109
-  - 111
-description: []
-debug_startup_component: []
-help_context_id:
-  - 48
-compatibility_mode: NoCompatibility
-version_32_compatibility: []
-version_info:
-  major: 1
-  minor: 0
-  revision: 23
-  auto_increment_revision: 1
-  company_name:
-    - 84
-    - 97
-    - 110
-    - 110
-    - 101
-    - 114
-    - 32
-    - 72
-    - 101
-    - 108
-    - 108
-    - 97
-    - 110
-    - 100
-    - 32
-    - 80
-    - 114
-    - 111
-    - 100
-    - 117
-    - 99
-    - 116
-    - 105
-    - 111
-    - 110
-    - 115
-  file_description: []
-  copyright:
-    - 82
-    - 101
-    - 108
-    - 101
-    - 97
-    - 115
-    - 101
-    - 100
-    - 32
-    - 117
-    - 110
-    - 100
-    - 101
-    - 114
-    - 32
-    - 97
-    - 32
-    - 66
-    - 83
-    - 68
-    - 32
-    - 76
-    - 105
-    - 99
-    - 101
-    - 110
-    - 115
-    - 101
-    - 59
-    - 32
-    - 115
-    - 101
-    - 101
-    - 32
-    - 119
-    - 119
-    - 119
-    - 46
-    - 116
-    - 97
-    - 110
-    - 110
-    - 101
-    - 114
-    - 104
-    - 101
-    - 108
-    - 108
-    - 97
-    - 110
-    - 100
-    - 46
-    - 99
-    - 111
-    - 109
-    - 32
+properties:
+  unused_control_info: Remove
+  upgrade_controls: Upgrade
+  res_file_32_path: []
+  icon_form:
     - 102
-    - 111
     - 114
-    - 32
-    - 100
-    - 101
+    - 109
+    - 70
+    - 114
+    - 97
+    - 99
     - 116
     - 97
-    - 105
     - 108
-    - 115
-    - 46
-  trademark: []
-  product_name: []
-  comments:
-    - 86
-    - 66
-    - 54
-    - 32
+  startup:
+    - 102
+    - 114
+    - 109
+    - 70
+    - 114
+    - 97
+    - 99
+    - 116
+    - 97
+    - 108
+  help_file_path: []
+  title:
     - 77
     - 97
     - 110
@@ -351,56 +171,237 @@ version_info:
     - 101
     - 109
     - 111
-    - 32
-    - 45
-    - 32
-    - 50
-    - 48
-    - 49
-    - 48
-    - 32
-    - 45
-    - 32
-    - 119
-    - 119
-    - 119
-    - 46
-    - 116
-    - 97
-    - 110
-    - 110
-    - 101
-    - 114
-    - 104
-    - 101
-    - 108
-    - 108
+  exe_32_file_name:
+    - 77
     - 97
     - 110
     - 100
-    - 46
-    - 99
+    - 101
+    - 108
+    - 98
+    - 114
     - 111
+    - 116
+    - 46
+    - 101
+    - 120
+    - 101
+  exe_32_compatible: []
+  dll_base_address: 285212672
+  path_32: []
+  command_line_arguments: ~
+  name:
+    - 77
+    - 97
+    - 110
+    - 100
+    - 101
+    - 108
+    - 98
+    - 114
+    - 111
+    - 116
+    - 95
+    - 70
+    - 114
+    - 97
+    - 99
+    - 116
+    - 97
+    - 108
+    - 95
+    - 68
+    - 101
     - 109
-server_support_files: Local
-conditional_compile: []
-compilation_type:
-  NativeCode:
-    optimization_type: FavorFastCode
-    favor_pentium_pro: "True"
-    code_view_debug_info: NotCreated
-    aliasing: AssumeNoAliasing
-    bounds_check: NoBoundsCheck
-    overflow_check: NoOverflowCheck
-    floating_point_check: NoFloatingPointErrorCheck
-    pentium_fdiv_bug_check: NoPentiumFDivBugCheck
-    unrounded_floating_point: Allow
-start_mode: StandAlone
-unattended: Interactive
-retained: UnloadOnExit
-thread_per_object: 0
-threading_model: ApartmentThreaded
-max_number_of_threads: 1
-debug_startup_option: WaitForComponentCreation
-use_existing_browser: Use
-property_page: []
+    - 111
+  description: []
+  debug_startup_component: []
+  help_context_id:
+    - 48
+  compatibility_mode: NoCompatibility
+  version_32_compatibility: []
+  version_info:
+    major: 1
+    minor: 0
+    revision: 23
+    auto_increment_revision: 1
+    company_name:
+      - 84
+      - 97
+      - 110
+      - 110
+      - 101
+      - 114
+      - 32
+      - 72
+      - 101
+      - 108
+      - 108
+      - 97
+      - 110
+      - 100
+      - 32
+      - 80
+      - 114
+      - 111
+      - 100
+      - 117
+      - 99
+      - 116
+      - 105
+      - 111
+      - 110
+      - 115
+    file_description: []
+    copyright:
+      - 82
+      - 101
+      - 108
+      - 101
+      - 97
+      - 115
+      - 101
+      - 100
+      - 32
+      - 117
+      - 110
+      - 100
+      - 101
+      - 114
+      - 32
+      - 97
+      - 32
+      - 66
+      - 83
+      - 68
+      - 32
+      - 76
+      - 105
+      - 99
+      - 101
+      - 110
+      - 115
+      - 101
+      - 59
+      - 32
+      - 115
+      - 101
+      - 101
+      - 32
+      - 119
+      - 119
+      - 119
+      - 46
+      - 116
+      - 97
+      - 110
+      - 110
+      - 101
+      - 114
+      - 104
+      - 101
+      - 108
+      - 108
+      - 97
+      - 110
+      - 100
+      - 46
+      - 99
+      - 111
+      - 109
+      - 32
+      - 102
+      - 111
+      - 114
+      - 32
+      - 100
+      - 101
+      - 116
+      - 97
+      - 105
+      - 108
+      - 115
+      - 46
+    trademark: []
+    product_name: []
+    comments:
+      - 86
+      - 66
+      - 54
+      - 32
+      - 77
+      - 97
+      - 110
+      - 100
+      - 101
+      - 108
+      - 98
+      - 114
+      - 111
+      - 116
+      - 32
+      - 70
+      - 114
+      - 97
+      - 99
+      - 116
+      - 97
+      - 108
+      - 32
+      - 68
+      - 101
+      - 109
+      - 111
+      - 32
+      - 45
+      - 32
+      - 50
+      - 48
+      - 49
+      - 48
+      - 32
+      - 45
+      - 32
+      - 119
+      - 119
+      - 119
+      - 46
+      - 116
+      - 97
+      - 110
+      - 110
+      - 101
+      - 114
+      - 104
+      - 101
+      - 108
+      - 108
+      - 97
+      - 110
+      - 100
+      - 46
+      - 99
+      - 111
+      - 109
+  server_support_files: Local
+  conditional_compile: []
+  compilation_type:
+    NativeCode:
+      optimization_type: FavorFastCode
+      favor_pentium_pro: "True"
+      code_view_debug_info: NotCreated
+      aliasing: AssumeNoAliasing
+      bounds_check: NoBoundsCheck
+      overflow_check: NoOverflowCheck
+      floating_point_check: NoFloatingPointErrorCheck
+      pentium_fdiv_bug_check: NoPentiumFDivBugCheck
+      unrounded_floating_point: Allow
+  start_mode: StandAlone
+  unattended: Interactive
+  retained: UnloadOnExit
+  thread_per_object: 0
+  threading_model: ApartmentThreaded
+  max_number_of_threads: 1
+  debug_startup_option: WaitForComponentCreation
+  use_existing_browser: Use
+  property_page: []

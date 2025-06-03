@@ -1,4 +1,4 @@
-#![warn(missing_docs)]
+//#![warn(missing_docs)]
 
 //! # Summary
 //!
@@ -101,9 +101,9 @@
 //! assert_eq!(project.forms.len(), 2);
 //! assert_eq!(project.user_controls.len(), 1);
 //! assert_eq!(project.user_documents.len(), 1);
-//! assert_eq!(project.startup, Some(BStr::new(b"Form1")));
-//! assert_eq!(project.title, Some(BStr::new(b"Project1")));
-//! assert_eq!(project.exe_32_file_name, Some(BStr::new(b"Project1.exe")));
+//! assert_eq!(project.properties.startup, Some(BStr::new(b"Form1")));
+//! assert_eq!(project.properties.title, Some(BStr::new(b"Project1")));
+//! assert_eq!(project.properties.exe_32_file_name, Some(BStr::new(b"Project1.exe")));
 //! ```
 //!
 //! Note that in the example above, the `VB6Project::parse` method is used to parse
