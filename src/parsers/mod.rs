@@ -27,6 +27,7 @@ pub mod compilesettings;
 pub mod form;
 pub mod module;
 pub mod objectreference;
+pub mod parserresults;
 pub mod project;
 pub mod properties;
 pub mod sourcestream;
