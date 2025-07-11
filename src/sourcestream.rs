@@ -1,5 +1,5 @@
 /// A structure representing a stream of bytes from a source file.
-/// It holds the file name, the contents of the file as a `BStr`, and an offset
+/// It holds the file name, the contents of the file, and an offset
 /// indicating the current position in the stream.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct SourceStream<'a> {
@@ -8,7 +8,7 @@ pub struct SourceStream<'a> {
     pub offset: usize,
 }
 
-/// An enum representing the type of comparison to be used when taking bytes
+/// An enum representing the type of comparison to be used when taking characters
 /// from the `SourceStream`.
 /// It can be either case-sensitive or case-insensitive.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]

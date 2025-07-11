@@ -201,7 +201,10 @@
 pub mod errors;
 pub mod language;
 pub mod parsers;
+pub mod sourcefile;
+pub mod sourcestream;
 
 pub use crate::errors::*;
 pub use crate::language::*;
 pub use crate::parsers::*;
+pub use crate::sourcefile::*;

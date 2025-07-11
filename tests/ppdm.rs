@@ -1,16 +1,4 @@
-use vb6parse::parsers::{
-    compilesettings::{
-        Aliasing, BoundsCheck, CodeViewDebugInfo, CompilationType, FavorPentiumPro,
-        FloatingPointErrorCheck, NativeCodeSettings, OptimizationType, OverflowCheck,
-        PentiumFDivBugCheck, UnroundedFloatingPoint,
-    },
-    project::{
-        CompatibilityMode, DebugStartupOption, InteractionMode, Retained, ServerSupportFiles,
-        SourceFile, StartMode, UpgradeControls,
-    },
-    success::*,
-    CompileTargetType, VB6Project,
-};
+use vb6parse::*;
 
 #[test]
 fn ppdm_project_load() {
