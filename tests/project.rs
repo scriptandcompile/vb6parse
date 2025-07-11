@@ -1,6 +1,4 @@
-use vb6parse::parsers::VB6Project;
-use vb6parse::project::SourceFile;
-use vb6parse::success::Success;
+use vb6parse::*;
 
 #[test]
 fn artificial_life_project_load() {
