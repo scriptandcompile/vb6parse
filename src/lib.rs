@@ -34,7 +34,6 @@
 //!
 //! ```rust
 //! use vb6parse::*;
-//! use bstr::BStr;
 //!
 //! let input = r#"Type=Exe
 //! Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
@@ -90,7 +89,31 @@
 //! AutoRefresh=1
 //! "#;
 //!
-//! let project = VB6Project::parse("project1.vbp", input.as_bytes()).unwrap();
+//!
+//! let project_source_file = match SourceFile::decode_with_replacement("project1.vbp", input.as_bytes()) {
+//!     Ok(source_file) => source_file,
+//!     Err(e) => {
+//!         e.print();
+//!         panic!("failed to decode project source code.");
+//!     }
+//! };
+//!
+//! let result = VB6Project::parse(&project_source_file);
+//!
+//! if let Err(failure) = result {
+//!     failure.print();
+//!     panic!("Failed to parse project");
+//! }
+//!
+//! let project = match result.unwrap() {
+//!     Success::Value(project) => project,
+//!     Success::ValueWithFailures(_, failures) => {
+//!         for failure in failures {
+//!             failure.print();
+//!         }
+//!         panic!("Expected a VB6Project");
+//!     }
+//! };
 //!
 //! assert_eq!(project.project_type, CompileTargetType::Exe);
 //! assert_eq!(project.references.len(), 1);
@@ -101,9 +124,9 @@
 //! assert_eq!(project.forms.len(), 2);
 //! assert_eq!(project.user_controls.len(), 1);
 //! assert_eq!(project.user_documents.len(), 1);
-//! assert_eq!(project.properties.startup, Some(BStr::new(b"Form1")));
-//! assert_eq!(project.properties.title, Some(BStr::new(b"Project1")));
-//! assert_eq!(project.properties.exe_32_file_name, Some(BStr::new(b"Project1.exe")));
+//! assert_eq!(project.properties.startup, "Form1");
+//! assert_eq!(project.properties.title, "Project1");
+//! assert_eq!(project.properties.exe_32_file_name, "Project1.exe");
 //! ```
 //!
 //! Note that in the example above, the `VB6Project::parse` method is used to parse

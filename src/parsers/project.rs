@@ -1,130 +1,271 @@
+use std::borrow::Cow;
 use std::collections::HashMap;
 use std::convert::TryFrom;
+use std::fmt::Debug;
 use std::str::FromStr;
 
-use bstr::{BStr, ByteSlice};
+use encoding_rs::{mem::*, CoderResult, WINDOWS_1252};
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
+use strum::{EnumMessage, IntoEnumIterator};
+use strum_macros::{EnumIter, EnumMessage};
 use uuid::Uuid;
-use winnow::{
-    ascii::{line_ending, space0},
-    combinator::{alt, opt},
-    error::ErrMode,
-    token::{literal, take_until, take_while},
-    Parser,
-};
 
 use crate::{
-    errors::{VB6Error, VB6ErrorKind},
-    parsers::{
-        compilesettings::{
-            Aliasing, BoundsCheck, CodeViewDebugInfo, CompilationType, FavorPentiumPro,
-            FloatingPointErrorCheck, OptimizationType, OverflowCheck, PentiumFDivBugCheck,
-            UnroundedFloatingPoint,
-        },
-        header::object_parse,
-        vb6stream::VB6Stream,
-        VB6ObjectReference,
-    },
-    vb6::{line_comment_parse, take_until_line_ending, VB6Result},
+    errors::*, objectreference::*, parsers::compilesettings::*, sourcestream::*, success::*,
 };
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+pub struct SourceFile {
+    file_content: String,
+    pub file_name: String,
+}
+
+impl SourceFile {
+    pub fn decode_with_replacement(
+        file_name: impl Into<String>,
+        source_code: &[u8],
+    ) -> Result<Self, ErrorDetails<SourceFileErrorKind>> {
+        Self::decode_internal(file_name, source_code, true)
+    }
+
+    fn decode_internal(
+        file_name: impl Into<String>,
+        source_code: &[u8],
+        allow_replacement: bool,
+    ) -> Result<Self, ErrorDetails<SourceFileErrorKind>> {
+        let mut decoder = WINDOWS_1252.new_decoder();
+
+        let Some(max_len) = decoder.max_utf8_buffer_length(source_code.len()) else {
+            return Err(ErrorDetails {
+                kind: SourceFileErrorKind::MalformedSource {
+                    message: "Failed to decode the source code. '{file_name}' was empty.".into(),
+                },
+                error_offset: 0,
+                source_content: "".into(),
+                source_name: file_name.into().clone(),
+                line_start: 0,
+                line_end: 0,
+            });
+        };
+
+        let file_name = file_name.into();
+        let mut source_file = SourceFile {
+            file_name: file_name.clone(),
+            file_content: String::with_capacity(max_len),
+        };
+
+        let last = true;
+        let (coder_result, attempted_decode_len, all_processed) =
+            decoder.decode_to_string(source_code, &mut source_file.file_content, last);
+
+        if source_file.file_content.len() == source_code.len() {
+            // looks like we actualy succeded even if the coder_result might be
+            // confused at that.
+            return Ok(source_file);
+        }
+
+        if (all_processed == false && allow_replacement == false)
+            || coder_result == CoderResult::OutputFull
+        {
+            let mut decoded_len = utf8_latin1_up_to(source_code);
+            let mut error_offset = decoded_len - 1;
+
+            // looks like we actualy succeded even if the coder_result might be
+            // confused at that.
+            if attempted_decode_len == decoded_len {
+                return Ok(source_file);
+            }
+
+            let text_upto_error = match str::from_utf8(&source_code[0..decoded_len]) {
+                Ok(v) => v.to_owned(),
+                Err(_) => {
+                    // For some reason, even though this should never happen
+                    // we ended up here. Oh well. Report that things failed at
+                    // the start of the file since we can't pinpoint the exact
+                    // location.
+                    error_offset = 0;
+                    decoded_len = 0;
+                    "".to_owned()
+                }
+            };
+
+            let details = ErrorDetails {
+                kind: SourceFileErrorKind::MalformedSource {
+                    message: format!(
+                        r"Failed to decode the source file. '{file_name}' may not use latin-1 (Windows-1252) code page. 
+Currently, only latin-1 source code is supported."
+                    ),
+                },
+                source_content: Cow::Owned(text_upto_error),
+                source_name: file_name,
+                error_offset: error_offset,
+                line_start: 0,
+                line_end: decoded_len,
+            };
+
+            return Err(details);
+        }
+
+        Ok(source_file)
+    }
+
+    pub fn decode(
+        file_name: impl Into<String>,
+        source_code: &[u8],
+    ) -> Result<Self, ErrorDetails<SourceFileErrorKind>> {
+        Self::decode_internal(file_name, source_code, false)
+    }
+
+    pub fn get_source_stream(&self) -> SourceStream {
+        let source_stream = SourceStream::new(self.file_name.clone(), self.file_content.as_str());
+
+        source_stream
+    }
+}
+
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
 pub struct VB6Project<'a> {
     pub project_type: CompileTargetType,
     pub references: Vec<VB6ProjectReference<'a>>,
     pub objects: Vec<VB6ObjectReference<'a>>,
     pub modules: Vec<VB6ProjectModule<'a>>,
     pub classes: Vec<VB6ProjectClass<'a>>,
-    pub related_documents: Vec<&'a BStr>,
-    pub designers: Vec<&'a BStr>,
-    pub forms: Vec<&'a BStr>,
-    pub user_controls: Vec<&'a BStr>,
-    pub user_documents: Vec<&'a BStr>,
-    pub other_properties: HashMap<&'a BStr, HashMap<&'a BStr, &'a BStr>>,
-
+    pub related_documents: Vec<&'a str>,
+    pub property_pages: Vec<&'a str>,
+    pub designers: Vec<&'a str>,
+    pub forms: Vec<&'a str>,
+    pub user_controls: Vec<&'a str>,
+    pub user_documents: Vec<&'a str>,
+    pub other_properties: HashMap<&'a str, HashMap<&'a str, &'a str>>,
     pub properties: VB6ProjectProperties<'a>,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Copy, Clone, Serialize, Default)]
 pub struct VB6ProjectProperties<'a> {
     pub unused_control_info: UnusedControlInfo,
     pub upgrade_controls: UpgradeControls,
-    pub res_file_32_path: Option<&'a BStr>,
-    pub icon_form: Option<&'a BStr>,
-    pub startup: Option<&'a BStr>,
-    pub help_file_path: Option<&'a BStr>,
-    pub title: Option<&'a BStr>,
-    pub exe_32_file_name: Option<&'a BStr>,
-    pub exe_32_compatible: Option<&'a BStr>,
+    pub res_file_32_path: &'a str,
+    pub icon_form: &'a str,
+    pub startup: &'a str,
+    pub help_file_path: &'a str,
+    pub title: &'a str,
+    pub exe_32_file_name: &'a str,
+    pub exe_32_compatible: &'a str,
     pub dll_base_address: u32,
-    pub path_32: Option<&'a BStr>,
-    pub command_line_arguments: Option<&'a BStr>,
-    pub name: Option<&'a BStr>,
-    pub description: Option<&'a BStr>,
-    pub debug_startup_component: Option<&'a BStr>,
+    pub path_32: &'a str,
+    pub command_line_arguments: &'a str,
+    pub name: &'a str,
+    pub description: &'a str,
+    pub debug_startup_component: &'a str,
     // May need to be switched to a u32. Not sure yet.
-    pub help_context_id: Option<&'a BStr>,
+    pub help_context_id: &'a str,
     pub compatibility_mode: CompatibilityMode,
-    pub version_32_compatibility: Option<&'a BStr>,
+    pub version_32_compatibility: &'a str,
     pub version_info: VersionInformation<'a>,
     pub server_support_files: ServerSupportFiles,
-    pub conditional_compile: Option<&'a BStr>,
+    pub conditional_compile: &'a str,
     pub compilation_type: CompilationType,
 
     pub start_mode: StartMode,
     pub unattended: InteractionMode,
     pub retained: Retained,
-    pub thread_per_object: Option<u16>,
+    pub thread_per_object: u16,
     pub threading_model: ThreadingModel,
     pub max_number_of_threads: u16,
     pub debug_startup_option: DebugStartupOption,
-    pub use_existing_browser: UseExistingBrowser,
-    pub property_page: Option<&'a BStr>,
+    pub use_existing_browser: ExistingBrowser,
 }
 
 /// Retained mode of the VB6 project.
 ///
 /// Hints to the loading program whether the project DLL should be retained in
 /// memory or unloaded when no longer in use.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+)]
 #[repr(i16)]
 pub enum Retained {
     /// The DLL is unloaded when no longer in use.
     #[default]
+    #[strum(message = "Unload the DLL when no longer in use")]
     UnloadOnExit = 0,
     /// `RetainedInMemory` only indicates to the loading program that the DLL
     /// should be retained in memory, it does not guarantee that the DLL will be
     /// retained in memory. Retaining a DLL in memory comes with a memory and
     /// performance cost that the host program may not wish to sustain.
+    #[strum(message = "Retain the DLL in memory")]
     RetainedInMemory = 1,
+}
+
+impl TryFrom<&str> for Retained {
+    type Error = String;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value.as_bytes() {
+            b"0" => Ok(Retained::UnloadOnExit),
+            b"1" => Ok(Retained::RetainedInMemory),
+            _ => Err(format!("Unknown Retained value: '{}'", value)),
+        }
+    }
 }
 
 /// Indicates whether to use an existing browser instance.
 ///
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+)]
 #[repr(i16)]
-pub enum UseExistingBrowser {
+pub enum ExistingBrowser {
     /// Do not use an existing browser instance.
+    #[strum(message = "Do not use an existing browser instance")]
     DoNotUse = 0,
-    /// If Internet Explorer is already running, use the existing instance.
+    /// If Internet Explorer is already running, use the existing instance`.
     /// Otherwise, launch a new instance.
     #[default]
+    #[strum(message = "Use an existing browser instance if available")]
     Use = -1,
+}
+
+impl TryFrom<&str> for ExistingBrowser {
+    type Error = String;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value.as_bytes() {
+            b"0" => Ok(ExistingBrowser::DoNotUse),
+            b"-1" => Ok(ExistingBrowser::Use),
+            _ => Err(format!("Unknown ExistingBrowser value: '{}'", value)),
+        }
+    }
 }
 
 /// Start mode of the VB6 project.
 ///
 /// Indicates whether the project is a stand-alone application or an ActiveX
 /// component.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+)]
 #[repr(i16)]
 pub enum StartMode {
     /// The project is a stand-alone application. Essentially, a normal EXE.
     #[default]
+    #[strum(message = "Stand-alone Application")]
     StandAlone = 0,
     /// The project is an ActiveX component.
+    #[strum(message = "ActiveX Automation Component")]
     Automation = 1,
+}
+
+impl TryFrom<&str> for StartMode {
+    type Error = String;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value.as_bytes() {
+            b"0" => Ok(StartMode::StandAlone),
+            b"1" => Ok(StartMode::Automation),
+            _ => Err(format!("Unknown StartMode value: '{}'", value)),
+        }
+    }
 }
 
 /// Interaction mode for VB6 projects.
@@ -136,65 +277,132 @@ pub enum StartMode {
 ///
 /// Interactive is the default mode, where the program can show dialogs and
 /// interact with the user.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+)]
 #[repr(i16)]
 pub enum InteractionMode {
     /// The program can show dialogs and interacts with the user.
     #[default]
+    #[strum(message = "The program can show dialogs and interacts with the user.")]
     Interactive = 0,
     /// The program cannot show dialogs and will not interact with the user.
+    #[strum(message = "The program cannot show dialogs and will not interact with the user.")]
     Unattended = -1,
+}
+
+impl TryFrom<&str> for InteractionMode {
+    type Error = String;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value.as_bytes() {
+            b"0" => Ok(InteractionMode::Interactive),
+            b"-1" => Ok(InteractionMode::Unattended),
+            _ => Err(format!("Unknown InteractionMode value: '{}'", value)),
+        }
+    }
 }
 
 /// Indicates if the project will produce the server support VBR & TLB files.
 ///
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+)]
 #[repr(i16)]
 pub enum ServerSupportFiles {
     /// The project will not produce the VBR and TLB files since this is a
     /// local only project.
     #[default]
+    #[strum(message = "Do not produce VBR and TLB files")]
     Local = 0,
     /// The project will produce the VBR and TLB files needed for packaging
     /// the client applications which use this server project.
+    #[strum(message = "Produce VBR and TLB files for packaging")]
     Remote = 1,
+}
+
+impl TryFrom<&str> for ServerSupportFiles {
+    type Error = String;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value.as_bytes() {
+            b"0" => Ok(ServerSupportFiles::Local),
+            b"1" => Ok(ServerSupportFiles::Remote),
+            _ => Err(format!("Unknown ServerSupportFiles value: '{}'", value)),
+        }
+    }
 }
 
 /// If the ActiveX control has been updated in windows since the last time
 /// the project was opened this setting determines if the project should
 /// be updated to use the new control or not.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+)]
 #[repr(i16)]
 pub enum UpgradeControls {
     /// The project should be updated to use the new control.
+    #[strum(message = "Update project to use upgraded control")]
     #[default]
     Upgrade = 0,
     /// The project should not be updated to use the new control.
+    #[strum(message = "Leave project untouched with older control")]
     NoUpgrade = 1,
+}
+
+impl TryFrom<&str> for UpgradeControls {
+    type Error = String;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value.as_bytes() {
+            b"0" => Ok(UpgradeControls::Upgrade),
+            b"1" => Ok(UpgradeControls::NoUpgrade),
+            _ => Err(format!("Unknown UpgradeControls value: '{}'", value)),
+        }
+    }
 }
 
 /// Determines if licensing information for ActiveX Controls unused, but
 /// referenced within the project, should be retained or removed.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+)]
 #[repr(i16)]
 pub enum UnusedControlInfo {
     /// The licensing information for ActiveX Controls unused, but referenced
     /// within the project, should be retained.
+    #[strum(message = "Retain License Information")]
     Retain = 0,
     /// The licensing information for ActiveX Controls unused, but referenced
     /// within the project, should be removed.
     #[default]
+    #[strum(message = "Remove License Information")]
     Remove = 1,
 }
 
+impl TryFrom<&str> for UnusedControlInfo {
+    type Error = String;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value.as_bytes() {
+            b"0" => Ok(UnusedControlInfo::Retain),
+            b"1" => Ok(UnusedControlInfo::Remove),
+            _ => Err(format!("Unknown UnusedControlInfo value: '{}'", value)),
+        }
+    }
+}
+
 /// Determines the level of compatibility required for each compile of the project.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+)]
 #[repr(i16)]
 pub enum CompatibilityMode {
     /// Each time the component is compiled, new type library information is
     /// generated, including new class ID's and new interface ID's. There is no
     /// relation betweeen versions of a component, and programs compiled to use
     /// one version cannot use another subsequent version.
+    #[strum(message = "No Compatibility")]
     NoCompatibility = 0,
     /// Each time the component is compiled, the type library identifier is kept,
     /// so that projects can maintain their references to the component. All class
@@ -202,6 +410,7 @@ pub enum CompatibilityMode {
     /// only for classes that are no longer binary-compatible with their earlier
     /// counterparts.
     #[default]
+    #[strum(message = "Project Compatibility")]
     Project = 1,
     /// When the component is compiled, if any binary-incompatible changes are
     /// detected, the IDE will present a warning dialog. If accepted, the component
@@ -210,17 +419,34 @@ pub enum CompatibilityMode {
     /// binary-compatible with their earlier counterparts. Otherwise, the component
     /// will maintain the type library identifier and the class ID's from the previous
     /// version regardless of whether the changes are binary-compatible or not.
+    #[strum(message = "Compatible Exe Mode")]
     CompatibleExe = 2,
+}
+
+impl TryFrom<&str> for CompatibilityMode {
+    type Error = String;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value.as_bytes() {
+            b"0" => Ok(CompatibilityMode::NoCompatibility),
+            b"1" => Ok(CompatibilityMode::Project),
+            b"2" => Ok(CompatibilityMode::CompatibleExe),
+            _ => Err(format!("Unknown CompatibilityMode value: '{}'", value)),
+        }
+    }
 }
 
 /// When debugging the VB6 project, this option determines how the
 /// debugging session will start.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+)]
 #[repr(i16)]
 pub enum DebugStartupOption {
     /// When debugging, the IDE will wait for the component to be created before
     /// attaching the debugging session.
     #[default]
+    #[strum(message = "Wait for Component Creation")]
     WaitForComponentCreation = 0,
     /// Lets the component determine what happens. The types of components include
     /// ActiveX Designers like the DHTML Designer and the WebClass Designer, and
@@ -238,15 +464,32 @@ pub enum DebugStartupOption {
     /// When the project runs, Visual Basic would register the DHTMLPage1 component
     /// as well as other components, execute and then launch Internet Explorer,
     /// and navigate to a URL that create an instance of DHTMLPage1.
+    #[strum(message = "A Start Component is specified")]
     StartComponent = 1,
     /// Specifies an executable program to be used.
+    #[strum(message = "A Start Program is specified")]
     StartProgram = 2,
     /// Specifies which URL the browser should naigate to.
+    #[strum(message = "Start Browser is specified")]
     StartBrowser = 3,
 }
 
+impl TryFrom<&str> for DebugStartupOption {
+    type Error = String;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value.as_bytes() {
+            b"0" => Ok(DebugStartupOption::WaitForComponentCreation),
+            b"1" => Ok(DebugStartupOption::StartComponent),
+            b"2" => Ok(DebugStartupOption::StartProgram),
+            b"3" => Ok(DebugStartupOption::StartBrowser),
+            _ => Err(format!("Unknown DebugStartupOption value: '{}'", value)),
+        }
+    }
+}
+
 /// Determines the version information of the VB6 project.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Default, Copy, Clone, Serialize)]
 pub struct VersionInformation<'a> {
     /// The major version number of the project.
     pub major: u16,
@@ -257,54 +500,94 @@ pub struct VersionInformation<'a> {
     /// How much the revision number should be incremented per compile.
     pub auto_increment_revision: u16,
     /// The name of the company that created the project.
-    pub company_name: Option<&'a BStr>,
+    pub company_name: &'a str,
     /// The description of the project.
-    pub file_description: Option<&'a BStr>,
+    pub file_description: &'a str,
     /// The copyright information of the project.
-    pub copyright: Option<&'a BStr>,
+    pub copyright: &'a str,
     /// The trademark information of the project.
-    pub trademark: Option<&'a BStr>,
+    pub trademark: &'a str,
     /// The product name of the project.
-    pub product_name: Option<&'a BStr>,
+    pub product_name: &'a str,
     /// Additional comments about the project.
-    pub comments: Option<&'a BStr>,
+    pub comments: &'a str,
 }
 
 /// Determines the type of compile target for the VB6 project.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Copy, Clone, Serialize, EnumIter, EnumMessage)]
 pub enum CompileTargetType {
     /// The project is a standard EXE.
+    #[strum(message = "A Standard Exe")]
     Exe,
     /// The project is a UserControl.
+    #[strum(message = "A UserControl")]
     Control,
     /// The project is a OLE Executable.
+    #[strum(message = "Ole Exe")]
     OleExe,
     /// The project is an OLE DLL.
+    #[strum(message = "Ole Dll")]
     OleDll,
 }
 
+impl Default for CompileTargetType {
+    fn default() -> Self {
+        CompileTargetType::Exe
+    }
+}
+
+impl TryFrom<&str> for CompileTargetType {
+    type Error = String;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "Exe" => Ok(CompileTargetType::Exe),
+            "Control" => Ok(CompileTargetType::Control),
+            "OleExe" => Ok(CompileTargetType::OleExe),
+            "OleDll" => Ok(CompileTargetType::OleDll),
+            _ => Err(format!("Unknown CompileTargetType value: '{value}'")),
+        }
+    }
+}
+
 /// Determines the threading model for the VB6 project.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+)]
 #[repr(i16)]
 pub enum ThreadingModel {
     /// Single-threaded.
+    #[strum(message = "")]
     SingleThreaded = 0,
     /// Apartment-threaded.
     #[default]
+    #[strum(message = "")]
     ApartmentThreaded = 1,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+impl TryFrom<&str> for ThreadingModel {
+    type Error = String;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(ThreadingModel::SingleThreaded),
+            "1" => Ok(ThreadingModel::ApartmentThreaded),
+            _ => Err(format!("Unknown ThreadingModel value: '{value}'")),
+        }
+    }
+}
+
+#[derive(Debug, PartialEq, Eq, Copy, Clone)]
 pub enum VB6ProjectReference<'a> {
     Compiled {
         uuid: Uuid,
-        unknown1: &'a BStr,
-        unknown2: &'a BStr,
-        path: &'a BStr,
-        description: &'a BStr,
+        unknown1: &'a str,
+        unknown2: &'a str,
+        path: &'a str,
+        description: &'a str,
     },
     SubProject {
-        path: &'a BStr,
+        path: &'a str,
     },
 }
 
@@ -344,17 +627,20 @@ impl Serialize for VB6ProjectReference<'_> {
     }
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Copy, Clone, Serialize)]
 pub struct VB6ProjectModule<'a> {
-    pub name: &'a BStr,
-    pub path: &'a BStr,
+    pub name: &'a str,
+    pub path: &'a str,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Copy, Clone, Serialize)]
 pub struct VB6ProjectClass<'a> {
-    pub name: &'a BStr,
-    pub path: &'a BStr,
+    pub name: &'a str,
+    pub path: &'a str,
 }
+
+pub type ProjectError<'a> = ErrorDetails<'a, VB6ProjectErrorKind<'a>>;
+pub type ProjectResult<'a> = Result<Success<VB6Project<'a>, ProjectError<'a>>, ProjectError<'a>>;
 
 impl<'a> VB6Project<'a> {
     /// Parses a VB6 project file.
@@ -379,7 +665,6 @@ impl<'a> VB6Project<'a> {
     ///
     /// ```rust
     /// use vb6parse::*;
-    /// use bstr::BStr;
     ///
     /// let input = r#"Type=Exe
     /// Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
@@ -435,7 +720,30 @@ impl<'a> VB6Project<'a> {
     /// AutoRefresh=1
     /// "#;
     ///
-    /// let project = VB6Project::parse("project1.vbp", input.as_bytes()).unwrap();
+    /// let project_source_file = match SourceFile::decode_with_replacement("project1.vbp", input.as_bytes()) {
+    ///     Ok(source_file) => source_file,
+    ///     Err(e) => {
+    ///         e.print();
+    ///         panic!("failed to decode project source code.");
+    ///     }
+    /// };
+    ///
+    /// let result = VB6Project::parse(&project_source_file);
+    ///
+    /// if let Err(failure) = result {
+    ///     failure.print();
+    ///     panic!("Failed to parse project");
+    /// }
+    ///
+    /// let project = match result.unwrap() {
+    ///     Success::Value(project) => project,
+    ///     Success::ValueWithFailures(_, failures) => {
+    ///         for failure in failures {
+    ///             failure.print();
+    ///         }
+    ///         panic!("Expected a VB6Project");
+    ///     }
+    /// };
     ///
     /// assert_eq!(project.project_type, CompileTargetType::Exe);
     /// assert_eq!(project.references.len(), 1);
@@ -446,77 +754,44 @@ impl<'a> VB6Project<'a> {
     /// assert_eq!(project.forms.len(), 2);
     /// assert_eq!(project.user_controls.len(), 1);
     /// assert_eq!(project.user_documents.len(), 1);
-    /// assert_eq!(project.properties.startup, Some(BStr::new(b"Form1")));
-    /// assert_eq!(project.properties.title, Some(BStr::new(b"Project1")));
-    /// assert_eq!(project.properties.exe_32_file_name, Some(BStr::new(b"Project1.exe")));
+    /// assert_eq!(project.properties.startup, "Form1");
+    /// assert_eq!(project.properties.title, "Project1");
+    /// assert_eq!(project.properties.exe_32_file_name, "Project1.exe");
     /// ```
-    pub fn parse(file_name: impl Into<String>, source_code: &'a [u8]) -> Result<Self, VB6Error> {
-        let mut input = VB6Stream::new(file_name, source_code);
+    pub fn parse(source_file: &'a SourceFile) -> ProjectResult<'a> {
+        let mut failures = vec![];
 
-        let mut references = vec![];
-        let mut user_documents = vec![];
-        let mut objects = vec![];
-        let mut modules = vec![];
-        let mut classes = vec![];
-        let mut designers = vec![];
-        let mut forms = vec![];
-        let mut user_controls = vec![];
-        let mut related_documents = vec![];
-        let mut other_properties = HashMap::new();
+        let mut project = VB6Project {
+            project_type: CompileTargetType::Exe,
+            references: vec![],
+            objects: vec![],
+            modules: vec![],
+            classes: vec![],
+            designers: vec![],
+            forms: vec![],
+            user_controls: vec![],
+            user_documents: vec![],
+            related_documents: vec![],
+            property_pages: vec![],
+            other_properties: HashMap::new(),
+            properties: VB6ProjectProperties {
+                // We default to using NativeCode because all the possible options
+                // sit on this branch of the enum, while the other branch (PCode)
+                // has no other options.
+                //
+                // Hence, if we have a NativeCode value, then we can place the
+                // parsed value within it. If on the other hand it is PCode, then
+                // we know the compilation type was selected as PCode and we can
+                // simply ignore any of the NativeCode options since they will
+                // not be used.
+                compilation_type: CompilationType::NativeCode(Default::default()),
+                ..Default::default()
+            },
+        };
 
-        let mut debug_startup_component = Some(BStr::new(b""));
-        let mut unused_control_info = UnusedControlInfo::Remove;
-        let mut project_type: Option<CompileTargetType> = None;
-        let mut res_file_32_path = Some(BStr::new(b""));
-        let mut icon_form = Some(BStr::new(b""));
-        let mut startup = Some(BStr::new(b""));
-        let mut help_file_path = Some(BStr::new(b""));
-        let mut title = Some(BStr::new(b""));
-        let mut exe_32_file_name = Some(BStr::new(b""));
-        let mut exe_32_compatible = Some(BStr::new(b""));
-        let mut dll_base_address = 0x1100_0000_u32;
-        let mut version_32_compatibility = Some(BStr::new(b""));
-        let mut path_32 = Some(BStr::new(b""));
-        let mut command_line_arguments = Some(BStr::new(b""));
-        let mut name = Some(BStr::new(b""));
-        let mut description = Some(BStr::new(b""));
-        let mut help_context_id = Some(BStr::new(b""));
-        let mut compatibility_mode = CompatibilityMode::Project;
-        let mut threading_model = ThreadingModel::ApartmentThreaded;
-        let mut upgrade_controls = UpgradeControls::Upgrade;
-        let mut server_support_files = ServerSupportFiles::Local;
-        let mut conditional_compile = Some(BStr::new(b""));
-        let mut compilation_type = CompilationType::PCode;
-        let mut compilation_type_value = -1;
-        let mut optimization_type = OptimizationType::FavorFastCode;
-        let mut favor_pentium_pro = FavorPentiumPro::default();
-        let mut code_view_debug_info = CodeViewDebugInfo::NotCreated;
-        let mut aliasing = Aliasing::AssumeAliasing;
-        let mut bounds_check = BoundsCheck::CheckBounds;
-        let mut overflow_check = OverflowCheck::CheckOverflow;
-        let mut floating_point_check = FloatingPointErrorCheck::CheckFloatingPointError;
-        let mut pentium_fdiv_bug_check = PentiumFDivBugCheck::NoPentiumFDivBugCheck;
-        let mut unrounded_floating_point = UnroundedFloatingPoint::DoNotAllow;
-        let mut start_mode = StartMode::StandAlone;
-        let mut unattended = InteractionMode::Interactive;
-        let mut retained = Retained::UnloadOnExit;
-        let mut thread_per_object = None;
-        let mut max_number_of_threads = 1;
-        let mut debug_startup_option = DebugStartupOption::WaitForComponentCreation;
-        let mut company_name = Some(BStr::new(b""));
-        let mut file_description = Some(BStr::new(b""));
-        let mut major = 0u16;
-        let mut minor = 0u16;
-        let mut revision = 0u16;
-        let mut auto_increment_revision = 0;
-        let mut copyright = Some(BStr::new(b""));
-        let mut trademark = Some(BStr::new(b""));
-        let mut product_name = Some(BStr::new(b""));
-        let mut comments = Some(BStr::new(b""));
-        let mut use_existing_browser = UseExistingBrowser::Use;
-        let mut property_page = Some(BStr::new(b""));
+        let mut input = source_file.get_source_stream();
 
-        let mut other_property_group: Option<&'a BStr> = None;
+        let mut other_property_group: Option<&str> = None;
 
         while !input.is_empty() {
             // We also want to skip any '[MS Transaction Server]' header lines.
@@ -525,43 +800,61 @@ impl<'a> VB6Project<'a> {
             // these kinds of header lines.
 
             // skip empty lines.
-            if (space0, line_ending::<_, VB6Error>)
-                .parse_next(&mut input)
-                .is_ok()
-            {
+            let _ = input.take_whitespaces();
+            if input.take_newline().is_some() {
                 continue;
             }
 
-            // We want to grab any '[MS Transaction Server]' or other section header lines.
+            let line_start = input.start_of_line();
+            let line_end = input.end_of_line();
+
+            // We want to grab any section header lines like '[MS Transaction Server]'.
             // Which we will use in parsing 'other properties.'
-            if let Ok((_, other_property, _, _, _)) = (
-                '[',
-                take_until(0.., ']'),
-                ']',
-                space0,
-                line_ending::<_, VB6Error>,
-            )
-                .parse_next(&mut input)
-            {
-                if !other_properties.contains_key(other_property) {
-                    other_properties.insert(other_property, HashMap::new());
-
-                    other_property_group = Some(other_property);
+            match parse_section_header_line(&mut input) {
+                Ok(Some(section_header)) => {
+                    // Looks like we are no longer parsing the standard VB6 property section
+                    // Now we are parsing some third party properties.
+                    if !project.other_properties.contains_key(section_header) {
+                        project
+                            .other_properties
+                            .insert(section_header, HashMap::new());
+                        other_property_group = Some(section_header);
+                    }
+                    continue;
                 }
-                continue;
+                Ok(None) => {
+                    // Not a section header line, parse the line as a normal
+                    // VB6 project property line.
+                }
+                Err(e) => {
+                    // If we fail to parse the section header line, we will
+                    // need to handle the error and continue parsing.
+                    failures.push(e);
+                    continue;
+                }
             }
+
+            let property_name = match parse_property_name(&mut input) {
+                Ok(property_name) => property_name,
+                Err(e) => {
+                    failures.push(e);
+                    continue;
+                }
+            };
 
             // Looks like we are no longer parsing the standard VB6 property section
             // Now we are parsing some third party properties.
             if other_property_group.is_some() {
-                let (property_name, property_value) = match other_property_parse(&mut input) {
-                    Ok((property_name, property_value)) => (property_name, property_value),
+                let property_value = match parse_property_value(&mut input, &property_name) {
+                    Ok(property_value) => property_value,
                     Err(e) => {
-                        return Err(input.error(e.into_inner().unwrap()));
+                        failures.push(e);
+                        continue;
                     }
                 };
 
-                other_properties
+                project
+                    .other_properties
                     .get_mut(other_property_group.unwrap())
                     .unwrap()
                     .insert(property_name, property_value);
@@ -569,855 +862,375 @@ impl<'a> VB6Project<'a> {
                 continue;
             }
 
-            let _: VB6Result<_> = space0.parse_next(&mut input);
-
-            // Type
-            if literal::<_, _, VB6Error>("Type")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                project_type = match project_type_parse.parse_next(&mut input) {
-                    Ok(project_type) => Some(project_type),
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("Designer")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                let designer = match designer_parse.parse_next(&mut input) {
-                    Ok(designer) => designer,
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
-
-                designers.push(designer);
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("Reference")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                let reference = match reference_parse.parse_next(&mut input) {
-                    Ok(reference) => reference,
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
-
-                references.push(reference);
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("Object")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                let object = match object_parse.parse_next(&mut input) {
-                    Ok(object) => object,
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
-
-                objects.push(object);
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("Module")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                let module = match module_parse.parse_next(&mut input) {
-                    Ok(module) => module,
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
-
-                modules.push(module);
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("Class")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                let class = match class_parse.parse_next(&mut input) {
-                    Ok(class) => class,
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
-
-                classes.push(class);
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("RelatedDoc")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                }
-
-                let Ok(related_document) = take_until_line_ending.parse_next(&mut input) else {
-                    return Err(input.error(VB6ErrorKind::RelatedDocLineUnparseable));
-                };
-
-                related_documents.push(related_document);
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("Form")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                }
-
-                let Ok(form): VB6Result<_> = take_until_line_ending.parse_next(&mut input) else {
-                    return Err(input.error(VB6ErrorKind::FormLineUnparseable));
-                };
-
-                forms.push(form);
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("UserControl")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                }
-
-                let Ok(user_control): VB6Result<_> = take_until_line_ending.parse_next(&mut input)
-                else {
-                    return Err(input.error(VB6ErrorKind::UserControlLineUnparseable));
-                };
-
-                user_controls.push(user_control);
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("UserDocument")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                }
-
-                let Ok(user_document): VB6Result<_> = take_until_line_ending.parse_next(&mut input)
-                else {
-                    return Err(input.error(VB6ErrorKind::UserDocumentLineUnparseable));
-                };
-
-                user_documents.push(user_document);
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("ResFile32")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                res_file_32_path = process_qouted_parameter(&mut input)?;
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("IconForm")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                icon_form = process_qouted_parameter(&mut input)?;
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("Startup")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                // if the project lacks a startup object/function/etc it will be !(None)! or !! in the file
-                // which is distinct from the double qouted way of targeting a specific object.
-                startup = process_qouted_optional_parameter(
-                    &mut input,
-                    VB6ErrorKind::StartupUnparseable,
-                )?;
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("HelpFile")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                help_file_path = process_qouted_parameter(&mut input)?;
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("Title")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                title = match title_parse.parse_next(&mut input) {
-                    Ok(title) => Some(title),
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("ExeName32")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                exe_32_file_name = process_qouted_parameter(&mut input)?;
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("Path32")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                path_32 = process_qouted_parameter(&mut input)?;
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("Command32")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                // if the project lacks a commandline it will be !(None)! or !! or "" in the file
-                // which is distinct from the double qouted way of targeting a specific object.
-                command_line_arguments = process_qouted_optional_parameter(
-                    &mut input,
-                    VB6ErrorKind::CommandLineUnparseable,
-                )?;
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("Name")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                // if the project lacks a name it will be !(None)! or !! or "" in the file..
-                name =
-                    process_qouted_optional_parameter(&mut input, VB6ErrorKind::NameUnparseable)?;
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("Description")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                description = process_qouted_parameter(&mut input)?;
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("HelpContextID")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                // if the project lacks a help_context_id it will be !(None)! or !! or "" in the file..
-                help_context_id = process_qouted_optional_parameter(
-                    &mut input,
-                    VB6ErrorKind::HelpContextIdUnparseable,
-                )?;
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("CompatibleMode")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                compatibility_mode = match compatibility_mode_parse.parse_next(&mut input) {
-                    Ok(compatibility_mode) => compatibility_mode,
-                    Err(e) => return Err(input.error(e.into_inner().unwrap())),
-                };
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("VersionCompatible32")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                version_32_compatibility = process_qouted_parameter(&mut input)?;
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("CompatibleEXE32")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                exe_32_compatible = process_qouted_parameter(&mut input)?;
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("DllBaseAddress")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                dll_base_address = process_dll_base_address(&mut input)?;
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("RemoveUnusedControlInfo")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                unused_control_info =
-                    process_parameter(&mut input, VB6ErrorKind::UnusedControlInfoUnparseable)?;
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("MajorVer")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                major =
-                    process_numeric_parameter(&mut input, VB6ErrorKind::MajorVersionUnparseable)?;
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("MinorVer")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                minor =
-                    process_numeric_parameter(&mut input, VB6ErrorKind::MinorVersionUnparseable)?;
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("RevisionVer")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                revision = process_numeric_parameter(
-                    &mut input,
-                    VB6ErrorKind::RevisionVersionUnparseable,
-                )?;
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("ThreadingModel")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                threading_model = process_parameter::<ThreadingModel>(
-                    &mut input,
-                    VB6ErrorKind::ThreadingModelInvalid,
-                )?;
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("AutoIncrementVer")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                auto_increment_revision =
-                    process_numeric_parameter(&mut input, VB6ErrorKind::AutoIncrementUnparseable)?;
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("PropertyPage")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                }
-
-                property_page = match take_until_line_ending.parse_next(&mut input) {
-                    Ok(property_page) => Some(property_page),
-                    Err(_) => {
-                        return Err(input.error(VB6ErrorKind::PropertyPageUnparseable));
+            match property_name {
+                "Type" => match parse_converted_value(&mut input, property_name) {
+                    Ok(project_type_value) => {
+                        project.project_type = project_type_value;
                     }
-                };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("DebugStartupComponent")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                }
-
-                debug_startup_component = match take_until_line_ending.parse_next(&mut input) {
-                    Ok(debug_startup_component) => Some(debug_startup_component),
-                    Err(_) => {
-                        return Err(input.error(VB6ErrorKind::CommentUnparseable));
+                    Err(e) => failures.push(e),
+                },
+                "Designer" => match parse_path_line(&mut input, property_name) {
+                    Ok(designer) => project.designers.push(designer),
+                    Err(e) => failures.push(e),
+                },
+                "Reference" => match parse_reference(&mut input) {
+                    Ok(reference) => project.references.push(reference),
+                    Err(e) => failures.push(e),
+                },
+                "Object" => match parse_object(&mut input) {
+                    Ok(object) => project.objects.push(object),
+                    Err(e) => failures.push(e),
+                },
+                "Module" => match parse_module(&mut input) {
+                    Ok(module) => project.modules.push(module),
+                    Err(e) => failures.push(e),
+                },
+                "Class" => match parse_class(&mut input) {
+                    Ok(class) => project.classes.push(class),
+                    Err(e) => failures.push(e),
+                },
+                "RelatedDoc" => match parse_path_line(&mut input, property_name) {
+                    Ok(related_document) => project.related_documents.push(related_document),
+                    Err(e) => failures.push(e),
+                },
+                "PropertyPage" => match parse_path_line(&mut input, property_name) {
+                    Ok(property_page_value) => {
+                        project.property_pages.push(property_page_value);
                     }
-                };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("NoControlUpgrade")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                upgrade_controls =
-                    process_parameter(&mut input, VB6ErrorKind::NoControlUpgradeUnparsable)?;
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("ServerSupportFiles")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                server_support_files =
-                    process_parameter(&mut input, VB6ErrorKind::ServerSupportFilesUnparseable)?;
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("VersionCompanyName")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                company_name = process_qouted_parameter(&mut input)?;
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("VersionFileDescription")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                file_description = process_qouted_parameter(&mut input)?;
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("VersionLegalCopyright")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                copyright = process_qouted_parameter(&mut input)?;
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("VersionLegalTrademarks")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                trademark = process_qouted_parameter(&mut input)?;
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("VersionProductName")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                product_name = process_qouted_parameter(&mut input)?;
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("VersionComments")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                comments = process_qouted_parameter(&mut input)?;
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("CondComp")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                conditional_compile = process_qouted_parameter(&mut input)?;
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("CompilationType")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                compilation_type_value = process_numeric_parameter(
-                    &mut input,
-                    VB6ErrorKind::CompilationTypeUnparseable,
-                )?;
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("OptimizationType")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                optimization_type = process_parameter::<OptimizationType>(
-                    &mut input,
-                    VB6ErrorKind::OptimizationTypeUnparseable,
-                )?;
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("FavorPentiumPro(tm)")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                favor_pentium_pro =
-                    process_parameter(&mut input, VB6ErrorKind::FavorPentiumProUnparseable)?;
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("CodeViewDebugInfo")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                code_view_debug_info =
-                    process_parameter(&mut input, VB6ErrorKind::CodeViewDebugInfoUnparseable)?;
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("NoAliasing")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                aliasing = process_parameter(&mut input, VB6ErrorKind::NoAliasingUnparseable)?;
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("BoundsCheck")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                bounds_check = process_parameter(&mut input, VB6ErrorKind::BoundsCheckUnparseable)?;
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("OverflowCheck")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                overflow_check =
-                    process_parameter(&mut input, VB6ErrorKind::OverflowCheckUnparseable)?;
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("FlPointCheck")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                floating_point_check =
-                    process_parameter(&mut input, VB6ErrorKind::FlPointCheckUnparseable)?;
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("FDIVCheck")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                pentium_fdiv_bug_check =
-                    process_parameter(&mut input, VB6ErrorKind::FDIVCheckUnparseable)?;
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("UnroundedFP")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                unrounded_floating_point =
-                    process_parameter(&mut input, VB6ErrorKind::UnroundedFPUnparseable)?;
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("StartMode")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                start_mode = process_parameter(&mut input, VB6ErrorKind::StartModeUnparseable)?;
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("Unattended")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                unattended = process_parameter::<InteractionMode>(
-                    &mut input,
-                    VB6ErrorKind::UnattendedUnparseable,
-                )?;
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("Retained")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                retained =
-                    process_parameter::<Retained>(&mut input, VB6ErrorKind::RetainedUnparseable)?;
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("ThreadPerObject")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                }
-
-                let Ok(threads): VB6Result<_> = take_until_line_ending.parse_next(&mut input)
-                else {
-                    return Err(input.error(VB6ErrorKind::ThreadPerObjectUnparseable));
-                };
-
-                if threads.trim() == b"-1" {
-                    thread_per_object = None;
-                } else {
-                    thread_per_object = match threads.to_string().as_str().parse::<u16>() {
-                        Ok(thread_per_object) => Some(thread_per_object),
-                        Err(_) => return Err(input.error(VB6ErrorKind::ThreadPerObjectUnparseable)),
+                    Err(e) => failures.push(e),
+                },
+                "Form" => match parse_path_line(&mut input, property_name) {
+                    Ok(form) => project.forms.push(form),
+                    Err(e) => failures.push(e),
+                },
+                "UserControl" => match parse_path_line(&mut input, property_name) {
+                    Ok(user_control) => project.user_controls.push(user_control),
+                    Err(e) => failures.push(e),
+                },
+                "UserDocument" => match parse_path_line(&mut input, property_name) {
+                    Ok(user_document) => project.user_documents.push(user_document),
+                    Err(e) => failures.push(e),
+                },
+                "ResFile32" => match parse_qouted_value(&mut input, property_name) {
+                    Ok(res_32_file) => project.properties.res_file_32_path = res_32_file,
+                    Err(e) => failures.push(e),
+                },
+                "IconForm" => match parse_qouted_value(&mut input, property_name) {
+                    Ok(icon_form_value) => project.properties.icon_form = icon_form_value,
+                    Err(e) => failures.push(e),
+                },
+                "Startup" => match parse_optional_qouted_value(&mut input, property_name) {
+                    Ok(startup_value) => project.properties.startup = startup_value,
+                    Err(e) => failures.push(e),
+                },
+                "HelpFile" => match parse_qouted_value(&mut input, property_name) {
+                    Ok(help_file) => project.properties.help_file_path = help_file,
+                    Err(e) => failures.push(e),
+                },
+                "Title" => match parse_qouted_value(&mut input, property_name) {
+                    Ok(title_value) => project.properties.title = title_value,
+                    Err(e) => failures.push(e),
+                },
+                "ExeName32" => match parse_qouted_value(&mut input, property_name) {
+                    Ok(exe_32_file_name_value) => {
+                        project.properties.exe_32_file_name = exe_32_file_name_value
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "Path32" => match parse_qouted_value(&mut input, property_name) {
+                    Ok(path_32_value) => project.properties.path_32 = path_32_value,
+                    Err(e) => failures.push(e),
+                },
+                "Command32" => match parse_optional_qouted_value(&mut input, property_name) {
+                    Ok(command_line_arguments_value) => {
+                        project.properties.command_line_arguments = command_line_arguments_value
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "Name" => match parse_optional_qouted_value(&mut input, property_name) {
+                    Ok(name_value) => project.properties.name = name_value,
+                    Err(e) => failures.push(e),
+                },
+                "Description" => match parse_qouted_value(&mut input, property_name) {
+                    Ok(description_value) => project.properties.description = description_value,
+                    Err(e) => failures.push(e),
+                },
+                "HelpContextID" => match parse_qouted_value(&mut input, property_name) {
+                    Ok(help_context_id_value) => {
+                        project.properties.help_context_id = help_context_id_value
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "CompatibleMode" => match parse_qouted_converted_value(&mut input, property_name) {
+                    Ok(compatibility_mode_value) => {
+                        project.properties.compatibility_mode = compatibility_mode_value
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "VersionCompatible32" => match parse_qouted_value(&mut input, property_name) {
+                    Ok(version_32_compatibility_value) => {
+                        project.properties.version_32_compatibility = version_32_compatibility_value
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "CompatibleEXE32" => match parse_qouted_value(&mut input, property_name) {
+                    Ok(exe_32_compatible_value) => {
+                        project.properties.exe_32_compatible = exe_32_compatible_value
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "DllBaseAddress" => match parse_dll_base_address(&mut input) {
+                    Ok(dll_base_address_value) => {
+                        project.properties.dll_base_address = dll_base_address_value
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "RemoveUnusedControlInfo" => {
+                    match parse_converted_value(&mut input, property_name) {
+                        Ok(unused_control_info_value) => {
+                            project.properties.unused_control_info = unused_control_info_value
+                        }
+                        Err(e) => failures.push(e),
                     }
                 }
+                "MajorVer" => match parse_numeric(&mut input, property_name) {
+                    Ok(major_value) => project.properties.version_info.major = major_value,
+                    Err(e) => failures.push(e),
+                },
+                "MinorVer" => match parse_numeric(&mut input, property_name) {
+                    Ok(minor_value) => project.properties.version_info.minor = minor_value,
+                    Err(e) => failures.push(e),
+                },
+                "RevisionVer" => match parse_numeric(&mut input, property_name) {
+                    Ok(revision_value) => project.properties.version_info.revision = revision_value,
+                    Err(e) => failures.push(e),
+                },
+                "ThreadingModel" => match parse_converted_value(&mut input, property_name) {
+                    Ok(threading_model_value) => {
+                        project.properties.threading_model = threading_model_value
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "AutoIncrementVer" => match parse_numeric(&mut input, property_name) {
+                    Ok(auto_increment_revision_value) => {
+                        project.properties.version_info.auto_increment_revision =
+                            auto_increment_revision_value
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "DebugStartupComponent" => match parse_path_line(&mut input, property_name) {
+                    Ok(debug_startup_component_value) => {
+                        project.properties.debug_startup_component = debug_startup_component_value
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "NoControlUpgrade" => match parse_converted_value(&mut input, property_name) {
+                    Ok(upgrade_controls_value) => {
+                        project.properties.upgrade_controls = upgrade_controls_value
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "ServerSupportFiles" => match parse_converted_value(&mut input, property_name) {
+                    Ok(server_support_files_value) => {
+                        project.properties.server_support_files = server_support_files_value
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "VersionCompanyName" => match parse_qouted_value(&mut input, property_name) {
+                    Ok(company_name_value) => {
+                        project.properties.version_info.company_name = company_name_value
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "VersionFileDescription" => match parse_qouted_value(&mut input, property_name) {
+                    Ok(file_description_value) => {
+                        project.properties.version_info.file_description = file_description_value
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "VersionLegalCopyright" => match parse_qouted_value(&mut input, property_name) {
+                    Ok(copyright_value) => {
+                        project.properties.version_info.copyright = copyright_value
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "VersionLegalTrademarks" => match parse_qouted_value(&mut input, property_name) {
+                    Ok(trademark_value) => {
+                        project.properties.version_info.trademark = trademark_value
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "VersionProductName" => match parse_qouted_value(&mut input, property_name) {
+                    Ok(product_name_value) => {
+                        project.properties.version_info.product_name = product_name_value
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "VersionComments" => match parse_qouted_value(&mut input, property_name) {
+                    Ok(comments_value) => project.properties.version_info.comments = comments_value,
+                    Err(e) => failures.push(e),
+                },
+                "CondComp" => match parse_qouted_value(&mut input, property_name) {
+                    Ok(conditional_compile_value) => {
+                        project.properties.conditional_compile = conditional_compile_value
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "CompilationType" => match parse_numeric(&mut input, property_name) {
+                    Ok(compilation_type) => project.properties.compilation_type = compilation_type,
+                    Err(e) => failures.push(e),
+                },
+                "OptimizationType" => match parse_converted_value(&mut input, property_name) {
+                    Ok(optimization_type_value) => {
+                        project.properties.compilation_type = project
+                            .properties
+                            .compilation_type
+                            .update_optimization_type(optimization_type_value)
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "FavorPentiumPro(tm)" => match parse_converted_value(&mut input, property_name) {
+                    Ok(favor_pentium_pro_value) => {
+                        project.properties.compilation_type = project
+                            .properties
+                            .compilation_type
+                            .update_favor_pentium_pro(favor_pentium_pro_value)
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "CodeViewDebugInfo" => match parse_converted_value(&mut input, property_name) {
+                    Ok(code_view_debug_info_value) => {
+                        project.properties.compilation_type = project
+                            .properties
+                            .compilation_type
+                            .update_code_view_debug_info(code_view_debug_info_value)
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "NoAliasing" => match parse_converted_value(&mut input, property_name) {
+                    Ok(aliasing_value) => {
+                        project.properties.compilation_type = project
+                            .properties
+                            .compilation_type
+                            .update_aliasing(aliasing_value)
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "BoundsCheck" => match parse_converted_value(&mut input, property_name) {
+                    Ok(bounds_check_value) => {
+                        project.properties.compilation_type = project
+                            .properties
+                            .compilation_type
+                            .update_bounds_check(bounds_check_value)
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "OverflowCheck" => match parse_converted_value(&mut input, property_name) {
+                    Ok(overflow_check_value) => {
+                        project.properties.compilation_type = project
+                            .properties
+                            .compilation_type
+                            .update_overflow_check(overflow_check_value)
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "FlPointCheck" => match parse_converted_value(&mut input, property_name) {
+                    Ok(floating_point_check_value) => {
+                        project.properties.compilation_type = project
+                            .properties
+                            .compilation_type
+                            .update_floating_point_check(floating_point_check_value)
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "FDIVCheck" => match parse_converted_value(&mut input, property_name) {
+                    Ok(pentium_fdiv_bug_check_value) => {
+                        project.properties.compilation_type = project
+                            .properties
+                            .compilation_type
+                            .update_pentium_fdiv_bug_check(pentium_fdiv_bug_check_value);
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "UnroundedFP" => match parse_converted_value(&mut input, property_name) {
+                    Ok(unrounded_floating_point_value) => {
+                        project.properties.compilation_type = project
+                            .properties
+                            .compilation_type
+                            .update_unrounded_floating_point(unrounded_floating_point_value)
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "StartMode" => match parse_converted_value(&mut input, property_name) {
+                    Ok(start_mode_value) => project.properties.start_mode = start_mode_value,
+                    Err(e) => failures.push(e),
+                },
+                "Unattended" => match parse_converted_value(&mut input, property_name) {
+                    Ok(unattended_value) => project.properties.unattended = unattended_value,
+                    Err(e) => failures.push(e),
+                },
+                "Retained" => match parse_converted_value(&mut input, property_name) {
+                    Ok(retained_value) => project.properties.retained = retained_value,
+                    Err(e) => failures.push(e),
+                },
+                "ThreadPerObject" => match parse_numeric::<i16>(&mut input, property_name) {
+                    Ok(thread_per_object_value) => {
+                        if thread_per_object_value <= 0 {
+                            project.properties.thread_per_object = 0;
+                        } else {
+                            project.properties.thread_per_object = thread_per_object_value as u16;
+                        }
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "MaxNumberOfThreads" => match parse_numeric(&mut input, property_name) {
+                    Ok(max_number_of_threads_value) => {
+                        project.properties.max_number_of_threads = max_number_of_threads_value
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "DebugStartupOption" => match parse_converted_value(&mut input, property_name) {
+                    Ok(debug_startup_option_value) => {
+                        project.properties.debug_startup_option = debug_startup_option_value
+                    }
+                    Err(e) => failures.push(e),
+                },
+                "UseExistingBrowser" => match parse_converted_value(&mut input, property_name) {
+                    Ok(use_existing_browser_value) => {
+                        project.properties.use_existing_browser = use_existing_browser_value
+                    }
+                    Err(e) => failures.push(e),
+                },
+                _ => {
+                    // Unknown property, skip it.
+                    input.forward_to_next_line();
 
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
+                    let e = ErrorDetails {
+                        source_name: input.file_name().to_owned(),
+                        source_content: input.contents.into(),
+                        error_offset: line_start,
+                        line_start,
+                        line_end,
+                        kind: VB6ProjectErrorKind::ParameterLineUnknown {
+                            parameter_line_name: property_name,
+                        },
+                    };
+
+                    failures.push(e);
+                    continue;
                 }
-
-                continue;
             }
-
-            if literal::<_, _, VB6Error>("MaxNumberOfThreads")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                if (space0::<_, VB6Error>, '=', space0)
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoEqualSplit));
-                }
-
-                let Ok(max_threads): VB6Result<_> = take_until_line_ending.parse_next(&mut input)
-                else {
-                    return Err(input.error(VB6ErrorKind::MaxThreadsUnparseable));
-                };
-
-                max_number_of_threads = match max_threads.to_string().as_str().parse::<u16>() {
-                    Ok(max_number_of_threads) => max_number_of_threads,
-                    Err(_) => return Err(input.error(VB6ErrorKind::MaxThreadsUnparseable)),
-                };
-
-                if (space0, alt((line_ending, line_comment_parse)))
-                    .parse_next(&mut input)
-                    .is_err()
-                {
-                    return Err(input.error(VB6ErrorKind::NoLineEnding));
-                }
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("DebugStartupOption")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                debug_startup_option = process_parameter::<DebugStartupOption>(
-                    &mut input,
-                    VB6ErrorKind::DebugStartupOptionUnparseable,
-                )?;
-
-                continue;
-            }
-
-            if literal::<_, _, VB6Error>("UseExistingBrowser")
-                .parse_next(&mut input)
-                .is_ok()
-            {
-                use_existing_browser = process_parameter::<UseExistingBrowser>(
-                    &mut input,
-                    VB6ErrorKind::UseExistingBrowserUnparseable,
-                )?;
-
-                continue;
-            }
-
-            return Err(input.error(VB6ErrorKind::LineTypeUnknown));
         }
 
-        if project_type.is_none() {
-            return Err(input.error(VB6ErrorKind::FirstLineNotProject));
+        if !failures.is_empty() {
+            return Ok(Success::ValueWithFailures(project, failures));
         }
 
-        let version_info = VersionInformation {
-            major,
-            minor,
-            revision,
-            auto_increment_revision,
-            company_name,
-            file_description,
-            copyright,
-            trademark,
-            product_name,
-            comments,
-        };
-
-        // native code
-        if compilation_type_value == 0 {
-            compilation_type = CompilationType::NativeCode {
-                optimization_type,
-                favor_pentium_pro,
-                code_view_debug_info,
-                aliasing,
-                bounds_check,
-                overflow_check,
-                floating_point_check,
-                pentium_fdiv_bug_check,
-                unrounded_floating_point,
-            };
-        }
-
-        let project = VB6Project {
-            project_type: project_type.unwrap(),
-            references,
-            objects,
-            modules,
-            classes,
-            designers,
-            forms,
-            user_controls,
-            user_documents,
-            related_documents,
-            other_properties,
-            properties: VB6ProjectProperties {
-                unused_control_info,
-                upgrade_controls,
-                debug_startup_component,
-                res_file_32_path,
-                icon_form,
-                startup,
-                help_file_path,
-                title,
-                exe_32_file_name,
-                exe_32_compatible,
-                dll_base_address,
-                version_32_compatibility,
-                path_32,
-                command_line_arguments,
-                name,
-                description,
-                help_context_id,
-                compatibility_mode,
-                version_info,
-                server_support_files,
-                conditional_compile,
-                compilation_type,
-                start_mode,
-                unattended,
-                retained,
-                thread_per_object,
-                max_number_of_threads,
-                threading_model,
-                debug_startup_option,
-                use_existing_browser,
-                property_page,
-            },
-        };
-
-        Ok(project)
+        Ok(Success::Value(project))
     }
 
     #[must_use]
-    pub fn get_subproject_references(&self) -> Vec<&VB6ProjectReference> {
+    pub fn with_subproject_references_mut(&mut self) -> Vec<&VB6ProjectReference> {
         self.references
             .iter()
             .filter(|reference| matches!(reference, VB6ProjectReference::SubProject { .. }))
@@ -1433,399 +1246,806 @@ impl<'a> VB6Project<'a> {
     }
 }
 
-fn process_parameter<T>(
-    input: &mut VB6Stream<'_>,
-    error_on_conversion: VB6ErrorKind,
-) -> Result<T, VB6Error>
-where
-    T: TryFrom<i16>,
-{
-    if (space0::<_, VB6ErrorKind>, '=', space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(input.error(VB6ErrorKind::NoEqualSplit));
+fn parse_section_header_line<'a>(
+    input: &mut SourceStream<'a>,
+) -> Result<Option<&'a str>, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
+    let line_start = input.start_of_line();
+
+    // We want to grab any section header lines like '[MS Transaction Server]'.
+    // Which we will use in parsing 'other properties.'
+    let header_start = input.take("[", Comparator::CaseSensitive);
+
+    if header_start.is_none() {
+        // No section header line, so we can continue parsing.
+        return Ok(None);
     }
 
-    let Ok(result_ascii) =
-        take_while::<_, _, VB6ErrorKind>(1.., ('-', '0'..='9')).parse_next(input)
-    else {
-        return Err(input.error(error_on_conversion));
+    // We have a section header line.
+    let Some((other_property, _)) = input.take_until("]", Comparator::CaseSensitive) else {
+        let line_end = input.end_of_line();
+        // We have a section header line but it is not terminated properly.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: line_end,
+            line_start: line_start,
+            line_end: line_end,
+            kind: VB6ProjectErrorKind::UnterminatedSectionHeader,
+        };
+        input.forward_to_next_line();
+
+        return Err(fail);
     };
 
-    let Ok(result) = result_ascii.to_string().as_str().parse::<i16>() else {
-        return Err(input.error(error_on_conversion));
-    };
+    let _ = input.take("]", Comparator::CaseSensitive);
+    input.forward_to_next_line();
 
-    let Ok(conversion) = T::try_from(result) else {
-        return Err(input.error(error_on_conversion));
-    };
-
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(input.error(VB6ErrorKind::NoLineEnding));
-    }
-
-    Ok(conversion)
+    Ok(Some(other_property))
 }
 
-fn process_numeric_parameter<F>(
-    input: &mut VB6Stream,
-    error_on_conversion: VB6ErrorKind,
-) -> Result<F, VB6Error>
-where
-    F: FromStr,
-{
-    if (space0::<_, VB6Error>, '=', space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(input.error(VB6ErrorKind::NoEqualSplit));
-    }
+fn parse_property_name<'a>(
+    input: &mut SourceStream<'a>,
+) -> Result<&'a str, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
+    let line_start = input.start_of_line();
 
-    let Ok(result_ascii) =
-        take_while::<_, _, VB6ErrorKind>(1.., ('-', '0'..='9')).parse_next(input)
-    else {
-        return Err(input.error(error_on_conversion));
-    };
+    // We want to grab the property name.
+    let property_name = input.take_until("=", Comparator::CaseSensitive);
 
-    let Ok(value) = result_ascii.to_string().as_str().parse::<F>() else {
-        return Err(input.error(error_on_conversion));
-    };
+    match property_name {
+        None => {
+            let line_end = input.end_of_line();
+            // No property name found, so we can't parse this line.
+            // Go to the next line and return the error.
+            let fail = ErrorDetails {
+                source_name: input.file_name().to_owned(),
+                source_content: Cow::Borrowed(input.contents),
+                error_offset: line_start,
+                line_start: line_start,
+                line_end: line_end,
+                kind: VB6ProjectErrorKind::PropertyNameNotFound,
+            };
+            input.forward_to_next_line();
 
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(input.error(VB6ErrorKind::NoLineEnding));
-    }
-
-    Ok(value)
-}
-
-fn process_qouted_parameter<'a>(input: &mut VB6Stream<'a>) -> Result<Option<&'a BStr>, VB6Error> {
-    if (space0::<_, VB6Error>, '=', space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(input.error(VB6ErrorKind::NoEqualSplit));
-    }
-
-    let value = match qouted_value_parse("\"").parse_next(input) {
-        Ok(value) => Some(value),
-        Err(e) => return Err(input.error(e.into_inner().unwrap())),
-    };
-
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(input.error(VB6ErrorKind::NoLineEnding));
-    }
-
-    Ok(value)
-}
-
-fn process_qouted_optional_parameter<'a>(
-    input: &mut VB6Stream<'a>,
-    error_on_conversion: VB6ErrorKind,
-) -> Result<Option<&'a BStr>, VB6Error> {
-    if (space0::<_, VB6Error>, '=', space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(input.error(VB6ErrorKind::NoEqualSplit));
-    }
-
-    // if the project lacks this value it will be !(None)! or !! or "" in the file..
-    let value = match alt((qouted_value_parse("\""), qouted_value_parse("!"))).parse_next(input) {
-        Ok(value) => {
-            // if we have !(None)! or !! then we have no value line.
-            if value == "(None)" || value.is_empty() {
-                None
-            } else {
-                Some(value)
-            }
+            return Err(fail);
         }
-        Err(_) => return Err(input.error(error_on_conversion)),
+        Some((property_name, _)) => {
+            // We only need the property name not the split on '=' value so we only
+            // return the first of the pair in the line split.
+            let _ = input.take("=", Comparator::CaseSensitive);
+
+            return Ok(property_name);
+        }
+    }
+}
+
+fn parse_property_value<'a>(
+    input: &mut SourceStream<'a>,
+    line_type: &'a str,
+) -> Result<&'a str, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
+    // An line starts with the line_type followed by '=', and a value.
+    //
+    // By this point in the parse the line_type and "=" component should be
+    // stripped off since that is how we knew to use this particular parse.
+    let line_start = input.start_of_line();
+    let end_of_line = input.end_of_line();
+    let parameter_start = input.offset();
+
+    let Some((parameter_value, _)) = input.take_until_newline() else {
+        // No parameter value found, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: parameter_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ParameterValueNotFound {
+                parameter_line_name: line_type,
+            },
+        };
+
+        return Err(fail);
     };
 
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(input.error(VB6ErrorKind::NoLineEnding));
+    if parameter_value.is_empty() {
+        // No parameter value found, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: parameter_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ParameterValueNotFound {
+                parameter_line_name: line_type,
+            },
+        };
+
+        return Err(fail);
     }
+
+    Ok(parameter_value)
+}
+
+fn parse_qouted_value<'a>(
+    input: &mut SourceStream<'a>,
+    line_type: &'a str,
+) -> Result<&'a str, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
+    // An line starts with the line_type followed by '=', and a qouted value.
+    //
+    // By this point in the parse the line_type and "=" component should be
+    // stripped off since that is how we knew to use this particular parse.
+    let line_start = input.start_of_line();
+    let end_of_line = input.end_of_line();
+    let parameter_start = input.offset();
+
+    let Some((parameter_value, _)) = input.take_until_newline() else {
+        // No parameter value found, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: parameter_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ParameterValueNotFound {
+                parameter_line_name: line_type,
+            },
+        };
+
+        return Err(fail);
+    };
+
+    if parameter_value.is_empty() {
+        // No startup value found, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: parameter_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ParameterValueNotFound {
+                parameter_line_name: line_type,
+            },
+        };
+
+        return Err(fail);
+    }
+
+    let start_qoute_found = parameter_value.starts_with("\"");
+    let end_qoute_found = parameter_value.ends_with("\"");
+
+    if !start_qoute_found && end_qoute_found {
+        // The value ends with a quote but does not start with one.
+        // This is an error, so we return an error.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: parameter_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ParameterValueMissingOpeningQuote {
+                parameter_line_name: line_type,
+            },
+        };
+
+        return Err(fail);
+    }
+
+    // we have to check the length like this because if we have only a single
+    // qoute, then obviously the string both starts and ends with a qoute (even
+    // if that is the same character!) which means we still need to report this
+    // failure case.
+    if (start_qoute_found && !end_qoute_found)
+        || (start_qoute_found && end_qoute_found && parameter_value.len() == 1)
+    {
+        // The value starts with a quote but does not end with one.
+        // This is an error, so we return an error.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: parameter_start + parameter_value.len(),
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ParameterValueMissingMatchingQoute {
+                parameter_line_name: line_type,
+            },
+        };
+
+        return Err(fail);
+    }
+
+    if !start_qoute_found && !end_qoute_found {
+        // The startup value does not start or end with a quote.
+        // This is an error, so we return an error.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: parameter_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ParameterValueMissingQuotes {
+                parameter_line_name: line_type,
+            },
+        };
+
+        return Err(fail);
+    }
+
+    let parameter_value = &parameter_value[1..parameter_value.len() - 1];
+
+    Ok(parameter_value)
+}
+
+fn parse_optional_qouted_value<'a>(
+    input: &mut SourceStream<'a>,
+    line_type: &'a str,
+) -> Result<&'a str, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
+    // An optional line starts with 'Startup=' (or another such option starting line)
+    // and is followed by the qouted value, "!None!", or "(None)", or "!(None)!" to indicate the
+    // parameter value is 'None'.
+    //
+    // By this point in the parse the "Startup=" component should be stripped off
+    // since that is how we knew to use this particular parse.
+    let line_start = input.start_of_line();
+    let end_of_line = input.end_of_line();
+    let parameter_start = input.offset();
+
+    let Some((parameter_value, _)) = input.take_until_newline() else {
+        // No parameter value found, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: parameter_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ParameterValueNotFound {
+                parameter_line_name: line_type,
+            },
+        };
+
+        return Err(fail);
+    };
+
+    if parameter_value.is_empty() {
+        // No parameter value found, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: parameter_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ParameterValueNotFound {
+                parameter_line_name: line_type,
+            },
+        };
+
+        return Err(fail);
+    }
+
+    if parameter_value == "\"(None)\""
+        || parameter_value == "\"!None!\""
+        || parameter_value == "\"!(None)!\""
+        || parameter_value == "(None)"
+        || parameter_value == "!None!"
+        || parameter_value == "!(None)!"
+    {
+        // The parameter has a value of None.
+        return Ok("");
+    }
+
+    let start_qoute_found = parameter_value.starts_with("\"");
+    let end_qoute_found = parameter_value.ends_with("\"");
+
+    if !start_qoute_found && end_qoute_found {
+        // The value ends with a quote but does not start with one.
+        // This is an error, so we return an error.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: parameter_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ParameterValueMissingOpeningQuote {
+                parameter_line_name: line_type,
+            },
+        };
+
+        return Err(fail);
+    }
+
+    // we have to check the length like this because if we have only a single
+    // qoute, then obviously the string both starts and ends with a qoute (even
+    // if that is the same character!) which means we still need to report this
+    // failure case.
+    if (start_qoute_found && !end_qoute_found)
+        || (start_qoute_found && end_qoute_found && parameter_value.len() == 1)
+    {
+        // The value starts with a quote but does not end with one.
+        // This is an error, so we return an error.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: parameter_start + parameter_value.len(),
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ParameterValueMissingMatchingQoute {
+                parameter_line_name: line_type,
+            },
+        };
+
+        return Err(fail);
+    }
+
+    if !start_qoute_found && !end_qoute_found {
+        // The parameter value does not start or end with a quote.
+        // This is an error, so we return an error.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: parameter_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ParameterValueMissingQuotes {
+                parameter_line_name: line_type,
+            },
+        };
+
+        return Err(fail);
+    }
+
+    let parameter_value = &parameter_value[1..parameter_value.len() - 1];
+
+    Ok(parameter_value)
+}
+
+fn parse_qouted_converted_value<'a, T>(
+    input: &mut SourceStream<'a>,
+    line_type: &'a str,
+) -> Result<T, ErrorDetails<'a, VB6ProjectErrorKind<'a>>>
+where
+    T: TryFrom<&'a str, Error = String> + 'a + IntoEnumIterator + EnumMessage + Debug,
+{
+    // This function is used to parse a qouted value that is expected to be
+    // converted into an enum value through TryFrom.
+    // This kind of line starts with the line_type followed by '=', and a
+    // qouted value.
+    let line_start = input.start_of_line();
+    let end_of_line = input.end_of_line();
+    let parameter_start = input.offset();
+
+    let text_to_newline = input.take_until_newline();
+
+    let parameter_value = match text_to_newline {
+        None => {
+            // No type text found, so we can't parse this line.
+            // Go to the next line and return the error.
+            let fail = ErrorDetails {
+                source_name: input.file_name().to_owned(),
+                source_content: Cow::Borrowed(input.contents),
+                error_offset: line_start,
+                line_start: line_start,
+                line_end: end_of_line,
+                kind: VB6ProjectErrorKind::ParameterValueMissingOpeningQuote {
+                    parameter_line_name: line_type,
+                },
+            };
+
+            return Err(fail);
+        }
+        Some((parameter_value, _)) => parameter_value,
+    };
+
+    let start_qoute_found = parameter_value.starts_with("\"");
+    let end_qoute_found = parameter_value.ends_with("\"");
+
+    if !start_qoute_found && end_qoute_found {
+        // The value ends with a quote but does not start with one.
+        // This is an error, so we return an error.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: parameter_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ParameterValueMissingOpeningQuote {
+                parameter_line_name: line_type,
+            },
+        };
+
+        return Err(fail);
+    }
+
+    // we have to check the length like this because if we have only a single
+    // qoute, then obviously the string both starts and ends with a qoute (even
+    // if that is the same character!) which means we still need to report this
+    // failure case.
+    if (start_qoute_found && !end_qoute_found)
+        || (start_qoute_found && end_qoute_found && parameter_value.len() == 1)
+    {
+        // The value starts with a quote but does not end with one.
+        // This is an error, so we return an error.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: parameter_start + parameter_value.len(),
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ParameterValueMissingMatchingQoute {
+                parameter_line_name: line_type,
+            },
+        };
+
+        return Err(fail);
+    }
+
+    if !start_qoute_found && !end_qoute_found {
+        // The value does not start or end with a quote.
+        // This is an error, so we return an error.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: parameter_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ParameterValueMissingQuotes {
+                parameter_line_name: line_type,
+            },
+        };
+
+        return Err(fail);
+    }
+
+    // trim off the qoute characters.
+    let parameter_value = &parameter_value[1..parameter_value.len() - 1];
+
+    let Ok(value) = T::try_from(parameter_value) else {
+        // We have a parameter value that is invalid, so we return an error.
+        let valid_value_message = T::iter()
+            .map(|v| format!("'{:?}' ({:#?})", v, v.get_message()))
+            .collect::<Vec<_>>()
+            .join(", ");
+
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: parameter_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ParameterValueInvalid {
+                parameter_line_name: line_type,
+                invalid_value: parameter_value,
+                valid_value_message,
+            },
+        };
+
+        return Err(fail);
+    };
 
     Ok(value)
 }
 
-fn process_dll_base_address(input: &mut VB6Stream<'_>) -> Result<u32, VB6Error> {
-    if (space0::<_, VB6Error>, '=', space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(input.error(VB6ErrorKind::NoEqualSplit));
-    }
+fn parse_converted_value<'a, T>(
+    input: &mut SourceStream<'a>,
+    line_type: &'a str,
+) -> Result<T, ErrorDetails<'a, VB6ProjectErrorKind<'a>>>
+where
+    T: TryFrom<&'a str, Error = String> + IntoEnumIterator + EnumMessage + Debug,
+{
+    // This function is used to parse a value that is expected to be
+    // converted into an enum value through TryFrom.
+    // This kind of line starts with the line_type followed by '=', and a
+    // value.
+    let line_start = input.start_of_line();
+    let end_of_line = input.end_of_line();
+    let parameter_start = input.offset();
 
-    let Ok(base_address_hex_text): VB6Result<_> = take_until_line_ending.parse_next(input) else {
-        return Err(input.error(VB6ErrorKind::DllBaseAddressUnparseable));
+    let text_to_newline = input.take_until_newline();
+
+    let parameter_value = match text_to_newline {
+        None => {
+            // No type text found, so we can't parse this line.
+            // Go to the next line and return the error.
+            let fail = ErrorDetails {
+                source_name: input.file_name().to_owned(),
+                source_content: Cow::Borrowed(input.contents),
+                error_offset: line_start,
+                line_start: line_start,
+                line_end: end_of_line,
+                kind: VB6ProjectErrorKind::ParameterValueMissingOpeningQuote {
+                    parameter_line_name: line_type,
+                },
+            };
+
+            return Err(fail);
+        }
+        Some((parameter_value, _)) => parameter_value,
     };
 
-    let Ok(dll_base_address) = u32::from_str_radix(
-        base_address_hex_text.to_string().trim_start_matches("&H"),
-        16,
-    ) else {
-        return Err(input.error(VB6ErrorKind::DllBaseAddressUnparseable));
-    };
+    let Ok(value) = T::try_from(parameter_value) else {
+        // We have a parameter value that is invalid, so we return an error.
 
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(input.error(VB6ErrorKind::NoLineEnding));
-    }
+        let valid_value_message = T::iter()
+            .map(|v| format!("'{:?}' ({})", v, v.get_message().unwrap()))
+            .collect::<Vec<_>>()
+            .join(", ");
 
-    Ok(dll_base_address)
-}
-
-fn other_property_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<(&'a BStr, &'a BStr)> {
-    let property_name =
-        match (opt(space0::<_, VB6ErrorKind>), take_until(0.., '=')).parse_next(input) {
-            Ok((_, property_name)) => property_name,
-            Err(e) => return Err(ErrMode::Cut(e)),
-        };
-
-    if (opt(space0::<_, VB6Error>), '=').parse_next(input).is_err() {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    }
-
-    let property_value = match take_until::<_, _, VB6ErrorKind>(0.., ("\r", "\n")).parse_next(input)
-    {
-        Ok(property_value) => property_value,
-        Err(e) => return Err(ErrMode::Cut(e)),
-    };
-
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
-    }
-
-    Ok((property_name, property_value))
-}
-
-fn designer_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
-    if (space0::<_, VB6Error>, '=', space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    }
-
-    let Ok(designer) = take_until_line_ending.parse_next(input) else {
-        return Err(ErrMode::Cut(VB6ErrorKind::DesignerLineUnparseable));
-    };
-
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
-    }
-
-    Ok(designer)
-}
-
-fn compatibility_mode_parse(input: &mut VB6Stream<'_>) -> VB6Result<CompatibilityMode> {
-    if (space0::<_, VB6Error>, '=', space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    }
-
-    let compatibility_mode =
-        match alt((qouted_value_parse("\""), qouted_value_parse("!"))).parse_next(input) {
-            Ok(compatible_mode) => match compatible_mode.as_bytes() {
-                b"0" => CompatibilityMode::NoCompatibility,
-                b"1" => CompatibilityMode::Project,
-                b"2" => CompatibilityMode::CompatibleExe,
-                _ => {
-                    return Err(ErrMode::Cut(VB6ErrorKind::CompatibilityModeUnparseable));
-                }
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: parameter_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ParameterValueInvalid {
+                parameter_line_name: line_type,
+                invalid_value: parameter_value,
+                valid_value_message,
             },
-            Err(e) => return Err(ErrMode::Cut(e.into_inner().unwrap())),
         };
 
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
-    }
-
-    Ok(compatibility_mode)
-}
-
-fn title_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
-    if (space0::<_, VB6Error>, '=', space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    }
-
-    if (space0::<_, VB6Error>, '"').parse_next(input).is_err() {
-        return Err(ErrMode::Cut(VB6ErrorKind::TitleUnparseable));
-    }
-
-    // it's perfectly possible to use '"' within the title string.
-    // VB6 being the language it is, there is no escape sequence for
-    // this. Instead, the title is wrapped in quotes and the quotes
-    // are just simply included in the text. This means we can't use
-    // string_parser here.
-    let Ok(title): VB6Result<_> =
-        alt((take_until(1.., "\"\r\n"), take_until(1.., "\"\n"))).parse_next(input)
-    else {
-        return Err(ErrMode::Cut(VB6ErrorKind::TitleUnparseable));
+        return Err(fail);
     };
 
-    // We need to skip the closing quote.
-    // But we also need to make sure we don't skip the line ending.
-    let _: VB6Result<_> = '"'.parse_next(input);
-
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
-    }
-
-    Ok(title)
+    Ok(value)
 }
 
-fn qouted_value_parse<'a>(
-    qoute_char: &'a str,
-) -> impl FnMut(&mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
-    move |input: &mut VB6Stream<'a>| -> VB6Result<&'a BStr> {
-        literal(qoute_char).parse_next(input)?;
-        let qouted_value = take_until(0.., qoute_char).parse_next(input)?;
-        literal(qoute_char).parse_next(input)?;
+fn parse_numeric<'a, T>(
+    input: &mut SourceStream<'a>,
+    line_type: &'a str,
+) -> Result<T, ErrorDetails<'a, VB6ProjectErrorKind<'a>>>
+where
+    T: FromStr,
+{
+    // This function is used to parse a value that is expected to be
+    // converted into an i16 value through TryFrom.
+    // This kind of line starts with the line_type followed by '=', and a
+    // value.
+    let line_start = input.start_of_line();
+    let end_of_line = input.end_of_line();
+    let parameter_start = input.offset();
 
-        Ok(qouted_value)
-    }
+    let text_to_newline = input.take_until_newline();
+
+    let parameter_value = match text_to_newline {
+        None => {
+            // No type text found, so we can't parse this line.
+            // Go to the next line and return the error.
+            let fail = ErrorDetails {
+                source_name: input.file_name().to_owned(),
+                source_content: Cow::Borrowed(input.contents),
+                error_offset: line_start,
+                line_start: line_start,
+                line_end: end_of_line,
+                kind: VB6ProjectErrorKind::ParameterValueMissingOpeningQuote {
+                    parameter_line_name: line_type,
+                },
+            };
+
+            return Err(fail);
+        }
+        Some((parameter_value, _)) => parameter_value,
+    };
+
+    let Ok(value) = parameter_value.parse::<T>() else {
+        // We have a parameter value that is invalid, so we return an error.
+        let valid_value_message = format!(
+            "Failed attempting to parse as i16. '{}' is not a valid i16",
+            parameter_value
+        );
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: parameter_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ParameterValueInvalid {
+                parameter_line_name: line_type,
+                invalid_value: parameter_value,
+                valid_value_message,
+            },
+        };
+
+        return Err(fail);
+    };
+
+    Ok(value)
 }
 
-fn module_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectModule<'a>> {
-    if (space0::<_, VB6Error>, '=', space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+fn parse_reference<'a>(
+    input: &mut SourceStream<'a>,
+) -> Result<VB6ProjectReference<'a>, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
+    // A Reference line starts with a 'Reference=' and is followed by either a
+    // project reference or a compiled reference.
+    //
+    // By this point in the parse the "Reference=" component should be stripped off
+    // since that is how we knew to use this particular parse.
+    let line_start = input.start_of_line();
+    let end_of_line = input.end_of_line();
+    let reference_start = input.offset();
+
+    // Compiled references start with "*\\G{" and are followed by a UUID.
+    let compiled_reference_signature = "*\\G{";
+    if input.peek(compiled_reference_signature.len()) == Some(compiled_reference_signature) {
+        let _ = input.take(compiled_reference_signature, Comparator::CaseSensitive);
+        // This is a compiled reference.
+        return parse_compiled_reference(input);
     }
 
-    let (name, path) = semicolon_space_split_parse.parse_next(input)?;
+    // This is a project reference, but not a compiled reference.
+    let Some((path, _)) = input.take_until_newline() else {
+        // No path found, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: reference_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ReferenceProjectPathNotFound,
+        };
 
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+        return Err(fail);
+    };
+
+    if path.is_empty() {
+        // No path found, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: reference_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ReferenceProjectPathNotFound,
+        };
+
+        return Err(fail);
     }
 
-    let name = name.as_bstr();
-    let path = path.as_bstr();
+    if !path.starts_with("*\\A") {
+        // The path does not start with "*\A", which is not allowed.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: reference_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ReferenceProjectPathInvalid { value: path },
+        };
 
-    let module = VB6ProjectModule { name, path };
+        return Err(fail);
+    }
 
-    Ok(module)
+    let path = &path[3..]; // Strip off the "*\A" prefix
+
+    return Ok(VB6ProjectReference::SubProject { path });
 }
 
-fn class_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectClass<'a>> {
-    if (space0::<_, VB6Error>, '=', space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
+fn parse_compiled_reference<'a>(
+    input: &mut SourceStream<'a>,
+) -> Result<VB6ProjectReference<'a>, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
+    // A compiled reference starts with "*\\G{" and is followed by a UUID.
+    // We have already checked that the input starts with "*\\G{".
+    // By this point in the parse the "*\\G{" component should be stripped off
+    let line_start = input.start_of_line();
+    let end_of_line = input.end_of_line();
+    let uuid_start = input.offset();
+
+    // This is a compiled reference.
+    let Some((uuid_text, _)) = input.take_until("}#", Comparator::CaseSensitive) else {
+        // No UUID found, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: uuid_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ReferenceCompiledUuidMissingMatchingBrace,
+        };
+        input.forward_to_next_line();
+
+        return Err(fail);
+    };
+
+    let uuid = match Uuid::parse_str(uuid_text) {
+        Ok(uuid) => uuid,
+        Err(_) => {
+            // The UUID is not a valid UUID, so we can't parse this line.
+            let fail = ErrorDetails {
+                source_name: input.file_name().to_owned(),
+                source_content: Cow::Borrowed(input.contents),
+                error_offset: uuid_start,
+                line_start: line_start,
+                line_end: end_of_line,
+                kind: VB6ProjectErrorKind::ReferenceCompiledUuidInvalid,
+            };
+            input.forward_to_next_line();
+
+            return Err(fail);
+        }
+    };
+
+    let _ = input.take("}#", Comparator::CaseSensitive);
+    let unknown1_start = input.offset();
+
+    let Some((unknown1, _)) = input.take_until("#", Comparator::CaseSensitive) else {
+        // No unknown1 found, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: unknown1_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ReferenceCompiledUnknown1Missing,
+        };
+        input.forward_to_next_line();
+
+        return Err(fail);
+    };
+
+    let _ = input.take("#", Comparator::CaseSensitive);
+    let unknown2_start = input.offset();
+
+    let Some((unknown2, _)) = input.take_until("#", Comparator::CaseSensitive) else {
+        // No unknown2 found, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: unknown2_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ReferenceCompiledUnknown2Missing,
+        };
+        input.forward_to_next_line();
+
+        return Err(fail);
+    };
+
+    let _ = input.take("#", Comparator::CaseSensitive);
+    let path_start = input.offset();
+
+    let Some((path, _)) = input.take_until("#", Comparator::CaseSensitive) else {
+        // No path found, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: path_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ReferenceCompiledPathNotFound,
+        };
+        input.forward_to_next_line();
+
+        return Err(fail);
+    };
+
+    let _ = input.take("#", Comparator::CaseSensitive);
+    let description_start = input.offset();
+
+    let Some((description, _)) = input.take_until_newline() else {
+        // No description found, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: description_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ReferenceCompiledDescriptionNotFound,
+        };
+
+        return Err(fail);
+    };
+
+    if description.contains('#') {
+        // The description contains a '#', which is not allowed.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: description_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ReferenceCompiledDescriptionInvalid,
+        };
+
+        return Err(fail);
     }
 
-    let (name, path) = semicolon_space_split_parse.parse_next(input)?;
-
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
-    }
-
-    let name = name.as_bstr();
-    let path = path.as_bstr();
-
-    let module = VB6ProjectClass { name, path };
-
-    Ok(module)
-}
-
-fn semicolon_space_split_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<(&'a [u8], &'a [u8])> {
-    let left = take_until(1.., "; ").parse_next(input)?;
-
-    "; ".parse_next(input)?;
-
-    let right = take_until_line_ending.parse_next(input)?;
-
-    Ok((left, right))
-}
-
-fn project_reference_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectReference<'a>> {
-    space0.parse_next(input)?;
-
-    "*\\A".parse_next(input)?;
-
-    let Ok(path): VB6Result<_> = take_until_line_ending.parse_next(input) else {
-        return Err(ErrMode::Cut(VB6ErrorKind::ReferenceMissingSections));
-    };
-
-    let reference = VB6ProjectReference::SubProject { path };
-
-    Ok(reference)
-}
-
-fn compiled_reference_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectReference<'a>> {
-    // This is not the cleanest way to handle this but we need to replace the
-    // first instance of "*\\G{" from the start of the segment. Notice the '\\'
-    // escape sequence which is just a single slash in the file itself.
-    // Then remove
-    let (_, uuid_segment, _) = ("*\\G{", take_until(1.., "}#"), "}#").parse_next(input)?;
-
-    let Ok(uuid) = Uuid::parse_str(uuid_segment.to_str().unwrap()) else {
-        return Err(ErrMode::Cut(VB6ErrorKind::UnableToParseUuid));
-    };
-
-    // still not sure what this element or the next represents.
-    let Ok((unknown1, _)): VB6Result<_> = (take_until(1.., "#"), "#").parse_next(input) else {
-        return Err(ErrMode::Cut(VB6ErrorKind::ReferenceMissingSections));
-    };
-
-    let Ok((unknown2, _)): VB6Result<_> = (take_until(1.., "#"), "#").parse_next(input) else {
-        return Err(ErrMode::Cut(VB6ErrorKind::ReferenceMissingSections));
-    };
-
-    let Ok((path, _)): VB6Result<_> = (take_until(1.., "#"), "#").parse_next(input) else {
-        return Err(ErrMode::Cut(VB6ErrorKind::ReferenceMissingSections));
-    };
-
-    let Ok(description): VB6Result<_> = take_until_line_ending.parse_next(input) else {
-        return Err(ErrMode::Cut(VB6ErrorKind::ReferenceMissingSections));
-    };
-
-    if description.contains(&b'#') {
-        return Err(ErrMode::Cut(VB6ErrorKind::ReferenceExtraSections));
-    }
-
+    // We have a compiled reference.
     let reference = VB6ProjectReference::Compiled {
         uuid,
         unknown1,
@@ -1834,255 +2054,726 @@ fn compiled_reference_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Proje
         description,
     };
 
-    Ok(reference)
+    return Ok(reference);
 }
 
-fn reference_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ProjectReference<'a>> {
-    if (space0::<_, VB6Error>, '=', space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    }
-
-    let reference = alt((project_reference_parse, compiled_reference_parse)).parse_next(input)?;
-
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
-    }
-
-    Ok(reference)
-}
-
-fn project_type_parse(input: &mut VB6Stream<'_>) -> VB6Result<CompileTargetType> {
-    if (space0::<_, VB6Error>, '=', space0)
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoEqualSplit));
-    }
-
-    // The first line of any VB6 project file (vbp) is a type line that
-    // tells us what kind of project we have.
-    // this should be in every project file, even an empty one, and it must
-    // be one of these four options.
+fn parse_object<'a>(
+    input: &mut SourceStream<'a>,
+) -> Result<VB6ObjectReference<'a>, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
+    // An Object line starts with an 'Object=' and is followed by either a
+    // compiled object or a project object.
     //
-    // The project type line starts with a 'Type=' has either 'Exe', 'OleDll',
-    // 'Control', or 'OleExe'.
-    //
-    // By this point in the parse the "Type=" component should be stripped off
+    // By this point in the parse the "Object=" component should be stripped off
     // since that is how we knew to use this particular parse.
+    let line_start = input.start_of_line();
+    let end_of_line = input.end_of_line();
+    let object_start = input.offset();
 
-    let Ok(project_type) = alt::<_, CompileTargetType, VB6ErrorKind, _>((
-        "Exe".value(CompileTargetType::Exe),
-        "Control".value(CompileTargetType::Control),
-        "OleExe".value(CompileTargetType::OleExe),
-        "OleDll".value(CompileTargetType::OleDll),
-    ))
-    .parse_next(input) else {
-        return Err(ErrMode::Cut(VB6ErrorKind::ProjectTypeUnknown));
+    // Project objects start with "\"*\\A" and are followed by the path to the
+    // object ending with a single qoute.
+    // Usually this is a single file with a .vbp extension but we do not enforce that currently.
+    let project_object_signature = "\"*\\A";
+    if input.peek(project_object_signature.len()) == Some(project_object_signature) {
+        let _ = input.take(project_object_signature, Comparator::CaseSensitive);
+        // This is a project object.
+        let object_path_start = input.offset();
+
+        let Some((path, _)) = input.take_until("\"", Comparator::CaseSensitive) else {
+            // No path found, so we can't parse this line.
+            let fail = ErrorDetails {
+                source_name: input.file_name().to_owned(),
+                source_content: Cow::Borrowed(input.contents),
+                error_offset: object_path_start,
+                line_start: line_start,
+                line_end: end_of_line,
+                kind: VB6ProjectErrorKind::ObjectProjectPathNotFound,
+            };
+            input.forward_to_next_line();
+
+            return Err(fail);
+        };
+        input.forward_to_next_line();
+
+        return Ok(VB6ObjectReference::Project { path: path.into() });
+    }
+
+    // It looks like we have a compiled object line instead. Hopefully.
+    if input.peek(1) != Some("{") {
+        // We do not have a compiled object line, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: object_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ObjectCompiledMissingOpeningBrace,
+        };
+        input.forward_to_next_line();
+
+        return Err(fail);
+    }
+    let _ = input.take("{", Comparator::CaseSensitive);
+
+    let Some((uuid_text, _)) = input.take_until("}", Comparator::CaseSensitive) else {
+        // No UUID found, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: object_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ObjectCompiledUuidMissingMatchingBrace,
+        };
+        input.forward_to_next_line();
+
+        return Err(fail);
     };
 
-    if (space0, alt((line_ending, line_comment_parse)))
-        .parse_next(input)
-        .is_err()
-    {
-        return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+    let _ = input.take("}", Comparator::CaseSensitive);
+
+    let uuid = match Uuid::parse_str(uuid_text) {
+        Ok(uuid) => uuid,
+        Err(_) => {
+            // The UUID is not a valid UUID, so we can't parse this line.
+            let fail = ErrorDetails {
+                source_name: input.file_name().to_owned(),
+                source_content: Cow::Borrowed(input.contents),
+                error_offset: object_start,
+                line_start: line_start,
+                line_end: end_of_line,
+                kind: VB6ProjectErrorKind::ObjectCompiledUuidInvalid,
+            };
+            input.forward_to_next_line();
+
+            return Err(fail);
+        }
+    };
+    let _ = input.take("#", Comparator::CaseSensitive);
+
+    let version_start = input.offset();
+    let Some((version, invalid_version_character)) = input.take_until_not(
+        &["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."],
+        Comparator::CaseSensitive,
+    ) else {
+        // No version found, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: version_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ObjectCompiledVersionMissing,
+        };
+        input.forward_to_next_line();
+
+        return Err(fail);
+    };
+
+    if invalid_version_character != "#" {
+        // The version contains an invalid character, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: version_start + version.len(),
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ObjectCompiledVersionInvalid,
+        };
+        input.forward_to_next_line();
+
+        return Err(fail);
+    }
+    let _ = input.take("#", Comparator::CaseSensitive);
+    let unknown1_start = input.offset();
+
+    let Some((unknown1, _)) = input.take_until("; ", Comparator::CaseSensitive) else {
+        // No unknown1 found, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: unknown1_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ObjectCompiledUnknown1Missing,
+        };
+        input.forward_to_next_line();
+
+        return Err(fail);
+    };
+    let _ = input.take("; ", Comparator::CaseSensitive);
+    let file_name_start = input.offset();
+
+    let file_name = input.take_until_newline();
+    match file_name {
+        None => {
+            // No file name found, so we can't parse this line.
+            let fail = ErrorDetails {
+                source_name: input.file_name().to_owned(),
+                source_content: Cow::Borrowed(input.contents),
+                error_offset: file_name_start,
+                line_start: line_start,
+                line_end: end_of_line,
+                kind: VB6ProjectErrorKind::ObjectCompiledFileNameNotFound,
+            };
+
+            return Err(fail);
+        }
+        Some((file_name, _)) => {
+            if file_name.is_empty() {
+                // No file name found, so we can't parse this line.
+                let fail = ErrorDetails {
+                    source_name: input.file_name().to_owned(),
+                    source_content: Cow::Borrowed(input.contents),
+                    error_offset: file_name_start,
+                    line_start: line_start,
+                    line_end: end_of_line,
+                    kind: VB6ProjectErrorKind::ObjectCompiledFileNameNotFound,
+                };
+
+                return Err(fail);
+            }
+
+            return Ok(VB6ObjectReference::Compiled {
+                uuid,
+                version: version.into(),
+                unknown1: unknown1.into(),
+                file_name: file_name.into(),
+            });
+        }
+    }
+}
+
+fn parse_module<'a>(
+    input: &mut SourceStream<'a>,
+) -> Result<VB6ProjectModule<'a>, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
+    // A Module line starts with a 'Module=' and is followed by a name and a path.
+    //
+    // By this point in the parse the "Module=" component should be stripped off
+    // since that is how we knew to use this particular parse.
+    let line_start = input.start_of_line();
+    let end_of_line = input.end_of_line();
+    let module_start = input.offset();
+
+    let Some((module_name, _)) = input.take_until("; ", Comparator::CaseSensitive) else {
+        // No name found, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: module_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ModuleNameNotFound,
+        };
+        input.forward_to_next_line();
+
+        return Err(fail);
+    };
+    let _ = input.take("; ", Comparator::CaseSensitive);
+    let module_path_start = input.offset();
+
+    let Some((module_path, _)) = input.take_until_newline() else {
+        // No path found, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: module_path_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ModuleFileNameNotFound,
+        };
+
+        return Err(fail);
+    };
+
+    if module_path.is_empty() {
+        // No path found, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: module_path_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ModuleFileNameNotFound,
+        };
+
+        return Err(fail);
     }
 
-    Ok(project_type)
+    let module = VB6ProjectModule {
+        name: module_name,
+        path: module_path,
+    };
+    Ok(module)
+}
+
+fn parse_class<'a>(
+    input: &mut SourceStream<'a>,
+) -> Result<VB6ProjectClass<'a>, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
+    // A Class line starts with a 'Class=' and is followed by a name and a path.
+    //
+    // By this point in the parse the "Class=" component should be stripped off
+    // since that is how we knew to use this particular parse.
+    let line_start = input.start_of_line();
+    let end_of_line = input.end_of_line();
+    let class_start = input.offset();
+
+    let Some((class_name, _)) = input.take_until("; ", Comparator::CaseSensitive) else {
+        // No name found, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: class_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ClassNameNotFound,
+        };
+        input.forward_to_next_line();
+
+        return Err(fail);
+    };
+    let _ = input.take("; ", Comparator::CaseSensitive);
+    let class_path_start = input.offset();
+
+    let Some((class_path, _)) = input.take_until_newline() else {
+        // No path found, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: class_path_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ClassFileNameNotFound,
+        };
+
+        return Err(fail);
+    };
+
+    if class_path.is_empty() {
+        // No path found, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: class_path_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::ClassFileNameNotFound,
+        };
+
+        return Err(fail);
+    }
+
+    let class = VB6ProjectClass {
+        name: class_name,
+        path: class_path,
+    };
+
+    Ok(class)
+}
+
+fn parse_path_line<'a>(
+    input: &mut SourceStream<'a>,
+    parameter_line_name: &'a str,
+) -> Result<&'a str, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
+    // A single element line starts with a 'Form=', 'Designer=', or 'RelatedDoc='
+    // and is followed by a path to the corresponding file.
+    //
+    // By this point in the parse the "Form=", 'Designer=', or 'RelatedDoc='
+    // component should be stripped off since that is how we knew to use this
+    // particular parse.
+    let line_start = input.start_of_line();
+    let end_of_line = input.end_of_line();
+    let path_start = input.offset();
+
+    let path_line = input.take_until_newline();
+    match path_line {
+        None => {
+            // No file_path text found, so we can't parse this line.
+            // Go to the next line and return the error.
+
+            let fail = ErrorDetails {
+                source_name: input.file_name().to_owned(),
+                source_content: Cow::Borrowed(input.contents),
+                error_offset: path_start,
+                line_start: line_start,
+                line_end: end_of_line,
+                kind: VB6ProjectErrorKind::PathValueNotFound {
+                    parameter_line_name,
+                },
+            };
+
+            return Err(fail);
+        }
+        Some((file_path, _)) => {
+            if file_path.is_empty() {
+                // No file_path text found, so we can't parse this line.
+                // Go to the next line and return the error.
+                let fail = ErrorDetails {
+                    source_name: input.file_name().to_owned(),
+                    source_content: Cow::Borrowed(input.contents),
+                    error_offset: path_start,
+                    line_start: line_start,
+                    line_end: end_of_line,
+                    kind: VB6ProjectErrorKind::PathValueNotFound {
+                        parameter_line_name,
+                    },
+                };
+
+                return Err(fail);
+            }
+
+            return Ok(file_path);
+        }
+    }
+}
+
+fn parse_dll_base_address<'a>(
+    input: &mut SourceStream<'a>,
+) -> Result<u32, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
+    // A DllBaseAddress line starts with a 'DllBaseAddress=' and is followed by a
+    // hexadecimal value.
+    //
+    // By this point in the parse the "DllBaseAddress=" component should be stripped off
+    // since that is how we knew to use this particular parse.
+    let line_start = input.start_of_line();
+    let end_of_line = input.end_of_line();
+    let dll_base_address_start = input.offset();
+
+    let Some((base_address_hex_text, _)) = input.take_until_newline() else {
+        // No base address found, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: dll_base_address_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::DllBaseAddressNotFound,
+        };
+
+        return Err(fail);
+    };
+
+    if base_address_hex_text.is_empty() {
+        // The base address is empty, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: dll_base_address_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::DllBaseAddressUnparseableEmpty,
+        };
+
+        return Err(fail);
+    }
+
+    if !base_address_hex_text.starts_with("&H") {
+        // The base address does not start with "&H", so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: dll_base_address_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::DllBaseAddressMissingHexPrefix,
+        };
+
+        return Err(fail);
+    }
+
+    let dll_base_address_start = dll_base_address_start + 2; // Skip the "&H" prefix
+
+    let trimmed_base_address_hex_text = base_address_hex_text.trim_start_matches("&H");
+
+    let Ok(dll_base_address) = u32::from_str_radix(trimmed_base_address_hex_text, 16) else {
+        // The base address is not a valid hexadecimal value, so we can't parse this line.
+        let fail = ErrorDetails {
+            source_name: input.file_name().to_owned(),
+            source_content: Cow::Borrowed(input.contents),
+            error_offset: dll_base_address_start,
+            line_start: line_start,
+            line_end: end_of_line,
+            kind: VB6ProjectErrorKind::DllBaseAddressUnparseable {
+                hex_value: trimmed_base_address_hex_text.into(),
+            },
+        };
+
+        return Err(fail);
+    };
+
+    Ok(dll_base_address)
 }
 
 #[cfg(test)]
 mod tests {
-    use winnow::stream::StreamIsPartial;
-
     use super::*;
 
     #[test]
     fn compatibility_mode_is_unknown() {
-        let mut input = VB6Stream::new("", b"CompatibleMode=\"5\"\n");
+        let mut input = SourceStream::new("", "CompatibleMode=\"5\"\n");
 
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "CompatibleMode".parse_next(&mut input);
+        let parameter_name = input
+            .take("CompatibleMode", Comparator::CaseSensitive)
+            .unwrap();
+        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result = compatibility_mode_parse.parse_next(&mut input);
+        let result: Result<CompatibilityMode, ErrorDetails<VB6ProjectErrorKind>> =
+            parse_qouted_converted_value(&mut input, &parameter_name);
 
         assert!(matches!(
-            result.err().unwrap().into_inner().unwrap(),
-            VB6ErrorKind::CompatibilityModeUnparseable
+            result.err().unwrap().kind,
+            VB6ProjectErrorKind::ParameterValueInvalid { .. }
         ));
     }
 
     #[test]
     fn compatibility_mode_is_no_compatibility() {
-        let mut input = VB6Stream::new("", b"CompatibleMode=\"0\"\n");
+        let mut input = SourceStream::new("", "CompatibleMode=\"0\"\n");
 
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "CompatibleMode".parse_next(&mut input);
+        let parameter_name = input
+            .take("CompatibleMode", Comparator::CaseSensitive)
+            .unwrap();
+        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result = compatibility_mode_parse.parse_next(&mut input).unwrap();
+        let result: Result<CompatibilityMode, ErrorDetails<VB6ProjectErrorKind>> =
+            parse_qouted_converted_value(&mut input, &parameter_name);
 
-        assert_eq!(result, CompatibilityMode::NoCompatibility);
+        assert_eq!(result.unwrap(), CompatibilityMode::NoCompatibility);
     }
 
     #[test]
     fn compatibility_mode_is_project() {
-        let mut input = VB6Stream::new("", b"CompatibleMode=\"1\"\r\n");
+        let mut input = SourceStream::new("", "CompatibleMode=\"1\"\r\n");
 
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "CompatibleMode".parse_next(&mut input);
+        let parameter_name = input
+            .take("CompatibleMode", Comparator::CaseSensitive)
+            .unwrap();
+        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result = compatibility_mode_parse.parse_next(&mut input).unwrap();
-        assert_eq!(result, CompatibilityMode::Project);
+        let result: Result<CompatibilityMode, ErrorDetails<VB6ProjectErrorKind>> =
+            parse_qouted_converted_value(&mut input, &parameter_name);
+
+        assert_eq!(result.unwrap(), CompatibilityMode::Project);
     }
 
     #[test]
     fn compatibility_mode_is_compatible_exe() {
-        let mut input = VB6Stream::new("", b"CompatibleMode=\"2\"\n");
+        let mut input = SourceStream::new("", "CompatibleMode=\"2\"\n");
 
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "CompatibleMode".parse_next(&mut input);
+        let parameter_name = input
+            .take("CompatibleMode", Comparator::CaseSensitive)
+            .unwrap();
+        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result = compatibility_mode_parse.parse_next(&mut input).unwrap();
+        let result: Result<CompatibilityMode, ErrorDetails<VB6ProjectErrorKind>> =
+            parse_qouted_converted_value(&mut input, &parameter_name);
 
-        assert_eq!(result, CompatibilityMode::CompatibleExe);
+        assert_eq!(result.unwrap(), CompatibilityMode::CompatibleExe);
     }
 
     #[test]
     fn project_type_is_exe() {
-        let mut input = VB6Stream::new("", b"Type=Exe\n");
+        let mut input = SourceStream::new("", "Type=Exe\n");
 
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Type".parse_next(&mut input);
+        let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
+        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result = project_type_parse.parse_next(&mut input).unwrap();
+        let result: Result<CompileTargetType, ErrorDetails<VB6ProjectErrorKind>> =
+            parse_converted_value(&mut input, &parameter_name);
 
-        assert_eq!(result, CompileTargetType::Exe);
+        assert_eq!(result.unwrap(), CompileTargetType::Exe);
     }
 
     #[test]
     fn project_type_is_oledll() {
-        let mut input = VB6Stream::new("", b"Type=OleDll\r\n");
+        let mut input = SourceStream::new("", "Type=OleDll\r\n");
 
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Type".parse_next(&mut input);
+        let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
+        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result = project_type_parse.parse_next(&mut input).unwrap();
-        assert_eq!(result, CompileTargetType::OleDll);
+        let result: Result<CompileTargetType, ErrorDetails<VB6ProjectErrorKind>> =
+            parse_converted_value(&mut input, &parameter_name);
+
+        assert_eq!(result.unwrap(), CompileTargetType::OleDll);
     }
 
     #[test]
     fn project_type_is_control() {
-        let mut input = VB6Stream::new("", b"Type=Control\n");
+        let mut input = SourceStream::new("", "Type=Control\n");
 
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Type".parse_next(&mut input);
+        let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
+        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result = project_type_parse.parse_next(&mut input).unwrap();
+        let result: Result<CompileTargetType, ErrorDetails<VB6ProjectErrorKind>> =
+            parse_converted_value(&mut input, &parameter_name);
 
-        assert_eq!(result, CompileTargetType::Control);
+        assert_eq!(result.unwrap(), CompileTargetType::Control);
     }
 
     #[test]
     fn project_type_is_oleexe() {
-        let mut input = VB6Stream::new("", b"Type=OleExe\n");
+        let mut input = SourceStream::new("", "Type=OleExe\n");
 
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Type".parse_next(&mut input);
+        let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
+        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result = project_type_parse.parse_next(&mut input).unwrap();
+        let result: Result<CompileTargetType, ErrorDetails<VB6ProjectErrorKind>> =
+            parse_converted_value(&mut input, &parameter_name);
 
-        assert_eq!(result, CompileTargetType::OleExe);
+        assert_eq!(result.unwrap(), CompileTargetType::OleExe);
     }
 
     #[test]
     fn project_type_is_unknown_type() {
-        let mut input = VB6Stream::new("", b"Type=blah\r\n");
+        let mut input = SourceStream::new("", "Type=blah\r\n");
 
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Type".parse_next(&mut input);
+        let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
+        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result = project_type_parse.parse_next(&mut input);
+        let result: Result<CompileTargetType, ErrorDetails<VB6ProjectErrorKind>> =
+            parse_converted_value(&mut input, &parameter_name);
 
         assert!(result.is_err());
-        assert!(matches!(
-            result.err().unwrap().into_inner().unwrap(),
-            VB6ErrorKind::ProjectTypeUnknown
-        ));
+
+        let error = result.err().unwrap();
+
+        assert_eq!(
+            matches!(
+                error.kind,
+                VB6ProjectErrorKind::ParameterValueInvalid { .. }
+            ),
+            true
+        );
     }
 
     #[test]
     fn reference_compiled_line_valid() {
-        let mut input = VB6Stream::new("", b"Reference=*\\G{000440D8-E9ED-4435-A9A2-06B05387BB16}#c.0#0#..\\DBCommon\\Libs\\VbIntellisenseFix.dll#VbIntellisenseFix\r\n");
+        let mut input = SourceStream::new("", "Reference=*\\G{000440D8-E9ED-4435-A9A2-06B05387BB16}#c.0#0#..\\DBCommon\\Libs\\VbIntellisenseFix.dll#VbIntellisenseFix\r\n");
 
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Reference".parse_next(&mut input);
+        let _ = input.take("Reference", Comparator::CaseSensitive).unwrap();
+        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result = reference_parse.parse_next(&mut input).unwrap();
+        let result = parse_reference(&mut input);
 
         let expected_uuid = Uuid::parse_str("000440D8-E9ED-4435-A9A2-06B05387BB16").unwrap();
 
-        assert_eq!(input.complete(), 0);
+        assert_eq!(input.is_empty(), true);
+        let result = result.unwrap();
         assert_eq!(matches!(result, VB6ProjectReference::Compiled { .. }), true);
-        let result = match result {
+
+        match result {
             VB6ProjectReference::Compiled {
                 uuid,
                 unknown1,
                 unknown2,
                 path,
                 description,
-            } => (uuid, unknown1, unknown2, path, description),
-            _ => unreachable!(),
-        };
-        assert_eq!(result.0, expected_uuid);
-        assert_eq!(result.1, "c.0");
-        assert_eq!(result.2, "0");
-        assert_eq!(result.3, r"..\DBCommon\Libs\VbIntellisenseFix.dll");
-        assert_eq!(result.4, r"VbIntellisenseFix");
+            } => {
+                assert_eq!(uuid, expected_uuid);
+                assert_eq!(unknown1, "c.0");
+                assert_eq!(unknown2, "0");
+                assert_eq!(path, r"..\DBCommon\Libs\VbIntellisenseFix.dll");
+                assert_eq!(description, r"VbIntellisenseFix");
+            }
+            _ => panic!("Expected a compiled reference"),
+        }
     }
 
     #[test]
     fn reference_subproject_line_valid() {
-        let mut input = VB6Stream::new("", b"Reference=*\\Atest.vbp\r\n");
+        let mut input = SourceStream::new("", "Reference=*\\Atest.vbp\r\n");
 
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Reference".parse_next(&mut input);
+        let _ = input.take("Reference", Comparator::CaseSensitive).unwrap();
+        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result = reference_parse.parse_next(&mut input).unwrap();
+        let result = parse_reference(&mut input);
 
-        assert_eq!(input.complete(), 0);
-        assert_eq!(
-            result,
-            VB6ProjectReference::SubProject {
-                path: BStr::new("test.vbp")
+        if result.is_err() {
+            for error in result.err().iter() {
+                error.print();
             }
+            panic!("Failed to parse reference line");
+        }
+
+        assert_eq!(input.is_empty(), true);
+        assert_eq!(
+            result.unwrap(),
+            VB6ProjectReference::SubProject { path: "test.vbp" }
         );
     }
 
     #[test]
     fn module_line_valid() {
-        let mut input = VB6Stream::new("", b"Module=modDBAssist; ..\\DBCommon\\DBAssist.bas\r\n");
+        let mut input = SourceStream::new("", "Module=modDBAssist; ..\\DBCommon\\DBAssist.bas\r\n");
 
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Module".parse_next(&mut input);
-        let result = module_parse.parse_next(&mut input).unwrap();
+        let _ = input.take("Module", Comparator::CaseSensitive).unwrap();
+        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        assert_eq!(input.complete(), 0);
+        let result = parse_module(&mut input).unwrap();
+
+        assert_eq!(input.is_empty(), true);
         assert_eq!(result.name, "modDBAssist");
         assert_eq!(result.path, "..\\DBCommon\\DBAssist.bas");
     }
 
     #[test]
     fn class_line_valid() {
-        let mut input = VB6Stream::new(
+        let mut input = SourceStream::new(
             "",
-            b"Class=CStatusBarClass; ..\\DBCommon\\CStatusBarClass.cls\r\n",
+            "Class=CStatusBarClass; ..\\DBCommon\\CStatusBarClass.cls\r\n",
         );
 
-        let _: Result<&BStr, ErrMode<VB6ErrorKind>> = "Class".parse_next(&mut input);
-        let result = class_parse.parse_next(&mut input).unwrap();
+        let _ = input.take("Class", Comparator::CaseSensitive).unwrap();
+        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        assert_eq!(input.complete(), 0);
+        let result = parse_class(&mut input).unwrap();
+
+        assert_eq!(input.is_empty(), true);
         assert_eq!(result.name, "CStatusBarClass");
         assert_eq!(result.path, "..\\DBCommon\\CStatusBarClass.cls");
     }
 
     #[test]
-    fn thread_per_object_negative() {
-        use bstr::BStr;
+    fn object_line_valid() {
+        let mut input = SourceStream::new(
+            "",
+            "Object={00020430-0000-0000-C000-000000000046}#2.0#0; stdole2.tlb\r\n",
+        );
 
+        let _ = input.take("Object", Comparator::CaseSensitive).unwrap();
+        let _ = input.take("=", Comparator::CaseSensitive).unwrap();
+
+        let result = parse_object(&mut input);
+
+        if result.is_err() {
+            for error in result.err().iter() {
+                error.print();
+            }
+            panic!("Failed to parse object line");
+        }
+
+        let object = result.unwrap();
+
+        assert_eq!(input.is_empty(), true);
+        match object {
+            VB6ObjectReference::Compiled {
+                uuid,
+                version,
+                unknown1,
+                file_name,
+            } => {
+                let expected_uuid =
+                    Uuid::parse_str("00020430-0000-0000-C000-000000000046").unwrap();
+                assert_eq!(uuid, expected_uuid);
+                assert_eq!(version, "2.0");
+                assert_eq!(unknown1, "0");
+                assert_eq!(file_name, "stdole2.tlb");
+            }
+            _ => panic!("Expected a compiled object"),
+        }
+    }
+
+    #[test]
+    fn thread_per_object_negative() {
         let input = r#"Type=Exe
      Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
      Object={00020430-0000-0000-C000-000000000046}#2.0#0; stdole2.tlb
@@ -2137,7 +2828,24 @@ mod tests {
      AutoRefresh=1
 "#;
 
-        let project = VB6Project::parse("project1.vbp", input.as_bytes()).unwrap();
+        let project_source_file = SourceFile::decode("project1.vbp", input.as_bytes()).unwrap();
+
+        let result = VB6Project::parse(&project_source_file);
+
+        if let Err(failure) = result {
+            failure.print();
+            panic!("Failed to parse project");
+        }
+
+        let project = match result.unwrap() {
+            Success::Value(project) => project,
+            Success::ValueWithFailures(_, failures) => {
+                for failure in failures {
+                    failure.print();
+                }
+                panic!("Expected a VB6Project");
+            }
+        };
 
         assert_eq!(project.project_type, CompileTargetType::Exe);
         assert_eq!(project.references.len(), 1);
@@ -2152,20 +2860,17 @@ mod tests {
             project.properties.upgrade_controls,
             UpgradeControls::Upgrade
         );
-        assert_eq!(project.properties.res_file_32_path, Some(BStr::new(b"")));
-        assert_eq!(project.properties.icon_form, Some(BStr::new(b"")));
-        assert_eq!(project.properties.startup, None);
-        assert_eq!(project.properties.help_file_path, Some(BStr::new(b"")));
-        assert_eq!(project.properties.title, Some(BStr::new(b"Project1")));
-        assert_eq!(
-            project.properties.exe_32_file_name,
-            Some(BStr::new(b"Project1.exe"))
-        );
-        assert_eq!(project.properties.exe_32_compatible, Some(BStr::new(b"")));
-        assert_eq!(project.properties.command_line_arguments, None);
-        assert_eq!(project.properties.path_32, Some(BStr::new(b"")));
-        assert_eq!(project.properties.name, Some(BStr::new(b"Project1")));
-        assert_eq!(project.properties.help_context_id, Some(BStr::new(b"0")));
+        assert_eq!(project.properties.res_file_32_path, "");
+        assert_eq!(project.properties.icon_form, "");
+        assert_eq!(project.properties.startup, "");
+        assert_eq!(project.properties.help_file_path, "");
+        assert_eq!(project.properties.title, "Project1");
+        assert_eq!(project.properties.exe_32_file_name, "Project1.exe");
+        assert_eq!(project.properties.exe_32_compatible, "");
+        assert_eq!(project.properties.command_line_arguments, "");
+        assert_eq!(project.properties.path_32, "");
+        assert_eq!(project.properties.name, "Project1");
+        assert_eq!(project.properties.help_context_id, "0");
         assert_eq!(
             project.properties.compatibility_mode,
             CompatibilityMode::NoCompatibility
@@ -2174,35 +2879,23 @@ mod tests {
         assert_eq!(project.properties.version_info.minor, 0);
         assert_eq!(project.properties.version_info.revision, 0);
         assert_eq!(project.properties.version_info.auto_increment_revision, 0);
-        assert_eq!(
-            project.properties.version_info.company_name,
-            Some(BStr::new(b"Company Name"))
-        );
+        assert_eq!(project.properties.version_info.company_name, "Company Name");
         assert_eq!(
             project.properties.version_info.file_description,
-            Some(BStr::new(b"File Description"))
+            "File Description"
         );
-        assert_eq!(
-            project.properties.version_info.trademark,
-            Some(BStr::new(b"Trademark"))
-        );
-        assert_eq!(
-            project.properties.version_info.product_name,
-            Some(BStr::new(b"Product Name"))
-        );
-        assert_eq!(
-            project.properties.version_info.comments,
-            Some(BStr::new(b"Comments"))
-        );
+        assert_eq!(project.properties.version_info.trademark, "Trademark");
+        assert_eq!(project.properties.version_info.product_name, "Product Name");
+        assert_eq!(project.properties.version_info.comments, "Comments");
         assert_eq!(
             project.properties.server_support_files,
             ServerSupportFiles::Local,
             "server_support_files check"
         );
-        assert_eq!(project.properties.conditional_compile, Some(BStr::new(b"")));
-        assert_eq!(
+        assert_eq!(project.properties.conditional_compile, "");
+        assert!(matches!(
             project.properties.compilation_type,
-            CompilationType::NativeCode {
+            CompilationType::NativeCode(NativeCodeSettings {
                 optimization_type: OptimizationType::FavorFastCode,
                 favor_pentium_pro: FavorPentiumPro::False,
                 code_view_debug_info: CodeViewDebugInfo::NotCreated,
@@ -2211,13 +2904,13 @@ mod tests {
                 overflow_check: OverflowCheck::CheckOverflow,
                 floating_point_check: FloatingPointErrorCheck::CheckFloatingPointError,
                 pentium_fdiv_bug_check: PentiumFDivBugCheck::CheckPentiumFDivBug,
-                unrounded_floating_point: UnroundedFloatingPoint::DoNotAllow,
-            }
-        );
+                unrounded_floating_point: UnroundedFloatingPoint::DoNotAllow
+            })
+        ));
         assert_eq!(project.properties.start_mode, StartMode::StandAlone);
         assert_eq!(project.properties.unattended, InteractionMode::Interactive);
         assert_eq!(project.properties.retained, Retained::UnloadOnExit);
-        assert_eq!(project.properties.thread_per_object, None);
+        assert_eq!(project.properties.thread_per_object, 0);
         assert_eq!(project.properties.max_number_of_threads, 1);
         assert_eq!(
             project.properties.debug_startup_option,
@@ -2227,9 +2920,43 @@ mod tests {
     }
 
     #[test]
-    fn no_startup_selected() {
-        use bstr::BStr;
+    fn two_line_with_spaces() {
+        let mut input = SourceStream::new(
+            "project.vbp",
+            r#"Type=Exe
+     Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation"#,
+        );
 
+        let _ = input.take_whitespaces();
+
+        let line_type = parse_property_name(&mut input).unwrap();
+        let type_result: Result<CompileTargetType, ErrorDetails<VB6ProjectErrorKind>> =
+            parse_converted_value(&mut input, line_type);
+
+        assert!(type_result.is_ok());
+        assert_eq!(type_result.unwrap(), CompileTargetType::Exe);
+
+        let _ = input.take_whitespaces();
+
+        let _ = parse_property_name(&mut input).unwrap();
+        let reference_result = parse_reference(&mut input);
+
+        assert!(reference_result.is_ok());
+        let reference = reference_result.unwrap();
+        assert_eq!(
+            reference,
+            VB6ProjectReference::Compiled {
+                uuid: Uuid::parse_str("00020430-0000-0000-C000-000000000046").unwrap(),
+                unknown1: "2.0",
+                unknown2: "0",
+                path: r"C:\Windows\System32\stdole2.tlb",
+                description: "OLE Automation",
+            }
+        );
+    }
+
+    #[test]
+    fn no_startup_selected() {
         let input = r#"Type=Exe
      Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
      Object={00020430-0000-0000-C000-000000000046}#2.0#0; stdole2.tlb
@@ -2284,7 +3011,36 @@ mod tests {
      AutoRefresh=1
 "#;
 
-        let project = VB6Project::parse("project1.vbp", input.as_bytes()).unwrap();
+        let project_source_file = match SourceFile::decode("project1.vbp", input.as_bytes()) {
+            Ok(source_file) => source_file,
+            Err(e) => {
+                panic!("{}", e.print_to_string().unwrap());
+            }
+        };
+
+        let result = VB6Project::parse(&project_source_file);
+
+        if let Err(failure) = result {
+            failure.print();
+            panic!("Failed to parse project");
+        }
+
+        let project = match result.unwrap() {
+            Success::Value(project) => project,
+            Success::ValueWithFailures(_, failures) => {
+                for failure in failures {
+                    failure.print();
+                }
+                panic!("Expected a VB6Project");
+            }
+        };
+
+        match project.properties.compilation_type {
+            CompilationType::PCode => {}
+            CompilationType::NativeCode(val) => {
+                println!("{:?}", val.pentium_fdiv_bug_check);
+            }
+        }
 
         assert_eq!(project.project_type, CompileTargetType::Exe);
         assert_eq!(project.references.len(), 1);
@@ -2299,20 +3055,17 @@ mod tests {
             project.properties.upgrade_controls,
             UpgradeControls::Upgrade
         );
-        assert_eq!(project.properties.res_file_32_path, Some(BStr::new(b"")));
-        assert_eq!(project.properties.icon_form, Some(BStr::new(b"")));
-        assert_eq!(project.properties.startup, None);
-        assert_eq!(project.properties.help_file_path, Some(BStr::new(b"")));
-        assert_eq!(project.properties.title, Some(BStr::new(b"Project1")));
-        assert_eq!(
-            project.properties.exe_32_file_name,
-            Some(BStr::new(b"Project1.exe"))
-        );
-        assert_eq!(project.properties.exe_32_compatible, Some(BStr::new(b"")));
-        assert_eq!(project.properties.command_line_arguments, None);
-        assert_eq!(project.properties.path_32, Some(BStr::new(b"")));
-        assert_eq!(project.properties.name, Some(BStr::new(b"Project1")));
-        assert_eq!(project.properties.help_context_id, Some(BStr::new(b"0")));
+        assert_eq!(project.properties.res_file_32_path, "");
+        assert_eq!(project.properties.icon_form, "");
+        assert_eq!(project.properties.startup, "");
+        assert_eq!(project.properties.help_file_path, "");
+        assert_eq!(project.properties.title, "Project1");
+        assert_eq!(project.properties.exe_32_file_name, "Project1.exe");
+        assert_eq!(project.properties.exe_32_compatible, "");
+        assert_eq!(project.properties.command_line_arguments, "");
+        assert_eq!(project.properties.path_32, "");
+        assert_eq!(project.properties.name, "Project1");
+        assert_eq!(project.properties.help_context_id, "0");
         assert_eq!(
             project.properties.compatibility_mode,
             CompatibilityMode::NoCompatibility
@@ -2321,35 +3074,23 @@ mod tests {
         assert_eq!(project.properties.version_info.minor, 0);
         assert_eq!(project.properties.version_info.revision, 0);
         assert_eq!(project.properties.version_info.auto_increment_revision, 0);
-        assert_eq!(
-            project.properties.version_info.company_name,
-            Some(BStr::new(b"Company Name"))
-        );
+        assert_eq!(project.properties.version_info.company_name, "Company Name");
         assert_eq!(
             project.properties.version_info.file_description,
-            Some(BStr::new(b"File Description"))
+            "File Description"
         );
-        assert_eq!(
-            project.properties.version_info.trademark,
-            Some(BStr::new(b"Trademark"))
-        );
-        assert_eq!(
-            project.properties.version_info.product_name,
-            Some(BStr::new(b"Product Name"))
-        );
-        assert_eq!(
-            project.properties.version_info.comments,
-            Some(BStr::new(b"Comments"))
-        );
+        assert_eq!(project.properties.version_info.trademark, "Trademark");
+        assert_eq!(project.properties.version_info.product_name, "Product Name");
+        assert_eq!(project.properties.version_info.comments, "Comments");
         assert_eq!(
             project.properties.server_support_files,
             ServerSupportFiles::Local,
             "server_support_files check"
         );
-        assert_eq!(project.properties.conditional_compile, Some(BStr::new(b"")));
+        assert_eq!(project.properties.conditional_compile, "");
         assert_eq!(
             project.properties.compilation_type,
-            CompilationType::NativeCode {
+            CompilationType::NativeCode(NativeCodeSettings {
                 optimization_type: OptimizationType::FavorFastCode,
                 favor_pentium_pro: FavorPentiumPro::False,
                 code_view_debug_info: CodeViewDebugInfo::NotCreated,
@@ -2359,12 +3100,12 @@ mod tests {
                 floating_point_check: FloatingPointErrorCheck::CheckFloatingPointError,
                 pentium_fdiv_bug_check: PentiumFDivBugCheck::CheckPentiumFDivBug,
                 unrounded_floating_point: UnroundedFloatingPoint::DoNotAllow,
-            }
+            })
         );
         assert_eq!(project.properties.start_mode, StartMode::StandAlone);
         assert_eq!(project.properties.unattended, InteractionMode::Interactive);
         assert_eq!(project.properties.retained, Retained::UnloadOnExit);
-        assert_eq!(project.properties.thread_per_object, Some(0));
+        assert_eq!(project.properties.thread_per_object, 0);
         assert_eq!(project.properties.max_number_of_threads, 1);
         assert_eq!(
             project.properties.debug_startup_option,
@@ -2375,8 +3116,6 @@ mod tests {
 
     #[test]
     fn extra_property_sections() {
-        use bstr::BStr;
-
         let input = r#"Type=Exe
      Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
      Object={00020430-0000-0000-C000-000000000046}#2.0#0; stdole2.tlb
@@ -2435,7 +3174,31 @@ mod tests {
      Comment=Nouveaut�s :�- ajout d'options dans le menu du widget��Am�liorations :�- position de la fenetre sauvegard�e��Bugs corrig�s :�- 1.4.12 - L'erreur 383 s'est produite dans la fen�tre frmConfig de la proc�dure TimerStart_Timer � la ligne 780 : Propri�t� 'Text' en lecture seule.�- Position de la fen�tre non restaur� en cas de r�duction auto au d�marrage.
 "#;
 
-        let project = VB6Project::parse("project1.vbp", input.as_bytes()).unwrap();
+        let project_source_file =
+            match SourceFile::decode_with_replacement("project1.vbp", input.as_bytes()) {
+                Ok(source_file) => source_file,
+                Err(e) => {
+                    e.print();
+                    panic!("failed to decode project source code.");
+                }
+            };
+
+        let result = VB6Project::parse(&project_source_file);
+
+        if let Err(failure) = result {
+            failure.print();
+            panic!("Failed to parse project");
+        }
+
+        let project = match result.unwrap() {
+            Success::Value(project) => project,
+            Success::ValueWithFailures(_, failures) => {
+                for failure in failures {
+                    failure.print();
+                }
+                panic!("Expected a VB6Project");
+            }
+        };
 
         assert_eq!(project.project_type, CompileTargetType::Exe);
         assert_eq!(project.references.len(), 1);
@@ -2451,20 +3214,17 @@ mod tests {
             project.properties.upgrade_controls,
             UpgradeControls::Upgrade
         );
-        assert_eq!(project.properties.res_file_32_path, Some(BStr::new(b"")));
-        assert_eq!(project.properties.icon_form, Some(BStr::new(b"")));
-        assert_eq!(project.properties.startup, None);
-        assert_eq!(project.properties.help_file_path, Some(BStr::new(b"")));
-        assert_eq!(project.properties.title, Some(BStr::new(b"Project1")));
-        assert_eq!(
-            project.properties.exe_32_file_name,
-            Some(BStr::new(b"Project1.exe"))
-        );
-        assert_eq!(project.properties.exe_32_compatible, Some(BStr::new(b"")));
-        assert_eq!(project.properties.command_line_arguments, None);
-        assert_eq!(project.properties.path_32, Some(BStr::new(b"")));
-        assert_eq!(project.properties.name, Some(BStr::new(b"Project1")));
-        assert_eq!(project.properties.help_context_id, Some(BStr::new(b"0")));
+        assert_eq!(project.properties.res_file_32_path, "");
+        assert_eq!(project.properties.icon_form, "");
+        assert_eq!(project.properties.startup, "");
+        assert_eq!(project.properties.help_file_path, "");
+        assert_eq!(project.properties.title, "Project1");
+        assert_eq!(project.properties.exe_32_file_name, "Project1.exe");
+        assert_eq!(project.properties.exe_32_compatible, "");
+        assert_eq!(project.properties.command_line_arguments, "");
+        assert_eq!(project.properties.path_32, "");
+        assert_eq!(project.properties.name, "Project1");
+        assert_eq!(project.properties.help_context_id, "0");
         assert_eq!(
             project.properties.compatibility_mode,
             CompatibilityMode::NoCompatibility
@@ -2473,36 +3233,24 @@ mod tests {
         assert_eq!(project.properties.version_info.minor, 0);
         assert_eq!(project.properties.version_info.revision, 0);
         assert_eq!(project.properties.version_info.auto_increment_revision, 0);
-        assert_eq!(
-            project.properties.version_info.company_name,
-            Some(BStr::new(b"Company Name"))
-        );
+        assert_eq!(project.properties.version_info.company_name, "Company Name");
         assert_eq!(
             project.properties.version_info.file_description,
-            Some(BStr::new(b"File Description"))
+            "File Description"
         );
-        assert_eq!(
-            project.properties.version_info.trademark,
-            Some(BStr::new(b"Trademark"))
-        );
-        assert_eq!(
-            project.properties.version_info.product_name,
-            Some(BStr::new(b"Product Name"))
-        );
-        assert_eq!(
-            project.properties.version_info.comments,
-            Some(BStr::new(b"Comments"))
-        );
+        assert_eq!(project.properties.version_info.trademark, "Trademark");
+        assert_eq!(project.properties.version_info.product_name, "Product Name");
+        assert_eq!(project.properties.version_info.comments, "Comments");
         assert_eq!(
             project.properties.server_support_files,
             ServerSupportFiles::Local,
             "server_support_files check"
         );
-        assert_eq!(project.properties.conditional_compile, Some(BStr::new(b"")));
+        assert_eq!(project.properties.conditional_compile, "");
 
         assert_eq!(
             project.properties.compilation_type,
-            CompilationType::NativeCode {
+            CompilationType::NativeCode(NativeCodeSettings {
                 optimization_type: OptimizationType::FavorFastCode,
                 favor_pentium_pro: FavorPentiumPro::False,
                 code_view_debug_info: CodeViewDebugInfo::NotCreated,
@@ -2512,12 +3260,12 @@ mod tests {
                 floating_point_check: FloatingPointErrorCheck::CheckFloatingPointError,
                 pentium_fdiv_bug_check: PentiumFDivBugCheck::CheckPentiumFDivBug,
                 unrounded_floating_point: UnroundedFloatingPoint::DoNotAllow,
-            }
+            })
         );
         assert_eq!(project.properties.start_mode, StartMode::StandAlone);
         assert_eq!(project.properties.unattended, InteractionMode::Interactive);
         assert_eq!(project.properties.retained, Retained::UnloadOnExit);
-        assert_eq!(project.properties.thread_per_object, Some(0));
+        assert_eq!(project.properties.thread_per_object, 0);
         assert_eq!(project.properties.max_number_of_threads, 1);
         assert_eq!(
             project.properties.debug_startup_option,

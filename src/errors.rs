@@ -3,7 +3,8 @@
 //! errors that occur during parsing. The `VB6Error` type contains
 //! information about the error, including the file name, source code,
 //! source offset, column, line number, and the kind of error.
-
+use std::borrow::Cow;
+use std::error::Error;
 use std::fmt::{Debug, Display, Formatter};
 use std::path::Path;
 
@@ -15,6 +16,217 @@ use winnow::{
 use ariadne::{Label, Report, ReportKind, Source};
 
 use crate::parsers::VB6Stream;
+
+#[derive(Debug, Clone)]
+pub struct ErrorDetails<'a, T> {
+    pub source_name: String,
+    pub source_content: Cow<'a, str>,
+    pub error_offset: usize,
+    pub line_start: usize,
+    pub line_end: usize,
+    pub kind: T,
+}
+
+impl<'a, T> ErrorDetails<'a, T>
+where
+    T: ToString,
+{
+    pub fn print(&self) {
+        let cache = (
+            self.source_name.clone(),
+            Source::from(self.source_content.to_string()),
+        );
+
+        Report::build(
+            ReportKind::Error,
+            (self.source_name.clone(), self.line_start..=self.line_end),
+        )
+        .with_message(self.kind.to_string())
+        .with_label(
+            Label::new((
+                self.source_name.clone(),
+                self.error_offset..=self.error_offset,
+            ))
+            .with_message("error here"),
+        )
+        .finish()
+        .print(cache)
+        .unwrap();
+    }
+
+    pub fn eprint(&self) {
+        let cache = (
+            self.source_name.clone(),
+            Source::from(self.source_content.to_string()),
+        );
+
+        Report::build(
+            ReportKind::Error,
+            (self.source_name.clone(), self.line_start..=self.line_end),
+        )
+        .with_message(self.kind.to_string())
+        .with_label(
+            Label::new((
+                self.source_name.clone(),
+                self.error_offset..=self.error_offset,
+            ))
+            .with_message("error here"),
+        )
+        .finish()
+        .eprint(cache)
+        .unwrap();
+    }
+
+    pub fn print_to_string(&self) -> Result<String, Box<dyn Error>> {
+        let cache = (
+            self.source_name.clone(),
+            Source::from(self.source_content.to_string()),
+        );
+
+        let mut buf = Vec::new();
+
+        Report::build(
+            ReportKind::Error,
+            (self.source_name.clone(), self.line_start..=self.line_end),
+        )
+        .with_message(self.kind.to_string())
+        .with_label(
+            Label::new((
+                self.source_name.clone(),
+                self.error_offset..=self.error_offset,
+            ))
+            .with_message("error here"),
+        )
+        .finish()
+        .write(cache, &mut buf)
+        .unwrap();
+
+        let text = String::from_utf8(buf.clone())?;
+
+        Ok(text)
+    }
+}
+
+#[derive(thiserror::Error, Debug, Clone)]
+pub enum SourceFileErrorKind {
+    #[error("Unable to parse source file: {message}")]
+    MalformedSource { message: String },
+}
+
+#[derive(thiserror::Error, Debug, Clone)]
+pub enum VB6ProjectErrorKind<'a> {
+    #[error("A section header was expected but was not terminated with a ']' character.")]
+    UnterminatedSectionHeader,
+
+    #[error("Project property line invalid. Expected a Property Name followed by an equal sign '=' and a Property Value.")]
+    PropertyNameNotFound,
+
+    #[error("'Type' property line invalid. Only the values 'Exe', 'OleDll', 'Control', or 'OleExe' are valid.")]
+    ProjectTypeUnknown,
+
+    #[error("'Designer' line is invalid. Expected a designer path after the equal sign '='. Found a newline or the end of the file instead.")]
+    DesignerFileNotFound,
+
+    #[error("'Reference' line is invalid. The line started with '*\\G' indicating a compiled reference. Expected a closing '}}' after the UUID, but found a newline or the end of the file instead.")]
+    ReferenceCompiledUuidMissingMatchingBrace,
+
+    #[error("'Reference' line is invalid. The line started with '*\\G' indicating a compiled reference but the contents of the '{{' and '}}' was not a valid UUID.")]
+    ReferenceCompiledUuidInvalid,
+
+    #[error("'Reference' line is invalid. Expected a reference path but found a newline or the end of the file instead.")]
+    ReferenceProjectPathNotFound,
+
+    #[error("'Reference' line is invalid. Expected a reference path to begin with '*\\A' followed by the path to the reference project file ending with a qoute '\"' character. Found '{value}' instead.")]
+    ReferenceProjectPathInvalid { value: &'a str },
+
+    #[error("'Reference' line is invalid. Expected a compiled reference 'unknown1' value after the UUID, between '#' characters but found a newline or the end of the file instead.")]
+    ReferenceCompiledUnknown1Missing,
+
+    #[error("'Reference' line is invalid. Expected a compiled reference 'unknown2' value after the UUID and 'unknown1', between '#' characters but found a newline or the end of the file instead.")]
+    ReferenceCompiledUnknown2Missing,
+
+    #[error("'Reference' line is invalid. Expected a compiled reference 'path' value after the UUID, 'unknown1', and 'unknown2', between '#' characters but found a newline or the end of the file instead.")]
+    ReferenceCompiledPathNotFound,
+
+    #[error("'Reference' line is invalid. Expected a compiled reference 'description' value after the UUID, 'unknown1', 'unknown2', and 'path', but found a newline or the end of the file instead.")]
+    ReferenceCompiledDescriptionNotFound,
+
+    #[error("'Reference' line is invalid. Compiled reference description containts a '#' character, which is not allowed. The description must be a valid ASCII string without any '#' characters.")]
+    ReferenceCompiledDescriptionInvalid,
+
+    #[error("'Object' line is invalid. Project based objects lines must be qouted strings and begin with '*\\A' followed by the path to the object project file ending with a qoute '\"' character. Found a newline or the end of the file instead.")]
+    ObjectProjectPathNotFound,
+
+    #[error("'Object' line is invalid. Compiled object lines must begin with '{{'. Found a newline or the end of the file instead.")]
+    ObjectCompiledMissingOpeningBrace,
+
+    #[error("'Object' line is invalid. Compiled object lines must begin with '{{', enclose a valid UUID. Expected a closing '}}' after the UUID, but found a newline or the end of the file instead.")]
+    ObjectCompiledUuidMissingMatchingBrace,
+
+    #[error("'Object' line is invalid. Compiled object lines must begin with '{{', enclose a valid UUID, and end with '}}'. The UUID was not valid. Expected a valid UUID in the format 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' containing only ASCII characters.")]
+    ObjectCompiledUuidInvalid,
+
+    #[error("'Object' line is invalid. Compiled object lines must begin with '{{', enclose a valid UUID with '}}', followed by a '#' character, and then a version number. Expected a '#' character, but found a newline or the end of the file instead.")]
+    ObjectCompiledVersionMissing,
+
+    #[error("'Object' line is invalid. Compiled object lines must begin with '{{', enclose a valid UUID with '}}', followed by a '#' character, and then a version number. The version number was not valid. Expected a valid version number in the format 'x.x'. The version number must contain only '.' or the characters \"0\"..\"9\". Invalid character found instead.")]
+    ObjectCompiledVersionInvalid,
+
+    #[error("'Object' line is invalid. Compiled object lines must begin with '{{', enclose a valid UUID with '}}', followed by '#', a version number, followed by another '#', then an 'unknown1' value followed by \"; \". Expected \"; \", but found a newline or the end of the file instead.")]
+    ObjectCompiledUnknown1Missing,
+
+    #[error("'Object' line is invalid. Compiled object lines must begin with '{{', enclose a valid UUID with '}}', followed by '#', a version number, followed by another '#', then an 'unknown1' value followed by \"; \", and ending with the object's file name. Expected the object's file name, but found a newline or the end of the file instead.")]
+    ObjectCompiledFileNameNotFound,
+
+    #[error("'Module' line is invalid. Expected a module name followed by a \"; \". Found a newline or the end of the file instead.")]
+    ModuleNameNotFound,
+
+    #[error("'Module' line is invalid. Expected a module name followed by a \"; \", followed by the module file name. Found a newline or the end of the file instead.")]
+    ModuleFileNameNotFound,
+
+    #[error("'Class' line is invalid. Expected a class name followed by a \"; \". Found a newline or the end of the file instead.")]
+    ClassNameNotFound,
+
+    #[error("'Class' line is invalid. Expected a class name followed by a \"; \", followed by the class file name. Found a newline or the end of the file instead.")]
+    ClassFileNameNotFound,
+
+    #[error("'{parameter_line_name}' line is invalid. Expected a '{parameter_line_name}' path after the equal sign '='. Found a newline or the end of the file instead.")]
+    PathValueNotFound { parameter_line_name: &'a str },
+
+    #[error("'{parameter_line_name}' line is invalid. Expected a qouted '{parameter_line_name}' value after the equal sign '='. Found a newline or the end of the file instead.")]
+    ParameterValueNotFound { parameter_line_name: &'a str },
+
+    #[error("'{parameter_line_name}' line is invalid. '{parameter_line_name}' is missing an opening quote. Expected a closing quote for the '{parameter_line_name}' value.")]
+    ParameterValueMissingOpeningQuote { parameter_line_name: &'a str },
+
+    #[error("'{parameter_line_name}' line is invalid. '{parameter_line_name}' is missing a matching quote. Expected a closing quote for the '{parameter_line_name}' value.")]
+    ParameterValueMissingMatchingQoute { parameter_line_name: &'a str },
+
+    #[error("'{parameter_line_name}' line is invalid. '{parameter_line_name}' is missing both opening and closing qoutes. Expected a qouted '{parameter_line_name}' value after the equal sign '='.")]
+    ParameterValueMissingQuotes { parameter_line_name: &'a str },
+
+    #[error("'{parameter_line_name}' line is invalid. '{invalid_value}' is not a valid value for '{parameter_line_name}'. Only {valid_value_message} are valid values for '{parameter_line_name}'.")]
+    ParameterValueInvalid {
+        parameter_line_name: &'a str,
+        invalid_value: &'a str,
+        valid_value_message: String,
+    },
+
+    #[error("'DllBaseAddress' line is invalid. Expected a hex address after the equal sign '='. Found a newline or the end of the file instead.")]
+    DllBaseAddressNotFound,
+
+    #[error("'DllBaseAddress' line is invalid. Expected a valid hex address beginning with '&h' after the equal sign '='.")]
+    DllBaseAddressMissingHexPrefix,
+
+    #[error("'DllBaseAddress' line is invalid. Expected a valid hex address after the equal sign '=' beginning with '&h'. Unable to parse hex value '{hex_value}'.")]
+    DllBaseAddressUnparseable { hex_value: &'a str },
+
+    #[error("'DllBaseAddress' line is invalid. Expected a valid hex address after the equal sign '=' beginning with '&h'. Unable to parse empty hex value.")]
+    DllBaseAddressUnparseableEmpty,
+
+    #[error("'{parameter_line_name}' line is unknown.")]
+    ParameterLineUnknown { parameter_line_name: &'a str },
+}
 
 #[derive(thiserror::Error, PartialEq, Eq, Debug)]
 pub enum PropertyError {

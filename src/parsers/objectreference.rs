@@ -2,7 +2,7 @@ use bstr::BStr;
 use serde::Serialize;
 use uuid::Uuid;
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Copy, Clone)]
 pub enum VB6ObjectReference<'a> {
     Compiled {
         uuid: Uuid,

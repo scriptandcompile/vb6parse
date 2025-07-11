@@ -27,10 +27,10 @@ pub mod compilesettings;
 pub mod form;
 pub mod module;
 pub mod objectreference;
-pub mod parserresults;
 pub mod project;
 pub mod properties;
 pub mod sourcestream;
+pub mod success;
 pub mod vb6;
 
 pub use class::{
@@ -38,10 +38,8 @@ pub use class::{
     VB6ClassVersion,
 };
 
-pub use compilesettings::{
-    BoundsCheck, CompilationType, FloatingPointErrorCheck, OverflowCheck, PentiumFDivBugCheck,
-    UnroundedFloatingPoint,
-};
+pub use compilesettings::NativeCodeSettings;
+pub use compilesettings::*;
 pub use form::{resource_file_resolver, VB6FormFile};
 pub use header::{VB6FileAttributes, VB6FileFormatVersion};
 pub use module::VB6ModuleFile;
@@ -51,8 +49,11 @@ pub use properties::Properties;
 pub use objectreference::VB6ObjectReference;
 
 pub use project::{
-    CompileTargetType, VB6Project, VB6ProjectClass, VB6ProjectModule, VB6ProjectReference,
+    CompileTargetType, SourceFile, VB6Project, VB6ProjectClass, VB6ProjectModule,
+    VB6ProjectReference,
 };
+
+pub use success::Success;
 
 pub use vb6::{is_english_code, vb6_parse};
 
