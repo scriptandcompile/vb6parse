@@ -5,330 +5,57 @@ expression: project
 project_type: Exe
 references:
   - uuid: 00020430-0000-0000-c000-000000000046
-    unknown1:
-      - 50
-      - 46
-      - 48
-    unknown2:
-      - 48
-    path:
-      - 46
-      - 46
-      - 92
-      - 46
-      - 46
-      - 92
-      - 46
-      - 46
-      - 92
-      - 87
-      - 105
-      - 110
-      - 100
-      - 111
-      - 119
-      - 115
-      - 92
-      - 83
-      - 121
-      - 115
-      - 87
-      - 79
-      - 87
-      - 54
-      - 52
-      - 92
-      - 115
-      - 116
-      - 100
-      - 111
-      - 108
-      - 101
-      - 50
-      - 46
-      - 116
-      - 108
-      - 98
-    description:
-      - 79
-      - 76
-      - 69
-      - 32
-      - 65
-      - 117
-      - 116
-      - 111
-      - 109
-      - 97
-      - 116
-      - 105
-      - 111
-      - 110
+    unknown1: "2.0"
+    unknown2: "0"
+    path: "..\\..\\..\\Windows\\SysWOW64\\stdole2.tlb"
+    description: OLE Automation
 objects: []
 modules:
-  - name:
-      - 76
-      - 111
-      - 103
-      - 105
-      - 99
-      - 95
-      - 77
-      - 111
-      - 100
-      - 117
-      - 108
-      - 101
-    path:
-      - 80
-      - 104
-      - 121
-      - 115
-      - 105
-      - 99
-      - 115
-      - 95
-      - 76
-      - 111
-      - 103
-      - 105
-      - 99
-      - 46
-      - 98
-      - 97
-      - 115
+  - name: Logic_Module
+    path: Physics_Logic.bas
 classes: []
 related_documents: []
+property_pages: []
 designers: []
 forms:
-  - - 70
-    - 111
-    - 114
-    - 109
-    - 80
-    - 104
-    - 121
-    - 115
-    - 105
-    - 99
-    - 115
-    - 46
-    - 102
-    - 114
-    - 109
+  - FormPhysics.frm
 user_controls: []
 user_documents: []
 other_properties:
-  ? - 77
-    - 83
-    - 32
-    - 84
-    - 114
-    - 97
-    - 110
-    - 115
-    - 97
-    - 99
-    - 116
-    - 105
-    - 111
-    - 110
-    - 32
-    - 83
-    - 101
-    - 114
-    - 118
-    - 101
-    - 114
-  : ? - 65
-      - 117
-      - 116
-      - 111
-      - 82
-      - 101
-      - 102
-      - 114
-      - 101
-      - 115
-      - 104
-    : - 49
+  MS Transaction Server:
+    AutoRefresh: "1"
 properties:
   unused_control_info: Remove
   upgrade_controls: Upgrade
-  res_file_32_path: []
-  icon_form:
-    - 102
-    - 114
-    - 109
-    - 77
-    - 97
-    - 105
-    - 110
-  startup:
-    - 102
-    - 114
-    - 109
-    - 77
-    - 97
-    - 105
-    - 110
-  help_file_path: []
-  title:
-    - 80
-    - 104
-    - 121
-    - 115
-    - 105
-    - 99
-    - 115
-    - 32
-    - 68
-    - 101
-    - 109
-    - 111
-  exe_32_file_name:
-    - 80
-    - 104
-    - 121
-    - 115
-    - 105
-    - 99
-    - 115
-    - 95
-    - 68
-    - 101
-    - 109
-    - 111
-    - 46
-    - 101
-    - 120
-    - 101
-  exe_32_compatible: []
-  dll_base_address: 285212672
-  path_32: []
-  command_line_arguments: ~
-  name:
-    - 86
-    - 66
-    - 95
-    - 71
-    - 97
-    - 109
-    - 101
-    - 95
-    - 80
-    - 104
-    - 121
-    - 115
-    - 105
-    - 99
-    - 115
-  description: []
-  debug_startup_component: []
-  help_context_id:
-    - 48
+  res_file_32_path: ""
+  icon_form: frmMain
+  startup: frmMain
+  help_file_path: ""
+  title: Physics Demo
+  exe_32_file_name: Physics_Demo.exe
+  exe_32_compatible: ""
+  dll_base_address: 0
+  path_32: ""
+  command_line_arguments: ""
+  name: VB_Game_Physics
+  description: ""
+  debug_startup_component: ""
+  help_context_id: "0"
   compatibility_mode: NoCompatibility
-  version_32_compatibility: []
+  version_32_compatibility: ""
   version_info:
     major: 1
     minor: 0
     revision: 9
     auto_increment_revision: 1
-    company_name:
-      - 84
-      - 97
-      - 110
-      - 110
-      - 101
-      - 114
-      - 32
-      - 72
-      - 101
-      - 108
-      - 108
-      - 97
-      - 110
-      - 100
-      - 32
-      - 80
-      - 114
-      - 111
-      - 100
-      - 117
-      - 99
-      - 116
-      - 105
-      - 111
-      - 110
-      - 115
-    file_description: []
-    copyright: []
-    trademark: []
-    product_name:
-      - 83
-      - 105
-      - 109
-      - 112
-      - 108
-      - 101
-      - 32
-      - 71
-      - 97
-      - 109
-      - 101
-      - 32
-      - 80
-      - 104
-      - 121
-      - 115
-      - 105
-      - 99
-      - 115
-      - 32
-      - 68
-      - 101
-      - 109
-      - 111
-    comments:
-      - 68
-      - 111
-      - 119
-      - 110
-      - 108
-      - 111
-      - 97
-      - 100
-      - 101
-      - 100
-      - 32
-      - 102
-      - 114
-      - 111
-      - 109
-      - 32
-      - 119
-      - 119
-      - 119
-      - 46
-      - 116
-      - 97
-      - 110
-      - 110
-      - 101
-      - 114
-      - 104
-      - 101
-      - 108
-      - 108
-      - 97
-      - 110
-      - 100
-      - 46
-      - 99
-      - 111
-      - 109
+    company_name: Tanner Helland Productions
+    file_description: ""
+    copyright: ""
+    trademark: ""
+    product_name: Simple Game Physics Demo
+    comments: Downloaded from www.tannerhelland.com
   server_support_files: Local
-  conditional_compile: []
+  conditional_compile: ""
   compilation_type:
     NativeCode:
       optimization_type: FavorFastCode
@@ -348,4 +75,3 @@ properties:
   max_number_of_threads: 1
   debug_startup_option: WaitForComponentCreation
   use_existing_browser: Use
-  property_page: []
