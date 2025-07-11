@@ -2,7 +2,7 @@ use num_enum::TryFromPrimitive;
 use serde::Serialize;
 use strum_macros::{EnumIter, EnumMessage};
 
-use crate::compilesettings::CompilationType;
+use crate::parsers::project::compilesettings::CompilationType;
 
 #[derive(Debug, PartialEq, Eq, Copy, Clone, Serialize, Default)]
 pub struct VB6ProjectProperties<'a> {
