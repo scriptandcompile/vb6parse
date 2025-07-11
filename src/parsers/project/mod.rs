@@ -1,3 +1,6 @@
+pub mod compilesettings;
+pub mod properties;
+
 use std::borrow::Cow;
 use std::collections::HashMap;
 use std::convert::TryFrom;
@@ -11,7 +14,7 @@ use uuid::Uuid;
 use crate::{
     errors::*,
     objectreference::*,
-    parsers::{compilesettings::*, projectproperties::*},
+    parsers::project::{compilesettings::*, properties::*},
     sourcefile::*,
     sourcestream::*,
     success::*,

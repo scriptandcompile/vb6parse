@@ -23,12 +23,10 @@ mod header;
 mod vb6stream;
 
 pub mod class;
-pub mod compilesettings;
 pub mod form;
 pub mod module;
 pub mod objectreference;
 pub mod project;
-pub mod projectproperties;
 pub mod properties;
 pub mod success;
 pub mod vb6;
@@ -38,19 +36,15 @@ pub use class::{
     VB6ClassVersion,
 };
 
-pub use compilesettings::NativeCodeSettings;
-pub use compilesettings::*;
 pub use form::{resource_file_resolver, VB6FormFile};
 pub use header::{VB6FileAttributes, VB6FileFormatVersion};
 pub use module::VB6ModuleFile;
 pub use objectreference::VB6ObjectReference;
 pub use properties::Properties;
 
-pub use project::{VB6Project, VB6ProjectClass, VB6ProjectModule, VB6ProjectReference};
-
-pub use projectproperties::{
-    CompatibilityMode, CompileTargetType, DebugStartupOption, InteractionMode, Retained,
-    ServerSupportFiles, StartMode, UpgradeControls,
+pub use project::{
+    compilesettings::*, properties::*, VB6Project, VB6ProjectClass, VB6ProjectModule,
+    VB6ProjectReference,
 };
 
 pub use crate::sourcestream::*;
