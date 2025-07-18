@@ -114,6 +114,18 @@ pub enum SourceFileErrorKind {
 }
 
 #[derive(thiserror::Error, Debug, Clone)]
+pub enum VB6CodeErrorKind {
+    #[error("Variable names in VB6 have a maximum length of 255 characters.")]
+    VariableNameTooLong,
+
+    #[error("Unknown token '{token}' found.")]
+    UnknownToken { token: String },
+
+    #[error("Unexpected end of code stream.")]
+    UnexpectedEndOfStream,
+}
+
+#[derive(thiserror::Error, Debug, Clone)]
 pub enum VB6ProjectErrorKind<'a> {
     #[error("A section header was expected but was not terminated with a ']' character.")]
     UnterminatedSectionHeader,
