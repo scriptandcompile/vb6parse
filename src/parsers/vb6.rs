@@ -487,7 +487,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("Dim").map(|token: &BStr| VB6Token::DimKeyword(token)),
             keyword_parse("Do").map(|token: &BStr| VB6Token::DoKeyword(token)),
             keyword_parse("Double").map(|token: &BStr| VB6Token::DoubleKeyword(token)),
-            // switched so that Else isn't selected before ElseIf.
+            // switched so that `Else` isn't selected before `ElseIf`.
             keyword_parse("ElseIf").map(|token: &BStr| VB6Token::ElseIfKeyword(token)),
         )),
         alt((
@@ -509,7 +509,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("Get").map(|token: &BStr| VB6Token::GetKeyword(token)),
             keyword_parse("Goto").map(|token: &BStr| VB6Token::GotoKeyword(token)),
             keyword_parse("If").map(|token: &BStr| VB6Token::IfKeyword(token)),
-            // switched so that Implements isn't selected before Imp.
+            // switched so that `Imp` isn't selected before `Implements`.
             keyword_parse("Implements").map(|token: &BStr| VB6Token::ImplementsKeyword(token)),
             keyword_parse("Imp").map(|token: &BStr| VB6Token::ImpKeyword(token)),
             keyword_parse("Input").map(|token: &BStr| VB6Token::InputKeyword(token)),
@@ -540,7 +540,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
         alt((
             keyword_parse("On").map(|token: &BStr| VB6Token::OnKeyword(token)),
             keyword_parse("Open").map(|token: &BStr| VB6Token::OpenKeyword(token)),
-            // Switched so that Option isn't selected before Optional.
+            // Switched so that `Option` isn't selected before `Optional`.
             keyword_parse("Optional").map(|token: &BStr| VB6Token::OptionalKeyword(token)),
             keyword_parse("Option").map(|token: &BStr| VB6Token::OptionKeyword(token)),
             keyword_parse("Or").map(|token: &BStr| VB6Token::OrKeyword(token)),
@@ -565,7 +565,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             keyword_parse("Seek").map(|token: &BStr| VB6Token::SeekKeyword(token)),
             keyword_parse("Select").map(|token: &BStr| VB6Token::SelectKeyword(token)),
             keyword_parse("SendKeys").map(|token: &BStr| VB6Token::SendKeysKeyword(token)),
-            // Switched so that set isn't selected before SetAttr.
+            // Switched so that `Set` isn't selected before `SetAttr`.
             keyword_parse("SetAttr").map(|token: &BStr| VB6Token::SetAttrKeyword(token)),
             keyword_parse("Set").map(|token: &BStr| VB6Token::SetKeyword(token)),
             keyword_parse("Single").map(|token: &BStr| VB6Token::SingleKeyword(token)),
@@ -587,7 +587,7 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
         alt((
             keyword_parse("While").map(|token: &BStr| VB6Token::WhileKeyword(token)),
             keyword_parse("Width").map(|token: &BStr| VB6Token::WidthKeyword(token)),
-            // Switched so that With isn't selected before WithEvents.
+            // Switched so that `With` isn't selected before `WithEvents`.
             keyword_parse("WithEvents").map(|token: &BStr| VB6Token::WithEventsKeyword(token)),
             keyword_parse("With").map(|token: &BStr| VB6Token::WithKeyword(token)),
             keyword_parse("Write").map(|token: &BStr| VB6Token::WriteKeyword(token)),
@@ -595,9 +595,6 @@ fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
         )),
     ))
     .parse_next(input)
-
-    // String Sub Then Time To True Type Unlock Until Variant Wend While Width
-    // With WithEvents Write Xor
 }
 
 fn vb6_symbol_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {

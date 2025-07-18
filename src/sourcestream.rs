@@ -186,6 +186,17 @@ impl<'a> SourceStream<'a> {
         Some(result)
     }
 
+    pub fn take_count<'b>(&mut self, count: usize) -> Option<&'a str> {
+        let end_offset = self.offset + count;
+
+        if end_offset > self.contents.len() {
+            None
+        } else {
+            self.offset = end_offset;
+            Some(&self.contents[self.offset..end_offset])
+        }
+    }
+
     /// Takes characters from the stream until a character that matches the
     /// compare `str` is encountered or the end of the stream is reached.
     ///
@@ -322,7 +333,7 @@ impl<'a> SourceStream<'a> {
     /// Takes characters from the stream until a character that is not a whitespace
     /// (including carriage return and newline) is encountered or the end of the
     /// stream is reached.
-    pub fn take_whitespaces(&mut self) -> Option<&'a str> {
+    pub fn take_ascii_whitespaces(&mut self) -> Option<&'a str> {
         self.take_until_lambda(|character| {
             !character.is_ascii_whitespace() || character == '\r' || character == '\n'
         })
@@ -330,8 +341,21 @@ impl<'a> SourceStream<'a> {
 
     /// Takes characters from the stream until a character that is not an alphabetic
     /// character (a-z, A-Z) is encountered or the end of the stream is reached.
-    pub fn take_alphabetics(&mut self) -> Option<&'a str> {
+    pub fn take_ascii_alphabetics(&mut self) -> Option<&'a str> {
         self.take_until_lambda(|byte| !byte.is_ascii_alphabetic())
+    }
+
+    pub fn take_ascii_alphabetic(&mut self) -> Option<&'a str> {
+        match self.take_count(1usize) {
+            None => None,
+            Some(character) => {
+                if character.chars().next()?.is_ascii_alphabetic() {
+                    Some(character)
+                } else {
+                    None
+                }
+            }
+        }
     }
 
     /// Takes characters from the stream until a characters that is not an
@@ -343,7 +367,7 @@ impl<'a> SourceStream<'a> {
     /// Note: This method does not include non-ASCII alphanumeric characters.
     /// If you want to include non-ASCII alphanumeric characters, you should use
     /// the `take_until_lambda` method with a custom predicate.
-    pub fn take_alphanumerics(&mut self) -> Option<&'a str> {
+    pub fn take_ascii_alphanumerics(&mut self) -> Option<&'a str> {
         self.take_until_lambda(|byte| !byte.is_ascii_alphanumeric())
     }
 
@@ -356,8 +380,21 @@ impl<'a> SourceStream<'a> {
     /// Note: This method only considers ASCII digits (0-9), so it does not include
     /// non-ASCII digits, ".", ",", " ", or "_" characters which may be needed for
     /// parsing numeric literals in some languages.
-    pub fn take_digits(&mut self) -> Option<&'a str> {
+    pub fn take_ascii_digits(&mut self) -> Option<&'a str> {
         self.take_until_lambda(|character| !character.is_ascii_digit())
+    }
+
+    pub fn take_ascii_digit(&mut self) -> Option<&'a str> {
+        match self.take_count(1usize) {
+            None => None,
+            Some(character) => {
+                if character.chars().next()?.is_ascii_digit() {
+                    Some(character)
+                } else {
+                    None
+                }
+            }
+        }
     }
 
     /// Takes a single character from the stream if it is an ASCII punctuation character.
@@ -372,10 +409,10 @@ impl<'a> SourceStream<'a> {
     ///
     /// Note: This method does not consume the character if it is not a punctuation
     /// character nor does it consume multiple punctuation characters.
-    pub fn take_punctuation(&mut self) -> Option<&'a str> {
+    pub fn take_ascii_punctuation(&mut self) -> Option<&'a str> {
         self.peek(1).and_then(|peek| {
             if peek.chars().next()?.is_ascii_punctuation() {
-                let result = &self.contents[self.offset..self.offset + 1];
+                let result = &self.contents[self.offset..=self.offset];
                 self.offset += 1;
                 Some(result)
             } else {
@@ -404,9 +441,9 @@ impl<'a> SourceStream<'a> {
                 self.offset = end_offset + newline.len();
 
                 return Some((result, Some(newline)));
-            } else if self.contents[end_offset..].starts_with("\n") {
+            } else if self.contents[end_offset..].starts_with('\n') {
                 let result = &self.contents[self.offset..end_offset];
-                let newline = &self.contents[end_offset..end_offset + 1];
+                let newline = &self.contents[end_offset..=end_offset];
                 self.offset = end_offset + newline.len();
 
                 return Some((result, Some(newline)));
@@ -636,21 +673,21 @@ mod tests {
         let contents = "   Hello, World!   \r\n";
         let mut stream = SourceStream::new("test.txt", contents);
 
-        assert_eq!(stream.take_whitespaces(), Some("   "));
+        assert_eq!(stream.take_ascii_whitespaces(), Some("   "));
         assert_eq!(stream.peek(1), Some("H"));
-        assert_eq!(stream.take_whitespaces(), None);
+        assert_eq!(stream.take_ascii_whitespaces(), None);
         assert_eq!(
             stream.take("Hello, World!", Comparator::CaseSensitive),
             Some("Hello, World!")
         );
         assert_eq!(stream.is_empty(), false);
-        assert_eq!(stream.take_whitespaces(), Some("   "));
+        assert_eq!(stream.take_ascii_whitespaces(), Some("   "));
         assert_eq!(stream.is_empty(), false);
-        assert_eq!(stream.take_whitespaces(), None);
+        assert_eq!(stream.take_ascii_whitespaces(), None);
         assert_eq!(stream.peek(1), Some("\r"));
         assert_eq!(stream.take("\r\n", Comparator::CaseSensitive), Some("\r\n"));
         assert_eq!(stream.is_empty(), true);
-        assert_eq!(stream.take_whitespaces(), None);
+        assert_eq!(stream.take_ascii_whitespaces(), None);
     }
 
     #[test]
@@ -658,9 +695,9 @@ mod tests {
         let contents = "Hello123 World!";
         let mut stream = SourceStream::new("test.txt", contents);
 
-        assert_eq!(stream.take_alphabetics(), Some("Hello"));
+        assert_eq!(stream.take_ascii_alphabetics(), Some("Hello"));
         assert_eq!(stream.peek(1), Some("1"));
-        assert_eq!(stream.take_alphabetics(), None);
+        assert_eq!(stream.take_ascii_alphabetics(), None);
         assert_eq!(
             stream.take("123 World!", Comparator::CaseSensitive),
             Some("123 World!")
@@ -673,9 +710,9 @@ mod tests {
         let contents = "Hello123 World!";
         let mut stream = SourceStream::new("test.txt", contents);
 
-        assert_eq!(stream.take_alphanumerics(), Some("Hello123"));
+        assert_eq!(stream.take_ascii_alphanumerics(), Some("Hello123"));
         assert_eq!(stream.peek(1), Some(" "));
-        assert_eq!(stream.take_alphanumerics(), None);
+        assert_eq!(stream.take_ascii_alphanumerics(), None);
         assert_eq!(
             stream.take(" World!", Comparator::CaseSensitive),
             Some(" World!")
@@ -688,9 +725,9 @@ mod tests {
         let contents = "12345abcde";
         let mut stream = SourceStream::new("test.txt", contents);
 
-        assert_eq!(stream.take_digits(), Some("12345"));
+        assert_eq!(stream.take_ascii_digits(), Some("12345"));
         assert_eq!(stream.peek(1), Some("a"));
-        assert_eq!(stream.take_digits(), None);
+        assert_eq!(stream.take_ascii_digits(), None);
         assert_eq!(
             stream.take("abcde", Comparator::CaseSensitive),
             Some("abcde")
@@ -703,32 +740,32 @@ mod tests {
         let contents = "Hello, World!! How are you?";
         let mut stream = SourceStream::new("test.txt", contents);
 
-        assert_eq!(stream.take_punctuation(), None);
+        assert_eq!(stream.take_ascii_punctuation(), None);
         assert_eq!(
             stream.take("Hello", Comparator::CaseSensitive),
             Some("Hello")
         );
-        assert_eq!(stream.take_punctuation(), Some(","));
+        assert_eq!(stream.take_ascii_punctuation(), Some(","));
         assert_eq!(stream.peek(1), Some(" "));
-        assert_eq!(stream.take_punctuation(), None);
+        assert_eq!(stream.take_ascii_punctuation(), None);
         assert_eq!(
             stream.take(" World", Comparator::CaseSensitive),
             Some(" World")
         );
         assert_eq!(stream.peek(1), Some("!"));
-        assert_eq!(stream.take_punctuation(), Some("!"));
+        assert_eq!(stream.take_ascii_punctuation(), Some("!"));
         assert_eq!(stream.is_empty(), false);
         assert_eq!(stream.peek(1), Some("!"));
-        assert_eq!(stream.take_punctuation(), Some("!"));
+        assert_eq!(stream.take_ascii_punctuation(), Some("!"));
         assert_eq!(stream.is_empty(), false);
         assert_eq!(
             stream.take(" How are you", Comparator::CaseSensitive),
             Some(" How are you")
         );
         assert_eq!(stream.peek(1), Some("?"));
-        assert_eq!(stream.take_punctuation(), Some("?"));
+        assert_eq!(stream.take_ascii_punctuation(), Some("?"));
         assert_eq!(stream.is_empty(), true);
-        assert_eq!(stream.take_punctuation(), None);
+        assert_eq!(stream.take_ascii_punctuation(), None);
         assert_eq!(stream.peek(1), None);
     }
 

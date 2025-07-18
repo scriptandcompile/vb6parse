@@ -260,7 +260,7 @@ impl<'a> VB6Project<'a> {
             // these kinds of header lines.
 
             // skip empty lines.
-            let _ = input.take_whitespaces();
+            let _ = input.take_ascii_whitespaces();
             if input.take_newline().is_some() {
                 continue;
             }
@@ -677,7 +677,6 @@ impl<'a> VB6Project<'a> {
                     };
 
                     failures.push(e);
-                    continue;
                 }
             }
         }
@@ -728,8 +727,8 @@ fn parse_section_header_line<'a>(
             source_name: input.file_name().to_owned(),
             source_content: Cow::Borrowed(input.contents),
             error_offset: line_end,
-            line_start: line_start,
-            line_end: line_end,
+            line_start,
+            line_end,
             kind: VB6ProjectErrorKind::UnterminatedSectionHeader,
         };
         input.forward_to_next_line();
@@ -760,8 +759,8 @@ fn parse_property_name<'a>(
                 source_name: input.file_name().to_owned(),
                 source_content: Cow::Borrowed(input.contents),
                 error_offset: line_start,
-                line_start: line_start,
-                line_end: line_end,
+                line_start,
+                line_end,
                 kind: VB6ProjectErrorKind::PropertyNameNotFound,
             };
             input.forward_to_next_line();
@@ -796,7 +795,7 @@ fn parse_property_value<'a>(
             source_name: input.file_name().to_owned(),
             source_content: Cow::Borrowed(input.contents),
             error_offset: parameter_start,
-            line_start: line_start,
+            line_start,
             line_end: end_of_line,
             kind: VB6ProjectErrorKind::ParameterValueNotFound {
                 parameter_line_name: line_type,
@@ -812,7 +811,7 @@ fn parse_property_value<'a>(
             source_name: input.file_name().to_owned(),
             source_content: Cow::Borrowed(input.contents),
             error_offset: parameter_start,
-            line_start: line_start,
+            line_start,
             line_end: end_of_line,
             kind: VB6ProjectErrorKind::ParameterValueNotFound {
                 parameter_line_name: line_type,
@@ -843,7 +842,7 @@ fn parse_qouted_value<'a>(
             source_name: input.file_name().to_owned(),
             source_content: Cow::Borrowed(input.contents),
             error_offset: parameter_start,
-            line_start: line_start,
+            line_start,
             line_end: end_of_line,
             kind: VB6ProjectErrorKind::ParameterValueNotFound {
                 parameter_line_name: line_type,
@@ -859,7 +858,7 @@ fn parse_qouted_value<'a>(
             source_name: input.file_name().to_owned(),
             source_content: Cow::Borrowed(input.contents),
             error_offset: parameter_start,
-            line_start: line_start,
+            line_start,
             line_end: end_of_line,
             kind: VB6ProjectErrorKind::ParameterValueNotFound {
                 parameter_line_name: line_type,
@@ -2387,7 +2386,7 @@ mod tests {
      Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation"#,
         );
 
-        let _ = input.take_whitespaces();
+        let _ = input.take_ascii_whitespaces();
 
         let line_type = parse_property_name(&mut input).unwrap();
         let type_result: Result<CompileTargetType, ErrorDetails<VB6ProjectErrorKind>> =
@@ -2396,7 +2395,7 @@ mod tests {
         assert!(type_result.is_ok());
         assert_eq!(type_result.unwrap(), CompileTargetType::Exe);
 
-        let _ = input.take_whitespaces();
+        let _ = input.take_ascii_whitespaces();
 
         let _ = parse_property_name(&mut input).unwrap();
         let reference_result = parse_reference(&mut input);

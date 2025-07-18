@@ -3,7 +3,7 @@ use crate::errors::VB6ErrorKind;
 /// `VB6Colors` are 24 bits with 8 bits for red, green, and blue.
 ///
 /// `VB6Colors` are stored and used within VB6 as text formatted as '&H00BBGGRR&'.
-/// if, instead, the value begins with '&H80' such as in '&H80000000&', then
+/// If, instead, the value begins with '&H80' such as in '&H80000000&', then
 /// the color is a system color. and the value is not the elements of the color,
 /// but rather the index of a system color.
 #[derive(Debug, PartialEq, Clone, Eq, serde::Serialize)]

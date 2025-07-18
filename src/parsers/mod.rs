@@ -30,17 +30,15 @@ pub mod project;
 pub mod properties;
 pub mod success;
 pub mod vb6;
+pub mod vb6code;
 
-pub use class::{
-    FileUsage, MtsStatus, Persistance, VB6ClassFile, VB6ClassHeader, VB6ClassProperties,
-    VB6ClassVersion,
-};
-
+pub use class::*;
 pub use form::{resource_file_resolver, VB6FormFile};
 pub use header::{VB6FileAttributes, VB6FileFormatVersion};
 pub use module::VB6ModuleFile;
 pub use objectreference::VB6ObjectReference;
 pub use properties::Properties;
+pub use vb6code::*;
 
 pub use project::{
     compilesettings::*, properties::*, VB6Project, VB6ProjectClass, VB6ProjectModule,
