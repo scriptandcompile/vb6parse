@@ -154,11 +154,19 @@ fn bas_module_benchmark(c: &mut Criterion) {
     c.bench_function("load multiple bas modules", |b| {
         b.iter(|| {
             for bas_module_pair in &bas_modules_pairs {
+                let module_source_file = match SourceFile::decode_with_replacement(
+                    bas_module_pair.0,
+                    bas_module_pair.1.as_slice(),
+                ) {
+                    Ok(source_file) => source_file,
+                    Err(e) => {
+                        e.print();
+                        panic!("failed to decode module source code.");
+                    }
+                };
+
                 black_box({
-                    let _module = VB6ModuleFile::parse(
-                        bas_module_pair.0.to_string(),
-                        &mut bas_module_pair.1.as_slice(),
-                    );
+                    let _module = VB6ModuleFile::parse(&module_source_file);
                 });
             }
         })
