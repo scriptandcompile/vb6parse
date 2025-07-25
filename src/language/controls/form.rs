@@ -17,11 +17,11 @@ use serde::Serialize;
 
 /// The palette drawing mode of a form.
 ///
-/// The PaletteMode property only applies to 256-color displays. On high-color
+/// The `PaletteMode` property only applies to 256-color displays. On high-color
 /// or true-color displays, color selection is handled by the video driver using
 /// a palette of 32,000 or 16 million colors respectively. Even if you’re
 /// rogramming on a system with a high-color or true-color display, you still
-/// may want to set the PaletteMode, because many of your users may be using
+/// may want to set the `PaletteMode`, because many of your users may be using
 /// 256-color displays.
 ///
 /// [reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa733659(v=vs.60))
@@ -43,18 +43,18 @@ pub enum PaletteMode {
     #[default]
     HalfTone = 0,
     /// Z-order is a relative ordering that determines how controls overlap each
-    /// other on a form. When the PaletteMode of the form with the focus is set
-    /// to UseZOrder, the palette of the topmost control always has precedence.
+    /// other on a form. When the `PaletteMode` of the form with the focus is set
+    /// to `UseZOrder`, the palette of the topmost control always has precedence.
     /// This means that each time a new control becomes topmost (for instance,
     /// when you load a new image into a picture box), the hardware palette will
     /// be remapped. This will often cause a side effect known as palette flash:
     /// The display appears to flash as the new colors are displayed, both in
     /// the current form and in any other visible forms or applications.
     ///
-    /// Although the UseZOrder setting provides the most accurate color
+    /// Although the `UseZOrder` setting provides the most accurate color
     /// rendition, it comes at the expense of speed. Additionally, this method
     /// can cause the background color of the form or of controls that have no
-    /// image to appear dithered. Setting the PaletteMode to UseZOrder is the
+    /// image to appear dithered. Setting the `PaletteMode` to `UseZOrder` is the
     /// best choice when accurate display of the topmost image outweighs the
     /// annoyance of palette flash, or when you need to maintain backward
     /// compatibility with earlier versions of Visual Basic.
@@ -64,7 +64,7 @@ pub enum PaletteMode {
     /// If you need more precise control over the actual display of colors, you
     /// can use a 256-color image to define a custom palette. To do this, assign
     /// a 256-color image (.gif, .cur, .ico, .dib, or .gif) to the Palette
-    /// property of the form and set the PaletteMode property to Custom.
+    /// property of the form and set the `PaletteMode` property to Custom.
     /// The bitmap doesn’t have to be very large; even a single pixel can define
     /// up to 256 colors for the form or picture box. This is because the
     /// logical palette of a bitmap can list up to 256 colors, regardless of

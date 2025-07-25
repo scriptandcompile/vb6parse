@@ -10,13 +10,13 @@ use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
-/// ListBox control style.
+/// `ListBox` control style.
 ///
-/// The `ListBoxStyle` enum represents the different styles that a ListBox control can have.
+/// The `ListBoxStyle` enum represents the different styles that a `ListBox` control can have.
 /// The `Standard` style is the default style, while the `Checkbox` style adds a check box
 /// next to each item in the list box.
 ///
-/// This enum is used in the `ListBoxProperties` struct to specify the style of the ListBox control.
+/// This enum is used in the `ListBoxProperties` struct to specify the style of the `ListBox` control.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum ListBoxStyle {

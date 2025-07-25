@@ -2,8 +2,8 @@
 
 //! # Summary
 //!
-//! `VB6Parse` is a library for parsing Visual Basic 6 (VB6) code. It is the
-//! foundational library  for the tools and utilities for parsing / analysing / converting
+//! `VB6Parse` is a library for parsing Visual Basic 6 (VB6) code. It is a
+//! foundational library for tools and utilities that parse / analyse / convert
 //! VB6 code. It is designed to be used as a base library for other tools and utilities.
 //!
 //! ## Design Goals
@@ -100,20 +100,14 @@
 //!
 //! let result = VB6Project::parse(&project_source_file);
 //!
-//! if let Err(failure) = result {
-//!     failure.print();
-//!     panic!("Failed to parse project");
+//! if result.has_failures() {
+//!     for failure in result.failures {
+//!         failure.print();
+//!     }
+//!     panic!("Project parse had failures");
 //! }
 //!
-//! let project = match result.unwrap() {
-//!     Success::Value(project) => project,
-//!     Success::ValueWithFailures(_, failures) => {
-//!         for failure in failures {
-//!             failure.print();
-//!         }
-//!         panic!("Expected a VB6Project");
-//!     }
-//! };
+//! let project = result.unwrap();;
 //!
 //! assert_eq!(project.project_type, CompileTargetType::Exe);
 //! assert_eq!(project.references.len(), 1);

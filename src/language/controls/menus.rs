@@ -83,9 +83,9 @@ impl<'a> From<Properties<'a>> for MenuProperties {
 /// bar while a linked object or embedded object  on a form is active and
 /// displaying its menus.
 ///
-/// Using the NegotiatePosition property, you determine the individual menus on
+/// Using the `NegotiatePosition` property, you determine the individual menus on
 /// the menu bar of your form that share (or negotiate) menu bar space with the
-/// menus of an active object on the form. Any menu with NegotiatePosition set
+/// menus of an active object on the form. Any menu with `NegotiatePosition` set
 /// to a nonzero value is displayed on the menu bar of the form along with menus
 /// from the active object.
 ///

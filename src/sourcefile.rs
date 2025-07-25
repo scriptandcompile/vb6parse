@@ -3,7 +3,7 @@ use std::borrow::Cow;
 use crate::errors::{ErrorDetails, SourceFileErrorKind};
 use crate::parsers::SourceStream;
 
-use encoding_rs::{mem::*, CoderResult, WINDOWS_1252};
+use encoding_rs::{mem::utf8_latin1_up_to, CoderResult, WINDOWS_1252};
 
 pub struct SourceFile {
     file_content: String,
@@ -54,7 +54,7 @@ impl SourceFile {
             return Ok(source_file);
         }
 
-        if (all_processed == false && allow_replacement == false)
+        if (!all_processed && !allow_replacement)
             || coder_result == CoderResult::OutputFull
         {
             let mut decoded_len = utf8_latin1_up_to(source_code);
@@ -66,17 +66,14 @@ impl SourceFile {
                 return Ok(source_file);
             }
 
-            let text_upto_error = match str::from_utf8(&source_code[0..decoded_len]) {
-                Ok(v) => v.to_owned(),
-                Err(_) => {
-                    // For some reason, even though this should never happen
-                    // we ended up here. Oh well. Report that things failed at
-                    // the start of the file since we can't pinpoint the exact
-                    // location.
-                    error_offset = 0;
-                    decoded_len = 0;
-                    "".to_owned()
-                }
+            let text_upto_error = if let Ok(v) = str::from_utf8(&source_code[0..decoded_len]) { v.to_owned() } else {
+                // For some reason, even though this should never happen
+                // we ended up here. Oh well. Report that things failed at
+                // the start of the file since we can't pinpoint the exact
+                // location.
+                error_offset = 0;
+                decoded_len = 0;
+                String::new()
             };
 
             let details = ErrorDetails {
@@ -88,7 +85,7 @@ Currently, only latin-1 source code is supported."
                 },
                 source_content: Cow::Owned(text_upto_error),
                 source_name: file_name,
-                error_offset: error_offset,
+                error_offset,
                 line_start: 0,
                 line_end: decoded_len,
             };
@@ -106,7 +103,7 @@ Currently, only latin-1 source code is supported."
         Self::decode_internal(file_name, source_code, false)
     }
 
-    pub fn get_source_stream(&self) -> SourceStream {
+    #[must_use] pub fn get_source_stream(&self) -> SourceStream {
         let source_stream = SourceStream::new(self.file_name.clone(), self.file_content.as_str());
 
         source_stream

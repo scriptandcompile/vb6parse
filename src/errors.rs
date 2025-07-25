@@ -3,6 +3,7 @@
 //! errors that occur during parsing. The `VB6Error` type contains
 //! information about the error, including the file name, source code,
 //! source offset, column, line number, and the kind of error.
+use core::convert::From;
 use std::borrow::Cow;
 use std::error::Error;
 use std::fmt::{Debug, Display, Formatter};
@@ -27,7 +28,7 @@ pub struct ErrorDetails<'a, T> {
     pub kind: T,
 }
 
-impl<'a, T> ErrorDetails<'a, T>
+impl<T> ErrorDetails<'_, T>
 where
     T: ToString,
 {
@@ -60,7 +61,7 @@ where
             Source::from(self.source_content.to_string()),
         );
 
-        Report::build(
+        let report = Report::build(
             ReportKind::Error,
             (self.source_name.clone(), self.line_start..=self.line_end),
         )
@@ -73,8 +74,11 @@ where
             .with_message("error here"),
         )
         .finish()
-        .eprint(cache)
-        .unwrap();
+        .eprint(cache);
+
+        if let Some(e) = report.err() {
+            eprint!("Error attempting to build ErrorDetails eprint message {e:?}");
+        }
     }
 
     pub fn print_to_string(&self) -> Result<String, Box<dyn Error>> {
@@ -123,6 +127,42 @@ pub enum VB6CodeErrorKind {
 
     #[error("Unexpected end of code stream.")]
     UnexpectedEndOfStream,
+}
+
+#[derive(thiserror::Error, Debug, Clone)]
+pub enum VB6ModuleErrorKind {
+    #[error("The 'Attribute' keyword is missing from the module file header.")]
+    AttributeKeywordMissing,
+
+    #[error("The 'Attribute' keyword and the 'VB_Name' attribute must be separated by at least one ASCII whitespace character.")]
+    MissingWitespaceInHeader,
+
+    #[error("The 'VB_Name' attribute is missing from the module file header.")]
+    VBNameAttributeMissing,
+
+    #[error("The 'VB_Name' attribute is missing the equal symbol from the module file header.")]
+    EqualMissing,
+
+    #[error("The 'VB_Name' attribute is unqouted.")]
+    VBNameAttributeValueUnqouted,
+
+    #[error("")]
+    VB6ModuleTokenError { code_error: VB6CodeErrorKind },
+}
+
+impl<'a> From<ErrorDetails<'a, VB6CodeErrorKind>> for ErrorDetails<'a, VB6ModuleErrorKind> {
+    fn from(value: ErrorDetails<'a, VB6CodeErrorKind>) -> Self {
+        ErrorDetails {
+            source_content: value.source_content,
+            source_name: value.source_name,
+            error_offset: value.error_offset,
+            line_start: value.line_start,
+            line_end: value.line_end,
+            kind: VB6ModuleErrorKind::VB6ModuleTokenError {
+                code_error: value.kind,
+            },
+        }
+    }
 }
 
 #[derive(thiserror::Error, Debug, Clone)]

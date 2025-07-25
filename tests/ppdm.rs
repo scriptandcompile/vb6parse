@@ -6,12 +6,17 @@ fn ppdm_project_load() {
 
     let source_file = SourceFile::decode_with_replacement("ppdm.vbp", project_file_bytes).unwrap();
 
-    let project = match VB6Project::parse(&source_file).unwrap() {
-        Success::Value(project) => project,
-        Success::ValueWithFailures(_, failures) => {
-            panic!("Parsed ppdm project with failures: '{failures:?}'");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
     assert_eq!(project.references.len(), 15);

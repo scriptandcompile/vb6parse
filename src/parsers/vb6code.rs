@@ -1,6 +1,6 @@
 use crate::{
     language::VB6Token,
-    parsers::{Comparator, SourceStream, Success},
+    parsers::{Comparator, ParseResult, SourceStream},
     VB6CodeErrorKind,
 };
 
@@ -9,6 +9,7 @@ pub trait VB6Tokenizer<'a> {
     fn take_rem_comment(self) -> Option<(VB6Token<'a>, Option<VB6Token<'a>>)>;
     fn take_string_literal(self) -> Option<VB6Token<'a>>;
     fn take_keyword(self) -> Option<VB6Token<'a>>;
+    fn take_matching_text(self, keyword: impl Into<&'a str>) -> Option<&'a str>;
     fn take_symbol(self) -> Option<VB6Token<'a>>;
     fn take_variable_name(self) -> Option<VB6Token<'a>>;
 }
@@ -37,11 +38,16 @@ pub trait VB6Tokenizer<'a> {
 ///
 ///
 /// let mut input = SourceStream::new("test.bas", "Dim x As Integer");
-/// let Ok(success) = vb6_code_parse(&mut input) else {
-///     panic!("Failed to parse vb6 code.");
-/// };
+/// let result = vb6_code_parse(&mut input);
 ///
-/// let tokens = success.value();
+/// if result.has_failures() {
+///     for failure in result.failures {
+///         failure.print();
+///     }
+///     panic!("Failed to parse vb6 code.");
+/// }
+///
+/// let tokens = result.unwrap();
 ///
 /// assert_eq!(tokens.len(), 7);
 /// assert_eq!(tokens[0], VB6Token::DimKeyword("Dim".into()));
@@ -54,7 +60,8 @@ pub trait VB6Tokenizer<'a> {
 /// ```
 pub fn vb6_code_parse<'a>(
     input: &mut SourceStream<'a>,
-) -> Result<Success<Vec<VB6Token<'a>>, VB6CodeErrorKind>, VB6CodeErrorKind> {
+) -> ParseResult<'a, Vec<VB6Token<'a>>, VB6CodeErrorKind> {
+    let mut failures = vec![];
     let mut tokens = Vec::new();
 
     while !input.is_empty() {
@@ -92,6 +99,11 @@ pub fn vb6_code_parse<'a>(
             continue;
         }
 
+        if let Some(symbol_token) = input.take_symbol() {
+            tokens.push(symbol_token);
+            continue;
+        }
+
         if let Some(digit_characters) = input.take_ascii_digits() {
             tokens.push(VB6Token::Number(digit_characters.into()));
             continue;
@@ -107,18 +119,17 @@ pub fn vb6_code_parse<'a>(
             continue;
         }
 
-        if let Some(token_text) = input.peek(1) {
-            let error_kind = VB6CodeErrorKind::UnknownToken {
+        if let Some(token_text) = input.take_count(1) {
+            let error = input.generate_error(VB6CodeErrorKind::UnknownToken {
                 token: token_text.into(),
-            };
+            });
 
-            return Err(error_kind);
-        } else {
-            return Err(VB6CodeErrorKind::UnexpectedEndOfStream);
+            failures.push(error);
+            continue;
         }
     }
 
-    return Ok(Success::Value(tokens));
+    (tokens, failures).into()
 }
 
 impl<'a> VB6Tokenizer<'a> for &mut SourceStream<'a> {
@@ -137,7 +148,7 @@ impl<'a> VB6Tokenizer<'a> for &mut SourceStream<'a> {
     ///
     /// # Returns
     ///
-    /// * Some() with a tuple where the first element is the comment token, including
+    /// `Some()` with a tuple where the first element is the comment token, including
     /// the single qoute while the second element is an optional newline token.
     /// The only time this optional token should be None is if the line comment
     /// ends at the end of the stream.
@@ -156,12 +167,7 @@ impl<'a> VB6Tokenizer<'a> for &mut SourceStream<'a> {
     /// assert_eq!(newline, VB6Token::Newline("\r\n".into()));
     /// ```
     fn take_line_comment(self) -> Option<(VB6Token<'a>, Option<VB6Token<'a>>)> {
-        if self
-            .peek_text("'", super::Comparator::CaseInsensitive)
-            .is_none()
-        {
-            return None;
-        }
+        self.peek_text("'", super::Comparator::CaseInsensitive)?;
 
         match self.take_until_newline() {
             None => None,
@@ -184,19 +190,18 @@ impl<'a> VB6Tokenizer<'a> for &mut SourceStream<'a> {
     /// end of the line (ie, it is not the end of the stream) then the second
     /// token will be the newline token.
     ///
-    ///
     /// # Arguments
     ///
     /// * `input` - The input to parse.
     ///
     /// # Returns
     ///
-    /// * Some() with a tuple, the the first element is the comment token
+    /// `Some()` with a tuple, the the first element is the comment token
     /// including the 'REM ' characters at the start of the comment. The second
     /// is an optional token for the newline (it's only None if the comment is
     /// at the of the stream).
     ///
-    /// * None if there is no REM comment at the current position in the stream.
+    /// None if there is no REM comment at the current position in the stream.
     ///
     /// # Example
     ///
@@ -212,12 +217,7 @@ impl<'a> VB6Tokenizer<'a> for &mut SourceStream<'a> {
     /// assert_eq!(newline, VB6Token::Newline("\r\n".into()));
     /// ```
     fn take_rem_comment(self) -> Option<(VB6Token<'a>, Option<VB6Token<'a>>)> {
-        if self
-            .peek_text("REM", super::Comparator::CaseInsensitive)
-            .is_none()
-        {
-            return None;
-        }
+        self.peek_text("REM", super::Comparator::CaseInsensitive)?;
 
         match self.take_until_newline() {
             None => None,
@@ -233,28 +233,34 @@ impl<'a> VB6Tokenizer<'a> for &mut SourceStream<'a> {
     }
 
     fn take_string_literal(self) -> Option<VB6Token<'a>> {
-        if self.peek_text("\"", super::Comparator::CaseInsensitive) == None {
-            return None;
-        }
+        self.peek_text("\"", super::Comparator::CaseInsensitive)?;
 
         // TODO: Need to handle error reporting of incorrect escape sequences as well
         // as string literals that hit a newline before the second qoute character.
-        let mut first_qoute = false;
+        let mut escape_sequence_started = false;
+        let mut qoute_character_count = 0;
         let take_string = |next_character| match next_character {
-            '\r' | '\n' => false,
-            '\"' if !first_qoute => {
-                first_qoute = true;
-
-                true
+            // it doesn't matter what the character is if it is right after
+            // the second qoute character.
+            _ if qoute_character_count == 2 => true,
+            '\r' | '\n' => true,
+            '\\' => {
+                escape_sequence_started = true;
+                false
             }
-            '\"' if first_qoute => false,
-            _ => true,
+            '\"' if !escape_sequence_started && qoute_character_count < 2 => {
+                qoute_character_count += 1;
+                false
+            }
+            _ if escape_sequence_started => {
+                escape_sequence_started = false;
+                false
+            }
+            _ => false,
         };
 
-        match self.take_until_lambda(take_string) {
-            None => None,
-            Some(qouted_text) => Some(VB6Token::StringLiteral(qouted_text.into())),
-        }
+        self.take_until_lambda(take_string, false)
+            .map(|qouted_text| VB6Token::StringLiteral(qouted_text.into()))
     }
 
     fn take_symbol(self) -> Option<VB6Token<'a>> {
@@ -311,274 +317,323 @@ impl<'a> VB6Tokenizer<'a> for &mut SourceStream<'a> {
         None
     }
 
+    fn take_matching_text(self, keyword: impl Into<&'a str>) -> Option<&'a str> {
+        let keyword_match_text = keyword.into();
+        let len = keyword_match_text.len();
+
+        let content_left_len = self.contents.len() - self.offset();
+
+        // If we are at the end of the stream and we just so happen to match the
+        // length of the keyword, we need to check if we have an exact match.
+        if content_left_len == len {
+            return self.take(keyword_match_text, Comparator::CaseInsensitive);
+        }
+
+        // The stream doesn't have enough characters for the keyword so we can't
+        // possibly match on it.
+        if content_left_len < len {
+            return None;
+        }
+
+        // We already handled the case where the stream has exactly the match we
+        // care about. Now we need to check in the case where the contents has
+        // at least one more character than the keyword.
+        //
+        // We care about this last general case because we need to peek to check
+        // that the last character in the match *isn't* an alphanumeric character
+        // or underscore, except if that last character is a space.
+        //
+        // This will keep us from matching 'Timer' as the keyword 'Time' with a
+        // left over of 'r' as well as keep us from matching 'char_' as 'Char'
+        // with a leftover of '_'
+        if content_left_len < len + 1 {
+            return None;
+        }
+
+        if let Some(peek_text) = self.peek(len + 1) {
+            match peek_text.chars().last() {
+                None => return None,
+                Some(last) => {
+                    if last.is_alphanumeric() || last == '_' && last != ' ' {
+                        return None;
+                    } else {
+                        return self.take(keyword_match_text, Comparator::CaseInsensitive);
+                    }
+                }
+            }
+        }
+
+        None
+    }
+
     fn take_keyword(self) -> Option<VB6Token<'a>> {
-        if let Some(keyword) = self.take("AddressOf", Comparator::CaseInsensitive) {
+        if let Some(keyword) = self.take_matching_text("AddressOf") {
             return Some(VB6Token::AddressOfKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Alias", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Alias") {
             return Some(VB6Token::AliasKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("And", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("And") {
             return Some(VB6Token::AndKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("AppActivate", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("AppActivate") {
             return Some(VB6Token::AppActivateKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("As", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("As") {
             return Some(VB6Token::AsKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Base", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Base") {
             return Some(VB6Token::BaseKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Beep", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Beep") {
             return Some(VB6Token::BeepKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Binary", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Binary") {
             return Some(VB6Token::BinaryKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Boolean", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Boolean") {
             return Some(VB6Token::BooleanKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("ByRef", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("ByRef") {
             return Some(VB6Token::ByRefKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Byte", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Byte") {
             return Some(VB6Token::ByteKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("ByVal", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("ByVal") {
             return Some(VB6Token::ByValKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Call", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Call") {
             return Some(VB6Token::CallKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Case", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Case") {
             return Some(VB6Token::CaseKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("ChDir", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("ChDir") {
             return Some(VB6Token::ChDirKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("ChDrive", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("ChDrive") {
             return Some(VB6Token::ChDriveKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Close", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Close") {
             return Some(VB6Token::CloseKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Compare", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Compare") {
             return Some(VB6Token::CompareKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Const", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Const") {
             return Some(VB6Token::ConstKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Currency", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Currency") {
             return Some(VB6Token::CurrencyKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Date", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Date") {
             return Some(VB6Token::DateKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Decimal", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Decimal") {
             return Some(VB6Token::DecimalKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Declare", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Declare") {
             return Some(VB6Token::DeclareKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("DefBool", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("DefBool") {
             return Some(VB6Token::DefBoolKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("DefByte", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("DefByte") {
             return Some(VB6Token::DefByteKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("DefCur", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("DefCur") {
             return Some(VB6Token::DefCurKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("DefDate", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("DefDate") {
             return Some(VB6Token::DefDateKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("DefDbl", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("DefDbl") {
             return Some(VB6Token::DefDblKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("DefDec", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("DefDec") {
             return Some(VB6Token::DefDecKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("DefInt", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("DefInt") {
             return Some(VB6Token::DefIntKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("DefLng", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("DefLng") {
             return Some(VB6Token::DefLngKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("DefObj", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("DefObj") {
             return Some(VB6Token::DefObjKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("DefSng", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("DefSng") {
             return Some(VB6Token::DefSngKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("DefStr", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("DefStr") {
             return Some(VB6Token::DefStrKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("DefVar", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("DefVar") {
             return Some(VB6Token::DefVarKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("DeleteSetting", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("DeleteSetting") {
             return Some(VB6Token::DeleteSettingKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Dim", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Dim") {
             return Some(VB6Token::DimKeyword(keyword.into()));
         }
         // switched so that `Do` isn't selected for `Double`.
-        else if let Some(keyword) = self.take("Double", Comparator::CaseInsensitive) {
+        else if let Some(keyword) = self.take_matching_text("Double") {
             return Some(VB6Token::DoubleKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Do", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Do") {
             return Some(VB6Token::DoKeyword(keyword.into()));
         }
         // switched so that `Else` isn't selected for `ElseIf`.
-        else if let Some(keyword) = self.take("ElseIf", Comparator::CaseInsensitive) {
+        else if let Some(keyword) = self.take_matching_text("ElseIf") {
             return Some(VB6Token::ElseIfKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Else", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Else") {
             return Some(VB6Token::ElseKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Empty", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Empty") {
             return Some(VB6Token::EmptyKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("End", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("End") {
             return Some(VB6Token::EndKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Enum", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Enum") {
             return Some(VB6Token::EnumKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Eqv", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Eqv") {
             return Some(VB6Token::EqvKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Erase", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Erase") {
             return Some(VB6Token::EraseKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Error", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Error") {
             return Some(VB6Token::ErrorKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Event", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Event") {
             return Some(VB6Token::EventKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Exit", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Exit") {
             return Some(VB6Token::ExitKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Explicit", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Explicit") {
             return Some(VB6Token::ExplicitKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("False", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("False") {
             return Some(VB6Token::FalseKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("FileCopy", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("FileCopy") {
             return Some(VB6Token::FileCopyKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("For", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("For") {
             return Some(VB6Token::ForKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Friend", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Friend") {
             return Some(VB6Token::FriendKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Function", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Function") {
             return Some(VB6Token::FunctionKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Get", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Get") {
             return Some(VB6Token::GetKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Goto", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Goto") {
             return Some(VB6Token::GotoKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("If", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("If") {
             return Some(VB6Token::IfKeyword(keyword.into()));
         }
         // switched so that `Imp` isn't selected for `Implements`.
-        else if let Some(keyword) = self.take("Implements", Comparator::CaseInsensitive) {
+        else if let Some(keyword) = self.take_matching_text("Implements") {
             return Some(VB6Token::ImplementsKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Imp", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Imp") {
             return Some(VB6Token::ImpKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Integer", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Integer") {
             return Some(VB6Token::IntegerKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Is", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Is") {
             return Some(VB6Token::IsKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Kill", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Kill") {
             return Some(VB6Token::KillKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Len", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Len") {
             return Some(VB6Token::LenKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Let", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Let") {
             return Some(VB6Token::LetKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Lib", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Lib") {
             return Some(VB6Token::LibKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Line", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Line") {
             return Some(VB6Token::LineKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Lock", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Lock") {
             return Some(VB6Token::LockKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Load", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Load") {
             return Some(VB6Token::LoadKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Long", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Long") {
             return Some(VB6Token::LongKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("LSet", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("LSet") {
             return Some(VB6Token::LSetKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Me", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Me") {
             return Some(VB6Token::MeKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Mid", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Mid") {
             return Some(VB6Token::MidKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("MkDir", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("MkDir") {
             return Some(VB6Token::MkDirKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Mod", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Mod") {
             return Some(VB6Token::ModKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Name", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Name") {
             return Some(VB6Token::NameKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("New", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("New") {
             return Some(VB6Token::NewKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Next", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Next") {
             return Some(VB6Token::NextKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Not", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Not") {
             return Some(VB6Token::NotKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Null", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Null") {
             return Some(VB6Token::NullKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Object", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Object") {
             return Some(VB6Token::ObjectKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("On", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("On") {
             return Some(VB6Token::OnKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Open", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Open") {
             return Some(VB6Token::OpenKeyword(keyword.into()));
         }
         // Switched so that `Option` isn't selected for `Optional`.
-        else if let Some(keyword) = self.take("Optional", Comparator::CaseInsensitive) {
+        else if let Some(keyword) = self.take_matching_text("Optional") {
             return Some(VB6Token::OptionalKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Option", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Option") {
             return Some(VB6Token::OptionKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Or", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Or") {
             return Some(VB6Token::OrKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("ParamArray", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("ParamArray") {
             return Some(VB6Token::ParamArrayKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Preserve", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Preserve") {
             return Some(VB6Token::PreserveKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Print", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Print") {
             return Some(VB6Token::PrintKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Private", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Private") {
             return Some(VB6Token::PrivateKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Property", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Property") {
             return Some(VB6Token::PropertyKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Public", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Public") {
             return Some(VB6Token::PublicKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Put", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Put") {
             return Some(VB6Token::PutKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("RaiseEvent", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("RaiseEvent") {
             return Some(VB6Token::RaiseEventKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Randomize", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Randomize") {
             return Some(VB6Token::RandomizeKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("ReDim", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("ReDim") {
             return Some(VB6Token::ReDimKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Reset", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Reset") {
             return Some(VB6Token::ResetKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Resume", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Resume") {
             return Some(VB6Token::ResumeKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("RmDir", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("RmDir") {
             return Some(VB6Token::RmDirKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("RSet", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("RSet") {
             return Some(VB6Token::RSetKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("SavePicture", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("SavePicture") {
             return Some(VB6Token::SavePictureKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("SaveSetting", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("SaveSetting") {
             return Some(VB6Token::SaveSettingKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Seek", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Seek") {
             return Some(VB6Token::SeekKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Select", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Select") {
             return Some(VB6Token::SelectKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("SendKeys", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("SendKeys") {
             return Some(VB6Token::SendKeysKeyword(keyword.into()));
         }
         // Switched so that `Set` isn't selected for `SetAttr`.
-        else if let Some(keyword) = self.take("SetAttr", Comparator::CaseInsensitive) {
+        else if let Some(keyword) = self.take_matching_text("SetAttr") {
             return Some(VB6Token::SetAttrKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Set", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Set") {
             return Some(VB6Token::SetKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Single", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Single") {
             return Some(VB6Token::SingleKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Static", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Static") {
             return Some(VB6Token::StaticKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Step", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Step") {
             return Some(VB6Token::StepKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Stop", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Stop") {
             return Some(VB6Token::StopKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("String", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("String") {
             return Some(VB6Token::StringKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Sub", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Sub") {
             return Some(VB6Token::SubKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Then", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Then") {
             return Some(VB6Token::ThenKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Time", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Time") {
             return Some(VB6Token::TimeKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("To", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("To") {
             return Some(VB6Token::ToKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("True", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("True") {
             return Some(VB6Token::TrueKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Type", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Type") {
             return Some(VB6Token::TypeKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Unlock", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Unlock") {
             return Some(VB6Token::UnlockKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Until", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Until") {
             return Some(VB6Token::UntilKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Variant", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Variant") {
             return Some(VB6Token::VariantKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Wend", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Wend") {
             return Some(VB6Token::WendKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("While", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("While") {
             return Some(VB6Token::WhileKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Width", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Width") {
             return Some(VB6Token::WidthKeyword(keyword.into()));
         }
         // Switched so that `With` isn't selected for `WithEvents`.
-        else if let Some(keyword) = self.take("WithEvents", Comparator::CaseInsensitive) {
+        else if let Some(keyword) = self.take_matching_text("WithEvents") {
             return Some(VB6Token::WithEventsKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("With", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("With") {
             return Some(VB6Token::WithKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Write", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Write") {
             return Some(VB6Token::WriteKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take("Xor", Comparator::CaseInsensitive) {
+        } else if let Some(keyword) = self.take_matching_text("Xor") {
             return Some(VB6Token::XorKeyword(keyword.into()));
         }
 
@@ -587,7 +642,7 @@ impl<'a> VB6Tokenizer<'a> for &mut SourceStream<'a> {
 
     fn take_variable_name(self) -> Option<VB6Token<'a>> {
         if self.peek(1)?.chars().next()?.is_ascii_alphabetic() {
-            let variable_text = self.take_ascii_alphanumerics()?;
+            let variable_text = self.take_ascii_underscore_alphanumerics()?;
 
             return Some(VB6Token::Identifier(variable_text.into()));
         }
@@ -608,16 +663,11 @@ mod test {
         let mut input = SourceStream::new("", "Dim x As Integer");
         let result = vb6_code_parse(&mut input);
 
-        let Ok(success) = result else {
-            let error = result.err().unwrap();
-            panic!("vb6_code_parse errored: {error:?}");
+        if result.has_failures() {
+            result.failures[0].eprint();
         };
 
-        if success.has_failures() {
-            panic!("vb6_code_parse succeded but with warnings.");
-        };
-
-        let tokens = success.value();
+        let tokens = result.result.unwrap();
 
         assert_eq!(tokens.len(), 7);
         assert_eq!(tokens[0], VB6Token::DimKeyword("Dim".into()));
@@ -627,5 +677,69 @@ mod test {
         assert_eq!(tokens[4], VB6Token::AsKeyword("As".into()));
         assert_eq!(tokens[5], VB6Token::Whitespace(" ".into()));
         assert_eq!(tokens[6], VB6Token::IntegerKeyword("Integer".into()));
+    }
+
+    #[test]
+    fn vb6_string_as_end_of_stream_parse() {
+        use crate::vb6code::vb6_code_parse;
+        use crate::SourceStream;
+
+        let mut input = SourceStream::new("", r#"x = "Test""#);
+        let result = vb6_code_parse(&mut input);
+
+        if result.has_failures() {
+            result.failures[0].eprint();
+        };
+
+        let tokens = result.result.unwrap();
+
+        assert_eq!(tokens.len(), 5);
+        assert_eq!(tokens[0], VB6Token::Identifier("x".into()));
+        assert_eq!(tokens[1], VB6Token::Whitespace(" ".into()));
+        assert_eq!(tokens[2], VB6Token::EqualityOperator("=".into()));
+        assert_eq!(tokens[3], VB6Token::Whitespace(" ".into()));
+        assert_eq!(tokens[4], VB6Token::StringLiteral("\"Test\"".into()));
+    }
+
+    #[test]
+    fn vb6_string_at_start_of_stream_parse() {
+        use crate::vb6code::vb6_code_parse;
+        use crate::SourceStream;
+
+        let mut input = SourceStream::new("", r#""Text""#);
+        let result = vb6_code_parse(&mut input);
+
+        if result.has_failures() {
+            result.failures[0].eprint();
+        };
+
+        let tokens = result.result.unwrap();
+
+        assert_eq!(tokens.len(), 1);
+        assert_eq!(tokens[0], VB6Token::StringLiteral("\"Text\"".into()));
+    }
+
+    #[test]
+    fn vb6_string_parse() {
+        use crate::vb6code::vb6_code_parse;
+        use crate::SourceStream;
+
+        let mut input = SourceStream::new("", r#"x = "Test" 'This is a comment."#);
+        let result = vb6_code_parse(&mut input);
+
+        if result.has_failures() {
+            result.failures[0].eprint();
+        };
+
+        let tokens = result.result.unwrap();
+
+        assert_eq!(tokens.len(), 7);
+        assert_eq!(tokens[0], VB6Token::Identifier("x".into()));
+        assert_eq!(tokens[1], VB6Token::Whitespace(" ".into()));
+        assert_eq!(tokens[2], VB6Token::EqualityOperator("=".into()));
+        assert_eq!(tokens[3], VB6Token::Whitespace(" ".into()));
+        assert_eq!(tokens[4], VB6Token::StringLiteral("\"Test\"".into()));
+        assert_eq!(tokens[5], VB6Token::Whitespace(" ".into()));
+        assert_eq!(tokens[6], VB6Token::Comment("'This is a comment.".into()));
     }
 }

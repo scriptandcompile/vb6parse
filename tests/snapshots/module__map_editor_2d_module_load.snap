@@ -1,9 +1,8 @@
 ---
 source: tests/module.rs
-expression: module1_file
+expression: subs_module_file
 ---
 name:
-  - 34
   - 68
   - 101
   - 99
@@ -22,9 +21,6 @@ name:
   - 117
   - 108
   - 101
-  - 34
-  - 13
-  - 10
 tokens:
   - Comment:
       - 39

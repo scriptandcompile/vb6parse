@@ -12,17 +12,17 @@ fn artificial_life_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -39,17 +39,17 @@ fn blacklight_effect_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -66,17 +66,17 @@ fn brightness_effect_part_1_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -94,17 +94,17 @@ fn brightness_effect_part_2_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -121,17 +121,17 @@ fn brightness_effect_part_3_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -148,17 +148,17 @@ fn color_shift_effect_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -176,18 +176,17 @@ fn colorize_effect_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
-        }
-    };
+    let result = VB6Project::parse(&source_file);
 
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
+        }
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
     insta::assert_yaml_snapshot!(project);
 }
 
@@ -204,17 +203,17 @@ fn contrast_effect_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -232,17 +231,17 @@ fn curves_effect_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -260,17 +259,17 @@ fn custom_image_filters_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -288,17 +287,17 @@ fn diffuse_effect_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -315,17 +314,17 @@ fn edge_detection_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -342,17 +341,17 @@ fn emboss_engrave_effect_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -369,17 +368,17 @@ fn fill_image_region_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -396,17 +395,17 @@ fn fire_effect_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -423,17 +422,17 @@ fn game_physics_basic_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -450,17 +449,17 @@ fn gradient_2d_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -477,17 +476,17 @@ fn grayscale_effect_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -504,17 +503,17 @@ fn hidden_markov_model_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -531,17 +530,17 @@ fn histograms_advanced_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -558,17 +557,17 @@ fn histogram_basic_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -585,17 +584,17 @@ fn levels_effect_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -612,17 +611,17 @@ fn mandelbrot_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -639,17 +638,17 @@ fn map_editor_2d_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -666,17 +665,17 @@ fn nature_effects_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -693,17 +692,17 @@ fn randomize_effects_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -720,17 +719,17 @@ fn scanner_twain_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -747,17 +746,17 @@ fn screen_capture_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -774,17 +773,17 @@ fn sepia_effect_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -801,17 +800,17 @@ fn threshold_effect_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
@@ -828,17 +827,17 @@ fn transparency_2d_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let project = match VB6Project::parse(&source_file) {
-        Ok(success) => match success {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                panic!("Succeded to parse class file '{file_path}' with failures: {failures:?}");
-            }
-        },
-        Err(e) => {
-            panic!("Failed to parse class file '{file_path}': {e:?}");
+    let result = VB6Project::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
         }
-    };
+
+        panic!("Project parse had failures");
+    }
+
+    let project = result.unwrap();
 
     insta::assert_yaml_snapshot!(project);
 }
