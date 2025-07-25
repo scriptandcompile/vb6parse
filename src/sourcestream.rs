@@ -1,4 +1,8 @@
-/// A structure representing a stream of bytes from a source file.
+use std::borrow::Cow;
+
+use crate::errors::ErrorDetails;
+
+/// A structure representing a stream of characters from a source file.
 /// It holds the file name, the contents of the file, and an offset
 /// indicating the current position in the stream.
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -30,7 +34,7 @@ impl<'a> SourceStream<'a> {
     pub fn new<S: Into<String>>(file_name: S, contents: &'a str) -> Self {
         Self {
             file_name: file_name.into(),
-            contents: contents,
+            contents,
             offset: 0,
         }
     }
@@ -52,27 +56,41 @@ impl<'a> SourceStream<'a> {
     }
 
     /// Returns the file name of the stream.
+    #[must_use]
     pub fn file_name(&self) -> &str {
         &self.file_name
     }
 
     /// Returns the current offset in the stream.
+    #[must_use]
     pub fn offset(&self) -> usize {
         self.offset
     }
 
+    #[must_use]
     pub fn start_of_line(&self) -> usize {
+        self.start_of_line_from(self.offset)
+    }
+
+    #[must_use]
+    pub fn start_of_line_from(&self, offset: usize) -> usize {
         // Find the last newline character before the current offset
-        if let Some(pos) = self.contents[..self.offset].rfind('\n') {
+        if let Some(pos) = self.contents[..offset].rfind('\n') {
             pos + 1 // Return the position after the newline character
         } else {
             0 // If no newline found, return the start of the stream
         }
     }
 
+    #[must_use]
     pub fn end_of_line(&self) -> usize {
+        self.end_of_line_from(self.offset)
+    }
+
+    #[must_use]
+    pub fn end_of_line_from(&self, offset: usize) -> usize {
         // Find the next newline character after the current offset
-        if let Some(pos) = self.contents[self.offset..].find('\n') {
+        if let Some(pos) = self.contents[offset..].find('\n') {
             self.offset + pos // Return the position of the newline character
         } else {
             self.contents.len() // If no newline found, return the end of the stream
@@ -81,11 +99,13 @@ impl<'a> SourceStream<'a> {
 
     /// Checks if the stream is empty, meaning the offset is at or beyond the
     /// end of the contents.
+    #[must_use]
     pub fn is_empty(&self) -> bool {
         self.offset >= self.contents.len()
     }
 
-    /// Peeks at the next `count` bytes in the stream without consuming them.
+    /// Peeks at the next `count` characters in the stream without consuming them.
+    #[must_use]
     pub fn peek(&self, count: usize) -> Option<&'a str> {
         let end_offset = self.offset + count;
 
@@ -96,7 +116,7 @@ impl<'a> SourceStream<'a> {
         }
     }
 
-    /// Peeks at the next bytes in the stream to see if they match the `compare` value.
+    /// Peeks at the next characters in the stream to see if they match the `compare` value.
     ///
     /// If they match, it returns the characters that matched the `str`. If they
     /// do not match, it returns `None`. This is important when parsing for a case
@@ -115,7 +135,7 @@ impl<'a> SourceStream<'a> {
 
         let matches = match case_sensitive {
             Comparator::CaseSensitive => peek_slice.eq(compare),
-            Comparator::CaseInsensitive => peek_slice.eq_ignore_ascii_case(&compare),
+            Comparator::CaseInsensitive => peek_slice.eq_ignore_ascii_case(compare),
         };
 
         if matches {
@@ -128,6 +148,7 @@ impl<'a> SourceStream<'a> {
     /// Peeks at the next character in the stream to see if it matches a linux
     /// newline character (`\n`). If a linux newline character is found, it returns it
     /// as a `str`. If no linux newline character is found, it returns `None`.
+    #[must_use]
     pub fn peek_linux_newline(&self) -> Option<&'a str> {
         let preview_character = self.peek(1);
         if preview_character == Some("\n") {
@@ -141,6 +162,7 @@ impl<'a> SourceStream<'a> {
     /// a Windows newline character pair (`\r\n`). If a Windows newline character pair
     /// is found, it returns it as a `str`. If no Windows newline character pair
     /// is found, it returns `None`.
+    #[must_use]
     pub fn peek_windows_newline(&self) -> Option<&'a str> {
         let preview_pair = self.peek(2);
         if preview_pair == Some("\r\n") {
@@ -155,12 +177,14 @@ impl<'a> SourceStream<'a> {
     /// Windows "\r\n\" or Linux "\n". If a newline character or pair is found,
     /// it returns the `str`.
     /// otherwise it returns `None`.
+    #[must_use]
     pub fn peek_newline(&self) -> Option<&'a str> {
         self.peek_windows_newline()
             .or_else(|| self.peek_linux_newline())
     }
 
     /// Takes characters from the stream if they match the `compare` str.
+    #[must_use]
     pub fn take<'b>(
         &mut self,
         compare: impl Into<&'b str>,
@@ -173,7 +197,7 @@ impl<'a> SourceStream<'a> {
 
         let matches = match case_sensitive {
             Comparator::CaseSensitive => compare_slice.eq(compare),
-            Comparator::CaseInsensitive => compare_slice.eq_ignore_ascii_case(&compare),
+            Comparator::CaseInsensitive => compare_slice.eq_ignore_ascii_case(compare),
         };
 
         if !matches {
@@ -186,7 +210,8 @@ impl<'a> SourceStream<'a> {
         Some(result)
     }
 
-    pub fn take_count<'b>(&mut self, count: usize) -> Option<&'a str> {
+    #[must_use]
+    pub fn take_count(&mut self, count: usize) -> Option<&'a str> {
         let end_offset = self.offset + count;
 
         if end_offset > self.contents.len() {
@@ -233,7 +258,7 @@ impl<'a> SourceStream<'a> {
             let slice = &self.contents[end_offset..end_offset + compare_len];
             let matches = match case_sensitive {
                 Comparator::CaseSensitive => slice.eq(compare),
-                Comparator::CaseInsensitive => slice.eq_ignore_ascii_case(&compare),
+                Comparator::CaseInsensitive => slice.eq_ignore_ascii_case(compare),
             };
 
             if matches {
@@ -266,14 +291,14 @@ impl<'a> SourceStream<'a> {
             } else {
                 let result = &self.contents[self.offset..end_offset];
                 self.offset = end_offset;
-                return Some((result, &self.contents[end_offset..end_offset + 1]));
+                return Some((result, &self.contents[end_offset..=end_offset]));
             }
         }
 
         if end_offset > self.offset {
             let result = &self.contents[self.offset..end_offset];
             self.offset = end_offset;
-            Some((result, &self.contents[end_offset..end_offset + 1]))
+            Some((result, &self.contents[end_offset..=end_offset]))
         } else {
             None
         }
@@ -300,7 +325,13 @@ impl<'a> SourceStream<'a> {
     }
 
     /// Takes characters from the stream until a character that matches the predicate
-    /// function is encountered or the end of the stream is reached.
+    /// function is encountered or the end of the stream is reached. If `none_on_eos`
+    /// is true than reaching the end of the stream will return `None` if the scanning
+    /// is still going on.
+    /// Otherwise, hitting End-of-Stream will just return the currently matched pattern.
+    ///
+    /// Setting `none_on_eos` to false is useful in predicates when the End-of-Stream
+    /// would also indicate the end of the predicate pattern.
     ///
     /// This method is useful for parsing various types of content where you need
     /// to consume characters until a specific condition is met, such as whitespace,
@@ -308,43 +339,61 @@ impl<'a> SourceStream<'a> {
     pub fn take_until_lambda(
         &mut self,
         mut predicate: impl FnMut(char) -> bool,
+        none_on_eos: bool,
     ) -> Option<&'a str> {
         let mut end_offset = self.offset;
         let content_len = self.contents.len();
 
         while end_offset < content_len {
             let current_char = self.contents[end_offset..].chars().next()?;
+
             if predicate(current_char) {
                 let result = &self.contents[self.offset..end_offset];
                 self.offset = end_offset;
 
-                if result.len() == 0 {
+                if result.is_empty() {
                     return None;
-                } else {
-                    return Some(result);
                 }
+                return Some(result);
             }
             end_offset += current_char.len_utf8();
         }
 
-        None
+        match none_on_eos {
+            true => return None,
+            false => {
+                let result = &self.contents[self.offset..end_offset];
+                self.offset = end_offset;
+
+                if result.is_empty() {
+                    return None;
+                }
+
+                return Some(result);
+            }
+        }
     }
 
     /// Takes characters from the stream until a character that is not a whitespace
     /// (including carriage return and newline) is encountered or the end of the
     /// stream is reached.
     pub fn take_ascii_whitespaces(&mut self) -> Option<&'a str> {
-        self.take_until_lambda(|character| {
-            !character.is_ascii_whitespace() || character == '\r' || character == '\n'
-        })
+        self.take_until_lambda(
+            |character| !character.is_ascii_whitespace() || character == '\r' || character == '\n',
+            false,
+        )
     }
 
-    /// Takes characters from the stream until a character that is not an alphabetic
-    /// character (a-z, A-Z) is encountered or the end of the stream is reached.
+    /// Takes characters from the stream until a character that is not an ASCII
+    /// alphabetic character (a-z, A-Z) is encountered or the end of the stream
+    /// is reached.
     pub fn take_ascii_alphabetics(&mut self) -> Option<&'a str> {
-        self.take_until_lambda(|byte| !byte.is_ascii_alphabetic())
+        self.take_until_lambda(|character| !character.is_ascii_alphabetic(), false)
     }
 
+    /// Takes a single character from the stream until a character that is not
+    /// an ASCII alphabetic (a-z, A-Z) is encountered or the end of the stream is
+    /// reached.
     pub fn take_ascii_alphabetic(&mut self) -> Option<&'a str> {
         match self.take_count(1usize) {
             None => None,
@@ -358,7 +407,34 @@ impl<'a> SourceStream<'a> {
         }
     }
 
-    /// Takes characters from the stream until a characters that is not an
+    /// Takes characters from the stream until a character that is not an ASCII
+    /// alphabetic character (a-z, A-Z), or "_" is encountered or the end of the
+    /// stream is reached.
+    pub fn take_ascii_underscore_alphabetics(&mut self) -> Option<&'a str> {
+        self.take_until_lambda(
+            |character| !character.is_ascii_alphabetic() && character != '_',
+            false,
+        )
+    }
+
+    /// Takes a single character from the stream until a character that is not
+    /// an ASCII alphabetic (a-z, A-Z), "_", is encountered or the end of the
+    /// stream is reached.
+    pub fn take_ascii_underscore_alphabetic(&mut self) -> Option<&'a str> {
+        match self.take_count(1usize) {
+            None => None,
+            Some(character) => {
+                let single_character = character.chars().next()?;
+                if single_character.is_ascii_alphabetic() || single_character == '_' {
+                    Some(character)
+                } else {
+                    None
+                }
+            }
+        }
+    }
+
+    /// Takes characters from the stream until a characters that is not an ASCII
     /// alphanumeric character (a-z, A-Z, 0-9) is encountered or the end of the
     /// stream is reached.
     ///
@@ -368,22 +444,48 @@ impl<'a> SourceStream<'a> {
     /// If you want to include non-ASCII alphanumeric characters, you should use
     /// the `take_until_lambda` method with a custom predicate.
     pub fn take_ascii_alphanumerics(&mut self) -> Option<&'a str> {
-        self.take_until_lambda(|byte| !byte.is_ascii_alphanumeric())
+        self.take_until_lambda(|character| !character.is_ascii_alphanumeric(), false)
     }
 
-    /// Takes characters from the stream until a character that is not a digit (0-9) is encountered
-    /// or the end of the stream is reached.
+    /// Takes characters from the stream until a character that is not an ASCII
+    /// alphanumeric character (a-z, A-Z, 0-9) or "_" is encountered or the end
+    /// of the stream is reached.
+    ///
+    /// This method is useful for parsing identifiers, variable names, etc.
+    ///
+    /// Note: This method does not include non-ASCII alphanumeric characters.
+    /// If you want to include non-ASCII alphanumeric characters, you should use
+    /// the `take_until_lambda` method with a custom predicate.
+    pub fn take_ascii_underscore_alphanumerics(&mut self) -> Option<&'a str> {
+        self.take_until_lambda(
+            |character| !character.is_ascii_alphanumeric() && character != '_',
+            false,
+        )
+    }
+
+    /// Takes characters from the stream until a character that is not a digit (0-9)
+    /// is encountered or the end of the stream is reached.
+    ///
+    /// This method is useful for parsing numeric literals, such as integers or
+    /// floating-point numbers.
+    ///
+    /// Note: This method only considers ASCII digits (0-9), so it does not include
+    /// characters that some languages use to format numbers such as: "x", ".",
+    /// ",", " ", "_", or non-ASCII digits such as "६" (Devanagari 6), or "೬" (Kannada 6).
+    pub fn take_ascii_digits(&mut self) -> Option<&'a str> {
+        self.take_until_lambda(|character| !character.is_ascii_digit(), false)
+    }
+
+    /// Takes a single character from the stream if it is an ASCII digit (0-9) or
+    /// `None` if the end-of-stream is found or the next character is not an
+    /// ASCII digit.
     ///
     /// This method is useful for parsing numeric literals, such as integers or floating-point
     /// numbers.
     ///
     /// Note: This method only considers ASCII digits (0-9), so it does not include
-    /// non-ASCII digits, ".", ",", " ", or "_" characters which may be needed for
-    /// parsing numeric literals in some languages.
-    pub fn take_ascii_digits(&mut self) -> Option<&'a str> {
-        self.take_until_lambda(|character| !character.is_ascii_digit())
-    }
-
+    /// characters that some languages use to format numbers such as: "x", ".",
+    /// ",", " ", "_", or non-ASCII digits such as "६" (Devanagari 6), or "೬" (Kannada 6).
     pub fn take_ascii_digit(&mut self) -> Option<&'a str> {
         match self.take_count(1usize) {
             None => None,
@@ -464,6 +566,59 @@ impl<'a> SourceStream<'a> {
         }
 
         None
+    }
+
+    #[must_use]
+    pub fn generate_error<T: ToString>(&self, error_kind: T) -> ErrorDetails<'a, T> {
+        ErrorDetails {
+            error_offset: self.offset(),
+            source_name: self.file_name.clone(),
+            source_content: Cow::Borrowed(self.contents),
+            line_end: self.end_of_line(),
+            line_start: self.start_of_line(),
+            kind: error_kind,
+        }
+    }
+
+    #[must_use]
+    pub fn generate_error_at<T: ToString>(
+        &self,
+        offset: usize,
+        error_kind: T,
+    ) -> ErrorDetails<'a, T> {
+        ErrorDetails {
+            error_offset: offset,
+            source_name: self.file_name.clone(),
+            source_content: Cow::Borrowed(self.contents),
+            line_end: self.end_of_line_from(offset),
+            line_start: self.start_of_line_from(offset),
+            kind: error_kind,
+        }
+    }
+
+    #[must_use]
+    pub fn generate_bounded_error_at<T: ToString>(
+        &self,
+        line_start: usize,
+        offset: usize,
+        line_end: usize,
+        error_kind: T,
+    ) -> ErrorDetails<'a, T> {
+        let mut offsets = vec![line_start, offset, line_end];
+        offsets.sort();
+
+        if offsets[2] > self.contents.len() {
+            offsets[2] = self.contents.len();
+        }
+
+        ErrorDetails {
+            source_name: self.file_name.clone(),
+            source_content: Cow::Borrowed(self.contents),
+            line_start: offsets[0],
+            error_offset: offsets[1],
+            line_end: offsets[2],
+            kind: error_kind,
+        }
     }
 }
 
@@ -775,44 +930,47 @@ mod tests {
         let mut stream = SourceStream::new("test.txt", contents);
 
         assert_eq!(
-            stream.take_until_lambda(|character| character == ' '),
+            stream.take_until_lambda(|character| character == ' ', false),
             Some("Hello,")
         );
         assert_eq!(stream.peek(1), Some(" "));
         assert_eq!(stream.take(" ", Comparator::CaseSensitive), Some(" "));
         assert_eq!(
-            stream.take_until_lambda(|character| character == ' '),
+            stream.take_until_lambda(|character| character == ' ', false),
             Some("World!")
         );
         assert_eq!(stream.peek(1), Some(" "));
         assert_eq!(stream.take(" ", Comparator::CaseSensitive), Some(" "));
         assert_eq!(
-            stream.take_until_lambda(|character| character == ' '),
+            stream.take_until_lambda(|character| character == ' ', false),
             Some("This")
         );
         assert_eq!(stream.peek(1), Some(" "));
         assert_eq!(stream.take(" ", Comparator::CaseSensitive), Some(" "));
         assert_eq!(
-            stream.take_until_lambda(|character| character == ' '),
+            stream.take_until_lambda(|character| character == ' ', false),
             Some("is")
         );
         assert_eq!(stream.peek(1), Some(" "));
         assert_eq!(stream.take(" ", Comparator::CaseSensitive), Some(" "));
         assert_eq!(
-            stream.take_until_lambda(|character| character == ' '),
+            stream.take_until_lambda(|character| character == ' ', false),
             Some("a")
         );
         assert_eq!(stream.peek(1), Some(" "));
         assert_eq!(stream.take(" ", Comparator::CaseSensitive), Some(" "));
         assert_eq!(
-            stream.take_until_lambda(|character| character == '.'),
+            stream.take_until_lambda(|character| character == '.', false),
             Some("test")
         );
         assert_eq!(stream.is_empty(), false);
         assert_eq!(stream.peek(1), Some("."));
         assert_eq!(stream.take(".", Comparator::CaseSensitive), Some("."));
         assert_eq!(stream.is_empty(), true);
-        assert_eq!(stream.take_until_lambda(|character| character == ' '), None);
+        assert_eq!(
+            stream.take_until_lambda(|character| character == ' ', false),
+            None
+        );
         assert_eq!(stream.peek(1), None);
         assert_eq!(stream.is_empty(), true);
     }

@@ -10,7 +10,7 @@ use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
-/// The `ComboBoxStyle` enum represents the different styles of a ComboBox control.
+/// The `ComboBoxStyle` enum represents the different styles of a `ComboBox` control.
 /// It can be either a drop-down list, a simple list, or a drop-down
 /// list with a text box.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]

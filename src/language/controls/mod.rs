@@ -288,7 +288,7 @@ pub enum WhatsThisHelp {
     WhatsThisHelp = -1,
 }
 
-/// Determines the type of link used for a DDEconversation and activates the
+/// Determines the type of link used for a `DDEconversation` and activates the
 /// connection.
 ///
 /// Forms allow a destination application to initiate a conversation with a
@@ -563,20 +563,20 @@ pub enum BackStyle {
 ///
 /// Note:
 ///
-/// If set to ThreeD (1) at design time, the `Appearance` property draws
+/// If set to `ThreeD` (1) at design time, the `Appearance` property draws
 /// controls with three-dimensional effects. If the form's `BorderStyle`
 /// property is set to `FixedDouble` (vbFixedDouble, or 3), the caption and
 /// border of the form are also painted with three-dimensional effects.
 ///
-/// Setting the `Appearance` property to ThreeD (1) also causes the form and its
+/// Setting the `Appearance` property to `ThreeD` (1) also causes the form and its
 /// controls to have their `BackColor` property set to the color selected for 3D
 /// Objects in the `Appearance` tab of the operating system's Display Properties
 /// dialog box.
 ///
-/// Setting the `Appearance` property to ThreeD (1) for an `MDIForm` object
+/// Setting the `Appearance` property to `ThreeD` (1) for an `MDIForm` object
 /// affects only the MDI parent form. To have three-dimensional effects on MDI
 /// child forms, you must set each child form's `Appearance` property to
-/// ThreeD (1).
+/// `ThreeD` (1).
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa244932(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]

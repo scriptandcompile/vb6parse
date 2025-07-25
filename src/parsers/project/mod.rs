@@ -1,7 +1,6 @@
 pub mod compilesettings;
 pub mod properties;
 
-use std::borrow::Cow;
 use std::collections::HashMap;
 use std::convert::TryFrom;
 use std::fmt::Debug;
@@ -12,12 +11,15 @@ use strum::{EnumMessage, IntoEnumIterator};
 use uuid::Uuid;
 
 use crate::{
-    errors::*,
-    objectreference::*,
-    parsers::project::{compilesettings::*, properties::*},
-    sourcefile::*,
-    sourcestream::*,
-    success::*,
+    errors::{ErrorDetails, VB6ProjectErrorKind},
+    objectreference::VB6ObjectReference,
+    parseresults::ParseResult,
+    parsers::project::{
+        compilesettings::*,
+        properties::{CompileTargetType, VB6ProjectProperties},
+    },
+    sourcefile::SourceFile,
+    sourcestream::{Comparator, SourceStream},
 };
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
@@ -99,8 +101,7 @@ pub struct VB6ProjectClass<'a> {
     pub path: &'a str,
 }
 
-pub type ProjectError<'a> = ErrorDetails<'a, VB6ProjectErrorKind<'a>>;
-pub type ProjectResult<'a> = Result<Success<VB6Project<'a>, ProjectError<'a>>, ProjectError<'a>>;
+pub type ProjectResult<'a> = ParseResult<'a, VB6Project<'a>, VB6ProjectErrorKind<'a>>;
 
 impl<'a> VB6Project<'a> {
     /// Parses a VB6 project file.
@@ -175,11 +176,9 @@ impl<'a> VB6Project<'a> {
     /// Startup="Form1"
     /// HelpFile=""
     /// Title="Project1"
-    ///
     /// [MS Transaction Server]
     /// AutoRefresh=1
     /// "#;
-    ///
     /// let project_source_file = match SourceFile::decode_with_replacement("project1.vbp", input.as_bytes()) {
     ///     Ok(source_file) => source_file,
     ///     Err(e) => {
@@ -190,20 +189,14 @@ impl<'a> VB6Project<'a> {
     ///
     /// let result = VB6Project::parse(&project_source_file);
     ///
-    /// if let Err(failure) = result {
-    ///     failure.print();
-    ///     panic!("Failed to parse project");
+    /// if result.has_failures() {
+    ///     for failure in result.failures {
+    ///         failure.print();
+    ///     }
+    ///     panic!("VB6Project parse produced warnings/errors");
     /// }
     ///
-    /// let project = match result.unwrap() {
-    ///     Success::Value(project) => project,
-    ///     Success::ValueWithFailures(_, failures) => {
-    ///         for failure in failures {
-    ///             failure.print();
-    ///         }
-    ///         panic!("Expected a VB6Project");
-    ///     }
-    /// };
+    /// let project = result.unwrap();
     ///
     /// assert_eq!(project.project_type, CompileTargetType::Exe);
     /// assert_eq!(project.references.len(), 1);
@@ -266,7 +259,6 @@ impl<'a> VB6Project<'a> {
             }
 
             let line_start = input.start_of_line();
-            let line_end = input.end_of_line();
 
             // We want to grab any section header lines like '[MS Transaction Server]'.
             // Which we will use in parsing 'other properties.'
@@ -305,7 +297,7 @@ impl<'a> VB6Project<'a> {
             // Looks like we are no longer parsing the standard VB6 property section
             // Now we are parsing some third party properties.
             if other_property_group.is_some() {
-                let property_value = match parse_property_value(&mut input, &property_name) {
+                let property_value = match parse_property_value(&mut input, property_name) {
                     Ok(property_value) => property_value,
                     Err(e) => {
                         failures.push(e);
@@ -393,7 +385,7 @@ impl<'a> VB6Project<'a> {
                 },
                 "ExeName32" => match parse_qouted_value(&mut input, property_name) {
                     Ok(exe_32_file_name_value) => {
-                        project.properties.exe_32_file_name = exe_32_file_name_value
+                        project.properties.exe_32_file_name = exe_32_file_name_value;
                     }
                     Err(e) => failures.push(e),
                 },
@@ -403,7 +395,7 @@ impl<'a> VB6Project<'a> {
                 },
                 "Command32" => match parse_optional_qouted_value(&mut input, property_name) {
                     Ok(command_line_arguments_value) => {
-                        project.properties.command_line_arguments = command_line_arguments_value
+                        project.properties.command_line_arguments = command_line_arguments_value;
                     }
                     Err(e) => failures.push(e),
                 },
@@ -417,38 +409,39 @@ impl<'a> VB6Project<'a> {
                 },
                 "HelpContextID" => match parse_qouted_value(&mut input, property_name) {
                     Ok(help_context_id_value) => {
-                        project.properties.help_context_id = help_context_id_value
+                        project.properties.help_context_id = help_context_id_value;
                     }
                     Err(e) => failures.push(e),
                 },
                 "CompatibleMode" => match parse_qouted_converted_value(&mut input, property_name) {
                     Ok(compatibility_mode_value) => {
-                        project.properties.compatibility_mode = compatibility_mode_value
+                        project.properties.compatibility_mode = compatibility_mode_value;
                     }
                     Err(e) => failures.push(e),
                 },
                 "VersionCompatible32" => match parse_qouted_value(&mut input, property_name) {
                     Ok(version_32_compatibility_value) => {
-                        project.properties.version_32_compatibility = version_32_compatibility_value
+                        project.properties.version_32_compatibility =
+                            version_32_compatibility_value;
                     }
                     Err(e) => failures.push(e),
                 },
                 "CompatibleEXE32" => match parse_qouted_value(&mut input, property_name) {
                     Ok(exe_32_compatible_value) => {
-                        project.properties.exe_32_compatible = exe_32_compatible_value
+                        project.properties.exe_32_compatible = exe_32_compatible_value;
                     }
                     Err(e) => failures.push(e),
                 },
                 "DllBaseAddress" => match parse_dll_base_address(&mut input) {
                     Ok(dll_base_address_value) => {
-                        project.properties.dll_base_address = dll_base_address_value
+                        project.properties.dll_base_address = dll_base_address_value;
                     }
                     Err(e) => failures.push(e),
                 },
                 "RemoveUnusedControlInfo" => {
                     match parse_converted_value(&mut input, property_name) {
                         Ok(unused_control_info_value) => {
-                            project.properties.unused_control_info = unused_control_info_value
+                            project.properties.unused_control_info = unused_control_info_value;
                         }
                         Err(e) => failures.push(e),
                     }
@@ -467,62 +460,62 @@ impl<'a> VB6Project<'a> {
                 },
                 "ThreadingModel" => match parse_converted_value(&mut input, property_name) {
                     Ok(threading_model_value) => {
-                        project.properties.threading_model = threading_model_value
+                        project.properties.threading_model = threading_model_value;
                     }
                     Err(e) => failures.push(e),
                 },
                 "AutoIncrementVer" => match parse_numeric(&mut input, property_name) {
                     Ok(auto_increment_revision_value) => {
                         project.properties.version_info.auto_increment_revision =
-                            auto_increment_revision_value
+                            auto_increment_revision_value;
                     }
                     Err(e) => failures.push(e),
                 },
                 "DebugStartupComponent" => match parse_path_line(&mut input, property_name) {
                     Ok(debug_startup_component_value) => {
-                        project.properties.debug_startup_component = debug_startup_component_value
+                        project.properties.debug_startup_component = debug_startup_component_value;
                     }
                     Err(e) => failures.push(e),
                 },
                 "NoControlUpgrade" => match parse_converted_value(&mut input, property_name) {
                     Ok(upgrade_controls_value) => {
-                        project.properties.upgrade_controls = upgrade_controls_value
+                        project.properties.upgrade_controls = upgrade_controls_value;
                     }
                     Err(e) => failures.push(e),
                 },
                 "ServerSupportFiles" => match parse_converted_value(&mut input, property_name) {
                     Ok(server_support_files_value) => {
-                        project.properties.server_support_files = server_support_files_value
+                        project.properties.server_support_files = server_support_files_value;
                     }
                     Err(e) => failures.push(e),
                 },
                 "VersionCompanyName" => match parse_qouted_value(&mut input, property_name) {
                     Ok(company_name_value) => {
-                        project.properties.version_info.company_name = company_name_value
+                        project.properties.version_info.company_name = company_name_value;
                     }
                     Err(e) => failures.push(e),
                 },
                 "VersionFileDescription" => match parse_qouted_value(&mut input, property_name) {
                     Ok(file_description_value) => {
-                        project.properties.version_info.file_description = file_description_value
+                        project.properties.version_info.file_description = file_description_value;
                     }
                     Err(e) => failures.push(e),
                 },
                 "VersionLegalCopyright" => match parse_qouted_value(&mut input, property_name) {
                     Ok(copyright_value) => {
-                        project.properties.version_info.copyright = copyright_value
+                        project.properties.version_info.copyright = copyright_value;
                     }
                     Err(e) => failures.push(e),
                 },
                 "VersionLegalTrademarks" => match parse_qouted_value(&mut input, property_name) {
                     Ok(trademark_value) => {
-                        project.properties.version_info.trademark = trademark_value
+                        project.properties.version_info.trademark = trademark_value;
                     }
                     Err(e) => failures.push(e),
                 },
                 "VersionProductName" => match parse_qouted_value(&mut input, property_name) {
                     Ok(product_name_value) => {
-                        project.properties.version_info.product_name = product_name_value
+                        project.properties.version_info.product_name = product_name_value;
                     }
                     Err(e) => failures.push(e),
                 },
@@ -532,7 +525,7 @@ impl<'a> VB6Project<'a> {
                 },
                 "CondComp" => match parse_qouted_value(&mut input, property_name) {
                     Ok(conditional_compile_value) => {
-                        project.properties.conditional_compile = conditional_compile_value
+                        project.properties.conditional_compile = conditional_compile_value;
                     }
                     Err(e) => failures.push(e),
                 },
@@ -545,7 +538,7 @@ impl<'a> VB6Project<'a> {
                         project.properties.compilation_type = project
                             .properties
                             .compilation_type
-                            .update_optimization_type(optimization_type_value)
+                            .update_optimization_type(optimization_type_value);
                     }
                     Err(e) => failures.push(e),
                 },
@@ -554,7 +547,7 @@ impl<'a> VB6Project<'a> {
                         project.properties.compilation_type = project
                             .properties
                             .compilation_type
-                            .update_favor_pentium_pro(favor_pentium_pro_value)
+                            .update_favor_pentium_pro(favor_pentium_pro_value);
                     }
                     Err(e) => failures.push(e),
                 },
@@ -563,7 +556,7 @@ impl<'a> VB6Project<'a> {
                         project.properties.compilation_type = project
                             .properties
                             .compilation_type
-                            .update_code_view_debug_info(code_view_debug_info_value)
+                            .update_code_view_debug_info(code_view_debug_info_value);
                     }
                     Err(e) => failures.push(e),
                 },
@@ -572,7 +565,7 @@ impl<'a> VB6Project<'a> {
                         project.properties.compilation_type = project
                             .properties
                             .compilation_type
-                            .update_aliasing(aliasing_value)
+                            .update_aliasing(aliasing_value);
                     }
                     Err(e) => failures.push(e),
                 },
@@ -581,7 +574,7 @@ impl<'a> VB6Project<'a> {
                         project.properties.compilation_type = project
                             .properties
                             .compilation_type
-                            .update_bounds_check(bounds_check_value)
+                            .update_bounds_check(bounds_check_value);
                     }
                     Err(e) => failures.push(e),
                 },
@@ -590,7 +583,7 @@ impl<'a> VB6Project<'a> {
                         project.properties.compilation_type = project
                             .properties
                             .compilation_type
-                            .update_overflow_check(overflow_check_value)
+                            .update_overflow_check(overflow_check_value);
                     }
                     Err(e) => failures.push(e),
                 },
@@ -599,7 +592,7 @@ impl<'a> VB6Project<'a> {
                         project.properties.compilation_type = project
                             .properties
                             .compilation_type
-                            .update_floating_point_check(floating_point_check_value)
+                            .update_floating_point_check(floating_point_check_value);
                     }
                     Err(e) => failures.push(e),
                 },
@@ -617,7 +610,7 @@ impl<'a> VB6Project<'a> {
                         project.properties.compilation_type = project
                             .properties
                             .compilation_type
-                            .update_unrounded_floating_point(unrounded_floating_point_value)
+                            .update_unrounded_floating_point(unrounded_floating_point_value);
                     }
                     Err(e) => failures.push(e),
                 },
@@ -645,19 +638,19 @@ impl<'a> VB6Project<'a> {
                 },
                 "MaxNumberOfThreads" => match parse_numeric(&mut input, property_name) {
                     Ok(max_number_of_threads_value) => {
-                        project.properties.max_number_of_threads = max_number_of_threads_value
+                        project.properties.max_number_of_threads = max_number_of_threads_value;
                     }
                     Err(e) => failures.push(e),
                 },
                 "DebugStartupOption" => match parse_converted_value(&mut input, property_name) {
                     Ok(debug_startup_option_value) => {
-                        project.properties.debug_startup_option = debug_startup_option_value
+                        project.properties.debug_startup_option = debug_startup_option_value;
                     }
                     Err(e) => failures.push(e),
                 },
                 "UseExistingBrowser" => match parse_converted_value(&mut input, property_name) {
                     Ok(use_existing_browser_value) => {
-                        project.properties.use_existing_browser = use_existing_browser_value
+                        project.properties.use_existing_browser = use_existing_browser_value;
                     }
                     Err(e) => failures.push(e),
                 },
@@ -665,27 +658,21 @@ impl<'a> VB6Project<'a> {
                     // Unknown property, skip it.
                     input.forward_to_next_line();
 
-                    let e = ErrorDetails {
-                        source_name: input.file_name().to_owned(),
-                        source_content: input.contents.into(),
-                        error_offset: line_start,
+                    let e = input.generate_error_at(
                         line_start,
-                        line_end,
-                        kind: VB6ProjectErrorKind::ParameterLineUnknown {
+                        VB6ProjectErrorKind::ParameterLineUnknown {
                             parameter_line_name: property_name,
                         },
-                    };
-
+                    );
                     failures.push(e);
                 }
             }
         }
 
-        if !failures.is_empty() {
-            return Ok(Success::ValueWithFailures(project, failures));
+        ParseResult {
+            result: Some(project),
+            failures,
         }
-
-        Ok(Success::Value(project))
     }
 
     #[must_use]
@@ -708,8 +695,6 @@ impl<'a> VB6Project<'a> {
 fn parse_section_header_line<'a>(
     input: &mut SourceStream<'a>,
 ) -> Result<Option<&'a str>, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
-    let line_start = input.start_of_line();
-
     // We want to grab any section header lines like '[MS Transaction Server]'.
     // Which we will use in parsing 'other properties.'
     let header_start = input.take("[", Comparator::CaseSensitive);
@@ -721,16 +706,8 @@ fn parse_section_header_line<'a>(
 
     // We have a section header line.
     let Some((other_property, _)) = input.take_until("]", Comparator::CaseSensitive) else {
-        let line_end = input.end_of_line();
         // We have a section header line but it is not terminated properly.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: line_end,
-            line_start,
-            line_end,
-            kind: VB6ProjectErrorKind::UnterminatedSectionHeader,
-        };
+        let fail = input.generate_error(VB6ProjectErrorKind::UnterminatedSectionHeader);
         input.forward_to_next_line();
 
         return Err(fail);
@@ -752,27 +729,20 @@ fn parse_property_name<'a>(
 
     match property_name {
         None => {
-            let line_end = input.end_of_line();
             // No property name found, so we can't parse this line.
             // Go to the next line and return the error.
-            let fail = ErrorDetails {
-                source_name: input.file_name().to_owned(),
-                source_content: Cow::Borrowed(input.contents),
-                error_offset: line_start,
-                line_start,
-                line_end,
-                kind: VB6ProjectErrorKind::PropertyNameNotFound,
-            };
+            let fail =
+                input.generate_error_at(line_start, VB6ProjectErrorKind::PropertyNameNotFound);
             input.forward_to_next_line();
 
-            return Err(fail);
+            Err(fail)
         }
         Some((property_name, _)) => {
             // We only need the property name not the split on '=' value so we only
             // return the first of the pair in the line split.
             let _ = input.take("=", Comparator::CaseSensitive);
 
-            return Ok(property_name);
+            Ok(property_name)
         }
     }
 }
@@ -784,40 +754,28 @@ fn parse_property_value<'a>(
     // An line starts with the line_type followed by '=', and a value.
     //
     // By this point in the parse the line_type and "=" component should be
-    // stripped off since that is how we knew to use this particular parse.
-    let line_start = input.start_of_line();
-    let end_of_line = input.end_of_line();
+    // stripped off since that is how we knew to use this particular parse.;
     let parameter_start = input.offset();
 
     let Some((parameter_value, _)) = input.take_until_newline() else {
         // No parameter value found, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: parameter_start,
-            line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ParameterValueNotFound {
+        let fail = input.generate_error_at(
+            parameter_start,
+            VB6ProjectErrorKind::ParameterValueNotFound {
                 parameter_line_name: line_type,
             },
-        };
-
+        );
         return Err(fail);
     };
 
     if parameter_value.is_empty() {
         // No parameter value found, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: parameter_start,
-            line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ParameterValueNotFound {
+        let fail = input.generate_error_at(
+            parameter_start,
+            VB6ProjectErrorKind::ParameterValueNotFound {
                 parameter_line_name: line_type,
             },
-        };
-
+        );
         return Err(fail);
     }
 
@@ -832,59 +790,42 @@ fn parse_qouted_value<'a>(
     //
     // By this point in the parse the line_type and "=" component should be
     // stripped off since that is how we knew to use this particular parse.
-    let line_start = input.start_of_line();
-    let end_of_line = input.end_of_line();
     let parameter_start = input.offset();
 
     let Some((parameter_value, _)) = input.take_until_newline() else {
         // No parameter value found, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: parameter_start,
-            line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ParameterValueNotFound {
+        let fail = input.generate_error_at(
+            parameter_start,
+            VB6ProjectErrorKind::ParameterValueNotFound {
                 parameter_line_name: line_type,
             },
-        };
-
+        );
         return Err(fail);
     };
 
     if parameter_value.is_empty() {
         // No startup value found, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: parameter_start,
-            line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ParameterValueNotFound {
+        let fail = input.generate_error_at(
+            parameter_start,
+            VB6ProjectErrorKind::ParameterValueNotFound {
                 parameter_line_name: line_type,
             },
-        };
-
+        );
         return Err(fail);
     }
 
-    let start_qoute_found = parameter_value.starts_with("\"");
-    let end_qoute_found = parameter_value.ends_with("\"");
+    let start_qoute_found = parameter_value.starts_with('"');
+    let end_qoute_found = parameter_value.ends_with('"');
 
     if !start_qoute_found && end_qoute_found {
         // The value ends with a quote but does not start with one.
         // This is an error, so we return an error.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: parameter_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ParameterValueMissingOpeningQuote {
+        let fail = input.generate_error_at(
+            parameter_start,
+            VB6ProjectErrorKind::ParameterValueMissingOpeningQuote {
                 parameter_line_name: line_type,
             },
-        };
-
+        );
         return Err(fail);
     }
 
@@ -897,34 +838,24 @@ fn parse_qouted_value<'a>(
     {
         // The value starts with a quote but does not end with one.
         // This is an error, so we return an error.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: parameter_start + parameter_value.len(),
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ParameterValueMissingMatchingQoute {
+        let fail = input.generate_error_at(
+            parameter_start + parameter_value.len(),
+            VB6ProjectErrorKind::ParameterValueMissingMatchingQoute {
                 parameter_line_name: line_type,
             },
-        };
-
+        );
         return Err(fail);
     }
 
     if !start_qoute_found && !end_qoute_found {
         // The startup value does not start or end with a quote.
         // This is an error, so we return an error.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: parameter_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ParameterValueMissingQuotes {
+        let fail = input.generate_error_at(
+            parameter_start,
+            VB6ProjectErrorKind::ParameterValueMissingQuotes {
                 parameter_line_name: line_type,
             },
-        };
-
+        );
         return Err(fail);
     }
 
@@ -943,39 +874,27 @@ fn parse_optional_qouted_value<'a>(
     //
     // By this point in the parse the "Startup=" component should be stripped off
     // since that is how we knew to use this particular parse.
-    let line_start = input.start_of_line();
-    let end_of_line = input.end_of_line();
     let parameter_start = input.offset();
 
     let Some((parameter_value, _)) = input.take_until_newline() else {
         // No parameter value found, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: parameter_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ParameterValueNotFound {
+        let fail = input.generate_error_at(
+            parameter_start,
+            VB6ProjectErrorKind::ParameterValueNotFound {
                 parameter_line_name: line_type,
             },
-        };
-
+        );
         return Err(fail);
     };
 
     if parameter_value.is_empty() {
         // No parameter value found, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: parameter_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ParameterValueNotFound {
+        let fail = input.generate_error_at(
+            parameter_start,
+            VB6ProjectErrorKind::ParameterValueNotFound {
                 parameter_line_name: line_type,
             },
-        };
-
+        );
         return Err(fail);
     }
 
@@ -990,23 +909,18 @@ fn parse_optional_qouted_value<'a>(
         return Ok("");
     }
 
-    let start_qoute_found = parameter_value.starts_with("\"");
-    let end_qoute_found = parameter_value.ends_with("\"");
+    let start_qoute_found = parameter_value.starts_with('"');
+    let end_qoute_found = parameter_value.ends_with('"');
 
     if !start_qoute_found && end_qoute_found {
         // The value ends with a quote but does not start with one.
         // This is an error, so we return an error.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: parameter_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ParameterValueMissingOpeningQuote {
+        let fail = input.generate_error_at(
+            parameter_start,
+            VB6ProjectErrorKind::ParameterValueMissingOpeningQuote {
                 parameter_line_name: line_type,
             },
-        };
-
+        );
         return Err(fail);
     }
 
@@ -1019,39 +933,28 @@ fn parse_optional_qouted_value<'a>(
     {
         // The value starts with a quote but does not end with one.
         // This is an error, so we return an error.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: parameter_start + parameter_value.len(),
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ParameterValueMissingMatchingQoute {
+        let fail = input.generate_error_at(
+            parameter_start + parameter_value.len(),
+            VB6ProjectErrorKind::ParameterValueMissingMatchingQoute {
                 parameter_line_name: line_type,
             },
-        };
-
+        );
         return Err(fail);
     }
 
     if !start_qoute_found && !end_qoute_found {
         // The parameter value does not start or end with a quote.
         // This is an error, so we return an error.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: parameter_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ParameterValueMissingQuotes {
+        let fail = input.generate_error_at(
+            parameter_start,
+            VB6ProjectErrorKind::ParameterValueMissingQuotes {
                 parameter_line_name: line_type,
             },
-        };
-
+        );
         return Err(fail);
     }
 
     let parameter_value = &parameter_value[1..parameter_value.len() - 1];
-
     Ok(parameter_value)
 }
 
@@ -1066,8 +969,6 @@ where
     // converted into an enum value through TryFrom.
     // This kind of line starts with the line_type followed by '=', and a
     // qouted value.
-    let line_start = input.start_of_line();
-    let end_of_line = input.end_of_line();
     let parameter_start = input.offset();
 
     let text_to_newline = input.take_until_newline();
@@ -1076,39 +977,29 @@ where
         None => {
             // No type text found, so we can't parse this line.
             // Go to the next line and return the error.
-            let fail = ErrorDetails {
-                source_name: input.file_name().to_owned(),
-                source_content: Cow::Borrowed(input.contents),
-                error_offset: line_start,
-                line_start: line_start,
-                line_end: end_of_line,
-                kind: VB6ProjectErrorKind::ParameterValueMissingOpeningQuote {
+            let fail = input.generate_error_at(
+                parameter_start,
+                VB6ProjectErrorKind::ParameterValueMissingOpeningQuote {
                     parameter_line_name: line_type,
                 },
-            };
-
+            );
             return Err(fail);
         }
         Some((parameter_value, _)) => parameter_value,
     };
 
-    let start_qoute_found = parameter_value.starts_with("\"");
-    let end_qoute_found = parameter_value.ends_with("\"");
+    let start_qoute_found = parameter_value.starts_with('"');
+    let end_qoute_found = parameter_value.ends_with('"');
 
     if !start_qoute_found && end_qoute_found {
         // The value ends with a quote but does not start with one.
         // This is an error, so we return an error.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: parameter_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ParameterValueMissingOpeningQuote {
+        let fail = input.generate_error_at(
+            parameter_start,
+            VB6ProjectErrorKind::ParameterValueMissingOpeningQuote {
                 parameter_line_name: line_type,
             },
-        };
-
+        );
         return Err(fail);
     }
 
@@ -1121,34 +1012,24 @@ where
     {
         // The value starts with a quote but does not end with one.
         // This is an error, so we return an error.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: parameter_start + parameter_value.len(),
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ParameterValueMissingMatchingQoute {
+        let fail = input.generate_error_at(
+            parameter_start + parameter_value.len(),
+            VB6ProjectErrorKind::ParameterValueMissingMatchingQoute {
                 parameter_line_name: line_type,
             },
-        };
-
+        );
         return Err(fail);
     }
 
     if !start_qoute_found && !end_qoute_found {
         // The value does not start or end with a quote.
         // This is an error, so we return an error.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: parameter_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ParameterValueMissingQuotes {
+        let fail = input.generate_error_at(
+            parameter_start,
+            VB6ProjectErrorKind::ParameterValueMissingQuotes {
                 parameter_line_name: line_type,
             },
-        };
-
+        );
         return Err(fail);
     }
 
@@ -1162,19 +1043,14 @@ where
             .collect::<Vec<_>>()
             .join(", ");
 
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: parameter_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ParameterValueInvalid {
+        let fail = input.generate_error_at(
+            parameter_start,
+            VB6ProjectErrorKind::ParameterValueInvalid {
                 parameter_line_name: line_type,
                 invalid_value: parameter_value,
                 valid_value_message,
             },
-        };
-
+        );
         return Err(fail);
     };
 
@@ -1192,8 +1068,6 @@ where
     // converted into an enum value through TryFrom.
     // This kind of line starts with the line_type followed by '=', and a
     // value.
-    let line_start = input.start_of_line();
-    let end_of_line = input.end_of_line();
     let parameter_start = input.offset();
 
     let text_to_newline = input.take_until_newline();
@@ -1202,17 +1076,12 @@ where
         None => {
             // No type text found, so we can't parse this line.
             // Go to the next line and return the error.
-            let fail = ErrorDetails {
-                source_name: input.file_name().to_owned(),
-                source_content: Cow::Borrowed(input.contents),
-                error_offset: line_start,
-                line_start: line_start,
-                line_end: end_of_line,
-                kind: VB6ProjectErrorKind::ParameterValueMissingOpeningQuote {
+            let fail = input.generate_error_at(
+                parameter_start,
+                VB6ProjectErrorKind::ParameterValueMissingOpeningQuote {
                     parameter_line_name: line_type,
                 },
-            };
-
+            );
             return Err(fail);
         }
         Some((parameter_value, _)) => parameter_value,
@@ -1226,19 +1095,14 @@ where
             .collect::<Vec<_>>()
             .join(", ");
 
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: parameter_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ParameterValueInvalid {
+        let fail = input.generate_error_at(
+            parameter_start,
+            VB6ProjectErrorKind::ParameterValueInvalid {
                 parameter_line_name: line_type,
                 invalid_value: parameter_value,
                 valid_value_message,
             },
-        };
-
+        );
         return Err(fail);
     };
 
@@ -1256,8 +1120,6 @@ where
     // converted into an i16 value through TryFrom.
     // This kind of line starts with the line_type followed by '=', and a
     // value.
-    let line_start = input.start_of_line();
-    let end_of_line = input.end_of_line();
     let parameter_start = input.offset();
 
     let text_to_newline = input.take_until_newline();
@@ -1266,17 +1128,12 @@ where
         None => {
             // No type text found, so we can't parse this line.
             // Go to the next line and return the error.
-            let fail = ErrorDetails {
-                source_name: input.file_name().to_owned(),
-                source_content: Cow::Borrowed(input.contents),
-                error_offset: line_start,
-                line_start: line_start,
-                line_end: end_of_line,
-                kind: VB6ProjectErrorKind::ParameterValueMissingOpeningQuote {
+            let fail = input.generate_error_at(
+                parameter_start,
+                VB6ProjectErrorKind::ParameterValueMissingOpeningQuote {
                     parameter_line_name: line_type,
                 },
-            };
-
+            );
             return Err(fail);
         }
         Some((parameter_value, _)) => parameter_value,
@@ -1284,23 +1141,17 @@ where
 
     let Ok(value) = parameter_value.parse::<T>() else {
         // We have a parameter value that is invalid, so we return an error.
-        let valid_value_message = format!(
-            "Failed attempting to parse as i16. '{}' is not a valid i16",
-            parameter_value
-        );
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: parameter_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ParameterValueInvalid {
+        let valid_value_message =
+            format!("Failed attempting to parse as i16. '{parameter_value}' is not a valid i16");
+
+        let fail = input.generate_error_at(
+            parameter_start,
+            VB6ProjectErrorKind::ParameterValueInvalid {
                 parameter_line_name: line_type,
                 invalid_value: parameter_value,
                 valid_value_message,
             },
-        };
-
+        );
         return Err(fail);
     };
 
@@ -1315,8 +1166,6 @@ fn parse_reference<'a>(
     //
     // By this point in the parse the "Reference=" component should be stripped off
     // since that is how we knew to use this particular parse.
-    let line_start = input.start_of_line();
-    let end_of_line = input.end_of_line();
     let reference_start = input.offset();
 
     // Compiled references start with "*\\G{" and are followed by a UUID.
@@ -1330,49 +1179,34 @@ fn parse_reference<'a>(
     // This is a project reference, but not a compiled reference.
     let Some((path, _)) = input.take_until_newline() else {
         // No path found, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: reference_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ReferenceProjectPathNotFound,
-        };
-
+        let fail = input.generate_error_at(
+            reference_start,
+            VB6ProjectErrorKind::ReferenceProjectPathNotFound,
+        );
         return Err(fail);
     };
 
     if path.is_empty() {
         // No path found, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: reference_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ReferenceProjectPathNotFound,
-        };
-
+        let fail = input.generate_error_at(
+            reference_start,
+            VB6ProjectErrorKind::ReferenceProjectPathNotFound,
+        );
         return Err(fail);
     }
 
     if !path.starts_with("*\\A") {
         // The path does not start with "*\A", which is not allowed.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: reference_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ReferenceProjectPathInvalid { value: path },
-        };
-
+        let fail = input.generate_error_at(
+            reference_start,
+            VB6ProjectErrorKind::ReferenceProjectPathInvalid { value: path },
+        );
         return Err(fail);
     }
 
     let path = &path[3..]; // Strip off the "*\A" prefix
 
-    return Ok(VB6ProjectReference::SubProject { path });
+    Ok(VB6ProjectReference::SubProject { path })
 }
 
 fn parse_compiled_reference<'a>(
@@ -1380,43 +1214,32 @@ fn parse_compiled_reference<'a>(
 ) -> Result<VB6ProjectReference<'a>, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
     // A compiled reference starts with "*\\G{" and is followed by a UUID.
     // We have already checked that the input starts with "*\\G{".
-    // By this point in the parse the "*\\G{" component should be stripped off
-    let line_start = input.start_of_line();
-    let end_of_line = input.end_of_line();
+    // By this point in the parse the "*\\G{" component should be stripped off.
     let uuid_start = input.offset();
 
     // This is a compiled reference.
     let Some((uuid_text, _)) = input.take_until("}#", Comparator::CaseSensitive) else {
         // No UUID found, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: uuid_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ReferenceCompiledUuidMissingMatchingBrace,
-        };
+        let fail = input.generate_error_at(
+            uuid_start,
+            VB6ProjectErrorKind::ReferenceCompiledUuidMissingMatchingBrace,
+        );
         input.forward_to_next_line();
 
         return Err(fail);
     };
 
-    let uuid = match Uuid::parse_str(uuid_text) {
-        Ok(uuid) => uuid,
-        Err(_) => {
-            // The UUID is not a valid UUID, so we can't parse this line.
-            let fail = ErrorDetails {
-                source_name: input.file_name().to_owned(),
-                source_content: Cow::Borrowed(input.contents),
-                error_offset: uuid_start,
-                line_start: line_start,
-                line_end: end_of_line,
-                kind: VB6ProjectErrorKind::ReferenceCompiledUuidInvalid,
-            };
-            input.forward_to_next_line();
+    let uuid = if let Ok(uuid) = Uuid::parse_str(uuid_text) {
+        uuid
+    } else {
+        // The UUID is not a valid UUID, so we can't parse this line.
+        let fail = input.generate_error_at(
+            uuid_start,
+            VB6ProjectErrorKind::ReferenceCompiledUuidInvalid,
+        );
+        input.forward_to_next_line();
 
-            return Err(fail);
-        }
+        return Err(fail);
     };
 
     let _ = input.take("}#", Comparator::CaseSensitive);
@@ -1424,14 +1247,10 @@ fn parse_compiled_reference<'a>(
 
     let Some((unknown1, _)) = input.take_until("#", Comparator::CaseSensitive) else {
         // No unknown1 found, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: unknown1_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ReferenceCompiledUnknown1Missing,
-        };
+        let fail = input.generate_error_at(
+            unknown1_start,
+            VB6ProjectErrorKind::ReferenceCompiledUnknown1Missing,
+        );
         input.forward_to_next_line();
 
         return Err(fail);
@@ -1442,14 +1261,10 @@ fn parse_compiled_reference<'a>(
 
     let Some((unknown2, _)) = input.take_until("#", Comparator::CaseSensitive) else {
         // No unknown2 found, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: unknown2_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ReferenceCompiledUnknown2Missing,
-        };
+        let fail = input.generate_error_at(
+            unknown2_start,
+            VB6ProjectErrorKind::ReferenceCompiledUnknown2Missing,
+        );
         input.forward_to_next_line();
 
         return Err(fail);
@@ -1460,14 +1275,10 @@ fn parse_compiled_reference<'a>(
 
     let Some((path, _)) = input.take_until("#", Comparator::CaseSensitive) else {
         // No path found, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: path_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ReferenceCompiledPathNotFound,
-        };
+        let fail = input.generate_error_at(
+            path_start,
+            VB6ProjectErrorKind::ReferenceCompiledPathNotFound,
+        );
         input.forward_to_next_line();
 
         return Err(fail);
@@ -1478,29 +1289,19 @@ fn parse_compiled_reference<'a>(
 
     let Some((description, _)) = input.take_until_newline() else {
         // No description found, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: description_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ReferenceCompiledDescriptionNotFound,
-        };
-
+        let fail = input.generate_error_at(
+            description_start,
+            VB6ProjectErrorKind::ReferenceCompiledDescriptionNotFound,
+        );
         return Err(fail);
     };
 
     if description.contains('#') {
         // The description contains a '#', which is not allowed.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: description_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ReferenceCompiledDescriptionInvalid,
-        };
-
+        let fail = input.generate_error_at(
+            description_start,
+            VB6ProjectErrorKind::ReferenceCompiledDescriptionInvalid,
+        );
         return Err(fail);
     }
 
@@ -1513,7 +1314,7 @@ fn parse_compiled_reference<'a>(
         description,
     };
 
-    return Ok(reference);
+    Ok(reference)
 }
 
 fn parse_object<'a>(
@@ -1524,8 +1325,6 @@ fn parse_object<'a>(
     //
     // By this point in the parse the "Object=" component should be stripped off
     // since that is how we knew to use this particular parse.
-    let line_start = input.start_of_line();
-    let end_of_line = input.end_of_line();
     let object_start = input.offset();
 
     // Project objects start with "\"*\\A" and are followed by the path to the
@@ -1539,14 +1338,10 @@ fn parse_object<'a>(
 
         let Some((path, _)) = input.take_until("\"", Comparator::CaseSensitive) else {
             // No path found, so we can't parse this line.
-            let fail = ErrorDetails {
-                source_name: input.file_name().to_owned(),
-                source_content: Cow::Borrowed(input.contents),
-                error_offset: object_path_start,
-                line_start: line_start,
-                line_end: end_of_line,
-                kind: VB6ProjectErrorKind::ObjectProjectPathNotFound,
-            };
+            let fail = input.generate_error_at(
+                object_path_start,
+                VB6ProjectErrorKind::ObjectProjectPathNotFound,
+            );
             input.forward_to_next_line();
 
             return Err(fail);
@@ -1559,14 +1354,10 @@ fn parse_object<'a>(
     // It looks like we have a compiled object line instead. Hopefully.
     if input.peek(1) != Some("{") {
         // We do not have a compiled object line, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: object_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ObjectCompiledMissingOpeningBrace,
-        };
+        let fail = input.generate_error_at(
+            object_start,
+            VB6ProjectErrorKind::ObjectCompiledMissingOpeningBrace,
+        );
         input.forward_to_next_line();
 
         return Err(fail);
@@ -1575,14 +1366,10 @@ fn parse_object<'a>(
 
     let Some((uuid_text, _)) = input.take_until("}", Comparator::CaseSensitive) else {
         // No UUID found, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: object_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ObjectCompiledUuidMissingMatchingBrace,
-        };
+        let fail = input.generate_error_at(
+            object_start,
+            VB6ProjectErrorKind::ObjectCompiledUuidMissingMatchingBrace,
+        );
         input.forward_to_next_line();
 
         return Err(fail);
@@ -1590,22 +1377,15 @@ fn parse_object<'a>(
 
     let _ = input.take("}", Comparator::CaseSensitive);
 
-    let uuid = match Uuid::parse_str(uuid_text) {
-        Ok(uuid) => uuid,
-        Err(_) => {
-            // The UUID is not a valid UUID, so we can't parse this line.
-            let fail = ErrorDetails {
-                source_name: input.file_name().to_owned(),
-                source_content: Cow::Borrowed(input.contents),
-                error_offset: object_start,
-                line_start: line_start,
-                line_end: end_of_line,
-                kind: VB6ProjectErrorKind::ObjectCompiledUuidInvalid,
-            };
-            input.forward_to_next_line();
+    let uuid = if let Ok(uuid) = Uuid::parse_str(uuid_text) {
+        uuid
+    } else {
+        // The UUID is not a valid UUID, so we can't parse this line.
+        let fail =
+            input.generate_error_at(object_start, VB6ProjectErrorKind::ObjectCompiledUuidInvalid);
+        input.forward_to_next_line();
 
-            return Err(fail);
-        }
+        return Err(fail);
     };
     let _ = input.take("#", Comparator::CaseSensitive);
 
@@ -1615,14 +1395,10 @@ fn parse_object<'a>(
         Comparator::CaseSensitive,
     ) else {
         // No version found, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: version_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ObjectCompiledVersionMissing,
-        };
+        let fail = input.generate_error_at(
+            version_start,
+            VB6ProjectErrorKind::ObjectCompiledVersionMissing,
+        );
         input.forward_to_next_line();
 
         return Err(fail);
@@ -1630,14 +1406,10 @@ fn parse_object<'a>(
 
     if invalid_version_character != "#" {
         // The version contains an invalid character, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: version_start + version.len(),
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ObjectCompiledVersionInvalid,
-        };
+        let fail = input.generate_error_at(
+            version_start + version.len(),
+            VB6ProjectErrorKind::ObjectCompiledVersionInvalid,
+        );
         input.forward_to_next_line();
 
         return Err(fail);
@@ -1647,14 +1419,10 @@ fn parse_object<'a>(
 
     let Some((unknown1, _)) = input.take_until("; ", Comparator::CaseSensitive) else {
         // No unknown1 found, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: unknown1_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ObjectCompiledUnknown1Missing,
-        };
+        let fail = input.generate_error_at(
+            unknown1_start,
+            VB6ProjectErrorKind::ObjectCompiledUnknown1Missing,
+        );
         input.forward_to_next_line();
 
         return Err(fail);
@@ -1666,38 +1434,28 @@ fn parse_object<'a>(
     match file_name {
         None => {
             // No file name found, so we can't parse this line.
-            let fail = ErrorDetails {
-                source_name: input.file_name().to_owned(),
-                source_content: Cow::Borrowed(input.contents),
-                error_offset: file_name_start,
-                line_start: line_start,
-                line_end: end_of_line,
-                kind: VB6ProjectErrorKind::ObjectCompiledFileNameNotFound,
-            };
-
-            return Err(fail);
+            let fail = input.generate_error_at(
+                file_name_start,
+                VB6ProjectErrorKind::ObjectCompiledFileNameNotFound,
+            );
+            Err(fail)
         }
         Some((file_name, _)) => {
             if file_name.is_empty() {
                 // No file name found, so we can't parse this line.
-                let fail = ErrorDetails {
-                    source_name: input.file_name().to_owned(),
-                    source_content: Cow::Borrowed(input.contents),
-                    error_offset: file_name_start,
-                    line_start: line_start,
-                    line_end: end_of_line,
-                    kind: VB6ProjectErrorKind::ObjectCompiledFileNameNotFound,
-                };
-
+                let fail = input.generate_error_at(
+                    file_name_start,
+                    VB6ProjectErrorKind::ObjectCompiledFileNameNotFound,
+                );
                 return Err(fail);
             }
 
-            return Ok(VB6ObjectReference::Compiled {
+            Ok(VB6ObjectReference::Compiled {
                 uuid,
                 version: version.into(),
                 unknown1: unknown1.into(),
                 file_name: file_name.into(),
-            });
+            })
         }
     }
 }
@@ -1709,20 +1467,11 @@ fn parse_module<'a>(
     //
     // By this point in the parse the "Module=" component should be stripped off
     // since that is how we knew to use this particular parse.
-    let line_start = input.start_of_line();
-    let end_of_line = input.end_of_line();
     let module_start = input.offset();
 
     let Some((module_name, _)) = input.take_until("; ", Comparator::CaseSensitive) else {
         // No name found, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: module_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ModuleNameNotFound,
-        };
+        let fail = input.generate_error_at(module_start, VB6ProjectErrorKind::ModuleNameNotFound);
         input.forward_to_next_line();
 
         return Err(fail);
@@ -1732,29 +1481,19 @@ fn parse_module<'a>(
 
     let Some((module_path, _)) = input.take_until_newline() else {
         // No path found, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: module_path_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ModuleFileNameNotFound,
-        };
-
+        let fail = input.generate_error_at(
+            module_path_start,
+            VB6ProjectErrorKind::ModuleFileNameNotFound,
+        );
         return Err(fail);
     };
 
     if module_path.is_empty() {
         // No path found, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: module_path_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ModuleFileNameNotFound,
-        };
-
+        let fail = input.generate_error_at(
+            module_path_start,
+            VB6ProjectErrorKind::ModuleFileNameNotFound,
+        );
         return Err(fail);
     }
 
@@ -1772,51 +1511,30 @@ fn parse_class<'a>(
     //
     // By this point in the parse the "Class=" component should be stripped off
     // since that is how we knew to use this particular parse.
-    let line_start = input.start_of_line();
-    let end_of_line = input.end_of_line();
     let class_start = input.offset();
 
     let Some((class_name, _)) = input.take_until("; ", Comparator::CaseSensitive) else {
         // No name found, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: class_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ClassNameNotFound,
-        };
+        let fail = input.generate_error_at(class_start, VB6ProjectErrorKind::ClassNameNotFound);
         input.forward_to_next_line();
 
         return Err(fail);
     };
+
     let _ = input.take("; ", Comparator::CaseSensitive);
     let class_path_start = input.offset();
 
     let Some((class_path, _)) = input.take_until_newline() else {
         // No path found, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: class_path_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ClassFileNameNotFound,
-        };
-
+        let fail =
+            input.generate_error_at(class_path_start, VB6ProjectErrorKind::ClassFileNameNotFound);
         return Err(fail);
     };
 
     if class_path.is_empty() {
         // No path found, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: class_path_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::ClassFileNameNotFound,
-        };
+        let fail =
+            input.generate_error_at(class_path_start, VB6ProjectErrorKind::ClassFileNameNotFound);
 
         return Err(fail);
     }
@@ -1839,8 +1557,6 @@ fn parse_path_line<'a>(
     // By this point in the parse the "Form=", 'Designer=', or 'RelatedDoc='
     // component should be stripped off since that is how we knew to use this
     // particular parse.
-    let line_start = input.start_of_line();
-    let end_of_line = input.end_of_line();
     let path_start = input.offset();
 
     let path_line = input.take_until_newline();
@@ -1848,39 +1564,28 @@ fn parse_path_line<'a>(
         None => {
             // No file_path text found, so we can't parse this line.
             // Go to the next line and return the error.
-
-            let fail = ErrorDetails {
-                source_name: input.file_name().to_owned(),
-                source_content: Cow::Borrowed(input.contents),
-                error_offset: path_start,
-                line_start: line_start,
-                line_end: end_of_line,
-                kind: VB6ProjectErrorKind::PathValueNotFound {
+            let fail = input.generate_error_at(
+                path_start,
+                VB6ProjectErrorKind::PathValueNotFound {
                     parameter_line_name,
                 },
-            };
-
-            return Err(fail);
+            );
+            Err(fail)
         }
         Some((file_path, _)) => {
             if file_path.is_empty() {
                 // No file_path text found, so we can't parse this line.
                 // Go to the next line and return the error.
-                let fail = ErrorDetails {
-                    source_name: input.file_name().to_owned(),
-                    source_content: Cow::Borrowed(input.contents),
-                    error_offset: path_start,
-                    line_start: line_start,
-                    line_end: end_of_line,
-                    kind: VB6ProjectErrorKind::PathValueNotFound {
+                let fail = input.generate_error_at(
+                    path_start,
+                    VB6ProjectErrorKind::PathValueNotFound {
                         parameter_line_name,
                     },
-                };
-
+                );
                 return Err(fail);
             }
 
-            return Ok(file_path);
+            Ok(file_path)
         }
     }
 }
@@ -1893,49 +1598,32 @@ fn parse_dll_base_address<'a>(
     //
     // By this point in the parse the "DllBaseAddress=" component should be stripped off
     // since that is how we knew to use this particular parse.
-    let line_start = input.start_of_line();
-    let end_of_line = input.end_of_line();
     let dll_base_address_start = input.offset();
 
     let Some((base_address_hex_text, _)) = input.take_until_newline() else {
         // No base address found, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: dll_base_address_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::DllBaseAddressNotFound,
-        };
-
+        let fail = input.generate_error_at(
+            dll_base_address_start,
+            VB6ProjectErrorKind::DllBaseAddressNotFound,
+        );
         return Err(fail);
     };
 
     if base_address_hex_text.is_empty() {
         // The base address is empty, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: dll_base_address_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::DllBaseAddressUnparseableEmpty,
-        };
-
+        let fail = input.generate_error_at(
+            dll_base_address_start,
+            VB6ProjectErrorKind::DllBaseAddressUnparseableEmpty,
+        );
         return Err(fail);
     }
 
     if !base_address_hex_text.starts_with("&H") {
         // The base address does not start with "&H", so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: dll_base_address_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::DllBaseAddressMissingHexPrefix,
-        };
-
+        let fail = input.generate_error_at(
+            dll_base_address_start,
+            VB6ProjectErrorKind::DllBaseAddressMissingHexPrefix,
+        );
         return Err(fail);
     }
 
@@ -1945,17 +1633,12 @@ fn parse_dll_base_address<'a>(
 
     let Ok(dll_base_address) = u32::from_str_radix(trimmed_base_address_hex_text, 16) else {
         // The base address is not a valid hexadecimal value, so we can't parse this line.
-        let fail = ErrorDetails {
-            source_name: input.file_name().to_owned(),
-            source_content: Cow::Borrowed(input.contents),
-            error_offset: dll_base_address_start,
-            line_start: line_start,
-            line_end: end_of_line,
-            kind: VB6ProjectErrorKind::DllBaseAddressUnparseable {
-                hex_value: trimmed_base_address_hex_text.into(),
+        let fail = input.generate_error_at(
+            dll_base_address_start,
+            VB6ProjectErrorKind::DllBaseAddressUnparseable {
+                hex_value: trimmed_base_address_hex_text,
             },
-        };
-
+        );
         return Err(fail);
     };
 
@@ -1964,10 +1647,12 @@ fn parse_dll_base_address<'a>(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use crate::*;
 
     #[test]
     fn compatibility_mode_is_unknown() {
+        use crate::project::parse_qouted_converted_value;
+
         let mut input = SourceStream::new("", "CompatibleMode=\"5\"\n");
 
         let parameter_name = input
@@ -1986,6 +1671,8 @@ mod tests {
 
     #[test]
     fn compatibility_mode_is_no_compatibility() {
+        use crate::project::parse_qouted_converted_value;
+
         let mut input = SourceStream::new("", "CompatibleMode=\"0\"\n");
 
         let parameter_name = input
@@ -2001,6 +1688,8 @@ mod tests {
 
     #[test]
     fn compatibility_mode_is_project() {
+        use crate::project::parse_qouted_converted_value;
+
         let mut input = SourceStream::new("", "CompatibleMode=\"1\"\r\n");
 
         let parameter_name = input
@@ -2016,6 +1705,8 @@ mod tests {
 
     #[test]
     fn compatibility_mode_is_compatible_exe() {
+        use crate::project::parse_qouted_converted_value;
+
         let mut input = SourceStream::new("", "CompatibleMode=\"2\"\n");
 
         let parameter_name = input
@@ -2031,6 +1722,8 @@ mod tests {
 
     #[test]
     fn project_type_is_exe() {
+        use crate::parsers::project::parse_converted_value;
+
         let mut input = SourceStream::new("", "Type=Exe\n");
 
         let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
@@ -2044,6 +1737,8 @@ mod tests {
 
     #[test]
     fn project_type_is_oledll() {
+        use crate::parsers::project::parse_converted_value;
+
         let mut input = SourceStream::new("", "Type=OleDll\r\n");
 
         let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
@@ -2057,6 +1752,8 @@ mod tests {
 
     #[test]
     fn project_type_is_control() {
+        use crate::parsers::project::parse_converted_value;
+
         let mut input = SourceStream::new("", "Type=Control\n");
 
         let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
@@ -2070,6 +1767,8 @@ mod tests {
 
     #[test]
     fn project_type_is_oleexe() {
+        use crate::parsers::project::parse_converted_value;
+
         let mut input = SourceStream::new("", "Type=OleExe\n");
 
         let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
@@ -2083,6 +1782,8 @@ mod tests {
 
     #[test]
     fn project_type_is_unknown_type() {
+        use crate::parsers::project::parse_converted_value;
+
         let mut input = SourceStream::new("", "Type=blah\r\n");
 
         let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
@@ -2106,6 +1807,8 @@ mod tests {
 
     #[test]
     fn reference_compiled_line_valid() {
+        use crate::parsers::project::parse_reference;
+
         let mut input = SourceStream::new("", "Reference=*\\G{000440D8-E9ED-4435-A9A2-06B05387BB16}#c.0#0#..\\DBCommon\\Libs\\VbIntellisenseFix.dll#VbIntellisenseFix\r\n");
 
         let _ = input.take("Reference", Comparator::CaseSensitive).unwrap();
@@ -2139,6 +1842,8 @@ mod tests {
 
     #[test]
     fn reference_subproject_line_valid() {
+        use crate::parsers::project::parse_reference;
+
         let mut input = SourceStream::new("", "Reference=*\\Atest.vbp\r\n");
 
         let _ = input.take("Reference", Comparator::CaseSensitive).unwrap();
@@ -2162,6 +1867,8 @@ mod tests {
 
     #[test]
     fn module_line_valid() {
+        use crate::parsers::project::parse_module;
+
         let mut input = SourceStream::new("", "Module=modDBAssist; ..\\DBCommon\\DBAssist.bas\r\n");
 
         let _ = input.take("Module", Comparator::CaseSensitive).unwrap();
@@ -2176,6 +1883,8 @@ mod tests {
 
     #[test]
     fn class_line_valid() {
+        use crate::parsers::project::parse_class;
+
         let mut input = SourceStream::new(
             "",
             "Class=CStatusBarClass; ..\\DBCommon\\CStatusBarClass.cls\r\n",
@@ -2193,6 +1902,8 @@ mod tests {
 
     #[test]
     fn object_line_valid() {
+        use crate::parsers::project::parse_object;
+
         let mut input = SourceStream::new(
             "",
             "Object={00020430-0000-0000-C000-000000000046}#2.0#0; stdole2.tlb\r\n",
@@ -2291,20 +2002,15 @@ mod tests {
 
         let result = VB6Project::parse(&project_source_file);
 
-        if let Err(failure) = result {
-            failure.print();
-            panic!("Failed to parse project");
+        if result.has_failures() {
+            for failure in result.failures {
+                failure.print();
+            }
+
+            panic!("Project parse had failures");
         }
 
-        let project = match result.unwrap() {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                for failure in failures {
-                    failure.print();
-                }
-                panic!("Expected a VB6Project");
-            }
-        };
+        let project = result.unwrap();
 
         assert_eq!(project.project_type, CompileTargetType::Exe);
         assert_eq!(project.references.len(), 1);
@@ -2380,6 +2086,10 @@ mod tests {
 
     #[test]
     fn two_line_with_spaces() {
+        use super::parse_converted_value;
+        use super::parse_property_name;
+        use super::parse_reference;
+
         let mut input = SourceStream::new(
             "project.vbp",
             r#"Type=Exe
@@ -2479,20 +2189,15 @@ mod tests {
 
         let result = VB6Project::parse(&project_source_file);
 
-        if let Err(failure) = result {
-            failure.print();
-            panic!("Failed to parse project");
+        if result.has_failures() {
+            for failure in result.failures {
+                failure.print();
+            }
+
+            panic!("Project parse had failures");
         }
 
-        let project = match result.unwrap() {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                for failure in failures {
-                    failure.print();
-                }
-                panic!("Expected a VB6Project");
-            }
-        };
+        let project = result.unwrap();
 
         match project.properties.compilation_type {
             CompilationType::PCode => {}
@@ -2644,20 +2349,15 @@ mod tests {
 
         let result = VB6Project::parse(&project_source_file);
 
-        if let Err(failure) = result {
-            failure.print();
-            panic!("Failed to parse project");
+        if result.has_failures() {
+            for failure in result.failures {
+                failure.print();
+            }
+
+            panic!("Project parse had failures");
         }
 
-        let project = match result.unwrap() {
-            Success::Value(project) => project,
-            Success::ValueWithFailures(_, failures) => {
-                for failure in failures {
-                    failure.print();
-                }
-                panic!("Expected a VB6Project");
-            }
-        };
+        let project = result.unwrap();
 
         assert_eq!(project.project_type, CompileTargetType::Exe);
         assert_eq!(project.references.len(), 1);

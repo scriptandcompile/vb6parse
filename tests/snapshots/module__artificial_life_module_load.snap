@@ -3,7 +3,6 @@ source: tests/module.rs
 expression: module_file
 ---
 name:
-  - 34
   - 68
   - 101
   - 99
@@ -16,9 +15,6 @@ name:
   - 111
   - 110
   - 115
-  - 34
-  - 13
-  - 10
 tokens:
   - Newline:
       - 13

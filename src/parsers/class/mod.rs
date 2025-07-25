@@ -13,7 +13,7 @@ use crate::{
     errors::{PropertyError, VB6Error, VB6ErrorKind},
     language::VB6Token,
     parsers::{
-        class::properties::*,
+        class::properties::{VB6ClassHeader, VB6ClassProperties, FileUsage, Persistance, DataBindingBehavior, DataSourceBehavior, MtsStatus},
         header::{attributes_parse, key_value_line_parse, version_parse, HeaderKind},
         VB6Stream,
     },

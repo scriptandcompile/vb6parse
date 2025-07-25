@@ -202,7 +202,7 @@ impl<'a> From<Properties<'a>> for DataProperties {
     }
 }
 
-/// BOFAction is used to determine what action the ADODC takes when the BOF
+/// `BOFAction` is used to determine what action the ADODC takes when the BOF
 /// property is true.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245042(v=vs.60))

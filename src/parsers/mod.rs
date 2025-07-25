@@ -26,9 +26,9 @@ pub mod class;
 pub mod form;
 pub mod module;
 pub mod objectreference;
+pub mod parseresults;
 pub mod project;
 pub mod properties;
-pub mod success;
 pub mod vb6;
 pub mod vb6code;
 
@@ -47,7 +47,8 @@ pub use project::{
 
 pub use crate::sourcestream::*;
 pub use crate::SourceFile;
-pub use success::Success;
+pub use parseresults::ParseResult;
+pub use uuid::Uuid;
 
 pub use vb6::{is_english_code, vb6_parse};
 

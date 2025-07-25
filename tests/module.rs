@@ -1,14 +1,33 @@
+use image::EncodableLayout;
 use vb6parse::parsers::VB6ModuleFile;
+use vb6parse::SourceFile;
 
 #[test]
 fn artificial_life_module_load() {
-    let module_file_bytes = include_bytes!("./data/vb6-code/Artificial-life/Declarations.bas");
+    let file_path = "./tests/data/vb6-code/Artificial-life/Declarations.bas";
+    let module_file_bytes = std::fs::read(file_path).unwrap();
 
-    let module_file = match VB6ModuleFile::parse("Declarations.bas".to_owned(), module_file_bytes) {
-        Ok(module_file) => module_file,
-        Err(e) => {
-            eprintln!("{e}");
-            panic!("Failed to parse 'Declarations.bas' module file");
+    let module_source_file =
+        match SourceFile::decode_with_replacement(file_path, module_file_bytes.as_bytes()) {
+            Ok(source_file) => source_file,
+            Err(e) => {
+                e.print();
+                panic!("failed to decode module '{file_path}'.");
+            }
+        };
+
+    let result = VB6ModuleFile::parse(&module_source_file);
+
+    let module_file = match result.result {
+        Some(module_file) => module_file,
+        None => {
+            if result.has_failures() && result.failures.len() != 0 {
+                for failure in result.failures {
+                    failure.eprint();
+                }
+            }
+
+            panic!("Failed to parse '{file_path}' module file");
         }
     };
 
@@ -17,14 +36,31 @@ fn artificial_life_module_load() {
 
 #[test]
 fn game_physics_basic_module_load() {
-    let module_file_bytes = include_bytes!("./data/vb6-code/Game-physics-basic/Physics_Logic.bas");
+    let file_path = "./tests/data/vb6-code/Game-physics-basic/Physics_Logic.bas";
 
-    let module_file = match VB6ModuleFile::parse("Physics_Logic.bas".to_owned(), module_file_bytes)
-    {
-        Ok(module_file) => module_file,
-        Err(e) => {
-            eprintln!("{e}");
-            panic!("Failed to parse 'Physics_Logic.bas' module file");
+    let module_file_bytes = std::fs::read(file_path).unwrap();
+
+    let module_source_file =
+        match SourceFile::decode_with_replacement(file_path, module_file_bytes.as_bytes()) {
+            Ok(source_file) => source_file,
+            Err(e) => {
+                e.print();
+                panic!("failed to decode module '{file_path}'.");
+            }
+        };
+
+    let result = VB6ModuleFile::parse(&module_source_file);
+
+    let module_file = match result.result {
+        Some(module_file) => module_file,
+        None => {
+            if result.has_failures() && result.failures.len() != 0 {
+                for failure in result.failures {
+                    failure.eprint();
+                }
+            }
+
+            panic!("Failed to parse '{file_path}' module file");
         }
     };
 
@@ -33,15 +69,30 @@ fn game_physics_basic_module_load() {
 
 #[test]
 fn histograms_advanced_module_load() {
-    let module_file_bytes =
-        include_bytes!("./data/vb6-code/Histograms-advanced/mod_PublicVars.bas");
+    let file_path = "./tests/data/vb6-code/Histograms-advanced/mod_PublicVars.bas";
+    let module_file_bytes = std::fs::read(file_path).unwrap();
 
-    let module_file = match VB6ModuleFile::parse("mod_PublicVars.bas".to_owned(), module_file_bytes)
-    {
-        Ok(module_file) => module_file,
-        Err(e) => {
-            eprintln!("{e}");
-            panic!("Failed to parse 'mod_PublicVars.bas' module file");
+    let module_source_file =
+        match SourceFile::decode_with_replacement(file_path, module_file_bytes.as_bytes()) {
+            Ok(source_file) => source_file,
+            Err(e) => {
+                e.print();
+                panic!("failed to decode module '{file_path}'.");
+            }
+        };
+
+    let result = VB6ModuleFile::parse(&module_source_file);
+
+    let module_file = match result.result {
+        Some(module_file) => module_file,
+        None => {
+            if result.has_failures() && result.failures.len() != 0 {
+                for failure in result.failures {
+                    failure.eprint();
+                }
+            }
+
+            panic!("Failed to parse '{file_path}' module file");
         }
     };
 
@@ -50,14 +101,30 @@ fn histograms_advanced_module_load() {
 
 #[test]
 fn histograms_basic_module_load() {
-    let module_file_bytes = include_bytes!("./data/vb6-code/Histograms-basic/mod_PublicVars.bas");
+    let file_path = "./tests/data/vb6-code/Histograms-basic/mod_PublicVars.bas";
+    let module_file_bytes = std::fs::read(file_path).unwrap();
 
-    let module_file = match VB6ModuleFile::parse("mod_PublicVars.bas".to_owned(), module_file_bytes)
-    {
-        Ok(module_file) => module_file,
-        Err(e) => {
-            eprintln!("{e}");
-            panic!("Failed to parse 'mod_PublicVars.bas' module file");
+    let module_source_file =
+        match SourceFile::decode_with_replacement(file_path, module_file_bytes.as_bytes()) {
+            Ok(source_file) => source_file,
+            Err(e) => {
+                e.print();
+                panic!("failed to decode module '{file_path}'.");
+            }
+        };
+
+    let result = VB6ModuleFile::parse(&module_source_file);
+
+    let module_file = match result.result {
+        Some(module_file) => module_file,
+        None => {
+            if result.has_failures() && result.failures.len() != 0 {
+                for failure in result.failures {
+                    failure.eprint();
+                }
+            }
+
+            panic!("Failed to parse '{file_path}' module file");
         }
     };
 
@@ -66,14 +133,30 @@ fn histograms_basic_module_load() {
 
 #[test]
 fn levels_effect_module_load() {
-    let module_file_bytes = include_bytes!("./data/vb6-code/Levels-effect/mod_PublicVars.bas");
+    let file_path = "./tests/data/vb6-code/Levels-effect/mod_PublicVars.bas";
+    let module_file_bytes = std::fs::read(file_path).unwrap();
 
-    let module_file = match VB6ModuleFile::parse("mod_PublicVars.bas".to_owned(), module_file_bytes)
-    {
-        Ok(module_file) => module_file,
-        Err(e) => {
-            eprintln!("{e}");
-            panic!("Failed to parse 'mod_PublicVars.bas' module file");
+    let module_source_file =
+        match SourceFile::decode_with_replacement(file_path, module_file_bytes.as_bytes()) {
+            Ok(source_file) => source_file,
+            Err(e) => {
+                e.print();
+                panic!("failed to decode module '{file_path}'.");
+            }
+        };
+
+    let result = VB6ModuleFile::parse(&module_source_file);
+
+    let module_file = match result.result {
+        Some(module_file) => module_file,
+        None => {
+            if result.has_failures() && result.failures.len() != 0 {
+                for failure in result.failures {
+                    failure.eprint();
+                }
+            }
+
+            panic!("Failed to parse '{file_path}' module file");
         }
     };
 
@@ -82,27 +165,66 @@ fn levels_effect_module_load() {
 
 #[test]
 fn map_editor_2d_module_load() {
-    let module1_file_bytes = include_bytes!("./data/vb6-code/Map-editor-2D/Subs.bas");
+    let subs_file_path = "./tests/data/vb6-code/Map-editor-2D/Subs.bas";
 
-    let module1_file = match VB6ModuleFile::parse("Subs.bas".to_owned(), module1_file_bytes) {
-        Ok(module1_file) => module1_file,
+    let subs_module_file_bytes = std::fs::read(subs_file_path).unwrap();
+
+    let subs_module_source_file = match SourceFile::decode_with_replacement(
+        subs_file_path,
+        subs_module_file_bytes.as_bytes(),
+    ) {
+        Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{e}");
-            panic!("Failed to parse 'Subs.bas' module file");
+            e.print();
+            panic!("failed to decode module '{subs_file_path}'.");
         }
     };
 
-    let module2_file_bytes = include_bytes!("./data/vb6-code/Map-editor-2D/Declarations.bas");
+    let subs_result = VB6ModuleFile::parse(&subs_module_source_file);
 
-    let module2_file = match VB6ModuleFile::parse("Declarations.bas".to_owned(), module2_file_bytes)
-    {
-        Ok(module2_file) => module2_file,
-        Err(e) => {
-            eprintln!("{e}");
-            panic!("Failed to parse 'Declarations.bas' module file");
+    let subs_module_file = match subs_result.result {
+        Some(module_file) => module_file,
+        None => {
+            if subs_result.has_failures() && subs_result.failures.len() != 0 {
+                for failure in subs_result.failures {
+                    failure.eprint();
+                }
+            }
+
+            panic!("Failed to parse '{subs_file_path}' module file");
         }
     };
 
-    insta::assert_yaml_snapshot!(module1_file);
-    insta::assert_yaml_snapshot!(module2_file);
+    let declaration_file_path = "./tests/data/vb6-code/Map-editor-2D/Declarations.bas";
+
+    let declaration_module_file_bytes = std::fs::read(declaration_file_path).unwrap();
+
+    let declaration_module_source_file = match SourceFile::decode_with_replacement(
+        declaration_file_path,
+        declaration_module_file_bytes.as_bytes(),
+    ) {
+        Ok(source_file) => source_file,
+        Err(e) => {
+            e.print();
+            panic!("failed to decode module '{declaration_file_path}'.");
+        }
+    };
+
+    let declaration_result = VB6ModuleFile::parse(&declaration_module_source_file);
+
+    let declaration_module_file = match declaration_result.result {
+        Some(module_file) => module_file,
+        None => {
+            if declaration_result.has_failures() && declaration_result.failures.len() != 0 {
+                for failure in declaration_result.failures {
+                    failure.eprint();
+                }
+            }
+
+            panic!("Failed to parse '{declaration_file_path}' module file");
+        }
+    };
+
+    insta::assert_yaml_snapshot!(subs_module_file);
+    insta::assert_yaml_snapshot!(declaration_module_file);
 }

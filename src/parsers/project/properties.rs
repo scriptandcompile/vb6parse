@@ -68,7 +68,7 @@ impl TryFrom<&str> for Retained {
         match value.as_bytes() {
             b"0" => Ok(Retained::UnloadOnExit),
             b"1" => Ok(Retained::RetainedInMemory),
-            _ => Err(format!("Unknown Retained value: '{}'", value)),
+            _ => Err(format!("Unknown Retained value: '{value}'")),
         }
     }
 }
@@ -97,14 +97,14 @@ impl TryFrom<&str> for ExistingBrowser {
         match value.as_bytes() {
             b"0" => Ok(ExistingBrowser::DoNotUse),
             b"-1" => Ok(ExistingBrowser::Use),
-            _ => Err(format!("Unknown ExistingBrowser value: '{}'", value)),
+            _ => Err(format!("Unknown ExistingBrowser value: '{value}'")),
         }
     }
 }
 
 /// Start mode of the VB6 project.
 ///
-/// Indicates whether the project is a stand-alone application or an ActiveX
+/// Indicates whether the project is a stand-alone application or an `ActiveX`
 /// component.
 #[derive(
     Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
@@ -115,7 +115,7 @@ pub enum StartMode {
     #[default]
     #[strum(message = "Stand-alone Application")]
     StandAlone = 0,
-    /// The project is an ActiveX component.
+    /// The project is an `ActiveX` component.
     #[strum(message = "ActiveX Automation Component")]
     Automation = 1,
 }
@@ -127,7 +127,7 @@ impl TryFrom<&str> for StartMode {
         match value.as_bytes() {
             b"0" => Ok(StartMode::StandAlone),
             b"1" => Ok(StartMode::Automation),
-            _ => Err(format!("Unknown StartMode value: '{}'", value)),
+            _ => Err(format!("Unknown StartMode value: '{value}'")),
         }
     }
 }
@@ -162,7 +162,7 @@ impl TryFrom<&str> for InteractionMode {
         match value.as_bytes() {
             b"0" => Ok(InteractionMode::Interactive),
             b"-1" => Ok(InteractionMode::Unattended),
-            _ => Err(format!("Unknown InteractionMode value: '{}'", value)),
+            _ => Err(format!("Unknown InteractionMode value: '{value}'")),
         }
     }
 }
@@ -192,12 +192,12 @@ impl TryFrom<&str> for ServerSupportFiles {
         match value.as_bytes() {
             b"0" => Ok(ServerSupportFiles::Local),
             b"1" => Ok(ServerSupportFiles::Remote),
-            _ => Err(format!("Unknown ServerSupportFiles value: '{}'", value)),
+            _ => Err(format!("Unknown ServerSupportFiles value: '{value}'")),
         }
     }
 }
 
-/// If the ActiveX control has been updated in windows since the last time
+/// If the `ActiveX` control has been updated in windows since the last time
 /// the project was opened this setting determines if the project should
 /// be updated to use the new control or not.
 #[derive(
@@ -221,23 +221,23 @@ impl TryFrom<&str> for UpgradeControls {
         match value.as_bytes() {
             b"0" => Ok(UpgradeControls::Upgrade),
             b"1" => Ok(UpgradeControls::NoUpgrade),
-            _ => Err(format!("Unknown UpgradeControls value: '{}'", value)),
+            _ => Err(format!("Unknown UpgradeControls value: '{value}'")),
         }
     }
 }
 
-/// Determines if licensing information for ActiveX Controls unused, but
+/// Determines if licensing information for `ActiveX` Controls unused, but
 /// referenced within the project, should be retained or removed.
 #[derive(
     Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
 )]
 #[repr(i16)]
 pub enum UnusedControlInfo {
-    /// The licensing information for ActiveX Controls unused, but referenced
+    /// The licensing information for `ActiveX` Controls unused, but referenced
     /// within the project, should be retained.
     #[strum(message = "Retain License Information")]
     Retain = 0,
-    /// The licensing information for ActiveX Controls unused, but referenced
+    /// The licensing information for `ActiveX` Controls unused, but referenced
     /// within the project, should be removed.
     #[default]
     #[strum(message = "Remove License Information")]
@@ -251,7 +251,7 @@ impl TryFrom<&str> for UnusedControlInfo {
         match value.as_bytes() {
             b"0" => Ok(UnusedControlInfo::Retain),
             b"1" => Ok(UnusedControlInfo::Remove),
-            _ => Err(format!("Unknown UnusedControlInfo value: '{}'", value)),
+            _ => Err(format!("Unknown UnusedControlInfo value: '{value}'")),
         }
     }
 }
@@ -295,7 +295,7 @@ impl TryFrom<&str> for CompatibilityMode {
             b"0" => Ok(CompatibilityMode::NoCompatibility),
             b"1" => Ok(CompatibilityMode::Project),
             b"2" => Ok(CompatibilityMode::CompatibleExe),
-            _ => Err(format!("Unknown CompatibilityMode value: '{}'", value)),
+            _ => Err(format!("Unknown CompatibilityMode value: '{value}'")),
         }
     }
 }
@@ -313,7 +313,7 @@ pub enum DebugStartupOption {
     #[strum(message = "Wait for Component Creation")]
     WaitForComponentCreation = 0,
     /// Lets the component determine what happens. The types of components include
-    /// ActiveX Designers like the DHTML Designer and the WebClass Designer, and
+    /// `ActiveX` Designers like the DHTML Designer and the `WebClass` Designer, and
     /// also User Controls and User Documents. If a User Control or User Document
     /// is selected, Visual Basic will launch the browser and display a dummy test
     /// page that contains the component. The component can tell Visual Basic to
@@ -325,9 +325,9 @@ pub enum DebugStartupOption {
     /// For example: an ActiveX.dll project could specify 'Startup Object=Sub Main'
     /// and 'Start Component=DHTMLPage1'.
     ///
-    /// When the project runs, Visual Basic would register the DHTMLPage1 component
+    /// When the project runs, Visual Basic would register the `DHTMLPage1` component
     /// as well as other components, execute and then launch Internet Explorer,
-    /// and navigate to a URL that create an instance of DHTMLPage1.
+    /// and navigate to a URL that create an instance of `DHTMLPage1`.
     #[strum(message = "A Start Component is specified")]
     StartComponent = 1,
     /// Specifies an executable program to be used.
@@ -347,7 +347,7 @@ impl TryFrom<&str> for DebugStartupOption {
             b"1" => Ok(DebugStartupOption::StartComponent),
             b"2" => Ok(DebugStartupOption::StartProgram),
             b"3" => Ok(DebugStartupOption::StartBrowser),
-            _ => Err(format!("Unknown DebugStartupOption value: '{}'", value)),
+            _ => Err(format!("Unknown DebugStartupOption value: '{value}'")),
         }
     }
 }
@@ -379,11 +379,13 @@ pub struct VersionInformation<'a> {
 
 /// Determines the type of compile target for the VB6 project.
 #[derive(Debug, PartialEq, Eq, Copy, Clone, Serialize, EnumIter, EnumMessage)]
+#[derive(Default)]
 pub enum CompileTargetType {
     /// The project is a standard EXE.
     #[strum(message = "A Standard Exe")]
+    #[default]
     Exe,
-    /// The project is a UserControl.
+    /// The project is a `UserControl`.
     #[strum(message = "A UserControl")]
     Control,
     /// The project is a OLE Executable.
@@ -394,11 +396,6 @@ pub enum CompileTargetType {
     OleDll,
 }
 
-impl Default for CompileTargetType {
-    fn default() -> Self {
-        CompileTargetType::Exe
-    }
-}
 
 impl TryFrom<&str> for CompileTargetType {
     type Error = String;

@@ -340,6 +340,7 @@ impl CompilationType {
         }
     }
 
+    #[must_use]
     pub fn update_pentium_fdiv_bug_check(self, setting: PentiumFDivBugCheck) -> CompilationType {
         match self {
             CompilationType::PCode => CompilationType::NativeCode(NativeCodeSettings {

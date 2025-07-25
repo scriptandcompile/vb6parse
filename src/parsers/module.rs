@@ -1,19 +1,12 @@
 use crate::{
-    errors::{VB6Error, VB6ErrorKind},
-    language::VB6Token,
-    parsers::VB6Stream,
-    vb6::{keyword_parse, vb6_parse},
+    errors::VB6ModuleErrorKind, language::VB6Token, parsers::ParseResult, sourcefile::SourceFile,
+    sourcestream::Comparator, vb6_code_parse,
 };
 
 use serde::Serialize;
-use winnow::{
-    ascii::{line_ending, space0, space1},
-    token::take_until,
-    Parser,
-};
 
 /// Represents a VB6 module file.
-/// A VB6 module file contains a header and a list of tokens.
+/// A VB6 module files contain a header and a list of tokens.
 ///
 /// The tokens contain the token stream of the code of the class file.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
@@ -44,7 +37,7 @@ impl<'a> VB6ModuleFile<'a> {
     /// # Example
     ///
     /// ```rust
-    /// use vb6parse::parsers::VB6ModuleFile;
+    /// use vb6parse::*;
     ///
     /// let input = b"Attribute VB_Name = \"Module1\"
     /// Option Explicit
@@ -53,53 +46,168 @@ impl<'a> VB6ModuleFile<'a> {
     /// End Sub
     /// ";
     ///
-    /// let result = VB6ModuleFile::parse("module.bas".to_owned(), input);
+    /// let source_file = match SourceFile::decode_with_replacement("module.bas", input) {
+    ///     Ok(source_file) => source_file,
+    ///     Err(e) => {
+    ///         e.print();
+    ///         panic!("failed to decode module source code.");
+    ///     }
+    /// };
     ///
-    /// assert!(result.is_ok());
+    /// let result = VB6ModuleFile::parse(&source_file);
+    ///
+    /// if result.has_failures() {
+    ///     for failure in result.failures {
+    ///         failure.print();
+    ///     }
+    ///     panic!("Module parse had failures");
+    /// }
+    ///
+    /// let module_file = result.unwrap();
+    ///
+    /// assert_eq!(module_file.name, "Module1".as_bytes());
+    /// assert_eq!(module_file.tokens.len(), 17);
     /// ```
-    pub fn parse(file_name: String, source_code: &'a [u8]) -> Result<Self, VB6Error> {
-        let mut input = VB6Stream::new(file_name, source_code);
+    pub fn parse(
+        source_file: &'a SourceFile,
+    ) -> ParseResult<'a, VB6ModuleFile<'a>, VB6ModuleErrorKind> {
+        let mut failures = vec![];
+        let mut input = source_file.get_source_stream();
 
-        match (
-            space0,
-            keyword_parse("Attribute"),
-            space1,
-            keyword_parse("VB_Name"),
-            space0,
-            "=",
-            space0,
-        )
-            .parse_next(&mut input)
+        // Eat however many spaces starts the files. It doesn't matter how many
+        // whitespaces it has, zero or many.
+        let _ = input.take_ascii_whitespaces();
+
+        // Grab the Attribute keyword. If we don't find it, we should output an error
+        // but keep trying to read on.
+        if input
+            .take("Attribute", Comparator::CaseInsensitive)
+            .is_none()
         {
-            Ok(_) => {}
-            Err(e) => {
-                return Err(input.error(e.into_inner().unwrap()));
-            }
+            let error = input.generate_error(VB6ModuleErrorKind::AttributeKeywordMissing);
+            failures.push(error);
+        };
+
+        // Eat however many spaces sits between the attribute and the VB_Name keyword. It doesn't matter how many
+        // whitespaces it has as long as we have at least one.
+        if input.take_ascii_whitespaces().is_none() {
+            let error = input.generate_error(VB6ModuleErrorKind::MissingWitespaceInHeader);
+            failures.push(error);
         }
 
-        let name = match (
-            "\"",
-            take_until(0.., "\""),
-            "\"",
-            space0::<VB6Stream, VB6ErrorKind>,
-            line_ending,
-        )
-            .take()
-            .parse_next(&mut input)
-        {
-            Ok(name) => name,
-            Err(e) => {
-                return Err(input.error(e));
-            }
+        // Grab the attribute VB_Name keyword. If we don't find it, we should output an error
+        // but keep trying to read on.
+        if input.take("VB_Name", Comparator::CaseInsensitive).is_none() {
+            let error = input.generate_error(VB6ModuleErrorKind::VBNameAttributeMissing);
+            failures.push(error);
         };
 
-        let tokens = match vb6_parse(&mut input) {
-            Ok(tokens) => tokens,
-            Err(e) => {
-                return Err(input.error(e.into_inner().unwrap()));
-            }
+        // Eat however many spaces starts the files. It doesn't matter how many
+        // whitespaces it has, zero or many.
+        let _ = input.take_ascii_whitespaces();
+
+        // Grab the equality symbol. If we don't find it, we should output an error
+        // but keep trying to read on.
+        if input.take("=", Comparator::CaseInsensitive).is_none() {
+            let error = input.generate_error(VB6ModuleErrorKind::EqualMissing);
+            failures.push(error);
         };
 
-        Ok(VB6ModuleFile { name, tokens })
+        // Eat however many spaces starts the files. It doesn't matter how many
+        // whitespaces it has, zero or many.
+        let _ = input.take_ascii_whitespaces();
+
+        // Grab the qoute symbol. If we don't find it, we should output an error
+        // but keep trying to read on.
+        if input.take("\"", Comparator::CaseInsensitive).is_none() {
+            let error = input.generate_error(VB6ModuleErrorKind::VBNameAttributeValueUnqouted);
+            failures.push(error);
+        };
+
+        match input.take_until("\"", Comparator::CaseInsensitive) {
+            None => {
+                // Well, it looks like we don't have a qouted value even if it might have a single qoute at the start.
+                let Some((vb_name_value, _)) = input.take_until_newline() else {
+                    let error =
+                        input.generate_error(VB6ModuleErrorKind::VBNameAttributeValueUnqouted);
+                    failures.push(error);
+
+                    let parse_result = vb6_code_parse(&mut input);
+
+                    if parse_result.has_failures() {
+                        for failure in parse_result.failures {
+                            failures.push(failure.into());
+                        }
+                    }
+                    input.take_newline();
+
+                    return ParseResult {
+                        result: None,
+                        failures,
+                    };
+                };
+
+                let parse_result = vb6_code_parse(&mut input);
+
+                if parse_result.has_failures() {
+                    for failure in parse_result.failures {
+                        failures.push(failure.into());
+                    }
+                }
+
+                match parse_result.result {
+                    Some(tokens) => {
+                        return ParseResult {
+                            result: Some(VB6ModuleFile {
+                                name: vb_name_value.as_bytes(),
+                                tokens,
+                            }),
+                            failures,
+                        };
+                    }
+                    None => {
+                        return ParseResult {
+                            result: None,
+                            failures,
+                        };
+                    }
+                }
+            }
+            Some((vb_name_value, _)) => {
+                // eat the qoute character we found.
+                let _ = input.take_count(1);
+                // we might have whitespaces after the qouted value.
+                // we don't care about them so just eat them and then the newline.
+                let _ = input.take_ascii_whitespaces();
+                let _ = input.take_newline();
+
+                // looks like we have a fully quoted value.
+                let parse_result = vb6_code_parse(&mut input);
+
+                if parse_result.has_failures() {
+                    for failure in parse_result.failures {
+                        failures.push(failure.into());
+                    }
+                }
+
+                match parse_result.result {
+                    Some(tokens) => {
+                        return ParseResult {
+                            result: Some(VB6ModuleFile {
+                                name: vb_name_value.as_bytes(),
+                                tokens,
+                            }),
+                            failures,
+                        };
+                    }
+                    None => {
+                        return ParseResult {
+                            result: None,
+                            failures,
+                        };
+                    }
+                }
+            }
+        }
     }
 }

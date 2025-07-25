@@ -24,7 +24,7 @@ pub enum VB6Token<'a> {
     ReDimKeyword(&'a BStr),
     /// Represents the 'Preserve' keyword.
     ///
-    /// Used with the ReDim keyword to preserve the contents of an array when
+    /// Used with the 'ReDim' keyword to preserve the contents of an array when
     /// reallocating storage space.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266231(v=vs.60))
@@ -290,7 +290,7 @@ pub enum VB6Token<'a> {
     IntegerKeyword(&'a BStr),
     /// Represents a string literal.
     ///
-    /// The string literal is enclosed in double quotes.
+    /// The string literal includes the enclosing double quotes.
     StringLiteral(&'a BStr),
     /// Represents the 'If' keyword.
     ///
@@ -722,7 +722,7 @@ pub enum VB6Token<'a> {
     /// arguments passed to procedures, and the return type for Function and
     /// PropertyGet procedures whose names start with the specified characters.
     ///
-    /// Defaults to the Boolean data type.
+    /// Sets the default for a variable to the Boolean data type.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
     DefBoolKeyword(&'a BStr),
@@ -732,7 +732,7 @@ pub enum VB6Token<'a> {
     /// arguments passed to procedures, and the return type for Function and
     /// PropertyGet procedures whose names start with the specified characters.
     ///
-    /// Defaults to the Byte data type.
+    /// Sets the default for a variable to the Byte data type.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
     DefByteKeyword(&'a BStr),
@@ -742,7 +742,7 @@ pub enum VB6Token<'a> {
     /// arguments passed to procedures, and the return type for Function and
     /// PropertyGet procedures whose names start with the specified characters.
     ///
-    /// Defaults to the Int data type.
+    /// Sets the default for a variable to the Int data type.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
     DefIntKeyword(&'a BStr),
@@ -752,7 +752,7 @@ pub enum VB6Token<'a> {
     /// arguments passed to procedures, and the return type for Function and
     /// PropertyGet procedures whose names start with the specified characters.
     ///
-    /// Defaults to the Long data type.
+    /// Sets the default for a variable to the Long data type.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
     DefLngKeyword(&'a BStr),
@@ -762,7 +762,7 @@ pub enum VB6Token<'a> {
     /// arguments passed to procedures, and the return type for Function and
     /// PropertyGet procedures whose names start with the specified characters.
     ///
-    /// Defaults to the Currency data type.
+    /// Sets the default for a variable to the Currency data type.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
     DefCurKeyword(&'a BStr),
@@ -772,7 +772,7 @@ pub enum VB6Token<'a> {
     /// arguments passed to procedures, and the return type for Function and
     /// PropertyGet procedures whose names start with the specified characters.
     ///
-    /// Defaults to the Single data type.
+    /// Sets the default for a variable to the Single data type.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
     DefSngKeyword(&'a BStr),
@@ -782,7 +782,7 @@ pub enum VB6Token<'a> {
     /// arguments passed to procedures, and the return type for Function and
     /// PropertyGet procedures whose names start with the specified characters.
     ///
-    /// Defaults to the Double data type.
+    /// Sets the default for a variable to the Double data type.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
     DefDblKeyword(&'a BStr),
@@ -792,7 +792,7 @@ pub enum VB6Token<'a> {
     /// arguments passed to procedures, and the return type for Function and
     /// PropertyGet procedures whose names start with the specified characters.
     ///
-    /// Defaults to the Decimal data type.
+    /// Sets the default for a variable to the Decimal data type.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
     DefDecKeyword(&'a BStr),
@@ -802,7 +802,7 @@ pub enum VB6Token<'a> {
     /// arguments passed to procedures, and the return type for Function and
     /// PropertyGet procedures whose names start with the specified characters.
     ///
-    /// Defaults to the Date data type.
+    /// Sets the default for a variable to the Date data type.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
     DefDateKeyword(&'a BStr),
@@ -812,7 +812,7 @@ pub enum VB6Token<'a> {
     /// arguments passed to procedures, and the return type for Function and
     /// PropertyGet procedures whose names start with the specified characters.
     ///
-    /// Defaults to the String data type.
+    /// Sets the default for a variable to the String data type.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
     DefStrKeyword(&'a BStr),
@@ -822,7 +822,7 @@ pub enum VB6Token<'a> {
     /// arguments passed to procedures, and the return type for Function and
     /// PropertyGet procedures whose names start with the specified characters.
     ///
-    /// Defaults to the Object data type.
+    /// Sets the default for a variable to the Object data type.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
     DefObjKeyword(&'a BStr),
@@ -832,7 +832,7 @@ pub enum VB6Token<'a> {
     /// arguments passed to procedures, and the return type for Function and
     /// PropertyGet procedures whose names start with the specified characters.
     ///
-    /// Defaults to the Variant data type.
+    /// Sets the default for a variable to the Variant data type.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
     DefVarKeyword(&'a BStr),
@@ -912,7 +912,7 @@ pub enum VB6Token<'a> {
     /// on first reference to it, so you don't have to use the Set statement to
     /// assign the object reference. The New keyword can't be used to declare
     /// variables of any intrinsic data types, can't be used to declare
-    /// instances of dependent objects, and can't be used with WithEvents.
+    /// instances of dependent objects, and can't be used with `WithEvents`.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243352(v=vs.60))
     NewKeyword(&'a BStr),
@@ -944,15 +944,15 @@ pub enum VB6Token<'a> {
     NullKeyword(&'a BStr),
     /// Represents the 'ParamArray' keyword.
     ///
-    /// The ParamArray keyword is used in these contexts:
+    /// The 'ParamArray' keyword is used in these contexts:
     ///
     /// Declare statement, Function statement, Property Get statement,
     /// Property Let statement, and Sub statement.
     ///
     /// Used only as the last argument in arglist to indicate that the final
-    /// argument is an Optional array of Variant elements. The ParamArray
+    /// argument is an Optional array of Variant elements. The 'ParamArray'
     /// keyword allows you to provide an arbitrary number of arguments. It may
-    /// not be used with ByVal, ByRef, or Optional.
+    /// not be used with 'ByVal', 'ByRef', or Optional.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445198(v=vs.60))
     ParamArrayKeyword(&'a BStr),

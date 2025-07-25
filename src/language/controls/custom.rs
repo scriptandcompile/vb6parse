@@ -33,6 +33,7 @@ impl<'a> From<Properties<'a>> for CustomControlProperties {
 }
 
 impl CustomControlProperties {
+    #[must_use]
     pub fn len(&self) -> usize {
         self.property_store.len()
     }
