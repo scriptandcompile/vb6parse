@@ -14,7 +14,7 @@ impl SourceFile {
     pub fn decode_with_replacement(
         file_name: impl Into<String>,
         source_code: &[u8],
-    ) -> Result<Self, ErrorDetails<SourceFileErrorKind>> {
+    ) -> Result<Self, ErrorDetails<'_, SourceFileErrorKind>> {
         Self::decode_internal(file_name, source_code, true)
     }
 
@@ -22,7 +22,7 @@ impl SourceFile {
         file_name: impl Into<String>,
         source_code: &[u8],
         allow_replacement: bool,
-    ) -> Result<Self, ErrorDetails<SourceFileErrorKind>> {
+    ) -> Result<Self, ErrorDetails<'_, SourceFileErrorKind>> {
         let mut decoder = WINDOWS_1252.new_decoder();
 
         let Some(max_len) = decoder.max_utf8_buffer_length(source_code.len()) else {
@@ -49,24 +49,24 @@ impl SourceFile {
             decoder.decode_to_string(source_code, &mut source_file.file_content, last);
 
         if source_file.file_content.len() == source_code.len() {
-            // looks like we actualy succeded even if the coder_result might be
+            // looks like we actually succeeded even if the coder_result might be
             // confused at that.
             return Ok(source_file);
         }
 
-        if (!all_processed && !allow_replacement)
-            || coder_result == CoderResult::OutputFull
-        {
+        if (!all_processed && !allow_replacement) || coder_result == CoderResult::OutputFull {
             let mut decoded_len = utf8_latin1_up_to(source_code);
             let mut error_offset = decoded_len - 1;
 
-            // looks like we actualy succeded even if the coder_result might be
+            // Looks like we actually succeeded even if the coder_result might be
             // confused at that.
             if attempted_decode_len == decoded_len {
                 return Ok(source_file);
             }
 
-            let text_upto_error = if let Ok(v) = str::from_utf8(&source_code[0..decoded_len]) { v.to_owned() } else {
+            let text_up_to_error = if let Ok(v) = str::from_utf8(&source_code[0..decoded_len]) {
+                v.to_owned()
+            } else {
                 // For some reason, even though this should never happen
                 // we ended up here. Oh well. Report that things failed at
                 // the start of the file since we can't pinpoint the exact
@@ -83,7 +83,7 @@ impl SourceFile {
 Currently, only latin-1 source code is supported."
                     ),
                 },
-                source_content: Cow::Owned(text_upto_error),
+                source_content: Cow::Owned(text_up_to_error),
                 source_name: file_name,
                 error_offset,
                 line_start: 0,
@@ -99,11 +99,12 @@ Currently, only latin-1 source code is supported."
     pub fn decode(
         file_name: impl Into<String>,
         source_code: &[u8],
-    ) -> Result<Self, ErrorDetails<SourceFileErrorKind>> {
+    ) -> Result<Self, ErrorDetails<'_, SourceFileErrorKind>> {
         Self::decode_internal(file_name, source_code, false)
     }
 
-    #[must_use] pub fn get_source_stream(&self) -> SourceStream {
+    #[must_use]
+    pub fn get_source_stream(&'_ self) -> SourceStream<'_> {
         let source_stream = SourceStream::new(self.file_name.clone(), self.file_content.as_str());
 
         source_stream

@@ -11,7 +11,7 @@
 //! `VB6Parse` is designed to be a fast and efficient library for parsing VB6 code.
 //! Despite focusing on speed, ease of use has a high priority. While it should
 //! be possible for the library to be used to create things like real-time syntax
-//! highlighting, a language server, an interpreeter, or a high speed compiler,
+//! highlighting, a language server, an interpreter, or a high speed compiler,
 //! the primary goal is focused around offline analysis, legacy utilities,
 //! and tools that convert VB6 code to more modern languages.
 
