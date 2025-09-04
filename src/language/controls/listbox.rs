@@ -1,9 +1,13 @@
-use crate::language::color::VB6Color;
-use crate::language::controls::{
-    Activation, Appearance, CausesValidation, DragMode, MousePointer, MultiSelect, OLEDragMode,
-    OLEDropMode, TabStop, TextDirection, Visibility,
+use crate::{
+    language::{
+        color::{VB6Color, VB_BUTTON_FACE, VB_BUTTON_TEXT},
+        controls::{
+            Activation, Appearance, CausesValidation, DragMode, MousePointer, MultiSelect,
+            OLEDragMode, OLEDropMode, TabStop, TextDirection, Visibility,
+        },
+    },
+    parsers::Properties,
 };
-use crate::parsers::Properties;
 
 use bstr::BString;
 use image::DynamicImage;
@@ -76,7 +80,7 @@ impl Default for ListBoxProperties {
     fn default() -> Self {
         ListBoxProperties {
             appearance: Appearance::ThreeD,
-            back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
+            back_color: VB_BUTTON_FACE,
             causes_validation: CausesValidation::Yes,
             columns: 0,
             data_field: "".into(),
@@ -86,7 +90,7 @@ impl Default for ListBoxProperties {
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
-            fore_color: VB6Color::from_hex("&H80000012&").unwrap(),
+            fore_color: VB_BUTTON_TEXT,
             height: 30,
             help_context_id: 0,
             integral_height: true,
