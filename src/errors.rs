@@ -195,7 +195,7 @@ pub enum VB6ProjectErrorKind<'a> {
     #[error("'Reference' line is invalid. Expected a reference path but found a newline or the end of the file instead.")]
     ReferenceProjectPathNotFound,
 
-    #[error("'Reference' line is invalid. Expected a reference path to begin with '*\\A' followed by the path to the reference project file ending with a qoute '\"' character. Found '{value}' instead.")]
+    #[error("'Reference' line is invalid. Expected a reference path to begin with '*\\A' followed by the path to the reference project file ending with a quote '\"' character. Found '{value}' instead.")]
     ReferenceProjectPathInvalid { value: &'a str },
 
     #[error("'Reference' line is invalid. Expected a compiled reference 'unknown1' value after the UUID, between '#' characters but found a newline or the end of the file instead.")]
@@ -210,10 +210,10 @@ pub enum VB6ProjectErrorKind<'a> {
     #[error("'Reference' line is invalid. Expected a compiled reference 'description' value after the UUID, 'unknown1', 'unknown2', and 'path', but found a newline or the end of the file instead.")]
     ReferenceCompiledDescriptionNotFound,
 
-    #[error("'Reference' line is invalid. Compiled reference description containts a '#' character, which is not allowed. The description must be a valid ASCII string without any '#' characters.")]
+    #[error("'Reference' line is invalid. Compiled reference description contains a '#' character, which is not allowed. The description must be a valid ASCII string without any '#' characters.")]
     ReferenceCompiledDescriptionInvalid,
 
-    #[error("'Object' line is invalid. Project based objects lines must be qouted strings and begin with '*\\A' followed by the path to the object project file ending with a qoute '\"' character. Found a newline or the end of the file instead.")]
+    #[error("'Object' line is invalid. Project based objects lines must be quoted strings and begin with '*\\A' followed by the path to the object project file ending with a quote '\"' character. Found a newline or the end of the file instead.")]
     ObjectProjectPathNotFound,
 
     #[error("'Object' line is invalid. Compiled object lines must begin with '{{'. Found a newline or the end of the file instead.")]
@@ -252,16 +252,16 @@ pub enum VB6ProjectErrorKind<'a> {
     #[error("'{parameter_line_name}' line is invalid. Expected a '{parameter_line_name}' path after the equal sign '='. Found a newline or the end of the file instead.")]
     PathValueNotFound { parameter_line_name: &'a str },
 
-    #[error("'{parameter_line_name}' line is invalid. Expected a qouted '{parameter_line_name}' value after the equal sign '='. Found a newline or the end of the file instead.")]
+    #[error("'{parameter_line_name}' line is invalid. Expected a quoted '{parameter_line_name}' value after the equal sign '='. Found a newline or the end of the file instead.")]
     ParameterValueNotFound { parameter_line_name: &'a str },
 
     #[error("'{parameter_line_name}' line is invalid. '{parameter_line_name}' is missing an opening quote. Expected a closing quote for the '{parameter_line_name}' value.")]
     ParameterValueMissingOpeningQuote { parameter_line_name: &'a str },
 
     #[error("'{parameter_line_name}' line is invalid. '{parameter_line_name}' is missing a matching quote. Expected a closing quote for the '{parameter_line_name}' value.")]
-    ParameterValueMissingMatchingQoute { parameter_line_name: &'a str },
+    ParameterValueMissingMatchingQuote { parameter_line_name: &'a str },
 
-    #[error("'{parameter_line_name}' line is invalid. '{parameter_line_name}' is missing both opening and closing qoutes. Expected a qouted '{parameter_line_name}' value after the equal sign '='.")]
+    #[error("'{parameter_line_name}' line is invalid. '{parameter_line_name}' is missing both opening and closing quotes. Expected a quoted '{parameter_line_name}' value after the equal sign '='.")]
     ParameterValueMissingQuotes { parameter_line_name: &'a str },
 
     #[error("'{parameter_line_name}' line is invalid. '{invalid_value}' is not a valid value for '{parameter_line_name}'. Only {valid_value_message} are valid values for '{parameter_line_name}'.")]
@@ -278,10 +278,10 @@ pub enum VB6ProjectErrorKind<'a> {
     DllBaseAddressMissingHexPrefix,
 
     #[error("'DllBaseAddress' line is invalid. Expected a valid hex address after the equal sign '=' beginning with '&h'. Unable to parse hex value '{hex_value}'.")]
-    DllBaseAddressUnparseable { hex_value: &'a str },
+    DllBaseAddressUnparsable { hex_value: &'a str },
 
     #[error("'DllBaseAddress' line is invalid. Expected a valid hex address after the equal sign '=' beginning with '&h'. Unable to parse empty hex value.")]
-    DllBaseAddressUnparseableEmpty,
+    DllBaseAddressUnparsableEmpty,
 
     #[error("'{parameter_line_name}' line is unknown.")]
     ParameterLineUnknown { parameter_line_name: &'a str },
