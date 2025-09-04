@@ -682,7 +682,7 @@ impl Display for VB6Error {
     fn fmt(&self, _: &mut Formatter) -> Result<(), std::fmt::Error> {
         let error_range = self.source_offset..=self.source_offset;
 
-        Report::build(
+        let report = Report::build(
             ReportKind::Error,
             (self.file_name.clone(), error_range.clone()),
         )
@@ -692,11 +692,14 @@ impl Display for VB6Error {
                 .with_message(self.kind.to_string()),
         )
         .finish()
-        .eprint((
+        .print((
             self.file_name.clone(),
             Source::from(self.source_code.clone()),
-        ))
-        .unwrap();
+        ));
+
+        if let Some(e) = report.err() {
+            eprint!("Error attempting to build ErrorDetails fmt message {e:?}");
+        }
 
         Ok(())
     }
