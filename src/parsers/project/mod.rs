@@ -363,70 +363,70 @@ impl<'a> VB6Project<'a> {
                     Ok(user_document) => project.user_documents.push(user_document),
                     Err(e) => failures.push(e),
                 },
-                "ResFile32" => match parse_qouted_value(&mut input, property_name) {
+                "ResFile32" => match parse_quoted_value(&mut input, property_name) {
                     Ok(res_32_file) => project.properties.res_file_32_path = res_32_file,
                     Err(e) => failures.push(e),
                 },
-                "IconForm" => match parse_qouted_value(&mut input, property_name) {
+                "IconForm" => match parse_quoted_value(&mut input, property_name) {
                     Ok(icon_form_value) => project.properties.icon_form = icon_form_value,
                     Err(e) => failures.push(e),
                 },
-                "Startup" => match parse_optional_qouted_value(&mut input, property_name) {
+                "Startup" => match parse_optional_quoted_value(&mut input, property_name) {
                     Ok(startup_value) => project.properties.startup = startup_value,
                     Err(e) => failures.push(e),
                 },
-                "HelpFile" => match parse_qouted_value(&mut input, property_name) {
+                "HelpFile" => match parse_quoted_value(&mut input, property_name) {
                     Ok(help_file) => project.properties.help_file_path = help_file,
                     Err(e) => failures.push(e),
                 },
-                "Title" => match parse_qouted_value(&mut input, property_name) {
+                "Title" => match parse_quoted_value(&mut input, property_name) {
                     Ok(title_value) => project.properties.title = title_value,
                     Err(e) => failures.push(e),
                 },
-                "ExeName32" => match parse_qouted_value(&mut input, property_name) {
+                "ExeName32" => match parse_quoted_value(&mut input, property_name) {
                     Ok(exe_32_file_name_value) => {
                         project.properties.exe_32_file_name = exe_32_file_name_value;
                     }
                     Err(e) => failures.push(e),
                 },
-                "Path32" => match parse_qouted_value(&mut input, property_name) {
+                "Path32" => match parse_quoted_value(&mut input, property_name) {
                     Ok(path_32_value) => project.properties.path_32 = path_32_value,
                     Err(e) => failures.push(e),
                 },
-                "Command32" => match parse_optional_qouted_value(&mut input, property_name) {
+                "Command32" => match parse_optional_quoted_value(&mut input, property_name) {
                     Ok(command_line_arguments_value) => {
                         project.properties.command_line_arguments = command_line_arguments_value;
                     }
                     Err(e) => failures.push(e),
                 },
-                "Name" => match parse_optional_qouted_value(&mut input, property_name) {
+                "Name" => match parse_optional_quoted_value(&mut input, property_name) {
                     Ok(name_value) => project.properties.name = name_value,
                     Err(e) => failures.push(e),
                 },
-                "Description" => match parse_qouted_value(&mut input, property_name) {
+                "Description" => match parse_quoted_value(&mut input, property_name) {
                     Ok(description_value) => project.properties.description = description_value,
                     Err(e) => failures.push(e),
                 },
-                "HelpContextID" => match parse_qouted_value(&mut input, property_name) {
+                "HelpContextID" => match parse_quoted_value(&mut input, property_name) {
                     Ok(help_context_id_value) => {
                         project.properties.help_context_id = help_context_id_value;
                     }
                     Err(e) => failures.push(e),
                 },
-                "CompatibleMode" => match parse_qouted_converted_value(&mut input, property_name) {
+                "CompatibleMode" => match parse_quoted_converted_value(&mut input, property_name) {
                     Ok(compatibility_mode_value) => {
                         project.properties.compatibility_mode = compatibility_mode_value;
                     }
                     Err(e) => failures.push(e),
                 },
-                "VersionCompatible32" => match parse_qouted_value(&mut input, property_name) {
+                "VersionCompatible32" => match parse_quoted_value(&mut input, property_name) {
                     Ok(version_32_compatibility_value) => {
                         project.properties.version_32_compatibility =
                             version_32_compatibility_value;
                     }
                     Err(e) => failures.push(e),
                 },
-                "CompatibleEXE32" => match parse_qouted_value(&mut input, property_name) {
+                "CompatibleEXE32" => match parse_quoted_value(&mut input, property_name) {
                     Ok(exe_32_compatible_value) => {
                         project.properties.exe_32_compatible = exe_32_compatible_value;
                     }
@@ -489,41 +489,41 @@ impl<'a> VB6Project<'a> {
                     }
                     Err(e) => failures.push(e),
                 },
-                "VersionCompanyName" => match parse_qouted_value(&mut input, property_name) {
+                "VersionCompanyName" => match parse_quoted_value(&mut input, property_name) {
                     Ok(company_name_value) => {
                         project.properties.version_info.company_name = company_name_value;
                     }
                     Err(e) => failures.push(e),
                 },
-                "VersionFileDescription" => match parse_qouted_value(&mut input, property_name) {
+                "VersionFileDescription" => match parse_quoted_value(&mut input, property_name) {
                     Ok(file_description_value) => {
                         project.properties.version_info.file_description = file_description_value;
                     }
                     Err(e) => failures.push(e),
                 },
-                "VersionLegalCopyright" => match parse_qouted_value(&mut input, property_name) {
+                "VersionLegalCopyright" => match parse_quoted_value(&mut input, property_name) {
                     Ok(copyright_value) => {
                         project.properties.version_info.copyright = copyright_value;
                     }
                     Err(e) => failures.push(e),
                 },
-                "VersionLegalTrademarks" => match parse_qouted_value(&mut input, property_name) {
+                "VersionLegalTrademarks" => match parse_quoted_value(&mut input, property_name) {
                     Ok(trademark_value) => {
                         project.properties.version_info.trademark = trademark_value;
                     }
                     Err(e) => failures.push(e),
                 },
-                "VersionProductName" => match parse_qouted_value(&mut input, property_name) {
+                "VersionProductName" => match parse_quoted_value(&mut input, property_name) {
                     Ok(product_name_value) => {
                         project.properties.version_info.product_name = product_name_value;
                     }
                     Err(e) => failures.push(e),
                 },
-                "VersionComments" => match parse_qouted_value(&mut input, property_name) {
+                "VersionComments" => match parse_quoted_value(&mut input, property_name) {
                     Ok(comments_value) => project.properties.version_info.comments = comments_value,
                     Err(e) => failures.push(e),
                 },
-                "CondComp" => match parse_qouted_value(&mut input, property_name) {
+                "CondComp" => match parse_quoted_value(&mut input, property_name) {
                     Ok(conditional_compile_value) => {
                         project.properties.conditional_compile = conditional_compile_value;
                     }
@@ -676,7 +676,7 @@ impl<'a> VB6Project<'a> {
     }
 
     #[must_use]
-    pub fn with_subproject_references_mut(&mut self) -> Vec<&VB6ProjectReference> {
+    pub fn with_subproject_references_mut(&mut self) -> Vec<&VB6ProjectReference<'a>> {
         self.references
             .iter()
             .filter(|reference| matches!(reference, VB6ProjectReference::SubProject { .. }))
@@ -684,7 +684,7 @@ impl<'a> VB6Project<'a> {
     }
 
     #[must_use]
-    pub fn get_compiled_references(&self) -> Vec<&VB6ProjectReference> {
+    pub fn get_compiled_references(&self) -> Vec<&VB6ProjectReference<'a>> {
         self.references
             .iter()
             .filter(|reference| matches!(reference, VB6ProjectReference::Compiled { .. }))
@@ -782,11 +782,11 @@ fn parse_property_value<'a>(
     Ok(parameter_value)
 }
 
-fn parse_qouted_value<'a>(
+fn parse_quoted_value<'a>(
     input: &mut SourceStream<'a>,
     line_type: &'a str,
 ) -> Result<&'a str, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
-    // An line starts with the line_type followed by '=', and a qouted value.
+    // An line starts with the line_type followed by '=', and a quoted value.
     //
     // By this point in the parse the line_type and "=" component should be
     // stripped off since that is how we knew to use this particular parse.
@@ -814,10 +814,10 @@ fn parse_qouted_value<'a>(
         return Err(fail);
     }
 
-    let start_qoute_found = parameter_value.starts_with('"');
-    let end_qoute_found = parameter_value.ends_with('"');
+    let start_quote_found = parameter_value.starts_with('"');
+    let end_quote_found = parameter_value.ends_with('"');
 
-    if !start_qoute_found && end_qoute_found {
+    if !start_quote_found && end_quote_found {
         // The value ends with a quote but does not start with one.
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
@@ -830,24 +830,24 @@ fn parse_qouted_value<'a>(
     }
 
     // we have to check the length like this because if we have only a single
-    // qoute, then obviously the string both starts and ends with a qoute (even
+    // quote, then obviously the string both starts and ends with a quote (even
     // if that is the same character!) which means we still need to report this
     // failure case.
-    if (start_qoute_found && !end_qoute_found)
-        || (start_qoute_found && end_qoute_found && parameter_value.len() == 1)
+    if (start_quote_found && !end_quote_found)
+        || (start_quote_found && end_quote_found && parameter_value.len() == 1)
     {
         // The value starts with a quote but does not end with one.
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start + parameter_value.len(),
-            VB6ProjectErrorKind::ParameterValueMissingMatchingQoute {
+            VB6ProjectErrorKind::ParameterValueMissingMatchingQuote {
                 parameter_line_name: line_type,
             },
         );
         return Err(fail);
     }
 
-    if !start_qoute_found && !end_qoute_found {
+    if !start_quote_found && !end_quote_found {
         // The startup value does not start or end with a quote.
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
@@ -864,12 +864,12 @@ fn parse_qouted_value<'a>(
     Ok(parameter_value)
 }
 
-fn parse_optional_qouted_value<'a>(
+fn parse_optional_quoted_value<'a>(
     input: &mut SourceStream<'a>,
     line_type: &'a str,
 ) -> Result<&'a str, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
     // An optional line starts with 'Startup=' (or another such option starting line)
-    // and is followed by the qouted value, "!None!", or "(None)", or "!(None)!" to indicate the
+    // and is followed by the quoted value, "!None!", or "(None)", or "!(None)!" to indicate the
     // parameter value is 'None'.
     //
     // By this point in the parse the "Startup=" component should be stripped off
@@ -909,10 +909,10 @@ fn parse_optional_qouted_value<'a>(
         return Ok("");
     }
 
-    let start_qoute_found = parameter_value.starts_with('"');
-    let end_qoute_found = parameter_value.ends_with('"');
+    let start_quote_found = parameter_value.starts_with('"');
+    let end_quote_found = parameter_value.ends_with('"');
 
-    if !start_qoute_found && end_qoute_found {
+    if !start_quote_found && end_quote_found {
         // The value ends with a quote but does not start with one.
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
@@ -925,24 +925,24 @@ fn parse_optional_qouted_value<'a>(
     }
 
     // we have to check the length like this because if we have only a single
-    // qoute, then obviously the string both starts and ends with a qoute (even
+    // quote, then obviously the string both starts and ends with a quote (even
     // if that is the same character!) which means we still need to report this
     // failure case.
-    if (start_qoute_found && !end_qoute_found)
-        || (start_qoute_found && end_qoute_found && parameter_value.len() == 1)
+    if (start_quote_found && !end_quote_found)
+        || (start_quote_found && end_quote_found && parameter_value.len() == 1)
     {
         // The value starts with a quote but does not end with one.
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start + parameter_value.len(),
-            VB6ProjectErrorKind::ParameterValueMissingMatchingQoute {
+            VB6ProjectErrorKind::ParameterValueMissingMatchingQuote {
                 parameter_line_name: line_type,
             },
         );
         return Err(fail);
     }
 
-    if !start_qoute_found && !end_qoute_found {
+    if !start_quote_found && !end_quote_found {
         // The parameter value does not start or end with a quote.
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
@@ -958,17 +958,17 @@ fn parse_optional_qouted_value<'a>(
     Ok(parameter_value)
 }
 
-fn parse_qouted_converted_value<'a, T>(
+fn parse_quoted_converted_value<'a, T>(
     input: &mut SourceStream<'a>,
     line_type: &'a str,
 ) -> Result<T, ErrorDetails<'a, VB6ProjectErrorKind<'a>>>
 where
     T: TryFrom<&'a str, Error = String> + 'a + IntoEnumIterator + EnumMessage + Debug,
 {
-    // This function is used to parse a qouted value that is expected to be
+    // This function is used to parse a quoted value that is expected to be
     // converted into an enum value through TryFrom.
     // This kind of line starts with the line_type followed by '=', and a
-    // qouted value.
+    // quoted value.
     let parameter_start = input.offset();
 
     let text_to_newline = input.take_until_newline();
@@ -988,10 +988,10 @@ where
         Some((parameter_value, _)) => parameter_value,
     };
 
-    let start_qoute_found = parameter_value.starts_with('"');
-    let end_qoute_found = parameter_value.ends_with('"');
+    let start_quote_found = parameter_value.starts_with('"');
+    let end_quote_found = parameter_value.ends_with('"');
 
-    if !start_qoute_found && end_qoute_found {
+    if !start_quote_found && end_quote_found {
         // The value ends with a quote but does not start with one.
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
@@ -1004,24 +1004,24 @@ where
     }
 
     // we have to check the length like this because if we have only a single
-    // qoute, then obviously the string both starts and ends with a qoute (even
+    // quote, then obviously the string both starts and ends with a quote (even
     // if that is the same character!) which means we still need to report this
     // failure case.
-    if (start_qoute_found && !end_qoute_found)
-        || (start_qoute_found && end_qoute_found && parameter_value.len() == 1)
+    if (start_quote_found && !end_quote_found)
+        || (start_quote_found && end_quote_found && parameter_value.len() == 1)
     {
         // The value starts with a quote but does not end with one.
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start + parameter_value.len(),
-            VB6ProjectErrorKind::ParameterValueMissingMatchingQoute {
+            VB6ProjectErrorKind::ParameterValueMissingMatchingQuote {
                 parameter_line_name: line_type,
             },
         );
         return Err(fail);
     }
 
-    if !start_qoute_found && !end_qoute_found {
+    if !start_quote_found && !end_quote_found {
         // The value does not start or end with a quote.
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
@@ -1033,7 +1033,7 @@ where
         return Err(fail);
     }
 
-    // trim off the qoute characters.
+    // trim off the quote characters.
     let parameter_value = &parameter_value[1..parameter_value.len() - 1];
 
     let Ok(value) = T::try_from(parameter_value) else {
@@ -1328,7 +1328,7 @@ fn parse_object<'a>(
     let object_start = input.offset();
 
     // Project objects start with "\"*\\A" and are followed by the path to the
-    // object ending with a single qoute.
+    // object ending with a single quote.
     // Usually this is a single file with a .vbp extension but we do not enforce that currently.
     let project_object_signature = "\"*\\A";
     if input.peek(project_object_signature.len()) == Some(project_object_signature) {
@@ -1613,7 +1613,7 @@ fn parse_dll_base_address<'a>(
         // The base address is empty, so we can't parse this line.
         let fail = input.generate_error_at(
             dll_base_address_start,
-            VB6ProjectErrorKind::DllBaseAddressUnparseableEmpty,
+            VB6ProjectErrorKind::DllBaseAddressUnparsableEmpty,
         );
         return Err(fail);
     }
@@ -1635,7 +1635,7 @@ fn parse_dll_base_address<'a>(
         // The base address is not a valid hexadecimal value, so we can't parse this line.
         let fail = input.generate_error_at(
             dll_base_address_start,
-            VB6ProjectErrorKind::DllBaseAddressUnparseable {
+            VB6ProjectErrorKind::DllBaseAddressUnparsable {
                 hex_value: trimmed_base_address_hex_text,
             },
         );
@@ -1651,7 +1651,7 @@ mod tests {
 
     #[test]
     fn compatibility_mode_is_unknown() {
-        use crate::project::parse_qouted_converted_value;
+        use crate::project::parse_quoted_converted_value;
 
         let mut input = SourceStream::new("", "CompatibleMode=\"5\"\n");
 
@@ -1661,7 +1661,7 @@ mod tests {
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
         let result: Result<CompatibilityMode, ErrorDetails<VB6ProjectErrorKind>> =
-            parse_qouted_converted_value(&mut input, &parameter_name);
+            parse_quoted_converted_value(&mut input, &parameter_name);
 
         assert!(matches!(
             result.err().unwrap().kind,
@@ -1671,7 +1671,7 @@ mod tests {
 
     #[test]
     fn compatibility_mode_is_no_compatibility() {
-        use crate::project::parse_qouted_converted_value;
+        use crate::project::parse_quoted_converted_value;
 
         let mut input = SourceStream::new("", "CompatibleMode=\"0\"\n");
 
@@ -1681,14 +1681,14 @@ mod tests {
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
         let result: Result<CompatibilityMode, ErrorDetails<VB6ProjectErrorKind>> =
-            parse_qouted_converted_value(&mut input, &parameter_name);
+            parse_quoted_converted_value(&mut input, &parameter_name);
 
         assert_eq!(result.unwrap(), CompatibilityMode::NoCompatibility);
     }
 
     #[test]
     fn compatibility_mode_is_project() {
-        use crate::project::parse_qouted_converted_value;
+        use crate::project::parse_quoted_converted_value;
 
         let mut input = SourceStream::new("", "CompatibleMode=\"1\"\r\n");
 
@@ -1698,14 +1698,14 @@ mod tests {
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
         let result: Result<CompatibilityMode, ErrorDetails<VB6ProjectErrorKind>> =
-            parse_qouted_converted_value(&mut input, &parameter_name);
+            parse_quoted_converted_value(&mut input, &parameter_name);
 
         assert_eq!(result.unwrap(), CompatibilityMode::Project);
     }
 
     #[test]
     fn compatibility_mode_is_compatible_exe() {
-        use crate::project::parse_qouted_converted_value;
+        use crate::project::parse_quoted_converted_value;
 
         let mut input = SourceStream::new("", "CompatibleMode=\"2\"\n");
 
@@ -1715,7 +1715,7 @@ mod tests {
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
         let result: Result<CompatibilityMode, ErrorDetails<VB6ProjectErrorKind>> =
-            parse_qouted_converted_value(&mut input, &parameter_name);
+            parse_quoted_converted_value(&mut input, &parameter_name);
 
         assert_eq!(result.unwrap(), CompatibilityMode::CompatibleExe);
     }
@@ -1766,7 +1766,7 @@ mod tests {
     }
 
     #[test]
-    fn project_type_is_oleexe() {
+    fn project_type_is_ole_exe() {
         use crate::parsers::project::parse_converted_value;
 
         let mut input = SourceStream::new("", "Type=OleExe\n");
