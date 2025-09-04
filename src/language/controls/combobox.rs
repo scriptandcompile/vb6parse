@@ -1,9 +1,11 @@
-use crate::language::controls::{
-    Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDragMode, OLEDropMode,
-    TabStop, TextDirection, Visibility,
+use crate::{
+    language::controls::{
+        Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDragMode, OLEDropMode,
+        TabStop, TextDirection, Visibility,
+    },
+    parsers::Properties,
+    VB6Color, VB_WINDOW_BACKGROUND, VB_WINDOW_TEXT,
 };
-use crate::parsers::Properties;
-use crate::VB6Color;
 
 use bstr::{BStr, BString};
 use image::DynamicImage;
@@ -77,7 +79,7 @@ impl Default for ComboBoxProperties {
     fn default() -> Self {
         ComboBoxProperties {
             appearance: Appearance::ThreeD,
-            back_color: VB6Color::from_hex("&H80000005&").unwrap(),
+            back_color: VB_WINDOW_BACKGROUND,
             causes_validation: CausesValidation::Yes,
             data_field: "".into(),
             data_format: "".into(),
@@ -86,7 +88,7 @@ impl Default for ComboBoxProperties {
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
-            fore_color: VB6Color::from_hex("&H80000008&").unwrap(),
+            fore_color: VB_WINDOW_TEXT,
             height: 30,
             help_context_id: 0,
             integral_height: true,
