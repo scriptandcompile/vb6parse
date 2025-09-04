@@ -137,6 +137,85 @@ pub enum VB6CodeErrorKind {
 }
 
 #[derive(thiserror::Error, Debug, Clone)]
+pub enum VB6ClassErrorKind<'a> {
+    #[error("The 'VERSION' keyword is missing from the class file header.")]
+    VersionKeywordMissing,
+
+    #[error("The 'BEGIN' keyword is missing from the class file header.")]
+    BeginKeywordMissing,
+
+    #[error("The 'Class' keyword is missing from the class file header.")]
+    ClassKeywordMissing,
+
+    #[error(
+        "After the 'VERSION' keyword there should be a space before the major version number."
+    )]
+    WhitespaceMissingBetweenVersionAndMajorVersionNumber,
+
+    #[error("The 'VERSION' keyword should be in uppercase to be fully compatible with Microsoft's VB6 IDE.")]
+    VersionKeywordNotFullyUppercase { version_text: &'a str },
+
+    #[error("The 'CLASS' keyword should be in uppercase to be fully compatible with Microsoft's VB6 IDE.")]
+    ClassKeywordNotFullyUppercase { class_text: &'a str },
+
+    #[error("The 'BEGIN' keyword should be in uppercase to be fully compatible with Microsoft's VB6 IDE.")]
+    BeginKeywordNotFullyUppercase { begin_text: &'a str },
+
+    #[error(
+        "The 'END' keyword should be in uppercase to be fully compatible with Microsoft's VB6 IDE."
+    )]
+    EndKeywordNotFullyUppercase { begin_text: &'a str },
+
+    #[error("The 'BEGIN' keyword should stand alone on its own line.")]
+    BeginKeywordShouldBeStandAlone,
+
+    #[error("The 'END' keyword should stand alone on its own line.")]
+    EndKeywordShouldBeStandAlone,
+
+    #[error("Unable to parse the major version number. Following the 'VERSION' keyword should be a major version number, a '.', and a minor version number.")]
+    UnableToParseMajorVersionNumber,
+
+    #[error("Unable to convert the major version text to a number. Following the 'VERSION' keyword should be a major version number, a '.', and a minor version number.")]
+    UnableToConvertMajorVersionNumber,
+
+    #[error("Unable to parse the minor version number. Following the 'VERSION' keyword should be a major version number, a '.', and a minor version number.")]
+    UnableToParseMinorVersionNumber,
+
+    #[error("Unable to convert the minor version text to a number. Following the 'VERSION' keyword should be a major version number, a '.', and a minor version number.")]
+    UnableToConvertMinorVersionNumber,
+
+    #[error("The '.' divider between major and minor version digits is missing.")]
+    MissingPeriodDividerBetweenMajorAndMinorVersion,
+
+    #[error("Missing whitespace between minor version digits and 'CLASS' keyword. This may not be compliant with Microsoft's VB6 IDE.")]
+    MissingWhitespaceAfterMinorVersion,
+
+    #[error("Between the minor version digits and the 'CLASS' keyword should be a single ASCII space. This may not be compliant with Microsoft's VB6 IDE.")]
+    IncorrectWhitespaceAfterMinorVersion,
+
+    #[error("Whitespace was used to divide between major and minor version information. This may not be compliant with Microsoft's VB6 IDE.")]
+    WhitespaceDividerBetweenMajorAndMinorVersionNumbers,
+
+    #[error("There was an error parsing the VB6 tokens.")]
+    VB6ClassTokenError { code_error: VB6CodeErrorKind },
+}
+
+impl<'a> From<ErrorDetails<'a, VB6CodeErrorKind>> for ErrorDetails<'a, VB6ClassErrorKind<'a>> {
+    fn from(value: ErrorDetails<'a, VB6CodeErrorKind>) -> Self {
+        ErrorDetails {
+            source_content: value.source_content,
+            source_name: value.source_name,
+            error_offset: value.error_offset,
+            line_start: value.line_start,
+            line_end: value.line_end,
+            kind: VB6ClassErrorKind::VB6ClassTokenError {
+                code_error: value.kind,
+            },
+        }
+    }
+}
+
+#[derive(thiserror::Error, Debug, Clone)]
 pub enum VB6ModuleErrorKind {
     #[error("The 'Attribute' keyword is missing from the module file header.")]
     AttributeKeywordMissing,
