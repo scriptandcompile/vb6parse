@@ -37,7 +37,7 @@ pub struct DataProperties {
     pub left: i32,
     pub mouse_icon: Option<DynamicImage>,
     pub mouse_pointer: MousePointer,
-    pub negotitate: bool,
+    pub negotiate: bool,
     pub ole_drop_mode: OLEDropMode,
     pub options: i32,
     pub read_only: bool,
@@ -73,7 +73,7 @@ impl Default for DataProperties {
             left: 480,
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
-            negotitate: false,
+            negotiate: false,
             ole_drop_mode: OLEDropMode::default(),
             options: 0,
             read_only: false,
@@ -122,7 +122,7 @@ impl Serialize for DataProperties {
 
         s.serialize_field("mouse_icon", &option_text)?;
         s.serialize_field("mouse_pointer", &self.mouse_pointer)?;
-        s.serialize_field("negotitate", &self.negotitate)?;
+        s.serialize_field("negotiate", &self.negotiate)?;
         s.serialize_field("ole_drop_mode", &self.ole_drop_mode)?;
         s.serialize_field("options", &self.options)?;
         s.serialize_field("read_only", &self.read_only)?;
@@ -156,7 +156,7 @@ impl<'a> From<Properties<'a>> for DataProperties {
             .map_or(Ok(Connection::Access), |v| {
                 Connection::try_from(v.to_str().unwrap_or("Access"))
             })
-            .unwrap();
+            .unwrap_or(Connection::Access);
         data_prop.database_name = match prop.get("DatabaseName".into()) {
             Some(database_name) => database_name.into(),
             None => "".into(),
@@ -176,7 +176,7 @@ impl<'a> From<Properties<'a>> for DataProperties {
         data_prop.left = prop.get_i32(b"Left".into(), data_prop.left);
         data_prop.mouse_pointer =
             prop.get_property(b"MousePointer".into(), data_prop.mouse_pointer);
-        data_prop.negotitate = prop.get_bool(b"Negotitate".into(), data_prop.negotitate);
+        data_prop.negotiate = prop.get_bool(b"Negotiate".into(), data_prop.negotiate);
         data_prop.ole_drop_mode = prop.get_property(b"OLEDropMode".into(), data_prop.ole_drop_mode);
         data_prop.options = prop.get_i32(b"Options".into(), data_prop.options);
         data_prop.read_only = prop.get_bool(b"ReadOnly".into(), data_prop.read_only);
@@ -209,7 +209,7 @@ impl<'a> From<Properties<'a>> for DataProperties {
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum BOFAction {
-    /// Keeps tthe first record as the current record.
+    /// Keeps the first record as the current record.
     ///
     /// This is the default value.
     #[default]
@@ -290,7 +290,7 @@ impl TryFrom<&str> for Connection {
             "Paradox 4.X" => Ok(Connection::Paradox4X),
             "Paradox 5.X" => Ok(Connection::Paradox5X),
             "Text" => Ok(Connection::Text),
-            _ => Err(VB6ErrorKind::ConnectionTypeUnparseable),
+            _ => Err(VB6ErrorKind::ConnectionTypeUnparsable),
         }
     }
 }
@@ -310,7 +310,7 @@ pub enum DefaultCursorType {
     /// Use the ODBC cursor library. This option gives better performance for
     /// small result sets, but degrades quickly for larger result sets.
     Odbc = 1,
-    /// Use server side cutsors. For most large operations this gives
+    /// Use server side cursors. For most large operations this gives
     /// better performance, but might cause more network traffic.
     ServerSide = 2,
 }
@@ -343,7 +343,7 @@ pub enum EOFAction {
     /// This is the default value.
     #[default]
     MoveLast = 0,
-    /// Moving past the end of a `Recordset` triggers the `Data` constrol's
+    /// Moving past the end of a `Recordset` triggers the `Data` control's
     /// `Validation` event on the last record, followed by a `Reposition` event
     /// on the invalid (EOF) record. At that point, the `MoveNext` button on the
     /// `Data` control is disabled.
