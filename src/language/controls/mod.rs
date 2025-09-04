@@ -288,7 +288,7 @@ pub enum WhatsThisHelp {
     WhatsThisHelp = -1,
 }
 
-/// Determines the type of link used for a `DDEconversation` and activates the
+/// Determines the type of link used for a DDE conversation and activates the
 /// connection.
 ///
 /// Forms allow a destination application to initiate a conversation with a
@@ -647,11 +647,11 @@ pub enum DrawMode {
     NotMaskPen = 8,
     /// The combination of the colors common to the pen and the background color.
     MaskPen = 9,
-    /// Inversion of the combinationfs of the colors in the pen and the background color but not in both (ie, NXOR).
+    /// Inversion of the combination of the colors in the pen and the background color but not in both (ie, NXOR).
     NotXorPen = 10,
     /// No operation is performed. The output remains unchanged. In effect, this turns drawing off (No Operation).
     Nop = 11,
-    /// The combinaton of the display color and the inverse of the pen color.
+    /// The combination of the display color and the inverse of the pen color.
     MergeNotPen = 12,
     /// The color specified by the `ForeColor` property is applied over the background.
     ///
