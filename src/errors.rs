@@ -4,6 +4,7 @@
 //! information about the error, including the file name, source code,
 //! source offset, column, line number, and the kind of error.
 use core::convert::From;
+
 use std::borrow::Cow;
 use std::error::Error;
 use std::fmt::{Debug, Display, Formatter};
@@ -38,7 +39,7 @@ where
             Source::from(self.source_content.to_string()),
         );
 
-        Report::build(
+        let report = Report::build(
             ReportKind::Error,
             (self.source_name.clone(), self.line_start..=self.line_end),
         )
@@ -51,8 +52,11 @@ where
             .with_message("error here"),
         )
         .finish()
-        .print(cache)
-        .unwrap();
+        .print(cache);
+
+        if let Some(e) = report.err() {
+            eprint!("Error attempting to build ErrorDetails print message {e:?}");
+        }
     }
 
     pub fn eprint(&self) {
@@ -89,7 +93,7 @@ where
 
         let mut buf = Vec::new();
 
-        Report::build(
+        let report = Report::build(
             ReportKind::Error,
             (self.source_name.clone(), self.line_start..=self.line_end),
         )
@@ -102,8 +106,11 @@ where
             .with_message("error here"),
         )
         .finish()
-        .write(cache, &mut buf)
-        .unwrap();
+        .write(cache, &mut buf);
+
+        if let Some(e) = report.err() {
+            eprint!("Error attempting to build ErrorDetails print_to_string message {e:?}");
+        }
 
         let text = String::from_utf8(buf.clone())?;
 
