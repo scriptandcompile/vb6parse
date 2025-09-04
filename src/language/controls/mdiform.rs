@@ -3,7 +3,7 @@ use crate::language::{
         Activation, Appearance, FormLinkMode, MousePointer, Movability, OLEDropMode,
         StartUpPosition, TextDirection, Visibility, WhatsThisHelp, WindowState,
     },
-    VB6Color,
+    VB6Color, VB_APPLICATION_WORKSPACE,
 };
 use crate::parsers::Properties;
 
@@ -98,7 +98,7 @@ impl Default for MDIFormProperties {
         MDIFormProperties {
             appearance: Appearance::ThreeD,
             auto_show_children: true,
-            back_color: VB6Color::from_hex("&H8000000C&").unwrap(),
+            back_color: VB_APPLICATION_WORKSPACE,
             caption: "".into(),
             enabled: Activation::Enabled,
             //font
