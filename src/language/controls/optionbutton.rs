@@ -2,7 +2,7 @@ use crate::language::controls::{
     Activation, Appearance, CausesValidation, DragMode, JustifyAlignment, MousePointer,
     OLEDropMode, Style, TabStop, TextDirection, UseMaskColor, Visibility,
 };
-use crate::language::VB6Color;
+use crate::language::{VB6Color, VB_3D_FACE, VB_BUTTON_TEXT};
 use crate::parsers::Properties;
 
 use bstr::BString;
@@ -63,7 +63,7 @@ impl Default for OptionButtonProperties {
         OptionButtonProperties {
             alignment: JustifyAlignment::LeftJustify,
             appearance: Appearance::ThreeD,
-            back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
+            back_color: VB_3D_FACE,
             caption: "".into(),
             causes_validation: CausesValidation::Yes,
             disabled_picture: None,
@@ -71,11 +71,11 @@ impl Default for OptionButtonProperties {
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
-            fore_color: VB6Color::from_hex("&H80000012&").unwrap(),
+            fore_color: VB_BUTTON_TEXT,
             height: 30,
             help_context_id: 0,
             left: 30,
-            mask_color: VB6Color::from_hex("&H00C0C0C0&").unwrap(),
+            mask_color: VB6Color::new(0xC0, 0xC0, 0xC0),
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
             ole_drop_mode: OLEDropMode::default(),
