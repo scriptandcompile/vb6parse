@@ -401,34 +401,34 @@ pub enum VB6ErrorKind {
     NoKeyValueDividerFound,
 
     #[error("Unknown parser error")]
-    Unparseable,
+    Unparsable,
 
     #[error("Major version is not a number.")]
-    MajorVersionUnparseable,
+    MajorVersionUnparsable,
 
     #[error("Unable to parse hex address from DllBaseAddress key")]
-    DllBaseAddressUnparseable,
+    DllBaseAddressUnparsable,
 
-    #[error("The Startup object is not a valid parameter. Must be a qouted startup method/object, \"(None)\", !(None)!, \"\", or \"!!\"")]
-    StartupUnparseable,
+    #[error("The Startup object is not a valid parameter. Must be a quoted startup method/object, \"(None)\", !(None)!, \"\", or \"!!\"")]
+    StartupUnparsable,
 
-    #[error("The Name parameter is invalid. Must be a qouted name, \"(None)\", !(None)!, \"\", or \"!!\"")]
-    NameUnparseable,
+    #[error("The Name parameter is invalid. Must be a quoted name, \"(None)\", !(None)!, \"\", or \"!!\"")]
+    NameUnparsable,
 
-    #[error("The CommandLine parameter is invalid. Must be a qouted command line, \"(None)\", !(None)!, \"\", or \"!!\"")]
-    CommandLineUnparseable,
+    #[error("The CommandLine parameter is invalid. Must be a quoted command line, \"(None)\", !(None)!, \"\", or \"!!\"")]
+    CommandLineUnparsable,
 
-    #[error("The HelpContextId parameter is not a valid parameter line. Must be a qouted help context id, \"(None)\", !(None)!, \"\", or \"!!\"")]
-    HelpContextIdUnparseable,
+    #[error("The HelpContextId parameter is not a valid parameter line. Must be a quoted help context id, \"(None)\", !(None)!, \"\", or \"!!\"")]
+    HelpContextIdUnparsable,
 
     #[error("Minor version is not a number.")]
-    MinorVersionUnparseable,
+    MinorVersionUnparsable,
 
     #[error("Revision version is not a number.")]
-    RevisionVersionUnparseable,
+    RevisionVersionUnparsable,
 
     #[error("Unable to parse the value after ThreadingModel key")]
-    ThreadingModelUnparseable,
+    ThreadingModelUnparsable,
 
     #[error("ThreadingModel can only be 0 (Apartment Threaded), or 1 (Single Threaded)")]
     ThreadingModelInvalid,
@@ -437,102 +437,102 @@ pub enum VB6ErrorKind {
     NoPropertyName,
 
     #[error("Unable to parse the RelatedDoc property line.")]
-    RelatedDocLineUnparseable,
+    RelatedDocLineUnparsable,
 
     #[error("AutoIncrement can only be a 0 (false) or a -1 (true)")]
-    AutoIncrementUnparseable,
+    AutoIncrementUnparsable,
 
     #[error("CompatibilityMode can only be a 0 (CompatibilityMode::NoCompatibility), 1 (CompatibilityMode::Project), or 2 (CompatibilityMode::CompatibleExe)")]
-    CompatibilityModeUnparseable,
+    CompatibilityModeUnparsable,
 
     #[error("NoControlUpgrade can only be a 0 (UpgradeControls::Upgrade) or a 1 (UpgradeControls::NoUpgrade)")]
     NoControlUpgradeUnparsable,
 
     #[error("ServerSupportFiles can only be a 0 (false) or a -1 (true)")]
-    ServerSupportFilesUnparseable,
+    ServerSupportFilesUnparsable,
 
     #[error("Comment line was unparsable")]
-    CommentUnparseable,
+    CommentUnparsable,
 
     #[error("PropertyPage line was unparsable")]
-    PropertyPageUnparseable,
+    PropertyPageUnparsable,
 
     #[error("CompilationType can only be a 0 (false) or a -1 (true)")]
-    CompilationTypeUnparseable,
+    CompilationTypeUnparsable,
 
     #[error("OptimizationType can only be a 0 (FastCode) or 1 (SmallCode), or 2 (NoOptimization)")]
-    OptimizationTypeUnparseable,
+    OptimizationTypeUnparsable,
 
     #[error("FavorPentiumPro(tm) can only be a 0 (false) or a -1 (true)")]
-    FavorPentiumProUnparseable,
+    FavorPentiumProUnparsable,
 
     #[error("Designer line is unparsable")]
-    DesignerLineUnparseable,
+    DesignerLineUnparsable,
 
     #[error("Form line is unparsable")]
-    FormLineUnparseable,
+    FormLineUnparsable,
 
     #[error("UserControl line is unparsable")]
-    UserControlLineUnparseable,
+    UserControlLineUnparsable,
 
     #[error("UserDocument line is unparsable")]
-    UserDocumentLineUnparseable,
+    UserDocumentLineUnparsable,
 
     #[error("Period expected in version number")]
     PeriodExpectedInVersionNumber,
 
     #[error("CodeViewDebugInfo can only be a 0 (false) or a -1 (true)")]
-    CodeViewDebugInfoUnparseable,
+    CodeViewDebugInfoUnparsable,
 
     #[error("NoAliasing can only be a 0 (false) or a -1 (true)")]
-    NoAliasingUnparseable,
+    NoAliasingUnparsable,
 
     #[error("RemoveUnusedControlInfo can only be 0 (UnusedControlInfo::Retain) or -1 (UnusedControlInfo::Remove)")]
-    UnusedControlInfoUnparseable,
+    UnusedControlInfoUnparsable,
 
-    #[error("oundsCheck can only be a 0 (false) or a -1 (true)")]
-    BoundsCheckUnparseable,
+    #[error("BoundsCheck can only be a 0 (false) or a -1 (true)")]
+    BoundsCheckUnparsable,
 
     #[error("OverflowCheck can only be a 0 (false) or a -1 (true)")]
-    OverflowCheckUnparseable,
+    OverflowCheckUnparsable,
 
     #[error("FlPointCheck can only be a 0 (false) or a -1 (true)")]
-    FlPointCheckUnparseable,
+    FlPointCheckUnparsable,
 
     #[error("FDIVCheck can only be a 0 (PentiumFDivBugCheck::CheckPentiumFDivBug) or a -1 (PentiumFDivBugCheck::NoPentiumFDivBugCheck)")]
-    FDIVCheckUnparseable,
+    FDIVCheckUnparsable,
 
     #[error("UnroundedFP can only be a 0 (UnroundedFloatingPoint::DoNotAllow) or a -1 (UnroundedFloatingPoint::Allow)")]
-    UnroundedFPUnparseable,
+    UnroundedFPUnparsable,
 
     #[error("StartMode can only be a 0 (StartMode::StandAlone) or a 1 (StartMode::Automation)")]
-    StartModeUnparseable,
+    StartModeUnparsable,
 
     #[error("Unattended can only be a 0 (Unattended::False) or a -1 (Unattended::True)")]
-    UnattendedUnparseable,
+    UnattendedUnparsable,
 
     #[error(
         "Retained can only be a 0 (Retained::UnloadOnExit) or a 1 (Retained::RetainedInMemory)"
     )]
-    RetainedUnparseable,
+    RetainedUnparsable,
 
-    #[error("Unable to parse the ShurtCut property.")]
-    ShortCutUnparseable,
+    #[error("Unable to parse the ShortCut property.")]
+    ShortCutUnparsable,
 
     #[error("DebugStartup can only be a 0 (false) or a -1 (true)")]
-    DebugStartupOptionUnparseable,
+    DebugStartupOptionUnparsable,
 
     #[error("UseExistingBrowser can only be a 0 (UseExistingBrowser::DoNotUse) or a -1 (UseExistingBrowser::Use)")]
-    UseExistingBrowserUnparseable,
+    UseExistingBrowserUnparsable,
 
     #[error("AutoRefresh can only be a 0 (false) or a -1 (true)")]
-    AutoRefreshUnparseable,
+    AutoRefreshUnparsable,
 
     #[error("Data control Connection type is not valid.")]
-    ConnectionTypeUnparseable,
+    ConnectionTypeUnparsable,
 
     #[error("Thread Per Object is not a number.")]
-    ThreadPerObjectUnparseable,
+    ThreadPerObjectUnparsable,
 
     #[error("Unknown attribute in class header file. Must be one of: VB_Name, VB_GlobalNameSpace, VB_Creatable, VB_PredeclaredId, VB_Exposed, VB_Description, VB_Ext_KEY")]
     UnknownAttribute,
@@ -547,13 +547,13 @@ pub enum VB6ErrorKind {
     KeywordNotFound,
 
     #[error("Error parsing true/false from header. Must be a 0 (false), -1 (true), or 1 (true)")]
-    TrueFalseOneZeroNegOneUnparseable,
+    TrueFalseOneZeroNegOneUnparsable,
 
     #[error("Error parsing the VB6 file contents")]
     FileContent,
 
     #[error("Max Threads is not a number.")]
-    MaxThreadsUnparseable,
+    MaxThreadsUnparsable,
 
     #[error("No EndProperty found after BeginProperty")]
     NoEndProperty,
@@ -583,7 +583,7 @@ pub enum VB6ErrorKind {
     UnknownToken,
 
     #[error("Title text was unparsable")]
-    TitleUnparseable,
+    TitleUnparsable,
 
     #[error("Unable to parse hex color value")]
     HexColorParseError,
