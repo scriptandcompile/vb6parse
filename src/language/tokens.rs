@@ -44,7 +44,7 @@ pub enum VB6Token<'a> {
     DeclareKeyword(&'a BStr),
     /// Represents the 'Alias' keyword.
     ///
-    /// Used optionally in a Declate statement. Indicates that the procedure
+    /// Used optionally in a Declare statement. Indicates that the procedure
     /// being called has another name in the DLL. This is useful when the
     /// external procedure name is the same as a keyword. You can also use Alias
     /// when a DLL procedure has the same name as a public variable, constant,
@@ -104,7 +104,7 @@ pub enum VB6Token<'a> {
     ExplicitKeyword(&'a BStr),
     /// Represents the 'Private' keyword.
     ///
-    /// Used at the module level to declare private vairables and allocate storage space.
+    /// Used at the module level to declare private variables and allocate storage space.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266189(v=vs.60))
     PrivateKeyword(&'a BStr),
@@ -123,7 +123,7 @@ pub enum VB6Token<'a> {
     /// Represents the 'As' keyword.
     ///
     /// The 'As' keyword is used in these contexts:
-    /// Const statement, Declare statemenet, Dim statement, Function statenement,
+    /// Const statement, Declare statement, Dim statement, Function statement,
     /// Name statement, Open statement, Open statement, private statement,
     /// Property Get statement, Property Let statement, Property Set statement,
     /// Public statement, ReDim statement, Static statement, Sub statement, and
@@ -397,7 +397,7 @@ pub enum VB6Token<'a> {
     /// Represents the 'For' keyword.
     ///
     /// Used to declare a For..Next loop, or a For Each...Next loop.
-    /// Repeates a group of statements a specified number of times.
+    /// Repeats a group of statements a specified number of times.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243370(v=vs.60))
     ForKeyword(&'a BStr),
@@ -413,14 +413,14 @@ pub enum VB6Token<'a> {
     ToKeyword(&'a BStr),
     /// Represents the 'Lock' keyword.
     ///
-    /// Controls access by other processess to all or part of a file opened using
+    /// Controls access by other processes to all or part of a file opened using
     /// the Open statement.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266161(v=vs.60))
     LockKeyword(&'a BStr),
     /// Represents the 'Unlock' keyword.
     ///
-    /// Controls access by other processess to all or part of a file opened using
+    /// Controls access by other processes to all or part of a file opened using
     /// the Open statement.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266161(v=vs.60))
@@ -491,14 +491,14 @@ pub enum VB6Token<'a> {
     SendKeysKeyword(&'a BStr),
     /// Represents the 'Select' keyword.
     ///
-    /// Used to execute one of a seveeral groups of statements, depending on the
+    /// Used to execute one of a several groups of statements, depending on the
     /// value of an expression.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266274(v=vs.60))
     SelectKeyword(&'a BStr),
     /// Represents the 'Case' keyword.
     ///
-    /// Used to execute one of a seveeral groups of statements, depending on the
+    /// Used to execute one of a several groups of statements, depending on the
     /// value of an expression.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266274(v=vs.60))
@@ -978,9 +978,9 @@ pub enum VB6Token<'a> {
     /// Represents an octothorpe '#'.
     Octothorpe(&'a BStr),
     /// Represents a left paranthesis '('.
-    LeftParanthesis(&'a BStr),
+    LeftParentheses(&'a BStr),
     /// Represents a right paranthesis ')'.
-    RightParanthesis(&'a BStr),
+    RightParentheses(&'a BStr),
     /// Represents a left square bracket '['.
     LeftSquareBracket(&'a BStr),
     /// Represents a right square bracket ']'.
