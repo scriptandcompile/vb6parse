@@ -1,4 +1,4 @@
-use crate::language::color::VB6Color;
+use crate::language::color::{VB6Color, VB_WINDOW_TEXT};
 use crate::language::controls::{DrawMode, DrawStyle, Visibility};
 use crate::parsers::Properties;
 
@@ -26,7 +26,7 @@ pub struct LineProperties {
 impl Default for LineProperties {
     fn default() -> Self {
         LineProperties {
-            border_color: VB6Color::from_hex("&H80000008&").unwrap(),
+            border_color: VB_WINDOW_TEXT,
             border_style: DrawStyle::Solid,
             border_width: 1,
             draw_mode: DrawMode::CopyPen,
