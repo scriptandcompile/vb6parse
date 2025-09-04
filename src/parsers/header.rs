@@ -45,9 +45,10 @@ pub enum HeaderKind {
 /// The global name space is the default name space for a class.
 /// In the file, `VB_GlobalNameSpace` of 'False' means the class is in the local name space.
 /// `VB_GlobalNameSpace` of 'True' means the class is in the global name space.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
 pub enum NameSpace {
     Global,
+    #[default]
     Local,
 }
 
@@ -55,9 +56,10 @@ pub enum NameSpace {
 ///
 /// If True, the class can be created from anywhere. The class is essentially public.
 /// If False, the class can only be created from within the class itself.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
 pub enum Creatable {
     False,
+    #[default]
     True,
 }
 
@@ -71,8 +73,9 @@ pub enum Creatable {
 ///
 /// If True and the `VB_GlobalNameSpace` is True, the class shares namespace
 /// access semantics with the VB6 intrinsic classes.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
 pub enum PreDeclaredID {
+    #[default]
     False,
     True,
 }
@@ -119,8 +122,9 @@ pub enum PreDeclaredID {
 /// enclosing project and within projects that reference the enclosing project.
 ///
 /// Any module that can access the class can create instances of it.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
 pub enum Exposed {
+    #[default]
     False,
     True,
 }
