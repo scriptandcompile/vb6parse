@@ -28,7 +28,8 @@ impl<'a, T, E> ParseResult<'a, T, E> {
     }
 
     pub fn unwrap(self) -> T {
-        self.result.unwrap()
+        self.result
+            .expect("Attempted to unwrap a ParseResult that did not have a result.")
     }
 }
 
