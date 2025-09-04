@@ -142,7 +142,7 @@ pub enum VB6ModuleErrorKind {
     AttributeKeywordMissing,
 
     #[error("The 'Attribute' keyword and the 'VB_Name' attribute must be separated by at least one ASCII whitespace character.")]
-    MissingWitespaceInHeader,
+    MissingWhitespaceInHeader,
 
     #[error("The 'VB_Name' attribute is missing from the module file header.")]
     VBNameAttributeMissing,
@@ -150,10 +150,10 @@ pub enum VB6ModuleErrorKind {
     #[error("The 'VB_Name' attribute is missing the equal symbol from the module file header.")]
     EqualMissing,
 
-    #[error("The 'VB_Name' attribute is unqouted.")]
-    VBNameAttributeValueUnqouted,
+    #[error("The 'VB_Name' attribute is unquoted.")]
+    VBNameAttributeValueUnquoted,
 
-    #[error("")]
+    #[error("There was an error parsing the VB6 tokens.")]
     VB6ModuleTokenError { code_error: VB6CodeErrorKind },
 }
 
