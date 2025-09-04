@@ -269,15 +269,15 @@ pub fn string_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
     // since we will just directly build a BStr from the input stream
     // THIS IS A HORRIBLE HACK! but at least it works.
     // TODO: Figure out how to actually get this right. Perhaps when we
-    // change over all the BStrs to be owned types.
+    // change over all the BStr's to be owned types.
     let mut build_string =
         repeat(0.., string_fragment_parse).fold(Vec::new, |mut string, fragment| {
             match fragment {
                 StringFragment::Literal(literal) => {
                     string.extend_from_slice(literal.as_bytes());
                 }
-                StringFragment::EscapedDoubleQuote(double_qoutes) => {
-                    string.extend_from_slice(double_qoutes.as_bytes());
+                StringFragment::EscapedDoubleQuote(double_quotes) => {
+                    string.extend_from_slice(double_quotes.as_bytes());
                 }
             }
             string
@@ -610,8 +610,8 @@ fn vb6_symbol_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
             "#".map(|token: &BStr| VB6Token::Octothorpe(token)),
             "<".map(|token: &BStr| VB6Token::LessThanOperator(token)),
             ">".map(|token: &BStr| VB6Token::GreaterThanOperator(token)),
-            "(".map(|token: &BStr| VB6Token::LeftParanthesis(token)),
-            ")".map(|token: &BStr| VB6Token::RightParanthesis(token)),
+            "(".map(|token: &BStr| VB6Token::LeftParentheses(token)),
+            ")".map(|token: &BStr| VB6Token::RightParentheses(token)),
             ",".map(|token: &BStr| VB6Token::Comma(token)),
             "+".map(|token: &BStr| VB6Token::AdditionOperator(token)),
             "-".map(|token: &BStr| VB6Token::SubtractionOperator(token)),
