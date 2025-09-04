@@ -1,9 +1,11 @@
-use crate::language::controls::{
-    Activation, Alignment, Appearance, AutoSize, BackStyle, BorderStyle, DragMode, LinkMode,
-    MousePointer, OLEDropMode, TextDirection, Visibility,
+use crate::{
+    language::controls::{
+        Activation, Alignment, Appearance, AutoSize, BackStyle, BorderStyle, DragMode, LinkMode,
+        MousePointer, OLEDropMode, TextDirection, Visibility,
+    },
+    parsers::Properties,
+    VB6Color, VB_BUTTON_FACE, VB_BUTTON_TEXT,
 };
-use crate::parsers::Properties;
-use crate::VB6Color;
 
 use bstr::BString;
 use image::DynamicImage;
@@ -72,7 +74,7 @@ impl Default for LabelProperties {
             alignment: Alignment::LeftJustify,
             appearance: Appearance::ThreeD,
             auto_size: AutoSize::Fixed,
-            back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
+            back_color: VB_BUTTON_FACE,
             back_style: BackStyle::Opaque,
             border_style: BorderStyle::None,
             caption: "".into(),
@@ -83,7 +85,7 @@ impl Default for LabelProperties {
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
-            fore_color: VB6Color::from_hex("&H80000012&").unwrap(),
+            fore_color: VB_BUTTON_TEXT,
             height: 30,
             left: 30,
             link_item: "".into(),
