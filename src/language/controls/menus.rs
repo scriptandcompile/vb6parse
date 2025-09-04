@@ -502,7 +502,7 @@ impl TryFrom<&str> for ShortCut {
             "{DEL}" => Ok(ShortCut::Del),
             "+{DEL}" => Ok(ShortCut::ShiftDel),
             "%{BKSP}" => Ok(ShortCut::AltBKsp),
-            _ => Err(VB6ErrorKind::ShortCutUnparseable),
+            _ => Err(VB6ErrorKind::ShortCutUnparsable),
         }
     }
 }
