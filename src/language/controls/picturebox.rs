@@ -1,11 +1,13 @@
-use crate::language::controls::{
-    Activation, Align, Appearance, AutoRedraw, AutoSize, BorderStyle, CausesValidation,
-    ClipControls, DragMode, DrawMode, DrawStyle, FillStyle, FontTransparency, HasDeviceContext,
-    LinkMode, MousePointer, OLEDragMode, OLEDropMode, ScaleMode, TabStop, TextDirection,
-    Visibility,
+use crate::{
+    language::controls::{
+        Activation, Align, Appearance, AutoRedraw, AutoSize, BorderStyle, CausesValidation,
+        ClipControls, DragMode, DrawMode, DrawStyle, FillStyle, FontTransparency, HasDeviceContext,
+        LinkMode, MousePointer, OLEDragMode, OLEDropMode, ScaleMode, TabStop, TextDirection,
+        Visibility,
+    },
+    parsers::Properties,
+    VB6Color, VB_BUTTON_FACE, VB_BUTTON_TEXT, VB_SCROLL_BARS,
 };
-use crate::parsers::Properties;
-use crate::VB6Color;
 
 use bstr::BString;
 use image::DynamicImage;
@@ -77,7 +79,7 @@ impl Default for PictureBoxProperties {
             appearance: Appearance::ThreeD,
             auto_redraw: AutoRedraw::Manual,
             auto_size: AutoSize::Fixed,
-            back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
+            back_color: VB_BUTTON_FACE,
             border_style: BorderStyle::FixedSingle,
             causes_validation: CausesValidation::Yes,
             clip_controls: ClipControls::default(),
@@ -91,10 +93,10 @@ impl Default for PictureBoxProperties {
             draw_style: DrawStyle::Solid,
             draw_width: 1,
             enabled: Activation::Enabled,
-            fill_color: VB6Color::from_hex("&H00000000&").unwrap(),
+            fill_color: VB_SCROLL_BARS,
             fill_style: FillStyle::Transparent,
             font_transparent: FontTransparency::Transparent,
-            fore_color: VB6Color::from_hex("&H80000012&").unwrap(),
+            fore_color: VB_BUTTON_TEXT,
             has_dc: HasDeviceContext::Yes,
             height: 30,
             help_context_id: 0,
