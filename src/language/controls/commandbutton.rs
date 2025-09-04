@@ -1,9 +1,11 @@
-use crate::language::controls::{
-    Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDropMode, Style, TabStop,
-    TextDirection, UseMaskColor,
+use crate::{
+    language::controls::{
+        Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDropMode, Style,
+        TabStop, TextDirection, UseMaskColor,
+    },
+    parsers::Properties,
+    VB6Color, VB_BUTTON_FACE,
 };
-use crate::parsers::Properties;
-use crate::VB6Color;
 
 use bstr::BString;
 use image::DynamicImage;
@@ -51,7 +53,7 @@ impl Default for CommandButtonProperties {
     fn default() -> Self {
         CommandButtonProperties {
             appearance: Appearance::ThreeD,
-            back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
+            back_color: VB_BUTTON_FACE,
             cancel: false,
             caption: "".into(),
             causes_validation: CausesValidation::Yes,
@@ -64,7 +66,7 @@ impl Default for CommandButtonProperties {
             height: 30,
             help_context_id: 0,
             left: 30,
-            mask_color: VB6Color::from_hex("&H00C0C0C0&").unwrap(),
+            mask_color: VB6Color::new(0xC0, 0xC0, 0xC0),
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
             ole_drop_mode: OLEDropMode::default(),
