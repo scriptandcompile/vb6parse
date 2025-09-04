@@ -115,109 +115,25 @@ pub const VB_CYAN: VB6Color = VB6Color::RGB {
     blue: 0xFF,
 };
 
-/// Darkest shadow color for 3-D display elements.
+/// Scrollbar color
 #[allow(dead_code)]
-pub const VB_3D_DK_SHADOW: VB6Color = VB6Color::System { index: 0x15 };
-
-/// Highlight color for 3-D display elements
-#[allow(dead_code)]
-pub const VB_3D_HIGHLIGHT: VB6Color = VB6Color::System { index: 0x14 };
-
-/// Second lightest 3-D color after vb3DHighlight
-#[allow(dead_code)]
-pub const VB_3D_LIGHT: VB6Color = VB6Color::System { index: 0x16 };
-
-/// Lightest shadow color for 3-D display elements
-#[allow(dead_code)]
-pub const VB_3D_SHADOW: VB6Color = VB6Color::System { index: 0x10 };
-
-/// Border color of active window
-#[allow(dead_code)]
-pub const VB_ACTIVE_BORDER: VB6Color = VB6Color::System { index: 0x0A };
-
-/// Color of the title bar for the active window
-#[allow(dead_code)]
-pub const VB_ACTIVE_TITLE_BAR: VB6Color = VB6Color::System { index: 0x02 };
-
-/// Background color of multiple document interface (MDI) applications
-#[allow(dead_code)]
-pub const VB_APPLICATION_WORKSPACE: VB6Color = VB6Color::System { index: 0x0C };
-
-/// Color of shading on the face of command buttons
-#[allow(dead_code)]
-pub const VB_BUTTON_FACE: VB6Color = VB6Color::System { index: 0x0F };
-
-/// Color of shading on the face of command buttons
-#[allow(dead_code)]
-pub const VB_3D_FACE: VB6Color = VB6Color::System { index: 0x0F };
-
-/// Color of shading on the edge of command buttons
-#[allow(dead_code)]
-pub const VB_BUTTON_SHADOW: VB6Color = VB6Color::System { index: 0x10 };
-
-/// Text color on push buttons
-#[allow(dead_code)]
-pub const VB_BUTTON_TEXT: VB6Color = VB6Color::System { index: 0x12 };
+pub const VB_SCROLL_BARS: VB6Color = VB6Color::System { index: 0x00 };
 
 /// Desktop color
 #[allow(dead_code)]
 pub const VB_DESKTOP: VB6Color = VB6Color::System { index: 0x01 };
 
-/// Grayed (disabled) text
+/// Color of the title bar for the active window
 #[allow(dead_code)]
-pub const VB_GRAY_TEXT: VB6Color = VB6Color::System { index: 0x11 };
-
-/// Background color of items selected in a control
-#[allow(dead_code)]
-pub const VB_HIGHLIGHT: VB6Color = VB6Color::System { index: 0x0D };
-
-/// Text color of items selected in a control
-#[allow(dead_code)]
-pub const VB_HIGHLIGHT_TEXT: VB6Color = VB6Color::System { index: 0x0E };
-
-/// Border color of inactive window
-#[allow(dead_code)]
-pub const VB_INACTIVE_BORDER: VB6Color = VB6Color::System { index: 0x0B };
-
-/// Color of text in an inactive caption
-#[allow(dead_code)]
-pub const VB_INACTIVE_CAPTION_TEXT: VB6Color = VB6Color::System { index: 0x13 };
+pub const VB_ACTIVE_TITLE_BAR: VB6Color = VB6Color::System { index: 0x02 };
 
 /// Color of the title bar for the inactive window
 #[allow(dead_code)]
 pub const VB_INACTIVE_TITLE_BAR: VB6Color = VB6Color::System { index: 0x03 };
 
-/// Background color of tool tips
-#[allow(dead_code)]
-pub const VB_INFO_BACKGROUND: VB6Color = VB6Color::System { index: 0x18 };
-
-/// Background color of tool tips
-#[allow(dead_code)]
-pub const VB_MSG_BOX_TEXT: VB6Color = VB6Color::System { index: 0x18 };
-
-/// Color of text in tool tips
-#[allow(dead_code)]
-pub const VB_INFO_TEXT: VB6Color = VB6Color::System { index: 0x17 };
-
-/// Color of text in tool tips
-#[allow(dead_code)]
-pub const VB_MSG_BOX: VB6Color = VB6Color::System { index: 0x17 };
-
 /// Menu background color
 #[allow(dead_code)]
 pub const VB_MENU_BAR: VB6Color = VB6Color::System { index: 0x04 };
-
-/// Color of text on menus
-#[allow(dead_code)]
-pub const VB_MENU_TEXT: VB6Color = VB6Color::System { index: 0x07 };
-
-/// Scrollbar color
-#[allow(dead_code)]
-pub const VB_SCROLL_BARS: VB6Color = VB6Color::System { index: 0x00 };
-
-/// Color of text in caption, size box, and scroll arrow
-#[allow(dead_code)]
-pub const VB_TITLE_BAR_TEXT: VB6Color = VB6Color::System { index: 0x09 };
 
 /// Window background color
 #[allow(dead_code)]
@@ -227,9 +143,93 @@ pub const VB_WINDOW_BACKGROUND: VB6Color = VB6Color::System { index: 0x05 };
 #[allow(dead_code)]
 pub const VB_WINDOW_FRAME: VB6Color = VB6Color::System { index: 0x06 };
 
+/// Color of text on menus
+#[allow(dead_code)]
+pub const VB_MENU_TEXT: VB6Color = VB6Color::System { index: 0x07 };
+
 /// Color of text in windows
 #[allow(dead_code)]
 pub const VB_WINDOW_TEXT: VB6Color = VB6Color::System { index: 0x08 };
+
+/// Color of text in caption, size box, and scroll arrow
+#[allow(dead_code)]
+pub const VB_TITLE_BAR_TEXT: VB6Color = VB6Color::System { index: 0x09 };
+
+/// Border color of active window
+#[allow(dead_code)]
+pub const VB_ACTIVE_BORDER: VB6Color = VB6Color::System { index: 0x0A };
+
+/// Border color of inactive window
+#[allow(dead_code)]
+pub const VB_INACTIVE_BORDER: VB6Color = VB6Color::System { index: 0x0B };
+
+/// Background color of multiple document interface (MDI) applications
+#[allow(dead_code)]
+pub const VB_APPLICATION_WORKSPACE: VB6Color = VB6Color::System { index: 0x0C };
+
+/// Background color of items selected in a control
+#[allow(dead_code)]
+pub const VB_HIGHLIGHT: VB6Color = VB6Color::System { index: 0x0D };
+
+/// Text color of items selected in a control
+#[allow(dead_code)]
+pub const VB_HIGHLIGHT_TEXT: VB6Color = VB6Color::System { index: 0x0E };
+
+/// Color of shading on the face of command buttons
+#[allow(dead_code)]
+pub const VB_BUTTON_FACE: VB6Color = VB6Color::System { index: 0x0F };
+
+/// Color of shading on the face of command buttons
+#[allow(dead_code)]
+pub const VB_3D_FACE: VB6Color = VB6Color::System { index: 0x0F };
+
+/// Lightest shadow color for 3-D display elements
+#[allow(dead_code)]
+pub const VB_3D_SHADOW: VB6Color = VB6Color::System { index: 0x10 };
+
+/// Color of shading on the edge of command buttons
+#[allow(dead_code)]
+pub const VB_BUTTON_SHADOW: VB6Color = VB6Color::System { index: 0x10 };
+
+/// Grayed (disabled) text
+#[allow(dead_code)]
+pub const VB_GRAY_TEXT: VB6Color = VB6Color::System { index: 0x11 };
+
+/// Text color on push buttons
+#[allow(dead_code)]
+pub const VB_BUTTON_TEXT: VB6Color = VB6Color::System { index: 0x12 };
+
+/// Color of text in an inactive caption
+#[allow(dead_code)]
+pub const VB_INACTIVE_CAPTION_TEXT: VB6Color = VB6Color::System { index: 0x13 };
+
+/// Highlight color for 3-D display elements
+#[allow(dead_code)]
+pub const VB_3D_HIGHLIGHT: VB6Color = VB6Color::System { index: 0x14 };
+
+/// Darkest shadow color for 3-D display elements.
+#[allow(dead_code)]
+pub const VB_3D_DK_SHADOW: VB6Color = VB6Color::System { index: 0x15 };
+
+/// Second lightest 3-D color after vb3DHighlight
+#[allow(dead_code)]
+pub const VB_3D_LIGHT: VB6Color = VB6Color::System { index: 0x16 };
+
+/// Color of text in tool tips
+#[allow(dead_code)]
+pub const VB_INFO_TEXT: VB6Color = VB6Color::System { index: 0x17 };
+
+/// Color of text in tool tips
+#[allow(dead_code)]
+pub const VB_MSG_BOX: VB6Color = VB6Color::System { index: 0x17 };
+
+/// Background color of tool tips
+#[allow(dead_code)]
+pub const VB_INFO_BACKGROUND: VB6Color = VB6Color::System { index: 0x18 };
+
+/// Background color of tool tips
+#[allow(dead_code)]
+pub const VB_MSG_BOX_TEXT: VB6Color = VB6Color::System { index: 0x18 };
 
 impl VB6Color {
     /// Creates a new `VB6Color`.
