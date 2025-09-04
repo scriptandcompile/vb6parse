@@ -166,21 +166,21 @@ pub fn version_parse<'a>(
         (space0, keyword_parse("VERSION"), space1).parse_next(input)?;
 
         let Ok(major_digits): VB6Result<&'a BStr> = digit1.parse_next(input) else {
-            return Err(ErrMode::Cut(VB6ErrorKind::MajorVersionUnparseable));
+            return Err(ErrMode::Cut(VB6ErrorKind::MajorVersionUnparsable));
         };
 
         let Ok(major_version) = major_digits.to_string().as_str().parse::<u8>() else {
-            return Err(ErrMode::Cut(VB6ErrorKind::MajorVersionUnparseable));
+            return Err(ErrMode::Cut(VB6ErrorKind::MajorVersionUnparsable));
         };
 
         ".".parse_next(input)?;
 
         let Ok(minor_digits): VB6Result<&'a BStr> = digit1.parse_next(input) else {
-            return Err(ErrMode::Cut(VB6ErrorKind::MinorVersionUnparseable));
+            return Err(ErrMode::Cut(VB6ErrorKind::MinorVersionUnparsable));
         };
 
         let Ok(minor_version) = minor_digits.to_string().as_str().parse::<u8>() else {
-            return Err(ErrMode::Cut(VB6ErrorKind::MinorVersionUnparseable));
+            return Err(ErrMode::Cut(VB6ErrorKind::MinorVersionUnparsable));
         };
 
         match header_kind {
@@ -209,7 +209,7 @@ pub fn version_parse<'a>(
 }
 
 fn compiled_object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ObjectReference<'a>> {
-    // the GUID may or may not be wrapped in double-qoutes.
+    // the GUID may or may not be wrapped in double-quotes.
     opt("\"").parse_next(input)?;
 
     "{".parse_next(input)?;
@@ -227,7 +227,7 @@ fn compiled_object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ObjectRe
 
     "#".parse_next(input)?;
 
-    // we have to take until the next semi-colon or the next semi-colon wrapped in double-qoutes since it could be qouted or not.
+    // we have to take until the next semi-colon or the next semi-colon wrapped in double-quotes since it could be quoted or not.
     let unknown1 = alt((take_until(1.., ";"), take_until(1.., "\";"))).parse_next(input)?;
 
     opt("\"").parse_next(input)?;
@@ -235,11 +235,11 @@ fn compiled_object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ObjectRe
     // space is there, but it is. this strips it and the semi-colon out.
     "; ".parse_next(input)?;
 
-    // the filename may or may not be wrapped in double-qoutes.
+    // the filename may or may not be wrapped in double-quotes.
     opt("\"").parse_next(input)?;
 
     // the filename is the rest of the input.
-    // the filename may or may not be wrapped in double-qoutes.
+    // the filename may or may not be wrapped in double-quotes.
     let file_name = alt((take_until_line_ending, take_until(1.., "\""))).parse_next(input)?;
 
     opt("\"").parse_next(input)?;
@@ -255,7 +255,7 @@ fn compiled_object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ObjectRe
 }
 
 fn project_object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ObjectReference<'a>> {
-    // we have a qouted project path (likely a just a filename). aka Object = "*\\ADropStack.vbp"
+    // we have a quoted project path (likely just a filename). aka Object = "*\\ADropStack.vbp"
     if (space0::<VB6Stream<'a>, VB6ErrorKind>, "\"*\\A")
         .parse_next(input)
         .is_ok()
@@ -467,76 +467,76 @@ pub fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FileAttri
     })
 }
 
-pub fn key_value_parse<'a>(
-    divider: &'static str,
-) -> impl FnMut(&mut VB6Stream<'a>) -> VB6Result<(&'a BStr, &'a BStr)> {
-    move |input: &mut VB6Stream<'a>| -> VB6Result<(&'a BStr, &'a BStr)> {
-        let checkpoint = input.checkpoint();
+// pub fn key_value_parse<'a>(
+//     divider: &'static str,
+// ) -> impl FnMut(&mut VB6Stream<'a>) -> VB6Result<(&'a BStr, &'a BStr)> {
+//     move |input: &mut VB6Stream<'a>| -> VB6Result<(&'a BStr, &'a BStr)> {
+//         let checkpoint = input.checkpoint();
 
-        space0.parse_next(input)?;
+//         space0.parse_next(input)?;
 
-        let Ok(key) = take_until::<_, _, VB6ErrorKind>(1.., (" ", "\t", divider)).parse_next(input)
-        else {
-            input.reset(&checkpoint);
-            return Err(ErrMode::Cut(VB6ErrorKind::Property(
-                PropertyError::NameUnparsable,
-            )));
-        };
+//         let Ok(key) = take_until::<_, _, VB6ErrorKind>(1.., (" ", "\t", divider)).parse_next(input)
+//         else {
+//             input.reset(&checkpoint);
+//             return Err(ErrMode::Cut(VB6ErrorKind::Property(
+//                 PropertyError::NameUnparsable,
+//             )));
+//         };
 
-        space0.parse_next(input)?;
+//         space0.parse_next(input)?;
 
-        if literal::<_, _, VB6ErrorKind>(divider)
-            .parse_next(input)
-            .is_err()
-        {
-            input.reset(&checkpoint);
-            return Err(ErrMode::Cut(VB6ErrorKind::NoKeyValueDividerFound));
-        }
+//         if literal::<_, _, VB6ErrorKind>(divider)
+//             .parse_next(input)
+//             .is_err()
+//         {
+//             input.reset(&checkpoint);
+//             return Err(ErrMode::Cut(VB6ErrorKind::NoKeyValueDividerFound));
+//         }
 
-        space0.parse_next(input)?;
+//         space0.parse_next(input)?;
 
-        let Ok(value) =
-            alt((string_parse, take_until(1.., (" ", "\t", "\r", "\n")))).parse_next(input)
-        else {
-            input.reset(&checkpoint);
-            return Err(ErrMode::Cut(VB6ErrorKind::KeyValueParseError));
-        };
+//         let Ok(value) =
+//             alt((string_parse, take_until(1.., (" ", "\t", "\r", "\n")))).parse_next(input)
+//         else {
+//             input.reset(&checkpoint);
+//             return Err(ErrMode::Cut(VB6ErrorKind::KeyValueParseError));
+//         };
 
-        space0.parse_next(input)?;
+//         space0.parse_next(input)?;
 
-        Ok((key, value))
-    }
-}
+//         Ok((key, value))
+//     }
+// }
 
-pub fn key_value_line_parse<'a>(
-    divider: &'static str,
-) -> impl FnMut(&mut VB6Stream<'a>) -> VB6Result<(&'a BStr, &'a BStr)> {
-    move |input: &mut VB6Stream<'a>| -> VB6Result<(&'a BStr, &'a BStr)> {
-        let checkpoint = input.checkpoint();
+// pub fn key_value_line_parse<'a>(
+//     divider: &'static str,
+// ) -> impl FnMut(&mut VB6Stream<'a>) -> VB6Result<(&'a BStr, &'a BStr)> {
+//     move |input: &mut VB6Stream<'a>| -> VB6Result<(&'a BStr, &'a BStr)> {
+//         let checkpoint = input.checkpoint();
 
-        let (key, value) = match key_value_parse(divider).parse_next(input) {
-            Ok((key, value)) => (key, value),
-            Err(e) => {
-                input.reset(&checkpoint);
-                return Err(e);
-            }
-        };
+//         let (key, value) = match key_value_parse(divider).parse_next(input) {
+//             Ok((key, value)) => (key, value),
+//             Err(e) => {
+//                 input.reset(&checkpoint);
+//                 return Err(e);
+//             }
+//         };
 
-        // we have to check for eof here because it's perfectly possible to have a
-        // header file that is empty of actual code. This means the last line of the file
-        // should be an empty line, but it might be that the filed ends at the end of the
-        // header attribute section.
-        if (space0, opt(line_comment_parse), alt((line_ending, eof)))
-            .parse_next(input)
-            .is_err()
-        {
-            input.reset(&checkpoint);
-            return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
-        }
+//         // we have to check for eof here because it's perfectly possible to have a
+//         // header file that is empty of actual code. This means the last line of the file
+//         // should be an empty line, but it might be that the filed ends at the end of the
+//         // header attribute section.
+//         if (space0, opt(line_comment_parse), alt((line_ending, eof)))
+//             .parse_next(input)
+//             .is_err()
+//         {
+//             input.reset(&checkpoint);
+//             return Err(ErrMode::Cut(VB6ErrorKind::NoLineEnding));
+//         }
 
-        Ok((key, value))
-    }
-}
+//         Ok((key, value))
+//     }
+// }
 
 pub fn key_resource_offset_line_parse<'a>(
     input: &mut VB6Stream<'a>,
@@ -708,21 +708,21 @@ mod tests {
         assert_eq!(version.minor, 0);
     }
 
-    #[test]
-    fn test_key_value_parse() {
-        let mut stream = VB6Stream::new("", b"Attribute1 = Value1\r\n");
-        let (key, value) = key_value_parse("=")(&mut stream).unwrap();
+    // #[test]
+    // fn test_key_value_parse() {
+    //     let mut stream = VB6Stream::new("", b"Attribute1 = Value1\r\n");
+    //     let (key, value) = key_value_parse("=")(&mut stream).unwrap();
 
-        assert_eq!(key, "Attribute1".as_bytes());
-        assert_eq!(value, "Value1".as_bytes());
-    }
+    //     assert_eq!(key, "Attribute1".as_bytes());
+    //     assert_eq!(value, "Value1".as_bytes());
+    // }
 
-    #[test]
-    fn test_key_value_line_parse() {
-        let mut stream = VB6Stream::new("", b"Attribute1 = Value1\r\n");
-        let (key, value) = key_value_line_parse("=")(&mut stream).unwrap();
+    // #[test]
+    // fn test_key_value_line_parse() {
+    //     let mut stream = VB6Stream::new("", b"Attribute1 = Value1\r\n");
+    //     let (key, value) = key_value_line_parse("=")(&mut stream).unwrap();
 
-        assert_eq!(key, "Attribute1".as_bytes());
-        assert_eq!(value, "Value1".as_bytes());
-    }
+    //     assert_eq!(key, "Attribute1".as_bytes());
+    //     assert_eq!(value, "Value1".as_bytes());
+    //}
 }
