@@ -4,7 +4,7 @@ use crate::{
         MousePointer, OLEDragMode, OLEDropMode, TabStop, TextDirection, Visibility,
     },
     parsers::Properties,
-    VB6Color,
+    VB6Color, VB_WINDOW_BACKGROUND, VB_WINDOW_TEXT,
 };
 
 use bstr::BString;
@@ -99,7 +99,7 @@ impl Default for TextBoxProperties {
         TextBoxProperties {
             alignment: Alignment::LeftJustify,
             appearance: Appearance::ThreeD,
-            back_color: VB6Color::from_hex("&H80000005&").unwrap(),
+            back_color: VB_WINDOW_BACKGROUND,
             border_style: BorderStyle::FixedSingle,
             causes_validation: CausesValidation::Yes,
             data_field: "".into(),
@@ -109,7 +109,7 @@ impl Default for TextBoxProperties {
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
-            fore_color: VB6Color::from_hex("&H80000008&").unwrap(),
+            fore_color: VB_WINDOW_TEXT,
             height: 30,
             help_context_id: 0,
             hide_selection: true,
