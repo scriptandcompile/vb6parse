@@ -149,7 +149,7 @@ impl<'a> VB6Tokenizer<'a> for &mut SourceStream<'a> {
     /// # Returns
     ///
     /// `Some()` with a tuple where the first element is the comment token, including
-    /// the single qoute while the second element is an optional newline token.
+    /// the single quote while the second element is an optional newline token.
     /// The only time this optional token should be None is if the line comment
     /// ends at the end of the stream.
     ///
@@ -236,20 +236,20 @@ impl<'a> VB6Tokenizer<'a> for &mut SourceStream<'a> {
         self.peek_text("\"", super::Comparator::CaseInsensitive)?;
 
         // TODO: Need to handle error reporting of incorrect escape sequences as well
-        // as string literals that hit a newline before the second qoute character.
+        // as string literals that hit a newline before the second quote character.
         let mut escape_sequence_started = false;
-        let mut qoute_character_count = 0;
+        let mut quote_character_count = 0;
         let take_string = |next_character| match next_character {
             // it doesn't matter what the character is if it is right after
-            // the second qoute character.
-            _ if qoute_character_count == 2 => true,
+            // the second quote character.
+            _ if quote_character_count == 2 => true,
             '\r' | '\n' => true,
             '\\' => {
                 escape_sequence_started = true;
                 false
             }
-            '\"' if !escape_sequence_started && qoute_character_count < 2 => {
-                qoute_character_count += 1;
+            '\"' if !escape_sequence_started && quote_character_count < 2 => {
+                quote_character_count += 1;
                 false
             }
             _ if escape_sequence_started => {
@@ -260,7 +260,7 @@ impl<'a> VB6Tokenizer<'a> for &mut SourceStream<'a> {
         };
 
         self.take_until_lambda(take_string, false)
-            .map(|qouted_text| VB6Token::StringLiteral(qouted_text.into()))
+            .map(|quoted_text| VB6Token::StringLiteral(quoted_text.into()))
     }
 
     fn take_symbol(self) -> Option<VB6Token<'a>> {
@@ -281,9 +281,9 @@ impl<'a> VB6Tokenizer<'a> for &mut SourceStream<'a> {
         } else if let Some(token) = self.take(">", Comparator::CaseInsensitive) {
             return Some(VB6Token::GreaterThanOperator(token.into()));
         } else if let Some(token) = self.take("(", Comparator::CaseInsensitive) {
-            return Some(VB6Token::LeftParanthesis(token.into()));
+            return Some(VB6Token::LeftParentheses(token.into()));
         } else if let Some(token) = self.take(")", Comparator::CaseInsensitive) {
-            return Some(VB6Token::RightParanthesis(token.into()));
+            return Some(VB6Token::RightParentheses(token.into()));
         } else if let Some(token) = self.take(",", Comparator::CaseInsensitive) {
             return Some(VB6Token::Comma(token.into()));
         } else if let Some(token) = self.take("+", Comparator::CaseInsensitive) {
