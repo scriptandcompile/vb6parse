@@ -457,107 +457,116 @@ mod tests {
     // The two streams should behave the same way.
     #[test]
     fn next_slice() {
-        let mut wstream = b"Hello, World!".as_slice();
+        let mut source_text = b"Hello, World!".as_slice();
         let mut stream = VB6Stream::new("", b"Hello, World!");
 
-        assert_eq!(wstream.next_slice(5), "Hello".as_bytes().as_bstr());
+        assert_eq!(source_text.next_slice(5), "Hello".as_bytes().as_bstr());
         assert_eq!(stream.next_slice(5), "Hello".as_bytes().as_bstr());
 
-        assert_eq!(wstream.next_slice(2), ", ".as_bytes().as_bstr());
+        assert_eq!(source_text.next_slice(2), ", ".as_bytes().as_bstr());
         assert_eq!(stream.next_slice(2), ", ".as_bytes().as_bstr());
 
-        assert_eq!(wstream.next_slice(6), "World!".as_bytes().as_bstr());
+        assert_eq!(source_text.next_slice(6), "World!".as_bytes().as_bstr());
         assert_eq!(stream.next_slice(6), "World!".as_bytes().as_bstr());
     }
 
     #[test]
     fn compare() {
-        let mut wstream = b"Hello, World!".as_slice();
+        let mut source_text = b"Hello, World!".as_slice();
         let mut stream = VB6Stream::new("", b"Hello, World!");
 
-        let wcheckpoint = wstream.checkpoint();
+        let source_text_checkpoint = source_text.checkpoint();
         let checkpoint = stream.checkpoint();
 
-        assert_eq!(wstream.compare("Hello"), CompareResult::Ok(5));
+        assert_eq!(source_text.compare("Hello"), CompareResult::Ok(5));
         assert_eq!(stream.compare("Hello"), CompareResult::Ok(5));
 
-        assert_eq!(wstream.compare(", "), CompareResult::Error);
+        assert_eq!(source_text.compare(", "), CompareResult::Error);
         assert_eq!(stream.compare(", "), CompareResult::Error);
 
-        assert_eq!(wstream.next_slice(5), "Hello".as_bytes().as_bstr());
+        assert_eq!(source_text.next_slice(5), "Hello".as_bytes().as_bstr());
         assert_eq!(stream.next_slice(5), "Hello".as_bytes().as_bstr());
 
-        assert_eq!(wstream.compare(", "), CompareResult::Ok(2));
+        assert_eq!(source_text.compare(", "), CompareResult::Ok(2));
         assert_eq!(stream.compare(", "), CompareResult::Ok(2));
 
-        wstream.reset(&wcheckpoint);
+        source_text.reset(&source_text_checkpoint);
         stream.reset(&checkpoint);
 
-        assert_eq!(wstream.compare("World!"), CompareResult::Error);
+        assert_eq!(source_text.compare("World!"), CompareResult::Error);
         assert_eq!(stream.compare("World!"), CompareResult::Error);
 
-        assert_eq!(wstream.compare("Hello, World!"), CompareResult::Ok(13));
+        assert_eq!(source_text.compare("Hello, World!"), CompareResult::Ok(13));
         assert_eq!(stream.compare("Hello, World!"), CompareResult::Ok(13));
 
-        assert_eq!(wstream.compare("Hello, World! "), CompareResult::Incomplete);
+        assert_eq!(
+            source_text.compare("Hello, World! "),
+            CompareResult::Incomplete
+        );
         assert_eq!(stream.compare("Hello, World! "), CompareResult::Incomplete);
 
-        assert_eq!(wstream.compare("Hello, World"), CompareResult::Ok(12));
+        assert_eq!(source_text.compare("Hello, World"), CompareResult::Ok(12));
         assert_eq!(stream.compare("Hello, World"), CompareResult::Ok(12));
 
-        assert_eq!(wstream.compare("Hello, World!!"), CompareResult::Incomplete);
+        assert_eq!(
+            source_text.compare("Hello, World!!"),
+            CompareResult::Incomplete
+        );
         assert_eq!(stream.compare("Hello, World!!"), CompareResult::Incomplete);
 
-        assert_eq!(wstream.compare("Hello, World! "), CompareResult::Incomplete);
+        assert_eq!(
+            source_text.compare("Hello, World! "),
+            CompareResult::Incomplete
+        );
         assert_eq!(stream.compare("Hello, World! "), CompareResult::Incomplete);
     }
 
     #[test]
     fn eof_offset() {
-        let wstream = b"Hello, World!".as_slice();
+        let source_text = b"Hello, World!".as_slice();
         let stream = VB6Stream::new("", b"Hello, World!");
 
-        assert_eq!(wstream.eof_offset(), stream.eof_offset());
+        assert_eq!(source_text.eof_offset(), stream.eof_offset());
     }
 
     #[test]
     fn iter_offsets() {
-        let mut wstream = b"Hello, World!".as_slice();
+        let mut source_text = b"Hello, World!".as_slice();
         let mut stream = VB6Stream::new("", b"Hello, World!");
 
         assert_eq!(
-            wstream.iter_offsets().collect::<Vec<_>>(),
+            source_text.iter_offsets().collect::<Vec<_>>(),
             stream.iter_offsets().collect::<Vec<_>>()
         );
 
-        assert_eq!(wstream.next_token(), Some(b'H'));
+        assert_eq!(source_text.next_token(), Some(b'H'));
         assert_eq!(stream.next_token(), Some(b'H'));
 
-        assert_eq!(wstream.next_token(), Some(b'e'));
+        assert_eq!(source_text.next_token(), Some(b'e'));
         assert_eq!(stream.next_token(), Some(b'e'));
 
         assert_eq!(
-            wstream.iter_offsets().collect::<Vec<_>>(),
+            source_text.iter_offsets().collect::<Vec<_>>(),
             stream.iter_offsets().collect::<Vec<_>>()
         );
     }
 
     #[test]
     fn offset_at() {
-        let wstream = b"Hello, World!".as_slice();
+        let source_text = b"Hello, World!".as_slice();
         let stream = VB6Stream::new("", b"Hello, World!");
 
         // Test offset_at with a valid offset
-        assert_eq!(wstream.offset_at(5), Ok(5));
+        assert_eq!(source_text.offset_at(5), Ok(5));
         assert_eq!(stream.offset_at(5), Ok(5));
 
         // Test offset_at with an offset that is on the last element
-        assert_eq!(wstream.offset_at(13), Ok(13));
+        assert_eq!(source_text.offset_at(13), Ok(13));
         assert_eq!(stream.offset_at(13), Ok(13));
 
         // Test offset_at with an offset that is too large
         assert_eq!(
-            wstream.offset_at(14),
+            source_text.offset_at(14),
             Err(winnow::error::Needed::Size(NonZeroUsize::new(1).unwrap()))
         );
         assert_eq!(
@@ -568,99 +577,99 @@ mod tests {
 
     #[test]
     fn offset_for() {
-        let wstream = b"Hello, World!".as_slice();
+        let source_text = b"Hello, World!".as_slice();
         let stream = VB6Stream::new("", b"Hello, World!");
 
         // Test offset_for with a predicate that matches 'e'
-        assert_eq!(wstream.offset_for(|b| b == b'e'), Some(1));
+        assert_eq!(source_text.offset_for(|b| b == b'e'), Some(1));
         assert_eq!(stream.offset_for(|b| b == b'e'), Some(1));
 
         // Test offset_for with a predicate that matches 'H'
-        assert_eq!(wstream.offset_for(|b| b == b'H'), Some(0));
+        assert_eq!(source_text.offset_for(|b| b == b'H'), Some(0));
         assert_eq!(stream.offset_for(|b| b == b'H'), Some(0));
 
         // Test offset_for with a predicate that matches 'l'
-        assert_eq!(wstream.offset_for(|b| b == b'l'), Some(2));
+        assert_eq!(source_text.offset_for(|b| b == b'l'), Some(2));
         assert_eq!(stream.offset_for(|b| b == b'l'), Some(2));
 
         // Test offset_for with a predicate that matches 'o'
-        assert_eq!(wstream.offset_for(|b| b == b'o'), Some(4));
+        assert_eq!(source_text.offset_for(|b| b == b'o'), Some(4));
         assert_eq!(stream.offset_for(|b| b == b'o'), Some(4));
 
         // Test offset_for with a predicate that matches ','
-        assert_eq!(wstream.offset_for(|b| b == b','), Some(5));
+        assert_eq!(source_text.offset_for(|b| b == b','), Some(5));
         assert_eq!(stream.offset_for(|b| b == b','), Some(5));
 
         // Test offset_for with a predicate that matches ' '
-        assert_eq!(wstream.offset_for(|b| b == b' '), Some(6));
+        assert_eq!(source_text.offset_for(|b| b == b' '), Some(6));
         assert_eq!(stream.offset_for(|b| b == b' '), Some(6));
 
         // Test offset_for with a predicate that matches 'W'
-        assert_eq!(wstream.offset_for(|b| b == b'W'), Some(7));
+        assert_eq!(source_text.offset_for(|b| b == b'W'), Some(7));
         assert_eq!(stream.offset_for(|b| b == b'W'), Some(7));
 
         // Test offset_for with a predicate that matches 'r'
-        assert_eq!(wstream.offset_for(|b| b == b'r'), Some(9));
+        assert_eq!(source_text.offset_for(|b| b == b'r'), Some(9));
         assert_eq!(stream.offset_for(|b| b == b'r'), Some(9));
 
         // Test offset_for with a predicate that matches 'd'
-        assert_eq!(wstream.offset_for(|b| b == b'd'), Some(11));
+        assert_eq!(source_text.offset_for(|b| b == b'd'), Some(11));
         assert_eq!(stream.offset_for(|b| b == b'd'), Some(11));
 
         // Test offset_for with a predicate that matches '!'
-        assert_eq!(wstream.offset_for(|b| b == b'!'), Some(12));
+        assert_eq!(source_text.offset_for(|b| b == b'!'), Some(12));
         assert_eq!(stream.offset_for(|b| b == b'!'), Some(12));
 
         // Test offset_for with a predicate that doesn't match any character
-        assert_eq!(wstream.offset_for(|b| b == b'z'), None);
+        assert_eq!(source_text.offset_for(|b| b == b'z'), None);
         assert_eq!(stream.offset_for(|b| b == b'z'), None);
     }
 
     #[test]
     fn stream() {
-        let mut wstream = b"Hello, World!".as_slice();
+        let mut source_text = b"Hello, World!".as_slice();
         let mut stream = VB6Stream::new("", b"Hello, World!");
 
-        assert_eq!(wstream.next_token(), Some(b'H'));
+        assert_eq!(source_text.next_token(), Some(b'H'));
         assert_eq!(stream.next_token(), Some(b'H'));
 
-        assert_eq!(wstream.next_token(), Some(b'e'));
+        assert_eq!(source_text.next_token(), Some(b'e'));
         assert_eq!(stream.next_token(), Some(b'e'));
 
-        assert_eq!(wstream.next_token(), Some(b'l'));
+        assert_eq!(source_text.next_token(), Some(b'l'));
         assert_eq!(stream.next_token(), Some(b'l'));
 
-        assert_eq!(wstream.next_token(), Some(b'l'));
+        assert_eq!(source_text.next_token(), Some(b'l'));
         assert_eq!(stream.next_token(), Some(b'l'));
 
-        assert_eq!(wstream.next_token(), Some(b'o'));
+        assert_eq!(source_text.next_token(), Some(b'o'));
         assert_eq!(stream.next_token(), Some(b'o'));
 
-        assert_eq!(wstream.next_token(), Some(b','));
+        assert_eq!(source_text.next_token(), Some(b','));
         assert_eq!(stream.next_token(), Some(b','));
 
-        assert_eq!(wstream.next_token(), Some(b' '));
+        assert_eq!(source_text.next_token(), Some(b' '));
         assert_eq!(stream.next_token(), Some(b' '));
 
-        assert_eq!(wstream.next_token(), Some(b'W'));
+        assert_eq!(source_text.next_token(), Some(b'W'));
         assert_eq!(stream.next_token(), Some(b'W'));
 
-        assert_eq!(wstream.next_token(), Some(b'o'));
+        assert_eq!(source_text.next_token(), Some(b'o'));
         assert_eq!(stream.next_token(), Some(b'o'));
 
-        assert_eq!(wstream.next_token(), Some(b'r'));
+        assert_eq!(source_text.next_token(), Some(b'r'));
         assert_eq!(stream.next_token(), Some(b'r'));
 
-        assert_eq!(wstream.next_token(), Some(b'l'));
+        assert_eq!(source_text.next_token(), Some(b'l'));
         assert_eq!(stream.next_token(), Some(b'l'));
 
-        assert_eq!(wstream.next_token(), Some(b'd'));
+        assert_eq!(source_text.next_token(), Some(b'd'));
         assert_eq!(stream.next_token(), Some(b'd'));
 
-        assert_eq!(wstream.next_token(), Some(b'!'));
+        assert_eq!(source_text.next_token(), Some(b'!'));
         assert_eq!(stream.next_token(), Some(b'!'));
 
-        assert_eq!(wstream.next_token(), None);
+        assert_eq!(source_text.next_token(), None);
         assert_eq!(stream.next_token(), None);
     }
 
@@ -766,79 +775,79 @@ mod tests {
 
     #[test]
     fn checkpoint() {
-        let mut wstream = b"Hello, World!".as_slice();
+        let mut source_text = b"Hello, World!".as_slice();
         let mut stream = VB6Stream::new("", b"Hello, World!");
 
-        assert_eq!(wstream.next_token(), Some(b'H'));
+        assert_eq!(source_text.next_token(), Some(b'H'));
         assert_eq!(stream.next_token(), Some(b'H'));
 
-        assert_eq!(wstream.next_token(), Some(b'e'));
+        assert_eq!(source_text.next_token(), Some(b'e'));
         assert_eq!(stream.next_token(), Some(b'e'));
 
-        assert_eq!(wstream.next_token(), Some(b'l'));
+        assert_eq!(source_text.next_token(), Some(b'l'));
         assert_eq!(stream.next_token(), Some(b'l'));
 
-        assert_eq!(wstream.next_token(), Some(b'l'));
+        assert_eq!(source_text.next_token(), Some(b'l'));
         assert_eq!(stream.next_token(), Some(b'l'));
 
-        assert_eq!(wstream.next_token(), Some(b'o'));
+        assert_eq!(source_text.next_token(), Some(b'o'));
         assert_eq!(stream.next_token(), Some(b'o'));
 
-        assert_eq!(wstream.next_token(), Some(b','));
+        assert_eq!(source_text.next_token(), Some(b','));
         assert_eq!(stream.next_token(), Some(b','));
 
-        let wcheckpoint = wstream.checkpoint();
+        let source_text_checkpoint = source_text.checkpoint();
         let checkpoint = stream.checkpoint();
 
-        assert_eq!(wstream.next_token(), Some(b' '));
+        assert_eq!(source_text.next_token(), Some(b' '));
         assert_eq!(stream.next_token(), Some(b' '));
 
-        assert_eq!(wstream.next_token(), Some(b'W'));
+        assert_eq!(source_text.next_token(), Some(b'W'));
         assert_eq!(stream.next_token(), Some(b'W'));
 
-        assert_eq!(wstream.next_token(), Some(b'o'));
+        assert_eq!(source_text.next_token(), Some(b'o'));
         assert_eq!(stream.next_token(), Some(b'o'));
 
-        assert_eq!(wstream.next_token(), Some(b'r'));
+        assert_eq!(source_text.next_token(), Some(b'r'));
         assert_eq!(stream.next_token(), Some(b'r'));
 
-        assert_eq!(wstream.next_token(), Some(b'l'));
+        assert_eq!(source_text.next_token(), Some(b'l'));
         assert_eq!(stream.next_token(), Some(b'l'));
 
-        assert_eq!(wstream.next_token(), Some(b'd'));
+        assert_eq!(source_text.next_token(), Some(b'd'));
         assert_eq!(stream.next_token(), Some(b'd'));
 
-        assert_eq!(wstream.next_token(), Some(b'!'));
+        assert_eq!(source_text.next_token(), Some(b'!'));
         assert_eq!(stream.next_token(), Some(b'!'));
 
-        assert_eq!(wstream.next_token(), None);
+        assert_eq!(source_text.next_token(), None);
         assert_eq!(stream.next_token(), None);
 
-        wstream.reset(&wcheckpoint);
+        source_text.reset(&source_text_checkpoint);
         stream.reset(&checkpoint);
 
-        assert_eq!(wstream.next_token(), Some(b' '));
+        assert_eq!(source_text.next_token(), Some(b' '));
         assert_eq!(stream.next_token(), Some(b' '));
 
-        assert_eq!(wstream.next_token(), Some(b'W'));
+        assert_eq!(source_text.next_token(), Some(b'W'));
         assert_eq!(stream.next_token(), Some(b'W'));
 
-        assert_eq!(wstream.next_token(), Some(b'o'));
+        assert_eq!(source_text.next_token(), Some(b'o'));
         assert_eq!(stream.next_token(), Some(b'o'));
 
-        assert_eq!(wstream.next_token(), Some(b'r'));
+        assert_eq!(source_text.next_token(), Some(b'r'));
         assert_eq!(stream.next_token(), Some(b'r'));
 
-        assert_eq!(wstream.next_token(), Some(b'l'));
+        assert_eq!(source_text.next_token(), Some(b'l'));
         assert_eq!(stream.next_token(), Some(b'l'));
 
-        assert_eq!(wstream.next_token(), Some(b'd'));
+        assert_eq!(source_text.next_token(), Some(b'd'));
         assert_eq!(stream.next_token(), Some(b'd'));
 
-        assert_eq!(wstream.next_token(), Some(b'!'));
+        assert_eq!(source_text.next_token(), Some(b'!'));
         assert_eq!(stream.next_token(), Some(b'!'));
 
-        assert_eq!(wstream.next_token(), None);
+        assert_eq!(source_text.next_token(), None);
         assert_eq!(stream.next_token(), None);
     }
 }
