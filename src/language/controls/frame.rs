@@ -1,9 +1,14 @@
-use crate::language::color::VB6Color;
-use crate::language::controls::{
-    Activation, Appearance, BorderStyle, ClipControls, DragMode, MousePointer, OLEDropMode,
-    TextDirection, Visibility,
+use crate::{
+    language::{
+        color::VB6Color,
+        controls::{
+            Activation, Appearance, BorderStyle, ClipControls, DragMode, MousePointer, OLEDropMode,
+            TextDirection, Visibility,
+        },
+        VB_BUTTON_FACE, VB_BUTTON_TEXT,
+    },
+    parsers::Properties,
 };
-use crate::parsers::Properties;
 
 use bstr::BString;
 use image::DynamicImage;
@@ -45,14 +50,14 @@ impl Default for FrameProperties {
     fn default() -> Self {
         FrameProperties {
             appearance: Appearance::ThreeD,
-            back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
+            back_color: VB_BUTTON_FACE,
             border_style: BorderStyle::FixedSingle,
             caption: BString::from("Frame1"),
             clip_controls: ClipControls::Clipped,
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
-            fore_color: VB6Color::from_hex("&H80000012&").unwrap(),
+            fore_color: VB_BUTTON_TEXT,
             height: 30,
             help_context_id: 0,
             left: 30,
