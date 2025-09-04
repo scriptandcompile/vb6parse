@@ -264,7 +264,7 @@ impl TryFrom<&str> for UnusedControlInfo {
 pub enum CompatibilityMode {
     /// Each time the component is compiled, new type library information is
     /// generated, including new class ID's and new interface ID's. There is no
-    /// relation betweeen versions of a component, and programs compiled to use
+    /// relation between versions of a component, and programs compiled to use
     /// one version cannot use another subsequent version.
     #[strum(message = "No Compatibility")]
     NoCompatibility = 0,
@@ -319,7 +319,7 @@ pub enum DebugStartupOption {
     /// page that contains the component. The component can tell Visual Basic to
     /// either launch the browser with a URL or start another program.
     ///
-    /// Selecting a startup component on the Debugging tab does not affest the
+    /// Selecting a startup component on the Debugging tab does not effect the
     /// Startup Object specified on the General tab.
     ///
     /// For example: an ActiveX.dll project could specify 'Startup Object=Sub Main'
@@ -333,7 +333,7 @@ pub enum DebugStartupOption {
     /// Specifies an executable program to be used.
     #[strum(message = "A Start Program is specified")]
     StartProgram = 2,
-    /// Specifies which URL the browser should naigate to.
+    /// Specifies which URL the browser should navigate to.
     #[strum(message = "Start Browser is specified")]
     StartBrowser = 3,
 }
@@ -378,8 +378,7 @@ pub struct VersionInformation<'a> {
 }
 
 /// Determines the type of compile target for the VB6 project.
-#[derive(Debug, PartialEq, Eq, Copy, Clone, Serialize, EnumIter, EnumMessage)]
-#[derive(Default)]
+#[derive(Debug, PartialEq, Eq, Copy, Clone, Serialize, EnumIter, EnumMessage, Default)]
 pub enum CompileTargetType {
     /// The project is a standard EXE.
     #[strum(message = "A Standard Exe")]
@@ -395,7 +394,6 @@ pub enum CompileTargetType {
     #[strum(message = "Ole Dll")]
     OleDll,
 }
-
 
 impl TryFrom<&str> for CompileTargetType {
     type Error = String;
