@@ -91,7 +91,7 @@ impl<'a> VB6ModuleFile<'a> {
         // Eat however many spaces sits between the attribute and the VB_Name keyword. It doesn't matter how many
         // whitespaces it has as long as we have at least one.
         if input.take_ascii_whitespaces().is_none() {
-            let error = input.generate_error(VB6ModuleErrorKind::MissingWitespaceInHeader);
+            let error = input.generate_error(VB6ModuleErrorKind::MissingWhitespaceInHeader);
             failures.push(error);
         }
 
@@ -117,19 +117,19 @@ impl<'a> VB6ModuleFile<'a> {
         // whitespaces it has, zero or many.
         let _ = input.take_ascii_whitespaces();
 
-        // Grab the qoute symbol. If we don't find it, we should output an error
+        // Grab the quote symbol. If we don't find it, we should output an error
         // but keep trying to read on.
         if input.take("\"", Comparator::CaseInsensitive).is_none() {
-            let error = input.generate_error(VB6ModuleErrorKind::VBNameAttributeValueUnqouted);
+            let error = input.generate_error(VB6ModuleErrorKind::VBNameAttributeValueUnquoted);
             failures.push(error);
         };
 
         match input.take_until("\"", Comparator::CaseInsensitive) {
             None => {
-                // Well, it looks like we don't have a qouted value even if it might have a single qoute at the start.
+                // Well, it looks like we don't have a quoted value even if it might have a single quote at the start.
                 let Some((vb_name_value, _)) = input.take_until_newline() else {
                     let error =
-                        input.generate_error(VB6ModuleErrorKind::VBNameAttributeValueUnqouted);
+                        input.generate_error(VB6ModuleErrorKind::VBNameAttributeValueUnquoted);
                     failures.push(error);
 
                     let parse_result = vb6_code_parse(&mut input);
@@ -174,9 +174,9 @@ impl<'a> VB6ModuleFile<'a> {
                 }
             }
             Some((vb_name_value, _)) => {
-                // eat the qoute character we found.
+                // eat the quote character we found.
                 let _ = input.take_count(1);
-                // we might have whitespaces after the qouted value.
+                // we might have whitespaces after the quoted value.
                 // we don't care about them so just eat them and then the newline.
                 let _ = input.take_ascii_whitespaces();
                 let _ = input.take_newline();
