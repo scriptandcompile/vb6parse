@@ -1050,102 +1050,102 @@ fn audiostation_main_frx_load() {
     let image5_picture_buffer =
         resource_file_bytes[image5_picture_buffer_start..image5_picture_buffer_end].to_vec();
 
-    let elements_diabled_image_list_image1_picture_offset = 0x1B2161;
-    let elements_diabled_image_list_image1_picture_header_size = 4;
-    let elements_diabled_image_list_image1_picture_buffer_size = 92046;
-    let elements_diabled_image_list_image1_picture_buffer_start =
-        elements_diabled_image_list_image1_picture_offset
-            + elements_diabled_image_list_image1_picture_header_size;
-    let elements_diabled_image_list_image1_picture_buffer_end =
-        elements_diabled_image_list_image1_picture_buffer_start
-            + elements_diabled_image_list_image1_picture_buffer_size;
-    let elements_diabled_image_list_image1_picture_buffer = resource_file_bytes
-        [elements_diabled_image_list_image1_picture_buffer_start
-            ..elements_diabled_image_list_image1_picture_buffer_end]
+    let elements_disabled_image_list_image1_picture_offset = 0x1B2161;
+    let elements_disabled_image_list_image1_picture_header_size = 4;
+    let elements_disabled_image_list_image1_picture_buffer_size = 92046;
+    let elements_disabled_image_list_image1_picture_buffer_start =
+        elements_disabled_image_list_image1_picture_offset
+            + elements_disabled_image_list_image1_picture_header_size;
+    let elements_disabled_image_list_image1_picture_buffer_end =
+        elements_disabled_image_list_image1_picture_buffer_start
+            + elements_disabled_image_list_image1_picture_buffer_size;
+    let elements_disabled_image_list_image1_picture_buffer = resource_file_bytes
+        [elements_disabled_image_list_image1_picture_buffer_start
+            ..elements_disabled_image_list_image1_picture_buffer_end]
         .to_vec();
 
-    let elements_diabled_image_list_image2_picture_offset = 0x1C88F3;
-    let elements_diabled_image_list_image2_picture_header_size = 4;
-    let elements_diabled_image_list_image2_picture_buffer_size = 191678;
-    let elements_diabled_image_list_image2_picture_buffer_start =
-        elements_diabled_image_list_image2_picture_offset
-            + elements_diabled_image_list_image2_picture_header_size;
-    let elements_diabled_image_list_image2_picture_buffer_end =
-        elements_diabled_image_list_image2_picture_buffer_start
-            + elements_diabled_image_list_image2_picture_buffer_size;
-    let elements_diabled_image_list_image2_picture_buffer = resource_file_bytes
-        [elements_diabled_image_list_image2_picture_buffer_start
-            ..elements_diabled_image_list_image2_picture_buffer_end]
+    let elements_disabled_image_list_image2_picture_offset = 0x1C88F3;
+    let elements_disabled_image_list_image2_picture_header_size = 4;
+    let elements_disabled_image_list_image2_picture_buffer_size = 191678;
+    let elements_disabled_image_list_image2_picture_buffer_start =
+        elements_disabled_image_list_image2_picture_offset
+            + elements_disabled_image_list_image2_picture_header_size;
+    let elements_disabled_image_list_image2_picture_buffer_end =
+        elements_disabled_image_list_image2_picture_buffer_start
+            + elements_disabled_image_list_image2_picture_buffer_size;
+    let elements_disabled_image_list_image2_picture_buffer = resource_file_bytes
+        [elements_disabled_image_list_image2_picture_buffer_start
+            ..elements_disabled_image_list_image2_picture_buffer_end]
         .to_vec();
 
-    let elements_diabled_image_list_image3_picture_offset = 0x1F75B5;
-    let elements_diabled_image_list_image3_picture_header_size = 4;
-    let elements_diabled_image_list_image3_picture_buffer_size = 191678;
-    let elements_diabled_image_list_image3_picture_buffer_start =
-        elements_diabled_image_list_image3_picture_offset
-            + elements_diabled_image_list_image3_picture_header_size;
-    let elements_diabled_image_list_image3_picture_buffer_end =
-        elements_diabled_image_list_image3_picture_buffer_start
-            + elements_diabled_image_list_image3_picture_buffer_size;
-    let elements_diabled_image_list_image3_picture_buffer = resource_file_bytes
-        [elements_diabled_image_list_image3_picture_buffer_start
-            ..elements_diabled_image_list_image3_picture_buffer_end]
+    let elements_disabled_image_list_image3_picture_offset = 0x1F75B5;
+    let elements_disabled_image_list_image3_picture_header_size = 4;
+    let elements_disabled_image_list_image3_picture_buffer_size = 191678;
+    let elements_disabled_image_list_image3_picture_buffer_start =
+        elements_disabled_image_list_image3_picture_offset
+            + elements_disabled_image_list_image3_picture_header_size;
+    let elements_disabled_image_list_image3_picture_buffer_end =
+        elements_disabled_image_list_image3_picture_buffer_start
+            + elements_disabled_image_list_image3_picture_buffer_size;
+    let elements_disabled_image_list_image3_picture_buffer = resource_file_bytes
+        [elements_disabled_image_list_image3_picture_buffer_start
+            ..elements_disabled_image_list_image3_picture_buffer_end]
         .to_vec();
 
-    let elements_diabled_image_list_image4_picture_offset = 0x226277;
-    let elements_diabled_image_list_image4_picture_header_size = 4;
-    let elements_diabled_image_list_image4_picture_buffer_size = 191678;
-    let elements_diabled_image_list_image4_picture_buffer_start =
-        elements_diabled_image_list_image4_picture_offset
-            + elements_diabled_image_list_image4_picture_header_size;
-    let elements_diabled_image_list_image4_picture_buffer_end =
-        elements_diabled_image_list_image4_picture_buffer_start
-            + elements_diabled_image_list_image4_picture_buffer_size;
-    let elements_diabled_image_list_image4_picture_buffer = resource_file_bytes
-        [elements_diabled_image_list_image4_picture_buffer_start
-            ..elements_diabled_image_list_image4_picture_buffer_end]
+    let elements_disabled_image_list_image4_picture_offset = 0x226277;
+    let elements_disabled_image_list_image4_picture_header_size = 4;
+    let elements_disabled_image_list_image4_picture_buffer_size = 191678;
+    let elements_disabled_image_list_image4_picture_buffer_start =
+        elements_disabled_image_list_image4_picture_offset
+            + elements_disabled_image_list_image4_picture_header_size;
+    let elements_disabled_image_list_image4_picture_buffer_end =
+        elements_disabled_image_list_image4_picture_buffer_start
+            + elements_disabled_image_list_image4_picture_buffer_size;
+    let elements_disabled_image_list_image4_picture_buffer = resource_file_bytes
+        [elements_disabled_image_list_image4_picture_buffer_start
+            ..elements_disabled_image_list_image4_picture_buffer_end]
         .to_vec();
 
-    let elements_diabled_image_list_image5_picture_offset = 0x254F39;
-    let elements_diabled_image_list_image5_picture_header_size = 4;
-    let elements_diabled_image_list_image5_picture_buffer_size = 390942;
-    let elements_diabled_image_list_image5_picture_buffer_start =
-        elements_diabled_image_list_image5_picture_offset
-            + elements_diabled_image_list_image5_picture_header_size;
-    let elements_diabled_image_list_image5_picture_buffer_end =
-        elements_diabled_image_list_image5_picture_buffer_start
-            + elements_diabled_image_list_image5_picture_buffer_size;
-    let elements_diabled_image_list_image5_picture_buffer = resource_file_bytes
-        [elements_diabled_image_list_image5_picture_buffer_start
-            ..elements_diabled_image_list_image5_picture_buffer_end]
+    let elements_disabled_image_list_image5_picture_offset = 0x254F39;
+    let elements_disabled_image_list_image5_picture_header_size = 4;
+    let elements_disabled_image_list_image5_picture_buffer_size = 390942;
+    let elements_disabled_image_list_image5_picture_buffer_start =
+        elements_disabled_image_list_image5_picture_offset
+            + elements_disabled_image_list_image5_picture_header_size;
+    let elements_disabled_image_list_image5_picture_buffer_end =
+        elements_disabled_image_list_image5_picture_buffer_start
+            + elements_disabled_image_list_image5_picture_buffer_size;
+    let elements_disabled_image_list_image5_picture_buffer = resource_file_bytes
+        [elements_disabled_image_list_image5_picture_buffer_start
+            ..elements_disabled_image_list_image5_picture_buffer_end]
         .to_vec();
 
-    let elements_diabled_image_list_image6_picture_offset = 0x2B465B;
-    let elements_diabled_image_list_image6_picture_header_size = 4;
-    let elements_diabled_image_list_image6_picture_buffer_size = 390942;
-    let elements_diabled_image_list_image6_picture_buffer_start =
-        elements_diabled_image_list_image6_picture_offset
-            + elements_diabled_image_list_image6_picture_header_size;
-    let elements_diabled_image_list_image6_picture_buffer_end =
-        elements_diabled_image_list_image6_picture_buffer_start
-            + elements_diabled_image_list_image6_picture_buffer_size;
-    let elements_diabled_image_list_image6_picture_buffer = resource_file_bytes
-        [elements_diabled_image_list_image6_picture_buffer_start
-            ..elements_diabled_image_list_image6_picture_buffer_end]
+    let elements_disabled_image_list_image6_picture_offset = 0x2B465B;
+    let elements_disabled_image_list_image6_picture_header_size = 4;
+    let elements_disabled_image_list_image6_picture_buffer_size = 390942;
+    let elements_disabled_image_list_image6_picture_buffer_start =
+        elements_disabled_image_list_image6_picture_offset
+            + elements_disabled_image_list_image6_picture_header_size;
+    let elements_disabled_image_list_image6_picture_buffer_end =
+        elements_disabled_image_list_image6_picture_buffer_start
+            + elements_disabled_image_list_image6_picture_buffer_size;
+    let elements_disabled_image_list_image6_picture_buffer = resource_file_bytes
+        [elements_disabled_image_list_image6_picture_buffer_start
+            ..elements_disabled_image_list_image6_picture_buffer_end]
         .to_vec();
 
-    let elements_diabled_image_list_image7_picture_offset = 0x313D7D;
-    let elements_diabled_image_list_image7_picture_header_size = 4;
-    let elements_diabled_image_list_image7_picture_buffer_size = 92046;
-    let elements_diabled_image_list_image7_picture_buffer_start =
-        elements_diabled_image_list_image7_picture_offset
-            + elements_diabled_image_list_image7_picture_header_size;
-    let elements_diabled_image_list_image7_picture_buffer_end =
-        elements_diabled_image_list_image7_picture_buffer_start
-            + elements_diabled_image_list_image7_picture_buffer_size;
-    let elements_diabled_image_list_image7_picture_buffer = resource_file_bytes
-        [elements_diabled_image_list_image7_picture_buffer_start
-            ..elements_diabled_image_list_image7_picture_buffer_end]
+    let elements_disabled_image_list_image7_picture_offset = 0x313D7D;
+    let elements_disabled_image_list_image7_picture_header_size = 4;
+    let elements_disabled_image_list_image7_picture_buffer_size = 92046;
+    let elements_disabled_image_list_image7_picture_buffer_start =
+        elements_disabled_image_list_image7_picture_offset
+            + elements_disabled_image_list_image7_picture_header_size;
+    let elements_disabled_image_list_image7_picture_buffer_end =
+        elements_disabled_image_list_image7_picture_buffer_start
+            + elements_disabled_image_list_image7_picture_buffer_size;
+    let elements_disabled_image_list_image7_picture_buffer = resource_file_bytes
+        [elements_disabled_image_list_image7_picture_buffer_start
+            ..elements_disabled_image_list_image7_picture_buffer_end]
         .to_vec();
 
     let main_icon = match vb6parse::parsers::resource_file_resolver(
@@ -1780,75 +1780,82 @@ fn audiostation_main_frx_load() {
         Err(e) => panic!("Failed to resolve resource file: {}", e),
     };
 
-    let elements_diabled_image_list_image1_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
-        elements_diabled_image_list_image1_picture_offset,
-    ) {
-        Ok(elements_diabled_image_list_image1_picture) => {
-            elements_diabled_image_list_image1_picture
-        }
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
-    };
+    let elements_disabled_image_list_image1_picture =
+        match vb6parse::parsers::resource_file_resolver(
+            "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
+            elements_disabled_image_list_image1_picture_offset,
+        ) {
+            Ok(elements_disabled_image_list_image1_picture) => {
+                elements_disabled_image_list_image1_picture
+            }
+            Err(e) => panic!("Failed to resolve resource file: {}", e),
+        };
 
-    let elements_diabled_image_list_image2_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
-        elements_diabled_image_list_image2_picture_offset,
-    ) {
-        Ok(elements_diabled_image_list_image2_picture) => {
-            elements_diabled_image_list_image2_picture
-        }
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
-    };
+    let elements_disabled_image_list_image2_picture =
+        match vb6parse::parsers::resource_file_resolver(
+            "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
+            elements_disabled_image_list_image2_picture_offset,
+        ) {
+            Ok(elements_disabled_image_list_image2_picture) => {
+                elements_disabled_image_list_image2_picture
+            }
+            Err(e) => panic!("Failed to resolve resource file: {}", e),
+        };
 
-    let elements_diabled_image_list_image3_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
-        elements_diabled_image_list_image3_picture_offset,
-    ) {
-        Ok(elements_diabled_image_list_image3_picture) => {
-            elements_diabled_image_list_image3_picture
-        }
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
-    };
+    let elements_disabled_image_list_image3_picture =
+        match vb6parse::parsers::resource_file_resolver(
+            "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
+            elements_disabled_image_list_image3_picture_offset,
+        ) {
+            Ok(elements_disabled_image_list_image3_picture) => {
+                elements_disabled_image_list_image3_picture
+            }
+            Err(e) => panic!("Failed to resolve resource file: {}", e),
+        };
 
-    let elements_diabled_image_list_image4_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
-        elements_diabled_image_list_image4_picture_offset,
-    ) {
-        Ok(elements_diabled_image_list_image4_picture) => {
-            elements_diabled_image_list_image4_picture
-        }
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
-    };
+    let elements_disabled_image_list_image4_picture =
+        match vb6parse::parsers::resource_file_resolver(
+            "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
+            elements_disabled_image_list_image4_picture_offset,
+        ) {
+            Ok(elements_disabled_image_list_image4_picture) => {
+                elements_disabled_image_list_image4_picture
+            }
+            Err(e) => panic!("Failed to resolve resource file: {}", e),
+        };
 
-    let elements_diabled_image_list_image5_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
-        elements_diabled_image_list_image5_picture_offset,
-    ) {
-        Ok(elements_diabled_image_list_image5_picture) => {
-            elements_diabled_image_list_image5_picture
-        }
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
-    };
+    let elements_disabled_image_list_image5_picture =
+        match vb6parse::parsers::resource_file_resolver(
+            "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
+            elements_disabled_image_list_image5_picture_offset,
+        ) {
+            Ok(elements_disabled_image_list_image5_picture) => {
+                elements_disabled_image_list_image5_picture
+            }
+            Err(e) => panic!("Failed to resolve resource file: {}", e),
+        };
 
-    let elements_diabled_image_list_image6_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
-        elements_diabled_image_list_image6_picture_offset,
-    ) {
-        Ok(elements_diabled_image_list_image6_picture) => {
-            elements_diabled_image_list_image6_picture
-        }
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
-    };
+    let elements_disabled_image_list_image6_picture =
+        match vb6parse::parsers::resource_file_resolver(
+            "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
+            elements_disabled_image_list_image6_picture_offset,
+        ) {
+            Ok(elements_disabled_image_list_image6_picture) => {
+                elements_disabled_image_list_image6_picture
+            }
+            Err(e) => panic!("Failed to resolve resource file: {}", e),
+        };
 
-    let elements_diabled_image_list_image7_picture = match vb6parse::parsers::resource_file_resolver(
-        "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
-        elements_diabled_image_list_image7_picture_offset,
-    ) {
-        Ok(elements_diabled_image_list_image7_picture) => {
-            elements_diabled_image_list_image7_picture
-        }
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
-    };
+    let elements_disabled_image_list_image7_picture =
+        match vb6parse::parsers::resource_file_resolver(
+            "./tests/data/audiostation/Audiostation/src/Forms/Form_Main.frx",
+            elements_disabled_image_list_image7_picture_offset,
+        ) {
+            Ok(elements_disabled_image_list_image7_picture) => {
+                elements_disabled_image_list_image7_picture
+            }
+            Err(e) => panic!("Failed to resolve resource file: {}", e),
+        };
 
     assert_eq!(main_icon.len(), main_icon_buffer_size);
     assert_eq!(element1_picture.len(), element1_picture_buffer_size);
@@ -2093,32 +2100,32 @@ fn audiostation_main_frx_load() {
     );
     assert_eq!(image5_picture.len(), image5_picture_buffer_size);
     assert_eq!(
-        elements_diabled_image_list_image1_picture.len(),
-        elements_diabled_image_list_image1_picture_buffer_size
+        elements_disabled_image_list_image1_picture.len(),
+        elements_disabled_image_list_image1_picture_buffer_size
     );
     assert_eq!(
-        elements_diabled_image_list_image2_picture.len(),
-        elements_diabled_image_list_image2_picture_buffer_size
+        elements_disabled_image_list_image2_picture.len(),
+        elements_disabled_image_list_image2_picture_buffer_size
     );
     assert_eq!(
-        elements_diabled_image_list_image3_picture.len(),
-        elements_diabled_image_list_image3_picture_buffer_size
+        elements_disabled_image_list_image3_picture.len(),
+        elements_disabled_image_list_image3_picture_buffer_size
     );
     assert_eq!(
-        elements_diabled_image_list_image4_picture.len(),
-        elements_diabled_image_list_image4_picture_buffer_size
+        elements_disabled_image_list_image4_picture.len(),
+        elements_disabled_image_list_image4_picture_buffer_size
     );
     assert_eq!(
-        elements_diabled_image_list_image5_picture.len(),
-        elements_diabled_image_list_image5_picture_buffer_size
+        elements_disabled_image_list_image5_picture.len(),
+        elements_disabled_image_list_image5_picture_buffer_size
     );
     assert_eq!(
-        elements_diabled_image_list_image6_picture.len(),
-        elements_diabled_image_list_image6_picture_buffer_size
+        elements_disabled_image_list_image6_picture.len(),
+        elements_disabled_image_list_image6_picture_buffer_size
     );
     assert_eq!(
-        elements_diabled_image_list_image7_picture.len(),
-        elements_diabled_image_list_image7_picture_buffer_size
+        elements_disabled_image_list_image7_picture.len(),
+        elements_disabled_image_list_image7_picture_buffer_size
     );
 
     assert_eq!(main_icon, main_icon_buffer);
@@ -2304,32 +2311,32 @@ fn audiostation_main_frx_load() {
     );
     assert_eq!(image5_picture, image5_picture_buffer);
     assert_eq!(
-        elements_diabled_image_list_image1_picture,
-        elements_diabled_image_list_image1_picture_buffer
+        elements_disabled_image_list_image1_picture,
+        elements_disabled_image_list_image1_picture_buffer
     );
     assert_eq!(
-        elements_diabled_image_list_image2_picture,
-        elements_diabled_image_list_image2_picture_buffer
+        elements_disabled_image_list_image2_picture,
+        elements_disabled_image_list_image2_picture_buffer
     );
     assert_eq!(
-        elements_diabled_image_list_image3_picture,
-        elements_diabled_image_list_image3_picture_buffer
+        elements_disabled_image_list_image3_picture,
+        elements_disabled_image_list_image3_picture_buffer
     );
     assert_eq!(
-        elements_diabled_image_list_image4_picture,
-        elements_diabled_image_list_image4_picture_buffer
+        elements_disabled_image_list_image4_picture,
+        elements_disabled_image_list_image4_picture_buffer
     );
     assert_eq!(
-        elements_diabled_image_list_image5_picture,
-        elements_diabled_image_list_image5_picture_buffer
+        elements_disabled_image_list_image5_picture,
+        elements_disabled_image_list_image5_picture_buffer
     );
     assert_eq!(
-        elements_diabled_image_list_image6_picture,
-        elements_diabled_image_list_image6_picture_buffer
+        elements_disabled_image_list_image6_picture,
+        elements_disabled_image_list_image6_picture_buffer
     );
     assert_eq!(
-        elements_diabled_image_list_image7_picture,
-        elements_diabled_image_list_image7_picture_buffer
+        elements_disabled_image_list_image7_picture,
+        elements_disabled_image_list_image7_picture_buffer
     );
 }
 
