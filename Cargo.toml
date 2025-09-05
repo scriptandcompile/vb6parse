@@ -74,7 +74,6 @@ num_enum = "0.7.3"
 strum = "0.26.3"
 strum_macros = "0.26.4"
 encoding_rs = "0.8.35"
-ouroboros = "0.18.4"
 
 [dev-dependencies]
 criterion = { version = "0.5.1", features = ["html_reports"] }
