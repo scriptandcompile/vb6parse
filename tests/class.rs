@@ -1,83 +1,133 @@
-use vb6parse::parsers::class::VB6ClassFile;
+use vb6parse::*;
 
 #[test]
 fn artificial_life_organism_class_load() {
-    let organism_class_bytes = include_bytes!("./data/vb6-code/Artificial-life/Organism.cls");
+    let file_path = "./tests/data/vb6-code/Artificial-life/Organism.cls";
+    let class_bytes = std::fs::read(file_path).unwrap();
 
-    let class_file = match VB6ClassFile::parse(
-        "Organism.cls".to_owned(),
-        &mut organism_class_bytes.as_slice(),
-    ) {
-        Ok(class_file) => class_file,
-        Err(e) => {
-            panic!("Failed to parse class file 'Organism.cls': {e}");
-        }
+    let result = SourceFile::decode_with_replacement(file_path, &class_bytes);
+
+    let source_file = match result {
+        Ok(source_file) => source_file,
+        Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    insta::assert_yaml_snapshot!(class_file);
+    let result = VB6ClassFile::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
+        }
+
+        panic!("Class parse had failures");
+    }
+
+    let class = result.unwrap();
+
+    insta::assert_yaml_snapshot!(class);
 }
 
 #[test]
 fn blacklight_effect_class_load() {
-    let class1_file_bytes = include_bytes!("./data/vb6-code/Blacklight-effect/FastDrawing.cls");
+    let file_path1 = "./tests/data/vb6-code/Blacklight-effect/FastDrawing.cls";
+    let class_bytes1 = std::fs::read(file_path1).unwrap();
 
-    let class1_file = match VB6ClassFile::parse(
-        "FastDrawing.cls".to_owned(),
-        &mut class1_file_bytes.as_slice(),
-    ) {
-        Ok(class1_file) => class1_file,
-        Err(e) => {
-            panic!("Failed to parse class file 'FastDrawing.cls': {e}");
-        }
+    let result1 = SourceFile::decode_with_replacement(file_path1, &class_bytes1);
+
+    let source_file1 = match result1 {
+        Ok(source_file1) => source_file1,
+        Err(e) => panic!("Failed to decode source file '{file_path1}': {e:?}"),
     };
 
-    let class2_file_bytes =
-        include_bytes!("./data/vb6-code/Blacklight-effect/pdOpenSaveDialog.cls");
+    let result1 = VB6ClassFile::parse(&source_file1);
 
-    let class2_file = match VB6ClassFile::parse(
-        "pdOpenSaveDialog.cls".to_owned(),
-        &mut class2_file_bytes.as_slice(),
-    ) {
-        Ok(class2_file) => class2_file,
-        Err(e) => {
-            panic!("Failed to parse class file 'pdOpenSaveDialog.cls': {e}");
+    if result1.has_failures() {
+        for failure in result1.failures {
+            failure.print();
         }
+
+        panic!("Class parse had failures");
+    }
+
+    let class1 = result1.unwrap();
+
+    insta::assert_yaml_snapshot!(class1);
+
+    let file_path2 = "./tests/data/vb6-code/Blacklight-effect/pdOpenSaveDialog.cls";
+    let class_bytes2 = std::fs::read(file_path2).unwrap();
+
+    let result2 = SourceFile::decode_with_replacement(file_path2, &class_bytes2);
+
+    let source_file2 = match result2 {
+        Ok(source_file2) => source_file2,
+        Err(e) => panic!("Failed to decode source file '{file_path2}': {e:?}"),
     };
 
-    insta::assert_yaml_snapshot!(class1_file);
-    insta::assert_yaml_snapshot!(class2_file);
+    let result2 = VB6ClassFile::parse(&source_file2);
+
+    if result2.has_failures() {
+        for failure in result2.failures {
+            failure.print();
+        }
+
+        panic!("Class parse had failures");
+    }
+
+    let class2 = result2.unwrap();
+
+    insta::assert_yaml_snapshot!(class2);
 }
 
 #[test]
 fn gradient_2d_class_load() {
-    let class_file_bytes = include_bytes!("./data/vb6-code/Gradient-2D/cSystemColorDialog.cls");
+    let file_path = "./tests/data/vb6-code/Gradient-2D/cSystemColorDialog.cls";
+    let class_bytes = std::fs::read(file_path).unwrap();
 
-    let class_file = match VB6ClassFile::parse(
-        "cSystemColorDialog.cls".to_owned(),
-        &mut class_file_bytes.as_slice(),
-    ) {
-        Ok(class_file) => class_file,
-        Err(e) => {
-            panic!("Failed to parse class file 'cSystemColorDialog.cls' form : {e}");
-        }
+    let result = SourceFile::decode_with_replacement(file_path, &class_bytes);
+
+    let source_file = match result {
+        Ok(source_file) => source_file,
+        Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    insta::assert_yaml_snapshot!(class_file);
+    let result = VB6ClassFile::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
+        }
+
+        panic!("Class parse had failures");
+    }
+
+    let class = result.unwrap();
+
+    insta::assert_yaml_snapshot!(class);
 }
 
 #[test]
 fn hidden_markov_model_class_load() {
-    let class_file_bytes = include_bytes!("./data/vb6-code/Hidden-Markov-model/cCommonDialog.cls");
+    let file_path = "./tests/data/vb6-code/Hidden-Markov-model/cCommonDialog.cls";
+    let class_bytes = std::fs::read(file_path).unwrap();
 
-    let class_file = match VB6ClassFile::parse(
-        "cCommonDialog.cls".to_owned(),
-        &mut class_file_bytes.as_slice(),
-    ) {
-        Ok(class_file) => class_file,
-        Err(e) => {
-            panic!("Failed to parse class file 'cCommonDialog.cls' form : {e}");
-        }
+    let result = SourceFile::decode_with_replacement(file_path, &class_bytes);
+
+    let source_file = match result {
+        Ok(source_file) => source_file,
+        Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    insta::assert_yaml_snapshot!(class_file);
+    let result = VB6ClassFile::parse(&source_file);
+
+    if result.has_failures() {
+        for failure in result.failures {
+            failure.print();
+        }
+
+        panic!("Class parse had failures");
+    }
+
+    let class = result.unwrap();
+
+    insta::assert_yaml_snapshot!(class);
 }
