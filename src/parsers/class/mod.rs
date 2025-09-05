@@ -394,13 +394,16 @@ fn properties_parse<'a>(
         failures.push(error);
     }
 
-    // eat any whitespace after the
+    // eat any whitespace after the 'BEGIN'
     let _ = input.take_ascii_whitespaces();
 
     let possible_comment = input.peek(1);
 
     // We want to eat to the end of the line any comments and move to the next line.
-    if possible_comment.is_some_and(|single_character| single_character == "'") {
+    // if it's a carriage return or newline, we skip over it.
+    if possible_comment.is_some_and(|single_character| {
+        single_character == "'" || single_character == "\r" || single_character == "\n"
+    }) {
         let _ = input.take_until_newline();
     } else {
         let error = input.generate_error(VB6ClassErrorKind::BeginKeywordShouldBeStandAlone);
