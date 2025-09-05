@@ -2,7 +2,7 @@ use vb6parse::*;
 
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 
-fn project_benchmark(c: &mut Criterion) {
+fn project_benchmark(criterion: &mut Criterion) {
     let project_names = vec![
         "Artificial Life.vbp".to_owned(),
         "Blacklight.vbp".to_owned(),
@@ -75,29 +75,27 @@ fn project_benchmark(c: &mut Criterion) {
 
     let project_pairs: Vec<(_, _)> = project_names.iter().zip(projects.iter()).collect();
 
-    c.bench_function("load multiple projects", |b| {
-        b.iter(|| {
-            for project_pair in &project_pairs {
-                let project_source_file = match SourceFile::decode_with_replacement(
-                    project_pair.0,
-                    project_pair.1.as_slice(),
-                ) {
-                    Ok(source_file) => source_file,
-                    Err(e) => {
-                        e.print();
-                        panic!("failed to decode project source code.");
-                    }
-                };
+    for project_pair in &project_pairs {
+        let project_source_file =
+            match SourceFile::decode_with_replacement(project_pair.0, project_pair.1.as_slice()) {
+                Ok(source_file) => source_file,
+                Err(e) => {
+                    e.print();
+                    panic!("failed to decode project source code.");
+                }
+            };
 
+        criterion.bench_function("load multiple projects", |bench| {
+            bench.iter(|| {
                 black_box({
                     let _proj = VB6Project::parse(&project_source_file);
                 });
-            }
-        })
-    });
+            })
+        });
+    }
 }
 
-fn class_benchmark(c: &mut Criterion) {
+fn class_benchmark(criterion: &mut Criterion) {
     let class_names = vec![
         "FastDrawing.cls".to_owned(),
         "pdOpenSaveDialog.cls".to_owned(),
@@ -116,16 +114,26 @@ fn class_benchmark(c: &mut Criterion) {
 
     let class_pairs: Vec<(_, _)> = class_names.iter().zip(classes.iter()).collect();
 
-    c.bench_function("load multiple classes", |b| {
-        b.iter(|| {
-            for class_pair in &class_pairs {
-                black_box({
-                    let _class =
-                        VB6ClassFile::parse(class_pair.0.to_string(), &mut class_pair.1.as_slice());
-                });
+    for bas_module_pair in &class_pairs {
+        let module_source_file = match SourceFile::decode_with_replacement(
+            bas_module_pair.0,
+            bas_module_pair.1.as_slice(),
+        ) {
+            Ok(source_file) => source_file,
+            Err(e) => {
+                e.print();
+                panic!("failed to decode module source code.");
             }
-        })
-    });
+        };
+
+        criterion.bench_function("load multiple classes", |bench| {
+            bench.iter(|| {
+                black_box({
+                    let _class = VB6ClassFile::parse(&module_source_file);
+                });
+            })
+        });
+    }
 }
 
 fn bas_module_benchmark(c: &mut Criterion) {
@@ -151,29 +159,29 @@ fn bas_module_benchmark(c: &mut Criterion) {
 
     let bas_modules_pairs: Vec<(_, _)> = bas_module_names.iter().zip(bas_modules.iter()).collect();
 
-    c.bench_function("load multiple bas modules", |b| {
-        b.iter(|| {
-            for bas_module_pair in &bas_modules_pairs {
-                let module_source_file = match SourceFile::decode_with_replacement(
-                    bas_module_pair.0,
-                    bas_module_pair.1.as_slice(),
-                ) {
-                    Ok(source_file) => source_file,
-                    Err(e) => {
-                        e.print();
-                        panic!("failed to decode module source code.");
-                    }
-                };
+    for bas_module_pair in &bas_modules_pairs {
+        let module_source_file = match SourceFile::decode_with_replacement(
+            bas_module_pair.0,
+            bas_module_pair.1.as_slice(),
+        ) {
+            Ok(source_file) => source_file,
+            Err(e) => {
+                e.print();
+                panic!("failed to decode module source code.");
+            }
+        };
 
+        c.bench_function("load multiple bas modules", |b| {
+            b.iter(|| {
                 black_box({
                     let _module = VB6ModuleFile::parse(&module_source_file);
                 });
-            }
-        })
-    });
+            })
+        });
+    }
 }
 
-fn form_benchmark(c: &mut Criterion) {
+fn form_benchmark(criterion: &mut Criterion) {
     let form_names = vec![
         "FormPhysics.frm".to_owned(),
         "Histogram.frm".to_owned(),
@@ -254,8 +262,8 @@ fn form_benchmark(c: &mut Criterion) {
 
     let forms_pairs: Vec<(_, _)> = form_names.iter().zip(forms.iter()).collect();
 
-    c.bench_function("load multiple forms", |b| {
-        b.iter(|| {
+    criterion.bench_function("load multiple forms", |bench| {
+        bench.iter(|| {
             for form_pair in &forms_pairs {
                 black_box({
                     let _class = VB6FormFile::parse(form_pair.0, &mut form_pair.1.as_slice());
