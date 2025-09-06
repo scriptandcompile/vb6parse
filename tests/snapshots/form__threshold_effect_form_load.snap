@@ -85,10 +85,8 @@ form:
         draw_width: 1
         enabled: Enabled
         fill_color:
-          RGB:
-            red: 0
-            green: 0
-            blue: 0
+          System:
+            index: 0
         fill_style: Transparent
         font_transparent: Transparent
         fore_color:
@@ -372,10 +370,8 @@ form:
                 draw_width: 1
                 enabled: Enabled
                 fill_color:
-                  RGB:
-                    red: 0
-                    green: 0
-                    blue: 0
+                  System:
+                    index: 0
                 fill_style: Transparent
                 font_transparent: Transparent
                 fore_color:
@@ -442,10 +438,8 @@ form:
                 draw_width: 1
                 enabled: Enabled
                 fill_color:
-                  RGB:
-                    red: 0
-                    green: 0
-                    blue: 0
+                  System:
+                    index: 0
                 fill_style: Transparent
                 font_transparent: Transparent
                 fore_color:

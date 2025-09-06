@@ -1,6 +1,6 @@
 ---
 source: tests/class.rs
-expression: class1_file
+expression: class1
 ---
 header:
   version:
@@ -8,12 +8,277 @@ header:
     minor: 0
   properties:
     multi_use: MultiUse
-    persistable: NonPersistable
+    persistable: NotPersistable
     data_binding_behavior: None
     data_source_behavior: None
     mts_transaction_mode: NotAnMTSObject
   attributes:
     name:
+      - 32
+    global_name_space: Local
+    creatable: "True"
+    pre_declared_id: "False"
+    exposed: "False"
+    description: ~
+    ext_key: {}
+tokens:
+  - Whitespace:
+      - 32
+      - 32
+  - Identifier:
+      - 77
+      - 117
+      - 108
+      - 116
+      - 105
+      - 85
+      - 115
+      - 101
+  - Whitespace:
+      - 32
+  - EqualityOperator:
+      - 61
+  - Whitespace:
+      - 32
+  - SubtractionOperator:
+      - 45
+  - Number:
+      - 49
+  - Whitespace:
+      - 32
+      - 32
+  - Comment:
+      - 39
+      - 84
+      - 114
+      - 117
+      - 101
+  - Newline:
+      - 13
+      - 10
+  - Whitespace:
+      - 32
+      - 32
+  - Identifier:
+      - 80
+      - 101
+      - 114
+      - 115
+      - 105
+      - 115
+      - 116
+      - 97
+      - 98
+      - 108
+      - 101
+  - Whitespace:
+      - 32
+  - EqualityOperator:
+      - 61
+  - Whitespace:
+      - 32
+  - Number:
+      - 48
+  - Whitespace:
+      - 32
+      - 32
+  - Comment:
+      - 39
+      - 78
+      - 111
+      - 116
+      - 80
+      - 101
+      - 114
+      - 115
+      - 105
+      - 115
+      - 116
+      - 97
+      - 98
+      - 108
+      - 101
+  - Newline:
+      - 13
+      - 10
+  - Whitespace:
+      - 32
+      - 32
+  - Identifier:
+      - 68
+      - 97
+      - 116
+      - 97
+      - 66
+      - 105
+      - 110
+      - 100
+      - 105
+      - 110
+      - 103
+      - 66
+      - 101
+      - 104
+      - 97
+      - 118
+      - 105
+      - 111
+      - 114
+  - Whitespace:
+      - 32
+  - EqualityOperator:
+      - 61
+  - Whitespace:
+      - 32
+  - Number:
+      - 48
+  - Whitespace:
+      - 32
+      - 32
+  - Comment:
+      - 39
+      - 118
+      - 98
+      - 78
+      - 111
+      - 110
+      - 101
+  - Newline:
+      - 13
+      - 10
+  - Whitespace:
+      - 32
+      - 32
+  - Identifier:
+      - 68
+      - 97
+      - 116
+      - 97
+      - 83
+      - 111
+      - 117
+      - 114
+      - 99
+      - 101
+      - 66
+      - 101
+      - 104
+      - 97
+      - 118
+      - 105
+      - 111
+      - 114
+  - Whitespace:
+      - 32
+      - 32
+  - EqualityOperator:
+      - 61
+  - Whitespace:
+      - 32
+  - Number:
+      - 48
+  - Whitespace:
+      - 32
+      - 32
+  - Comment:
+      - 39
+      - 118
+      - 98
+      - 78
+      - 111
+      - 110
+      - 101
+  - Newline:
+      - 13
+      - 10
+  - Whitespace:
+      - 32
+      - 32
+  - Identifier:
+      - 77
+      - 84
+      - 83
+      - 84
+      - 114
+      - 97
+      - 110
+      - 115
+      - 97
+      - 99
+      - 116
+      - 105
+      - 111
+      - 110
+      - 77
+      - 111
+      - 100
+      - 101
+  - Whitespace:
+      - 32
+      - 32
+  - EqualityOperator:
+      - 61
+  - Whitespace:
+      - 32
+  - Number:
+      - 48
+  - Whitespace:
+      - 32
+      - 32
+  - Comment:
+      - 39
+      - 78
+      - 111
+      - 116
+      - 65
+      - 110
+      - 77
+      - 84
+      - 83
+      - 79
+      - 98
+      - 106
+      - 101
+      - 99
+      - 116
+  - Newline:
+      - 13
+      - 10
+  - EndKeyword:
+      - 69
+      - 78
+      - 68
+  - Newline:
+      - 13
+      - 10
+  - Identifier:
+      - 65
+      - 116
+      - 116
+      - 114
+      - 105
+      - 98
+      - 117
+      - 116
+      - 101
+  - Whitespace:
+      - 32
+  - Identifier:
+      - 86
+      - 66
+      - 95
+      - 78
+      - 97
+      - 109
+      - 101
+  - Whitespace:
+      - 32
+  - EqualityOperator:
+      - 61
+  - Whitespace:
+      - 32
+  - StringLiteral:
+      - 34
       - 70
       - 97
       - 115
@@ -25,13 +290,177 @@ header:
       - 105
       - 110
       - 103
-    global_name_space: Local
-    creatable: "True"
-    pre_declared_id: "False"
-    exposed: "False"
-    description: ~
-    ext_key: {}
-tokens:
+      - 34
+  - Newline:
+      - 13
+      - 10
+  - Identifier:
+      - 65
+      - 116
+      - 116
+      - 114
+      - 105
+      - 98
+      - 117
+      - 116
+      - 101
+  - Whitespace:
+      - 32
+  - Identifier:
+      - 86
+      - 66
+      - 95
+      - 71
+      - 108
+      - 111
+      - 98
+      - 97
+      - 108
+      - 78
+      - 97
+      - 109
+      - 101
+      - 83
+      - 112
+      - 97
+      - 99
+      - 101
+  - Whitespace:
+      - 32
+  - EqualityOperator:
+      - 61
+  - Whitespace:
+      - 32
+  - FalseKeyword:
+      - 70
+      - 97
+      - 108
+      - 115
+      - 101
+  - Newline:
+      - 13
+      - 10
+  - Identifier:
+      - 65
+      - 116
+      - 116
+      - 114
+      - 105
+      - 98
+      - 117
+      - 116
+      - 101
+  - Whitespace:
+      - 32
+  - Identifier:
+      - 86
+      - 66
+      - 95
+      - 67
+      - 114
+      - 101
+      - 97
+      - 116
+      - 97
+      - 98
+      - 108
+      - 101
+  - Whitespace:
+      - 32
+  - EqualityOperator:
+      - 61
+  - Whitespace:
+      - 32
+  - TrueKeyword:
+      - 84
+      - 114
+      - 117
+      - 101
+  - Newline:
+      - 13
+      - 10
+  - Identifier:
+      - 65
+      - 116
+      - 116
+      - 114
+      - 105
+      - 98
+      - 117
+      - 116
+      - 101
+  - Whitespace:
+      - 32
+  - Identifier:
+      - 86
+      - 66
+      - 95
+      - 80
+      - 114
+      - 101
+      - 100
+      - 101
+      - 99
+      - 108
+      - 97
+      - 114
+      - 101
+      - 100
+      - 73
+      - 100
+  - Whitespace:
+      - 32
+  - EqualityOperator:
+      - 61
+  - Whitespace:
+      - 32
+  - FalseKeyword:
+      - 70
+      - 97
+      - 108
+      - 115
+      - 101
+  - Newline:
+      - 13
+      - 10
+  - Identifier:
+      - 65
+      - 116
+      - 116
+      - 114
+      - 105
+      - 98
+      - 117
+      - 116
+      - 101
+  - Whitespace:
+      - 32
+  - Identifier:
+      - 86
+      - 66
+      - 95
+      - 69
+      - 120
+      - 112
+      - 111
+      - 115
+      - 101
+      - 100
+  - Whitespace:
+      - 32
+  - EqualityOperator:
+      - 61
+  - Whitespace:
+      - 32
+  - FalseKeyword:
+      - 70
+      - 97
+      - 108
+      - 115
+      - 101
+  - Newline:
+      - 13
+      - 10
   - Comment:
       - 39
       - 42
@@ -1386,7 +1815,7 @@ tokens:
       - 34
   - Whitespace:
       - 32
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - ByValKeyword:
       - 66
@@ -1479,7 +1908,7 @@ tokens:
       - 65
       - 110
       - 121
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
@@ -2276,7 +2705,7 @@ tokens:
       - 111
       - 114
       - 115
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Number:
       - 48
@@ -2291,7 +2720,7 @@ tokens:
       - 50
       - 53
       - 53
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
@@ -2462,7 +2891,7 @@ tokens:
       - 34
   - Whitespace:
       - 32
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - ByValKeyword:
       - 66
@@ -2525,7 +2954,7 @@ tokens:
       - 111
       - 110
       - 103
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
@@ -2631,7 +3060,7 @@ tokens:
       - 34
   - Whitespace:
       - 32
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - ByValKeyword:
       - 66
@@ -2858,7 +3287,7 @@ tokens:
       - 111
       - 110
       - 103
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
@@ -2938,7 +3367,7 @@ tokens:
       - 34
   - Whitespace:
       - 32
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - ByValKeyword:
       - 66
@@ -3350,7 +3779,7 @@ tokens:
       - 111
       - 110
       - 103
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
@@ -3443,7 +3872,7 @@ tokens:
       - 100
       - 116
       - 104
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - ByRefKeyword:
       - 66
@@ -3485,7 +3914,7 @@ tokens:
       - 66
       - 111
       - 120
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
@@ -3584,12 +4013,12 @@ tokens:
       - 76
       - 101
       - 110
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Identifier:
       - 98
       - 109
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Comma:
       - 44
@@ -3738,7 +4167,7 @@ tokens:
       - 103
       - 104
       - 116
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - ByRefKeyword:
       - 66
@@ -3780,7 +4209,7 @@ tokens:
       - 66
       - 111
       - 120
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
@@ -3879,12 +4308,12 @@ tokens:
       - 76
       - 101
       - 110
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Identifier:
       - 98
       - 109
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Comma:
       - 44
@@ -3926,7 +4355,7 @@ tokens:
       - 65
       - 98
       - 115
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Identifier:
       - 98
@@ -3942,7 +4371,7 @@ tokens:
       - 103
       - 104
       - 116
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Newline:
       - 13
@@ -4373,7 +4802,7 @@ tokens:
       - 97
       - 50
       - 68
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - ByRefKeyword:
       - 66
@@ -4440,9 +4869,9 @@ tokens:
       - 97
       - 116
       - 97
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
@@ -4521,7 +4950,7 @@ tokens:
       - 108
       - 115
       - 101
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Newline:
       - 13
@@ -4716,12 +5145,12 @@ tokens:
       - 76
       - 101
       - 110
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Identifier:
       - 98
       - 109
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Comma:
       - 44
@@ -5072,7 +5501,7 @@ tokens:
       - 61
   - Whitespace:
       - 32
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Identifier:
       - 98
@@ -5095,7 +5524,7 @@ tokens:
       - 32
   - Number:
       - 51
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
@@ -5111,7 +5540,7 @@ tokens:
       - 43
   - Whitespace:
       - 32
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Identifier:
       - 98
@@ -5136,7 +5565,7 @@ tokens:
       - 32
   - Number:
       - 52
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Newline:
       - 13
@@ -5167,7 +5596,7 @@ tokens:
       - 97
       - 116
       - 97
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Number:
       - 48
@@ -5223,7 +5652,7 @@ tokens:
       - 32
   - Number:
       - 49
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
@@ -6088,7 +6517,7 @@ tokens:
       - 97
       - 116
       - 97
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Number:
       - 48
@@ -6098,7 +6527,7 @@ tokens:
       - 32
   - Number:
       - 48
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Comma:
       - 44
@@ -6682,7 +7111,7 @@ tokens:
       - 97
       - 50
       - 68
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - ByRefKeyword:
       - 66
@@ -6816,9 +7245,9 @@ tokens:
       - 97
       - 116
       - 97
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
@@ -6897,7 +7326,7 @@ tokens:
       - 108
       - 115
       - 101
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Newline:
       - 13
@@ -7092,12 +7521,12 @@ tokens:
       - 76
       - 101
       - 110
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Identifier:
       - 98
       - 109
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Comma:
       - 44
@@ -8308,7 +8737,7 @@ tokens:
       - 97
       - 116
       - 97
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Number:
       - 48
@@ -8318,7 +8747,7 @@ tokens:
       - 32
   - Number:
       - 48
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Comma:
       - 44
