@@ -1168,9 +1168,9 @@ tokens:
       - 105
       - 99
       - 107
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Newline:
       - 13
@@ -1306,7 +1306,7 @@ tokens:
       - 61
   - Whitespace:
       - 32
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Identifier:
       - 67
@@ -1346,7 +1346,7 @@ tokens:
       - 107
       - 101
       - 100
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Newline:
       - 13
@@ -1411,9 +1411,9 @@ tokens:
       - 105
       - 99
       - 107
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Newline:
       - 13
@@ -1582,13 +1582,13 @@ tokens:
       - 83
       - 110
       - 103
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Identifier:
       - 86
       - 97
       - 108
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Identifier:
       - 84
@@ -1611,9 +1611,9 @@ tokens:
       - 101
       - 120
       - 116
-  - RightParanthesis:
+  - RightParentheses:
       - 41
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
@@ -1792,7 +1792,7 @@ tokens:
       - 101
       - 115
       - 115
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - ByRefKeyword:
       - 66
@@ -1912,7 +1912,7 @@ tokens:
       - 103
       - 108
       - 101
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Newline:
       - 13
@@ -2190,7 +2190,7 @@ tokens:
       - 98
       - 108
       - 101
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Number:
       - 48
@@ -2205,7 +2205,7 @@ tokens:
       - 50
       - 53
       - 53
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
@@ -2534,11 +2534,11 @@ tokens:
       - 98
       - 108
       - 101
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Identifier:
       - 120
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
@@ -2553,7 +2553,7 @@ tokens:
       - 101
       - 77
       - 101
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Identifier:
       - 116
@@ -2564,7 +2564,7 @@ tokens:
       - 108
       - 111
       - 114
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Newline:
       - 13
@@ -3184,7 +3184,7 @@ tokens:
       - 105
       - 110
       - 116
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Identifier:
       - 120
@@ -3194,7 +3194,7 @@ tokens:
       - 32
   - Identifier:
       - 121
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Newline:
       - 13
@@ -3225,7 +3225,7 @@ tokens:
       - 99
       - 116
       - 82
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Identifier:
       - 84
@@ -3237,7 +3237,7 @@ tokens:
       - 108
       - 111
       - 114
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Newline:
       - 13
@@ -3268,7 +3268,7 @@ tokens:
       - 99
       - 116
       - 71
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Identifier:
       - 84
@@ -3280,7 +3280,7 @@ tokens:
       - 108
       - 111
       - 114
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Newline:
       - 13
@@ -3311,7 +3311,7 @@ tokens:
       - 99
       - 116
       - 66
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Identifier:
       - 84
@@ -3323,7 +3323,7 @@ tokens:
       - 108
       - 111
       - 114
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Newline:
       - 13
@@ -3598,11 +3598,11 @@ tokens:
       - 98
       - 108
       - 101
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Identifier:
       - 114
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Newline:
       - 13
@@ -3631,11 +3631,11 @@ tokens:
       - 98
       - 108
       - 101
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Identifier:
       - 103
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Newline:
       - 13
@@ -3664,11 +3664,11 @@ tokens:
       - 98
       - 108
       - 101
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Identifier:
       - 98
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Newline:
       - 13
@@ -3770,7 +3770,7 @@ tokens:
       - 116
   - Whitespace:
       - 32
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Identifier:
       - 120
@@ -3780,7 +3780,7 @@ tokens:
       - 32
   - Identifier:
       - 121
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Comma:
       - 44
@@ -3790,7 +3790,7 @@ tokens:
       - 82
       - 71
       - 66
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Identifier:
       - 114
@@ -3806,7 +3806,7 @@ tokens:
       - 32
   - Identifier:
       - 98
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Newline:
       - 13
@@ -3968,9 +3968,9 @@ tokens:
       - 102
   - Whitespace:
       - 32
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Identifier:
       - 120
@@ -3985,7 +3985,7 @@ tokens:
   - Number:
       - 50
       - 53
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
@@ -3995,7 +3995,7 @@ tokens:
       - 32
   - Number:
       - 48
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
@@ -4338,7 +4338,7 @@ tokens:
       - 99
       - 116
       - 82
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - ByValKeyword:
       - 66
@@ -4369,7 +4369,7 @@ tokens:
       - 111
       - 110
       - 103
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
@@ -4484,7 +4484,7 @@ tokens:
       - 99
       - 116
       - 71
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - ByValKeyword:
       - 66
@@ -4515,7 +4515,7 @@ tokens:
       - 111
       - 110
       - 103
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
@@ -4552,7 +4552,7 @@ tokens:
       - 61
   - Whitespace:
       - 32
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Identifier:
       - 115
@@ -4573,7 +4573,7 @@ tokens:
       - 50
       - 53
       - 54
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
@@ -4644,7 +4644,7 @@ tokens:
       - 99
       - 116
       - 66
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - ByValKeyword:
       - 66
@@ -4675,7 +4675,7 @@ tokens:
       - 111
       - 110
       - 103
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
@@ -4712,7 +4712,7 @@ tokens:
       - 61
   - Whitespace:
       - 32
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Identifier:
       - 115
@@ -4735,7 +4735,7 @@ tokens:
       - 53
       - 51
       - 54
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
@@ -4868,7 +4868,7 @@ tokens:
       - 101
       - 77
       - 101
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - ByValKeyword:
       - 66
@@ -4899,7 +4899,7 @@ tokens:
       - 111
       - 110
       - 103
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
@@ -4926,7 +4926,7 @@ tokens:
       - 102
   - Whitespace:
       - 32
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Identifier:
       - 115
@@ -4947,7 +4947,7 @@ tokens:
       - 50
       - 53
       - 53
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
@@ -4990,7 +4990,7 @@ tokens:
       - 102
   - Whitespace:
       - 32
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - Identifier:
       - 115
@@ -5009,7 +5009,7 @@ tokens:
       - 32
   - Number:
       - 48
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
