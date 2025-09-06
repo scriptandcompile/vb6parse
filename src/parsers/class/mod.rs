@@ -55,6 +55,7 @@ impl<'a> VB6ClassFile<'a> {
     ///
     /// ```rust
     /// use vb6parse::parsers::VB6ClassFile;
+    /// use vb6parse::SourceFile;
     ///
     /// let input = b"VERSION 1.0 CLASS
     /// BEGIN
@@ -72,7 +73,7 @@ impl<'a> VB6ClassFile<'a> {
     /// ";
     ///
     ///
-    /// let result = SourceFile::decode_with_replacement("class_parse.cls", &input);
+    /// let result = SourceFile::decode_with_replacement("class_parse.cls", input);
     ///
     /// let source_file = match result {
     ///     Ok(source_file) => source_file,
