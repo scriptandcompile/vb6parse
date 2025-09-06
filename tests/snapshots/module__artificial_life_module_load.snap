@@ -163,7 +163,7 @@ tokens:
       - 34
   - Whitespace:
       - 32
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - ByValKeyword:
       - 66
@@ -426,7 +426,7 @@ tokens:
       - 111
       - 110
       - 103
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
@@ -582,7 +582,7 @@ tokens:
       - 34
   - Whitespace:
       - 32
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - ByValKeyword:
       - 66
@@ -660,7 +660,7 @@ tokens:
       - 111
       - 110
       - 103
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
@@ -735,7 +735,7 @@ tokens:
       - 34
   - Whitespace:
       - 32
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
   - ByValKeyword:
       - 66
@@ -845,7 +845,7 @@ tokens:
       - 111
       - 110
       - 103
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
@@ -1898,9 +1898,9 @@ tokens:
       - 111
       - 111
       - 100
-  - LeftParanthesis:
+  - LeftParentheses:
       - 40
-  - RightParanthesis:
+  - RightParentheses:
       - 41
   - Whitespace:
       - 32
