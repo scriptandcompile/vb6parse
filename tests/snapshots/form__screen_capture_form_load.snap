@@ -354,2786 +354,420 @@ attributes:
   description: ~
   ext_key: {}
 tokens:
-  - Comment:
-      - 39
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-  - Newline:
-      - 13
-      - 10
-  - Comment:
-      - 39
-      - 67
-      - 111
-      - 112
-      - 121
-      - 114
-      - 105
-      - 103
-      - 104
-      - 116
-      - 32
-      - 50
-      - 48
-      - 49
-      - 56
-      - 32
-      - 98
-      - 121
-      - 32
-      - 84
-      - 97
-      - 110
-      - 110
-      - 101
-      - 114
-      - 32
-      - 72
-      - 101
-      - 108
-      - 108
-      - 97
-      - 110
-      - 100
-  - Newline:
-      - 13
-      - 10
-  - Comment:
-      - 39
-      - 32
-      - 119
-      - 119
-      - 119
-      - 46
-      - 116
-      - 97
-      - 110
-      - 110
-      - 101
-      - 114
-      - 104
-      - 101
-      - 108
-      - 108
-      - 97
-      - 110
-      - 100
-      - 46
-      - 99
-      - 111
-      - 109
-  - Newline:
-      - 13
-      - 10
-  - Comment:
-      - 39
-  - Newline:
-      - 13
-      - 10
-  - Comment:
-      - 39
-      - 68
-      - 111
-      - 99
-      - 117
-      - 109
-      - 101
-      - 110
-      - 116
-      - 97
-      - 116
-      - 105
-      - 111
-      - 110
-      - 32
-      - 102
-      - 111
-      - 114
-      - 32
-      - 116
-      - 104
-      - 105
-      - 115
-      - 32
-      - 112
-      - 114
-      - 111
-      - 106
-      - 101
-      - 99
-      - 116
-      - 32
-      - 99
-      - 97
-      - 110
-      - 32
-      - 98
-      - 101
-      - 32
-      - 102
-      - 111
-      - 117
-      - 110
-      - 100
-      - 32
-      - 97
-      - 116
-      - 32
-      - 104
-      - 116
-      - 116
-      - 112
-      - 115
-      - 58
-      - 47
-      - 47
-      - 116
-      - 97
-      - 110
-      - 110
-      - 101
-      - 114
-      - 104
-      - 101
-      - 108
-      - 108
-      - 97
-      - 110
-      - 100
-      - 46
-      - 99
-      - 111
-      - 109
-      - 47
-      - 99
-      - 111
-      - 100
-      - 101
-      - 47
-  - Newline:
-      - 13
-      - 10
-  - Comment:
-      - 39
-  - Newline:
-      - 13
-      - 10
-  - Comment:
-      - 39
-      - 84
-      - 104
-      - 101
-      - 32
-      - 115
-      - 111
-      - 117
-      - 114
-      - 99
-      - 101
-      - 32
-      - 99
-      - 111
-      - 100
-      - 101
-      - 32
-      - 105
-      - 110
-      - 32
-      - 116
-      - 104
-      - 105
-      - 115
-      - 32
-      - 112
-      - 114
-      - 111
-      - 106
-      - 101
-      - 99
-      - 116
-      - 32
-      - 105
-      - 115
-      - 32
-      - 108
-      - 105
-      - 99
-      - 101
-      - 110
-      - 115
-      - 101
-      - 100
-      - 32
-      - 117
-      - 110
-      - 100
-      - 101
-      - 114
-      - 32
-      - 97
-      - 32
-      - 83
-      - 105
-      - 109
-      - 112
-      - 108
-      - 105
-      - 102
-      - 105
-      - 101
-      - 100
-      - 32
-      - 66
-      - 83
-      - 68
-      - 32
-      - 108
-      - 105
-      - 99
-      - 101
-      - 110
-      - 115
-      - 101
-      - 46
-  - Newline:
-      - 13
-      - 10
-  - Comment:
-      - 39
-      - 32
-      - 70
-      - 111
-      - 114
-      - 32
-      - 109
-      - 111
-      - 114
-      - 101
-      - 32
-      - 105
-      - 110
-      - 102
-      - 111
-      - 114
-      - 109
-      - 97
-      - 116
-      - 105
-      - 111
-      - 110
-      - 44
-      - 32
-      - 112
-      - 108
-      - 101
-      - 97
-      - 115
-      - 101
-      - 32
-      - 114
-      - 101
-      - 118
-      - 105
-      - 101
-      - 119
-      - 32
-      - 76
-      - 73
-      - 67
-      - 69
-      - 78
-      - 83
-      - 69
-      - 46
-      - 109
-      - 100
-      - 32
-      - 97
-      - 116
-      - 32
-      - 104
-      - 116
-      - 116
-      - 112
-      - 115
-      - 58
-      - 47
-      - 47
-      - 103
-      - 105
-      - 116
-      - 104
-      - 117
-      - 98
-      - 46
-      - 99
-      - 111
-      - 109
-      - 47
-      - 116
-      - 97
-      - 110
-      - 110
-      - 101
-      - 114
-      - 104
-      - 101
-      - 108
-      - 108
-      - 97
-      - 110
-      - 100
-      - 47
-      - 116
-      - 104
-      - 100
-      - 99
-      - 45
-      - 99
-      - 111
-      - 100
-      - 101
-      - 47
-  - Newline:
-      - 13
-      - 10
-  - Comment:
-      - 39
-  - Newline:
-      - 13
-      - 10
-  - Comment:
-      - 39
-      - 73
-      - 102
-      - 32
-      - 121
-      - 111
-      - 117
-      - 32
-      - 102
-      - 105
-      - 110
-      - 100
-      - 32
-      - 116
-      - 104
-      - 105
-      - 115
-      - 32
-      - 99
-      - 111
-      - 100
-      - 101
-      - 32
-      - 117
-      - 115
-      - 101
-      - 102
-      - 117
-      - 108
-      - 44
-      - 32
-      - 112
-      - 108
-      - 101
-      - 97
-      - 115
-      - 101
-      - 32
-      - 99
-      - 111
-      - 110
-      - 115
-      - 105
-      - 100
-      - 101
-      - 114
-      - 32
-      - 97
-      - 32
-      - 115
-      - 109
-      - 97
-      - 108
-      - 108
-      - 32
-      - 100
-      - 111
-      - 110
-      - 97
-      - 116
-      - 105
-      - 111
-      - 110
-      - 32
-      - 116
-      - 111
-      - 32
-      - 104
-      - 116
-      - 116
-      - 112
-      - 115
-      - 58
-      - 47
-      - 47
-      - 119
-      - 119
-      - 119
-      - 46
-      - 112
-      - 97
-      - 121
-      - 112
-      - 97
-      - 108
-      - 46
-      - 109
-      - 101
-      - 47
-      - 84
-      - 97
-      - 110
-      - 110
-      - 101
-      - 114
-      - 72
-      - 101
-      - 108
-      - 108
-      - 97
-      - 110
-      - 100
-  - Newline:
-      - 13
-      - 10
-  - Comment:
-      - 39
-  - Newline:
-      - 13
-      - 10
-  - Comment:
-      - 39
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-      - 42
-  - Newline:
-      - 13
-      - 10
-  - Newline:
-      - 13
-      - 10
-  - Comment:
-      - 39
-      - 84
-      - 104
-      - 105
-      - 115
-      - 32
-      - 103
-      - 105
-      - 118
-      - 101
-      - 115
-      - 32
-      - 117
-      - 115
-      - 32
-      - 116
-      - 104
-      - 101
-      - 32
-      - 104
-      - 87
-      - 110
-      - 100
-      - 32
-      - 40
-      - 119
-      - 105
-      - 110
-      - 100
-      - 111
-      - 119
-      - 32
-      - 104
-      - 97
-      - 110
-      - 100
-      - 108
-      - 101
-      - 41
-      - 32
-      - 111
-      - 102
-      - 32
-      - 116
-      - 104
-      - 101
-      - 32
-      - 115
-      - 99
-      - 114
-      - 101
-      - 101
-      - 110
-  - Newline:
-      - 13
-      - 10
-  - PrivateKeyword:
-      - 80
-      - 114
-      - 105
-      - 118
-      - 97
-      - 116
-      - 101
-  - Whitespace:
-      - 32
-  - DeclareKeyword:
-      - 68
-      - 101
-      - 99
-      - 108
-      - 97
-      - 114
-      - 101
-  - Whitespace:
-      - 32
-  - FunctionKeyword:
-      - 70
-      - 117
-      - 110
-      - 99
-      - 116
-      - 105
-      - 111
-      - 110
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 71
-      - 101
-      - 116
-      - 68
-      - 101
-      - 115
-      - 107
-      - 116
-      - 111
-      - 112
-      - 87
-      - 105
-      - 110
-      - 100
-      - 111
-      - 119
-  - Whitespace:
-      - 32
-  - LibKeyword:
-      - 76
-      - 105
-      - 98
-  - Whitespace:
-      - 32
-  - StringLiteral:
-      - 34
-      - 117
-      - 115
-      - 101
-      - 114
-      - 51
-      - 50
-      - 34
-  - Whitespace:
-      - 32
-  - LeftParentheses:
-      - 40
-  - RightParentheses:
-      - 41
-  - Whitespace:
-      - 32
-  - AsKeyword:
-      - 65
-      - 115
-  - Whitespace:
-      - 32
-  - LongKeyword:
-      - 76
-      - 111
-      - 110
-      - 103
-  - Newline:
-      - 13
-      - 10
-  - Newline:
-      - 13
-      - 10
-  - Comment:
-      - 39
-      - 84
-      - 104
-      - 105
-      - 115
-      - 32
-      - 97
-      - 115
-      - 115
-      - 105
-      - 103
-      - 110
-      - 115
-      - 32
-      - 97
-      - 110
-      - 32
-      - 104
-      - 68
-      - 67
-      - 32
-      - 40
-      - 100
-      - 101
-      - 118
-      - 105
-      - 99
-      - 101
-      - 32
-      - 99
-      - 111
-      - 110
-      - 116
-      - 101
-      - 120
-      - 116
-      - 32
-      - 104
-      - 97
-      - 110
-      - 100
-      - 108
-      - 101
-      - 41
-      - 32
-      - 102
-      - 114
-      - 111
-      - 109
-      - 32
-      - 97
-      - 110
-      - 32
-      - 104
-      - 87
-      - 110
-      - 100
-  - Newline:
-      - 13
-      - 10
-  - PrivateKeyword:
-      - 80
-      - 114
-      - 105
-      - 118
-      - 97
-      - 116
-      - 101
-  - Whitespace:
-      - 32
-  - DeclareKeyword:
-      - 68
-      - 101
-      - 99
-      - 108
-      - 97
-      - 114
-      - 101
-  - Whitespace:
-      - 32
-  - FunctionKeyword:
-      - 70
-      - 117
-      - 110
-      - 99
-      - 116
-      - 105
-      - 111
-      - 110
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 71
-      - 101
-      - 116
-      - 68
-      - 67
-  - Whitespace:
-      - 32
-  - LibKeyword:
-      - 76
-      - 105
-      - 98
-  - Whitespace:
-      - 32
-  - StringLiteral:
-      - 34
-      - 117
-      - 115
-      - 101
-      - 114
-      - 51
-      - 50
-      - 34
-  - Whitespace:
-      - 32
-  - LeftParentheses:
-      - 40
-  - ByValKeyword:
-      - 66
-      - 121
-      - 86
-      - 97
-      - 108
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 104
-      - 87
-      - 110
-      - 100
-  - Whitespace:
-      - 32
-  - AsKeyword:
-      - 65
-      - 115
-  - Whitespace:
-      - 32
-  - LongKeyword:
-      - 76
-      - 111
-      - 110
-      - 103
-  - RightParentheses:
-      - 41
-  - Whitespace:
-      - 32
-  - AsKeyword:
-      - 65
-      - 115
-  - Whitespace:
-      - 32
-  - LongKeyword:
-      - 76
-      - 111
-      - 110
-      - 103
-  - Newline:
-      - 13
-      - 10
-  - Newline:
-      - 13
-      - 10
-  - Comment:
-      - 39
-      - 66
-      - 105
-      - 116
-      - 66
-      - 108
-      - 116
-      - 32
-      - 108
-      - 101
-      - 116
-      - 115
-      - 32
-      - 117
-      - 115
-      - 32
-      - 100
-      - 114
-      - 97
-      - 119
-      - 32
-      - 97
-      - 110
-      - 32
-      - 105
-      - 109
-      - 97
-      - 103
-      - 101
-      - 32
-      - 102
-      - 114
-      - 111
-      - 109
-      - 32
-      - 97
-      - 32
-      - 104
-      - 68
-      - 67
-      - 32
-      - 116
-      - 111
-      - 32
-      - 97
-      - 110
-      - 111
-      - 116
-      - 104
-      - 101
-      - 114
-      - 32
-      - 104
-      - 68
-      - 67
-      - 32
-      - 40
-      - 105
-      - 110
-      - 32
-      - 111
-      - 117
-      - 114
-      - 32
-      - 99
-      - 97
-      - 115
-      - 101
-      - 44
-      - 32
-      - 102
-      - 114
-      - 111
-      - 109
-      - 32
-      - 97
-      - 110
-      - 32
-      - 104
-      - 68
-      - 67
-      - 32
-      - 111
-      - 102
-      - 32
-      - 116
-      - 104
-      - 101
-      - 32
-      - 115
-      - 99
-      - 114
-      - 101
-      - 101
-      - 110
-      - 32
-      - 99
-      - 97
-      - 112
-      - 116
-      - 117
-      - 114
-      - 101
-      - 32
-      - 116
-      - 111
-      - 32
-      - 116
-      - 104
-      - 101
-      - 32
-      - 104
-      - 68
-      - 67
-      - 32
-      - 111
-      - 102
-      - 32
-      - 97
-      - 32
-      - 86
-      - 66
-      - 32
-      - 112
-      - 105
-      - 99
-      - 116
-      - 117
-      - 114
-      - 101
-      - 32
-      - 98
-      - 111
-      - 120
-      - 41
-  - Newline:
-      - 13
-      - 10
-  - PrivateKeyword:
-      - 80
-      - 114
-      - 105
-      - 118
-      - 97
-      - 116
-      - 101
-  - Whitespace:
-      - 32
-  - DeclareKeyword:
-      - 68
-      - 101
-      - 99
-      - 108
-      - 97
-      - 114
-      - 101
-  - Whitespace:
-      - 32
-  - FunctionKeyword:
-      - 70
-      - 117
-      - 110
-      - 99
-      - 116
-      - 105
-      - 111
-      - 110
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 66
-      - 105
-      - 116
-      - 66
-      - 108
-      - 116
-  - Whitespace:
-      - 32
-  - LibKeyword:
-      - 76
-      - 105
-      - 98
-  - Whitespace:
-      - 32
-  - StringLiteral:
-      - 34
-      - 103
-      - 100
-      - 105
-      - 51
-      - 50
-      - 34
-  - Whitespace:
-      - 32
-  - LeftParentheses:
-      - 40
-  - ByValKeyword:
-      - 66
-      - 121
-      - 86
-      - 97
-      - 108
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 104
-      - 68
-      - 67
-  - Whitespace:
-      - 32
-  - AsKeyword:
-      - 65
-      - 115
-  - Whitespace:
-      - 32
-  - LongKeyword:
-      - 76
-      - 111
-      - 110
-      - 103
-  - Comma:
-      - 44
-  - Whitespace:
-      - 32
-  - ByValKeyword:
-      - 66
-      - 121
-      - 86
-      - 97
-      - 108
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 120
-  - Whitespace:
-      - 32
-  - AsKeyword:
-      - 65
-      - 115
-  - Whitespace:
-      - 32
-  - LongKeyword:
-      - 76
-      - 111
-      - 110
-      - 103
-  - Comma:
-      - 44
-  - Whitespace:
-      - 32
-  - ByValKeyword:
-      - 66
-      - 121
-      - 86
-      - 97
-      - 108
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 121
-  - Whitespace:
-      - 32
-  - AsKeyword:
-      - 65
-      - 115
-  - Whitespace:
-      - 32
-  - LongKeyword:
-      - 76
-      - 111
-      - 110
-      - 103
-  - Comma:
-      - 44
-  - Whitespace:
-      - 32
-  - ByValKeyword:
-      - 66
-      - 121
-      - 86
-      - 97
-      - 108
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 110
-      - 87
-      - 105
-      - 100
-      - 116
-      - 104
-  - Whitespace:
-      - 32
-  - AsKeyword:
-      - 65
-      - 115
-  - Whitespace:
-      - 32
-  - LongKeyword:
-      - 76
-      - 111
-      - 110
-      - 103
-  - Comma:
-      - 44
-  - Whitespace:
-      - 32
-  - ByValKeyword:
-      - 66
-      - 121
-      - 86
-      - 97
-      - 108
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 110
-      - 72
-      - 101
-      - 105
-      - 103
-      - 104
-      - 116
-  - Whitespace:
-      - 32
-  - AsKeyword:
-      - 65
-      - 115
-  - Whitespace:
-      - 32
-  - LongKeyword:
-      - 76
-      - 111
-      - 110
-      - 103
-  - Comma:
-      - 44
-  - Whitespace:
-      - 32
-  - ByValKeyword:
-      - 66
-      - 121
-      - 86
-      - 97
-      - 108
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 104
-      - 83
-      - 114
-      - 99
-      - 68
-      - 67
-  - Whitespace:
-      - 32
-  - AsKeyword:
-      - 65
-      - 115
-  - Whitespace:
-      - 32
-  - LongKeyword:
-      - 76
-      - 111
-      - 110
-      - 103
-  - Comma:
-      - 44
-  - Whitespace:
-      - 32
-  - ByValKeyword:
-      - 66
-      - 121
-      - 86
-      - 97
-      - 108
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 120
-      - 83
-      - 114
-      - 99
-  - Whitespace:
-      - 32
-  - AsKeyword:
-      - 65
-      - 115
-  - Whitespace:
-      - 32
-  - LongKeyword:
-      - 76
-      - 111
-      - 110
-      - 103
-  - Comma:
-      - 44
-  - Whitespace:
-      - 32
-  - ByValKeyword:
-      - 66
-      - 121
-      - 86
-      - 97
-      - 108
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 121
-      - 83
-      - 114
-      - 99
-  - Whitespace:
-      - 32
-  - AsKeyword:
-      - 65
-      - 115
-  - Whitespace:
-      - 32
-  - LongKeyword:
-      - 76
-      - 111
-      - 110
-      - 103
-  - Comma:
-      - 44
-  - Whitespace:
-      - 32
-  - ByValKeyword:
-      - 66
-      - 121
-      - 86
-      - 97
-      - 108
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 111
-      - 112
-      - 67
-      - 111
-      - 100
-      - 101
-  - Whitespace:
-      - 32
-  - AsKeyword:
-      - 65
-      - 115
-  - Whitespace:
-      - 32
-  - LongKeyword:
-      - 76
-      - 111
-      - 110
-      - 103
-  - RightParentheses:
-      - 41
-  - Whitespace:
-      - 32
-  - AsKeyword:
-      - 65
-      - 115
-  - Whitespace:
-      - 32
-  - LongKeyword:
-      - 76
-      - 111
-      - 110
-      - 103
-  - Newline:
-      - 13
-      - 10
-  - Newline:
-      - 13
-      - 10
-  - Comment:
-      - 39
-      - 82
-      - 101
-      - 108
-      - 101
-      - 97
-      - 115
-      - 101
-      - 68
-      - 67
-      - 32
-      - 105
-      - 115
-      - 32
-      - 117
-      - 115
-      - 101
-      - 100
-      - 32
-      - 116
-      - 111
-      - 32
-      - 102
-      - 114
-      - 101
-      - 101
-      - 32
-      - 116
-      - 104
-      - 101
-      - 32
-      - 104
-      - 68
-      - 67
-      - 32
-      - 119
-      - 101
-      - 32
-      - 103
-      - 101
-      - 110
-      - 101
-      - 114
-      - 97
-      - 116
-      - 101
-      - 32
-      - 102
-      - 111
-      - 114
-      - 32
-      - 116
-      - 104
-      - 101
-      - 32
-      - 115
-      - 99
-      - 114
-      - 101
-      - 101
-      - 110
-      - 32
-      - 99
-      - 97
-      - 112
-      - 116
-      - 117
-      - 114
-      - 101
-      - 46
-  - Newline:
-      - 13
-      - 10
-  - PrivateKeyword:
-      - 80
-      - 114
-      - 105
-      - 118
-      - 97
-      - 116
-      - 101
-  - Whitespace:
-      - 32
-  - DeclareKeyword:
-      - 68
-      - 101
-      - 99
-      - 108
-      - 97
-      - 114
-      - 101
-  - Whitespace:
-      - 32
-  - FunctionKeyword:
-      - 70
-      - 117
-      - 110
-      - 99
-      - 116
-      - 105
-      - 111
-      - 110
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 82
-      - 101
-      - 108
-      - 101
-      - 97
-      - 115
-      - 101
-      - 68
-      - 67
-  - Whitespace:
-      - 32
-  - LibKeyword:
-      - 76
-      - 105
-      - 98
-  - Whitespace:
-      - 32
-  - StringLiteral:
-      - 34
-      - 117
-      - 115
-      - 101
-      - 114
-      - 51
-      - 50
-      - 34
-  - Whitespace:
-      - 32
-  - LeftParentheses:
-      - 40
-  - ByValKeyword:
-      - 66
-      - 121
-      - 86
-      - 97
-      - 108
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 104
-      - 87
-      - 110
-      - 100
-  - Whitespace:
-      - 32
-  - AsKeyword:
-      - 65
-      - 115
-  - Whitespace:
-      - 32
-  - LongKeyword:
-      - 76
-      - 111
-      - 110
-      - 103
-  - Comma:
-      - 44
-  - Whitespace:
-      - 32
-  - ByValKeyword:
-      - 66
-      - 121
-      - 86
-      - 97
-      - 108
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 104
-      - 68
-      - 67
-  - Whitespace:
-      - 32
-  - AsKeyword:
-      - 65
-      - 115
-  - Whitespace:
-      - 32
-  - LongKeyword:
-      - 76
-      - 111
-      - 110
-      - 103
-  - RightParentheses:
-      - 41
-  - Whitespace:
-      - 32
-  - AsKeyword:
-      - 65
-      - 115
-  - Whitespace:
-      - 32
-  - LongKeyword:
-      - 76
-      - 111
-      - 110
-      - 103
-  - Newline:
-      - 13
-      - 10
-  - Newline:
-      - 13
-      - 10
-  - Comment:
-      - 39
-      - 84
-      - 104
-      - 105
-      - 115
-      - 32
-      - 115
-      - 97
-      - 109
-      - 112
-      - 108
-      - 101
-      - 32
-      - 112
-      - 114
-      - 111
-      - 106
-      - 101
-      - 99
-      - 116
-      - 32
-      - 99
-      - 111
-      - 112
-      - 105
-      - 101
-      - 115
-      - 32
-      - 116
-      - 104
-      - 101
-      - 32
-      - 115
-      - 99
-      - 114
-      - 101
-      - 101
-      - 110
-      - 32
-      - 119
-      - 104
-      - 101
-      - 110
-      - 32
-      - 116
-      - 104
-      - 101
-      - 32
-      - 102
-      - 111
-      - 114
-      - 109
-      - 32
-      - 108
-      - 111
-      - 97
-      - 100
-      - 115
-      - 59
-      - 32
-      - 121
-      - 111
-      - 117
-      - 32
-      - 99
-      - 111
-      - 117
-      - 108
-      - 100
-      - 32
-      - 97
-      - 108
-      - 115
-      - 111
-      - 32
-      - 112
-      - 108
-      - 97
-      - 99
-      - 101
-      - 32
-      - 116
-      - 104
-      - 105
-      - 115
-      - 32
-      - 99
-      - 111
-      - 100
-      - 101
-      - 32
-      - 105
-      - 110
-      - 32
-      - 97
-      - 32
-      - 99
-      - 111
-      - 109
-      - 109
-      - 97
-      - 110
-      - 100
-      - 32
-      - 98
-      - 117
-      - 116
-      - 116
-      - 111
-      - 110
-      - 32
-      - 40
-      - 111
-      - 114
-      - 32
-      - 97
-      - 110
-      - 121
-      - 32
-      - 111
-      - 116
-      - 104
-      - 101
-      - 114
-      - 32
-      - 105
-      - 110
-      - 112
-      - 117
-      - 116
-      - 41
-  - Newline:
-      - 13
-      - 10
-  - PrivateKeyword:
-      - 80
-      - 114
-      - 105
-      - 118
-      - 97
-      - 116
-      - 101
-  - Whitespace:
-      - 32
-  - SubKeyword:
-      - 83
-      - 117
-      - 98
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 70
-      - 111
-      - 114
-      - 109
-      - 95
-      - 76
-      - 111
-      - 97
-      - 100
-  - LeftParentheses:
-      - 40
-  - RightParentheses:
-      - 41
-  - Newline:
-      - 13
-      - 10
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-  - Comment:
-      - 39
-      - 70
-      - 105
-      - 114
-      - 115
-      - 116
-      - 44
-      - 32
-      - 109
-      - 105
-      - 110
-      - 105
-      - 109
-      - 105
-      - 122
-      - 101
-      - 32
-      - 116
-      - 104
-      - 105
-      - 115
-      - 32
-      - 119
-      - 105
-      - 110
-      - 100
-      - 111
-      - 119
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-  - MeKeyword:
-      - 77
-      - 101
-  - PeriodOperator:
-      - 46
-  - Identifier:
-      - 87
-      - 105
-      - 110
-      - 100
-      - 111
-      - 119
-      - 83
-      - 116
-      - 97
-      - 116
-      - 101
-  - Whitespace:
-      - 32
-  - EqualityOperator:
-      - 61
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 118
-      - 98
-      - 77
-      - 105
-      - 110
-      - 105
-      - 109
-      - 105
-      - 122
-      - 101
-      - 100
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-  - Comment:
-      - 39
-      - 71
-      - 101
-      - 116
-      - 32
-      - 116
-      - 104
-      - 101
-      - 32
-      - 104
-      - 87
-      - 110
-      - 100
-      - 32
-      - 111
-      - 102
-      - 32
-      - 116
-      - 104
-      - 101
-      - 32
-      - 115
-      - 99
-      - 114
-      - 101
-      - 101
-      - 110
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-  - DimKeyword:
-      - 68
-      - 105
-      - 109
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 115
-      - 99
-      - 114
-      - 72
-      - 119
-      - 110
-      - 100
-  - Whitespace:
-      - 32
-  - AsKeyword:
-      - 65
-      - 115
-  - Whitespace:
-      - 32
-  - LongKeyword:
-      - 76
-      - 111
-      - 110
-      - 103
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-  - Identifier:
-      - 115
-      - 99
-      - 114
-      - 72
-      - 119
-      - 110
-      - 100
-  - Whitespace:
-      - 32
-  - EqualityOperator:
-      - 61
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 71
-      - 101
-      - 116
-      - 68
-      - 101
-      - 115
-      - 107
-      - 116
-      - 111
-      - 112
-      - 87
-      - 105
-      - 110
-      - 100
-      - 111
-      - 119
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-  - Comment:
-      - 39
-      - 78
-      - 111
-      - 119
-      - 44
-      - 32
-      - 97
-      - 115
-      - 115
-      - 105
-      - 103
-      - 110
-      - 32
-      - 97
-      - 110
-      - 32
-      - 104
-      - 68
-      - 67
-      - 32
-      - 116
-      - 111
-      - 32
-      - 116
-      - 104
-      - 101
-      - 32
-      - 104
-      - 87
-      - 110
-      - 100
-      - 32
-      - 119
-      - 101
-      - 32
-      - 103
-      - 101
-      - 110
-      - 101
-      - 114
-      - 97
-      - 116
-      - 101
-      - 100
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-  - DimKeyword:
-      - 68
-      - 105
-      - 109
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 115
-      - 104
-      - 68
-      - 67
-  - Whitespace:
-      - 32
-  - AsKeyword:
-      - 65
-      - 115
-  - Whitespace:
-      - 32
-  - LongKeyword:
-      - 76
-      - 111
-      - 110
-      - 103
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-  - Identifier:
-      - 115
-      - 104
-      - 68
-      - 67
-  - Whitespace:
-      - 32
-  - EqualityOperator:
-      - 61
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 71
-      - 101
-      - 116
-      - 68
-      - 67
-  - LeftParentheses:
-      - 40
-  - Identifier:
-      - 115
-      - 99
-      - 114
-      - 72
-      - 119
-      - 110
-      - 100
-  - RightParentheses:
-      - 41
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-  - Comment:
-      - 39
-      - 68
-      - 101
-      - 116
-      - 101
-      - 114
-      - 109
-      - 105
-      - 110
-      - 101
-      - 32
-      - 116
-      - 104
-      - 101
-      - 32
-      - 115
-      - 105
-      - 122
-      - 101
-      - 32
-      - 111
-      - 102
-      - 32
-      - 116
-      - 104
-      - 101
-      - 32
-      - 115
-      - 99
-      - 114
-      - 101
-      - 101
-      - 110
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-  - DimKeyword:
-      - 68
-      - 105
-      - 109
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 115
-      - 99
-      - 114
-      - 101
-      - 101
-      - 110
-      - 87
-      - 105
-      - 100
-      - 116
-      - 104
-  - Whitespace:
-      - 32
-  - AsKeyword:
-      - 65
-      - 115
-  - Whitespace:
-      - 32
-  - LongKeyword:
-      - 76
-      - 111
-      - 110
-      - 103
-  - Comma:
-      - 44
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 115
-      - 99
-      - 114
-      - 101
-      - 101
-      - 110
-      - 72
-      - 101
-      - 105
-      - 103
-      - 104
-      - 116
-  - Whitespace:
-      - 32
-  - AsKeyword:
-      - 65
-      - 115
-  - Whitespace:
-      - 32
-  - LongKeyword:
-      - 76
-      - 111
-      - 110
-      - 103
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-  - Identifier:
-      - 115
-      - 99
-      - 114
-      - 101
-      - 101
-      - 110
-      - 87
-      - 105
-      - 100
-      - 116
-      - 104
-  - Whitespace:
-      - 32
-  - EqualityOperator:
-      - 61
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 83
-      - 99
-      - 114
-      - 101
-      - 101
-      - 110
-  - PeriodOperator:
-      - 46
-  - WidthKeyword:
-      - 87
-      - 105
-      - 100
-      - 116
-      - 104
-  - Whitespace:
-      - 32
-  - BackwardSlashOperator:
-      - 92
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 83
-      - 99
-      - 114
-      - 101
-      - 101
-      - 110
-  - PeriodOperator:
-      - 46
-  - Identifier:
-      - 84
-      - 119
-      - 105
-      - 112
-      - 115
-      - 80
-      - 101
-      - 114
-      - 80
-      - 105
-      - 120
-      - 101
-      - 108
-      - 88
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-  - Identifier:
-      - 115
-      - 99
-      - 114
-      - 101
-      - 101
-      - 110
-      - 72
-      - 101
-      - 105
-      - 103
-      - 104
-      - 116
-  - Whitespace:
-      - 32
-  - EqualityOperator:
-      - 61
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 83
-      - 99
-      - 114
-      - 101
-      - 101
-      - 110
-  - PeriodOperator:
-      - 46
-  - Identifier:
-      - 72
-      - 101
-      - 105
-      - 103
-      - 104
-      - 116
-  - Whitespace:
-      - 32
-  - BackwardSlashOperator:
-      - 92
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 83
-      - 99
-      - 114
-      - 101
-      - 101
-      - 110
-  - PeriodOperator:
-      - 46
-  - Identifier:
-      - 84
-      - 119
-      - 105
-      - 112
-      - 115
-      - 80
-      - 101
-      - 114
-      - 80
-      - 105
-      - 120
-      - 101
-      - 108
-      - 89
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-      - 32
-      - 32
-      - 32
-      - 32
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-  - Comment:
-      - 39
-      - 67
-      - 111
-      - 112
-      - 121
-      - 32
-      - 116
-      - 104
-      - 101
-      - 32
-      - 112
-      - 105
-      - 120
-      - 101
-      - 108
-      - 32
-      - 100
-      - 97
-      - 116
-      - 97
-      - 32
-      - 102
-      - 114
-      - 111
-      - 109
-      - 32
-      - 116
-      - 104
-      - 101
-      - 32
-      - 115
-      - 99
-      - 114
-      - 101
-      - 101
-      - 110
-      - 32
-      - 105
-      - 110
-      - 116
-      - 111
-      - 32
-      - 111
-      - 117
-      - 114
-      - 32
-      - 102
-      - 111
-      - 114
-      - 109
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-  - Identifier:
-      - 66
-      - 105
-      - 116
-      - 66
-      - 108
-      - 116
-  - Whitespace:
-      - 32
-  - MeKeyword:
-      - 77
-      - 101
-  - PeriodOperator:
-      - 46
-  - Identifier:
-      - 104
-      - 68
-      - 67
-  - Comma:
-      - 44
-  - Whitespace:
-      - 32
-  - Number:
-      - 48
-  - Comma:
-      - 44
-  - Whitespace:
-      - 32
-  - Number:
-      - 48
-  - Comma:
-      - 44
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 115
-      - 99
-      - 114
-      - 101
-      - 101
-      - 110
-      - 87
-      - 105
-      - 100
-      - 116
-      - 104
-  - Comma:
-      - 44
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 115
-      - 99
-      - 114
-      - 101
-      - 101
-      - 110
-      - 72
-      - 101
-      - 105
-      - 103
-      - 104
-      - 116
-  - Comma:
-      - 44
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 115
-      - 104
-      - 68
-      - 67
-  - Comma:
-      - 44
-  - Whitespace:
-      - 32
-  - Number:
-      - 48
-  - Comma:
-      - 44
-  - Whitespace:
-      - 32
-  - Number:
-      - 48
-  - Comma:
-      - 44
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 118
-      - 98
-      - 83
-      - 114
-      - 99
-      - 67
-      - 111
-      - 112
-      - 121
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-      - 32
-      - 32
-      - 32
-      - 32
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-  - Comment:
-      - 39
-      - 82
-      - 101
-      - 108
-      - 101
-      - 97
-      - 115
-      - 101
-      - 32
-      - 111
-      - 117
-      - 114
-      - 32
-      - 104
-      - 111
-      - 108
-      - 100
-      - 32
-      - 111
-      - 110
-      - 32
-      - 116
-      - 104
-      - 101
-      - 32
-      - 115
-      - 99
-      - 114
-      - 101
-      - 101
-      - 110
-      - 32
-      - 68
-      - 67
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-  - Identifier:
-      - 82
-      - 101
-      - 108
-      - 101
-      - 97
-      - 115
-      - 101
-      - 68
-      - 67
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 115
-      - 99
-      - 114
-      - 72
-      - 119
-      - 110
-      - 100
-  - Comma:
-      - 44
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 115
-      - 104
-      - 68
-      - 67
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-  - MeKeyword:
-      - 77
-      - 101
-  - PeriodOperator:
-      - 46
-  - Identifier:
-      - 80
-      - 105
-      - 99
-      - 116
-      - 117
-      - 114
-      - 101
-  - Whitespace:
-      - 32
-  - EqualityOperator:
-      - 61
-  - Whitespace:
-      - 32
-  - MeKeyword:
-      - 77
-      - 101
-  - PeriodOperator:
-      - 46
-  - Identifier:
-      - 73
-      - 109
-      - 97
-      - 103
-      - 101
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-  - Comment:
-      - 39
-      - 82
-      - 101
-      - 115
-      - 116
-      - 111
-      - 114
-      - 101
-      - 32
-      - 116
-      - 104
-      - 101
-      - 32
-      - 119
-      - 105
-      - 110
-      - 100
-      - 111
-      - 119
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-  - MeKeyword:
-      - 77
-      - 101
-  - PeriodOperator:
-      - 46
-  - Identifier:
-      - 87
-      - 105
-      - 110
-      - 100
-      - 111
-      - 119
-      - 83
-      - 116
-      - 97
-      - 116
-      - 101
-  - Whitespace:
-      - 32
-  - EqualityOperator:
-      - 61
-  - Whitespace:
-      - 32
-  - Identifier:
-      - 118
-      - 98
-      - 78
-      - 111
-      - 114
-      - 109
-      - 97
-      - 108
-  - Newline:
-      - 13
-      - 10
-  - Whitespace:
-      - 32
-      - 32
-      - 32
-      - 32
-  - Newline:
-      - 13
-      - 10
-  - EndKeyword:
-      - 69
-      - 110
-      - 100
-  - Whitespace:
-      - 32
-  - SubKeyword:
-      - 83
-      - 117
-      - 98
-  - Newline:
-      - 13
-      - 10
-  - Newline:
-      - 13
-      - 10
+  - Comment: "'***************************************************************************"
+  - Newline: "\r\n"
+  - Comment: "'Copyright 2018 by Tanner Helland"
+  - Newline: "\r\n"
+  - Comment: "' www.tannerhelland.com"
+  - Newline: "\r\n"
+  - Comment: "'"
+  - Newline: "\r\n"
+  - Comment: "'Documentation for this project can be found at https://tannerhelland.com/code/"
+  - Newline: "\r\n"
+  - Comment: "'"
+  - Newline: "\r\n"
+  - Comment: "'The source code in this project is licensed under a Simplified BSD license."
+  - Newline: "\r\n"
+  - Comment: "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
+  - Newline: "\r\n"
+  - Comment: "'"
+  - Newline: "\r\n"
+  - Comment: "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
+  - Newline: "\r\n"
+  - Comment: "'"
+  - Newline: "\r\n"
+  - Comment: "'***************************************************************************"
+  - Newline: "\r\n"
+  - Newline: "\r\n"
+  - Comment: "'This gives us the hWnd (window handle) of the screen"
+  - Newline: "\r\n"
+  - PrivateKeyword: Private
+  - Whitespace: " "
+  - DeclareKeyword: Declare
+  - Whitespace: " "
+  - FunctionKeyword: Function
+  - Whitespace: " "
+  - Identifier: GetDesktopWindow
+  - Whitespace: " "
+  - LibKeyword: Lib
+  - Whitespace: " "
+  - StringLiteral: "\"user32\""
+  - Whitespace: " "
+  - LeftParentheses: (
+  - RightParentheses: )
+  - Whitespace: " "
+  - AsKeyword: As
+  - Whitespace: " "
+  - LongKeyword: Long
+  - Newline: "\r\n"
+  - Newline: "\r\n"
+  - Comment: "'This assigns an hDC (device context handle) from an hWnd"
+  - Newline: "\r\n"
+  - PrivateKeyword: Private
+  - Whitespace: " "
+  - DeclareKeyword: Declare
+  - Whitespace: " "
+  - FunctionKeyword: Function
+  - Whitespace: " "
+  - Identifier: GetDC
+  - Whitespace: " "
+  - LibKeyword: Lib
+  - Whitespace: " "
+  - StringLiteral: "\"user32\""
+  - Whitespace: " "
+  - LeftParentheses: (
+  - ByValKeyword: ByVal
+  - Whitespace: " "
+  - Identifier: hWnd
+  - Whitespace: " "
+  - AsKeyword: As
+  - Whitespace: " "
+  - LongKeyword: Long
+  - RightParentheses: )
+  - Whitespace: " "
+  - AsKeyword: As
+  - Whitespace: " "
+  - LongKeyword: Long
+  - Newline: "\r\n"
+  - Newline: "\r\n"
+  - Comment: "'BitBlt lets us draw an image from a hDC to another hDC (in our case, from an hDC of the screen capture to the hDC of a VB picture box)"
+  - Newline: "\r\n"
+  - PrivateKeyword: Private
+  - Whitespace: " "
+  - DeclareKeyword: Declare
+  - Whitespace: " "
+  - FunctionKeyword: Function
+  - Whitespace: " "
+  - Identifier: BitBlt
+  - Whitespace: " "
+  - LibKeyword: Lib
+  - Whitespace: " "
+  - StringLiteral: "\"gdi32\""
+  - Whitespace: " "
+  - LeftParentheses: (
+  - ByValKeyword: ByVal
+  - Whitespace: " "
+  - Identifier: hDC
+  - Whitespace: " "
+  - AsKeyword: As
+  - Whitespace: " "
+  - LongKeyword: Long
+  - Comma: ","
+  - Whitespace: " "
+  - ByValKeyword: ByVal
+  - Whitespace: " "
+  - Identifier: x
+  - Whitespace: " "
+  - AsKeyword: As
+  - Whitespace: " "
+  - LongKeyword: Long
+  - Comma: ","
+  - Whitespace: " "
+  - ByValKeyword: ByVal
+  - Whitespace: " "
+  - Identifier: y
+  - Whitespace: " "
+  - AsKeyword: As
+  - Whitespace: " "
+  - LongKeyword: Long
+  - Comma: ","
+  - Whitespace: " "
+  - ByValKeyword: ByVal
+  - Whitespace: " "
+  - Identifier: nWidth
+  - Whitespace: " "
+  - AsKeyword: As
+  - Whitespace: " "
+  - LongKeyword: Long
+  - Comma: ","
+  - Whitespace: " "
+  - ByValKeyword: ByVal
+  - Whitespace: " "
+  - Identifier: nHeight
+  - Whitespace: " "
+  - AsKeyword: As
+  - Whitespace: " "
+  - LongKeyword: Long
+  - Comma: ","
+  - Whitespace: " "
+  - ByValKeyword: ByVal
+  - Whitespace: " "
+  - Identifier: hSrcDC
+  - Whitespace: " "
+  - AsKeyword: As
+  - Whitespace: " "
+  - LongKeyword: Long
+  - Comma: ","
+  - Whitespace: " "
+  - ByValKeyword: ByVal
+  - Whitespace: " "
+  - Identifier: xSrc
+  - Whitespace: " "
+  - AsKeyword: As
+  - Whitespace: " "
+  - LongKeyword: Long
+  - Comma: ","
+  - Whitespace: " "
+  - ByValKeyword: ByVal
+  - Whitespace: " "
+  - Identifier: ySrc
+  - Whitespace: " "
+  - AsKeyword: As
+  - Whitespace: " "
+  - LongKeyword: Long
+  - Comma: ","
+  - Whitespace: " "
+  - ByValKeyword: ByVal
+  - Whitespace: " "
+  - Identifier: opCode
+  - Whitespace: " "
+  - AsKeyword: As
+  - Whitespace: " "
+  - LongKeyword: Long
+  - RightParentheses: )
+  - Whitespace: " "
+  - AsKeyword: As
+  - Whitespace: " "
+  - LongKeyword: Long
+  - Newline: "\r\n"
+  - Newline: "\r\n"
+  - Comment: "'ReleaseDC is used to free the hDC we generate for the screen capture."
+  - Newline: "\r\n"
+  - PrivateKeyword: Private
+  - Whitespace: " "
+  - DeclareKeyword: Declare
+  - Whitespace: " "
+  - FunctionKeyword: Function
+  - Whitespace: " "
+  - Identifier: ReleaseDC
+  - Whitespace: " "
+  - LibKeyword: Lib
+  - Whitespace: " "
+  - StringLiteral: "\"user32\""
+  - Whitespace: " "
+  - LeftParentheses: (
+  - ByValKeyword: ByVal
+  - Whitespace: " "
+  - Identifier: hWnd
+  - Whitespace: " "
+  - AsKeyword: As
+  - Whitespace: " "
+  - LongKeyword: Long
+  - Comma: ","
+  - Whitespace: " "
+  - ByValKeyword: ByVal
+  - Whitespace: " "
+  - Identifier: hDC
+  - Whitespace: " "
+  - AsKeyword: As
+  - Whitespace: " "
+  - LongKeyword: Long
+  - RightParentheses: )
+  - Whitespace: " "
+  - AsKeyword: As
+  - Whitespace: " "
+  - LongKeyword: Long
+  - Newline: "\r\n"
+  - Newline: "\r\n"
+  - Comment: "'This sample project copies the screen when the form loads; you could also place this code in a command button (or any other input)"
+  - Newline: "\r\n"
+  - PrivateKeyword: Private
+  - Whitespace: " "
+  - SubKeyword: Sub
+  - Whitespace: " "
+  - Identifier: Form_Load
+  - LeftParentheses: (
+  - RightParentheses: )
+  - Newline: "\r\n"
+  - Newline: "\r\n"
+  - Whitespace: "    "
+  - Comment: "'First, minimize this window"
+  - Newline: "\r\n"
+  - Whitespace: "    "
+  - MeKeyword: Me
+  - PeriodOperator: "."
+  - Identifier: WindowState
+  - Whitespace: " "
+  - EqualityOperator: "="
+  - Whitespace: " "
+  - Identifier: vbMinimized
+  - Newline: "\r\n"
+  - Whitespace: "    "
+  - Newline: "\r\n"
+  - Whitespace: "    "
+  - Comment: "'Get the hWnd of the screen"
+  - Newline: "\r\n"
+  - Whitespace: "    "
+  - DimKeyword: Dim
+  - Whitespace: " "
+  - Identifier: scrHwnd
+  - Whitespace: " "
+  - AsKeyword: As
+  - Whitespace: " "
+  - LongKeyword: Long
+  - Newline: "\r\n"
+  - Whitespace: "    "
+  - Identifier: scrHwnd
+  - Whitespace: " "
+  - EqualityOperator: "="
+  - Whitespace: " "
+  - Identifier: GetDesktopWindow
+  - Newline: "\r\n"
+  - Whitespace: "    "
+  - Newline: "\r\n"
+  - Whitespace: "    "
+  - Comment: "'Now, assign an hDC to the hWnd we generated"
+  - Newline: "\r\n"
+  - Whitespace: "    "
+  - DimKeyword: Dim
+  - Whitespace: " "
+  - Identifier: shDC
+  - Whitespace: " "
+  - AsKeyword: As
+  - Whitespace: " "
+  - LongKeyword: Long
+  - Newline: "\r\n"
+  - Whitespace: "    "
+  - Identifier: shDC
+  - Whitespace: " "
+  - EqualityOperator: "="
+  - Whitespace: " "
+  - Identifier: GetDC
+  - LeftParentheses: (
+  - Identifier: scrHwnd
+  - RightParentheses: )
+  - Newline: "\r\n"
+  - Whitespace: "    "
+  - Newline: "\r\n"
+  - Whitespace: "    "
+  - Comment: "'Determine the size of the screen"
+  - Newline: "\r\n"
+  - Whitespace: "    "
+  - DimKeyword: Dim
+  - Whitespace: " "
+  - Identifier: screenWidth
+  - Whitespace: " "
+  - AsKeyword: As
+  - Whitespace: " "
+  - LongKeyword: Long
+  - Comma: ","
+  - Whitespace: " "
+  - Identifier: screenHeight
+  - Whitespace: " "
+  - AsKeyword: As
+  - Whitespace: " "
+  - LongKeyword: Long
+  - Newline: "\r\n"
+  - Whitespace: "    "
+  - Identifier: screenWidth
+  - Whitespace: " "
+  - EqualityOperator: "="
+  - Whitespace: " "
+  - Identifier: Screen
+  - PeriodOperator: "."
+  - WidthKeyword: Width
+  - Whitespace: " "
+  - BackwardSlashOperator: "\\"
+  - Whitespace: " "
+  - Identifier: Screen
+  - PeriodOperator: "."
+  - Identifier: TwipsPerPixelX
+  - Newline: "\r\n"
+  - Whitespace: "    "
+  - Identifier: screenHeight
+  - Whitespace: " "
+  - EqualityOperator: "="
+  - Whitespace: " "
+  - Identifier: Screen
+  - PeriodOperator: "."
+  - Identifier: Height
+  - Whitespace: " "
+  - BackwardSlashOperator: "\\"
+  - Whitespace: " "
+  - Identifier: Screen
+  - PeriodOperator: "."
+  - Identifier: TwipsPerPixelY
+  - Newline: "\r\n"
+  - Whitespace: "        "
+  - Newline: "\r\n"
+  - Whitespace: "    "
+  - Comment: "'Copy the pixel data from the screen into our form"
+  - Newline: "\r\n"
+  - Whitespace: "    "
+  - Identifier: BitBlt
+  - Whitespace: " "
+  - MeKeyword: Me
+  - PeriodOperator: "."
+  - Identifier: hDC
+  - Comma: ","
+  - Whitespace: " "
+  - Number: "0"
+  - Comma: ","
+  - Whitespace: " "
+  - Number: "0"
+  - Comma: ","
+  - Whitespace: " "
+  - Identifier: screenWidth
+  - Comma: ","
+  - Whitespace: " "
+  - Identifier: screenHeight
+  - Comma: ","
+  - Whitespace: " "
+  - Identifier: shDC
+  - Comma: ","
+  - Whitespace: " "
+  - Number: "0"
+  - Comma: ","
+  - Whitespace: " "
+  - Number: "0"
+  - Comma: ","
+  - Whitespace: " "
+  - Identifier: vbSrcCopy
+  - Newline: "\r\n"
+  - Whitespace: "        "
+  - Newline: "\r\n"
+  - Whitespace: "    "
+  - Comment: "'Release our hold on the screen DC"
+  - Newline: "\r\n"
+  - Whitespace: "    "
+  - Identifier: ReleaseDC
+  - Whitespace: " "
+  - Identifier: scrHwnd
+  - Comma: ","
+  - Whitespace: " "
+  - Identifier: shDC
+  - Newline: "\r\n"
+  - Whitespace: "    "
+  - Newline: "\r\n"
+  - Whitespace: "    "
+  - MeKeyword: Me
+  - PeriodOperator: "."
+  - Identifier: Picture
+  - Whitespace: " "
+  - EqualityOperator: "="
+  - Whitespace: " "
+  - MeKeyword: Me
+  - PeriodOperator: "."
+  - Identifier: Image
+  - Newline: "\r\n"
+  - Whitespace: "    "
+  - Newline: "\r\n"
+  - Whitespace: "    "
+  - Comment: "'Restore the window"
+  - Newline: "\r\n"
+  - Whitespace: "    "
+  - MeKeyword: Me
+  - PeriodOperator: "."
+  - Identifier: WindowState
+  - Whitespace: " "
+  - EqualityOperator: "="
+  - Whitespace: " "
+  - Identifier: vbNormal
+  - Newline: "\r\n"
+  - Whitespace: "    "
+  - Newline: "\r\n"
+  - EndKeyword: End
+  - Whitespace: " "
+  - SubKeyword: Sub
+  - Newline: "\r\n"
+  - Newline: "\r\n"
