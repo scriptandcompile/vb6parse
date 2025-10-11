@@ -2,7 +2,6 @@ pub mod properties;
 
 use std::collections::HashMap;
 
-use bstr::BStr;
 use serde::Serialize;
 
 use crate::{
@@ -119,7 +118,7 @@ impl<'a> VB6ClassFile<'a> {
         let header = VB6ClassHeader {
             version,
             attributes: VB6FileAttributes {
-                name: BStr::new(b" "),
+                name: b" ".into(),
                 global_name_space: NameSpace::default(),
                 creatable: Creatable::default(),
                 pre_declared_id: PreDeclaredID::default(),
