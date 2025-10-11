@@ -1,3 +1,5 @@
+use phf::{OrderedMap, phf_ordered_map};
+
 use crate::{
     language::VB6Token,
     parsers::{Comparator, ParseResult, SourceStream},
@@ -13,6 +15,143 @@ pub trait VB6Tokenizer<'a> {
     fn take_symbol(self) -> Option<VB6Token<'a>>;
     fn take_variable_name(self) -> Option<VB6Token<'a>>;
 }
+
+static KEYWORD_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, for<'a> fn(&'a str) -> VB6Token<'a>> = phf_ordered_map! {
+    "AdressOf" => |matching_text| VB6Token::AddressOfKeyword(matching_text),
+    "Alias" => |matching_text| VB6Token::AliasKeyword(matching_text),
+    "And" => |matching_text| VB6Token::AndKeyword(matching_text),
+    "AppActivate" => |matching_text| VB6Token::AppActivateKeyword(matching_text),
+    "As" => |matching_text| VB6Token::AsKeyword(matching_text),
+    "Base" => |matching_text| VB6Token::BaseKeyword(matching_text),
+    "Beep" => |matching_text| VB6Token::BeepKeyword(matching_text),
+    "Binary" => |matching_text| VB6Token::BinaryKeyword(matching_text),
+    "Boolean" => |matching_text| VB6Token::BooleanKeyword(matching_text),
+    "ByRef" => |matching_text| VB6Token::ByRefKeyword(matching_text),
+    "Byte" => |matching_text| VB6Token::ByteKeyword(matching_text),
+    "ByVal" => |matching_text| VB6Token::ByValKeyword(matching_text),
+    "Call" => |matching_text| VB6Token::CallKeyword(matching_text),
+    "Case" => |matching_text| VB6Token::CaseKeyword(matching_text),
+    "ChDir" => |matching_text| VB6Token::ChDirKeyword(matching_text),
+    "ChDrive" => |matching_text| VB6Token::ChDriveKeyword(matching_text),
+    "Close" => |matching_text| VB6Token::CloseKeyword(matching_text),
+    "Compare" => |matching_text| VB6Token::CompareKeyword(matching_text),
+    "Const" => |matching_text| VB6Token::ConstKeyword(matching_text),
+    "Currency" => |matching_text| VB6Token::CurrencyKeyword(matching_text),
+    "Date" => |matching_text| VB6Token::DateKeyword(matching_text),
+    "Decimal" => |matching_text| VB6Token::DecimalKeyword(matching_text),
+    "Declare" => |matching_text| VB6Token::DeclareKeyword(matching_text),
+    "DefBool" => |matching_text| VB6Token::DefBoolKeyword(matching_text),
+    "DefByte" => |matching_text| VB6Token::DefByteKeyword(matching_text),
+    "DefCur" => |matching_text| VB6Token::DefCurKeyword(matching_text),
+    "DefDate" => |matching_text| VB6Token::DefDateKeyword(matching_text),
+    "DefDbl" => |matching_text| VB6Token::DefDblKeyword(matching_text),
+    "DefDec" => |matching_text| VB6Token::DefDecKeyword(matching_text),
+    "DefInt" => |matching_text| VB6Token::DefIntKeyword(matching_text),
+    "DefLng" => |matching_text| VB6Token::DefLngKeyword(matching_text),
+    "DefObj" => |matching_text| VB6Token::DefObjKeyword(matching_text),
+    "DefSng" => |matching_text| VB6Token::DefSngKeyword(matching_text),
+    "DefStr" => |matching_text| VB6Token::DefStrKeyword(matching_text),
+    "DefVar" => |matching_text| VB6Token::DefVarKeyword(matching_text),
+    "DeleteSetting" => |matching_text| VB6Token::DeleteSettingKeyword(matching_text),
+    "Dim" => |matching_text| VB6Token::DimKeyword(matching_text),
+    // switched so that `Do` isn't selected for `Double`.
+    "Double" => |matching_text| VB6Token::DoubleKeyword(matching_text),
+    "Do" => |matching_text| VB6Token::DoKeyword(matching_text),
+    // switched so that `Else` isn't selected for `ElseIf`.
+    "ElseIf" => |matching_text| VB6Token::ElseIfKeyword(matching_text),
+    "Else" => |matching_text| VB6Token::ElseKeyword(matching_text),
+    "Empty" => |matching_text| VB6Token::EmptyKeyword(matching_text),
+    "End" => |matching_text| VB6Token::EndKeyword(matching_text),
+    "Enum" => |matching_text| VB6Token::EnumKeyword(matching_text),
+    "Eqv" => |matching_text| VB6Token::EqvKeyword(matching_text),
+    "Erase" => |matching_text| VB6Token::EraseKeyword(matching_text),
+    "Error" => |matching_text| VB6Token::ErrorKeyword(matching_text),
+    "Event" => |matching_text| VB6Token::EventKeyword(matching_text),
+    "Exit" => |matching_text| VB6Token::ExitKeyword(matching_text),
+    "Explicit" => |matching_text| VB6Token::ExplicitKeyword(matching_text),
+    "False" => |matching_text| VB6Token::FalseKeyword(matching_text),
+    "FileCopy" => |matching_text| VB6Token::FileCopyKeyword(matching_text),
+    "For" => |matching_text| VB6Token::ForKeyword(matching_text),
+    "Friend" => |matching_text| VB6Token::FriendKeyword(matching_text),
+    "Function" => |matching_text| VB6Token::FunctionKeyword(matching_text),
+    "Get" => |matching_text| VB6Token::GetKeyword(matching_text),
+    "Goto" => |matching_text| VB6Token::GotoKeyword(matching_text),
+    "If" => |matching_text| VB6Token::IfKeyword(matching_text),
+    // switched so that `Imp` isn't selected for `Implements`.
+    "Implements" => |matching_text| VB6Token::ImplementsKeyword(matching_text),
+    "Imp" => |matching_text| VB6Token::ImpKeyword(matching_text),
+    "Integer" => |matching_text| VB6Token::IntegerKeyword(matching_text),
+    "Is" => |matching_text| VB6Token::IsKeyword(matching_text),
+    "Kill" => |matching_text| VB6Token::KillKeyword(matching_text),
+    "Len" => |matching_text| VB6Token::LenKeyword(matching_text),
+    "Let" => |matching_text| VB6Token::LetKeyword(matching_text),
+    "Lib" => |matching_text| VB6Token::LibKeyword(matching_text),
+    "Line" => |matching_text| VB6Token::LineKeyword(matching_text),
+    "Lock" => |matching_text| VB6Token::LockKeyword(matching_text),
+    "Load" => |matching_text| VB6Token::LoadKeyword(matching_text),
+    "Long" => |matching_text| VB6Token::LongKeyword(matching_text),
+    "LSet" => |matching_text| VB6Token::LSetKeyword(matching_text),
+    "Me" => |matching_text| VB6Token::MeKeyword(matching_text),
+    "Mid" => |matching_text| VB6Token::MidKeyword(matching_text),
+    "MkDir" => |matching_text| VB6Token::MkDirKeyword(matching_text),
+    "Mod" => |matching_text| VB6Token::ModKeyword(matching_text),
+    "Name" => |matching_text| VB6Token::NameKeyword(matching_text),
+    "New" => |matching_text| VB6Token::NewKeyword(matching_text),
+    "Next" => |matching_text| VB6Token::NextKeyword(matching_text),
+    "Not" => |matching_text| VB6Token::NotKeyword(matching_text),
+    "Null" => |matching_text| VB6Token::NullKeyword(matching_text),
+    "Object" => |matching_text| VB6Token::ObjectKeyword(matching_text),
+    "On" => |matching_text| VB6Token::OnKeyword(matching_text),
+    "Open" => |matching_text| VB6Token::OpenKeyword(matching_text),
+    // Switched so that `Option` isn't selected for `Optional`.
+    "Optional" => |matching_text| VB6Token::OptionalKeyword(matching_text),
+    "Option" => |matching_text| VB6Token::OptionKeyword(matching_text),
+    "Or" => |matching_text| VB6Token::OrKeyword(matching_text),
+    "ParamArray" => |matching_text| VB6Token::ParamArrayKeyword(matching_text),
+    "Preserve" => |matching_text| VB6Token::PreserveKeyword(matching_text),
+    "Print" => |matching_text| VB6Token::PrintKeyword(matching_text),
+    "Private" => |matching_text| VB6Token::PrivateKeyword(matching_text),
+    "Property" => |matching_text| VB6Token::PropertyKeyword(matching_text),
+    "Public" => |matching_text| VB6Token::PublicKeyword(matching_text),
+    "Put" => |matching_text| VB6Token::PutKeyword(matching_text),
+    "RaiseEvent" => |matching_text| VB6Token::RaiseEventKeyword(matching_text),
+    "Randomize" => |matching_text| VB6Token::RandomizeKeyword(matching_text),
+    "ReDim" => |matching_text| VB6Token::ReDimKeyword(matching_text),
+    "Reset" => |matching_text| VB6Token::ResetKeyword(matching_text),
+    "Resume" => |matching_text| VB6Token::ResumeKeyword(matching_text),
+    "RmDir" => |matching_text| VB6Token::RmDirKeyword(matching_text),
+    "RSet" => |matching_text| VB6Token::RSetKeyword(matching_text),
+    "SavePicture" => |matching_text| VB6Token::SavePictureKeyword(matching_text),
+    "SaveSetting" => |matching_text| VB6Token::SaveSettingKeyword(matching_text),
+    "Seek" => |matching_text| VB6Token::SeekKeyword(matching_text),
+    "Select" => |matching_text| VB6Token::SelectKeyword(matching_text),
+    "SendKeys" => |matching_text| VB6Token::SendKeysKeyword(matching_text),
+    // Switched so that `Set` isn't selected for `SetAttr`.
+    "SetAttr" => |matching_text| VB6Token::SetAttrKeyword(matching_text),
+    "Set" => |matching_text| VB6Token::SetKeyword(matching_text),
+    "Single" => |matching_text| VB6Token::SingleKeyword(matching_text),
+    "Static" => |matching_text| VB6Token::StaticKeyword(matching_text),
+    "Step" => |matching_text| VB6Token::StepKeyword(matching_text),
+    "Stop" => |matching_text| VB6Token::StopKeyword(matching_text),
+    "String" => |matching_text| VB6Token::StringKeyword(matching_text),
+    "Sub" => |matching_text| VB6Token::SubKeyword(matching_text),
+    "Then" => |matching_text| VB6Token::ThenKeyword(matching_text),
+    "Time" => |matching_text| VB6Token::TimeKeyword(matching_text),
+    "To" => |matching_text| VB6Token::ToKeyword(matching_text),
+    "True" => |matching_text| VB6Token::TrueKeyword(matching_text),
+    "Type" => |matching_text| VB6Token::TypeKeyword(matching_text),
+    "Unlock" => |matching_text| VB6Token::UnlockKeyword(matching_text),
+    "Until" => |matching_text| VB6Token::UntilKeyword(matching_text),
+    "Variant" => |matching_text| VB6Token::VariantKeyword(matching_text),
+    "Wend" => |matching_text| VB6Token::WendKeyword(matching_text),
+    "While" => |matching_text| VB6Token::WhileKeyword(matching_text),
+    "Width" => |matching_text| VB6Token::WidthKeyword(matching_text),
+    // Switched so that `With` isn't selected for `WithEvents`.
+    "WithEvents" => |matching_text| VB6Token::WithEventsKeyword(matching_text),
+    "With" => |matching_text| VB6Token::WithKeyword(matching_text),
+    "Write" => |matching_text| VB6Token::WriteKeyword(matching_text),
+    "Xor" => |matching_text| VB6Token::XorKeyword(matching_text),
+};
 
 /// Parses VB6 code into a token stream.
 ///
@@ -367,274 +506,12 @@ impl<'a> VB6Tokenizer<'a> for &mut SourceStream<'a> {
     }
 
     fn take_keyword(self) -> Option<VB6Token<'a>> {
-        if let Some(keyword) = self.take_matching_text("AddressOf") {
-            return Some(VB6Token::AddressOfKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Alias") {
-            return Some(VB6Token::AliasKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("And") {
-            return Some(VB6Token::AndKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("AppActivate") {
-            return Some(VB6Token::AppActivateKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("As") {
-            return Some(VB6Token::AsKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Base") {
-            return Some(VB6Token::BaseKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Beep") {
-            return Some(VB6Token::BeepKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Binary") {
-            return Some(VB6Token::BinaryKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Boolean") {
-            return Some(VB6Token::BooleanKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("ByRef") {
-            return Some(VB6Token::ByRefKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Byte") {
-            return Some(VB6Token::ByteKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("ByVal") {
-            return Some(VB6Token::ByValKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Call") {
-            return Some(VB6Token::CallKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Case") {
-            return Some(VB6Token::CaseKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("ChDir") {
-            return Some(VB6Token::ChDirKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("ChDrive") {
-            return Some(VB6Token::ChDriveKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Close") {
-            return Some(VB6Token::CloseKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Compare") {
-            return Some(VB6Token::CompareKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Const") {
-            return Some(VB6Token::ConstKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Currency") {
-            return Some(VB6Token::CurrencyKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Date") {
-            return Some(VB6Token::DateKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Decimal") {
-            return Some(VB6Token::DecimalKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Declare") {
-            return Some(VB6Token::DeclareKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("DefBool") {
-            return Some(VB6Token::DefBoolKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("DefByte") {
-            return Some(VB6Token::DefByteKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("DefCur") {
-            return Some(VB6Token::DefCurKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("DefDate") {
-            return Some(VB6Token::DefDateKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("DefDbl") {
-            return Some(VB6Token::DefDblKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("DefDec") {
-            return Some(VB6Token::DefDecKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("DefInt") {
-            return Some(VB6Token::DefIntKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("DefLng") {
-            return Some(VB6Token::DefLngKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("DefObj") {
-            return Some(VB6Token::DefObjKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("DefSng") {
-            return Some(VB6Token::DefSngKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("DefStr") {
-            return Some(VB6Token::DefStrKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("DefVar") {
-            return Some(VB6Token::DefVarKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("DeleteSetting") {
-            return Some(VB6Token::DeleteSettingKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Dim") {
-            return Some(VB6Token::DimKeyword(keyword.into()));
-        }
-        // switched so that `Do` isn't selected for `Double`.
-        else if let Some(keyword) = self.take_matching_text("Double") {
-            return Some(VB6Token::DoubleKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Do") {
-            return Some(VB6Token::DoKeyword(keyword.into()));
-        }
-        // switched so that `Else` isn't selected for `ElseIf`.
-        else if let Some(keyword) = self.take_matching_text("ElseIf") {
-            return Some(VB6Token::ElseIfKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Else") {
-            return Some(VB6Token::ElseKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Empty") {
-            return Some(VB6Token::EmptyKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("End") {
-            return Some(VB6Token::EndKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Enum") {
-            return Some(VB6Token::EnumKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Eqv") {
-            return Some(VB6Token::EqvKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Erase") {
-            return Some(VB6Token::EraseKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Error") {
-            return Some(VB6Token::ErrorKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Event") {
-            return Some(VB6Token::EventKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Exit") {
-            return Some(VB6Token::ExitKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Explicit") {
-            return Some(VB6Token::ExplicitKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("False") {
-            return Some(VB6Token::FalseKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("FileCopy") {
-            return Some(VB6Token::FileCopyKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("For") {
-            return Some(VB6Token::ForKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Friend") {
-            return Some(VB6Token::FriendKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Function") {
-            return Some(VB6Token::FunctionKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Get") {
-            return Some(VB6Token::GetKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Goto") {
-            return Some(VB6Token::GotoKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("If") {
-            return Some(VB6Token::IfKeyword(keyword.into()));
-        }
-        // switched so that `Imp` isn't selected for `Implements`.
-        else if let Some(keyword) = self.take_matching_text("Implements") {
-            return Some(VB6Token::ImplementsKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Imp") {
-            return Some(VB6Token::ImpKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Integer") {
-            return Some(VB6Token::IntegerKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Is") {
-            return Some(VB6Token::IsKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Kill") {
-            return Some(VB6Token::KillKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Len") {
-            return Some(VB6Token::LenKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Let") {
-            return Some(VB6Token::LetKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Lib") {
-            return Some(VB6Token::LibKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Line") {
-            return Some(VB6Token::LineKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Lock") {
-            return Some(VB6Token::LockKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Load") {
-            return Some(VB6Token::LoadKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Long") {
-            return Some(VB6Token::LongKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("LSet") {
-            return Some(VB6Token::LSetKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Me") {
-            return Some(VB6Token::MeKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Mid") {
-            return Some(VB6Token::MidKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("MkDir") {
-            return Some(VB6Token::MkDirKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Mod") {
-            return Some(VB6Token::ModKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Name") {
-            return Some(VB6Token::NameKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("New") {
-            return Some(VB6Token::NewKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Next") {
-            return Some(VB6Token::NextKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Not") {
-            return Some(VB6Token::NotKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Null") {
-            return Some(VB6Token::NullKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Object") {
-            return Some(VB6Token::ObjectKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("On") {
-            return Some(VB6Token::OnKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Open") {
-            return Some(VB6Token::OpenKeyword(keyword.into()));
-        }
-        // Switched so that `Option` isn't selected for `Optional`.
-        else if let Some(keyword) = self.take_matching_text("Optional") {
-            return Some(VB6Token::OptionalKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Option") {
-            return Some(VB6Token::OptionKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Or") {
-            return Some(VB6Token::OrKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("ParamArray") {
-            return Some(VB6Token::ParamArrayKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Preserve") {
-            return Some(VB6Token::PreserveKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Print") {
-            return Some(VB6Token::PrintKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Private") {
-            return Some(VB6Token::PrivateKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Property") {
-            return Some(VB6Token::PropertyKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Public") {
-            return Some(VB6Token::PublicKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Put") {
-            return Some(VB6Token::PutKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("RaiseEvent") {
-            return Some(VB6Token::RaiseEventKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Randomize") {
-            return Some(VB6Token::RandomizeKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("ReDim") {
-            return Some(VB6Token::ReDimKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Reset") {
-            return Some(VB6Token::ResetKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Resume") {
-            return Some(VB6Token::ResumeKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("RmDir") {
-            return Some(VB6Token::RmDirKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("RSet") {
-            return Some(VB6Token::RSetKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("SavePicture") {
-            return Some(VB6Token::SavePictureKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("SaveSetting") {
-            return Some(VB6Token::SaveSettingKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Seek") {
-            return Some(VB6Token::SeekKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Select") {
-            return Some(VB6Token::SelectKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("SendKeys") {
-            return Some(VB6Token::SendKeysKeyword(keyword.into()));
-        }
-        // Switched so that `Set` isn't selected for `SetAttr`.
-        else if let Some(keyword) = self.take_matching_text("SetAttr") {
-            return Some(VB6Token::SetAttrKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Set") {
-            return Some(VB6Token::SetKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Single") {
-            return Some(VB6Token::SingleKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Static") {
-            return Some(VB6Token::StaticKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Step") {
-            return Some(VB6Token::StepKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Stop") {
-            return Some(VB6Token::StopKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("String") {
-            return Some(VB6Token::StringKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Sub") {
-            return Some(VB6Token::SubKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Then") {
-            return Some(VB6Token::ThenKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Time") {
-            return Some(VB6Token::TimeKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("To") {
-            return Some(VB6Token::ToKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("True") {
-            return Some(VB6Token::TrueKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Type") {
-            return Some(VB6Token::TypeKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Unlock") {
-            return Some(VB6Token::UnlockKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Until") {
-            return Some(VB6Token::UntilKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Variant") {
-            return Some(VB6Token::VariantKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Wend") {
-            return Some(VB6Token::WendKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("While") {
-            return Some(VB6Token::WhileKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Width") {
-            return Some(VB6Token::WidthKeyword(keyword.into()));
-        }
-        // Switched so that `With` isn't selected for `WithEvents`.
-        else if let Some(keyword) = self.take_matching_text("WithEvents") {
-            return Some(VB6Token::WithEventsKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("With") {
-            return Some(VB6Token::WithKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Write") {
-            return Some(VB6Token::WriteKeyword(keyword.into()));
-        } else if let Some(keyword) = self.take_matching_text("Xor") {
-            return Some(VB6Token::XorKeyword(keyword.into()));
+
+        for entry in KEYWORD_TOKEN_LOOKUP_TABLE.entries()
+        {
+            if let Some(matching_text) = self.take_matching_text(*entry.0) {
+                return Some(entry.1(matching_text));
+            }
         }
 
         None
