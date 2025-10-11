@@ -153,6 +153,33 @@ static KEYWORD_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, for<'a> fn(&'a str) 
     "Xor" => |matching_text| VB6Token::XorKeyword(matching_text),
 };
 
+static SYMBOL_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, for<'a> fn(&'a str) -> VB6Token<'a>> = phf_ordered_map! {
+    "=" => |matching_text| VB6Token::EqualityOperator(matching_text),
+    "$" => |matching_text| VB6Token::DollarSign(matching_text),
+    "_" => |matching_text| VB6Token::Underscore(matching_text),
+    "&" => |matching_text| VB6Token::Ampersand(matching_text),
+    "%" => |matching_text| VB6Token::Percent(matching_text),
+    "#" => |matching_text| VB6Token::Octothorpe(matching_text),
+    "<" => |matching_text| VB6Token::LessThanOperator(matching_text),
+    ">" => |matching_text| VB6Token::GreaterThanOperator(matching_text),
+    "(" => |matching_text| VB6Token::LeftParentheses(matching_text),
+    ")" => |matching_text| VB6Token::RightParentheses(matching_text),
+    "," => |matching_text| VB6Token::Comma(matching_text),
+    "+" => |matching_text| VB6Token::AdditionOperator(matching_text),
+    "-" => |matching_text| VB6Token::SubtractionOperator(matching_text),
+    "*" => |matching_text| VB6Token::MultiplicationOperator(matching_text),
+    "\\" => |matching_text| VB6Token::BackwardSlashOperator(matching_text),
+    "/" => |matching_text| VB6Token::DivisionOperator(matching_text),
+    "." => |matching_text| VB6Token::PeriodOperator(matching_text),
+    ":" => |matching_text| VB6Token::ColonOperator(matching_text),
+    "^" => |matching_text| VB6Token::ExponentiationOperator(matching_text),
+    "!" => |matching_text| VB6Token::ExclamationMark(matching_text),
+    "[" => |matching_text| VB6Token::LeftSquareBracket(matching_text),
+    "]" => |matching_text| VB6Token::RightSquareBracket(matching_text),
+    ";" => |matching_text| VB6Token::Semicolon(matching_text),
+    "@" => |matching_text| VB6Token::AtSign(matching_text),
+};
+
 /// Parses VB6 code into a token stream.
 ///
 ///
@@ -403,54 +430,11 @@ impl<'a> VB6Tokenizer<'a> for &mut SourceStream<'a> {
     }
 
     fn take_symbol(self) -> Option<VB6Token<'a>> {
-        if let Some(token) = self.take("=", Comparator::CaseInsensitive) {
-            return Some(VB6Token::EqualityOperator(token.into()));
-        } else if let Some(token) = self.take("$", Comparator::CaseInsensitive) {
-            return Some(VB6Token::DollarSign(token.into()));
-        } else if let Some(token) = self.take("_", Comparator::CaseInsensitive) {
-            return Some(VB6Token::Underscore(token.into()));
-        } else if let Some(token) = self.take("&", Comparator::CaseInsensitive) {
-            return Some(VB6Token::Ampersand(token.into()));
-        } else if let Some(token) = self.take("%", Comparator::CaseInsensitive) {
-            return Some(VB6Token::Percent(token.into()));
-        } else if let Some(token) = self.take("#", Comparator::CaseInsensitive) {
-            return Some(VB6Token::Octothorpe(token.into()));
-        } else if let Some(token) = self.take("<", Comparator::CaseInsensitive) {
-            return Some(VB6Token::LessThanOperator(token.into()));
-        } else if let Some(token) = self.take(">", Comparator::CaseInsensitive) {
-            return Some(VB6Token::GreaterThanOperator(token.into()));
-        } else if let Some(token) = self.take("(", Comparator::CaseInsensitive) {
-            return Some(VB6Token::LeftParentheses(token.into()));
-        } else if let Some(token) = self.take(")", Comparator::CaseInsensitive) {
-            return Some(VB6Token::RightParentheses(token.into()));
-        } else if let Some(token) = self.take(",", Comparator::CaseInsensitive) {
-            return Some(VB6Token::Comma(token.into()));
-        } else if let Some(token) = self.take("+", Comparator::CaseInsensitive) {
-            return Some(VB6Token::AdditionOperator(token.into()));
-        } else if let Some(token) = self.take("-", Comparator::CaseInsensitive) {
-            return Some(VB6Token::SubtractionOperator(token.into()));
-        } else if let Some(token) = self.take("*", Comparator::CaseInsensitive) {
-            return Some(VB6Token::MultiplicationOperator(token.into()));
-        } else if let Some(token) = self.take("\\", Comparator::CaseInsensitive) {
-            return Some(VB6Token::BackwardSlashOperator(token.into()));
-        } else if let Some(token) = self.take("/", Comparator::CaseInsensitive) {
-            return Some(VB6Token::DivisionOperator(token.into()));
-        } else if let Some(token) = self.take(".", Comparator::CaseInsensitive) {
-            return Some(VB6Token::PeriodOperator(token.into()));
-        } else if let Some(token) = self.take(":", Comparator::CaseInsensitive) {
-            return Some(VB6Token::ColonOperator(token.into()));
-        } else if let Some(token) = self.take("^", Comparator::CaseInsensitive) {
-            return Some(VB6Token::ExponentiationOperator(token.into()));
-        } else if let Some(token) = self.take("!", Comparator::CaseInsensitive) {
-            return Some(VB6Token::ExclamationMark(token.into()));
-        } else if let Some(token) = self.take("[", Comparator::CaseInsensitive) {
-            return Some(VB6Token::LeftSquareBracket(token.into()));
-        } else if let Some(token) = self.take("]", Comparator::CaseInsensitive) {
-            return Some(VB6Token::RightSquareBracket(token.into()));
-        } else if let Some(token) = self.take(";", Comparator::CaseInsensitive) {
-            return Some(VB6Token::Semicolon(token.into()));
-        } else if let Some(token) = self.take("@", Comparator::CaseInsensitive) {
-            return Some(VB6Token::AtSign(token.into()));
+        for entry in SYMBOL_TOKEN_LOOKUP_TABLE.entries()
+        {
+            if let Some(matching_text) = self.take(*entry.0, Comparator::CaseSensitive) {
+                return Some(entry.1(matching_text));
+            }
         }
 
         None
