@@ -70,7 +70,7 @@ tokens:
   - Newline: "\r\n"
   - EndKeyword: END
   - Newline: "\r\n"
-  - Identifier: Attribute
+  - AttributeKeyword: Attribute
   - Whitespace: " "
   - Identifier: VB_Name
   - Whitespace: " "
@@ -78,7 +78,7 @@ tokens:
   - Whitespace: " "
   - StringLiteral: "\"FastDrawing\""
   - Newline: "\r\n"
-  - Identifier: Attribute
+  - AttributeKeyword: Attribute
   - Whitespace: " "
   - Identifier: VB_GlobalNameSpace
   - Whitespace: " "
@@ -86,7 +86,7 @@ tokens:
   - Whitespace: " "
   - FalseKeyword: "False"
   - Newline: "\r\n"
-  - Identifier: Attribute
+  - AttributeKeyword: Attribute
   - Whitespace: " "
   - Identifier: VB_Creatable
   - Whitespace: " "
@@ -94,7 +94,7 @@ tokens:
   - Whitespace: " "
   - TrueKeyword: "True"
   - Newline: "\r\n"
-  - Identifier: Attribute
+  - AttributeKeyword: Attribute
   - Whitespace: " "
   - Identifier: VB_PredeclaredId
   - Whitespace: " "
@@ -102,7 +102,7 @@ tokens:
   - Whitespace: " "
   - FalseKeyword: "False"
   - Newline: "\r\n"
-  - Identifier: Attribute
+  - AttributeKeyword: Attribute
   - Whitespace: " "
   - Identifier: VB_Exposed
   - Whitespace: " "
@@ -1442,3 +1442,4 @@ tokens:
   - Whitespace: " "
   - SubKeyword: Sub
   - Newline: "\r\n"
+  - EOF

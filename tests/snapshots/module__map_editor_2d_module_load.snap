@@ -303,3 +303,4 @@ tokens:
   - BooleanKeyword: Boolean
   - Newline: "\r\n"
   - Newline: "\r\n"
+  - EOF

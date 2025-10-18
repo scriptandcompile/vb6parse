@@ -13,6 +13,10 @@ pub enum VB6Token<'a> {
     /// Represents a comment.
     /// Includes the single quote character.
     Comment(&'a str),
+    /// Represents the 'Class' keyword.
+    /// 
+    /// Used in the header of a class module to indicate that the module is a class module.
+    ClassKeyword(&'a str),
     /// Represents the 'ReDim' keyword.
     ///
     /// Used at a procedure level to reallocate storage space for a dynamic
@@ -52,6 +56,15 @@ pub enum VB6Token<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243324(v=vs.60))
     AliasKeyword(&'a str),
+    /// Represents the 'Attribute' keyword.
+    /// 
+    /// Used to define metadata for a class, method, or property.
+    AttributeKeyword(&'a str),
+    /// Represents the 'Begin' keyword.
+    /// 
+    /// Used to indicate the beginning of a block of code for a header section
+    /// in a module, class, or form.
+    BeginKeyword(&'a str),
     /// Represents the 'Lib' keyword.
     ///
     /// Indicates that a DLL or code resource contains the procedure being declared.
@@ -991,6 +1004,11 @@ pub enum VB6Token<'a> {
     AtSign(&'a str),
     /// Represents an exclamation mark '!'.
     ExclamationMark(&'a str),
+    /// Represents the 'Version' keyword.
+    /// 
+    /// The 'Version' keyword is used to specify the version of the header
+    /// information for a module / class / form.
+    VersionKeyword(&'a str),
     /// Represents an equality operator '=' can also be the assignment operator.
     ///
     /// Used to assign a value to a variable or property.
@@ -1024,4 +1042,8 @@ pub enum VB6Token<'a> {
     /// This is just a collection of digits and hasn't been parsed into a
     /// specific kind of number yet.
     Number(&'a str),
+    /// Represents the end of the file.
+    /// 
+    /// Indicates that there is no more input to process.
+    EOF,
 }

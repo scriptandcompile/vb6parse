@@ -394,3 +394,4 @@ tokens:
   - Whitespace: " "
   - LongKeyword: Long
   - Newline: "\r\n"
+  - EOF
