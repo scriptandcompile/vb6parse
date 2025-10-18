@@ -1,6 +1,6 @@
 use crate::{
     errors::VB6ModuleErrorKind, language::VB6Token, parsers::ParseResult, sourcefile::SourceFile,
-    sourcestream::Comparator, vb6_code_parse,
+    sourcestream::Comparator, vb6_code_tokenize,
 };
 
 use serde::Serialize;
@@ -66,7 +66,7 @@ impl<'a> VB6ModuleFile<'a> {
     /// let module_file = result.unwrap();
     ///
     /// assert_eq!(module_file.name, "Module1".as_bytes());
-    /// assert_eq!(module_file.tokens.len(), 17);
+    /// assert_eq!(module_file.tokens.len(), 18);
     /// ```
     pub fn parse(
         source_file: &'a SourceFile,
@@ -132,7 +132,7 @@ impl<'a> VB6ModuleFile<'a> {
                         input.generate_error(VB6ModuleErrorKind::VBNameAttributeValueUnquoted);
                     failures.push(error);
 
-                    let parse_result = vb6_code_parse(&mut input);
+                    let parse_result = vb6_code_tokenize(&mut input);
 
                     if parse_result.has_failures() {
                         for failure in parse_result.failures {
@@ -147,7 +147,7 @@ impl<'a> VB6ModuleFile<'a> {
                     };
                 };
 
-                let parse_result = vb6_code_parse(&mut input);
+                let parse_result = vb6_code_tokenize(&mut input);
 
                 if parse_result.has_failures() {
                     for failure in parse_result.failures {
@@ -182,7 +182,7 @@ impl<'a> VB6ModuleFile<'a> {
                 let _ = input.take_newline();
 
                 // looks like we have a fully quoted value.
-                let parse_result = vb6_code_parse(&mut input);
+                let parse_result = vb6_code_tokenize(&mut input);
 
                 if parse_result.has_failures() {
                     for failure in parse_result.failures {

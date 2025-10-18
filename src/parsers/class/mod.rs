@@ -17,7 +17,7 @@ use crate::{
             PreDeclaredID, VB6FileAttributes, VB6FileFormatVersion,
         },
     },
-    vb6code::vb6_code_parse,
+    vb6code::vb6_code_tokenize,
     ParseResult, SourceFile, SourceStream, VB6Tokenizer,
 };
 
@@ -129,7 +129,7 @@ impl<'a> VB6ClassFile<'a> {
             properties,
         };
 
-        let code_parse_result = vb6_code_parse(&mut input);
+        let code_parse_result = vb6_code_tokenize(&mut input);
 
         if code_parse_result.has_failures() {
             for failure in code_parse_result.failures {
