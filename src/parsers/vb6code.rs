@@ -242,7 +242,7 @@ pub fn vb6_code_tokenize<'a>(
         }
 
         if let Some(token) = input.take_newline() {
-            let token = VB6Token::Newline(token.into());
+            let token = VB6Token::Newline(token);
             tokens.push(token);
             continue;
         }
@@ -281,7 +281,7 @@ pub fn vb6_code_tokenize<'a>(
         }
 
         if let Some(digit_characters) = input.take_ascii_digits() {
-            tokens.push(VB6Token::Number(digit_characters.into()));
+            tokens.push(VB6Token::Number(digit_characters));
             continue;
         }
 
@@ -291,7 +291,7 @@ pub fn vb6_code_tokenize<'a>(
         }
 
         if let Some(whitespace_text) = input.take_ascii_whitespaces() {
-            tokens.push(VB6Token::Whitespace(whitespace_text.into()));
+            tokens.push(VB6Token::Whitespace(whitespace_text));
             continue;
         }
 
@@ -306,6 +306,27 @@ pub fn vb6_code_tokenize<'a>(
     }
 
     (tokens, failures).into()
+}
+
+pub fn vb6_code_tokenize_without_whitespaces<'a>(
+    input: &mut SourceStream<'a>,
+) -> ParseResult<'a, Vec<VB6Token<'a>>, VB6CodeErrorKind> {
+    let parse_result = vb6_code_tokenize(input);
+
+    if parse_result.has_failures() {
+        return parse_result;
+    }
+
+    let tokens = parse_result.result.unwrap();
+    let tokens_without_whitespaces: Vec<VB6Token<'a>> = tokens
+        .into_iter()
+        .filter(|token| !matches!(token, VB6Token::Whitespace(_)))
+        .collect();
+
+    ParseResult {
+        result: Some(tokens_without_whitespaces),
+        failures: vec![],
+    }
 }
 
 impl<'a> VB6Tokenizer<'a> for &mut SourceStream<'a> {
@@ -348,11 +369,11 @@ impl<'a> VB6Tokenizer<'a> for &mut SourceStream<'a> {
         match self.take_until_newline() {
             None => None,
             Some((comment, newline_optional)) => {
-                let comment_token = VB6Token::Comment(comment.into());
+                let comment_token = VB6Token::Comment(comment);
 
                 match newline_optional {
                     None => Some((comment_token, None)),
-                    Some(newline) => Some((comment_token, Some(VB6Token::Newline(newline.into())))),
+                    Some(newline) => Some((comment_token, Some(VB6Token::Newline(newline)))),
                 }
             }
         }
@@ -398,11 +419,11 @@ impl<'a> VB6Tokenizer<'a> for &mut SourceStream<'a> {
         match self.take_until_newline() {
             None => None,
             Some((comment, newline_optional)) => {
-                let comment_token = VB6Token::RemComment(comment.into());
+                let comment_token = VB6Token::RemComment(comment);
 
                 match newline_optional {
                     None => Some((comment_token, None)),
-                    Some(newline) => Some((comment_token, Some(VB6Token::Newline(newline.into())))),
+                    Some(newline) => Some((comment_token, Some(VB6Token::Newline(newline)))),
                 }
             }
         }
@@ -436,7 +457,7 @@ impl<'a> VB6Tokenizer<'a> for &mut SourceStream<'a> {
         };
 
         self.take_until_lambda(take_string, false)
-            .map(|quoted_text| VB6Token::StringLiteral(quoted_text.into()))
+            .map(VB6Token::StringLiteral)
     }
 
     fn take_symbol(self) -> Option<VB6Token<'a>> {
@@ -515,7 +536,7 @@ impl<'a> VB6Tokenizer<'a> for &mut SourceStream<'a> {
         if self.peek(1)?.chars().next()?.is_ascii_alphabetic() {
             let variable_text = self.take_ascii_underscore_alphanumerics()?;
 
-            return Some(VB6Token::Identifier(variable_text.into()));
+            return Some(VB6Token::Identifier(variable_text));
         }
 
         None
@@ -744,6 +765,101 @@ Attribute VB_Exposed = False
         assert_eq!(tokens.next().unwrap(), VB6Token::Whitespace(" "));
         assert_eq!(tokens.next().unwrap(), VB6Token::EqualityOperator("="));
         assert_eq!(tokens.next().unwrap(), VB6Token::Whitespace(" "));
+        assert_eq!(tokens.next().unwrap(), VB6Token::FalseKeyword("False"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Newline("\n"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::EOF);
+
+    }
+
+    #[test]
+    fn class_file_tokenize_without_whitespace() {
+        use crate::vb6code::vb6_code_tokenize_without_whitespaces;
+        use crate::SourceStream;
+
+        let source_code = "VERSION 1.0 CLASS
+BEGIN
+    MultiUse = -1  'True
+    Persistable = 0  'NotPersistable
+    DataBindingBehavior = 0  'vbNone
+    DataSourceBehavior = 0  'vbNone
+    MTSTransactionMode = 0  'NotAnMTSObject
+END
+Attribute VB_Name = \"Something\"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
+";
+    
+        let mut input = SourceStream::new("", source_code);
+        let result = vb6_code_tokenize_without_whitespaces(&mut input);
+
+        if result.has_failures() {
+            result.failures[0].eprint();
+        };
+
+        let mut tokens = result.result.unwrap().into_iter();
+
+        assert_eq!(tokens.len(), 62);
+        assert_eq!(tokens.next().unwrap(), VB6Token::VersionKeyword("VERSION"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Number("1"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::PeriodOperator("."));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Number("0"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::ClassKeyword("CLASS"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Newline("\n"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::BeginKeyword("BEGIN"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Newline("\n"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Identifier("MultiUse"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::EqualityOperator("="));
+        assert_eq!(tokens.next().unwrap(), VB6Token::SubtractionOperator("-"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Number("1"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Comment("'True"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Newline("\n"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Identifier("Persistable"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::EqualityOperator("="));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Number("0"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Comment("'NotPersistable"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Newline("\n"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Identifier("DataBindingBehavior"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::EqualityOperator("="));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Number("0"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Comment("'vbNone"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Newline("\n"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Identifier("DataSourceBehavior"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::EqualityOperator("="));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Number("0"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Comment("'vbNone"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Newline("\n"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Identifier("MTSTransactionMode"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::EqualityOperator("="));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Number("0"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Comment("'NotAnMTSObject"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Newline("\n"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::EndKeyword("END"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Newline("\n"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::AttributeKeyword("Attribute"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Identifier("VB_Name"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::EqualityOperator("="));
+        assert_eq!(tokens.next().unwrap(), VB6Token::StringLiteral("\"Something\""));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Newline("\n"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::AttributeKeyword("Attribute"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Identifier("VB_GlobalNameSpace"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::EqualityOperator("="));
+        assert_eq!(tokens.next().unwrap(), VB6Token::FalseKeyword("False"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Newline("\n"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::AttributeKeyword("Attribute"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Identifier("VB_Creatable"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::EqualityOperator("="));
+        assert_eq!(tokens.next().unwrap(), VB6Token::TrueKeyword("True"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Newline("\n"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::AttributeKeyword("Attribute"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Identifier("VB_PredeclaredId"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::EqualityOperator("="));
+        assert_eq!(tokens.next().unwrap(), VB6Token::FalseKeyword("False"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Newline("\n"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::AttributeKeyword("Attribute"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::Identifier("VB_Exposed"));
+        assert_eq!(tokens.next().unwrap(), VB6Token::EqualityOperator("="));
         assert_eq!(tokens.next().unwrap(), VB6Token::FalseKeyword("False"));
         assert_eq!(tokens.next().unwrap(), VB6Token::Newline("\n"));
         assert_eq!(tokens.next().unwrap(), VB6Token::EOF);

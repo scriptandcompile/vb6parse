@@ -34,6 +34,7 @@ pub struct VB6FileFormatVersion {
     pub minor: u8,
 }
 
+#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize)]
 pub enum HeaderKind {
     Class,
     Form,

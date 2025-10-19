@@ -963,7 +963,7 @@ pub enum VB6Token<'a> {
     /// Used only as the last argument in arglist to indicate that the final
     /// argument is an Optional array of Variant elements. The 'ParamArray'
     /// keyword allows you to provide an arbitrary number of arguments. It may
-    /// not be used with 'ByVal', 'ByRef', or Optional.
+    /// not be used with `ByVal`, `ByRef`, or `Optional`.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445198(v=vs.60))
     ParamArrayKeyword(&'a str),
