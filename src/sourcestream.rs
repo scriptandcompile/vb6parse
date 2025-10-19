@@ -360,7 +360,7 @@ impl<'a> SourceStream<'a> {
         }
 
         match none_on_eos {
-            true => return None,
+            true => None,
             false => {
                 let result = &self.contents[self.offset..end_offset];
                 self.offset = end_offset;
@@ -369,7 +369,7 @@ impl<'a> SourceStream<'a> {
                     return None;
                 }
 
-                return Some(result);
+                Some(result)
             }
         }
     }
@@ -604,8 +604,9 @@ impl<'a> SourceStream<'a> {
         line_end: usize,
         error_kind: T,
     ) -> ErrorDetails<'a, T> {
-        let mut offsets = vec![line_start, offset, line_end];
-        offsets.sort();
+        let mut offsets = [line_start, offset, line_end];
+        // Used unstable sort for performance since order of usize primitives is identical to stable sort.
+        offsets.sort_unstable();
 
         if offsets[2] > self.contents.len() {
             offsets[2] = self.contents.len();

@@ -84,6 +84,7 @@ impl<'a> VB6ClassFile<'a> {
     ///
     /// assert!(result.has_result());
     /// ```
+    #[must_use]
     pub fn parse(source_file: &'a SourceFile) -> ParseResult<'a, Self, VB6ClassErrorKind<'a>> {
         let mut input = source_file.get_source_stream();
 
