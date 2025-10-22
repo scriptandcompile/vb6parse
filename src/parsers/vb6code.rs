@@ -203,12 +203,12 @@ static SYMBOL_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, for<'a> fn(&'a str) -
 ///
 /// ```rust
 /// use vb6parse::language::VB6Token;
-/// use vb6parse::parsers::vb6_code_tokenize;
+/// use vb6parse::parsers::tokenize;
 /// use vb6parse::SourceStream;
 ///
 ///
 /// let mut input = SourceStream::new("test.bas", "Dim x As Integer");
-/// let result = vb6_code_tokenize(&mut input);
+/// let result = tokenize(&mut input);
 ///
 /// if result.has_failures() {
 ///     for failure in result.failures {
@@ -228,7 +228,7 @@ static SYMBOL_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, for<'a> fn(&'a str) -
 /// assert_eq!(tokens[5], VB6Token::Whitespace(" ".into()));
 /// assert_eq!(tokens[6], VB6Token::IntegerKeyword("Integer".into()));
 /// ```
-pub fn vb6_code_tokenize<'a>(
+pub fn tokenize<'a>(
     input: &mut SourceStream<'a>,
 ) -> ParseResult<'a, Vec<VB6Token<'a>>, VB6CodeErrorKind> {
     let mut failures = vec![];
@@ -308,10 +308,10 @@ pub fn vb6_code_tokenize<'a>(
     (tokens, failures).into()
 }
 
-pub fn vb6_code_tokenize_without_whitespaces<'a>(
+pub fn tokenize_without_whitespaces<'a>(
     input: &mut SourceStream<'a>,
 ) -> ParseResult<'a, Vec<VB6Token<'a>>, VB6CodeErrorKind> {
-    let parse_result = vb6_code_tokenize(input);
+    let parse_result = tokenize(input);
 
     if parse_result.has_failures() {
         return parse_result;
@@ -549,11 +549,11 @@ mod test {
 
     #[test]
     fn vb6_tokenize() {
-        use crate::vb6code::vb6_code_tokenize;
+        use crate::vb6code::tokenize;
         use crate::SourceStream;
 
         let mut input = SourceStream::new("", "Dim x As Integer");
-        let result = vb6_code_tokenize(&mut input);
+        let result = tokenize(&mut input);
 
         if result.has_failures() {
             result.failures[0].eprint();
@@ -574,11 +574,11 @@ mod test {
 
     #[test]
     fn vb6_string_as_end_of_stream_tokenize() {
-        use crate::vb6code::vb6_code_tokenize;
+        use crate::vb6code::tokenize;
         use crate::SourceStream;
 
         let mut input = SourceStream::new("", r#"x = "Test""#);
-        let result = vb6_code_tokenize(&mut input);
+        let result = tokenize(&mut input);
 
         if result.has_failures() {
             result.failures[0].eprint();
@@ -597,11 +597,11 @@ mod test {
 
     #[test]
     fn vb6_string_at_start_of_stream_tokenize() {
-        use crate::vb6code::vb6_code_tokenize;
+        use crate::vb6code::tokenize;
         use crate::SourceStream;
 
         let mut input = SourceStream::new("", r#""Text""#);
-        let result = vb6_code_tokenize(&mut input);
+        let result = tokenize(&mut input);
 
         if result.has_failures() {
             result.failures[0].eprint();
@@ -616,11 +616,11 @@ mod test {
 
     #[test]
     fn vb6_string_tokenize() {
-        use crate::vb6code::vb6_code_tokenize;
+        use crate::vb6code::tokenize;
         use crate::SourceStream;
 
         let mut input = SourceStream::new("", r#"x = "Test" 'This is a comment."#);
-        let result = vb6_code_tokenize(&mut input);
+        let result = tokenize(&mut input);
 
         if result.has_failures() {
             result.failures[0].eprint();
@@ -641,7 +641,7 @@ mod test {
 
     #[test]
     fn class_file_tokenize() {
-        use crate::vb6code::vb6_code_tokenize;
+        use crate::vb6code::tokenize;
         use crate::SourceStream;
 
         let source_code = "VERSION 1.0 CLASS
@@ -660,7 +660,7 @@ Attribute VB_Exposed = False
 ";
     
         let mut input = SourceStream::new("", source_code);
-        let result = vb6_code_tokenize(&mut input);
+        let result = tokenize(&mut input);
 
         if result.has_failures() {
             result.failures[0].eprint();
@@ -773,7 +773,7 @@ Attribute VB_Exposed = False
 
     #[test]
     fn class_file_tokenize_without_whitespace() {
-        use crate::vb6code::vb6_code_tokenize_without_whitespaces;
+        use crate::vb6code::tokenize_without_whitespaces;
         use crate::SourceStream;
 
         let source_code = "VERSION 1.0 CLASS
@@ -792,7 +792,7 @@ Attribute VB_Exposed = False
 ";
     
         let mut input = SourceStream::new("", source_code);
-        let result = vb6_code_tokenize_without_whitespaces(&mut input);
+        let result = tokenize_without_whitespaces(&mut input);
 
         if result.has_failures() {
             result.failures[0].eprint();
