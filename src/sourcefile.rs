@@ -49,7 +49,7 @@ impl SourceFile {
             decoder.decode_to_string(source_code, &mut source_file.file_content, last);
 
         if source_file.file_content.len() == source_code.len() {
-            // looks like we actually succeeded even if the coder_result might be
+            // It looks like we actually succeeded even if the coder_result might be
             // confused at that.
             return Ok(source_file);
         }
