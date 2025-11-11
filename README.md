@@ -16,6 +16,57 @@ VB6Parse aims to be a complete, end-to-end parser library for VB6. Including, bu
 * (*.ttx) Crystal Report files.
 * (*.dob) User Document files.
 
+## Architecture
+
+```mermaid
+block
+    columns 5
+    space:2 bytes["Bytes"] strings["String"] file["File"]
+    
+    space:5
+
+    space sourcestream["SourceStream"] space:3
+
+    bytes --> sourcestream
+    strings --> sourcestream
+    file --> sourcestream
+
+    space tokenize(["tokenize()"]) space:3
+
+    sourcestream-->tokenize
+
+
+    space tokenstream["TokenStream"] space:3
+    
+    tokenize <--> tokenstream
+
+    space parse(["parse()"]) space:3
+
+    tokenstream --> parse
+
+
+    space cst["CST"] space:3
+
+    parse <--> cst
+
+    space:5
+
+    block:objectlayerblock:6
+        columns 5
+        space:2  objectlayer{{"Object Layer"}} space:2
+
+        project["Project"] class["Class"] module["Module"] form["Form"] control["Control"]
+
+    end
+
+    cst --> objectlayerblock
+
+    bytes --> objectlayerblock
+    strings --> objectlayerblock
+    file --> objectlayerblock
+
+```
+
 ## Current support:
 
 First work has focused on the (vbp) project files since is the method to discover all other files that should be linked/referenced within a project.
