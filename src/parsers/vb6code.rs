@@ -3,6 +3,7 @@ use phf::{OrderedMap, phf_ordered_map};
 use crate::{
     language::VB6Token,
     parsers::{Comparator, ParseResult, SourceStream},
+    tokenstream::TokenStream,
     VB6CodeErrorKind,
 };
 
@@ -230,7 +231,7 @@ static SYMBOL_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, VB6Token> = phf_order
 /// ```
 pub fn tokenize<'a>(
     input: &mut SourceStream<'a>,
-) -> ParseResult<'a, Vec<(&'a str, VB6Token)>, VB6CodeErrorKind> {
+) -> ParseResult<'a, TokenStream<'a>, VB6CodeErrorKind> {
     let mut failures = vec![];
     let mut tokens = Vec::new();
 
@@ -304,26 +305,29 @@ pub fn tokenize<'a>(
         }
     }
 
-    (tokens, failures).into()
+    let token_stream = TokenStream::new(input.file_name.clone(), tokens);
+    (token_stream, failures).into()
 }
 
 pub fn tokenize_without_whitespaces<'a>(
     input: &mut SourceStream<'a>,
-) -> ParseResult<'a, Vec<(&'a str, VB6Token)>, VB6CodeErrorKind> {
+) -> ParseResult<'a, TokenStream<'a>, VB6CodeErrorKind> {
     let parse_result = tokenize(input);
 
     if parse_result.has_failures() {
         return parse_result;
     }
 
-    let tokens = parse_result.result.unwrap();
-    let tokens_without_whitespaces: Vec<(&str, VB6Token)> = tokens
+    let token_stream = parse_result.result.unwrap();
+    let tokens_without_whitespaces: Vec<(&str, VB6Token)> = token_stream
+        .tokens
         .into_iter()
         .filter(|(_, token)| !matches!(token, VB6Token::Whitespace))
         .collect();
 
+    let filtered_stream = TokenStream::new(token_stream.source_file, tokens_without_whitespaces);
     ParseResult {
-        result: Some(tokens_without_whitespaces),
+        result: Some(filtered_stream),
         failures: vec![],
     }
 }

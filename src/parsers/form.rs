@@ -24,6 +24,7 @@ use crate::{
         },
         Properties, VB6ObjectReference, VB6Stream,
     },
+    tokenstream::TokenStream,
     vb6::{keyword_parse, line_comment_parse, string_parse, vb6_parse, VB6Result},
 };
 
@@ -34,7 +35,7 @@ pub struct VB6FormFile<'a> {
     pub objects: Vec<VB6ObjectReference<'a>>,
     pub format_version: VB6FileFormatVersion,
     pub attributes: VB6FileAttributes<'a>,
-    pub tokens: Vec<(&'a str, VB6Token)>,
+    pub tokens: TokenStream<'a>,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
@@ -556,7 +557,7 @@ impl<'a> VB6FormFile<'a> {
         };
 
         let tokens = match vb6_parse.parse_next(&mut input) {
-            Ok(tokens) => tokens,
+            Ok(token_vec) => TokenStream::new(form_path.to_string(), token_vec),
             Err(err) => match err.into_inner() {
                 Err(_) => return Err(input.error(VB6ErrorKind::TokenParseError)),
                 Ok(err) => return Err(input.error(err)),

@@ -17,6 +17,7 @@ use crate::{
             PreDeclaredID, VB6FileAttributes, VB6FileFormatVersion,
         },
     },
+    tokenstream::TokenStream,
     vb6code::tokenize,
     ParseResult, SourceFile, SourceStream, VB6Tokenizer,
 };
@@ -32,7 +33,7 @@ use crate::{
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct VB6ClassFile<'a> {
     pub header: VB6ClassHeader<'a>,
-    pub tokens: Vec<(&'a str, VB6Token)>,
+    pub tokens: TokenStream<'a>,
 }
 
 impl<'a> VB6ClassFile<'a> {
