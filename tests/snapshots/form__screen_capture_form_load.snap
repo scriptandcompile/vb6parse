@@ -354,420 +354,837 @@ attributes:
   description: ~
   ext_key: {}
 tokens:
-  - Comment: "'***************************************************************************"
-  - Newline: "\r\n"
-  - Comment: "'Copyright 2018 by Tanner Helland"
-  - Newline: "\r\n"
-  - Comment: "' www.tannerhelland.com"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'Documentation for this project can be found at https://tannerhelland.com/code/"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'The source code in this project is licensed under a Simplified BSD license."
-  - Newline: "\r\n"
-  - Comment: "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'***************************************************************************"
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'This gives us the hWnd (window handle) of the screen"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - DeclareKeyword: Declare
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: GetDesktopWindow
-  - Whitespace: " "
-  - LibKeyword: Lib
-  - Whitespace: " "
-  - StringLiteral: "\"user32\""
-  - Whitespace: " "
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'This assigns an hDC (device context handle) from an hWnd"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - DeclareKeyword: Declare
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: GetDC
-  - Whitespace: " "
-  - LibKeyword: Lib
-  - Whitespace: " "
-  - StringLiteral: "\"user32\""
-  - Whitespace: " "
-  - LeftParentheses: (
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: hWnd
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'BitBlt lets us draw an image from a hDC to another hDC (in our case, from an hDC of the screen capture to the hDC of a VB picture box)"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - DeclareKeyword: Declare
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: BitBlt
-  - Whitespace: " "
-  - LibKeyword: Lib
-  - Whitespace: " "
-  - StringLiteral: "\"gdi32\""
-  - Whitespace: " "
-  - LeftParentheses: (
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: hDC
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: x
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: y
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: nWidth
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: nHeight
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: hSrcDC
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: xSrc
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: ySrc
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: opCode
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'ReleaseDC is used to free the hDC we generate for the screen capture."
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - DeclareKeyword: Declare
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: ReleaseDC
-  - Whitespace: " "
-  - LibKeyword: Lib
-  - Whitespace: " "
-  - StringLiteral: "\"user32\""
-  - Whitespace: " "
-  - LeftParentheses: (
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: hWnd
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: hDC
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'This sample project copies the screen when the form loads; you could also place this code in a command button (or any other input)"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: Form_Load
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'First, minimize this window"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - MeKeyword: Me
-  - PeriodOperator: "."
-  - Identifier: WindowState
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: vbMinimized
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Get the hWnd of the screen"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: scrHwnd
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: scrHwnd
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: GetDesktopWindow
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Now, assign an hDC to the hWnd we generated"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: shDC
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: shDC
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: GetDC
-  - LeftParentheses: (
-  - Identifier: scrHwnd
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Determine the size of the screen"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: screenWidth
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: screenHeight
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: screenWidth
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Screen
-  - PeriodOperator: "."
-  - WidthKeyword: Width
-  - Whitespace: " "
-  - BackwardSlashOperator: "\\"
-  - Whitespace: " "
-  - Identifier: Screen
-  - PeriodOperator: "."
-  - Identifier: TwipsPerPixelX
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: screenHeight
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Screen
-  - PeriodOperator: "."
-  - Identifier: Height
-  - Whitespace: " "
-  - BackwardSlashOperator: "\\"
-  - Whitespace: " "
-  - Identifier: Screen
-  - PeriodOperator: "."
-  - Identifier: TwipsPerPixelY
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Copy the pixel data from the screen into our form"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: BitBlt
-  - Whitespace: " "
-  - MeKeyword: Me
-  - PeriodOperator: "."
-  - Identifier: hDC
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: screenWidth
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: screenHeight
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: shDC
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbSrcCopy
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Release our hold on the screen DC"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: ReleaseDC
-  - Whitespace: " "
-  - Identifier: scrHwnd
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: shDC
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - MeKeyword: Me
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - MeKeyword: Me
-  - PeriodOperator: "."
-  - Identifier: Image
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Restore the window"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - MeKeyword: Me
-  - PeriodOperator: "."
-  - Identifier: WindowState
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: vbNormal
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
+  - - "'***************************************************************************"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Copyright 2018 by Tanner Helland"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' www.tannerhelland.com"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'The source code in this project is licensed under a Simplified BSD license."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'***************************************************************************"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'This gives us the hWnd (window handle) of the screen"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Declare
+    - DeclareKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - GetDesktopWindow
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Lib
+    - LibKeyword
+  - - " "
+    - Whitespace
+  - - "\"user32\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'This assigns an hDC (device context handle) from an hWnd"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Declare
+    - DeclareKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - GetDC
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Lib
+    - LibKeyword
+  - - " "
+    - Whitespace
+  - - "\"user32\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - hWnd
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'BitBlt lets us draw an image from a hDC to another hDC (in our case, from an hDC of the screen capture to the hDC of a VB picture box)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Declare
+    - DeclareKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - BitBlt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Lib
+    - LibKeyword
+  - - " "
+    - Whitespace
+  - - "\"gdi32\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - hDC
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - nWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - nHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - hSrcDC
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - xSrc
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - ySrc
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - opCode
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'ReleaseDC is used to free the hDC we generate for the screen capture."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Declare
+    - DeclareKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - ReleaseDC
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Lib
+    - LibKeyword
+  - - " "
+    - Whitespace
+  - - "\"user32\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - hWnd
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - hDC
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'This sample project copies the screen when the form loads; you could also place this code in a command button (or any other input)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - Form_Load
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'First, minimize this window"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Me
+    - MeKeyword
+  - - "."
+    - PeriodOperator
+  - - WindowState
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - vbMinimized
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Get the hWnd of the screen"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - scrHwnd
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - scrHwnd
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - GetDesktopWindow
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Now, assign an hDC to the hWnd we generated"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - shDC
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - shDC
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - GetDC
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - scrHwnd
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Determine the size of the screen"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - screenWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - screenHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - screenWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Screen
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Width
+    - WidthKeyword
+  - - " "
+    - Whitespace
+  - - "\\"
+    - BackwardSlashOperator
+  - - " "
+    - Whitespace
+  - - Screen
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - TwipsPerPixelX
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - screenHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Screen
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Height
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "\\"
+    - BackwardSlashOperator
+  - - " "
+    - Whitespace
+  - - Screen
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - TwipsPerPixelY
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Copy the pixel data from the screen into our form"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - BitBlt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Me
+    - MeKeyword
+  - - "."
+    - PeriodOperator
+  - - hDC
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - screenWidth
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - screenHeight
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - shDC
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbSrcCopy
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Release our hold on the screen DC"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - ReleaseDC
+    - Identifier
+  - - " "
+    - Whitespace
+  - - scrHwnd
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - shDC
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Me
+    - MeKeyword
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Me
+    - MeKeyword
+  - - "."
+    - PeriodOperator
+  - - Image
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Restore the window"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Me
+    - MeKeyword
+  - - "."
+    - PeriodOperator
+  - - WindowState
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - vbNormal
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline

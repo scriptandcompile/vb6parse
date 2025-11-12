@@ -336,15 +336,15 @@ fn string_fragment_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<StringFragm
 /// let tokens = vb6_parse(&mut input).unwrap();
 ///
 /// assert_eq!(tokens.len(), 7);
-/// assert_eq!(tokens[0], VB6Token::DimKeyword("Dim".into()));
-/// assert_eq!(tokens[1], VB6Token::Whitespace(" ".into()));
-/// assert_eq!(tokens[2], VB6Token::Identifier("x".into()));
-/// assert_eq!(tokens[3], VB6Token::Whitespace(" ".into()));
-/// assert_eq!(tokens[4], VB6Token::AsKeyword("As".into()));
-/// assert_eq!(tokens[5], VB6Token::Whitespace(" ".into()));
-/// assert_eq!(tokens[6], VB6Token::IntegerKeyword("Integer".into()));
+/// assert_eq!(tokens[0], ("Dim", VB6Token::DimKeyword));
+/// assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
+/// assert_eq!(tokens[2], ("x", VB6Token::Identifier));
+/// assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
+/// assert_eq!(tokens[4], ("As", VB6Token::AsKeyword));
+/// assert_eq!(tokens[5], (" ", VB6Token::Whitespace));
+/// assert_eq!(tokens[6], ("Integer", VB6Token::IntegerKeyword));
 /// ```
-pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6Token<'a>>> {
+pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<(&'a str, VB6Token)>> {
     let mut tokens = Vec::new();
 
     if !is_english_code(input.stream) {
@@ -361,20 +361,20 @@ pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6Token<'a>>> 
         }
 
         if let Ok(token) = line_ending::<VB6Stream<'a>, VB6ErrorKind>.parse_next(input) {
-            let token = VB6Token::Newline(token.to_str().unwrap());
-            tokens.push(token);
+            let token_text = token.to_str().unwrap();
+            tokens.push((token_text, VB6Token::Newline));
             continue;
         }
 
         if let Ok(token) = line_comment_parse.parse_next(input) {
-            let token = VB6Token::Comment(token.to_str().unwrap());
-            tokens.push(token);
+            let token_text = token.to_str().unwrap();
+            tokens.push((token_text, VB6Token::Comment));
             continue;
         }
 
         if let Ok(token) = rem_comment_parse.parse_next(input) {
-            let token = VB6Token::RemComment(token.to_str().unwrap());
-            tokens.push(token);
+            let token_text = token.to_str().unwrap();
+            tokens.push((token_text, VB6Token::RemComment));
             continue;
         }
 
@@ -386,13 +386,13 @@ pub fn vb6_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<Vec<VB6Token<'a>>> 
         .take()
         .parse_next(input)
         {
-            let token = VB6Token::StringLiteral(token.to_str().unwrap());
-            tokens.push(token);
+            let token_text = token.to_str().unwrap();
+            tokens.push((token_text, VB6Token::StringLiteral));
             continue;
         }
 
-        if let Ok(token) = vb6_token_parse.parse_next(input) {
-            tokens.push(token);
+        if let Ok((token_text, token_type)) = vb6_token_parse.parse_next(input) {
+            tokens.push((token_text, token_type));
             continue;
         }
 
@@ -439,211 +439,211 @@ pub fn is_english_code(content: &BStr) -> bool {
     higher_half_character_count == 0 || (100 * higher_half_character_count / character_count) < 1
 }
 
-fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
+fn vb6_keyword_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<(&'a str, VB6Token)> {
     // 'alt' only allows for a limited number of parsers to be passed in.
     // so we need to chain the 'alt' parsers together.
 
     alt((
         alt((
-            keyword_parse("AddressOf").map(|token: &BStr| VB6Token::AddressOfKeyword(token.to_str().unwrap())),
-            keyword_parse("Alias").map(|token: &BStr| VB6Token::AliasKeyword(token.to_str().unwrap())),
-            keyword_parse("And").map(|token: &BStr| VB6Token::AndKeyword(token.to_str().unwrap())),
-            keyword_parse("AppActivate").map(|token: &BStr| VB6Token::AppActivateKeyword(token.to_str().unwrap())),
-            keyword_parse("As").map(|token: &BStr| VB6Token::AsKeyword(token.to_str().unwrap())),
-            keyword_parse("Base").map(|token: &BStr| VB6Token::BaseKeyword(token.to_str().unwrap())),
-            keyword_parse("Beep").map(|token: &BStr| VB6Token::BeepKeyword(token.to_str().unwrap())),
-            keyword_parse("Binary").map(|token: &BStr| VB6Token::BinaryKeyword(token.to_str().unwrap())),
-            keyword_parse("Boolean").map(|token: &BStr| VB6Token::BooleanKeyword(token.to_str().unwrap())),
-            keyword_parse("ByRef").map(|token: &BStr| VB6Token::ByRefKeyword(token.to_str().unwrap())),
-            keyword_parse("Byte").map(|token: &BStr| VB6Token::ByteKeyword(token.to_str().unwrap())),
-            keyword_parse("ByVal").map(|token: &BStr| VB6Token::ByValKeyword(token.to_str().unwrap())),
-            keyword_parse("Call").map(|token: &BStr| VB6Token::CallKeyword(token.to_str().unwrap())),
-            keyword_parse("Case").map(|token: &BStr| VB6Token::CaseKeyword(token.to_str().unwrap())),
-            keyword_parse("ChDir").map(|token: &BStr| VB6Token::ChDirKeyword(token.to_str().unwrap())),
-            keyword_parse("ChDrive").map(|token: &BStr| VB6Token::ChDriveKeyword(token.to_str().unwrap())),
-            keyword_parse("Close").map(|token: &BStr| VB6Token::CloseKeyword(token.to_str().unwrap())),
-            keyword_parse("Compare").map(|token: &BStr| VB6Token::CompareKeyword(token.to_str().unwrap())),
-            keyword_parse("Const").map(|token: &BStr| VB6Token::ConstKeyword(token.to_str().unwrap())),
-            keyword_parse("Currency").map(|token: &BStr| VB6Token::CurrencyKeyword(token.to_str().unwrap())),
-            keyword_parse("Date").map(|token: &BStr| VB6Token::DateKeyword(token.to_str().unwrap())),
+            keyword_parse("AddressOf").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::AddressOfKeyword)),
+            keyword_parse("Alias").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::AliasKeyword)),
+            keyword_parse("And").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::AndKeyword)),
+            keyword_parse("AppActivate").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::AppActivateKeyword)),
+            keyword_parse("As").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::AsKeyword)),
+            keyword_parse("Base").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::BaseKeyword)),
+            keyword_parse("Beep").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::BeepKeyword)),
+            keyword_parse("Binary").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::BinaryKeyword)),
+            keyword_parse("Boolean").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::BooleanKeyword)),
+            keyword_parse("ByRef").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::ByRefKeyword)),
+            keyword_parse("Byte").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::ByteKeyword)),
+            keyword_parse("ByVal").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::ByValKeyword)),
+            keyword_parse("Call").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::CallKeyword)),
+            keyword_parse("Case").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::CaseKeyword)),
+            keyword_parse("ChDir").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::ChDirKeyword)),
+            keyword_parse("ChDrive").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::ChDriveKeyword)),
+            keyword_parse("Close").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::CloseKeyword)),
+            keyword_parse("Compare").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::CompareKeyword)),
+            keyword_parse("Const").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::ConstKeyword)),
+            keyword_parse("Currency").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::CurrencyKeyword)),
+            keyword_parse("Date").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::DateKeyword)),
         )),
         alt((
-            keyword_parse("Decimal").map(|token: &BStr| VB6Token::DecimalKeyword(token.to_str().unwrap())),
-            keyword_parse("Declare").map(|token: &BStr| VB6Token::DeclareKeyword(token.to_str().unwrap())),
-            keyword_parse("DefBool").map(|token: &BStr| VB6Token::DefBoolKeyword(token.to_str().unwrap())),
-            keyword_parse("DefByte").map(|token: &BStr| VB6Token::DefByteKeyword(token.to_str().unwrap())),
-            keyword_parse("DefCur").map(|token: &BStr| VB6Token::DefCurKeyword(token.to_str().unwrap())),
-            keyword_parse("DefDate").map(|token: &BStr| VB6Token::DefDateKeyword(token.to_str().unwrap())),
-            keyword_parse("DefDbl").map(|token: &BStr| VB6Token::DefDblKeyword(token.to_str().unwrap())),
-            keyword_parse("DefDec").map(|token: &BStr| VB6Token::DefDecKeyword(token.to_str().unwrap())),
-            keyword_parse("DefInt").map(|token: &BStr| VB6Token::DefIntKeyword(token.to_str().unwrap())),
-            keyword_parse("DefLng").map(|token: &BStr| VB6Token::DefLngKeyword(token.to_str().unwrap())),
-            keyword_parse("DefObj").map(|token: &BStr| VB6Token::DefObjKeyword(token.to_str().unwrap())),
-            keyword_parse("DefSng").map(|token: &BStr| VB6Token::DefSngKeyword(token.to_str().unwrap())),
-            keyword_parse("DefStr").map(|token: &BStr| VB6Token::DefStrKeyword(token.to_str().unwrap())),
-            keyword_parse("DefVar").map(|token: &BStr| VB6Token::DefVarKeyword(token.to_str().unwrap())),
+            keyword_parse("Decimal").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::DecimalKeyword)),
+            keyword_parse("Declare").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::DeclareKeyword)),
+            keyword_parse("DefBool").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::DefBoolKeyword)),
+            keyword_parse("DefByte").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::DefByteKeyword)),
+            keyword_parse("DefCur").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::DefCurKeyword)),
+            keyword_parse("DefDate").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::DefDateKeyword)),
+            keyword_parse("DefDbl").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::DefDblKeyword)),
+            keyword_parse("DefDec").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::DefDecKeyword)),
+            keyword_parse("DefInt").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::DefIntKeyword)),
+            keyword_parse("DefLng").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::DefLngKeyword)),
+            keyword_parse("DefObj").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::DefObjKeyword)),
+            keyword_parse("DefSng").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::DefSngKeyword)),
+            keyword_parse("DefStr").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::DefStrKeyword)),
+            keyword_parse("DefVar").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::DefVarKeyword)),
             keyword_parse("DeleteSetting")
-                .map(|token: &BStr| VB6Token::DeleteSettingKeyword(token.to_str().unwrap())),
-            keyword_parse("Dim").map(|token: &BStr| VB6Token::DimKeyword(token.to_str().unwrap())),
-            keyword_parse("Do").map(|token: &BStr| VB6Token::DoKeyword(token.to_str().unwrap())),
-            keyword_parse("Double").map(|token: &BStr| VB6Token::DoubleKeyword(token.to_str().unwrap())),
+                .map(|token: &BStr| (token.to_str().unwrap(), VB6Token::DeleteSettingKeyword)),
+            keyword_parse("Dim").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::DimKeyword)),
+            keyword_parse("Do").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::DoKeyword)),
+            keyword_parse("Double").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::DoubleKeyword)),
             // switched so that `Else` isn't selected before `ElseIf`.
-            keyword_parse("ElseIf").map(|token: &BStr| VB6Token::ElseIfKeyword(token.to_str().unwrap())),
+            keyword_parse("ElseIf").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::ElseIfKeyword)),
         )),
         alt((
-            keyword_parse("Else").map(|token: &BStr| VB6Token::ElseKeyword(token.to_str().unwrap())),
-            keyword_parse("Empty").map(|token: &BStr| VB6Token::EmptyKeyword(token.to_str().unwrap())),
-            keyword_parse("End").map(|token: &BStr| VB6Token::EndKeyword(token.to_str().unwrap())),
-            keyword_parse("Enum").map(|token: &BStr| VB6Token::EnumKeyword(token.to_str().unwrap())),
-            keyword_parse("Eqv").map(|token: &BStr| VB6Token::EqvKeyword(token.to_str().unwrap())),
-            keyword_parse("Erase").map(|token: &BStr| VB6Token::EraseKeyword(token.to_str().unwrap())),
-            keyword_parse("Error").map(|token: &BStr| VB6Token::ErrorKeyword(token.to_str().unwrap())),
-            keyword_parse("Event").map(|token: &BStr| VB6Token::EventKeyword(token.to_str().unwrap())),
-            keyword_parse("Exit").map(|token: &BStr| VB6Token::ExitKeyword(token.to_str().unwrap())),
-            keyword_parse("Explicit").map(|token: &BStr| VB6Token::ExplicitKeyword(token.to_str().unwrap())),
-            keyword_parse("False").map(|token: &BStr| VB6Token::FalseKeyword(token.to_str().unwrap())),
-            keyword_parse("FileCopy").map(|token: &BStr| VB6Token::FileCopyKeyword(token.to_str().unwrap())),
-            keyword_parse("For").map(|token: &BStr| VB6Token::ForKeyword(token.to_str().unwrap())),
-            keyword_parse("Friend").map(|token: &BStr| VB6Token::FriendKeyword(token.to_str().unwrap())),
-            keyword_parse("Function").map(|token: &BStr| VB6Token::FunctionKeyword(token.to_str().unwrap())),
-            keyword_parse("Get").map(|token: &BStr| VB6Token::GetKeyword(token.to_str().unwrap())),
-            keyword_parse("Goto").map(|token: &BStr| VB6Token::GotoKeyword(token.to_str().unwrap())),
-            keyword_parse("If").map(|token: &BStr| VB6Token::IfKeyword(token.to_str().unwrap())),
+            keyword_parse("Else").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::ElseKeyword)),
+            keyword_parse("Empty").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::EmptyKeyword)),
+            keyword_parse("End").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::EndKeyword)),
+            keyword_parse("Enum").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::EnumKeyword)),
+            keyword_parse("Eqv").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::EqvKeyword)),
+            keyword_parse("Erase").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::EraseKeyword)),
+            keyword_parse("Error").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::ErrorKeyword)),
+            keyword_parse("Event").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::EventKeyword)),
+            keyword_parse("Exit").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::ExitKeyword)),
+            keyword_parse("Explicit").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::ExplicitKeyword)),
+            keyword_parse("False").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::FalseKeyword)),
+            keyword_parse("FileCopy").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::FileCopyKeyword)),
+            keyword_parse("For").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::ForKeyword)),
+            keyword_parse("Friend").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::FriendKeyword)),
+            keyword_parse("Function").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::FunctionKeyword)),
+            keyword_parse("Get").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::GetKeyword)),
+            keyword_parse("Goto").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::GotoKeyword)),
+            keyword_parse("If").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::IfKeyword)),
             // switched so that `Imp` isn't selected before `Implements`.
-            keyword_parse("Implements").map(|token: &BStr| VB6Token::ImplementsKeyword(token.to_str().unwrap())),
-            keyword_parse("Imp").map(|token: &BStr| VB6Token::ImpKeyword(token.to_str().unwrap())),
-            keyword_parse("Input").map(|token: &BStr| VB6Token::InputKeyword(token.to_str().unwrap())),
+            keyword_parse("Implements").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::ImplementsKeyword)),
+            keyword_parse("Imp").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::ImpKeyword)),
+            keyword_parse("Input").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::InputKeyword)),
         )),
         alt((
-            keyword_parse("Integer").map(|token: &BStr| VB6Token::IntegerKeyword(token.to_str().unwrap())),
-            keyword_parse("Is").map(|token: &BStr| VB6Token::IsKeyword(token.to_str().unwrap())),
-            keyword_parse("Kill").map(|token: &BStr| VB6Token::KillKeyword(token.to_str().unwrap())),
-            keyword_parse("Len").map(|token: &BStr| VB6Token::LenKeyword(token.to_str().unwrap())),
-            keyword_parse("Let").map(|token: &BStr| VB6Token::LetKeyword(token.to_str().unwrap())),
-            keyword_parse("Lib").map(|token: &BStr| VB6Token::LibKeyword(token.to_str().unwrap())),
-            keyword_parse("Line").map(|token: &BStr| VB6Token::LineKeyword(token.to_str().unwrap())),
-            keyword_parse("Lock").map(|token: &BStr| VB6Token::LockKeyword(token.to_str().unwrap())),
-            keyword_parse("Load").map(|token: &BStr| VB6Token::LoadKeyword(token.to_str().unwrap())),
-            keyword_parse("Long").map(|token: &BStr| VB6Token::LongKeyword(token.to_str().unwrap())),
-            keyword_parse("LSet").map(|token: &BStr| VB6Token::LSetKeyword(token.to_str().unwrap())),
-            keyword_parse("Me").map(|token: &BStr| VB6Token::MeKeyword(token.to_str().unwrap())),
-            keyword_parse("Mid").map(|token: &BStr| VB6Token::MidKeyword(token.to_str().unwrap())),
-            keyword_parse("MkDir").map(|token: &BStr| VB6Token::MkDirKeyword(token.to_str().unwrap())),
-            keyword_parse("Mod").map(|token: &BStr| VB6Token::ModKeyword(token.to_str().unwrap())),
-            keyword_parse("Name").map(|token: &BStr| VB6Token::NameKeyword(token.to_str().unwrap())),
-            keyword_parse("New").map(|token: &BStr| VB6Token::NewKeyword(token.to_str().unwrap())),
-            keyword_parse("Next").map(|token: &BStr| VB6Token::NextKeyword(token.to_str().unwrap())),
-            keyword_parse("Not").map(|token: &BStr| VB6Token::NotKeyword(token.to_str().unwrap())),
-            keyword_parse("Null").map(|token: &BStr| VB6Token::NullKeyword(token.to_str().unwrap())),
-            keyword_parse("Object").map(|token: &BStr| VB6Token::ObjectKeyword(token.to_str().unwrap())),
+            keyword_parse("Integer").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::IntegerKeyword)),
+            keyword_parse("Is").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::IsKeyword)),
+            keyword_parse("Kill").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::KillKeyword)),
+            keyword_parse("Len").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::LenKeyword)),
+            keyword_parse("Let").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::LetKeyword)),
+            keyword_parse("Lib").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::LibKeyword)),
+            keyword_parse("Line").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::LineKeyword)),
+            keyword_parse("Lock").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::LockKeyword)),
+            keyword_parse("Load").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::LoadKeyword)),
+            keyword_parse("Long").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::LongKeyword)),
+            keyword_parse("LSet").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::LSetKeyword)),
+            keyword_parse("Me").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::MeKeyword)),
+            keyword_parse("Mid").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::MidKeyword)),
+            keyword_parse("MkDir").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::MkDirKeyword)),
+            keyword_parse("Mod").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::ModKeyword)),
+            keyword_parse("Name").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::NameKeyword)),
+            keyword_parse("New").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::NewKeyword)),
+            keyword_parse("Next").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::NextKeyword)),
+            keyword_parse("Not").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::NotKeyword)),
+            keyword_parse("Null").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::NullKeyword)),
+            keyword_parse("Object").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::ObjectKeyword)),
         )),
         alt((
-            keyword_parse("On").map(|token: &BStr| VB6Token::OnKeyword(token.to_str().unwrap())),
-            keyword_parse("Open").map(|token: &BStr| VB6Token::OpenKeyword(token.to_str().unwrap())),
+            keyword_parse("On").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::OnKeyword)),
+            keyword_parse("Open").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::OpenKeyword)),
             // Switched so that `Option` isn't selected before `Optional`.
-            keyword_parse("Optional").map(|token: &BStr| VB6Token::OptionalKeyword(token.to_str().unwrap())),
-            keyword_parse("Option").map(|token: &BStr| VB6Token::OptionKeyword(token.to_str().unwrap())),
-            keyword_parse("Or").map(|token: &BStr| VB6Token::OrKeyword(token.to_str().unwrap())),
-            keyword_parse("ParamArray").map(|token: &BStr| VB6Token::ParamArrayKeyword(token.to_str().unwrap())),
-            keyword_parse("Preserve").map(|token: &BStr| VB6Token::PreserveKeyword(token.to_str().unwrap())),
-            keyword_parse("Print").map(|token: &BStr| VB6Token::PrintKeyword(token.to_str().unwrap())),
-            keyword_parse("Private").map(|token: &BStr| VB6Token::PrivateKeyword(token.to_str().unwrap())),
-            keyword_parse("Property").map(|token: &BStr| VB6Token::PropertyKeyword(token.to_str().unwrap())),
-            keyword_parse("Public").map(|token: &BStr| VB6Token::PublicKeyword(token.to_str().unwrap())),
-            keyword_parse("Put").map(|token: &BStr| VB6Token::PutKeyword(token.to_str().unwrap())),
-            keyword_parse("RaiseEvent").map(|token: &BStr| VB6Token::RaiseEventKeyword(token.to_str().unwrap())),
-            keyword_parse("Randomize").map(|token: &BStr| VB6Token::RandomizeKeyword(token.to_str().unwrap())),
-            keyword_parse("ReDim").map(|token: &BStr| VB6Token::ReDimKeyword(token.to_str().unwrap())),
-            keyword_parse("Reset").map(|token: &BStr| VB6Token::ResetKeyword(token.to_str().unwrap())),
-            keyword_parse("Resume").map(|token: &BStr| VB6Token::ResumeKeyword(token.to_str().unwrap())),
-            keyword_parse("RmDir").map(|token: &BStr| VB6Token::RmDirKeyword(token.to_str().unwrap())),
-            keyword_parse("RSet").map(|token: &BStr| VB6Token::RSetKeyword(token.to_str().unwrap())),
-            keyword_parse("SavePicture").map(|token: &BStr| VB6Token::SavePictureKeyword(token.to_str().unwrap())),
+            keyword_parse("Optional").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::OptionalKeyword)),
+            keyword_parse("Option").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::OptionKeyword)),
+            keyword_parse("Or").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::OrKeyword)),
+            keyword_parse("ParamArray").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::ParamArrayKeyword)),
+            keyword_parse("Preserve").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::PreserveKeyword)),
+            keyword_parse("Print").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::PrintKeyword)),
+            keyword_parse("Private").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::PrivateKeyword)),
+            keyword_parse("Property").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::PropertyKeyword)),
+            keyword_parse("Public").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::PublicKeyword)),
+            keyword_parse("Put").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::PutKeyword)),
+            keyword_parse("RaiseEvent").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::RaiseEventKeyword)),
+            keyword_parse("Randomize").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::RandomizeKeyword)),
+            keyword_parse("ReDim").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::ReDimKeyword)),
+            keyword_parse("Reset").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::ResetKeyword)),
+            keyword_parse("Resume").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::ResumeKeyword)),
+            keyword_parse("RmDir").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::RmDirKeyword)),
+            keyword_parse("RSet").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::RSetKeyword)),
+            keyword_parse("SavePicture").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::SavePictureKeyword)),
         )),
         alt((
-            keyword_parse("SaveSetting").map(|token: &BStr| VB6Token::SaveSettingKeyword(token.to_str().unwrap())),
-            keyword_parse("Seek").map(|token: &BStr| VB6Token::SeekKeyword(token.to_str().unwrap())),
-            keyword_parse("Select").map(|token: &BStr| VB6Token::SelectKeyword(token.to_str().unwrap())),
-            keyword_parse("SendKeys").map(|token: &BStr| VB6Token::SendKeysKeyword(token.to_str().unwrap())),
+            keyword_parse("SaveSetting").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::SaveSettingKeyword)),
+            keyword_parse("Seek").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::SeekKeyword)),
+            keyword_parse("Select").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::SelectKeyword)),
+            keyword_parse("SendKeys").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::SendKeysKeyword)),
             // Switched so that `Set` isn't selected before `SetAttr`.
-            keyword_parse("SetAttr").map(|token: &BStr| VB6Token::SetAttrKeyword(token.to_str().unwrap())),
-            keyword_parse("Set").map(|token: &BStr| VB6Token::SetKeyword(token.to_str().unwrap())),
-            keyword_parse("Single").map(|token: &BStr| VB6Token::SingleKeyword(token.to_str().unwrap())),
-            keyword_parse("Static").map(|token: &BStr| VB6Token::StaticKeyword(token.to_str().unwrap())),
-            keyword_parse("Step").map(|token: &BStr| VB6Token::StepKeyword(token.to_str().unwrap())),
-            keyword_parse("Stop").map(|token: &BStr| VB6Token::StopKeyword(token.to_str().unwrap())),
-            keyword_parse("String").map(|token: &BStr| VB6Token::StringKeyword(token.to_str().unwrap())),
-            keyword_parse("Sub").map(|token: &BStr| VB6Token::SubKeyword(token.to_str().unwrap())),
-            keyword_parse("Then").map(|token: &BStr| VB6Token::ThenKeyword(token.to_str().unwrap())),
-            keyword_parse("Time").map(|token: &BStr| VB6Token::TimeKeyword(token.to_str().unwrap())),
-            keyword_parse("To").map(|token: &BStr| VB6Token::ToKeyword(token.to_str().unwrap())),
-            keyword_parse("True").map(|token: &BStr| VB6Token::TrueKeyword(token.to_str().unwrap())),
-            keyword_parse("Type").map(|token: &BStr| VB6Token::TypeKeyword(token.to_str().unwrap())),
-            keyword_parse("Unlock").map(|token: &BStr| VB6Token::UnlockKeyword(token.to_str().unwrap())),
-            keyword_parse("Until").map(|token: &BStr| VB6Token::UntilKeyword(token.to_str().unwrap())),
-            keyword_parse("Variant").map(|token: &BStr| VB6Token::VariantKeyword(token.to_str().unwrap())),
-            keyword_parse("Wend").map(|token: &BStr| VB6Token::WendKeyword(token.to_str().unwrap())),
+            keyword_parse("SetAttr").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::SetAttrKeyword)),
+            keyword_parse("Set").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::SetKeyword)),
+            keyword_parse("Single").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::SingleKeyword)),
+            keyword_parse("Static").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::StaticKeyword)),
+            keyword_parse("Step").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::StepKeyword)),
+            keyword_parse("Stop").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::StopKeyword)),
+            keyword_parse("String").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::StringKeyword)),
+            keyword_parse("Sub").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::SubKeyword)),
+            keyword_parse("Then").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::ThenKeyword)),
+            keyword_parse("Time").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::TimeKeyword)),
+            keyword_parse("To").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::ToKeyword)),
+            keyword_parse("True").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::TrueKeyword)),
+            keyword_parse("Type").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::TypeKeyword)),
+            keyword_parse("Unlock").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::UnlockKeyword)),
+            keyword_parse("Until").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::UntilKeyword)),
+            keyword_parse("Variant").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::VariantKeyword)),
+            keyword_parse("Wend").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::WendKeyword)),
         )),
         alt((
-            keyword_parse("While").map(|token: &BStr| VB6Token::WhileKeyword(token.to_str().unwrap())),
-            keyword_parse("Width").map(|token: &BStr| VB6Token::WidthKeyword(token.to_str().unwrap())),
+            keyword_parse("While").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::WhileKeyword)),
+            keyword_parse("Width").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::WidthKeyword)),
             // Switched so that `With` isn't selected before `WithEvents`.
-            keyword_parse("WithEvents").map(|token: &BStr| VB6Token::WithEventsKeyword(token.to_str().unwrap())),
-            keyword_parse("With").map(|token: &BStr| VB6Token::WithKeyword(token.to_str().unwrap())),
-            keyword_parse("Write").map(|token: &BStr| VB6Token::WriteKeyword(token.to_str().unwrap())),
-            keyword_parse("Xor").map(|token: &BStr| VB6Token::XorKeyword(token.to_str().unwrap())),
+            keyword_parse("WithEvents").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::WithEventsKeyword)),
+            keyword_parse("With").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::WithKeyword)),
+            keyword_parse("Write").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::WriteKeyword)),
+            keyword_parse("Xor").map(|token: &BStr| (token.to_str().unwrap(), VB6Token::XorKeyword)),
         )),
     ))
     .parse_next(input)
 }
 
-fn vb6_symbol_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
+fn vb6_symbol_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<(&'a str, VB6Token)> {
     // 'alt' only allows for a limited number of parsers to be passed in.
     // so we need to chain the 'alt' parsers together.
     alt((
         alt((
-            "=".map(|token: &BStr| VB6Token::EqualityOperator(token.to_str().unwrap())),
-            "$".map(|token: &BStr| VB6Token::DollarSign(token.to_str().unwrap())),
-            "_".map(|token: &BStr| VB6Token::Underscore(token.to_str().unwrap())),
-            "&".map(|token: &BStr| VB6Token::Ampersand(token.to_str().unwrap())),
-            "%".map(|token: &BStr| VB6Token::Percent(token.to_str().unwrap())),
-            "#".map(|token: &BStr| VB6Token::Octothorpe(token.to_str().unwrap())),
-            "<".map(|token: &BStr| VB6Token::LessThanOperator(token.to_str().unwrap())),
-            ">".map(|token: &BStr| VB6Token::GreaterThanOperator(token.to_str().unwrap())),
-            "(".map(|token: &BStr| VB6Token::LeftParentheses(token.to_str().unwrap())),
-            ")".map(|token: &BStr| VB6Token::RightParentheses(token.to_str().unwrap())),
-            ",".map(|token: &BStr| VB6Token::Comma(token.to_str().unwrap())),
-            "+".map(|token: &BStr| VB6Token::AdditionOperator(token.to_str().unwrap())),
-            "-".map(|token: &BStr| VB6Token::SubtractionOperator(token.to_str().unwrap())),
-            "*".map(|token: &BStr| VB6Token::MultiplicationOperator(token.to_str().unwrap())),
-            "\\".map(|token: &BStr| VB6Token::BackwardSlashOperator(token.to_str().unwrap())),
-            "/".map(|token: &BStr| VB6Token::DivisionOperator(token.to_str().unwrap())),
-            ".".map(|token: &BStr| VB6Token::PeriodOperator(token.to_str().unwrap())),
-            ":".map(|token: &BStr| VB6Token::ColonOperator(token.to_str().unwrap())),
-            "^".map(|token: &BStr| VB6Token::ExponentiationOperator(token.to_str().unwrap())),
+            "=".map(|token: &BStr| (token.to_str().unwrap(), VB6Token::EqualityOperator)),
+            "$".map(|token: &BStr| (token.to_str().unwrap(), VB6Token::DollarSign)),
+            "_".map(|token: &BStr| (token.to_str().unwrap(), VB6Token::Underscore)),
+            "&".map(|token: &BStr| (token.to_str().unwrap(), VB6Token::Ampersand)),
+            "%".map(|token: &BStr| (token.to_str().unwrap(), VB6Token::Percent)),
+            "#".map(|token: &BStr| (token.to_str().unwrap(), VB6Token::Octothorpe)),
+            "<".map(|token: &BStr| (token.to_str().unwrap(), VB6Token::LessThanOperator)),
+            ">".map(|token: &BStr| (token.to_str().unwrap(), VB6Token::GreaterThanOperator)),
+            "(".map(|token: &BStr| (token.to_str().unwrap(), VB6Token::LeftParentheses)),
+            ")".map(|token: &BStr| (token.to_str().unwrap(), VB6Token::RightParentheses)),
+            ",".map(|token: &BStr| (token.to_str().unwrap(), VB6Token::Comma)),
+            "+".map(|token: &BStr| (token.to_str().unwrap(), VB6Token::AdditionOperator)),
+            "-".map(|token: &BStr| (token.to_str().unwrap(), VB6Token::SubtractionOperator)),
+            "*".map(|token: &BStr| (token.to_str().unwrap(), VB6Token::MultiplicationOperator)),
+            "\\".map(|token: &BStr| (token.to_str().unwrap(), VB6Token::BackwardSlashOperator)),
+            "/".map(|token: &BStr| (token.to_str().unwrap(), VB6Token::DivisionOperator)),
+            ".".map(|token: &BStr| (token.to_str().unwrap(), VB6Token::PeriodOperator)),
+            ":".map(|token: &BStr| (token.to_str().unwrap(), VB6Token::ColonOperator)),
+            "^".map(|token: &BStr| (token.to_str().unwrap(), VB6Token::ExponentiationOperator)),
         )),
         alt((
-            "!".map(|token: &BStr| VB6Token::ExclamationMark(token.to_str().unwrap())),
-            "[".map(|token: &BStr| VB6Token::LeftSquareBracket(token.to_str().unwrap())),
-            "]".map(|token: &BStr| VB6Token::RightSquareBracket(token.to_str().unwrap())),
-            ";".map(|token: &BStr| VB6Token::Semicolon(token.to_str().unwrap())),
-            "@".map(|token: &BStr| VB6Token::AtSign(token.to_str().unwrap())),
+            "!".map(|token: &BStr| (token.to_str().unwrap(), VB6Token::ExclamationMark)),
+            "[".map(|token: &BStr| (token.to_str().unwrap(), VB6Token::LeftSquareBracket)),
+            "]".map(|token: &BStr| (token.to_str().unwrap(), VB6Token::RightSquareBracket)),
+            ";".map(|token: &BStr| (token.to_str().unwrap(), VB6Token::Semicolon)),
+            "@".map(|token: &BStr| (token.to_str().unwrap(), VB6Token::AtSign)),
         )),
     ))
     .parse_next(input)
 }
 
-fn vb6_token_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6Token<'a>> {
+fn vb6_token_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<(&'a str, VB6Token)> {
     // 'alt' only allows for a limited number of parsers to be passed in.
     // so we need to chain the 'alt' parsers together.
     alt((
-        (line_comment_parse).map(|token: &BStr| VB6Token::Comment(token.to_str().unwrap())),
+        (line_comment_parse).map(|token: &BStr| (token.to_str().unwrap(), VB6Token::Comment)),
         vb6_keyword_parse,
         vb6_symbol_parse,
         alt((
-            digit1.map(|token: &BStr| VB6Token::Number(token.to_str().unwrap())),
-            variable_name_parse.map(|token: &BStr| VB6Token::Identifier(token.to_str().unwrap())),
-            space1.map(|token: &BStr| VB6Token::Whitespace(token.to_str().unwrap())),
+            digit1.map(|token: &BStr| (token.to_str().unwrap(), VB6Token::Number)),
+            variable_name_parse.map(|token: &BStr| (token.to_str().unwrap(), VB6Token::Identifier)),
+            space1.map(|token: &BStr| (token.to_str().unwrap(), VB6Token::Whitespace)),
         )),
     ))
     .parse_next(input)
@@ -752,13 +752,13 @@ mod test {
         let tokens = vb6_parse(&mut input).unwrap();
 
         assert_eq!(tokens.len(), 7);
-        assert_eq!(tokens[0], VB6Token::DimKeyword("Dim".into()));
-        assert_eq!(tokens[1], VB6Token::Whitespace(" ".into()));
-        assert_eq!(tokens[2], VB6Token::Identifier("x".into()));
-        assert_eq!(tokens[3], VB6Token::Whitespace(" ".into()));
-        assert_eq!(tokens[4], VB6Token::AsKeyword("As".into()));
-        assert_eq!(tokens[5], VB6Token::Whitespace(" ".into()));
-        assert_eq!(tokens[6], VB6Token::IntegerKeyword("Integer".into()));
+        assert_eq!(tokens[0], ("Dim", VB6Token::DimKeyword));
+        assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
+        assert_eq!(tokens[2], ("x", VB6Token::Identifier));
+        assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
+        assert_eq!(tokens[4], ("As", VB6Token::AsKeyword));
+        assert_eq!(tokens[5], (" ", VB6Token::Whitespace));
+        assert_eq!(tokens[6], ("Integer", VB6Token::IntegerKeyword));
     }
 
     #[test]

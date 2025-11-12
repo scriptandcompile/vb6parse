@@ -366,485 +366,967 @@ attributes:
   description: ~
   ext_key: {}
 tokens:
-  - Comment: "'***************************************************************************"
-  - Newline: "\r\n"
-  - Comment: "'Copyright 2018 by Tanner Helland"
-  - Newline: "\r\n"
-  - Comment: "' www.tannerhelland.com"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'Documentation for this project can be found at https://tannerhelland.com/code/"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'The source code in this project is licensed under a Simplified BSD license."
-  - Newline: "\r\n"
-  - Comment: "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'***************************************************************************"
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - DeclareKeyword: Declare
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: ExtFloodFill
-  - Whitespace: " "
-  - LibKeyword: Lib
-  - Whitespace: " "
-  - StringLiteral: "\"gdi32\""
-  - Whitespace: " "
-  - LeftParentheses: (
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: hDC
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: x
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: y
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: crColor
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: wFillType
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Location variables necessary for drawing connected lines"
-  - Newline: "\r\n"
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: xStart
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: yStart
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'This variable remembers whether or not the left mouse button has been pressed (see below)"
-  - Newline: "\r\n"
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: toDraw
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - BooleanKeyword: Boolean
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'When the left mouse button is pressed..."
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: picDemo_MouseDown
-  - LeftParentheses: (
-  - Identifier: Button
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Shift
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: x
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - SingleKeyword: Single
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - SingleKeyword: Single
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Check the mouse button"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "' If the left button is pressed..."
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: Button
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: vbLeftButton
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Remember that the left-hand button is down"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: toDraw
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - TrueKeyword: "True"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Remember the current mouse location"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: xStart
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: x
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: yStart
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: y
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "' If the right button..."
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ElseIfKeyword: ElseIf
-  - Whitespace: " "
-  - Identifier: Button
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: vbRightButton
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Seed VB's random number generator"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - RandomizeKeyword: Randomize
-  - Whitespace: " "
-  - Identifier: Timer
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Set the picture box's .FillColor property to a random number"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: picDemo
-  - PeriodOperator: "."
-  - Identifier: FillColor
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: RGB
-  - LeftParentheses: (
-  - Identifier: Int
-  - LeftParentheses: (
-  - Identifier: Rnd
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Number: "255"
-  - RightParentheses: )
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Int
-  - LeftParentheses: (
-  - Identifier: Rnd
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Number: "255"
-  - RightParentheses: )
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Int
-  - LeftParentheses: (
-  - Identifier: Rnd
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Number: "255"
-  - RightParentheses: )
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Use the API to fill this region"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Parameters: (picture box), (x coordinate), (y coordinate), (color being replaced), (fill method - always 1)"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: ExtFloodFill
-  - Whitespace: " "
-  - Identifier: picDemo
-  - PeriodOperator: "."
-  - Identifier: hDC
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: x
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: picDemo
-  - PeriodOperator: "."
-  - Identifier: Point
-  - LeftParentheses: (
-  - Identifier: x
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - RightParentheses: )
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "1"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'When the mouse is moved..."
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: picDemo_MouseMove
-  - LeftParentheses: (
-  - Identifier: Button
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Shift
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: x
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - SingleKeyword: Single
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - SingleKeyword: Single
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'If drawing is enabled (meaning the left mouse button has previously been pressed),"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "' draw a line between the old x coordinate and the current one"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: toDraw
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Use VB's line function to draw the line"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: picDemo
-  - PeriodOperator: "."
-  - LineKeyword: Line
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: xStart
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: yStart
-  - RightParentheses: )
-  - SubtractionOperator: "-"
-  - LeftParentheses: (
-  - Identifier: x
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Replace the old xStart and yStart variables with the current location of the mouse"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: xStart
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: x
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: yStart
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: y
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'When a mouse button is released..."
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: picDemo_MouseUp
-  - LeftParentheses: (
-  - Identifier: Button
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Shift
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: x
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - SingleKeyword: Single
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - SingleKeyword: Single
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Disable drawing"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: toDraw
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
+  - - "'***************************************************************************"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Copyright 2018 by Tanner Helland"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' www.tannerhelland.com"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'The source code in this project is licensed under a Simplified BSD license."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'***************************************************************************"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Declare
+    - DeclareKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - ExtFloodFill
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Lib
+    - LibKeyword
+  - - " "
+    - Whitespace
+  - - "\"gdi32\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - hDC
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - crColor
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - wFillType
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Location variables necessary for drawing connected lines"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - xStart
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - yStart
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'This variable remembers whether or not the left mouse button has been pressed (see below)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - toDraw
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Boolean
+    - BooleanKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'When the left mouse button is pressed..."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - picDemo_MouseDown
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - Button
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Shift
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Single
+    - SingleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Single
+    - SingleKeyword
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Check the mouse button"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "' If the left button is pressed..."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - Button
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - vbLeftButton
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Remember that the left-hand button is down"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - toDraw
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "True"
+    - TrueKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Remember the current mouse location"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - xStart
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - yStart
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "' If the right button..."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - ElseIf
+    - ElseIfKeyword
+  - - " "
+    - Whitespace
+  - - Button
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - vbRightButton
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Seed VB's random number generator"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Randomize
+    - RandomizeKeyword
+  - - " "
+    - Whitespace
+  - - Timer
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Set the picture box's .FillColor property to a random number"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - picDemo
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - FillColor
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - RGB
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - Int
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - Rnd
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - "255"
+    - Number
+  - - )
+    - RightParentheses
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Int
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - Rnd
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - "255"
+    - Number
+  - - )
+    - RightParentheses
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Int
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - Rnd
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - "255"
+    - Number
+  - - )
+    - RightParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Use the API to fill this region"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Parameters: (picture box), (x coordinate), (y coordinate), (color being replaced), (fill method - always 1)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - ExtFloodFill
+    - Identifier
+  - - " "
+    - Whitespace
+  - - picDemo
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hDC
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - picDemo
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Point
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - x
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - )
+    - RightParentheses
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'When the mouse is moved..."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - picDemo_MouseMove
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - Button
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Shift
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Single
+    - SingleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Single
+    - SingleKeyword
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'If drawing is enabled (meaning the left mouse button has previously been pressed),"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "' draw a line between the old x coordinate and the current one"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - toDraw
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Use VB's line function to draw the line"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - picDemo
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Line
+    - LineKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - xStart
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - yStart
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "-"
+    - SubtractionOperator
+  - - (
+    - LeftParentheses
+  - - x
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Replace the old xStart and yStart variables with the current location of the mouse"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - xStart
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - yStart
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'When a mouse button is released..."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - picDemo_MouseUp
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - Button
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Shift
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Single
+    - SingleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Single
+    - SingleKeyword
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Disable drawing"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - toDraw
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline

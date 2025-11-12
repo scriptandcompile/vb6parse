@@ -22,1424 +22,2845 @@ header:
     description: ~
     ext_key: {}
 tokens:
-  - Whitespace: "  "
-  - Identifier: MultiUse
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "1"
-  - Whitespace: "  "
-  - Comment: "'True"
-  - Newline: "\r\n"
-  - Whitespace: "  "
-  - Identifier: Persistable
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: "  "
-  - Comment: "'NotPersistable"
-  - Newline: "\r\n"
-  - Whitespace: "  "
-  - Identifier: DataBindingBehavior
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: "  "
-  - Comment: "'vbNone"
-  - Newline: "\r\n"
-  - Whitespace: "  "
-  - Identifier: DataSourceBehavior
-  - Whitespace: "  "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: "  "
-  - Comment: "'vbNone"
-  - Newline: "\r\n"
-  - Whitespace: "  "
-  - Identifier: MTSTransactionMode
-  - Whitespace: "  "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: "  "
-  - Comment: "'NotAnMTSObject"
-  - Newline: "\r\n"
-  - EndKeyword: END
-  - Newline: "\r\n"
-  - AttributeKeyword: Attribute
-  - Whitespace: " "
-  - Identifier: VB_Name
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - StringLiteral: "\"FastDrawing\""
-  - Newline: "\r\n"
-  - AttributeKeyword: Attribute
-  - Whitespace: " "
-  - Identifier: VB_GlobalNameSpace
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - Newline: "\r\n"
-  - AttributeKeyword: Attribute
-  - Whitespace: " "
-  - Identifier: VB_Creatable
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - TrueKeyword: "True"
-  - Newline: "\r\n"
-  - AttributeKeyword: Attribute
-  - Whitespace: " "
-  - Identifier: VB_PredeclaredId
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - Newline: "\r\n"
-  - AttributeKeyword: Attribute
-  - Whitespace: " "
-  - Identifier: VB_Exposed
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - Newline: "\r\n"
-  - Comment: "'***************************************************************************"
-  - Newline: "\r\n"
-  - Comment: "'Real-time drawing class for VB6"
-  - Newline: "\r\n"
-  - Comment: "'Published in 2011 by Tanner Helland"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'This class was built to simplify per-pixel access in VB6.  The attached project demonstrates how to use it."
-  - Newline: "\r\n"
-  - Comment: "' Note that its simplified design is primarily based around modifying 24-bpp RGB data.  Alpha channels are"
-  - Newline: "\r\n"
-  - Comment: "' not currently supported (although the code could be easily modified for this)."
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'The source code in this project is licensed under a Simplified BSD license."
-  - Newline: "\r\n"
-  - Comment: "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'***************************************************************************"
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - OptionKeyword: Option
-  - Whitespace: " "
-  - ExplicitKeyword: Explicit
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Stripped down bitmap information"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - TypeKeyword: Type
-  - Whitespace: " "
-  - Identifier: GDI_Bitmap
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: bmType
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: bmWidth
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: bmHeight
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: bmWidthBytes
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: bmPlanes
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: bmBitsPixel
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: bmBits
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - TypeKeyword: Type
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Retrieve object properties directly from Windows; this lets us bypass some VB-specific annoyances"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - DeclareKeyword: Declare
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: GetObject
-  - Whitespace: " "
-  - LibKeyword: Lib
-  - Whitespace: " "
-  - StringLiteral: "\"gdi32\""
-  - Whitespace: " "
-  - AliasKeyword: Alias
-  - Whitespace: " "
-  - StringLiteral: "\"GetObjectA\""
-  - Whitespace: " "
-  - LeftParentheses: (
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: hObject
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: nCount
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByRefKeyword: ByRef
-  - Whitespace: " "
-  - Identifier: lpObject
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - Identifier: Any
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Standard pixel data (Windows BGRA order)"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - TypeKeyword: Type
-  - Whitespace: " "
-  - Identifier: GDI_RGBQuad
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: rgbBlue
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - ByteKeyword: Byte
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: rgbGreen
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - ByteKeyword: Byte
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: rgbRed
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - ByteKeyword: Byte
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: rgbAlpha
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - ByteKeyword: Byte
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - TypeKeyword: Type
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Full-size bitmap header"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - TypeKeyword: Type
-  - Whitespace: " "
-  - Identifier: GDI_BitmapInfoHeader
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: bmSize
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: bmWidth
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: bmHeight
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: bmPlanes
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: bmBitCount
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: bmCompression
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: bmSizeImage
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: bmXPelsPerMeter
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: bmYPelsPerMeter
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: bmClrUsed
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: bmClrImportant
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - TypeKeyword: Type
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Extended header for 8-bit images"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - TypeKeyword: Type
-  - Whitespace: " "
-  - Identifier: GDI_BitmapInfo
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: bmHeader
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - Identifier: GDI_BitmapInfoHeader
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: bmColors
-  - LeftParentheses: (
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Number: "255"
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - Identifier: GDI_RGBQuad
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - TypeKeyword: Type
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Higher-quality image stretching must be activated manually"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - DeclareKeyword: Declare
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: SetStretchBltMode
-  - Whitespace: " "
-  - LibKeyword: Lib
-  - Whitespace: " "
-  - StringLiteral: "\"gdi32\""
-  - Whitespace: " "
-  - LeftParentheses: (
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: hDC
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: nStretchMode
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'DIB section interfaces"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - DeclareKeyword: Declare
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: GetDIBits
-  - Whitespace: " "
-  - LibKeyword: Lib
-  - Whitespace: " "
-  - StringLiteral: "\"gdi32\""
-  - Whitespace: " "
-  - LeftParentheses: (
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: hDC
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: hBitmap
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: nStartScan
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: nNumScans
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByRefKeyword: ByRef
-  - Whitespace: " "
-  - Identifier: lpBits
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - Identifier: Any
-  - Comma: ","
-  - Whitespace: " "
-  - ByRefKeyword: ByRef
-  - Whitespace: " "
-  - Identifier: lpBI
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - Identifier: GDI_BitmapInfo
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: wUsage
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - DeclareKeyword: Declare
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: StretchDIBits
-  - Whitespace: " "
-  - LibKeyword: Lib
-  - Whitespace: " "
-  - StringLiteral: "\"gdi32\""
-  - Whitespace: " "
-  - LeftParentheses: (
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: hDC
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: dstX
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: dstY
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: dstWidth
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: dstHeight
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: srcX
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: srcY
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: srcWidth
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: srcHeight
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByRefKeyword: ByRef
-  - Whitespace: " "
-  - Identifier: lpBits
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - Identifier: Any
-  - Comma: ","
-  - Whitespace: " "
-  - ByRefKeyword: ByRef
-  - Whitespace: " "
-  - Identifier: lpBitsInfo
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - Identifier: GDI_BitmapInfo
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: wUsage
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: dwRop
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Return an image's width, in pixels"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: GetImageWidth
-  - LeftParentheses: (
-  - ByRefKeyword: ByRef
-  - Whitespace: " "
-  - Identifier: srcPictureBox
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - Identifier: PictureBox
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: bm
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - Identifier: GDI_Bitmap
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: GetObject
-  - Whitespace: " "
-  - Identifier: srcPictureBox
-  - PeriodOperator: "."
-  - Identifier: Image
-  - Comma: ","
-  - Whitespace: " "
-  - LenKeyword: Len
-  - LeftParentheses: (
-  - Identifier: bm
-  - RightParentheses: )
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: bm
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: GetImageWidth
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: bm
-  - PeriodOperator: "."
-  - Identifier: bmWidth
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Return an image's height, in pixels"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: GetImageHeight
-  - LeftParentheses: (
-  - ByRefKeyword: ByRef
-  - Whitespace: " "
-  - Identifier: srcPictureBox
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - Identifier: PictureBox
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: bm
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - Identifier: GDI_Bitmap
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: GetObject
-  - Whitespace: " "
-  - Identifier: srcPictureBox
-  - PeriodOperator: "."
-  - Identifier: Image
-  - Comma: ","
-  - Whitespace: " "
-  - LenKeyword: Len
-  - LeftParentheses: (
-  - Identifier: bm
-  - RightParentheses: )
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: bm
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: GetImageHeight
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Abs
-  - LeftParentheses: (
-  - Identifier: bm
-  - PeriodOperator: "."
-  - Identifier: bmHeight
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Copy an 24-bpp image's pixel information into an array dimensioned (x * 3 , y).  Each row of the array represents"
-  - Newline: "\r\n"
-  - Comment: "' Blue, Green, Red pixel values - e.g. BGRBGRBGR..."
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'Also, because Windows DIBs are stored upside-down (last line first), you can ask this function to reverse"
-  - Newline: "\r\n"
-  - Comment: "' line-order for you.  This can make position-specific calculations more intuitive."
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: GetImageData2D
-  - LeftParentheses: (
-  - ByRefKeyword: ByRef
-  - Whitespace: " "
-  - Identifier: srcPictureBox
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - Identifier: PictureBox
-  - Comma: ","
-  - Whitespace: " "
-  - ByRefKeyword: ByRef
-  - Whitespace: " "
-  - Identifier: dstPixelData
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - ByteKeyword: Byte
-  - Comma: ","
-  - Whitespace: " "
-  - OptionalKeyword: Optional
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: fixOrientation
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - BooleanKeyword: Boolean
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'To avoid dealing with .ScaleMode issues, retrieve the underlying image dimensions via WAPI"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: bm
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - Identifier: GDI_Bitmap
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: GetObject
-  - Whitespace: " "
-  - Identifier: srcPictureBox
-  - PeriodOperator: "."
-  - Identifier: Image
-  - Comma: ","
-  - Whitespace: " "
-  - LenKeyword: Len
-  - LeftParentheses: (
-  - Identifier: bm
-  - RightParentheses: )
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: bm
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Calculate a size for the destination array.  For performance reasons, Windows requires"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "' 24-bpp DIB scanlines to be aligned on 4-byte boundaries - this means that the destination"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "' array's width may not be a multiple of (imageWidth * 3), by design."
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: imgStride
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: imgStride
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: bm
-  - PeriodOperator: "."
-  - Identifier: bmWidth
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Number: "3"
-  - RightParentheses: )
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Number: "1"
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: bm
-  - PeriodOperator: "."
-  - Identifier: bmWidth
-  - Whitespace: " "
-  - ModKeyword: Mod
-  - Whitespace: " "
-  - Number: "4"
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ReDimKeyword: ReDim
-  - Whitespace: " "
-  - Identifier: dstPixelData
-  - LeftParentheses: (
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Identifier: imgStride
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Identifier: bm
-  - PeriodOperator: "."
-  - Identifier: bmHeight
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Number: "1"
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - ByteKeyword: Byte
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Create a temporary header to pass to the GetDIBits call"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: bmi
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - Identifier: GDI_BitmapInfo
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - WithKeyword: With
-  - Whitespace: " "
-  - Identifier: bmi
-  - PeriodOperator: "."
-  - Identifier: bmHeader
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: bmWidth
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: bm
-  - PeriodOperator: "."
-  - Identifier: bmWidth
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: bmHeight
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: bm
-  - PeriodOperator: "."
-  - Identifier: bmHeight
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: fixOrientation
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - PeriodOperator: "."
-  - Identifier: bmHeight
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "1"
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - PeriodOperator: "."
-  - Identifier: bmHeight
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: bmSize
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "40"
-  - Whitespace: "                "
-  - Comment: "'Size, in bytes, of the header"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: bmPlanes
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "1"
-  - Whitespace: "               "
-  - Comment: "'Number of planes (always one for this instance)"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: bmBitCount
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "24"
-  - Whitespace: "            "
-  - Comment: "'Bits per pixel (always 24 for this instance)"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: bmCompression
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: "          "
-  - Comment: "'Compression (always none for this instance)"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - WithKeyword: With
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Copy the pixel data into our array"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: GetDIBits
-  - Whitespace: " "
-  - Identifier: srcPictureBox
-  - PeriodOperator: "."
-  - Identifier: hDC
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: srcPictureBox
-  - PeriodOperator: "."
-  - Identifier: Image
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: bm
-  - PeriodOperator: "."
-  - Identifier: bmHeight
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: dstPixelData
-  - LeftParentheses: (
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - RightParentheses: )
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: bmi
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Set an image's pixel information from a raw byte array.  The byte array *must* have been created"
-  - Newline: "\r\n"
-  - Comment: "' according to the rules defined in GetImageData2D(), above.  Similarly, if you reversed scanline"
-  - Newline: "\r\n"
-  - Comment: "' order at retrieval time, you should also pass TRUE for fixOrientation when calling this function."
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'The image will be stretched to fit the destination picture box (without regard to aspect ratio)."
-  - Newline: "\r\n"
-  - Comment: "' You can manually modify this by changing the destination parameters of the StretchDIBits call."
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: SetImageData2D
-  - LeftParentheses: (
-  - ByRefKeyword: ByRef
-  - Whitespace: " "
-  - Identifier: dstPictureBox
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - Identifier: PictureBox
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: imgWidth
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: imgHeight
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByRefKeyword: ByRef
-  - Whitespace: " "
-  - Identifier: srcPixelData
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - ByteKeyword: Byte
-  - Comma: ","
-  - Whitespace: " "
-  - OptionalKeyword: Optional
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: fixOrientation
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - BooleanKeyword: Boolean
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'To avoid dealing with .ScaleMode issues, retrieve the underlying image dimensions via WAPI"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: bm
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - Identifier: GDI_Bitmap
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: GetObject
-  - Whitespace: " "
-  - Identifier: dstPictureBox
-  - PeriodOperator: "."
-  - Identifier: Image
-  - Comma: ","
-  - Whitespace: " "
-  - LenKeyword: Len
-  - LeftParentheses: (
-  - Identifier: bm
-  - RightParentheses: )
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: bm
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Create a temporary header to pass to the StretchDIBits call"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: bmi
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - Identifier: GDI_BitmapInfo
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - WithKeyword: With
-  - Whitespace: " "
-  - Identifier: bmi
-  - PeriodOperator: "."
-  - Identifier: bmHeader
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: bmWidth
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: imgWidth
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: bmHeight
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: imgHeight
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: fixOrientation
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - PeriodOperator: "."
-  - Identifier: bmHeight
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "1"
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - PeriodOperator: "."
-  - Identifier: bmHeight
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: bmSize
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "40"
-  - Whitespace: "                "
-  - Comment: "'Size, in bytes, of the header"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: bmPlanes
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "1"
-  - Whitespace: "               "
-  - Comment: "'Number of planes (always one for this instance)"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: bmBitCount
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "24"
-  - Whitespace: "            "
-  - Comment: "'Bits per pixel (always 24 for this instance)"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: bmCompression
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: "          "
-  - Comment: "'Compression (always none for this instance)"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - WithKeyword: With
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'If stretching will be involved, request high-quality stretching from GDI"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: SetStretchBltMode
-  - Whitespace: " "
-  - Identifier: dstPictureBox
-  - PeriodOperator: "."
-  - Identifier: hDC
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "3"
-  - Ampersand: "&"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Paint the pixel data into the destination picture box.  By using bm.bmWidth and bm.bmHeight as"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "' the destination width/height, the pixel data will be automatically resized to fit the picture box."
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: StretchDIBits
-  - Whitespace: " "
-  - Identifier: dstPictureBox
-  - PeriodOperator: "."
-  - Identifier: hDC
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: bm
-  - PeriodOperator: "."
-  - Identifier: bmWidth
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: bm
-  - PeriodOperator: "."
-  - Identifier: bmHeight
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: imgWidth
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: imgHeight
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: srcPixelData
-  - LeftParentheses: (
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - RightParentheses: )
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: bmi
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbSrcCopy
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'VB's built-in backbuffer system (\"AutoRedraw\") won't detect changes made by WAPI functions,"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "' so we need to manually notify it of the need to redraw."
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: dstPictureBox
-  - PeriodOperator: "."
-  - Identifier: AutoRedraw
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: dstPictureBox
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: dstPictureBox
-  - PeriodOperator: "."
-  - Identifier: Image
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: dstPictureBox
-  - PeriodOperator: "."
-  - Identifier: Refresh
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - EOF
+  - - "  "
+    - Whitespace
+  - - MultiUse
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "1"
+    - Number
+  - - "  "
+    - Whitespace
+  - - "'True"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "  "
+    - Whitespace
+  - - Persistable
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "  "
+    - Whitespace
+  - - "'NotPersistable"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "  "
+    - Whitespace
+  - - DataBindingBehavior
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "  "
+    - Whitespace
+  - - "'vbNone"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "  "
+    - Whitespace
+  - - DataSourceBehavior
+    - Identifier
+  - - "  "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "  "
+    - Whitespace
+  - - "'vbNone"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "  "
+    - Whitespace
+  - - MTSTransactionMode
+    - Identifier
+  - - "  "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "  "
+    - Whitespace
+  - - "'NotAnMTSObject"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - END
+    - EndKeyword
+  - - "\r\n"
+    - Newline
+  - - Attribute
+    - AttributeKeyword
+  - - " "
+    - Whitespace
+  - - VB_Name
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "\"FastDrawing\""
+    - StringLiteral
+  - - "\r\n"
+    - Newline
+  - - Attribute
+    - AttributeKeyword
+  - - " "
+    - Whitespace
+  - - VB_GlobalNameSpace
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - "\r\n"
+    - Newline
+  - - Attribute
+    - AttributeKeyword
+  - - " "
+    - Whitespace
+  - - VB_Creatable
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "True"
+    - TrueKeyword
+  - - "\r\n"
+    - Newline
+  - - Attribute
+    - AttributeKeyword
+  - - " "
+    - Whitespace
+  - - VB_PredeclaredId
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - "\r\n"
+    - Newline
+  - - Attribute
+    - AttributeKeyword
+  - - " "
+    - Whitespace
+  - - VB_Exposed
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - "\r\n"
+    - Newline
+  - - "'***************************************************************************"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Real-time drawing class for VB6"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Published in 2011 by Tanner Helland"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'This class was built to simplify per-pixel access in VB6.  The attached project demonstrates how to use it."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' Note that its simplified design is primarily based around modifying 24-bpp RGB data.  Alpha channels are"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' not currently supported (although the code could be easily modified for this)."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'The source code in this project is licensed under a Simplified BSD license."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'***************************************************************************"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - Option
+    - OptionKeyword
+  - - " "
+    - Whitespace
+  - - Explicit
+    - ExplicitKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Stripped down bitmap information"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Type
+    - TypeKeyword
+  - - " "
+    - Whitespace
+  - - GDI_Bitmap
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - bmType
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - bmWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - bmHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - bmWidthBytes
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - bmPlanes
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - bmBitsPixel
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - bmBits
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Type
+    - TypeKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Retrieve object properties directly from Windows; this lets us bypass some VB-specific annoyances"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Declare
+    - DeclareKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - GetObject
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Lib
+    - LibKeyword
+  - - " "
+    - Whitespace
+  - - "\"gdi32\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - Alias
+    - AliasKeyword
+  - - " "
+    - Whitespace
+  - - "\"GetObjectA\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - hObject
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - nCount
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByRef
+    - ByRefKeyword
+  - - " "
+    - Whitespace
+  - - lpObject
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Any
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Standard pixel data (Windows BGRA order)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Type
+    - TypeKeyword
+  - - " "
+    - Whitespace
+  - - GDI_RGBQuad
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - rgbBlue
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Byte
+    - ByteKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - rgbGreen
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Byte
+    - ByteKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - rgbRed
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Byte
+    - ByteKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - rgbAlpha
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Byte
+    - ByteKeyword
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Type
+    - TypeKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Full-size bitmap header"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Type
+    - TypeKeyword
+  - - " "
+    - Whitespace
+  - - GDI_BitmapInfoHeader
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - bmSize
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - bmWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - bmHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - bmPlanes
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - bmBitCount
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - bmCompression
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - bmSizeImage
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - bmXPelsPerMeter
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - bmYPelsPerMeter
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - bmClrUsed
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - bmClrImportant
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Type
+    - TypeKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Extended header for 8-bit images"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Type
+    - TypeKeyword
+  - - " "
+    - Whitespace
+  - - GDI_BitmapInfo
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - bmHeader
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - GDI_BitmapInfoHeader
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - bmColors
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - "255"
+    - Number
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - GDI_RGBQuad
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Type
+    - TypeKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Higher-quality image stretching must be activated manually"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Declare
+    - DeclareKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - SetStretchBltMode
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Lib
+    - LibKeyword
+  - - " "
+    - Whitespace
+  - - "\"gdi32\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - hDC
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - nStretchMode
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'DIB section interfaces"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Declare
+    - DeclareKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - GetDIBits
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Lib
+    - LibKeyword
+  - - " "
+    - Whitespace
+  - - "\"gdi32\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - hDC
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - hBitmap
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - nStartScan
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - nNumScans
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByRef
+    - ByRefKeyword
+  - - " "
+    - Whitespace
+  - - lpBits
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Any
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByRef
+    - ByRefKeyword
+  - - " "
+    - Whitespace
+  - - lpBI
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - GDI_BitmapInfo
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - wUsage
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Declare
+    - DeclareKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - StretchDIBits
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Lib
+    - LibKeyword
+  - - " "
+    - Whitespace
+  - - "\"gdi32\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - hDC
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - dstX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - dstY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - dstWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - dstHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - srcX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - srcY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - srcWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - srcHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByRef
+    - ByRefKeyword
+  - - " "
+    - Whitespace
+  - - lpBits
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Any
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByRef
+    - ByRefKeyword
+  - - " "
+    - Whitespace
+  - - lpBitsInfo
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - GDI_BitmapInfo
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - wUsage
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - dwRop
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Return an image's width, in pixels"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - GetImageWidth
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - ByRef
+    - ByRefKeyword
+  - - " "
+    - Whitespace
+  - - srcPictureBox
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - PictureBox
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - bm
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - GDI_Bitmap
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - GetObject
+    - Identifier
+  - - " "
+    - Whitespace
+  - - srcPictureBox
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Image
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Len
+    - LenKeyword
+  - - (
+    - LeftParentheses
+  - - bm
+    - Identifier
+  - - )
+    - RightParentheses
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - bm
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - GetImageWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - bm
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - bmWidth
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Return an image's height, in pixels"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - GetImageHeight
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - ByRef
+    - ByRefKeyword
+  - - " "
+    - Whitespace
+  - - srcPictureBox
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - PictureBox
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - bm
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - GDI_Bitmap
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - GetObject
+    - Identifier
+  - - " "
+    - Whitespace
+  - - srcPictureBox
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Image
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Len
+    - LenKeyword
+  - - (
+    - LeftParentheses
+  - - bm
+    - Identifier
+  - - )
+    - RightParentheses
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - bm
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - GetImageHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Abs
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - bm
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - bmHeight
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Copy an 24-bpp image's pixel information into an array dimensioned (x * 3 , y).  Each row of the array represents"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' Blue, Green, Red pixel values - e.g. BGRBGRBGR..."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Also, because Windows DIBs are stored upside-down (last line first), you can ask this function to reverse"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' line-order for you.  This can make position-specific calculations more intuitive."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - GetImageData2D
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - ByRef
+    - ByRefKeyword
+  - - " "
+    - Whitespace
+  - - srcPictureBox
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - PictureBox
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByRef
+    - ByRefKeyword
+  - - " "
+    - Whitespace
+  - - dstPixelData
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Byte
+    - ByteKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Optional
+    - OptionalKeyword
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - fixOrientation
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Boolean
+    - BooleanKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'To avoid dealing with .ScaleMode issues, retrieve the underlying image dimensions via WAPI"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - bm
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - GDI_Bitmap
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - GetObject
+    - Identifier
+  - - " "
+    - Whitespace
+  - - srcPictureBox
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Image
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Len
+    - LenKeyword
+  - - (
+    - LeftParentheses
+  - - bm
+    - Identifier
+  - - )
+    - RightParentheses
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - bm
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Calculate a size for the destination array.  For performance reasons, Windows requires"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "' 24-bpp DIB scanlines to be aligned on 4-byte boundaries - this means that the destination"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "' array's width may not be a multiple of (imageWidth * 3), by design."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - imgStride
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - imgStride
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - bm
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - bmWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - "3"
+    - Number
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - bm
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - bmWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Mod
+    - ModKeyword
+  - - " "
+    - Whitespace
+  - - "4"
+    - Number
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - ReDim
+    - ReDimKeyword
+  - - " "
+    - Whitespace
+  - - dstPixelData
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - imgStride
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - bm
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - bmHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Byte
+    - ByteKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Create a temporary header to pass to the GetDIBits call"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - bmi
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - GDI_BitmapInfo
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - With
+    - WithKeyword
+  - - " "
+    - Whitespace
+  - - bmi
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - bmHeader
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - bmWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - bm
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - bmWidth
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - bmHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - bm
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - bmHeight
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - fixOrientation
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - bmHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "1"
+    - Number
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - bmHeight
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - bmSize
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "40"
+    - Number
+  - - "                "
+    - Whitespace
+  - - "'Size, in bytes, of the header"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - bmPlanes
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - "               "
+    - Whitespace
+  - - "'Number of planes (always one for this instance)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - bmBitCount
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "24"
+    - Number
+  - - "            "
+    - Whitespace
+  - - "'Bits per pixel (always 24 for this instance)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - bmCompression
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "          "
+    - Whitespace
+  - - "'Compression (always none for this instance)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - With
+    - WithKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Copy the pixel data into our array"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - GetDIBits
+    - Identifier
+  - - " "
+    - Whitespace
+  - - srcPictureBox
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hDC
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - srcPictureBox
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Image
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - bm
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - bmHeight
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - dstPixelData
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - )
+    - RightParentheses
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - bmi
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Set an image's pixel information from a raw byte array.  The byte array *must* have been created"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' according to the rules defined in GetImageData2D(), above.  Similarly, if you reversed scanline"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' order at retrieval time, you should also pass TRUE for fixOrientation when calling this function."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'The image will be stretched to fit the destination picture box (without regard to aspect ratio)."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' You can manually modify this by changing the destination parameters of the StretchDIBits call."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - SetImageData2D
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - ByRef
+    - ByRefKeyword
+  - - " "
+    - Whitespace
+  - - dstPictureBox
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - PictureBox
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - imgWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - imgHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByRef
+    - ByRefKeyword
+  - - " "
+    - Whitespace
+  - - srcPixelData
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Byte
+    - ByteKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Optional
+    - OptionalKeyword
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - fixOrientation
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Boolean
+    - BooleanKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'To avoid dealing with .ScaleMode issues, retrieve the underlying image dimensions via WAPI"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - bm
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - GDI_Bitmap
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - GetObject
+    - Identifier
+  - - " "
+    - Whitespace
+  - - dstPictureBox
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Image
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Len
+    - LenKeyword
+  - - (
+    - LeftParentheses
+  - - bm
+    - Identifier
+  - - )
+    - RightParentheses
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - bm
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Create a temporary header to pass to the StretchDIBits call"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - bmi
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - GDI_BitmapInfo
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - With
+    - WithKeyword
+  - - " "
+    - Whitespace
+  - - bmi
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - bmHeader
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - bmWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - imgWidth
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - bmHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - imgHeight
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - fixOrientation
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - bmHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "1"
+    - Number
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - bmHeight
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - bmSize
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "40"
+    - Number
+  - - "                "
+    - Whitespace
+  - - "'Size, in bytes, of the header"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - bmPlanes
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - "               "
+    - Whitespace
+  - - "'Number of planes (always one for this instance)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - bmBitCount
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "24"
+    - Number
+  - - "            "
+    - Whitespace
+  - - "'Bits per pixel (always 24 for this instance)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - bmCompression
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "          "
+    - Whitespace
+  - - "'Compression (always none for this instance)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - With
+    - WithKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'If stretching will be involved, request high-quality stretching from GDI"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - SetStretchBltMode
+    - Identifier
+  - - " "
+    - Whitespace
+  - - dstPictureBox
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hDC
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "3"
+    - Number
+  - - "&"
+    - Ampersand
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Paint the pixel data into the destination picture box.  By using bm.bmWidth and bm.bmHeight as"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "' the destination width/height, the pixel data will be automatically resized to fit the picture box."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - StretchDIBits
+    - Identifier
+  - - " "
+    - Whitespace
+  - - dstPictureBox
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hDC
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - bm
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - bmWidth
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - bm
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - bmHeight
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - imgWidth
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - imgHeight
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - srcPixelData
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - )
+    - RightParentheses
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - bmi
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbSrcCopy
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'VB's built-in backbuffer system (\"AutoRedraw\") won't detect changes made by WAPI functions,"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "' so we need to manually notify it of the need to redraw."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - dstPictureBox
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - AutoRedraw
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - dstPictureBox
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - dstPictureBox
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Image
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - dstPictureBox
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Refresh
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - ""
+    - EOF

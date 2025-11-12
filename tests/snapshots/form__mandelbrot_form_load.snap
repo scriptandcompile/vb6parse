@@ -1133,2430 +1133,4857 @@ attributes:
   description: ~
   ext_key: {}
 tokens:
-  - Comment: "'***************************************************************************"
-  - Newline: "\r\n"
-  - Comment: "'Copyright 2018 by Tanner Helland"
-  - Newline: "\r\n"
-  - Comment: "' www.tannerhelland.com"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'Documentation for this project can be found at https://tannerhelland.com/code/"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'The source code in this project is licensed under a Simplified BSD license."
-  - Newline: "\r\n"
-  - Comment: "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'***************************************************************************"
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'These dimensions relate to using the mouse to select new bounding areas"
-  - Newline: "\r\n"
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: iX
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: iY
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Newline: "\r\n"
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: tX
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: tY
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Newline: "\r\n"
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: iWidth
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: iHeight
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Newline: "\r\n"
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: toDraw
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - BooleanKeyword: Boolean
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'This array stores the values of the fractal as they're calculated"
-  - Newline: "\r\n"
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: mFractal
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'This number (set by the corresponding scrollbar) takes on values between 100 and 2000"
-  - Newline: "\r\n"
-  - Comment: "'Higher numbers = more accurate/slow; lower mumbers = less accurate/fast"
-  - Newline: "\r\n"
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: IterationLimit
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Simple API declaration for drawing pixels"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - DeclareKeyword: Declare
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: SetPixelV
-  - Whitespace: " "
-  - LibKeyword: Lib
-  - Whitespace: " "
-  - StringLiteral: "\"gdi32\""
-  - Whitespace: " "
-  - LeftParentheses: (
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: hDC
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: x
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: y
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: crColor
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - ByteKeyword: Byte
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'DRAW THE FRACTAL"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: CmdRedraw_Click
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Lots of variables are required for fractal-drawing"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: drawWidth
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: drawHeight
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: count
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: red
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: green
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: blue
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: minX
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: maxX
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: minY
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: maxY
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: calcX
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: calcY
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: stepX
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: stepY
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: color
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: loValue
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: hiValue
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: loValue
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "2000000000"
-  - Octothorpe: "#"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: hiValue
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "2000000000"
-  - Octothorpe: "#"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Reset the mouse values after each draw (since no box is present after drawing)"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: iX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "1"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: iY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "1"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: tX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "1"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: tY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "1"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Prepare the picture box using hard-coded size values.  (Feel free to change these.)"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: drawWidth
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "600"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: drawHeight
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "600"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: PicDraw
-  - PeriodOperator: "."
-  - WidthKeyword: Width
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: drawWidth
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Number: "2"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: PicDraw
-  - PeriodOperator: "."
-  - Identifier: Height
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: drawHeight
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Number: "2"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: PicDraw
-  - PeriodOperator: "."
-  - Identifier: Refresh
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: DoEvents
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Set minimum and maximum view windows based on corresponding text box values"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: minX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Val
-  - LeftParentheses: (
-  - Identifier: TxtXMin
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: maxX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Val
-  - LeftParentheses: (
-  - Identifier: TxtXMax
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: minY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Val
-  - LeftParentheses: (
-  - Identifier: TxtYMin
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: maxY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Val
-  - LeftParentheses: (
-  - Identifier: TxtYMax
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Create a conversion between the Mandlebrot set window and the actual pixels where the fractal will appear"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: stepX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Abs
-  - LeftParentheses: (
-  - Identifier: maxX
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: minX
-  - RightParentheses: )
-  - Whitespace: " "
-  - DivisionOperator: /
-  - Whitespace: " "
-  - Identifier: drawWidth
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: stepY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Abs
-  - LeftParentheses: (
-  - Identifier: maxY
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: minY
-  - RightParentheses: )
-  - Whitespace: " "
-  - DivisionOperator: /
-  - Whitespace: " "
-  - Identifier: drawHeight
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Resize the fractal array"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ReDimKeyword: ReDim
-  - Whitespace: " "
-  - Identifier: mFractal
-  - LeftParentheses: (
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Identifier: drawWidth
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Identifier: drawHeight
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Run a loop through each pixel, calculating Mandelbrot values as we go"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: calcX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: minX
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: calcY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: minY
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: x
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: rootCount
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ForKeyword: For
-  - Whitespace: " "
-  - Identifier: y
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Identifier: drawHeight
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ForKeyword: For
-  - Whitespace: " "
-  - Identifier: x
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Identifier: drawWidth
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'This main recursive function is what actually calculates the fractal values"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: count
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Calculate
-  - LeftParentheses: (
-  - Identifier: calcX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: calcY
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: rootCount
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Sqr
-  - LeftParentheses: (
-  - Identifier: count
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Keep track of the highest and lowest values encountered so far (to help with rendering)"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: rootCount
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - Whitespace: " "
-  - Identifier: loValue
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: loValue
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: rootCount
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - ElseKeyword: Else
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: rootCount
-  - Whitespace: " "
-  - GreaterThanOperator: ">"
-  - Whitespace: " "
-  - Identifier: hiValue
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: hiValue
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: rootCount
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Store the fractal value in the array"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: mFractal
-  - LeftParentheses: (
-  - Identifier: x
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - RightParentheses: )
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: rootCount
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: calcX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: calcX
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: stepX
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - NextKeyword: Next
-  - Whitespace: " "
-  - Identifier: x
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: calcX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: minX
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: calcY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: calcY
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: stepY
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Give the user some indication of how close we are to finishing"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: CmdRedraw
-  - PeriodOperator: "."
-  - Identifier: Caption
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Int
-  - LeftParentheses: (
-  - LeftParentheses: (
-  - Identifier: y
-  - Whitespace: " "
-  - DivisionOperator: /
-  - Whitespace: " "
-  - Identifier: drawHeight
-  - RightParentheses: )
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Number: "100"
-  - RightParentheses: )
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Whitespace: " "
-  - StringLiteral: "\"% Complete\""
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - NextKeyword: Next
-  - Whitespace: " "
-  - Identifier: y
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Once the fractal values have been saved, calculate the difference between the lowest and highest values"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: lohiDif
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: lohiDif
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: hiValue
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: loValue
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: lohiDif
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Octothorpe: "#"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: lohiDif
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - PeriodOperator: "."
-  - Number: "0000000001"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Draw the fractal"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ForKeyword: For
-  - Whitespace: " "
-  - Identifier: y
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Identifier: drawHeight
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ForKeyword: For
-  - Whitespace: " "
-  - Identifier: x
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Identifier: drawWidth
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Convert the fractal value to a 0-255 RGB value"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: count
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Int
-  - LeftParentheses: (
-  - LeftParentheses: (
-  - LeftParentheses: (
-  - Identifier: mFractal
-  - LeftParentheses: (
-  - Identifier: x
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - RightParentheses: )
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: loValue
-  - RightParentheses: )
-  - Whitespace: " "
-  - DivisionOperator: /
-  - Whitespace: " "
-  - Identifier: lohiDif
-  - RightParentheses: )
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Number: "255"
-  - Octothorpe: "#"
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Number: "0"
-  - PeriodOperator: "."
-  - Number: "5"
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Make the highest values pure white (looks better, IMO)"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: mFractal
-  - LeftParentheses: (
-  - Identifier: x
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - RightParentheses: )
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: hiValue
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: red
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "255"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: green
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "255"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: blue
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "255"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - ElseKeyword: Else
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Comment: "'I use this simple color formula to make the fractal shades of violet instead of just gray"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: red
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: count
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: green
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: count
-  - Whitespace: " "
-  - BackwardSlashOperator: "\\"
-  - Whitespace: " "
-  - Number: "2"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: blue
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: count
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Number: "2"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: blue
-  - Whitespace: " "
-  - GreaterThanOperator: ">"
-  - Whitespace: " "
-  - Number: "255"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: blue
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "255"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Draw this pixel"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: SetPixelV
-  - Whitespace: " "
-  - Identifier: PicDraw
-  - PeriodOperator: "."
-  - Identifier: hDC
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: x
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: RGB
-  - LeftParentheses: (
-  - Identifier: red
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: green
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: blue
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - NextKeyword: Next
-  - Whitespace: " "
-  - Identifier: x
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Refresh the image every 16 lines"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: y
-  - Whitespace: " "
-  - AndKeyword: And
-  - Whitespace: " "
-  - Number: "15"
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: PicDraw
-  - PeriodOperator: "."
-  - Identifier: Refresh
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - NextKeyword: Next
-  - Whitespace: " "
-  - Identifier: y
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Final image refresh"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: PicDraw
-  - PeriodOperator: "."
-  - Identifier: Refresh
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Restore the command button text"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: CmdRedraw
-  - PeriodOperator: "."
-  - Identifier: Caption
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - StringLiteral: "\"Redraw the Fractal\""
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: CmdReset_Click
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: toDraw
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: TxtXMin
-  - PeriodOperator: "."
-  - Identifier: Text
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - StringLiteral: "\"-1.75\""
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: TxtXMax
-  - PeriodOperator: "."
-  - Identifier: Text
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - StringLiteral: "\".75\""
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: TxtYMin
-  - PeriodOperator: "."
-  - Identifier: Text
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - StringLiteral: "\"-1.5\""
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: TxtYMax
-  - PeriodOperator: "."
-  - Identifier: Text
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - StringLiteral: "\"1.5\""
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: IterationLimit
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "400"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: iX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "1"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: iY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "1"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: tX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "1"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: tY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "1"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: CmdRedraw_Click
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'ON STARTUP: set various variables to proper default values"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: Form_Load
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: toDraw
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: IterationLimit
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "400"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: iX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "1"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: iY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "1"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: tX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "1"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: tY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "1"
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'MOUSE DOWN: on the main picture box"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: PicDraw_MouseDown
-  - LeftParentheses: (
-  - Identifier: Button
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Shift
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: x
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - SingleKeyword: Single
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - SingleKeyword: Single
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Erase any previous boxes the user may have drawn"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: PicDraw
-  - PeriodOperator: "."
-  - Identifier: DrawMode
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "6"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: PicDraw
-  - PeriodOperator: "."
-  - LineKeyword: Line
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: tX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: tY
-  - RightParentheses: )
-  - SubtractionOperator: "-"
-  - LeftParentheses: (
-  - Identifier: tX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: iY
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: PicDraw
-  - PeriodOperator: "."
-  - LineKeyword: Line
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: tX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: tY
-  - RightParentheses: )
-  - SubtractionOperator: "-"
-  - LeftParentheses: (
-  - Identifier: iX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: tY
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: PicDraw
-  - PeriodOperator: "."
-  - LineKeyword: Line
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: iX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: iY
-  - RightParentheses: )
-  - SubtractionOperator: "-"
-  - LeftParentheses: (
-  - Identifier: tX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: iY
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: PicDraw
-  - PeriodOperator: "."
-  - LineKeyword: Line
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: iX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: iY
-  - RightParentheses: )
-  - SubtractionOperator: "-"
-  - LeftParentheses: (
-  - Identifier: iX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: tY
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: PicDraw
-  - PeriodOperator: "."
-  - Identifier: DrawMode
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "13"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Note the current location and mark a mouse button as being \"down\""
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: iX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: x
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: iY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: y
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: tX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: x
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: tY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: y
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: toDraw
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - TrueKeyword: "True"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'MOUSE MOVE: on the main picture box"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: PicDraw_MouseMove
-  - LeftParentheses: (
-  - Identifier: Button
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Shift
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: x
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - SingleKeyword: Single
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - SingleKeyword: Single
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'If a mouse button has been pressed, draw a rectangle around the current selection area"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: toDraw
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Set the draw style to \"invert\""
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: PicDraw
-  - PeriodOperator: "."
-  - Identifier: DrawMode
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "6"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Erase the old box"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: PicDraw
-  - PeriodOperator: "."
-  - LineKeyword: Line
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: tX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: tY
-  - RightParentheses: )
-  - SubtractionOperator: "-"
-  - LeftParentheses: (
-  - Identifier: tX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: iY
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: PicDraw
-  - PeriodOperator: "."
-  - LineKeyword: Line
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: tX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: tY
-  - RightParentheses: )
-  - SubtractionOperator: "-"
-  - LeftParentheses: (
-  - Identifier: iX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: tY
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: PicDraw
-  - PeriodOperator: "."
-  - LineKeyword: Line
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: iX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: iY
-  - RightParentheses: )
-  - SubtractionOperator: "-"
-  - LeftParentheses: (
-  - Identifier: tX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: iY
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: PicDraw
-  - PeriodOperator: "."
-  - LineKeyword: Line
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: iX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: iY
-  - RightParentheses: )
-  - SubtractionOperator: "-"
-  - LeftParentheses: (
-  - Identifier: iX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: tY
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Draw a new box"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: PicDraw
-  - PeriodOperator: "."
-  - LineKeyword: Line
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: iX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: iY
-  - RightParentheses: )
-  - SubtractionOperator: "-"
-  - LeftParentheses: (
-  - Identifier: iX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: PicDraw
-  - PeriodOperator: "."
-  - LineKeyword: Line
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: iX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: iY
-  - RightParentheses: )
-  - SubtractionOperator: "-"
-  - LeftParentheses: (
-  - Identifier: x
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: iY
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: PicDraw
-  - PeriodOperator: "."
-  - LineKeyword: Line
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: x
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - RightParentheses: )
-  - SubtractionOperator: "-"
-  - LeftParentheses: (
-  - Identifier: iX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: PicDraw
-  - PeriodOperator: "."
-  - LineKeyword: Line
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: x
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - RightParentheses: )
-  - SubtractionOperator: "-"
-  - LeftParentheses: (
-  - Identifier: x
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: iY
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Remember where this box is located"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: tX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: x
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: tY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: y
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Reset the draw style to \"copy\""
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: PicDraw
-  - PeriodOperator: "."
-  - Identifier: DrawMode
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "13"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'MOUSE UP: on the main picture box"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: PicDraw_MouseUp
-  - LeftParentheses: (
-  - Identifier: Button
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Shift
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: x
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - SingleKeyword: Single
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - SingleKeyword: Single
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Mark the mouse button as being released"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: toDraw
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Figure out the width and height of the selected area"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: iWidth
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: x
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: iX
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: iHeight
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: y
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: iY
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Use some fancy math to calculate the approximate reference frame that the user has selected."
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'(Basically, translate the pixel width on-screen to the coordinate system used by Mandelbrot.)"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: nX
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: nY
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: oX
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: oY
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: oSX
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: oEX
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: oSY
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: oEY
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: nX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: x
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: nY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: y
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: oSX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: TxtXMin
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: oEX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: TxtXMax
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: oSY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: TxtYMin
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: oEY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: TxtYMax
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: oX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: iX
-  - Whitespace: " "
-  - DivisionOperator: /
-  - Whitespace: " "
-  - Identifier: PicDraw
-  - PeriodOperator: "."
-  - Identifier: ScaleWidth
-  - RightParentheses: )
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: TxtXMax
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: TxtXMin
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: oX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: oSX
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: oX
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: oY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: iY
-  - Whitespace: " "
-  - DivisionOperator: /
-  - Whitespace: " "
-  - Identifier: PicDraw
-  - PeriodOperator: "."
-  - Identifier: ScaleHeight
-  - RightParentheses: )
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: TxtYMax
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: TxtYMin
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: oY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: oSY
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: oY
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: nX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: nX
-  - Whitespace: " "
-  - DivisionOperator: /
-  - Whitespace: " "
-  - Identifier: PicDraw
-  - PeriodOperator: "."
-  - Identifier: ScaleWidth
-  - RightParentheses: )
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: TxtXMax
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: TxtXMin
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: nX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: oSX
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: nX
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: nY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: nY
-  - Whitespace: " "
-  - DivisionOperator: /
-  - Whitespace: " "
-  - Identifier: PicDraw
-  - PeriodOperator: "."
-  - Identifier: ScaleHeight
-  - RightParentheses: )
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: TxtYMax
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: TxtYMin
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: nY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: oSY
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: nY
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Change the text boxes to match our new frame of reference"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: TxtXMin
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: oX
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: TxtXMax
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: nX
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: TxtYMin
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: oY
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: TxtYMax
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: nY
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'SCROLLBAR: for changing the accuracy / speed of the fractal render"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: scrAccuracy_Change
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: IterationLimit
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: scrAccuracy
-  - PeriodOperator: "."
-  - Identifier: Value
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Number: "100"
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Here is a standard recursive function for generating the Mandlebrot set. Technical details are available at the Wikipedia link referenced earlier."
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: Calculate
-  - LeftParentheses: (
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: origX
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: origY
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: curX
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: curY
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: counter
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - StaticKeyword: Static
-  - Whitespace: " "
-  - Identifier: NewX
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: NewY
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - DoubleKeyword: Double
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Check for overflow (well, technically \"underflow\" :)"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: curX
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "1000000"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: Calculate
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: counter
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - ExitKeyword: Exit
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ElseIfKeyword: ElseIf
-  - Whitespace: " "
-  - Identifier: curY
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "1000000"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: Calculate
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: counter
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - ExitKeyword: Exit
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'If you so desire, you can also remove the if/then statements above and let VB do the underflow checking (uncomment this next line to allow)"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'On Error GoTo 1"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: NewX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: curX
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: curX
-  - RightParentheses: )
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: curY
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: curY
-  - RightParentheses: )
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: origX
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: NewY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Number: "2"
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: curX
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: curY
-  - RightParentheses: )
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: origY
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - LeftParentheses: (
-  - LeftParentheses: (
-  - Identifier: NewX
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: NewX
-  - RightParentheses: )
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: NewY
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: NewY
-  - RightParentheses: )
-  - RightParentheses: )
-  - Whitespace: " "
-  - GreaterThanOperator: ">"
-  - Whitespace: " "
-  - Number: "2"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Number: "1"
-  - Whitespace: "       "
-  - Identifier: Calculate
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: counter
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ElseKeyword: Else
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'This line checks to see if we've exceeded the \"IterationLimit\" (IterationLimit controls accuracy / speed of execution)"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: counter
-  - Whitespace: " "
-  - GreaterThanOperator: ">"
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: IterationLimit
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: Calculate
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: IterationLimit
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - ElseKeyword: Else
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: counter
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: counter
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Number: "1"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: Calculate
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Calculate
-  - LeftParentheses: (
-  - Identifier: origX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: origY
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: NewX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: NewY
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: counter
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Newline: "\r\n"
+  - - "'***************************************************************************"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Copyright 2018 by Tanner Helland"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' www.tannerhelland.com"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'The source code in this project is licensed under a Simplified BSD license."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'***************************************************************************"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'These dimensions relate to using the mouse to select new bounding areas"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - iX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - iY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - "\r\n"
+    - Newline
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - tX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - tY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - "\r\n"
+    - Newline
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - iWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - iHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - "\r\n"
+    - Newline
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - toDraw
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Boolean
+    - BooleanKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'This array stores the values of the fractal as they're calculated"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - mFractal
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'This number (set by the corresponding scrollbar) takes on values between 100 and 2000"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Higher numbers = more accurate/slow; lower mumbers = less accurate/fast"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - IterationLimit
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Simple API declaration for drawing pixels"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Declare
+    - DeclareKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - SetPixelV
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Lib
+    - LibKeyword
+  - - " "
+    - Whitespace
+  - - "\"gdi32\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - hDC
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - crColor
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Byte
+    - ByteKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'DRAW THE FRACTAL"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - CmdRedraw_Click
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Lots of variables are required for fractal-drawing"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - drawWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - drawHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - count
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - red
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - green
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - blue
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - minX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - maxX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - minY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - maxY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - calcX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - calcY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - stepX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - stepY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - color
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - loValue
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - hiValue
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - loValue
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "2000000000"
+    - Number
+  - - "#"
+    - Octothorpe
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - hiValue
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "2000000000"
+    - Number
+  - - "#"
+    - Octothorpe
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Reset the mouse values after each draw (since no box is present after drawing)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - iX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - iY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - tX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - tY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Prepare the picture box using hard-coded size values.  (Feel free to change these.)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - drawWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "600"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - drawHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "600"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - PicDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Width
+    - WidthKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - drawWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - "2"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - PicDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Height
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - drawHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - "2"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - PicDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Refresh
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - DoEvents
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Set minimum and maximum view windows based on corresponding text box values"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - minX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Val
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - TxtXMin
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - maxX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Val
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - TxtXMax
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - minY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Val
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - TxtYMin
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - maxY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Val
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - TxtYMax
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Create a conversion between the Mandlebrot set window and the actual pixels where the fractal will appear"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - stepX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Abs
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - maxX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - minX
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - /
+    - DivisionOperator
+  - - " "
+    - Whitespace
+  - - drawWidth
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - stepY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Abs
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - maxY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - minY
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - /
+    - DivisionOperator
+  - - " "
+    - Whitespace
+  - - drawHeight
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Resize the fractal array"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - ReDim
+    - ReDimKeyword
+  - - " "
+    - Whitespace
+  - - mFractal
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - drawWidth
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - drawHeight
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Run a loop through each pixel, calculating Mandelbrot values as we go"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - calcX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - minX
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - calcY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - minY
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - rootCount
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - For
+    - ForKeyword
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - drawHeight
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - For
+    - ForKeyword
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - drawWidth
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'This main recursive function is what actually calculates the fractal values"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - count
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Calculate
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - calcX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - calcY
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - rootCount
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Sqr
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - count
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Keep track of the highest and lowest values encountered so far (to help with rendering)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - rootCount
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - " "
+    - Whitespace
+  - - loValue
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - loValue
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - rootCount
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Else
+    - ElseKeyword
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - rootCount
+    - Identifier
+  - - " "
+    - Whitespace
+  - - ">"
+    - GreaterThanOperator
+  - - " "
+    - Whitespace
+  - - hiValue
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - hiValue
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - rootCount
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Store the fractal value in the array"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - mFractal
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - x
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - rootCount
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - calcX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - calcX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - stepX
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Next
+    - NextKeyword
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - calcX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - minX
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - calcY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - calcY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - stepY
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Give the user some indication of how close we are to finishing"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - CmdRedraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Caption
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Int
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - (
+    - LeftParentheses
+  - - y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - /
+    - DivisionOperator
+  - - " "
+    - Whitespace
+  - - drawHeight
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - "100"
+    - Number
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - " "
+    - Whitespace
+  - - "\"% Complete\""
+    - StringLiteral
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Next
+    - NextKeyword
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Once the fractal values have been saved, calculate the difference between the lowest and highest values"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - lohiDif
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - lohiDif
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - hiValue
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - loValue
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - lohiDif
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "#"
+    - Octothorpe
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - lohiDif
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "."
+    - PeriodOperator
+  - - "0000000001"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Draw the fractal"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - For
+    - ForKeyword
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - drawHeight
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - For
+    - ForKeyword
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - drawWidth
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Convert the fractal value to a 0-255 RGB value"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - count
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Int
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - (
+    - LeftParentheses
+  - - (
+    - LeftParentheses
+  - - mFractal
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - x
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - loValue
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - /
+    - DivisionOperator
+  - - " "
+    - Whitespace
+  - - lohiDif
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - "255"
+    - Number
+  - - "#"
+    - Octothorpe
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "."
+    - PeriodOperator
+  - - "5"
+    - Number
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Make the highest values pure white (looks better, IMO)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - mFractal
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - x
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - hiValue
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - red
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "255"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - green
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "255"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - blue
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "255"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Else
+    - ElseKeyword
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - "'I use this simple color formula to make the fractal shades of violet instead of just gray"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - red
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - count
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - green
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - count
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "\\"
+    - BackwardSlashOperator
+  - - " "
+    - Whitespace
+  - - "2"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - blue
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - count
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - "2"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - blue
+    - Identifier
+  - - " "
+    - Whitespace
+  - - ">"
+    - GreaterThanOperator
+  - - " "
+    - Whitespace
+  - - "255"
+    - Number
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - blue
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "255"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Draw this pixel"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - SetPixelV
+    - Identifier
+  - - " "
+    - Whitespace
+  - - PicDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hDC
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - RGB
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - red
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - green
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - blue
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Next
+    - NextKeyword
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Refresh the image every 16 lines"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - And
+    - AndKeyword
+  - - " "
+    - Whitespace
+  - - "15"
+    - Number
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - PicDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Refresh
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Next
+    - NextKeyword
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Final image refresh"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - PicDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Refresh
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Restore the command button text"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - CmdRedraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Caption
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "\"Redraw the Fractal\""
+    - StringLiteral
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - CmdReset_Click
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - toDraw
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - TxtXMin
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Text
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "\"-1.75\""
+    - StringLiteral
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - TxtXMax
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Text
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "\".75\""
+    - StringLiteral
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - TxtYMin
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Text
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "\"-1.5\""
+    - StringLiteral
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - TxtYMax
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Text
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "\"1.5\""
+    - StringLiteral
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - IterationLimit
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "400"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - iX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - iY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - tX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - tY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - CmdRedraw_Click
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'ON STARTUP: set various variables to proper default values"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - Form_Load
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - toDraw
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - IterationLimit
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "400"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - iX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - iY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - tX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - tY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'MOUSE DOWN: on the main picture box"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - PicDraw_MouseDown
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - Button
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Shift
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Single
+    - SingleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Single
+    - SingleKeyword
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Erase any previous boxes the user may have drawn"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - PicDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - DrawMode
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "6"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - PicDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Line
+    - LineKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - tX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - tY
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "-"
+    - SubtractionOperator
+  - - (
+    - LeftParentheses
+  - - tX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - iY
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - PicDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Line
+    - LineKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - tX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - tY
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "-"
+    - SubtractionOperator
+  - - (
+    - LeftParentheses
+  - - iX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - tY
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - PicDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Line
+    - LineKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - iX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - iY
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "-"
+    - SubtractionOperator
+  - - (
+    - LeftParentheses
+  - - tX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - iY
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - PicDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Line
+    - LineKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - iX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - iY
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "-"
+    - SubtractionOperator
+  - - (
+    - LeftParentheses
+  - - iX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - tY
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - PicDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - DrawMode
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "13"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Note the current location and mark a mouse button as being \"down\""
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - iX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - iY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - tX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - tY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - toDraw
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "True"
+    - TrueKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'MOUSE MOVE: on the main picture box"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - PicDraw_MouseMove
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - Button
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Shift
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Single
+    - SingleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Single
+    - SingleKeyword
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'If a mouse button has been pressed, draw a rectangle around the current selection area"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - toDraw
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Set the draw style to \"invert\""
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - PicDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - DrawMode
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "6"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Erase the old box"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - PicDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Line
+    - LineKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - tX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - tY
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "-"
+    - SubtractionOperator
+  - - (
+    - LeftParentheses
+  - - tX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - iY
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - PicDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Line
+    - LineKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - tX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - tY
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "-"
+    - SubtractionOperator
+  - - (
+    - LeftParentheses
+  - - iX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - tY
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - PicDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Line
+    - LineKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - iX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - iY
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "-"
+    - SubtractionOperator
+  - - (
+    - LeftParentheses
+  - - tX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - iY
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - PicDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Line
+    - LineKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - iX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - iY
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "-"
+    - SubtractionOperator
+  - - (
+    - LeftParentheses
+  - - iX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - tY
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Draw a new box"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - PicDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Line
+    - LineKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - iX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - iY
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "-"
+    - SubtractionOperator
+  - - (
+    - LeftParentheses
+  - - iX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - PicDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Line
+    - LineKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - iX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - iY
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "-"
+    - SubtractionOperator
+  - - (
+    - LeftParentheses
+  - - x
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - iY
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - PicDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Line
+    - LineKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - x
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "-"
+    - SubtractionOperator
+  - - (
+    - LeftParentheses
+  - - iX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - PicDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Line
+    - LineKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - x
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "-"
+    - SubtractionOperator
+  - - (
+    - LeftParentheses
+  - - x
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - iY
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Remember where this box is located"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - tX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - tY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Reset the draw style to \"copy\""
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - PicDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - DrawMode
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "13"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'MOUSE UP: on the main picture box"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - PicDraw_MouseUp
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - Button
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Shift
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Single
+    - SingleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Single
+    - SingleKeyword
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Mark the mouse button as being released"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - toDraw
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Figure out the width and height of the selected area"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - iWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - iX
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - iHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - iY
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Use some fancy math to calculate the approximate reference frame that the user has selected."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'(Basically, translate the pixel width on-screen to the coordinate system used by Mandelbrot.)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - nX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - nY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - oX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - oY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - oSX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - oEX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - oSY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - oEY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - nX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - nY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - oSX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - TxtXMin
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - oEX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - TxtXMax
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - oSY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - TxtYMin
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - oEY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - TxtYMax
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - oX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - iX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - /
+    - DivisionOperator
+  - - " "
+    - Whitespace
+  - - PicDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleWidth
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - TxtXMax
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - TxtXMin
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - oX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - oSX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - oX
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - oY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - iY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - /
+    - DivisionOperator
+  - - " "
+    - Whitespace
+  - - PicDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleHeight
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - TxtYMax
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - TxtYMin
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - oY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - oSY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - oY
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - nX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - nX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - /
+    - DivisionOperator
+  - - " "
+    - Whitespace
+  - - PicDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleWidth
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - TxtXMax
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - TxtXMin
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - nX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - oSX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - nX
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - nY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - nY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - /
+    - DivisionOperator
+  - - " "
+    - Whitespace
+  - - PicDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleHeight
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - TxtYMax
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - TxtYMin
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - nY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - oSY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - nY
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Change the text boxes to match our new frame of reference"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - TxtXMin
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - oX
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - TxtXMax
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - nX
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - TxtYMin
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - oY
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - TxtYMax
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - nY
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'SCROLLBAR: for changing the accuracy / speed of the fractal render"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - scrAccuracy_Change
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - IterationLimit
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - scrAccuracy
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Value
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - "100"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Here is a standard recursive function for generating the Mandlebrot set. Technical details are available at the Wikipedia link referenced earlier."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - Calculate
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - origX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - origY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - curX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - curY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - counter
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Static
+    - StaticKeyword
+  - - " "
+    - Whitespace
+  - - NewX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - NewY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Double
+    - DoubleKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Check for overflow (well, technically \"underflow\" :)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - curX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "1000000"
+    - Number
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Calculate
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - counter
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Exit
+    - ExitKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - ElseIf
+    - ElseIfKeyword
+  - - " "
+    - Whitespace
+  - - curY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "1000000"
+    - Number
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Calculate
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - counter
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Exit
+    - ExitKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'If you so desire, you can also remove the if/then statements above and let VB do the underflow checking (uncomment this next line to allow)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'On Error GoTo 1"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - NewX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - curX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - curX
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - curY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - curY
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - origX
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - NewY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - "2"
+    - Number
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - curX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - curY
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - origY
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - (
+    - LeftParentheses
+  - - NewX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - NewX
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - NewY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - NewY
+    - Identifier
+  - - )
+    - RightParentheses
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - ">"
+    - GreaterThanOperator
+  - - " "
+    - Whitespace
+  - - "2"
+    - Number
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "1"
+    - Number
+  - - "       "
+    - Whitespace
+  - - Calculate
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - counter
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Else
+    - ElseKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'This line checks to see if we've exceeded the \"IterationLimit\" (IterationLimit controls accuracy / speed of execution)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - counter
+    - Identifier
+  - - " "
+    - Whitespace
+  - - ">"
+    - GreaterThanOperator
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - IterationLimit
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - Calculate
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - IterationLimit
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Else
+    - ElseKeyword
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - counter
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - counter
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - Calculate
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Calculate
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - origX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - origY
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - NewX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - NewY
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - counter
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - "\r\n"
+    - Newline

@@ -22,2774 +22,5545 @@ header:
     description: ~
     ext_key: {}
 tokens:
-  - Whitespace: "  "
-  - Identifier: MultiUse
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "1"
-  - Whitespace: "  "
-  - Comment: "'True"
-  - Newline: "\r\n"
-  - Whitespace: "  "
-  - Identifier: Persistable
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: "  "
-  - Comment: "'NotPersistable"
-  - Newline: "\r\n"
-  - Whitespace: "  "
-  - Identifier: DataBindingBehavior
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: "  "
-  - Comment: "'vbNone"
-  - Newline: "\r\n"
-  - Whitespace: "  "
-  - Identifier: DataSourceBehavior
-  - Whitespace: "  "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: "  "
-  - Comment: "'vbNone"
-  - Newline: "\r\n"
-  - Whitespace: "  "
-  - Identifier: MTSTransactionMode
-  - Whitespace: "  "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: "  "
-  - Comment: "'NotAnMTSObject"
-  - Newline: "\r\n"
-  - EndKeyword: END
-  - Newline: "\r\n"
-  - AttributeKeyword: Attribute
-  - Whitespace: " "
-  - Identifier: VB_Name
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - StringLiteral: "\"pdOpenSaveDialog\""
-  - Newline: "\r\n"
-  - AttributeKeyword: Attribute
-  - Whitespace: " "
-  - Identifier: VB_GlobalNameSpace
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - Newline: "\r\n"
-  - AttributeKeyword: Attribute
-  - Whitespace: " "
-  - Identifier: VB_Creatable
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - TrueKeyword: "True"
-  - Newline: "\r\n"
-  - AttributeKeyword: Attribute
-  - Whitespace: " "
-  - Identifier: VB_PredeclaredId
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - Newline: "\r\n"
-  - AttributeKeyword: Attribute
-  - Whitespace: " "
-  - Identifier: VB_Exposed
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - Newline: "\r\n"
-  - Comment: "'***************************************************************************"
-  - Newline: "\r\n"
-  - Comment: "'PhotoDemon Unicode-Aware System Open/Save Dialog"
-  - Newline: "\r\n"
-  - Comment: "'Copyright 2015-2018 by Tanner Helland"
-  - Newline: "\r\n"
-  - Comment: "'Created: 05/August/15"
-  - Newline: "\r\n"
-  - Comment: "'Last updated: 15/August/15"
-  - Newline: "\r\n"
-  - Comment: "'Last update: finish work on GetSaveFileName()"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'Common dialogs appear in multiple places throughout PD.  In the beginning, PD relied on a convenient common dialog wrapper"
-  - Newline: "\r\n"
-  - Comment: "' from vbAccelerator (http://www.vbaccelerator.com/home/VB/Code/Libraries/Common_Dialogs/Code_Only_Common_Dialogs/article.asp),"
-  - Newline: "\r\n"
-  - Comment: "' but besides being unwieldy and somewhat error-prone, Steve's implementation was ANSI-only.  Due to some major differences in"
-  - Newline: "\r\n"
-  - Comment: "' string handling (including multifile delimiters), it was non-trivial to overhaul his control, so in 2015, I wrote a new"
-  - Newline: "\r\n"
-  - Comment: "' common dialog interface, specific to PD."
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'The eventual goal is to add parallel support for Vista's IFileOpen/SaveDialogs, which would actually allow me to customize"
-  - Newline: "\r\n"
-  - Comment: "' the program's main dialogs, but that's a ways off.  For now, everything simply wraps the traditional common dialog controls."
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'For convenience against existing code, the function calls are roughly identical to Steve's old control."
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'All source code in this file is licensed under a modified BSD license.  This means you may use the code in your own"
-  - Newline: "\r\n"
-  - Comment: "' projects IF you provide attribution.  For more information, please visit https://photodemon.org/license/"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'***************************************************************************"
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - OptionKeyword: Option
-  - Whitespace: " "
-  - ExplicitKeyword: Explicit
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Unicode interface.  Note that the only thing we pass it is a pointer to the master OPENFILENAME struct; it does the rest."
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - DeclareKeyword: Declare
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: GetOpenFileNameW
-  - Whitespace: " "
-  - LibKeyword: Lib
-  - Whitespace: " "
-  - StringLiteral: "\"comdlg32\""
-  - Whitespace: " "
-  - LeftParentheses: (
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: ptrToOFN
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - DeclareKeyword: Declare
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: GetSaveFileNameW
-  - Whitespace: " "
-  - LibKeyword: Lib
-  - Whitespace: " "
-  - StringLiteral: "\"comdlg32\""
-  - Whitespace: " "
-  - LeftParentheses: (
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: ptrToOFN
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - DeclareKeyword: Declare
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: CommDlgExtendedError
-  - Whitespace: " "
-  - LibKeyword: Lib
-  - Whitespace: " "
-  - StringLiteral: "\"comdlg32\""
-  - Whitespace: " "
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - DeclareKeyword: Declare
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: lstrlenW
-  - Whitespace: " "
-  - LibKeyword: Lib
-  - Whitespace: " "
-  - StringLiteral: "\"kernel32\""
-  - Whitespace: " "
-  - LeftParentheses: (
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: lpString
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'MSDN struct breakdown: https://msdn.microsoft.com/en-us/library/ms646839%28v=vs.85%29.aspx"
-  - Newline: "\r\n"
-  - Comment: "' Note that some parameter behavior (e.g. lpstrInitialDir) varies under Win 7 and later."
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - TypeKeyword: Type
-  - Whitespace: " "
-  - Identifier: OPENFILENAME
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: lStructSize
-  - Whitespace: "          "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: hWndOwner
-  - Whitespace: "            "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: hInstance
-  - Whitespace: "            "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: lpstrFilter
-  - Whitespace: "          "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: lpstrCustomFilter
-  - Whitespace: "    "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: nMaxCustFilter
-  - Whitespace: "       "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: nFilterIndex
-  - Whitespace: "         "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: lpstrFile
-  - Whitespace: "            "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: nMaxFile
-  - Whitespace: "             "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: lpstrFileTitle
-  - Whitespace: "       "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: nMaxFileTitle
-  - Whitespace: "        "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: lpstrInitialDir
-  - Whitespace: "      "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: lpstrTitle
-  - Whitespace: "           "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: Flags
-  - Whitespace: "                "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: nFileOffset
-  - Whitespace: "          "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: nFileExtension
-  - Whitespace: "       "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: lpstrDefExt
-  - Whitespace: "          "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: lCustData
-  - Whitespace: "            "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: lpfnHook
-  - Whitespace: "             "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: lpTemplateName
-  - Whitespace: "       "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: pvReserved
-  - Whitespace: "           "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: dwReserved
-  - Whitespace: "           "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: FlagsEx
-  - Whitespace: "              "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - TypeKeyword: Type
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - EnumKeyword: Enum
-  - Whitespace: " "
-  - Identifier: EOpenFile
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: OFN_READONLY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H1
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: OFN_OVERWRITEPROMPT
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H2
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: OFN_HIDEREADONLY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H4
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: OFN_NOCHANGEDIR
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H8
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: OFN_SHOWHELP
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H10
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: OFN_ENABLEHOOK
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H20
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: OFN_ENABLETEMPLATE
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H40
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: OFN_ENABLETEMPLATEHANDLE
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H80
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: OFN_NOVALIDATE
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H100
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: OFN_ALLOWMULTISELECT
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H200
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: OFN_EXTENSIONDIFFERENT
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H400
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: OFN_PATHMUSTEXIST
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H800
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: OFN_FILEMUSTEXIST
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H1000
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: OFN_CREATEPROMPT
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H2000
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: OFN_SHAREAWARE
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H4000
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: OFN_NOREADONLYRETURN
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H8000
-  - Ampersand: "&"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: OFN_NOTESTFILECREATE
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H10000
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: OFN_NONETWORKBUTTON
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H20000
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: OFN_NOLONGNAMES
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H40000
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: OFN_EXPLORER
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H80000
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: OFN_NODEREFERENCELINKS
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H100000
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: OFN_LONGNAMES
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H200000
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - EnumKeyword: Enum
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Octothorpe: "#"
-  - IfKeyword: If
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - ConstKeyword: Const
-  - Whitespace: " "
-  - Identifier: OFN_READONLY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H1
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: OFN_OVERWRITEPROMPT
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H2
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: OFN_HIDEREADONLY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H4
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: OFN_NOCHANGEDIR
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H8
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: OFN_SHOWHELP
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H10
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - ConstKeyword: Const
-  - Whitespace: " "
-  - Identifier: OFN_ENABLEHOOK
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H20
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: OFN_ENABLETEMPLATE
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H40
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: OFN_ENABLETEMPLATEHANDLE
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H80
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: OFN_NOVALIDATE
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H100
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - ConstKeyword: Const
-  - Whitespace: " "
-  - Identifier: OFN_ALLOWMULTISELECT
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H200
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: OFN_EXTENSIONDIFFERENT
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H400
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: OFN_PATHMUSTEXIST
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H800
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: OFN_FILEMUSTEXIST
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H1000
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - ConstKeyword: Const
-  - Whitespace: " "
-  - Identifier: OFN_CREATEPROMPT
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H2000
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: OFN_SHAREAWARE
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H4000
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: OFN_NOREADONLYRETURN
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H8000
-  - Ampersand: "&"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: OFN_NOTESTFILECREATE
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H10000
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - ConstKeyword: Const
-  - Whitespace: " "
-  - Identifier: OFN_NONETWORKBUTTON
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H20000
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: OFN_NOLONGNAMES
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H40000
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: OFN_EXPLORER
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H80000
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: OFN_NODEREFERENCELINKS
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H100000
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - ConstKeyword: Const
-  - Whitespace: " "
-  - Identifier: OFN_LONGNAMES
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H200000
-  - Newline: "\r\n"
-  - Octothorpe: "#"
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'MSDN explanation of potential CD errors: https://msdn.microsoft.com/en-us/library/ms646916%28v=vs.85%29.aspx"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - EnumKeyword: Enum
-  - Whitespace: " "
-  - Identifier: CommonDialogErrorsEnum
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: CDERR_DIALOGFAILURE
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: HFFFF
-  - Ampersand: "&"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: CDERR_FINDRESFAILURE
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H6
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: CDERR_LOADRESFAILURE
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H7
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: CDERR_INITIALIZATION
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H2
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: CDERR_LOADSTRFAILURE
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H5
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: CDERR_LOCKRESFAILURE
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H8
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: CDERR_MEMALLOCFAILURE
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H9
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: CDERR_MEMLOCKFAILURE
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: HA
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: CDERR_NOHINSTANCE
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H4
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: CDERR_NOHOOK
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H8
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: CDERR_NOTEMPLATE
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H3
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: CDERR_REGISTERMSGFAIL
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: HC
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: CDERR_STRUCTSIZE
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H1
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: FNERR_BUFFERTOOSMALL
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H3003
-  - Ampersand: "&"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: FNERR_INVALIDFILENAME
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H3002
-  - Ampersand: "&"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: FNERR_SUBCLASSFAILURE
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Identifier: H3001
-  - Ampersand: "&"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: CDERR_CANCELED
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: vbObjectError
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - EnumKeyword: Enum
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Arbitrary-length return strings are possible, but because we have to re-raise the dialog upon failure (ugh), it's not"
-  - Newline: "\r\n"
-  - Comment: "' really practical to implement a \"try again with larger buffer\" feature.  Fortunately, post-XP operatings systems have"
-  - Newline: "\r\n"
-  - Comment: "' no upper limit, so we can start with an arbitrarily large string."
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - ConstKeyword: Const
-  - Whitespace: " "
-  - Identifier: MAX_PATH_LOAD_XP
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "16384"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - ConstKeyword: Const
-  - Whitespace: " "
-  - Identifier: MAX_PATH_LOAD
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "262144"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - ConstKeyword: Const
-  - Whitespace: " "
-  - Identifier: MAX_PATH_SAVE
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "1024"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - ConstKeyword: Const
-  - Whitespace: " "
-  - Identifier: MAX_FILE
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "260"
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Display a system-specific Open File dialog."
-  - Newline: "\r\n"
-  - Comment: "' RETURNS: TRUE if one or more files was selected; FALSE if canceled."
-  - Newline: "\r\n"
-  - FriendKeyword: Friend
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: GetOpenFileName
-  - LeftParentheses: (
-  - ByRefKeyword: ByRef
-  - Whitespace: " "
-  - Identifier: FileName
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - Comma: ","
-  - Whitespace: " "
-  - Underscore: _
-  - Newline: "\r\n"
-  - Whitespace: "                           "
-  - OptionalKeyword: Optional
-  - Whitespace: " "
-  - ByRefKeyword: ByRef
-  - Whitespace: " "
-  - Identifier: FileTitle
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - Comma: ","
-  - Whitespace: " "
-  - Underscore: _
-  - Newline: "\r\n"
-  - Whitespace: "                           "
-  - OptionalKeyword: Optional
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: FileMustExist
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - BooleanKeyword: Boolean
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - TrueKeyword: "True"
-  - Comma: ","
-  - Whitespace: " "
-  - Underscore: _
-  - Newline: "\r\n"
-  - Whitespace: "                           "
-  - OptionalKeyword: Optional
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: MultiSelect
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - BooleanKeyword: Boolean
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - Comma: ","
-  - Whitespace: " "
-  - Underscore: _
-  - Newline: "\r\n"
-  - Whitespace: "                           "
-  - OptionalKeyword: Optional
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: Filter
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - StringLiteral: "\"All (*.*)|*.*\""
-  - Comma: ","
-  - Whitespace: " "
-  - Underscore: _
-  - Newline: "\r\n"
-  - Whitespace: "                           "
-  - OptionalKeyword: Optional
-  - Whitespace: " "
-  - ByRefKeyword: ByRef
-  - Whitespace: " "
-  - Identifier: FilterIndex
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "1"
-  - Comma: ","
-  - Whitespace: " "
-  - Underscore: _
-  - Newline: "\r\n"
-  - Whitespace: "                           "
-  - OptionalKeyword: Optional
-  - Whitespace: " "
-  - ByRefKeyword: ByRef
-  - Whitespace: " "
-  - Identifier: InitDir
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - Comma: ","
-  - Whitespace: " "
-  - Underscore: _
-  - Newline: "\r\n"
-  - Whitespace: "                           "
-  - OptionalKeyword: Optional
-  - Whitespace: " "
-  - ByRefKeyword: ByRef
-  - Whitespace: " "
-  - Identifier: DlgTitle
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - Comma: ","
-  - Whitespace: " "
-  - Underscore: _
-  - Newline: "\r\n"
-  - Whitespace: "                           "
-  - OptionalKeyword: Optional
-  - Whitespace: " "
-  - ByRefKeyword: ByRef
-  - Whitespace: " "
-  - Identifier: DefaultExt
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - Comma: ","
-  - Whitespace: " "
-  - Underscore: _
-  - Newline: "\r\n"
-  - Whitespace: "                           "
-  - OptionalKeyword: Optional
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: Owner
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Ampersand: "&"
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - BooleanKeyword: Boolean
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: lReturn
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: lInitPathSize
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Prep a relevant OFN struct"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: tmpOFN
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - Identifier: OPENFILENAME
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - WithKeyword: With
-  - Whitespace: " "
-  - Identifier: tmpOFN
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: lStructSize
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - LenKeyword: Len
-  - LeftParentheses: (
-  - Identifier: tmpOFN
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'OFN_EXPLORER is explicitly flagged to force Explorer mode even when allowing multiselect, and OFN_PATHMUSTEXIST"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "' is used to prevent the user from entering invalid filenames."
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: Flags
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: OFN_PATHMUSTEXIST
-  - Whitespace: " "
-  - OrKeyword: Or
-  - Whitespace: " "
-  - Identifier: OFN_LONGNAMES
-  - Whitespace: " "
-  - OrKeyword: Or
-  - Whitespace: " "
-  - Identifier: OFN_HIDEREADONLY
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: FileMustExist
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - PeriodOperator: "."
-  - Identifier: Flags
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - PeriodOperator: "."
-  - Identifier: Flags
-  - Whitespace: " "
-  - OrKeyword: Or
-  - Whitespace: " "
-  - Identifier: OFN_FILEMUSTEXIST
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: MultiSelect
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - PeriodOperator: "."
-  - Identifier: Flags
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - PeriodOperator: "."
-  - Identifier: Flags
-  - Whitespace: " "
-  - OrKeyword: Or
-  - Whitespace: " "
-  - Identifier: OFN_ALLOWMULTISELECT
-  - Whitespace: " "
-  - OrKeyword: Or
-  - Whitespace: " "
-  - Identifier: OFN_EXPLORER
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Various other obvious flags"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: hWndOwner
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Owner
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: lpstrInitialDir
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: InitDir
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: lpstrDefExt
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: DefaultExt
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: lpstrTitle
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: DlgTitle
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'The filter string is actually null-delimited, which isn't easy for the caller to do, so we allow the old-style"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "' pipe and colon separators, which are forcibly converted now."
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: Ch
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: i
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: s
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - ForKeyword: For
-  - Whitespace: " "
-  - Identifier: i
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "1"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - LenKeyword: Len
-  - LeftParentheses: (
-  - Identifier: Filter
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: Ch
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - MidKeyword: Mid
-  - DollarSign: $
-  - LeftParentheses: (
-  - Identifier: Filter
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: i
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "1"
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: Ch
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - StringLiteral: "\"|\""
-  - Whitespace: " "
-  - OrKeyword: Or
-  - Whitespace: " "
-  - Identifier: Ch
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - StringLiteral: "\":\""
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "                "
-  - Identifier: s
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: s
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Whitespace: " "
-  - Identifier: vbNullChar
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - ElseKeyword: Else
-  - Newline: "\r\n"
-  - Whitespace: "                "
-  - Identifier: s
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: s
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Whitespace: " "
-  - Identifier: Ch
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - NextKeyword: Next
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Double-nulls mark final termination"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: s
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: s
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Whitespace: " "
-  - Identifier: vbNullChar
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Whitespace: " "
-  - Identifier: vbNullChar
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: lpstrFilter
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: s
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: nFilterIndex
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: FilterIndex
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'We have to start with a prepared buffer of some arbitrary size.  If the size proves too small,"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "' the call to GetOpenFilename will fail, and we can't retry without re-raising the dialog from scratch."
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: lInitPathSize
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: MAX_PATH_LOAD_XP
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: s
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: FileName
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Whitespace: " "
-  - StringKeyword: String
-  - DollarSign: $
-  - LeftParentheses: (
-  - Identifier: lInitPathSize
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - LenKeyword: Len
-  - LeftParentheses: (
-  - Identifier: FileName
-  - RightParentheses: )
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: lpstrFile
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: s
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: nMaxFile
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: lInitPathSize
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: s
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: FileTitle
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Whitespace: " "
-  - StringKeyword: String
-  - DollarSign: $
-  - LeftParentheses: (
-  - Identifier: MAX_FILE
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - LenKeyword: Len
-  - LeftParentheses: (
-  - Identifier: FileTitle
-  - RightParentheses: )
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: lpstrFileTitle
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: s
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: nMaxFileTitle
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: MAX_FILE
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'All other fields are fine as-is"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - WithKeyword: With
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Turn control over to the common dialog function"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: lReturn
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: GetOpenFileNameW
-  - LeftParentheses: (
-  - Identifier: VarPtr
-  - LeftParentheses: (
-  - Identifier: tmpOFN
-  - RightParentheses: )
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Before proceeding, add debug info in the special case of a buffer underrun.  This case is problematic, as we can't simply"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "' \"try again\" without re-raising a modal dialog, so I'm hoping my current default buffer size is always sufficient."
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: lReturn
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - RightParentheses: )
-  - Whitespace: " "
-  - AndKeyword: And
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: CommDlgExtendedError
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: FNERR_BUFFERTOOSMALL
-  - RightParentheses: )
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: MsgBox
-  - Whitespace: " "
-  - StringLiteral: "\"Unfortunately, the number of images you selected exceeds what Windows® allows for a single load operation.  Please try again with a smaller set of selected images.\""
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbExclamation
-  - Whitespace: " "
-  - OrKeyword: Or
-  - Whitespace: " "
-  - Identifier: vbOKOnly
-  - Comma: ","
-  - Whitespace: " "
-  - StringLiteral: "\"Error: too many images\""
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Non-zero returns are considered successful, but note that a failure state may have occurred due to a too-small buffer."
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "' (We could technically handle buffer overflows by retrying with a larger buffer, but I don't know how to do that"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'  without re-displaying the entire effing common dialog; to that end, I've hard-coded a 16K buffer as a limit,"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'  since PD won't do well with that many loaded images anyway.)"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: lReturn
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - GreaterThanOperator: ">"
-  - Whitespace: " "
-  - Number: "0"
-  - RightParentheses: )
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Success!  Parse out the relevant strings."
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: lLen
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - LeftParentheses: (
-  - NotKeyword: Not
-  - Whitespace: " "
-  - Identifier: MultiSelect
-  - RightParentheses: )
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - IfKeyword: If
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: tmpOFN
-  - PeriodOperator: "."
-  - Identifier: nFileOffset
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - GreaterThanOperator: ">"
-  - Whitespace: " "
-  - Number: "0"
-  - RightParentheses: )
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "                "
-  - Identifier: lLen
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: InStr
-  - LeftParentheses: (
-  - Identifier: tmpOFN
-  - PeriodOperator: "."
-  - Identifier: nFileOffset
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: tmpOFN
-  - PeriodOperator: "."
-  - Identifier: lpstrFile
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbNullChar
-  - RightParentheses: )
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Number: "1"
-  - Newline: "\r\n"
-  - Whitespace: "                "
-  - IfKeyword: If
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: lLen
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - Whitespace: " "
-  - Number: "1"
-  - RightParentheses: )
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: lLen
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - LenKeyword: Len
-  - LeftParentheses: (
-  - Identifier: tmpOFN
-  - PeriodOperator: "."
-  - Identifier: lpstrFile
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - ElseKeyword: Else
-  - Newline: "\r\n"
-  - Whitespace: "                "
-  - Identifier: lLen
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: lstrlenW
-  - LeftParentheses: (
-  - Identifier: StrPtr
-  - LeftParentheses: (
-  - Identifier: tmpOFN
-  - PeriodOperator: "."
-  - Identifier: lpstrFile
-  - RightParentheses: )
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: lLen
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: FileName
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Left
-  - DollarSign: $
-  - LeftParentheses: (
-  - Identifier: tmpOFN
-  - PeriodOperator: "."
-  - Identifier: lpstrFile
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: lLen
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - ElseKeyword: Else
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: FileName
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: tmpOFN
-  - PeriodOperator: "."
-  - Identifier: lpstrFile
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: lLen
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: lstrlenW
-  - LeftParentheses: (
-  - Identifier: StrPtr
-  - LeftParentheses: (
-  - Identifier: tmpOFN
-  - PeriodOperator: "."
-  - Identifier: lpstrFileTitle
-  - RightParentheses: )
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: lLen
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: FileTitle
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Left
-  - DollarSign: $
-  - LeftParentheses: (
-  - Identifier: tmpOFN
-  - PeriodOperator: "."
-  - Identifier: lpstrFileTitle
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: lLen
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Return the filter index, so the caller can store it to preferences as desired"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: FilterIndex
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: tmpOFN
-  - PeriodOperator: "."
-  - Identifier: nFilterIndex
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: GetOpenFileName
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - TrueKeyword: "True"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ElseKeyword: Else
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: GetOpenFileName
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: FileName
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: vbNullString
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: FileTitle
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: vbNullString
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "                    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Display a system-specific Save File dialog."
-  - Newline: "\r\n"
-  - Comment: "' RETURNS: TRUE if a valid save target was selected/created; FALSE if canceled."
-  - Newline: "\r\n"
-  - FriendKeyword: Friend
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: GetSaveFileName
-  - LeftParentheses: (
-  - ByRefKeyword: ByRef
-  - Whitespace: " "
-  - Identifier: FileName
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - Comma: ","
-  - Whitespace: " "
-  - Underscore: _
-  - Newline: "\r\n"
-  - Whitespace: "                           "
-  - OptionalKeyword: Optional
-  - Whitespace: " "
-  - ByRefKeyword: ByRef
-  - Whitespace: " "
-  - Identifier: FileTitle
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - Comma: ","
-  - Whitespace: " "
-  - Underscore: _
-  - Newline: "\r\n"
-  - Whitespace: "                           "
-  - OptionalKeyword: Optional
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: OverWritePrompt
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - BooleanKeyword: Boolean
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - TrueKeyword: "True"
-  - Comma: ","
-  - Whitespace: " "
-  - Underscore: _
-  - Newline: "\r\n"
-  - Whitespace: "                           "
-  - OptionalKeyword: Optional
-  - Whitespace: " "
-  - ByRefKeyword: ByRef
-  - Whitespace: " "
-  - Identifier: Filter
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - StringLiteral: "\"All (*.*)|*.*\""
-  - Comma: ","
-  - Whitespace: " "
-  - Underscore: _
-  - Newline: "\r\n"
-  - Whitespace: "                           "
-  - OptionalKeyword: Optional
-  - Whitespace: " "
-  - ByRefKeyword: ByRef
-  - Whitespace: " "
-  - Identifier: FilterIndex
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "1"
-  - Comma: ","
-  - Whitespace: " "
-  - Underscore: _
-  - Newline: "\r\n"
-  - Whitespace: "                           "
-  - OptionalKeyword: Optional
-  - Whitespace: " "
-  - ByRefKeyword: ByRef
-  - Whitespace: " "
-  - Identifier: InitDir
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - Comma: ","
-  - Whitespace: " "
-  - Underscore: _
-  - Newline: "\r\n"
-  - Whitespace: "                           "
-  - OptionalKeyword: Optional
-  - Whitespace: " "
-  - ByRefKeyword: ByRef
-  - Whitespace: " "
-  - Identifier: DlgTitle
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - Comma: ","
-  - Whitespace: " "
-  - Underscore: _
-  - Newline: "\r\n"
-  - Whitespace: "                           "
-  - OptionalKeyword: Optional
-  - Whitespace: " "
-  - ByRefKeyword: ByRef
-  - Whitespace: " "
-  - Identifier: DefaultExt
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - Comma: ","
-  - Whitespace: " "
-  - Underscore: _
-  - Newline: "\r\n"
-  - Whitespace: "                           "
-  - OptionalKeyword: Optional
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: Owner
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "1"
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - BooleanKeyword: Boolean
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: lReturn
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: lInitPathSize
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Prep a relevant OFN struct"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: tmpOFN
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - Identifier: OPENFILENAME
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - WithKeyword: With
-  - Whitespace: " "
-  - Identifier: tmpOFN
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: lStructSize
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - LenKeyword: Len
-  - LeftParentheses: (
-  - Identifier: tmpOFN
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'We forcefully hide the \"Open as Read Only\" checkbox, as it makes little sense for PD."
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: Flags
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: OFN_HIDEREADONLY
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: OverWritePrompt
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - PeriodOperator: "."
-  - Identifier: Flags
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - PeriodOperator: "."
-  - Identifier: Flags
-  - Whitespace: " "
-  - OrKeyword: Or
-  - Whitespace: " "
-  - Identifier: OFN_OVERWRITEPROMPT
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Various other obvious flags"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: Owner
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - GreaterThanOperator: ">"
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "1"
-  - RightParentheses: )
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - PeriodOperator: "."
-  - Identifier: hWndOwner
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Owner
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: lpstrInitialDir
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: InitDir
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: lpstrDefExt
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: DefaultExt
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: lpstrTitle
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: DlgTitle
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'The filter string is actually null-delimited, which isn't easy for the caller to do, so we allow the old-style"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "' pipe and colon separators, which are forcibly converted now."
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: s
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: s
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Filter
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: InStr
-  - LeftParentheses: (
-  - Number: "1"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: s
-  - Comma: ","
-  - Whitespace: " "
-  - StringLiteral: "\"|\""
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbBinaryCompare
-  - RightParentheses: )
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: s
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Replace
-  - DollarSign: $
-  - LeftParentheses: (
-  - Identifier: s
-  - Comma: ","
-  - Whitespace: " "
-  - StringLiteral: "\"|\""
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbNullChar
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: InStr
-  - LeftParentheses: (
-  - Number: "1"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: s
-  - Comma: ","
-  - Whitespace: " "
-  - StringLiteral: "\":\""
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbBinaryCompare
-  - RightParentheses: )
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: s
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Replace
-  - DollarSign: $
-  - LeftParentheses: (
-  - Identifier: s
-  - Comma: ","
-  - Whitespace: " "
-  - StringLiteral: "\":\""
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbNullChar
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Double-nulls mark final termination"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: s
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: s
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Whitespace: " "
-  - Identifier: vbNullChar
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Whitespace: " "
-  - Identifier: vbNullChar
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: lpstrFilter
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: s
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: nFilterIndex
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: FilterIndex
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'We have to start with a prepared buffer of some arbitrary size.  If the size proves too small, we could technically call"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "' the function again with a larger buffer (not implemented, as PD uses a comically huge buffer)."
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: lInitPathSize
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: MAX_PATH_SAVE
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: s
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: FileName
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Whitespace: " "
-  - StringKeyword: String
-  - DollarSign: $
-  - LeftParentheses: (
-  - Identifier: lInitPathSize
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - LenKeyword: Len
-  - LeftParentheses: (
-  - Identifier: FileName
-  - RightParentheses: )
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: lpstrFile
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: s
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: nMaxFile
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: lInitPathSize
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: s
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: FileTitle
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Whitespace: " "
-  - StringKeyword: String
-  - DollarSign: $
-  - LeftParentheses: (
-  - Identifier: MAX_FILE
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - LenKeyword: Len
-  - LeftParentheses: (
-  - Identifier: FileTitle
-  - RightParentheses: )
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: lpstrFileTitle
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: s
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - PeriodOperator: "."
-  - Identifier: nMaxFileTitle
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: MAX_FILE
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'All other fields are fine as-is"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - WithKeyword: With
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Turn control over to the common dialog function"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: lReturn
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: GetSaveFileNameW
-  - LeftParentheses: (
-  - Identifier: VarPtr
-  - LeftParentheses: (
-  - Identifier: tmpOFN
-  - RightParentheses: )
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Non-zero returns are considered successful, but note that a failure state may have occurred due to a too-small buffer."
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "' (We could technically handle buffer overflows by retrying with a larger buffer, but I don't know how to do that"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'  without re-displaying the entire effing common dialog; to that end, I've hard-coded a 1K buffer as a limit,"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'  which should allow for saving to just about anywhere!)"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: lReturn
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - GreaterThanOperator: ">"
-  - Whitespace: " "
-  - Number: "0"
-  - RightParentheses: )
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Success!  Parse out the relevant filename string."
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: lLen
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: tmpOFN
-  - PeriodOperator: "."
-  - Identifier: nFileOffset
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - GreaterThanOperator: ">"
-  - Whitespace: " "
-  - Number: "0"
-  - RightParentheses: )
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: lLen
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: InStr
-  - LeftParentheses: (
-  - Identifier: tmpOFN
-  - PeriodOperator: "."
-  - Identifier: nFileOffset
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: tmpOFN
-  - PeriodOperator: "."
-  - Identifier: lpstrFile
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbNullChar
-  - RightParentheses: )
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Number: "1"
-  - Ampersand: "&"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - IfKeyword: If
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: lLen
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - Whitespace: " "
-  - Number: "1"
-  - Ampersand: "&"
-  - RightParentheses: )
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: lLen
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - LenKeyword: Len
-  - LeftParentheses: (
-  - Identifier: tmpOFN
-  - PeriodOperator: "."
-  - Identifier: lpstrFile
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - ElseKeyword: Else
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: lLen
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: lstrlenW
-  - LeftParentheses: (
-  - Identifier: StrPtr
-  - LeftParentheses: (
-  - Identifier: tmpOFN
-  - PeriodOperator: "."
-  - Identifier: lpstrFile
-  - RightParentheses: )
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: lLen
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: FileName
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Left
-  - DollarSign: $
-  - LeftParentheses: (
-  - Identifier: tmpOFN
-  - PeriodOperator: "."
-  - Identifier: lpstrFile
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: lLen
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'As a convenience, return the file title too (which is just the filename + extension, with no path data)"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: lLen
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: lstrlenW
-  - LeftParentheses: (
-  - Identifier: StrPtr
-  - LeftParentheses: (
-  - Identifier: tmpOFN
-  - PeriodOperator: "."
-  - Identifier: lpstrFileTitle
-  - RightParentheses: )
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: lLen
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: FileTitle
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Left
-  - DollarSign: $
-  - LeftParentheses: (
-  - Identifier: tmpOFN
-  - PeriodOperator: "."
-  - Identifier: lpstrFileTitle
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: lLen
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Return the filter index, so the caller can store it to preferences as desired"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: FilterIndex
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: tmpOFN
-  - PeriodOperator: "."
-  - Identifier: nFilterIndex
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: GetSaveFileName
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - TrueKeyword: "True"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ElseKeyword: Else
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: GetSaveFileName
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Newline: "\r\n"
-  - EOF
+  - - "  "
+    - Whitespace
+  - - MultiUse
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "1"
+    - Number
+  - - "  "
+    - Whitespace
+  - - "'True"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "  "
+    - Whitespace
+  - - Persistable
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "  "
+    - Whitespace
+  - - "'NotPersistable"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "  "
+    - Whitespace
+  - - DataBindingBehavior
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "  "
+    - Whitespace
+  - - "'vbNone"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "  "
+    - Whitespace
+  - - DataSourceBehavior
+    - Identifier
+  - - "  "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "  "
+    - Whitespace
+  - - "'vbNone"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "  "
+    - Whitespace
+  - - MTSTransactionMode
+    - Identifier
+  - - "  "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "  "
+    - Whitespace
+  - - "'NotAnMTSObject"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - END
+    - EndKeyword
+  - - "\r\n"
+    - Newline
+  - - Attribute
+    - AttributeKeyword
+  - - " "
+    - Whitespace
+  - - VB_Name
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "\"pdOpenSaveDialog\""
+    - StringLiteral
+  - - "\r\n"
+    - Newline
+  - - Attribute
+    - AttributeKeyword
+  - - " "
+    - Whitespace
+  - - VB_GlobalNameSpace
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - "\r\n"
+    - Newline
+  - - Attribute
+    - AttributeKeyword
+  - - " "
+    - Whitespace
+  - - VB_Creatable
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "True"
+    - TrueKeyword
+  - - "\r\n"
+    - Newline
+  - - Attribute
+    - AttributeKeyword
+  - - " "
+    - Whitespace
+  - - VB_PredeclaredId
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - "\r\n"
+    - Newline
+  - - Attribute
+    - AttributeKeyword
+  - - " "
+    - Whitespace
+  - - VB_Exposed
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - "\r\n"
+    - Newline
+  - - "'***************************************************************************"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'PhotoDemon Unicode-Aware System Open/Save Dialog"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Copyright 2015-2018 by Tanner Helland"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Created: 05/August/15"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Last updated: 15/August/15"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Last update: finish work on GetSaveFileName()"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Common dialogs appear in multiple places throughout PD.  In the beginning, PD relied on a convenient common dialog wrapper"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' from vbAccelerator (http://www.vbaccelerator.com/home/VB/Code/Libraries/Common_Dialogs/Code_Only_Common_Dialogs/article.asp),"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' but besides being unwieldy and somewhat error-prone, Steve's implementation was ANSI-only.  Due to some major differences in"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' string handling (including multifile delimiters), it was non-trivial to overhaul his control, so in 2015, I wrote a new"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' common dialog interface, specific to PD."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'The eventual goal is to add parallel support for Vista's IFileOpen/SaveDialogs, which would actually allow me to customize"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' the program's main dialogs, but that's a ways off.  For now, everything simply wraps the traditional common dialog controls."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'For convenience against existing code, the function calls are roughly identical to Steve's old control."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'All source code in this file is licensed under a modified BSD license.  This means you may use the code in your own"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' projects IF you provide attribution.  For more information, please visit https://photodemon.org/license/"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'***************************************************************************"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - Option
+    - OptionKeyword
+  - - " "
+    - Whitespace
+  - - Explicit
+    - ExplicitKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Unicode interface.  Note that the only thing we pass it is a pointer to the master OPENFILENAME struct; it does the rest."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Declare
+    - DeclareKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - GetOpenFileNameW
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Lib
+    - LibKeyword
+  - - " "
+    - Whitespace
+  - - "\"comdlg32\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - ptrToOFN
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Declare
+    - DeclareKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - GetSaveFileNameW
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Lib
+    - LibKeyword
+  - - " "
+    - Whitespace
+  - - "\"comdlg32\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - ptrToOFN
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Declare
+    - DeclareKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - CommDlgExtendedError
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Lib
+    - LibKeyword
+  - - " "
+    - Whitespace
+  - - "\"comdlg32\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Declare
+    - DeclareKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - lstrlenW
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Lib
+    - LibKeyword
+  - - " "
+    - Whitespace
+  - - "\"kernel32\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - lpString
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'MSDN struct breakdown: https://msdn.microsoft.com/en-us/library/ms646839%28v=vs.85%29.aspx"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' Note that some parameter behavior (e.g. lpstrInitialDir) varies under Win 7 and later."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Type
+    - TypeKeyword
+  - - " "
+    - Whitespace
+  - - OPENFILENAME
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - lStructSize
+    - Identifier
+  - - "          "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - hWndOwner
+    - Identifier
+  - - "            "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - hInstance
+    - Identifier
+  - - "            "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - lpstrFilter
+    - Identifier
+  - - "          "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - lpstrCustomFilter
+    - Identifier
+  - - "    "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - nMaxCustFilter
+    - Identifier
+  - - "       "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - nFilterIndex
+    - Identifier
+  - - "         "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - lpstrFile
+    - Identifier
+  - - "            "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - nMaxFile
+    - Identifier
+  - - "             "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - lpstrFileTitle
+    - Identifier
+  - - "       "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - nMaxFileTitle
+    - Identifier
+  - - "        "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - lpstrInitialDir
+    - Identifier
+  - - "      "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - lpstrTitle
+    - Identifier
+  - - "           "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Flags
+    - Identifier
+  - - "                "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - nFileOffset
+    - Identifier
+  - - "          "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - nFileExtension
+    - Identifier
+  - - "       "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - lpstrDefExt
+    - Identifier
+  - - "          "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - lCustData
+    - Identifier
+  - - "            "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - lpfnHook
+    - Identifier
+  - - "             "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - lpTemplateName
+    - Identifier
+  - - "       "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - pvReserved
+    - Identifier
+  - - "           "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - dwReserved
+    - Identifier
+  - - "           "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - FlagsEx
+    - Identifier
+  - - "              "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Type
+    - TypeKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Enum
+    - EnumKeyword
+  - - " "
+    - Whitespace
+  - - EOpenFile
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - OFN_READONLY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H1
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - OFN_OVERWRITEPROMPT
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H2
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - OFN_HIDEREADONLY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H4
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - OFN_NOCHANGEDIR
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H8
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - OFN_SHOWHELP
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H10
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - OFN_ENABLEHOOK
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H20
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - OFN_ENABLETEMPLATE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H40
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - OFN_ENABLETEMPLATEHANDLE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H80
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - OFN_NOVALIDATE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H100
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - OFN_ALLOWMULTISELECT
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H200
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - OFN_EXTENSIONDIFFERENT
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H400
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - OFN_PATHMUSTEXIST
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H800
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - OFN_FILEMUSTEXIST
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H1000
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - OFN_CREATEPROMPT
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H2000
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - OFN_SHAREAWARE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H4000
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - OFN_NOREADONLYRETURN
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H8000
+    - Identifier
+  - - "&"
+    - Ampersand
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - OFN_NOTESTFILECREATE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H10000
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - OFN_NONETWORKBUTTON
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H20000
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - OFN_NOLONGNAMES
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H40000
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - OFN_EXPLORER
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H80000
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - OFN_NODEREFERENCELINKS
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H100000
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - OFN_LONGNAMES
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H200000
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Enum
+    - EnumKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "#"
+    - Octothorpe
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Const
+    - ConstKeyword
+  - - " "
+    - Whitespace
+  - - OFN_READONLY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H1
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - OFN_OVERWRITEPROMPT
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H2
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - OFN_HIDEREADONLY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H4
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - OFN_NOCHANGEDIR
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H8
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - OFN_SHOWHELP
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H10
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Const
+    - ConstKeyword
+  - - " "
+    - Whitespace
+  - - OFN_ENABLEHOOK
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H20
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - OFN_ENABLETEMPLATE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H40
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - OFN_ENABLETEMPLATEHANDLE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H80
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - OFN_NOVALIDATE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H100
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Const
+    - ConstKeyword
+  - - " "
+    - Whitespace
+  - - OFN_ALLOWMULTISELECT
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H200
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - OFN_EXTENSIONDIFFERENT
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H400
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - OFN_PATHMUSTEXIST
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H800
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - OFN_FILEMUSTEXIST
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H1000
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Const
+    - ConstKeyword
+  - - " "
+    - Whitespace
+  - - OFN_CREATEPROMPT
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H2000
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - OFN_SHAREAWARE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H4000
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - OFN_NOREADONLYRETURN
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H8000
+    - Identifier
+  - - "&"
+    - Ampersand
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - OFN_NOTESTFILECREATE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H10000
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Const
+    - ConstKeyword
+  - - " "
+    - Whitespace
+  - - OFN_NONETWORKBUTTON
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H20000
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - OFN_NOLONGNAMES
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H40000
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - OFN_EXPLORER
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H80000
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - OFN_NODEREFERENCELINKS
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H100000
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Const
+    - ConstKeyword
+  - - " "
+    - Whitespace
+  - - OFN_LONGNAMES
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H200000
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "#"
+    - Octothorpe
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'MSDN explanation of potential CD errors: https://msdn.microsoft.com/en-us/library/ms646916%28v=vs.85%29.aspx"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Enum
+    - EnumKeyword
+  - - " "
+    - Whitespace
+  - - CommonDialogErrorsEnum
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - CDERR_DIALOGFAILURE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - HFFFF
+    - Identifier
+  - - "&"
+    - Ampersand
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - CDERR_FINDRESFAILURE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H6
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - CDERR_LOADRESFAILURE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H7
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - CDERR_INITIALIZATION
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H2
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - CDERR_LOADSTRFAILURE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H5
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - CDERR_LOCKRESFAILURE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H8
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - CDERR_MEMALLOCFAILURE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H9
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - CDERR_MEMLOCKFAILURE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - HA
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - CDERR_NOHINSTANCE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H4
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - CDERR_NOHOOK
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H8
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - CDERR_NOTEMPLATE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H3
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - CDERR_REGISTERMSGFAIL
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - HC
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - CDERR_STRUCTSIZE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H1
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - FNERR_BUFFERTOOSMALL
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H3003
+    - Identifier
+  - - "&"
+    - Ampersand
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - FNERR_INVALIDFILENAME
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H3002
+    - Identifier
+  - - "&"
+    - Ampersand
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - FNERR_SUBCLASSFAILURE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - H3001
+    - Identifier
+  - - "&"
+    - Ampersand
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - CDERR_CANCELED
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - vbObjectError
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Enum
+    - EnumKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Arbitrary-length return strings are possible, but because we have to re-raise the dialog upon failure (ugh), it's not"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' really practical to implement a \"try again with larger buffer\" feature.  Fortunately, post-XP operatings systems have"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' no upper limit, so we can start with an arbitrarily large string."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Const
+    - ConstKeyword
+  - - " "
+    - Whitespace
+  - - MAX_PATH_LOAD_XP
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "16384"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Const
+    - ConstKeyword
+  - - " "
+    - Whitespace
+  - - MAX_PATH_LOAD
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "262144"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Const
+    - ConstKeyword
+  - - " "
+    - Whitespace
+  - - MAX_PATH_SAVE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "1024"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Const
+    - ConstKeyword
+  - - " "
+    - Whitespace
+  - - MAX_FILE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "260"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Display a system-specific Open File dialog."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' RETURNS: TRUE if one or more files was selected; FALSE if canceled."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Friend
+    - FriendKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - GetOpenFileName
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - ByRef
+    - ByRefKeyword
+  - - " "
+    - Whitespace
+  - - FileName
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - _
+    - Underscore
+  - - "\r\n"
+    - Newline
+  - - "                           "
+    - Whitespace
+  - - Optional
+    - OptionalKeyword
+  - - " "
+    - Whitespace
+  - - ByRef
+    - ByRefKeyword
+  - - " "
+    - Whitespace
+  - - FileTitle
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - _
+    - Underscore
+  - - "\r\n"
+    - Newline
+  - - "                           "
+    - Whitespace
+  - - Optional
+    - OptionalKeyword
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - FileMustExist
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Boolean
+    - BooleanKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "True"
+    - TrueKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - _
+    - Underscore
+  - - "\r\n"
+    - Newline
+  - - "                           "
+    - Whitespace
+  - - Optional
+    - OptionalKeyword
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - MultiSelect
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Boolean
+    - BooleanKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - _
+    - Underscore
+  - - "\r\n"
+    - Newline
+  - - "                           "
+    - Whitespace
+  - - Optional
+    - OptionalKeyword
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - Filter
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "\"All (*.*)|*.*\""
+    - StringLiteral
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - _
+    - Underscore
+  - - "\r\n"
+    - Newline
+  - - "                           "
+    - Whitespace
+  - - Optional
+    - OptionalKeyword
+  - - " "
+    - Whitespace
+  - - ByRef
+    - ByRefKeyword
+  - - " "
+    - Whitespace
+  - - FilterIndex
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - _
+    - Underscore
+  - - "\r\n"
+    - Newline
+  - - "                           "
+    - Whitespace
+  - - Optional
+    - OptionalKeyword
+  - - " "
+    - Whitespace
+  - - ByRef
+    - ByRefKeyword
+  - - " "
+    - Whitespace
+  - - InitDir
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - _
+    - Underscore
+  - - "\r\n"
+    - Newline
+  - - "                           "
+    - Whitespace
+  - - Optional
+    - OptionalKeyword
+  - - " "
+    - Whitespace
+  - - ByRef
+    - ByRefKeyword
+  - - " "
+    - Whitespace
+  - - DlgTitle
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - _
+    - Underscore
+  - - "\r\n"
+    - Newline
+  - - "                           "
+    - Whitespace
+  - - Optional
+    - OptionalKeyword
+  - - " "
+    - Whitespace
+  - - ByRef
+    - ByRefKeyword
+  - - " "
+    - Whitespace
+  - - DefaultExt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - _
+    - Underscore
+  - - "\r\n"
+    - Newline
+  - - "                           "
+    - Whitespace
+  - - Optional
+    - OptionalKeyword
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - Owner
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "&"
+    - Ampersand
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Boolean
+    - BooleanKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - lReturn
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - lInitPathSize
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Prep a relevant OFN struct"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - tmpOFN
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - OPENFILENAME
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - With
+    - WithKeyword
+  - - " "
+    - Whitespace
+  - - tmpOFN
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - lStructSize
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Len
+    - LenKeyword
+  - - (
+    - LeftParentheses
+  - - tmpOFN
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'OFN_EXPLORER is explicitly flagged to force Explorer mode even when allowing multiselect, and OFN_PATHMUSTEXIST"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "' is used to prevent the user from entering invalid filenames."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - Flags
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - OFN_PATHMUSTEXIST
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Or
+    - OrKeyword
+  - - " "
+    - Whitespace
+  - - OFN_LONGNAMES
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Or
+    - OrKeyword
+  - - " "
+    - Whitespace
+  - - OFN_HIDEREADONLY
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - FileMustExist
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - Flags
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - Flags
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Or
+    - OrKeyword
+  - - " "
+    - Whitespace
+  - - OFN_FILEMUSTEXIST
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - MultiSelect
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - Flags
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - Flags
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Or
+    - OrKeyword
+  - - " "
+    - Whitespace
+  - - OFN_ALLOWMULTISELECT
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Or
+    - OrKeyword
+  - - " "
+    - Whitespace
+  - - OFN_EXPLORER
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Various other obvious flags"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - hWndOwner
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Owner
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - lpstrInitialDir
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - InitDir
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - lpstrDefExt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - DefaultExt
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - lpstrTitle
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - DlgTitle
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'The filter string is actually null-delimited, which isn't easy for the caller to do, so we allow the old-style"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "' pipe and colon separators, which are forcibly converted now."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - Ch
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - i
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - s
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - For
+    - ForKeyword
+  - - " "
+    - Whitespace
+  - - i
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - Len
+    - LenKeyword
+  - - (
+    - LeftParentheses
+  - - Filter
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - Ch
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Mid
+    - MidKeyword
+  - - $
+    - DollarSign
+  - - (
+    - LeftParentheses
+  - - Filter
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - i
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - Ch
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "\"|\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - Or
+    - OrKeyword
+  - - " "
+    - Whitespace
+  - - Ch
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "\":\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "                "
+    - Whitespace
+  - - s
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - s
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - " "
+    - Whitespace
+  - - vbNullChar
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - Else
+    - ElseKeyword
+  - - "\r\n"
+    - Newline
+  - - "                "
+    - Whitespace
+  - - s
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - s
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - " "
+    - Whitespace
+  - - Ch
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Next
+    - NextKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Double-nulls mark final termination"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - s
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - s
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - " "
+    - Whitespace
+  - - vbNullChar
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - " "
+    - Whitespace
+  - - vbNullChar
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - lpstrFilter
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - s
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - nFilterIndex
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - FilterIndex
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'We have to start with a prepared buffer of some arbitrary size.  If the size proves too small,"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "' the call to GetOpenFilename will fail, and we can't retry without re-raising the dialog from scratch."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - lInitPathSize
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - MAX_PATH_LOAD_XP
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - s
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - FileName
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - $
+    - DollarSign
+  - - (
+    - LeftParentheses
+  - - lInitPathSize
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - Len
+    - LenKeyword
+  - - (
+    - LeftParentheses
+  - - FileName
+    - Identifier
+  - - )
+    - RightParentheses
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - lpstrFile
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - s
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - nMaxFile
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - lInitPathSize
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - s
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - FileTitle
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - $
+    - DollarSign
+  - - (
+    - LeftParentheses
+  - - MAX_FILE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - Len
+    - LenKeyword
+  - - (
+    - LeftParentheses
+  - - FileTitle
+    - Identifier
+  - - )
+    - RightParentheses
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - lpstrFileTitle
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - s
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - nMaxFileTitle
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - MAX_FILE
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'All other fields are fine as-is"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - With
+    - WithKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Turn control over to the common dialog function"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - lReturn
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - GetOpenFileNameW
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - VarPtr
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - tmpOFN
+    - Identifier
+  - - )
+    - RightParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Before proceeding, add debug info in the special case of a buffer underrun.  This case is problematic, as we can't simply"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "' \"try again\" without re-raising a modal dialog, so I'm hoping my current default buffer size is always sufficient."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - lReturn
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - And
+    - AndKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - CommDlgExtendedError
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - FNERR_BUFFERTOOSMALL
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - MsgBox
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "\"Unfortunately, the number of images you selected exceeds what Windows® allows for a single load operation.  Please try again with a smaller set of selected images.\""
+    - StringLiteral
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbExclamation
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Or
+    - OrKeyword
+  - - " "
+    - Whitespace
+  - - vbOKOnly
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "\"Error: too many images\""
+    - StringLiteral
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Non-zero returns are considered successful, but note that a failure state may have occurred due to a too-small buffer."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "' (We could technically handle buffer overflows by retrying with a larger buffer, but I don't know how to do that"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'  without re-displaying the entire effing common dialog; to that end, I've hard-coded a 16K buffer as a limit,"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'  since PD won't do well with that many loaded images anyway.)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - lReturn
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - ">"
+    - GreaterThanOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Success!  Parse out the relevant strings."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - lLen
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - Not
+    - NotKeyword
+  - - " "
+    - Whitespace
+  - - MultiSelect
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - tmpOFN
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - nFileOffset
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - ">"
+    - GreaterThanOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "                "
+    - Whitespace
+  - - lLen
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - InStr
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - tmpOFN
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - nFileOffset
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - tmpOFN
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - lpstrFile
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbNullChar
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "                "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - lLen
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - lLen
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Len
+    - LenKeyword
+  - - (
+    - LeftParentheses
+  - - tmpOFN
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - lpstrFile
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - Else
+    - ElseKeyword
+  - - "\r\n"
+    - Newline
+  - - "                "
+    - Whitespace
+  - - lLen
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - lstrlenW
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - StrPtr
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - tmpOFN
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - lpstrFile
+    - Identifier
+  - - )
+    - RightParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - lLen
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - FileName
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Left
+    - Identifier
+  - - $
+    - DollarSign
+  - - (
+    - LeftParentheses
+  - - tmpOFN
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - lpstrFile
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - lLen
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Else
+    - ElseKeyword
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - FileName
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - tmpOFN
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - lpstrFile
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - lLen
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - lstrlenW
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - StrPtr
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - tmpOFN
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - lpstrFileTitle
+    - Identifier
+  - - )
+    - RightParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - lLen
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - FileTitle
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Left
+    - Identifier
+  - - $
+    - DollarSign
+  - - (
+    - LeftParentheses
+  - - tmpOFN
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - lpstrFileTitle
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - lLen
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Return the filter index, so the caller can store it to preferences as desired"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - FilterIndex
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - tmpOFN
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - nFilterIndex
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - GetOpenFileName
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "True"
+    - TrueKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Else
+    - ElseKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - GetOpenFileName
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - FileName
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - vbNullString
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - FileTitle
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - vbNullString
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "                    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Display a system-specific Save File dialog."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' RETURNS: TRUE if a valid save target was selected/created; FALSE if canceled."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Friend
+    - FriendKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - GetSaveFileName
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - ByRef
+    - ByRefKeyword
+  - - " "
+    - Whitespace
+  - - FileName
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - _
+    - Underscore
+  - - "\r\n"
+    - Newline
+  - - "                           "
+    - Whitespace
+  - - Optional
+    - OptionalKeyword
+  - - " "
+    - Whitespace
+  - - ByRef
+    - ByRefKeyword
+  - - " "
+    - Whitespace
+  - - FileTitle
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - _
+    - Underscore
+  - - "\r\n"
+    - Newline
+  - - "                           "
+    - Whitespace
+  - - Optional
+    - OptionalKeyword
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - OverWritePrompt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Boolean
+    - BooleanKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "True"
+    - TrueKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - _
+    - Underscore
+  - - "\r\n"
+    - Newline
+  - - "                           "
+    - Whitespace
+  - - Optional
+    - OptionalKeyword
+  - - " "
+    - Whitespace
+  - - ByRef
+    - ByRefKeyword
+  - - " "
+    - Whitespace
+  - - Filter
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "\"All (*.*)|*.*\""
+    - StringLiteral
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - _
+    - Underscore
+  - - "\r\n"
+    - Newline
+  - - "                           "
+    - Whitespace
+  - - Optional
+    - OptionalKeyword
+  - - " "
+    - Whitespace
+  - - ByRef
+    - ByRefKeyword
+  - - " "
+    - Whitespace
+  - - FilterIndex
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - _
+    - Underscore
+  - - "\r\n"
+    - Newline
+  - - "                           "
+    - Whitespace
+  - - Optional
+    - OptionalKeyword
+  - - " "
+    - Whitespace
+  - - ByRef
+    - ByRefKeyword
+  - - " "
+    - Whitespace
+  - - InitDir
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - _
+    - Underscore
+  - - "\r\n"
+    - Newline
+  - - "                           "
+    - Whitespace
+  - - Optional
+    - OptionalKeyword
+  - - " "
+    - Whitespace
+  - - ByRef
+    - ByRefKeyword
+  - - " "
+    - Whitespace
+  - - DlgTitle
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - _
+    - Underscore
+  - - "\r\n"
+    - Newline
+  - - "                           "
+    - Whitespace
+  - - Optional
+    - OptionalKeyword
+  - - " "
+    - Whitespace
+  - - ByRef
+    - ByRefKeyword
+  - - " "
+    - Whitespace
+  - - DefaultExt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - _
+    - Underscore
+  - - "\r\n"
+    - Newline
+  - - "                           "
+    - Whitespace
+  - - Optional
+    - OptionalKeyword
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - Owner
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "1"
+    - Number
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Boolean
+    - BooleanKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - lReturn
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - lInitPathSize
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Prep a relevant OFN struct"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - tmpOFN
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - OPENFILENAME
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - With
+    - WithKeyword
+  - - " "
+    - Whitespace
+  - - tmpOFN
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - lStructSize
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Len
+    - LenKeyword
+  - - (
+    - LeftParentheses
+  - - tmpOFN
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'We forcefully hide the \"Open as Read Only\" checkbox, as it makes little sense for PD."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - Flags
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - OFN_HIDEREADONLY
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - OverWritePrompt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - Flags
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - Flags
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Or
+    - OrKeyword
+  - - " "
+    - Whitespace
+  - - OFN_OVERWRITEPROMPT
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Various other obvious flags"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - Owner
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - ">"
+    - GreaterThanOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "1"
+    - Number
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - hWndOwner
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Owner
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - lpstrInitialDir
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - InitDir
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - lpstrDefExt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - DefaultExt
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - lpstrTitle
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - DlgTitle
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'The filter string is actually null-delimited, which isn't easy for the caller to do, so we allow the old-style"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "' pipe and colon separators, which are forcibly converted now."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - s
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - s
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Filter
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - InStr
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - "1"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - s
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "\"|\""
+    - StringLiteral
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbBinaryCompare
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - s
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Replace
+    - Identifier
+  - - $
+    - DollarSign
+  - - (
+    - LeftParentheses
+  - - s
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "\"|\""
+    - StringLiteral
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbNullChar
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - InStr
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - "1"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - s
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "\":\""
+    - StringLiteral
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbBinaryCompare
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - s
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Replace
+    - Identifier
+  - - $
+    - DollarSign
+  - - (
+    - LeftParentheses
+  - - s
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "\":\""
+    - StringLiteral
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbNullChar
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Double-nulls mark final termination"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - s
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - s
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - " "
+    - Whitespace
+  - - vbNullChar
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - " "
+    - Whitespace
+  - - vbNullChar
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - lpstrFilter
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - s
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - nFilterIndex
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - FilterIndex
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'We have to start with a prepared buffer of some arbitrary size.  If the size proves too small, we could technically call"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "' the function again with a larger buffer (not implemented, as PD uses a comically huge buffer)."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - lInitPathSize
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - MAX_PATH_SAVE
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - s
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - FileName
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - $
+    - DollarSign
+  - - (
+    - LeftParentheses
+  - - lInitPathSize
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - Len
+    - LenKeyword
+  - - (
+    - LeftParentheses
+  - - FileName
+    - Identifier
+  - - )
+    - RightParentheses
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - lpstrFile
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - s
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - nMaxFile
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - lInitPathSize
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - s
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - FileTitle
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - $
+    - DollarSign
+  - - (
+    - LeftParentheses
+  - - MAX_FILE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - Len
+    - LenKeyword
+  - - (
+    - LeftParentheses
+  - - FileTitle
+    - Identifier
+  - - )
+    - RightParentheses
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - lpstrFileTitle
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - s
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "."
+    - PeriodOperator
+  - - nMaxFileTitle
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - MAX_FILE
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'All other fields are fine as-is"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - With
+    - WithKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Turn control over to the common dialog function"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - lReturn
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - GetSaveFileNameW
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - VarPtr
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - tmpOFN
+    - Identifier
+  - - )
+    - RightParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Non-zero returns are considered successful, but note that a failure state may have occurred due to a too-small buffer."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "' (We could technically handle buffer overflows by retrying with a larger buffer, but I don't know how to do that"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'  without re-displaying the entire effing common dialog; to that end, I've hard-coded a 1K buffer as a limit,"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'  which should allow for saving to just about anywhere!)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - lReturn
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - ">"
+    - GreaterThanOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Success!  Parse out the relevant filename string."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - lLen
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - tmpOFN
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - nFileOffset
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - ">"
+    - GreaterThanOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - lLen
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - InStr
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - tmpOFN
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - nFileOffset
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - tmpOFN
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - lpstrFile
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbNullChar
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - "&"
+    - Ampersand
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - lLen
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - "&"
+    - Ampersand
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - lLen
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Len
+    - LenKeyword
+  - - (
+    - LeftParentheses
+  - - tmpOFN
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - lpstrFile
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Else
+    - ElseKeyword
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - lLen
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - lstrlenW
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - StrPtr
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - tmpOFN
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - lpstrFile
+    - Identifier
+  - - )
+    - RightParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - lLen
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - FileName
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Left
+    - Identifier
+  - - $
+    - DollarSign
+  - - (
+    - LeftParentheses
+  - - tmpOFN
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - lpstrFile
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - lLen
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'As a convenience, return the file title too (which is just the filename + extension, with no path data)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - lLen
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - lstrlenW
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - StrPtr
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - tmpOFN
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - lpstrFileTitle
+    - Identifier
+  - - )
+    - RightParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - lLen
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - FileTitle
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Left
+    - Identifier
+  - - $
+    - DollarSign
+  - - (
+    - LeftParentheses
+  - - tmpOFN
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - lpstrFileTitle
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - lLen
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Return the filter index, so the caller can store it to preferences as desired"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - FilterIndex
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - tmpOFN
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - nFilterIndex
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - GetSaveFileName
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "True"
+    - TrueKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Else
+    - ElseKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - GetSaveFileName
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - "\r\n"
+    - Newline
+  - - ""
+    - EOF
