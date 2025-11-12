@@ -34,7 +34,7 @@ pub struct VB6FormFile<'a> {
     pub objects: Vec<VB6ObjectReference<'a>>,
     pub format_version: VB6FileFormatVersion,
     pub attributes: VB6FileAttributes<'a>,
-    pub tokens: Vec<VB6Token<'a>>,
+    pub tokens: Vec<(&'a str, VB6Token)>,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]

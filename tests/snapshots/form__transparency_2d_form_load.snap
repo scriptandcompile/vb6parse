@@ -523,808 +523,1613 @@ attributes:
   description: ~
   ext_key: {}
 tokens:
-  - Comment: "'***************************************************************************"
-  - Newline: "\r\n"
-  - Comment: "'Copyright 2018 by Tanner Helland"
-  - Newline: "\r\n"
-  - Comment: "' www.tannerhelland.com"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'Documentation for this project can be found at https://tannerhelland.com/code/"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'The source code in this project is licensed under a Simplified BSD license."
-  - Newline: "\r\n"
-  - Comment: "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'***************************************************************************"
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: Form_Load
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'When the program starts, combine the two images at 50% transparency"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: DrawTransparency
-  - Whitespace: " "
-  - Identifier: Picture1
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Picture2
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Picture3
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "50"
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'When the scrollbar is used, change transparency accordingly"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: hScroll1_Change
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: DrawTransparency
-  - Whitespace: " "
-  - Identifier: Picture1
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Picture2
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Picture3
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: hScroll1
-  - PeriodOperator: "."
-  - Identifier: Value
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: hScroll1_Scroll
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: DrawTransparency
-  - Whitespace: " "
-  - Identifier: Picture1
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Picture2
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Picture3
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: hScroll1
-  - PeriodOperator: "."
-  - Identifier: Value
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Draw an alpha blend from two source picture boxes into a destination picture box."
-  - Newline: "\r\n"
-  - Comment: "'The transparency value is a simple percentage from 1 to 100"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: DrawTransparency
-  - LeftParentheses: (
-  - Identifier: srcPic1
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - Identifier: PictureBox
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: srcPic2
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - Identifier: PictureBox
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: dstPic
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - Identifier: PictureBox
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: lvlTransparency
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - ByteKeyword: Byte
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'These arrays will hold both image's pixel data"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: imageDataSrc1
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - ByteKeyword: Byte
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: imageDataSrc2
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - ByteKeyword: Byte
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: imageDataDst
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - ByteKeyword: Byte
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Coordinate variables"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: x
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Image dimensions"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: iWidth
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: iHeight
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Instantiate a FastDrawing class and gather the first source image's data"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: fDraw
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - NewKeyword: New
-  - Whitespace: " "
-  - Identifier: FastDrawing
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: iWidth
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: fDraw
-  - PeriodOperator: "."
-  - Identifier: GetImageWidth
-  - LeftParentheses: (
-  - Identifier: srcPic1
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: iHeight
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: fDraw
-  - PeriodOperator: "."
-  - Identifier: GetImageHeight
-  - LeftParentheses: (
-  - Identifier: srcPic1
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: fDraw
-  - PeriodOperator: "."
-  - Identifier: GetImageData2D
-  - Whitespace: " "
-  - Identifier: srcPic1
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: imageDataSrc1
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Now do it for the second source image"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: iWidth
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: fDraw
-  - PeriodOperator: "."
-  - Identifier: GetImageWidth
-  - LeftParentheses: (
-  - Identifier: srcPic2
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: iHeight
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: fDraw
-  - PeriodOperator: "."
-  - Identifier: GetImageHeight
-  - LeftParentheses: (
-  - Identifier: srcPic2
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: fDraw
-  - PeriodOperator: "."
-  - Identifier: GetImageData2D
-  - Whitespace: " "
-  - Identifier: srcPic2
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: imageDataSrc2
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Last but not least, do it for the destination picturebox"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: iWidth
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: fDraw
-  - PeriodOperator: "."
-  - Identifier: GetImageWidth
-  - LeftParentheses: (
-  - Identifier: srcPic2
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: iHeight
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: fDraw
-  - PeriodOperator: "."
-  - Identifier: GetImageHeight
-  - LeftParentheses: (
-  - Identifier: srcPic2
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: fDraw
-  - PeriodOperator: "."
-  - Identifier: GetImageData2D
-  - Whitespace: " "
-  - Identifier: dstPic
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: imageDataDst
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'These variables will hold temporary pixel color values"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: r
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - ByteKeyword: Byte
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: g
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - ByteKeyword: Byte
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: b
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - ByteKeyword: Byte
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: r2
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - ByteKeyword: Byte
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: g2
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - ByteKeyword: Byte
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: b2
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - ByteKeyword: Byte
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Build a look-up table to increase speed"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: lookUp
-  - LeftParentheses: (
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Number: "255"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Number: "255"
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - ByteKeyword: Byte
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: invTransparency
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - ByteKeyword: Byte
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: invTransparency
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "100"
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: lvlTransparency
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ForKeyword: For
-  - Whitespace: " "
-  - Identifier: x
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Number: "255"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ForKeyword: For
-  - Whitespace: " "
-  - Identifier: y
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Number: "255"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Mix all possible color values based on simple weighted averaging"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: lookUp
-  - LeftParentheses: (
-  - Identifier: x
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - RightParentheses: )
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: CByte
-  - LeftParentheses: (
-  - LeftParentheses: (
-  - LeftParentheses: (
-  - Identifier: invTransparency
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: x
-  - RightParentheses: )
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: lvlTransparency
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: y
-  - RightParentheses: )
-  - RightParentheses: )
-  - Whitespace: " "
-  - BackwardSlashOperator: "\\"
-  - Whitespace: " "
-  - Number: "100"
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - NextKeyword: Next
-  - Whitespace: " "
-  - Identifier: y
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - NextKeyword: Next
-  - Whitespace: " "
-  - Identifier: x
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Now run a quick loop through the image, adjusting pixel values with the look-up tables"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: quickX
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ForKeyword: For
-  - Whitespace: " "
-  - Identifier: x
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Identifier: iWidth
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Number: "1"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: quickX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: x
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Number: "3"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ForKeyword: For
-  - Whitespace: " "
-  - Identifier: y
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Identifier: iHeight
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Number: "1"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Grab red, green, and blue from the source images"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: r
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: imageDataSrc1
-  - LeftParentheses: (
-  - Identifier: quickX
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Number: "2"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: g
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: imageDataSrc1
-  - LeftParentheses: (
-  - Identifier: quickX
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Number: "1"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: b
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: imageDataSrc1
-  - LeftParentheses: (
-  - Identifier: quickX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: r2
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: imageDataSrc2
-  - LeftParentheses: (
-  - Identifier: quickX
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Number: "2"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: g2
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: imageDataSrc2
-  - LeftParentheses: (
-  - Identifier: quickX
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Number: "1"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: b2
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: imageDataSrc2
-  - LeftParentheses: (
-  - Identifier: quickX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Use our source values to calculate a new, transparent color"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: imageDataDst
-  - LeftParentheses: (
-  - Identifier: quickX
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Number: "2"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - RightParentheses: )
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: lookUp
-  - LeftParentheses: (
-  - Identifier: r
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: r2
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: imageDataDst
-  - LeftParentheses: (
-  - Identifier: quickX
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Number: "1"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - RightParentheses: )
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: lookUp
-  - LeftParentheses: (
-  - Identifier: g
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: g2
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: imageDataDst
-  - LeftParentheses: (
-  - Identifier: quickX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: y
-  - RightParentheses: )
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: lookUp
-  - LeftParentheses: (
-  - Identifier: b
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: b2
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - NextKeyword: Next
-  - Whitespace: " "
-  - Identifier: y
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - NextKeyword: Next
-  - Whitespace: " "
-  - Identifier: x
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Draw the new image data to the screen"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: fDraw
-  - PeriodOperator: "."
-  - Identifier: SetImageData2D
-  - Whitespace: " "
-  - Identifier: Picture3
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: iWidth
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: iHeight
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: imageDataDst
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
+  - - "'***************************************************************************"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Copyright 2018 by Tanner Helland"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' www.tannerhelland.com"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'The source code in this project is licensed under a Simplified BSD license."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'***************************************************************************"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - Form_Load
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'When the program starts, combine the two images at 50% transparency"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - DrawTransparency
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Picture1
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Picture2
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Picture3
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "50"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'When the scrollbar is used, change transparency accordingly"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - hScroll1_Change
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - DrawTransparency
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Picture1
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Picture2
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Picture3
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - hScroll1
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Value
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - hScroll1_Scroll
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - DrawTransparency
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Picture1
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Picture2
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Picture3
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - hScroll1
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Value
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Draw an alpha blend from two source picture boxes into a destination picture box."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'The transparency value is a simple percentage from 1 to 100"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - DrawTransparency
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - srcPic1
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - PictureBox
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - srcPic2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - PictureBox
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - dstPic
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - PictureBox
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - lvlTransparency
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Byte
+    - ByteKeyword
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'These arrays will hold both image's pixel data"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - imageDataSrc1
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Byte
+    - ByteKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - imageDataSrc2
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Byte
+    - ByteKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - imageDataDst
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Byte
+    - ByteKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Coordinate variables"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Image dimensions"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - iWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - iHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Instantiate a FastDrawing class and gather the first source image's data"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - fDraw
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - New
+    - NewKeyword
+  - - " "
+    - Whitespace
+  - - FastDrawing
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - iWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - fDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - GetImageWidth
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - srcPic1
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - iHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - fDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - GetImageHeight
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - srcPic1
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - fDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - GetImageData2D
+    - Identifier
+  - - " "
+    - Whitespace
+  - - srcPic1
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - imageDataSrc1
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Now do it for the second source image"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - iWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - fDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - GetImageWidth
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - srcPic2
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - iHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - fDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - GetImageHeight
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - srcPic2
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - fDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - GetImageData2D
+    - Identifier
+  - - " "
+    - Whitespace
+  - - srcPic2
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - imageDataSrc2
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Last but not least, do it for the destination picturebox"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - iWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - fDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - GetImageWidth
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - srcPic2
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - iHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - fDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - GetImageHeight
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - srcPic2
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - fDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - GetImageData2D
+    - Identifier
+  - - " "
+    - Whitespace
+  - - dstPic
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - imageDataDst
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'These variables will hold temporary pixel color values"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - r
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Byte
+    - ByteKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - g
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Byte
+    - ByteKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - b
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Byte
+    - ByteKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - r2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Byte
+    - ByteKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - g2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Byte
+    - ByteKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - b2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Byte
+    - ByteKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Build a look-up table to increase speed"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - lookUp
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - "255"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - "255"
+    - Number
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Byte
+    - ByteKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - invTransparency
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Byte
+    - ByteKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - invTransparency
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "100"
+    - Number
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - lvlTransparency
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - For
+    - ForKeyword
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - "255"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - For
+    - ForKeyword
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - "255"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Mix all possible color values based on simple weighted averaging"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - lookUp
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - x
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - CByte
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - (
+    - LeftParentheses
+  - - (
+    - LeftParentheses
+  - - invTransparency
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - lvlTransparency
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - )
+    - RightParentheses
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "\\"
+    - BackwardSlashOperator
+  - - " "
+    - Whitespace
+  - - "100"
+    - Number
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Next
+    - NextKeyword
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Next
+    - NextKeyword
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Now run a quick loop through the image, adjusting pixel values with the look-up tables"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - quickX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - For
+    - ForKeyword
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - iWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - quickX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - "3"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - For
+    - ForKeyword
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - iHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Grab red, green, and blue from the source images"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - r
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - imageDataSrc1
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - quickX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - "2"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - g
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - imageDataSrc1
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - quickX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - b
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - imageDataSrc1
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - quickX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - r2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - imageDataSrc2
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - quickX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - "2"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - g2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - imageDataSrc2
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - quickX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - b2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - imageDataSrc2
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - quickX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Use our source values to calculate a new, transparent color"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - imageDataDst
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - quickX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - "2"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - lookUp
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - r
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - r2
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - imageDataDst
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - quickX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - lookUp
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - g
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - g2
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - imageDataDst
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - quickX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - lookUp
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - b
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - b2
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Next
+    - NextKeyword
+  - - " "
+    - Whitespace
+  - - y
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Next
+    - NextKeyword
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Draw the new image data to the screen"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - fDraw
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - SetImageData2D
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Picture3
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - iWidth
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - iHeight
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - imageDataDst
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline

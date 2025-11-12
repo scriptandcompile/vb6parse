@@ -12,7 +12,7 @@ use serde::Serialize;
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct VB6ModuleFile<'a> {
     pub name: &'a [u8], // Attribute VB_Name = "Module1"
-    pub tokens: Vec<VB6Token<'a>>,
+    pub tokens: Vec<(&'a str, VB6Token)>,
 }
 
 impl<'a> VB6ModuleFile<'a> {

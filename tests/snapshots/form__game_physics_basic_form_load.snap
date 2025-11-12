@@ -1386,725 +1386,1447 @@ attributes:
   description: ~
   ext_key: {}
 tokens:
-  - Comment: "'***************************************************************************"
-  - Newline: "\r\n"
-  - Comment: "'Code Copyright 2018 by Tanner Helland"
-  - Newline: "\r\n"
-  - Comment: "' www.tannerhelland.com"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'Documentation for this project can be found at https://tannerhelland.com/code/"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'Art assets for this demo were borrowed from the old DOS game Raptor: Call of the Shadows"
-  - Newline: "\r\n"
-  - Comment: "' https://en.wikipedia.org/wiki/Raptor:_Call_of_the_Shadows"
-  - Newline: "\r\n"
-  - Comment: "' They are used here under Fair Use for educational purposes only."
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'The source code in this project is licensed under a Simplified BSD license."
-  - Newline: "\r\n"
-  - Comment: "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'***************************************************************************"
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - OptionKeyword: Option
-  - Whitespace: " "
-  - ExplicitKeyword: Explicit
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: chkFramerate_Click
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: PicMain
-  - PeriodOperator: "."
-  - Identifier: SetFocus
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'START GAME AT FORM LOAD..."
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: Form_Load
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Upon form load, it's necessary to initialize some key variables"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: InitializeGameEngine
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'When everything is set, start the game!"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: GameActive
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - TrueKeyword: "True"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: MainLoop
-  - Whitespace: "   "
-  - Comment: "'MainLoop appears at the bottom of the form"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'END GAME"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: cmdExit_Click
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: GameActive
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'WHEN A KEY IS PRESSED..."
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: Form_KeyDown
-  - LeftParentheses: (
-  - Identifier: KeyCode
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Shift
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Depending on the arrow key being pressed, set the correct direction variable"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "' and the correct ship picture"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Left"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: KeyCode
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: vbKeyLeft
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: sLeft
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "1"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: picShip
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: PicL
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: picShipMask
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: PicLM
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Right"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: KeyCode
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: vbKeyRight
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: sRight
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "1"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: picShip
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: PicR
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: picShipMask
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: PicRM
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Up"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: KeyCode
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: vbKeyUp
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: sUp
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "1"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Down"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: KeyCode
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: vbKeyDown
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: sDown
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "1"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Space (fire the gun)"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: KeyCode
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: vbKeySpace
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: Firing
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - TrueKeyword: "True"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Escape (end the game)"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: KeyCode
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: vbKeyEscape
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: GameActive
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'WHEN A KEY IS RELEASED..."
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: Form_KeyUp
-  - LeftParentheses: (
-  - Identifier: KeyCode
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Shift
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Whenever an arrow key is released, reset motion in that direction"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: KeyCode
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: vbKeyLeft
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: sLeft
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: KeyCode
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: vbKeyRight
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: sRight
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: KeyCode
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: vbKeyUp
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: sUp
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: KeyCode
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: vbKeyDown
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: sDown
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'When the space bar is released, stop firing"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: KeyCode
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: vbKeySpace
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: Firing
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'MAIN LOOP"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: MainLoop
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'This variable is used to track time and reduce framerate (if necessary)"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: timeDelay
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - SingleKeyword: Single
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DoKeyword: Do
-  - Whitespace: " "
-  - WhileKeyword: While
-  - Whitespace: " "
-  - Identifier: GameActive
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - LeftParentheses: (
-  - NotKeyword: Not
-  - Whitespace: " "
-  - Identifier: GameActive
-  - RightParentheses: )
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - ExitKeyword: Exit
-  - Whitespace: " "
-  - DoKeyword: Do
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Calculate time at the start of the function"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: timeDelay
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Timer
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Draw the background stars"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: DrawStars
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Calculate the ship's motion and location"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: VelocityCode
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'If necessary, fire some bullets"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: FireBullets
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Change the velocity caption"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: LblVel
-  - PeriodOperator: "."
-  - Identifier: Caption
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: CStr
-  - LeftParentheses: (
-  - Number: "50"
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: sVelVert
-  - RightParentheses: )
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Whitespace: " "
-  - StringLiteral: "\" kps\""
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: GameActive
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: DoEvents
-  - Whitespace: " "
-  - ElseKeyword: Else
-  - Whitespace: " "
-  - ExitKeyword: Exit
-  - Whitespace: " "
-  - DoKeyword: Do
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'If framerate limitations are active, loop until enough time has passed"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: chkFramerate
-  - PeriodOperator: "."
-  - Identifier: Value
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: vbChecked
-  - RightParentheses: )
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - DoKeyword: Do
-  - Whitespace: " "
-  - WhileKeyword: While
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: GameActive
-  - Whitespace: " "
-  - AndKeyword: And
-  - Whitespace: " "
-  - LeftParentheses: (
-  - LeftParentheses: (
-  - Identifier: Timer
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: timeDelay
-  - RightParentheses: )
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - Whitespace: " "
-  - Number: "1"
-  - PeriodOperator: "."
-  - Number: "66666666666667"
-  - Identifier: E
-  - SubtractionOperator: "-"
-  - Number: "02"
-  - RightParentheses: )
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "                "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: GameActive
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: DoEvents
-  - Whitespace: " "
-  - ElseKeyword: Else
-  - Whitespace: " "
-  - ExitKeyword: Exit
-  - Whitespace: " "
-  - DoKeyword: Do
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: Loop
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Then do it all again..."
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: Loop
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'When the loop exits, release the main form"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: Unload
-  - Whitespace: " "
-  - MeKeyword: Me
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: Form_QueryUnload
-  - LeftParentheses: (
-  - Identifier: Cancel
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: UnloadMode
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: GameActive
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
+  - - "'***************************************************************************"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Code Copyright 2018 by Tanner Helland"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' www.tannerhelland.com"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Art assets for this demo were borrowed from the old DOS game Raptor: Call of the Shadows"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' https://en.wikipedia.org/wiki/Raptor:_Call_of_the_Shadows"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' They are used here under Fair Use for educational purposes only."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'The source code in this project is licensed under a Simplified BSD license."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'***************************************************************************"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - Option
+    - OptionKeyword
+  - - " "
+    - Whitespace
+  - - Explicit
+    - ExplicitKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - chkFramerate_Click
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - PicMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - SetFocus
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'START GAME AT FORM LOAD..."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - Form_Load
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Upon form load, it's necessary to initialize some key variables"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - InitializeGameEngine
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'When everything is set, start the game!"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - GameActive
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "True"
+    - TrueKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - MainLoop
+    - Identifier
+  - - "   "
+    - Whitespace
+  - - "'MainLoop appears at the bottom of the form"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'END GAME"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - cmdExit_Click
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - GameActive
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'WHEN A KEY IS PRESSED..."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - Form_KeyDown
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - KeyCode
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Shift
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Depending on the arrow key being pressed, set the correct direction variable"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "' and the correct ship picture"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Left"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - KeyCode
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - vbKeyLeft
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - sLeft
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - picShip
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - PicL
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - picShipMask
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - PicLM
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Right"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - KeyCode
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - vbKeyRight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - sRight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - picShip
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - PicR
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - picShipMask
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - PicRM
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Up"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - KeyCode
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - vbKeyUp
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - sUp
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Down"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - KeyCode
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - vbKeyDown
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - sDown
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Space (fire the gun)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - KeyCode
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - vbKeySpace
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - Firing
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "True"
+    - TrueKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Escape (end the game)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - KeyCode
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - vbKeyEscape
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - GameActive
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'WHEN A KEY IS RELEASED..."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - Form_KeyUp
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - KeyCode
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Shift
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Whenever an arrow key is released, reset motion in that direction"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - KeyCode
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - vbKeyLeft
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - sLeft
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - KeyCode
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - vbKeyRight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - sRight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - KeyCode
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - vbKeyUp
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - sUp
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - KeyCode
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - vbKeyDown
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - sDown
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'When the space bar is released, stop firing"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - KeyCode
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - vbKeySpace
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - Firing
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'MAIN LOOP"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - MainLoop
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'This variable is used to track time and reduce framerate (if necessary)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - timeDelay
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Single
+    - SingleKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Do
+    - DoKeyword
+  - - " "
+    - Whitespace
+  - - While
+    - WhileKeyword
+  - - " "
+    - Whitespace
+  - - GameActive
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - Not
+    - NotKeyword
+  - - " "
+    - Whitespace
+  - - GameActive
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - Exit
+    - ExitKeyword
+  - - " "
+    - Whitespace
+  - - Do
+    - DoKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Calculate time at the start of the function"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - timeDelay
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Timer
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Draw the background stars"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - DrawStars
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Calculate the ship's motion and location"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - VelocityCode
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'If necessary, fire some bullets"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - FireBullets
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Change the velocity caption"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - LblVel
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Caption
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - CStr
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - "50"
+    - Number
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - sVelVert
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - " "
+    - Whitespace
+  - - "\" kps\""
+    - StringLiteral
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - GameActive
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - DoEvents
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Else
+    - ElseKeyword
+  - - " "
+    - Whitespace
+  - - Exit
+    - ExitKeyword
+  - - " "
+    - Whitespace
+  - - Do
+    - DoKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'If framerate limitations are active, loop until enough time has passed"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - chkFramerate
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Value
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - vbChecked
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - Do
+    - DoKeyword
+  - - " "
+    - Whitespace
+  - - While
+    - WhileKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - GameActive
+    - Identifier
+  - - " "
+    - Whitespace
+  - - And
+    - AndKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - (
+    - LeftParentheses
+  - - Timer
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - timeDelay
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - "."
+    - PeriodOperator
+  - - "66666666666667"
+    - Number
+  - - E
+    - Identifier
+  - - "-"
+    - SubtractionOperator
+  - - "02"
+    - Number
+  - - )
+    - RightParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "                "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - GameActive
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - DoEvents
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Else
+    - ElseKeyword
+  - - " "
+    - Whitespace
+  - - Exit
+    - ExitKeyword
+  - - " "
+    - Whitespace
+  - - Do
+    - DoKeyword
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - Loop
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Then do it all again..."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Loop
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'When the loop exits, release the main form"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Unload
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Me
+    - MeKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - Form_QueryUnload
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - Cancel
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - UnloadMode
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - GameActive
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline

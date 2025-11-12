@@ -16,2246 +16,4489 @@ name:
   - 108
   - 101
 tokens:
-  - Comment: "'Simple Game Physics Demo - www.tannerhelland.com"
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - OptionKeyword: Option
-  - Whitespace: " "
-  - ExplicitKeyword: Explicit
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'API CALLS:"
-  - Newline: "\r\n"
-  - Comment: "'BitBlt is used to draw the ship and bullets onto the screen"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - DeclareKeyword: Declare
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: BitBlt
-  - Whitespace: " "
-  - LibKeyword: Lib
-  - Whitespace: " "
-  - StringLiteral: "\"gdi32\""
-  - Whitespace: " "
-  - LeftParentheses: (
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: hDestDC
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: X
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: Y
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: nWidth
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: nHeight
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: hSrcDC
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: xSrc
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: ySrc
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: dwRop
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Comment: "'SetPixelV is used to draw the background stars"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - DeclareKeyword: Declare
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: SetPixelV
-  - Whitespace: " "
-  - LibKeyword: Lib
-  - Whitespace: " "
-  - StringLiteral: "\"gdi32\""
-  - Whitespace: " "
-  - LeftParentheses: (
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: hDC
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: X
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: Y
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: crColor
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - ByteKeyword: Byte
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'CONSTANTS (feel free to set these to whatever you'd like):"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - ConstKeyword: Const
-  - Whitespace: " "
-  - Identifier: NumOfStars
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "500"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - ConstKeyword: Const
-  - Whitespace: " "
-  - Identifier: BulletSpeed
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "20"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - ConstKeyword: Const
-  - Whitespace: " "
-  - Identifier: HAcc
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - SingleKeyword: Single
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "1"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - ConstKeyword: Const
-  - Whitespace: " "
-  - Identifier: HDel
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - SingleKeyword: Single
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "1"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - ConstKeyword: Const
-  - Whitespace: " "
-  - Identifier: VAcc
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - SingleKeyword: Single
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "1"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - ConstKeyword: Const
-  - Whitespace: " "
-  - Identifier: VDel
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - SingleKeyword: Single
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "1"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - ConstKeyword: Const
-  - Whitespace: " "
-  - Identifier: KeySpeed
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "10"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - ConstKeyword: Const
-  - Whitespace: " "
-  - Identifier: NumOfBullets
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "75"
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'TYPES:"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - TypeKeyword: Type
-  - Whitespace: " "
-  - Identifier: Star
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: X
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - SingleKeyword: Single
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: Y
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - SingleKeyword: Single
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: Bright
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - ByteKeyword: Byte
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: Speed
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - SingleKeyword: Single
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - TypeKeyword: Type
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - TypeKeyword: Type
-  - Whitespace: " "
-  - Identifier: Bullet
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: X
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: Y
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: Velocity
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: Activated
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - BooleanKeyword: Boolean
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - TypeKeyword: Type
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'VARIABLES:"
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Ship coordinates"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - Identifier: ShipX
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: ShipY
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'The ship's velocity in each direction"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - Identifier: sLeft
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - Identifier: sRight
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - Identifier: sUp
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - Identifier: sDown
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - Identifier: sVelVert
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - SingleKeyword: Single
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - Identifier: sVelHoriz
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - SingleKeyword: Single
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Whether or not the ship is firing"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - Identifier: Firing
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - BooleanKeyword: Boolean
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'The number of active bullets on the screen"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - Identifier: BulletsActivated
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Comment: "'An array of all the bullets currently being fired"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - Identifier: Bullets
-  - LeftParentheses: (
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Identifier: NumOfBullets
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - Identifier: Bullet
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'An array of all the background stars"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - Identifier: StarArray
-  - LeftParentheses: (
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Identifier: NumOfStars
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - Identifier: Star
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Whether or not to start the game"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - Identifier: GameActive
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - BooleanKeyword: Boolean
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Plain ol' looping variables"
-  - Newline: "\r\n"
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: X
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Y
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'The width and height of the game screen"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - Identifier: BufferWidth
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: BufferHeight
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'When the program is started, this routine is run first"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: InitializeGameEngine
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Randomize the random number generator"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - RandomizeKeyword: Randomize
-  - Whitespace: " "
-  - Identifier: Timer
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Store the width and height of the game area"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: BufferWidth
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: frmMain
-  - PeriodOperator: "."
-  - Identifier: PicMain
-  - PeriodOperator: "."
-  - Identifier: ScaleWidth
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: BufferHeight
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: frmMain
-  - PeriodOperator: "."
-  - Identifier: PicMain
-  - PeriodOperator: "."
-  - Identifier: ScaleHeight
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Build all of the background stars"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ForKeyword: For
-  - Whitespace: " "
-  - Identifier: X
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Identifier: NumOfStars
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: BuildStar
-  - Whitespace: " "
-  - Identifier: X
-  - Comma: ","
-  - Whitespace: " "
-  - TrueKeyword: "True"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - NextKeyword: Next
-  - Whitespace: " "
-  - Identifier: X
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Set the ship in the middle of the picture box"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: ShipX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: frmMain
-  - PeriodOperator: "."
-  - Identifier: PicMain
-  - PeriodOperator: "."
-  - Identifier: ScaleWidth
-  - Whitespace: " "
-  - DivisionOperator: /
-  - Whitespace: " "
-  - Number: "2"
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Number: "32"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: ShipY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: frmMain
-  - PeriodOperator: "."
-  - Identifier: PicMain
-  - PeriodOperator: "."
-  - Identifier: ScaleHeight
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Number: "64"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'No active bullets (...yet!)"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: BulletsActivated
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Show the main form"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: frmMain
-  - PeriodOperator: "."
-  - Identifier: Show
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'This routine draws the background stars onto the buffer"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: DrawStars
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - LeftParentheses: (
-  - NotKeyword: Not
-  - Whitespace: " "
-  - Identifier: GameActive
-  - RightParentheses: )
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - ExitKeyword: Exit
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'First, clear the buffer of any previous stars"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: frmMain
-  - PeriodOperator: "."
-  - Identifier: PicScreenBuffer
-  - PeriodOperator: "."
-  - Identifier: Cls
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Run a loop through every star in the array"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ForKeyword: For
-  - Whitespace: " "
-  - Identifier: X
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Identifier: NumOfStars
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Move the star down the screen according to its speed"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: StarArray
-  - LeftParentheses: (
-  - Identifier: X
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: Y
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: StarArray
-  - LeftParentheses: (
-  - Identifier: X
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: Y
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: StarArray
-  - LeftParentheses: (
-  - Identifier: X
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: Speed
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'If the star moves off the screen, make a new one in its place"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: StarArray
-  - LeftParentheses: (
-  - Identifier: X
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: Y
-  - Whitespace: " "
-  - GreaterThanOperator: ">"
-  - Whitespace: " "
-  - Identifier: BufferHeight
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: BuildStar
-  - Whitespace: " "
-  - Identifier: X
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Draw a pixel at location (x,y) using the star's brightness value"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: SetPixelV
-  - Whitespace: " "
-  - Identifier: frmMain
-  - PeriodOperator: "."
-  - Identifier: PicScreenBuffer
-  - PeriodOperator: "."
-  - Identifier: hDC
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: StarArray
-  - LeftParentheses: (
-  - Identifier: X
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: X
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: StarArray
-  - LeftParentheses: (
-  - Identifier: X
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: Y
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: RGB
-  - LeftParentheses: (
-  - Identifier: StarArray
-  - LeftParentheses: (
-  - Identifier: X
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: Bright
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: StarArray
-  - LeftParentheses: (
-  - Identifier: X
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: Bright
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: StarArray
-  - LeftParentheses: (
-  - Identifier: X
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: Bright
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - NextKeyword: Next
-  - Whitespace: " "
-  - Identifier: X
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'This routine tracks and processes the movement of our little spaceship"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: VelocityCode
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - LeftParentheses: (
-  - NotKeyword: Not
-  - Whitespace: " "
-  - Identifier: GameActive
-  - RightParentheses: )
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - ExitKeyword: Exit
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Movement Up"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: sUp
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "1"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Increase velocity as per the acceleration variable"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: sVelVert
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: sVelVert
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: VAcc
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Increase position as per the new velocity variable"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: ShipY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: ShipY
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: sVelVert
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Movement Down (see detailed comments under \"Movement Up\" above)"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: sDown
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "1"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: sVelVert
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: sVelVert
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: VAcc
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: ShipY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: ShipY
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: sVelVert
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Vertical Deceleration (applied only when no keys have been pressed AND the ship"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "' is already in motion)"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: sUp
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - AndKeyword: And
-  - Whitespace: " "
-  - Identifier: sDown
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - AndKeyword: And
-  - Whitespace: " "
-  - Identifier: sVelVert
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - GreaterThanOperator: ">"
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: sVelVert
-  - Whitespace: " "
-  - GreaterThanOperator: ">"
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: sVelVert
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: sVelVert
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: VDel
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: sVelVert
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: sVelVert
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - ElseKeyword: Else
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: sVelVert
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: sVelVert
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: VDel
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: sVelVert
-  - Whitespace: " "
-  - GreaterThanOperator: ">"
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: sVelVert
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Apply the deceleration to the ship's velocity"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: ShipY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: ShipY
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: sVelVert
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Movement Left"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: sLeft
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "1"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: sVelHoriz
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: sVelHoriz
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: HAcc
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: ShipX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: ShipX
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: sVelHoriz
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Movement Right"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: sRight
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "1"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: sVelHoriz
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: sVelHoriz
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: HAcc
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: ShipX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: ShipX
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: sVelHoriz
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Horizontal Deceleration"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: sRight
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - AndKeyword: And
-  - Whitespace: " "
-  - Identifier: sLeft
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - AndKeyword: And
-  - Whitespace: " "
-  - Identifier: sVelHoriz
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - GreaterThanOperator: ">"
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: sVelHoriz
-  - Whitespace: " "
-  - GreaterThanOperator: ">"
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: sVelHoriz
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: sVelHoriz
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: HDel
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: sVelHoriz
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: sVelHoriz
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - ElseKeyword: Else
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: sVelHoriz
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: sVelHoriz
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: HDel
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: sVelHoriz
-  - Whitespace: " "
-  - GreaterThanOperator: ">"
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: sVelHoriz
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: ShipX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: ShipX
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: sVelHoriz
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'If the ship scrolls completely off-screen, move it to the other side"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: ShipX
-  - Whitespace: " "
-  - GreaterThanOperator: ">"
-  - Whitespace: " "
-  - Identifier: BufferWidth
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: ShipX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: ShipX
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "64"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: ShipX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: BufferWidth
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: ShipY
-  - Whitespace: " "
-  - GreaterThanOperator: ">"
-  - Whitespace: " "
-  - Identifier: BufferHeight
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: ShipY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: ShipY
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "64"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: ShipY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: BufferHeight
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'If the ship isn't moving left or right, reset the ship picture to the default orientation"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: sVelHoriz
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: frmMain
-  - PeriodOperator: "."
-  - Identifier: picShip
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: frmMain
-  - PeriodOperator: "."
-  - Identifier: PicT
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: frmMain
-  - PeriodOperator: "."
-  - Identifier: picShipMask
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: frmMain
-  - PeriodOperator: "."
-  - Identifier: PicTM
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Last but not least, draw the ship onto the buffer"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: BitBlt
-  - Whitespace: " "
-  - Identifier: frmMain
-  - PeriodOperator: "."
-  - Identifier: PicScreenBuffer
-  - PeriodOperator: "."
-  - Identifier: hDC
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: ShipX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: ShipY
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: frmMain
-  - PeriodOperator: "."
-  - Identifier: picShipMask
-  - PeriodOperator: "."
-  - Identifier: hDC
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbMergePaint
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: BitBlt
-  - Whitespace: " "
-  - Identifier: frmMain
-  - PeriodOperator: "."
-  - Identifier: PicScreenBuffer
-  - PeriodOperator: "."
-  - Identifier: hDC
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: ShipX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: ShipY
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: frmMain
-  - PeriodOperator: "."
-  - Identifier: picShip
-  - PeriodOperator: "."
-  - Identifier: hDC
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbSrcAnd
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'This routine fires bullets/laser blasts from the ship's nose"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: FireBullets
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - LeftParentheses: (
-  - NotKeyword: Not
-  - Whitespace: " "
-  - Identifier: GameActive
-  - RightParentheses: )
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - ExitKeyword: Exit
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Run a loop through every bullet"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ForKeyword: For
-  - Whitespace: " "
-  - Identifier: X
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Identifier: NumOfBullets
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'If the user is firing, and this bullet is inactive, make it active"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: Firing
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - TrueKeyword: "True"
-  - Whitespace: " "
-  - AndKeyword: And
-  - Whitespace: " "
-  - Identifier: BulletsActivated
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - Whitespace: " "
-  - Number: "1"
-  - Whitespace: " "
-  - AndKeyword: And
-  - Whitespace: " "
-  - Identifier: Bullets
-  - LeftParentheses: (
-  - Identifier: X
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: Activated
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Comment: "'Mark this bullet as active"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: Bullets
-  - LeftParentheses: (
-  - Identifier: X
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: Activated
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - TrueKeyword: "True"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Comment: "'Let the engine know that we've activated a bullet this round (so as to not activate more)"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: BulletsActivated
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: BulletsActivated
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Number: "1"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Comment: "'Set the bullet in the center of the ship"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: Bullets
-  - LeftParentheses: (
-  - Identifier: X
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: X
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: ShipX
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Number: "30"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Comment: "'Set the bullet to start from either side of the ship's nose"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: Bullets
-  - LeftParentheses: (
-  - Identifier: X
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: Y
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: ShipY
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Number: "10"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'If the bullet is active, update its information"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: Bullets
-  - LeftParentheses: (
-  - Identifier: X
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: Activated
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - TrueKeyword: "True"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Comment: "'First, move the bullet up according to its speed"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: Bullets
-  - LeftParentheses: (
-  - Identifier: X
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: Y
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Bullets
-  - LeftParentheses: (
-  - Identifier: X
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: Y
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: BulletSpeed
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Comment: "'If the bullet leaves the screen, deactivate it"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: Bullets
-  - LeftParentheses: (
-  - Identifier: X
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: Y
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "4"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: Bullets
-  - LeftParentheses: (
-  - Identifier: X
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: Activated
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Comment: "'Draw our bullet(s) to the screen"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: BitBlt
-  - Whitespace: " "
-  - Identifier: frmMain
-  - PeriodOperator: "."
-  - Identifier: PicScreenBuffer
-  - PeriodOperator: "."
-  - Identifier: hDC
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Bullets
-  - LeftParentheses: (
-  - Identifier: X
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: X
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Number: "6"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Bullets
-  - LeftParentheses: (
-  - Identifier: X
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: Y
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "4"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "4"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: frmMain
-  - PeriodOperator: "."
-  - Identifier: PicBulletM
-  - PeriodOperator: "."
-  - Identifier: hDC
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbMergePaint
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: BitBlt
-  - Whitespace: " "
-  - Identifier: frmMain
-  - PeriodOperator: "."
-  - Identifier: PicScreenBuffer
-  - PeriodOperator: "."
-  - Identifier: hDC
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Bullets
-  - LeftParentheses: (
-  - Identifier: X
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: X
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Number: "6"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Bullets
-  - LeftParentheses: (
-  - Identifier: X
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: Y
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "4"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "4"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: frmMain
-  - PeriodOperator: "."
-  - Identifier: PicBullet
-  - PeriodOperator: "."
-  - Identifier: hDC
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbSrcAnd
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: BitBlt
-  - Whitespace: " "
-  - Identifier: frmMain
-  - PeriodOperator: "."
-  - Identifier: PicScreenBuffer
-  - PeriodOperator: "."
-  - Identifier: hDC
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Bullets
-  - LeftParentheses: (
-  - Identifier: X
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: X
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Number: "6"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Bullets
-  - LeftParentheses: (
-  - Identifier: X
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: Y
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "4"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "4"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: frmMain
-  - PeriodOperator: "."
-  - Identifier: PicBulletM
-  - PeriodOperator: "."
-  - Identifier: hDC
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbMergePaint
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: BitBlt
-  - Whitespace: " "
-  - Identifier: frmMain
-  - PeriodOperator: "."
-  - Identifier: PicScreenBuffer
-  - PeriodOperator: "."
-  - Identifier: hDC
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Bullets
-  - LeftParentheses: (
-  - Identifier: X
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: X
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Number: "6"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Bullets
-  - LeftParentheses: (
-  - Identifier: X
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: Y
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "4"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "4"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: frmMain
-  - PeriodOperator: "."
-  - Identifier: PicBullet
-  - PeriodOperator: "."
-  - Identifier: hDC
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbSrcAnd
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Now do the same for the next bullet"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - NextKeyword: Next
-  - Whitespace: " "
-  - Identifier: X
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Reset the number of activated bullets to zero"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: BulletsActivated
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Since this is the last step in the logic process, copy the entire buffer to the screen"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: BitBlt
-  - Whitespace: " "
-  - Identifier: frmMain
-  - PeriodOperator: "."
-  - Identifier: PicMain
-  - PeriodOperator: "."
-  - Identifier: hDC
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: BufferWidth
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: BufferHeight
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: frmMain
-  - PeriodOperator: "."
-  - Identifier: PicScreenBuffer
-  - PeriodOperator: "."
-  - Identifier: hDC
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbSrcCopy
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Use this to create a star; if firstTime is true, the star can appear anywhere - if false,"
-  - Newline: "\r\n"
-  - Comment: "' it is created only along the top edge of the screen"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: BuildStar
-  - LeftParentheses: (
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: ArrayVal
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - OptionalKeyword: Optional
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: firstTime
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - BooleanKeyword: Boolean
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Random x location"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: StarArray
-  - LeftParentheses: (
-  - Identifier: ArrayVal
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: X
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Rnd
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: BufferWidth
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Calculate the y location according to firstTime"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: firstTime
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - TrueKeyword: "True"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: StarArray
-  - LeftParentheses: (
-  - Identifier: ArrayVal
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: Y
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Rnd
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: frmMain
-  - PeriodOperator: "."
-  - Identifier: PicMain
-  - PeriodOperator: "."
-  - Identifier: ScaleHeight
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ElseKeyword: Else
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: StarArray
-  - LeftParentheses: (
-  - Identifier: ArrayVal
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: Y
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Brightness is somewhere between 5 and 255"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: StarArray
-  - LeftParentheses: (
-  - Identifier: ArrayVal
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: Bright
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: Rnd
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Number: "250"
-  - RightParentheses: )
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Number: "5"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Star velocity is somewhere between .1 and 8"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: StarArray
-  - LeftParentheses: (
-  - Identifier: ArrayVal
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: Speed
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Rnd
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Number: "8"
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Number: "0"
-  - PeriodOperator: "."
-  - Number: "1"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - EOF
+  - - "'Simple Game Physics Demo - www.tannerhelland.com"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - Option
+    - OptionKeyword
+  - - " "
+    - Whitespace
+  - - Explicit
+    - ExplicitKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'API CALLS:"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'BitBlt is used to draw the ship and bullets onto the screen"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Declare
+    - DeclareKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - BitBlt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Lib
+    - LibKeyword
+  - - " "
+    - Whitespace
+  - - "\"gdi32\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - hDestDC
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - X
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - Y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - nWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - nHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - hSrcDC
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - xSrc
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - ySrc
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - dwRop
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "'SetPixelV is used to draw the background stars"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Declare
+    - DeclareKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - SetPixelV
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Lib
+    - LibKeyword
+  - - " "
+    - Whitespace
+  - - "\"gdi32\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - hDC
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - X
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - Y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - crColor
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Byte
+    - ByteKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'CONSTANTS (feel free to set these to whatever you'd like):"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Const
+    - ConstKeyword
+  - - " "
+    - Whitespace
+  - - NumOfStars
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "500"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Const
+    - ConstKeyword
+  - - " "
+    - Whitespace
+  - - BulletSpeed
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "20"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Const
+    - ConstKeyword
+  - - " "
+    - Whitespace
+  - - HAcc
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Single
+    - SingleKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Const
+    - ConstKeyword
+  - - " "
+    - Whitespace
+  - - HDel
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Single
+    - SingleKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Const
+    - ConstKeyword
+  - - " "
+    - Whitespace
+  - - VAcc
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Single
+    - SingleKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Const
+    - ConstKeyword
+  - - " "
+    - Whitespace
+  - - VDel
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Single
+    - SingleKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Const
+    - ConstKeyword
+  - - " "
+    - Whitespace
+  - - KeySpeed
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "10"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Const
+    - ConstKeyword
+  - - " "
+    - Whitespace
+  - - NumOfBullets
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "75"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'TYPES:"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Type
+    - TypeKeyword
+  - - " "
+    - Whitespace
+  - - Star
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - X
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Single
+    - SingleKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Single
+    - SingleKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Bright
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Byte
+    - ByteKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Speed
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Single
+    - SingleKeyword
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Type
+    - TypeKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Type
+    - TypeKeyword
+  - - " "
+    - Whitespace
+  - - Bullet
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - X
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Velocity
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Activated
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Boolean
+    - BooleanKeyword
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Type
+    - TypeKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'VARIABLES:"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Ship coordinates"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - ShipX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ShipY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'The ship's velocity in each direction"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - sLeft
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - sRight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - sUp
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - sDown
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - sVelVert
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Single
+    - SingleKeyword
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - sVelHoriz
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Single
+    - SingleKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Whether or not the ship is firing"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Firing
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Boolean
+    - BooleanKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'The number of active bullets on the screen"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - BulletsActivated
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "'An array of all the bullets currently being fired"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Bullets
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - NumOfBullets
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Bullet
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'An array of all the background stars"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - StarArray
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - NumOfStars
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Star
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Whether or not to start the game"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - GameActive
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Boolean
+    - BooleanKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Plain ol' looping variables"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - X
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'The width and height of the game screen"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - BufferWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - BufferHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'When the program is started, this routine is run first"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - InitializeGameEngine
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Randomize the random number generator"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Randomize
+    - RandomizeKeyword
+  - - " "
+    - Whitespace
+  - - Timer
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Store the width and height of the game area"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - BufferWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - frmMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleWidth
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - BufferHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - frmMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleHeight
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Build all of the background stars"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - For
+    - ForKeyword
+  - - " "
+    - Whitespace
+  - - X
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - NumOfStars
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - BuildStar
+    - Identifier
+  - - " "
+    - Whitespace
+  - - X
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "True"
+    - TrueKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Next
+    - NextKeyword
+  - - " "
+    - Whitespace
+  - - X
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Set the ship in the middle of the picture box"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - ShipX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - frmMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - /
+    - DivisionOperator
+  - - " "
+    - Whitespace
+  - - "2"
+    - Number
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - "32"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - ShipY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - frmMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'No active bullets (...yet!)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - BulletsActivated
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Show the main form"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - frmMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Show
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'This routine draws the background stars onto the buffer"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - DrawStars
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - Not
+    - NotKeyword
+  - - " "
+    - Whitespace
+  - - GameActive
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - Exit
+    - ExitKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'First, clear the buffer of any previous stars"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - frmMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicScreenBuffer
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Cls
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Run a loop through every star in the array"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - For
+    - ForKeyword
+  - - " "
+    - Whitespace
+  - - X
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - NumOfStars
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Move the star down the screen according to its speed"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - StarArray
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - X
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - Y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - StarArray
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - X
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - Y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - StarArray
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - X
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - Speed
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'If the star moves off the screen, make a new one in its place"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - StarArray
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - X
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - Y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - ">"
+    - GreaterThanOperator
+  - - " "
+    - Whitespace
+  - - BufferHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - BuildStar
+    - Identifier
+  - - " "
+    - Whitespace
+  - - X
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Draw a pixel at location (x,y) using the star's brightness value"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - SetPixelV
+    - Identifier
+  - - " "
+    - Whitespace
+  - - frmMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicScreenBuffer
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hDC
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - StarArray
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - X
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - X
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - StarArray
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - X
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - Y
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - RGB
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - StarArray
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - X
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - Bright
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - StarArray
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - X
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - Bright
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - StarArray
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - X
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - Bright
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Next
+    - NextKeyword
+  - - " "
+    - Whitespace
+  - - X
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'This routine tracks and processes the movement of our little spaceship"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - VelocityCode
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - Not
+    - NotKeyword
+  - - " "
+    - Whitespace
+  - - GameActive
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - Exit
+    - ExitKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Movement Up"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - sUp
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Increase velocity as per the acceleration variable"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - sVelVert
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - sVelVert
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - VAcc
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Increase position as per the new velocity variable"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - ShipY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - ShipY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - sVelVert
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Movement Down (see detailed comments under \"Movement Up\" above)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - sDown
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - sVelVert
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - sVelVert
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - VAcc
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - ShipY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - ShipY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - sVelVert
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Vertical Deceleration (applied only when no keys have been pressed AND the ship"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "' is already in motion)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - sUp
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - And
+    - AndKeyword
+  - - " "
+    - Whitespace
+  - - sDown
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - And
+    - AndKeyword
+  - - " "
+    - Whitespace
+  - - sVelVert
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - ">"
+    - GreaterThanOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - sVelVert
+    - Identifier
+  - - " "
+    - Whitespace
+  - - ">"
+    - GreaterThanOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - sVelVert
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - sVelVert
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - VDel
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - sVelVert
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - sVelVert
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Else
+    - ElseKeyword
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - sVelVert
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - sVelVert
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - VDel
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - sVelVert
+    - Identifier
+  - - " "
+    - Whitespace
+  - - ">"
+    - GreaterThanOperator
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - sVelVert
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Apply the deceleration to the ship's velocity"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - ShipY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - ShipY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - sVelVert
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Movement Left"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - sLeft
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - sVelHoriz
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - sVelHoriz
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - HAcc
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - ShipX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - ShipX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - sVelHoriz
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Movement Right"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - sRight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - sVelHoriz
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - sVelHoriz
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - HAcc
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - ShipX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - ShipX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - sVelHoriz
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Horizontal Deceleration"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - sRight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - And
+    - AndKeyword
+  - - " "
+    - Whitespace
+  - - sLeft
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - And
+    - AndKeyword
+  - - " "
+    - Whitespace
+  - - sVelHoriz
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - ">"
+    - GreaterThanOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - sVelHoriz
+    - Identifier
+  - - " "
+    - Whitespace
+  - - ">"
+    - GreaterThanOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - sVelHoriz
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - sVelHoriz
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - HDel
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - sVelHoriz
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - sVelHoriz
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Else
+    - ElseKeyword
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - sVelHoriz
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - sVelHoriz
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - HDel
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - sVelHoriz
+    - Identifier
+  - - " "
+    - Whitespace
+  - - ">"
+    - GreaterThanOperator
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - sVelHoriz
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - ShipX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - ShipX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - sVelHoriz
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'If the ship scrolls completely off-screen, move it to the other side"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - ShipX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - ">"
+    - GreaterThanOperator
+  - - " "
+    - Whitespace
+  - - BufferWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - ShipX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - ShipX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "64"
+    - Number
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - ShipX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - BufferWidth
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - ShipY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - ">"
+    - GreaterThanOperator
+  - - " "
+    - Whitespace
+  - - BufferHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - ShipY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - ShipY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "64"
+    - Number
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - ShipY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - BufferHeight
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'If the ship isn't moving left or right, reset the ship picture to the default orientation"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - sVelHoriz
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - frmMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - picShip
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - frmMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicT
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - frmMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - picShipMask
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - frmMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicTM
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Last but not least, draw the ship onto the buffer"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - BitBlt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - frmMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicScreenBuffer
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hDC
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ShipX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ShipY
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - frmMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - picShipMask
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hDC
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbMergePaint
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - BitBlt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - frmMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicScreenBuffer
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hDC
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ShipX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ShipY
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - frmMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - picShip
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hDC
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbSrcAnd
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'This routine fires bullets/laser blasts from the ship's nose"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - FireBullets
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - Not
+    - NotKeyword
+  - - " "
+    - Whitespace
+  - - GameActive
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - Exit
+    - ExitKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Run a loop through every bullet"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - For
+    - ForKeyword
+  - - " "
+    - Whitespace
+  - - X
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - NumOfBullets
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'If the user is firing, and this bullet is inactive, make it active"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - Firing
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "True"
+    - TrueKeyword
+  - - " "
+    - Whitespace
+  - - And
+    - AndKeyword
+  - - " "
+    - Whitespace
+  - - BulletsActivated
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - " "
+    - Whitespace
+  - - And
+    - AndKeyword
+  - - " "
+    - Whitespace
+  - - Bullets
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - X
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - Activated
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - "'Mark this bullet as active"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - Bullets
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - X
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - Activated
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "True"
+    - TrueKeyword
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - "'Let the engine know that we've activated a bullet this round (so as to not activate more)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - BulletsActivated
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - BulletsActivated
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - "'Set the bullet in the center of the ship"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - Bullets
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - X
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - X
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - ShipX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - "30"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - "'Set the bullet to start from either side of the ship's nose"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - Bullets
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - X
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - Y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - ShipY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - "10"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'If the bullet is active, update its information"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - Bullets
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - X
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - Activated
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "True"
+    - TrueKeyword
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - "'First, move the bullet up according to its speed"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - Bullets
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - X
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - Y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Bullets
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - X
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - Y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - BulletSpeed
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - "'If the bullet leaves the screen, deactivate it"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - Bullets
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - X
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - Y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "4"
+    - Number
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - Bullets
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - X
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - Activated
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - "'Draw our bullet(s) to the screen"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - BitBlt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - frmMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicScreenBuffer
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hDC
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Bullets
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - X
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - X
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - "6"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Bullets
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - X
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - Y
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "4"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "4"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - frmMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicBulletM
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hDC
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbMergePaint
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - BitBlt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - frmMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicScreenBuffer
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hDC
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Bullets
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - X
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - X
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - "6"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Bullets
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - X
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - Y
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "4"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "4"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - frmMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicBullet
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hDC
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbSrcAnd
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - BitBlt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - frmMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicScreenBuffer
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hDC
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Bullets
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - X
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - X
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - "6"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Bullets
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - X
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - Y
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "4"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "4"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - frmMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicBulletM
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hDC
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbMergePaint
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - BitBlt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - frmMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicScreenBuffer
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hDC
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Bullets
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - X
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - X
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - "6"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Bullets
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - X
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - Y
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "4"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "4"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - frmMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicBullet
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hDC
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbSrcAnd
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Now do the same for the next bullet"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Next
+    - NextKeyword
+  - - " "
+    - Whitespace
+  - - X
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Reset the number of activated bullets to zero"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - BulletsActivated
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Since this is the last step in the logic process, copy the entire buffer to the screen"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - BitBlt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - frmMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hDC
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - BufferWidth
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - BufferHeight
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - frmMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicScreenBuffer
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hDC
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbSrcCopy
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Use this to create a star; if firstTime is true, the star can appear anywhere - if false,"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' it is created only along the top edge of the screen"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - BuildStar
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - ArrayVal
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Optional
+    - OptionalKeyword
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - firstTime
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Boolean
+    - BooleanKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Random x location"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - StarArray
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - ArrayVal
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - X
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Rnd
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - BufferWidth
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Calculate the y location according to firstTime"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - firstTime
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "True"
+    - TrueKeyword
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - StarArray
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - ArrayVal
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - Y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Rnd
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - frmMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleHeight
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Else
+    - ElseKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - StarArray
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - ArrayVal
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - Y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Brightness is somewhere between 5 and 255"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - StarArray
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - ArrayVal
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - Bright
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - Rnd
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - "250"
+    - Number
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - "5"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Star velocity is somewhere between .1 and 8"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - StarArray
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - ArrayVal
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - Speed
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Rnd
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - "8"
+    - Number
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "."
+    - PeriodOperator
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - ""
+    - EOF

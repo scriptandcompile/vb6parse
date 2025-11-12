@@ -938,1165 +938,2327 @@ attributes:
   description: ~
   ext_key: {}
 tokens:
-  - Comment: "'***************************************************************************"
-  - Newline: "\r\n"
-  - Comment: "'Copyright 2018 by Tanner Helland"
-  - Newline: "\r\n"
-  - Comment: "' www.tannerhelland.com"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'This project includes code for basic scanner interaction.  It's primarily an interface to the"
-  - Newline: "\r\n"
-  - Comment: "' \"EZTW32\" DLL file, which is required because VB does not have native scanner support."
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'The EZTW32 library is a free, public domain TWAIN32-compliant library.  You can learn more"
-  - Newline: "\r\n"
-  - Comment: "' about it at http://eztwain.com/"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'This project was designed against v1.19 of the EZTW32 library (2009.02.22).  It may not work with"
-  - Newline: "\r\n"
-  - Comment: "' other versions of the library.  Additional documentation regarding the use of EZTW32 is"
-  - Newline: "\r\n"
-  - Comment: "' available from the EZTW32 developers at http://eztwain.com/ezt1_download.htm"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'Documentation for this project can be found at https://tannerhelland.com/code/"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'The source code in this project is licensed under a Simplified BSD license."
-  - Newline: "\r\n"
-  - Comment: "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'***************************************************************************"
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - OptionKeyword: Option
-  - Whitespace: " "
-  - ExplicitKeyword: Explicit
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'EZTW32 functions for interfacing with a scanner"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - DeclareKeyword: Declare
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: TWAIN_AcquireToFilename
-  - Whitespace: " "
-  - LibKeyword: Lib
-  - Whitespace: " "
-  - StringLiteral: "\"EZTW32.dll\""
-  - Whitespace: " "
-  - LeftParentheses: (
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: hwndApp
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: sFile
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - DeclareKeyword: Declare
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: TWAIN_SelectImageSource
-  - Whitespace: " "
-  - LibKeyword: Lib
-  - Whitespace: " "
-  - StringLiteral: "\"EZTW32.dll\""
-  - Whitespace: " "
-  - LeftParentheses: (
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: hwndApp
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - DeclareKeyword: Declare
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: TWAIN_IsAvailable
-  - Whitespace: " "
-  - LibKeyword: Lib
-  - Whitespace: " "
-  - StringLiteral: "\"EZTW32.dll\""
-  - Whitespace: " "
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'API calls for explicitly allocating DLLs.  These allow you to load a DLL from an arbitrary location"
-  - Newline: "\r\n"
-  - Comment: "' (i.e. without manually copying it into your system directory)"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - DeclareKeyword: Declare
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: LoadLibrary
-  - Whitespace: " "
-  - LibKeyword: Lib
-  - Whitespace: " "
-  - StringLiteral: "\"kernel32\""
-  - Whitespace: " "
-  - AliasKeyword: Alias
-  - Whitespace: " "
-  - StringLiteral: "\"LoadLibraryA\""
-  - Whitespace: " "
-  - LeftParentheses: (
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: lpLibFileName
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - DeclareKeyword: Declare
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: FreeLibrary
-  - Whitespace: " "
-  - LibKeyword: Lib
-  - Whitespace: " "
-  - StringLiteral: "\"kernel32\""
-  - Whitespace: " "
-  - LeftParentheses: (
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: hLibModule
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'API calls for resizing an image (faster and more accurate than VB's PaintPicture function)"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - DeclareKeyword: Declare
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: StretchBlt
-  - Whitespace: " "
-  - LibKeyword: Lib
-  - Whitespace: " "
-  - StringLiteral: "\"gdi32\""
-  - Whitespace: " "
-  - LeftParentheses: (
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: hDestDC
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: X
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: Y
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: nWidth
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: nHeight
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: hSrcDC
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: xSrc
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: ySrc
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: ClipX
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: ClipY
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: dwRop
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - DeclareKeyword: Declare
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: SetStretchBltMode
-  - Whitespace: " "
-  - LibKeyword: Lib
-  - Whitespace: " "
-  - StringLiteral: "\"gdi32\""
-  - Whitespace: " "
-  - LeftParentheses: (
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: hDestDC
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: nStretchMode
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - ConstKeyword: Const
-  - Whitespace: " "
-  - Identifier: STRETCHBLT_HALFTONE
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "4"
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Used to store the memory address of the EZTW32 library once it's been loaded"
-  - Newline: "\r\n"
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: hLib
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Location of the project's folder (used to find the required DLL)"
-  - Newline: "\r\n"
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: ProgramPath
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Whether or not a valid scanner is available for use"
-  - Newline: "\r\n"
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: ScanEnabled
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - BooleanKeyword: Boolean
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: cmdScanImage_Click
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'If this is not the first scan the user has performed, hide the \"successful scan\" label"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: lblSuccess
-  - PeriodOperator: "."
-  - Identifier: Visible
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Make sure that the scanner was successfully found before attempting to scan an image"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - LeftParentheses: (
-  - NotKeyword: Not
-  - Whitespace: " "
-  - Identifier: ScanEnabled
-  - RightParentheses: )
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: MsgBox
-  - Whitespace: " "
-  - StringLiteral: "\"The scanner/digital camera interface plug-in (EZTW32.dll) was marked as missing upon program initialization.\""
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Whitespace: " "
-  - Identifier: vbCrLf
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Whitespace: " "
-  - Identifier: vbCrLf
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Whitespace: " "
-  - StringLiteral: "\"To enable scanner support, please copy the EZTW32.dll file (available for download from http://eztwain.com/ezt1_download.htm) into this application directory and reload the program.\""
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbCritical
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: vbOKOnly
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: vbApplicationModal
-  - Comma: ","
-  - Whitespace: " "
-  - StringLiteral: "\"Scanner Interface Error\""
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - ExitKeyword: Exit
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Basic scanner capture code"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - OnKeyword: "On"
-  - Whitespace: " "
-  - ErrorKeyword: Error
-  - Whitespace: " "
-  - GotoKeyword: GoTo
-  - Whitespace: " "
-  - Identifier: ScanError
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: ScannerCaptureFile
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: ScanCheck
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'ScanCheck is used to store the return values of the EZTW32.dll scanner functions.  We start by setting it"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "' to an arbitrary value that only we know; if an error occurs and this value is still present, it means an"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "' error occurred outside of the EZTW32 library."
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: ScanCheck
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "5"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'A temporary file is required by the scanner; we will place it in the project folder, then delete it when finished"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: ScannerCaptureFile
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: ProgramPath
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Whitespace: " "
-  - StringLiteral: "\"VBScanInterface.bmp\""
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'This line uses the EZTW32.dll file to scan the image and send it to a temporary file"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: ScanCheck
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: TWAIN_AcquireToFilename
-  - LeftParentheses: (
-  - Identifier: frmScanner
-  - PeriodOperator: "."
-  - Identifier: hWnd
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: ScannerCaptureFile
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'If the image was successfully scanned, load it into the available picture box"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: ScanCheck
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: picBuffer
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: LoadPicture
-  - LeftParentheses: (
-  - Identifier: ScannerCaptureFile
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Be polite and remove the temporary file acquired from the scanner"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - KillKeyword: Kill
-  - Whitespace: " "
-  - Identifier: ScannerCaptureFile
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Resize the image if the user has requested it"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: optLoadImage
-  - LeftParentheses: (
-  - Number: "0"
-  - RightParentheses: )
-  - PeriodOperator: "."
-  - Identifier: Value
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Comment: "'...no resize"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: picScan
-  - PeriodOperator: "."
-  - Identifier: AutoSize
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - TrueKeyword: "True"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: picScan
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: picBuffer
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: picScan
-  - PeriodOperator: "."
-  - Identifier: Refresh
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - ElseKeyword: Else
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Comment: "'...resize"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: picScan
-  - PeriodOperator: "."
-  - Identifier: AutoSize
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Comment: "'Setting the HALFTONE mode results in a slower, but higher-quality image resize"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: SetStretchBltMode
-  - Whitespace: " "
-  - Identifier: picScan
-  - PeriodOperator: "."
-  - Identifier: hDC
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: STRETCHBLT_HALFTONE
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: StretchBlt
-  - Whitespace: " "
-  - Identifier: picScan
-  - PeriodOperator: "."
-  - Identifier: hDC
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: picScan
-  - PeriodOperator: "."
-  - Identifier: ScaleWidth
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: picScan
-  - PeriodOperator: "."
-  - Identifier: ScaleHeight
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: picBuffer
-  - PeriodOperator: "."
-  - Identifier: hDC
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: picBuffer
-  - PeriodOperator: "."
-  - Identifier: ScaleWidth
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: picBuffer
-  - PeriodOperator: "."
-  - Identifier: ScaleHeight
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbSrcCopy
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: picScan
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: picScan
-  - PeriodOperator: "."
-  - Identifier: Image
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: picScan
-  - PeriodOperator: "."
-  - Identifier: Refresh
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Let the user know that everything worked"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: lblSuccess
-  - PeriodOperator: "."
-  - Identifier: Visible
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - TrueKeyword: "True"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'Return focus to this project"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: frmScanner
-  - PeriodOperator: "."
-  - Identifier: SetFocus
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ElseKeyword: Else
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'If the scan was unsuccessful, let the user know what happened"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - GotoKeyword: GoTo
-  - Whitespace: " "
-  - Identifier: ScanError
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ExitKeyword: Exit
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Something went wrong"
-  - Newline: "\r\n"
-  - Identifier: ScanError
-  - ColonOperator: ":"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: scanErrMessage
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - StringKeyword: String
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - SelectKeyword: Select
-  - Whitespace: " "
-  - CaseKeyword: Case
-  - Whitespace: " "
-  - Identifier: ScanCheck
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - CaseKeyword: Case
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "5"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: scanErrMessage
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - StringLiteral: "\"Unknown error occurred.\""
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - CaseKeyword: Case
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "4"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: scanErrMessage
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - StringLiteral: "\"Scan successful, but temporary file save failed.  Is it possible that your hard drive is full (or almost full)?\""
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - CaseKeyword: Case
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "3"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: scanErrMessage
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - StringLiteral: "\"Unable to acquire DIB lock.  Please make sure no other programs are accessing the scanner.  If the problem persists, reboot and try again.\""
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - CaseKeyword: Case
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "2"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: scanErrMessage
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - StringLiteral: "\"Temporary file access error.  This can be caused when running on a system with limited access rights.  Please enable admin rights and try again.\""
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - CaseKeyword: Case
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Number: "1"
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: scanErrMessage
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - StringLiteral: "\"Scan failed.  (This may happen if the user canceled the scan dialog.)\""
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - CaseKeyword: Case
-  - Whitespace: " "
-  - ElseKeyword: Else
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: scanErrMessage
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - StringLiteral: "\"The scanner returned an error code that wasn't specified in the EZTW32.dll documentation.  Please visit http://www.eztwain.com for more information.\""
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - SelectKeyword: Select
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: MsgBox
-  - Whitespace: " "
-  - Identifier: scanErrMessage
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbCritical
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: vbOKOnly
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: vbApplicationModal
-  - Comma: ","
-  - Whitespace: " "
-  - StringLiteral: "\"Scanner Interface Error\""
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'This button allows the user to select which scanner they want to use.  If the user does not select a scanner, the default system scanner will be used."
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: cmdSelectScanner_Click
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Only launch the scanner select form if the EZTW32.dll file was successfully found at program load"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: ScanEnabled
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: TWAIN_SelectImageSource
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: frmScanner
-  - PeriodOperator: "."
-  - Identifier: hWnd
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ElseKeyword: Else
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'If the EZTW32.dll file doesn't exist..."
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: MsgBox
-  - Whitespace: " "
-  - StringLiteral: "\"The scanner/digital camera interface plug-in (EZTW32.dll) was marked as missing upon program initialization.\""
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Whitespace: " "
-  - Identifier: vbCrLf
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Whitespace: " "
-  - Identifier: vbCrLf
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Whitespace: " "
-  - StringLiteral: "\"To enable scanner support, please copy the EZTW32.dll file (available for download from http://eztwain.com/ezt1_download.htm) into this application directory and reload the program.\""
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbCritical
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: vbOKOnly
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: vbApplicationModal
-  - Comma: ","
-  - Whitespace: " "
-  - StringLiteral: "\"Scanner Interface Error\""
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - ExitKeyword: Exit
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'When the project is first loaded, several parameters need to be determined."
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: Form_Load
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Remember the folder from which the program was launched"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: ProgramPath
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: App
-  - PeriodOperator: "."
-  - Identifier: Path
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: Right
-  - LeftParentheses: (
-  - Identifier: ProgramPath
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "1"
-  - RightParentheses: )
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - GreaterThanOperator: ">"
-  - Whitespace: " "
-  - StringLiteral: "\"\\\""
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: ProgramPath
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: ProgramPath
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Whitespace: " "
-  - StringLiteral: "\"\\\""
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'This code allows us to load the scanner DLL from any location; this is easier than forcing the user to"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "' copy the file into their system directory.  However, it requires a bit of extra code."
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: hLib
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: LoadLibrary
-  - LeftParentheses: (
-  - Identifier: ProgramPath
-  - Whitespace: " "
-  - Ampersand: "&"
-  - Whitespace: " "
-  - StringLiteral: "\"EZTW32.dll\""
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: TWAIN_IsAvailable
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: ScanEnabled
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: MsgBox
-  - Whitespace: " "
-  - StringLiteral: "\"Unfortunately, this program was unable to locate the DLL file necessary for scanner support.  Please ensure that a file called EZTW32.dll is located in the same directory as this project file, then restart the project.  Thanks!\""
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbOKOnly
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: vbCritical
-  - Comma: ","
-  - Whitespace: " "
-  - StringLiteral: "\"Scanner DLL missing\""
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ElseKeyword: Else
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: ScanEnabled
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - TrueKeyword: "True"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - PrivateKeyword: Private
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: Form_Unload
-  - LeftParentheses: (
-  - Identifier: Cancel
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Unload the scanner DLL from memory."
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: FreeLibrary
-  - Whitespace: " "
-  - Identifier: hLib
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
+  - - "'***************************************************************************"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Copyright 2018 by Tanner Helland"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' www.tannerhelland.com"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'This project includes code for basic scanner interaction.  It's primarily an interface to the"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' \"EZTW32\" DLL file, which is required because VB does not have native scanner support."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'The EZTW32 library is a free, public domain TWAIN32-compliant library.  You can learn more"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' about it at http://eztwain.com/"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'This project was designed against v1.19 of the EZTW32 library (2009.02.22).  It may not work with"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' other versions of the library.  Additional documentation regarding the use of EZTW32 is"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' available from the EZTW32 developers at http://eztwain.com/ezt1_download.htm"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'The source code in this project is licensed under a Simplified BSD license."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'***************************************************************************"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - Option
+    - OptionKeyword
+  - - " "
+    - Whitespace
+  - - Explicit
+    - ExplicitKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'EZTW32 functions for interfacing with a scanner"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Declare
+    - DeclareKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - TWAIN_AcquireToFilename
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Lib
+    - LibKeyword
+  - - " "
+    - Whitespace
+  - - "\"EZTW32.dll\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - hwndApp
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - sFile
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Declare
+    - DeclareKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - TWAIN_SelectImageSource
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Lib
+    - LibKeyword
+  - - " "
+    - Whitespace
+  - - "\"EZTW32.dll\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - hwndApp
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Declare
+    - DeclareKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - TWAIN_IsAvailable
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Lib
+    - LibKeyword
+  - - " "
+    - Whitespace
+  - - "\"EZTW32.dll\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'API calls for explicitly allocating DLLs.  These allow you to load a DLL from an arbitrary location"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' (i.e. without manually copying it into your system directory)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Declare
+    - DeclareKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - LoadLibrary
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Lib
+    - LibKeyword
+  - - " "
+    - Whitespace
+  - - "\"kernel32\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - Alias
+    - AliasKeyword
+  - - " "
+    - Whitespace
+  - - "\"LoadLibraryA\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - lpLibFileName
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Declare
+    - DeclareKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - FreeLibrary
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Lib
+    - LibKeyword
+  - - " "
+    - Whitespace
+  - - "\"kernel32\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - hLibModule
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'API calls for resizing an image (faster and more accurate than VB's PaintPicture function)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Declare
+    - DeclareKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - StretchBlt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Lib
+    - LibKeyword
+  - - " "
+    - Whitespace
+  - - "\"gdi32\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - hDestDC
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - X
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - Y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - nWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - nHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - hSrcDC
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - xSrc
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - ySrc
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - ClipX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - ClipY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - dwRop
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Declare
+    - DeclareKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - SetStretchBltMode
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Lib
+    - LibKeyword
+  - - " "
+    - Whitespace
+  - - "\"gdi32\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - hDestDC
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - nStretchMode
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Const
+    - ConstKeyword
+  - - " "
+    - Whitespace
+  - - STRETCHBLT_HALFTONE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "4"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Used to store the memory address of the EZTW32 library once it's been loaded"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - hLib
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Location of the project's folder (used to find the required DLL)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - ProgramPath
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Whether or not a valid scanner is available for use"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - ScanEnabled
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Boolean
+    - BooleanKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - cmdScanImage_Click
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'If this is not the first scan the user has performed, hide the \"successful scan\" label"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - lblSuccess
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Visible
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Make sure that the scanner was successfully found before attempting to scan an image"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - Not
+    - NotKeyword
+  - - " "
+    - Whitespace
+  - - ScanEnabled
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - MsgBox
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "\"The scanner/digital camera interface plug-in (EZTW32.dll) was marked as missing upon program initialization.\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - " "
+    - Whitespace
+  - - vbCrLf
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - " "
+    - Whitespace
+  - - vbCrLf
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - " "
+    - Whitespace
+  - - "\"To enable scanner support, please copy the EZTW32.dll file (available for download from http://eztwain.com/ezt1_download.htm) into this application directory and reload the program.\""
+    - StringLiteral
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbCritical
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - vbOKOnly
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - vbApplicationModal
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "\"Scanner Interface Error\""
+    - StringLiteral
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Exit
+    - ExitKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Basic scanner capture code"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "On"
+    - OnKeyword
+  - - " "
+    - Whitespace
+  - - Error
+    - ErrorKeyword
+  - - " "
+    - Whitespace
+  - - GoTo
+    - GotoKeyword
+  - - " "
+    - Whitespace
+  - - ScanError
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - ScannerCaptureFile
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ScanCheck
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'ScanCheck is used to store the return values of the EZTW32.dll scanner functions.  We start by setting it"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "' to an arbitrary value that only we know; if an error occurs and this value is still present, it means an"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "' error occurred outside of the EZTW32 library."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - ScanCheck
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "5"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'A temporary file is required by the scanner; we will place it in the project folder, then delete it when finished"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - ScannerCaptureFile
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - ProgramPath
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - " "
+    - Whitespace
+  - - "\"VBScanInterface.bmp\""
+    - StringLiteral
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'This line uses the EZTW32.dll file to scan the image and send it to a temporary file"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - ScanCheck
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - TWAIN_AcquireToFilename
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - frmScanner
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hWnd
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ScannerCaptureFile
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'If the image was successfully scanned, load it into the available picture box"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - ScanCheck
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - picBuffer
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - LoadPicture
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - ScannerCaptureFile
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Be polite and remove the temporary file acquired from the scanner"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Kill
+    - KillKeyword
+  - - " "
+    - Whitespace
+  - - ScannerCaptureFile
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Resize the image if the user has requested it"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - optLoadImage
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - "0"
+    - Number
+  - - )
+    - RightParentheses
+  - - "."
+    - PeriodOperator
+  - - Value
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - "'...no resize"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - picScan
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - AutoSize
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "True"
+    - TrueKeyword
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - picScan
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - picBuffer
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - picScan
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Refresh
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Else
+    - ElseKeyword
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - "'...resize"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - picScan
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - AutoSize
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - "'Setting the HALFTONE mode results in a slower, but higher-quality image resize"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - SetStretchBltMode
+    - Identifier
+  - - " "
+    - Whitespace
+  - - picScan
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hDC
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - STRETCHBLT_HALFTONE
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - StretchBlt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - picScan
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hDC
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - picScan
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleWidth
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - picScan
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleHeight
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - picBuffer
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hDC
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - picBuffer
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleWidth
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - picBuffer
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleHeight
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbSrcCopy
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - picScan
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - picScan
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Image
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - picScan
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Refresh
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Let the user know that everything worked"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - lblSuccess
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Visible
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "True"
+    - TrueKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'Return focus to this project"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - frmScanner
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - SetFocus
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Else
+    - ElseKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'If the scan was unsuccessful, let the user know what happened"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - GoTo
+    - GotoKeyword
+  - - " "
+    - Whitespace
+  - - ScanError
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Exit
+    - ExitKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Something went wrong"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - ScanError
+    - Identifier
+  - - ":"
+    - ColonOperator
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - scanErrMessage
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - String
+    - StringKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Select
+    - SelectKeyword
+  - - " "
+    - Whitespace
+  - - Case
+    - CaseKeyword
+  - - " "
+    - Whitespace
+  - - ScanCheck
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Case
+    - CaseKeyword
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "5"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - scanErrMessage
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "\"Unknown error occurred.\""
+    - StringLiteral
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Case
+    - CaseKeyword
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "4"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - scanErrMessage
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "\"Scan successful, but temporary file save failed.  Is it possible that your hard drive is full (or almost full)?\""
+    - StringLiteral
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Case
+    - CaseKeyword
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "3"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - scanErrMessage
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "\"Unable to acquire DIB lock.  Please make sure no other programs are accessing the scanner.  If the problem persists, reboot and try again.\""
+    - StringLiteral
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Case
+    - CaseKeyword
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "2"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - scanErrMessage
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "\"Temporary file access error.  This can be caused when running on a system with limited access rights.  Please enable admin rights and try again.\""
+    - StringLiteral
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Case
+    - CaseKeyword
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - scanErrMessage
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "\"Scan failed.  (This may happen if the user canceled the scan dialog.)\""
+    - StringLiteral
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Case
+    - CaseKeyword
+  - - " "
+    - Whitespace
+  - - Else
+    - ElseKeyword
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - scanErrMessage
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "\"The scanner returned an error code that wasn't specified in the EZTW32.dll documentation.  Please visit http://www.eztwain.com for more information.\""
+    - StringLiteral
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Select
+    - SelectKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - MsgBox
+    - Identifier
+  - - " "
+    - Whitespace
+  - - scanErrMessage
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbCritical
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - vbOKOnly
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - vbApplicationModal
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "\"Scanner Interface Error\""
+    - StringLiteral
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'This button allows the user to select which scanner they want to use.  If the user does not select a scanner, the default system scanner will be used."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - cmdSelectScanner_Click
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Only launch the scanner select form if the EZTW32.dll file was successfully found at program load"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - ScanEnabled
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - TWAIN_SelectImageSource
+    - Identifier
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - frmScanner
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hWnd
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Else
+    - ElseKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'If the EZTW32.dll file doesn't exist..."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - MsgBox
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "\"The scanner/digital camera interface plug-in (EZTW32.dll) was marked as missing upon program initialization.\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - " "
+    - Whitespace
+  - - vbCrLf
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - " "
+    - Whitespace
+  - - vbCrLf
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - " "
+    - Whitespace
+  - - "\"To enable scanner support, please copy the EZTW32.dll file (available for download from http://eztwain.com/ezt1_download.htm) into this application directory and reload the program.\""
+    - StringLiteral
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbCritical
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - vbOKOnly
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - vbApplicationModal
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "\"Scanner Interface Error\""
+    - StringLiteral
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Exit
+    - ExitKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'When the project is first loaded, several parameters need to be determined."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - Form_Load
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Remember the folder from which the program was launched"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - ProgramPath
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - App
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Path
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - Right
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - ProgramPath
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - ">"
+    - GreaterThanOperator
+  - - " "
+    - Whitespace
+  - - "\"\\\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - ProgramPath
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - ProgramPath
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - " "
+    - Whitespace
+  - - "\"\\\""
+    - StringLiteral
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'This code allows us to load the scanner DLL from any location; this is easier than forcing the user to"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "' copy the file into their system directory.  However, it requires a bit of extra code."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - hLib
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - LoadLibrary
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - ProgramPath
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "&"
+    - Ampersand
+  - - " "
+    - Whitespace
+  - - "\"EZTW32.dll\""
+    - StringLiteral
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - TWAIN_IsAvailable
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - ScanEnabled
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - MsgBox
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "\"Unfortunately, this program was unable to locate the DLL file necessary for scanner support.  Please ensure that a file called EZTW32.dll is located in the same directory as this project file, then restart the project.  Thanks!\""
+    - StringLiteral
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbOKOnly
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - vbCritical
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "\"Scanner DLL missing\""
+    - StringLiteral
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Else
+    - ElseKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - ScanEnabled
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "True"
+    - TrueKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - Private
+    - PrivateKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - Form_Unload
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - Cancel
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Unload the scanner DLL from memory."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - FreeLibrary
+    - Identifier
+  - - " "
+    - Whitespace
+  - - hLib
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline

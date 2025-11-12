@@ -17,558 +17,1113 @@ name:
   - 114
   - 115
 tokens:
-  - Comment: "'***************************************************************************"
-  - Newline: "\r\n"
-  - Comment: "'Copyright 2018 by Tanner Helland"
-  - Newline: "\r\n"
-  - Comment: "' www.tannerhelland.com"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'Documentation for this project can be found at https://tannerhelland.com/code/"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'The source code in this project is licensed under a Simplified BSD license."
-  - Newline: "\r\n"
-  - Comment: "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'***************************************************************************"
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'A couple constants to simplify tracking various variables"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - ConstKeyword: Const
-  - Whitespace: " "
-  - Identifier: DRAWMETHOD_LUMINANCE
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "3"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - ConstKeyword: Const
-  - Whitespace: " "
-  - Identifier: DRAWMETHOD_BARS
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Used to track the last options we used on the histogram form"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - Identifier: lastHistSource
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: lastHistMethod
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'We'll use this routine only to draw the gradient below the histogram window"
-  - Newline: "\r\n"
-  - Comment: "'(like Photoshop does).  This code is old, but it works ;)"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: DrawGradient
-  - LeftParentheses: (
-  - ByRefKeyword: ByRef
-  - Whitespace: " "
-  - Identifier: DstObject
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - Identifier: PictureBox
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: Color1
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: Color2
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'RGB() variables for each color"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: r
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: g
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: b
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: R2
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: G2
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: B2
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Extract the r,g,b values from the colors passed by the user"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: r
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Color1
-  - Whitespace: " "
-  - ModKeyword: Mod
-  - Whitespace: " "
-  - Number: "256"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: g
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: Color1
-  - Whitespace: " "
-  - BackwardSlashOperator: "\\"
-  - Whitespace: " "
-  - Number: "256"
-  - RightParentheses: )
-  - Whitespace: " "
-  - AndKeyword: And
-  - Whitespace: " "
-  - Number: "255"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: b
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: Color1
-  - Whitespace: " "
-  - BackwardSlashOperator: "\\"
-  - Whitespace: " "
-  - Number: "65536"
-  - RightParentheses: )
-  - Whitespace: " "
-  - AndKeyword: And
-  - Whitespace: " "
-  - Number: "255"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: R2
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Color2
-  - Whitespace: " "
-  - ModKeyword: Mod
-  - Whitespace: " "
-  - Number: "256"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: G2
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: Color2
-  - Whitespace: " "
-  - BackwardSlashOperator: "\\"
-  - Whitespace: " "
-  - Number: "256"
-  - RightParentheses: )
-  - Whitespace: " "
-  - AndKeyword: And
-  - Whitespace: " "
-  - Number: "255"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: B2
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: Color2
-  - Whitespace: " "
-  - BackwardSlashOperator: "\\"
-  - Whitespace: " "
-  - Number: "65536"
-  - RightParentheses: )
-  - Whitespace: " "
-  - AndKeyword: And
-  - Whitespace: " "
-  - Number: "255"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Calculation variables for the gradiency"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: VR
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - SingleKeyword: Single
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: VG
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - SingleKeyword: Single
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: VB
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - SingleKeyword: Single
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Size of the picture box we'll be drawing to"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: iWidth
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: iHeight
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: iWidth
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: DstObject
-  - PeriodOperator: "."
-  - Identifier: ScaleWidth
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: iHeight
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: DstObject
-  - PeriodOperator: "."
-  - Identifier: ScaleHeight
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Here, create a calculation variable for determining the step between"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'each level of the gradient"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: VR
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Abs
-  - LeftParentheses: (
-  - Identifier: r
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: R2
-  - RightParentheses: )
-  - Whitespace: " "
-  - DivisionOperator: /
-  - Whitespace: " "
-  - Identifier: iWidth
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: VG
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Abs
-  - LeftParentheses: (
-  - Identifier: g
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: G2
-  - RightParentheses: )
-  - Whitespace: " "
-  - DivisionOperator: /
-  - Whitespace: " "
-  - Identifier: iWidth
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: VB
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Abs
-  - LeftParentheses: (
-  - Identifier: b
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: B2
-  - RightParentheses: )
-  - Whitespace: " "
-  - DivisionOperator: /
-  - Whitespace: " "
-  - Identifier: iWidth
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'If the second value is lower then the first value, make the step negative"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: R2
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - Whitespace: " "
-  - Identifier: r
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: VR
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Identifier: VR
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: G2
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - Whitespace: " "
-  - Identifier: g
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: VG
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Identifier: VG
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: B2
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - Whitespace: " "
-  - Identifier: b
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - Identifier: VB
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Identifier: VB
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Last, run a loop through the width of the picture box, incrementing the color as"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'we go (thus creating a gradient effect)"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - DimKeyword: Dim
-  - Whitespace: " "
-  - Identifier: x
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ForKeyword: For
-  - Whitespace: " "
-  - Identifier: x
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Identifier: iWidth
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: R2
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: r
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: VR
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: x
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: G2
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: g
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: VG
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: x
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: B2
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: b
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - Identifier: VB
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: x
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: DstObject
-  - PeriodOperator: "."
-  - LineKeyword: Line
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: x
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - RightParentheses: )
-  - SubtractionOperator: "-"
-  - LeftParentheses: (
-  - Identifier: x
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: iHeight
-  - RightParentheses: )
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: RGB
-  - LeftParentheses: (
-  - Identifier: R2
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: G2
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: B2
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - NextKeyword: Next
-  - Whitespace: " "
-  - Identifier: x
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - EOF
+  - - "'***************************************************************************"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Copyright 2018 by Tanner Helland"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' www.tannerhelland.com"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'The source code in this project is licensed under a Simplified BSD license."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'***************************************************************************"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'A couple constants to simplify tracking various variables"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Const
+    - ConstKeyword
+  - - " "
+    - Whitespace
+  - - DRAWMETHOD_LUMINANCE
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "3"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Const
+    - ConstKeyword
+  - - " "
+    - Whitespace
+  - - DRAWMETHOD_BARS
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Used to track the last options we used on the histogram form"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - lastHistSource
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - lastHistMethod
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'We'll use this routine only to draw the gradient below the histogram window"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'(like Photoshop does).  This code is old, but it works ;)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - DrawGradient
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - ByRef
+    - ByRefKeyword
+  - - " "
+    - Whitespace
+  - - DstObject
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - PictureBox
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - Color1
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - Color2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'RGB() variables for each color"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - r
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - g
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - b
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - R2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - G2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - B2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Extract the r,g,b values from the colors passed by the user"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - r
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Color1
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Mod
+    - ModKeyword
+  - - " "
+    - Whitespace
+  - - "256"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - g
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - Color1
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "\\"
+    - BackwardSlashOperator
+  - - " "
+    - Whitespace
+  - - "256"
+    - Number
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - And
+    - AndKeyword
+  - - " "
+    - Whitespace
+  - - "255"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - b
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - Color1
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "\\"
+    - BackwardSlashOperator
+  - - " "
+    - Whitespace
+  - - "65536"
+    - Number
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - And
+    - AndKeyword
+  - - " "
+    - Whitespace
+  - - "255"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - R2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Color2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Mod
+    - ModKeyword
+  - - " "
+    - Whitespace
+  - - "256"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - G2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - Color2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "\\"
+    - BackwardSlashOperator
+  - - " "
+    - Whitespace
+  - - "256"
+    - Number
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - And
+    - AndKeyword
+  - - " "
+    - Whitespace
+  - - "255"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - B2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - Color2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "\\"
+    - BackwardSlashOperator
+  - - " "
+    - Whitespace
+  - - "65536"
+    - Number
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - And
+    - AndKeyword
+  - - " "
+    - Whitespace
+  - - "255"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Calculation variables for the gradiency"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - VR
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Single
+    - SingleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - VG
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Single
+    - SingleKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - VB
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Single
+    - SingleKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Size of the picture box we'll be drawing to"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - iWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - iHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - iWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - DstObject
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleWidth
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - iHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - DstObject
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleHeight
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Here, create a calculation variable for determining the step between"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'each level of the gradient"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - VR
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Abs
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - r
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - R2
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - /
+    - DivisionOperator
+  - - " "
+    - Whitespace
+  - - iWidth
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - VG
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Abs
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - g
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - G2
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - /
+    - DivisionOperator
+  - - " "
+    - Whitespace
+  - - iWidth
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - VB
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Abs
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - b
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - B2
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - /
+    - DivisionOperator
+  - - " "
+    - Whitespace
+  - - iWidth
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'If the second value is lower then the first value, make the step negative"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - R2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - " "
+    - Whitespace
+  - - r
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - VR
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - VR
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - G2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - " "
+    - Whitespace
+  - - g
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - VG
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - VG
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - B2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - " "
+    - Whitespace
+  - - b
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - VB
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - VB
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Last, run a loop through the width of the picture box, incrementing the color as"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'we go (thus creating a gradient effect)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Dim
+    - DimKeyword
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - For
+    - ForKeyword
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - iWidth
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - R2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - r
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - VR
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - G2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - g
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - VG
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - B2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - b
+    - Identifier
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - VB
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - DstObject
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Line
+    - LineKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - x
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - )
+    - RightParentheses
+  - - "-"
+    - SubtractionOperator
+  - - (
+    - LeftParentheses
+  - - x
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - iHeight
+    - Identifier
+  - - )
+    - RightParentheses
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - RGB
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - R2
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - G2
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - B2
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Next
+    - NextKeyword
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - ""
+    - EOF

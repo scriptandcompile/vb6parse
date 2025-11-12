@@ -32,7 +32,7 @@ use crate::{
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct VB6ClassFile<'a> {
     pub header: VB6ClassHeader<'a>,
-    pub tokens: Vec<VB6Token<'a>>,
+    pub tokens: Vec<(&'a str, VB6Token)>,
 }
 
 impl<'a> VB6ClassFile<'a> {

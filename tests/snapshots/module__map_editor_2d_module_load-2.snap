@@ -14,1537 +14,3071 @@ name:
   - 108
   - 101
 tokens:
-  - Comment: "'***************************************************************************"
-  - Newline: "\r\n"
-  - Comment: "'Copyright 2018 by Tanner Helland"
-  - Newline: "\r\n"
-  - Comment: "' www.tannerhelland.com"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'Documentation for this project can be found at https://tannerhelland.com/code/"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'The source code in this project is licensed under a Simplified BSD license."
-  - Newline: "\r\n"
-  - Comment: "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'***************************************************************************"
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'This routine is run when the program starts up"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: InitializeEditor
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Default tiles are nasty brown school carpet on the left, water (?) on the right"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: CurPicIndex
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: CurPicIndex2
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "1"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Our default map size is 20 tiles by 20 tiles"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: SizeX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "20"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: SizeY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "20"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ReDimKeyword: ReDim
-  - Whitespace: " "
-  - Identifier: MapArray
-  - LeftParentheses: (
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Identifier: SizeX
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Identifier: SizeY
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - ByteKeyword: Byte
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Set the default zoom to 100% (64, or the size of our tiles)"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: Zoom
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "64"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Set appropriate values for the main scroll bars"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: HSTileBar
-  - PeriodOperator: "."
-  - Identifier: Max
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Abs
-  - LeftParentheses: (
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: PicTiles
-  - PeriodOperator: "."
-  - Identifier: ScaleWidth
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: PicTilesBuffer
-  - PeriodOperator: "."
-  - Identifier: ScaleWidth
-  - RightParentheses: )
-  - Whitespace: " "
-  - DivisionOperator: /
-  - Whitespace: " "
-  - Number: "64"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: HSMain
-  - PeriodOperator: "."
-  - Identifier: Max
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: SizeX
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: Zoom
-  - RightParentheses: )
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: MainPic
-  - PeriodOperator: "."
-  - Identifier: ScaleWidth
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: VSMain
-  - PeriodOperator: "."
-  - Identifier: Max
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: SizeY
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: Zoom
-  - RightParentheses: )
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: MainPic
-  - PeriodOperator: "."
-  - Identifier: ScaleHeight
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Initialize the map array"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ForKeyword: For
-  - Whitespace: " "
-  - Identifier: x
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Identifier: SizeX
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ForKeyword: For
-  - Whitespace: " "
-  - Identifier: Y
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Identifier: SizeY
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: MapArray
-  - LeftParentheses: (
-  - Identifier: x
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Y
-  - RightParentheses: )
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - NextKeyword: Next
-  - Whitespace: " "
-  - Identifier: Y
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - NextKeyword: Next
-  - Whitespace: " "
-  - Identifier: x
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Show the form and draw everything to it"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: Show
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: RefreshAll
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Render the current map data to the main picture box"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: DrawMap
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Clear out the current map"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: MainPic
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: LoadPicture
-  - LeftParentheses: (
-  - Identifier: vbNullString
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ForKeyword: For
-  - Whitespace: " "
-  - Identifier: x
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Identifier: SizeX
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ForKeyword: For
-  - Whitespace: " "
-  - Identifier: Y
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ToKeyword: To
-  - Whitespace: " "
-  - Identifier: SizeY
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'For speed purposes, it would be better to remove this \"If/Then\" statement to be outside the loop."
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Comment: "'However, in an editor environment this is somewhat unimportant."
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: UseStretchBlt
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: StretchBlt
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: MainPic
-  - PeriodOperator: "."
-  - Identifier: hdc
-  - Comma: ","
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: x
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: Zoom
-  - RightParentheses: )
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: ViewX
-  - Comma: ","
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: Y
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: Zoom
-  - RightParentheses: )
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: ViewY
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Zoom
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Zoom
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: PicTilesBuffer
-  - PeriodOperator: "."
-  - Identifier: hdc
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: MapArray
-  - LeftParentheses: (
-  - Identifier: x
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Y
-  - RightParentheses: )
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbSrcCopy
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - ElseKeyword: Else
-  - Newline: "\r\n"
-  - Whitespace: "            "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: MainPic
-  - PeriodOperator: "."
-  - Identifier: PaintPicture
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: PicTilesBuffer
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Comma: ","
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: x
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: Zoom
-  - RightParentheses: )
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: ViewX
-  - Comma: ","
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: Y
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: Zoom
-  - RightParentheses: )
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: ViewY
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Zoom
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Zoom
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: MapArray
-  - LeftParentheses: (
-  - Identifier: x
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Y
-  - RightParentheses: )
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbSrcCopy
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - NextKeyword: Next
-  - Whitespace: " "
-  - Identifier: Y
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - NextKeyword: Next
-  - Whitespace: " "
-  - Identifier: x
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Because AutoRedraw is set to true for our main map, update the .Picture property and force a refresh"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: MainPic
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: MainPic
-  - PeriodOperator: "."
-  - Identifier: Image
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: MainPic
-  - PeriodOperator: "."
-  - Identifier: Refresh
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'When scrollbars are used, set the new viewport and redraw the map"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: ScrollMap
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: ViewX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: HSMain
-  - PeriodOperator: "."
-  - Identifier: Value
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: ViewY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: VSMain
-  - PeriodOperator: "."
-  - Identifier: Value
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: DrawMap
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'This routine copies the correct tileset from the invisible buffer to the visible bar"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: DrawTileBar
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: UseStretchBlt
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: StretchBlt
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: PicTiles
-  - PeriodOperator: "."
-  - Identifier: hdc
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: PicTiles
-  - PeriodOperator: "."
-  - Identifier: ScaleWidth
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: PicTilesBuffer
-  - PeriodOperator: "."
-  - Identifier: hdc
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: HSTileBar
-  - PeriodOperator: "."
-  - Identifier: Value
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: PicTiles
-  - PeriodOperator: "."
-  - Identifier: ScaleWidth
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbSrcCopy
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ElseKeyword: Else
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: PicTiles
-  - PeriodOperator: "."
-  - Identifier: PaintPicture
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: PicTilesBuffer
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: PicTiles
-  - PeriodOperator: "."
-  - Identifier: ScaleWidth
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: HSTileBar
-  - PeriodOperator: "."
-  - Identifier: Value
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: PicTiles
-  - PeriodOperator: "."
-  - Identifier: ScaleWidth
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbSrcCopy
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: MainPic
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: MainPic
-  - PeriodOperator: "."
-  - Identifier: Image
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: MainPic
-  - PeriodOperator: "."
-  - Identifier: Refresh
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Draw a tile of type \"ArrayIndex\" at location (x, y)"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: DrawTile
-  - LeftParentheses: (
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: x
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: Y
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: ArrayIndex
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - ByteKeyword: Byte
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Calculate the actual x and y values (accounting for zoom and scrolling)"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: CurX
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: x
-  - Whitespace: " "
-  - BackwardSlashOperator: "\\"
-  - Whitespace: " "
-  - Identifier: Zoom
-  - RightParentheses: )
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: ViewX
-  - Whitespace: " "
-  - BackwardSlashOperator: "\\"
-  - Whitespace: " "
-  - Identifier: Zoom
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: CurY
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: Y
-  - Whitespace: " "
-  - BackwardSlashOperator: "\\"
-  - Whitespace: " "
-  - Identifier: Zoom
-  - RightParentheses: )
-  - Whitespace: " "
-  - AdditionOperator: +
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: ViewY
-  - Whitespace: " "
-  - BackwardSlashOperator: "\\"
-  - Whitespace: " "
-  - Identifier: Zoom
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'If the user moved the mouse outside of the map dimensions, cancel this routine"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: CurX
-  - Whitespace: " "
-  - GreaterThanOperator: ">"
-  - Whitespace: " "
-  - Identifier: SizeX
-  - Whitespace: " "
-  - OrKeyword: Or
-  - Whitespace: " "
-  - Identifier: CurY
-  - Whitespace: " "
-  - GreaterThanOperator: ">"
-  - Whitespace: " "
-  - Identifier: SizeY
-  - Whitespace: " "
-  - OrKeyword: Or
-  - Whitespace: " "
-  - Identifier: CurX
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - OrKeyword: Or
-  - Whitespace: " "
-  - Identifier: CurY
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - Whitespace: " "
-  - Number: "0"
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Whitespace: " "
-  - ExitKeyword: Exit
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Store this tile value in MapArray"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: MapArray
-  - LeftParentheses: (
-  - Identifier: CurX
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: CurY
-  - RightParentheses: )
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: ArrayIndex
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Draw the new tile"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: UseStretchBlt
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: StretchBlt
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: MainPic
-  - PeriodOperator: "."
-  - Identifier: hdc
-  - Comma: ","
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: CurX
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: Zoom
-  - RightParentheses: )
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: ViewX
-  - Comma: ","
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: CurY
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: Zoom
-  - RightParentheses: )
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: ViewY
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Zoom
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Zoom
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: PicTilesBuffer
-  - PeriodOperator: "."
-  - Identifier: hdc
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: ArrayIndex
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbSrcCopy
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ElseKeyword: Else
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: MainPic
-  - PeriodOperator: "."
-  - Identifier: PaintPicture
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: PicTilesBuffer
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Comma: ","
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: CurX
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: Zoom
-  - RightParentheses: )
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: ViewX
-  - Comma: ","
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: CurY
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: Zoom
-  - RightParentheses: )
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: ViewY
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Zoom
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Zoom
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: ArrayIndex
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbSrcCopy
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: MainPic
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: MainPic
-  - PeriodOperator: "."
-  - Identifier: Image
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: MainPic
-  - PeriodOperator: "."
-  - Identifier: Refresh
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'If the zoom is changed, update all scrollbars and draw the new, properly zoomed map"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: ChangeZoom
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Get a new zoom value from the user"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: Zoom
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: InputBox
-  - LeftParentheses: (
-  - StringLiteral: "\"Enter the percent zoom (100 is default)\""
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: Zoom
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Identifier: Int
-  - LeftParentheses: (
-  - LeftParentheses: (
-  - Identifier: Zoom
-  - Whitespace: " "
-  - DivisionOperator: /
-  - Whitespace: " "
-  - Number: "100"
-  - RightParentheses: )
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Number: "64"
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Change the scroll bars depending on the new zoom value"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: SizeX
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: Zoom
-  - RightParentheses: )
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: MainPic
-  - PeriodOperator: "."
-  - Identifier: ScaleWidth
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: HSMain
-  - PeriodOperator: "."
-  - Identifier: Value
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: HSMain
-  - PeriodOperator: "."
-  - Identifier: Enabled
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ElseKeyword: Else
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: HSMain
-  - PeriodOperator: "."
-  - Identifier: Enabled
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - TrueKeyword: "True"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: HSMain
-  - PeriodOperator: "."
-  - Identifier: Max
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: SizeX
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: Zoom
-  - RightParentheses: )
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: MainPic
-  - PeriodOperator: "."
-  - Identifier: ScaleWidth
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: SizeY
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: Zoom
-  - RightParentheses: )
-  - Whitespace: " "
-  - LessThanOperator: "<"
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: MainPic
-  - PeriodOperator: "."
-  - Identifier: ScaleHeight
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: VSMain
-  - PeriodOperator: "."
-  - Identifier: Value
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - Number: "0"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: VSMain
-  - PeriodOperator: "."
-  - Identifier: Enabled
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - FalseKeyword: "False"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ElseKeyword: Else
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: VSMain
-  - PeriodOperator: "."
-  - Identifier: Enabled
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - TrueKeyword: "True"
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: VSMain
-  - PeriodOperator: "."
-  - Identifier: Max
-  - Whitespace: " "
-  - EqualityOperator: "="
-  - Whitespace: " "
-  - LeftParentheses: (
-  - Identifier: SizeY
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Identifier: Zoom
-  - RightParentheses: )
-  - Whitespace: " "
-  - SubtractionOperator: "-"
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: MainPic
-  - PeriodOperator: "."
-  - Identifier: ScaleHeight
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Comment: "'Draw the new map image"
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: DrawMap
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'As you may have guessed, this routine refreshes everything on the screen"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Whitespace: " "
-  - Identifier: RefreshAll
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - IfKeyword: If
-  - Whitespace: " "
-  - Identifier: UseStretchBlt
-  - Whitespace: " "
-  - ThenKeyword: Then
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: StretchBlt
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: Pic1
-  - PeriodOperator: "."
-  - Identifier: hdc
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: PicTilesBuffer
-  - PeriodOperator: "."
-  - Identifier: hdc
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: CurPicIndex
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbSrcCopy
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: StretchBlt
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: Pic2
-  - PeriodOperator: "."
-  - Identifier: hdc
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: PicTilesBuffer
-  - PeriodOperator: "."
-  - Identifier: hdc
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: CurPicIndex2
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbSrcCopy
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - ElseKeyword: Else
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: Pic1
-  - PeriodOperator: "."
-  - Identifier: PaintPicture
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: PicTilesBuffer
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: CurPicIndex
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbSrcCopy
-  - Newline: "\r\n"
-  - Whitespace: "        "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: Pic2
-  - PeriodOperator: "."
-  - Identifier: PaintPicture
-  - Whitespace: " "
-  - Identifier: Main
-  - PeriodOperator: "."
-  - Identifier: PicTilesBuffer
-  - PeriodOperator: "."
-  - Identifier: Picture
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: CurPicIndex2
-  - Whitespace: " "
-  - MultiplicationOperator: "*"
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "0"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Number: "64"
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: vbSrcCopy
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - EndKeyword: End
-  - Whitespace: " "
-  - IfKeyword: If
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: DrawTileBar
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Identifier: DrawMap
-  - Newline: "\r\n"
-  - Whitespace: "    "
-  - Newline: "\r\n"
-  - EndKeyword: End
-  - Whitespace: " "
-  - SubKeyword: Sub
-  - Newline: "\r\n"
-  - EOF
+  - - "'***************************************************************************"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Copyright 2018 by Tanner Helland"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' www.tannerhelland.com"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'The source code in this project is licensed under a Simplified BSD license."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'***************************************************************************"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'This routine is run when the program starts up"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - InitializeEditor
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Default tiles are nasty brown school carpet on the left, water (?) on the right"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - CurPicIndex
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - CurPicIndex2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "1"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Our default map size is 20 tiles by 20 tiles"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - SizeX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "20"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - SizeY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "20"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - ReDim
+    - ReDimKeyword
+  - - " "
+    - Whitespace
+  - - MapArray
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - SizeX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - SizeY
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Byte
+    - ByteKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Set the default zoom to 100% (64, or the size of our tiles)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Set appropriate values for the main scroll bars"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - HSTileBar
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Max
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Abs
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicTiles
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicTilesBuffer
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleWidth
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - /
+    - DivisionOperator
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - HSMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Max
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - SizeX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - MainPic
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleWidth
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - VSMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Max
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - SizeY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - MainPic
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleHeight
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Initialize the map array"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - For
+    - ForKeyword
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - SizeX
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - For
+    - ForKeyword
+  - - " "
+    - Whitespace
+  - - Y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - SizeY
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - MapArray
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - x
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Y
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Next
+    - NextKeyword
+  - - " "
+    - Whitespace
+  - - Y
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Next
+    - NextKeyword
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Show the form and draw everything to it"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Show
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - RefreshAll
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Render the current map data to the main picture box"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - DrawMap
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Clear out the current map"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - MainPic
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - LoadPicture
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - vbNullString
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - For
+    - ForKeyword
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - SizeX
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - For
+    - ForKeyword
+  - - " "
+    - Whitespace
+  - - Y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - To
+    - ToKeyword
+  - - " "
+    - Whitespace
+  - - SizeY
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'For speed purposes, it would be better to remove this \"If/Then\" statement to be outside the loop."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - "'However, in an editor environment this is somewhat unimportant."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - UseStretchBlt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - StretchBlt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - MainPic
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hdc
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - ViewX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - Y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - ViewY
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicTilesBuffer
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hdc
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - MapArray
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - x
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Y
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbSrcCopy
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Else
+    - ElseKeyword
+  - - "\r\n"
+    - Newline
+  - - "            "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - MainPic
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PaintPicture
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicTilesBuffer
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - ViewX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - Y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - ViewY
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - MapArray
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - x
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Y
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbSrcCopy
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Next
+    - NextKeyword
+  - - " "
+    - Whitespace
+  - - Y
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Next
+    - NextKeyword
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Because AutoRedraw is set to true for our main map, update the .Picture property and force a refresh"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - MainPic
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - MainPic
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Image
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - MainPic
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Refresh
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'When scrollbars are used, set the new viewport and redraw the map"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - ScrollMap
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - ViewX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - HSMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Value
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - ViewY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - VSMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Value
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - DrawMap
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'This routine copies the correct tileset from the invisible buffer to the visible bar"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - DrawTileBar
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - UseStretchBlt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - StretchBlt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicTiles
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hdc
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicTiles
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleWidth
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicTilesBuffer
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hdc
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - HSTileBar
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Value
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicTiles
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleWidth
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbSrcCopy
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Else
+    - ElseKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicTiles
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PaintPicture
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicTilesBuffer
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicTiles
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleWidth
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - HSTileBar
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Value
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicTiles
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleWidth
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbSrcCopy
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - MainPic
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - MainPic
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Image
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - MainPic
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Refresh
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Draw a tile of type \"ArrayIndex\" at location (x, y)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - DrawTile
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - Y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - ArrayIndex
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Byte
+    - ByteKeyword
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Calculate the actual x and y values (accounting for zoom and scrolling)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - CurX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "\\"
+    - BackwardSlashOperator
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - ViewX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "\\"
+    - BackwardSlashOperator
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - CurY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - Y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "\\"
+    - BackwardSlashOperator
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - +
+    - AdditionOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - ViewY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "\\"
+    - BackwardSlashOperator
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'If the user moved the mouse outside of the map dimensions, cancel this routine"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - CurX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - ">"
+    - GreaterThanOperator
+  - - " "
+    - Whitespace
+  - - SizeX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Or
+    - OrKeyword
+  - - " "
+    - Whitespace
+  - - CurY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - ">"
+    - GreaterThanOperator
+  - - " "
+    - Whitespace
+  - - SizeY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Or
+    - OrKeyword
+  - - " "
+    - Whitespace
+  - - CurX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - Or
+    - OrKeyword
+  - - " "
+    - Whitespace
+  - - CurY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - " "
+    - Whitespace
+  - - Exit
+    - ExitKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Store this tile value in MapArray"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - MapArray
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - CurX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - CurY
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - ArrayIndex
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Draw the new tile"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - UseStretchBlt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - StretchBlt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - MainPic
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hdc
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - CurX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - ViewX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - CurY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - ViewY
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicTilesBuffer
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hdc
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ArrayIndex
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbSrcCopy
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Else
+    - ElseKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - MainPic
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PaintPicture
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicTilesBuffer
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - CurX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - ViewX
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - CurY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - ViewY
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ArrayIndex
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbSrcCopy
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - MainPic
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - MainPic
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Image
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - MainPic
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Refresh
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'If the zoom is changed, update all scrollbars and draw the new, properly zoomed map"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - ChangeZoom
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Get a new zoom value from the user"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - InputBox
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - "\"Enter the percent zoom (100 is default)\""
+    - StringLiteral
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - Int
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - (
+    - LeftParentheses
+  - - Zoom
+    - Identifier
+  - - " "
+    - Whitespace
+  - - /
+    - DivisionOperator
+  - - " "
+    - Whitespace
+  - - "100"
+    - Number
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Change the scroll bars depending on the new zoom value"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - SizeX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - MainPic
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - HSMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Value
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - HSMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Enabled
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Else
+    - ElseKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - HSMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Enabled
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "True"
+    - TrueKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - HSMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Max
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - SizeX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - MainPic
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleWidth
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - SizeY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "<"
+    - LessThanOperator
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - MainPic
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - VSMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Value
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - VSMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Enabled
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "False"
+    - FalseKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Else
+    - ElseKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - VSMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Enabled
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - "True"
+    - TrueKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - VSMain
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Max
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "="
+    - EqualityOperator
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - SizeY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - "-"
+    - SubtractionOperator
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - MainPic
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - ScaleHeight
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "'Draw the new map image"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - DrawMap
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'As you may have guessed, this routine refreshes everything on the screen"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - " "
+    - Whitespace
+  - - RefreshAll
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - " "
+    - Whitespace
+  - - UseStretchBlt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Then
+    - ThenKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - StretchBlt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Pic1
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hdc
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicTilesBuffer
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hdc
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - CurPicIndex
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbSrcCopy
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - StretchBlt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Pic2
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hdc
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicTilesBuffer
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - hdc
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - CurPicIndex2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbSrcCopy
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - Else
+    - ElseKeyword
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Pic1
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PaintPicture
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicTilesBuffer
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - CurPicIndex
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbSrcCopy
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "        "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Pic2
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PaintPicture
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Main
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - PicTilesBuffer
+    - Identifier
+  - - "."
+    - PeriodOperator
+  - - Picture
+    - Identifier
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - CurPicIndex2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - "*"
+    - MultiplicationOperator
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "0"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - "64"
+    - Number
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - vbSrcCopy
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - If
+    - IfKeyword
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - DrawTileBar
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - DrawMap
+    - Identifier
+  - - "\r\n"
+    - Newline
+  - - "    "
+    - Whitespace
+  - - "\r\n"
+    - Newline
+  - - End
+    - EndKeyword
+  - - " "
+    - Whitespace
+  - - Sub
+    - SubKeyword
+  - - "\r\n"
+    - Newline
+  - - ""
+    - EOF

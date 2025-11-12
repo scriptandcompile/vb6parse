@@ -22,285 +22,567 @@ name:
   - 108
   - 101
 tokens:
-  - Comment: "'***************************************************************************"
-  - Newline: "\r\n"
-  - Comment: "'Copyright 2018 by Tanner Helland"
-  - Newline: "\r\n"
-  - Comment: "' www.tannerhelland.com"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'Documentation for this project can be found at https://tannerhelland.com/code/"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'The source code in this project is licensed under a Simplified BSD license."
-  - Newline: "\r\n"
-  - Comment: "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-  - Newline: "\r\n"
-  - Comment: "'"
-  - Newline: "\r\n"
-  - Comment: "'***************************************************************************"
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'The StretchBlt declaration (the GDI32 alternative to VB's PaintPicture)"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - DeclareKeyword: Declare
-  - Whitespace: " "
-  - FunctionKeyword: Function
-  - Whitespace: " "
-  - Identifier: StretchBlt
-  - Whitespace: " "
-  - LibKeyword: Lib
-  - Whitespace: " "
-  - StringLiteral: "\"GDI32\""
-  - Whitespace: " "
-  - LeftParentheses: (
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: hDestDC
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: x
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: Y
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: nWidth
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: nHeight
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: hSrcDC
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: xSrc
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: ySrc
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: ClipX
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: ClipY
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - ByValKeyword: ByVal
-  - Whitespace: " "
-  - Identifier: RasterOp
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'An array, which we'll use to track our map tile values"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - Identifier: MapArray
-  - LeftParentheses: (
-  - RightParentheses: )
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - ByteKeyword: Byte
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Loop variables"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - Identifier: x
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: Y
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'The currently selected position"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - Identifier: CurX
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: CurY
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'The viewport position"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - Identifier: ViewX
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: ViewY
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'The size of the map"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - Identifier: SizeX
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: SizeY
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Whether a mouse button is up or down"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - Identifier: MouseState
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - BooleanKeyword: Boolean
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'The currently selected picture"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - Identifier: CurPicIndex
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Comma: ","
-  - Whitespace: " "
-  - Identifier: CurPicIndex2
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - LongKeyword: Long
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'The zoom value"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - Identifier: Zoom
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - IntegerKeyword: Integer
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - Comment: "'Whether or not to use StretchBlt in place of PaintPicture"
-  - Newline: "\r\n"
-  - PublicKeyword: Public
-  - Whitespace: " "
-  - Identifier: UseStretchBlt
-  - Whitespace: " "
-  - AsKeyword: As
-  - Whitespace: " "
-  - BooleanKeyword: Boolean
-  - Newline: "\r\n"
-  - Newline: "\r\n"
-  - EOF
+  - - "'***************************************************************************"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Copyright 2018 by Tanner Helland"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' www.tannerhelland.com"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'The source code in this project is licensed under a Simplified BSD license."
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "'***************************************************************************"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'The StretchBlt declaration (the GDI32 alternative to VB's PaintPicture)"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Declare
+    - DeclareKeyword
+  - - " "
+    - Whitespace
+  - - Function
+    - FunctionKeyword
+  - - " "
+    - Whitespace
+  - - StretchBlt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - Lib
+    - LibKeyword
+  - - " "
+    - Whitespace
+  - - "\"GDI32\""
+    - StringLiteral
+  - - " "
+    - Whitespace
+  - - (
+    - LeftParentheses
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - hDestDC
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - Y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - nWidth
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - nHeight
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - hSrcDC
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - xSrc
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - ySrc
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - ClipX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - ClipY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ByVal
+    - ByValKeyword
+  - - " "
+    - Whitespace
+  - - RasterOp
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'An array, which we'll use to track our map tile values"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - MapArray
+    - Identifier
+  - - (
+    - LeftParentheses
+  - - )
+    - RightParentheses
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Byte
+    - ByteKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Loop variables"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - x
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - Y
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'The currently selected position"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - CurX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - CurY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'The viewport position"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - ViewX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - ViewY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'The size of the map"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - SizeX
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - SizeY
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Whether a mouse button is up or down"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - MouseState
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Boolean
+    - BooleanKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'The currently selected picture"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - CurPicIndex
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - ","
+    - Comma
+  - - " "
+    - Whitespace
+  - - CurPicIndex2
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Long
+    - LongKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'The zoom value"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - Zoom
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Integer
+    - IntegerKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - "'Whether or not to use StretchBlt in place of PaintPicture"
+    - Comment
+  - - "\r\n"
+    - Newline
+  - - Public
+    - PublicKeyword
+  - - " "
+    - Whitespace
+  - - UseStretchBlt
+    - Identifier
+  - - " "
+    - Whitespace
+  - - As
+    - AsKeyword
+  - - " "
+    - Whitespace
+  - - Boolean
+    - BooleanKeyword
+  - - "\r\n"
+    - Newline
+  - - "\r\n"
+    - Newline
+  - - ""
+    - EOF
