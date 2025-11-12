@@ -521,2573 +521,2576 @@ attributes:
   description: ~
   ext_key: {}
 tokens:
-  - - "'***************************************************************************"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'Copyright 2018 by Tanner Helland"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "' www.tannerhelland.com"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'The source code in this project is licensed under a Simplified BSD license."
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'***************************************************************************"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - Option
-    - OptionKeyword
-  - - " "
-    - Whitespace
-  - - Explicit
-    - ExplicitKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - chkEnable_Click
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Toggle the effect"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - chkEnable
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Value
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - vbChecked
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - " "
-    - Whitespace
-  - - UpdateEffect
-    - Identifier
-  - - " "
-    - Whitespace
-  - - Else
-    - ElseKeyword
-  - - " "
-    - Whitespace
-  - - LoadImageAutosized
-    - Identifier
-  - - " "
-    - Whitespace
-  - - vbNullString
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - Form_Load
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Draw the initial effect with a default value, then update the image"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - App
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - LogMode
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - " "
-    - Whitespace
-  - - Me
-    - MeKeyword
-  - - "."
-    - PeriodOperator
-  - - Caption
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - Me
-    - MeKeyword
-  - - "."
-    - PeriodOperator
-  - - Caption
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "&"
-    - Ampersand
-  - - " "
-    - Whitespace
-  - - "\" - compile for significantly better performance!\""
-    - StringLiteral
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - LoadImageAutosized
-    - Identifier
-  - - " "
-    - Whitespace
-  - - App
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Path
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "&"
-    - Ampersand
-  - - " "
-    - Whitespace
-  - - "\"\\sample.jpg\""
-    - StringLiteral
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - UpdateEffect
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Me
-    - MeKeyword
-  - - "."
-    - PeriodOperator
-  - - Show
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'When the blacklight intensity is changed, redraw the image effect (if it's enabled)"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - hScroll_Change
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - UpdateEffect
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - hScroll_Scroll
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - UpdateEffect
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - MnuOpenImage_Click
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Windows common dialog interface"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - cDialog
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - pdOpenSaveDialog
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Set
-    - SetKeyword
-  - - " "
-    - Whitespace
-  - - cDialog
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - New
-    - NewKeyword
-  - - " "
-    - Whitespace
-  - - pdOpenSaveDialog
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'VB6's built-in image loader (which wraps an ancient OLE loader) only supports a"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "' subset of modern image file types."
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - cdfStr
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - String
-    - StringKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - cdfStr
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "\"All Compatible Graphics|*.bmp;*.jpg;*.jpeg;*.gif;*.wmf;*.emf|\""
-    - StringLiteral
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - cdfStr
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - cdfStr
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "&"
-    - Ampersand
-  - - " "
-    - Whitespace
-  - - "\"BMP - Windows Bitmap|*.bmp|EMF - Enhanced Metafile|*.emf|GIF - Compuserve|*.gif|JPG/JPEG - JFIF Compliant|*.jpg;*.jpeg|WMF - Windows Meta File|*.wmf|All files|*.*\""
-    - StringLiteral
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - sFile
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - String
-    - StringKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - cDialog
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - GetOpenFileName
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - sFile
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "True"
-    - TrueKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "False"
-    - FalseKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - cdfStr
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "\"Select image\""
-    - StringLiteral
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - Me
-    - MeKeyword
-  - - "."
-    - PeriodOperator
-  - - hWnd
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "'Load the image and refresh the effect"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - LoadImageAutosized
-    - Identifier
-  - - " "
-    - Whitespace
-  - - sFile
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - UpdateEffect
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'If a null string is passed, simply paint an unmodified copy of the backbuffer into the foreground buffer"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - LoadImageAutosized
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - Optional
-    - OptionalKeyword
-  - - " "
-    - Whitespace
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - srcFilePath
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - String
-    - StringKeyword
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - vbNullString
-    - Identifier
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - LenB
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - srcFilePath
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "<"
-    - LessThanOperator
-  - - ">"
-    - GreaterThanOperator
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - " "
-    - Whitespace
-  - - picBack
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Picture
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - LoadPicture
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - srcFilePath
-    - Identifier
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Copy the image, automatically resized, from the background picture box to the foreground one"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - fDraw
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - FastDrawing
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Set
-    - SetKeyword
-  - - " "
-    - Whitespace
-  - - fDraw
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - New
-    - NewKeyword
-  - - " "
-    - Whitespace
-  - - FastDrawing
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Byte
-    - ByteKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - imgWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - imgHeight
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - imgWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - fDraw
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - GetImageWidth
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - Me
-    - MeKeyword
-  - - "."
-    - PeriodOperator
-  - - picBack
-    - Identifier
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - imgHeight
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - fDraw
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - GetImageHeight
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - Me
-    - MeKeyword
-  - - "."
-    - PeriodOperator
-  - - picBack
-    - Identifier
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - fDraw
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - GetImageData2D
-    - Identifier
-  - - " "
-    - Whitespace
-  - - Me
-    - MeKeyword
-  - - "."
-    - PeriodOperator
-  - - picBack
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Me
-    - MeKeyword
-  - - "."
-    - PeriodOperator
-  - - picMain
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Width
-    - WidthKeyword
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - imgWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - +
-    - AdditionOperator
-  - - " "
-    - Whitespace
-  - - "2"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Me
-    - MeKeyword
-  - - "."
-    - PeriodOperator
-  - - picMain
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Height
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - imgHeight
-    - Identifier
-  - - " "
-    - Whitespace
-  - - +
-    - AdditionOperator
-  - - " "
-    - Whitespace
-  - - "2"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - fDraw
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - SetImageData2D
-    - Identifier
-  - - " "
-    - Whitespace
-  - - Me
-    - MeKeyword
-  - - "."
-    - PeriodOperator
-  - - picMain
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - imgWidth
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - imgHeight
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Resize the form to automatically contain the new picture box dimensions."
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "' (This performs some sloppy checks to keep the form from resizing larger than the primary display,"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'  but it is *not* good code - a proper solution would involve the AdjustWindowRect() API or similar!)"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - newWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - minWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - minWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - hScroll
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Left
-    - Identifier
-  - - " "
-    - Whitespace
-  - - +
-    - AdditionOperator
-  - - " "
-    - Whitespace
-  - - hScroll
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Width
-    - WidthKeyword
-  - - " "
-    - Whitespace
-  - - +
-    - AdditionOperator
-  - - " "
-    - Whitespace
-  - - "20"
-    - Number
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "*"
-    - MultiplicationOperator
-  - - " "
-    - Whitespace
-  - - Screen
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - TwipsPerPixelX
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - imgWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "<"
-    - LessThanOperator
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - Screen
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Width
-    - WidthKeyword
-  - - " "
-    - Whitespace
-  - - "\\"
-    - BackwardSlashOperator
-  - - " "
-    - Whitespace
-  - - Screen
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - TwipsPerPixelX
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "-"
-    - SubtractionOperator
-  - - " "
-    - Whitespace
-  - - "50"
-    - Number
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - newWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - imgWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - +
-    - AdditionOperator
-  - - " "
-    - Whitespace
-  - - picMain
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Left
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "*"
-    - MultiplicationOperator
-  - - " "
-    - Whitespace
-  - - "4"
-    - Number
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "*"
-    - MultiplicationOperator
-  - - " "
-    - Whitespace
-  - - Screen
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - TwipsPerPixelX
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - newWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "<"
-    - LessThanOperator
-  - - " "
-    - Whitespace
-  - - minWidth
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - " "
-    - Whitespace
-  - - newWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - minWidth
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - Me
-    - MeKeyword
-  - - "."
-    - PeriodOperator
-  - - Width
-    - WidthKeyword
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - newWidth
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - imgHeight
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "<"
-    - LessThanOperator
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - Screen
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Height
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "\\"
-    - BackwardSlashOperator
-  - - " "
-    - Whitespace
-  - - Screen
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - TwipsPerPixelY
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "-"
-    - SubtractionOperator
-  - - " "
-    - Whitespace
-  - - "50"
-    - Number
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - " "
-    - Whitespace
-  - - Me
-    - MeKeyword
-  - - "."
-    - PeriodOperator
-  - - Height
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - imgHeight
-    - Identifier
-  - - " "
-    - Whitespace
-  - - +
-    - AdditionOperator
-  - - " "
-    - Whitespace
-  - - picMain
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Top
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "*"
-    - MultiplicationOperator
-  - - " "
-    - Whitespace
-  - - "2"
-    - Number
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "*"
-    - MultiplicationOperator
-  - - " "
-    - Whitespace
-  - - Screen
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - TwipsPerPixelY
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - UpdateEffect
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - chkEnable
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Value
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - vbChecked
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - " "
-    - Whitespace
-  - - DrawBlacklight
-    - Identifier
-  - - " "
-    - Whitespace
-  - - picBack
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - picMain
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - hScroll
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Value
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'This is the core Blacklight function"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Public
-    - PublicKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - DrawBlacklight
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - ByRef
-    - ByRefKeyword
-  - - " "
-    - Whitespace
-  - - srcPic
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - PictureBox
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ByRef
-    - ByRefKeyword
-  - - " "
-    - Whitespace
-  - - dstPic
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - PictureBox
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - Optional
-    - OptionalKeyword
-  - - " "
-    - Whitespace
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - fxWeight
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "2"
-    - Number
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Coordinates, dimensions, and pixel data"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - imgWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - imgHeight
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - imgPixels
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Byte
-    - ByteKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Instantiate a FastDrawing class and gather the image's data (into imgpixels())"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - fDraw
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - New
-    - NewKeyword
-  - - " "
-    - Whitespace
-  - - FastDrawing
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - imgWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - fDraw
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - GetImageWidth
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - srcPic
-    - Identifier
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - imgHeight
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - fDraw
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - GetImageHeight
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - srcPic
-    - Identifier
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - fDraw
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - GetImageData2D
-    - Identifier
-  - - " "
-    - Whitespace
-  - - srcPic
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - imgPixels
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'These variables will hold temporary pixel color values"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - r
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - g
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - b
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - l
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Run a quick loop through the image, adjusting pixel values as we go"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - xStride
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - For
-    - ForKeyword
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - To
-    - ToKeyword
-  - - " "
-    - Whitespace
-  - - imgHeight
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "-"
-    - SubtractionOperator
-  - - " "
-    - Whitespace
-  - - "1"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - For
-    - ForKeyword
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - To
-    - ToKeyword
-  - - " "
-    - Whitespace
-  - - imgWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "-"
-    - SubtractionOperator
-  - - " "
-    - Whitespace
-  - - "1"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - xStride
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "*"
-    - MultiplicationOperator
-  - - " "
-    - Whitespace
-  - - "3"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "'Windows DIBs are always in BGR order"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - b
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - imgPixels
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - xStride
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - g
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - imgPixels
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - xStride
-    - Identifier
-  - - " "
-    - Whitespace
-  - - +
-    - AdditionOperator
-  - - " "
-    - Whitespace
-  - - "1"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - r
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - imgPixels
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - xStride
-    - Identifier
-  - - " "
-    - Whitespace
-  - - +
-    - AdditionOperator
-  - - " "
-    - Whitespace
-  - - "2"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "'Calculate luminance.  (R + G + B) / 3 would also work."
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - l
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - "222"
-    - Number
-  - - " "
-    - Whitespace
-  - - "*"
-    - MultiplicationOperator
-  - - " "
-    - Whitespace
-  - - r
-    - Identifier
-  - - " "
-    - Whitespace
-  - - +
-    - AdditionOperator
-  - - " "
-    - Whitespace
-  - - "707"
-    - Number
-  - - " "
-    - Whitespace
-  - - "*"
-    - MultiplicationOperator
-  - - " "
-    - Whitespace
-  - - g
-    - Identifier
-  - - " "
-    - Whitespace
-  - - +
-    - AdditionOperator
-  - - " "
-    - Whitespace
-  - - "71"
-    - Number
-  - - " "
-    - Whitespace
-  - - "*"
-    - MultiplicationOperator
-  - - " "
-    - Whitespace
-  - - b
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "\\"
-    - BackwardSlashOperator
-  - - " "
-    - Whitespace
-  - - "1000"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "'The blacklight effect is pretty simple!"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - r
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - Abs
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - r
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "-"
-    - SubtractionOperator
-  - - " "
-    - Whitespace
-  - - l
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "*"
-    - MultiplicationOperator
-  - - " "
-    - Whitespace
-  - - fxWeight
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - g
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - Abs
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - g
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "-"
-    - SubtractionOperator
-  - - " "
-    - Whitespace
-  - - l
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "*"
-    - MultiplicationOperator
-  - - " "
-    - Whitespace
-  - - fxWeight
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - b
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - Abs
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - b
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "-"
-    - SubtractionOperator
-  - - " "
-    - Whitespace
-  - - l
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "*"
-    - MultiplicationOperator
-  - - " "
-    - Whitespace
-  - - fxWeight
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - r
-    - Identifier
-  - - " "
-    - Whitespace
-  - - ">"
-    - GreaterThanOperator
-  - - " "
-    - Whitespace
-  - - "255"
-    - Number
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - " "
-    - Whitespace
-  - - r
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "255"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - g
-    - Identifier
-  - - " "
-    - Whitespace
-  - - ">"
-    - GreaterThanOperator
-  - - " "
-    - Whitespace
-  - - "255"
-    - Number
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - " "
-    - Whitespace
-  - - g
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "255"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - b
-    - Identifier
-  - - " "
-    - Whitespace
-  - - ">"
-    - GreaterThanOperator
-  - - " "
-    - Whitespace
-  - - "255"
-    - Number
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - " "
-    - Whitespace
-  - - b
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "255"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "'Assign the new pixel values"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - imgPixels
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - xStride
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - b
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - imgPixels
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - xStride
-    - Identifier
-  - - " "
-    - Whitespace
-  - - +
-    - AdditionOperator
-  - - " "
-    - Whitespace
-  - - "1"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - g
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - imgPixels
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - xStride
-    - Identifier
-  - - " "
-    - Whitespace
-  - - +
-    - AdditionOperator
-  - - " "
-    - Whitespace
-  - - "2"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - r
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Next
-    - NextKeyword
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Next
-    - NextKeyword
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Draw the new image data to the screen"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - fDraw
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - SetImageData2D
-    - Identifier
-  - - " "
-    - Whitespace
-  - - dstPic
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - imgWidth
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - imgHeight
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - imgPixels
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
+  source_file: Blacklight.frm
+  tokens:
+    - - "'***************************************************************************"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'Copyright 2018 by Tanner Helland"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "' www.tannerhelland.com"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'The source code in this project is licensed under a Simplified BSD license."
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'***************************************************************************"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - Option
+      - OptionKeyword
+    - - " "
+      - Whitespace
+    - - Explicit
+      - ExplicitKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - chkEnable_Click
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Toggle the effect"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - chkEnable
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Value
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - vbChecked
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - " "
+      - Whitespace
+    - - UpdateEffect
+      - Identifier
+    - - " "
+      - Whitespace
+    - - Else
+      - ElseKeyword
+    - - " "
+      - Whitespace
+    - - LoadImageAutosized
+      - Identifier
+    - - " "
+      - Whitespace
+    - - vbNullString
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - Form_Load
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Draw the initial effect with a default value, then update the image"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - App
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - LogMode
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - " "
+      - Whitespace
+    - - Me
+      - MeKeyword
+    - - "."
+      - PeriodOperator
+    - - Caption
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - Me
+      - MeKeyword
+    - - "."
+      - PeriodOperator
+    - - Caption
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "&"
+      - Ampersand
+    - - " "
+      - Whitespace
+    - - "\" - compile for significantly better performance!\""
+      - StringLiteral
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - LoadImageAutosized
+      - Identifier
+    - - " "
+      - Whitespace
+    - - App
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Path
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "&"
+      - Ampersand
+    - - " "
+      - Whitespace
+    - - "\"\\sample.jpg\""
+      - StringLiteral
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - UpdateEffect
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Me
+      - MeKeyword
+    - - "."
+      - PeriodOperator
+    - - Show
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'When the blacklight intensity is changed, redraw the image effect (if it's enabled)"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - hScroll_Change
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - UpdateEffect
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - hScroll_Scroll
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - UpdateEffect
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - MnuOpenImage_Click
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Windows common dialog interface"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - cDialog
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - pdOpenSaveDialog
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Set
+      - SetKeyword
+    - - " "
+      - Whitespace
+    - - cDialog
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - New
+      - NewKeyword
+    - - " "
+      - Whitespace
+    - - pdOpenSaveDialog
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'VB6's built-in image loader (which wraps an ancient OLE loader) only supports a"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "' subset of modern image file types."
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - cdfStr
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - String
+      - StringKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - cdfStr
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "\"All Compatible Graphics|*.bmp;*.jpg;*.jpeg;*.gif;*.wmf;*.emf|\""
+      - StringLiteral
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - cdfStr
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - cdfStr
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "&"
+      - Ampersand
+    - - " "
+      - Whitespace
+    - - "\"BMP - Windows Bitmap|*.bmp|EMF - Enhanced Metafile|*.emf|GIF - Compuserve|*.gif|JPG/JPEG - JFIF Compliant|*.jpg;*.jpeg|WMF - Windows Meta File|*.wmf|All files|*.*\""
+      - StringLiteral
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - sFile
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - String
+      - StringKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - cDialog
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - GetOpenFileName
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - sFile
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "True"
+      - TrueKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "False"
+      - FalseKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - cdfStr
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "\"Select image\""
+      - StringLiteral
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - Me
+      - MeKeyword
+    - - "."
+      - PeriodOperator
+    - - hWnd
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "'Load the image and refresh the effect"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - LoadImageAutosized
+      - Identifier
+    - - " "
+      - Whitespace
+    - - sFile
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - UpdateEffect
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'If a null string is passed, simply paint an unmodified copy of the backbuffer into the foreground buffer"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - LoadImageAutosized
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - Optional
+      - OptionalKeyword
+    - - " "
+      - Whitespace
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - srcFilePath
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - String
+      - StringKeyword
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - vbNullString
+      - Identifier
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - LenB
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - srcFilePath
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "<"
+      - LessThanOperator
+    - - ">"
+      - GreaterThanOperator
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - " "
+      - Whitespace
+    - - picBack
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Picture
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - LoadPicture
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - srcFilePath
+      - Identifier
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Copy the image, automatically resized, from the background picture box to the foreground one"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - fDraw
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - FastDrawing
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Set
+      - SetKeyword
+    - - " "
+      - Whitespace
+    - - fDraw
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - New
+      - NewKeyword
+    - - " "
+      - Whitespace
+    - - FastDrawing
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Byte
+      - ByteKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - imgWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - imgHeight
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - imgWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - fDraw
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - GetImageWidth
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - Me
+      - MeKeyword
+    - - "."
+      - PeriodOperator
+    - - picBack
+      - Identifier
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - imgHeight
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - fDraw
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - GetImageHeight
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - Me
+      - MeKeyword
+    - - "."
+      - PeriodOperator
+    - - picBack
+      - Identifier
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - fDraw
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - GetImageData2D
+      - Identifier
+    - - " "
+      - Whitespace
+    - - Me
+      - MeKeyword
+    - - "."
+      - PeriodOperator
+    - - picBack
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Me
+      - MeKeyword
+    - - "."
+      - PeriodOperator
+    - - picMain
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Width
+      - WidthKeyword
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - imgWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - +
+      - AdditionOperator
+    - - " "
+      - Whitespace
+    - - "2"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Me
+      - MeKeyword
+    - - "."
+      - PeriodOperator
+    - - picMain
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Height
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - imgHeight
+      - Identifier
+    - - " "
+      - Whitespace
+    - - +
+      - AdditionOperator
+    - - " "
+      - Whitespace
+    - - "2"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - fDraw
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - SetImageData2D
+      - Identifier
+    - - " "
+      - Whitespace
+    - - Me
+      - MeKeyword
+    - - "."
+      - PeriodOperator
+    - - picMain
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - imgWidth
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - imgHeight
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Resize the form to automatically contain the new picture box dimensions."
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "' (This performs some sloppy checks to keep the form from resizing larger than the primary display,"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'  but it is *not* good code - a proper solution would involve the AdjustWindowRect() API or similar!)"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - newWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - minWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - minWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - hScroll
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Left
+      - Identifier
+    - - " "
+      - Whitespace
+    - - +
+      - AdditionOperator
+    - - " "
+      - Whitespace
+    - - hScroll
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Width
+      - WidthKeyword
+    - - " "
+      - Whitespace
+    - - +
+      - AdditionOperator
+    - - " "
+      - Whitespace
+    - - "20"
+      - Number
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "*"
+      - MultiplicationOperator
+    - - " "
+      - Whitespace
+    - - Screen
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - TwipsPerPixelX
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - imgWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "<"
+      - LessThanOperator
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - Screen
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Width
+      - WidthKeyword
+    - - " "
+      - Whitespace
+    - - "\\"
+      - BackwardSlashOperator
+    - - " "
+      - Whitespace
+    - - Screen
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - TwipsPerPixelX
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "-"
+      - SubtractionOperator
+    - - " "
+      - Whitespace
+    - - "50"
+      - Number
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - newWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - imgWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - +
+      - AdditionOperator
+    - - " "
+      - Whitespace
+    - - picMain
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Left
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "*"
+      - MultiplicationOperator
+    - - " "
+      - Whitespace
+    - - "4"
+      - Number
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "*"
+      - MultiplicationOperator
+    - - " "
+      - Whitespace
+    - - Screen
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - TwipsPerPixelX
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - newWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "<"
+      - LessThanOperator
+    - - " "
+      - Whitespace
+    - - minWidth
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - " "
+      - Whitespace
+    - - newWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - minWidth
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - Me
+      - MeKeyword
+    - - "."
+      - PeriodOperator
+    - - Width
+      - WidthKeyword
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - newWidth
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - imgHeight
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "<"
+      - LessThanOperator
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - Screen
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Height
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "\\"
+      - BackwardSlashOperator
+    - - " "
+      - Whitespace
+    - - Screen
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - TwipsPerPixelY
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "-"
+      - SubtractionOperator
+    - - " "
+      - Whitespace
+    - - "50"
+      - Number
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - " "
+      - Whitespace
+    - - Me
+      - MeKeyword
+    - - "."
+      - PeriodOperator
+    - - Height
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - imgHeight
+      - Identifier
+    - - " "
+      - Whitespace
+    - - +
+      - AdditionOperator
+    - - " "
+      - Whitespace
+    - - picMain
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Top
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "*"
+      - MultiplicationOperator
+    - - " "
+      - Whitespace
+    - - "2"
+      - Number
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "*"
+      - MultiplicationOperator
+    - - " "
+      - Whitespace
+    - - Screen
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - TwipsPerPixelY
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - UpdateEffect
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - chkEnable
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Value
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - vbChecked
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - " "
+      - Whitespace
+    - - DrawBlacklight
+      - Identifier
+    - - " "
+      - Whitespace
+    - - picBack
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - picMain
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - hScroll
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Value
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'This is the core Blacklight function"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Public
+      - PublicKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - DrawBlacklight
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - ByRef
+      - ByRefKeyword
+    - - " "
+      - Whitespace
+    - - srcPic
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - PictureBox
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ByRef
+      - ByRefKeyword
+    - - " "
+      - Whitespace
+    - - dstPic
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - PictureBox
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - Optional
+      - OptionalKeyword
+    - - " "
+      - Whitespace
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - fxWeight
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "2"
+      - Number
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Coordinates, dimensions, and pixel data"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - imgWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - imgHeight
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - imgPixels
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Byte
+      - ByteKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Instantiate a FastDrawing class and gather the image's data (into imgpixels())"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - fDraw
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - New
+      - NewKeyword
+    - - " "
+      - Whitespace
+    - - FastDrawing
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - imgWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - fDraw
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - GetImageWidth
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - srcPic
+      - Identifier
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - imgHeight
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - fDraw
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - GetImageHeight
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - srcPic
+      - Identifier
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - fDraw
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - GetImageData2D
+      - Identifier
+    - - " "
+      - Whitespace
+    - - srcPic
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - imgPixels
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'These variables will hold temporary pixel color values"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - r
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - g
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - b
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - l
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Run a quick loop through the image, adjusting pixel values as we go"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - xStride
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - For
+      - ForKeyword
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - To
+      - ToKeyword
+    - - " "
+      - Whitespace
+    - - imgHeight
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "-"
+      - SubtractionOperator
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - For
+      - ForKeyword
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - To
+      - ToKeyword
+    - - " "
+      - Whitespace
+    - - imgWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "-"
+      - SubtractionOperator
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - xStride
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "*"
+      - MultiplicationOperator
+    - - " "
+      - Whitespace
+    - - "3"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "'Windows DIBs are always in BGR order"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - b
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - imgPixels
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - xStride
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - g
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - imgPixels
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - xStride
+      - Identifier
+    - - " "
+      - Whitespace
+    - - +
+      - AdditionOperator
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - r
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - imgPixels
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - xStride
+      - Identifier
+    - - " "
+      - Whitespace
+    - - +
+      - AdditionOperator
+    - - " "
+      - Whitespace
+    - - "2"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "'Calculate luminance.  (R + G + B) / 3 would also work."
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - l
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - "222"
+      - Number
+    - - " "
+      - Whitespace
+    - - "*"
+      - MultiplicationOperator
+    - - " "
+      - Whitespace
+    - - r
+      - Identifier
+    - - " "
+      - Whitespace
+    - - +
+      - AdditionOperator
+    - - " "
+      - Whitespace
+    - - "707"
+      - Number
+    - - " "
+      - Whitespace
+    - - "*"
+      - MultiplicationOperator
+    - - " "
+      - Whitespace
+    - - g
+      - Identifier
+    - - " "
+      - Whitespace
+    - - +
+      - AdditionOperator
+    - - " "
+      - Whitespace
+    - - "71"
+      - Number
+    - - " "
+      - Whitespace
+    - - "*"
+      - MultiplicationOperator
+    - - " "
+      - Whitespace
+    - - b
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "\\"
+      - BackwardSlashOperator
+    - - " "
+      - Whitespace
+    - - "1000"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "'The blacklight effect is pretty simple!"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - r
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - Abs
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - r
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "-"
+      - SubtractionOperator
+    - - " "
+      - Whitespace
+    - - l
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "*"
+      - MultiplicationOperator
+    - - " "
+      - Whitespace
+    - - fxWeight
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - g
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - Abs
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - g
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "-"
+      - SubtractionOperator
+    - - " "
+      - Whitespace
+    - - l
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "*"
+      - MultiplicationOperator
+    - - " "
+      - Whitespace
+    - - fxWeight
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - b
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - Abs
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - b
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "-"
+      - SubtractionOperator
+    - - " "
+      - Whitespace
+    - - l
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "*"
+      - MultiplicationOperator
+    - - " "
+      - Whitespace
+    - - fxWeight
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - r
+      - Identifier
+    - - " "
+      - Whitespace
+    - - ">"
+      - GreaterThanOperator
+    - - " "
+      - Whitespace
+    - - "255"
+      - Number
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - " "
+      - Whitespace
+    - - r
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "255"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - g
+      - Identifier
+    - - " "
+      - Whitespace
+    - - ">"
+      - GreaterThanOperator
+    - - " "
+      - Whitespace
+    - - "255"
+      - Number
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - " "
+      - Whitespace
+    - - g
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "255"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - b
+      - Identifier
+    - - " "
+      - Whitespace
+    - - ">"
+      - GreaterThanOperator
+    - - " "
+      - Whitespace
+    - - "255"
+      - Number
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - " "
+      - Whitespace
+    - - b
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "255"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "'Assign the new pixel values"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - imgPixels
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - xStride
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - b
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - imgPixels
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - xStride
+      - Identifier
+    - - " "
+      - Whitespace
+    - - +
+      - AdditionOperator
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - g
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - imgPixels
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - xStride
+      - Identifier
+    - - " "
+      - Whitespace
+    - - +
+      - AdditionOperator
+    - - " "
+      - Whitespace
+    - - "2"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - r
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Next
+      - NextKeyword
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Next
+      - NextKeyword
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Draw the new image data to the screen"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - fDraw
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - SetImageData2D
+      - Identifier
+    - - " "
+      - Whitespace
+    - - dstPic
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - imgWidth
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - imgHeight
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - imgPixels
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+  offset: 0

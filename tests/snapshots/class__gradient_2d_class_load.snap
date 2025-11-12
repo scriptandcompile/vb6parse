@@ -22,1295 +22,1298 @@ header:
     description: ~
     ext_key: {}
 tokens:
-  - - "  "
-    - Whitespace
-  - - MultiUse
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "-"
-    - SubtractionOperator
-  - - "1"
-    - Number
-  - - "  "
-    - Whitespace
-  - - "'True"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "  "
-    - Whitespace
-  - - Persistable
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - "  "
-    - Whitespace
-  - - "'NotPersistable"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "  "
-    - Whitespace
-  - - DataBindingBehavior
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - "  "
-    - Whitespace
-  - - "'vbNone"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "  "
-    - Whitespace
-  - - DataSourceBehavior
-    - Identifier
-  - - "  "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - "  "
-    - Whitespace
-  - - "'vbNone"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "  "
-    - Whitespace
-  - - MTSTransactionMode
-    - Identifier
-  - - "  "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - "  "
-    - Whitespace
-  - - "'NotAnMTSObject"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - END
-    - EndKeyword
-  - - "\r\n"
-    - Newline
-  - - Attribute
-    - AttributeKeyword
-  - - " "
-    - Whitespace
-  - - VB_Name
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "\"cSystemColorDialog\""
-    - StringLiteral
-  - - "\r\n"
-    - Newline
-  - - Attribute
-    - AttributeKeyword
-  - - " "
-    - Whitespace
-  - - VB_GlobalNameSpace
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "False"
-    - FalseKeyword
-  - - "\r\n"
-    - Newline
-  - - Attribute
-    - AttributeKeyword
-  - - " "
-    - Whitespace
-  - - VB_Creatable
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "True"
-    - TrueKeyword
-  - - "\r\n"
-    - Newline
-  - - Attribute
-    - AttributeKeyword
-  - - " "
-    - Whitespace
-  - - VB_PredeclaredId
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "False"
-    - FalseKeyword
-  - - "\r\n"
-    - Newline
-  - - Attribute
-    - AttributeKeyword
-  - - " "
-    - Whitespace
-  - - VB_Exposed
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "False"
-    - FalseKeyword
-  - - "\r\n"
-    - Newline
-  - - "'Display a system color selection dialog"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "' Adopted from a reference implementation at http://www.devx.com/vb2themax/Tip/19257, originally by Marco Bellinaso"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "' See also the MSDN documentation for ChooseColor at https://msdn.microsoft.com/en-us/library/windows/desktop/ms646912%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - Option
-    - OptionKeyword
-  - - " "
-    - Whitespace
-  - - Explicit
-    - ExplicitKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Type
-    - TypeKeyword
-  - - " "
-    - Whitespace
-  - - ChooseColorStruct
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - lStructSize
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - hwndOwner
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - hInstance
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - rgbResult
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - lpCustColors
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - flags
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - lCustData
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - lpfnHook
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - lpTemplateName
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - String
-    - StringKeyword
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Type
-    - TypeKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Declare
-    - DeclareKeyword
-  - - " "
-    - Whitespace
-  - - Function
-    - FunctionKeyword
-  - - " "
-    - Whitespace
-  - - ChooseColor
-    - Identifier
-  - - " "
-    - Whitespace
-  - - Lib
-    - LibKeyword
-  - - " "
-    - Whitespace
-  - - "\"comdlg32.dll\""
-    - StringLiteral
-  - - " "
-    - Whitespace
-  - - Alias
-    - AliasKeyword
-  - - " "
-    - Whitespace
-  - - "\"ChooseColorA\""
-    - StringLiteral
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - lpChooseColor
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - ChooseColorStruct
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Declare
-    - DeclareKeyword
-  - - " "
-    - Whitespace
-  - - Function
-    - FunctionKeyword
-  - - " "
-    - Whitespace
-  - - OleTranslateColor
-    - Identifier
-  - - " "
-    - Whitespace
-  - - Lib
-    - LibKeyword
-  - - " "
-    - Whitespace
-  - - "\"oleaut32.dll\""
-    - StringLiteral
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - lOleColor
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - lHPalette
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - lColorRef
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Const
-    - ConstKeyword
-  - - " "
-    - Whitespace
-  - - CC_RGBINIT
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "&"
-    - Ampersand
-  - - H1
-    - Identifier
-  - - "&"
-    - Ampersand
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Const
-    - ConstKeyword
-  - - " "
-    - Whitespace
-  - - CC_FULLOPEN
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "&"
-    - Ampersand
-  - - H2
-    - Identifier
-  - - "&"
-    - Ampersand
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Const
-    - ConstKeyword
-  - - " "
-    - Whitespace
-  - - CC_PREVENTFULLOPEN
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "&"
-    - Ampersand
-  - - H4
-    - Identifier
-  - - "&"
-    - Ampersand
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Const
-    - ConstKeyword
-  - - " "
-    - Whitespace
-  - - CC_SHOWHELP
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "&"
-    - Ampersand
-  - - H8
-    - Identifier
-  - - "&"
-    - Ampersand
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Const
-    - ConstKeyword
-  - - " "
-    - Whitespace
-  - - CC_ENABLEHOOK
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "&"
-    - Ampersand
-  - - H10
-    - Identifier
-  - - "&"
-    - Ampersand
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Const
-    - ConstKeyword
-  - - " "
-    - Whitespace
-  - - CC_ENABLETEMPLATE
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "&"
-    - Ampersand
-  - - H20
-    - Identifier
-  - - "&"
-    - Ampersand
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Const
-    - ConstKeyword
-  - - " "
-    - Whitespace
-  - - CC_ENABLETEMPLATEHANDLE
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "&"
-    - Ampersand
-  - - H40
-    - Identifier
-  - - "&"
-    - Ampersand
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Const
-    - ConstKeyword
-  - - " "
-    - Whitespace
-  - - CC_SOLIDCOLOR
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "&"
-    - Ampersand
-  - - H80
-    - Identifier
-  - - "&"
-    - Ampersand
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Const
-    - ConstKeyword
-  - - " "
-    - Whitespace
-  - - CC_ANYCOLOR
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "&"
-    - Ampersand
-  - - H100
-    - Identifier
-  - - "&"
-    - Ampersand
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Const
-    - ConstKeyword
-  - - " "
-    - Whitespace
-  - - CLR_INVALID
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "&"
-    - Ampersand
-  - - HFFFF
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "' Show the common dialog for choosing a color."
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "' Returns TRUE if OK was selected; FALSE otherwise"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "' dstColor holds the return value; this value is nonsense if the function returns FALSE"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "' hParent is the handle (hWnd) of the parent form"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "' showFullDialog specifies whether the dialog will show both selection panels by default"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "' initColor is the color initially selected when the dialog is open"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "' Example:"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'    Dim oleNewColor As OLE_COLOR"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'    If ShowColorsDialog(oleNewColor, Me.hwnd, True, vbRed) Then Me.BackColor = oleNewColor"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Function
-    - FunctionKeyword
-  - - " "
-    - Whitespace
-  - - ShowColorDialog
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - ByRef
-    - ByRefKeyword
-  - - " "
-    - Whitespace
-  - - dstColor
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - Optional
-    - OptionalKeyword
-  - - " "
-    - Whitespace
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - hParent
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - "&"
-    - Ampersand
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - Optional
-    - OptionalKeyword
-  - - " "
-    - Whitespace
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - showFullDialog
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Boolean
-    - BooleanKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - Optional
-    - OptionalKeyword
-  - - " "
-    - Whitespace
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - initColor
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - OLE_COLOR
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Boolean
-    - BooleanKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - cc
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - ChooseColorStruct
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - aColorRef
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - "15"
-    - Number
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - lInitColor
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "  "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "' Translate the initial OLE color to a long value"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - initColor
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "<"
-    - LessThanOperator
-  - - ">"
-    - GreaterThanOperator
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - OleTranslateColor
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - initColor
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - lInitColor
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - " "
-    - Whitespace
-  - - lInitColor
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - CLR_INVALID
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "' Fill the ChooseColorStruct struct"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - With
-    - WithKeyword
-  - - " "
-    - Whitespace
-  - - cc
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "."
-    - PeriodOperator
-  - - lStructSize
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - Len
-    - LenKeyword
-  - - (
-    - LeftParentheses
-  - - cc
-    - Identifier
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "."
-    - PeriodOperator
-  - - hwndOwner
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - hParent
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "."
-    - PeriodOperator
-  - - lpCustColors
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - VarPtr
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - aColorRef
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - "0"
-    - Number
-  - - )
-    - RightParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "."
-    - PeriodOperator
-  - - rgbResult
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - initColor
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "."
-    - PeriodOperator
-  - - flags
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - CC_SOLIDCOLOR
-    - Identifier
-  - - " "
-    - Whitespace
-  - - Or
-    - OrKeyword
-  - - " "
-    - Whitespace
-  - - CC_ANYCOLOR
-    - Identifier
-  - - " "
-    - Whitespace
-  - - Or
-    - OrKeyword
-  - - " "
-    - Whitespace
-  - - CC_RGBINIT
-    - Identifier
-  - - " "
-    - Whitespace
-  - - Or
-    - OrKeyword
-  - - " "
-    - Whitespace
-  - - IIf
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - showFullDialog
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - CC_FULLOPEN
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - With
-    - WithKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "' Show the dialog and return the result (if any)"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - ShowColorDialog
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - CBool
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - ChooseColor
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - cc
-    - Identifier
-  - - )
-    - RightParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - ShowColorDialog
-    - Identifier
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - " "
-    - Whitespace
-  - - dstColor
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - cc
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - rgbResult
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Function
-    - FunctionKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - ""
-    - EOF
+  source_file: "./tests/data/vb6-code/Gradient-2D/cSystemColorDialog.cls"
+  tokens:
+    - - "  "
+      - Whitespace
+    - - MultiUse
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "-"
+      - SubtractionOperator
+    - - "1"
+      - Number
+    - - "  "
+      - Whitespace
+    - - "'True"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "  "
+      - Whitespace
+    - - Persistable
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - "  "
+      - Whitespace
+    - - "'NotPersistable"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "  "
+      - Whitespace
+    - - DataBindingBehavior
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - "  "
+      - Whitespace
+    - - "'vbNone"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "  "
+      - Whitespace
+    - - DataSourceBehavior
+      - Identifier
+    - - "  "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - "  "
+      - Whitespace
+    - - "'vbNone"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "  "
+      - Whitespace
+    - - MTSTransactionMode
+      - Identifier
+    - - "  "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - "  "
+      - Whitespace
+    - - "'NotAnMTSObject"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - END
+      - EndKeyword
+    - - "\r\n"
+      - Newline
+    - - Attribute
+      - AttributeKeyword
+    - - " "
+      - Whitespace
+    - - VB_Name
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "\"cSystemColorDialog\""
+      - StringLiteral
+    - - "\r\n"
+      - Newline
+    - - Attribute
+      - AttributeKeyword
+    - - " "
+      - Whitespace
+    - - VB_GlobalNameSpace
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "False"
+      - FalseKeyword
+    - - "\r\n"
+      - Newline
+    - - Attribute
+      - AttributeKeyword
+    - - " "
+      - Whitespace
+    - - VB_Creatable
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "True"
+      - TrueKeyword
+    - - "\r\n"
+      - Newline
+    - - Attribute
+      - AttributeKeyword
+    - - " "
+      - Whitespace
+    - - VB_PredeclaredId
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "False"
+      - FalseKeyword
+    - - "\r\n"
+      - Newline
+    - - Attribute
+      - AttributeKeyword
+    - - " "
+      - Whitespace
+    - - VB_Exposed
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "False"
+      - FalseKeyword
+    - - "\r\n"
+      - Newline
+    - - "'Display a system color selection dialog"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "' Adopted from a reference implementation at http://www.devx.com/vb2themax/Tip/19257, originally by Marco Bellinaso"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "' See also the MSDN documentation for ChooseColor at https://msdn.microsoft.com/en-us/library/windows/desktop/ms646912%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - Option
+      - OptionKeyword
+    - - " "
+      - Whitespace
+    - - Explicit
+      - ExplicitKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Type
+      - TypeKeyword
+    - - " "
+      - Whitespace
+    - - ChooseColorStruct
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - lStructSize
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - hwndOwner
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - hInstance
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - rgbResult
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - lpCustColors
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - flags
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - lCustData
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - lpfnHook
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - lpTemplateName
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - String
+      - StringKeyword
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Type
+      - TypeKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Declare
+      - DeclareKeyword
+    - - " "
+      - Whitespace
+    - - Function
+      - FunctionKeyword
+    - - " "
+      - Whitespace
+    - - ChooseColor
+      - Identifier
+    - - " "
+      - Whitespace
+    - - Lib
+      - LibKeyword
+    - - " "
+      - Whitespace
+    - - "\"comdlg32.dll\""
+      - StringLiteral
+    - - " "
+      - Whitespace
+    - - Alias
+      - AliasKeyword
+    - - " "
+      - Whitespace
+    - - "\"ChooseColorA\""
+      - StringLiteral
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - lpChooseColor
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - ChooseColorStruct
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Declare
+      - DeclareKeyword
+    - - " "
+      - Whitespace
+    - - Function
+      - FunctionKeyword
+    - - " "
+      - Whitespace
+    - - OleTranslateColor
+      - Identifier
+    - - " "
+      - Whitespace
+    - - Lib
+      - LibKeyword
+    - - " "
+      - Whitespace
+    - - "\"oleaut32.dll\""
+      - StringLiteral
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - lOleColor
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - lHPalette
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - lColorRef
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Const
+      - ConstKeyword
+    - - " "
+      - Whitespace
+    - - CC_RGBINIT
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "&"
+      - Ampersand
+    - - H1
+      - Identifier
+    - - "&"
+      - Ampersand
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Const
+      - ConstKeyword
+    - - " "
+      - Whitespace
+    - - CC_FULLOPEN
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "&"
+      - Ampersand
+    - - H2
+      - Identifier
+    - - "&"
+      - Ampersand
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Const
+      - ConstKeyword
+    - - " "
+      - Whitespace
+    - - CC_PREVENTFULLOPEN
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "&"
+      - Ampersand
+    - - H4
+      - Identifier
+    - - "&"
+      - Ampersand
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Const
+      - ConstKeyword
+    - - " "
+      - Whitespace
+    - - CC_SHOWHELP
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "&"
+      - Ampersand
+    - - H8
+      - Identifier
+    - - "&"
+      - Ampersand
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Const
+      - ConstKeyword
+    - - " "
+      - Whitespace
+    - - CC_ENABLEHOOK
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "&"
+      - Ampersand
+    - - H10
+      - Identifier
+    - - "&"
+      - Ampersand
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Const
+      - ConstKeyword
+    - - " "
+      - Whitespace
+    - - CC_ENABLETEMPLATE
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "&"
+      - Ampersand
+    - - H20
+      - Identifier
+    - - "&"
+      - Ampersand
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Const
+      - ConstKeyword
+    - - " "
+      - Whitespace
+    - - CC_ENABLETEMPLATEHANDLE
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "&"
+      - Ampersand
+    - - H40
+      - Identifier
+    - - "&"
+      - Ampersand
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Const
+      - ConstKeyword
+    - - " "
+      - Whitespace
+    - - CC_SOLIDCOLOR
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "&"
+      - Ampersand
+    - - H80
+      - Identifier
+    - - "&"
+      - Ampersand
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Const
+      - ConstKeyword
+    - - " "
+      - Whitespace
+    - - CC_ANYCOLOR
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "&"
+      - Ampersand
+    - - H100
+      - Identifier
+    - - "&"
+      - Ampersand
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Const
+      - ConstKeyword
+    - - " "
+      - Whitespace
+    - - CLR_INVALID
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "&"
+      - Ampersand
+    - - HFFFF
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "' Show the common dialog for choosing a color."
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "' Returns TRUE if OK was selected; FALSE otherwise"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "' dstColor holds the return value; this value is nonsense if the function returns FALSE"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "' hParent is the handle (hWnd) of the parent form"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "' showFullDialog specifies whether the dialog will show both selection panels by default"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "' initColor is the color initially selected when the dialog is open"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "' Example:"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'    Dim oleNewColor As OLE_COLOR"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'    If ShowColorsDialog(oleNewColor, Me.hwnd, True, vbRed) Then Me.BackColor = oleNewColor"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Function
+      - FunctionKeyword
+    - - " "
+      - Whitespace
+    - - ShowColorDialog
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - ByRef
+      - ByRefKeyword
+    - - " "
+      - Whitespace
+    - - dstColor
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - Optional
+      - OptionalKeyword
+    - - " "
+      - Whitespace
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - hParent
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - "&"
+      - Ampersand
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - Optional
+      - OptionalKeyword
+    - - " "
+      - Whitespace
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - showFullDialog
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Boolean
+      - BooleanKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - Optional
+      - OptionalKeyword
+    - - " "
+      - Whitespace
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - initColor
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - OLE_COLOR
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Boolean
+      - BooleanKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - cc
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - ChooseColorStruct
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - aColorRef
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - "15"
+      - Number
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - lInitColor
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "  "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "' Translate the initial OLE color to a long value"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - initColor
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "<"
+      - LessThanOperator
+    - - ">"
+      - GreaterThanOperator
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - OleTranslateColor
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - initColor
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - lInitColor
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - " "
+      - Whitespace
+    - - lInitColor
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - CLR_INVALID
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "' Fill the ChooseColorStruct struct"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - With
+      - WithKeyword
+    - - " "
+      - Whitespace
+    - - cc
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "."
+      - PeriodOperator
+    - - lStructSize
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - Len
+      - LenKeyword
+    - - (
+      - LeftParentheses
+    - - cc
+      - Identifier
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "."
+      - PeriodOperator
+    - - hwndOwner
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - hParent
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "."
+      - PeriodOperator
+    - - lpCustColors
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - VarPtr
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - aColorRef
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - "0"
+      - Number
+    - - )
+      - RightParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "."
+      - PeriodOperator
+    - - rgbResult
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - initColor
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "."
+      - PeriodOperator
+    - - flags
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - CC_SOLIDCOLOR
+      - Identifier
+    - - " "
+      - Whitespace
+    - - Or
+      - OrKeyword
+    - - " "
+      - Whitespace
+    - - CC_ANYCOLOR
+      - Identifier
+    - - " "
+      - Whitespace
+    - - Or
+      - OrKeyword
+    - - " "
+      - Whitespace
+    - - CC_RGBINIT
+      - Identifier
+    - - " "
+      - Whitespace
+    - - Or
+      - OrKeyword
+    - - " "
+      - Whitespace
+    - - IIf
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - showFullDialog
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - CC_FULLOPEN
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - With
+      - WithKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "' Show the dialog and return the result (if any)"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - ShowColorDialog
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - CBool
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - ChooseColor
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - cc
+      - Identifier
+    - - )
+      - RightParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - ShowColorDialog
+      - Identifier
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - " "
+      - Whitespace
+    - - dstColor
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - cc
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - rgbResult
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Function
+      - FunctionKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - ""
+      - EOF
+  offset: 0

@@ -671,4693 +671,4696 @@ attributes:
   description: ~
   ext_key: {}
 tokens:
-  - - "'***************************************************************************"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'Copyright 2018 by Tanner Helland"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "' www.tannerhelland.com"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'The source code in this project is licensed under a Simplified BSD license."
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'***************************************************************************"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'All of the DIB types"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Type
-    - TypeKeyword
-  - - " "
-    - Whitespace
-  - - BITMAP
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmType
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmHeight
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmWidthBytes
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmPlanes
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Integer
-    - IntegerKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmBitsPixel
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Integer
-    - IntegerKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmBits
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Type
-    - TypeKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Type
-    - TypeKeyword
-  - - " "
-    - Whitespace
-  - - RGBQUAD
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - rgbBlue
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Byte
-    - ByteKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - rgbGreen
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Byte
-    - ByteKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - rgbRed
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Byte
-    - ByteKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - rgbAlpha
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Byte
-    - ByteKeyword
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Type
-    - TypeKeyword
-  - - "\r\n"
-    - Newline
-  - - " "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Type
-    - TypeKeyword
-  - - " "
-    - Whitespace
-  - - BITMAPINFOHEADER
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmSize
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmHeight
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmPlanes
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Integer
-    - IntegerKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmBitCount
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Integer
-    - IntegerKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmCompression
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmSizeImage
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmXPelsPerMeter
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmYPelsPerMeter
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmClrUsed
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmClrImportant
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Type
-    - TypeKeyword
-  - - "\r\n"
-    - Newline
-  - - " "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Type
-    - TypeKeyword
-  - - " "
-    - Whitespace
-  - - BITMAPINFO
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmHeader
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - BITMAPINFOHEADER
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmColors
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - To
-    - ToKeyword
-  - - " "
-    - Whitespace
-  - - "255"
-    - Number
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - RGBQUAD
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Type
-    - TypeKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'The GetObject API call gives us the bitmap variables we need for the other API calls"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Declare
-    - DeclareKeyword
-  - - " "
-    - Whitespace
-  - - Function
-    - FunctionKeyword
-  - - " "
-    - Whitespace
-  - - GetObject
-    - Identifier
-  - - " "
-    - Whitespace
-  - - Lib
-    - LibKeyword
-  - - " "
-    - Whitespace
-  - - "\"gdi32\""
-    - StringLiteral
-  - - " "
-    - Whitespace
-  - - Alias
-    - AliasKeyword
-  - - " "
-    - Whitespace
-  - - "\"GetObjectA\""
-    - StringLiteral
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - hObject
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - nCount
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ByRef
-    - ByRefKeyword
-  - - " "
-    - Whitespace
-  - - lpObject
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Any
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'The GetBitmapBits and SetBitmapBits API calls (use ONLY in 24/32-bit color mode!!)"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Declare
-    - DeclareKeyword
-  - - " "
-    - Whitespace
-  - - Function
-    - FunctionKeyword
-  - - " "
-    - Whitespace
-  - - GetBitmapBits
-    - Identifier
-  - - " "
-    - Whitespace
-  - - Lib
-    - LibKeyword
-  - - " "
-    - Whitespace
-  - - "\"gdi32\""
-    - StringLiteral
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - hBitmap
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - dwCount
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ByRef
-    - ByRefKeyword
-  - - " "
-    - Whitespace
-  - - lpBits
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Any
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Declare
-    - DeclareKeyword
-  - - " "
-    - Whitespace
-  - - Function
-    - FunctionKeyword
-  - - " "
-    - Whitespace
-  - - SetBitmapBits
-    - Identifier
-  - - " "
-    - Whitespace
-  - - Lib
-    - LibKeyword
-  - - " "
-    - Whitespace
-  - - "\"gdi32\""
-    - StringLiteral
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - hBitmap
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - dwCount
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ByRef
-    - ByRefKeyword
-  - - " "
-    - Whitespace
-  - - lpBits
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Any
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'The magical API DIB function calls (they're long!)"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Declare
-    - DeclareKeyword
-  - - " "
-    - Whitespace
-  - - Function
-    - FunctionKeyword
-  - - " "
-    - Whitespace
-  - - GetDIBits
-    - Identifier
-  - - " "
-    - Whitespace
-  - - Lib
-    - LibKeyword
-  - - " "
-    - Whitespace
-  - - "\"gdi32\""
-    - StringLiteral
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - hDC
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - hBitmap
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - nStartScan
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - nNumScans
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - lpBits
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Any
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - lpBI
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - BITMAPINFO
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - wUsage
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Declare
-    - DeclareKeyword
-  - - " "
-    - Whitespace
-  - - Function
-    - FunctionKeyword
-  - - " "
-    - Whitespace
-  - - StretchDIBits
-    - Identifier
-  - - " "
-    - Whitespace
-  - - Lib
-    - LibKeyword
-  - - " "
-    - Whitespace
-  - - "\"gdi32\""
-    - StringLiteral
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - hDC
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - dWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - dHeight
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - SrcX
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - SrcY
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - SrcWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - SrcHeight
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - lpBits
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Any
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - lpBI
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - BITMAPINFO
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - wUsage
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - RasterOp
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'The array that will hold our pixel data"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Byte
-    - ByteKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'Temporary brightness variable"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - tBrightness
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Single
-    - SingleKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - ChkAutoRedraw_Click
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Change the AutoRedraw property of the picture box based on the check box's value"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - ChkAutoRedraw
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Value
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - vbChecked
-    - Identifier
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - " "
-    - Whitespace
-  - - Picture1
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - AutoRedraw
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "True"
-    - TrueKeyword
-  - - " "
-    - Whitespace
-  - - Else
-    - ElseKeyword
-  - - " "
-    - Whitespace
-  - - Picture1
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - AutoRedraw
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "False"
-    - FalseKeyword
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - CmdBrightness_Click
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Get the text value, convert it to type 'Single,' and send it to the sub"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - tBrightness
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - CSng
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - Val
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - TxtBrightness
-    - Identifier
-  - - )
-    - RightParentheses
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - /
-    - DivisionOperator
-  - - " "
-    - Whitespace
-  - - "100"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - DrawDIBBrightness
-    - Identifier
-  - - " "
-    - Whitespace
-  - - Picture1
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - Picture1
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - tBrightness
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'A simple subroutine that will change the brightness of a picturebox using DIB sections."
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Public
-    - PublicKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - DrawDIBBrightness
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - DstPicture
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - PictureBox
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - SrcPicture
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - PictureBox
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - Brightness
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Single
-    - SingleKeyword
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Coordinate variables"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Build a look-up table for all possible brightness values"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - bTable
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - To
-    - ToKeyword
-  - - " "
-    - Whitespace
-  - - "255"
-    - Number
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - TempColor
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - For
-    - ForKeyword
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - To
-    - ToKeyword
-  - - " "
-    - Whitespace
-  - - "255"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "'Calculate the brightness for pixel value x"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - TempColor
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - Int
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - CSng
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - x
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "*"
-    - MultiplicationOperator
-  - - " "
-    - Whitespace
-  - - Brightness
-    - Identifier
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "'Make sure that the calculated value is between 0 and 255 (so we don't get an error)"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - ByteMe
-    - Identifier
-  - - " "
-    - Whitespace
-  - - TempColor
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "'Place the corrected value into its array spot"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - bTable
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - x
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - TempColor
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Next
-    - NextKeyword
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Get the pixel data into our ImageData array"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - GetImageData
-    - Identifier
-  - - " "
-    - Whitespace
-  - - SrcPicture
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Temporary width and height variables are faster than accessing the Scale properties over and over again"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - TempWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - TempHeight
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - TempWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - DstPicture
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - ScaleWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "-"
-    - SubtractionOperator
-  - - " "
-    - Whitespace
-  - - "1"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - TempHeight
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - DstPicture
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - ScaleHeight
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "-"
-    - SubtractionOperator
-  - - " "
-    - Whitespace
-  - - "1"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'run a loop through the picture to change every pixel"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - For
-    - ForKeyword
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - To
-    - ToKeyword
-  - - " "
-    - Whitespace
-  - - TempWidth
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - For
-    - ForKeyword
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - To
-    - ToKeyword
-  - - " "
-    - Whitespace
-  - - TempHeight
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "'Use the values in the look-up table to quickly change the brightness values"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "'of each color.  The look-up table is much faster than doing the math"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "'over and over for each individual pixel."
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - "2"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - bTable
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - "2"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - )
-    - RightParentheses
-  - - )
-    - RightParentheses
-  - - "   "
-    - Whitespace
-  - - "'Change the red"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - "1"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - bTable
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - "1"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - )
-    - RightParentheses
-  - - )
-    - RightParentheses
-  - - "   "
-    - Whitespace
-  - - "'Change the green"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - bTable
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - )
-    - RightParentheses
-  - - )
-    - RightParentheses
-  - - "   "
-    - Whitespace
-  - - "'Change the blue"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Next
-    - NextKeyword
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "'refresh the picture box every 25 lines (a nice progress bar effect if AutoRedraw is set)"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - DstPicture
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - AutoRedraw
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "True"
-    - TrueKeyword
-  - - " "
-    - Whitespace
-  - - And
-    - AndKeyword
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - x
-    - Identifier
-  - - " "
-    - Whitespace
-  - - Mod
-    - ModKeyword
-  - - " "
-    - Whitespace
-  - - "25"
-    - Number
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - " "
-    - Whitespace
-  - - SetImageData
-    - Identifier
-  - - " "
-    - Whitespace
-  - - DstPicture
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Next
-    - NextKeyword
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'final picture refresh"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - SetImageData
-    - Identifier
-  - - " "
-    - Whitespace
-  - - DstPicture
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'Routine to get an image's pixel information into an array dimensioned (rgb, x, y)"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Public
-    - PublicKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - GetImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - ByRef
-    - ByRefKeyword
-  - - " "
-    - Whitespace
-  - - SrcPictureBox
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - PictureBox
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ByRef
-    - ByRefKeyword
-  - - " "
-    - Whitespace
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Byte
-    - ByteKeyword
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Declare us some variables of the necessary bitmap types"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - bm
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - BITMAP
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - bmi
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - BITMAPINFO
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Now we fill up the bmi (Bitmap information variable) with all of the appropriate data"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmi
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmHeader
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmSize
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "40"
-    - Number
-  - - " "
-    - Whitespace
-  - - "'Size, in bytes, of the header (always 40)"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmi
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmHeader
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmPlanes
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "1"
-    - Number
-  - - " "
-    - Whitespace
-  - - "'Number of planes (always one for this instance)"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmi
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmHeader
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmBitCount
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "24"
-    - Number
-  - - " "
-    - Whitespace
-  - - "'Bits per pixel (always 24 for this instance)"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmi
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmHeader
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmCompression
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - "'Compression: standard/none or RLE"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Calculate the size of the bitmap type (in bytes)"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - bmLen
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmLen
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - Len
-    - LenKeyword
-  - - (
-    - LeftParentheses
-  - - bm
-    - Identifier
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Get the picture box information from SrcPictureBox and put it into our 'bm' variable"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - GetObject
-    - Identifier
-  - - " "
-    - Whitespace
-  - - SrcPictureBox
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Image
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - bmLen
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - bm
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Build a correctly sized array"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - ReDim
-    - ReDimKeyword
-  - - " "
-    - Whitespace
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - To
-    - ToKeyword
-  - - " "
-    - Whitespace
-  - - "2"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - To
-    - ToKeyword
-  - - " "
-    - Whitespace
-  - - bm
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "-"
-    - SubtractionOperator
-  - - " "
-    - Whitespace
-  - - "1"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - To
-    - ToKeyword
-  - - " "
-    - Whitespace
-  - - bm
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmHeight
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "-"
-    - SubtractionOperator
-  - - " "
-    - Whitespace
-  - - "1"
-    - Number
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Finish building the 'bmi' variable we want to pass to the GetDIBits call (the same one we used above)"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmi
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmHeader
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - bm
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmWidth
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmi
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmHeader
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmHeight
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - bm
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmHeight
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Now that we've completely filled up the 'bmi' variable, we use GetDIBits to take the data from"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'SrcPictureBox and put it into the ImageData() array using the settings we specified in 'bmi'"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - GetDIBits
-    - Identifier
-  - - " "
-    - Whitespace
-  - - SrcPictureBox
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - hDC
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - SrcPictureBox
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Image
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - bm
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmHeight
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - )
-    - RightParentheses
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - bmi
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'Routine to set an image's pixel information from an array dimensioned (rgb, x, y)"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Public
-    - PublicKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - SetImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - ByRef
-    - ByRefKeyword
-  - - " "
-    - Whitespace
-  - - DstPictureBox
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - PictureBox
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ByRef
-    - ByRefKeyword
-  - - " "
-    - Whitespace
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Byte
-    - ByteKeyword
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Declare us some variables of the necessary bitmap types"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - bm
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - BITMAP
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - bmi
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - BITMAPINFO
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Now we fill up the bmi (Bitmap information variable) with all of the appropriate data"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmi
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmHeader
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmSize
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "40"
-    - Number
-  - - " "
-    - Whitespace
-  - - "'Size, in bytes, of the header (always 40)"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmi
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmHeader
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmPlanes
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "1"
-    - Number
-  - - " "
-    - Whitespace
-  - - "'Number of planes (always one for this instance)"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmi
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmHeader
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmBitCount
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "24"
-    - Number
-  - - " "
-    - Whitespace
-  - - "'Bits per pixel (always 24 for this instance)"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmi
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmHeader
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmCompression
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - "'Compression: standard/none or RLE"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Calculate the size of the bitmap type (in bytes)"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - bmLen
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmLen
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - Len
-    - LenKeyword
-  - - (
-    - LeftParentheses
-  - - bm
-    - Identifier
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Get the picture box information from DstPictureBox and put it into our 'bm' variable"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - GetObject
-    - Identifier
-  - - " "
-    - Whitespace
-  - - DstPictureBox
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Image
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - bmLen
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - bm
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Now that we know the object's size, finish building the temporary header to pass to the StretchDIBits call"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'(continuing to use the 'bmi' we used above)"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmi
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmHeader
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - bm
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmWidth
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - bmi
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmHeader
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmHeight
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - bm
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmHeight
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Now that we've built the temporary header, we use StretchDIBits to take the data from the"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'ImageData() array and put it into SrcPictureBox using the settings specified in 'bmi' (the"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'StretchDIBits call should be on one continuous line)"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - StretchDIBits
-    - Identifier
-  - - " "
-    - Whitespace
-  - - DstPictureBox
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - hDC
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - bm
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmWidth
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - bm
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmHeight
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - bm
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmWidth
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - bm
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmHeight
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - )
-    - RightParentheses
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - bmi
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - vbSrcCopy
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Since this doesn't automatically initialize AutoRedraw, we have to do it manually"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Note: Always set AutoRedraw to true when using DIB sections; when AutoRedraw is false"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'you will get unpredictable results."
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - DstPictureBox
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - AutoRedraw
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "True"
-    - TrueKeyword
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - DstPictureBox
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Picture
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - DstPictureBox
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Image
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - DstPictureBox
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Refresh
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'Standardized routine for converting to absolute byte values"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Public
-    - PublicKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - ByteMe
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - ByRef
-    - ByRefKeyword
-  - - " "
-    - Whitespace
-  - - TempVar
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - TempVar
-    - Identifier
-  - - " "
-    - Whitespace
-  - - ">"
-    - GreaterThanOperator
-  - - " "
-    - Whitespace
-  - - "255"
-    - Number
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - " "
-    - Whitespace
-  - - TempVar
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "255"
-    - Number
-  - - ":"
-    - ColonOperator
-  - - " "
-    - Whitespace
-  - - Exit
-    - ExitKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - TempVar
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "<"
-    - LessThanOperator
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - " "
-    - Whitespace
-  - - TempVar
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - ":"
-    - ColonOperator
-  - - " "
-    - Whitespace
-  - - Exit
-    - ExitKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - CmdBrightnessBB_Click
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Get the text value, convert it to type 'Single,' and send it to the sub"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - tBrightness
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - CSng
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - Val
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - TxtBrightness
-    - Identifier
-  - - )
-    - RightParentheses
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - /
-    - DivisionOperator
-  - - " "
-    - Whitespace
-  - - "100"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - DrawBitmapBitsBrightness
-    - Identifier
-  - - " "
-    - Whitespace
-  - - Picture1
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - Picture1
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - tBrightness
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'A subroutine for changing the brightness of a picturebox IN 24/32-BIT COLOR MODES ONLY!!"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Public
-    - PublicKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - DrawBitmapBitsBrightness
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - DstPicture
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - PictureBox
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - SrcPicture
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - PictureBox
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ByVal
-    - ByValKeyword
-  - - " "
-    - Whitespace
-  - - Brightness
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Single
-    - SingleKeyword
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Coordinate variables"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Build a look-up table for all possible brightness values"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - bTable
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - To
-    - ToKeyword
-  - - " "
-    - Whitespace
-  - - "255"
-    - Number
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - TempColor
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - For
-    - ForKeyword
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - To
-    - ToKeyword
-  - - " "
-    - Whitespace
-  - - "255"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "'Calculate the brightness for pixel value x"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - TempColor
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - Int
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - CSng
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - x
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "*"
-    - MultiplicationOperator
-  - - " "
-    - Whitespace
-  - - Brightness
-    - Identifier
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "'Make sure that the calculated value is between 0 and 255 (so we don't get an error)"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - ByteMe
-    - Identifier
-  - - " "
-    - Whitespace
-  - - TempColor
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "'Place the corrected value into its array spot"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - bTable
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - x
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - TempColor
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Next
-    - NextKeyword
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Create a bitmap variable and copy the basic information from 'PictureBox.Image' into it"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - bm
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - BITMAP
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - GetObject
-    - Identifier
-  - - " "
-    - Whitespace
-  - - DstPicture
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Image
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - Len
-    - LenKeyword
-  - - (
-    - LeftParentheses
-  - - bm
-    - Identifier
-  - - )
-    - RightParentheses
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - bm
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Create an array of bytes and fill it with the information from 'bm' (i.e. PictureBox.image)"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Byte
-    - ByteKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - ReDim
-    - ReDimKeyword
-  - - " "
-    - Whitespace
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - To
-    - ToKeyword
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - bm
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmBitsPixel
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "\\"
-    - BackwardSlashOperator
-  - - " "
-    - Whitespace
-  - - "8"
-    - Number
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "-"
-    - SubtractionOperator
-  - - " "
-    - Whitespace
-  - - "1"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - To
-    - ToKeyword
-  - - " "
-    - Whitespace
-  - - bm
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "-"
-    - SubtractionOperator
-  - - " "
-    - Whitespace
-  - - "1"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - To
-    - ToKeyword
-  - - " "
-    - Whitespace
-  - - bm
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmHeight
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "-"
-    - SubtractionOperator
-  - - " "
-    - Whitespace
-  - - "1"
-    - Number
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - GetBitmapBits
-    - Identifier
-  - - " "
-    - Whitespace
-  - - DstPicture
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Image
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - bm
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmWidthBytes
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "*"
-    - MultiplicationOperator
-  - - " "
-    - Whitespace
-  - - bm
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmHeight
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Temporary width and height variables are faster than accessing the Scale properties over and over again"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - TempWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - TempHeight
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Long
-    - LongKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - TempWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - DstPicture
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - ScaleWidth
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "-"
-    - SubtractionOperator
-  - - " "
-    - Whitespace
-  - - "1"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - TempHeight
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - DstPicture
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - ScaleHeight
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "-"
-    - SubtractionOperator
-  - - " "
-    - Whitespace
-  - - "1"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'run a loop through the picture to change every pixel"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - For
-    - ForKeyword
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - To
-    - ToKeyword
-  - - " "
-    - Whitespace
-  - - TempWidth
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - For
-    - ForKeyword
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - To
-    - ToKeyword
-  - - " "
-    - Whitespace
-  - - TempHeight
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "'Use the values in the look-up table to quickly change the brightness values"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "'of each color.  The look-up table is much faster than doing the math"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "'over and over for each individual pixel."
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - "2"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - bTable
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - "2"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - )
-    - RightParentheses
-  - - )
-    - RightParentheses
-  - - "   "
-    - Whitespace
-  - - "'Change the red"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - "1"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - bTable
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - "1"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - )
-    - RightParentheses
-  - - )
-    - RightParentheses
-  - - "   "
-    - Whitespace
-  - - "'Change the green"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - bTable
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - )
-    - RightParentheses
-  - - )
-    - RightParentheses
-  - - "   "
-    - Whitespace
-  - - "'Change the blue"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Next
-    - NextKeyword
-  - - " "
-    - Whitespace
-  - - y
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "'refresh the picture box every 25 lines (a nice progress bar effect if AutoRedraw is set)"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - DstPicture
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - AutoRedraw
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "True"
-    - TrueKeyword
-  - - " "
-    - Whitespace
-  - - And
-    - AndKeyword
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - x
-    - Identifier
-  - - " "
-    - Whitespace
-  - - Mod
-    - ModKeyword
-  - - " "
-    - Whitespace
-  - - "25"
-    - Number
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - "\r\n"
-    - Newline
-  - - "            "
-    - Whitespace
-  - - SetBitmapBits
-    - Identifier
-  - - " "
-    - Whitespace
-  - - DstPicture
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Image
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - bm
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmWidthBytes
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "*"
-    - MultiplicationOperator
-  - - " "
-    - Whitespace
-  - - bm
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmHeight
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "            "
-    - Whitespace
-  - - DstPicture
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Picture
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - DstPicture
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Image
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "            "
-    - Whitespace
-  - - DstPicture
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Refresh
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Next
-    - NextKeyword
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'final picture refresh"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - SetBitmapBits
-    - Identifier
-  - - " "
-    - Whitespace
-  - - DstPicture
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Image
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - bm
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmWidthBytes
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "*"
-    - MultiplicationOperator
-  - - " "
-    - Whitespace
-  - - bm
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - bmHeight
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ImageData
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - DstPicture
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Picture
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - DstPicture
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Image
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - DstPicture
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Refresh
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
+  source_file: "./tests/data/vb6-code/Brightness-effect/Part 3 - DIBs/Brightness3.frm"
+  tokens:
+    - - "'***************************************************************************"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'Copyright 2018 by Tanner Helland"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "' www.tannerhelland.com"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'The source code in this project is licensed under a Simplified BSD license."
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'***************************************************************************"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'All of the DIB types"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Type
+      - TypeKeyword
+    - - " "
+      - Whitespace
+    - - BITMAP
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmType
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmHeight
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmWidthBytes
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmPlanes
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Integer
+      - IntegerKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmBitsPixel
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Integer
+      - IntegerKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmBits
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Type
+      - TypeKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Type
+      - TypeKeyword
+    - - " "
+      - Whitespace
+    - - RGBQUAD
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - rgbBlue
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Byte
+      - ByteKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - rgbGreen
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Byte
+      - ByteKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - rgbRed
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Byte
+      - ByteKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - rgbAlpha
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Byte
+      - ByteKeyword
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Type
+      - TypeKeyword
+    - - "\r\n"
+      - Newline
+    - - " "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Type
+      - TypeKeyword
+    - - " "
+      - Whitespace
+    - - BITMAPINFOHEADER
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmSize
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmHeight
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmPlanes
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Integer
+      - IntegerKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmBitCount
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Integer
+      - IntegerKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmCompression
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmSizeImage
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmXPelsPerMeter
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmYPelsPerMeter
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmClrUsed
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmClrImportant
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Type
+      - TypeKeyword
+    - - "\r\n"
+      - Newline
+    - - " "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Type
+      - TypeKeyword
+    - - " "
+      - Whitespace
+    - - BITMAPINFO
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmHeader
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - BITMAPINFOHEADER
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmColors
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - To
+      - ToKeyword
+    - - " "
+      - Whitespace
+    - - "255"
+      - Number
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - RGBQUAD
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Type
+      - TypeKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'The GetObject API call gives us the bitmap variables we need for the other API calls"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Declare
+      - DeclareKeyword
+    - - " "
+      - Whitespace
+    - - Function
+      - FunctionKeyword
+    - - " "
+      - Whitespace
+    - - GetObject
+      - Identifier
+    - - " "
+      - Whitespace
+    - - Lib
+      - LibKeyword
+    - - " "
+      - Whitespace
+    - - "\"gdi32\""
+      - StringLiteral
+    - - " "
+      - Whitespace
+    - - Alias
+      - AliasKeyword
+    - - " "
+      - Whitespace
+    - - "\"GetObjectA\""
+      - StringLiteral
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - hObject
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - nCount
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ByRef
+      - ByRefKeyword
+    - - " "
+      - Whitespace
+    - - lpObject
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Any
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'The GetBitmapBits and SetBitmapBits API calls (use ONLY in 24/32-bit color mode!!)"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Declare
+      - DeclareKeyword
+    - - " "
+      - Whitespace
+    - - Function
+      - FunctionKeyword
+    - - " "
+      - Whitespace
+    - - GetBitmapBits
+      - Identifier
+    - - " "
+      - Whitespace
+    - - Lib
+      - LibKeyword
+    - - " "
+      - Whitespace
+    - - "\"gdi32\""
+      - StringLiteral
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - hBitmap
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - dwCount
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ByRef
+      - ByRefKeyword
+    - - " "
+      - Whitespace
+    - - lpBits
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Any
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Declare
+      - DeclareKeyword
+    - - " "
+      - Whitespace
+    - - Function
+      - FunctionKeyword
+    - - " "
+      - Whitespace
+    - - SetBitmapBits
+      - Identifier
+    - - " "
+      - Whitespace
+    - - Lib
+      - LibKeyword
+    - - " "
+      - Whitespace
+    - - "\"gdi32\""
+      - StringLiteral
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - hBitmap
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - dwCount
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ByRef
+      - ByRefKeyword
+    - - " "
+      - Whitespace
+    - - lpBits
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Any
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'The magical API DIB function calls (they're long!)"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Declare
+      - DeclareKeyword
+    - - " "
+      - Whitespace
+    - - Function
+      - FunctionKeyword
+    - - " "
+      - Whitespace
+    - - GetDIBits
+      - Identifier
+    - - " "
+      - Whitespace
+    - - Lib
+      - LibKeyword
+    - - " "
+      - Whitespace
+    - - "\"gdi32\""
+      - StringLiteral
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - hDC
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - hBitmap
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - nStartScan
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - nNumScans
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - lpBits
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Any
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - lpBI
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - BITMAPINFO
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - wUsage
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Declare
+      - DeclareKeyword
+    - - " "
+      - Whitespace
+    - - Function
+      - FunctionKeyword
+    - - " "
+      - Whitespace
+    - - StretchDIBits
+      - Identifier
+    - - " "
+      - Whitespace
+    - - Lib
+      - LibKeyword
+    - - " "
+      - Whitespace
+    - - "\"gdi32\""
+      - StringLiteral
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - hDC
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - dWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - dHeight
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - SrcX
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - SrcY
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - SrcWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - SrcHeight
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - lpBits
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Any
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - lpBI
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - BITMAPINFO
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - wUsage
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - RasterOp
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'The array that will hold our pixel data"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Byte
+      - ByteKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'Temporary brightness variable"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - tBrightness
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Single
+      - SingleKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - ChkAutoRedraw_Click
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Change the AutoRedraw property of the picture box based on the check box's value"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - ChkAutoRedraw
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Value
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - vbChecked
+      - Identifier
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - " "
+      - Whitespace
+    - - Picture1
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - AutoRedraw
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "True"
+      - TrueKeyword
+    - - " "
+      - Whitespace
+    - - Else
+      - ElseKeyword
+    - - " "
+      - Whitespace
+    - - Picture1
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - AutoRedraw
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "False"
+      - FalseKeyword
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - CmdBrightness_Click
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Get the text value, convert it to type 'Single,' and send it to the sub"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - tBrightness
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - CSng
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - Val
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - TxtBrightness
+      - Identifier
+    - - )
+      - RightParentheses
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - /
+      - DivisionOperator
+    - - " "
+      - Whitespace
+    - - "100"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - DrawDIBBrightness
+      - Identifier
+    - - " "
+      - Whitespace
+    - - Picture1
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - Picture1
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - tBrightness
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'A simple subroutine that will change the brightness of a picturebox using DIB sections."
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Public
+      - PublicKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - DrawDIBBrightness
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - DstPicture
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - PictureBox
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - SrcPicture
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - PictureBox
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - Brightness
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Single
+      - SingleKeyword
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Coordinate variables"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Build a look-up table for all possible brightness values"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - bTable
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - To
+      - ToKeyword
+    - - " "
+      - Whitespace
+    - - "255"
+      - Number
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - TempColor
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - For
+      - ForKeyword
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - To
+      - ToKeyword
+    - - " "
+      - Whitespace
+    - - "255"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "'Calculate the brightness for pixel value x"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - TempColor
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - Int
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - CSng
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - x
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "*"
+      - MultiplicationOperator
+    - - " "
+      - Whitespace
+    - - Brightness
+      - Identifier
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "'Make sure that the calculated value is between 0 and 255 (so we don't get an error)"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - ByteMe
+      - Identifier
+    - - " "
+      - Whitespace
+    - - TempColor
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "'Place the corrected value into its array spot"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - bTable
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - x
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - TempColor
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Next
+      - NextKeyword
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Get the pixel data into our ImageData array"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - GetImageData
+      - Identifier
+    - - " "
+      - Whitespace
+    - - SrcPicture
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Temporary width and height variables are faster than accessing the Scale properties over and over again"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - TempWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - TempHeight
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - TempWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - DstPicture
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - ScaleWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "-"
+      - SubtractionOperator
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - TempHeight
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - DstPicture
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - ScaleHeight
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "-"
+      - SubtractionOperator
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'run a loop through the picture to change every pixel"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - For
+      - ForKeyword
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - To
+      - ToKeyword
+    - - " "
+      - Whitespace
+    - - TempWidth
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - For
+      - ForKeyword
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - To
+      - ToKeyword
+    - - " "
+      - Whitespace
+    - - TempHeight
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "'Use the values in the look-up table to quickly change the brightness values"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "'of each color.  The look-up table is much faster than doing the math"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "'over and over for each individual pixel."
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - "2"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - bTable
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - "2"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - )
+      - RightParentheses
+    - - )
+      - RightParentheses
+    - - "   "
+      - Whitespace
+    - - "'Change the red"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - "1"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - bTable
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - "1"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - )
+      - RightParentheses
+    - - )
+      - RightParentheses
+    - - "   "
+      - Whitespace
+    - - "'Change the green"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - bTable
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - )
+      - RightParentheses
+    - - )
+      - RightParentheses
+    - - "   "
+      - Whitespace
+    - - "'Change the blue"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Next
+      - NextKeyword
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "'refresh the picture box every 25 lines (a nice progress bar effect if AutoRedraw is set)"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - DstPicture
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - AutoRedraw
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "True"
+      - TrueKeyword
+    - - " "
+      - Whitespace
+    - - And
+      - AndKeyword
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - x
+      - Identifier
+    - - " "
+      - Whitespace
+    - - Mod
+      - ModKeyword
+    - - " "
+      - Whitespace
+    - - "25"
+      - Number
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - " "
+      - Whitespace
+    - - SetImageData
+      - Identifier
+    - - " "
+      - Whitespace
+    - - DstPicture
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Next
+      - NextKeyword
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'final picture refresh"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - SetImageData
+      - Identifier
+    - - " "
+      - Whitespace
+    - - DstPicture
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'Routine to get an image's pixel information into an array dimensioned (rgb, x, y)"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Public
+      - PublicKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - GetImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - ByRef
+      - ByRefKeyword
+    - - " "
+      - Whitespace
+    - - SrcPictureBox
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - PictureBox
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ByRef
+      - ByRefKeyword
+    - - " "
+      - Whitespace
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Byte
+      - ByteKeyword
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Declare us some variables of the necessary bitmap types"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - bm
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - BITMAP
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - bmi
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - BITMAPINFO
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Now we fill up the bmi (Bitmap information variable) with all of the appropriate data"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmi
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmHeader
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmSize
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "40"
+      - Number
+    - - " "
+      - Whitespace
+    - - "'Size, in bytes, of the header (always 40)"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmi
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmHeader
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmPlanes
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - " "
+      - Whitespace
+    - - "'Number of planes (always one for this instance)"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmi
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmHeader
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmBitCount
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "24"
+      - Number
+    - - " "
+      - Whitespace
+    - - "'Bits per pixel (always 24 for this instance)"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmi
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmHeader
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmCompression
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - "'Compression: standard/none or RLE"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Calculate the size of the bitmap type (in bytes)"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - bmLen
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmLen
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - Len
+      - LenKeyword
+    - - (
+      - LeftParentheses
+    - - bm
+      - Identifier
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Get the picture box information from SrcPictureBox and put it into our 'bm' variable"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - GetObject
+      - Identifier
+    - - " "
+      - Whitespace
+    - - SrcPictureBox
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Image
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - bmLen
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - bm
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Build a correctly sized array"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - ReDim
+      - ReDimKeyword
+    - - " "
+      - Whitespace
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - To
+      - ToKeyword
+    - - " "
+      - Whitespace
+    - - "2"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - To
+      - ToKeyword
+    - - " "
+      - Whitespace
+    - - bm
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "-"
+      - SubtractionOperator
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - To
+      - ToKeyword
+    - - " "
+      - Whitespace
+    - - bm
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmHeight
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "-"
+      - SubtractionOperator
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Finish building the 'bmi' variable we want to pass to the GetDIBits call (the same one we used above)"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmi
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmHeader
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - bm
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmWidth
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmi
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmHeader
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmHeight
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - bm
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmHeight
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Now that we've completely filled up the 'bmi' variable, we use GetDIBits to take the data from"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'SrcPictureBox and put it into the ImageData() array using the settings we specified in 'bmi'"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - GetDIBits
+      - Identifier
+    - - " "
+      - Whitespace
+    - - SrcPictureBox
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - hDC
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - SrcPictureBox
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Image
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - bm
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmHeight
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - )
+      - RightParentheses
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - bmi
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'Routine to set an image's pixel information from an array dimensioned (rgb, x, y)"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Public
+      - PublicKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - SetImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - ByRef
+      - ByRefKeyword
+    - - " "
+      - Whitespace
+    - - DstPictureBox
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - PictureBox
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ByRef
+      - ByRefKeyword
+    - - " "
+      - Whitespace
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Byte
+      - ByteKeyword
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Declare us some variables of the necessary bitmap types"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - bm
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - BITMAP
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - bmi
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - BITMAPINFO
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Now we fill up the bmi (Bitmap information variable) with all of the appropriate data"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmi
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmHeader
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmSize
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "40"
+      - Number
+    - - " "
+      - Whitespace
+    - - "'Size, in bytes, of the header (always 40)"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmi
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmHeader
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmPlanes
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - " "
+      - Whitespace
+    - - "'Number of planes (always one for this instance)"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmi
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmHeader
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmBitCount
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "24"
+      - Number
+    - - " "
+      - Whitespace
+    - - "'Bits per pixel (always 24 for this instance)"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmi
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmHeader
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmCompression
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - "'Compression: standard/none or RLE"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Calculate the size of the bitmap type (in bytes)"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - bmLen
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmLen
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - Len
+      - LenKeyword
+    - - (
+      - LeftParentheses
+    - - bm
+      - Identifier
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Get the picture box information from DstPictureBox and put it into our 'bm' variable"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - GetObject
+      - Identifier
+    - - " "
+      - Whitespace
+    - - DstPictureBox
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Image
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - bmLen
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - bm
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Now that we know the object's size, finish building the temporary header to pass to the StretchDIBits call"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'(continuing to use the 'bmi' we used above)"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmi
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmHeader
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - bm
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmWidth
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - bmi
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmHeader
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmHeight
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - bm
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmHeight
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Now that we've built the temporary header, we use StretchDIBits to take the data from the"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'ImageData() array and put it into SrcPictureBox using the settings specified in 'bmi' (the"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'StretchDIBits call should be on one continuous line)"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - StretchDIBits
+      - Identifier
+    - - " "
+      - Whitespace
+    - - DstPictureBox
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - hDC
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - bm
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmWidth
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - bm
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmHeight
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - bm
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmWidth
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - bm
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmHeight
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - )
+      - RightParentheses
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - bmi
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - vbSrcCopy
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Since this doesn't automatically initialize AutoRedraw, we have to do it manually"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Note: Always set AutoRedraw to true when using DIB sections; when AutoRedraw is false"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'you will get unpredictable results."
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - DstPictureBox
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - AutoRedraw
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "True"
+      - TrueKeyword
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - DstPictureBox
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Picture
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - DstPictureBox
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Image
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - DstPictureBox
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Refresh
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'Standardized routine for converting to absolute byte values"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Public
+      - PublicKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - ByteMe
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - ByRef
+      - ByRefKeyword
+    - - " "
+      - Whitespace
+    - - TempVar
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - TempVar
+      - Identifier
+    - - " "
+      - Whitespace
+    - - ">"
+      - GreaterThanOperator
+    - - " "
+      - Whitespace
+    - - "255"
+      - Number
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - " "
+      - Whitespace
+    - - TempVar
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "255"
+      - Number
+    - - ":"
+      - ColonOperator
+    - - " "
+      - Whitespace
+    - - Exit
+      - ExitKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - TempVar
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "<"
+      - LessThanOperator
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - " "
+      - Whitespace
+    - - TempVar
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - ":"
+      - ColonOperator
+    - - " "
+      - Whitespace
+    - - Exit
+      - ExitKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - CmdBrightnessBB_Click
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Get the text value, convert it to type 'Single,' and send it to the sub"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - tBrightness
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - CSng
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - Val
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - TxtBrightness
+      - Identifier
+    - - )
+      - RightParentheses
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - /
+      - DivisionOperator
+    - - " "
+      - Whitespace
+    - - "100"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - DrawBitmapBitsBrightness
+      - Identifier
+    - - " "
+      - Whitespace
+    - - Picture1
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - Picture1
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - tBrightness
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'A subroutine for changing the brightness of a picturebox IN 24/32-BIT COLOR MODES ONLY!!"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Public
+      - PublicKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - DrawBitmapBitsBrightness
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - DstPicture
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - PictureBox
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - SrcPicture
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - PictureBox
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ByVal
+      - ByValKeyword
+    - - " "
+      - Whitespace
+    - - Brightness
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Single
+      - SingleKeyword
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Coordinate variables"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Build a look-up table for all possible brightness values"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - bTable
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - To
+      - ToKeyword
+    - - " "
+      - Whitespace
+    - - "255"
+      - Number
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - TempColor
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - For
+      - ForKeyword
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - To
+      - ToKeyword
+    - - " "
+      - Whitespace
+    - - "255"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "'Calculate the brightness for pixel value x"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - TempColor
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - Int
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - CSng
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - x
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "*"
+      - MultiplicationOperator
+    - - " "
+      - Whitespace
+    - - Brightness
+      - Identifier
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "'Make sure that the calculated value is between 0 and 255 (so we don't get an error)"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - ByteMe
+      - Identifier
+    - - " "
+      - Whitespace
+    - - TempColor
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "'Place the corrected value into its array spot"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - bTable
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - x
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - TempColor
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Next
+      - NextKeyword
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Create a bitmap variable and copy the basic information from 'PictureBox.Image' into it"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - bm
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - BITMAP
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - GetObject
+      - Identifier
+    - - " "
+      - Whitespace
+    - - DstPicture
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Image
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - Len
+      - LenKeyword
+    - - (
+      - LeftParentheses
+    - - bm
+      - Identifier
+    - - )
+      - RightParentheses
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - bm
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Create an array of bytes and fill it with the information from 'bm' (i.e. PictureBox.image)"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Byte
+      - ByteKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - ReDim
+      - ReDimKeyword
+    - - " "
+      - Whitespace
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - To
+      - ToKeyword
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - bm
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmBitsPixel
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "\\"
+      - BackwardSlashOperator
+    - - " "
+      - Whitespace
+    - - "8"
+      - Number
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "-"
+      - SubtractionOperator
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - To
+      - ToKeyword
+    - - " "
+      - Whitespace
+    - - bm
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "-"
+      - SubtractionOperator
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - To
+      - ToKeyword
+    - - " "
+      - Whitespace
+    - - bm
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmHeight
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "-"
+      - SubtractionOperator
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - GetBitmapBits
+      - Identifier
+    - - " "
+      - Whitespace
+    - - DstPicture
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Image
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - bm
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmWidthBytes
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "*"
+      - MultiplicationOperator
+    - - " "
+      - Whitespace
+    - - bm
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmHeight
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Temporary width and height variables are faster than accessing the Scale properties over and over again"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - TempWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - TempHeight
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Long
+      - LongKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - TempWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - DstPicture
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - ScaleWidth
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "-"
+      - SubtractionOperator
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - TempHeight
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - DstPicture
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - ScaleHeight
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "-"
+      - SubtractionOperator
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'run a loop through the picture to change every pixel"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - For
+      - ForKeyword
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - To
+      - ToKeyword
+    - - " "
+      - Whitespace
+    - - TempWidth
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - For
+      - ForKeyword
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - To
+      - ToKeyword
+    - - " "
+      - Whitespace
+    - - TempHeight
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "'Use the values in the look-up table to quickly change the brightness values"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "'of each color.  The look-up table is much faster than doing the math"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "'over and over for each individual pixel."
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - "2"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - bTable
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - "2"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - )
+      - RightParentheses
+    - - )
+      - RightParentheses
+    - - "   "
+      - Whitespace
+    - - "'Change the red"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - "1"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - bTable
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - "1"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - )
+      - RightParentheses
+    - - )
+      - RightParentheses
+    - - "   "
+      - Whitespace
+    - - "'Change the green"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - bTable
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - )
+      - RightParentheses
+    - - )
+      - RightParentheses
+    - - "   "
+      - Whitespace
+    - - "'Change the blue"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Next
+      - NextKeyword
+    - - " "
+      - Whitespace
+    - - y
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "'refresh the picture box every 25 lines (a nice progress bar effect if AutoRedraw is set)"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - DstPicture
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - AutoRedraw
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "True"
+      - TrueKeyword
+    - - " "
+      - Whitespace
+    - - And
+      - AndKeyword
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - x
+      - Identifier
+    - - " "
+      - Whitespace
+    - - Mod
+      - ModKeyword
+    - - " "
+      - Whitespace
+    - - "25"
+      - Number
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - "\r\n"
+      - Newline
+    - - "            "
+      - Whitespace
+    - - SetBitmapBits
+      - Identifier
+    - - " "
+      - Whitespace
+    - - DstPicture
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Image
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - bm
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmWidthBytes
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "*"
+      - MultiplicationOperator
+    - - " "
+      - Whitespace
+    - - bm
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmHeight
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "            "
+      - Whitespace
+    - - DstPicture
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Picture
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - DstPicture
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Image
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "            "
+      - Whitespace
+    - - DstPicture
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Refresh
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Next
+      - NextKeyword
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'final picture refresh"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - SetBitmapBits
+      - Identifier
+    - - " "
+      - Whitespace
+    - - DstPicture
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Image
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - bm
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmWidthBytes
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "*"
+      - MultiplicationOperator
+    - - " "
+      - Whitespace
+    - - bm
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - bmHeight
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ImageData
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - DstPicture
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Picture
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - DstPicture
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Image
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - DstPicture
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Refresh
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+  offset: 0

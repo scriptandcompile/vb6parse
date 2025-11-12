@@ -2,6 +2,7 @@ use core::convert::From;
 use std::iter::IntoIterator;
 
 use crate::errors::ErrorDetails;
+use crate::tokenstream::TokenStream;
 
 pub struct ParseResult<'a, T, E> {
     pub result: Option<T>,
@@ -79,3 +80,12 @@ where
 //         }
 //     }
 // }
+
+impl<'a, E> From<(TokenStream<'a>, Vec<ErrorDetails<'a, E>>)> for ParseResult<'a, TokenStream<'a>, E> {
+    fn from(parse_pair: (TokenStream<'a>, Vec<ErrorDetails<'a, E>>)) -> ParseResult<'a, TokenStream<'a>, E> {
+        ParseResult {
+            result: Some(parse_pair.0),
+            failures: parse_pair.1,
+        }
+    }
+}

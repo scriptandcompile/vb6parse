@@ -932,3145 +932,3148 @@ attributes:
   description: ~
   ext_key: {}
 tokens:
-  - - "'***************************************************************************"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'Copyright 2018 by Tanner Helland"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "' www.tannerhelland.com"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'The source code in this project is licensed under a Simplified BSD license."
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "'***************************************************************************"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'When the combo box is changed, update our drawing method"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - cmbDrawMethod_Change
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Select
-    - SelectKeyword
-  - - " "
-    - Whitespace
-  - - Case
-    - CaseKeyword
-  - - " "
-    - Whitespace
-  - - cmbDrawMethod
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - ListIndex
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - Case
-    - CaseKeyword
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "            "
-    - Whitespace
-  - - UseStretchBlt
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "False"
-    - FalseKeyword
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - Case
-    - CaseKeyword
-  - - " "
-    - Whitespace
-  - - "1"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "            "
-    - Whitespace
-  - - UseStretchBlt
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "True"
-    - TrueKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Select
-    - SelectKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - cmbDrawMethod_Click
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Select
-    - SelectKeyword
-  - - " "
-    - Whitespace
-  - - Case
-    - CaseKeyword
-  - - " "
-    - Whitespace
-  - - cmbDrawMethod
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - ListIndex
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - Case
-    - CaseKeyword
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "            "
-    - Whitespace
-  - - UseStretchBlt
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "False"
-    - FalseKeyword
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - Case
-    - CaseKeyword
-  - - " "
-    - Whitespace
-  - - "1"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "            "
-    - Whitespace
-  - - UseStretchBlt
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "True"
-    - TrueKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Select
-    - SelectKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'The InitializeEditor routine can be found in Sub_Module"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - Form_Load
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - InitializeEditor
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Also, populate the DrawMethod combo box"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - cmbDrawMethod
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - AddItem
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "\"Use PaintPicture\""
-    - StringLiteral
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - cmbDrawMethod
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - AddItem
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "\"Use StretchBlt\""
-    - StringLiteral
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - cmbDrawMethod
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - ListIndex
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - UseStretchBlt
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "False"
-    - FalseKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Load a default map"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "On"
-    - OnKeyword
-  - - " "
-    - Whitespace
-  - - Error
-    - ErrorKeyword
-  - - " "
-    - Whitespace
-  - - GoTo
-    - GotoKeyword
-  - - " "
-    - Whitespace
-  - - MapMissing
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Open
-    - OpenKeyword
-  - - " "
-    - Whitespace
-  - - App
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Path
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "&"
-    - Ampersand
-  - - " "
-    - Whitespace
-  - - "\"\\Demo.map\""
-    - StringLiteral
-  - - " "
-    - Whitespace
-  - - For
-    - ForKeyword
-  - - " "
-    - Whitespace
-  - - Binary
-    - BinaryKeyword
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - "#"
-    - Octothorpe
-  - - "1"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "'At present, map files are pretty simple - the width, height, and data is all we currently store"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - Get
-    - GetKeyword
-  - - " "
-    - Whitespace
-  - - "#"
-    - Octothorpe
-  - - "1"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "1"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - SizeX
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - Get
-    - GetKeyword
-  - - " "
-    - Whitespace
-  - - "#"
-    - Octothorpe
-  - - "1"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - SizeY
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - ReDim
-    - ReDimKeyword
-  - - " "
-    - Whitespace
-  - - MapArray
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - To
-    - ToKeyword
-  - - " "
-    - Whitespace
-  - - SizeX
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - To
-    - ToKeyword
-  - - " "
-    - Whitespace
-  - - SizeY
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Byte
-    - ByteKeyword
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - Get
-    - GetKeyword
-  - - " "
-    - Whitespace
-  - - "#"
-    - Octothorpe
-  - - "1"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - MapArray
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Close
-    - CloseKeyword
-  - - " "
-    - Whitespace
-  - - "#"
-    - Octothorpe
-  - - "1"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Once MapArray has been successfully created, Draw the map!"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - DrawMap
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - MapMissing
-    - Identifier
-  - - ":"
-    - ColonOperator
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'Whenever a scrollbar is used, update the map"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - HSMain_Change
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - ScrollMap
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - HSMain_Scroll
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - ScrollMap
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - VSMain_Change
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - ScrollMap
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - VSMain_Scroll
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - ScrollMap
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - HSTileBar_Change
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - DrawTileBar
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'Whenever the top scrollbar is used, update the tiles"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - HSTileBar_Scroll
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - DrawTileBar
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'When a mouse button is pressed, remember the mouse state (1 = pressed) and draw a tile at the current mouse position"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - MainPic_MouseDown
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - Button
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Integer
-    - IntegerKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - Shift
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Integer
-    - IntegerKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Single
-    - SingleKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - Y
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Single
-    - SingleKeyword
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - MouseState
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "True"
-    - TrueKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Left button"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - Button
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "1"
-    - Number
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - " "
-    - Whitespace
-  - - DrawTile
-    - Identifier
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - Y
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - CurPicIndex
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Right button"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - Button
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "2"
-    - Number
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - " "
-    - Whitespace
-  - - DrawTile
-    - Identifier
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - Y
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - CurPicIndex2
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'When the mouse is moved, only draw if a mouse button has been pressed"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - MainPic_MouseMove
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - Button
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Integer
-    - IntegerKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - Shift
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Integer
-    - IntegerKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Single
-    - SingleKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - Y
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Single
-    - SingleKeyword
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Only draw if a button is down"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - MouseState
-    - Identifier
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - Button
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "1"
-    - Number
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - " "
-    - Whitespace
-  - - DrawTile
-    - Identifier
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - Y
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - CurPicIndex
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - Button
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "2"
-    - Number
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - " "
-    - Whitespace
-  - - DrawTile
-    - Identifier
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - Y
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - CurPicIndex2
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'Return the mouse button state variable to unpressed"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - MainPic_MouseUp
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - Button
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Integer
-    - IntegerKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - Shift
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Integer
-    - IntegerKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Single
-    - SingleKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - Y
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Single
-    - SingleKeyword
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - MouseState
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "False"
-    - FalseKeyword
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'Menu -> Exit"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - MnuExit_Click
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Unload
-    - Identifier
-  - - " "
-    - Whitespace
-  - - Me
-    - MeKeyword
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'Menu -> New"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - MnuNew_Click
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Keep the current size settings and reset the map to zero (default tile)"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - For
-    - ForKeyword
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - To
-    - ToKeyword
-  - - " "
-    - Whitespace
-  - - SizeX
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - For
-    - ForKeyword
-  - - " "
-    - Whitespace
-  - - Y
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - To
-    - ToKeyword
-  - - " "
-    - Whitespace
-  - - SizeY
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - MapArray
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - x
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - Y
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Next
-    - NextKeyword
-  - - " "
-    - Whitespace
-  - - Y
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Next
-    - NextKeyword
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Last, draw the new map"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - DrawMap
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'Menu -> Open"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - MnuOpen_Click
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Initialize the common dialog interface"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - newDialog
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - pdOpenSaveDialog
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Set
-    - SetKeyword
-  - - " "
-    - Whitespace
-  - - newDialog
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - New
-    - NewKeyword
-  - - " "
-    - Whitespace
-  - - pdOpenSaveDialog
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'String returned from the common dialog wrapper"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - sFile
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - String
-    - StringKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'This string contains the filters for loading different kinds of images.  Using"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'this feature correctly makes our common dialog box a LOT more pleasant to use."
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - cdfStr
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - String
-    - StringKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - cdfStr
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "\"VB Map Files (.map)|*.map|All Files|*.*\""
-    - StringLiteral
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'If cancel isn't selected, load a map from the user-specified file"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - newDialog
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - GetOpenFileName
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - sFile
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "True"
-    - TrueKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - cdfStr
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "1"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "\"Open a map file\""
-    - StringLiteral
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - Me
-    - MeKeyword
-  - - "."
-    - PeriodOperator
-  - - hWnd
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "'Open the file"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - Open
-    - OpenKeyword
-  - - " "
-    - Whitespace
-  - - sFile
-    - Identifier
-  - - " "
-    - Whitespace
-  - - For
-    - ForKeyword
-  - - " "
-    - Whitespace
-  - - Binary
-    - BinaryKeyword
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - "#"
-    - Octothorpe
-  - - "1"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "            "
-    - Whitespace
-  - - "'At present, map files are pretty simple - the width, height, and data is all we currently store"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "            "
-    - Whitespace
-  - - Get
-    - GetKeyword
-  - - " "
-    - Whitespace
-  - - "#"
-    - Octothorpe
-  - - "1"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "1"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - SizeX
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "            "
-    - Whitespace
-  - - Get
-    - GetKeyword
-  - - " "
-    - Whitespace
-  - - "#"
-    - Octothorpe
-  - - "1"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - SizeY
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "            "
-    - Whitespace
-  - - ReDim
-    - ReDimKeyword
-  - - " "
-    - Whitespace
-  - - MapArray
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - To
-    - ToKeyword
-  - - " "
-    - Whitespace
-  - - SizeX
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - " "
-    - Whitespace
-  - - To
-    - ToKeyword
-  - - " "
-    - Whitespace
-  - - SizeY
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Byte
-    - ByteKeyword
-  - - "\r\n"
-    - Newline
-  - - "            "
-    - Whitespace
-  - - Get
-    - GetKeyword
-  - - " "
-    - Whitespace
-  - - "#"
-    - Octothorpe
-  - - "1"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - MapArray
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - Close
-    - CloseKeyword
-  - - " "
-    - Whitespace
-  - - "#"
-    - Octothorpe
-  - - "1"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "'Once MapArray has been successfully created, Draw the map!"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - DrawMap
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'Menu -> Refresh"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - MnuRefresh_Click
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - RefreshAll
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'Menu -> Resize"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - MnuResize_Click
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - FrmResize
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Visible
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "True"
-    - TrueKeyword
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'Menu -> Save"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - MnuSave_Click
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Initialize the common dialog interface"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - newDialog
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - pdOpenSaveDialog
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Set
-    - SetKeyword
-  - - " "
-    - Whitespace
-  - - newDialog
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - New
-    - NewKeyword
-  - - " "
-    - Whitespace
-  - - pdOpenSaveDialog
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'String returned from the common dialog wrapper"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - sFile
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - String
-    - StringKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'This string contains the filters for loading different kinds of images.  Using"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'this feature correctly makes our common dialog box a LOT more pleasant to use."
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Dim
-    - DimKeyword
-  - - " "
-    - Whitespace
-  - - cdfStr
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - String
-    - StringKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - cdfStr
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "\"VB Map Files (.map)|*.map|All Files|*.*\""
-    - StringLiteral
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'If cancel isn't selected, save a map to the user-specified file"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - newDialog
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - GetSaveFileName
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - sFile
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - cdfStr
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "1"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "\"Save a map file\""
-    - StringLiteral
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "\".map\""
-    - StringLiteral
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - Me
-    - MeKeyword
-  - - "."
-    - PeriodOperator
-  - - hWnd
-    - Identifier
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "'Open the file"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - Open
-    - OpenKeyword
-  - - " "
-    - Whitespace
-  - - sFile
-    - Identifier
-  - - " "
-    - Whitespace
-  - - For
-    - ForKeyword
-  - - " "
-    - Whitespace
-  - - Binary
-    - BinaryKeyword
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - "#"
-    - Octothorpe
-  - - "1"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "            "
-    - Whitespace
-  - - "'At present, map files are pretty simple - the width, height, and data is all we currently store"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "            "
-    - Whitespace
-  - - Put
-    - PutKeyword
-  - - " "
-    - Whitespace
-  - - "#"
-    - Octothorpe
-  - - "1"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "1"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - SizeX
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "            "
-    - Whitespace
-  - - Put
-    - PutKeyword
-  - - " "
-    - Whitespace
-  - - "#"
-    - Octothorpe
-  - - "1"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - SizeY
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "            "
-    - Whitespace
-  - - Put
-    - PutKeyword
-  - - " "
-    - Whitespace
-  - - "#"
-    - Octothorpe
-  - - "1"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - MapArray
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - Close
-    - CloseKeyword
-  - - " "
-    - Whitespace
-  - - "#"
-    - Octothorpe
-  - - "1"
-    - Number
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'Menu -> Zoom"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - mnuZoom_Click
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - ChangeZoom
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "'When the top tile box is clicked, remember which tile was clicked (and draw that tile in its preview box)"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - Private
-    - PrivateKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - " "
-    - Whitespace
-  - - PicTiles_MouseDown
-    - Identifier
-  - - (
-    - LeftParentheses
-  - - Button
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Integer
-    - IntegerKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - Shift
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Integer
-    - IntegerKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - x
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Single
-    - SingleKeyword
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - Y
-    - Identifier
-  - - " "
-    - Whitespace
-  - - As
-    - AsKeyword
-  - - " "
-    - Whitespace
-  - - Single
-    - SingleKeyword
-  - - )
-    - RightParentheses
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Left button..."
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - Button
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "1"
-    - Number
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "'Current picture is the x value integer divided by 64 (tile width) + whatever the scrollbar is at"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - CurPicIndex
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - x
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "\\"
-    - BackwardSlashOperator
-  - - " "
-    - Whitespace
-  - - "64"
-    - Number
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - +
-    - AdditionOperator
-  - - " "
-    - Whitespace
-  - - HSTileBar
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Value
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - "'Draw this tile in its picture box on the left"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - UseStretchBlt
-    - Identifier
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - "\r\n"
-    - Newline
-  - - "            "
-    - Whitespace
-  - - StretchBlt
-    - Identifier
-  - - " "
-    - Whitespace
-  - - Pic1
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - hdc
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "64"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "64"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - PicTilesBuffer
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - hdc
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - CurPicIndex
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "*"
-    - MultiplicationOperator
-  - - " "
-    - Whitespace
-  - - "64"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "64"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "64"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - vbSrcCopy
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - Else
-    - ElseKeyword
-  - - "\r\n"
-    - Newline
-  - - "            "
-    - Whitespace
-  - - Pic1
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - PaintPicture
-    - Identifier
-  - - " "
-    - Whitespace
-  - - PicTilesBuffer
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Picture
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "64"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "64"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - CurPicIndex
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "*"
-    - MultiplicationOperator
-  - - " "
-    - Whitespace
-  - - "64"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "64"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "64"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - vbSrcCopy
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Right button..."
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - ElseIf
-    - ElseIfKeyword
-  - - " "
-    - Whitespace
-  - - Button
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - "2"
-    - Number
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - CurPicIndex2
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - (
-    - LeftParentheses
-  - - x
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "\\"
-    - BackwardSlashOperator
-  - - " "
-    - Whitespace
-  - - "64"
-    - Number
-  - - )
-    - RightParentheses
-  - - " "
-    - Whitespace
-  - - +
-    - AdditionOperator
-  - - " "
-    - Whitespace
-  - - HSTileBar
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Value
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - " "
-    - Whitespace
-  - - UseStretchBlt
-    - Identifier
-  - - " "
-    - Whitespace
-  - - Then
-    - ThenKeyword
-  - - "\r\n"
-    - Newline
-  - - "            "
-    - Whitespace
-  - - StretchBlt
-    - Identifier
-  - - " "
-    - Whitespace
-  - - Pic2
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - hdc
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "64"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "64"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - PicTilesBuffer
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - hdc
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - CurPicIndex2
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "*"
-    - MultiplicationOperator
-  - - " "
-    - Whitespace
-  - - "64"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "64"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "64"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - vbSrcCopy
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - Else
-    - ElseKeyword
-  - - "\r\n"
-    - Newline
-  - - "            "
-    - Whitespace
-  - - Pic2
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - PaintPicture
-    - Identifier
-  - - " "
-    - Whitespace
-  - - PicTilesBuffer
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Picture
-    - Identifier
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "64"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "64"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - CurPicIndex2
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "*"
-    - MultiplicationOperator
-  - - " "
-    - Whitespace
-  - - "64"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "0"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "64"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - "64"
-    - Number
-  - - ","
-    - Comma
-  - - " "
-    - Whitespace
-  - - vbSrcCopy
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "        "
-    - Whitespace
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - If
-    - IfKeyword
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - "'Because AutoRedraw is set to true for these pictures boxes, we must refresh them and update the .Picture property"
-    - Comment
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Pic1
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Picture
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - Pic1
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Image
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Pic2
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Picture
-    - Identifier
-  - - " "
-    - Whitespace
-  - - "="
-    - EqualityOperator
-  - - " "
-    - Whitespace
-  - - Pic2
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Image
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Pic1
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Refresh
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "    "
-    - Whitespace
-  - - Pic2
-    - Identifier
-  - - "."
-    - PeriodOperator
-  - - Refresh
-    - Identifier
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
-  - - End
-    - EndKeyword
-  - - " "
-    - Whitespace
-  - - Sub
-    - SubKeyword
-  - - "\r\n"
-    - Newline
-  - - "\r\n"
-    - Newline
+  source_file: "./tests/data/vb6-code/Map-editor-2D/Main Editor.frm"
+  tokens:
+    - - "'***************************************************************************"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'Copyright 2018 by Tanner Helland"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "' www.tannerhelland.com"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'The source code in this project is licensed under a Simplified BSD license."
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "'***************************************************************************"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'When the combo box is changed, update our drawing method"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - cmbDrawMethod_Change
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Select
+      - SelectKeyword
+    - - " "
+      - Whitespace
+    - - Case
+      - CaseKeyword
+    - - " "
+      - Whitespace
+    - - cmbDrawMethod
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - ListIndex
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - Case
+      - CaseKeyword
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "            "
+      - Whitespace
+    - - UseStretchBlt
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "False"
+      - FalseKeyword
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - Case
+      - CaseKeyword
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "            "
+      - Whitespace
+    - - UseStretchBlt
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "True"
+      - TrueKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Select
+      - SelectKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - cmbDrawMethod_Click
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Select
+      - SelectKeyword
+    - - " "
+      - Whitespace
+    - - Case
+      - CaseKeyword
+    - - " "
+      - Whitespace
+    - - cmbDrawMethod
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - ListIndex
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - Case
+      - CaseKeyword
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "            "
+      - Whitespace
+    - - UseStretchBlt
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "False"
+      - FalseKeyword
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - Case
+      - CaseKeyword
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "            "
+      - Whitespace
+    - - UseStretchBlt
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "True"
+      - TrueKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Select
+      - SelectKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'The InitializeEditor routine can be found in Sub_Module"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - Form_Load
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - InitializeEditor
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Also, populate the DrawMethod combo box"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - cmbDrawMethod
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - AddItem
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "\"Use PaintPicture\""
+      - StringLiteral
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - cmbDrawMethod
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - AddItem
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "\"Use StretchBlt\""
+      - StringLiteral
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - cmbDrawMethod
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - ListIndex
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - UseStretchBlt
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "False"
+      - FalseKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Load a default map"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "On"
+      - OnKeyword
+    - - " "
+      - Whitespace
+    - - Error
+      - ErrorKeyword
+    - - " "
+      - Whitespace
+    - - GoTo
+      - GotoKeyword
+    - - " "
+      - Whitespace
+    - - MapMissing
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Open
+      - OpenKeyword
+    - - " "
+      - Whitespace
+    - - App
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Path
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "&"
+      - Ampersand
+    - - " "
+      - Whitespace
+    - - "\"\\Demo.map\""
+      - StringLiteral
+    - - " "
+      - Whitespace
+    - - For
+      - ForKeyword
+    - - " "
+      - Whitespace
+    - - Binary
+      - BinaryKeyword
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - "#"
+      - Octothorpe
+    - - "1"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "'At present, map files are pretty simple - the width, height, and data is all we currently store"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - Get
+      - GetKeyword
+    - - " "
+      - Whitespace
+    - - "#"
+      - Octothorpe
+    - - "1"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - SizeX
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - Get
+      - GetKeyword
+    - - " "
+      - Whitespace
+    - - "#"
+      - Octothorpe
+    - - "1"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - SizeY
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - ReDim
+      - ReDimKeyword
+    - - " "
+      - Whitespace
+    - - MapArray
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - To
+      - ToKeyword
+    - - " "
+      - Whitespace
+    - - SizeX
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - To
+      - ToKeyword
+    - - " "
+      - Whitespace
+    - - SizeY
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Byte
+      - ByteKeyword
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - Get
+      - GetKeyword
+    - - " "
+      - Whitespace
+    - - "#"
+      - Octothorpe
+    - - "1"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - MapArray
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Close
+      - CloseKeyword
+    - - " "
+      - Whitespace
+    - - "#"
+      - Octothorpe
+    - - "1"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Once MapArray has been successfully created, Draw the map!"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - DrawMap
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - MapMissing
+      - Identifier
+    - - ":"
+      - ColonOperator
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'Whenever a scrollbar is used, update the map"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - HSMain_Change
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - ScrollMap
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - HSMain_Scroll
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - ScrollMap
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - VSMain_Change
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - ScrollMap
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - VSMain_Scroll
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - ScrollMap
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - HSTileBar_Change
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - DrawTileBar
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'Whenever the top scrollbar is used, update the tiles"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - HSTileBar_Scroll
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - DrawTileBar
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'When a mouse button is pressed, remember the mouse state (1 = pressed) and draw a tile at the current mouse position"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - MainPic_MouseDown
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - Button
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Integer
+      - IntegerKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - Shift
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Integer
+      - IntegerKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Single
+      - SingleKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - Y
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Single
+      - SingleKeyword
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - MouseState
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "True"
+      - TrueKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Left button"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - Button
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - " "
+      - Whitespace
+    - - DrawTile
+      - Identifier
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - Y
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - CurPicIndex
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Right button"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - Button
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "2"
+      - Number
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - " "
+      - Whitespace
+    - - DrawTile
+      - Identifier
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - Y
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - CurPicIndex2
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'When the mouse is moved, only draw if a mouse button has been pressed"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - MainPic_MouseMove
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - Button
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Integer
+      - IntegerKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - Shift
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Integer
+      - IntegerKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Single
+      - SingleKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - Y
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Single
+      - SingleKeyword
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Only draw if a button is down"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - MouseState
+      - Identifier
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - Button
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - " "
+      - Whitespace
+    - - DrawTile
+      - Identifier
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - Y
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - CurPicIndex
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - Button
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "2"
+      - Number
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - " "
+      - Whitespace
+    - - DrawTile
+      - Identifier
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - Y
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - CurPicIndex2
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'Return the mouse button state variable to unpressed"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - MainPic_MouseUp
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - Button
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Integer
+      - IntegerKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - Shift
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Integer
+      - IntegerKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Single
+      - SingleKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - Y
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Single
+      - SingleKeyword
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - MouseState
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "False"
+      - FalseKeyword
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'Menu -> Exit"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - MnuExit_Click
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Unload
+      - Identifier
+    - - " "
+      - Whitespace
+    - - Me
+      - MeKeyword
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'Menu -> New"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - MnuNew_Click
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Keep the current size settings and reset the map to zero (default tile)"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - For
+      - ForKeyword
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - To
+      - ToKeyword
+    - - " "
+      - Whitespace
+    - - SizeX
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - For
+      - ForKeyword
+    - - " "
+      - Whitespace
+    - - Y
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - To
+      - ToKeyword
+    - - " "
+      - Whitespace
+    - - SizeY
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - MapArray
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - x
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - Y
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Next
+      - NextKeyword
+    - - " "
+      - Whitespace
+    - - Y
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Next
+      - NextKeyword
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Last, draw the new map"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - DrawMap
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'Menu -> Open"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - MnuOpen_Click
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Initialize the common dialog interface"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - newDialog
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - pdOpenSaveDialog
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Set
+      - SetKeyword
+    - - " "
+      - Whitespace
+    - - newDialog
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - New
+      - NewKeyword
+    - - " "
+      - Whitespace
+    - - pdOpenSaveDialog
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'String returned from the common dialog wrapper"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - sFile
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - String
+      - StringKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'This string contains the filters for loading different kinds of images.  Using"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'this feature correctly makes our common dialog box a LOT more pleasant to use."
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - cdfStr
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - String
+      - StringKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - cdfStr
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "\"VB Map Files (.map)|*.map|All Files|*.*\""
+      - StringLiteral
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'If cancel isn't selected, load a map from the user-specified file"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - newDialog
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - GetOpenFileName
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - sFile
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "True"
+      - TrueKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - cdfStr
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "\"Open a map file\""
+      - StringLiteral
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - Me
+      - MeKeyword
+    - - "."
+      - PeriodOperator
+    - - hWnd
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "'Open the file"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - Open
+      - OpenKeyword
+    - - " "
+      - Whitespace
+    - - sFile
+      - Identifier
+    - - " "
+      - Whitespace
+    - - For
+      - ForKeyword
+    - - " "
+      - Whitespace
+    - - Binary
+      - BinaryKeyword
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - "#"
+      - Octothorpe
+    - - "1"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "            "
+      - Whitespace
+    - - "'At present, map files are pretty simple - the width, height, and data is all we currently store"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "            "
+      - Whitespace
+    - - Get
+      - GetKeyword
+    - - " "
+      - Whitespace
+    - - "#"
+      - Octothorpe
+    - - "1"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - SizeX
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "            "
+      - Whitespace
+    - - Get
+      - GetKeyword
+    - - " "
+      - Whitespace
+    - - "#"
+      - Octothorpe
+    - - "1"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - SizeY
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "            "
+      - Whitespace
+    - - ReDim
+      - ReDimKeyword
+    - - " "
+      - Whitespace
+    - - MapArray
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - To
+      - ToKeyword
+    - - " "
+      - Whitespace
+    - - SizeX
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - To
+      - ToKeyword
+    - - " "
+      - Whitespace
+    - - SizeY
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Byte
+      - ByteKeyword
+    - - "\r\n"
+      - Newline
+    - - "            "
+      - Whitespace
+    - - Get
+      - GetKeyword
+    - - " "
+      - Whitespace
+    - - "#"
+      - Octothorpe
+    - - "1"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - MapArray
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - Close
+      - CloseKeyword
+    - - " "
+      - Whitespace
+    - - "#"
+      - Octothorpe
+    - - "1"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "'Once MapArray has been successfully created, Draw the map!"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - DrawMap
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'Menu -> Refresh"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - MnuRefresh_Click
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - RefreshAll
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'Menu -> Resize"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - MnuResize_Click
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - FrmResize
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Visible
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "True"
+      - TrueKeyword
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'Menu -> Save"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - MnuSave_Click
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Initialize the common dialog interface"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - newDialog
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - pdOpenSaveDialog
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Set
+      - SetKeyword
+    - - " "
+      - Whitespace
+    - - newDialog
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - New
+      - NewKeyword
+    - - " "
+      - Whitespace
+    - - pdOpenSaveDialog
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'String returned from the common dialog wrapper"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - sFile
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - String
+      - StringKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'This string contains the filters for loading different kinds of images.  Using"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'this feature correctly makes our common dialog box a LOT more pleasant to use."
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Dim
+      - DimKeyword
+    - - " "
+      - Whitespace
+    - - cdfStr
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - String
+      - StringKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - cdfStr
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "\"VB Map Files (.map)|*.map|All Files|*.*\""
+      - StringLiteral
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'If cancel isn't selected, save a map to the user-specified file"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - newDialog
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - GetSaveFileName
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - sFile
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - cdfStr
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "\"Save a map file\""
+      - StringLiteral
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "\".map\""
+      - StringLiteral
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - Me
+      - MeKeyword
+    - - "."
+      - PeriodOperator
+    - - hWnd
+      - Identifier
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "'Open the file"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - Open
+      - OpenKeyword
+    - - " "
+      - Whitespace
+    - - sFile
+      - Identifier
+    - - " "
+      - Whitespace
+    - - For
+      - ForKeyword
+    - - " "
+      - Whitespace
+    - - Binary
+      - BinaryKeyword
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - "#"
+      - Octothorpe
+    - - "1"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "            "
+      - Whitespace
+    - - "'At present, map files are pretty simple - the width, height, and data is all we currently store"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "            "
+      - Whitespace
+    - - Put
+      - PutKeyword
+    - - " "
+      - Whitespace
+    - - "#"
+      - Octothorpe
+    - - "1"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - SizeX
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "            "
+      - Whitespace
+    - - Put
+      - PutKeyword
+    - - " "
+      - Whitespace
+    - - "#"
+      - Octothorpe
+    - - "1"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - SizeY
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "            "
+      - Whitespace
+    - - Put
+      - PutKeyword
+    - - " "
+      - Whitespace
+    - - "#"
+      - Octothorpe
+    - - "1"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - MapArray
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - Close
+      - CloseKeyword
+    - - " "
+      - Whitespace
+    - - "#"
+      - Octothorpe
+    - - "1"
+      - Number
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'Menu -> Zoom"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - mnuZoom_Click
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - ChangeZoom
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "'When the top tile box is clicked, remember which tile was clicked (and draw that tile in its preview box)"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - Private
+      - PrivateKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - " "
+      - Whitespace
+    - - PicTiles_MouseDown
+      - Identifier
+    - - (
+      - LeftParentheses
+    - - Button
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Integer
+      - IntegerKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - Shift
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Integer
+      - IntegerKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - x
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Single
+      - SingleKeyword
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - Y
+      - Identifier
+    - - " "
+      - Whitespace
+    - - As
+      - AsKeyword
+    - - " "
+      - Whitespace
+    - - Single
+      - SingleKeyword
+    - - )
+      - RightParentheses
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Left button..."
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - Button
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "'Current picture is the x value integer divided by 64 (tile width) + whatever the scrollbar is at"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - CurPicIndex
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - x
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "\\"
+      - BackwardSlashOperator
+    - - " "
+      - Whitespace
+    - - "64"
+      - Number
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - +
+      - AdditionOperator
+    - - " "
+      - Whitespace
+    - - HSTileBar
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Value
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - "'Draw this tile in its picture box on the left"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - UseStretchBlt
+      - Identifier
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - "\r\n"
+      - Newline
+    - - "            "
+      - Whitespace
+    - - StretchBlt
+      - Identifier
+    - - " "
+      - Whitespace
+    - - Pic1
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - hdc
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "64"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "64"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - PicTilesBuffer
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - hdc
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - CurPicIndex
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "*"
+      - MultiplicationOperator
+    - - " "
+      - Whitespace
+    - - "64"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "64"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "64"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - vbSrcCopy
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - Else
+      - ElseKeyword
+    - - "\r\n"
+      - Newline
+    - - "            "
+      - Whitespace
+    - - Pic1
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - PaintPicture
+      - Identifier
+    - - " "
+      - Whitespace
+    - - PicTilesBuffer
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Picture
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "64"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "64"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - CurPicIndex
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "*"
+      - MultiplicationOperator
+    - - " "
+      - Whitespace
+    - - "64"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "64"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "64"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - vbSrcCopy
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Right button..."
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - ElseIf
+      - ElseIfKeyword
+    - - " "
+      - Whitespace
+    - - Button
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "2"
+      - Number
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - CurPicIndex2
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - (
+      - LeftParentheses
+    - - x
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "\\"
+      - BackwardSlashOperator
+    - - " "
+      - Whitespace
+    - - "64"
+      - Number
+    - - )
+      - RightParentheses
+    - - " "
+      - Whitespace
+    - - +
+      - AdditionOperator
+    - - " "
+      - Whitespace
+    - - HSTileBar
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Value
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - " "
+      - Whitespace
+    - - UseStretchBlt
+      - Identifier
+    - - " "
+      - Whitespace
+    - - Then
+      - ThenKeyword
+    - - "\r\n"
+      - Newline
+    - - "            "
+      - Whitespace
+    - - StretchBlt
+      - Identifier
+    - - " "
+      - Whitespace
+    - - Pic2
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - hdc
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "64"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "64"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - PicTilesBuffer
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - hdc
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - CurPicIndex2
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "*"
+      - MultiplicationOperator
+    - - " "
+      - Whitespace
+    - - "64"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "64"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "64"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - vbSrcCopy
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - Else
+      - ElseKeyword
+    - - "\r\n"
+      - Newline
+    - - "            "
+      - Whitespace
+    - - Pic2
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - PaintPicture
+      - Identifier
+    - - " "
+      - Whitespace
+    - - PicTilesBuffer
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Picture
+      - Identifier
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "64"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "64"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - CurPicIndex2
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "*"
+      - MultiplicationOperator
+    - - " "
+      - Whitespace
+    - - "64"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "0"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "64"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - "64"
+      - Number
+    - - ","
+      - Comma
+    - - " "
+      - Whitespace
+    - - vbSrcCopy
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "        "
+      - Whitespace
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - If
+      - IfKeyword
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - "'Because AutoRedraw is set to true for these pictures boxes, we must refresh them and update the .Picture property"
+      - Comment
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Pic1
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Picture
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - Pic1
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Image
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Pic2
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Picture
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - Pic2
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Image
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Pic1
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Refresh
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "    "
+      - Whitespace
+    - - Pic2
+      - Identifier
+    - - "."
+      - PeriodOperator
+    - - Refresh
+      - Identifier
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+    - - End
+      - EndKeyword
+    - - " "
+      - Whitespace
+    - - Sub
+      - SubKeyword
+    - - "\r\n"
+      - Newline
+    - - "\r\n"
+      - Newline
+  offset: 0

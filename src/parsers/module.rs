@@ -1,6 +1,6 @@
 use crate::{
     errors::VB6ModuleErrorKind, language::VB6Token, parsers::ParseResult, sourcefile::SourceFile,
-    sourcestream::Comparator, tokenize,
+    sourcestream::Comparator, tokenize, tokenstream::TokenStream,
 };
 
 use serde::Serialize;
@@ -12,7 +12,7 @@ use serde::Serialize;
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct VB6ModuleFile<'a> {
     pub name: &'a [u8], // Attribute VB_Name = "Module1"
-    pub tokens: Vec<(&'a str, VB6Token)>,
+    pub tokens: TokenStream<'a>,
 }
 
 impl<'a> VB6ModuleFile<'a> {
