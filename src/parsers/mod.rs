@@ -3,7 +3,7 @@
 //! The major components of this module are:
 //!
 //! `VB6Stream` - The main parsing structure for VB6 files. It holds the
-//! bytes for a file and provides basic methoda for iterating over the bytes as
+//! bytes for a file and provides basic method for iterating over the bytes as
 //! well as tracking the line, column, and character position of the current byte.
 //!
 //! `VB6Project` - a structure for holding the parsed information from a VB6
@@ -30,7 +30,6 @@ pub mod parseresults;
 pub mod project;
 pub mod properties;
 pub mod vb6;
-pub mod vb6code;
 
 pub use class::*;
 pub use form::{resource_file_resolver, VB6FormFile};
@@ -38,7 +37,6 @@ pub use header::{VB6FileAttributes, VB6FileFormatVersion};
 pub use module::VB6ModuleFile;
 pub use objectreference::VB6ObjectReference;
 pub use properties::Properties;
-pub use vb6code::*;
 
 pub use project::{
     compilesettings::*, properties::*, VB6Project, VB6ProjectClass, VB6ProjectModule,

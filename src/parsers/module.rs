@@ -1,6 +1,6 @@
 use crate::{
-    errors::VB6ModuleErrorKind, language::VB6Token, parsers::ParseResult, sourcefile::SourceFile,
-    sourcestream::Comparator, tokenize, tokenstream::TokenStream,
+    errors::VB6ModuleErrorKind, parsers::ParseResult, sourcefile::SourceFile,
+    sourcestream::Comparator, tokenize::tokenize, tokenstream::TokenStream,
 };
 
 use serde::Serialize;
