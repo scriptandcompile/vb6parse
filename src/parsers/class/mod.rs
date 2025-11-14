@@ -17,9 +17,9 @@ use crate::{
             PreDeclaredID, VB6FileAttributes, VB6FileFormatVersion,
         },
     },
+    tokenize::{take_matching_text, tokenize},
     tokenstream::TokenStream,
-    vb6code::tokenize,
-    ParseResult, SourceFile, SourceStream, VB6Tokenizer,
+    ParseResult, SourceFile, SourceStream,
 };
 
 /// Represents a VB6 class file.
@@ -163,7 +163,7 @@ fn version_header_parse<'a>(
     let _ = input.take_ascii_whitespaces();
 
     let version_start_offset = input.offset();
-    let Some(version_keyword) = input.take_matching_text("VERSION") else {
+    let Some(version_keyword) = take_matching_text(input, "VERSION") else {
         let error = input.generate_error(VB6ClassErrorKind::VersionKeywordMissing);
         failures.push(error);
 
@@ -300,7 +300,7 @@ fn version_header_parse<'a>(
     };
 
     let match_text_start_offset = input.offset();
-    let Some(match_text_keyword) = input.take_matching_text(match_text) else {
+    let Some(match_text_keyword) = take_matching_text(input, match_text) else {
         let error = match header_kind {
             HeaderKind::Class => input.generate_error(VB6ClassErrorKind::ClassKeywordMissing),
             // TODO: Correct this to a 'Form' keyword missing error message when I get a chance.
@@ -373,7 +373,7 @@ fn properties_parse<'a>(
     let _ = input.take_ascii_whitespaces();
 
     let begin_start_offset = input.offset();
-    let Some(begin_keyword) = input.take_matching_text("BEGIN") else {
+    let Some(begin_keyword) = take_matching_text(input, "BEGIN") else {
         let error = input.generate_error(VB6ClassErrorKind::BeginKeywordMissing);
         failures.push(error);
 

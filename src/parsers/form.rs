@@ -16,7 +16,7 @@ use winnow::{
 
 use crate::{
     errors::{VB6Error, VB6ErrorKind},
-    language::{VB6Control, VB6ControlKind, VB6MenuControl, VB6Token},
+    language::{VB6Control, VB6ControlKind, VB6MenuControl},
     parsers::{
         header::{
             attributes_parse, key_resource_offset_line_parse, object_parse, version_parse,

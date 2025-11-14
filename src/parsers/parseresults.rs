@@ -63,26 +63,12 @@ where
     }
 }
 
-// impl<'a, T, E> From<(T, Vec<ErrorDetails<'a, E>>)> for ParseResult<'a, T, E> {
-//     fn from(parse_pair: (T, Vec<ErrorDetails<'a, E>>)) -> ParseResult<'a, T, E> {
-//         ParseResult {
-//             result: Some(parse_pair.0),
-//             failures: parse_pair.1,
-//         }
-//     }
-// }
-
-// impl<'a, T, E> From<(Option<T>, Vec<ErrorDetails<'a, E>>)> for ParseResult<'a, T, E> {
-//     fn from(parse_pair: (Option<T>, Vec<ErrorDetails<'a, E>>)) -> ParseResult<'a, T, E> {
-//         ParseResult {
-//             result: parse_pair.0,
-//             failures: parse_pair.1,
-//         }
-//     }
-// }
-
-impl<'a, E> From<(TokenStream<'a>, Vec<ErrorDetails<'a, E>>)> for ParseResult<'a, TokenStream<'a>, E> {
-    fn from(parse_pair: (TokenStream<'a>, Vec<ErrorDetails<'a, E>>)) -> ParseResult<'a, TokenStream<'a>, E> {
+impl<'a, E> From<(TokenStream<'a>, Vec<ErrorDetails<'a, E>>)>
+    for ParseResult<'a, TokenStream<'a>, E>
+{
+    fn from(
+        parse_pair: (TokenStream<'a>, Vec<ErrorDetails<'a, E>>),
+    ) -> ParseResult<'a, TokenStream<'a>, E> {
         ParseResult {
             result: Some(parse_pair.0),
             failures: parse_pair.1,
