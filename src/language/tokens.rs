@@ -15,7 +15,7 @@ pub enum VB6Token {
     /// Includes the single quote character.
     Comment,
     /// Represents the 'Class' keyword.
-    /// 
+    ///
     /// Used in the header of a class module to indicate that the module is a class module.
     ClassKeyword,
     /// Represents the 'ReDim' keyword.
@@ -58,11 +58,11 @@ pub enum VB6Token {
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243324(v=vs.60))
     AliasKeyword,
     /// Represents the 'Attribute' keyword.
-    /// 
+    ///
     /// Used to define metadata for a class, method, or property.
     AttributeKeyword,
     /// Represents the 'Begin' keyword.
-    /// 
+    ///
     /// Used to indicate the beginning of a block of code for a header section
     /// in a module, class, or form.
     BeginKeyword,
@@ -1006,7 +1006,7 @@ pub enum VB6Token {
     /// Represents an exclamation mark '!'.
     ExclamationMark,
     /// Represents the 'Version' keyword.
-    /// 
+    ///
     /// The 'Version' keyword is used to specify the version of the header
     /// information for a module / class / form.
     VersionKeyword,
@@ -1044,7 +1044,7 @@ pub enum VB6Token {
     /// specific kind of number yet.
     Number,
     /// Represents the end of the file.
-    /// 
+    ///
     /// Indicates that there is no more input to process.
     EOF,
 }

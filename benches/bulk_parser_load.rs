@@ -1,7 +1,7 @@
 use vb6parse::*;
 
-use std::hint::black_box;
 use criterion::{criterion_group, criterion_main, Criterion};
+use std::hint::black_box;
 
 fn project_benchmark(criterion: &mut Criterion) {
     let project_names = vec![
