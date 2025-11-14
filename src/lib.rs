@@ -197,12 +197,12 @@ pub mod language;
 pub mod parsers;
 pub mod sourcefile;
 pub mod sourcestream;
-pub mod tokenize;
 pub mod tokenstream;
+pub mod tokenize;
 
 pub use crate::errors::*;
 pub use crate::language::*;
 pub use crate::parsers::*;
 pub use crate::sourcefile::*;
-pub use crate::tokenize::tokenize;
 pub use crate::tokenstream::TokenStream;
+pub use crate::tokenize::tokenize;
