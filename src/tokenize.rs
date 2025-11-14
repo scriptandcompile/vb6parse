@@ -1,4 +1,4 @@
-use phf::{OrderedMap, phf_ordered_map};
+use phf::{phf_ordered_map, OrderedMap};
 
 use crate::{
     language::VB6Token,
@@ -6,16 +6,6 @@ use crate::{
     tokenstream::TokenStream,
     VB6CodeErrorKind,
 };
-
-pub trait VB6Tokenizer<'a> {
-    fn take_line_comment(self) -> Option<((&'a str, VB6Token), Option<(&'a str, VB6Token)>)>;
-    fn take_rem_comment(self) -> Option<((&'a str, VB6Token), Option<(&'a str, VB6Token)>)>;
-    fn take_string_literal(self) -> Option<(&'a str, VB6Token)>;
-    fn take_keyword(self) -> Option<(&'a str, VB6Token)>;
-    fn take_matching_text(self, keyword: impl Into<&'a str>) -> Option<&'a str>;
-    fn take_symbol(self) -> Option<(&'a str, VB6Token)>;
-    fn take_variable_name(self) -> Option<(&'a str, VB6Token)>;
-}
 
 static KEYWORD_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, VB6Token> = phf_ordered_map! {
     "AdressOf" => VB6Token::AddressOfKeyword,
@@ -204,7 +194,7 @@ static SYMBOL_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, VB6Token> = phf_order
 ///
 /// ```rust
 /// use vb6parse::language::VB6Token;
-/// use vb6parse::parsers::tokenize;
+/// use vb6parse::tokenize::tokenize;
 /// use vb6parse::SourceStream;
 ///
 ///
@@ -236,7 +226,6 @@ pub fn tokenize<'a>(
     let mut tokens = Vec::new();
 
     loop {
-
         if input.is_empty() {
             tokens.push(("", VB6Token::EOF));
             break;
@@ -247,7 +236,7 @@ pub fn tokenize<'a>(
             continue;
         }
 
-        if let Some((comment_tuple, newline_optional)) = input.take_line_comment() {
+        if let Some((comment_tuple, newline_optional)) = take_line_comment(input) {
             tokens.push(comment_tuple);
 
             if let Some(newline_tuple) = newline_optional {
@@ -256,7 +245,7 @@ pub fn tokenize<'a>(
             continue;
         }
 
-        if let Some((comment_tuple, newline_optional)) = input.take_rem_comment() {
+        if let Some((comment_tuple, newline_optional)) = take_rem_comment(input) {
             tokens.push(comment_tuple);
 
             if let Some(newline_tuple) = newline_optional {
@@ -265,17 +254,17 @@ pub fn tokenize<'a>(
             continue;
         }
 
-        if let Some(string_literal_tuple) = input.take_string_literal() {
+        if let Some(string_literal_tuple) = take_string_literal(input) {
             tokens.push(string_literal_tuple);
             continue;
         }
 
-        if let Some((keyword_text, keyword_token)) = input.take_keyword() {
+        if let Some((keyword_text, keyword_token)) = take_keyword(input) {
             tokens.push((keyword_text, keyword_token));
             continue;
         }
 
-        if let Some((symbol_text, symbol_token)) = input.take_symbol() {
+        if let Some((symbol_text, symbol_token)) = take_symbol(input) {
             tokens.push((symbol_text, symbol_token));
             continue;
         }
@@ -285,7 +274,7 @@ pub fn tokenize<'a>(
             continue;
         }
 
-        if let Some((identifier_text, identifier_token)) = input.take_variable_name() {
+        if let Some((identifier_text, identifier_token)) = take_variable_name(input) {
             tokens.push((identifier_text, identifier_token));
             continue;
         }
@@ -309,6 +298,22 @@ pub fn tokenize<'a>(
     (token_stream, failures).into()
 }
 
+/// Parses VB6 code into a token stream, excluding whitespace tokens.
+///
+/// This function first tokenizes the input, then filters out all whitespace tokens
+/// from the resulting token stream.
+///
+/// # Arguments
+///
+/// * `input` - The input to parse.
+///
+/// # Returns
+///
+/// A `ParseResult` containing the token stream without whitespace tokens, or a list of errors.
+///
+/// # Errors
+///
+/// If the tokenizer encounters any errors, they will be included in the returned `ParseResult`.
 pub fn tokenize_without_whitespaces<'a>(
     input: &mut SourceStream<'a>,
 ) -> ParseResult<'a, TokenStream<'a>, VB6CodeErrorKind> {
@@ -332,218 +337,245 @@ pub fn tokenize_without_whitespaces<'a>(
     }
 }
 
-impl<'a> VB6Tokenizer<'a> for &mut SourceStream<'a> {
-    /// Parses a VB6 to-end-of-the-line comment.
-    ///
-    /// The comment starts with a single quote and continues until the end of the
-    /// line. It includes the single quote, but excludes the newline character(s)
-    /// in the comment token. If a newline exists at the end of the line (ie, it is
-    /// not the end of the stream) then the second token will be the newline token.
-    ///
-    ///
-    /// # Arguments
-    ///
-    /// * `input` - The input to parse.
-    ///
-    ///
-    /// # Returns
-    ///
-    /// `Some()` with a tuple where the first element is the comment token, including
-    /// the single quote while the second element is an optional newline token.
-    /// The only time this optional token should be None is if the line comment
-    /// ends at the end of the stream.
-    ///
-    /// # Example
-    ///
-    /// ```rust
-    /// use vb6parse::*;
-    ///
-    /// let mut input = SourceStream::new("line_comment.bas".to_owned(), "' This is a comment\r\n");
-    /// let Some((comment, Some(newline))) = input.take_line_comment() else {
-    ///     panic!("rem comment failed to parse correctly.")
-    /// };
-    ///
-    /// assert_eq!(comment, ("' This is a comment", VB6Token::Comment));
-    /// assert_eq!(newline, ("\r\n", VB6Token::Newline));
-    /// ```
-    fn take_line_comment(self) -> Option<((&'a str, VB6Token), Option<(&'a str, VB6Token)>)> {
-        self.peek_text("'", super::Comparator::CaseInsensitive)?;
+/// Parses a VB6 to-end-of-the-line comment.
+///
+/// The comment starts with a single quote and continues until the end of the
+/// line. It includes the single quote, but excludes the newline character(s)
+/// in the comment token. If a newline exists at the end of the line (ie, it is
+/// not the end of the stream) then the second token will be the newline token.
+///
+///
+/// # Arguments
+///
+/// * `input` - The input to parse.
+///
+///
+/// # Returns
+///
+/// `Some()` with a tuple where the first element is the comment token, including
+/// the single quote while the second element is an optional newline token.
+/// The only time this optional token should be None is if the line comment
+/// ends at the end of the stream.
+///
+/// None if there is no line comment at the current position in the stream.
+fn take_line_comment<'a>(
+    input: &mut SourceStream<'a>,
+) -> Option<((&'a str, VB6Token), Option<(&'a str, VB6Token)>)> {
+    input.peek_text("'", super::Comparator::CaseInsensitive)?;
 
-        match self.take_until_newline() {
-            None => None,
-            Some((comment, newline_optional)) => {
-                let comment_tuple = (comment, VB6Token::Comment);
+    match input.take_until_newline() {
+        None => None,
+        Some((comment, newline_optional)) => {
+            let comment_tuple = (comment, VB6Token::Comment);
 
-                match newline_optional {
-                    None => Some((comment_tuple, None)),
-                    Some(newline) => Some((comment_tuple, Some((newline, VB6Token::Newline)))),
+            match newline_optional {
+                None => Some((comment_tuple, None)),
+                Some(newline) => Some((comment_tuple, Some((newline, VB6Token::Newline)))),
+            }
+        }
+    }
+}
+
+/// Parses a VB6 REM-to-end-of-the-line comment.
+///
+/// The comment starts at the start of the line with 'REM ' and continues
+/// until the end of the line. It includes the 'REM ' characters, but excludes
+/// the newline character(s) in the comment token. If a newline exists at the
+/// end of the line (ie, it is not the end of the stream) then the second
+/// token will be the newline token.
+///
+/// # Arguments
+///
+/// * `input` - The input to parse.
+///
+/// # Returns
+///
+/// `Some()` with a tuple, the the first element is the comment token
+/// including the 'REM ' characters at the start of the comment. The second
+/// is an optional token for the newline (it's only None if the comment is
+/// at the of the stream).
+///
+/// None if there is no REM comment at the current position in the stream.
+fn take_rem_comment<'a>(
+    input: &mut SourceStream<'a>,
+) -> Option<((&'a str, VB6Token), Option<(&'a str, VB6Token)>)> {
+    input.peek_text("REM", super::Comparator::CaseInsensitive)?;
+
+    match input.take_until_newline() {
+        None => None,
+        Some((comment, newline_optional)) => {
+            let comment_tuple = (comment, VB6Token::RemComment);
+
+            match newline_optional {
+                None => Some((comment_tuple, None)),
+                Some(newline) => Some((comment_tuple, Some((newline, VB6Token::Newline)))),
+            }
+        }
+    }
+}
+
+/// Parses a VB6 string literal from the input stream.
+///
+/// # Arguments
+///
+/// * `input` - The input stream to parse.
+///
+/// # Returns
+///
+/// `Some()` with a tuple containing the matched string literal text and its corresponding VB6 token
+/// if a string literal is found at the current position in the stream; otherwise, `None`.
+fn take_string_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB6Token)> {
+    input.peek_text("\"", super::Comparator::CaseInsensitive)?;
+
+    // TODO: Need to handle error reporting of incorrect escape sequences as well
+    // as string literals that hit a newline before the second quote character.
+    let mut escape_sequence_started = false;
+    let mut quote_character_count = 0;
+    let take_string = |next_character| match next_character {
+        // it doesn't matter what the character is if it is right after
+        // the second quote character.
+        _ if quote_character_count == 2 => true,
+        '\r' | '\n' => true,
+        '\\' => {
+            escape_sequence_started = true;
+            false
+        }
+        '\"' if !escape_sequence_started && quote_character_count < 2 => {
+            quote_character_count += 1;
+            false
+        }
+        _ if escape_sequence_started => {
+            escape_sequence_started = false;
+            false
+        }
+        _ => false,
+    };
+
+    input
+        .take_until_lambda(take_string, false)
+        .map(|text| (text, VB6Token::StringLiteral))
+}
+
+/// Parses a VB6 keyword from the input stream.
+///
+/// # Arguments
+///
+/// * `input` - The input stream to parse.
+///
+/// # Returns
+///
+/// `Some()` with a tuple containing the matched keyword text and its corresponding VB6 token
+/// if a keyword is found at the current position in the stream; otherwise, `None`.
+fn take_keyword<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB6Token)> {
+    for entry in KEYWORD_TOKEN_LOOKUP_TABLE.entries() {
+        if let Some(matching_text) = take_matching_text(input, *entry.0) {
+            return Some((matching_text, *entry.1));
+        }
+    }
+
+    None
+}
+
+/// Parses a VB6 symbol from the input stream.
+///
+/// # Arguments
+///
+/// * `input` - The input stream to parse.
+///
+/// # Returns
+///
+/// `Some()` with a tuple containing the matched symbol text and its corresponding VB6 token
+/// if a symbol is found at the current position in the stream; otherwise, `None`.
+fn take_symbol<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB6Token)> {
+    for entry in SYMBOL_TOKEN_LOOKUP_TABLE.entries() {
+        if let Some(matching_text) = input.take(*entry.0, Comparator::CaseSensitive) {
+            return Some((matching_text, *entry.1));
+        }
+    }
+
+    None
+}
+
+/// Attempts to take a matching text from the input stream, ensuring that
+/// the match is not part of a larger identifier.
+/// 
+/// # Arguments
+/// 
+/// * `input` - The input stream to parse.
+/// * `keyword` - The keyword text to match.
+/// 
+/// # Returns
+/// 
+/// `Some()` with the matched text if it is found and not part of a larger identifier; otherwise, `None`.
+pub fn take_matching_text<'a>(
+    input: &mut SourceStream<'a>,
+    keyword: impl Into<&'a str>,
+) -> Option<&'a str> {
+    let keyword_match_text = keyword.into();
+    let len = keyword_match_text.len();
+
+    let content_left_len = input.contents.len() - input.offset();
+    // If we are at the end of the stream and we just so happen to match the
+    // length of the keyword, we need to check if we have an exact match.
+    if content_left_len == len {
+        return input.take(keyword_match_text, Comparator::CaseInsensitive);
+    }
+
+    // The stream doesn't have enough characters for the keyword so we can't
+    // possibly match on it.
+    if content_left_len < len {
+        return None;
+    }
+
+    // We already handled the case where the stream has exactly the match we
+    // care about. Now we need to check in the case where the contents has
+    // at least one more character than the keyword.
+    //
+    // We care about this last general case because we need to peek to check
+    // that the last character in the match *isn't* an alphanumeric character
+    // or underscore, except if that last character is a space.
+    //
+    // This will keep us from matching 'Timer' as the keyword 'Time' with a
+    // left over of 'r' as well as keep us from matching 'char_' as 'Char'
+    // with a leftover of '_'
+    if content_left_len < len + 1 {
+        return None;
+    }
+
+    if let Some(peek_text) = input.peek(len + 1) {
+        match peek_text.chars().last() {
+            None => return None,
+            Some(last) => {
+                if last.is_alphanumeric() || last == '_' && last != ' ' {
+                    return None;
+                } else {
+                    return input.take(keyword_match_text, Comparator::CaseInsensitive);
                 }
             }
         }
     }
 
-    /// Parses a VB6 REM-to-end-of-the-line comment.
-    ///
-    /// The comment starts at the start of the line with 'REM ' and continues
-    /// until the end of the line. It includes the 'REM ' characters, but excludes
-    /// the newline character(s) in the comment token. If a newline exists at the
-    /// end of the line (ie, it is not the end of the stream) then the second
-    /// token will be the newline token.
-    ///
-    /// # Arguments
-    ///
-    /// * `input` - The input to parse.
-    ///
-    /// # Returns
-    ///
-    /// `Some()` with a tuple, the the first element is the comment token
-    /// including the 'REM ' characters at the start of the comment. The second
-    /// is an optional token for the newline (it's only None if the comment is
-    /// at the of the stream).
-    ///
-    /// None if there is no REM comment at the current position in the stream.
-    ///
-    /// # Example
-    ///
-    /// ```rust
-    /// use vb6parse::*;
-    ///
-    /// let mut input = SourceStream::new("line_comment.bas".to_owned(), "REM This is a comment\r\n");
-    /// let Some((comment, Some(newline))) = input.take_rem_comment() else {
-    ///     panic!("rem comment failed to parse correctly.")
-    /// };
-    ///
-    /// assert_eq!(comment, ("REM This is a comment", VB6Token::RemComment));
-    /// assert_eq!(newline, ("\r\n", VB6Token::Newline));
-    /// ```
-    fn take_rem_comment(self) -> Option<((&'a str, VB6Token), Option<(&'a str, VB6Token)>)> {
-        self.peek_text("REM", super::Comparator::CaseInsensitive)?;
+    None
+}
 
-        match self.take_until_newline() {
-            None => None,
-            Some((comment, newline_optional)) => {
-                let comment_tuple = (comment, VB6Token::RemComment);
+/// Parses a VB6 variable name (identifier) from the input stream.
+/// 
+/// # Arguments
+/// 
+/// * `input` - The input stream to parse.
+/// 
+/// # Returns
+/// 
+/// `Some()` with a tuple containing the matched identifier text and its corresponding VB6 token
+/// if an identifier is found at the current position in the stream; otherwise, `None`.
+fn take_variable_name<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB6Token)> {
+    if input.peek(1)?.chars().next()?.is_ascii_alphabetic() {
+        let variable_text = input.take_ascii_underscore_alphanumerics()?;
 
-                match newline_optional {
-                    None => Some((comment_tuple, None)),
-                    Some(newline) => Some((comment_tuple, Some((newline, VB6Token::Newline)))),
-                }
-            }
-        }
+        return Some((variable_text, VB6Token::Identifier));
     }
 
-    fn take_string_literal(self) -> Option<(&'a str, VB6Token)> {
-        self.peek_text("\"", super::Comparator::CaseInsensitive)?;
-
-        // TODO: Need to handle error reporting of incorrect escape sequences as well
-        // as string literals that hit a newline before the second quote character.
-        let mut escape_sequence_started = false;
-        let mut quote_character_count = 0;
-        let take_string = |next_character| match next_character {
-            // it doesn't matter what the character is if it is right after
-            // the second quote character.
-            _ if quote_character_count == 2 => true,
-            '\r' | '\n' => true,
-            '\\' => {
-                escape_sequence_started = true;
-                false
-            }
-            '\"' if !escape_sequence_started && quote_character_count < 2 => {
-                quote_character_count += 1;
-                false
-            }
-            _ if escape_sequence_started => {
-                escape_sequence_started = false;
-                false
-            }
-            _ => false,
-        };
-
-        self.take_until_lambda(take_string, false)
-            .map(|text| (text, VB6Token::StringLiteral))
-    }
-
-    fn take_symbol(self) -> Option<(&'a str, VB6Token)> {
-        for entry in SYMBOL_TOKEN_LOOKUP_TABLE.entries()
-        {
-            if let Some(matching_text) = self.take(*entry.0, Comparator::CaseSensitive) {
-                return Some((matching_text, *entry.1));
-            }
-        }
-
-        None
-    }
-
-    fn take_matching_text(self, keyword: impl Into<&'a str>) -> Option<&'a str> {
-        let keyword_match_text = keyword.into();
-        let len = keyword_match_text.len();
-
-        let content_left_len = self.contents.len() - self.offset();
-
-        // If we are at the end of the stream and we just so happen to match the
-        // length of the keyword, we need to check if we have an exact match.
-        if content_left_len == len {
-            return self.take(keyword_match_text, Comparator::CaseInsensitive);
-        }
-
-        // The stream doesn't have enough characters for the keyword so we can't
-        // possibly match on it.
-        if content_left_len < len {
-            return None;
-        }
-
-        // We already handled the case where the stream has exactly the match we
-        // care about. Now we need to check in the case where the contents has
-        // at least one more character than the keyword.
-        //
-        // We care about this last general case because we need to peek to check
-        // that the last character in the match *isn't* an alphanumeric character
-        // or underscore, except if that last character is a space.
-        //
-        // This will keep us from matching 'Timer' as the keyword 'Time' with a
-        // left over of 'r' as well as keep us from matching 'char_' as 'Char'
-        // with a leftover of '_'
-        if content_left_len < len + 1 {
-            return None;
-        }
-
-        if let Some(peek_text) = self.peek(len + 1) {
-            match peek_text.chars().last() {
-                None => return None,
-                Some(last) => {
-                    if last.is_alphanumeric() || last == '_' && last != ' ' {
-                        return None;
-                    } else {
-                        return self.take(keyword_match_text, Comparator::CaseInsensitive);
-                    }
-                }
-            }
-        }
-
-        None
-    }
-
-    fn take_keyword(self) -> Option<(&'a str, VB6Token)> {
-
-        for entry in KEYWORD_TOKEN_LOOKUP_TABLE.entries()
-        {
-            if let Some(matching_text) = self.take_matching_text(*entry.0) {
-                return Some((matching_text, *entry.1));
-            }
-        }
-
-        None
-    }
-
-    fn take_variable_name(self) -> Option<(&'a str, VB6Token)> {
-        if self.peek(1)?.chars().next()?.is_ascii_alphabetic() {
-            let variable_text = self.take_ascii_underscore_alphanumerics()?;
-
-            return Some((variable_text, VB6Token::Identifier));
-        }
-
-        None
-    }
+    None
 }
 
 #[cfg(test)]
@@ -552,7 +584,7 @@ mod test {
 
     #[test]
     fn vb6_tokenize() {
-        use crate::vb6code::tokenize;
+        use crate::tokenize::tokenize;
         use crate::SourceStream;
 
         let mut input = SourceStream::new("", "Dim x As Integer");
@@ -577,7 +609,7 @@ mod test {
 
     #[test]
     fn vb6_string_as_end_of_stream_tokenize() {
-        use crate::vb6code::tokenize;
+        use crate::tokenize::tokenize;
         use crate::SourceStream;
 
         let mut input = SourceStream::new("", r#"x = "Test""#);
@@ -600,7 +632,7 @@ mod test {
 
     #[test]
     fn vb6_string_at_start_of_stream_tokenize() {
-        use crate::vb6code::tokenize;
+        use crate::tokenize::tokenize;
         use crate::SourceStream;
 
         let mut input = SourceStream::new("", r#""Text""#);
@@ -619,7 +651,7 @@ mod test {
 
     #[test]
     fn vb6_string_tokenize() {
-        use crate::vb6code::tokenize;
+        use crate::tokenize::tokenize;
         use crate::SourceStream;
 
         let mut input = SourceStream::new("", r#"x = "Test" 'This is a comment."#);
@@ -644,7 +676,7 @@ mod test {
 
     #[test]
     fn class_file_tokenize() {
-        use crate::vb6code::tokenize;
+        use crate::tokenize::tokenize;
         use crate::SourceStream;
 
         let source_code = "VERSION 1.0 CLASS
@@ -661,7 +693,7 @@ Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 ";
-    
+
         let mut input = SourceStream::new("", source_code);
         let result = tokenize(&mut input);
 
@@ -672,7 +704,10 @@ Attribute VB_Exposed = False
         let mut tokens = result.result.unwrap().into_iter();
 
         assert_eq!(tokens.len(), 99);
-        assert_eq!(tokens.next().unwrap(), ("VERSION", VB6Token::VersionKeyword));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("VERSION", VB6Token::VersionKeyword)
+        );
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
         assert_eq!(tokens.next().unwrap(), ("1", VB6Token::Number));
         assert_eq!(tokens.next().unwrap(), (".", VB6Token::PeriodOperator));
@@ -693,16 +728,25 @@ Attribute VB_Exposed = False
         assert_eq!(tokens.next().unwrap(), ("'True", VB6Token::Comment));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
         assert_eq!(tokens.next().unwrap(), ("    ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("Persistable", VB6Token::Identifier));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("Persistable", VB6Token::Identifier)
+        );
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
         assert_eq!(tokens.next().unwrap(), ("0", VB6Token::Number));
         assert_eq!(tokens.next().unwrap(), ("  ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("'NotPersistable", VB6Token::Comment));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("'NotPersistable", VB6Token::Comment)
+        );
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
         assert_eq!(tokens.next().unwrap(), ("    ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("DataBindingBehavior", VB6Token::Identifier));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("DataBindingBehavior", VB6Token::Identifier)
+        );
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
@@ -711,7 +755,10 @@ Attribute VB_Exposed = False
         assert_eq!(tokens.next().unwrap(), ("'vbNone", VB6Token::Comment));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
         assert_eq!(tokens.next().unwrap(), ("    ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("DataSourceBehavior", VB6Token::Identifier));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("DataSourceBehavior", VB6Token::Identifier)
+        );
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
@@ -720,49 +767,82 @@ Attribute VB_Exposed = False
         assert_eq!(tokens.next().unwrap(), ("'vbNone", VB6Token::Comment));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
         assert_eq!(tokens.next().unwrap(), ("    ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("MTSTransactionMode", VB6Token::Identifier));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("MTSTransactionMode", VB6Token::Identifier)
+        );
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
         assert_eq!(tokens.next().unwrap(), ("0", VB6Token::Number));
         assert_eq!(tokens.next().unwrap(), ("  ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("'NotAnMTSObject", VB6Token::Comment));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("'NotAnMTSObject", VB6Token::Comment)
+        );
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
         assert_eq!(tokens.next().unwrap(), ("END", VB6Token::EndKeyword));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(tokens.next().unwrap(), ("Attribute", VB6Token::AttributeKeyword));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("Attribute", VB6Token::AttributeKeyword)
+        );
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
         assert_eq!(tokens.next().unwrap(), ("VB_Name", VB6Token::Identifier));
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("\"Something\"", VB6Token::StringLiteral));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("\"Something\"", VB6Token::StringLiteral)
+        );
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(tokens.next().unwrap(), ("Attribute", VB6Token::AttributeKeyword));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("Attribute", VB6Token::AttributeKeyword)
+        );
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("VB_GlobalNameSpace", VB6Token::Identifier));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("VB_GlobalNameSpace", VB6Token::Identifier)
+        );
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
         assert_eq!(tokens.next().unwrap(), ("False", VB6Token::FalseKeyword));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(tokens.next().unwrap(), ("Attribute", VB6Token::AttributeKeyword));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("Attribute", VB6Token::AttributeKeyword)
+        );
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("VB_Creatable", VB6Token::Identifier));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("VB_Creatable", VB6Token::Identifier)
+        );
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
         assert_eq!(tokens.next().unwrap(), ("True", VB6Token::TrueKeyword));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(tokens.next().unwrap(), ("Attribute", VB6Token::AttributeKeyword));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("Attribute", VB6Token::AttributeKeyword)
+        );
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("VB_PredeclaredId", VB6Token::Identifier));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("VB_PredeclaredId", VB6Token::Identifier)
+        );
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
         assert_eq!(tokens.next().unwrap(), ("False", VB6Token::FalseKeyword));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(tokens.next().unwrap(), ("Attribute", VB6Token::AttributeKeyword));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("Attribute", VB6Token::AttributeKeyword)
+        );
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
         assert_eq!(tokens.next().unwrap(), ("VB_Exposed", VB6Token::Identifier));
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
@@ -771,12 +851,11 @@ Attribute VB_Exposed = False
         assert_eq!(tokens.next().unwrap(), ("False", VB6Token::FalseKeyword));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
         assert_eq!(tokens.next().unwrap(), ("", VB6Token::EOF));
-
     }
 
     #[test]
     fn class_file_tokenize_without_whitespace() {
-        use crate::vb6code::tokenize_without_whitespaces;
+        use crate::tokenize::tokenize_without_whitespaces;
         use crate::SourceStream;
 
         let source_code = "VERSION 1.0 CLASS
@@ -793,7 +872,7 @@ Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 ";
-    
+
         let mut input = SourceStream::new("", source_code);
         let result = tokenize_without_whitespaces(&mut input);
 
@@ -804,7 +883,10 @@ Attribute VB_Exposed = False
         let mut tokens = result.result.unwrap().into_iter();
 
         assert_eq!(tokens.len(), 62);
-        assert_eq!(tokens.next().unwrap(), ("VERSION", VB6Token::VersionKeyword));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("VERSION", VB6Token::VersionKeyword)
+        );
         assert_eq!(tokens.next().unwrap(), ("1", VB6Token::Number));
         assert_eq!(tokens.next().unwrap(), (".", VB6Token::PeriodOperator));
         assert_eq!(tokens.next().unwrap(), ("0", VB6Token::Number));
@@ -818,55 +900,98 @@ Attribute VB_Exposed = False
         assert_eq!(tokens.next().unwrap(), ("1", VB6Token::Number));
         assert_eq!(tokens.next().unwrap(), ("'True", VB6Token::Comment));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(tokens.next().unwrap(), ("Persistable", VB6Token::Identifier));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("Persistable", VB6Token::Identifier)
+        );
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens.next().unwrap(), ("0", VB6Token::Number));
-        assert_eq!(tokens.next().unwrap(), ("'NotPersistable", VB6Token::Comment));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("'NotPersistable", VB6Token::Comment)
+        );
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(tokens.next().unwrap(), ("DataBindingBehavior", VB6Token::Identifier));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("DataBindingBehavior", VB6Token::Identifier)
+        );
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens.next().unwrap(), ("0", VB6Token::Number));
         assert_eq!(tokens.next().unwrap(), ("'vbNone", VB6Token::Comment));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(tokens.next().unwrap(), ("DataSourceBehavior", VB6Token::Identifier));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("DataSourceBehavior", VB6Token::Identifier)
+        );
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens.next().unwrap(), ("0", VB6Token::Number));
         assert_eq!(tokens.next().unwrap(), ("'vbNone", VB6Token::Comment));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(tokens.next().unwrap(), ("MTSTransactionMode", VB6Token::Identifier));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("MTSTransactionMode", VB6Token::Identifier)
+        );
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens.next().unwrap(), ("0", VB6Token::Number));
-        assert_eq!(tokens.next().unwrap(), ("'NotAnMTSObject", VB6Token::Comment));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("'NotAnMTSObject", VB6Token::Comment)
+        );
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
         assert_eq!(tokens.next().unwrap(), ("END", VB6Token::EndKeyword));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(tokens.next().unwrap(), ("Attribute", VB6Token::AttributeKeyword));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("Attribute", VB6Token::AttributeKeyword)
+        );
         assert_eq!(tokens.next().unwrap(), ("VB_Name", VB6Token::Identifier));
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens.next().unwrap(), ("\"Something\"", VB6Token::StringLiteral));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("\"Something\"", VB6Token::StringLiteral)
+        );
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(tokens.next().unwrap(), ("Attribute", VB6Token::AttributeKeyword));
-        assert_eq!(tokens.next().unwrap(), ("VB_GlobalNameSpace", VB6Token::Identifier));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("Attribute", VB6Token::AttributeKeyword)
+        );
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("VB_GlobalNameSpace", VB6Token::Identifier)
+        );
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens.next().unwrap(), ("False", VB6Token::FalseKeyword));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(tokens.next().unwrap(), ("Attribute", VB6Token::AttributeKeyword));
-        assert_eq!(tokens.next().unwrap(), ("VB_Creatable", VB6Token::Identifier));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("Attribute", VB6Token::AttributeKeyword)
+        );
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("VB_Creatable", VB6Token::Identifier)
+        );
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens.next().unwrap(), ("True", VB6Token::TrueKeyword));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(tokens.next().unwrap(), ("Attribute", VB6Token::AttributeKeyword));
-        assert_eq!(tokens.next().unwrap(), ("VB_PredeclaredId", VB6Token::Identifier));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("Attribute", VB6Token::AttributeKeyword)
+        );
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("VB_PredeclaredId", VB6Token::Identifier)
+        );
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens.next().unwrap(), ("False", VB6Token::FalseKeyword));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(tokens.next().unwrap(), ("Attribute", VB6Token::AttributeKeyword));
+        assert_eq!(
+            tokens.next().unwrap(),
+            ("Attribute", VB6Token::AttributeKeyword)
+        );
         assert_eq!(tokens.next().unwrap(), ("VB_Exposed", VB6Token::Identifier));
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens.next().unwrap(), ("False", VB6Token::FalseKeyword));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
         assert_eq!(tokens.next().unwrap(), ("", VB6Token::EOF));
-
     }
-
 }
