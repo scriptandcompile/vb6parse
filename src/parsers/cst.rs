@@ -284,10 +284,6 @@ impl<'a> Parser<'a> {
                 Some(VB6Token::FunctionKeyword) => {
                     self.parse_function_statement();
                 }
-                // If statement: If condition Then ... End If
-                Some(VB6Token::IfKeyword) => {
-                    self.parse_if_statement();
-                }
                 // Variable declarations: Dim/Private/Public/Const/Static
                 Some(VB6Token::DimKeyword) 
                 | Some(VB6Token::PrivateKeyword)
@@ -397,33 +393,31 @@ impl<'a> Parser<'a> {
         }
         
         // Parse body until "End Sub"
-        while !self.is_at_end() {
-            if self.at_keyword(VB6Token::EndKeyword) {
-                // Look ahead to see if it's "End Sub"
-                if self.peek_next_keyword() == Some(VB6Token::SubKeyword) {
-                    // Consume "End"
-                    self.consume_token();
-                    
-                    // Consume any whitespace between "End" and "Sub"
-                    while self.at_token(VB6Token::Whitespace) {
-                        self.consume_token();
-                    }
-                    
-                    // Consume "Sub"
-                    self.consume_token();
-                    
-                    // Consume until newline (including it)
-                    while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
-                        self.consume_token();
-                    }
-                    if self.at_token(VB6Token::Newline) {
-                        self.consume_token();
-                    }
-                    break;
-                }
+        self.parse_code_block(|parser| {
+            parser.at_keyword(VB6Token::EndKeyword) 
+                && parser.peek_next_keyword() == Some(VB6Token::SubKeyword)
+        });
+        
+        // Consume "End Sub" and trailing tokens
+        if self.at_keyword(VB6Token::EndKeyword) {
+            // Consume "End"
+            self.consume_token();
+            
+            // Consume any whitespace between "End" and "Sub"
+            while self.at_token(VB6Token::Whitespace) {
+                self.consume_token();
             }
             
+            // Consume "Sub"
             self.consume_token();
+            
+            // Consume until newline (including it)
+            while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
+                self.consume_token();
+            }
+            if self.at_token(VB6Token::Newline) {
+                self.consume_token();
+            }
         }
         
         self.builder.finish_node(); // SubStatement
@@ -467,33 +461,31 @@ impl<'a> Parser<'a> {
         }
         
         // Parse body until "End Function"
-        while !self.is_at_end() {
-            if self.at_keyword(VB6Token::EndKeyword) {
-                // Look ahead to see if it's "End Function"
-                if self.peek_next_keyword() == Some(VB6Token::FunctionKeyword) {
-                    // Consume "End"
-                    self.consume_token();
-                    
-                    // Consume any whitespace between "End" and "Function"
-                    while self.at_token(VB6Token::Whitespace) {
-                        self.consume_token();
-                    }
-                    
-                    // Consume "Function"
-                    self.consume_token();
-                    
-                    // Consume until newline (including it)
-                    while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
-                        self.consume_token();
-                    }
-                    if self.at_token(VB6Token::Newline) {
-                        self.consume_token();
-                    }
-                    break;
-                }
+        self.parse_code_block(|parser| {
+            parser.at_keyword(VB6Token::EndKeyword) 
+                && parser.peek_next_keyword() == Some(VB6Token::FunctionKeyword)
+        });
+        
+        // Consume "End Function" and trailing tokens
+        if self.at_keyword(VB6Token::EndKeyword) {
+            // Consume "End"
+            self.consume_token();
+            
+            // Consume any whitespace between "End" and "Function"
+            while self.at_token(VB6Token::Whitespace) {
+                self.consume_token();
             }
             
+            // Consume "Function"
             self.consume_token();
+            
+            // Consume until newline (including it)
+            while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
+                self.consume_token();
+            }
+            if self.at_token(VB6Token::Newline) {
+                self.consume_token();
+            }
         }
         
         self.builder.finish_node(); // FunctionStatement
@@ -605,41 +597,45 @@ impl<'a> Parser<'a> {
             }
             
             // Parse body until "End If", "Else", or "ElseIf"
+            self.parse_code_block(|parser| {
+                (parser.at_keyword(VB6Token::EndKeyword) && parser.peek_next_keyword() == Some(VB6Token::IfKeyword))
+                    || parser.at_keyword(VB6Token::ElseIfKeyword)
+                    || parser.at_keyword(VB6Token::ElseKeyword)
+            });
+            
+            // Handle ElseIf and Else clauses
             while !self.is_at_end() {
-                if self.at_keyword(VB6Token::EndKeyword) {
-                    // Look ahead to see if it's "End If"
-                    if self.peek_next_keyword() == Some(VB6Token::IfKeyword) {
-                        // Consume "End"
-                        self.consume_token();
-                        
-                        // Consume any whitespace between "End" and "If"
-                        while self.at_token(VB6Token::Whitespace) {
-                            self.consume_token();
-                        }
-                        
-                        // Consume "If"
-                        self.consume_token();
-                        
-                        // Consume until newline (including it)
-                        while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
-                            self.consume_token();
-                        }
-                        if self.at_token(VB6Token::Newline) {
-                            self.consume_token();
-                        }
-                        break;
-                    }
-                } else if self.at_keyword(VB6Token::ElseIfKeyword) {
+                if self.at_keyword(VB6Token::ElseIfKeyword) {
                     // Parse ElseIf clause
                     self.parse_elseif_clause();
-                    continue;
                 } else if self.at_keyword(VB6Token::ElseKeyword) {
                     // Parse Else clause
                     self.parse_else_clause();
-                    continue;
+                } else {
+                    break;
+                }
+            }
+            
+            // Consume "End If" and trailing tokens
+            if self.at_keyword(VB6Token::EndKeyword) {
+                // Consume "End"
+                self.consume_token();
+                
+                // Consume any whitespace between "End" and "If"
+                while self.at_token(VB6Token::Whitespace) {
+                    self.consume_token();
                 }
                 
+                // Consume "If"
                 self.consume_token();
+                
+                // Consume until newline (including it)
+                while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
+                    self.consume_token();
+                }
+                if self.at_token(VB6Token::Newline) {
+                    self.consume_token();
+                }
             }
         }
         
@@ -674,16 +670,11 @@ impl<'a> Parser<'a> {
         }
         
         // Parse body until "End If", "Else", or another "ElseIf"
-        while !self.is_at_end() {
-            // Stop if we hit another ElseIf, Else, or End If
-            if self.at_keyword(VB6Token::ElseIfKeyword) 
-                || self.at_keyword(VB6Token::ElseKeyword) 
-                || (self.at_keyword(VB6Token::EndKeyword) && self.peek_next_keyword() == Some(VB6Token::IfKeyword)) {
-                break;
-            }
-            
-            self.consume_token();
-        }
+        self.parse_code_block(|parser| {
+            parser.at_keyword(VB6Token::ElseIfKeyword) 
+                || parser.at_keyword(VB6Token::ElseKeyword) 
+                || (parser.at_keyword(VB6Token::EndKeyword) && parser.peek_next_keyword() == Some(VB6Token::IfKeyword))
+        });
         
         self.builder.finish_node(); // ElseIfClause
     }
@@ -706,16 +697,57 @@ impl<'a> Parser<'a> {
         }
         
         // Parse body until "End If"
+        self.parse_code_block(|parser| {
+            parser.at_keyword(VB6Token::EndKeyword) && parser.peek_next_keyword() == Some(VB6Token::IfKeyword)
+        });
+        
+        self.builder.finish_node(); // ElseClause
+    }
+    
+    /// Parse a code block, consuming tokens until a termination condition is met.
+    /// 
+    /// This is a generic code block parser that can handle different termination conditions:
+    /// - End Sub, End Function, End If, etc.
+    /// - ElseIf or Else (for If statements)
+    /// 
+    /// # Arguments
+    /// * `stop_conditions` - A closure that returns true when the block should stop parsing
+    fn parse_code_block<F>(&mut self, stop_conditions: F) 
+    where 
+        F: Fn(&Parser) -> bool 
+    {
         while !self.is_at_end() {
-            // Stop if we hit End If
-            if self.at_keyword(VB6Token::EndKeyword) && self.peek_next_keyword() == Some(VB6Token::IfKeyword) {
+            if stop_conditions(self) {
                 break;
             }
             
-            self.consume_token();
+            // Dispatch to appropriate parsing methods based on current token
+            match self.current_token() {
+                // If statement: If condition Then ... End If
+                Some(VB6Token::IfKeyword) => {
+                    self.parse_if_statement();
+                }
+                // Variable declarations: Dim/Private/Public/Const/Static
+                Some(VB6Token::DimKeyword) 
+                | Some(VB6Token::PrivateKeyword)
+                | Some(VB6Token::PublicKeyword)
+                | Some(VB6Token::ConstKeyword)
+                | Some(VB6Token::StaticKeyword) => {
+                    self.parse_declaration();
+                }
+                // Whitespace and newlines - consume directly
+                Some(VB6Token::Whitespace) 
+                | Some(VB6Token::Newline)
+                | Some(VB6Token::EndOfLineComment)
+                | Some(VB6Token::RemComment) => {
+                    self.consume_token();
+                }
+                // Anything else - consume as unknown for now
+                _ => {
+                    self.consume_token_as_unknown();
+                }
+            }
         }
-        
-        self.builder.finish_node(); // ElseClause
     }
     
     // Helper methods
