@@ -225,6 +225,12 @@ pub fn tokenize<'a>(
     let mut failures = vec![];
     let mut tokens = Vec::new();
 
+    // Always start from the beginning of the source file.
+    // Some files may have already been partially parsed (eg, to extract
+    // attribute statements) so we need to reset the stream since we want
+    // these tokens included in the final token stream.
+    input.reset_to_start();
+
     loop {
         if input.is_empty() {
             tokens.push(("", VB6Token::EOF));
@@ -366,7 +372,7 @@ fn take_line_comment<'a>(
     match input.take_until_newline() {
         None => None,
         Some((comment, newline_optional)) => {
-            let comment_tuple = (comment, VB6Token::Comment);
+            let comment_tuple = (comment, VB6Token::EndOfLineComment);
 
             match newline_optional {
                 None => Some((comment_tuple, None)),
@@ -670,7 +676,7 @@ mod test {
         assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
         assert_eq!(tokens[4], ("\"Test\"", VB6Token::StringLiteral));
         assert_eq!(tokens[5], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[6], ("'This is a comment.", VB6Token::Comment));
+        assert_eq!(tokens[6], ("'This is a comment.", VB6Token::EndOfLineComment));
         assert_eq!(tokens[7], ("", VB6Token::EOF));
     }
 
@@ -725,7 +731,7 @@ Attribute VB_Exposed = False
         assert_eq!(tokens.next().unwrap(), ("-", VB6Token::SubtractionOperator));
         assert_eq!(tokens.next().unwrap(), ("1", VB6Token::Number));
         assert_eq!(tokens.next().unwrap(), ("  ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("'True", VB6Token::Comment));
+        assert_eq!(tokens.next().unwrap(), ("'True", VB6Token::EndOfLineComment));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
         assert_eq!(tokens.next().unwrap(), ("    ", VB6Token::Whitespace));
         assert_eq!(
@@ -739,7 +745,7 @@ Attribute VB_Exposed = False
         assert_eq!(tokens.next().unwrap(), ("  ", VB6Token::Whitespace));
         assert_eq!(
             tokens.next().unwrap(),
-            ("'NotPersistable", VB6Token::Comment)
+            ("'NotPersistable", VB6Token::EndOfLineComment)
         );
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
         assert_eq!(tokens.next().unwrap(), ("    ", VB6Token::Whitespace));
@@ -752,7 +758,7 @@ Attribute VB_Exposed = False
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
         assert_eq!(tokens.next().unwrap(), ("0", VB6Token::Number));
         assert_eq!(tokens.next().unwrap(), ("  ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("'vbNone", VB6Token::Comment));
+        assert_eq!(tokens.next().unwrap(), ("'vbNone", VB6Token::EndOfLineComment));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
         assert_eq!(tokens.next().unwrap(), ("    ", VB6Token::Whitespace));
         assert_eq!(
@@ -764,7 +770,7 @@ Attribute VB_Exposed = False
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
         assert_eq!(tokens.next().unwrap(), ("0", VB6Token::Number));
         assert_eq!(tokens.next().unwrap(), ("  ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("'vbNone", VB6Token::Comment));
+        assert_eq!(tokens.next().unwrap(), ("'vbNone", VB6Token::EndOfLineComment));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
         assert_eq!(tokens.next().unwrap(), ("    ", VB6Token::Whitespace));
         assert_eq!(
@@ -778,7 +784,7 @@ Attribute VB_Exposed = False
         assert_eq!(tokens.next().unwrap(), ("  ", VB6Token::Whitespace));
         assert_eq!(
             tokens.next().unwrap(),
-            ("'NotAnMTSObject", VB6Token::Comment)
+            ("'NotAnMTSObject", VB6Token::EndOfLineComment)
         );
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
         assert_eq!(tokens.next().unwrap(), ("END", VB6Token::EndKeyword));
@@ -898,7 +904,7 @@ Attribute VB_Exposed = False
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens.next().unwrap(), ("-", VB6Token::SubtractionOperator));
         assert_eq!(tokens.next().unwrap(), ("1", VB6Token::Number));
-        assert_eq!(tokens.next().unwrap(), ("'True", VB6Token::Comment));
+        assert_eq!(tokens.next().unwrap(), ("'True", VB6Token::EndOfLineComment));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
         assert_eq!(
             tokens.next().unwrap(),
@@ -908,7 +914,7 @@ Attribute VB_Exposed = False
         assert_eq!(tokens.next().unwrap(), ("0", VB6Token::Number));
         assert_eq!(
             tokens.next().unwrap(),
-            ("'NotPersistable", VB6Token::Comment)
+            ("'NotPersistable", VB6Token::EndOfLineComment)
         );
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
         assert_eq!(
@@ -917,7 +923,7 @@ Attribute VB_Exposed = False
         );
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens.next().unwrap(), ("0", VB6Token::Number));
-        assert_eq!(tokens.next().unwrap(), ("'vbNone", VB6Token::Comment));
+        assert_eq!(tokens.next().unwrap(), ("'vbNone", VB6Token::EndOfLineComment));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
         assert_eq!(
             tokens.next().unwrap(),
@@ -925,7 +931,7 @@ Attribute VB_Exposed = False
         );
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens.next().unwrap(), ("0", VB6Token::Number));
-        assert_eq!(tokens.next().unwrap(), ("'vbNone", VB6Token::Comment));
+        assert_eq!(tokens.next().unwrap(), ("'vbNone", VB6Token::EndOfLineComment));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
         assert_eq!(
             tokens.next().unwrap(),
@@ -935,7 +941,7 @@ Attribute VB_Exposed = False
         assert_eq!(tokens.next().unwrap(), ("0", VB6Token::Number));
         assert_eq!(
             tokens.next().unwrap(),
-            ("'NotAnMTSObject", VB6Token::Comment)
+            ("'NotAnMTSObject", VB6Token::EndOfLineComment)
         );
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
         assert_eq!(tokens.next().unwrap(), ("END", VB6Token::EndKeyword));
