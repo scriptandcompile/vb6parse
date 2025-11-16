@@ -39,6 +39,10 @@ impl<'a> SourceStream<'a> {
         }
     }
 
+    pub fn reset_to_start(&mut self) {
+        self.offset = 0;
+    }
+
     /// Moves the offset forward by `count` characters in the stream.
     pub fn forward(&mut self, count: usize) {
         let end_offset = self.offset + count;
