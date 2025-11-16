@@ -530,57 +530,57 @@ tokens:
   source_file: "./tests/data/vb6-code/Brightness-effect/Part 2 - API - GetPixel and SetPixel/Brightness2.frm"
   tokens:
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Copyright 2018 by Tanner Helland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' www.tannerhelland.com"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The source code in this project is licensed under a Simplified BSD license."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
       - Newline
     - - "'New API functions"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -672,7 +672,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Private Declare Function SetPixel Lib \"gdi32\" (ByVal hDC As Long, ByVal x As Long, ByVal y As Long, ByVal crColor As Long) As Long"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -806,7 +806,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Change the AutoRedraw property of the picture box based on the check box's value"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -880,7 +880,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Get the text value, convert it to a percent of type 'Single,' and send it to the subroutine"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -946,7 +946,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'A simple subroutine that will change the brightness of a picturebox using nothing but PSet and Point."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -1022,7 +1022,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Coordinate variables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1064,7 +1064,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Color variables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1120,7 +1120,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Build a look-up table for all possible brightness values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1206,7 +1206,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Calculate the brightness for pixel value x"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1238,7 +1238,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Make sure that the calculated value is between 0 and 255 (so we don't get an error)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1288,7 +1288,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Temporary width and height variables are faster than accessing the Scale properties over and over again"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1382,7 +1382,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'run a loop through the picture to change every pixel"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1444,7 +1444,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Get the color (using GetPixel) and extract the red, green, and blue values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1550,19 +1550,19 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Use the values in the look-up table to quickly change the brightness values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'of the selected colors.  The look-up table is much faster than doing the math"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'over and over for each individual pixel."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1632,7 +1632,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Now set that data using the SetPixelV command"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1706,7 +1706,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'refresh the picture box every 25 lines (a nice progress bar effect if AutoRedraw is set)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1804,7 +1804,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'final picture refresh"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1886,7 +1886,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Standardized routines for color extraction"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -2136,7 +2136,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Standardized routine for converting to absolute byte values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public

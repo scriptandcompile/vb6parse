@@ -429,51 +429,51 @@ tokens:
   source_file: Gradient.frm
   tokens:
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Copyright 2018 by Tanner Helland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' www.tannerhelland.com"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The source code in this project is licensed under a Simplified BSD license."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -481,7 +481,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Any time the combo box is changed, redraw the gradient"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -617,7 +617,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Generate the combo box options upon form load"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -699,7 +699,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When the user clicks the form, flip the gradient 180 degrees"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -773,7 +773,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Use a temporary variable to store the value of the first color"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -815,7 +815,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Change the first color to the second color"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -843,7 +843,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Change the second color to the first color"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -867,7 +867,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Redraw the gradient"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -921,7 +921,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Redraw the gradient if the form is resized"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -991,15 +991,15 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When the user clicks on one of the colored picture boxes, use the CommonDialog"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'control to let them select a new color.  After the color has been selected,"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'redraw the new gradient"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1431,11 +1431,11 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'This gradient subroutine could be easily changed for drawing on picture boxes"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'(and with several API calls, on other objects as well!)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -1529,7 +1529,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'R, G, B variables for each end of the gradient"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1631,7 +1631,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Fill our RGB values from the longs supplied by the calling routine"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1821,7 +1821,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Always use variables for storing object values - it's loads faster"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1899,7 +1899,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Several calculation variables for generating the gradient"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1955,7 +1955,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Vertical gradient"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1987,31 +1987,31 @@ tokens:
     - - "        "
       - Whitespace
     - - "'First, create a calculation variable for determining the step"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'between each level of the gradient (large if the destination form"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'is small, small if the destination form is large); for example, this"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'value will be exactly 1 for each variable if the form is 255 pixels"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'tall and the gradient is going from pure black to pure white"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2129,13 +2129,13 @@ tokens:
     - - "        "
       - Whitespace
     - - "'If the second value is lower then the first value, make the step"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'negative (so that we subtract as we go along, not add)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2253,19 +2253,19 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Lastly, run a loop through the height of the form, incrementing (or if"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'negative, decrementing) the gradient color according to the y-coordinate"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'of the current line of the form"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2461,13 +2461,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Horizontal gradients work exactly the same, except that they (obviously)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'run from left-to-right instead of up-and-down"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "

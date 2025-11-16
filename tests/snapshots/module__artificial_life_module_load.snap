@@ -18,14 +18,30 @@ name:
 tokens:
   source_file: "./tests/data/vb6-code/Artificial-life/Declarations.bas"
   tokens:
+    - - Attribute
+      - AttributeKeyword
+    - - " "
+      - Whitespace
+    - - VB_Name
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "\"Declarations\""
+      - StringLiteral
+    - - "\r\n"
+      - Newline
     - - "\r\n"
       - Newline
     - - "'API calls"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Standard image blitting; faster than VB's internal PaintPicture method"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -225,7 +241,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Standard pixel setting; much faster than VB's internal PSet and Point methods"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -427,11 +443,11 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Size of the map; these dimensions can theoretically be changed, but you'll need"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' to manually resize the various picture boxes to match"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -493,7 +509,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Amount of food to generate every round"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -513,7 +529,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'How much energy the food grants"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -533,7 +549,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Default starting energy for each creature"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -553,7 +569,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Regenerate food every (foodRegen) number of turns"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -575,11 +591,11 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Mutation values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Whether or not to allow reproduction (a.k.a. the \"celibacy\" variable)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -599,7 +615,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'How many turns must pass before creatures are allowed to reproduce"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -619,7 +635,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'How many potential mutations to cause at reproduction time"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -641,7 +657,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Amount of creatures to start with"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -663,7 +679,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'The food array"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -689,7 +705,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Whether or not to draw deceased creatures"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -711,7 +727,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Loop variables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public

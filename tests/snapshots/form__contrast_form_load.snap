@@ -527,51 +527,51 @@ tokens:
   source_file: "./tests/data/vb6-code/Contrast-effect/Contrast.frm"
   tokens:
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Copyright 2018 by Tanner Helland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' www.tannerhelland.com"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The source code in this project is licensed under a Simplified BSD license."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -599,7 +599,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Draw the initial effect with a default value, then update the image"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -733,7 +733,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Windows common dialog interface"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -783,13 +783,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'VB6's built-in image loader (which wraps an ancient OLE loader) only supports a"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' subset of modern image file types."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -949,7 +949,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Load the image and refresh the effect"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -997,7 +997,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'If a null string is passed, simply paint an unmodified copy of the backbuffer into the foreground buffer"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1107,7 +1107,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Copy the image, automatically resized, from the background picture box to the foreground one"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1399,19 +1399,19 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Resize the form to automatically contain the new picture box dimensions."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' (This performs some sloppy checks to keep the form from resizing larger than the primary display,"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'  but it is *not* good code - a proper solution would involve the AdjustWindowRect() API or similar!)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1913,11 +1913,11 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'To keep this subroutine simple, the source and destination picture boxes are assumed to be the same size."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' If they are NOT the same size, you will need to use the minimum bounds (width and height) to avoid errors."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -1991,37 +1991,37 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Contrast uses a very simple formula:"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' - Positive contrast pushes values away from the midtone (127)."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' - Negative contrast pushes values toward the midtone (127)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'Because a universal adjustment is applied to each channel and pixel in the image, we can use a lookup table"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' to greatly improve performance."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2169,13 +2169,13 @@ tokens:
     - - "        "
       - Whitespace
     - - "'This line contains the formula for basic contrast correction.  We will calculate contrast for each possible input value"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "' (0 to 255) and store it to a table.  Then we can use this table to quickly modify the entire image."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2243,7 +2243,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Clamp values to 0, 255"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2335,7 +2335,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Store this value in the lookup table"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2379,7 +2379,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Use the FastDrawing class to retrieve the image's pixels into a standard VB array"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2559,7 +2559,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Now all we have to do is pass each channel value in the image through our lookup table"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2681,7 +2681,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Modify each of red, green, and blue"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2877,7 +2877,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Paint the modified pixels onto the destination picture box"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "

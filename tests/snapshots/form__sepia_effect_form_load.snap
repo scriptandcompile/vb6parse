@@ -478,51 +478,51 @@ tokens:
   source_file: Sepia.frm
   tokens:
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Copyright 2018 by Tanner Helland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' www.tannerhelland.com"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The source code in this project is licensed under a Simplified BSD license."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -540,7 +540,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Copy the original image to the foreground picture box"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -580,7 +580,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Apply a sepia effect to the image"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -660,7 +660,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Draw the initial effect with a default value, then update the image"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -788,7 +788,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Windows common dialog interface"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -838,13 +838,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'VB6's built-in image loader (which wraps an ancient OLE loader) only supports a"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' subset of modern image file types."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1032,7 +1032,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'If a null string is passed, simply paint an unmodified copy of the backbuffer into the foreground buffer"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1142,7 +1142,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Copy the image, automatically resized, from the background picture box to the foreground one"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1434,19 +1434,19 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Resize the form to automatically contain the new picture box dimensions."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' (This performs some sloppy checks to keep the form from resizing larger than the primary display,"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'  but it is *not* good code - a proper solution would involve the AdjustWindowRect() API or similar!)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1830,7 +1830,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Apply a sepia (or \"antique\") filter to an image"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -1908,7 +1908,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'This array will hold the image's pixel data"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1940,7 +1940,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Coordinate variables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1982,7 +1982,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Image dimensions"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2024,7 +2024,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Instantiate a FastDrawing class and gather the image's data (into ImageData())"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2128,7 +2128,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'These variables will hold original pixel color values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2196,7 +2196,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'These variables will hold transformed pixel color values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2250,19 +2250,19 @@ tokens:
     - - "    "
       - Whitespace
     - - "'As part of this transformation, we're going to adjust gamma values."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' This look-up table will help us do that quickly"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' (Without this, the image will be very dim and difficult to see)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2402,7 +2402,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "' 1.6 is the gamma adjustment"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2530,7 +2530,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Run a quick loop through the image, adjusting pixel values as we go"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2738,7 +2738,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Calculate a gray value programmatically"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2786,7 +2786,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Blend each color value with gray (reduces saturation)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2894,13 +2894,13 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Mix and match color channels to create the \"sepia\" coloring"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "' (This has the unintended side-effect of darkening the pixels as well)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3008,19 +3008,19 @@ tokens:
     - - "        "
       - Whitespace
     - - "'To fix the darkening, multiply everything by 1.75. Using multiplication"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "' instead of addition means that bright colors become brighter, but dark"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "' colors stay dark."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3104,7 +3104,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Make sure all our values will fit inside the look-up table"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3212,13 +3212,13 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Use our previously generated look-up table to apply a gamma ramp to"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "' the colors"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3284,7 +3284,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Set the new color values into the pixel array and continue with the next one"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3408,7 +3408,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Draw the new image data to the screen"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "

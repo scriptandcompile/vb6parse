@@ -941,91 +941,91 @@ tokens:
   source_file: frmScanner.frm
   tokens:
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Copyright 2018 by Tanner Helland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' www.tannerhelland.com"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'This project includes code for basic scanner interaction.  It's primarily an interface to the"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' \"EZTW32\" DLL file, which is required because VB does not have native scanner support."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The EZTW32 library is a free, public domain TWAIN32-compliant library.  You can learn more"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' about it at http://eztwain.com/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'This project was designed against v1.19 of the EZTW32 library (2009.02.22).  It may not work with"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' other versions of the library.  Additional documentation regarding the use of EZTW32 is"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' available from the EZTW32 developers at http://eztwain.com/ezt1_download.htm"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The source code in this project is licensed under a Simplified BSD license."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -1043,7 +1043,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'EZTW32 functions for interfacing with a scanner"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1209,11 +1209,11 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'API calls for explicitly allocating DLLs.  These allow you to load a DLL from an arbitrary location"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' (i.e. without manually copying it into your system directory)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1331,7 +1331,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'API calls for resizing an image (faster and more accurate than VB's PaintPicture function)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1667,7 +1667,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Used to store the memory address of the EZTW32 library once it's been loaded"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -1689,7 +1689,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Location of the project's folder (used to find the required DLL)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -1711,7 +1711,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Whether or not a valid scanner is available for use"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -1753,7 +1753,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'If this is not the first scan the user has performed, hide the \"successful scan\" label"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1779,7 +1779,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Make sure that the scanner was successfully found before attempting to scan an image"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1891,7 +1891,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Basic scanner capture code"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1947,19 +1947,19 @@ tokens:
     - - "    "
       - Whitespace
     - - "'ScanCheck is used to store the return values of the EZTW32.dll scanner functions.  We start by setting it"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' to an arbitrary value that only we know; if an error occurs and this value is still present, it means an"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' error occurred outside of the EZTW32 library."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1985,7 +1985,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'A temporary file is required by the scanner; we will place it in the project folder, then delete it when finished"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2017,7 +2017,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'This line uses the EZTW32.dll file to scan the image and send it to a temporary file"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2057,7 +2057,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'If the image was successfully scanned, load it into the available picture box"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2113,7 +2113,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Be polite and remove the temporary file acquired from the scanner"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2133,7 +2133,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Resize the image if the user has requested it"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2163,7 +2163,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'...no resize"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -2225,7 +2225,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'...resize"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -2253,7 +2253,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Setting the HALFTONE mode results in a slower, but higher-quality image resize"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -2419,7 +2419,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Let the user know that everything worked"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2447,7 +2447,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Return focus to this project"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2469,7 +2469,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'If the scan was unsuccessful, let the user know what happened"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2509,7 +2509,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Something went wrong"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - ScanError
@@ -2777,7 +2777,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'This button allows the user to select which scanner they want to use.  If the user does not select a scanner, the default system scanner will be used."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2803,7 +2803,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Only launch the scanner select form if the EZTW32.dll file was successfully found at program load"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2847,7 +2847,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'If the EZTW32.dll file doesn't exist..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2947,7 +2947,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When the project is first loaded, several parameters need to be determined."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2973,7 +2973,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Remember the folder from which the program was launched"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3055,13 +3055,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'This code allows us to load the scanner DLL from any location; this is easier than forcing the user to"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' copy the file into their system directory.  However, it requires a bit of extra code."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3239,7 +3239,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Unload the scanner DLL from memory."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "

@@ -515,57 +515,57 @@ tokens:
   source_file: "./tests/data/vb6-code/Brightness-effect/Part 4 - Even faster DIBs/Brightness.frm"
   tokens:
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Copyright 2018 by Tanner Helland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' www.tannerhelland.com"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The source code in this project is licensed under a Simplified BSD license."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
       - Newline
     - - "'Temporary brightness variable"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -587,7 +587,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Subroutine for rapidly altering an image's brightness value (includes progress bar effect)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -701,7 +701,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Image data"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -761,7 +761,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Build a look-up table of all 256 possible brightness values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -855,7 +855,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Instantiate a FastDrawing class"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -883,7 +883,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Get the image information"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -913,7 +913,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Temporary width and height variables are faster"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -951,13 +951,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'I don't know why the width must always be (width - 1); this seems to be a"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'strange byproduct of using DIB sections in VB.  Go figure."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1027,7 +1027,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'run a loop through the picture to change every pixel"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1263,7 +1263,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'refresh the picture box every 25 lines (a nice progress bar effect)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1363,7 +1363,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'final picture refresh"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1425,7 +1425,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'free up the memory we borrowed for our image array"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1449,7 +1449,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Subroutine for altering an image's brightness as fast as is possible in VB (using data streams)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -1549,7 +1549,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Image data"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1609,7 +1609,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Build a look-up table of all 256 possible brightness values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1703,7 +1703,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Instantiate a FastDrawing class"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1731,7 +1731,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Get the image data (in stream format)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1761,7 +1761,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Get the stream length from the image"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1809,7 +1809,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'run a loop through the picture to change every pixel"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1883,7 +1883,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Draw the picture"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1945,7 +1945,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'free up the memory we borrowed for our image array"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1969,7 +1969,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Standard sub for converting to absolute byte values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -2167,7 +2167,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Get the brightness value and send it to the sub"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2309,7 +2309,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Get the brightness value and send it to the subroutine"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "

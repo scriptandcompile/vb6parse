@@ -973,51 +973,51 @@ tokens:
   source_file: Histogram.frm
   tokens:
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Copyright 2018 by Tanner Helland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' www.tannerhelland.com"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The source code in this project is licensed under a Simplified BSD license."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -1033,33 +1033,33 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Throughout this form, the following array locations refer to a type of histogram:"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'0 - Red"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'1 - Green"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'2 - Blue"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'3 - Luminance"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'This applies especially to the hData() and hMax() arrays"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
       - Newline
     - - "'Histogram data for each particular type (r/g/b/luminance)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -1107,7 +1107,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Maximum histogram values (r/g/b/luminance)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -1141,7 +1141,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Loop and position variables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -1177,11 +1177,11 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When either combo box is used, remember what was selected and then draw the new"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'histogram"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1323,7 +1323,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Generate the histogram data upon form load (we only need to do it once per image)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1359,13 +1359,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Clear out the combo box that displays histogram sources and fill it with"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'appropriate choices"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1437,7 +1437,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Set the current combo box option to be whatever we used last"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1465,13 +1465,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Clear out the combo box that displays histogram drawing methods and fill it"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'with appropriate choices"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1515,7 +1515,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Set the current combo box option to be whatever we used last"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1551,35 +1551,35 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Subroutine to draw a histogram.  hType tells us what histogram to draw:"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'0 - Red"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'1 - Green"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'2 - Blue"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'3 - Luminance"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'drawMethod tells us what kind of histogram to draw:"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'0 - Connected lines (like a line graph)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'1 - Solid bars (like a bar graph)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1637,7 +1637,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Clear out whatever was there before"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1657,19 +1657,19 @@ tokens:
     - - "    "
       - Whitespace
     - - "'tHeight is used to determine the height of the maximum value in the"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'histogram.  We want it to be slightly shorter than the height of the"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'picture box; this way the tallest histogram value fills the entire picture"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1723,7 +1723,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'LastX and LastY are used to draw a connecting line between histogram points"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1765,13 +1765,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'The type of histogram we're drawing will determine the color of the histogram"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'line - we'll make it match what we're drawing (red/green/blue/black)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1791,7 +1791,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Red"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1843,7 +1843,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Green"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1895,7 +1895,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Blue"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1947,7 +1947,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Luminance"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2013,13 +2013,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Now draw a little gradient below the histogram window (just 'cause Photoshop"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'does it and it adds a nice touch, hehe ;)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2047,7 +2047,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Draw a gradient from black to the color of the current histogram model"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2103,7 +2103,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'For luminance, draw a gradient from black to white"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2181,7 +2181,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Now we'll draw the histogram.  Pay careful attention to this section of code"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2191,19 +2191,19 @@ tokens:
     - - "    "
       - Whitespace
     - - "'For the first point there is no last 'x' or 'y', so we'll just make it the"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'same as the first value in the histogram. (We care about this only if we're"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'drawing a \"connected lines\" type of histogram.)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2287,7 +2287,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Run a loop through every histogram value..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2319,31 +2319,31 @@ tokens:
     - - "        "
       - Whitespace
     - - "'This is the most complicated line in the project.  The y-value of the"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'histogram is drawn as a percentage (RData(x) / MaxVal) * tHeight) with"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'tHeight being the tallest possible value (when RData(x) = MaxVal).  We"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'then subtract that value from tHeight because y values INCREASE as we"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'move DOWN a picture box - remember that (0,0) is in the top left."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2409,7 +2409,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'For connecting lines..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2437,7 +2437,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Then draw a line from the last (x,y) to the current (x,y)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -2509,7 +2509,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'For a bar graph..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2537,7 +2537,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Draw a line from the bottom of the picture box to the calculated y-value"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -2605,7 +2605,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Last but not least, generate the statistics at the bottom of the form"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2615,7 +2615,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Total number of pixels"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2773,7 +2773,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Maximum value"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2849,11 +2849,11 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When the mouse moves over the histogram, display the level and count for the histogram"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'entry at the x-value over which the mouse passes"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -3005,7 +3005,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'This array will hold the image's pixel data"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3037,7 +3037,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Image dimensions"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3079,7 +3079,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Instantiate a FastDrawing class and gather the image's data (into ImageData())"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3195,7 +3195,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'These variables will hold temporary histogram values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3265,13 +3265,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'If the histogram has already been used, we need to clear out all the"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'maximum values and histogram values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3399,13 +3399,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Run a quick loop through the image, gathering what we need to"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'calculate our histogram"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3519,7 +3519,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'We have to gather the red, green, and blue in order to calculate luminance"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3619,19 +3619,19 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Rather than generate authentic luminance (which requires an HSL"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'conversion routine), we'll use the shortcut formula - averaging"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'R, G, and B.  This is plenty accurate for a project like this."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3679,25 +3679,25 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Increment each value in the array, depending on its present value;"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'this will let us see how many of each color value (and luminance"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'value) there is in the image"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'Red"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3749,7 +3749,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Green"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3801,7 +3801,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Blue"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3853,7 +3853,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Luminance"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3929,7 +3929,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Run a quick loop through the completed array to find maximum values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3961,7 +3961,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Red"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -4037,7 +4037,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Green"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -4113,7 +4113,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Blue"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -4189,7 +4189,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Luminance"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -4279,19 +4279,19 @@ tokens:
     - - "    "
       - Whitespace
     - - "'When all has been completed, off we go to draw the histogram.  Yay."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'We'll always draw the luminance histogram first; if the user has already looked"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'at a particular histogram, remember which one and display it instead."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "

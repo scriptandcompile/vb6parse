@@ -474,163 +474,163 @@ tokens:
   source_file: "./tests/data/vb6-code/Curves-effect/Curves.frm"
   tokens:
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Copyright 2018 by Tanner Helland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' www.tannerhelland.com"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The source code in this project is licensed under a Simplified BSD license."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Description:"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'This project demonstrates how to use a cubic spline to adjust image levels"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' (nearly identical to Photoshop's method).  The code is well-commented, but there are"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' some fairly involved math sections.  Don't feel bad if you don't understand all the details!"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Despite the complexity, however, the main routine is a (fairly simple) complete sub that"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' could be dropped into any VB project after a few minor adjustments."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Because a large portion of this project relies on DIB sections, I would recommend"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' that you first read \"From PSet to DIB Sections - your comprehensive guide to VB"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' Graphics Programming.\"  This article can be downloaded from several places, most"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' notably http://www.tannerhelland.com/42/vb-graphics-programming-3/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Also, I owe GREAT thanks to the original author of the cubic spline routine I've used"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' (Jason Bullen)."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' His original cubic spline code can be downloaded from:"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' http://www.planetsourcecode.com/vb/scripts/ShowCode.asp?txtCodeId=11488&lngWId=1"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'**************************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' JASON'S ORIGINAL CUBIC SPLINE CODE COMMENTS:"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' Here is an absolute minimum Cubic Spline routine."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' It's a VB rewrite from a Java applet I found by by Anthony Alto 4/25/99"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' Computes coefficients based on equations mathematically derived from the curve"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' constraints.   i.e. :"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'    curves meet at knots (predefined points)  - These must be sorted by X"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'    first derivatives must be equal at knots"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'    second derivatives must be equal at knots"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'**************************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -648,7 +648,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Modified cubic spline variables:"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -778,7 +778,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Tanner's new variables:"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -798,7 +798,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'Track mouse status between MouseDown and MouseMove events"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -818,7 +818,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Currently selected knot in the spline"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -854,7 +854,7 @@ tokens:
     - - "   "
       - Whitespace
     - - "'Stores the y-values for each x-value in the final spline"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -888,7 +888,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Used for calculating leading and trailing values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -920,13 +920,13 @@ tokens:
     - - " "
       - Whitespace
     - - "'How close to a knot the user must click to select that knot"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
       - Newline
     - - "'This routine draws gridlines, knots, and the spline on the picture box"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -952,7 +952,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Tanner's inserted code: draw the background grid"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1142,7 +1142,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Now draw the knots"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1210,7 +1210,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'If this is the currently selected knot, fill it in with red"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1500,7 +1500,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Clear the results array and reset the max/min variables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1600,7 +1600,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Now run a loop through the knots, calculating spline values as we go"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1854,7 +1854,7 @@ tokens:
     - - "       "
       - Whitespace
     - - "'Force values to be in the 1-254 range (0-255 also"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -1892,7 +1892,7 @@ tokens:
     - - "           "
       - Whitespace
     - - "' works, but is harder to see on the picture box)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -1942,7 +1942,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Based on the maximum and minimum, calculate preceding and trailing y-values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2104,7 +2104,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Draw the finished spline"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2226,7 +2226,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Last, but certainly not least, draw the curves-adjusted image"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2260,7 +2260,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Original required spline function:"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2340,7 +2340,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'derived curve equation (which uses p's and u's for coefficients)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2584,7 +2584,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Original required spline function:"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2670,7 +2670,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Original required spline function:"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2800,33 +2800,33 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Routine to compute the parameters of our cubic spline.  Based on equations derived from some basic facts..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Each segment must be a cubic polynomial.  Curve segments must have equal first and second derivatives"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'at knots they share.  General algorithm taken from a book which has long since been lost."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
       - Newline
     - - "'The math that derived this stuff is pretty messy...  expressions are isolated and put into"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'arrays.  we're essentially trying to find the values of the second derivative of each polynomial"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'at each knot within the curve.  That's why theres only N-2 p's (where N is # points)."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'later, we use the p's and u's to calculate curve points..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -3602,7 +3602,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'********************FORM LOADING********************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -3742,7 +3742,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Set form-wide variables to their default values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3812,7 +3812,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Create 3 default points in a straight line (a good starting point for working with curves)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4084,7 +4084,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Draw the initial effect, then update the image"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4218,7 +4218,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Windows common dialog interface"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4268,13 +4268,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'VB6's built-in image loader (which wraps an ancient OLE loader) only supports a"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' subset of modern image file types."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4434,7 +4434,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Load the image and refresh the effect"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -4492,7 +4492,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'If a null string is passed, simply paint an unmodified copy of the backbuffer into the foreground buffer"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -4602,7 +4602,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Copy the image, automatically resized, from the background picture box to the foreground one"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4894,19 +4894,19 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Resize the form to automatically contain the new picture box dimensions."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' (This performs some sloppy checks to keep the form from resizing larger than the primary display,"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'  but it is *not* good code - a proper solution would involve the AdjustWindowRect() API or similar!)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5290,7 +5290,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When the user clicks on the picture box, see if they've selected a control point or not"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -5364,7 +5364,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'No point selected yet"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5390,7 +5390,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Search to see if the user has clicked on (or very near) an existing point"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5444,7 +5444,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'If the user has selected an existing point, mark it"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5494,13 +5494,13 @@ tokens:
     - - "        "
       - Whitespace
     - - "'No match was found, so create a new point here if:"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'  1) This x-coordinate isn't already occupied"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -5550,19 +5550,19 @@ tokens:
     - - "            "
       - Whitespace
     - - "'The user has clicked on an already occupied x-coordinate. Our spline formula doesn't"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
       - Whitespace
     - - "'allow two knots to have the same x-value, so instead of creating a new knot just"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
       - Whitespace
     - - "'select the knot already occupying this coordinate"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -5676,7 +5676,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'  2) We haven't reached the maximum allowed limit yet"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -5704,7 +5704,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Increase the total number of points and fix all our arrays"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -5844,7 +5844,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Figure out which points surround this location"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -5984,7 +5984,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Shift all points after this to the right"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -6156,7 +6156,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Draw the new spline, change the mousepointer to the move pointer, select this point"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -6228,7 +6228,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'We mark the mouse state here for use in the MouseMove sub"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -6256,7 +6256,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Simple distance formula here - we use this to calculate if the user has clicked on (or near) a knot"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -6430,7 +6430,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'MouseMove allows the user to interactively adjust existing knots and add new knots"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -6508,7 +6508,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Button down AND a point is current selected"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -6554,7 +6554,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'The first knot has to be checked specially (no point before it)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -6756,7 +6756,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'The last knot also has to be checked specially (no point after it)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -6958,7 +6958,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'For all middle knots, don't allow them to be moved past neighboring knots"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -7144,7 +7144,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Button up"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -7172,7 +7172,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'If the user is close to a knot, change the mousepointer to 'move'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -7320,7 +7320,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When the mouse is lifted, reset the mousestate boolean and the mouse pointer"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -7434,7 +7434,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Simple distance routine to see if a location on the picture box is near an existing knot"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -7608,7 +7608,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'If we're close to an existing point, return the index of that point"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -7680,7 +7680,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Returning -1 says we're not close to an existing point (so try to create a new one!)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -7754,7 +7754,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'This array will hold the image's pixel data"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -7786,7 +7786,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Coordinate variables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -7828,7 +7828,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Image dimensions"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -7870,7 +7870,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Instantiate a FastDrawing class and gather the image's data (into ImageData())"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -7986,7 +7986,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'These variables will hold temporary pixel color values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -8054,7 +8054,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Look-up table calculation for new gamma values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -8164,37 +8164,37 @@ tokens:
     - - "        "
       - Whitespace
     - - "'This 'if' statement is necessary to match a weird trend with Photoshop's Curves dialog -"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "' for darker gamma values, Photoshop increases the force of the gamma conversion.  This is"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "' good for emphasizing subtle dark shades that the human eye doesn't normally pick up..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "' I think.  If this 'if' statement is removed, the top statement will yield more mathematically"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "' consistent results, but this version ends up yielding results closer to what Photoshop's"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "' Curves dialog does.  Go figure!"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -8564,7 +8564,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Now run a quick loop through the image, adjusting pixel values with the look-up tables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -8678,7 +8678,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Grab red, green, and blue"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -8778,7 +8778,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Correct them all"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -8920,7 +8920,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Draw the new image data to the screen"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "

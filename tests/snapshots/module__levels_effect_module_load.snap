@@ -19,8 +19,24 @@ name:
 tokens:
   source_file: "./tests/data/vb6-code/Levels-effect/mod_PublicVars.bas"
   tokens:
+    - - Attribute
+      - AttributeKeyword
+    - - " "
+      - Whitespace
+    - - VB_Name
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "\"modPublicVars\""
+      - StringLiteral
+    - - "\r\n"
+      - Newline
     - - "'A couple constants to simplify tracking various variables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -82,7 +98,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Used to track the last options we used on the histogram form"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -120,11 +136,11 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'We'll use this routine only to draw the gradient below the histogram window"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'(like Photoshop does).  This code is old, but it works ;)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -196,7 +212,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'RGB() variables for each color"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -298,7 +314,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Extract the r,g,b values from the colors passed by the user"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -488,7 +504,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Calculation variables for the gradiency"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -544,7 +560,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Size of the picture box we'll be drawing to"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -622,13 +638,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Here, create a calculation variable for determining the step between"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'each level of the gradient"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -742,7 +758,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'If the second value is lower then the first value, make the step negative"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -856,13 +872,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Last, run a loop through the width of the picture box, incrementing the color as"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'we go (thus creating a gradient effect)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "

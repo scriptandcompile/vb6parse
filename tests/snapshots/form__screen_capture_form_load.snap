@@ -357,57 +357,57 @@ tokens:
   source_file: FormScreenCapture.frm
   tokens:
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Copyright 2018 by Tanner Helland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' www.tannerhelland.com"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The source code in this project is licensed under a Simplified BSD license."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
       - Newline
     - - "'This gives us the hWnd (window handle) of the screen"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -451,7 +451,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'This assigns an hDC (device context handle) from an hWnd"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -509,7 +509,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'BitBlt lets us draw an image from a hDC to another hDC (in our case, from an hDC of the screen capture to the hDC of a VB picture box)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -711,7 +711,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'ReleaseDC is used to free the hDC we generate for the screen capture."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -787,7 +787,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'This sample project copies the screen when the form loads; you could also place this code in a command button (or any other input)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -811,7 +811,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'First, minimize this window"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -839,7 +839,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Get the hWnd of the screen"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -881,7 +881,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Now, assign an hDC to the hWnd we generated"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -929,7 +929,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Determine the size of the screen"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1031,7 +1031,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Copy the pixel data from the screen into our form"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1103,7 +1103,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Release our hold on the screen DC"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1155,7 +1155,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Restore the window"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "

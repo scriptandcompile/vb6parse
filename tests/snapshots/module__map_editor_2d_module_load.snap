@@ -24,52 +24,68 @@ name:
 tokens:
   source_file: "./tests/data/vb6-code/Map-editor-2D/Subs.bas"
   tokens:
+    - - Attribute
+      - AttributeKeyword
+    - - " "
+      - Whitespace
+    - - VB_Name
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "\"Declaration_Module\""
+      - StringLiteral
+    - - "\r\n"
+      - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Copyright 2018 by Tanner Helland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' www.tannerhelland.com"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The source code in this project is licensed under a Simplified BSD license."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -77,7 +93,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'The StretchBlt declaration (the GDI32 alternative to VB's PaintPicture)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -315,7 +331,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'An array, which we'll use to track our map tile values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -341,7 +357,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Loop variables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -377,7 +393,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'The currently selected position"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -413,7 +429,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'The viewport position"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -449,7 +465,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'The size of the map"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -485,7 +501,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Whether a mouse button is up or down"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -507,7 +523,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'The currently selected picture"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -543,7 +559,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'The zoom value"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -565,7 +581,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Whether or not to use StretchBlt in place of PaintPicture"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public

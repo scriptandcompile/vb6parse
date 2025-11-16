@@ -1136,57 +1136,57 @@ tokens:
   source_file: Mandelbrot.frm
   tokens:
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Copyright 2018 by Tanner Helland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' www.tannerhelland.com"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The source code in this project is licensed under a Simplified BSD license."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
       - Newline
     - - "'These dimensions relate to using the mouse to select new bounding areas"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -1298,7 +1298,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'This array stores the values of the fractal as they're calculated"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -1324,11 +1324,11 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'This number (set by the corresponding scrollbar) takes on values between 100 and 2000"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Higher numbers = more accurate/slow; lower mumbers = less accurate/fast"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -1350,7 +1350,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Simple API declaration for drawing pixels"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1464,7 +1464,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'DRAW THE FRACTAL"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1488,7 +1488,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Lots of variables are required for fractal-drawing"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1798,7 +1798,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Reset the mouse values after each draw (since no box is present after drawing)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1872,7 +1872,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Prepare the picture box using hard-coded size values.  (Feel free to change these.)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1978,7 +1978,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Set minimum and maximum view windows based on corresponding text box values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2068,7 +2068,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Create a conversion between the Mandlebrot set window and the actual pixels where the fractal will appear"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2150,7 +2150,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Resize the fractal array"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2206,7 +2206,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Run a loop through each pixel, calculating Mandelbrot values as we go"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2354,7 +2354,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'This main recursive function is what actually calculates the fractal values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2428,7 +2428,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Keep track of the highest and lowest values encountered so far (to help with rendering)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2524,7 +2524,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Store the fractal value in the array"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2632,7 +2632,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Give the user some indication of how close we are to finishing"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2704,7 +2704,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Once the fractal values have been saved, calculate the difference between the lowest and highest values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2794,7 +2794,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Draw the fractal"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2856,7 +2856,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Convert the fractal value to a 0-255 RGB value"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2944,7 +2944,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Make the highest values pure white (looks better, IMO)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3032,7 +3032,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'I use this simple color formula to make the fractal shades of violet instead of just gray"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -3144,7 +3144,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Draw this pixel"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3214,7 +3214,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Refresh the image every 16 lines"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3272,7 +3272,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Final image refresh"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3290,7 +3290,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Restore the command button text"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3522,7 +3522,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'ON STARTUP: set various variables to proper default values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -3644,7 +3644,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'MOUSE DOWN: on the main picture box"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -3722,7 +3722,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Erase any previous boxes the user may have drawn"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3920,7 +3920,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Note the current location and mark a mouse button as being \"down\""
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4008,7 +4008,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'MOUSE MOVE: on the main picture box"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -4086,7 +4086,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'If a mouse button has been pressed, draw a rectangle around the current selection area"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4110,7 +4110,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Set the draw style to \"invert\""
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -4138,7 +4138,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Erase the old box"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -4300,7 +4300,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Draw a new box"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -4462,7 +4462,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Remember where this box is located"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -4500,7 +4500,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Reset the draw style to \"copy\""
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -4550,7 +4550,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'MOUSE UP: on the main picture box"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -4628,7 +4628,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Mark the mouse button as being released"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4652,7 +4652,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Figure out the width and height of the selected area"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4706,13 +4706,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Use some fancy math to calculate the approximate reference frame that the user has selected."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'(Basically, translate the pixel width on-screen to the coordinate system used by Mandelbrot.)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5246,7 +5246,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Change the text boxes to match our new frame of reference"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5320,7 +5320,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'SCROLLBAR: for changing the accuracy / speed of the fractal render"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -5376,7 +5376,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Here is a standard recursive function for generating the Mandlebrot set. Technical details are available at the Wikipedia link referenced earlier."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -5532,7 +5532,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Check for overflow (well, technically \"underflow\" :)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5648,13 +5648,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'If you so desire, you can also remove the if/then statements above and let VB do the underflow checking (uncomment this next line to allow)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'On Error GoTo 1"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5844,7 +5844,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'This line checks to see if we've exceeded the \"IterationLimit\" (IterationLimit controls accuracy / speed of execution)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "

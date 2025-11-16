@@ -2370,103 +2370,103 @@ tokens:
   source_file: frmMain.frm
   tokens:
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Copyright 2018 by Tanner Helland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' www.tannerhelland.com"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The source code in this project is licensed under a Simplified BSD license."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Description:"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'This program was the final project for one of my university bioinformatics courses."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' The basic premise is simple - generate an initial group of random critters,"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' then allow them to move, eat, reproduce, and die."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Many evolutionary principles are demonstrated by this little project, including"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' genetic drift, population equilibrium, the \"bottleneck\" effect, and other aspects"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' of small, closed populations.  Many settings can be manually specified, which makes"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' for a kind of \"game\" if you try to create a population that can last longer than"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' several generations.  (The default settings are actually quite close to achieving"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' equilibrium, depending on the iteration.)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -2482,7 +2482,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Array of artificial \"organisms\""
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -2508,7 +2508,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Whether or not the main program loop is actually running..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -2530,7 +2530,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Variables used to show the user information about the simulation"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -2584,7 +2584,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Option to display deceased creatures"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2664,7 +2664,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Option to allow the creatures to reproduce (for mature audiences only)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2708,7 +2708,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'The bottom-right combo box that displays information about a particular creature"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2732,7 +2732,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Only update the box if a simulation is running (or has been run before)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2774,7 +2774,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Mark all creatures as unselected"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2844,7 +2844,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Erase any currently selected creature"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -2960,7 +2960,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'\"Select\" the current creature"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2998,7 +2998,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'If this creature is dead, we have to go out of our way to draw it"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3044,7 +3044,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Now we write a bunch of text to the creature text box"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3558,7 +3558,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'The first generation of creatures are marked with -1 as their ParentID and AncestralID"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -3902,11 +3902,11 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Save dialog allows for export to a tab-delimited text file.  This allows for surprisingly"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' powerful analyses using any modern spreadsheet or statistical software."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -3930,7 +3930,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'New CommonDialog object (prevents us from having to bundle the OCX)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3980,7 +3980,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Use the dialog to get a save file location from the user"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4142,7 +4142,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Create a header row"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -4314,7 +4314,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Don't write anything further unless a simulation has been ran"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -4356,7 +4356,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Loop through every creature, dumping info into the file as we go"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -4398,7 +4398,7 @@ tokens:
     - - "                "
       - Whitespace
     - - "'A temporary string for storing the information on this creature"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "                "
@@ -4870,7 +4870,7 @@ tokens:
     - - "                "
       - Whitespace
     - - "'As a bonus, include the creature's actual \"DNA\" strand"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "                "
@@ -4964,7 +4964,7 @@ tokens:
     - - "                "
       - Whitespace
     - - "'Write the line to file"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "                "
@@ -5060,7 +5060,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'START button: begin a new simulation"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -5086,7 +5086,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Clear out the buffer picture boxes"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5144,7 +5144,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Collect important values from text boxes and check boxes"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5330,7 +5330,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Randomly fill the food array with the specified amount of food"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5514,7 +5514,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Draw the food to its own special picture box"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5682,7 +5682,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Empty the \"select a creature\" combo box"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5702,7 +5702,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Create the original batch of creatures"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -6018,7 +6018,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Reset other tracking data"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -6070,7 +6070,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Start the simulation"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -6108,11 +6108,11 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'STOP button: only stops the simulation; it does NOT erase any data"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' (in case the user wants to export to a file for further analyses)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -6156,7 +6156,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When the program is first started..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -6182,7 +6182,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Set the main loop as \"not running\""
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -6206,7 +6206,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Seed the random number generator"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -6226,7 +6226,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Prepare the creature array"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -6260,7 +6260,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Display some explanatory text"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -6296,11 +6296,11 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'DRAW EVERYTHING: copy the food buffer to a new buffer, add the creatures, then flip the"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' composited buffer to the screen"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -6326,7 +6326,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Copy the food buffer to the creature buffer"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -6410,7 +6410,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Next, draw all the creatures over the food"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -6554,7 +6554,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Last, copy the composited image to the screen (doing it this way prevents flickering)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -6646,7 +6646,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Food is randomly regenerated at a rate specified by the user"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -6694,7 +6694,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Assign setNewFood an arbitrary value between zero and a million"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -6732,7 +6732,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'This formula makes it so that roughly every foodRegen turns, new food is drawn"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -6772,7 +6772,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Draw new food (the amount specified by the user) at random locations"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -6860,7 +6860,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Mark this spot in the food array as being \"filled\""
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -6892,7 +6892,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Draw food as a pleasant dark green color"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -6982,7 +6982,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'THE MAIN PROGRAM LOOP. It runs when start is pushed and stops when stop is pushed.  Advanced, I know."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -7008,7 +7008,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Count keeps track of how many times the loop has been run"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -7050,7 +7050,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'If \"stop\" has not been pressed, process another iteration of the loop"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -7082,7 +7082,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'First, attempt to generate food"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -7098,7 +7098,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'The \"think\" routine allows all the creatures one turn worth of brain activity"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -7114,7 +7114,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'If the creatures have been allowed to multiply, do that now"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -7146,7 +7146,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Only reproduce once every <mutateTurns>"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -7186,7 +7186,7 @@ tokens:
     - - "                "
       - Whitespace
     - - "'Cycle through each creature one-at-a-time"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "                "
@@ -7228,13 +7228,13 @@ tokens:
     - - "                    "
       - Whitespace
     - - "'If this creature is a) alive and b) has existed for at least one lifecycle"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "                    "
       - Whitespace
     - - "' (i.e. it wasn't just created), let it reproduce"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "                    "
@@ -7304,7 +7304,7 @@ tokens:
     - - "                        "
       - Whitespace
     - - "'Track some basic statistics"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "                        "
@@ -7354,7 +7354,7 @@ tokens:
     - - "                        "
       - Whitespace
     - - "'Make room in the array for a new creature"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "                        "
@@ -7396,7 +7396,7 @@ tokens:
     - - "                        "
       - Whitespace
     - - "'Create the creature using its parent's data"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "                        "
@@ -7616,7 +7616,7 @@ tokens:
     - - "                        "
       - Whitespace
     - - "'Add this creature's entry to the combo box"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "                        "
@@ -7688,7 +7688,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Update the statistics label"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -7784,7 +7784,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Draw everything"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -7800,7 +7800,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Pause for user events"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -7816,7 +7816,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'If all our creatures have died, end the loop automatically"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -7900,7 +7900,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'THINK: the routine that allows each creature one round of brain activity"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -7924,7 +7924,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Reset the number of living creatures"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -7946,7 +7946,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Loop through every creature, allowing each a moment of simple thought processing"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -8032,7 +8032,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Track the number of living creatures while we're at it"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -8090,7 +8090,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'If the user shuts down the program, make sure our creatures don't remain alive in the background"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -8144,7 +8144,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'If the user clicks on a particular creature, display that creature's information"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -8222,7 +8222,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Allow left mouseclicks to select a creature..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -8344,7 +8344,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Ignore mouse clicks if a simulation hasn't been run"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -8382,13 +8382,13 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Loop through each creature and find the one whose center is closest to the"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
       - Whitespace
     - - "' click location"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -8426,7 +8426,7 @@ tokens:
     - - "                "
       - Whitespace
     - - "'If dead creatures aren't being drawn, and this creature is dead, ignore it"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "                "
@@ -8488,7 +8488,7 @@ tokens:
     - - "                "
       - Whitespace
     - - "'Calculate distance"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "                "
@@ -8552,7 +8552,7 @@ tokens:
     - - "                "
       - Whitespace
     - - "'If this one is closer than what we currently have, promote it"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "                "
@@ -8636,13 +8636,13 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Only allow a creature to be selected if the click was physically inside the"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
       - Whitespace
     - - "' creature's radius"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -8812,7 +8812,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'...otherwise, ignore this click"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -8954,7 +8954,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'...while right and middle-clicks remove any previous selections"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -9138,7 +9138,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Simple Euclidean distance function"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -9304,7 +9304,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Check to see if a file with this name already exists"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private

@@ -526,51 +526,51 @@ tokens:
   source_file: "./tests/data/vb6-code/Transparency-2D/frmTransparency.frm"
   tokens:
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Copyright 2018 by Tanner Helland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' www.tannerhelland.com"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The source code in this project is licensed under a Simplified BSD license."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -594,7 +594,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'When the program starts, combine the two images at 50% transparency"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -636,7 +636,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When the scrollbar is used, change transparency accordingly"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -756,11 +756,11 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Draw an alpha blend from two source picture boxes into a destination picture box."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The transparency value is a simple percentage from 1 to 100"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -842,7 +842,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'These arrays will hold both image's pixel data"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -910,7 +910,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Coordinate variables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -952,7 +952,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Image dimensions"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -994,7 +994,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Instantiate a FastDrawing class and gather the first source image's data"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1098,7 +1098,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Now do it for the second source image"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1180,7 +1180,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Last but not least, do it for the destination picturebox"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1262,7 +1262,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'These variables will hold temporary pixel color values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1364,7 +1364,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Build a look-up table to increase speed"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1508,7 +1508,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Mix all possible color values based on simple weighted averaging"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1614,7 +1614,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Now run a quick loop through the image, adjusting pixel values with the look-up tables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1728,7 +1728,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Grab red, green, and blue from the source images"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1922,7 +1922,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Use our source values to calculate a new, transparent color"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2082,7 +2082,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Draw the new image data to the screen"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "

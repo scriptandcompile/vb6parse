@@ -1510,51 +1510,51 @@ tokens:
   source_file: Main.frm
   tokens:
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Copyright 2018 by Tanner Helland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' www.tannerhelland.com"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The source code in this project is licensed under a Simplified BSD license."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -1572,7 +1572,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Constants required for creating a gamma curve from .1 to 10"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1674,15 +1674,15 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Used to track the ratio of the midtones scrollbar, so that when the left and"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'right values get changed, we automatically set the midtone to the same ratio"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'(i.e. as Photoshop does it)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -1704,11 +1704,11 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Whether or not changing the midtone scrollbar is user-generated or program-generated"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'(so we only refresh if the user moved it - otherwise we get bad looping)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -1730,7 +1730,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When the program starts, automatically initialize several things..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1756,13 +1756,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Upon loading the form, automatically set two histogram variables:"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "     "
       - Whitespace
     - - "'Luminance is the default histogram source"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "     "
@@ -1782,7 +1782,7 @@ tokens:
     - - "     "
       - Whitespace
     - - "'Line graph is the default drawing option"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "     "
@@ -1804,7 +1804,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Also, set the default midtone scrollbar ratio to 1/2"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1832,7 +1832,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'...and allow refreshing"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1856,7 +1856,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Draw the initial effect with a default value, then update the image"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1970,7 +1970,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'The histogram information will be displayed on a separate form"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2012,7 +2012,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'This will reset the scrollbars to default levels"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2036,7 +2036,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Allow refreshing"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2060,7 +2060,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Set the output levels to (0-255)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2106,7 +2106,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Set the input levels to (0-255)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2158,7 +2158,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Set the midtone level to default (127)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2278,19 +2278,19 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'*********************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The following 10 subroutines are for changing/scrolling any of the scrollbars"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'on the main form"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'*********************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2878,7 +2878,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'To load a new image..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2902,7 +2902,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Windows common dialog interface"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2952,13 +2952,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'VB6's built-in image loader (which wraps an ancient OLE loader) only supports a"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' subset of modern image file types."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3118,7 +3118,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Reset all scrollbars"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3248,7 +3248,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Load the image and refresh the effect"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3296,7 +3296,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'If a null string is passed, simply paint an unmodified copy of the backbuffer into the foreground buffer"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -3406,7 +3406,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Copy the image, automatically resized, from the background picture box to the foreground one"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3698,19 +3698,19 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Resize the form to automatically contain the new picture box dimensions."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' (This performs some sloppy checks to keep the form from resizing larger than the primary display,"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'  but it is *not* good code - a proper solution would involve the AdjustWindowRect() API or similar!)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4186,7 +4186,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Draw an image based on user-adjusted input and output levels"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -4324,7 +4324,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'This array will hold the image's pixel data"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4356,7 +4356,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Coordinate variables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4398,7 +4398,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Image dimensions"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4440,7 +4440,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Instantiate a FastDrawing class and gather the image's data (into ImageData())"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4556,7 +4556,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'These variables will hold temporary pixel color values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4626,7 +4626,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Look-up table for the midtone (gamma) leveled values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4668,13 +4668,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'WARNING: This next chunk of code is a lot of messy math.  Don't worry too much"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'if you can't make sense of it ;)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4684,13 +4684,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Fill the gamma table with appropriate gamma values (from 10 to .1, ranged quadratically)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'NOTE: This table is constant, and could be loaded from file instead of generated mathematically every time we run this function"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5026,13 +5026,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Because we've built our look-up tables on a 0-255 scale, correct the inMLimit"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'value (from the midtones scroll bar) to simply represent a ratio on that scale"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5124,7 +5124,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Then convert that ratio into a byte (so we can access a look-up table with it)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5172,7 +5172,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Calculate a look-up table of gamma-corrected values based on the midtones scrollbar"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5460,7 +5460,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Look-up table for the input leveled values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5502,7 +5502,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Fill the look-up table with appropriately mapped input limits"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5774,7 +5774,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Now run all input-mapped values through our midtone-correction look-up"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5852,7 +5852,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Last of all, remap all image values to match the user-specified output limits"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -6026,7 +6026,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Now run a quick loop through the image, adjusting pixel values with the look-up tables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -6144,7 +6144,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Grab red, green, and blue"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -6248,7 +6248,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Correct them all"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -6394,7 +6394,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Draw the new image data to the screen"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -6446,7 +6446,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Used to make sure the scroll bars have appropriate limits"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -6492,13 +6492,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Make sure that the input scrollbar values don't overlap, and update the labels"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'to display such"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -6748,7 +6748,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'If the user hasn't moved the midtones scrollbar, attempt to preserve its ratio"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -7032,7 +7032,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Used to restrict values to the (0-255) range"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private

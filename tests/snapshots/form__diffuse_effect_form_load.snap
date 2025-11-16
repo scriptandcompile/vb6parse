@@ -896,71 +896,71 @@ tokens:
   source_file: "./tests/data/vb6-code/Diffuse-effect/Diffuse.frm"
   tokens:
     - - "'Diffuse/Spread Image Filter by Tanner Helland (published 2011)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'http://www.tannerhelland.com"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'This project demonstrates a full implementation of a \"Diffuse\" (or \"Spread\" if you use GIMP) image filter."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' A diffuse filter works by randomly rearranging pixels in an image.  The maximum distance that pixels can"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' be moved is specified by the user, and a wrap option is provided for image edges.  If wrap is set to true,"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' any pixels near the edge of the image that are selected for randomization can be moved to the opposite"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' side of the image, or \"wrapped around.\""
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'For fun, I've included an animation option that runs a loop of increasingly large diffusion distances."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' It makes for a fun kind of explosion effect, and it reminds me of how some old 8-bit games used to look."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Enjoy the project, and be sure to let me know if you found the code useful."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Also, if you enjoy free VB game and graphics code, subscribe to my RSS feed at"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' http://www.tannerhelland.com/feed/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -1008,7 +1008,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'This routine will draw an animated explosion (note: it may momentarily lock up an underpowered computer - so only do this after compilation, or consider yourself warned!)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1142,7 +1142,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When the program is first loaded, several things needs to happen..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1166,7 +1166,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Draw the initial effect with a default value, then update the image"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1284,7 +1284,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Apply a diffuse filter to an image using user-specified distances and, optionally, a paramater that defines wrapping around image edges"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -1406,7 +1406,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'These arrays will hold the source and destination image's pixel data, respectively"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1456,7 +1456,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Coordinate variables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1498,7 +1498,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Image dimensions"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1540,7 +1540,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Instantiate a FastDrawing class and gather the image's data (into ImageData())"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1668,7 +1668,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'These variables will hold temporary pixel color values (red, green, blue)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1724,13 +1724,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Let's do simple checking to make sure the hue and saturation values we were passed don't exceed the"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' width of the source image"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1876,7 +1876,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'These values will be used to calculate the diffused pixels"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2030,7 +2030,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Seed the random number generator with a unique value"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2050,7 +2050,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Loop through the image, adjusting pixel values as we go"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2164,13 +2164,13 @@ tokens:
     - - "        "
       - Whitespace
     - - "'To calculate a new pixel position, we add a random value between 0 and the specified max distance."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "' Then we subtract half that value, so the pixel can move to the right OR left (up AND down)."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2284,7 +2284,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'If wrapPixels is TRUE, wrap this pixel around to the other side (if necessary)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2524,7 +2524,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'If wrapPixels is FALSE, then check to make sure this pixel falls within image boundaries"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2766,7 +2766,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Swap the pixels at these two locations"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3142,7 +3142,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Draw the new image data to the screen"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3194,7 +3194,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Reset the foreground image to look like the original image"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -3234,7 +3234,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When the scroll bars are changed, make the associated labels match and redraw the image"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -3506,7 +3506,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Windows common dialog interface"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3556,13 +3556,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'VB6's built-in image loader (which wraps an ancient OLE loader) only supports a"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' subset of modern image file types."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3722,7 +3722,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Load the image and refresh the effect"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3774,7 +3774,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'If a null string is passed, simply paint an unmodified copy of the backbuffer into the foreground buffer"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -3884,7 +3884,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Copy the image, automatically resized, from the background picture box to the foreground one"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4176,19 +4176,19 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Resize the form to automatically contain the new picture box dimensions."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' (This performs some sloppy checks to keep the form from resizing larger than the primary display,"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'  but it is *not* good code - a proper solution would involve the AdjustWindowRect() API or similar!)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4572,11 +4572,11 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'If the user changes any of the available options, this routine will be triggered."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' All it does is call the diffuse function with proper values."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
