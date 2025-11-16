@@ -66,7 +66,7 @@ impl<'a> VB6ModuleFile<'a> {
     /// let module_file = result.unwrap();
     ///
     /// assert_eq!(module_file.name, "Module1".as_bytes());
-    /// assert_eq!(module_file.tokens.len(), 18);
+    /// assert_eq!(module_file.tokens.len(), 26);
     /// ```
     pub fn parse(
         source_file: &'a SourceFile,
@@ -147,6 +147,10 @@ impl<'a> VB6ModuleFile<'a> {
                     };
                 };
 
+                // Move back to the start of the source file to re-tokenize the entire content.
+                // We want to include the attribute line in the token stream.
+                input.reset_to_start();
+
                 let parse_result = tokenize(&mut input);
 
                 if parse_result.has_failures() {
@@ -174,14 +178,15 @@ impl<'a> VB6ModuleFile<'a> {
                 }
             }
             Some((vb_name_value, _)) => {
-                // eat the quote character we found.
+                // Eat the quote character we found.
                 let _ = input.take_count(1);
-                // we might have whitespaces after the quoted value.
-                // we don't care about them so just eat them and then the newline.
+                // We might have whitespaces after the quoted value.
+                // We don't care about them so just eat them and then the newline.
                 let _ = input.take_ascii_whitespaces();
                 let _ = input.take_newline();
 
-                // looks like we have a fully quoted value.
+                // Looks like we have a fully quoted value.
+
                 let parse_result = tokenize(&mut input);
 
                 if parse_result.has_failures() {
