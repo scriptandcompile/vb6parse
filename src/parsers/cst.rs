@@ -284,6 +284,10 @@ impl<'a> Parser<'a> {
                 Some(VB6Token::FunctionKeyword) => {
                     self.parse_function_statement();
                 }
+                // If statement: If condition Then ... End If
+                Some(VB6Token::IfKeyword) => {
+                    self.parse_if_statement();
+                }
                 // Variable declarations: Dim/Private/Public/Const/Static
                 Some(VB6Token::DimKeyword) 
                 | Some(VB6Token::PrivateKeyword)
@@ -539,6 +543,162 @@ impl<'a> Parser<'a> {
         }
         
         self.builder.finish_node(); // DimStatement
+    }
+    
+    /// Parse an If statement: If condition Then ... End If
+    /// Handles both single-line and multi-line If statements
+    fn parse_if_statement(&mut self) {
+        self.builder.start_node(SyntaxKind::IfStatement.to_raw());
+        
+        // Consume "If" keyword
+        self.consume_token();
+        
+        // Consume everything until "Then" or newline
+        while !self.is_at_end() && !self.at_token(VB6Token::ThenKeyword) && !self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+        
+        // Consume "Then" if present
+        if self.at_token(VB6Token::ThenKeyword) {
+            self.consume_token();
+        }
+        
+        // Consume any whitespace after Then
+        while self.at_token(VB6Token::Whitespace) {
+            self.consume_token();
+        }
+        
+        // Check if this is a single-line If statement (has code on the same line after Then)
+        let is_single_line = !self.at_token(VB6Token::Newline) && !self.is_at_end();
+        
+        if is_single_line {
+            // Single-line If: consume everything until newline
+            while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
+                self.consume_token();
+            }
+            
+            // Consume the newline
+            if self.at_token(VB6Token::Newline) {
+                self.consume_token();
+            }
+        } else {
+            // Multi-line If: consume newline after Then
+            if self.at_token(VB6Token::Newline) {
+                self.consume_token();
+            }
+            
+            // Parse body until "End If", "Else", or "ElseIf"
+            while !self.is_at_end() {
+                if self.at_keyword(VB6Token::EndKeyword) {
+                    // Look ahead to see if it's "End If"
+                    if self.peek_next_keyword() == Some(VB6Token::IfKeyword) {
+                        // Consume "End"
+                        self.consume_token();
+                        
+                        // Consume any whitespace between "End" and "If"
+                        while self.at_token(VB6Token::Whitespace) {
+                            self.consume_token();
+                        }
+                        
+                        // Consume "If"
+                        self.consume_token();
+                        
+                        // Consume until newline (including it)
+                        while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
+                            self.consume_token();
+                        }
+                        if self.at_token(VB6Token::Newline) {
+                            self.consume_token();
+                        }
+                        break;
+                    }
+                } else if self.at_keyword(VB6Token::ElseIfKeyword) {
+                    // Parse ElseIf clause
+                    self.parse_elseif_clause();
+                    continue;
+                } else if self.at_keyword(VB6Token::ElseKeyword) {
+                    // Parse Else clause
+                    self.parse_else_clause();
+                    continue;
+                }
+                
+                self.consume_token();
+            }
+        }
+        
+        self.builder.finish_node(); // IfStatement
+    }
+    
+    /// Parse an ElseIf clause: ElseIf condition Then ... 
+    fn parse_elseif_clause(&mut self) {
+        self.builder.start_node(SyntaxKind::ElseIfClause.to_raw());
+        
+        // Consume "ElseIf" keyword
+        self.consume_token();
+        
+        // Consume everything until "Then" or newline
+        while !self.is_at_end() && !self.at_token(VB6Token::ThenKeyword) && !self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+        
+        // Consume "Then" if present
+        if self.at_token(VB6Token::ThenKeyword) {
+            self.consume_token();
+        }
+        
+        // Consume any whitespace after Then
+        while self.at_token(VB6Token::Whitespace) {
+            self.consume_token();
+        }
+        
+        // Consume the newline after Then
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+        
+        // Parse body until "End If", "Else", or another "ElseIf"
+        while !self.is_at_end() {
+            // Stop if we hit another ElseIf, Else, or End If
+            if self.at_keyword(VB6Token::ElseIfKeyword) 
+                || self.at_keyword(VB6Token::ElseKeyword) 
+                || (self.at_keyword(VB6Token::EndKeyword) && self.peek_next_keyword() == Some(VB6Token::IfKeyword)) {
+                break;
+            }
+            
+            self.consume_token();
+        }
+        
+        self.builder.finish_node(); // ElseIfClause
+    }
+    
+    /// Parse an Else clause: Else ...
+    fn parse_else_clause(&mut self) {
+        self.builder.start_node(SyntaxKind::ElseClause.to_raw());
+        
+        // Consume "Else" keyword
+        self.consume_token();
+        
+        // Consume any whitespace after Else
+        while self.at_token(VB6Token::Whitespace) {
+            self.consume_token();
+        }
+        
+        // Consume the newline after Else
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+        
+        // Parse body until "End If"
+        while !self.is_at_end() {
+            // Stop if we hit End If
+            if self.at_keyword(VB6Token::EndKeyword) && self.peek_next_keyword() == Some(VB6Token::IfKeyword) {
+                break;
+            }
+            
+            self.consume_token();
+        }
+        
+        self.builder.finish_node(); // ElseClause
     }
     
     // Helper methods
