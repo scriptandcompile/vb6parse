@@ -42,19 +42,16 @@ fn main() -> Result<(), Box<dyn std::error::Error>>{
 
     println!();
 
-    // For demonstration, parse the first module into a CST
-    if let Some(first_module) = project.modules.last() {
+    // For demonstration, parse the last module into a CST
+    if let Some(last_module) = project.modules.last() {
 
-        let module_path = project_directory.join(first_module.path.replace("\\", "/")).to_str().unwrap().to_string();
+        let module_path = project_directory.join(last_module.path.replace("\\", "/")).to_str().unwrap().to_string();
         print !("Reading module file from: {:?}\n", module_path);
 
         let module_source = SourceFile::decode_with_replacement(
             &module_path,
             &std::fs::read(&module_path)?,
         ).expect("Failed to decode module source file.");
-
-        println!("Module Source:\n");
-        print!("{}", module_source.get_source_stream().contents);
 
         let module_parse_result = vb6parse::parsers::module::VB6ModuleFile::parse(&module_source);
         if module_parse_result.has_failures() {
