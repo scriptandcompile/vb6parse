@@ -547,6 +547,23 @@ impl<'a> Parser<'a> {
     
     /// Parse an If statement: If condition Then ... End If
     /// Handles both single-line and multi-line If statements
+    /// 
+    /// IfStatement
+    /// ├─ If keyword
+    /// ├─ condition tokens
+    /// ├─ Then keyword
+    /// ├─ body tokens
+    /// ├─ ElseIfClause (if present)
+    /// │  ├─ ElseIf keyword
+    /// │  ├─ condition tokens
+    /// │  ├─ Then keyword
+    /// │  └─ body tokens
+    /// ├─ ElseClause (if present)
+    /// │  ├─ Else keyword
+    /// │  └─ body tokens
+    /// ├─ End keyword
+    /// └─ If keyword
+    /// 
     fn parse_if_statement(&mut self) {
         self.builder.start_node(SyntaxKind::IfStatement.to_raw());
         
