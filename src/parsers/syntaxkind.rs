@@ -43,6 +43,10 @@ pub enum SyntaxKind {
     CallExpression,
     ParenthesizedExpression,
     
+    // Conditional nodes
+    BinaryConditional,
+    UnaryConditional,
+    
     // Other structural nodes
     ArgumentList,
     ParameterList,
