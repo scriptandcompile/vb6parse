@@ -20,6 +20,8 @@ pub enum SyntaxKind {
     TypeStatement,
     EnumStatement,
     IfStatement,
+    ElseIfClause,
+    ElseClause,
     ForStatement,
     WhileStatement,
     DoStatement,
