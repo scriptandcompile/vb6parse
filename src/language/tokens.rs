@@ -11,9 +11,10 @@ pub enum VB6Token {
     /// Represents a newline.
     /// This can be a carriage return, a newline, or a carriage return followed by a newline.
     Newline,
-    /// Represents a comment.
-    /// Includes the single quote character.
-    Comment,
+    /// Represents a comment that runs to the end of the line.
+    /// 
+    /// Includes the single quote character but not the newline character.
+    EndOfLineComment,
     /// Represents the 'Class' keyword.
     ///
     /// Used in the header of a class module to indicate that the module is a class module.
@@ -611,9 +612,17 @@ pub enum VB6Token {
     /// Used in the following contexts:
     ///
     /// On...GoSub statement, On...Goto statement, and On...Error statements.
+    /// 
+    /// Also used when specifying Option Explicit On or Off.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266175(v=vs.60))
     OnKeyword,
+    /// Represents the 'Off' keyword.
+    ///
+    /// Used when specifying Option Explicit On or Off.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266175(v=vs.60))
+    OffKeyword,
     /// Represents the 'Name' keyword.
     ///
     /// Renames a disk file, directory, or folder.
