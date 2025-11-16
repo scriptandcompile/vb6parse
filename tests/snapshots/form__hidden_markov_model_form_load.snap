@@ -3632,95 +3632,95 @@ tokens:
   source_file: "./tests/data/vb6-code/Hidden-Markov-model/frmHMM.frm"
   tokens:
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'HMM, Viterbi, and Sliding Window Algorithms (for purposes of locating genes in human DNA)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Copyright 2018 by Tanner Helland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' www.tannerhelland.com"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'This project demonstrates use of a Hidden Markov Model (HMM) to define the relationship"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' between normal states (B) and island states (I) within a region of the human chromosome."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' This algorithm proves particularly useful for gene finding, as CpG islands (regions of DNA"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' with a larger than expected number of adjacent cytosine and guanine nucleotides) tend to"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' appear near the promoters of some 40% of mammalian genes.  The automation of this process"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' is critical in gene research because CpG islands are impossible to locate by simply looking"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' at a strand of DNA (as they may cover several hundred bases and their C/G content may be"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' only slightly higher than the expected value)."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The algorithm is fast, robust, and it includes a wealth of good routines (such as loading FASTA"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' files into VB).  I've tried to include comments where applicable."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The source code in this project is licensed under a Simplified BSD license."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -3736,7 +3736,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Stores all lines from the FASTA file"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -3760,7 +3760,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Maximum number of lines in the FASTA file"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -3782,11 +3782,11 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Byte array of all our DNA data"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'a = 0, c = 1, g = 2, t = 3"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -3810,7 +3810,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Length of the DNA strand"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -3830,7 +3830,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Total amounts of A, C, G, and T nucleotides"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -3894,7 +3894,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'These look-up tables will hold data for various probabilities"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -3990,7 +3990,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'The results of the Viterbi algorithm (0 = B, 1 = I)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -4016,7 +4016,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Multi-use variables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -4052,7 +4052,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Estimate state probabilities based on total amounts of A, C, G, and T"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -4430,7 +4430,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'This routine performs the actual HMM and Viterbi algorithms"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -4466,7 +4466,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'First, collect all of probabilities into look-up tables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4708,7 +4708,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Arrays for holding all HMM entries"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4822,7 +4822,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'We use these strings to show the B and I states output by the algorithms"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4896,7 +4896,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Manually perform the first calculation for the first entry"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5084,7 +5084,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Next, loop through every entry and calulate HMM data as we go"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5354,7 +5354,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Remember states"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -5442,7 +5442,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Display a friendly message to let the user know how things are coming"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -5548,7 +5548,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Now proceed back through the data and generate Viterbi info"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5778,7 +5778,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Assemble initial Viterbi data"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5820,7 +5820,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Another friendly message"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -6122,7 +6122,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Next comes the Viterbi algorithm itself"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -6444,7 +6444,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Who doesn't like friendly messages?"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -6994,7 +6994,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Display the results of our analysis and encourage the user to continue with step 4"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -7234,7 +7234,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Handy routine for processing a FASTA file"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -7260,7 +7260,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Simple open dialog"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -7514,7 +7514,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'This is an arbitrary \"default\" max # of lines in the file"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -7570,7 +7570,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Temporary line read from the file"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -7598,7 +7598,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Total length of all lines"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -7626,7 +7626,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Total number of lines"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -7684,7 +7684,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Read through to the end of the file"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -7760,7 +7760,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Line width must be greater than 0 and not a FASTA comment line"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -7860,13 +7860,13 @@ tokens:
     - - "                "
       - Whitespace
     - - "'If the current line exceeds the maximum number of lines allowed, double the size of the"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "                "
       - Whitespace
     - - "' array and continue onward."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "                "
@@ -7990,7 +7990,7 @@ tokens:
     - - " "
       - Whitespace
     - - "'Make EVERYTHING lowercase (to simplify text comparisons)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "                "
@@ -8052,7 +8052,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Close the file"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -8074,7 +8074,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Resize our array to the minimum size necessary"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -8152,7 +8152,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Prepare to convert the FASTA from text to numbers"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -8294,7 +8294,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Travel through each line, converting the FASTA data as we go"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -8330,7 +8330,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'On each line, travel through each character individually"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -8378,7 +8378,7 @@ tokens:
     - - "                "
       - Whitespace
     - - "'Grab the current character"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "                "
@@ -8436,7 +8436,7 @@ tokens:
     - - "                    "
       - Whitespace
     - - "'Convert A/C/G/T to numbers, and count how many total A's, C's, G's, T's we have"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "                    "
@@ -8650,7 +8650,7 @@ tokens:
     - - "                    "
       - Whitespace
     - - "'Ignore anything that isn't A/C/G/T"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "                    "
@@ -8842,7 +8842,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Displays relevant messages at the bottom of the screen"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -8928,7 +8928,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Determine the larger of two Double-type variables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -9052,7 +9052,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'This routine performs a sliding window analysis of the HMM/Viterbi data"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -9186,7 +9186,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Observed vs expected ratio of C/G content"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -9258,7 +9258,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Calculate an expected value"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -9480,7 +9480,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Travel through the data, calculating sliding window values as we go"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -9518,7 +9518,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Reset the I counter"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -9538,7 +9538,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Reset the c/g observed count"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -9634,7 +9634,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Analyze this sliding window"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -9806,7 +9806,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Store the value of this sliding window"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -10104,7 +10104,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Draw the results"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -10360,7 +10360,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Percentage plot"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -10532,7 +10532,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'O/E plot"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -10748,7 +10748,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Lastly, let's attempt to locate an island"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -10936,7 +10936,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'See how far our search went"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "

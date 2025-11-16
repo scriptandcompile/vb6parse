@@ -1137,61 +1137,61 @@ tokens:
   source_file: "./tests/data/vb6-code/Fire-effect/frmFire.frm"
   tokens:
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Copyright 2018 by Tanner Helland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' www.tannerhelland.com"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The source code in this project is licensed under a Simplified BSD license."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
       - Newline
     - - "'API:"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'BitBlt for blitting the fire from the buffer to the screen"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1393,7 +1393,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Pixel routines; faster then PSet and Point but not as fast as GetDIBits, StretchDIBits"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1593,7 +1593,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'High performance timer functions"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1703,7 +1703,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Values for tracking function times"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1753,7 +1753,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Whether or not to run the flames"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1775,7 +1775,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'How many frames have elapsed since the program began"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1797,7 +1797,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Pressing the START button initializes the screen and calls the DrawFastFlames() routine"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1823,7 +1823,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'First, clear the picture boxes"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1867,7 +1867,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Collect the width and height values of the flame effect"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1949,7 +1949,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Resize the picture boxes to match (and add two pixels for the borders of the picture box (1 pixel each))"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2011,7 +2011,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Determine the resolution of this system's high performance timer"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2031,7 +2031,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Set the \"engage\" parameter to true and call the fire function"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2173,7 +2173,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When STOP is pressed, disengage the fire routine"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2217,7 +2217,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'This routine draws a cool fire effect using the specified parameters"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2373,7 +2373,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'This array holds all the individual flame pixels"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2451,7 +2451,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'How much of the flames to reheat after each drawing (typically the bottom 10% of the array)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2505,7 +2505,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'This will temporarily hold the value of each flame pixel"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2533,7 +2533,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'As much as I hate an arbitrary name like \"temp\", that's what we'll use this for"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2561,7 +2561,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Loop variables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2603,7 +2603,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'This is used to generate an RGB() value for the flame's color"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2631,7 +2631,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Look-up tables for each color (faster than generating them on the fly)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2873,7 +2873,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Used to calculate FPS"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2899,13 +2899,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'NEW! DIB Section code"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'This array will hold the image's pixel data"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2937,13 +2937,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Depending on VB quirks, the DIB array may or may not be the same size"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' as the scalewidth/scaleheight properties"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3017,7 +3017,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Instantiate a FastDrawing class and gather the image's data (into ImageData())"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3119,19 +3119,19 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Uniformity is a somewhat arbitrary measurement; basically, I use it to control how"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' random the flames vertical growth is.  The initial number passed into this function"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' should lie between 0 and 3"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3163,7 +3163,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Before starting, randomize the seed for VB's built-in Randomize function"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3181,7 +3181,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'If engaged, draw the flames!"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3205,7 +3205,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Remember the current time (for calculating FPS at the end of the loop)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3225,7 +3225,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Run a loop through the flames from the bottom up..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3261,7 +3261,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'...and from right-to-left"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3297,7 +3297,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Grab the current flame pixel"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -3333,7 +3333,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'If this pixel is dim enough, ignore it for sake of uniformity"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -3373,7 +3373,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Give this pixel a random degree of cooldown"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -3445,7 +3445,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'In addition, move this pixel upward"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -3549,7 +3549,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Generate a color based on the \"heat\" value"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -3605,13 +3605,13 @@ tokens:
     - - "            "
       - Whitespace
     - - "'To improve speed, randomize the x movement of every 5th pixel"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
       - Whitespace
     - - "' (as opposed to doing it for every pixel)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -3753,13 +3753,13 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Draw this flame pixel using a cool flame-colored formula (based upon"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
       - Whitespace
     - - "' the values passed into this function)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -4015,7 +4015,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Once all flames are processed, make the bottom 4 rows hot again"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -4123,7 +4123,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Copy the whole flame image from the buffer to the viewable picture box"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -4169,7 +4169,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Calculate an exact framerate and display it"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -4253,7 +4253,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Every 32 frames, halt for external events (keypresses, mouse movement, etc.)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -4315,7 +4315,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Do it all over again!"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4337,7 +4337,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When the form is closed, make sure the flame function is disengaged"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -4391,11 +4391,11 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'This simple little function ensure that the variable it receives falls within the"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' proper byte range (0-255)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private

@@ -861,51 +861,51 @@ tokens:
   source_file: "./tests/data/vb6-code/Colorize-effect/Colorize.frm"
   tokens:
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Copyright 2018 by Tanner Helland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' www.tannerhelland.com"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The source code in this project is licensed under a Simplified BSD license."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -921,7 +921,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When the program is first loaded, several things needs to happen..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -945,7 +945,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Draw a \"rainbow\" into the hue box to help the user colorize the image properly"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1081,7 +1081,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Based on our x-position, interpolate an x value between -1 and 5"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1173,7 +1173,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Use our x-coordinate to generate a hue for this position"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1227,7 +1227,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Draw the color to the box"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1339,7 +1339,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Draw the initial effect with a default value, then update the image"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1453,7 +1453,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Apply a Colorize filter to an image using a user-specified hue (defined between -1 and 5) and, optionally, a user-specified saturation (defined between 0.0 and 1.0)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -1583,7 +1583,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'This array will hold the image's pixel data"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1615,7 +1615,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Coordinate variables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1657,7 +1657,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Image dimensions"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1699,7 +1699,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Instantiate a FastDrawing class and gather the image's data (into ImageData())"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1803,7 +1803,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'These variables will hold temporary pixel color values (red, green, blue / hue, saturation, luminance)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1905,7 +1905,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Let's do simple checking to make sure the hue and saturation values we were passed are valid"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2055,7 +2055,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Loop through the image, adjusting pixel values as we go"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2279,7 +2279,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Get the hue and saturation of the current pixel"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2329,7 +2329,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Convert back to RGB using the hue specified by the user (our artificial saturation value?)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2387,7 +2387,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'Use this line to force pixel saturation values to 50%"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2437,7 +2437,7 @@ tokens:
     - - "   "
       - Whitespace
     - - "'Use this line to keep original pixel saturation values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2457,7 +2457,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Assign our new colors back into the image array"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2603,7 +2603,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Draw the new image data to the screen"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2655,7 +2655,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Whenever the scroll bar is moved, redraw the colorized image"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2723,7 +2723,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Reset the foreground image to look like the original image"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2763,7 +2763,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When this scroll bar is changed, make the associated label match its value"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2947,7 +2947,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Windows common dialog interface"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2997,13 +2997,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'VB6's built-in image loader (which wraps an ancient OLE loader) only supports a"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' subset of modern image file types."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3163,7 +3163,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Load the image and refresh the effect"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3211,7 +3211,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'If a null string is passed, simply paint an unmodified copy of the backbuffer into the foreground buffer"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -3321,7 +3321,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Copy the image, automatically resized, from the background picture box to the foreground one"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3613,19 +3613,19 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Resize the form to automatically contain the new picture box dimensions."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' (This performs some sloppy checks to keep the form from resizing larger than the primary display,"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'  but it is *not* good code - a proper solution would involve the AdjustWindowRect() API or similar!)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4227,7 +4227,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'The next four functions are required to convert between the HSL and RGB colorspaces"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -6161,7 +6161,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Return the maximum of three variables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -6387,7 +6387,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Return the minimum of three variables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -6613,7 +6613,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'If the user changes the saturation option, redraw the main image to match"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private

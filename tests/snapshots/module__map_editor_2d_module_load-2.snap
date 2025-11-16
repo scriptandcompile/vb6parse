@@ -16,58 +16,74 @@ name:
 tokens:
   source_file: "./tests/data/vb6-code/Map-editor-2D/Declarations.bas"
   tokens:
+    - - Attribute
+      - AttributeKeyword
+    - - " "
+      - Whitespace
+    - - VB_Name
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "\"Sub_Module\""
+      - StringLiteral
+    - - "\r\n"
+      - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Copyright 2018 by Tanner Helland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' www.tannerhelland.com"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The source code in this project is licensed under a Simplified BSD license."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
       - Newline
     - - "'This routine is run when the program starts up"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -89,7 +105,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Default tiles are nasty brown school carpet on the left, water (?) on the right"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -127,7 +143,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Our default map size is 20 tiles by 20 tiles"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -211,7 +227,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Set the default zoom to 100% (64, or the size of our tiles)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -235,7 +251,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Set appropriate values for the main scroll bars"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -405,7 +421,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Initialize the map array"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -513,7 +529,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Show the form and draw everything to it"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -547,7 +563,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Render the current map data to the main picture box"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -573,7 +589,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Clear out the current map"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -663,13 +679,13 @@ tokens:
     - - "        "
       - Whitespace
     - - "'For speed purposes, it would be better to remove this \"If/Then\" statement to be outside the loop."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'However, in an editor environment this is somewhat unimportant."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1015,7 +1031,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Because AutoRedraw is set to true for our main map, update the .Picture property and force a refresh"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1077,7 +1093,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When scrollbars are used, set the new viewport and redraw the map"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -1157,7 +1173,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'This routine copies the correct tileset from the invisible buffer to the visible bar"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -1501,7 +1517,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Draw a tile of type \"ArrayIndex\" at location (x, y)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -1577,7 +1593,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Calculate the actual x and y values (accounting for zoom and scrolling)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1679,7 +1695,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'If the user moved the mouse outside of the map dimensions, cancel this routine"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1767,7 +1783,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Store this tile value in MapArray"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1803,7 +1819,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Draw the new tile"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2161,7 +2177,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'If the zoom is changed, update all scrollbars and draw the new, properly zoomed map"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -2185,7 +2201,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Get a new zoom value from the user"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2255,7 +2271,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Change the scroll bars depending on the new zoom value"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2617,7 +2633,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Draw the new map image"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2641,7 +2657,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'As you may have guessed, this routine refreshes everything on the screen"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public

@@ -24,6 +24,26 @@ header:
 tokens:
   source_file: "./tests/data/vb6-code/Hidden-Markov-model/cCommonDialog.cls"
   tokens:
+    - - VERSION
+      - VersionKeyword
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - "."
+      - PeriodOperator
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - CLASS
+      - ClassKeyword
+    - - "\r\n"
+      - Newline
+    - - BEGIN
+      - BeginKeyword
+    - - "\r\n"
+      - Newline
     - - "  "
       - Whitespace
     - - MultiUse
@@ -41,7 +61,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'True"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "  "
@@ -59,7 +79,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'NotPersistable"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "  "
@@ -77,7 +97,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'vbNone"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "  "
@@ -95,7 +115,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'vbNone"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "  "
@@ -113,7 +133,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'NotAnMTSObject"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - END
@@ -239,7 +259,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "' CommonDialog"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - End
@@ -981,7 +1001,7 @@ tokens:
     - - "          "
       - Whitespace
     - - "' Filled with UDT size"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -999,7 +1019,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "' Tied to Owner"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1017,7 +1037,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "' Ignored (used only by templates)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1035,7 +1055,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "' Tied to Filter"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1053,7 +1073,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "' Ignored (exercise for reader)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1071,7 +1091,7 @@ tokens:
     - - "       "
       - Whitespace
     - - "' Ignored (exercise for reader)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1089,7 +1109,7 @@ tokens:
     - - "         "
       - Whitespace
     - - "' Tied to FilterIndex"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1107,7 +1127,7 @@ tokens:
     - - "          "
       - Whitespace
     - - "' Tied to FileName"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1125,7 +1145,7 @@ tokens:
     - - "             "
       - Whitespace
     - - "' Handled internally"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1143,7 +1163,7 @@ tokens:
     - - "     "
       - Whitespace
     - - "' Tied to FileTitle"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1161,7 +1181,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "' Handled internally"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1179,7 +1199,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' Tied to InitDir"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1197,7 +1217,7 @@ tokens:
     - - "         "
       - Whitespace
     - - "' Tied to DlgTitle"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1215,7 +1235,7 @@ tokens:
     - - "                "
       - Whitespace
     - - "' Tied to Flags"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1233,7 +1253,7 @@ tokens:
     - - "       "
       - Whitespace
     - - "' Ignored (exercise for reader)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1251,7 +1271,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' Ignored (exercise for reader)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1269,7 +1289,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "' Tied to DefaultExt"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1287,7 +1307,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "' Ignored (needed for hooks)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1305,7 +1325,7 @@ tokens:
     - - "             "
       - Whitespace
     - - "' Ignored (good luck with hooks)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1323,7 +1343,7 @@ tokens:
     - - "       "
       - Whitespace
     - - "' Ignored (good luck with templates)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - End
@@ -2235,7 +2255,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "' Win95 only"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2271,7 +2291,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "' End Win95 only"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2411,7 +2431,7 @@ tokens:
     - - "         "
       - Whitespace
     - - "' Filled with UDT size"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2429,7 +2449,7 @@ tokens:
     - - "           "
       - Whitespace
     - - "' Caller's window handle"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2447,7 +2467,7 @@ tokens:
     - - "                 "
       - Whitespace
     - - "' Printer DC/IC or NULL"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2465,7 +2485,7 @@ tokens:
     - - "           "
       - Whitespace
     - - "' Pointer to LOGFONT"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2483,7 +2503,7 @@ tokens:
     - - "          "
       - Whitespace
     - - "' 10 * size in points of font"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2501,7 +2521,7 @@ tokens:
     - - "               "
       - Whitespace
     - - "' Type flags"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2519,7 +2539,7 @@ tokens:
     - - "           "
       - Whitespace
     - - "' Returned text color"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2537,7 +2557,7 @@ tokens:
     - - "           "
       - Whitespace
     - - "' Data passed to hook function"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2555,7 +2575,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "' Pointer to hook function"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2573,7 +2593,7 @@ tokens:
     - - "      "
       - Whitespace
     - - "' Custom template name"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2591,7 +2611,7 @@ tokens:
     - - "           "
       - Whitespace
     - - "' Instance handle for template"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2609,7 +2629,7 @@ tokens:
     - - "         "
       - Whitespace
     - - "' Return style field"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2627,7 +2647,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "' Font type bits"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2645,7 +2665,7 @@ tokens:
     - - "           "
       - Whitespace
     - - "' Filler"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2663,7 +2683,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "' Minimum point size allowed"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2681,7 +2701,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "' Maximum point size allowed"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - End
@@ -3221,7 +3241,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "' Must also have ScreenFonts And PrinterFonts"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3323,7 +3343,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' Win95 only"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3483,11 +3503,11 @@ tokens:
     - - "\r\n"
       - Newline
     - - "' These are extra nFontType bits that are added to what is returned to the"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' EnumFonts callback routine"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -3901,7 +3921,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'  DEVMODE collation selections"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -4939,7 +4959,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "' New Win95 Page Setup dialogs are up to you"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -5289,7 +5309,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "' EPaperSize constants same as vbPRPS constants"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -5319,7 +5339,7 @@ tokens:
     - - "          "
       - Whitespace
     - - "' Letter, 8 1/2 x 11 in."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5329,7 +5349,7 @@ tokens:
     - - "         "
       - Whitespace
     - - "' Letter Small, 8 1/2 x 11 in."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5339,7 +5359,7 @@ tokens:
     - - "             "
       - Whitespace
     - - "' Tabloid, 11 x 17 in."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5349,7 +5369,7 @@ tokens:
     - - "              "
       - Whitespace
     - - "' Ledger, 17 x 11 in."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5359,7 +5379,7 @@ tokens:
     - - "               "
       - Whitespace
     - - "' Legal, 8 1/2 x 14 in."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5369,7 +5389,7 @@ tokens:
     - - "           "
       - Whitespace
     - - "' Statement, 5 1/2 x 8 1/2 in."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5379,7 +5399,7 @@ tokens:
     - - "           "
       - Whitespace
     - - "' Executive, 7 1/2 x 10 1/2 in."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5389,7 +5409,7 @@ tokens:
     - - "                  "
       - Whitespace
     - - "' A3, 297 x 420 mm"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5399,7 +5419,7 @@ tokens:
     - - "                  "
       - Whitespace
     - - "' A4, 210 x 297 mm"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5409,7 +5429,7 @@ tokens:
     - - "             "
       - Whitespace
     - - "' A4 Small, 210 x 297 mm"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5419,7 +5439,7 @@ tokens:
     - - "                  "
       - Whitespace
     - - "' A5, 148 x 210 mm"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5429,7 +5449,7 @@ tokens:
     - - "                  "
       - Whitespace
     - - "' B4, 250 x 354 mm"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5439,7 +5459,7 @@ tokens:
     - - "                  "
       - Whitespace
     - - "' B5, 182 x 257 mm"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5449,7 +5469,7 @@ tokens:
     - - "               "
       - Whitespace
     - - "' Folio, 8 1/2 x 13 in."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5459,7 +5479,7 @@ tokens:
     - - "              "
       - Whitespace
     - - "' Quarto, 215 x 275 mm"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5469,7 +5489,7 @@ tokens:
     - - "               "
       - Whitespace
     - - "' 10 x 14 in."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5479,7 +5499,7 @@ tokens:
     - - "               "
       - Whitespace
     - - "' 11 x 17 in."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5489,7 +5509,7 @@ tokens:
     - - "                "
       - Whitespace
     - - "' Note, 8 1/2 x 11 in."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5499,7 +5519,7 @@ tokens:
     - - "                "
       - Whitespace
     - - "' Envelope #9, 3 7/8 x 8 7/8 in."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5509,7 +5529,7 @@ tokens:
     - - "               "
       - Whitespace
     - - "' Envelope #10, 4 1/8 x 9 1/2 in."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5519,7 +5539,7 @@ tokens:
     - - "               "
       - Whitespace
     - - "' Envelope #11, 4 1/2 x 10 3/8 in."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5529,7 +5549,7 @@ tokens:
     - - "               "
       - Whitespace
     - - "' Envelope #12, 4 1/2 x 11 in."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5539,7 +5559,7 @@ tokens:
     - - "               "
       - Whitespace
     - - "' Envelope #14, 5 x 11 1/2 in."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5549,7 +5569,7 @@ tokens:
     - - "              "
       - Whitespace
     - - "' C size sheet"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5559,7 +5579,7 @@ tokens:
     - - "              "
       - Whitespace
     - - "' D size sheet"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5569,7 +5589,7 @@ tokens:
     - - "              "
       - Whitespace
     - - "' E size sheet"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5579,7 +5599,7 @@ tokens:
     - - "               "
       - Whitespace
     - - "' Envelope DL, 110 x 220 mm"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5589,7 +5609,7 @@ tokens:
     - - "               "
       - Whitespace
     - - "' Envelope C3, 324 x 458 mm"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5599,7 +5619,7 @@ tokens:
     - - "               "
       - Whitespace
     - - "' Envelope C4, 229 x 324 mm"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5609,7 +5629,7 @@ tokens:
     - - "               "
       - Whitespace
     - - "' Envelope C5, 162 x 229 mm"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5619,7 +5639,7 @@ tokens:
     - - "               "
       - Whitespace
     - - "' Envelope C6, 114 x 162 mm"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5629,7 +5649,7 @@ tokens:
     - - "              "
       - Whitespace
     - - "' Envelope C65, 114 x 229 mm"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5639,7 +5659,7 @@ tokens:
     - - "               "
       - Whitespace
     - - "' Envelope B4, 250 x 353 mm"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5649,7 +5669,7 @@ tokens:
     - - "               "
       - Whitespace
     - - "' Envelope B5, 176 x 250 mm"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5659,7 +5679,7 @@ tokens:
     - - "               "
       - Whitespace
     - - "' Envelope B6, 176 x 125 mm"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5669,7 +5689,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "' Envelope, 110 x 230 mm"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5679,7 +5699,7 @@ tokens:
     - - "          "
       - Whitespace
     - - "' Envelope Monarch, 3 7/8 x 7 1/2 in."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5689,7 +5709,7 @@ tokens:
     - - "         "
       - Whitespace
     - - "' Envelope, 3 5/8 x 6 1/2 in."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5699,7 +5719,7 @@ tokens:
     - - "           "
       - Whitespace
     - - "' U.S. Standard Fanfold, 14 7/8 x 11 in."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5709,7 +5729,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' German Standard Fanfold, 8 1/2 x 12 in."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5719,7 +5739,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' German Legal Fanfold, 8 1/2 x 13 in."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5737,7 +5757,7 @@ tokens:
     - - "          "
       - Whitespace
     - - "' User-defined"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - End
@@ -5751,7 +5771,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "' EPrintQuality constants same as vbPRPQ constants"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -5975,7 +5995,7 @@ tokens:
     - - " "
       - Whitespace
     - - "' Default (printer's)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -6297,7 +6317,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "' Common dialog errors"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -6935,7 +6955,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "' Array of custom colors lasts for life of app"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -7103,7 +7123,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'return object's APIReturn property"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -7159,7 +7179,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'return object's ExtendedError property"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -7731,7 +7751,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' Add in specific flags and strip out non-VB flags"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -7909,7 +7929,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' Owner can take handle of owning window"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -7955,7 +7975,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' InitDir can take initial directory string"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -7977,7 +7997,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' DefaultExt can take default extension"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -7999,7 +8019,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' DlgTitle can take dialog box title"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -8025,7 +8045,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' To make Windows-style filter, replace | and : with nulls"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -8233,7 +8253,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' Put double null at end"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -8303,7 +8323,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' Pad file and file title buffers to maximum path"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -8473,7 +8493,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' All other fields set to zero"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -8527,7 +8547,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "' Success"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -8607,7 +8627,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "' Return the filter index"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -8629,7 +8649,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "' Look up the filter the user selected and return that"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -8713,7 +8733,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "' Cancelled"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -8815,7 +8835,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "' Extended error"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -9411,7 +9431,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' Add in specific flags and strip out non-VB flags"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -9515,7 +9535,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' Owner can take handle of owning window"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -9561,7 +9581,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' InitDir can take initial directory string"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -9583,7 +9603,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' DefaultExt can take default extension"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -9605,7 +9625,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' DlgTitle can take dialog box title"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -9631,7 +9651,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' Make new filter with bars (|) replacing nulls and double null at end"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -9839,7 +9859,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' Put double null at end"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -9909,7 +9929,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' Pad file and file title buffers to maximum path"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -10079,7 +10099,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' All other fields zero"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -10207,7 +10227,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "' Return the filter index"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -10229,7 +10249,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "' Look up the filter the user selected and return that"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -10273,7 +10293,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "' Cancelled:"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -10373,7 +10393,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "' Extended error:"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -10661,7 +10681,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "' Cut out both parts marked by null character"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -11233,7 +11253,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "' ChooseColor wrapper"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Function
@@ -11471,19 +11491,19 @@ tokens:
     - - "    "
       - Whitespace
     - - "' Color must get reference variable to receive result"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' Flags can get reference variable or constant with bit flags"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' Owner can take handle of owning window"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -11533,7 +11553,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' Assign color (default uninitialized value of zero is good default)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -11559,7 +11579,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' Mask out unwanted bits"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -11625,7 +11645,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' Pass in flags"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -11751,7 +11771,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' If first time, initialize to white"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -11815,7 +11835,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' All other fields zero"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -11869,7 +11889,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "' Success"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -11917,7 +11937,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "' Cancelled"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -11963,7 +11983,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "' Extended error"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -12073,7 +12093,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' Initialize with first 16 system interface colors"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -12159,7 +12179,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "' Property to read or modify custom colors (use to save colors in registry)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -12203,7 +12223,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' If first time, initialize to white"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -12383,7 +12403,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' If first time, initialize to system colors"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -12715,7 +12735,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "' Raise standard Visual Basic error"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -12863,7 +12883,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "' Assign to empty array"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -12919,7 +12939,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "' Copy to existing array, padding or truncating if necessary"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -13043,31 +13063,31 @@ tokens:
     - - "        "
       - Whitespace
     - - "'If UnicodeTypeLib Then"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'    Dim st As String"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'    st = StrConv(s, vbFromUnicode)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'    CopyMemoryStr ab(LBound(ab)), st, cab"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'Else"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -13107,7 +13127,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'End If"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -13271,7 +13291,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private

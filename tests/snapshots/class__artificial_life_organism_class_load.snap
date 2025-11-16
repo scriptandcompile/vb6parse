@@ -24,6 +24,26 @@ header:
 tokens:
   source_file: "./tests/data/vb6-code/Artificial-life/Organism.cls"
   tokens:
+    - - VERSION
+      - VersionKeyword
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - "."
+      - PeriodOperator
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - CLASS
+      - ClassKeyword
+    - - "\r\n"
+      - Newline
+    - - BEGIN
+      - BeginKeyword
+    - - "\r\n"
+      - Newline
     - - "  "
       - Whitespace
     - - MultiUse
@@ -41,7 +61,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'True"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "  "
@@ -59,7 +79,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'NotPersistable"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "  "
@@ -77,7 +97,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'vbNone"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "  "
@@ -95,7 +115,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'vbNone"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "  "
@@ -113,7 +133,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'NotAnMTSObject"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - END
@@ -201,23 +221,23 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'This Organism class gives life to the creatures in the simulation."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -233,7 +253,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'As you can imagine, this is the length (in \"nucelotides\") of each creature's \"DNA\""
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -267,7 +287,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'A unique identifer for this creature"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -287,7 +307,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'The ID number of this creature's parent"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -307,7 +327,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'The ID number of the original ancestor of this creature"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -327,7 +347,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Is the creature currently alive or dead?"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -347,7 +367,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'An array for the creature's DNA"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -371,7 +391,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'The creature's current coordinates"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -437,7 +457,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Currently selected or not"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -459,17 +479,17 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Next, the values for specific genes"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'(These are determined ONLY at birth)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
       - Newline
     - - "'Radius of the creature"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -489,7 +509,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Speed of the creature"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -509,7 +529,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Eyesight range of the creature (also treated as a radius)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -531,17 +551,17 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Next, creature properties that exist independent of genes."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'These are changed as the program progresses."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
       - Newline
     - - "'Energy of the creature"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -561,7 +581,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'How many cycles the creature has been alive"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -581,7 +601,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'The type of our target coordinates (food or a random destination)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -601,7 +621,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'The creature's target coordinates"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -637,7 +657,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Loop variables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -703,7 +723,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Return the length of this creature's DNA"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -755,7 +775,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Return a DNA base at position (pos)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -827,7 +847,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Mutate a base randomly (typically performed just after a creature has been created)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -853,7 +873,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Generate a random number between -1 and 1"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -917,13 +937,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Select a random base, then apply the mutation to it."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'(Note that Mutate can have a value of 0, in which case it is an \"inconsequential\" mutation)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1127,11 +1147,11 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Two possible methods for creating a new creature:"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'1: Create a creature with random DNA"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -1155,7 +1175,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Creatures are born with full energy"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1179,7 +1199,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Give this one random DNA"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1195,7 +1215,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Generate initial values for all genetically-set attributes"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1223,13 +1243,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'The only time this routine is run is for the initial generation, so"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' unilaterally set ParentID to -1 (indicative of first generation creatures)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1279,7 +1299,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'2: Create a creature from an existing creature (\"reproduction\", of the asexual variety)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -1319,7 +1339,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Split the parent creature's energy with the child"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1395,13 +1415,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'If the parent was a member of the founding set of creatures, set"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' the AncestralID to match the ParentID"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1491,7 +1511,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Copy the parent's DNA over to the child"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1511,7 +1531,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'If mutations are enabled, mutate away!"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1563,7 +1583,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Generate initial values for all genetically-set attributes"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1599,11 +1619,11 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'This routine simply copies one creature's DNA (typically a parent)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' into another creature (typically a child)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -1745,7 +1765,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'This routine generates a random strand of DNA"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -1877,7 +1897,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When a creature is \"born\"..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1903,7 +1923,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Mark the creature as not selected"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1927,7 +1947,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Mark the creature as alive"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1951,7 +1971,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Start counting the number of cycles this creature has lived (0)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1975,7 +1995,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Set the creature's target type as \"undefined\""
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2037,21 +2057,21 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'****************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'This set of routines calculates values for the creature's attributes (phenotype)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' based off scanning segments of DNA (genotype)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
       - Newline
     - - "'Creature size"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -2171,7 +2191,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Creature speed"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -2285,7 +2305,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'We don't want speed to be too fast, so divide it by 20"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2325,7 +2345,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Creature range (how far it can see)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -2437,7 +2457,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Add size to this value (so range is never smaller than the size of the creature)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2475,11 +2495,11 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'END gene creators"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -2487,7 +2507,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'This routine will draw the creature onto (PictureBox) at its present coordinates"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -2525,7 +2545,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'If the creature is alive, draw it in blue and red."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2593,7 +2613,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'If the creature is selected, draw it in black."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2853,7 +2873,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'If it's dead, draw it in light gray"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2869,7 +2889,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'If the creature is selected, draw it in black."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3147,7 +3167,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'This routine handles the main thought process for this creature"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -3173,7 +3193,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Thinking takes energy..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3205,7 +3225,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'If it has no energy, it dies"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3271,7 +3291,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'If the creature is still alive, count this cycle"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3319,7 +3339,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Determine what kind of a target square the creature has (random or food)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3357,7 +3377,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'If it doesn't have a target, scan for food"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3383,7 +3403,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Check to see if the target is close enough to evaluate"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3467,7 +3487,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Depending on the target type, the creature needs to re-evaluate all options"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -3477,7 +3497,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'If the target is food and we've arrived, eat it!"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -3537,7 +3557,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'Erase this food from the array"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "                "
@@ -3585,7 +3605,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'Remove it from the map, too"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "                "
@@ -3611,7 +3631,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'Add the food value to this creature's energy"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "                "
@@ -3631,7 +3651,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'Reset the target type (since it no longer has a target)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "                "
@@ -3641,7 +3661,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'If the target isn't food, it's just a random target - so reset it!"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -3683,7 +3703,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'If the target isn't close enough, the creature needs to move closer"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3911,15 +3931,15 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'This subroutine allows the creature to scan for food within its maximum scan radius"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' NOTE: The creatures maybe represented as circles, but they actually search in a"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'       square pattern. It's noticeably easier to program than a circular pattern."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -3943,7 +3963,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'The initial x and y coordinates to search from"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3985,7 +4005,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'The initial x and y coordinates to search to"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4027,7 +4047,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Trim search coordinates (don't want them outside the limit of the food array)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4173,7 +4193,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Search for food"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4235,7 +4255,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'If the creature finds food..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -4275,7 +4295,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Mark the target as being of type \"Food\""
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -4295,7 +4315,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Remember these x and y coordinates as the new target"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -4329,7 +4349,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Quit searching for food"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -4381,7 +4401,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Come here when searching is over(one way or another)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - noMoreSearch
@@ -4395,7 +4415,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'If the creature found food, there's nothing more to do"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4437,7 +4457,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'If the creature didn't find food, set a random target location and start moving there"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4461,7 +4481,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'targetType = 0 denotes a random target"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -4531,7 +4551,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Returns the smaller of two numbers"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -4655,7 +4675,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Returns the larger of two numbers"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private

@@ -24,6 +24,26 @@ header:
 tokens:
   source_file: "./tests/data/vb6-code/Blacklight-effect/FastDrawing.cls"
   tokens:
+    - - VERSION
+      - VersionKeyword
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - "."
+      - PeriodOperator
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - CLASS
+      - ClassKeyword
+    - - "\r\n"
+      - Newline
+    - - BEGIN
+      - BeginKeyword
+    - - "\r\n"
+      - Newline
     - - "  "
       - Whitespace
     - - MultiUse
@@ -41,7 +61,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'True"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "  "
@@ -59,7 +79,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'NotPersistable"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "  "
@@ -77,7 +97,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'vbNone"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "  "
@@ -95,7 +115,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'vbNone"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "  "
@@ -113,7 +133,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'NotAnMTSObject"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - END
@@ -201,59 +221,59 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Real-time drawing class for VB6"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Published in 2011 by Tanner Helland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'This class was built to simplify per-pixel access in VB6.  The attached project demonstrates how to use it."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' Note that its simplified design is primarily based around modifying 24-bpp RGB data.  Alpha channels are"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' not currently supported (although the code could be easily modified for this)."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The source code in this project is licensed under a Simplified BSD license."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -269,7 +289,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Stripped down bitmap information"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -393,7 +413,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Retrieve object properties directly from Windows; this lets us bypass some VB-specific annoyances"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -495,7 +515,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Standard pixel data (Windows BGRA order)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -577,7 +597,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Full-size bitmap header"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -757,7 +777,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Extended header for 8-bit images"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -825,7 +845,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Higher-quality image stretching must be activated manually"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -901,7 +921,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'DIB section interfaces"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1335,7 +1355,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Return an image's width, in pixels"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -1455,7 +1475,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Return an image's height, in pixels"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -1581,23 +1601,23 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Copy an 24-bpp image's pixel information into an array dimensioned (x * 3 , y).  Each row of the array represents"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' Blue, Green, Red pixel values - e.g. BGRBGRBGR..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Also, because Windows DIBs are stored upside-down (last line first), you can ask this function to reverse"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' line-order for you.  This can make position-specific calculations more intuitive."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -1689,7 +1709,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'To avoid dealing with .ScaleMode issues, retrieve the underlying image dimensions via WAPI"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1749,19 +1769,19 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Calculate a size for the destination array.  For performance reasons, Windows requires"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' 24-bpp DIB scanlines to be aligned on 4-byte boundaries - this means that the destination"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' array's width may not be a multiple of (imageWidth * 3), by design."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1909,7 +1929,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Create a temporary header to pass to the GetDIBits call"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2045,7 +2065,7 @@ tokens:
     - - "                "
       - Whitespace
     - - "'Size, in bytes, of the header"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2065,7 +2085,7 @@ tokens:
     - - "               "
       - Whitespace
     - - "'Number of planes (always one for this instance)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2085,7 +2105,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Bits per pixel (always 24 for this instance)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2105,7 +2125,7 @@ tokens:
     - - "          "
       - Whitespace
     - - "'Compression (always none for this instance)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2125,7 +2145,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Copy the pixel data into our array"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2213,27 +2233,27 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Set an image's pixel information from a raw byte array.  The byte array *must* have been created"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' according to the rules defined in GetImageData2D(), above.  Similarly, if you reversed scanline"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' order at retrieval time, you should also pass TRUE for fixOrientation when calling this function."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The image will be stretched to fit the destination picture box (without regard to aspect ratio)."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' You can manually modify this by changing the destination parameters of the StretchDIBits call."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -2361,7 +2381,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'To avoid dealing with .ScaleMode issues, retrieve the underlying image dimensions via WAPI"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2421,7 +2441,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Create a temporary header to pass to the StretchDIBits call"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2549,7 +2569,7 @@ tokens:
     - - "                "
       - Whitespace
     - - "'Size, in bytes, of the header"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2569,7 +2589,7 @@ tokens:
     - - "               "
       - Whitespace
     - - "'Number of planes (always one for this instance)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2589,7 +2609,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Bits per pixel (always 24 for this instance)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2609,7 +2629,7 @@ tokens:
     - - "          "
       - Whitespace
     - - "'Compression (always none for this instance)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2629,7 +2649,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'If stretching will be involved, request high-quality stretching from GDI"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2661,13 +2681,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Paint the pixel data into the destination picture box.  By using bm.bmWidth and bm.bmHeight as"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' the destination width/height, the pixel data will be automatically resized to fit the picture box."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2783,13 +2803,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'VB's built-in backbuffer system (\"AutoRedraw\") won't detect changes made by WAPI functions,"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' so we need to manually notify it of the need to redraw."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "

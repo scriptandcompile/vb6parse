@@ -674,51 +674,51 @@ tokens:
   source_file: "./tests/data/vb6-code/Brightness-effect/Part 3 - DIBs/Brightness3.frm"
   tokens:
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Copyright 2018 by Tanner Helland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' www.tannerhelland.com"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The source code in this project is licensed under a Simplified BSD license."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -726,7 +726,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'All of the DIB types"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1172,7 +1172,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'The GetObject API call gives us the bitmap variables we need for the other API calls"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1274,7 +1274,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'The GetBitmapBits and SetBitmapBits API calls (use ONLY in 24/32-bit color mode!!)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1456,7 +1456,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'The magical API DIB function calls (they're long!)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1874,7 +1874,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'The array that will hold our pixel data"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -1900,7 +1900,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Temporary brightness variable"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -1940,7 +1940,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Change the AutoRedraw property of the picture box based on the check box's value"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2034,7 +2034,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Get the text value, convert it to type 'Single,' and send it to the sub"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2104,7 +2104,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'A simple subroutine that will change the brightness of a picturebox using DIB sections."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -2168,7 +2168,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Coordinate variables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2206,7 +2206,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Build a look-up table for all possible brightness values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2288,7 +2288,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Calculate the brightness for pixel value x"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2328,7 +2328,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Make sure that the calculated value is between 0 and 255 (so we don't get an error)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2344,7 +2344,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Place the corrected value into its array spot"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2380,7 +2380,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Get the pixel data into our ImageData array"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2406,7 +2406,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Temporary width and height variables are faster than accessing the Scale properties over and over again"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2496,7 +2496,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'run a loop through the picture to change every pixel"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2554,19 +2554,19 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Use the values in the look-up table to quickly change the brightness values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'of each color.  The look-up table is much faster than doing the math"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'over and over for each individual pixel."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2626,7 +2626,7 @@ tokens:
     - - "   "
       - Whitespace
     - - "'Change the red"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2686,7 +2686,7 @@ tokens:
     - - "   "
       - Whitespace
     - - "'Change the green"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2746,7 +2746,7 @@ tokens:
     - - "   "
       - Whitespace
     - - "'Change the blue"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2762,7 +2762,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'refresh the picture box every 25 lines (a nice progress bar effect if AutoRedraw is set)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2850,7 +2850,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'final picture refresh"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2884,7 +2884,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Routine to get an image's pixel information into an array dimensioned (rgb, x, y)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -2942,7 +2942,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Declare us some variables of the necessary bitmap types"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2984,7 +2984,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Now we fill up the bmi (Bitmap information variable) with all of the appropriate data"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3010,7 +3010,7 @@ tokens:
     - - " "
       - Whitespace
     - - "'Size, in bytes, of the header (always 40)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3036,7 +3036,7 @@ tokens:
     - - " "
       - Whitespace
     - - "'Number of planes (always one for this instance)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3062,7 +3062,7 @@ tokens:
     - - " "
       - Whitespace
     - - "'Bits per pixel (always 24 for this instance)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3088,13 +3088,13 @@ tokens:
     - - " "
       - Whitespace
     - - "'Compression: standard/none or RLE"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'Calculate the size of the bitmap type (in bytes)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3138,7 +3138,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Get the picture box information from SrcPictureBox and put it into our 'bm' variable"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3170,7 +3170,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Build a correctly sized array"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3252,7 +3252,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Finish building the 'bmi' variable we want to pass to the GetDIBits call (the same one we used above)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3310,13 +3310,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Now that we've completely filled up the 'bmi' variable, we use GetDIBits to take the data from"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'SrcPictureBox and put it into the ImageData() array using the settings we specified in 'bmi'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3406,7 +3406,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Routine to set an image's pixel information from an array dimensioned (rgb, x, y)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -3464,7 +3464,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Declare us some variables of the necessary bitmap types"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3506,7 +3506,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Now we fill up the bmi (Bitmap information variable) with all of the appropriate data"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3532,7 +3532,7 @@ tokens:
     - - " "
       - Whitespace
     - - "'Size, in bytes, of the header (always 40)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3558,7 +3558,7 @@ tokens:
     - - " "
       - Whitespace
     - - "'Number of planes (always one for this instance)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3584,7 +3584,7 @@ tokens:
     - - " "
       - Whitespace
     - - "'Bits per pixel (always 24 for this instance)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3610,13 +3610,13 @@ tokens:
     - - " "
       - Whitespace
     - - "'Compression: standard/none or RLE"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'Calculate the size of the bitmap type (in bytes)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3660,7 +3660,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Get the picture box information from DstPictureBox and put it into our 'bm' variable"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3692,13 +3692,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Now that we know the object's size, finish building the temporary header to pass to the StretchDIBits call"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'(continuing to use the 'bmi' we used above)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3756,19 +3756,19 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Now that we've built the temporary header, we use StretchDIBits to take the data from the"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'ImageData() array and put it into SrcPictureBox using the settings specified in 'bmi' (the"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'StretchDIBits call should be on one continuous line)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3894,19 +3894,19 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Since this doesn't automatically initialize AutoRedraw, we have to do it manually"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'Note: Always set AutoRedraw to true when using DIB sections; when AutoRedraw is false"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'you will get unpredictable results."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3988,7 +3988,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Standardized routine for converting to absolute byte values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -4138,7 +4138,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Get the text value, convert it to type 'Single,' and send it to the sub"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4208,7 +4208,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'A subroutine for changing the brightness of a picturebox IN 24/32-BIT COLOR MODES ONLY!!"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -4272,7 +4272,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Coordinate variables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4310,7 +4310,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Build a look-up table for all possible brightness values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4392,7 +4392,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Calculate the brightness for pixel value x"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -4432,7 +4432,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Make sure that the calculated value is between 0 and 255 (so we don't get an error)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -4448,7 +4448,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Place the corrected value into its array spot"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -4484,7 +4484,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Create a bitmap variable and copy the basic information from 'PictureBox.Image' into it"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4540,7 +4540,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Create an array of bytes and fill it with the information from 'bm' (i.e. PictureBox.image)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4730,7 +4730,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Temporary width and height variables are faster than accessing the Scale properties over and over again"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4820,7 +4820,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'run a loop through the picture to change every pixel"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4878,19 +4878,19 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Use the values in the look-up table to quickly change the brightness values"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'of each color.  The look-up table is much faster than doing the math"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'over and over for each individual pixel."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -4950,7 +4950,7 @@ tokens:
     - - "   "
       - Whitespace
     - - "'Change the red"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -5010,7 +5010,7 @@ tokens:
     - - "   "
       - Whitespace
     - - "'Change the green"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -5070,7 +5070,7 @@ tokens:
     - - "   "
       - Whitespace
     - - "'Change the blue"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5086,7 +5086,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'refresh the picture box every 25 lines (a nice progress bar effect if AutoRedraw is set)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -5258,7 +5258,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'final picture refresh"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "

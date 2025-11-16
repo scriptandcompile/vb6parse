@@ -855,51 +855,51 @@ tokens:
   source_file: Threshold.frm
   tokens:
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Copyright 2018 by Tanner Helland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' www.tannerhelland.com"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The source code in this project is licensed under a Simplified BSD license."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -915,7 +915,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When the checkbox is changed, re-apply the filter"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -951,7 +951,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When the program is first loaded, several things needs to happen..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -975,7 +975,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Draw the initial effect with a default value, then update the image"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1163,7 +1163,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Reset the foreground image to look like the original image"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1203,7 +1203,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When the percentage scroll bar is changed, make the associated label display the current value (and redraw the image)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1315,7 +1315,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'To load a new image..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1339,7 +1339,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Windows common dialog interface"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1389,13 +1389,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'VB6's built-in image loader (which wraps an ancient OLE loader) only supports a"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' subset of modern image file types."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1555,7 +1555,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Load the image and refresh the effect"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1603,7 +1603,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'If a null string is passed, simply paint an unmodified copy of the backbuffer into the foreground buffer"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1713,7 +1713,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Copy the image, automatically resized, from the background picture box to the foreground one"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2005,19 +2005,19 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Resize the form to automatically contain the new picture box dimensions."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' (This performs some sloppy checks to keep the form from resizing larger than the primary display,"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'  but it is *not* good code - a proper solution would involve the AdjustWindowRect() API or similar!)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2401,7 +2401,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Automatically black-out pixels below a certain threshold; parameters are source picture box, destination picture box, blackout threshold (value between 0 and 255)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -2493,7 +2493,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'This array will hold the image's pixel data"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2525,7 +2525,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Coordinate variables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2567,7 +2567,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Image dimensions"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2609,7 +2609,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Instantiate a FastDrawing class and gather the image's data (into ImageData())"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2713,7 +2713,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'These variables will hold temporary pixel color values (red, green, blue)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2769,7 +2769,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'This value will be used to calculate a temporary grayscale value for each pixel"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2797,7 +2797,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Initialize a grayscale look-up table"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2903,7 +2903,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Now, loop through each pixel, blacking it out (or ignoring it) according to the user's specified threshold value"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3025,7 +3025,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Get the source image pixels"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3129,7 +3129,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Calculate luminance"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3175,7 +3175,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'If below the threshold, assign all color channels to their new values based on the look-up table created above"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3305,7 +3305,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'If forceToWhite is \"true\", set this pixel to white"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -3467,7 +3467,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Draw the new image data to the screen"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "

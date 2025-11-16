@@ -1389,67 +1389,67 @@ tokens:
   source_file: "./tests/data/vb6-code/Game-physics-basic/FormPhysics.frm"
   tokens:
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Code Copyright 2018 by Tanner Helland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' www.tannerhelland.com"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Art assets for this demo were borrowed from the old DOS game Raptor: Call of the Shadows"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' https://en.wikipedia.org/wiki/Raptor:_Call_of_the_Shadows"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' They are used here under Fair Use for educational purposes only."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The source code in this project is licensed under a Simplified BSD license."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -1501,7 +1501,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'START GAME AT FORM LOAD..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1525,7 +1525,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Upon form load, it's necessary to initialize some key variables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1541,7 +1541,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'When everything is set, start the game!"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1565,7 +1565,7 @@ tokens:
     - - "   "
       - Whitespace
     - - "'MainLoop appears at the bottom of the form"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1583,7 +1583,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'END GAME"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1627,7 +1627,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'WHEN A KEY IS PRESSED..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1677,13 +1677,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Depending on the arrow key being pressed, set the correct direction variable"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' and the correct ship picture"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1693,7 +1693,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Left"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1793,7 +1793,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Right"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1893,7 +1893,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Up"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1937,7 +1937,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Down"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1981,7 +1981,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Space (fire the gun)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2025,7 +2025,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Escape (end the game)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2077,7 +2077,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'WHEN A KEY IS RELEASED..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2125,7 +2125,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Whenever an arrow key is released, reset motion in that direction"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2271,7 +2271,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'When the space bar is released, stop firing"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2323,7 +2323,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'MAIN LOOP"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -2347,7 +2347,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'This variable is used to track time and reduce framerate (if necessary)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2427,7 +2427,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Calculate time at the start of the function"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2451,7 +2451,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Draw the background stars"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2467,7 +2467,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Calculate the ship's motion and location"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2483,7 +2483,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'If necessary, fire some bullets"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2499,7 +2499,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Change the velocity caption"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2579,7 +2579,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'If framerate limitations are active, loop until enough time has passed"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2725,7 +2725,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Then do it all again..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2741,7 +2741,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'When the loop exits, release the main form"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "

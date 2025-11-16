@@ -935,51 +935,51 @@ tokens:
   source_file: "./tests/data/vb6-code/Map-editor-2D/Main Editor.frm"
   tokens:
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Copyright 2018 by Tanner Helland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' www.tannerhelland.com"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The source code in this project is licensed under a Simplified BSD license."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -987,7 +987,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When the combo box is changed, update our drawing method"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1209,7 +1209,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'The InitializeEditor routine can be found in Sub_Module"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1243,7 +1243,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Also, populate the DrawMethod combo box"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1313,7 +1313,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Load a default map"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1381,7 +1381,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'At present, map files are pretty simple - the width, height, and data is all we currently store"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1517,7 +1517,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Once MapArray has been successfully created, Draw the map!"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1549,7 +1549,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Whenever a scrollbar is used, update the map"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1713,7 +1713,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Whenever the top scrollbar is used, update the tiles"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1749,7 +1749,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When a mouse button is pressed, remember the mouse state (1 = pressed) and draw a tile at the current mouse position"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1837,7 +1837,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Left button"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1885,7 +1885,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Right button"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1941,7 +1941,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When the mouse is moved, only draw if a mouse button has been pressed"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2015,7 +2015,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Only draw if a button is down"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2137,7 +2137,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Return the mouse button state variable to unpressed"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2233,7 +2233,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Menu -> Exit"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2273,7 +2273,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Menu -> New"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2299,7 +2299,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Keep the current size settings and reset the map to zero (default tile)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2407,7 +2407,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Last, draw the new map"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2431,7 +2431,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Menu -> Open"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2457,7 +2457,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Initialize the common dialog interface"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2507,7 +2507,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'String returned from the common dialog wrapper"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2535,13 +2535,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'This string contains the filters for loading different kinds of images.  Using"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'this feature correctly makes our common dialog box a LOT more pleasant to use."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2583,7 +2583,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'If cancel isn't selected, load a map from the user-specified file"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2667,7 +2667,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Open the file"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2701,7 +2701,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'At present, map files are pretty simple - the width, height, and data is all we currently store"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -2837,7 +2837,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Once MapArray has been successfully created, Draw the map!"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2877,7 +2877,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Menu -> Refresh"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2913,7 +2913,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Menu -> Resize"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2961,7 +2961,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Menu -> Save"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2985,7 +2985,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Initialize the common dialog interface"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3035,7 +3035,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'String returned from the common dialog wrapper"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3063,13 +3063,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'This string contains the filters for loading different kinds of images.  Using"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'this feature correctly makes our common dialog box a LOT more pleasant to use."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3111,7 +3111,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'If cancel isn't selected, save a map to the user-specified file"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3191,7 +3191,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Open the file"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3225,7 +3225,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'At present, map files are pretty simple - the width, height, and data is all we currently store"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -3335,7 +3335,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Menu -> Zoom"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -3371,7 +3371,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When the top tile box is clicked, remember which tile was clicked (and draw that tile in its preview box)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -3447,7 +3447,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Left button..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3475,7 +3475,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Current picture is the x value integer divided by 64 (tile width) + whatever the scrollbar is at"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3519,7 +3519,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Draw this tile in its picture box on the left"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3721,7 +3721,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Right button..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3997,7 +3997,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Because AutoRedraw is set to true for these pictures boxes, we must refresh them and update the .Picture property"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "

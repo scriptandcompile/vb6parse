@@ -18,8 +18,24 @@ name:
 tokens:
   source_file: "./tests/data/vb6-code/Game-physics-basic/Physics_Logic.bas"
   tokens:
+    - - Attribute
+      - AttributeKeyword
+    - - " "
+      - Whitespace
+    - - VB_Name
+      - Identifier
+    - - " "
+      - Whitespace
+    - - "="
+      - EqualityOperator
+    - - " "
+      - Whitespace
+    - - "\"Logic_Module\""
+      - StringLiteral
+    - - "\r\n"
+      - Newline
     - - "'Simple Game Physics Demo - www.tannerhelland.com"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -35,11 +51,11 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'API CALLS:"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'BitBlt is used to draw the ship and bullets onto the screen"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -239,7 +255,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'SetPixelV is used to draw the background stars"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -351,7 +367,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'CONSTANTS (feel free to set these to whatever you'd like):"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -581,7 +597,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'TYPES:"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -741,13 +757,13 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'VARIABLES:"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
       - Newline
     - - "'Ship coordinates"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -783,7 +799,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'The ship's velocity in each direction"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -885,7 +901,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Whether or not the ship is firing"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -907,7 +923,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'The number of active bullets on the screen"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -927,7 +943,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'An array of all the bullets currently being fired"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -963,7 +979,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'An array of all the background stars"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -999,7 +1015,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Whether or not to start the game"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -1021,7 +1037,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Plain ol' looping variables"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -1057,7 +1073,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'The width and height of the game screen"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -1095,7 +1111,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When the program is started, this routine is run first"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -1121,7 +1137,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Randomize the random number generator"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1141,7 +1157,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Store the width and height of the game area"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1195,7 +1211,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Build all of the background stars"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1257,7 +1273,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Set the ship in the middle of the picture box"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1335,7 +1351,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'No active bullets (...yet!)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1357,7 +1373,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Show the main form"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1385,7 +1401,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'This routine draws the background stars onto the buffer"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -1445,7 +1461,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'First, clear the buffer of any previous stars"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1469,7 +1485,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Run a loop through every star in the array"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1501,7 +1517,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Move the star down the screen according to its speed"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1563,7 +1579,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'If the star moves off the screen, make a new one in its place"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1613,7 +1629,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Draw a pixel at location (x,y) using the star's brightness value"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1747,7 +1763,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'This routine tracks and processes the movement of our little spaceship"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -1807,7 +1823,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Movement Up"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1835,7 +1851,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Increase velocity as per the acceleration variable"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1863,7 +1879,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Increase position as per the new velocity variable"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1905,7 +1921,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Movement Down (see detailed comments under \"Movement Up\" above)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1991,13 +2007,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Vertical Deceleration (applied only when no keys have been pressed AND the ship"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' is already in motion)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2217,7 +2233,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Apply the deceleration to the ship's velocity"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2259,7 +2275,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Movement Left"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2345,7 +2361,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Movement Right"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2431,7 +2447,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Horizontal Deceleration"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2683,7 +2699,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'If the ship scrolls completely off-screen, move it to the other side"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2833,7 +2849,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'If the ship isn't moving left or right, reset the ship picture to the default orientation"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2935,7 +2951,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Last but not least, draw the ship onto the buffer"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3099,7 +3115,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'This routine fires bullets/laser blasts from the ship's nose"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -3159,7 +3175,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Run a loop through every bullet"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3195,7 +3211,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'If the user is firing, and this bullet is inactive, make it active"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3269,7 +3285,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Mark this bullet as active"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -3303,7 +3319,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Let the engine know that we've activated a bullet this round (so as to not activate more)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -3335,7 +3351,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Set the bullet in the center of the ship"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -3377,7 +3393,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Set the bullet to start from either side of the ship's nose"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -3433,7 +3449,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'If the bullet is active, update its information"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3475,7 +3491,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'First, move the bullet up according to its speed"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -3527,7 +3543,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'If the bullet leaves the screen, deactivate it"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -3593,7 +3609,7 @@ tokens:
     - - "            "
       - Whitespace
     - - "'Draw our bullet(s) to the screen"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "            "
@@ -4025,7 +4041,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Now do the same for the next bullet"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4045,7 +4061,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Reset the number of activated bullets to zero"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4069,7 +4085,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Since this is the last step in the logic process, copy the entire buffer to the screen"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4161,11 +4177,11 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Use this to create a star; if firstTime is true, the star can appear anywhere - if false,"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' it is created only along the top edge of the screen"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -4235,7 +4251,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Random x location"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4277,7 +4293,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Calculate the y location according to firstTime"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4389,7 +4405,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Brightness is somewhere between 5 and 255"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4443,7 +4459,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Star velocity is somewhere between .1 and 8"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "

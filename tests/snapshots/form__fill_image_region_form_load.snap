@@ -369,51 +369,51 @@ tokens:
   source_file: "./tests/data/vb6-code/Fill-image-region/frmFill.frm"
   tokens:
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Copyright 2018 by Tanner Helland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' www.tannerhelland.com"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The source code in this project is licensed under a Simplified BSD license."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -545,7 +545,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Location variables necessary for drawing connected lines"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -581,7 +581,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'This variable remembers whether or not the left mouse button has been pressed (see below)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Dim
@@ -603,7 +603,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When the left mouse button is pressed..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -679,13 +679,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Check the mouse button"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' If the left button is pressed..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -717,7 +717,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Remember that the left-hand button is down"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -741,7 +741,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Remember the current mouse location"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -779,7 +779,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' If the right button..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -811,7 +811,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Seed VB's random number generator"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -831,7 +831,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Set the picture box's .FillColor property to a random number"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -919,13 +919,13 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Use the API to fill this region"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "'Parameters: (picture box), (x coordinate), (y coordinate), (color being replaced), (fill method - always 1)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1011,7 +1011,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When the mouse is moved..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1087,13 +1087,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'If drawing is enabled (meaning the left mouse button has previously been pressed),"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' draw a line between the old x coordinate and the current one"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1117,7 +1117,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Use VB's line function to draw the line"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1165,7 +1165,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Replace the old xStart and yStart variables with the current location of the mouse"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -1225,7 +1225,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'When a mouse button is released..."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1303,7 +1303,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Disable drawing"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "

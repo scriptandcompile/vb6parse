@@ -24,6 +24,26 @@ header:
 tokens:
   source_file: "./tests/data/vb6-code/Gradient-2D/cSystemColorDialog.cls"
   tokens:
+    - - VERSION
+      - VersionKeyword
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - "."
+      - PeriodOperator
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - CLASS
+      - ClassKeyword
+    - - "\r\n"
+      - Newline
+    - - BEGIN
+      - BeginKeyword
+    - - "\r\n"
+      - Newline
     - - "  "
       - Whitespace
     - - MultiUse
@@ -41,7 +61,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'True"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "  "
@@ -59,7 +79,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'NotPersistable"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "  "
@@ -77,7 +97,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'vbNone"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "  "
@@ -95,7 +115,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'vbNone"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "  "
@@ -113,7 +133,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'NotAnMTSObject"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - END
@@ -201,15 +221,15 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Display a system color selection dialog"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' Adopted from a reference implementation at http://www.devx.com/vb2themax/Tip/19257, originally by Marco Bellinaso"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' See also the MSDN documentation for ChooseColor at https://msdn.microsoft.com/en-us/library/windows/desktop/ms646912%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -757,45 +777,45 @@ tokens:
     - - "\r\n"
       - Newline
     - - "' Show the common dialog for choosing a color."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' Returns TRUE if OK was selected; FALSE otherwise"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' dstColor holds the return value; this value is nonsense if the function returns FALSE"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' hParent is the handle (hWnd) of the parent form"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' showFullDialog specifies whether the dialog will show both selection panels by default"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' initColor is the color initially selected when the dialog is open"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
       - Newline
     - - "' Example:"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'    Dim oleNewColor As OLE_COLOR"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'    If ShowColorsDialog(oleNewColor, Me.hwnd, True, vbRed) Then Me.BackColor = oleNewColor"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Function
@@ -979,7 +999,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' Translate the initial OLE color to a long value"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1071,7 +1091,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' Fill the ChooseColorStruct struct"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -1241,7 +1261,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "' Show the dialog and return the result (if any)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "

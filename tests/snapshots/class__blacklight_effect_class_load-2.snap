@@ -24,6 +24,26 @@ header:
 tokens:
   source_file: "./tests/data/vb6-code/Blacklight-effect/pdOpenSaveDialog.cls"
   tokens:
+    - - VERSION
+      - VersionKeyword
+    - - " "
+      - Whitespace
+    - - "1"
+      - Number
+    - - "."
+      - PeriodOperator
+    - - "0"
+      - Number
+    - - " "
+      - Whitespace
+    - - CLASS
+      - ClassKeyword
+    - - "\r\n"
+      - Newline
+    - - BEGIN
+      - BeginKeyword
+    - - "\r\n"
+      - Newline
     - - "  "
       - Whitespace
     - - MultiUse
@@ -41,7 +61,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'True"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "  "
@@ -59,7 +79,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'NotPersistable"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "  "
@@ -77,7 +97,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'vbNone"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "  "
@@ -95,7 +115,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'vbNone"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "  "
@@ -113,7 +133,7 @@ tokens:
     - - "  "
       - Whitespace
     - - "'NotAnMTSObject"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - END
@@ -201,91 +221,91 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'PhotoDemon Unicode-Aware System Open/Save Dialog"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Copyright 2015-2018 by Tanner Helland"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Created: 05/August/15"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Last updated: 15/August/15"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Last update: finish work on GetSaveFileName()"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'Common dialogs appear in multiple places throughout PD.  In the beginning, PD relied on a convenient common dialog wrapper"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' from vbAccelerator (http://www.vbaccelerator.com/home/VB/Code/Libraries/Common_Dialogs/Code_Only_Common_Dialogs/article.asp),"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' but besides being unwieldy and somewhat error-prone, Steve's implementation was ANSI-only.  Due to some major differences in"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' string handling (including multifile delimiters), it was non-trivial to overhaul his control, so in 2015, I wrote a new"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' common dialog interface, specific to PD."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'The eventual goal is to add parallel support for Vista's IFileOpen/SaveDialogs, which would actually allow me to customize"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' the program's main dialogs, but that's a ways off.  For now, everything simply wraps the traditional common dialog controls."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'For convenience against existing code, the function calls are roughly identical to Steve's old control."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'All source code in this file is licensed under a modified BSD license.  This means you may use the code in your own"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' projects IF you provide attribution.  For more information, please visit https://photodemon.org/license/"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "'***************************************************************************"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -303,7 +323,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Unicode interface.  Note that the only thing we pass it is a pointer to the master OPENFILENAME struct; it does the rest."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -503,11 +523,11 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'MSDN struct breakdown: https://msdn.microsoft.com/en-us/library/ms646839%28v=vs.85%29.aspx"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' Note that some parameter behavior (e.g. lpstrInitialDir) varies under Win 7 and later."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -1659,7 +1679,7 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'MSDN explanation of potential CD errors: https://msdn.microsoft.com/en-us/library/ms646916%28v=vs.85%29.aspx"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Public
@@ -1963,15 +1983,15 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Arbitrary-length return strings are possible, but because we have to re-raise the dialog upon failure (ugh), it's not"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' really practical to implement a \"try again with larger buffer\" feature.  Fortunately, post-XP operatings systems have"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' no upper limit, so we can start with an arbitrarily large string."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Private
@@ -2089,11 +2109,11 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Display a system-specific Open File dialog."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' RETURNS: TRUE if one or more files was selected; FALSE if canceled."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Friend
@@ -2471,7 +2491,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Prep a relevant OFN struct"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -2535,13 +2555,13 @@ tokens:
     - - "        "
       - Whitespace
     - - "'OFN_EXPLORER is explicitly flagged to force Explorer mode even when allowing multiselect, and OFN_PATHMUSTEXIST"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "' is used to prevent the user from entering invalid filenames."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2667,7 +2687,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Various other obvious flags"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2741,13 +2761,13 @@ tokens:
     - - "        "
       - Whitespace
     - - "'The filter string is actually null-delimited, which isn't easy for the caller to do, so we allow the old-style"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "' pipe and colon separators, which are forcibly converted now."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -2973,7 +2993,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Double-nulls mark final termination"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3045,13 +3065,13 @@ tokens:
     - - "        "
       - Whitespace
     - - "'We have to start with a prepared buffer of some arbitrary size.  If the size proves too small,"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "' the call to GetOpenFilename will fail, and we can't retry without re-raising the dialog from scratch."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3247,7 +3267,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'All other fields are fine as-is"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3271,7 +3291,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Turn control over to the common dialog function"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3307,13 +3327,13 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Before proceeding, add debug info in the special case of a buffer underrun.  This case is problematic, as we can't simply"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' \"try again\" without re-raising a modal dialog, so I'm hoping my current default buffer size is always sufficient."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3413,25 +3433,25 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Non-zero returns are considered successful, but note that a failure state may have occurred due to a too-small buffer."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' (We could technically handle buffer overflows by retrying with a larger buffer, but I don't know how to do that"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'  without re-displaying the entire effing common dialog; to that end, I've hard-coded a 16K buffer as a limit,"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'  since PD won't do well with that many loaded images anyway.)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -3469,7 +3489,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Success!  Parse out the relevant strings."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3869,7 +3889,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Return the filter index, so the caller can store it to preferences as desired"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -3993,11 +4013,11 @@ tokens:
     - - "\r\n"
       - Newline
     - - "'Display a system-specific Save File dialog."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "' RETURNS: TRUE if a valid save target was selected/created; FALSE if canceled."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - Friend
@@ -4337,7 +4357,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Prep a relevant OFN struct"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -4401,7 +4421,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'We forcefully hide the \"Open as Read Only\" checkbox, as it makes little sense for PD."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -4465,7 +4485,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Various other obvious flags"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -4567,13 +4587,13 @@ tokens:
     - - "        "
       - Whitespace
     - - "'The filter string is actually null-delimited, which isn't easy for the caller to do, so we allow the old-style"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "' pipe and colon separators, which are forcibly converted now."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -4755,7 +4775,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Double-nulls mark final termination"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -4827,13 +4847,13 @@ tokens:
     - - "        "
       - Whitespace
     - - "'We have to start with a prepared buffer of some arbitrary size.  If the size proves too small, we could technically call"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
       - Whitespace
     - - "' the function again with a larger buffer (not implemented, as PD uses a comically huge buffer)."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -5025,7 +5045,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'All other fields are fine as-is"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -5049,7 +5069,7 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Turn control over to the common dialog function"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5085,25 +5105,25 @@ tokens:
     - - "    "
       - Whitespace
     - - "'Non-zero returns are considered successful, but note that a failure state may have occurred due to a too-small buffer."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "' (We could technically handle buffer overflows by retrying with a larger buffer, but I don't know how to do that"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'  without re-displaying the entire effing common dialog; to that end, I've hard-coded a 1K buffer as a limit,"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
       - Whitespace
     - - "'  which should allow for saving to just about anywhere!)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "    "
@@ -5141,7 +5161,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Success!  Parse out the relevant filename string."
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -5395,7 +5415,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'As a convenience, return the file title too (which is just the filename + extension, with no path data)"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
@@ -5479,7 +5499,7 @@ tokens:
     - - "        "
       - Whitespace
     - - "'Return the filter index, so the caller can store it to preferences as desired"
-      - Comment
+      - EndOfLineComment
     - - "\r\n"
       - Newline
     - - "        "
