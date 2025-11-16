@@ -123,19 +123,33 @@ impl ConcreteSyntaxTree {
         let syntax_node = rowan::SyntaxNode::<VB6Language>::new_root(self.root.clone());
         syntax_node
             .children_with_tokens()
-            .map(|child| match child {
-                rowan::NodeOrToken::Node(node) => CstNode {
+            .map(|child| Self::build_cst_node(child))
+            .collect()
+    }
+    
+    /// Recursively build a CstNode from a rowan NodeOrToken
+    fn build_cst_node(node_or_token: rowan::NodeOrToken<rowan::SyntaxNode<VB6Language>, rowan::SyntaxToken<VB6Language>>) -> CstNode {
+        match node_or_token {
+            rowan::NodeOrToken::Node(node) => {
+                let children = node
+                    .children_with_tokens()
+                    .map(|child| Self::build_cst_node(child))
+                    .collect();
+                
+                CstNode {
                     kind: node.kind(),
                     text: node.text().to_string(),
                     is_token: false,
-                },
-                rowan::NodeOrToken::Token(token) => CstNode {
-                    kind: token.kind(),
-                    text: token.text().to_string(),
-                    is_token: true,
-                },
-            })
-            .collect()
+                    children,
+                }
+            }
+            rowan::NodeOrToken::Token(token) => CstNode {
+                kind: token.kind(),
+                text: token.text().to_string(),
+                is_token: true,
+                children: Vec::new(),
+            },
+        }
     }
     
     /// Find all child nodes of a specific kind
@@ -210,6 +224,8 @@ pub struct CstNode {
     pub text: String,
     /// Whether this is a token (true) or a structural node (false)
     pub is_token: bool,
+    /// The children of this node (empty for tokens)
+    pub children: Vec<CstNode>,
 }
 
 /// Parse a TokenStream into a Concrete Syntax Tree.
@@ -562,10 +578,8 @@ impl<'a> Parser<'a> {
         // Consume "If" keyword
         self.consume_token();
         
-        // Consume everything until "Then" or newline
-        while !self.is_at_end() && !self.at_token(VB6Token::ThenKeyword) && !self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        // Parse the conditional expression
+        self.parse_conditional();
         
         // Consume "Then" if present
         if self.at_token(VB6Token::ThenKeyword) {
@@ -649,10 +663,8 @@ impl<'a> Parser<'a> {
         // Consume "ElseIf" keyword
         self.consume_token();
         
-        // Consume everything until "Then" or newline
-        while !self.is_at_end() && !self.at_token(VB6Token::ThenKeyword) && !self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        // Parse the conditional expression
+        self.parse_conditional();
         
         // Consume "Then" if present
         if self.at_token(VB6Token::ThenKeyword) {
@@ -702,6 +714,87 @@ impl<'a> Parser<'a> {
         });
         
         self.builder.finish_node(); // ElseClause
+    }
+    
+    /// Parse a conditional expression.
+    /// 
+    /// This handles both:
+    /// - Binary conditionals: `a = b`, `x > 5`, `name <> ""`
+    /// - Unary conditionals: `Not condition`, `Not IsEmpty(x)`
+    /// 
+    /// The conditional is parsed until "Then" or newline is encountered.
+    fn parse_conditional(&mut self) {
+        // Skip any leading whitespace
+        while self.at_token(VB6Token::Whitespace) {
+            self.consume_token();
+        }
+        
+        // Check if this is a unary conditional starting with "Not"
+        if self.at_keyword(VB6Token::NotKeyword) {
+            self.builder.start_node(SyntaxKind::UnaryConditional.to_raw());
+            
+            // Consume "Not" keyword
+            self.consume_token();
+            
+            // Consume any whitespace after "Not"
+            while self.at_token(VB6Token::Whitespace) {
+                self.consume_token();
+            }
+            
+            // Consume the rest of the conditional expression until "Then" or newline
+            while !self.is_at_end() 
+                && !self.at_token(VB6Token::ThenKeyword) 
+                && !self.at_token(VB6Token::Newline) {
+                self.consume_token();
+            }
+            
+            self.builder.finish_node(); // UnaryConditional
+        } else {
+            // Binary conditional - parse left side, operator, right side
+            self.builder.start_node(SyntaxKind::BinaryConditional.to_raw());
+            
+            // Consume tokens until we hit a comparison operator
+            while !self.is_at_end() 
+                && !self.at_token(VB6Token::ThenKeyword) 
+                && !self.at_token(VB6Token::Newline) {
+                
+                // Check if we've hit a comparison operator
+                if self.is_comparison_operator() {
+                    // Consume the operator
+                    self.consume_token();
+                    
+                    // Consume any whitespace after the operator
+                    while self.at_token(VB6Token::Whitespace) {
+                        self.consume_token();
+                    }
+                    
+                    // Now consume the right side until "Then" or newline
+                    while !self.is_at_end() 
+                        && !self.at_token(VB6Token::ThenKeyword) 
+                        && !self.at_token(VB6Token::Newline) {
+                        self.consume_token();
+                    }
+                    break;
+                }
+                
+                self.consume_token();
+            }
+            
+            // If we didn't find an operator, we still consumed everything until "Then"
+            // This handles cases like function calls that return boolean values
+            
+            self.builder.finish_node(); // BinaryConditional
+        }
+    }
+    
+    /// Check if the current token is a comparison operator
+    fn is_comparison_operator(&self) -> bool {
+        matches!(
+            self.current_token(),
+            Some(VB6Token::EqualityOperator)
+                | Some(VB6Token::LessThanOperator)
+                | Some(VB6Token::GreaterThanOperator)
+        )
     }
     
     /// Parse a code block, consuming tokens until a termination condition is met.
