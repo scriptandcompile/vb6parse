@@ -409,7 +409,31 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // OptionStatement
     }
 
-    /// Parse a Sub procedure: Sub Name(...) ... End Sub
+    /// Parse a Visual Basic 6 subroutine with syntax:
+    ///
+    /// \[ Public | Private | Friend \] \[ Static \] Sub name \[ ( arglist ) \]
+    /// \[ statements \]
+    /// \[ Exit Sub \]
+    /// \[ statements \]
+    /// End Sub
+    ///
+    /// The Sub statement syntax has these parts:
+    ///
+    /// | Part        | Optional / Required | Description |
+    /// |-------------|---------------------|-------------|
+    /// | Public   	  | Optional | Indicates that the Sub procedure is accessible to all other procedures in all modules. If used in a module that contains an Option Private statement, the procedure is not available outside the project. |
+    /// | Private  	  | Optional | Indicates that the Sub procedure is accessible only to other procedures in the module where it is declared. |
+    /// | Friend 	  | Optional | Used only in a class module. Indicates that the Sub procedure is visible throughout the project, but not visible to a controller of an instance of an object. |
+    /// | Static 	  | Optional | Indicates that the Sub procedure's local variables are preserved between calls. The Static attribute doesn't affect variables that are declared outside the Sub, even if they are used in the procedure. |
+    /// | name 	      | Required | Name of the Sub; follows standard variable naming conventions. |
+    /// | arglist 	  | Optional | List of variables representing arguments that are passed to the Sub procedure when it is called. Multiple variables are separated by commas. |
+    /// | statements  | Optional | Any group of statements to be executed within the Sub procedure.
+    ///
+    /// The arglist argument has the following syntax and parts:
+    ///
+    /// \[ Optional \] \[ ByVal | ByRef \] \[ ParamArray \] varname \[ ( ) \] \[ As type \] \[ = defaultvalue \]
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/sub-statement)
     fn parse_sub_statement(&mut self) {
         self.builder.start_node(SyntaxKind::SubStatement.to_raw());
 
