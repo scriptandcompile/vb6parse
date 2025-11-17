@@ -344,6 +344,10 @@ impl<'a> Parser<'a> {
                         None => self.parse_declaration(),              // Declaration
                     }
                 }
+                // Call statement: Call SubroutineName(args)
+                Some(VB6Token::CallKeyword) => {
+                    self.parse_call_statement();
+                }
                 // Whitespace and newlines - consume directly
                 Some(VB6Token::Whitespace)
                 | Some(VB6Token::Newline)
@@ -941,7 +945,19 @@ impl<'a> Parser<'a> {
         )
     }
 
-    /// Parse a Call statement: Call procedureName(arguments)
+    /// Parse a Call statement:
+    /// 
+    /// \[ Call \] name \[ argumentlist \]
+    /// 
+    /// The Call statement syntax has these parts:
+    /// 
+    /// | Part        | Optional / Required | Description |
+    /// |-------------|---------------------|-------------|
+    /// | Call        | Optional            | Indicates that a procedure is being called. The Call keyword is optional; if omitted, the procedure name is used directly. |
+    /// | name        | Required            | Name of the procedure to be called; follows standard variable naming conventions. |
+    /// | argumentlist| Optional            | List of arguments to be passed to the procedure. Arguments are enclosed in parentheses and separated by commas. |
+    /// 
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/call-statement)
     fn parse_call_statement(&mut self) {
         self.builder.start_node(SyntaxKind::CallStatement.to_raw());
         
