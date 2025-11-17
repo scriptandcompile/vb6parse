@@ -353,8 +353,14 @@ impl<'a> Parser<'a> {
                     self.parse_do_statement();
                 }
                 // For loop: For counter = start To end [Step step]...Next [counter]
+                // For Each loop: For Each element In collection...Next [element]
                 Some(VB6Token::ForKeyword) => {
-                    self.parse_for_statement();
+                    // Peek ahead to see if next keyword is "Each"
+                    if let Some(VB6Token::EachKeyword) = self.peek_next_keyword() {
+                        self.parse_for_each_statement();
+                    } else {
+                        self.parse_for_statement();
+                    }
                 }
                 // Whitespace and newlines - consume directly
                 Some(VB6Token::Whitespace)
@@ -1120,6 +1126,72 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // ForStatement
     }
 
+    /// Parse a For Each...Next statement.
+    ///
+    /// VB6 For Each...Next loop syntax:
+    /// - For Each element In collection...Next [element]
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/for-eachnext-statement)
+    fn parse_for_each_statement(&mut self) {
+        self.builder.start_node(SyntaxKind::ForEachStatement.to_raw());
+
+        // Consume "For" keyword
+        self.consume_token();
+
+        // Consume whitespace
+        while self.at_token(VB6Token::Whitespace) {
+            self.consume_token();
+        }
+
+        // Consume "Each" keyword
+        if self.at_keyword(VB6Token::EachKeyword) {
+            self.consume_token();
+        }
+
+        // Consume everything until "In" or newline
+        // This includes: element variable name and whitespace
+        while !self.is_at_end() 
+            && !self.at_keyword(VB6Token::InKeyword) 
+            && !self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        // Consume "In" keyword if present
+        if self.at_keyword(VB6Token::InKeyword) {
+            self.consume_token();
+
+            // Consume everything until newline (the collection)
+            while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
+                self.consume_token();
+            }
+        }
+
+        // Consume newline after For Each line
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        // Parse the loop body until "Next"
+        self.parse_code_block(|parser| parser.at_keyword(VB6Token::NextKeyword));
+
+        // Consume "Next" keyword
+        if self.at_keyword(VB6Token::NextKeyword) {
+            self.consume_token();
+
+            // Consume everything until newline (optional element variable)
+            while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
+                self.consume_token();
+            }
+
+            // Consume newline after Next
+            if self.at_token(VB6Token::Newline) {
+                self.consume_token();
+            }
+        }
+
+        self.builder.finish_node(); // ForEachStatement
+    }
+
     /// Parse a code block, consuming tokens until a termination condition is met.
     ///
     /// This is a generic code block parser that can handle different termination conditions:
@@ -1162,7 +1234,12 @@ impl<'a> Parser<'a> {
                     self.parse_do_statement();
                 }
                 Some(VB6Token::ForKeyword) => {
-                    self.parse_for_statement();
+                    // Peek ahead to see if next keyword is "Each"
+                    if let Some(VB6Token::EachKeyword) = self.peek_next_keyword() {
+                        self.parse_for_each_statement();
+                    } else {
+                        self.parse_for_statement();
+                    }
                 }
                 // Whitespace and newlines - consume directly
                 Some(VB6Token::Whitespace)
