@@ -1,4 +1,6 @@
 use std::borrow::Cow;
+use std::fs;
+use std::path::Path;
 
 use crate::errors::{ErrorDetails, SourceFileErrorKind};
 use crate::parsers::SourceStream;
@@ -11,6 +13,69 @@ pub struct SourceFile {
 }
 
 impl SourceFile {
+    /// Creates a `SourceFile` by reading from a file path.
+    ///
+    /// This method reads the file at the given path, decodes it using Windows-1252 encoding
+    /// with replacement for invalid characters, and extracts the filename from the path.
+    ///
+    /// # Arguments
+    ///
+    /// * `path` - A path to the file to read
+    ///
+    /// # Returns
+    ///
+    /// Returns a `Result` containing either:
+    /// - `Ok(SourceFile)` - Successfully read and decoded file
+    /// - `Err(ErrorDetails)` - Error reading the file or decoding its contents
+    ///
+    /// # Errors
+    ///
+    /// This function will return an error if:
+    /// - The file cannot be read
+    /// - The file content cannot be decoded
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// use vb6parse::SourceFile;
+    ///
+    /// let source_file = SourceFile::from_file("path/to/module.bas").unwrap();
+    /// ```
+    pub fn from_file<P: AsRef<Path>>(
+        path: P,
+    ) -> Result<Self, ErrorDetails<'static, SourceFileErrorKind>> {
+        let path = path.as_ref();
+        
+        // Read the file contents
+        let bytes = fs::read(path).map_err(|io_err| ErrorDetails {
+            kind: SourceFileErrorKind::MalformedSource {
+                message: format!("Failed to read file: {}", io_err),
+            },
+            error_offset: 0,
+            source_content: Cow::Borrowed(""),
+            source_name: path.display().to_string(),
+            line_start: 0,
+            line_end: 0,
+        })?;
+        
+        // Extract the filename from the path
+        let file_name = path
+            .file_name()
+            .and_then(|name| name.to_str())
+            .unwrap_or("unknown")
+            .to_string();
+        
+        // Decode the file using decode_with_replacement
+        Self::decode_with_replacement(file_name, &bytes).map_err(|err| ErrorDetails {
+            kind: err.kind,
+            error_offset: err.error_offset,
+            source_content: Cow::Owned(err.source_content.into_owned()),
+            source_name: err.source_name,
+            line_start: err.line_start,
+            line_end: err.line_end,
+        })
+    }
+
     pub fn decode_with_replacement(
         file_name: impl Into<String>,
         source_code: &[u8],
