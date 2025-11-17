@@ -352,6 +352,10 @@ impl<'a> Parser<'a> {
                 Some(VB6Token::DoKeyword) => {
                     self.parse_do_statement();
                 }
+                // For loop: For counter = start To end [Step step]...Next [counter]
+                Some(VB6Token::ForKeyword) => {
+                    self.parse_for_statement();
+                }
                 // Whitespace and newlines - consume directly
                 Some(VB6Token::Whitespace)
                 | Some(VB6Token::Newline)
@@ -1048,6 +1052,74 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // DoStatement
     }
 
+    /// Parse a For...Next statement.
+    ///
+    /// VB6 For...Next loop syntax:
+    /// - For counter = start To end [Step step]...Next [counter]
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/fornext-statement)
+    fn parse_for_statement(&mut self) {
+        self.builder.start_node(SyntaxKind::ForStatement.to_raw());
+
+        // Consume "For" keyword
+        self.consume_token();
+
+        // Consume everything until "To" or newline
+        // This includes: counter variable, "=", start value
+        while !self.is_at_end() 
+            && !self.at_keyword(VB6Token::ToKeyword) 
+            && !self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        // Consume "To" keyword if present
+        if self.at_keyword(VB6Token::ToKeyword) {
+            self.consume_token();
+
+            // Consume everything until "Step" or newline (the end value)
+            while !self.is_at_end() 
+                && !self.at_keyword(VB6Token::StepKeyword) 
+                && !self.at_token(VB6Token::Newline) {
+                self.consume_token();
+            }
+
+            // Consume "Step" keyword if present
+            if self.at_keyword(VB6Token::StepKeyword) {
+                self.consume_token();
+
+                // Consume everything until newline (the step value)
+                while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
+                    self.consume_token();
+                }
+            }
+        }
+
+        // Consume newline after For line
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        // Parse the loop body until "Next"
+        self.parse_code_block(|parser| parser.at_keyword(VB6Token::NextKeyword));
+
+        // Consume "Next" keyword
+        if self.at_keyword(VB6Token::NextKeyword) {
+            self.consume_token();
+
+            // Consume everything until newline (optional counter variable)
+            while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
+                self.consume_token();
+            }
+
+            // Consume newline after Next
+            if self.at_token(VB6Token::Newline) {
+                self.consume_token();
+            }
+        }
+
+        self.builder.finish_node(); // ForStatement
+    }
+
     /// Parse a code block, consuming tokens until a termination condition is met.
     ///
     /// This is a generic code block parser that can handle different termination conditions:
@@ -1088,6 +1160,9 @@ impl<'a> Parser<'a> {
                 }
                 Some(VB6Token::DoKeyword) => {
                     self.parse_do_statement();
+                }
+                Some(VB6Token::ForKeyword) => {
+                    self.parse_for_statement();
                 }
                 // Whitespace and newlines - consume directly
                 Some(VB6Token::Whitespace)
