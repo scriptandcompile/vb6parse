@@ -348,6 +348,10 @@ impl<'a> Parser<'a> {
                 Some(VB6Token::CallKeyword) => {
                     self.parse_call_statement();
                 }
+                // Do loop: Do [While|Until condition]...Loop [While|Until condition]
+                Some(VB6Token::DoKeyword) => {
+                    self.parse_do_statement();
+                }
                 // Whitespace and newlines - consume directly
                 Some(VB6Token::Whitespace)
                 | Some(VB6Token::Newline)
@@ -977,6 +981,77 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // CallStatement
     }
 
+    /// Parse a Do...Loop statement.
+    ///
+    /// VB6 supports several forms of Do loops:
+    /// - Do While condition...Loop
+    /// - Do Until condition...Loop
+    /// - Do...Loop While condition
+    /// - Do...Loop Until condition
+    /// - Do...Loop (infinite loop, requires Exit Do)
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/doloop-statement)
+    fn parse_do_statement(&mut self) {
+        self.builder.start_node(SyntaxKind::DoStatement.to_raw());
+
+        // Consume "Do" keyword
+        self.consume_token();
+
+        // Consume whitespace after Do
+        while self.at_token(VB6Token::Whitespace) {
+            self.consume_token();
+        }
+
+        // Check if we have While or Until after Do
+        let has_top_condition = self.at_token(VB6Token::WhileKeyword) || self.at_token(VB6Token::UntilKeyword);
+
+        if has_top_condition {
+            // Consume While or Until
+            self.consume_token();
+
+            // Parse condition - consume everything until newline
+            while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
+                self.consume_token();
+            }
+        }
+
+        // Consume newline after Do line
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        // Parse the loop body until "Loop"
+        self.parse_code_block(|parser| parser.at_keyword(VB6Token::LoopKeyword));
+
+        // Consume "Loop" keyword
+        if self.at_keyword(VB6Token::LoopKeyword) {
+            self.consume_token();
+
+            // Consume whitespace after Loop
+            while self.at_token(VB6Token::Whitespace) {
+                self.consume_token();
+            }
+
+            // Check if we have While or Until after Loop
+            if self.at_token(VB6Token::WhileKeyword) || self.at_token(VB6Token::UntilKeyword) {
+                // Consume While or Until
+                self.consume_token();
+
+                // Parse condition - consume everything until newline
+                while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
+                    self.consume_token();
+                }
+            }
+
+            // Consume newline after Loop
+            if self.at_token(VB6Token::Newline) {
+                self.consume_token();
+            }
+        }
+
+        self.builder.finish_node(); // DoStatement
+    }
+
     /// Parse a code block, consuming tokens until a termination condition is met.
     ///
     /// This is a generic code block parser that can handle different termination conditions:
@@ -1014,6 +1089,9 @@ impl<'a> Parser<'a> {
                 }
                 Some(VB6Token::CallKeyword) => {
                     self.parse_call_statement();
+                }
+                Some(VB6Token::DoKeyword) => {
+                    self.parse_do_statement();
                 }
                 // Whitespace and newlines - consume directly
                 Some(VB6Token::Whitespace)
