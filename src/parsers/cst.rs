@@ -1010,9 +1010,7 @@ impl<'a> Parser<'a> {
             self.consume_token();
 
             // Parse condition - consume everything until newline
-            while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
-                self.consume_token();
-            }
+            self.parse_conditional();
         }
 
         // Consume newline after Do line
@@ -1038,9 +1036,7 @@ impl<'a> Parser<'a> {
                 self.consume_token();
 
                 // Parse condition - consume everything until newline
-                while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
-                    self.consume_token();
-                }
+                self.parse_conditional();
             }
 
             // Consume newline after Loop
