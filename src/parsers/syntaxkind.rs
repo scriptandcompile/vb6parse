@@ -35,6 +35,7 @@ pub enum SyntaxKind {
     AssignmentStatement,
     GotoStatement,
     ExitStatement,
+    AppActivateStatement,
     LabelStatement,
     AttributeStatement,
     OptionStatement,
