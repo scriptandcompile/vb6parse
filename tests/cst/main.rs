@@ -21,3 +21,4 @@ mod goto_statement;
 mod inline_if;
 mod exit_statement;
 mod property_statement;
+mod appactivate_statement;
