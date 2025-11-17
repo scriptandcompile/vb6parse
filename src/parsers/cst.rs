@@ -941,6 +941,26 @@ impl<'a> Parser<'a> {
         )
     }
 
+    /// Parse a Call statement: Call procedureName(arguments)
+    fn parse_call_statement(&mut self) {
+        self.builder.start_node(SyntaxKind::CallStatement.to_raw());
+        
+        // Consume "Call" keyword
+        self.consume_token();
+
+        // Consume everything until newline (preserving all tokens)
+        while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        // Consume the newline
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        self.builder.finish_node(); // CallStatement
+    }
+
     /// Parse a code block, consuming tokens until a termination condition is met.
     ///
     /// This is a generic code block parser that can handle different termination conditions:
@@ -975,6 +995,9 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::ConstKeyword)
                 | Some(VB6Token::StaticKeyword) => {
                     self.parse_declaration();
+                }
+                Some(VB6Token::CallKeyword) => {
+                    self.parse_call_statement();
                 }
                 // Whitespace and newlines - consume directly
                 Some(VB6Token::Whitespace)
