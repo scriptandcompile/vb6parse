@@ -16,3 +16,4 @@ mod sub;
 mod assignment;
 mod label;
 mod with_statement;
+mod select_case;
