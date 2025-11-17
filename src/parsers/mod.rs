@@ -23,15 +23,15 @@ mod header;
 mod vb6stream;
 
 pub mod class;
+pub mod cst;
 pub mod form;
 pub mod module;
 pub mod objectreference;
 pub mod parseresults;
 pub mod project;
 pub mod properties;
-pub mod vb6;
-pub mod cst;
 pub mod syntaxkind;
+pub mod vb6;
 
 pub use class::*;
 pub use form::{resource_file_resolver, VB6FormFile};
@@ -45,12 +45,12 @@ pub use project::{
     VB6ProjectReference,
 };
 
+pub use crate::parsers::cst::{parse, ConcreteSyntaxTree};
+pub use crate::parsers::syntaxkind::SyntaxKind;
 pub use crate::sourcestream::*;
 pub use crate::SourceFile;
 pub use parseresults::ParseResult;
 pub use uuid::Uuid;
-pub use crate::parsers::cst::{ConcreteSyntaxTree, parse};
-pub use crate::parsers::syntaxkind::SyntaxKind;
 
 pub use vb6::{is_english_code, vb6_parse};
 

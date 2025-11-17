@@ -76,8 +76,6 @@ impl Language for VB6Language {
     }
 }
 
-
-
 /// A Concrete Syntax Tree for VB6 code.
 ///
 /// This structure wraps the rowan library's GreenNode internally but provides
@@ -93,31 +91,31 @@ impl ConcreteSyntaxTree {
     fn new(root: GreenNode) -> Self {
         Self { root }
     }
-    
+
     /// Get the kind of the root node
     pub fn root_kind(&self) -> SyntaxKind {
         SyntaxKind::from_raw(self.root.kind())
     }
-    
+
     /// Get a textual representation of the tree structure (for debugging)
     pub fn debug_tree(&self) -> String {
         let syntax_node = rowan::SyntaxNode::<VB6Language>::new_root(self.root.clone());
         format!("{:#?}", syntax_node)
     }
-    
+
     /// Get the text content of the entire tree
     pub fn text(&self) -> String {
         let syntax_node = rowan::SyntaxNode::<VB6Language>::new_root(self.root.clone());
         syntax_node.text().to_string()
     }
-    
+
     /// Get the number of children of the root node
     pub fn child_count(&self) -> usize {
         self.root.children().count()
     }
-    
+
     /// Get the children of the root node
-    /// 
+    ///
     /// Returns a vector of child nodes with their kind and text content.
     pub fn children(&self) -> Vec<CstNode> {
         let syntax_node = rowan::SyntaxNode::<VB6Language>::new_root(self.root.clone());
@@ -126,16 +124,21 @@ impl ConcreteSyntaxTree {
             .map(|child| Self::build_cst_node(child))
             .collect()
     }
-    
+
     /// Recursively build a CstNode from a rowan NodeOrToken
-    fn build_cst_node(node_or_token: rowan::NodeOrToken<rowan::SyntaxNode<VB6Language>, rowan::SyntaxToken<VB6Language>>) -> CstNode {
+    fn build_cst_node(
+        node_or_token: rowan::NodeOrToken<
+            rowan::SyntaxNode<VB6Language>,
+            rowan::SyntaxToken<VB6Language>,
+        >,
+    ) -> CstNode {
         match node_or_token {
             rowan::NodeOrToken::Node(node) => {
                 let children = node
                     .children_with_tokens()
                     .map(|child| Self::build_cst_node(child))
                     .collect();
-                
+
                 CstNode {
                     kind: node.kind(),
                     text: node.text().to_string(),
@@ -151,15 +154,15 @@ impl ConcreteSyntaxTree {
             },
         }
     }
-    
+
     /// Find all child nodes of a specific kind
-    /// 
+    ///
     /// # Arguments
-    /// 
+    ///
     /// * `kind` - The SyntaxKind to search for
-    /// 
+    ///
     /// # Returns
-    /// 
+    ///
     /// A vector of all child nodes matching the specified kind
     pub fn find_children_by_kind(&self, kind: SyntaxKind) -> Vec<CstNode> {
         self.children()
@@ -167,46 +170,46 @@ impl ConcreteSyntaxTree {
             .filter(|child| child.kind == kind)
             .collect()
     }
-    
+
     /// Check if the tree contains any node of the specified kind
-    /// 
+    ///
     /// # Arguments
-    /// 
+    ///
     /// * `kind` - The SyntaxKind to search for
-    /// 
+    ///
     /// # Returns
-    /// 
+    ///
     /// `true` if at least one node of the specified kind exists, `false` otherwise
     pub fn contains_kind(&self, kind: SyntaxKind) -> bool {
         self.children().iter().any(|child| child.kind == kind)
     }
-    
+
     /// Get the first child node (including tokens)
-    /// 
+    ///
     /// # Returns
-    /// 
+    ///
     /// The first child node if it exists, `None` otherwise
     pub fn first_child(&self) -> Option<CstNode> {
         self.children().into_iter().next()
     }
-    
+
     /// Get the last child node (including tokens)
-    /// 
+    ///
     /// # Returns
-    /// 
+    ///
     /// The last child node if it exists, `None` otherwise
     pub fn last_child(&self) -> Option<CstNode> {
         self.children().into_iter().last()
     }
-    
+
     /// Get child at a specific index
-    /// 
+    ///
     /// # Arguments
-    /// 
+    ///
     /// * `index` - The index of the child to retrieve
-    /// 
+    ///
     /// # Returns
-    /// 
+    ///
     /// The child at the specified index if it exists, `None` otherwise
     pub fn child_at(&self, index: usize) -> Option<CstNode> {
         self.children().into_iter().nth(index)
@@ -214,7 +217,7 @@ impl ConcreteSyntaxTree {
 }
 
 /// Represents a node in the Concrete Syntax Tree
-/// 
+///
 /// This can be either a structural node (like SubStatement) or a token (like Identifier).
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct CstNode {
@@ -270,19 +273,19 @@ impl<'a> Parser<'a> {
             builder: GreenNodeBuilder::new(),
         }
     }
-    
+
     /// Parse a complete module (the top-level structure)
-    /// 
+    ///
     /// This function loops through all tokens and identifies what kind of
     /// VB6 construct to parse based on the current token. As more VB6 syntax
     /// is supported, additional branches can be added to this loop.
     fn parse_module(mut self) -> ConcreteSyntaxTree {
         self.builder.start_node(SyntaxKind::Root.to_raw());
-        
+
         while !self.is_at_end() {
             // For a CST, we need to consume ALL tokens, including whitespace and comments
             // We look ahead to determine structure, but still consume everything
-            
+
             // Check what kind of statement or declaration we're looking at
             match self.current_token() {
                 // Attribute statement: Attribute VB_Name = "..."
@@ -310,10 +313,9 @@ impl<'a> Parser<'a> {
                     self.parse_function_statement();
                 }
                 // Variable declarations: Dim/Const
-                // For Public/Private/Friend/Static, we need to look ahead to see if it's a 
+                // For Public/Private/Friend/Static, we need to look ahead to see if it's a
                 // function/sub declaration or a variable declaration
-                Some(VB6Token::DimKeyword) 
-                | Some(VB6Token::ConstKeyword) => {
+                Some(VB6Token::DimKeyword) | Some(VB6Token::ConstKeyword) => {
                     self.parse_declaration();
                 }
                 // Public/Private/Friend/Static - could be function/sub or declaration
@@ -324,26 +326,26 @@ impl<'a> Parser<'a> {
                     // Look ahead to see if this is a function/sub declaration
                     // Peek at the next 2 keywords to handle cases like "Public Static Function"
                     let next_keywords: Vec<_> = self.peek_next_count_keywords(2).collect();
-                    
+
                     let is_function_or_sub = match next_keywords.as_slice() {
                         // Direct: Public/Private/Friend Function or Sub
-                        [VB6Token::FunctionKeyword, ..] => Some(true),  // Function
-                        [VB6Token::SubKeyword, ..] => Some(false),      // Sub
+                        [VB6Token::FunctionKeyword, ..] => Some(true), // Function
+                        [VB6Token::SubKeyword, ..] => Some(false),     // Sub
                         // With Static: Public/Private/Friend Static Function or Sub
                         [VB6Token::StaticKeyword, VB6Token::FunctionKeyword] => Some(true),
                         [VB6Token::StaticKeyword, VB6Token::SubKeyword] => Some(false),
                         // Anything else is a declaration
                         _ => None,
                     };
-                    
+
                     match is_function_or_sub {
-                        Some(true) => self.parse_function_statement(),  // Function
-                        Some(false) => self.parse_sub_statement(),      // Sub
-                        None => self.parse_declaration(),               // Declaration
+                        Some(true) => self.parse_function_statement(), // Function
+                        Some(false) => self.parse_sub_statement(),     // Sub
+                        None => self.parse_declaration(),              // Declaration
                     }
                 }
                 // Whitespace and newlines - consume directly
-                Some(VB6Token::Whitespace) 
+                Some(VB6Token::Whitespace)
                 | Some(VB6Token::Newline)
                 | Some(VB6Token::EndOfLineComment)
                 | Some(VB6Token::RemComment) => {
@@ -358,131 +360,134 @@ impl<'a> Parser<'a> {
                 }
             }
         }
-        
+
         self.builder.finish_node(); // Root
-        
+
         let root = self.builder.finish();
         ConcreteSyntaxTree::new(root)
     }
-    
+
     /// Parse an Attribute statement: Attribute VB_Name = "value"
     fn parse_attribute_statement(&mut self) {
-        self.builder.start_node(SyntaxKind::AttributeStatement.to_raw());
-        
+        self.builder
+            .start_node(SyntaxKind::AttributeStatement.to_raw());
+
         // Consume "Attribute" keyword
         self.consume_token();
-        
+
         // Consume everything until newline (preserving all tokens)
         while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
             self.consume_token();
         }
-        
+
         // Consume the newline
         if self.at_token(VB6Token::Newline) {
             self.consume_token();
         }
-        
+
         self.builder.finish_node(); // AttributeStatement
     }
 
     /// Parse an Option statement: Option Explicit On/Off
     fn parse_option_statement(&mut self) {
-        self.builder.start_node(SyntaxKind::OptionStatement.to_raw());
-        
+        self.builder
+            .start_node(SyntaxKind::OptionStatement.to_raw());
+
         // Consume "Option" keyword
         self.consume_token();
-        
+
         // Consume everything until newline (preserving all tokens)
         while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
             self.consume_token();
         }
-        
+
         // Consume the newline
         if self.at_token(VB6Token::Newline) {
             self.consume_token();
         }
-        
+
         self.builder.finish_node(); // OptionStatement
     }
-    
+
     /// Parse a Sub procedure: Sub Name(...) ... End Sub
     fn parse_sub_statement(&mut self) {
         self.builder.start_node(SyntaxKind::SubStatement.to_raw());
-        
+
         // Consume optional Public/Private/Friend keyword
-        if self.at_token(VB6Token::PublicKeyword) 
-            || self.at_token(VB6Token::PrivateKeyword) 
-            || self.at_token(VB6Token::FriendKeyword) {
+        if self.at_token(VB6Token::PublicKeyword)
+            || self.at_token(VB6Token::PrivateKeyword)
+            || self.at_token(VB6Token::FriendKeyword)
+        {
             self.consume_token();
-            
+
             // Consume any whitespace after visibility modifier
             while self.at_token(VB6Token::Whitespace) {
                 self.consume_token();
             }
         }
-        
+
         // Consume optional Static keyword
         if self.at_token(VB6Token::StaticKeyword) {
             self.consume_token();
-            
+
             // Consume any whitespace after Static
             while self.at_token(VB6Token::Whitespace) {
                 self.consume_token();
             }
         }
-        
+
         // Consume "Sub" keyword
         self.consume_token();
-        
+
         // Consume any whitespace after "Sub"
         while self.at_token(VB6Token::Whitespace) {
             self.consume_token();
         }
-        
+
         // Consume procedure name
         if self.at_token(VB6Token::Identifier) {
             self.consume_token();
         }
-        
+
         // Consume any whitespace before parameter list
         while self.at_token(VB6Token::Whitespace) {
             self.consume_token();
         }
-        
+
         // Parse parameter list if present
         if self.at_token(VB6Token::LeftParentheses) {
             self.parse_parameter_list();
         }
-        
+
         // Consume everything until newline (preserving all tokens)
         while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
             self.consume_token();
         }
-        
+
         // Consume the newline
         if self.at_token(VB6Token::Newline) {
             self.consume_token();
         }
-        
+
         // Parse body until "End Sub"
         self.parse_code_block(|parser| {
-            parser.at_keyword(VB6Token::EndKeyword) 
+            parser.at_keyword(VB6Token::EndKeyword)
                 && parser.peek_next_keyword() == Some(VB6Token::SubKeyword)
         });
-        
+
         // Consume "End Sub" and trailing tokens
         if self.at_keyword(VB6Token::EndKeyword) {
             // Consume "End"
             self.consume_token();
-            
+
             // Consume any whitespace between "End" and "Sub"
             while self.at_token(VB6Token::Whitespace) {
                 self.consume_token();
             }
-            
+
             // Consume "Sub"
             self.consume_token();
-            
+
             // Consume until newline (including it)
             while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
                 self.consume_token();
@@ -491,12 +496,12 @@ impl<'a> Parser<'a> {
                 self.consume_token();
             }
         }
-        
+
         self.builder.finish_node(); // SubStatement
     }
-    
+
     /// Parse a Visual Basic 6 function with syntax:
-    /// 
+    ///
     /// \[ Public | Private | Friend \] \[ Static \] Function name \[ ( arglist ) \] \[ As type \]
     /// \[ statements \]
     /// \[ name = expression \]
@@ -504,9 +509,9 @@ impl<'a> Parser<'a> {
     /// \[ statements \]
     /// \[ name = expression \]
     /// End Function
-    /// 
+    ///
     /// The Function statement syntax has these parts:
-    /// 
+    ///
     /// | Part        | Optional / Required | Description |
     /// |-------------|---------------------|-------------|
     /// | Public   	  | Optional | Indicates that the Function procedure is accessible to all other procedures in all modules. If used in a module that contains an Option Private, the procedure is not available outside the project. |
@@ -518,89 +523,91 @@ impl<'a> Parser<'a> {
     /// | type 	      | Optional | Data type of the value returned by the Function procedure; may be Byte, Boolean, Integer, Long, Currency, Single, Double, Decimal (not currently supported), Date, String (except fixed length), Object, Variant, or any user-defined type. |
     /// | statements  | Optional | Any group of statements to be executed within the Function procedure.
     /// | expression  | Optional | Return value of the Function. |
-    /// 
+    ///
     /// The arglist argument has the following syntax and parts:
-    /// 
+    ///
     /// \[ Optional \] \[ ByVal | ByRef \] \[ ParamArray \] varname \[ ( ) \] \[ As type \] \[ = defaultvalue \]
-    /// 
+    ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/function-statement)
     fn parse_function_statement(&mut self) {
-        self.builder.start_node(SyntaxKind::FunctionStatement.to_raw());
-        
+        self.builder
+            .start_node(SyntaxKind::FunctionStatement.to_raw());
+
         // Consume optional Public/Private/Friend keyword
-        if self.at_token(VB6Token::PublicKeyword) 
-            || self.at_token(VB6Token::PrivateKeyword) 
-            || self.at_token(VB6Token::FriendKeyword) {
+        if self.at_token(VB6Token::PublicKeyword)
+            || self.at_token(VB6Token::PrivateKeyword)
+            || self.at_token(VB6Token::FriendKeyword)
+        {
             self.consume_token();
-            
+
             // Consume any whitespace after visibility modifier
             while self.at_token(VB6Token::Whitespace) {
                 self.consume_token();
             }
         }
-        
+
         // Consume optional Static keyword
         if self.at_token(VB6Token::StaticKeyword) {
             self.consume_token();
-            
+
             // Consume any whitespace after Static
             while self.at_token(VB6Token::Whitespace) {
                 self.consume_token();
             }
         }
-        
+
         // Consume "Function" keyword
         self.consume_token();
-        
+
         // Consume any whitespace after "Function"
         while self.at_token(VB6Token::Whitespace) {
             self.consume_token();
         }
-        
+
         // Consume function name
         if self.at_token(VB6Token::Identifier) {
             self.consume_token();
         }
-        
+
         // Consume any whitespace before parameter list
         while self.at_token(VB6Token::Whitespace) {
             self.consume_token();
         }
-        
+
         // Parse parameter list if present
         if self.at_token(VB6Token::LeftParentheses) {
             self.parse_parameter_list();
         }
-        
+
         // Consume everything until newline (includes "As Type" if present)
         while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
             self.consume_token();
         }
-        
+
         // Consume the newline
         if self.at_token(VB6Token::Newline) {
             self.consume_token();
         }
-        
+
         // Parse body until "End Function"
         self.parse_code_block(|parser| {
-            parser.at_keyword(VB6Token::EndKeyword) 
+            parser.at_keyword(VB6Token::EndKeyword)
                 && parser.peek_next_keyword() == Some(VB6Token::FunctionKeyword)
         });
-        
+
         // Consume "End Function" and trailing tokens
         if self.at_keyword(VB6Token::EndKeyword) {
             // Consume "End"
             self.consume_token();
-            
+
             // Consume any whitespace between "End" and "Function"
             while self.at_token(VB6Token::Whitespace) {
                 self.consume_token();
             }
-            
+
             // Consume "Function"
             self.consume_token();
-            
+
             // Consume until newline (including it)
             while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
                 self.consume_token();
@@ -609,17 +616,17 @@ impl<'a> Parser<'a> {
                 self.consume_token();
             }
         }
-        
+
         self.builder.finish_node(); // FunctionStatement
     }
-    
+
     /// Parse a parameter list: (param1 As Type, param2 As Type)
     fn parse_parameter_list(&mut self) {
         self.builder.start_node(SyntaxKind::ParameterList.to_raw());
-        
+
         // Consume "("
         self.consume_token();
-        
+
         // Consume everything until ")"
         let mut depth = 1;
         while !self.is_at_end() && depth > 0 {
@@ -628,40 +635,40 @@ impl<'a> Parser<'a> {
             } else if self.at_token(VB6Token::RightParentheses) {
                 depth -= 1;
             }
-            
+
             self.consume_token();
-            
+
             if depth == 0 {
                 break;
             }
         }
-        
+
         self.builder.finish_node(); // ParameterList
     }
-    
+
     /// Parse a declaration: Dim/Private/Public x As Type
     fn parse_declaration(&mut self) {
         self.builder.start_node(SyntaxKind::DimStatement.to_raw());
-        
+
         // Consume the keyword (Dim, Private, Public, etc.)
         self.consume_token();
-        
+
         // Consume everything until newline (preserving all tokens)
         while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
             self.consume_token();
         }
-        
+
         // Consume the newline
         if self.at_token(VB6Token::Newline) {
             self.consume_token();
         }
-        
+
         self.builder.finish_node(); // DimStatement
     }
-    
+
     /// Parse an If statement: If condition Then ... End If
     /// Handles both single-line and multi-line If statements
-    /// 
+    ///
     /// IfStatement
     /// ├─ If keyword
     /// ├─ condition tokens
@@ -677,35 +684,35 @@ impl<'a> Parser<'a> {
     /// │  └─ body tokens
     /// ├─ End keyword
     /// └─ If keyword
-    /// 
+    ///
     fn parse_if_statement(&mut self) {
         self.builder.start_node(SyntaxKind::IfStatement.to_raw());
-        
+
         // Consume "If" keyword
         self.consume_token();
-        
+
         // Parse the conditional expression
         self.parse_conditional();
-        
+
         // Consume "Then" if present
         if self.at_token(VB6Token::ThenKeyword) {
             self.consume_token();
         }
-        
+
         // Consume any whitespace after Then
         while self.at_token(VB6Token::Whitespace) {
             self.consume_token();
         }
-        
+
         // Check if this is a single-line If statement (has code on the same line after Then)
         let is_single_line = !self.at_token(VB6Token::Newline) && !self.is_at_end();
-        
+
         if is_single_line {
             // Single-line If: consume everything until newline
             while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
                 self.consume_token();
             }
-            
+
             // Consume the newline
             if self.at_token(VB6Token::Newline) {
                 self.consume_token();
@@ -715,14 +722,15 @@ impl<'a> Parser<'a> {
             if self.at_token(VB6Token::Newline) {
                 self.consume_token();
             }
-            
+
             // Parse body until "End If", "Else", or "ElseIf"
             self.parse_code_block(|parser| {
-                (parser.at_keyword(VB6Token::EndKeyword) && parser.peek_next_keyword() == Some(VB6Token::IfKeyword))
+                (parser.at_keyword(VB6Token::EndKeyword)
+                    && parser.peek_next_keyword() == Some(VB6Token::IfKeyword))
                     || parser.at_keyword(VB6Token::ElseIfKeyword)
                     || parser.at_keyword(VB6Token::ElseKeyword)
             });
-            
+
             // Handle ElseIf and Else clauses
             while !self.is_at_end() {
                 if self.at_keyword(VB6Token::ElseIfKeyword) {
@@ -735,20 +743,20 @@ impl<'a> Parser<'a> {
                     break;
                 }
             }
-            
+
             // Consume "End If" and trailing tokens
             if self.at_keyword(VB6Token::EndKeyword) {
                 // Consume "End"
                 self.consume_token();
-                
+
                 // Consume any whitespace between "End" and "If"
                 while self.at_token(VB6Token::Whitespace) {
                     self.consume_token();
                 }
-                
+
                 // Consume "If"
                 self.consume_token();
-                
+
                 // Consume until newline (including it)
                 while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
                     self.consume_token();
@@ -758,141 +766,147 @@ impl<'a> Parser<'a> {
                 }
             }
         }
-        
+
         self.builder.finish_node(); // IfStatement
     }
-    
-    /// Parse an ElseIf clause: ElseIf condition Then ... 
+
+    /// Parse an ElseIf clause: ElseIf condition Then ...
     fn parse_elseif_clause(&mut self) {
         self.builder.start_node(SyntaxKind::ElseIfClause.to_raw());
-        
+
         // Consume "ElseIf" keyword
         self.consume_token();
-        
+
         // Parse the conditional expression
         self.parse_conditional();
-        
+
         // Consume "Then" if present
         if self.at_token(VB6Token::ThenKeyword) {
             self.consume_token();
         }
-        
+
         // Consume any whitespace after Then
         while self.at_token(VB6Token::Whitespace) {
             self.consume_token();
         }
-        
+
         // Consume the newline after Then
         if self.at_token(VB6Token::Newline) {
             self.consume_token();
         }
-        
+
         // Parse body until "End If", "Else", or another "ElseIf"
         self.parse_code_block(|parser| {
-            parser.at_keyword(VB6Token::ElseIfKeyword) 
-                || parser.at_keyword(VB6Token::ElseKeyword) 
-                || (parser.at_keyword(VB6Token::EndKeyword) && parser.peek_next_keyword() == Some(VB6Token::IfKeyword))
+            parser.at_keyword(VB6Token::ElseIfKeyword)
+                || parser.at_keyword(VB6Token::ElseKeyword)
+                || (parser.at_keyword(VB6Token::EndKeyword)
+                    && parser.peek_next_keyword() == Some(VB6Token::IfKeyword))
         });
-        
+
         self.builder.finish_node(); // ElseIfClause
     }
-    
+
     /// Parse an Else clause: Else ...
     fn parse_else_clause(&mut self) {
         self.builder.start_node(SyntaxKind::ElseClause.to_raw());
-        
+
         // Consume "Else" keyword
         self.consume_token();
-        
+
         // Consume any whitespace after Else
         while self.at_token(VB6Token::Whitespace) {
             self.consume_token();
         }
-        
+
         // Consume the newline after Else
         if self.at_token(VB6Token::Newline) {
             self.consume_token();
         }
-        
+
         // Parse body until "End If"
         self.parse_code_block(|parser| {
-            parser.at_keyword(VB6Token::EndKeyword) && parser.peek_next_keyword() == Some(VB6Token::IfKeyword)
+            parser.at_keyword(VB6Token::EndKeyword)
+                && parser.peek_next_keyword() == Some(VB6Token::IfKeyword)
         });
-        
+
         self.builder.finish_node(); // ElseClause
     }
-    
+
     /// Parse a conditional expression.
-    /// 
+    ///
     /// This handles both:
     /// - Binary conditionals: `a = b`, `x > 5`, `name <> ""`
     /// - Unary conditionals: `Not condition`, `Not IsEmpty(x)`
-    /// 
+    ///
     /// The conditional is parsed until "Then" or newline is encountered.
     fn parse_conditional(&mut self) {
         // Skip any leading whitespace
         while self.at_token(VB6Token::Whitespace) {
             self.consume_token();
         }
-        
+
         // Check if this is a unary conditional starting with "Not"
         if self.at_keyword(VB6Token::NotKeyword) {
-            self.builder.start_node(SyntaxKind::UnaryConditional.to_raw());
-            
+            self.builder
+                .start_node(SyntaxKind::UnaryConditional.to_raw());
+
             // Consume "Not" keyword
             self.consume_token();
-            
+
             // Consume any whitespace after "Not"
             while self.at_token(VB6Token::Whitespace) {
                 self.consume_token();
             }
-            
+
             // Consume the rest of the conditional expression until "Then" or newline
-            while !self.is_at_end() 
-                && !self.at_token(VB6Token::ThenKeyword) 
-                && !self.at_token(VB6Token::Newline) {
+            while !self.is_at_end()
+                && !self.at_token(VB6Token::ThenKeyword)
+                && !self.at_token(VB6Token::Newline)
+            {
                 self.consume_token();
             }
-            
+
             self.builder.finish_node(); // UnaryConditional
         } else {
             // Binary conditional - parse left side, operator, right side
-            self.builder.start_node(SyntaxKind::BinaryConditional.to_raw());
-            
+            self.builder
+                .start_node(SyntaxKind::BinaryConditional.to_raw());
+
             // Consume tokens until we hit a comparison operator
-            while !self.is_at_end() 
-                && !self.at_token(VB6Token::ThenKeyword) 
-                && !self.at_token(VB6Token::Newline) {
-                
+            while !self.is_at_end()
+                && !self.at_token(VB6Token::ThenKeyword)
+                && !self.at_token(VB6Token::Newline)
+            {
                 // Check if we've hit a comparison operator
                 if self.is_comparison_operator() {
                     // Consume the operator
                     self.consume_token();
-                    
+
                     // Consume any whitespace after the operator
                     while self.at_token(VB6Token::Whitespace) {
                         self.consume_token();
                     }
-                    
+
                     // Now consume the right side until "Then" or newline
-                    while !self.is_at_end() 
-                        && !self.at_token(VB6Token::ThenKeyword) 
-                        && !self.at_token(VB6Token::Newline) {
+                    while !self.is_at_end()
+                        && !self.at_token(VB6Token::ThenKeyword)
+                        && !self.at_token(VB6Token::Newline)
+                    {
                         self.consume_token();
                     }
                     break;
                 }
-                
+
                 self.consume_token();
             }
-            
+
             // If we didn't find an operator, we still consumed everything until "Then"
             // This handles cases like function calls that return boolean values
-            
+
             self.builder.finish_node(); // BinaryConditional
         }
     }
-    
+
     /// Check if the current token is a comparison operator
     fn is_comparison_operator(&self) -> bool {
         matches!(
@@ -902,24 +916,24 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::GreaterThanOperator)
         )
     }
-    
+
     /// Parse a code block, consuming tokens until a termination condition is met.
-    /// 
+    ///
     /// This is a generic code block parser that can handle different termination conditions:
     /// - End Sub, End Function, End If, etc.
     /// - ElseIf or Else (for If statements)
-    /// 
+    ///
     /// # Arguments
     /// * `stop_conditions` - A closure that returns true when the block should stop parsing
-    fn parse_code_block<F>(&mut self, stop_conditions: F) 
-    where 
-        F: Fn(&Parser) -> bool 
+    fn parse_code_block<F>(&mut self, stop_conditions: F)
+    where
+        F: Fn(&Parser) -> bool,
     {
         while !self.is_at_end() {
             if stop_conditions(self) {
                 break;
             }
-            
+
             // Dispatch to appropriate parsing methods based on current token
             match self.current_token() {
                 // If statement: If condition Then ... End If
@@ -927,7 +941,7 @@ impl<'a> Parser<'a> {
                     self.parse_if_statement();
                 }
                 // Variable declarations: Dim/Private/Public/Const/Static
-                Some(VB6Token::DimKeyword) 
+                Some(VB6Token::DimKeyword)
                 | Some(VB6Token::PrivateKeyword)
                 | Some(VB6Token::PublicKeyword)
                 | Some(VB6Token::ConstKeyword)
@@ -935,7 +949,7 @@ impl<'a> Parser<'a> {
                     self.parse_declaration();
                 }
                 // Whitespace and newlines - consume directly
-                Some(VB6Token::Whitespace) 
+                Some(VB6Token::Whitespace)
                 | Some(VB6Token::Newline)
                 | Some(VB6Token::EndOfLineComment)
                 | Some(VB6Token::RemComment) => {
@@ -948,42 +962,42 @@ impl<'a> Parser<'a> {
             }
         }
     }
-    
+
     // Helper methods
-    
+
     fn is_at_end(&self) -> bool {
         self.pos >= self.tokens.len()
     }
-    
+
     fn current_token(&self) -> Option<&VB6Token> {
         self.tokens.get(self.pos).map(|(_, token)| token)
     }
-    
+
     fn at_token(&self, token: VB6Token) -> bool {
         self.current_token() == Some(&token)
     }
-    
+
     fn at_keyword(&self, keyword: VB6Token) -> bool {
         self.at_token(keyword)
     }
-    
+
     fn peek_next_keyword(&self) -> Option<VB6Token> {
         self.peek_next_count_keywords(1).next()
     }
-    
+
     /// Peek ahead and get the next `count` non-whitespace keywords from the current position.
-    /// 
+    ///
     /// # Arguments
     /// * `count` - Number of keywords to peek ahead (must be non-zero)
-    /// 
+    ///
     /// # Returns
     /// An iterator over the next `count` keywords (non-whitespace tokens)
-    /// 
+    ///
     /// # Panics
     /// Panics if `count` is zero
     fn peek_next_count_keywords(&self, count: usize) -> impl Iterator<Item = VB6Token> + '_ {
         assert!(count > 0, "count must be non-zero");
-        
+
         self.tokens
             .iter()
             .skip(self.pos + 1)
@@ -991,7 +1005,7 @@ impl<'a> Parser<'a> {
             .take(count)
             .map(|(_, token)| *token)
     }
-    
+
     fn consume_token(&mut self) {
         if let Some((text, token)) = self.tokens.get(self.pos) {
             let kind = SyntaxKind::from(*token);
@@ -1006,5 +1020,4 @@ impl<'a> Parser<'a> {
             self.pos += 1;
         }
     }
-
 }
