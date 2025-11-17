@@ -33,6 +33,7 @@ pub enum SyntaxKind {
     SetStatement,
     AssignmentStatement,
     ExitStatement,
+    LabelStatement,
     AttributeStatement,
     OptionStatement,
 

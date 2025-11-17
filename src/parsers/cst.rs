@@ -367,10 +367,13 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::RemComment) => {
                     self.consume_token();
                 }
-                // Anything else - check if it's an assignment, otherwise consume as unknown
+                // Anything else - check if it's a label, assignment, or unknown
                 _ => {
+                    // Check if this is a label (identifier followed by colon)
+                    if self.is_at_label() {
+                        self.parse_label_statement();
                     // Check if this looks like an assignment statement (identifier = expression)
-                    if self.is_at_assignment() {
+                    } else if self.is_at_assignment() {
                         self.parse_assignment_statement();
                     } else if self.is_identifier() {
                         self.consume_token();
@@ -1222,6 +1225,38 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // AssignmentStatement
     }
 
+    /// Parse a label statement.
+    ///
+    /// VB6 label syntax:
+    /// - LabelName:
+    ///
+    /// Labels are used as targets for GoTo and GoSub statements.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/goto-statement)
+    fn parse_label_statement(&mut self) {
+        self.builder.start_node(SyntaxKind::LabelStatement.to_raw());
+
+        // Consume the label identifier
+        self.consume_token();
+
+        // Consume optional whitespace
+        while self.at_token(VB6Token::Whitespace) {
+            self.consume_token();
+        }
+
+        // Consume the colon
+        if self.at_token(VB6Token::ColonOperator) {
+            self.consume_token();
+        }
+
+        // Consume the newline if present
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        self.builder.finish_node(); // LabelStatement
+    }
+
     /// Parse a code block, consuming tokens until a termination condition is met.
     ///
     /// This is a generic code block parser that can handle different termination conditions:
@@ -1281,10 +1316,13 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::RemComment) => {
                     self.consume_token();
                 }
-                // Anything else - check if it's an assignment, otherwise consume as unknown
+                // Anything else - check if it's a label, assignment, or unknown
                 _ => {
+                    // Check if this is a label (identifier followed by colon)
+                    if self.is_at_label() {
+                        self.parse_label_statement();
                     // Check if this looks like an assignment statement (identifier = expression)
-                    if self.is_at_assignment() {
+                    } else if self.is_at_assignment() {
                         self.parse_assignment_statement();
                     } else {
                         self.consume_token_as_unknown();
@@ -1319,6 +1357,26 @@ impl<'a> Parser<'a> {
 
     fn is_identifier(&self) -> bool {
         matches!(self.current_token(), Some(VB6Token::Identifier))
+    }
+
+    fn is_number(&self) -> bool {
+        matches!(self.current_token(), Some(VB6Token::Number))
+    }
+
+    /// Check if the current position is at a label (identifier or number followed by colon).
+    fn is_at_label(&self) -> bool {
+        if !self.is_identifier() && !self.is_number() {
+            return false;
+        }
+        
+        // Look for a colon immediately after the identifier/number
+        for (_text, token) in self.tokens.iter().skip(self.pos + 1) {
+            match token {
+                VB6Token::ColonOperator => return true,
+                _ => return false,
+            }
+        }
+        false
     }
 
     /// Check if the current position is at the start of an assignment statement.
