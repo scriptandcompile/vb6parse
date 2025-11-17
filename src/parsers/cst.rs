@@ -929,6 +929,10 @@ impl<'a> Parser<'a> {
     where
         F: Fn(&Parser) -> bool,
     {
+        // Start a CodeBlock node
+        self.builder
+                .start_node(SyntaxKind::CodeBlock.to_raw());
+
         while !self.is_at_end() {
             if stop_conditions(self) {
                 break;
@@ -961,6 +965,7 @@ impl<'a> Parser<'a> {
                 }
             }
         }
+        self.builder.finish_node(); // CodeBlock
     }
 
     // Helper methods
