@@ -1412,32 +1412,20 @@ impl<'a> Parser<'a> {
     /// Check if the current position is at a label (identifier or number followed by colon).
     fn is_at_label(&self) -> bool {
 
+        let next_token_is_colon = matches!(self.peek_next_count_tokens(NonZeroUsize::new(1).unwrap()).next(), Some(VB6Token::ColonOperator));
+
+        if next_token_is_colon == false {
+            return false;
+        }
+
         // If we are not parsing the header, then some keywords are valid identifiers (like "Begin")
         // TODO: Consider adding a list of keywords that can be used as labels. 
         // TODO: Also consider modifying tokenizer to recognize when inside header to more easily identify Identifiers vs header only keywords.
         if !self.parsing_header && matches!(self.current_token(), Some(VB6Token::BeginKeyword)) {
-            // Look for a colon immediately after the Begin keyword
-            for (_text, token) in self.tokens.iter().skip(self.pos + 1) {
-                match token {
-                    VB6Token::ColonOperator => return true,
-                    _ => return false,
-                }
-            }
+            return true;
         }
 
-        if !self.is_identifier() && !self.is_number() {
-            return false;
-        }
-        
-        
-        // Look for a colon immediately after the identifier/number
-        for (_text, token) in self.tokens.iter().skip(self.pos + 1) {
-            match token {
-                VB6Token::ColonOperator => return true,
-                _ => return false,
-            }
-        }
-        false
+        self.is_identifier() || self.is_number()
     }
 
     /// Check if the current position is at the start of an assignment statement.
@@ -1493,13 +1481,12 @@ impl<'a> Parser<'a> {
             .map(|(_, token)| *token)
     }
 
-    fn peek_next_count_tokens(&self, count: NonZeroUsize) -> impl Iterator<Item = (&'a str, VB6Token)> + '_ {
-
+    fn peek_next_count_tokens(&self, count: NonZeroUsize) -> impl Iterator<Item = VB6Token> + '_ {
         self.tokens
             .iter()
             .skip(self.pos + 1)
             .take(count.get())
-            .map(|(text, token)| (*text, *token))
+            .map(|(_, token)| *token)
     }
 
     fn consume_token(&mut self) {
