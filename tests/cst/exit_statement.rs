@@ -84,11 +84,11 @@ End Sub
 
 #[test]
 fn exit_property() {
-    // TODO: Fix this to a Property procedure when supported
     let source = r#"
-Sub TestPropertyStub()
-    If m_value = "" Then Exit Property
-End Sub
+Property Set Callback(ByRef newObj As InterPress)
+    Set mCallback = newObj
+    Exit Property
+End Property
 "#;
     let mut source_stream = SourceStream::new("test.bas", source);
     let result = tokenize(&mut source_stream);
