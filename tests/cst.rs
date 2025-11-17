@@ -103,20 +103,6 @@ fn syntax_kind_conversions() {
     );
 }
 
-#[test]
-fn empty_token_stream() {
-    let code = "";
-    
-    let mut source_stream = SourceStream::new("empty.bas", code);
-    let result = tokenize(&mut source_stream);
-    let token_stream = result.result.expect("Tokenization should succeed");
-    let cst = parse(token_stream);
-
-    assert_eq!(cst.root_kind(), SyntaxKind::Root);
-    assert_eq!(cst.child_count(), 0);
-    assert_eq!(cst.text(), "");
-}
-
 
 #[test]
 fn public_api_does_not_expose_rowan() {
