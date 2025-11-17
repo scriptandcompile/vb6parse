@@ -171,3 +171,74 @@ End Sub
     let for_count = debug.matches("ForStatement").count();
     assert_eq!(for_count, 2);
 }
+
+#[test]
+fn for_each_loop_simple() {
+    let source = r#"
+Sub TestSub()
+    For Each item In collection
+        Debug.Print item
+    Next item
+End Sub
+"#;
+
+    let mut source_stream = SourceStream::new("test.bas", source);
+    let result = tokenize(&mut source_stream);
+    let token_stream = result.result.expect("Tokenization should succeed");
+    let cst = parse(token_stream);
+
+    let debug = cst.debug_tree();
+    assert!(debug.contains("ForEachStatement"));
+    assert!(debug.contains("ForKeyword"));
+    assert!(debug.contains("EachKeyword"));
+    assert!(debug.contains("InKeyword"));
+    assert!(debug.contains("NextKeyword"));
+}
+
+#[test]
+fn for_each_loop_without_variable_after_next() {
+    let source = r#"
+Sub TestSub()
+    For Each element In myArray
+        Debug.Print element
+    Next
+End Sub
+"#;
+
+    let mut source_stream = SourceStream::new("test.bas", source);
+    let result = tokenize(&mut source_stream);
+    let token_stream = result.result.expect("Tokenization should succeed");
+    let cst = parse(token_stream);
+
+    let debug = cst.debug_tree();
+    assert!(debug.contains("ForEachStatement"));
+    assert!(debug.contains("EachKeyword"));
+    assert!(debug.contains("InKeyword"));
+}
+
+#[test]
+fn nested_for_and_for_each() {
+    let source = r#"
+Sub TestSub()
+    For i = 1 To 10
+        For Each item In items(i)
+            Debug.Print item
+        Next item
+    Next i
+End Sub
+"#;
+
+    let mut source_stream = SourceStream::new("test.bas", source);
+    let result = tokenize(&mut source_stream);
+    let token_stream = result.result.expect("Tokenization should succeed");
+    let cst = parse(token_stream);
+
+    let debug = cst.debug_tree();
+    assert!(debug.contains("ForStatement"));
+    assert!(debug.contains("ForEachStatement"));
+    // Should have 1 of each type
+    let for_count = debug.matches("ForStatement").count();
+    let for_each_count = debug.matches("ForEachStatement").count();
+    assert_eq!(for_count, 1);
+    assert_eq!(for_each_count, 1);
+}
