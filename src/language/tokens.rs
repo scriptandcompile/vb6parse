@@ -932,6 +932,22 @@ pub enum VB6Token {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445184(v=vs.60))
     NextKeyword,
+    /// Represents the 'Each' keyword.
+    ///
+    /// The Each keyword is used in these contexts:
+    ///
+    /// For Each element In group...Next statement
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243370(v=vs.60))
+    EachKeyword,
+    /// Represents the 'In' keyword.
+    ///
+    /// The In keyword is used in these contexts:
+    ///
+    /// For Each element In group...Next statement
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243370(v=vs.60))
+    InKeyword,
     /// Represents the 'New' keyword.
     ///
     /// Keyword that enables implicit creation of an object. If you use New when
