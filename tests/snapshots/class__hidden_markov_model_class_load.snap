@@ -10989,7 +10989,7 @@ tokens:
     - - "    "
       - Whitespace
     - - Loop
-      - Identifier
+      - LoopKeyword
     - - " "
       - Whitespace
     - - While
