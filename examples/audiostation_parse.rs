@@ -2,11 +2,11 @@
 //! and parse it into a Concrete Syntax Tree (CST).
 
 use std::env;
-use vb6parse::SourceFile;
 use vb6parse::parse;
 use vb6parse::parsers::project::VB6Project;
+use vb6parse::SourceFile;
 
-fn main() -> Result<(), Box<dyn std::error::Error>>{
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     let current_directory = env::current_dir()?;
 
     // Load the audiostation project file from the test/data directory
@@ -15,18 +15,16 @@ fn main() -> Result<(), Box<dyn std::error::Error>>{
 
     print!("Reading project file from: {:?}\n", project_path);
 
-    let project_content = std::fs::read(project_path)
-        .expect("Failed to read audiostation project file.");
+    let project_content =
+        std::fs::read(project_path).expect("Failed to read audiostation project file.");
 
     // Create a SourceFile for the project file.
-    let project_source = SourceFile::decode_with_replacement(
-        "audiostation.vbp",
-        &project_content,
-    ).expect("Failed to decode project source file.");
+    let project_source = SourceFile::decode_with_replacement("audiostation.vbp", &project_content)
+        .expect("Failed to decode project source file.");
 
     // Parse the project file
     let project_parse_result = VB6Project::parse(&project_source);
-    
+
     if project_parse_result.has_failures() {
         for failure in &project_parse_result.failures {
             failure.print();
@@ -44,14 +42,16 @@ fn main() -> Result<(), Box<dyn std::error::Error>>{
 
     // For demonstration, parse the last module into a CST
     if let Some(last_module) = project.modules.last() {
+        let module_path = project_directory
+            .join(last_module.path.replace("\\", "/"))
+            .to_str()
+            .unwrap()
+            .to_string();
+        print!("Reading module file from: {:?}\n", module_path);
 
-        let module_path = project_directory.join(last_module.path.replace("\\", "/")).to_str().unwrap().to_string();
-        print !("Reading module file from: {:?}\n", module_path);
-
-        let module_source = SourceFile::decode_with_replacement(
-            &module_path,
-            &std::fs::read(&module_path)?,
-        ).expect("Failed to decode module source file.");
+        let module_source =
+            SourceFile::decode_with_replacement(&module_path, &std::fs::read(&module_path)?)
+                .expect("Failed to decode module source file.");
 
         let module_parse_result = vb6parse::parsers::module::VB6ModuleFile::parse(&module_source);
         if module_parse_result.has_failures() {
@@ -61,7 +61,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>>{
         }
         let module_file = module_parse_result.unwrap();
         let cst = parse(module_file.tokens);
-        
+
         println!("\nCST for module '{}':", module_path);
         println!("CST Root Kind: {:?}", cst.root_kind());
         println!("Number of children: {}", cst.child_count());
