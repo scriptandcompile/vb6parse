@@ -30,6 +30,7 @@ pub enum SyntaxKind {
     CaseStatement,
     WithStatement,
     CallStatement,
+    SetStatement,
     AssignmentStatement,
     ExitStatement,
     AttributeStatement,
