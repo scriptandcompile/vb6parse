@@ -393,6 +393,8 @@ impl<'a> Parser<'a> {
                         self.parse_assignment_statement();
                     } else if self.is_identifier() {
                         self.consume_token();
+                    } else if self.is_keyword() {
+                        self.consume_token();
                     } else {
                         // This is purely being done this way to make it easier during development.
                         // In a full implementation, we would have specific parsing functions
@@ -533,12 +535,12 @@ impl<'a> Parser<'a> {
 
         // Parse body until "End Sub"
         self.parse_code_block(|parser| {
-            parser.at_keyword(VB6Token::EndKeyword)
+            parser.at_token(VB6Token::EndKeyword)
                 && parser.peek_next_keyword() == Some(VB6Token::SubKeyword)
         });
 
         // Consume "End Sub" and trailing tokens
-        if self.at_keyword(VB6Token::EndKeyword) {
+        if self.at_token(VB6Token::EndKeyword) {
             // Consume "End"
             self.consume_token();
 
@@ -654,12 +656,12 @@ impl<'a> Parser<'a> {
 
         // Parse body until "End Function"
         self.parse_code_block(|parser| {
-            parser.at_keyword(VB6Token::EndKeyword)
+            parser.at_token(VB6Token::EndKeyword)
                 && parser.peek_next_keyword() == Some(VB6Token::FunctionKeyword)
         });
 
         // Consume "End Function" and trailing tokens
-        if self.at_keyword(VB6Token::EndKeyword) {
+        if self.at_token(VB6Token::EndKeyword) {
             // Consume "End"
             self.consume_token();
 
@@ -777,7 +779,7 @@ impl<'a> Parser<'a> {
             // We parse until we hit a newline or reach a colon (which could indicate Else on same line)
             while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
                 // Check for inline Else (: Else or just Else on same line)
-                if self.at_keyword(VB6Token::ElseKeyword) {
+                if self.at_token(VB6Token::ElseKeyword) {
                     break;
                 }
                 
@@ -828,18 +830,18 @@ impl<'a> Parser<'a> {
 
             // Parse body until "End If", "Else", or "ElseIf"
             self.parse_code_block(|parser| {
-                (parser.at_keyword(VB6Token::EndKeyword)
+                (parser.at_token(VB6Token::EndKeyword)
                     && parser.peek_next_keyword() == Some(VB6Token::IfKeyword))
-                    || parser.at_keyword(VB6Token::ElseIfKeyword)
-                    || parser.at_keyword(VB6Token::ElseKeyword)
+                    || parser.at_token(VB6Token::ElseIfKeyword)
+                    || parser.at_token(VB6Token::ElseKeyword)
             });
 
             // Handle ElseIf and Else clauses
             while !self.is_at_end() {
-                if self.at_keyword(VB6Token::ElseIfKeyword) {
+                if self.at_token(VB6Token::ElseIfKeyword) {
                     // Parse ElseIf clause
                     self.parse_elseif_clause();
-                } else if self.at_keyword(VB6Token::ElseKeyword) {
+                } else if self.at_token(VB6Token::ElseKeyword) {
                     // Parse Else clause
                     self.parse_else_clause();
                 } else {
@@ -848,7 +850,7 @@ impl<'a> Parser<'a> {
             }
 
             // Consume "End If" and trailing tokens
-            if self.at_keyword(VB6Token::EndKeyword) {
+            if self.at_token(VB6Token::EndKeyword) {
                 // Consume "End"
                 self.consume_token();
 
@@ -900,9 +902,9 @@ impl<'a> Parser<'a> {
 
         // Parse body until "End If", "Else", or another "ElseIf"
         self.parse_code_block(|parser| {
-            parser.at_keyword(VB6Token::ElseIfKeyword)
-                || parser.at_keyword(VB6Token::ElseKeyword)
-                || (parser.at_keyword(VB6Token::EndKeyword)
+            parser.at_token(VB6Token::ElseIfKeyword)
+                || parser.at_token(VB6Token::ElseKeyword)
+                || (parser.at_token(VB6Token::EndKeyword)
                     && parser.peek_next_keyword() == Some(VB6Token::IfKeyword))
         });
 
@@ -928,7 +930,7 @@ impl<'a> Parser<'a> {
 
         // Parse body until "End If"
         self.parse_code_block(|parser| {
-            parser.at_keyword(VB6Token::EndKeyword)
+            parser.at_token(VB6Token::EndKeyword)
                 && parser.peek_next_keyword() == Some(VB6Token::IfKeyword)
         });
 
@@ -949,7 +951,7 @@ impl<'a> Parser<'a> {
         }
 
         // Check if this is a unary conditional starting with "Not"
-        if self.at_keyword(VB6Token::NotKeyword) {
+        if self.at_token(VB6Token::NotKeyword) {
             self.builder
                 .start_node(SyntaxKind::UnaryConditional.to_raw());
 
@@ -1096,10 +1098,10 @@ impl<'a> Parser<'a> {
         }
 
         // Parse the loop body until "Loop"
-        self.parse_code_block(|parser| parser.at_keyword(VB6Token::LoopKeyword));
+        self.parse_code_block(|parser| parser.at_token(VB6Token::LoopKeyword));
 
         // Consume "Loop" keyword
-        if self.at_keyword(VB6Token::LoopKeyword) {
+        if self.at_token(VB6Token::LoopKeyword) {
             self.consume_token();
 
             // Consume whitespace after Loop
@@ -1144,24 +1146,24 @@ impl<'a> Parser<'a> {
         // Consume everything until "To" or newline
         // This includes: counter variable, "=", start value
         while !self.is_at_end() 
-            && !self.at_keyword(VB6Token::ToKeyword) 
+            && !self.at_token(VB6Token::ToKeyword) 
             && !self.at_token(VB6Token::Newline) {
             self.consume_token();
         }
 
         // Consume "To" keyword if present
-        if self.at_keyword(VB6Token::ToKeyword) {
+        if self.at_token(VB6Token::ToKeyword) {
             self.consume_token();
 
             // Consume everything until "Step" or newline (the end value)
             while !self.is_at_end() 
-                && !self.at_keyword(VB6Token::StepKeyword) 
+                && !self.at_token(VB6Token::StepKeyword) 
                 && !self.at_token(VB6Token::Newline) {
                 self.consume_token();
             }
 
             // Consume "Step" keyword if present
-            if self.at_keyword(VB6Token::StepKeyword) {
+            if self.at_token(VB6Token::StepKeyword) {
                 self.consume_token();
 
                 // Consume everything until newline (the step value)
@@ -1175,10 +1177,10 @@ impl<'a> Parser<'a> {
         }
 
         // Parse the loop body until "Next"
-        self.parse_code_block(|parser| parser.at_keyword(VB6Token::NextKeyword));
+        self.parse_code_block(|parser| parser.at_token(VB6Token::NextKeyword));
 
         // Consume "Next" keyword
-        if self.at_keyword(VB6Token::NextKeyword) {
+        if self.at_token(VB6Token::NextKeyword) {
             self.consume_token();
 
             // Consume everything until newline (optional counter variable)
@@ -1215,20 +1217,20 @@ impl<'a> Parser<'a> {
         }
 
         // Consume "Each" keyword
-        if self.at_keyword(VB6Token::EachKeyword) {
+        if self.at_token(VB6Token::EachKeyword) {
             self.consume_token();
         }
 
         // Consume everything until "In" or newline
         // This includes: element variable name and whitespace
         while !self.is_at_end() 
-            && !self.at_keyword(VB6Token::InKeyword) 
+            && !self.at_token(VB6Token::InKeyword) 
             && !self.at_token(VB6Token::Newline) {
             self.consume_token();
         }
 
         // Consume "In" keyword if present
-        if self.at_keyword(VB6Token::InKeyword) {
+        if self.at_token(VB6Token::InKeyword) {
             self.consume_token();
 
             // Consume everything until newline (the collection)
@@ -1241,10 +1243,10 @@ impl<'a> Parser<'a> {
         }
 
         // Parse the loop body until "Next"
-        self.parse_code_block(|parser| parser.at_keyword(VB6Token::NextKeyword));
+        self.parse_code_block(|parser| parser.at_token(VB6Token::NextKeyword));
 
         // Consume "Next" keyword
-        if self.at_keyword(VB6Token::NextKeyword) {
+        if self.at_token(VB6Token::NextKeyword) {
             self.consume_token();
 
             // Consume everything until newline (optional element variable)
@@ -1382,12 +1384,12 @@ impl<'a> Parser<'a> {
 
         // Parse the body until "End With"
         self.parse_code_block(|parser| {
-            parser.at_keyword(VB6Token::EndKeyword)
+            parser.at_token(VB6Token::EndKeyword)
                 && parser.peek_next_keyword() == Some(VB6Token::WithKeyword)
         });
 
         // Consume "End With" and trailing tokens
-        if self.at_keyword(VB6Token::EndKeyword) {
+        if self.at_token(VB6Token::EndKeyword) {
             // Consume "End"
             self.consume_token();
 
@@ -1438,7 +1440,7 @@ impl<'a> Parser<'a> {
         }
 
         // Consume "Case" keyword
-        if self.at_keyword(VB6Token::CaseKeyword) {
+        if self.at_token(VB6Token::CaseKeyword) {
             self.consume_token();
         }
 
@@ -1453,14 +1455,14 @@ impl<'a> Parser<'a> {
         // Parse Case clauses until "End Select"
         while !self.is_at_end() {
             // Check for "End Select"
-            if self.at_keyword(VB6Token::EndKeyword)
+            if self.at_token(VB6Token::EndKeyword)
                 && self.peek_next_keyword() == Some(VB6Token::SelectKeyword)
             {
                 break;
             }
 
             // Check for "Case" keyword
-            if self.at_keyword(VB6Token::CaseKeyword) {
+            if self.at_token(VB6Token::CaseKeyword) {
                 // Check if this is "Case Else"
                 let is_case_else = self.peek_next_keyword() == Some(VB6Token::ElseKeyword);
 
@@ -1477,7 +1479,7 @@ impl<'a> Parser<'a> {
                     }
 
                     // Consume "Else"
-                    if self.at_keyword(VB6Token::ElseKeyword) {
+                    if self.at_token(VB6Token::ElseKeyword) {
                         self.consume_token();
                     }
 
@@ -1489,8 +1491,8 @@ impl<'a> Parser<'a> {
 
                     // Parse statements in Case Else until next Case or End Select
                     self.parse_code_block(|parser| {
-                        (parser.at_keyword(VB6Token::CaseKeyword))
-                            || (parser.at_keyword(VB6Token::EndKeyword)
+                        (parser.at_token(VB6Token::CaseKeyword))
+                            || (parser.at_token(VB6Token::EndKeyword)
                                 && parser.peek_next_keyword() == Some(VB6Token::SelectKeyword))
                     });
 
@@ -1510,8 +1512,8 @@ impl<'a> Parser<'a> {
 
                     // Parse statements in Case until next Case or End Select
                     self.parse_code_block(|parser| {
-                        (parser.at_keyword(VB6Token::CaseKeyword))
-                            || (parser.at_keyword(VB6Token::EndKeyword)
+                        (parser.at_token(VB6Token::CaseKeyword))
+                            || (parser.at_token(VB6Token::EndKeyword)
                                 && parser.peek_next_keyword() == Some(VB6Token::SelectKeyword))
                     });
 
@@ -1524,7 +1526,7 @@ impl<'a> Parser<'a> {
         }
 
         // Consume "End Select" and trailing tokens
-        if self.at_keyword(VB6Token::EndKeyword) {
+        if self.at_token(VB6Token::EndKeyword) {
             // Consume "End"
             self.consume_token();
 
@@ -1534,7 +1536,7 @@ impl<'a> Parser<'a> {
             }
 
             // Consume "Select"
-            if self.at_keyword(VB6Token::SelectKeyword) {
+            if self.at_token(VB6Token::SelectKeyword) {
                 self.consume_token();
             }
 
@@ -1676,16 +1678,19 @@ impl<'a> Parser<'a> {
         self.current_token() == Some(&token)
     }
 
-    fn at_keyword(&self, keyword: VB6Token) -> bool {
-        self.at_token(keyword)
-    }
-
     fn peek_next_keyword(&self) -> Option<VB6Token> {
         self.peek_next_count_keywords(NonZeroUsize::new(1).unwrap()).next()
     }
 
     fn is_identifier(&self) -> bool {
         matches!(self.current_token(), Some(VB6Token::Identifier))
+    }
+
+    fn is_keyword(&self) -> bool {
+        match self.current_token() {
+            Some(token)=> token.is_keyword(),
+            None => false,
+        }
     }
 
     fn is_number(&self) -> bool {
