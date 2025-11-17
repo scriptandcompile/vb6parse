@@ -380,6 +380,10 @@ impl<'a> Parser<'a> {
                 Some(VB6Token::AppActivateKeyword) => {
                     self.parse_appactivate_statement();
                 }
+                // Beep statement: Beep
+                Some(VB6Token::BeepKeyword) => {
+                    self.parse_beep_statement();
+                }
                 // Do loop: Do [While|Until condition]...Loop [While|Until condition]
                 Some(VB6Token::DoKeyword) => {
                     self.parse_do_statement();
@@ -899,6 +903,9 @@ impl<'a> Parser<'a> {
                     }
                     Some(VB6Token::AppActivateKeyword) => {
                         self.parse_appactivate_statement();
+                    }
+                    Some(VB6Token::BeepKeyword) => {
+                        self.parse_beep_statement();
                     }
                     Some(VB6Token::Whitespace) | Some(VB6Token::EndOfLineComment) | Some(VB6Token::RemComment) => {
                         self.consume_token();
@@ -1679,6 +1686,34 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // AppActivateStatement
     }
 
+    /// Parse a Beep statement.
+    ///
+    /// VB6 Beep statement syntax:
+    /// - Beep
+    ///
+    /// Sounds a tone through the computer's speaker.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/beep-statement)
+    fn parse_beep_statement(&mut self) {
+        // if we are now parsing a beep statement, we are no longer in the header.
+        self.parsing_header = false;
+
+        self.builder.start_node(SyntaxKind::BeepStatement.to_raw());
+
+        // Consume "Beep" keyword
+        self.consume_token();
+
+        // Consume any whitespace and comments until newline
+        self.consume_until(VB6Token::Newline);
+
+        // Consume the newline
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        self.builder.finish_node(); // BeepStatement
+    }
+
     /// Parse an Exit statement.
     ///
     /// Syntax:
@@ -1777,6 +1812,9 @@ impl<'a> Parser<'a> {
                 }
                 Some(VB6Token::AppActivateKeyword) => {
                     self.parse_appactivate_statement();
+                }
+                Some(VB6Token::BeepKeyword) => {
+                    self.parse_beep_statement();
                 }
                 Some(VB6Token::DoKeyword) => {
                     self.parse_do_statement();
