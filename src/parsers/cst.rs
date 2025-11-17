@@ -362,6 +362,10 @@ impl<'a> Parser<'a> {
                 Some(VB6Token::GotoKeyword) => {
                     self.parse_goto_statement();
                 }
+                // Exit statement: Exit Do, Exit For, Exit Function, Exit Property, Exit Sub
+                Some(VB6Token::ExitKeyword) => {
+                    self.parse_exit_statement();
+                }
                 // Do loop: Do [While|Until condition]...Loop [While|Until condition]
                 Some(VB6Token::DoKeyword) => {
                     self.parse_do_statement();
@@ -773,8 +777,7 @@ impl<'a> Parser<'a> {
                         self.parse_set_statement();
                     }
                     Some(VB6Token::ExitKeyword) => {
-                        // Exit Sub, Exit Function, etc.
-                        self.consume_until(VB6Token::Newline);
+                        self.parse_exit_statement();
                         break;
                     }
                     Some(VB6Token::Whitespace) | Some(VB6Token::EndOfLineComment) | Some(VB6Token::RemComment) => {
@@ -1527,6 +1530,47 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // GotoStatement
     }
 
+    /// Parse an Exit statement.
+    ///
+    /// Syntax:
+    ///   Exit Do
+    ///   Exit For
+    ///   Exit Function
+    ///   Exit Property
+    ///   Exit Sub
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/exit-statement)
+    fn parse_exit_statement(&mut self) {
+        
+        // if we are now parsing an exit statement, we are no longer in the header.
+        self.parsing_header = false;
+
+        self.builder.start_node(SyntaxKind::ExitStatement.to_raw());
+
+        // Consume "Exit" keyword
+        self.consume_token();
+
+        // Consume whitespace after Exit
+        self.consume_whitespace();
+
+        // Consume the exit type (Do, For, Function, Property, Sub)
+        if self.at_token(VB6Token::DoKeyword)
+            || self.at_token(VB6Token::ForKeyword)
+            || self.at_token(VB6Token::FunctionKeyword)
+            || self.at_token(VB6Token::PropertyKeyword)
+            || self.at_token(VB6Token::SubKeyword)
+        {
+            self.consume_token();
+        }
+
+        // Consume the newline
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        self.builder.finish_node(); // ExitStatement
+    }
+
     /// Parse a code block, consuming tokens until a termination condition is met.
     ///
     /// This is a generic code block parser that can handle different termination conditions:
@@ -1578,6 +1622,9 @@ impl<'a> Parser<'a> {
                 }
                 Some(VB6Token::GotoKeyword) => {
                     self.parse_goto_statement();
+                }
+                Some(VB6Token::ExitKeyword) => {
+                    self.parse_exit_statement();
                 }
                 Some(VB6Token::DoKeyword) => {
                     self.parse_do_statement();

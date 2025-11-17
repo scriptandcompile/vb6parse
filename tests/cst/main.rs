@@ -19,3 +19,4 @@ mod with_statement;
 mod select_case;
 mod goto_statement;
 mod inline_if;
+mod exit_statement;
