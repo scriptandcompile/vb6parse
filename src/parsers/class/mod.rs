@@ -5,19 +5,16 @@ use std::collections::HashMap;
 use serde::Serialize;
 
 use crate::{
-    errors:: VB6ClassErrorKind,
+    errors::VB6ClassErrorKind,
     parsers::{
-        class::properties::{
-            
-            VB6ClassHeader, VB6ClassProperties,
-        },
+        class::properties::{VB6ClassHeader, VB6ClassProperties},
         header::{
-            Creatable, Exposed, HeaderKind, NameSpace,
-            PreDeclaredID, VB6FileAttributes, VB6FileFormatVersion,
+            Creatable, Exposed, HeaderKind, NameSpace, PreDeclaredID, VB6FileAttributes,
+            VB6FileFormatVersion,
         },
     },
+    tokenize::{take_matching_text, tokenize},
     tokenstream::TokenStream,
-    tokenize::{tokenize, take_matching_text},
     ParseResult, SourceFile, SourceStream,
 };
 

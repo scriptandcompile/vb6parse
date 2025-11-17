@@ -17,36 +17,49 @@ End Sub
 
     // Navigate the tree structure
     let children = cst.children();
-    
+
     // Find the SubStatement node
     let sub_statement = children
         .iter()
         .find(|child| child.kind == SyntaxKind::SubStatement)
         .expect("Should have a SubStatement node");
-    
+
     // The SubStatement should contain an IfStatement
-    let if_statement = sub_statement.children
+    let if_statement = sub_statement
+        .children
         .iter()
         .find(|child| child.kind == SyntaxKind::IfStatement)
         .expect("SubStatement should contain an IfStatement");
-    
+
     // The IfStatement should contain a BinaryConditional
-    let binary_conditional = if_statement.children
+    let binary_conditional = if_statement
+        .children
         .iter()
         .find(|child| child.kind == SyntaxKind::BinaryConditional)
         .expect("IfStatement should contain a BinaryConditional");
-    
+
     // Verify the BinaryConditional structure
     assert_eq!(binary_conditional.kind, SyntaxKind::BinaryConditional);
-    assert!(!binary_conditional.is_token, "BinaryConditional should be a node, not a token");
-    
+    assert!(
+        !binary_conditional.is_token,
+        "BinaryConditional should be a node, not a token"
+    );
+
     // Verify the BinaryConditional contains the expected elements:
     // whitespace, identifier "x", whitespace, "=", whitespace, number "5", whitespace
-    assert!(binary_conditional.children.iter().any(|c| c.kind == SyntaxKind::Identifier && c.text == "x"));
-    assert!(binary_conditional.children.iter().any(|c| c.kind == SyntaxKind::EqualityOperator));
-    assert!(binary_conditional.children.iter().any(|c| c.kind == SyntaxKind::Number && c.text == "5"));
+    assert!(binary_conditional
+        .children
+        .iter()
+        .any(|c| c.kind == SyntaxKind::Identifier && c.text == "x"));
+    assert!(binary_conditional
+        .children
+        .iter()
+        .any(|c| c.kind == SyntaxKind::EqualityOperator));
+    assert!(binary_conditional
+        .children
+        .iter()
+        .any(|c| c.kind == SyntaxKind::Number && c.text == "5"));
 }
-
 
 #[test]
 fn unary_conditional() {
@@ -63,36 +76,56 @@ End Sub
 
     // Navigate the tree structure
     let children = cst.children();
-    
+
     // Find the SubStatement node
     let sub_statement = children
         .iter()
         .find(|child| child.kind == SyntaxKind::SubStatement)
         .expect("Should have a SubStatement node");
-    
+
     // The SubStatement should contain an IfStatement
-    let if_statement = sub_statement.children
+    let if_statement = sub_statement
+        .children
         .iter()
         .find(|child| child.kind == SyntaxKind::IfStatement)
         .expect("SubStatement should contain an IfStatement");
-    
+
     // The IfStatement should contain a UnaryConditional
-    let unary_conditional = if_statement.children
+    let unary_conditional = if_statement
+        .children
         .iter()
         .find(|child| child.kind == SyntaxKind::UnaryConditional)
         .expect("IfStatement should contain a UnaryConditional");
-    
+
     // Verify the UnaryConditional structure
     assert_eq!(unary_conditional.kind, SyntaxKind::UnaryConditional);
-    assert!(!unary_conditional.is_token, "UnaryConditional should be a node, not a token");
-    
+    assert!(
+        !unary_conditional.is_token,
+        "UnaryConditional should be a node, not a token"
+    );
+
     // Verify the UnaryConditional contains the expected elements:
     // whitespace, Not keyword, whitespace, identifier "isEmpty", parentheses, identifier "x", parentheses, whitespace
-    assert!(unary_conditional.children.iter().any(|c| c.kind == SyntaxKind::NotKeyword));
-    assert!(unary_conditional.children.iter().any(|c| c.kind == SyntaxKind::Identifier && c.text == "isEmpty"));
-    assert!(unary_conditional.children.iter().any(|c| c.kind == SyntaxKind::Identifier && c.text == "x"));
-    assert!(unary_conditional.children.iter().any(|c| c.kind == SyntaxKind::LeftParentheses));
-    assert!(unary_conditional.children.iter().any(|c| c.kind == SyntaxKind::RightParentheses));
+    assert!(unary_conditional
+        .children
+        .iter()
+        .any(|c| c.kind == SyntaxKind::NotKeyword));
+    assert!(unary_conditional
+        .children
+        .iter()
+        .any(|c| c.kind == SyntaxKind::Identifier && c.text == "isEmpty"));
+    assert!(unary_conditional
+        .children
+        .iter()
+        .any(|c| c.kind == SyntaxKind::Identifier && c.text == "x"));
+    assert!(unary_conditional
+        .children
+        .iter()
+        .any(|c| c.kind == SyntaxKind::LeftParentheses));
+    assert!(unary_conditional
+        .children
+        .iter()
+        .any(|c| c.kind == SyntaxKind::RightParentheses));
 }
 
 #[test]
@@ -116,80 +149,116 @@ End Sub
 
     // Navigate the tree structure
     let children = cst.children();
-    
+
     // Find the SubStatement node
     let sub_statement = children
         .iter()
         .find(|child| child.kind == SyntaxKind::SubStatement)
         .expect("Should have a SubStatement node");
-    
+
     // Find the outer IfStatement
-    let outer_if = sub_statement.children
+    let outer_if = sub_statement
+        .children
         .iter()
         .find(|child| child.kind == SyntaxKind::IfStatement)
         .expect("SubStatement should contain an outer IfStatement");
-    
+
     // Verify outer If has a BinaryConditional (x > 0)
-    let outer_conditional = outer_if.children
+    let outer_conditional = outer_if
+        .children
         .iter()
         .find(|child| child.kind == SyntaxKind::BinaryConditional)
         .expect("Outer IfStatement should contain a BinaryConditional");
-    assert!(outer_conditional.children.iter().any(|c| c.kind == SyntaxKind::Identifier && c.text == "x"));
-    assert!(outer_conditional.children.iter().any(|c| c.kind == SyntaxKind::GreaterThanOperator));
-    
+    assert!(outer_conditional
+        .children
+        .iter()
+        .any(|c| c.kind == SyntaxKind::Identifier && c.text == "x"));
+    assert!(outer_conditional
+        .children
+        .iter()
+        .any(|c| c.kind == SyntaxKind::GreaterThanOperator));
+
     // Find the inner IfStatement (nested within the outer If)
-    let inner_if = outer_if.children
+    let inner_if = outer_if
+        .children
         .iter()
         .find(|child| child.kind == SyntaxKind::IfStatement)
         .expect("Outer IfStatement should contain a nested IfStatement");
-    
+
     // Verify inner If has a BinaryConditional (y > 0)
-    let inner_conditional = inner_if.children
+    let inner_conditional = inner_if
+        .children
         .iter()
         .find(|child| child.kind == SyntaxKind::BinaryConditional)
         .expect("Inner IfStatement should contain a BinaryConditional");
-    assert!(inner_conditional.children.iter().any(|c| c.kind == SyntaxKind::Identifier && c.text == "y"));
-    assert!(inner_conditional.children.iter().any(|c| c.kind == SyntaxKind::GreaterThanOperator));
-    
+    assert!(inner_conditional
+        .children
+        .iter()
+        .any(|c| c.kind == SyntaxKind::Identifier && c.text == "y"));
+    assert!(inner_conditional
+        .children
+        .iter()
+        .any(|c| c.kind == SyntaxKind::GreaterThanOperator));
+
     // Verify inner If has ElseIf clause
-    let inner_elseif = inner_if.children
+    let inner_elseif = inner_if
+        .children
         .iter()
         .find(|child| child.kind == SyntaxKind::ElseIfClause)
         .expect("Inner IfStatement should contain an ElseIfClause");
-    
+
     // Verify inner ElseIf has a BinaryConditional (y < 0)
-    let inner_elseif_conditional = inner_elseif.children
+    let inner_elseif_conditional = inner_elseif
+        .children
         .iter()
         .find(|child| child.kind == SyntaxKind::BinaryConditional)
         .expect("Inner ElseIfClause should contain a BinaryConditional");
-    assert!(inner_elseif_conditional.children.iter().any(|c| c.kind == SyntaxKind::Identifier && c.text == "y"));
-    assert!(inner_elseif_conditional.children.iter().any(|c| c.kind == SyntaxKind::LessThanOperator));
-    
+    assert!(inner_elseif_conditional
+        .children
+        .iter()
+        .any(|c| c.kind == SyntaxKind::Identifier && c.text == "y"));
+    assert!(inner_elseif_conditional
+        .children
+        .iter()
+        .any(|c| c.kind == SyntaxKind::LessThanOperator));
+
     // Verify inner If has Else clause
     assert!(
-        inner_if.children.iter().any(|child| child.kind == SyntaxKind::ElseClause),
+        inner_if
+            .children
+            .iter()
+            .any(|child| child.kind == SyntaxKind::ElseClause),
         "Inner IfStatement should contain an ElseClause"
     );
-    
+
     // Verify outer If has ElseIf clause
-    let outer_elseif = outer_if.children
+    let outer_elseif = outer_if
+        .children
         .iter()
         .find(|child| child.kind == SyntaxKind::ElseIfClause)
         .expect("Outer IfStatement should contain an ElseIfClause");
-    
+
     // Verify outer ElseIf has a BinaryConditional (x < 0)
-    let outer_elseif_conditional = outer_elseif.children
+    let outer_elseif_conditional = outer_elseif
+        .children
         .iter()
         .find(|child| child.kind == SyntaxKind::BinaryConditional)
         .expect("Outer ElseIfClause should contain a BinaryConditional");
-    assert!(outer_elseif_conditional.children.iter().any(|c| c.kind == SyntaxKind::Identifier && c.text == "x"));
-    assert!(outer_elseif_conditional.children.iter().any(|c| c.kind == SyntaxKind::LessThanOperator));
-    
+    assert!(outer_elseif_conditional
+        .children
+        .iter()
+        .any(|c| c.kind == SyntaxKind::Identifier && c.text == "x"));
+    assert!(outer_elseif_conditional
+        .children
+        .iter()
+        .any(|c| c.kind == SyntaxKind::LessThanOperator));
+
     // Verify outer If has Else clause
     assert!(
-        outer_if.children.iter().any(|child| child.kind == SyntaxKind::ElseClause),
+        outer_if
+            .children
+            .iter()
+            .any(|child| child.kind == SyntaxKind::ElseClause),
         "Outer IfStatement should contain an ElseClause"
     );
 }
-
-

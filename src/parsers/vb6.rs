@@ -757,7 +757,8 @@ fn vb6_token_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<(&'a str, VB6Toke
     // 'alt' only allows for a limited number of parsers to be passed in.
     // so we need to chain the 'alt' parsers together.
     alt((
-        (line_comment_parse).map(|token: &BStr| (token.to_str().unwrap(), VB6Token::EndOfLineComment)),
+        (line_comment_parse)
+            .map(|token: &BStr| (token.to_str().unwrap(), VB6Token::EndOfLineComment)),
         vb6_keyword_parse,
         vb6_symbol_parse,
         alt((

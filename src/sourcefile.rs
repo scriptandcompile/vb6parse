@@ -45,7 +45,7 @@ impl SourceFile {
         path: P,
     ) -> Result<Self, ErrorDetails<'static, SourceFileErrorKind>> {
         let path = path.as_ref();
-        
+
         // Read the file contents
         let bytes = fs::read(path).map_err(|io_err| ErrorDetails {
             kind: SourceFileErrorKind::MalformedSource {
@@ -57,14 +57,14 @@ impl SourceFile {
             line_start: 0,
             line_end: 0,
         })?;
-        
+
         // Extract the filename from the path
         let file_name = path
             .file_name()
             .and_then(|name| name.to_str())
             .unwrap_or("unknown")
             .to_string();
-        
+
         // Decode the file using decode_with_replacement
         Self::decode_with_replacement(file_name, &bytes).map_err(|err| ErrorDetails {
             kind: err.kind,

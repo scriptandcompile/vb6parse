@@ -8,7 +8,7 @@ use crate::language::VB6Token;
 pub enum SyntaxKind {
     // Root node
     Root = 0,
-    
+
     // Statement nodes
     ModuleStatement,
     ClassStatement,
@@ -33,7 +33,7 @@ pub enum SyntaxKind {
     ExitStatement,
     AttributeStatement,
     OptionStatement,
-    
+
     // Expression nodes
     BinaryExpression,
     UnaryExpression,
@@ -42,25 +42,25 @@ pub enum SyntaxKind {
     MemberAccessExpression,
     CallExpression,
     ParenthesizedExpression,
-    
+
     // Conditional nodes
     BinaryConditional,
     UnaryConditional,
-    
+
     // Other structural nodes
     ArgumentList,
     ParameterList,
     Parameter,
     Argument,
     BlockStatement,
-    
+
     // Token kinds - map from VB6Token
     // We start these at a higher offset to avoid conflicts
     Whitespace = 1000,
     Newline,
     EndOfLineComment,
     RemComment,
-    
+
     // Keywords
     ClassKeyword,
     ReDimKeyword,
@@ -200,12 +200,12 @@ pub enum SyntaxKind {
     LoopKeyword,
     NothingKeyword,
     AnyKeyword,
-    
+
     // Literals and identifiers
     Identifier,
     StringLiteral,
     Number,
-    
+
     // Operators and punctuation
     DollarSign,
     Underscore,
@@ -231,7 +231,7 @@ pub enum SyntaxKind {
     PeriodOperator,
     ColonOperator,
     ExponentiationOperator,
-    
+
     // Error recovery
     Error,
     Unknown,
@@ -411,12 +411,11 @@ impl From<VB6Token> for SyntaxKind {
 }
 
 impl SyntaxKind {
-    
     pub(crate) fn from_raw(raw: rowan::SyntaxKind) -> Self {
         assert!(raw.0 <= SyntaxKind::Unknown as u16);
         unsafe { std::mem::transmute::<u16, SyntaxKind>(raw.0) }
     }
-    
+
     /// Convert SyntaxKind to rowan's raw SyntaxKind (for internal use in builders)
     pub(crate) fn to_raw(self) -> rowan::SyntaxKind {
         rowan::SyntaxKind(self as u16)
