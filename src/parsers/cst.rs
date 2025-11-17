@@ -56,6 +56,7 @@
 //! 4. **Type-safe**: All syntax kinds are represented as a Rust enum for compile-time safety.
 
 use std::num::{NonZero, NonZeroUsize};
+
 use crate::language::VB6Token;
 use crate::parsers::SyntaxKind;
 use crate::tokenstream::TokenStream;
@@ -264,6 +265,7 @@ struct Parser<'a> {
     tokens: Vec<(&'a str, VB6Token)>,
     pos: usize,
     builder: GreenNodeBuilder<'static>,
+    parsing_header: bool,
 }
 
 impl<'a> Parser<'a> {
@@ -272,6 +274,7 @@ impl<'a> Parser<'a> {
             tokens: token_stream.tokens,
             pos: 0,
             builder: GreenNodeBuilder::new(),
+            parsing_header: true,
         }
     }
 
@@ -458,6 +461,8 @@ impl<'a> Parser<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/sub-statement)
     fn parse_sub_statement(&mut self) {
+        // if we are now parsing a sub statement, we are no longer in the header.
+        self.parsing_header = false;
         self.builder.start_node(SyntaxKind::SubStatement.to_raw());
 
         // Consume optional Public/Private/Friend keyword
@@ -575,6 +580,9 @@ impl<'a> Parser<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/function-statement)
     fn parse_function_statement(&mut self) {
+        // if we are now parsing a function statement, we are no longer in the header.
+        self.parsing_header = false;
+
         self.builder
             .start_node(SyntaxKind::FunctionStatement.to_raw());
 
@@ -691,6 +699,10 @@ impl<'a> Parser<'a> {
 
     /// Parse a declaration: Dim/Private/Public x As Type
     fn parse_declaration(&mut self) {
+        
+        // if we are now parsing a declaration, we are no longer in the header.
+        self.parsing_header = false;
+        
         self.builder.start_node(SyntaxKind::DimStatement.to_raw());
 
         // Consume the keyword (Dim, Private, Public, etc.)
@@ -970,6 +982,10 @@ impl<'a> Parser<'a> {
     /// 
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/call-statement)
     fn parse_call_statement(&mut self) {
+
+        // if we are now parsing a call statement, we are no longer in the header.
+        self.parsing_header = false;
+
         self.builder.start_node(SyntaxKind::CallStatement.to_raw());
         
         // Consume "Call" keyword
@@ -997,6 +1013,10 @@ impl<'a> Parser<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/doloop-statement)
     fn parse_do_statement(&mut self) {
+
+        // if we are now parsing a do statement, we are no longer in the header.
+        self.parsing_header = false;
+
         self.builder.start_node(SyntaxKind::DoStatement.to_raw());
 
         // Consume "Do" keyword
@@ -1060,6 +1080,10 @@ impl<'a> Parser<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/fornext-statement)
     fn parse_for_statement(&mut self) {
+
+        // if we are now parsing a for statement, we are no longer in the header.
+        self.parsing_header = false;
+
         self.builder.start_node(SyntaxKind::ForStatement.to_raw());
 
         // Consume "For" keyword
@@ -1124,6 +1148,10 @@ impl<'a> Parser<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/for-eachnext-statement)
     fn parse_for_each_statement(&mut self) {
+
+        // if we are now parsing a for each statement, we are no longer in the header.
+        self.parsing_header = false;
+
         self.builder.start_node(SyntaxKind::ForEachStatement.to_raw());
 
         // Consume "For" keyword
@@ -1186,6 +1214,10 @@ impl<'a> Parser<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/set-statement)
     fn parse_set_statement(&mut self) {
+
+        // if we are now parsing a set statement, we are no longer in the header.
+        self.parsing_header = false;
+
         self.builder.start_node(SyntaxKind::SetStatement.to_raw());
 
         // Consume "Set" keyword
@@ -1212,6 +1244,9 @@ impl<'a> Parser<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/assignment-operator)
     fn parse_assignment_statement(&mut self) {
+
+        // Assignments can appear in both header and body, so we do not modify parsing_header here.
+
         self.builder.start_node(SyntaxKind::AssignmentStatement.to_raw());
 
         // Consume everything until newline
@@ -1235,6 +1270,10 @@ impl<'a> Parser<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/goto-statement)
     fn parse_label_statement(&mut self) {
+
+        // if we are now parsing a label statement, we are no longer in the header.
+        self.parsing_header = false;
+
         self.builder.start_node(SyntaxKind::LabelStatement.to_raw());
 
         // Consume the label identifier
@@ -1270,6 +1309,8 @@ impl<'a> Parser<'a> {
     where
         F: Fn(&Parser) -> bool,
     {
+        // Code blocks can appear in both header and body, so we do not modify parsing_header here.
+
         // Start a CodeBlock node
         self.builder
                 .start_node(SyntaxKind::CodeBlock.to_raw());
@@ -1344,6 +1385,10 @@ impl<'a> Parser<'a> {
         self.tokens.get(self.pos).map(|(_, token)| token)
     }
 
+    fn current_text(&self) -> Option<&'a str> {
+        self.tokens.get(self.pos).map(|(text, _)| *text)
+    }
+
     fn at_token(&self, token: VB6Token) -> bool {
         self.current_token() == Some(&token)
     }
@@ -1366,6 +1411,20 @@ impl<'a> Parser<'a> {
 
     /// Check if the current position is at a label (identifier or number followed by colon).
     fn is_at_label(&self) -> bool {
+
+        // If we are not parsing the header, then some keywords are valid identifiers (like "Begin")
+        // TODO: Consider adding a list of keywords that can be used as labels. 
+        // TODO: Also consider modifying tokenizer to recognize when inside header to more easily identify Identifiers vs header only keywords.
+        if !self.parsing_header && matches!(self.current_token(), Some(VB6Token::BeginKeyword)) {
+            // Look for a colon immediately after the Begin keyword
+            for (_text, token) in self.tokens.iter().skip(self.pos + 1) {
+                match token {
+                    VB6Token::ColonOperator => return true,
+                    _ => return false,
+                }
+            }
+        }
+
         if !self.is_identifier() && !self.is_number() {
             return false;
         }
