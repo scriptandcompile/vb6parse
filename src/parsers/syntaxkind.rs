@@ -52,7 +52,7 @@ pub enum SyntaxKind {
     ParameterList,
     Parameter,
     Argument,
-    BlockStatement,
+    CodeBlock,
 
     // Token kinds - map from VB6Token
     // We start these at a higher offset to avoid conflicts
