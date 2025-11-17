@@ -17,3 +17,5 @@ mod assignment;
 mod label;
 mod with_statement;
 mod select_case;
+mod goto_statement;
+mod inline_if;

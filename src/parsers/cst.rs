@@ -358,6 +358,10 @@ impl<'a> Parser<'a> {
                 Some(VB6Token::SelectKeyword) => {
                     self.parse_select_case_statement();
                 }
+                // GoTo statement: GoTo label
+                Some(VB6Token::GotoKeyword) => {
+                    self.parse_goto_statement();
+                }
                 // Do loop: Do [While|Until condition]...Loop [While|Until condition]
                 Some(VB6Token::DoKeyword) => {
                     self.parse_do_statement();
@@ -769,8 +773,48 @@ impl<'a> Parser<'a> {
         let is_single_line = !self.at_token(VB6Token::Newline) && !self.is_at_end();
 
         if is_single_line {
-            // Single-line If: consume everything until newline
-            self.consume_until(VB6Token::Newline);
+            // Single-line If: parse the inline statement(s)
+            // We parse until we hit a newline or reach a colon (which could indicate Else on same line)
+            while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
+                // Check for inline Else (: Else or just Else on same line)
+                if self.at_keyword(VB6Token::ElseKeyword) {
+                    break;
+                }
+                
+                // Parse a single statement based on the current token
+                match self.current_token() {
+                    Some(VB6Token::GotoKeyword) => {
+                        self.parse_goto_statement();
+                    }
+                    Some(VB6Token::CallKeyword) => {
+                        self.parse_call_statement();
+                    }
+                    Some(VB6Token::SetKeyword) => {
+                        self.parse_set_statement();
+                    }
+                    Some(VB6Token::ExitKeyword) => {
+                        // Exit Sub, Exit Function, etc.
+                        self.consume_until(VB6Token::Newline);
+                        break;
+                    }
+                    Some(VB6Token::Whitespace) | Some(VB6Token::EndOfLineComment) | Some(VB6Token::RemComment) => {
+                        self.consume_token();
+                    }
+                    Some(VB6Token::ColonOperator) => {
+                        // Colon can separate statements or precede Else
+                        self.consume_token();
+                    }
+                    _ => {
+                        // Check if this looks like an assignment
+                        if self.is_at_assignment() {
+                            self.parse_assignment_statement();
+                        } else {
+                            // Consume as unknown
+                            self.consume_token();
+                        }
+                    }
+                }
+            }
 
             // Consume the newline
             if self.at_token(VB6Token::Newline) {
@@ -1257,11 +1301,15 @@ impl<'a> Parser<'a> {
 
         self.builder.start_node(SyntaxKind::AssignmentStatement.to_raw());
 
-        // Consume everything until newline
+        // Consume everything until newline or colon (for inline If statements)
         // This includes: variable/property, "=", expression
-        self.consume_until(VB6Token::Newline);
+        while !self.is_at_end() 
+            && !self.at_token(VB6Token::Newline) 
+            && !self.at_token(VB6Token::ColonOperator) {
+            self.consume_token();
+        }
 
-        // Consume the newline
+        // Consume the newline if present (but not colon - that's handled by caller)
         if self.at_token(VB6Token::Newline) {
             self.consume_token();
         }
@@ -1500,6 +1548,33 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // SelectCaseStatement
     }
 
+    /// Parse a GoTo statement.
+    ///
+    /// Syntax:
+    ///   GoTo label
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/goto-statement)
+    fn parse_goto_statement(&mut self) {
+        
+        // if we are now parsing a goto statement, we are no longer in the header.
+        self.parsing_header = false;
+
+        self.builder.start_node(SyntaxKind::GotoStatement.to_raw());
+
+        // Consume "GoTo" keyword
+        self.consume_token();
+
+        // Consume everything until newline (the label name)
+        self.consume_until(VB6Token::Newline);
+
+        // Consume the newline
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        self.builder.finish_node(); // GotoStatement
+    }
+
     /// Parse a code block, consuming tokens until a termination condition is met.
     ///
     /// This is a generic code block parser that can handle different termination conditions:
@@ -1548,6 +1623,9 @@ impl<'a> Parser<'a> {
                 }
                 Some(VB6Token::SelectKeyword) => {
                     self.parse_select_case_statement();
+                }
+                Some(VB6Token::GotoKeyword) => {
+                    self.parse_goto_statement();
                 }
                 Some(VB6Token::DoKeyword) => {
                     self.parse_do_statement();
