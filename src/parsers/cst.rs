@@ -310,36 +310,46 @@ impl<'a> Parser<'a> {
                 Some(VB6Token::FunctionKeyword) => {
                     self.parse_function_statement();
                 }
+                // Property Procedure Syntax:
+                //
+                // [Public | Private | Friend] [ Static ] Property Get|Let|Set name [ ( arglist ) ] [ As type ]
+                //
+                Some(VB6Token::PropertyKeyword) => {
+                    self.parse_property_statement();
+                }
                 // Variable declarations: Dim/Const
                 // For Public/Private/Friend/Static, we need to look ahead to see if it's a
                 // function/sub declaration or a variable declaration
                 Some(VB6Token::DimKeyword) | Some(VB6Token::ConstKeyword) => {
                     self.parse_declaration();
                 }
-                // Public/Private/Friend/Static - could be function/sub or declaration
+                // Public/Private/Friend/Static - could be function/sub/property or declaration
                 Some(VB6Token::PrivateKeyword)
                 | Some(VB6Token::PublicKeyword)
                 | Some(VB6Token::FriendKeyword)
                 | Some(VB6Token::StaticKeyword) => {
-                    // Look ahead to see if this is a function/sub declaration
+                    // Look ahead to see if this is a function/sub/property declaration
                     // Peek at the next 2 keywords to handle cases like "Public Static Function"
                     let next_keywords: Vec<_> = self.peek_next_count_keywords(NonZeroUsize::new(2).unwrap()).collect();
 
-                    let is_function_or_sub = match next_keywords.as_slice() {
-                        // Direct: Public/Private/Friend Function or Sub
-                        [VB6Token::FunctionKeyword, ..] => Some(true), // Function
-                        [VB6Token::SubKeyword, ..] => Some(false),     // Sub
-                        // With Static: Public/Private/Friend Static Function or Sub
-                        [VB6Token::StaticKeyword, VB6Token::FunctionKeyword] => Some(true),
-                        [VB6Token::StaticKeyword, VB6Token::SubKeyword] => Some(false),
+                    let procedure_type = match next_keywords.as_slice() {
+                        // Direct: Public/Private/Friend Function, Sub, or Property
+                        [VB6Token::FunctionKeyword, ..] => Some(0), // Function
+                        [VB6Token::SubKeyword, ..] => Some(1),      // Sub
+                        [VB6Token::PropertyKeyword, ..] => Some(2), // Property
+                        // With Static: Public/Private/Friend Static Function, Sub, or Property
+                        [VB6Token::StaticKeyword, VB6Token::FunctionKeyword] => Some(0),
+                        [VB6Token::StaticKeyword, VB6Token::SubKeyword] => Some(1),
+                        [VB6Token::StaticKeyword, VB6Token::PropertyKeyword] => Some(2),
                         // Anything else is a declaration
                         _ => None,
                     };
 
-                    match is_function_or_sub {
-                        Some(true) => self.parse_function_statement(), // Function
-                        Some(false) => self.parse_sub_statement(),     // Sub
-                        None => self.parse_declaration(),              // Declaration
+                    match procedure_type {
+                        Some(0) => self.parse_function_statement(), // Function
+                        Some(1) => self.parse_sub_statement(),      // Sub
+                        Some(2) => self.parse_property_statement(), // Property
+                        _ => self.parse_declaration(),              // Declaration
                     }
                 }
                 // Call statement: Call SubroutineName(args)
@@ -667,6 +677,109 @@ impl<'a> Parser<'a> {
         }
 
         self.builder.finish_node(); // FunctionStatement
+    }
+
+    /// Parse a Property statement (Property Get, Property Let, or Property Set).
+    ///
+    /// VB6 Property statement syntax:
+    /// - [Public | Private | Friend] [Static] Property Get name [(arglist)] [As type]
+    /// - [Public | Private | Friend] [Static] Property Let name ([arglist,] value)
+    /// - [Public | Private | Friend] [Static] Property Set name ([arglist,] value)
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/property-get-statement)
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/property-let-statement)
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/property-set-statement)
+    fn parse_property_statement(&mut self) {
+        // if we are now parsing a property statement, we are no longer in the header.
+        self.parsing_header = false;
+
+        self.builder
+            .start_node(SyntaxKind::PropertyStatement.to_raw());
+
+        // Consume optional Public/Private/Friend keyword
+        if self.at_token(VB6Token::PublicKeyword)
+            || self.at_token(VB6Token::PrivateKeyword)
+            || self.at_token(VB6Token::FriendKeyword)
+        {
+            self.consume_token();
+
+            // Consume any whitespace after visibility modifier
+            self.consume_whitespace();
+        }
+
+        // Consume optional Static keyword
+        if self.at_token(VB6Token::StaticKeyword) {
+            self.consume_token();
+
+            // Consume any whitespace after Static
+            self.consume_whitespace();
+        }
+
+        // Consume "Property" keyword
+        self.consume_token();
+
+        // Consume any whitespace after "Property"
+        self.consume_whitespace();
+
+        // Consume Get/Let/Set keyword
+        if self.at_token(VB6Token::GetKeyword)
+            || self.at_token(VB6Token::LetKeyword)
+            || self.at_token(VB6Token::SetKeyword)
+        {
+            self.consume_token();
+        }
+
+        // Consume any whitespace after Get/Let/Set
+        self.consume_whitespace();
+
+        // Consume property name
+        if self.at_token(VB6Token::Identifier) {
+            self.consume_token();
+        }
+
+        // Consume any whitespace before parameter list
+        self.consume_whitespace();
+
+        // Parse parameter list if present
+        if self.at_token(VB6Token::LeftParentheses) {
+            self.parse_parameter_list();
+        }
+
+        // Consume everything until newline (includes "As Type" if present)
+        self.consume_until(VB6Token::Newline);
+
+        // Consume the newline
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        // Parse body until "End Property"
+        self.parse_code_block(|parser| {
+            parser.at_token(VB6Token::EndKeyword)
+                && parser.peek_next_keyword() == Some(VB6Token::PropertyKeyword)
+        });
+
+        // Consume "End Property" and trailing tokens
+        if self.at_token(VB6Token::EndKeyword) {
+            // Consume "End"
+            self.consume_token();
+
+            // Consume any whitespace between "End" and "Property"
+            self.consume_whitespace();
+
+            // Consume "Property"
+            self.consume_token();
+
+            // Consume until newline (including it)
+            self.consume_until(VB6Token::Newline);
+
+            // Consume the newline
+            if self.at_token(VB6Token::Newline) {
+                self.consume_token();
+            }
+        }
+
+        self.builder.finish_node(); // PropertyStatement
     }
 
     /// Parse a parameter list: (param1 As Type, param2 As Type)
@@ -1718,6 +1831,9 @@ impl<'a> Parser<'a> {
     fn is_at_assignment(&self) -> bool {
         // Look ahead through the tokens to find an = operator before a newline
         // We need to skip: identifiers, periods, parentheses, array indices, etc.
+        // Note: In VB6, keywords can be used as property/member names (e.g., obj.Property = value)
+        let mut last_was_period = false;
+        
         for (_text, token) in self.tokens.iter().skip(self.pos) {
             match token {
                 VB6Token::Newline | VB6Token::EndOfLineComment | VB6Token::RemComment => {
@@ -1728,17 +1844,28 @@ impl<'a> Parser<'a> {
                     // Found an = operator - this is likely an assignment
                     return true;
                 }
+                VB6Token::PeriodOperator => {
+                    last_was_period = true;
+                    continue;
+                }
                 // Skip tokens that could appear in the left-hand side of an assignment
-                VB6Token::Whitespace
-                | VB6Token::Identifier
-                | VB6Token::PeriodOperator
+                VB6Token::Whitespace => {
+                    continue;
+                }
+                VB6Token::Identifier
                 | VB6Token::LeftParentheses
                 | VB6Token::RightParentheses
                 | VB6Token::Number
                 | VB6Token::Comma => {
+                    last_was_period = false;
                     continue;
                 }
-                // If we hit a keyword or other operator, it's not an assignment
+                // After a period, keywords can be property names, so skip them
+                _ if last_was_period => {
+                    last_was_period = false;
+                    continue;
+                }
+                // If we hit a keyword or other operator (not after period), it's not an assignment
                 _ => {
                     return false;
                 }
