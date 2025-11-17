@@ -1385,10 +1385,6 @@ impl<'a> Parser<'a> {
         self.tokens.get(self.pos).map(|(_, token)| token)
     }
 
-    fn current_text(&self) -> Option<&'a str> {
-        self.tokens.get(self.pos).map(|(text, _)| *text)
-    }
-
     fn at_token(&self, token: VB6Token) -> bool {
         self.current_token() == Some(&token)
     }
@@ -1412,7 +1408,7 @@ impl<'a> Parser<'a> {
     /// Check if the current position is at a label (identifier or number followed by colon).
     fn is_at_label(&self) -> bool {
 
-        let next_token_is_colon = matches!(self.peek_next_count_tokens(NonZeroUsize::new(1).unwrap()).next(), Some(VB6Token::ColonOperator));
+        let next_token_is_colon = matches!(self.peek_next_token(), Some(VB6Token::ColonOperator));
 
         if next_token_is_colon == false {
             return false;
@@ -1487,6 +1483,10 @@ impl<'a> Parser<'a> {
             .skip(self.pos + 1)
             .take(count.get())
             .map(|(_, token)| *token)
+    }
+
+    fn peek_next_token(&self) -> Option<VB6Token> {
+        self.peek_next_count_tokens(NonZeroUsize::new(1).unwrap()).next()
     }
 
     fn consume_token(&mut self) {
