@@ -5584,6 +5584,4 @@ tokens:
       - FunctionKeyword
     - - "\r\n"
       - Newline
-    - - ""
-      - EOF
   offset: 0

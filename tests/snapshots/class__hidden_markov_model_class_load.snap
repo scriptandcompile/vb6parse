@@ -13436,6 +13436,4 @@ tokens:
       - Newline
     - - "\r\n"
       - Newline
-    - - ""
-      - EOF
   offset: 0

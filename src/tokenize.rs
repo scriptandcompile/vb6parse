@@ -210,7 +210,7 @@ static SYMBOL_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, VB6Token> = phf_order
 ///
 /// let tokens = result.unwrap();
 ///
-/// assert_eq!(tokens.len(), 8);
+/// assert_eq!(tokens.len(), 7);
 /// assert_eq!(tokens[0], ("Dim", VB6Token::DimKeyword));
 /// assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
 /// assert_eq!(tokens[2], ("x", VB6Token::Identifier));
@@ -233,7 +233,6 @@ pub fn tokenize<'a>(
 
     loop {
         if input.is_empty() {
-            tokens.push(("", VB6Token::EOF));
             break;
         }
 
@@ -602,7 +601,6 @@ mod test {
 
         let tokens = result.result.unwrap();
 
-        assert_eq!(tokens.len(), 8);
         assert_eq!(tokens[0], ("Dim", VB6Token::DimKeyword));
         assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
         assert_eq!(tokens[2], ("x", VB6Token::Identifier));
@@ -610,7 +608,7 @@ mod test {
         assert_eq!(tokens[4], ("As", VB6Token::AsKeyword));
         assert_eq!(tokens[5], (" ", VB6Token::Whitespace));
         assert_eq!(tokens[6], ("Integer", VB6Token::IntegerKeyword));
-        assert_eq!(tokens[7], ("", VB6Token::EOF));
+        assert_eq!(tokens.len(), 7);
     }
 
     #[test]
@@ -627,13 +625,12 @@ mod test {
 
         let tokens = result.result.unwrap();
 
-        assert_eq!(tokens.len(), 6);
+        assert_eq!(tokens.len(), 5);
         assert_eq!(tokens[0], ("x", VB6Token::Identifier));
         assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
         assert_eq!(tokens[2], ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
         assert_eq!(tokens[4], ("\"Test\"", VB6Token::StringLiteral));
-        assert_eq!(tokens[5], ("", VB6Token::EOF));
     }
 
     #[test]
@@ -650,9 +647,8 @@ mod test {
 
         let tokens = result.result.unwrap();
 
-        assert_eq!(tokens.len(), 2);
+        assert_eq!(tokens.len(), 1);
         assert_eq!(tokens[0], ("\"Text\"", VB6Token::StringLiteral));
-        assert_eq!(tokens[1], ("", VB6Token::EOF));
     }
 
     #[test]
@@ -669,7 +665,7 @@ mod test {
 
         let tokens = result.result.unwrap();
 
-        assert_eq!(tokens.len(), 8);
+        assert_eq!(tokens.len(), 7);
         assert_eq!(tokens[0], ("x", VB6Token::Identifier));
         assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
         assert_eq!(tokens[2], ("=", VB6Token::EqualityOperator));
@@ -677,7 +673,6 @@ mod test {
         assert_eq!(tokens[4], ("\"Test\"", VB6Token::StringLiteral));
         assert_eq!(tokens[5], (" ", VB6Token::Whitespace));
         assert_eq!(tokens[6], ("'This is a comment.", VB6Token::EndOfLineComment));
-        assert_eq!(tokens[7], ("", VB6Token::EOF));
     }
 
     #[test]
@@ -709,7 +704,7 @@ Attribute VB_Exposed = False
 
         let mut tokens = result.result.unwrap().into_iter();
 
-        assert_eq!(tokens.len(), 99);
+        assert_eq!(tokens.len(), 98);
         assert_eq!(
             tokens.next().unwrap(),
             ("VERSION", VB6Token::VersionKeyword)
@@ -856,7 +851,7 @@ Attribute VB_Exposed = False
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
         assert_eq!(tokens.next().unwrap(), ("False", VB6Token::FalseKeyword));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(tokens.next().unwrap(), ("", VB6Token::EOF));
+        assert!(tokens.next().is_none());
     }
 
     #[test]
@@ -888,7 +883,7 @@ Attribute VB_Exposed = False
 
         let mut tokens = result.result.unwrap().into_iter();
 
-        assert_eq!(tokens.len(), 62);
+        assert_eq!(tokens.len(), 61);
         assert_eq!(
             tokens.next().unwrap(),
             ("VERSION", VB6Token::VersionKeyword)
@@ -998,6 +993,6 @@ Attribute VB_Exposed = False
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens.next().unwrap(), ("False", VB6Token::FalseKeyword));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(tokens.next().unwrap(), ("", VB6Token::EOF));
+        assert!(tokens.next().is_none());
     }
 }
