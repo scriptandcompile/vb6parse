@@ -351,6 +351,7 @@ impl From<VB6Token> for SyntaxKind {
             VB6Token::EraseKeyword => SyntaxKind::EraseKeyword,
             VB6Token::DoKeyword => SyntaxKind::DoKeyword,
             VB6Token::UntilKeyword => SyntaxKind::UntilKeyword,
+            VB6Token::LoopKeyword => SyntaxKind::LoopKeyword,
             VB6Token::DeleteSettingKeyword => SyntaxKind::DeleteSettingKeyword,
             VB6Token::DefBoolKeyword => SyntaxKind::DefBoolKeyword,
             VB6Token::DefByteKeyword => SyntaxKind::DefByteKeyword,
