@@ -1658,6 +1658,34 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // BeepStatement
     }
 
+    /// Parse a ChDir statement.
+    ///
+    /// VB6 ChDir statement syntax:
+    /// - ChDir path
+    ///
+    /// Changes the current directory or folder.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/chdir-statement)
+    fn parse_chdir_statement(&mut self) {
+        // if we are now parsing a ChDir statement, we are no longer in the header.
+        self.parsing_header = false;
+
+        self.builder.start_node(SyntaxKind::ChDirStatement.to_raw());
+
+        // Consume "ChDir" keyword
+        self.consume_token();
+
+        // Consume everything until newline (the path parameter)
+        self.consume_until(VB6Token::Newline);
+
+        // Consume the newline
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        self.builder.finish_node(); // ChDirStatement
+    }
+
     /// Parse an Exit statement.
     ///
     /// Syntax:
@@ -1714,6 +1742,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::ExitKeyword)
                 | Some(VB6Token::AppActivateKeyword)
                 | Some(VB6Token::BeepKeyword)
+                | Some(VB6Token::ChDirKeyword)
                 | Some(VB6Token::DoKeyword)
                 | Some(VB6Token::ForKeyword)
         )
@@ -1748,6 +1777,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::BeepKeyword) => {
                 self.parse_beep_statement();
+            }
+            Some(VB6Token::ChDirKeyword) => {
+                self.parse_chdir_statement();
             }
             Some(VB6Token::DoKeyword) => {
                 self.parse_do_statement();
