@@ -55,7 +55,7 @@
 //! 3. **Efficient**: Uses rowan's red-green tree architecture for memory efficiency.
 //! 4. **Type-safe**: All syntax kinds are represented as a Rust enum for compile-time safety.
 
-use std::num::{NonZero, NonZeroUsize};
+use std::num::NonZeroUsize;
 
 use crate::language::VB6Token;
 use crate::parsers::SyntaxKind;
@@ -349,6 +349,10 @@ impl<'a> Parser<'a> {
                 // Set statement: Set objectVar = [New] objectExpression
                 Some(VB6Token::SetKeyword) => {
                     self.parse_set_statement();
+                }
+                // With statement: With object...End With
+                Some(VB6Token::WithKeyword) => {
+                    self.parse_with_statement();
                 }
                 // Do loop: Do [While|Until condition]...Loop [While|Until condition]
                 Some(VB6Token::DoKeyword) => {
@@ -1297,6 +1301,62 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // LabelStatement
     }
 
+    /// Parse a With statement.
+    ///
+    /// VB6 With statement syntax:
+    /// - With object
+    ///     .Property1 = value1
+    ///     .Property2 = value2
+    ///   End With
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/with-statement)
+    fn parse_with_statement(&mut self) {
+
+        // if we are now parsing a with statement, we are no longer in the header.
+        self.parsing_header = false;
+
+        self.builder.start_node(SyntaxKind::WithStatement.to_raw());
+
+        // Consume "With" keyword
+        self.consume_token();
+
+        // Consume everything until newline (the object expression)
+        self.consume_until(VB6Token::Newline);
+
+        // Consume the newline
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        // Parse the body until "End With"
+        self.parse_code_block(|parser| {
+            parser.at_keyword(VB6Token::EndKeyword)
+                && parser.peek_next_keyword() == Some(VB6Token::WithKeyword)
+        });
+
+        // Consume "End With" and trailing tokens
+        if self.at_keyword(VB6Token::EndKeyword) {
+            // Consume "End"
+            self.consume_token();
+
+            // Consume any whitespace between "End" and "With"
+            while self.at_token(VB6Token::Whitespace) {
+                self.consume_token();
+            }
+
+            // Consume "With"
+            self.consume_token();
+
+            // Consume until newline (including it)
+            self.consume_until(VB6Token::Newline);
+            if self.at_token(VB6Token::Newline) {
+                self.consume_token();
+            }
+        }
+
+        self.builder.finish_node(); // WithStatement
+    }
+
     /// Parse a code block, consuming tokens until a termination condition is met.
     ///
     /// This is a generic code block parser that can handle different termination conditions:
@@ -1339,6 +1399,9 @@ impl<'a> Parser<'a> {
                 }
                 Some(VB6Token::SetKeyword) => {
                     self.parse_set_statement();
+                }
+                Some(VB6Token::WithKeyword) => {
+                    self.parse_with_statement();
                 }
                 Some(VB6Token::DoKeyword) => {
                     self.parse_do_statement();
