@@ -55,6 +55,7 @@
 //! 3. **Efficient**: Uses rowan's red-green tree architecture for memory efficiency.
 //! 4. **Type-safe**: All syntax kinds are represented as a Rust enum for compile-time safety.
 
+use std::num::{NonZero, NonZeroUsize};
 use crate::language::VB6Token;
 use crate::parsers::SyntaxKind;
 use crate::tokenstream::TokenStream;
@@ -319,7 +320,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::StaticKeyword) => {
                     // Look ahead to see if this is a function/sub declaration
                     // Peek at the next 2 keywords to handle cases like "Public Static Function"
-                    let next_keywords: Vec<_> = self.peek_next_count_keywords(2).collect();
+                    let next_keywords: Vec<_> = self.peek_next_count_keywords(NonZeroUsize::new(2).unwrap()).collect();
 
                     let is_function_or_sub = match next_keywords.as_slice() {
                         // Direct: Public/Private/Friend Function or Sub
@@ -1352,7 +1353,7 @@ impl<'a> Parser<'a> {
     }
 
     fn peek_next_keyword(&self) -> Option<VB6Token> {
-        self.peek_next_count_keywords(1).next()
+        self.peek_next_count_keywords(NonZeroUsize::new(1).unwrap()).next()
     }
 
     fn is_identifier(&self) -> bool {
@@ -1368,6 +1369,7 @@ impl<'a> Parser<'a> {
         if !self.is_identifier() && !self.is_number() {
             return false;
         }
+        
         
         // Look for a colon immediately after the identifier/number
         for (_text, token) in self.tokens.iter().skip(self.pos + 1) {
@@ -1423,15 +1425,22 @@ impl<'a> Parser<'a> {
     ///
     /// # Panics
     /// Panics if `count` is zero
-    fn peek_next_count_keywords(&self, count: usize) -> impl Iterator<Item = VB6Token> + '_ {
-        assert!(count > 0, "count must be non-zero");
-
+    fn peek_next_count_keywords(&self, count: NonZeroUsize) -> impl Iterator<Item = VB6Token> + '_ {
         self.tokens
             .iter()
             .skip(self.pos + 1)
             .filter(|(_, token)| *token != VB6Token::Whitespace)
-            .take(count)
+            .take(count.get())
             .map(|(_, token)| *token)
+    }
+
+    fn peek_next_count_tokens(&self, count: NonZeroUsize) -> impl Iterator<Item = (&'a str, VB6Token)> + '_ {
+
+        self.tokens
+            .iter()
+            .skip(self.pos + 1)
+            .take(count.get())
+            .map(|(text, token)| (*text, *token))
     }
 
     fn consume_token(&mut self) {
