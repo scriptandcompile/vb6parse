@@ -1052,8 +1052,4 @@ pub enum VB6Token {
     /// This is just a collection of digits and hasn't been parsed into a
     /// specific kind of number yet.
     Number,
-    /// Represents the end of the file.
-    ///
-    /// Indicates that there is no more input to process.
-    EOF,
 }

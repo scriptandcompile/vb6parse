@@ -58,7 +58,7 @@ pub enum SyntaxKind {
     // We start these at a higher offset to avoid conflicts
     Whitespace = 1000,
     Newline,
-    Comment,
+    EndOfLineComment,
     RemComment,
     
     // Keywords
@@ -232,9 +232,6 @@ pub enum SyntaxKind {
     ColonOperator,
     ExponentiationOperator,
     
-    // Special
-    EOF,
-    
     // Error recovery
     Error,
     Unknown,
@@ -245,7 +242,7 @@ impl From<VB6Token> for SyntaxKind {
         match token {
             VB6Token::Whitespace => SyntaxKind::Whitespace,
             VB6Token::Newline => SyntaxKind::Newline,
-            VB6Token::EndOfLineComment => SyntaxKind::Comment,
+            VB6Token::EndOfLineComment => SyntaxKind::EndOfLineComment,
             VB6Token::RemComment => SyntaxKind::RemComment,
             VB6Token::ClassKeyword => SyntaxKind::ClassKeyword,
             VB6Token::ReDimKeyword => SyntaxKind::ReDimKeyword,
@@ -409,7 +406,6 @@ impl From<VB6Token> for SyntaxKind {
             VB6Token::ExponentiationOperator => SyntaxKind::ExponentiationOperator,
             VB6Token::Identifier => SyntaxKind::Identifier,
             VB6Token::Number => SyntaxKind::Number,
-            VB6Token::EOF => SyntaxKind::EOF,
         }
     }
 }

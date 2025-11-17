@@ -1,40 +1,18 @@
-use vb6parse::language::VB6Token;
 use vb6parse::parsers::cst::parse;
-use vb6parse::parsers::SyntaxKind;
-use vb6parse::tokenstream::TokenStream;
+use vb6parse::parsers::{SourceStream, SyntaxKind};
+use vb6parse::tokenize::tokenize;
 
 #[test]
 fn binary_conditional() {
-    let tokens = vec![
-        ("Sub", VB6Token::SubKeyword),
-        (" ", VB6Token::Whitespace),
-        ("Test", VB6Token::Identifier),
-        ("(", VB6Token::LeftParentheses),
-        (")", VB6Token::RightParentheses),
-        ("\n", VB6Token::Newline),
-        ("    ", VB6Token::Whitespace),
-        ("If", VB6Token::IfKeyword),
-        (" ", VB6Token::Whitespace),
-        ("x", VB6Token::Identifier),
-        (" ", VB6Token::Whitespace),
-        ("=", VB6Token::EqualityOperator),
-        (" ", VB6Token::Whitespace),
-        ("5", VB6Token::Number),
-        (" ", VB6Token::Whitespace),
-        ("Then", VB6Token::ThenKeyword),
-        ("\n", VB6Token::Newline),
-        ("    ", VB6Token::Whitespace),
-        ("End", VB6Token::EndKeyword),
-        (" ", VB6Token::Whitespace),
-        ("If", VB6Token::IfKeyword),
-        ("\n", VB6Token::Newline),
-        ("End", VB6Token::EndKeyword),
-        (" ", VB6Token::Whitespace),
-        ("Sub", VB6Token::SubKeyword),
-        ("\n", VB6Token::Newline),
-    ];
+    let code = r#"Sub Test()
+    If x = 5 Then
+    End If
+End Sub
+"#;
 
-    let token_stream = TokenStream::new("test.bas".to_string(), tokens);
+    let mut source_stream = SourceStream::new("test.bas", code);
+    let result = tokenize(&mut source_stream);
+    let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
 
     // Navigate the tree structure
@@ -72,37 +50,15 @@ fn binary_conditional() {
 
 #[test]
 fn unary_conditional() {
-    let tokens = vec![
-        ("Sub", VB6Token::SubKeyword),
-        (" ", VB6Token::Whitespace),
-        ("Test", VB6Token::Identifier),
-        ("(", VB6Token::LeftParentheses),
-        (")", VB6Token::RightParentheses),
-        ("\n", VB6Token::Newline),
-        ("    ", VB6Token::Whitespace),
-        ("If", VB6Token::IfKeyword),
-        (" ", VB6Token::Whitespace),
-        ("Not", VB6Token::NotKeyword),
-        (" ", VB6Token::Whitespace),
-        ("isEmpty", VB6Token::Identifier),
-        ("(", VB6Token::LeftParentheses),
-        ("x", VB6Token::Identifier),
-        (")", VB6Token::RightParentheses),
-        (" ", VB6Token::Whitespace),
-        ("Then", VB6Token::ThenKeyword),
-        ("\n", VB6Token::Newline),
-        ("    ", VB6Token::Whitespace),
-        ("End", VB6Token::EndKeyword),
-        (" ", VB6Token::Whitespace),
-        ("If", VB6Token::IfKeyword),
-        ("\n", VB6Token::Newline),
-        ("End", VB6Token::EndKeyword),
-        (" ", VB6Token::Whitespace),
-        ("Sub", VB6Token::SubKeyword),
-        ("\n", VB6Token::Newline),
-    ];
+    let code = r#"Sub Test()
+    If Not isEmpty(x) Then
+    End If
+End Sub
+"#;
 
-    let token_stream = TokenStream::new("test.bas".to_string(), tokens);
+    let mut source_stream = SourceStream::new("test.bas", code);
+    let result = tokenize(&mut source_stream);
+    let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
 
     // Navigate the tree structure
@@ -141,99 +97,21 @@ fn unary_conditional() {
 
 #[test]
 fn nested_if_elseif_else() {
-    // Test code:
-    // Sub Test()
-    //     If x > 0 Then
-    //         If y > 0 Then
-    //         ElseIf y < 0 Then
-    //         Else
-    //         End If
-    //     ElseIf x < 0 Then
-    //     Else
-    //     End If
-    // End Sub
-    let tokens = vec![
-        ("Sub", VB6Token::SubKeyword),
-        (" ", VB6Token::Whitespace),
-        ("Test", VB6Token::Identifier),
-        ("(", VB6Token::LeftParentheses),
-        (")", VB6Token::RightParentheses),
-        ("\n", VB6Token::Newline),
-        // Outer If: If x > 0 Then
-        ("    ", VB6Token::Whitespace),
-        ("If", VB6Token::IfKeyword),
-        (" ", VB6Token::Whitespace),
-        ("x", VB6Token::Identifier),
-        (" ", VB6Token::Whitespace),
-        (">", VB6Token::GreaterThanOperator),
-        (" ", VB6Token::Whitespace),
-        ("0", VB6Token::Number),
-        (" ", VB6Token::Whitespace),
-        ("Then", VB6Token::ThenKeyword),
-        ("\n", VB6Token::Newline),
-        // Inner If: If y > 0 Then
-        ("        ", VB6Token::Whitespace),
-        ("If", VB6Token::IfKeyword),
-        (" ", VB6Token::Whitespace),
-        ("y", VB6Token::Identifier),
-        (" ", VB6Token::Whitespace),
-        (">", VB6Token::GreaterThanOperator),
-        (" ", VB6Token::Whitespace),
-        ("0", VB6Token::Number),
-        (" ", VB6Token::Whitespace),
-        ("Then", VB6Token::ThenKeyword),
-        ("\n", VB6Token::Newline),
-        // Inner ElseIf: ElseIf y < 0 Then
-        ("        ", VB6Token::Whitespace),
-        ("ElseIf", VB6Token::ElseIfKeyword),
-        (" ", VB6Token::Whitespace),
-        ("y", VB6Token::Identifier),
-        (" ", VB6Token::Whitespace),
-        ("<", VB6Token::LessThanOperator),
-        (" ", VB6Token::Whitespace),
-        ("0", VB6Token::Number),
-        (" ", VB6Token::Whitespace),
-        ("Then", VB6Token::ThenKeyword),
-        ("\n", VB6Token::Newline),
-        // Inner Else
-        ("        ", VB6Token::Whitespace),
-        ("Else", VB6Token::ElseKeyword),
-        ("\n", VB6Token::Newline),
-        // Inner End If
-        ("        ", VB6Token::Whitespace),
-        ("End", VB6Token::EndKeyword),
-        (" ", VB6Token::Whitespace),
-        ("If", VB6Token::IfKeyword),
-        ("\n", VB6Token::Newline),
-        // Outer ElseIf: ElseIf x < 0 Then
-        ("    ", VB6Token::Whitespace),
-        ("ElseIf", VB6Token::ElseIfKeyword),
-        (" ", VB6Token::Whitespace),
-        ("x", VB6Token::Identifier),
-        (" ", VB6Token::Whitespace),
-        ("<", VB6Token::LessThanOperator),
-        (" ", VB6Token::Whitespace),
-        ("0", VB6Token::Number),
-        (" ", VB6Token::Whitespace),
-        ("Then", VB6Token::ThenKeyword),
-        ("\n", VB6Token::Newline),
-        // Outer Else
-        ("    ", VB6Token::Whitespace),
-        ("Else", VB6Token::ElseKeyword),
-        ("\n", VB6Token::Newline),
-        // Outer End If
-        ("    ", VB6Token::Whitespace),
-        ("End", VB6Token::EndKeyword),
-        (" ", VB6Token::Whitespace),
-        ("If", VB6Token::IfKeyword),
-        ("\n", VB6Token::Newline),
-        ("End", VB6Token::EndKeyword),
-        (" ", VB6Token::Whitespace),
-        ("Sub", VB6Token::SubKeyword),
-        ("\n", VB6Token::Newline),
-    ];
+    let code = r#"Sub Test()
+    If x > 0 Then
+        If y > 0 Then
+        ElseIf y < 0 Then
+        Else
+        End If
+    ElseIf x < 0 Then
+    Else
+    End If
+End Sub
+"#;
 
-    let token_stream = TokenStream::new("test.bas".to_string(), tokens);
+    let mut source_stream = SourceStream::new("test.bas", code);
+    let result = tokenize(&mut source_stream);
+    let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
 
     // Navigate the tree structure

@@ -4518,6 +4518,4 @@ tokens:
       - SubKeyword
     - - "\r\n"
       - Newline
-    - - ""
-      - EOF
   offset: 0

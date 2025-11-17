@@ -66,7 +66,7 @@ impl<'a> VB6ModuleFile<'a> {
     /// let module_file = result.unwrap();
     ///
     /// assert_eq!(module_file.name, "Module1".as_bytes());
-    /// assert_eq!(module_file.tokens.len(), 26);
+    /// assert_eq!(module_file.tokens.len(), 25);
     /// ```
     pub fn parse(
         source_file: &'a SourceFile,
