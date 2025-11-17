@@ -13,3 +13,4 @@ mod cst;
 mod declaration;
 mod option_explicit;
 mod sub;
+mod assignment;

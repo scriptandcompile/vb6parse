@@ -302,12 +302,6 @@ impl<'a> Parser<'a> {
                 // Function Procedure Syntax:
                 //
                 // [Public | Private | Friend] [ Static ] Function name [ ( arglist ) ] [ As type ]
-                // [ statements ]
-                // [ name = expression ]
-                // [ Exit Function ]
-                // [ statements ]
-                // [ name = expression ]
-                // End Function
                 //
                 Some(VB6Token::FunctionKeyword) => {
                     self.parse_function_statement();
@@ -373,12 +367,17 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::RemComment) => {
                     self.consume_token();
                 }
-                // Anything else - consume as unknown for now
+                // Anything else - check if it's an assignment, otherwise consume as unknown
                 _ => {
-                    // This is purely being done this way to make it easier during development.
-                    // In a full implementation, we would have specific parsing functions
-                    // for all VB6 constructs with anything unrecognized being treated as an error node.
-                    self.consume_token_as_unknown();
+                    // Check if this looks like an assignment statement (identifier = expression)
+                    if self.is_at_assignment() {
+                        self.parse_assignment_statement();
+                    } else {
+                        // This is purely being done this way to make it easier during development.
+                        // In a full implementation, we would have specific parsing functions
+                        // for all VB6 constructs with anything unrecognized being treated as an error node.
+                        self.consume_token_as_unknown();
+                    }
                 }
             }
         }
@@ -1222,6 +1221,31 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // SetStatement
     }
 
+    /// Parse an assignment statement.
+    ///
+    /// VB6 assignment statement syntax:
+    /// - variableName = expression
+    /// - object.property = expression
+    /// - array(index) = expression
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/assignment-operator)
+    fn parse_assignment_statement(&mut self) {
+        self.builder.start_node(SyntaxKind::AssignmentStatement.to_raw());
+
+        // Consume everything until newline
+        // This includes: variable/property, "=", expression
+        while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        // Consume the newline
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        self.builder.finish_node(); // AssignmentStatement
+    }
+
     /// Parse a code block, consuming tokens until a termination condition is met.
     ///
     /// This is a generic code block parser that can handle different termination conditions:
@@ -1281,9 +1305,14 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::RemComment) => {
                     self.consume_token();
                 }
-                // Anything else - consume as unknown for now
+                // Anything else - check if it's an assignment, otherwise consume as unknown
                 _ => {
-                    self.consume_token_as_unknown();
+                    // Check if this looks like an assignment statement (identifier = expression)
+                    if self.is_at_assignment() {
+                        self.parse_assignment_statement();
+                    } else {
+                        self.consume_token_as_unknown();
+                    }
                 }
             }
         }
@@ -1310,6 +1339,40 @@ impl<'a> Parser<'a> {
 
     fn peek_next_keyword(&self) -> Option<VB6Token> {
         self.peek_next_count_keywords(1).next()
+    }
+
+    /// Check if the current position is at the start of an assignment statement.
+    /// This looks ahead to see if there's an `=` operator (not part of a comparison).
+    fn is_at_assignment(&self) -> bool {
+        // Look ahead through the tokens to find an = operator before a newline
+        // We need to skip: identifiers, periods, parentheses, array indices, etc.
+        for (_text, token) in self.tokens.iter().skip(self.pos) {
+            match token {
+                VB6Token::Newline | VB6Token::EndOfLineComment | VB6Token::RemComment => {
+                    // Reached end of line without finding assignment
+                    return false;
+                }
+                VB6Token::EqualityOperator => {
+                    // Found an = operator - this is likely an assignment
+                    return true;
+                }
+                // Skip tokens that could appear in the left-hand side of an assignment
+                VB6Token::Whitespace
+                | VB6Token::Identifier
+                | VB6Token::PeriodOperator
+                | VB6Token::LeftParentheses
+                | VB6Token::RightParentheses
+                | VB6Token::Number
+                | VB6Token::Comma => {
+                    continue;
+                }
+                // If we hit a keyword or other operator, it's not an assignment
+                _ => {
+                    return false;
+                }
+            }
+        }
+        false
     }
 
     /// Peek ahead and get the next `count` non-whitespace keywords from the current position.
