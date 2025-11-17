@@ -352,52 +352,6 @@ impl<'a> Parser<'a> {
                         _ => self.parse_declaration(),              // Declaration
                     }
                 }
-                // Call statement: Call SubroutineName(args)
-                Some(VB6Token::CallKeyword) => {
-                    self.parse_call_statement();
-                }
-                // Set statement: Set objectVar = [New] objectExpression
-                Some(VB6Token::SetKeyword) => {
-                    self.parse_set_statement();
-                }
-                // With statement: With object...End With
-                Some(VB6Token::WithKeyword) => {
-                    self.parse_with_statement();
-                }
-                // Select Case statement: Select Case expression...End Select
-                Some(VB6Token::SelectKeyword) => {
-                    self.parse_select_case_statement();
-                }
-                // GoTo statement: GoTo label
-                Some(VB6Token::GotoKeyword) => {
-                    self.parse_goto_statement();
-                }
-                // Exit statement: Exit Do, Exit For, Exit Function, Exit Property, Exit Sub
-                Some(VB6Token::ExitKeyword) => {
-                    self.parse_exit_statement();
-                }
-                // AppActivate statement: AppActivate title[, wait]
-                Some(VB6Token::AppActivateKeyword) => {
-                    self.parse_appactivate_statement();
-                }
-                // Beep statement: Beep
-                Some(VB6Token::BeepKeyword) => {
-                    self.parse_beep_statement();
-                }
-                // Do loop: Do [While|Until condition]...Loop [While|Until condition]
-                Some(VB6Token::DoKeyword) => {
-                    self.parse_do_statement();
-                }
-                // For loop: For counter = start To end [Step step]...Next [counter]
-                // For Each loop: For Each element In collection...Next [element]
-                Some(VB6Token::ForKeyword) => {
-                    // Peek ahead to see if next keyword is "Each"
-                    if let Some(VB6Token::EachKeyword) = self.peek_next_keyword() {
-                        self.parse_for_each_statement();
-                    } else {
-                        self.parse_for_statement();
-                    }
-                }
                 // Whitespace and newlines - consume directly
                 Some(VB6Token::Whitespace)
                 | Some(VB6Token::Newline)
@@ -405,10 +359,13 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::RemComment) => {
                     self.consume_token();
                 }
-                // Anything else - check if it's a label, assignment, or unknown
+                // Anything else - check if it's a statement, label, assignment, or unknown
                 _ => {
+                    // Try to parse common statements using centralized dispatcher
+                    if self.is_statement_keyword() {
+                        self.parse_statement();
                     // Check if this is a label (identifier followed by colon)
-                    if self.is_at_label() {
+                    } else if self.is_at_label() {
                         self.parse_label_statement();
                     // Check if this looks like an assignment statement (identifier = expression)
                     } else if self.is_at_assignment() {
@@ -886,27 +843,14 @@ impl<'a> Parser<'a> {
                     break;
                 }
                 
-                // Parse a single statement based on the current token
+                // Try to parse using centralized statement dispatcher
+                if self.is_statement_keyword() {
+                    self.parse_statement();
+                    continue;
+                }
+
+                // Handle other inline constructs
                 match self.current_token() {
-                    Some(VB6Token::GotoKeyword) => {
-                        self.parse_goto_statement();
-                    }
-                    Some(VB6Token::CallKeyword) => {
-                        self.parse_call_statement();
-                    }
-                    Some(VB6Token::SetKeyword) => {
-                        self.parse_set_statement();
-                    }
-                    Some(VB6Token::ExitKeyword) => {
-                        self.parse_exit_statement();
-                        break;
-                    }
-                    Some(VB6Token::AppActivateKeyword) => {
-                        self.parse_appactivate_statement();
-                    }
-                    Some(VB6Token::BeepKeyword) => {
-                        self.parse_beep_statement();
-                    }
                     Some(VB6Token::Whitespace) | Some(VB6Token::EndOfLineComment) | Some(VB6Token::RemComment) => {
                         self.consume_token();
                     }
@@ -1666,7 +1610,7 @@ impl<'a> Parser<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/appactivate-statement)
     fn parse_appactivate_statement(&mut self) {
-        // if we are now parsing an appactivate statement, we are no longer in the header.
+        // if we are now parsing an AppActivate statement, we are no longer in the header.
         self.parsing_header = false;
 
         self.builder
@@ -1755,6 +1699,71 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // ExitStatement
     }
 
+    /// Parse a single statement based on the current token.
+    ///
+    /// Check if the current token is a statement keyword that parse_statement can handle.
+    fn is_statement_keyword(&self) -> bool {
+        matches!(
+            self.current_token(),
+            Some(VB6Token::IfKeyword)
+                | Some(VB6Token::CallKeyword)
+                | Some(VB6Token::SetKeyword)
+                | Some(VB6Token::WithKeyword)
+                | Some(VB6Token::SelectKeyword)
+                | Some(VB6Token::GotoKeyword)
+                | Some(VB6Token::ExitKeyword)
+                | Some(VB6Token::AppActivateKeyword)
+                | Some(VB6Token::BeepKeyword)
+                | Some(VB6Token::DoKeyword)
+                | Some(VB6Token::ForKeyword)
+        )
+    }
+
+    /// This is a centralized statement dispatcher that handles all VB6 statement types.
+    fn parse_statement(&mut self) {
+        match self.current_token() {
+            Some(VB6Token::IfKeyword) => {
+                self.parse_if_statement();
+            }
+            Some(VB6Token::CallKeyword) => {
+                self.parse_call_statement();
+            }
+            Some(VB6Token::SetKeyword) => {
+                self.parse_set_statement();
+            }
+            Some(VB6Token::WithKeyword) => {
+                self.parse_with_statement();
+            }
+            Some(VB6Token::SelectKeyword) => {
+                self.parse_select_case_statement();
+            }
+            Some(VB6Token::GotoKeyword) => {
+                self.parse_goto_statement();
+            }
+            Some(VB6Token::ExitKeyword) => {
+                self.parse_exit_statement();
+            }
+            Some(VB6Token::AppActivateKeyword) => {
+                self.parse_appactivate_statement();
+            }
+            Some(VB6Token::BeepKeyword) => {
+                self.parse_beep_statement();
+            }
+            Some(VB6Token::DoKeyword) => {
+                self.parse_do_statement();
+            }
+            Some(VB6Token::ForKeyword) => {
+                // Peek ahead to see if next keyword is "Each"
+                if let Some(VB6Token::EachKeyword) = self.peek_next_keyword() {
+                    self.parse_for_each_statement();
+                } else {
+                    self.parse_for_statement();
+                }
+            }
+            _ => {},
+        }
+    }
+
     /// Parse a code block, consuming tokens until a termination condition is met.
     ///
     /// This is a generic code block parser that can handle different termination conditions:
@@ -1778,12 +1787,14 @@ impl<'a> Parser<'a> {
                 break;
             }
 
-            // Dispatch to appropriate parsing methods based on current token
+            // Try to parse a statement using the centralized dispatcher
+            if self.is_statement_keyword() {
+                self.parse_statement();
+                continue;
+            }
+
+            // Handle other constructs that aren't in parse_statement
             match self.current_token() {
-                // If statement: If condition Then ... End If
-                Some(VB6Token::IfKeyword) => {
-                    self.parse_if_statement();
-                }
                 // Variable declarations: Dim/Private/Public/Const/Static
                 Some(VB6Token::DimKeyword)
                 | Some(VB6Token::PrivateKeyword)
@@ -1791,41 +1802,6 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::ConstKeyword)
                 | Some(VB6Token::StaticKeyword) => {
                     self.parse_declaration();
-                }
-                Some(VB6Token::CallKeyword) => {
-                    self.parse_call_statement();
-                }
-                Some(VB6Token::SetKeyword) => {
-                    self.parse_set_statement();
-                }
-                Some(VB6Token::WithKeyword) => {
-                    self.parse_with_statement();
-                }
-                Some(VB6Token::SelectKeyword) => {
-                    self.parse_select_case_statement();
-                }
-                Some(VB6Token::GotoKeyword) => {
-                    self.parse_goto_statement();
-                }
-                Some(VB6Token::ExitKeyword) => {
-                    self.parse_exit_statement();
-                }
-                Some(VB6Token::AppActivateKeyword) => {
-                    self.parse_appactivate_statement();
-                }
-                Some(VB6Token::BeepKeyword) => {
-                    self.parse_beep_statement();
-                }
-                Some(VB6Token::DoKeyword) => {
-                    self.parse_do_statement();
-                }
-                Some(VB6Token::ForKeyword) => {
-                    // Peek ahead to see if next keyword is "Each"
-                    if let Some(VB6Token::EachKeyword) = self.peek_next_keyword() {
-                        self.parse_for_each_statement();
-                    } else {
-                        self.parse_for_statement();
-                    }
                 }
                 // Whitespace and newlines - consume directly
                 Some(VB6Token::Whitespace)
