@@ -487,9 +487,7 @@ impl<'a> Parser<'a> {
             self.consume_token();
 
             // Consume any whitespace after visibility modifier
-            while self.at_token(VB6Token::Whitespace) {
-                self.consume_token();
-            }
+            self.consume_whitespace();
         }
 
         // Consume optional Static keyword
@@ -497,18 +495,14 @@ impl<'a> Parser<'a> {
             self.consume_token();
 
             // Consume any whitespace after Static
-            while self.at_token(VB6Token::Whitespace) {
-                self.consume_token();
-            }
+            self.consume_whitespace();
         }
 
         // Consume "Sub" keyword
         self.consume_token();
 
         // Consume any whitespace after "Sub"
-        while self.at_token(VB6Token::Whitespace) {
-            self.consume_token();
-        }
+        self.consume_whitespace();
 
         // Consume procedure name
         if self.at_token(VB6Token::Identifier) {
@@ -516,9 +510,7 @@ impl<'a> Parser<'a> {
         }
 
         // Consume any whitespace before parameter list
-        while self.at_token(VB6Token::Whitespace) {
-            self.consume_token();
-        }
+        self.consume_whitespace();
 
         // Parse parameter list if present
         if self.at_token(VB6Token::LeftParentheses) {
@@ -545,10 +537,8 @@ impl<'a> Parser<'a> {
             self.consume_token();
 
             // Consume any whitespace between "End" and "Sub"
-            while self.at_token(VB6Token::Whitespace) {
-                self.consume_token();
-            }
-
+            self.consume_whitespace();
+            
             // Consume "Sub"
             self.consume_token();
 
@@ -608,9 +598,7 @@ impl<'a> Parser<'a> {
             self.consume_token();
 
             // Consume any whitespace after visibility modifier
-            while self.at_token(VB6Token::Whitespace) {
-                self.consume_token();
-            }
+            self.consume_whitespace();
         }
 
         // Consume optional Static keyword
@@ -618,18 +606,14 @@ impl<'a> Parser<'a> {
             self.consume_token();
 
             // Consume any whitespace after Static
-            while self.at_token(VB6Token::Whitespace) {
-                self.consume_token();
-            }
+            self.consume_whitespace();
         }
 
         // Consume "Function" keyword
         self.consume_token();
 
         // Consume any whitespace after "Function"
-        while self.at_token(VB6Token::Whitespace) {
-            self.consume_token();
-        }
+        self.consume_whitespace();
 
         // Consume function name
         if self.at_token(VB6Token::Identifier) {
@@ -637,9 +621,7 @@ impl<'a> Parser<'a> {
         }
 
         // Consume any whitespace before parameter list
-        while self.at_token(VB6Token::Whitespace) {
-            self.consume_token();
-        }
+        self.consume_whitespace();
 
         // Parse parameter list if present
         if self.at_token(VB6Token::LeftParentheses) {
@@ -666,9 +648,7 @@ impl<'a> Parser<'a> {
             self.consume_token();
 
             // Consume any whitespace between "End" and "Function"
-            while self.at_token(VB6Token::Whitespace) {
-                self.consume_token();
-            }
+            self.consume_whitespace();
 
             // Consume "Function"
             self.consume_token();
@@ -767,9 +747,7 @@ impl<'a> Parser<'a> {
         }
 
         // Consume any whitespace after Then
-        while self.at_token(VB6Token::Whitespace) {
-            self.consume_token();
-        }
+        self.consume_whitespace();
 
         // Check if this is a single-line If statement (has code on the same line after Then)
         let is_single_line = !self.at_token(VB6Token::Newline) && !self.is_at_end();
@@ -855,9 +833,7 @@ impl<'a> Parser<'a> {
                 self.consume_token();
 
                 // Consume any whitespace between "End" and "If"
-                while self.at_token(VB6Token::Whitespace) {
-                    self.consume_token();
-                }
+                self.consume_whitespace();
 
                 // Consume "If"
                 self.consume_token();
@@ -891,9 +867,7 @@ impl<'a> Parser<'a> {
         }
 
         // Consume any whitespace after Then
-        while self.at_token(VB6Token::Whitespace) {
-            self.consume_token();
-        }
+        self.consume_whitespace();
 
         // Consume the newline after Then
         if self.at_token(VB6Token::Newline) {
@@ -919,9 +893,7 @@ impl<'a> Parser<'a> {
         self.consume_token();
 
         // Consume any whitespace after Else
-        while self.at_token(VB6Token::Whitespace) {
-            self.consume_token();
-        }
+        self.consume_whitespace();
 
         // Consume the newline after Else
         if self.at_token(VB6Token::Newline) {
@@ -946,9 +918,7 @@ impl<'a> Parser<'a> {
     /// The conditional is parsed until "Then" or newline is encountered.
     fn parse_conditional(&mut self) {
         // Skip any leading whitespace
-        while self.at_token(VB6Token::Whitespace) {
-            self.consume_token();
-        }
+        self.consume_whitespace();
 
         // Check if this is a unary conditional starting with "Not"
         if self.at_token(VB6Token::NotKeyword) {
@@ -959,9 +929,7 @@ impl<'a> Parser<'a> {
             self.consume_token();
 
             // Consume any whitespace after "Not"
-            while self.at_token(VB6Token::Whitespace) {
-                self.consume_token();
-            }
+            self.consume_whitespace();
 
             // Consume the rest of the conditional expression until "Then" or newline
             while !self.is_at_end()
@@ -988,9 +956,7 @@ impl<'a> Parser<'a> {
                     self.consume_token();
 
                     // Consume any whitespace after the operator
-                    while self.at_token(VB6Token::Whitespace) {
-                        self.consume_token();
-                    }
+                    self.consume_whitespace();
 
                     // Now consume the right side until "Then" or newline
                     while !self.is_at_end()
@@ -1077,9 +1043,7 @@ impl<'a> Parser<'a> {
         self.consume_token();
 
         // Consume whitespace after Do
-        while self.at_token(VB6Token::Whitespace) {
-            self.consume_token();
-        }
+        self.consume_whitespace();
 
         // Check if we have While or Until after Do
         let has_top_condition = self.at_token(VB6Token::WhileKeyword) || self.at_token(VB6Token::UntilKeyword);
@@ -1105,9 +1069,7 @@ impl<'a> Parser<'a> {
             self.consume_token();
 
             // Consume whitespace after Loop
-            while self.at_token(VB6Token::Whitespace) {
-                self.consume_token();
-            }
+            self.consume_whitespace();
 
             // Check if we have While or Until after Loop
             if self.at_token(VB6Token::WhileKeyword) || self.at_token(VB6Token::UntilKeyword) {
@@ -1212,9 +1174,7 @@ impl<'a> Parser<'a> {
         self.consume_token();
 
         // Consume whitespace
-        while self.at_token(VB6Token::Whitespace) {
-            self.consume_token();
-        }
+        self.consume_whitespace();
 
         // Consume "Each" keyword
         if self.at_token(VB6Token::EachKeyword) {
@@ -1338,9 +1298,7 @@ impl<'a> Parser<'a> {
         self.consume_token();
 
         // Consume optional whitespace
-        while self.at_token(VB6Token::Whitespace) {
-            self.consume_token();
-        }
+        self.consume_whitespace();
 
         // Consume the colon
         if self.at_token(VB6Token::ColonOperator) {
@@ -1394,9 +1352,7 @@ impl<'a> Parser<'a> {
             self.consume_token();
 
             // Consume any whitespace between "End" and "With"
-            while self.at_token(VB6Token::Whitespace) {
-                self.consume_token();
-            }
+            self.consume_whitespace();
 
             // Consume "With"
             self.consume_token();
@@ -1435,9 +1391,7 @@ impl<'a> Parser<'a> {
         self.consume_token();
 
         // Consume any whitespace between "Select" and "Case"
-        while self.at_token(VB6Token::Whitespace) {
-            self.consume_token();
-        }
+        self.consume_whitespace();
 
         // Consume "Case" keyword
         if self.at_token(VB6Token::CaseKeyword) {
@@ -1474,9 +1428,7 @@ impl<'a> Parser<'a> {
                     self.consume_token();
 
                     // Consume any whitespace between "Case" and "Else"
-                    while self.at_token(VB6Token::Whitespace) {
-                        self.consume_token();
-                    }
+                    self.consume_whitespace();
 
                     // Consume "Else"
                     if self.at_token(VB6Token::ElseKeyword) {
@@ -1531,9 +1483,7 @@ impl<'a> Parser<'a> {
             self.consume_token();
 
             // Consume any whitespace between "End" and "Select"
-            while self.at_token(VB6Token::Whitespace) {
-                self.consume_token();
-            }
+            self.consume_whitespace();
 
             // Consume "Select"
             if self.at_token(VB6Token::SelectKeyword) {
@@ -1786,6 +1736,13 @@ impl<'a> Parser<'a> {
             let kind = SyntaxKind::from(*token);
             self.builder.token(kind.to_raw(), text);
             self.pos += 1;
+        }
+    }
+
+    /// Consume all whitespace tokens at the current position.
+    fn consume_whitespace(&mut self) {
+        while self.at_token(VB6Token::Whitespace) {
+            self.consume_token();
         }
     }
 
