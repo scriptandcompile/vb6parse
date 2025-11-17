@@ -348,6 +348,10 @@ impl<'a> Parser<'a> {
                 Some(VB6Token::CallKeyword) => {
                     self.parse_call_statement();
                 }
+                // Set statement: Set objectVar = [New] objectExpression
+                Some(VB6Token::SetKeyword) => {
+                    self.parse_set_statement();
+                }
                 // Do loop: Do [While|Until condition]...Loop [While|Until condition]
                 Some(VB6Token::DoKeyword) => {
                     self.parse_do_statement();
@@ -1192,6 +1196,32 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // ForEachStatement
     }
 
+    /// Parse a Set statement.
+    ///
+    /// VB6 Set statement syntax:
+    /// - Set objectVar = [New] objectExpression
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/set-statement)
+    fn parse_set_statement(&mut self) {
+        self.builder.start_node(SyntaxKind::SetStatement.to_raw());
+
+        // Consume "Set" keyword
+        self.consume_token();
+
+        // Consume everything until newline
+        // This includes: variable, "=", [New], object expression
+        while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        // Consume the newline
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        self.builder.finish_node(); // SetStatement
+    }
+
     /// Parse a code block, consuming tokens until a termination condition is met.
     ///
     /// This is a generic code block parser that can handle different termination conditions:
@@ -1229,6 +1259,9 @@ impl<'a> Parser<'a> {
                 }
                 Some(VB6Token::CallKeyword) => {
                     self.parse_call_statement();
+                }
+                Some(VB6Token::SetKeyword) => {
+                    self.parse_set_statement();
                 }
                 Some(VB6Token::DoKeyword) => {
                     self.parse_do_statement();
