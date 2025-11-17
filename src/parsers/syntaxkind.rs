@@ -38,6 +38,7 @@ pub enum SyntaxKind {
     AppActivateStatement,
     BeepStatement,
     ChDirStatement,
+    ChDriveStatement,
     LabelStatement,
     AttributeStatement,
     OptionStatement,

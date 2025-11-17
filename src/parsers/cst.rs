@@ -1686,6 +1686,34 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // ChDirStatement
     }
 
+    /// Parse a ChDrive statement.
+    ///
+    /// VB6 ChDrive statement syntax:
+    /// - ChDrive drive
+    ///
+    /// Changes the current drive.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/chdrive-statement)
+    fn parse_chdrive_statement(&mut self) {
+        // if we are now parsing a ChDrive statement, we are no longer in the header.
+        self.parsing_header = false;
+
+        self.builder.start_node(SyntaxKind::ChDriveStatement.to_raw());
+
+        // Consume "ChDrive" keyword
+        self.consume_token();
+
+        // Consume everything until newline (the drive parameter)
+        self.consume_until(VB6Token::Newline);
+
+        // Consume the newline
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        self.builder.finish_node(); // ChDriveStatement
+    }
+
     /// Parse an Exit statement.
     ///
     /// Syntax:
@@ -1743,6 +1771,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::AppActivateKeyword)
                 | Some(VB6Token::BeepKeyword)
                 | Some(VB6Token::ChDirKeyword)
+                | Some(VB6Token::ChDriveKeyword)
                 | Some(VB6Token::DoKeyword)
                 | Some(VB6Token::ForKeyword)
         )
@@ -1780,6 +1809,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::ChDirKeyword) => {
                 self.parse_chdir_statement();
+            }
+            Some(VB6Token::ChDriveKeyword) => {
+                self.parse_chdrive_statement();
             }
             Some(VB6Token::DoKeyword) => {
                 self.parse_do_statement();
