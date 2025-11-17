@@ -24,12 +24,19 @@ End Sub
         .find(|child| child.kind == SyntaxKind::SubStatement)
         .expect("Should have a SubStatement node");
 
-    // The SubStatement should contain an IfStatement
-    let if_statement = sub_statement
+    // The SubStatement should contain a CodeBlock
+    let code_block = sub_statement
+        .children
+        .iter()
+        .find(|child| child.kind == SyntaxKind::CodeBlock)
+        .expect("SubStatement should contain a CodeBlock");
+
+    // The CodeBlock should contain an IfStatement
+    let if_statement = code_block
         .children
         .iter()
         .find(|child| child.kind == SyntaxKind::IfStatement)
-        .expect("SubStatement should contain an IfStatement");
+        .expect("CodeBlock should contain an IfStatement");
 
     // The IfStatement should contain a BinaryConditional
     let binary_conditional = if_statement
@@ -83,12 +90,19 @@ End Sub
         .find(|child| child.kind == SyntaxKind::SubStatement)
         .expect("Should have a SubStatement node");
 
-    // The SubStatement should contain an IfStatement
-    let if_statement = sub_statement
+    // The SubStatement should contain a CodeBlock
+    let code_block = sub_statement
+        .children
+        .iter()
+        .find(|child| child.kind == SyntaxKind::CodeBlock)
+        .expect("SubStatement should contain a CodeBlock");
+
+    // The CodeBlock should contain an IfStatement
+    let if_statement = code_block
         .children
         .iter()
         .find(|child| child.kind == SyntaxKind::IfStatement)
-        .expect("SubStatement should contain an IfStatement");
+        .expect("CodeBlock should contain an IfStatement");
 
     // The IfStatement should contain a UnaryConditional
     let unary_conditional = if_statement
@@ -156,12 +170,19 @@ End Sub
         .find(|child| child.kind == SyntaxKind::SubStatement)
         .expect("Should have a SubStatement node");
 
-    // Find the outer IfStatement
-    let outer_if = sub_statement
+    // The SubStatement should contain a CodeBlock
+    let code_block = sub_statement
+        .children
+        .iter()
+        .find(|child| child.kind == SyntaxKind::CodeBlock)
+        .expect("SubStatement should contain a CodeBlock");
+
+    // Find the outer IfStatement in the CodeBlock
+    let outer_if = code_block
         .children
         .iter()
         .find(|child| child.kind == SyntaxKind::IfStatement)
-        .expect("SubStatement should contain an outer IfStatement");
+        .expect("CodeBlock should contain an outer IfStatement");
 
     // Verify outer If has a BinaryConditional (x > 0)
     let outer_conditional = outer_if
@@ -178,12 +199,19 @@ End Sub
         .iter()
         .any(|c| c.kind == SyntaxKind::GreaterThanOperator));
 
-    // Find the inner IfStatement (nested within the outer If)
-    let inner_if = outer_if
+    // Find the CodeBlock inside the outer If
+    let outer_code_block = outer_if
+        .children
+        .iter()
+        .find(|child| child.kind == SyntaxKind::CodeBlock)
+        .expect("Outer IfStatement should contain a CodeBlock");
+
+    // Find the inner IfStatement (nested within the outer If's CodeBlock)
+    let inner_if = outer_code_block
         .children
         .iter()
         .find(|child| child.kind == SyntaxKind::IfStatement)
-        .expect("Outer IfStatement should contain a nested IfStatement");
+        .expect("Outer CodeBlock should contain a nested IfStatement");
 
     // Verify inner If has a BinaryConditional (y > 0)
     let inner_conditional = inner_if
