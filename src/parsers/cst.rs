@@ -372,6 +372,8 @@ impl<'a> Parser<'a> {
                     // Check if this looks like an assignment statement (identifier = expression)
                     if self.is_at_assignment() {
                         self.parse_assignment_statement();
+                    } else if self.is_identifier() {
+                        self.consume_token();
                     } else {
                         // This is purely being done this way to make it easier during development.
                         // In a full implementation, we would have specific parsing functions
@@ -397,9 +399,7 @@ impl<'a> Parser<'a> {
         self.consume_token();
 
         // Consume everything until newline (preserving all tokens)
-        while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        self.consume_until(VB6Token::Newline);
 
         // Consume the newline
         if self.at_token(VB6Token::Newline) {
@@ -418,9 +418,7 @@ impl<'a> Parser<'a> {
         self.consume_token();
 
         // Consume everything until newline (preserving all tokens)
-        while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        self.consume_until(VB6Token::Newline);
 
         // Consume the newline
         if self.at_token(VB6Token::Newline) {
@@ -505,9 +503,7 @@ impl<'a> Parser<'a> {
         }
 
         // Consume everything until newline (preserving all tokens)
-        while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        self.consume_until(VB6Token::Newline);
 
         // Consume the newline
         if self.at_token(VB6Token::Newline) {
@@ -534,9 +530,9 @@ impl<'a> Parser<'a> {
             self.consume_token();
 
             // Consume until newline (including it)
-            while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
-                self.consume_token();
-            }
+            self.consume_until(VB6Token::Newline);
+
+            // Consume the newline
             if self.at_token(VB6Token::Newline) {
                 self.consume_token();
             }
@@ -625,9 +621,7 @@ impl<'a> Parser<'a> {
         }
 
         // Consume everything until newline (includes "As Type" if present)
-        while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        self.consume_until(VB6Token::Newline);
 
         // Consume the newline
         if self.at_token(VB6Token::Newline) {
@@ -654,9 +648,9 @@ impl<'a> Parser<'a> {
             self.consume_token();
 
             // Consume until newline (including it)
-            while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
-                self.consume_token();
-            }
+            self.consume_until(VB6Token::Newline);
+
+            // Consume the newline
             if self.at_token(VB6Token::Newline) {
                 self.consume_token();
             }
@@ -699,9 +693,7 @@ impl<'a> Parser<'a> {
         self.consume_token();
 
         // Consume everything until newline (preserving all tokens)
-        while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        self.consume_until(VB6Token::Newline);
 
         // Consume the newline
         if self.at_token(VB6Token::Newline) {
@@ -754,9 +746,7 @@ impl<'a> Parser<'a> {
 
         if is_single_line {
             // Single-line If: consume everything until newline
-            while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
-                self.consume_token();
-            }
+            self.consume_until(VB6Token::Newline);
 
             // Consume the newline
             if self.at_token(VB6Token::Newline) {
@@ -803,9 +793,9 @@ impl<'a> Parser<'a> {
                 self.consume_token();
 
                 // Consume until newline (including it)
-                while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
-                    self.consume_token();
-                }
+                self.consume_until(VB6Token::Newline);
+
+                // Consume the newline
                 if self.at_token(VB6Token::Newline) {
                     self.consume_token();
                 }
@@ -982,9 +972,7 @@ impl<'a> Parser<'a> {
         self.consume_token();
 
         // Consume everything until newline (preserving all tokens)
-        while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        self.consume_until(VB6Token::Newline);
 
         // Consume the newline
         if self.at_token(VB6Token::Newline) {
@@ -1097,9 +1085,7 @@ impl<'a> Parser<'a> {
                 self.consume_token();
 
                 // Consume everything until newline (the step value)
-                while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
-                    self.consume_token();
-                }
+                self.consume_until(VB6Token::Newline);
             }
         }
 
@@ -1116,9 +1102,7 @@ impl<'a> Parser<'a> {
             self.consume_token();
 
             // Consume everything until newline (optional counter variable)
-            while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
-                self.consume_token();
-            }
+            self.consume_until(VB6Token::Newline);
 
             // Consume newline after Next
             if self.at_token(VB6Token::Newline) {
@@ -1164,9 +1148,7 @@ impl<'a> Parser<'a> {
             self.consume_token();
 
             // Consume everything until newline (the collection)
-            while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
-                self.consume_token();
-            }
+            self.consume_until(VB6Token::Newline);
         }
 
         // Consume newline after For Each line
@@ -1182,9 +1164,7 @@ impl<'a> Parser<'a> {
             self.consume_token();
 
             // Consume everything until newline (optional element variable)
-            while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
-                self.consume_token();
-            }
+            self.consume_until(VB6Token::Newline);
 
             // Consume newline after Next
             if self.at_token(VB6Token::Newline) {
@@ -1209,9 +1189,7 @@ impl<'a> Parser<'a> {
 
         // Consume everything until newline
         // This includes: variable, "=", [New], object expression
-        while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        self.consume_until(VB6Token::Newline);
 
         // Consume the newline
         if self.at_token(VB6Token::Newline) {
@@ -1234,9 +1212,7 @@ impl<'a> Parser<'a> {
 
         // Consume everything until newline
         // This includes: variable/property, "=", expression
-        while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        self.consume_until(VB6Token::Newline);
 
         // Consume the newline
         if self.at_token(VB6Token::Newline) {
@@ -1341,6 +1317,10 @@ impl<'a> Parser<'a> {
         self.peek_next_count_keywords(1).next()
     }
 
+    fn is_identifier(&self) -> bool {
+        matches!(self.current_token(), Some(VB6Token::Identifier))
+    }
+
     /// Check if the current position is at the start of an assignment statement.
     /// This looks ahead to see if there's an `=` operator (not part of a comparison).
     fn is_at_assignment(&self) -> bool {
@@ -1408,6 +1388,18 @@ impl<'a> Parser<'a> {
         if let Some((text, _)) = self.tokens.get(self.pos) {
             self.builder.token(SyntaxKind::Unknown.to_raw(), text);
             self.pos += 1;
+        }
+    }
+
+    /// Consume tokens until reaching the specified token or the end of input.
+    /// The specified token is NOT consumed.
+    ///
+    /// # Arguments
+    /// * `target` - The token to stop at (will not be consumed)
+    ///
+    fn consume_until(&mut self, target: VB6Token) {
+        while !self.is_at_end() && !self.at_token(target) {
+            self.consume_token();
         }
     }
 }
