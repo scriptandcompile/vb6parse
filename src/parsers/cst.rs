@@ -296,17 +296,51 @@ impl<'a> Parser<'a> {
                 Some(VB6Token::SubKeyword) => {
                     self.parse_sub_statement();
                 }
-                // Function procedure: Function Name(...) As Type
+                // Function Procedure Syntax:
+                //
+                // [Public | Private | Friend] [ Static ] Function name [ ( arglist ) ] [ As type ]
+                // [ statements ]
+                // [ name = expression ]
+                // [ Exit Function ]
+                // [ statements ]
+                // [ name = expression ]
+                // End Function
+                //
                 Some(VB6Token::FunctionKeyword) => {
                     self.parse_function_statement();
                 }
-                // Variable declarations: Dim/Private/Public/Const/Static
+                // Variable declarations: Dim/Const
+                // For Public/Private/Friend/Static, we need to look ahead to see if it's a 
+                // function/sub declaration or a variable declaration
                 Some(VB6Token::DimKeyword) 
-                | Some(VB6Token::PrivateKeyword)
-                | Some(VB6Token::PublicKeyword)
-                | Some(VB6Token::ConstKeyword)
-                | Some(VB6Token::StaticKeyword) => {
+                | Some(VB6Token::ConstKeyword) => {
                     self.parse_declaration();
+                }
+                // Public/Private/Friend/Static - could be function/sub or declaration
+                Some(VB6Token::PrivateKeyword)
+                | Some(VB6Token::PublicKeyword)
+                | Some(VB6Token::FriendKeyword)
+                | Some(VB6Token::StaticKeyword) => {
+                    // Look ahead to see if this is a function/sub declaration
+                    // Peek at the next 2 keywords to handle cases like "Public Static Function"
+                    let next_keywords: Vec<_> = self.peek_next_count_keywords(2).collect();
+                    
+                    let is_function_or_sub = match next_keywords.as_slice() {
+                        // Direct: Public/Private/Friend Function or Sub
+                        [VB6Token::FunctionKeyword, ..] => Some(true),  // Function
+                        [VB6Token::SubKeyword, ..] => Some(false),      // Sub
+                        // With Static: Public/Private/Friend Static Function or Sub
+                        [VB6Token::StaticKeyword, VB6Token::FunctionKeyword] => Some(true),
+                        [VB6Token::StaticKeyword, VB6Token::SubKeyword] => Some(false),
+                        // Anything else is a declaration
+                        _ => None,
+                    };
+                    
+                    match is_function_or_sub {
+                        Some(true) => self.parse_function_statement(),  // Function
+                        Some(false) => self.parse_sub_statement(),      // Sub
+                        None => self.parse_declaration(),               // Declaration
+                    }
                 }
                 // Whitespace and newlines - consume directly
                 Some(VB6Token::Whitespace) 
@@ -375,6 +409,28 @@ impl<'a> Parser<'a> {
     fn parse_sub_statement(&mut self) {
         self.builder.start_node(SyntaxKind::SubStatement.to_raw());
         
+        // Consume optional Public/Private/Friend keyword
+        if self.at_token(VB6Token::PublicKeyword) 
+            || self.at_token(VB6Token::PrivateKeyword) 
+            || self.at_token(VB6Token::FriendKeyword) {
+            self.consume_token();
+            
+            // Consume any whitespace after visibility modifier
+            while self.at_token(VB6Token::Whitespace) {
+                self.consume_token();
+            }
+        }
+        
+        // Consume optional Static keyword
+        if self.at_token(VB6Token::StaticKeyword) {
+            self.consume_token();
+            
+            // Consume any whitespace after Static
+            while self.at_token(VB6Token::Whitespace) {
+                self.consume_token();
+            }
+        }
+        
         // Consume "Sub" keyword
         self.consume_token();
         
@@ -439,9 +495,59 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // SubStatement
     }
     
-    /// Parse a Function procedure: Function Name(...) As Type ... End Function
+    /// Parse a Visual Basic 6 function with syntax:
+    /// 
+    /// \[ Public | Private | Friend \] \[ Static \] Function name \[ ( arglist ) \] \[ As type \]
+    /// \[ statements \]
+    /// \[ name = expression \]
+    /// \[ Exit Function \]
+    /// \[ statements \]
+    /// \[ name = expression \]
+    /// End Function
+    /// 
+    /// The Function statement syntax has these parts:
+    /// 
+    /// | Part        | Optional / Required | Description |
+    /// |-------------|---------------------|-------------|
+    /// | Public   	  | Optional | Indicates that the Function procedure is accessible to all other procedures in all modules. If used in a module that contains an Option Private, the procedure is not available outside the project. |
+    /// | Private  	  | Optional | Indicates that the Function procedure is accessible only to other procedures in the module where it is declared. |
+    /// | Friend 	  | Optional | Used only in a class module. Indicates that the Function procedure is visible throughout the project, but not visible to a controller of an instance of an object. |
+    /// | Static 	  | Optional | Indicates that the Function procedure's local variables are preserved between calls. The Static attribute doesn't affect variables that are declared outside the Function, even if they are used in the procedure. |
+    /// | name 	      | Required | Name of the Function; follows standard variable naming conventions. |
+    /// | arglist 	  | Optional | List of variables representing arguments that are passed to the Function procedure when it is called. Multiple variables are separated by commas. |
+    /// | type 	      | Optional | Data type of the value returned by the Function procedure; may be Byte, Boolean, Integer, Long, Currency, Single, Double, Decimal (not currently supported), Date, String (except fixed length), Object, Variant, or any user-defined type. |
+    /// | statements  | Optional | Any group of statements to be executed within the Function procedure.
+    /// | expression  | Optional | Return value of the Function. |
+    /// 
+    /// The arglist argument has the following syntax and parts:
+    /// 
+    /// \[ Optional \] \[ ByVal | ByRef \] \[ ParamArray \] varname \[ ( ) \] \[ As type \] \[ = defaultvalue \]
+    /// 
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/function-statement)
     fn parse_function_statement(&mut self) {
         self.builder.start_node(SyntaxKind::FunctionStatement.to_raw());
+        
+        // Consume optional Public/Private/Friend keyword
+        if self.at_token(VB6Token::PublicKeyword) 
+            || self.at_token(VB6Token::PrivateKeyword) 
+            || self.at_token(VB6Token::FriendKeyword) {
+            self.consume_token();
+            
+            // Consume any whitespace after visibility modifier
+            while self.at_token(VB6Token::Whitespace) {
+                self.consume_token();
+            }
+        }
+        
+        // Consume optional Static keyword
+        if self.at_token(VB6Token::StaticKeyword) {
+            self.consume_token();
+            
+            // Consume any whitespace after Static
+            while self.at_token(VB6Token::Whitespace) {
+                self.consume_token();
+            }
+        }
         
         // Consume "Function" keyword
         self.consume_token();
@@ -862,15 +968,28 @@ impl<'a> Parser<'a> {
     }
     
     fn peek_next_keyword(&self) -> Option<VB6Token> {
-        let mut i = self.pos + 1;
-        while i < self.tokens.len() {
-            let (_, token) = &self.tokens[i];
-            if *token != VB6Token::Whitespace {
-                return Some(*token);
-            }
-            i += 1;
-        }
-        None
+        self.peek_next_count_keywords(1).next()
+    }
+    
+    /// Peek ahead and get the next `count` non-whitespace keywords from the current position.
+    /// 
+    /// # Arguments
+    /// * `count` - Number of keywords to peek ahead (must be non-zero)
+    /// 
+    /// # Returns
+    /// An iterator over the next `count` keywords (non-whitespace tokens)
+    /// 
+    /// # Panics
+    /// Panics if `count` is zero
+    fn peek_next_count_keywords(&self, count: usize) -> impl Iterator<Item = VB6Token> + '_ {
+        assert!(count > 0, "count must be non-zero");
+        
+        self.tokens
+            .iter()
+            .skip(self.pos + 1)
+            .filter(|(_, token)| *token != VB6Token::Whitespace)
+            .take(count)
+            .map(|(_, token)| *token)
     }
     
     fn consume_token(&mut self) {
