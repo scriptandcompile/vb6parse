@@ -51,6 +51,7 @@ static KEYWORD_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, VB6Token> = phf_orde
     // switched so that `Do` isn't selected for `Double`.
     "Double" => VB6Token::DoubleKeyword,
     "Do" => VB6Token::DoKeyword,
+    "Each" => VB6Token::EachKeyword,
     // switched so that `Else` isn't selected for `ElseIf`.
     "ElseIf" => VB6Token::ElseIfKeyword,
     "Else" => VB6Token::ElseKeyword,
@@ -74,6 +75,7 @@ static KEYWORD_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, VB6Token> = phf_orde
     // switched so that `Imp` isn't selected for `Implements`.
     "Implements" => VB6Token::ImplementsKeyword,
     "Imp" => VB6Token::ImpKeyword,
+    "In" => VB6Token::InKeyword,
     "Integer" => VB6Token::IntegerKeyword,
     "Is" => VB6Token::IsKeyword,
     "Kill" => VB6Token::KillKeyword,
