@@ -730,6 +730,12 @@ pub enum VB6Token {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243354(v=vs.60))
     UntilKeyword,
+    /// Represents the 'Loop' keyword.
+    ///
+    /// Used with the Do keyword to terminate a Do...Loop statement.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243354(v=vs.60))
+    LoopKeyword,
     /// Represents the 'DeleteSetting' keyword.
     ///
     /// Deletes a section or key setting from an application's entry in the
