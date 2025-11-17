@@ -15,3 +15,4 @@ mod option_explicit;
 mod sub;
 mod assignment;
 mod label;
+mod with_statement;
