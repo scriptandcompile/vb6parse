@@ -23,3 +23,4 @@ mod exit_statement;
 mod property_statement;
 mod appactivate_statement;
 mod beep_statement;
+mod chdir_statement;

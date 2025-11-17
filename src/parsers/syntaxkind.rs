@@ -37,6 +37,7 @@ pub enum SyntaxKind {
     ExitStatement,
     AppActivateStatement,
     BeepStatement,
+    ChDirStatement,
     LabelStatement,
     AttributeStatement,
     OptionStatement,
