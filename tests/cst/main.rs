@@ -4,7 +4,6 @@
 
 mod assignment;
 mod call;
-mod chdir_statement;
 mod chdrive_statement;
 mod comments;
 mod cst;
