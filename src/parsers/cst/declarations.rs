@@ -358,24 +358,4 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // ParameterList
     }
 
-    /// Parse a declaration: Dim/Private/Public x As Type
-    pub(super) fn parse_declaration(&mut self) {
-        // if we are now parsing a declaration, we are no longer in the header.
-        self.parsing_header = false;
-
-        self.builder.start_node(SyntaxKind::DimStatement.to_raw());
-
-        // Consume the keyword (Dim, Private, Public, etc.)
-        self.consume_token();
-
-        // Consume everything until newline (preserving all tokens)
-        self.consume_until(VB6Token::Newline);
-
-        // Consume the newline
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
-
-        self.builder.finish_node(); // DimStatement
-    }
 }
