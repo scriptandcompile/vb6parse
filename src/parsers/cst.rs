@@ -1008,7 +1008,7 @@ impl<'a> Parser<'a> {
             // Consume the rest of the conditional expression until "Then" or newline
             while !self.is_at_end()
                 && !self.at_token(VB6Token::ThenKeyword)
-                && !self.at_token(VB6Token::Newline)
+                && !self.is_at_logical_line_end()
             {
                 self.consume_token();
             }
@@ -1022,7 +1022,7 @@ impl<'a> Parser<'a> {
             // Consume tokens until we hit a comparison operator
             while !self.is_at_end()
                 && !self.at_token(VB6Token::ThenKeyword)
-                && !self.at_token(VB6Token::Newline)
+                && !self.is_at_logical_line_end()
             {
                 // Check if we've hit a comparison operator
                 if self.is_comparison_operator() {
@@ -1035,7 +1035,7 @@ impl<'a> Parser<'a> {
                     // Now consume the right side until "Then" or newline
                     while !self.is_at_end()
                         && !self.at_token(VB6Token::ThenKeyword)
-                        && !self.at_token(VB6Token::Newline)
+                        && !self.is_at_logical_line_end()
                     {
                         self.consume_token();
                     }
@@ -1956,6 +1956,80 @@ impl<'a> Parser<'a> {
         matches!(self.current_token(), Some(VB6Token::Number))
     }
 
+    /// Check if we're at the end of a logical line (newline that's NOT a line continuation)
+    /// In VB6, `_` followed by zero or more whitespaces and then a newline means "continue on next line"
+    /// 
+    /// This function primarily looks forward without backtracking, except when positioned
+    /// directly at a newline (which requires checking backward for a preceding underscore):
+    /// - Scans forward through whitespace  
+    /// - If underscore found, checks forward for newline (no backtracking)
+    /// - If newline found directly, checks backward for underscore (minimal backtracking)
+    /// - Otherwise returns false (not at line end)
+    fn is_at_logical_line_end(&self) -> bool {
+        let mut check_pos = self.pos;
+        
+        // Skip forward over any whitespace
+        while let Some((_, token)) = self.tokens.get(check_pos) {
+            match token {
+                VB6Token::Whitespace => {
+                    check_pos += 1;
+                }
+                VB6Token::Underscore => {
+                    // Found underscore - check forward if it's followed by whitespace* + newline
+                    let mut after_underscore = check_pos + 1;
+                    
+                    // Skip whitespace after underscore
+                    while let Some((_, ws_token)) = self.tokens.get(after_underscore) {
+                        if *ws_token == VB6Token::Whitespace {
+                            after_underscore += 1;
+                        } else {
+                            break;
+                        }
+                    }
+                    
+                    // Check if we found a newline after the underscore (and optional whitespace)
+                    if let Some((_, next_token)) = self.tokens.get(after_underscore) {
+                        if *next_token == VB6Token::Newline {
+                            // This is a line continuation (underscore + whitespace* + newline)
+                            return false;
+                        }
+                    }
+                    
+                    // Underscore not followed by newline - not a line continuation
+                    return false;
+                }
+                VB6Token::Newline => {
+                    // Found newline directly - must check backward for preceding underscore
+                    // This is the only case requiring backtracking, when already positioned at/near newline
+                    let mut back_pos = self.pos;
+                    
+                    // Skip backward over whitespace
+                    while back_pos > 0 {
+                        back_pos -= 1;
+                        if let Some((_, back_token)) = self.tokens.get(back_pos) {
+                            match back_token {
+                                VB6Token::Whitespace => continue,
+                                VB6Token::Underscore => return false, // Line continuation
+                                _ => return true, // Logical line end
+                            }
+                        }
+                    }
+                    
+                    // Newline at start of file
+                    return true;
+                }
+                _ => {
+                    // Hit a non-whitespace, non-underscore, non-newline token
+                    // Not at end of line
+                    return false;
+                }
+            }
+        }
+        
+        // End of file
+        false
+    }
+
     /// Check if the current position is at a label (identifier or number followed by colon).
     fn is_at_label(&self) -> bool {
 
@@ -2085,6 +2159,31 @@ impl<'a> Parser<'a> {
     fn consume_until(&mut self, target: VB6Token) {
         while !self.is_at_end() && !self.at_token(target) {
             self.consume_token();
+        }
+        
+        // If we're looking for a newline and we found one, check for line continuation
+        // In VB6, underscore followed by whitespace and newline means "continue on next line"
+        if target == VB6Token::Newline && self.at_token(VB6Token::Newline) {
+            // Look back to see if there was an underscore before this newline
+            // We need to check if the last non-whitespace token was an underscore
+            let mut check_pos = self.pos;
+            while check_pos > 0 {
+                check_pos -= 1;
+                if let Some((_, token)) = self.tokens.get(check_pos) {
+                    match token {
+                        VB6Token::Whitespace => continue, // Skip whitespace
+                        VB6Token::Underscore => {
+                            // Found line continuation! Consume the newline and keep going
+                            self.consume_token(); // Consume the newline
+                            // Continue consuming until we find a newline without continuation
+                            self.consume_until(target);
+                            return;
+                        }
+                        _ => break, // Not a continuation
+                    }
+                }
+                break;
+            }
         }
     }
 }
