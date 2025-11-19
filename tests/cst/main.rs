@@ -8,8 +8,6 @@ mod comments;
 mod cst;
 mod cst_navigation;
 mod declaration;
-mod do_loop;
-mod do_loop_in_function;
 mod exit_statement;
 mod function_linecont;
 mod goto_statement;
