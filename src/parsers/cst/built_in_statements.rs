@@ -12,6 +12,62 @@ use crate::parsers::SyntaxKind;
 use super::Parser;
 
 impl<'a> Parser<'a> {
+
+
+    /// Check if the current token is a built-in statement keyword.
+    pub(super) fn is_builtin_statement_keyword(&self) -> bool {
+        matches!(
+            self.current_token(),
+            Some(VB6Token::AppActivateKeyword)
+                | Some(VB6Token::BeepKeyword)
+                | Some(VB6Token::ChDirKeyword)
+                | Some(VB6Token::ChDriveKeyword)
+        )
+    }
+
+    /// Dispatch built-in statement parsing to the appropriate parser.
+    pub(super) fn parse_builtin_statement(&mut self) {
+        match self.current_token() {
+            Some(VB6Token::AppActivateKeyword) => {
+                // VB6 AppActivate statement syntax:
+                // - AppActivate title[, wait]
+                //
+                // Activates an application window.
+                //
+                // [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/appactivate-statement)
+                self.parse_simple_builtin_statement(SyntaxKind::AppActivateStatement);
+            }
+            Some(VB6Token::BeepKeyword) => {
+                // VB6 Beep statement syntax:
+                // - Beep
+                //
+                // Emits a standard system beep sound.
+                //
+                // [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/beep-statement)
+                self.parse_simple_builtin_statement(SyntaxKind::BeepStatement);
+            }
+            Some(VB6Token::ChDirKeyword) => {
+                // VB6 ChDir statement syntax:  
+                // - ChDir path
+                //
+                // Changes the current directory or folder.
+                //
+                // [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/chdir-statement)
+                self.parse_simple_builtin_statement(SyntaxKind::ChDirStatement);
+            }
+            Some(VB6Token::ChDriveKeyword) => {
+                // VB6 ChDrive statement syntax:
+                // - ChDrive drive
+                //
+                // Changes the current drive.
+                //
+                // [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/chdrive-statement)
+                self.parse_simple_builtin_statement(SyntaxKind::ChDriveStatement);
+            }
+            _ => {}
+        }
+    }
+
     /// Generic parser for built-in statements that follow the pattern:
     /// - Keyword [arguments]
     /// 
@@ -22,7 +78,7 @@ impl<'a> Parser<'a> {
     /// 4. Consume everything until newline (arguments/parameters)
     /// 5. Consume the newline
     /// 6. Finish the syntax node
-    fn parse_simple_builtin_statement(&mut self, kind: SyntaxKind) {
+    pub(super) fn parse_simple_builtin_statement(&mut self, kind: SyntaxKind) {
         // if we are now parsing a built-in statement, we are no longer in the header.
         self.parsing_header = false;
 
@@ -42,53 +98,7 @@ impl<'a> Parser<'a> {
         self.builder.finish_node();
     }
 
-    /// Parse an AppActivate statement.
-    ///
-    /// VB6 AppActivate statement syntax:
-    /// - AppActivate title[, wait]
-    ///
-    /// Activates an application window.
-    ///
-    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/appactivate-statement)
-    pub(super) fn parse_appactivate_statement(&mut self) {
-        self.parse_simple_builtin_statement(SyntaxKind::AppActivateStatement);
-    }
 
-    /// Parse a Beep statement.
-    ///
-    /// VB6 Beep statement syntax:
-    /// - Beep
-    ///
-    /// Sounds a tone through the computer's speaker.
-    ///
-    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/beep-statement)
-    pub(super) fn parse_beep_statement(&mut self) {
-        self.parse_simple_builtin_statement(SyntaxKind::BeepStatement);
-    }
-
-    /// Parse a ChDir statement.
-    ///
-    /// VB6 ChDir statement syntax:
-    /// - ChDir path
-    ///
-    /// Changes the current directory or folder.
-    ///
-    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/chdir-statement)
-    pub(super) fn parse_chdir_statement(&mut self) {
-        self.parse_simple_builtin_statement(SyntaxKind::ChDirStatement);
-    }
-
-    /// Parse a ChDrive statement.
-    ///
-    /// VB6 ChDrive statement syntax:
-    /// - ChDrive drive
-    ///
-    /// Changes the current drive.
-    ///
-    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/chdrive-statement)
-    pub(super) fn parse_chdrive_statement(&mut self) {
-        self.parse_simple_builtin_statement(SyntaxKind::ChDriveStatement);
-    }
 }
 
 #[cfg(test)]
