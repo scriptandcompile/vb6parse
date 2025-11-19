@@ -71,6 +71,7 @@ mod built_in_statements;
 mod controlflow;
 mod declarations;
 mod expressions;
+mod for_statements;
 mod helpers;
 mod if_statements;
 mod select_statements;
