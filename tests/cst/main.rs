@@ -18,7 +18,6 @@ mod label;
 mod option_explicit;
 mod property_statement;
 mod redim_statement;
-mod select_case;
 mod set_statement;
 mod sub;
 mod with_statement;
