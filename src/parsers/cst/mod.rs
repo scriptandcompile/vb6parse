@@ -63,12 +63,12 @@ use crate::tokenstream::TokenStream;
 use rowan::{GreenNode, GreenNodeBuilder, Language};
 
 // Submodules for organized CST parsing
-mod helpers;
-mod controlflow;
-mod statements;
 mod built_in_statements;
+mod controlflow;
 mod declarations;
 mod expressions;
+mod helpers;
+mod statements;
 
 /// The language type for VB6 syntax trees.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]

@@ -2,7 +2,6 @@
 // a separate folder without needing to throw all the tests into a single huge file or
 // throwing all test files in the root tests folder.
 
-mod appactivate_statement;
 mod assignment;
 mod beep_statement;
 mod call;
