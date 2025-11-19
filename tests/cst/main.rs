@@ -3,6 +3,5 @@
 // throwing all test files in the root tests folder.
 
 mod cst;
-mod cst_navigation;
 mod property_statement;
 mod sub;
