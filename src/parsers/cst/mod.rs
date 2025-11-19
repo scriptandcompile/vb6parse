@@ -71,7 +71,7 @@ mod assignment;
 mod built_in_statements;
 mod controlflow;
 mod declarations;
-mod expressions;
+mod conditionals;
 mod for_statements;
 mod helpers;
 mod if_statements;
