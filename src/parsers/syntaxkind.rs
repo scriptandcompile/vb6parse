@@ -16,6 +16,7 @@ pub enum SyntaxKind {
     FunctionStatement,
     PropertyStatement,
     DimStatement,
+    ReDimStatement,
     ConstStatement,
     TypeStatement,
     EnumStatement,
