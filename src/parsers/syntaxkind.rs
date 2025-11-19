@@ -40,6 +40,7 @@ pub enum SyntaxKind {
     BeepStatement,
     ChDirStatement,
     ChDriveStatement,
+    CloseStatement,
     LabelStatement,
     AttributeStatement,
     OptionStatement,
