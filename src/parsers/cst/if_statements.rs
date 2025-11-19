@@ -71,6 +71,12 @@ impl<'a> Parser<'a> {
                     continue;
                 }
 
+                // Try array statements
+                if self.is_array_statement_keyword() {
+                    self.parse_array_statement();
+                    continue;
+                }
+
                 // Try to parse using centralized statement dispatcher
                 if self.is_statement_keyword() {
                     self.parse_statement();
