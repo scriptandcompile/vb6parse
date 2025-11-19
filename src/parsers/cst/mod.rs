@@ -57,6 +57,10 @@
 
 use std::num::NonZeroUsize;
 
+use crate::VB6CodeErrorKind;
+use crate::tokenize::tokenize;
+use crate::ParseResult;
+use crate::SourceStream;
 use crate::language::VB6Token;
 use crate::parsers::SyntaxKind;
 use crate::tokenstream::TokenStream;
@@ -100,6 +104,20 @@ impl ConcreteSyntaxTree {
     /// Create a new CST from a GreenNode (internal use only)
     fn new(root: GreenNode) -> Self {
         Self { root }
+    }
+
+    pub fn from_source<'a, S>(file_name: S, contents: &'a str) -> ParseResult<'a, Self, VB6CodeErrorKind>
+where
+    S: Into<String>,
+    {
+        let mut source_stream = SourceStream::new(file_name.into(), contents);
+        let token_stream = tokenize(&mut source_stream);
+
+        if token_stream.result.is_none() {
+            return ParseResult { result: None, failures: token_stream.failures };
+        }
+
+        ParseResult { result: Some(parse(token_stream.result.unwrap())), failures: token_stream.failures }
     }
 
     /// Get the kind of the root node
