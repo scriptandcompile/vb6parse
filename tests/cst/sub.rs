@@ -1,7 +1,6 @@
 use vb6parse::parsers::{parse, SourceStream, SyntaxKind};
 use vb6parse::tokenize::tokenize;
 
-
 #[test]
 fn cst_public_static_sub() {
     // Test Public Static Sub
@@ -18,7 +17,6 @@ fn cst_public_static_sub() {
     assert!(cst.text().contains("Public Static Sub Initialize"));
 }
 
-
 #[test]
 fn cst_public_sub() {
     // Test Public Sub
@@ -34,7 +32,6 @@ fn cst_public_sub() {
     }
     assert!(cst.text().contains("Public Sub Initialize"));
 }
-
 
 #[test]
 fn cst_private_sub() {

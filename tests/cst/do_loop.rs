@@ -14,7 +14,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("DoStatement"));
     assert!(debug.contains("WhileKeyword"));
@@ -34,7 +34,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("DoStatement"));
     assert!(debug.contains("UntilKeyword"));
@@ -54,7 +54,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("DoStatement"));
     assert!(debug.contains("WhileKeyword"));
@@ -74,7 +74,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("DoStatement"));
     assert!(debug.contains("UntilKeyword"));
@@ -95,7 +95,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("DoStatement"));
     assert!(debug.contains("LoopKeyword"));
@@ -117,7 +117,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     // Should have two DoStatements
     let do_count = debug.matches("DoStatement").count();
@@ -138,7 +138,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("DoStatement"));
     assert!(debug.contains("WhileKeyword"));
@@ -158,7 +158,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("DoStatement"));
     // Check that whitespace is preserved

@@ -11,11 +11,11 @@ fn call_statement_simple() {
     let cst = parse(token_stream);
 
     assert_eq!(cst.child_count(), 1);
-    
+
     if let Some(child) = cst.child_at(0) {
         assert_eq!(child.kind, SyntaxKind::CallStatement);
     }
-    
+
     assert_eq!(cst.text(), code);
 }
 
@@ -29,11 +29,11 @@ fn call_statement_with_arguments() {
     let cst = parse(token_stream);
 
     assert_eq!(cst.child_count(), 1);
-    
+
     if let Some(child) = cst.child_at(0) {
         assert_eq!(child.kind, SyntaxKind::CallStatement);
     }
-    
+
     assert!(cst.text().contains("Call ProcessData"));
     assert!(cst.text().contains("x, y, z"));
 }
@@ -61,14 +61,14 @@ fn call_statement_in_sub() {
     let cst = parse(token_stream);
 
     assert_eq!(cst.child_count(), 1);
-    
+
     if let Some(sub_statement) = cst.child_at(0) {
         assert_eq!(sub_statement.kind, SyntaxKind::SubStatement);
-        
+
         // The SubStatement should contain a CallStatement in its children
         assert!(sub_statement.text.contains("Call DoSomething"));
     }
-    
+
     assert_eq!(cst.text(), code);
 }
 
@@ -82,11 +82,11 @@ fn call_statement_no_parentheses() {
     let cst = parse(token_stream);
 
     assert_eq!(cst.child_count(), 1);
-    
+
     if let Some(child) = cst.child_at(0) {
         assert_eq!(child.kind, SyntaxKind::CallStatement);
     }
-    
+
     assert_eq!(cst.text(), code);
 }
 
@@ -100,13 +100,13 @@ fn multiple_call_statements() {
     let cst = parse(token_stream);
 
     assert_eq!(cst.child_count(), 3);
-    
+
     for i in 0..3 {
         if let Some(child) = cst.child_at(i) {
             assert_eq!(child.kind, SyntaxKind::CallStatement);
         }
     }
-    
+
     assert!(cst.text().contains("Call First"));
     assert!(cst.text().contains("Call Second"));
     assert!(cst.text().contains("Call Third"));
@@ -122,11 +122,11 @@ fn call_statement_with_string_arguments() {
     let cst = parse(token_stream);
 
     assert_eq!(cst.child_count(), 1);
-    
+
     if let Some(child) = cst.child_at(0) {
         assert_eq!(child.kind, SyntaxKind::CallStatement);
     }
-    
+
     assert!(cst.text().contains("\"Hello, World!\""));
 }
 
@@ -140,11 +140,11 @@ fn call_statement_with_complex_expressions() {
     let cst = parse(token_stream);
 
     assert_eq!(cst.child_count(), 1);
-    
+
     if let Some(child) = cst.child_at(0) {
         assert_eq!(child.kind, SyntaxKind::CallStatement);
     }
-    
+
     assert!(cst.text().contains("x + y"));
     assert!(cst.text().contains("z * 2"));
 }

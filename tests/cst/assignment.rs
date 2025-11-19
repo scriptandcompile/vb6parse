@@ -8,7 +8,10 @@ fn test_assignment(source: &str) {
     let cst = parse(token_stream);
 
     let debug = cst.debug_tree();
-    assert!(debug.contains("AssignmentStatement"), "No assignment statement found");
+    assert!(
+        debug.contains("AssignmentStatement"),
+        "No assignment statement found"
+    );
 }
 
 #[test]

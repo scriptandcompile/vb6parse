@@ -2,30 +2,28 @@
 // a separate folder without needing to throw all the tests into a single huge file or
 // throwing all test files in the root tests folder.
 
-mod call;
-mod comments;
-mod for_loop;
-mod do_loop;
-mod do_loop_in_function;
-mod set_statement;
-mod conditional;
-mod cst_navigation;
-mod cst;
-mod declaration;
-mod option_explicit;
-mod sub;
-mod assignment;
-mod label;
-mod with_statement;
-mod select_case;
-mod goto_statement;
-mod inline_if;
-mod exit_statement;
-mod property_statement;
 mod appactivate_statement;
+mod assignment;
 mod beep_statement;
+mod call;
 mod chdir_statement;
 mod chdrive_statement;
-mod redim_statement;
+mod comments;
+mod conditional;
+mod cst;
+mod cst_navigation;
+mod declaration;
+mod do_loop;
+mod do_loop_in_function;
+mod exit_statement;
+mod for_loop;
 mod function_linecont;
-
+mod goto_statement;
+mod label;
+mod option_explicit;
+mod property_statement;
+mod redim_statement;
+mod select_case;
+mod set_statement;
+mod sub;
+mod with_statement;

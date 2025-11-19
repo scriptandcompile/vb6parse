@@ -1,6 +1,5 @@
-use vb6parse::parsers::{parse,  SourceStream, SyntaxKind};
+use vb6parse::parsers::{parse, SourceStream, SyntaxKind};
 use vb6parse::tokenize::tokenize;
-
 
 #[test]
 fn parse_option_explicit_on() {
@@ -44,4 +43,3 @@ fn parse_option_explicit() {
     assert_eq!(cst.child_count(), 1);
     assert_eq!(cst.text(), "Option Explicit\n");
 }
-

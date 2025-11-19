@@ -157,16 +157,17 @@ impl<'a> Parser<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/assignment-operator)
     pub(super) fn parse_assignment_statement(&mut self) {
-
         // Assignments can appear in both header and body, so we do not modify parsing_header here.
 
-        self.builder.start_node(SyntaxKind::AssignmentStatement.to_raw());
+        self.builder
+            .start_node(SyntaxKind::AssignmentStatement.to_raw());
 
         // Consume everything until newline or colon (for inline If statements)
         // This includes: variable/property, "=", expression
-        while !self.is_at_end() 
-            && !self.at_token(VB6Token::Newline) 
-            && !self.at_token(VB6Token::ColonOperator) {
+        while !self.is_at_end()
+            && !self.at_token(VB6Token::Newline)
+            && !self.at_token(VB6Token::ColonOperator)
+        {
             self.consume_token();
         }
 
@@ -185,7 +186,7 @@ impl<'a> Parser<'a> {
         // We need to skip: identifiers, periods, parentheses, array indices, etc.
         // Note: In VB6, keywords can be used as property/member names (e.g., obj.Property = value)
         let mut last_was_period = false;
-        
+
         for (_text, token) in self.tokens.iter().skip(self.pos) {
             match token {
                 VB6Token::Newline | VB6Token::EndOfLineComment | VB6Token::RemComment => {

@@ -12,7 +12,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("BeepStatement"));
     assert!(debug.contains("BeepKeyword"));
@@ -31,7 +31,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("BeepStatement"));
     assert!(debug.contains("IfStatement"));
@@ -48,7 +48,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("BeepStatement"));
 }
@@ -66,7 +66,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     let count = debug.matches("BeepStatement").count();
     assert_eq!(count, 3);
@@ -83,7 +83,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("BeepStatement"));
     assert!(debug.contains("EndOfLineComment"));
@@ -102,7 +102,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("BeepStatement"));
     assert!(debug.contains("ForStatement"));
@@ -124,7 +124,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     let count = debug.matches("BeepStatement").count();
     assert_eq!(count, 2);
@@ -141,7 +141,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("BeepStatement"));
     assert!(debug.contains("Whitespace"));
@@ -156,7 +156,7 @@ Beep
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("BeepStatement"));
 }
@@ -174,7 +174,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("BeepStatement"));
 }
