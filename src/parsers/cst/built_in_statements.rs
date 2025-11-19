@@ -108,10 +108,7 @@ Sub Test()
     AppActivate "MyApp"
 End Sub
 "#;
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("AppActivateStatement"));
@@ -125,10 +122,7 @@ Sub Test()
     AppActivate lstTopWin.Text
 End Sub
 "#;
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("AppActivateStatement"));
@@ -141,10 +135,7 @@ Sub Test()
     AppActivate "Calculator", True
 End Sub
 "#;
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("AppActivateStatement"));
@@ -157,10 +148,7 @@ Sub Test()
     AppActivate sTitle
 End Sub
 "#;
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("AppActivateStatement"));
@@ -173,10 +161,7 @@ Sub Test()
     AppActivate   "MyApp"  ,  False
 End Sub
 "#;
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("AppActivateStatement"));
@@ -192,10 +177,7 @@ Sub Test()
     AppActivate windowTitle
 End Sub
 "#;
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let count = debug.matches("AppActivateStatement").count();
@@ -211,10 +193,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("AppActivateStatement"));
@@ -228,10 +207,7 @@ Sub Test()
     If windowExists Then AppActivate windowTitle
 End Sub
 "#;
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("AppActivateStatement"));
@@ -246,10 +222,7 @@ Sub Test()
     If Err Then MsgBox "AppActivate error: " & Err
 End Sub
 "#;
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("AppActivateStatement"));
@@ -260,10 +233,7 @@ End Sub
         let source = r#"
 AppActivate "MyApp"
 "#;
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("AppActivateStatement"));
@@ -276,10 +246,7 @@ Sub Test()
     Beep
 End Sub
 "#;
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("BeepStatement"));
@@ -295,10 +262,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("BeepStatement"));
@@ -312,10 +276,7 @@ Sub Test()
     If error Then Beep
 End Sub
 "#;
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("BeepStatement"));
@@ -330,10 +291,7 @@ Sub Test()
     Beep
 End Sub
 "#;
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let count = debug.matches("BeepStatement").count();
@@ -347,10 +305,7 @@ Sub Test()
     Beep ' Alert user
 End Sub
 "#;
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("BeepStatement"));
@@ -366,10 +321,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("BeepStatement"));
@@ -388,10 +340,7 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let count = debug.matches("BeepStatement").count();
@@ -405,10 +354,7 @@ Sub Test()
     Beep    ' Extra spaces
 End Sub
 "#;
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("BeepStatement"));
@@ -420,10 +366,7 @@ End Sub
         let source = r#"
 Beep
 "#;
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("BeepStatement"));
@@ -438,10 +381,7 @@ Sub Test()
     If Err Then MsgBox "Error occurred"
 End Sub
 "#;
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("BeepStatement"));
@@ -454,11 +394,7 @@ Sub Test()
     ChDir "C:\Windows"
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ChDirStatement"));
@@ -472,11 +408,7 @@ Sub Test()
     ChDir myPath
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ChDirStatement"));
@@ -490,11 +422,7 @@ Sub Test()
     ChDir App.Path
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ChDirStatement"));
@@ -508,11 +436,7 @@ Sub Test()
     ChDir GetPath() & "\subdir"
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ChDirStatement"));
@@ -526,11 +450,7 @@ Sub Test()
     If dirExists Then ChDir newPath
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ChDirStatement"));
@@ -542,11 +462,7 @@ End Sub
         let source = r#"
 ChDir "C:\Temp"
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ChDirStatement"));
@@ -560,11 +476,7 @@ Sub Test()
     ChDir basePath ' Change to base directory
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ChDirStatement"));
@@ -581,11 +493,7 @@ Sub Test()
     ChDir originalPath
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let chdir_count = debug.matches("ChDirStatement").count();
@@ -601,11 +509,7 @@ Sub Test()
     End If
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ChDirStatement"));
@@ -619,11 +523,7 @@ Sub Test()
     ChDir (basePath)
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ChDirStatement"));
@@ -637,11 +537,7 @@ Sub Test()
     ChDir(basePath)
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ChDirStatement"));
@@ -655,11 +551,7 @@ Sub Test()
     ChDrive "C:"
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ChDriveStatement"));
@@ -673,11 +565,7 @@ Sub Test()
     ChDrive myDrive
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ChDriveStatement"));
@@ -691,11 +579,7 @@ Sub Test()
     ChDrive App.Path
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ChDriveStatement"));
@@ -709,11 +593,7 @@ Sub Test()
     ChDrive Left(sInitDir, 1)
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ChDriveStatement"));
@@ -727,11 +607,7 @@ Sub Test()
     If driveValid Then ChDrive newDrive
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ChDriveStatement"));
@@ -743,11 +619,7 @@ End Sub
         let source = r#"
 ChDrive "D:"
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ChDriveStatement"));
@@ -761,11 +633,7 @@ Sub Test()
     ChDrive driveLetter ' Change to specified drive
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ChDriveStatement"));
@@ -782,11 +650,7 @@ Sub Test()
     ChDrive originalDrive
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let chdrive_count = debug.matches("ChDriveStatement").count();
@@ -802,11 +666,7 @@ Sub Test()
     End If
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ChDriveStatement"));
@@ -820,11 +680,7 @@ Sub Test()
     ChDrive (Left$(sInitDir, 1))
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ChDriveStatement"));
@@ -838,11 +694,7 @@ Sub Test()
     ChDrive Left(theZtmPath, 1)
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ChDriveStatement"));
@@ -857,11 +709,7 @@ Sub Test()
     ChDir "C:\Windows"
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ChDriveStatement"));
