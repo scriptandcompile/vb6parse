@@ -161,10 +161,7 @@ Sub TestSub()
 End Sub
 "#;
 
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ForStatement"));
@@ -183,10 +180,7 @@ Sub TestSub()
 End Sub
 "#;
 
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ForStatement"));
@@ -203,10 +197,7 @@ Sub TestSub()
 End Sub
 "#;
 
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ForStatement"));
@@ -223,10 +214,7 @@ Sub TestSub()
 End Sub
 "#;
 
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ForStatement"));
@@ -245,10 +233,7 @@ Sub TestSub()
 End Sub
 "#;
 
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         // Count occurrences of ForStatement - should have 2
@@ -266,10 +251,7 @@ Sub TestSub()
 End Sub
 "#;
 
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ForStatement"));
@@ -287,10 +269,7 @@ Sub TestSub()
 End Sub
 "#;
 
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ForStatement"));
@@ -311,10 +290,7 @@ Sub TestSub()
 End Sub
 "#;
 
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         // Count occurrences of ForStatement - should have 2
@@ -332,10 +308,7 @@ Sub TestSub()
 End Sub
 "#;
 
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ForEachStatement"));
@@ -355,10 +328,7 @@ Sub TestSub()
 End Sub
 "#;
 
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ForEachStatement"));
@@ -378,10 +348,7 @@ Sub TestSub()
 End Sub
 "#;
 
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ForStatement"));
