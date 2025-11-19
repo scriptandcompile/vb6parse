@@ -63,11 +63,12 @@ use crate::tokenstream::TokenStream;
 use rowan::{GreenNode, GreenNodeBuilder, Language};
 
 // Submodules for organized CST parsing
+mod helpers;
 mod controlflow;
+mod statements;
+mod built_in_statements;
 mod declarations;
 mod expressions;
-mod helpers;
-mod statements;
 
 /// The language type for VB6 syntax trees.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -370,8 +371,11 @@ impl<'a> Parser<'a> {
                 }
                 // Anything else - check if it's a statement, label, assignment, or unknown
                 _ => {
+                    // Try built-in statements
+                    if self.is_builtin_statement_keyword() {
+                        self.parse_builtin_statement();
                     // Try to parse common statements using centralized dispatcher
-                    if self.is_statement_keyword() {
+                    } else if self.is_statement_keyword() {
                         self.parse_statement();
                     // Check if this is a label (identifier followed by colon)
                     } else if self.is_at_label() {
@@ -480,6 +484,36 @@ impl<'a> Parser<'a> {
         }
     }
 
+    /// Check if the current token is a built-in statement keyword.
+    fn is_builtin_statement_keyword(&self) -> bool {
+        matches!(
+            self.current_token(),
+            Some(VB6Token::AppActivateKeyword)
+                | Some(VB6Token::BeepKeyword)
+                | Some(VB6Token::ChDirKeyword)
+                | Some(VB6Token::ChDriveKeyword)
+        )
+    }
+
+    /// Dispatch built-in statement parsing to the appropriate parser.
+    fn parse_builtin_statement(&mut self) {
+        match self.current_token() {
+            Some(VB6Token::AppActivateKeyword) => {
+                self.parse_appactivate_statement();
+            }
+            Some(VB6Token::BeepKeyword) => {
+                self.parse_beep_statement();
+            }
+            Some(VB6Token::ChDirKeyword) => {
+                self.parse_chdir_statement();
+            }
+            Some(VB6Token::ChDriveKeyword) => {
+                self.parse_chdrive_statement();
+            }
+            _ => {}
+        }
+    }
+
     /// Parse a code block, consuming tokens until a termination condition is met.
     ///
     /// This is a generic code block parser that can handle different termination conditions:
@@ -505,6 +539,12 @@ impl<'a> Parser<'a> {
             // Try control flow statements first
             if self.is_control_flow_keyword() {
                 self.parse_control_flow_statement();
+                continue;
+            }
+
+            // Try built-in statements
+            if self.is_builtin_statement_keyword() {
+                self.parse_builtin_statement();
                 continue;
             }
 
