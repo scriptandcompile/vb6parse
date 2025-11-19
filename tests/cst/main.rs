@@ -3,4 +3,3 @@
 // throwing all test files in the root tests folder.
 
 mod property_statement;
-mod sub;
