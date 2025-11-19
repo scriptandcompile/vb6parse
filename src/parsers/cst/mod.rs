@@ -68,6 +68,7 @@ use rowan::{GreenNode, GreenNodeBuilder, Language};
 
 // Submodules for organized CST parsing
 mod assignment;
+mod array_statements;
 mod built_in_statements;
 mod conditionals;
 mod controlflow;
@@ -77,7 +78,7 @@ mod helpers;
 mod if_statements;
 mod loop_statements;
 mod select_statements;
-mod statements;
+mod object_statements;
 
 /// The language type for VB6 syntax trees.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -406,6 +407,9 @@ impl<'a> Parser<'a> {
                     // Try built-in statements
                     if self.is_builtin_statement_keyword() {
                         self.parse_builtin_statement();
+                    // Try array statements
+                    } else if self.is_array_statement_keyword() {
+                        self.parse_array_statement();
                     // Try to parse common statements using centralized dispatcher
                     } else if self.is_statement_keyword() {
                         self.parse_statement();
@@ -516,6 +520,21 @@ impl<'a> Parser<'a> {
         }
     }
 
+    /// Check if the current token is an array statement keyword.
+    fn is_array_statement_keyword(&self) -> bool {
+        matches!(self.current_token(), Some(VB6Token::ReDimKeyword))
+    }
+
+    /// Dispatch array statement parsing to the appropriate parser.
+    fn parse_array_statement(&mut self) {
+        match self.current_token() {
+            Some(VB6Token::ReDimKeyword) => {
+                self.parse_redim_statement();
+            }
+            _ => {}
+        }
+    }
+
     /// Parse a code block, consuming tokens until a termination condition is met.
     ///
     /// This is a generic code block parser that can handle different termination conditions:
@@ -547,6 +566,12 @@ impl<'a> Parser<'a> {
             // Try built-in statements
             if self.is_builtin_statement_keyword() {
                 self.parse_builtin_statement();
+                continue;
+            }
+
+            // Try array statements
+            if self.is_array_statement_keyword() {
+                self.parse_array_statement();
                 continue;
             }
 

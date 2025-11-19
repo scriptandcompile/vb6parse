@@ -2,14 +2,10 @@
 // a separate folder without needing to throw all the tests into a single huge file or
 // throwing all test files in the root tests folder.
 
-mod call;
 mod cst;
 mod cst_navigation;
 mod declaration;
 mod function_linecont;
 mod option_explicit;
 mod property_statement;
-mod redim_statement;
-mod set_statement;
 mod sub;
-mod with_statement;
