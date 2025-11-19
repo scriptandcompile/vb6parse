@@ -25,3 +25,4 @@ mod appactivate_statement;
 mod beep_statement;
 mod chdir_statement;
 mod chdrive_statement;
+mod redim_statement;

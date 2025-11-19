@@ -41,7 +41,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!();
 
     // For demonstration, parse the last module into a CST
-    if let Some(last_module) = project.modules.last() {
+    if let last_module = project.modules[3] {
         let module_path = project_directory
             .join(last_module.path.replace("\\", "/"))
             .to_str()

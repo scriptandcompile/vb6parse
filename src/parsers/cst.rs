@@ -1714,6 +1714,34 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // ChDriveStatement
     }
 
+    /// Parse a ReDim statement.
+    ///
+    /// VB6 ReDim statement syntax:
+    /// - ReDim [Preserve] varname(subscripts) [As type] [, varname(subscripts) [As type]] ...
+    ///
+    /// Used at procedure level to reallocate storage space for dynamic array variables.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/redim-statement)
+    fn parse_redim_statement(&mut self) {
+        // if we are now parsing a ReDim statement, we are no longer in the header.
+        self.parsing_header = false;
+
+        self.builder.start_node(SyntaxKind::ReDimStatement.to_raw());
+
+        // Consume "ReDim" keyword
+        self.consume_token();
+
+        // Consume everything until newline (Preserve, variable declarations, etc.)
+        self.consume_until(VB6Token::Newline);
+
+        // Consume the newline
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        self.builder.finish_node(); // ReDimStatement
+    }
+
     /// Parse an Exit statement.
     ///
     /// Syntax:
@@ -1772,6 +1800,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::BeepKeyword)
                 | Some(VB6Token::ChDirKeyword)
                 | Some(VB6Token::ChDriveKeyword)
+                | Some(VB6Token::ReDimKeyword)
                 | Some(VB6Token::DoKeyword)
                 | Some(VB6Token::ForKeyword)
         )
@@ -1812,6 +1841,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::ChDriveKeyword) => {
                 self.parse_chdrive_statement();
+            }
+            Some(VB6Token::ReDimKeyword) => {
+                self.parse_redim_statement();
             }
             Some(VB6Token::DoKeyword) => {
                 self.parse_do_statement();
