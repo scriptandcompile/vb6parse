@@ -498,7 +498,6 @@ End Function
         let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
-        println!("{}", debug);
 
         // Should have a FunctionStatement node
         assert!(
