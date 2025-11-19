@@ -8,7 +8,6 @@ mod comments;
 mod cst;
 mod cst_navigation;
 mod declaration;
-mod exit_statement;
 mod function_linecont;
 mod goto_statement;
 mod label;
