@@ -74,6 +74,7 @@ mod built_in_statements;
 mod conditionals;
 mod controlflow;
 mod declarations;
+mod deftype_statements;
 mod for_statements;
 mod function_statements;
 mod helpers;
@@ -216,6 +217,21 @@ impl<'a> Parser<'a> {
                 }
                 Some(VB6Token::OptionKeyword) => {
                     self.parse_option_statement();
+                }
+                // DefType statements: DefInt, DefLng, DefStr, etc.
+                Some(VB6Token::DefBoolKeyword)
+                | Some(VB6Token::DefByteKeyword)
+                | Some(VB6Token::DefIntKeyword)
+                | Some(VB6Token::DefLngKeyword)
+                | Some(VB6Token::DefCurKeyword)
+                | Some(VB6Token::DefSngKeyword)
+                | Some(VB6Token::DefDblKeyword)
+                | Some(VB6Token::DefDecKeyword)
+                | Some(VB6Token::DefDateKeyword)
+                | Some(VB6Token::DefStrKeyword)
+                | Some(VB6Token::DefObjKeyword)
+                | Some(VB6Token::DefVarKeyword) => {
+                    self.parse_deftype_statement();
                 }
                 // Declare statement: Declare Sub/Function Name Lib "..."
                 Some(VB6Token::DeclareKeyword) => {
