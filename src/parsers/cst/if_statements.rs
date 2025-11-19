@@ -234,11 +234,7 @@ Positive:
     Debug.Print "positive"
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("IfStatement"));
@@ -253,11 +249,7 @@ Sub Test()
     If enabled Then Call DoSomething
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("IfStatement"));
@@ -271,11 +263,7 @@ Sub Test()
     If x > 10 Then result = "large"
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("IfStatement"));
@@ -289,11 +277,7 @@ Sub Test()
     If obj Is Nothing Then Set obj = New MyClass
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("IfStatement"));
@@ -308,11 +292,7 @@ Sub Test()
     Debug.Print "continuing"
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("IfStatement"));
@@ -326,11 +306,7 @@ Sub Test()
     If condition Then x = 1: y = 2
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("IfStatement"));
@@ -350,11 +326,7 @@ Label1:
     x = 1
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("IfStatement"));
@@ -371,11 +343,7 @@ Positive:
     result = x
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("IfStatement"));
@@ -390,11 +358,7 @@ Sub Test()
     If ready Then Call Process(x, y, z)
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("IfStatement"));
@@ -408,11 +372,7 @@ Sub Test()
     If value > 0 Then result = Calculate(value)
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("IfStatement"));
@@ -428,11 +388,7 @@ Valid:
     Process
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("IfStatement"));
@@ -446,11 +402,7 @@ Sub Test()
     If Not IsValid Then Exit Sub
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("IfStatement"));
@@ -459,16 +411,12 @@ End Sub
 
     #[test]
     fn binary_conditional() {
-        let code = r#"Sub Test()
+        let source = r#"Sub Test()
     If x = 5 Then
     End If
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", code);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         // Navigate the tree structure
         let children = cst.children();
@@ -525,16 +473,12 @@ End Sub
 
     #[test]
     fn unary_conditional() {
-        let code = r#"Sub Test()
+        let source = r#"Sub Test()
     If Not isEmpty(x) Then
     End If
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", code);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         // Navigate the tree structure
         let children = cst.children();
@@ -599,7 +543,7 @@ End Sub
 
     #[test]
     fn nested_if_elseif_else() {
-        let code = r#"Sub Test()
+        let source = r#"Sub Test()
     If x > 0 Then
         If y > 0 Then
         ElseIf y < 0 Then
@@ -610,11 +554,7 @@ End Sub
     End If
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", code);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         // Navigate the tree structure
         let children = cst.children();
