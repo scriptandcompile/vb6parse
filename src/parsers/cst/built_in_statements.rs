@@ -12,8 +12,6 @@ use crate::parsers::SyntaxKind;
 use super::Parser;
 
 impl<'a> Parser<'a> {
-
-
     /// Check if the current token is a built-in statement keyword.
     pub(super) fn is_builtin_statement_keyword(&self) -> bool {
         matches!(
@@ -47,7 +45,7 @@ impl<'a> Parser<'a> {
                 self.parse_simple_builtin_statement(SyntaxKind::BeepStatement);
             }
             Some(VB6Token::ChDirKeyword) => {
-                // VB6 ChDir statement syntax:  
+                // VB6 ChDir statement syntax:
                 // - ChDir path
                 //
                 // Changes the current directory or folder.
@@ -70,7 +68,7 @@ impl<'a> Parser<'a> {
 
     /// Generic parser for built-in statements that follow the pattern:
     /// - Keyword [arguments]
-    /// 
+    ///
     /// All built-in statements in this module share the same structure:
     /// 1. Set parsing_header to false
     /// 2. Start a syntax node of the given kind
@@ -97,8 +95,6 @@ impl<'a> Parser<'a> {
 
         self.builder.finish_node();
     }
-
-
 }
 
 #[cfg(test)]

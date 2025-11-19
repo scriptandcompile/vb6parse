@@ -108,7 +108,10 @@ x = 5
         assert_eq!(cst.children()[1].children[0].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[0].text, "x");
         assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[2].kind, SyntaxKind::EqualityOperator);
+        assert_eq!(
+            cst.children()[1].children[2].kind,
+            SyntaxKind::EqualityOperator
+        );
         assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::Number);
         assert_eq!(cst.children()[1].children[4].text, "5");
@@ -129,9 +132,15 @@ myName = "John"
         assert_eq!(cst.children()[1].children[0].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[0].text, "myName");
         assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[2].kind, SyntaxKind::EqualityOperator);
+        assert_eq!(
+            cst.children()[1].children[2].kind,
+            SyntaxKind::EqualityOperator
+        );
         assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::StringLiteral);
+        assert_eq!(
+            cst.children()[1].children[4].kind,
+            SyntaxKind::StringLiteral
+        );
         assert_eq!(cst.children()[1].children[4].text, "\"John\"");
         assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Newline);
 
@@ -150,11 +159,17 @@ obj.subProperty = value
         // The assignment contains: obj.subProperty = value
         assert_eq!(cst.children()[1].children[0].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[0].text, "obj");
-        assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::PeriodOperator);
+        assert_eq!(
+            cst.children()[1].children[1].kind,
+            SyntaxKind::PeriodOperator
+        );
         assert_eq!(cst.children()[1].children[2].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[2].text, "subProperty");
         assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::EqualityOperator);
+        assert_eq!(
+            cst.children()[1].children[4].kind,
+            SyntaxKind::EqualityOperator
+        );
         assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Whitespace);
         assert_eq!(cst.children()[1].children[6].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[6].text, "value");
@@ -174,12 +189,21 @@ arr(0) = 100
         assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
         assert_eq!(cst.children()[1].children[0].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[0].text, "arr");
-        assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::LeftParenthesis);
+        assert_eq!(
+            cst.children()[1].children[1].kind,
+            SyntaxKind::LeftParenthesis
+        );
         assert_eq!(cst.children()[1].children[2].kind, SyntaxKind::Number);
         assert_eq!(cst.children()[1].children[2].text, "0");
-        assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::RightParenthesis);
+        assert_eq!(
+            cst.children()[1].children[3].kind,
+            SyntaxKind::RightParenthesis
+        );
         assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::EqualityOperator);
+        assert_eq!(
+            cst.children()[1].children[5].kind,
+            SyntaxKind::EqualityOperator
+        );
         assert_eq!(cst.children()[1].children[6].kind, SyntaxKind::Whitespace);
         assert_eq!(cst.children()[1].children[7].kind, SyntaxKind::Number);
         assert_eq!(cst.children()[1].children[7].text, "100");
@@ -199,16 +223,25 @@ matrix(i, j) = value
         assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
         assert_eq!(cst.children()[1].children[0].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[0].text, "matrix");
-        assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::LeftParenthesis);
+        assert_eq!(
+            cst.children()[1].children[1].kind,
+            SyntaxKind::LeftParenthesis
+        );
         assert_eq!(cst.children()[1].children[2].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[2].text, "i");
         assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Comma);
         assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::Whitespace);
         assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[5].text, "j");
-        assert_eq!(cst.children()[1].children[6].kind, SyntaxKind::RightParenthesis);
+        assert_eq!(
+            cst.children()[1].children[6].kind,
+            SyntaxKind::RightParenthesis
+        );
         assert_eq!(cst.children()[1].children[7].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[8].kind, SyntaxKind::EqualityOperator);
+        assert_eq!(
+            cst.children()[1].children[8].kind,
+            SyntaxKind::EqualityOperator
+        );
         assert_eq!(cst.children()[1].children[9].kind, SyntaxKind::Whitespace);
         assert_eq!(cst.children()[1].children[10].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[10].text, "value");
@@ -229,18 +262,27 @@ result = MyFunction(arg1, arg2)
         assert_eq!(cst.children()[1].children[0].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[0].text, "result");
         assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[2].kind, SyntaxKind::EqualityOperator);
+        assert_eq!(
+            cst.children()[1].children[2].kind,
+            SyntaxKind::EqualityOperator
+        );
         assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[4].text, "MyFunction");
-        assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::LeftParenthesis);
+        assert_eq!(
+            cst.children()[1].children[5].kind,
+            SyntaxKind::LeftParenthesis
+        );
         assert_eq!(cst.children()[1].children[6].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[6].text, "arg1");
         assert_eq!(cst.children()[1].children[7].kind, SyntaxKind::Comma);
         assert_eq!(cst.children()[1].children[8].kind, SyntaxKind::Whitespace);
         assert_eq!(cst.children()[1].children[9].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[9].text, "arg2");
-        assert_eq!(cst.children()[1].children[10].kind, SyntaxKind::RightParenthesis);
+        assert_eq!(
+            cst.children()[1].children[10].kind,
+            SyntaxKind::RightParenthesis
+        );
         assert_eq!(cst.children()[1].children[11].kind, SyntaxKind::Newline);
 
         assert_eq!(cst.text().trim(), source.trim());
@@ -258,17 +300,26 @@ sum = a + b * c
         assert_eq!(cst.children()[1].children[0].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[0].text, "sum");
         assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[2].kind, SyntaxKind::EqualityOperator);
+        assert_eq!(
+            cst.children()[1].children[2].kind,
+            SyntaxKind::EqualityOperator
+        );
         assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[4].text, "a");
         assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[6].kind, SyntaxKind::AdditionOperator);
+        assert_eq!(
+            cst.children()[1].children[6].kind,
+            SyntaxKind::AdditionOperator
+        );
         assert_eq!(cst.children()[1].children[7].kind, SyntaxKind::Whitespace);
         assert_eq!(cst.children()[1].children[8].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[8].text, "b");
         assert_eq!(cst.children()[1].children[9].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[10].kind, SyntaxKind::MultiplicationOperator);
+        assert_eq!(
+            cst.children()[1].children[10].kind,
+            SyntaxKind::MultiplicationOperator
+        );
         assert_eq!(cst.children()[1].children[11].kind, SyntaxKind::Whitespace);
         assert_eq!(cst.children()[1].children[12].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[12].text, "c");
@@ -289,15 +340,27 @@ text = obj.GetText()
         assert_eq!(cst.children()[1].children[0].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[0].text, "text");
         assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[2].kind, SyntaxKind::EqualityOperator);
+        assert_eq!(
+            cst.children()[1].children[2].kind,
+            SyntaxKind::EqualityOperator
+        );
         assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[4].text, "obj");
-        assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::PeriodOperator);
+        assert_eq!(
+            cst.children()[1].children[5].kind,
+            SyntaxKind::PeriodOperator
+        );
         assert_eq!(cst.children()[1].children[6].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[6].text, "GetText");
-        assert_eq!(cst.children()[1].children[7].kind, SyntaxKind::LeftParenthesis);
-        assert_eq!(cst.children()[1].children[8].kind, SyntaxKind::RightParenthesis);
+        assert_eq!(
+            cst.children()[1].children[7].kind,
+            SyntaxKind::LeftParenthesis
+        );
+        assert_eq!(
+            cst.children()[1].children[8].kind,
+            SyntaxKind::RightParenthesis
+        );
         assert_eq!(cst.children()[1].children[9].kind, SyntaxKind::Newline);
 
         assert_eq!(cst.text().trim(), source.trim());
@@ -315,14 +378,23 @@ value = obj.SubObj.SubProperty
         assert_eq!(cst.children()[1].children[0].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[0].text, "value");
         assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[2].kind, SyntaxKind::EqualityOperator);
+        assert_eq!(
+            cst.children()[1].children[2].kind,
+            SyntaxKind::EqualityOperator
+        );
         assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[4].text, "obj");
-        assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::PeriodOperator);
+        assert_eq!(
+            cst.children()[1].children[5].kind,
+            SyntaxKind::PeriodOperator
+        );
         assert_eq!(cst.children()[1].children[6].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[6].text, "SubObj");
-        assert_eq!(cst.children()[1].children[7].kind, SyntaxKind::PeriodOperator);
+        assert_eq!(
+            cst.children()[1].children[7].kind,
+            SyntaxKind::PeriodOperator
+        );
         assert_eq!(cst.children()[1].children[8].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[8].text, "SubProperty");
         assert_eq!(cst.children()[1].children[9].kind, SyntaxKind::Newline);
@@ -344,7 +416,10 @@ z = 3
         assert_eq!(cst.children()[1].children[0].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[0].text, "x");
         assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[2].kind, SyntaxKind::EqualityOperator);
+        assert_eq!(
+            cst.children()[1].children[2].kind,
+            SyntaxKind::EqualityOperator
+        );
         assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::Number);
         assert_eq!(cst.children()[1].children[4].text, "1");
@@ -353,7 +428,10 @@ z = 3
         assert_eq!(cst.children()[2].children[0].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[2].children[0].text, "y");
         assert_eq!(cst.children()[2].children[1].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[2].children[2].kind, SyntaxKind::EqualityOperator);
+        assert_eq!(
+            cst.children()[2].children[2].kind,
+            SyntaxKind::EqualityOperator
+        );
         assert_eq!(cst.children()[2].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(cst.children()[2].children[4].kind, SyntaxKind::Number);
         assert_eq!(cst.children()[2].children[4].text, "2");
@@ -362,7 +440,10 @@ z = 3
         assert_eq!(cst.children()[3].children[0].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[3].children[0].text, "z");
         assert_eq!(cst.children()[3].children[1].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[3].children[2].kind, SyntaxKind::EqualityOperator);
+        assert_eq!(
+            cst.children()[3].children[2].kind,
+            SyntaxKind::EqualityOperator
+        );
         assert_eq!(cst.children()[3].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(cst.children()[3].children[4].kind, SyntaxKind::Number);
         assert_eq!(cst.children()[3].children[4].text, "3");
@@ -379,7 +460,10 @@ z = 3
         assert_eq!(cst.children()[0].children[0].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[0].children[0].text, "x");
         assert_eq!(cst.children()[0].children[1].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[0].children[2].kind, SyntaxKind::EqualityOperator);
+        assert_eq!(
+            cst.children()[0].children[2].kind,
+            SyntaxKind::EqualityOperator
+        );
         assert_eq!(cst.children()[0].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(cst.children()[0].children[4].kind, SyntaxKind::Number);
 
@@ -398,13 +482,22 @@ End Function
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
         assert_eq!(cst.children()[1].kind, SyntaxKind::FunctionStatement);
-        assert_eq!(cst.children()[1].children[0].kind, SyntaxKind::PublicKeyword);
+        assert_eq!(
+            cst.children()[1].children[0].kind,
+            SyntaxKind::PublicKeyword
+        );
         assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[2].kind, SyntaxKind::FunctionKeyword);
+        assert_eq!(
+            cst.children()[1].children[2].kind,
+            SyntaxKind::FunctionKeyword
+        );
         assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[4].text, "Calculate");
-        assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::ParameterList);
+        assert_eq!(
+            cst.children()[1].children[5].kind,
+            SyntaxKind::ParameterList
+        );
         assert_eq!(
             cst.children()[1].children[5].children[0].kind,
             SyntaxKind::LeftParenthesis
@@ -480,14 +573,26 @@ item = Collection("Key")
         assert_eq!(cst.children()[1].children[0].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[0].text, "item");
         assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[2].kind, SyntaxKind::EqualityOperator);
+        assert_eq!(
+            cst.children()[1].children[2].kind,
+            SyntaxKind::EqualityOperator
+        );
         assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[4].text, "Collection");
-        assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::LeftParenthesis);
-        assert_eq!(cst.children()[1].children[6].kind, SyntaxKind::StringLiteral);
+        assert_eq!(
+            cst.children()[1].children[5].kind,
+            SyntaxKind::LeftParenthesis
+        );
+        assert_eq!(
+            cst.children()[1].children[6].kind,
+            SyntaxKind::StringLiteral
+        );
         assert_eq!(cst.children()[1].children[6].text, "\"Key\"");
-        assert_eq!(cst.children()[1].children[7].kind, SyntaxKind::RightParenthesis);
+        assert_eq!(
+            cst.children()[1].children[7].kind,
+            SyntaxKind::RightParenthesis
+        );
         assert_eq!(cst.children()[1].children[8].kind, SyntaxKind::Newline);
 
         assert_eq!(cst.text().trim(), source.trim());
@@ -505,15 +610,27 @@ path = Environ$("TEMP")
         assert_eq!(cst.children()[1].children[0].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[0].text, "path");
         assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[2].kind, SyntaxKind::EqualityOperator);
+        assert_eq!(
+            cst.children()[1].children[2].kind,
+            SyntaxKind::EqualityOperator
+        );
         assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[4].text, "Environ");
         assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::DollarSign);
-        assert_eq!(cst.children()[1].children[6].kind, SyntaxKind::LeftParenthesis);
-        assert_eq!(cst.children()[1].children[7].kind, SyntaxKind::StringLiteral);
+        assert_eq!(
+            cst.children()[1].children[6].kind,
+            SyntaxKind::LeftParenthesis
+        );
+        assert_eq!(
+            cst.children()[1].children[7].kind,
+            SyntaxKind::StringLiteral
+        );
         assert_eq!(cst.children()[1].children[7].text, "\"TEMP\"");
-        assert_eq!(cst.children()[1].children[8].kind, SyntaxKind::RightParenthesis);
+        assert_eq!(
+            cst.children()[1].children[8].kind,
+            SyntaxKind::RightParenthesis
+        );
         assert_eq!(cst.children()[1].children[9].kind, SyntaxKind::Newline);
 
         assert_eq!(cst.text().trim(), source.trim());
@@ -561,11 +678,17 @@ pi = 3.14159
         assert_eq!(cst.children()[1].children[0].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[0].text, "pi");
         assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[2].kind, SyntaxKind::EqualityOperator);
+        assert_eq!(
+            cst.children()[1].children[2].kind,
+            SyntaxKind::EqualityOperator
+        );
         assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::Number);
         assert_eq!(cst.children()[1].children[4].text, "3");
-        assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::PeriodOperator);
+        assert_eq!(
+            cst.children()[1].children[5].kind,
+            SyntaxKind::PeriodOperator
+        );
         assert_eq!(cst.children()[1].children[6].kind, SyntaxKind::Number);
         assert_eq!(cst.children()[1].children[6].text, "14159");
         assert_eq!(cst.children()[1].children[7].kind, SyntaxKind::Newline);
@@ -585,14 +708,20 @@ fullName = firstName & " " & lastName
         assert_eq!(cst.children()[1].children[0].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[0].text, "fullName");
         assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[2].kind, SyntaxKind::EqualityOperator);
+        assert_eq!(
+            cst.children()[1].children[2].kind,
+            SyntaxKind::EqualityOperator
+        );
         assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[4].text, "firstName");
         assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Whitespace);
         assert_eq!(cst.children()[1].children[6].kind, SyntaxKind::Ampersand);
         assert_eq!(cst.children()[1].children[7].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[8].kind, SyntaxKind::StringLiteral);
+        assert_eq!(
+            cst.children()[1].children[8].kind,
+            SyntaxKind::StringLiteral
+        );
         assert_eq!(cst.children()[1].children[8].text, "\" \"");
         assert_eq!(cst.children()[1].children[9].kind, SyntaxKind::Whitespace);
         assert_eq!(cst.children()[1].children[10].kind, SyntaxKind::Ampersand);
@@ -615,11 +744,17 @@ person.Age = 25
         assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
         assert_eq!(cst.children()[1].children[0].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[0].text, "person");
-        assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::PeriodOperator);
+        assert_eq!(
+            cst.children()[1].children[1].kind,
+            SyntaxKind::PeriodOperator
+        );
         assert_eq!(cst.children()[1].children[2].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[2].text, "Age");
         assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::EqualityOperator);
+        assert_eq!(
+            cst.children()[1].children[4].kind,
+            SyntaxKind::EqualityOperator
+        );
         assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Whitespace);
         assert_eq!(cst.children()[1].children[6].kind, SyntaxKind::Number);
         assert_eq!(cst.children()[1].children[6].text, "25");
@@ -640,17 +775,29 @@ result = (a + b) * c
         assert_eq!(cst.children()[1].children[0].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[0].text, "result");
         assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[2].kind, SyntaxKind::EqualityOperator);
+        assert_eq!(
+            cst.children()[1].children[2].kind,
+            SyntaxKind::EqualityOperator
+        );
         assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::LeftParenthesis);
+        assert_eq!(
+            cst.children()[1].children[4].kind,
+            SyntaxKind::LeftParenthesis
+        );
         assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[5].text, "a");
         assert_eq!(cst.children()[1].children[6].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[7].kind, SyntaxKind::AdditionOperator);
+        assert_eq!(
+            cst.children()[1].children[7].kind,
+            SyntaxKind::AdditionOperator
+        );
         assert_eq!(cst.children()[1].children[8].kind, SyntaxKind::Whitespace);
         assert_eq!(cst.children()[1].children[9].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[9].text, "b");
-        assert_eq!(cst.children()[1].children[10].kind, SyntaxKind::RightParenthesis);
+        assert_eq!(
+            cst.children()[1].children[10].kind,
+            SyntaxKind::RightParenthesis
+        );
         assert_eq!(cst.children()[1].children[11].kind, SyntaxKind::Whitespace);
         assert_eq!(
             cst.children()[1].children[12].kind,
