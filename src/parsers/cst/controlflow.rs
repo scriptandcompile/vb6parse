@@ -1,11 +1,12 @@
 //! Control flow statement parsing for VB6 CST.
 //!
 //! This module handles parsing of VB6 control flow statements:
-//! - Loop statements (Do/Loop, For/Next, For Each)
+//! - Loop statements (Do/Loop)
 //! - Jump statements (GoTo, Exit, Label)
 //!
-//! Note: If/Then/Else/ElseIf statements are in the if_controlflow module.
+//! Note: If/Then/Else/ElseIf statements are in the if_statements module.
 //! Note: Select Case statements are in the select_statements module.
+//! Note: For/Next and For Each/Next statements are in the for_statements module.
 
 use crate::language::VB6Token;
 use crate::parsers::SyntaxKind;
@@ -78,140 +79,6 @@ impl<'a> Parser<'a> {
         }
 
         self.builder.finish_node(); // DoStatement
-    }
-
-    /// Parse a For...Next statement.
-    ///
-    /// VB6 For...Next loop syntax:
-    /// - For counter = start To end [Step step]...Next [counter]
-    ///
-    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/fornext-statement)
-    pub(super) fn parse_for_statement(&mut self) {
-        // if we are now parsing a for statement, we are no longer in the header.
-        self.parsing_header = false;
-
-        self.builder.start_node(SyntaxKind::ForStatement.to_raw());
-
-        // Consume "For" keyword
-        self.consume_token();
-
-        // Consume everything until "To" or newline
-        // This includes: counter variable, "=", start value
-        while !self.is_at_end()
-            && !self.at_token(VB6Token::ToKeyword)
-            && !self.at_token(VB6Token::Newline)
-        {
-            self.consume_token();
-        }
-
-        // Consume "To" keyword if present
-        if self.at_token(VB6Token::ToKeyword) {
-            self.consume_token();
-
-            // Consume everything until "Step" or newline (the end value)
-            while !self.is_at_end()
-                && !self.at_token(VB6Token::StepKeyword)
-                && !self.at_token(VB6Token::Newline)
-            {
-                self.consume_token();
-            }
-
-            // Consume "Step" keyword if present
-            if self.at_token(VB6Token::StepKeyword) {
-                self.consume_token();
-
-                // Consume everything until newline (the step value)
-                self.consume_until(VB6Token::Newline);
-            }
-        }
-
-        // Consume newline after For line
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
-
-        // Parse the loop body until "Next"
-        self.parse_code_block(|parser| parser.at_token(VB6Token::NextKeyword));
-
-        // Consume "Next" keyword
-        if self.at_token(VB6Token::NextKeyword) {
-            self.consume_token();
-
-            // Consume everything until newline (optional counter variable)
-            self.consume_until(VB6Token::Newline);
-
-            // Consume newline after Next
-            if self.at_token(VB6Token::Newline) {
-                self.consume_token();
-            }
-        }
-
-        self.builder.finish_node(); // ForStatement
-    }
-
-    /// Parse a For Each...Next statement.
-    ///
-    /// VB6 For Each...Next loop syntax:
-    /// - For Each element In collection...Next [element]
-    ///
-    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/for-eachnext-statement)
-    pub(super) fn parse_for_each_statement(&mut self) {
-        // if we are now parsing a for each statement, we are no longer in the header.
-        self.parsing_header = false;
-
-        self.builder
-            .start_node(SyntaxKind::ForEachStatement.to_raw());
-
-        // Consume "For" keyword
-        self.consume_token();
-
-        // Consume whitespace
-        self.consume_whitespace();
-
-        // Consume "Each" keyword
-        if self.at_token(VB6Token::EachKeyword) {
-            self.consume_token();
-        }
-
-        // Consume everything until "In" or newline
-        // This includes: element variable name and whitespace
-        while !self.is_at_end()
-            && !self.at_token(VB6Token::InKeyword)
-            && !self.at_token(VB6Token::Newline)
-        {
-            self.consume_token();
-        }
-
-        // Consume "In" keyword if present
-        if self.at_token(VB6Token::InKeyword) {
-            self.consume_token();
-
-            // Consume everything until newline (the collection)
-            self.consume_until(VB6Token::Newline);
-        }
-
-        // Consume newline after For Each line
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
-
-        // Parse the loop body until "Next"
-        self.parse_code_block(|parser| parser.at_token(VB6Token::NextKeyword));
-
-        // Consume "Next" keyword
-        if self.at_token(VB6Token::NextKeyword) {
-            self.consume_token();
-
-            // Consume everything until newline (optional element variable)
-            self.consume_until(VB6Token::Newline);
-
-            // Consume newline after Next
-            if self.at_token(VB6Token::Newline) {
-                self.consume_token();
-            }
-        }
-
-        self.builder.finish_node(); // ForEachStatement
     }
 
     /// Parse a GoTo statement.
