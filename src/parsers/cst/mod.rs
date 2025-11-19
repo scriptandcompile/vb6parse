@@ -81,6 +81,7 @@ mod loop_statements;
 mod navigation;
 mod object_statements;
 mod option_statements;
+mod parameters;
 mod property_statements;
 mod select_statements;
 
