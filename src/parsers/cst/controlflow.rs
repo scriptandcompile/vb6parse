@@ -66,6 +66,12 @@ impl<'a> Parser<'a> {
                     continue;
                 }
 
+                // Try built-in statements
+                if self.is_builtin_statement_keyword() {
+                    self.parse_builtin_statement();
+                    continue;
+                }
+
                 // Try to parse using centralized statement dispatcher
                 if self.is_statement_keyword() {
                     self.parse_statement();
