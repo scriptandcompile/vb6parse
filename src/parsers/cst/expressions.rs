@@ -206,8 +206,8 @@ impl<'a> Parser<'a> {
                     continue;
                 }
                 VB6Token::Identifier
-                | VB6Token::LeftParentheses
-                | VB6Token::RightParentheses
+                | VB6Token::LeftParenthesis
+                | VB6Token::RightParenthesis
                 | VB6Token::Number
                 | VB6Token::Comma => {
                     last_was_period = false;

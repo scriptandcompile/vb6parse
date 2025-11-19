@@ -1475,9 +1475,9 @@ tokens:
     - - chkFramerate_Click
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1515,9 +1515,9 @@ tokens:
     - - Form_Load
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -1597,9 +1597,9 @@ tokens:
     - - cmdExit_Click
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1641,7 +1641,7 @@ tokens:
     - - Form_KeyDown
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - KeyCode
       - Identifier
     - - " "
@@ -1667,7 +1667,7 @@ tokens:
     - - Integer
       - IntegerKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -2091,7 +2091,7 @@ tokens:
     - - Form_KeyUp
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - KeyCode
       - Identifier
     - - " "
@@ -2117,7 +2117,7 @@ tokens:
     - - Integer
       - IntegerKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -2337,9 +2337,9 @@ tokens:
     - - MainLoop
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -2397,7 +2397,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Not
       - NotKeyword
     - - " "
@@ -2405,7 +2405,7 @@ tokens:
     - - GameActive
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Then
@@ -2519,7 +2519,7 @@ tokens:
     - - CStr
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "50"
       - Number
     - - " "
@@ -2531,7 +2531,7 @@ tokens:
     - - sVelVert
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "&"
@@ -2589,7 +2589,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - chkFramerate
       - Identifier
     - - "."
@@ -2605,7 +2605,7 @@ tokens:
     - - vbChecked
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Then
@@ -2623,7 +2623,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - GameActive
       - Identifier
     - - " "
@@ -2633,9 +2633,9 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Timer
       - Identifier
     - - " "
@@ -2647,7 +2647,7 @@ tokens:
     - - timeDelay
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "<"
@@ -2667,9 +2667,9 @@ tokens:
     - - "02"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "                "
@@ -2779,7 +2779,7 @@ tokens:
     - - Form_QueryUnload
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Cancel
       - Identifier
     - - " "
@@ -2805,7 +2805,7 @@ tokens:
     - - Integer
       - IntegerKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
