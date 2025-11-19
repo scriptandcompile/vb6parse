@@ -83,7 +83,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByVal
       - ByValKeyword
     - - " "
@@ -243,7 +243,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -283,7 +283,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByVal
       - ByValKeyword
     - - " "
@@ -353,7 +353,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -953,7 +953,7 @@ tokens:
     - - Bullets
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "0"
       - Number
     - - " "
@@ -965,7 +965,7 @@ tokens:
     - - NumOfBullets
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -989,7 +989,7 @@ tokens:
     - - StarArray
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "0"
       - Number
     - - " "
@@ -1001,7 +1001,7 @@ tokens:
     - - NumOfStars
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -1125,9 +1125,9 @@ tokens:
     - - InitializeGameEngine
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1415,9 +1415,9 @@ tokens:
     - - DrawStars
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1431,7 +1431,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Not
       - NotKeyword
     - - " "
@@ -1439,7 +1439,7 @@ tokens:
     - - GameActive
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Then
@@ -1525,11 +1525,11 @@ tokens:
     - - StarArray
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - Y
@@ -1543,11 +1543,11 @@ tokens:
     - - StarArray
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - Y
@@ -1561,11 +1561,11 @@ tokens:
     - - StarArray
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - Speed
@@ -1591,11 +1591,11 @@ tokens:
     - - StarArray
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - Y
@@ -1655,11 +1655,11 @@ tokens:
     - - StarArray
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - X
@@ -1671,11 +1671,11 @@ tokens:
     - - StarArray
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - Y
@@ -1687,15 +1687,15 @@ tokens:
     - - RGB
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - StarArray
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - Bright
@@ -1707,11 +1707,11 @@ tokens:
     - - StarArray
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - Bright
@@ -1723,17 +1723,17 @@ tokens:
     - - StarArray
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - Bright
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -1777,9 +1777,9 @@ tokens:
     - - VelocityCode
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1793,7 +1793,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Not
       - NotKeyword
     - - " "
@@ -1801,7 +1801,7 @@ tokens:
     - - GameActive
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Then
@@ -3129,9 +3129,9 @@ tokens:
     - - FireBullets
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -3145,7 +3145,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Not
       - NotKeyword
     - - " "
@@ -3153,7 +3153,7 @@ tokens:
     - - GameActive
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Then
@@ -3255,11 +3255,11 @@ tokens:
     - - Bullets
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - Activated
@@ -3293,11 +3293,11 @@ tokens:
     - - Bullets
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - Activated
@@ -3359,11 +3359,11 @@ tokens:
     - - Bullets
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - X
@@ -3401,11 +3401,11 @@ tokens:
     - - Bullets
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - Y
@@ -3461,11 +3461,11 @@ tokens:
     - - Bullets
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - Activated
@@ -3499,11 +3499,11 @@ tokens:
     - - Bullets
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - Y
@@ -3517,11 +3517,11 @@ tokens:
     - - Bullets
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - Y
@@ -3555,11 +3555,11 @@ tokens:
     - - Bullets
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - Y
@@ -3583,11 +3583,11 @@ tokens:
     - - Bullets
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - Activated
@@ -3635,11 +3635,11 @@ tokens:
     - - Bullets
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - X
@@ -3659,11 +3659,11 @@ tokens:
     - - Bullets
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - Y
@@ -3737,11 +3737,11 @@ tokens:
     - - Bullets
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - X
@@ -3761,11 +3761,11 @@ tokens:
     - - Bullets
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - Y
@@ -3839,11 +3839,11 @@ tokens:
     - - Bullets
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - X
@@ -3863,11 +3863,11 @@ tokens:
     - - Bullets
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - Y
@@ -3941,11 +3941,11 @@ tokens:
     - - Bullets
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - X
@@ -3965,11 +3965,11 @@ tokens:
     - - Bullets
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - Y
@@ -4195,7 +4195,7 @@ tokens:
     - - BuildStar
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByVal
       - ByValKeyword
     - - " "
@@ -4241,7 +4241,7 @@ tokens:
     - - "False"
       - FalseKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -4259,11 +4259,11 @@ tokens:
     - - StarArray
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ArrayVal
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - X
@@ -4323,11 +4323,11 @@ tokens:
     - - StarArray
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ArrayVal
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - Y
@@ -4369,11 +4369,11 @@ tokens:
     - - StarArray
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ArrayVal
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - Y
@@ -4413,11 +4413,11 @@ tokens:
     - - StarArray
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ArrayVal
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - Bright
@@ -4429,7 +4429,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Rnd
       - Identifier
     - - " "
@@ -4441,7 +4441,7 @@ tokens:
     - - "250"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - +
@@ -4467,11 +4467,11 @@ tokens:
     - - StarArray
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ArrayVal
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - Speed

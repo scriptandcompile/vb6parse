@@ -425,7 +425,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - lpChooseColor
       - Identifier
     - - " "
@@ -437,7 +437,7 @@ tokens:
     - - ChooseColorStruct
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -473,7 +473,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByVal
       - ByValKeyword
     - - " "
@@ -521,7 +521,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -825,7 +825,7 @@ tokens:
     - - ShowColorDialog
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByRef
       - ByRefKeyword
     - - " "
@@ -917,7 +917,7 @@ tokens:
     - - OLE_COLOR
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -959,11 +959,11 @@ tokens:
     - - aColorRef
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "15"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -1009,7 +1009,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - initColor
       - Identifier
     - - " "
@@ -1023,7 +1023,7 @@ tokens:
     - - "0"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Then
@@ -1039,7 +1039,7 @@ tokens:
     - - OleTranslateColor
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - initColor
       - Identifier
     - - ","
@@ -1055,7 +1055,7 @@ tokens:
     - - lInitColor
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Then
@@ -1119,11 +1119,11 @@ tokens:
     - - Len
       - LenKeyword
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - cc
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -1157,17 +1157,17 @@ tokens:
     - - VarPtr
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - aColorRef
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "0"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -1225,7 +1225,7 @@ tokens:
     - - IIf
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - showFullDialog
       - Identifier
     - - ","
@@ -1241,7 +1241,7 @@ tokens:
     - - "0"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1277,17 +1277,17 @@ tokens:
     - - CBool
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ChooseColor
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - cc
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "

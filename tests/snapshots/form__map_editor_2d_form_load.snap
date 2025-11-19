@@ -1001,9 +1001,9 @@ tokens:
     - - cmbDrawMethod_Change
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1111,9 +1111,9 @@ tokens:
     - - cmbDrawMethod_Click
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -1223,9 +1223,9 @@ tokens:
     - - Form_Load
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1439,7 +1439,7 @@ tokens:
     - - MapArray
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "0"
       - Number
     - - " "
@@ -1465,7 +1465,7 @@ tokens:
     - - SizeY
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -1563,9 +1563,9 @@ tokens:
     - - HSMain_Change
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1595,9 +1595,9 @@ tokens:
     - - HSMain_Scroll
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1627,9 +1627,9 @@ tokens:
     - - VSMain_Change
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1659,9 +1659,9 @@ tokens:
     - - VSMain_Scroll
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1691,9 +1691,9 @@ tokens:
     - - HSTileBar_Change
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1727,9 +1727,9 @@ tokens:
     - - HSTileBar_Scroll
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1763,7 +1763,7 @@ tokens:
     - - MainPic_MouseDown
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Button
       - Identifier
     - - " "
@@ -1817,7 +1817,7 @@ tokens:
     - - Single
       - SingleKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1955,7 +1955,7 @@ tokens:
     - - MainPic_MouseMove
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Button
       - Identifier
     - - " "
@@ -2009,7 +2009,7 @@ tokens:
     - - Single
       - SingleKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -2151,7 +2151,7 @@ tokens:
     - - MainPic_MouseUp
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Button
       - Identifier
     - - " "
@@ -2205,7 +2205,7 @@ tokens:
     - - Single
       - SingleKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -2247,9 +2247,9 @@ tokens:
     - - MnuExit_Click
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -2287,9 +2287,9 @@ tokens:
     - - MnuNew_Click
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -2359,7 +2359,7 @@ tokens:
     - - MapArray
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - x
       - Identifier
     - - ","
@@ -2369,7 +2369,7 @@ tokens:
     - - Y
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "="
@@ -2445,9 +2445,9 @@ tokens:
     - - MnuOpen_Click
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -2599,7 +2599,7 @@ tokens:
     - - GetOpenFileName
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - sFile
       - Identifier
     - - ","
@@ -2653,7 +2653,7 @@ tokens:
     - - hWnd
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Then
@@ -2759,7 +2759,7 @@ tokens:
     - - MapArray
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "0"
       - Number
     - - " "
@@ -2785,7 +2785,7 @@ tokens:
     - - SizeY
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -2891,9 +2891,9 @@ tokens:
     - - MnuRefresh_Click
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -2927,9 +2927,9 @@ tokens:
     - - MnuResize_Click
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -2975,9 +2975,9 @@ tokens:
     - - MnuSave_Click
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -3127,7 +3127,7 @@ tokens:
     - - GetSaveFileName
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - sFile
       - Identifier
     - - ","
@@ -3177,7 +3177,7 @@ tokens:
     - - hWnd
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Then
@@ -3349,9 +3349,9 @@ tokens:
     - - mnuZoom_Click
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -3385,7 +3385,7 @@ tokens:
     - - PicTiles_MouseDown
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Button
       - Identifier
     - - " "
@@ -3439,7 +3439,7 @@ tokens:
     - - Single
       - SingleKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -3489,7 +3489,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - x
       - Identifier
     - - " "
@@ -3501,7 +3501,7 @@ tokens:
     - - "64"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - +
@@ -3757,7 +3757,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - x
       - Identifier
     - - " "
@@ -3769,7 +3769,7 @@ tokens:
     - - "64"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - +

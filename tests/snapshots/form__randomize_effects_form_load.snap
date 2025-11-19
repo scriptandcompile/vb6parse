@@ -910,7 +910,7 @@ tokens:
     - - fxTri
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "0"
       - Number
     - - " "
@@ -922,7 +922,7 @@ tokens:
     - - "2"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -960,7 +960,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByVal
       - ByValKeyword
     - - " "
@@ -1008,7 +1008,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -1046,9 +1046,9 @@ tokens:
     - - cmdDrawLines_Click
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1072,11 +1072,11 @@ tokens:
     - - Val
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - CLng
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - txtIterations
       - Identifier
     - - "."
@@ -1084,9 +1084,9 @@ tokens:
     - - Text
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - ","
       - Comma
     - - " "
@@ -1094,11 +1094,11 @@ tokens:
     - - Val
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - CLng
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - txtLength
       - Identifier
     - - "."
@@ -1106,9 +1106,9 @@ tokens:
     - - Text
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - End
@@ -1136,9 +1136,9 @@ tokens:
     - - cmdDrawTriangles_Click
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1162,11 +1162,11 @@ tokens:
     - - Val
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - CLng
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - txtIterations
       - Identifier
     - - "."
@@ -1174,9 +1174,9 @@ tokens:
     - - Text
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - ","
       - Comma
     - - " "
@@ -1184,11 +1184,11 @@ tokens:
     - - Val
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - CLng
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - txtLength
       - Identifier
     - - "."
@@ -1196,9 +1196,9 @@ tokens:
     - - Text
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - End
@@ -1226,9 +1226,9 @@ tokens:
     - - cmdReset_Click
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -1264,9 +1264,9 @@ tokens:
     - - ImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -1326,7 +1326,7 @@ tokens:
     - - GetImageWidth
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Me
       - MeKeyword
     - - "."
@@ -1334,7 +1334,7 @@ tokens:
     - - picBack
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1354,7 +1354,7 @@ tokens:
     - - GetImageHeight
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Me
       - MeKeyword
     - - "."
@@ -1362,7 +1362,7 @@ tokens:
     - - picBack
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1388,9 +1388,9 @@ tokens:
     - - ImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1428,9 +1428,9 @@ tokens:
     - - ImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1458,9 +1458,9 @@ tokens:
     - - Form_Load
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -1478,7 +1478,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - App
       - Identifier
     - - "."
@@ -1494,7 +1494,7 @@ tokens:
     - - "0"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Then
@@ -1586,9 +1586,9 @@ tokens:
     - - MnuOpenImage_Click
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -1744,7 +1744,7 @@ tokens:
     - - GetOpenFileName
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - sFile
       - Identifier
     - - ","
@@ -1798,7 +1798,7 @@ tokens:
     - - hWnd
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Then
@@ -1854,7 +1854,7 @@ tokens:
     - - LoadImageAutosized
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Optional
       - OptionalKeyword
     - - " "
@@ -1882,7 +1882,7 @@ tokens:
     - - vbNullString
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -1894,15 +1894,15 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - LenB
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - srcFilePath
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "<"
@@ -1914,7 +1914,7 @@ tokens:
     - - "0"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Then
@@ -1936,11 +1936,11 @@ tokens:
     - - LoadPicture
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - srcFilePath
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -2006,9 +2006,9 @@ tokens:
     - - ImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -2064,7 +2064,7 @@ tokens:
     - - GetImageWidth
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Me
       - MeKeyword
     - - "."
@@ -2072,7 +2072,7 @@ tokens:
     - - picBack
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -2092,7 +2092,7 @@ tokens:
     - - GetImageHeight
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Me
       - MeKeyword
     - - "."
@@ -2100,7 +2100,7 @@ tokens:
     - - picBack
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -2126,9 +2126,9 @@ tokens:
     - - ImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -2230,9 +2230,9 @@ tokens:
     - - ImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -2300,7 +2300,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - cmdReset
       - Identifier
     - - "."
@@ -2328,7 +2328,7 @@ tokens:
     - - "20"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "*"
@@ -2350,7 +2350,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - imgWidth
       - Identifier
     - - " "
@@ -2360,7 +2360,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Screen
       - Identifier
     - - "."
@@ -2380,7 +2380,7 @@ tokens:
     - - TwipsPerPixelX
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "-"
@@ -2390,7 +2390,7 @@ tokens:
     - - "50"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Then
@@ -2408,7 +2408,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - imgWidth
       - Identifier
     - - " "
@@ -2432,7 +2432,7 @@ tokens:
     - - "4"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "*"
@@ -2454,7 +2454,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - newWidth
       - Identifier
     - - " "
@@ -2466,7 +2466,7 @@ tokens:
     - - minWidth
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Then
@@ -2520,7 +2520,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - imgHeight
       - Identifier
     - - " "
@@ -2530,7 +2530,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Screen
       - Identifier
     - - "."
@@ -2550,7 +2550,7 @@ tokens:
     - - TwipsPerPixelY
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "-"
@@ -2560,7 +2560,7 @@ tokens:
     - - "50"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Then
@@ -2580,7 +2580,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - imgHeight
       - Identifier
     - - " "
@@ -2604,7 +2604,7 @@ tokens:
     - - "3"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "*"
@@ -2648,7 +2648,7 @@ tokens:
     - - DrawTriangleEffect
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - srcPic
       - Identifier
     - - " "
@@ -2726,7 +2726,7 @@ tokens:
     - - "50"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -2746,9 +2746,9 @@ tokens:
     - - ImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -2778,9 +2778,9 @@ tokens:
     - - newImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -3008,11 +3008,11 @@ tokens:
     - - GetImageWidth
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - srcPic
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -3032,11 +3032,11 @@ tokens:
     - - GetImageHeight
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - srcPic
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -3058,9 +3058,9 @@ tokens:
     - - ImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - ","
       - Comma
     - - " "
@@ -3088,9 +3088,9 @@ tokens:
     - - newImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - ","
       - Comma
     - - " "
@@ -3328,7 +3328,7 @@ tokens:
     - - Int
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Rnd
       - Identifier
     - - " "
@@ -3340,7 +3340,7 @@ tokens:
     - - iWidth
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -3356,7 +3356,7 @@ tokens:
     - - Int
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Rnd
       - Identifier
     - - " "
@@ -3368,7 +3368,7 @@ tokens:
     - - lenLine
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "-"
@@ -3484,7 +3484,7 @@ tokens:
     - - Int
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Rnd
       - Identifier
     - - " "
@@ -3496,7 +3496,7 @@ tokens:
     - - lenLine
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "-"
@@ -3616,7 +3616,7 @@ tokens:
     - - Int
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Rnd
       - Identifier
     - - " "
@@ -3628,7 +3628,7 @@ tokens:
     - - iHeight
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -3644,7 +3644,7 @@ tokens:
     - - Int
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Rnd
       - Identifier
     - - " "
@@ -3656,7 +3656,7 @@ tokens:
     - - lenLine
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "-"
@@ -3772,7 +3772,7 @@ tokens:
     - - Int
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Rnd
       - Identifier
     - - " "
@@ -3784,7 +3784,7 @@ tokens:
     - - lenLine
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "-"
@@ -3974,7 +3974,7 @@ tokens:
     - - ImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - quickX
       - Identifier
     - - " "
@@ -3992,7 +3992,7 @@ tokens:
     - - y
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -4016,7 +4016,7 @@ tokens:
     - - ImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - quickX2
       - Identifier
     - - " "
@@ -4034,7 +4034,7 @@ tokens:
     - - y2
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -4058,7 +4058,7 @@ tokens:
     - - ImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - quickX3
       - Identifier
     - - " "
@@ -4076,7 +4076,7 @@ tokens:
     - - y3
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -4092,7 +4092,7 @@ tokens:
     - - ImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - quickX
       - Identifier
     - - " "
@@ -4110,7 +4110,7 @@ tokens:
     - - y
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -4134,7 +4134,7 @@ tokens:
     - - ImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - quickX2
       - Identifier
     - - " "
@@ -4152,7 +4152,7 @@ tokens:
     - - y2
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -4176,7 +4176,7 @@ tokens:
     - - ImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - quickX3
       - Identifier
     - - " "
@@ -4194,7 +4194,7 @@ tokens:
     - - y3
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -4210,7 +4210,7 @@ tokens:
     - - ImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - quickX
       - Identifier
     - - ","
@@ -4220,7 +4220,7 @@ tokens:
     - - y
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -4244,7 +4244,7 @@ tokens:
     - - ImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - quickX2
       - Identifier
     - - ","
@@ -4254,7 +4254,7 @@ tokens:
     - - y2
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -4278,7 +4278,7 @@ tokens:
     - - ImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - quickX3
       - Identifier
     - - ","
@@ -4288,7 +4288,7 @@ tokens:
     - - y3
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -4370,11 +4370,11 @@ tokens:
     - - fxTri
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "0"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - x
@@ -4394,11 +4394,11 @@ tokens:
     - - fxTri
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "0"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - y
@@ -4418,11 +4418,11 @@ tokens:
     - - fxTri
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "1"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - x
@@ -4442,11 +4442,11 @@ tokens:
     - - fxTri
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "1"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - y
@@ -4466,11 +4466,11 @@ tokens:
     - - fxTri
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "2"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - x
@@ -4490,11 +4490,11 @@ tokens:
     - - fxTri
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "2"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - y
@@ -4530,7 +4530,7 @@ tokens:
     - - RGB
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - r
       - Identifier
     - - ","
@@ -4546,7 +4546,7 @@ tokens:
     - - b
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -4566,7 +4566,7 @@ tokens:
     - - RGB
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - r
       - Identifier
     - - ","
@@ -4582,7 +4582,7 @@ tokens:
     - - b
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -4604,11 +4604,11 @@ tokens:
     - - fxTri
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "0"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - ","
       - Comma
     - - " "
@@ -4638,7 +4638,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - n
       - Identifier
     - - " "
@@ -4650,7 +4650,7 @@ tokens:
     - - "95"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "="
@@ -4810,7 +4810,7 @@ tokens:
     - - DrawLineEffect
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - srcPic
       - Identifier
     - - " "
@@ -4888,7 +4888,7 @@ tokens:
     - - "50"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -4908,9 +4908,9 @@ tokens:
     - - ImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -4940,9 +4940,9 @@ tokens:
     - - newImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -5142,11 +5142,11 @@ tokens:
     - - GetImageWidth
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - srcPic
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -5166,11 +5166,11 @@ tokens:
     - - GetImageHeight
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - srcPic
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -5192,9 +5192,9 @@ tokens:
     - - ImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - ","
       - Comma
     - - " "
@@ -5222,9 +5222,9 @@ tokens:
     - - newImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - ","
       - Comma
     - - " "
@@ -5448,7 +5448,7 @@ tokens:
     - - Int
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Rnd
       - Identifier
     - - " "
@@ -5460,7 +5460,7 @@ tokens:
     - - iWidth
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -5476,7 +5476,7 @@ tokens:
     - - Int
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Rnd
       - Identifier
     - - " "
@@ -5488,7 +5488,7 @@ tokens:
     - - lenLine
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "-"
@@ -5608,7 +5608,7 @@ tokens:
     - - Int
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Rnd
       - Identifier
     - - " "
@@ -5620,7 +5620,7 @@ tokens:
     - - iHeight
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -5636,7 +5636,7 @@ tokens:
     - - Int
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Rnd
       - Identifier
     - - " "
@@ -5648,7 +5648,7 @@ tokens:
     - - lenLine
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "-"
@@ -5816,7 +5816,7 @@ tokens:
     - - ImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - quickX
       - Identifier
     - - " "
@@ -5834,7 +5834,7 @@ tokens:
     - - y
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -5858,7 +5858,7 @@ tokens:
     - - ImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - quickX2
       - Identifier
     - - " "
@@ -5876,7 +5876,7 @@ tokens:
     - - y2
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -5892,7 +5892,7 @@ tokens:
     - - ImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - quickX
       - Identifier
     - - " "
@@ -5910,7 +5910,7 @@ tokens:
     - - y
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -5934,7 +5934,7 @@ tokens:
     - - ImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - quickX2
       - Identifier
     - - " "
@@ -5952,7 +5952,7 @@ tokens:
     - - y2
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -5968,7 +5968,7 @@ tokens:
     - - ImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - quickX
       - Identifier
     - - ","
@@ -5978,7 +5978,7 @@ tokens:
     - - y
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -6002,7 +6002,7 @@ tokens:
     - - ImageData
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - quickX2
       - Identifier
     - - ","
@@ -6012,7 +6012,7 @@ tokens:
     - - y2
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -6100,7 +6100,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - x
       - Identifier
     - - ","
@@ -6110,11 +6110,11 @@ tokens:
     - - y
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "-"
       - SubtractionOperator
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - x2
       - Identifier
     - - ","
@@ -6124,7 +6124,7 @@ tokens:
     - - y2
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - ","
       - Comma
     - - " "
@@ -6132,7 +6132,7 @@ tokens:
     - - RGB
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - r
       - Identifier
     - - ","
@@ -6148,7 +6148,7 @@ tokens:
     - - b
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -6162,7 +6162,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - n
       - Identifier
     - - " "
@@ -6174,7 +6174,7 @@ tokens:
     - - "95"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "="
@@ -6330,7 +6330,7 @@ tokens:
     - - ByteMe
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByRef
       - ByRefKeyword
     - - " "
@@ -6346,7 +6346,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "

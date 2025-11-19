@@ -305,7 +305,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByVal
       - ByValKeyword
     - - " "
@@ -321,7 +321,7 @@ tokens:
     - - String
       - StringKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -357,7 +357,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByVal
       - ByValKeyword
     - - " "
@@ -391,7 +391,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -427,7 +427,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByVal
       - ByValKeyword
     - - " "
@@ -443,7 +443,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -479,7 +479,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByVal
       - ByValKeyword
     - - " "
@@ -495,7 +495,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -531,7 +531,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByVal
       - ByValKeyword
     - - " "
@@ -547,7 +547,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -583,7 +583,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByVal
       - ByValKeyword
     - - " "
@@ -635,7 +635,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -671,7 +671,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByVal
       - ByValKeyword
     - - " "
@@ -687,7 +687,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -723,7 +723,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByVal
       - ByValKeyword
     - - " "
@@ -739,7 +739,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -783,7 +783,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - " "
       - Whitespace
     - - _
@@ -835,7 +835,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - Private
@@ -871,7 +871,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - " "
       - Whitespace
     - - _
@@ -927,7 +927,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -1395,7 +1395,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - file
       - Identifier
     - - " "
@@ -1407,7 +1407,7 @@ tokens:
     - - OPENFILENAME
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -1457,7 +1457,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - file
       - Identifier
     - - " "
@@ -1469,7 +1469,7 @@ tokens:
     - - OPENFILENAME
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -1519,7 +1519,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByVal
       - ByValKeyword
     - - " "
@@ -1577,7 +1577,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -2153,7 +2153,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Color
       - Identifier
     - - " "
@@ -2165,7 +2165,7 @@ tokens:
     - - TCHOOSECOLOR
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -2375,7 +2375,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByVal
       - ByValKeyword
     - - " "
@@ -2391,7 +2391,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -2751,7 +2751,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - chfont
       - Identifier
     - - " "
@@ -2763,7 +2763,7 @@ tokens:
     - - TCHOOSEFONT
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -2995,11 +2995,11 @@ tokens:
     - - lfFaceName
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - LF_FACESIZE
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -4005,7 +4005,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - prtdlg
       - Identifier
     - - " "
@@ -4017,7 +4017,7 @@ tokens:
     - - TPRINTDLG
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -5941,7 +5941,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - lppage
       - Identifier
     - - " "
@@ -5953,7 +5953,7 @@ tokens:
     - - TPAGESETUPDLG
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -6347,9 +6347,9 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -6965,7 +6965,7 @@ tokens:
     - - alCustom
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "0"
       - Number
     - - " "
@@ -6977,7 +6977,7 @@ tokens:
     - - "15"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -7107,9 +7107,9 @@ tokens:
     - - APIReturn
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -7163,9 +7163,9 @@ tokens:
     - - ExtendedError
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -7231,9 +7231,9 @@ tokens:
     - - Class_Initialize
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -7269,7 +7269,7 @@ tokens:
     - - VBGetOpenFileName
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Filename
       - Identifier
     - - " "
@@ -7635,7 +7635,7 @@ tokens:
     - - "0"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -7737,11 +7737,11 @@ tokens:
     - - Len
       - LenKeyword
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - opfile
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -7771,7 +7771,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "-"
       - SubtractionOperator
     - - FileMustExist
@@ -7785,7 +7785,7 @@ tokens:
     - - OFN_FILEMUSTEXIST
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Or
@@ -7799,7 +7799,7 @@ tokens:
     - - "            "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "-"
       - SubtractionOperator
     - - MultiSelect
@@ -7813,7 +7813,7 @@ tokens:
     - - OFN_ALLOWMULTISELECT
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Or
@@ -7827,7 +7827,7 @@ tokens:
     - - "             "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "-"
       - SubtractionOperator
     - - ReadOnly
@@ -7841,7 +7841,7 @@ tokens:
     - - OFN_READONLY
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Or
@@ -7855,7 +7855,7 @@ tokens:
     - - "             "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "-"
       - SubtractionOperator
     - - HideReadOnly
@@ -7869,7 +7869,7 @@ tokens:
     - - OFN_HIDEREADONLY
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Or
@@ -7883,7 +7883,7 @@ tokens:
     - - "             "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - flags
       - Identifier
     - - " "
@@ -7895,13 +7895,13 @@ tokens:
     - - CLng
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Not
       - NotKeyword
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - OFN_ENABLEHOOK
       - Identifier
     - - " "
@@ -7919,11 +7919,11 @@ tokens:
     - - OFN_ENABLETEMPLATE
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -8105,11 +8105,11 @@ tokens:
     - - Len
       - LenKeyword
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Filter
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -8127,7 +8127,7 @@ tokens:
     - - $
       - DollarSign
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Filter
       - Identifier
     - - ","
@@ -8143,7 +8143,7 @@ tokens:
     - - "1"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -8349,7 +8349,7 @@ tokens:
     - - $
       - DollarSign
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - MAX_PATH
       - Identifier
     - - " "
@@ -8361,11 +8361,11 @@ tokens:
     - - Len
       - LenKeyword
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Filename
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - ","
       - Comma
     - - " "
@@ -8373,7 +8373,7 @@ tokens:
     - - "0"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -8431,7 +8431,7 @@ tokens:
     - - $
       - DollarSign
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - MAX_FILE
       - Identifier
     - - " "
@@ -8443,11 +8443,11 @@ tokens:
     - - Len
       - LenKeyword
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - FileTitle
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - ","
       - Comma
     - - " "
@@ -8455,7 +8455,7 @@ tokens:
     - - "0"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -8513,11 +8513,11 @@ tokens:
     - - GetOpenFileName
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - opfile
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -8577,13 +8577,13 @@ tokens:
     - - StrZToStr
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "."
       - PeriodOperator
     - - lpstrFile
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -8599,13 +8599,13 @@ tokens:
     - - StrZToStr
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "."
       - PeriodOperator
     - - lpstrFileTitle
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -8665,7 +8665,7 @@ tokens:
     - - FilterLookup
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "."
       - PeriodOperator
     - - lpstrFilter
@@ -8677,7 +8677,7 @@ tokens:
     - - FilterIndex
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -8687,7 +8687,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "."
       - PeriodOperator
     - - flags
@@ -8701,7 +8701,7 @@ tokens:
     - - OFN_READONLY
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Then
@@ -8851,9 +8851,9 @@ tokens:
     - - CommDlgExtendedError
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -8979,7 +8979,7 @@ tokens:
     - - StrZToStr
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - s
       - Identifier
     - - " "
@@ -8991,7 +8991,7 @@ tokens:
     - - String
       - StringKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -9017,7 +9017,7 @@ tokens:
     - - $
       - DollarSign
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - s
       - Identifier
     - - ","
@@ -9027,13 +9027,13 @@ tokens:
     - - lstrlen
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - s
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - End
@@ -9053,7 +9053,7 @@ tokens:
     - - VBGetSaveFileName
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Filename
       - Identifier
     - - " "
@@ -9315,7 +9315,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -9417,11 +9417,11 @@ tokens:
     - - Len
       - LenKeyword
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - opfile
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -9447,7 +9447,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "-"
       - SubtractionOperator
     - - OverWritePrompt
@@ -9461,7 +9461,7 @@ tokens:
     - - OFN_OVERWRITEPROMPT
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Or
@@ -9489,7 +9489,7 @@ tokens:
     - - "             "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - flags
       - Identifier
     - - " "
@@ -9501,13 +9501,13 @@ tokens:
     - - CLng
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Not
       - NotKeyword
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - OFN_ENABLEHOOK
       - Identifier
     - - " "
@@ -9525,11 +9525,11 @@ tokens:
     - - OFN_ENABLETEMPLATE
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -9711,11 +9711,11 @@ tokens:
     - - Len
       - LenKeyword
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Filter
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -9733,7 +9733,7 @@ tokens:
     - - $
       - DollarSign
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Filter
       - Identifier
     - - ","
@@ -9749,7 +9749,7 @@ tokens:
     - - "1"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -9955,7 +9955,7 @@ tokens:
     - - $
       - DollarSign
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - MAX_PATH
       - Identifier
     - - " "
@@ -9967,11 +9967,11 @@ tokens:
     - - Len
       - LenKeyword
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Filename
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - ","
       - Comma
     - - " "
@@ -9979,7 +9979,7 @@ tokens:
     - - "0"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -10037,7 +10037,7 @@ tokens:
     - - $
       - DollarSign
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - MAX_FILE
       - Identifier
     - - " "
@@ -10049,11 +10049,11 @@ tokens:
     - - Len
       - LenKeyword
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - FileTitle
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - ","
       - Comma
     - - " "
@@ -10061,7 +10061,7 @@ tokens:
     - - "0"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -10119,11 +10119,11 @@ tokens:
     - - GetSaveFileName
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - opfile
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -10177,13 +10177,13 @@ tokens:
     - - StrZToStr
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "."
       - PeriodOperator
     - - lpstrFile
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -10199,13 +10199,13 @@ tokens:
     - - StrZToStr
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "."
       - PeriodOperator
     - - lpstrFileTitle
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -10265,7 +10265,7 @@ tokens:
     - - FilterLookup
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "."
       - PeriodOperator
     - - lpstrFilter
@@ -10277,7 +10277,7 @@ tokens:
     - - FilterIndex
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -10423,9 +10423,9 @@ tokens:
     - - CommDlgExtendedError
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -10537,7 +10537,7 @@ tokens:
     - - FilterLookup
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByVal
       - ByValKeyword
     - - " "
@@ -10571,7 +10571,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -10697,7 +10697,7 @@ tokens:
     - - InStr
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - iStart
       - Identifier
     - - ","
@@ -10713,7 +10713,7 @@ tokens:
     - - vbNullChar
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -10759,7 +10759,7 @@ tokens:
     - - InStr
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - iEnd
       - Identifier
     - - " "
@@ -10783,7 +10783,7 @@ tokens:
     - - vbNullChar
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -10815,7 +10815,7 @@ tokens:
     - - $
       - DollarSign
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - sFilters
       - Identifier
     - - ","
@@ -10839,7 +10839,7 @@ tokens:
     - - iStart
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -10863,7 +10863,7 @@ tokens:
     - - $
       - DollarSign
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - sFilters
       - Identifier
     - - ","
@@ -10873,7 +10873,7 @@ tokens:
     - - iStart
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -11017,7 +11017,7 @@ tokens:
     - - VBGetFileTitle
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - sFile
       - Identifier
     - - " "
@@ -11029,7 +11029,7 @@ tokens:
     - - String
       - StringKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -11103,7 +11103,7 @@ tokens:
     - - $
       - DollarSign
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - MAX_PATH
       - Identifier
     - - ","
@@ -11113,7 +11113,7 @@ tokens:
     - - "0"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -11129,7 +11129,7 @@ tokens:
     - - GetFileTitle
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - sFile
       - Identifier
     - - ","
@@ -11145,7 +11145,7 @@ tokens:
     - - MAX_PATH
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -11197,7 +11197,7 @@ tokens:
     - - $
       - DollarSign
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - sFileTitle
       - Identifier
     - - ","
@@ -11207,7 +11207,7 @@ tokens:
     - - InStr
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - sFileTitle
       - Identifier
     - - ","
@@ -11217,7 +11217,7 @@ tokens:
     - - vbNullChar
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "-"
@@ -11227,7 +11227,7 @@ tokens:
     - - "1"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -11263,7 +11263,7 @@ tokens:
     - - VBChooseColor
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Color
       - Identifier
     - - " "
@@ -11429,7 +11429,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -11477,11 +11477,11 @@ tokens:
     - - Len
       - LenKeyword
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - chclr
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -11613,13 +11613,13 @@ tokens:
     - - CLng
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Not
       - NotKeyword
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - CC_ENABLEHOOK
       - Identifier
     - - " "
@@ -11637,9 +11637,9 @@ tokens:
     - - CC_ENABLETEMPLATE
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -11671,7 +11671,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - CC_RGBInit
       - Identifier
     - - " "
@@ -11689,7 +11689,7 @@ tokens:
     - - IIf
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - AnyColor
       - Identifier
     - - ","
@@ -11705,7 +11705,7 @@ tokens:
     - - CC_SolidColor
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Or
@@ -11719,7 +11719,7 @@ tokens:
     - - "                  "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "-"
       - SubtractionOperator
     - - FullOpen
@@ -11733,7 +11733,7 @@ tokens:
     - - CC_FullOpen
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Or
@@ -11747,7 +11747,7 @@ tokens:
     - - "                  "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "-"
       - SubtractionOperator
     - - DisableFullOpen
@@ -11761,9 +11761,9 @@ tokens:
     - - CC_PreventFullOpen
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -11819,17 +11819,17 @@ tokens:
     - - VarPtr
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - alCustom
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "0"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -11855,11 +11855,11 @@ tokens:
     - - ChooseColor
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - chclr
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -11999,9 +11999,9 @@ tokens:
     - - CommDlgExtendedError
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -12067,9 +12067,9 @@ tokens:
     - - InitColors
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -12127,11 +12127,11 @@ tokens:
     - - alCustom
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - i
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "="
@@ -12141,11 +12141,11 @@ tokens:
     - - GetSysColor
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - i
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -12197,7 +12197,7 @@ tokens:
     - - CustomColor
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - i
       - Identifier
     - - " "
@@ -12209,7 +12209,7 @@ tokens:
     - - Integer
       - IntegerKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -12307,11 +12307,11 @@ tokens:
     - - alCustom
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - i
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -12371,7 +12371,7 @@ tokens:
     - - CustomColor
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - i
       - Identifier
     - - " "
@@ -12397,7 +12397,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -12479,11 +12479,11 @@ tokens:
     - - alCustom
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - i
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "="
@@ -12529,9 +12529,9 @@ tokens:
     - - DevMode
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -12599,7 +12599,7 @@ tokens:
     - - ErrRaise
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - e
       - Identifier
     - - " "
@@ -12611,7 +12611,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -12707,11 +12707,11 @@ tokens:
     - - COMError
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - e
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - ","
       - Comma
     - - " "
@@ -12827,13 +12827,13 @@ tokens:
     - - StrToBytes
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ab
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -12857,7 +12857,7 @@ tokens:
     - - String
       - StringKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -12869,11 +12869,11 @@ tokens:
     - - IsArrayEmpty
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ab
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Then
@@ -12899,7 +12899,7 @@ tokens:
     - - StrConv
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - s
       - Identifier
     - - ","
@@ -12909,7 +12909,7 @@ tokens:
     - - vbFromUnicode
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -12955,11 +12955,11 @@ tokens:
     - - UBound
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ab
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "-"
@@ -12969,11 +12969,11 @@ tokens:
     - - LBound
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ab
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - +
@@ -12993,11 +12993,11 @@ tokens:
     - - Len
       - LenKeyword
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - s
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "<"
@@ -13033,7 +13033,7 @@ tokens:
     - - $
       - DollarSign
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - cab
       - Identifier
     - - " "
@@ -13045,11 +13045,11 @@ tokens:
     - - Len
       - LenKeyword
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - s
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - ","
       - Comma
     - - " "
@@ -13057,7 +13057,7 @@ tokens:
     - - "0"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -13099,17 +13099,17 @@ tokens:
     - - ab
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - LBound
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ab
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - ","
       - Comma
     - - " "
@@ -13163,13 +13163,13 @@ tokens:
     - - BytesToStr
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ab
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -13179,7 +13179,7 @@ tokens:
     - - Byte
       - ByteKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -13203,7 +13203,7 @@ tokens:
     - - StrConv
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ab
       - Identifier
     - - ","
@@ -13213,7 +13213,7 @@ tokens:
     - - vbUnicode
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - End
@@ -13237,7 +13237,7 @@ tokens:
     - - COMError
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - e
       - Identifier
     - - " "
@@ -13249,7 +13249,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -13305,7 +13305,7 @@ tokens:
     - - IsArrayEmpty
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - va
       - Identifier
     - - " "
@@ -13317,7 +13317,7 @@ tokens:
     - - Variant
       - VariantKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -13377,17 +13377,17 @@ tokens:
     - - va
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - LBound
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - va
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -13401,7 +13401,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Err
       - Identifier
     - - " "
@@ -13415,7 +13415,7 @@ tokens:
     - - "0"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - End

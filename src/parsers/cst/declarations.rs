@@ -77,7 +77,7 @@ impl<'a> Parser<'a> {
         self.consume_whitespace();
 
         // Parse parameter list if present
-        if self.at_token(VB6Token::LeftParentheses) {
+        if self.at_token(VB6Token::LeftParenthesis) {
             self.parse_parameter_list();
         }
 
@@ -188,7 +188,7 @@ impl<'a> Parser<'a> {
         self.consume_whitespace();
 
         // Parse parameter list if present
-        if self.at_token(VB6Token::LeftParentheses) {
+        if self.at_token(VB6Token::LeftParenthesis) {
             self.parse_parameter_list();
         }
 
@@ -291,7 +291,7 @@ impl<'a> Parser<'a> {
         self.consume_whitespace();
 
         // Parse parameter list if present
-        if self.at_token(VB6Token::LeftParentheses) {
+        if self.at_token(VB6Token::LeftParenthesis) {
             self.parse_parameter_list();
         }
 
@@ -342,9 +342,9 @@ impl<'a> Parser<'a> {
         // Consume everything until ")"
         let mut depth = 1;
         while !self.is_at_end() && depth > 0 {
-            if self.at_token(VB6Token::LeftParentheses) {
+            if self.at_token(VB6Token::LeftParenthesis) {
                 depth += 1;
-            } else if self.at_token(VB6Token::RightParentheses) {
+            } else if self.at_token(VB6Token::RightParenthesis) {
                 depth -= 1;
             }
 

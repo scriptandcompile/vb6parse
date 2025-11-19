@@ -495,9 +495,9 @@ tokens:
     - - cmbStyle_Change
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -561,9 +561,9 @@ tokens:
     - - cmbStyle_Click
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -631,9 +631,9 @@ tokens:
     - - Form_Load
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -713,7 +713,7 @@ tokens:
     - - Form_MouseDown
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Button
       - Identifier
     - - " "
@@ -767,7 +767,7 @@ tokens:
     - - Single
       - SingleKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -935,9 +935,9 @@ tokens:
     - - Form_Resize
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1013,9 +1013,9 @@ tokens:
     - - picColor1_Click
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1097,7 +1097,7 @@ tokens:
     - - ShowColorDialog
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - newColor
       - Identifier
     - - ","
@@ -1127,7 +1127,7 @@ tokens:
     - - BackColor
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Then
@@ -1227,9 +1227,9 @@ tokens:
     - - picColor2_Click
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1311,7 +1311,7 @@ tokens:
     - - ShowColorDialog
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - newColor
       - Identifier
     - - ","
@@ -1341,7 +1341,7 @@ tokens:
     - - BackColor
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Then
@@ -1449,7 +1449,7 @@ tokens:
     - - DrawGradient
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByRef
       - ByRefKeyword
     - - " "
@@ -1519,7 +1519,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1667,7 +1667,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Color1
       - Identifier
     - - " "
@@ -1679,7 +1679,7 @@ tokens:
     - - "256"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - And
@@ -1701,7 +1701,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Color1
       - Identifier
     - - " "
@@ -1713,7 +1713,7 @@ tokens:
     - - "65536"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - And
@@ -1757,7 +1757,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Color2
       - Identifier
     - - " "
@@ -1769,7 +1769,7 @@ tokens:
     - - "256"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - And
@@ -1791,7 +1791,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Color2
       - Identifier
     - - " "
@@ -1803,7 +1803,7 @@ tokens:
     - - "65536"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - And
@@ -2027,7 +2027,7 @@ tokens:
     - - Abs
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - R
       - Identifier
     - - " "
@@ -2039,7 +2039,7 @@ tokens:
     - - R2
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - /
@@ -2063,7 +2063,7 @@ tokens:
     - - Abs
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - G
       - Identifier
     - - " "
@@ -2075,7 +2075,7 @@ tokens:
     - - G2
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - /
@@ -2099,7 +2099,7 @@ tokens:
     - - Abs
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - B
       - Identifier
     - - " "
@@ -2111,7 +2111,7 @@ tokens:
     - - B2
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - /
@@ -2395,7 +2395,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "0"
       - Number
     - - ","
@@ -2405,11 +2405,11 @@ tokens:
     - - Y
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "-"
       - SubtractionOperator
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - TempWidth
       - Identifier
     - - ","
@@ -2419,7 +2419,7 @@ tokens:
     - - Y
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - ","
       - Comma
     - - " "
@@ -2427,7 +2427,7 @@ tokens:
     - - RGB
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - R2
       - Identifier
     - - ","
@@ -2443,7 +2443,7 @@ tokens:
     - - B2
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -2491,7 +2491,7 @@ tokens:
     - - Abs
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - R
       - Identifier
     - - " "
@@ -2503,7 +2503,7 @@ tokens:
     - - R2
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - /
@@ -2527,7 +2527,7 @@ tokens:
     - - Abs
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - G
       - Identifier
     - - " "
@@ -2539,7 +2539,7 @@ tokens:
     - - G2
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - /
@@ -2563,7 +2563,7 @@ tokens:
     - - Abs
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - B
       - Identifier
     - - " "
@@ -2575,7 +2575,7 @@ tokens:
     - - B2
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - /
@@ -2829,7 +2829,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - ","
@@ -2839,11 +2839,11 @@ tokens:
     - - "0"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "-"
       - SubtractionOperator
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - X
       - Identifier
     - - ","
@@ -2853,7 +2853,7 @@ tokens:
     - - TempHeight
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - ","
       - Comma
     - - " "
@@ -2861,7 +2861,7 @@ tokens:
     - - RGB
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - R2
       - Identifier
     - - ","
@@ -2877,7 +2877,7 @@ tokens:
     - - B2
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "

@@ -97,9 +97,9 @@ tokens:
     - - InitializeEditor
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -183,7 +183,7 @@ tokens:
     - - MapArray
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "0"
       - Number
     - - " "
@@ -209,7 +209,7 @@ tokens:
     - - SizeY
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -275,7 +275,7 @@ tokens:
     - - Abs
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Main
       - Identifier
     - - "."
@@ -303,7 +303,7 @@ tokens:
     - - ScaleWidth
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - /
@@ -333,7 +333,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - SizeX
       - Identifier
     - - " "
@@ -345,7 +345,7 @@ tokens:
     - - Zoom
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "-"
@@ -383,7 +383,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - SizeY
       - Identifier
     - - " "
@@ -395,7 +395,7 @@ tokens:
     - - Zoom
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "-"
@@ -481,7 +481,7 @@ tokens:
     - - MapArray
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - x
       - Identifier
     - - ","
@@ -491,7 +491,7 @@ tokens:
     - - Y
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "="
@@ -577,9 +577,9 @@ tokens:
     - - DrawMap
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -613,11 +613,11 @@ tokens:
     - - LoadPicture
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - vbNullString
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -723,7 +723,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - x
       - Identifier
     - - " "
@@ -735,7 +735,7 @@ tokens:
     - - Zoom
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "-"
@@ -749,7 +749,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Y
       - Identifier
     - - " "
@@ -761,7 +761,7 @@ tokens:
     - - Zoom
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "-"
@@ -803,7 +803,7 @@ tokens:
     - - MapArray
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - x
       - Identifier
     - - ","
@@ -813,7 +813,7 @@ tokens:
     - - Y
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "*"
@@ -883,7 +883,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - x
       - Identifier
     - - " "
@@ -895,7 +895,7 @@ tokens:
     - - Zoom
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "-"
@@ -909,7 +909,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Y
       - Identifier
     - - " "
@@ -921,7 +921,7 @@ tokens:
     - - Zoom
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "-"
@@ -949,7 +949,7 @@ tokens:
     - - MapArray
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - x
       - Identifier
     - - ","
@@ -959,7 +959,7 @@ tokens:
     - - Y
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "*"
@@ -1107,9 +1107,9 @@ tokens:
     - - ScrollMap
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1187,9 +1187,9 @@ tokens:
     - - DrawTileBar
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1531,7 +1531,7 @@ tokens:
     - - DrawTile
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByVal
       - ByValKeyword
     - - " "
@@ -1583,7 +1583,7 @@ tokens:
     - - Byte
       - ByteKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1607,7 +1607,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - x
       - Identifier
     - - " "
@@ -1619,7 +1619,7 @@ tokens:
     - - Zoom
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - +
@@ -1627,7 +1627,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ViewX
       - Identifier
     - - " "
@@ -1639,7 +1639,7 @@ tokens:
     - - Zoom
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1653,7 +1653,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Y
       - Identifier
     - - " "
@@ -1665,7 +1665,7 @@ tokens:
     - - Zoom
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - +
@@ -1673,7 +1673,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ViewY
       - Identifier
     - - " "
@@ -1685,7 +1685,7 @@ tokens:
     - - Zoom
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -1791,7 +1791,7 @@ tokens:
     - - MapArray
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - CurX
       - Identifier
     - - ","
@@ -1801,7 +1801,7 @@ tokens:
     - - CurY
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "="
@@ -1857,7 +1857,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - CurX
       - Identifier
     - - " "
@@ -1869,7 +1869,7 @@ tokens:
     - - Zoom
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "-"
@@ -1883,7 +1883,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - CurY
       - Identifier
     - - " "
@@ -1895,7 +1895,7 @@ tokens:
     - - Zoom
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "-"
@@ -2005,7 +2005,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - CurX
       - Identifier
     - - " "
@@ -2017,7 +2017,7 @@ tokens:
     - - Zoom
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "-"
@@ -2031,7 +2031,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - CurY
       - Identifier
     - - " "
@@ -2043,7 +2043,7 @@ tokens:
     - - Zoom
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "-"
@@ -2191,9 +2191,9 @@ tokens:
     - - ChangeZoom
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -2217,11 +2217,11 @@ tokens:
     - - InputBox
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "\"Enter the percent zoom (100 is default)\""
       - StringLiteral
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -2237,9 +2237,9 @@ tokens:
     - - Int
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Zoom
       - Identifier
     - - " "
@@ -2251,7 +2251,7 @@ tokens:
     - - "100"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "*"
@@ -2261,7 +2261,7 @@ tokens:
     - - "64"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -2281,7 +2281,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - SizeX
       - Identifier
     - - " "
@@ -2293,7 +2293,7 @@ tokens:
     - - Zoom
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "<"
@@ -2407,7 +2407,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - SizeX
       - Identifier
     - - " "
@@ -2419,7 +2419,7 @@ tokens:
     - - Zoom
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "-"
@@ -2459,7 +2459,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - SizeY
       - Identifier
     - - " "
@@ -2471,7 +2471,7 @@ tokens:
     - - Zoom
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "<"
@@ -2585,7 +2585,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - SizeY
       - Identifier
     - - " "
@@ -2597,7 +2597,7 @@ tokens:
     - - Zoom
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "-"
@@ -2671,9 +2671,9 @@ tokens:
     - - RefreshAll
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "

@@ -33,8 +33,8 @@
 //!     ("Sub", VB6Token::SubKeyword),
 //!     (" ", VB6Token::Whitespace),
 //!     ("Main", VB6Token::Identifier),
-//!     ("(", VB6Token::LeftParentheses),
-//!     (")", VB6Token::RightParentheses),
+//!     ("(", VB6Token::LeftParenthesis),
+//!     (")", VB6Token::RightParenthesis),
 //!     ("\n", VB6Token::Newline),
 //! ];
 //!

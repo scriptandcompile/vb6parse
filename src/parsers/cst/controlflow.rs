@@ -977,11 +977,11 @@ End Sub
         assert!(unary_conditional
             .children
             .iter()
-            .any(|c| c.kind == SyntaxKind::LeftParentheses));
+            .any(|c| c.kind == SyntaxKind::LeftParenthesis));
         assert!(unary_conditional
             .children
             .iter()
-            .any(|c| c.kind == SyntaxKind::RightParentheses));
+            .any(|c| c.kind == SyntaxKind::RightParenthesis));
     }
 
     #[test]

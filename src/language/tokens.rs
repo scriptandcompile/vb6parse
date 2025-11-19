@@ -1021,9 +1021,9 @@ pub enum VB6Token {
     /// Represents an octothorpe '#'.
     Octothorpe,
     /// Represents a left parenthesis '('.
-    LeftParentheses,
+    LeftParenthesis,
     /// Represents a right parenthesis ')'.
-    RightParentheses,
+    RightParenthesis,
     /// Represents a left square bracket '['.
     LeftSquareBracket,
     /// Represents a right square bracket ']'.

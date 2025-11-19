@@ -1071,7 +1071,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByVal
       - ByValKeyword
     - - " "
@@ -1105,7 +1105,7 @@ tokens:
     - - String
       - StringKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -1141,7 +1141,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByVal
       - ByValKeyword
     - - " "
@@ -1157,7 +1157,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -1193,9 +1193,9 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -1249,7 +1249,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByVal
       - ByValKeyword
     - - " "
@@ -1265,7 +1265,7 @@ tokens:
     - - String
       - StringKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -1301,7 +1301,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByVal
       - ByValKeyword
     - - " "
@@ -1317,7 +1317,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -1359,7 +1359,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByVal
       - ByValKeyword
     - - " "
@@ -1555,7 +1555,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -1591,7 +1591,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByVal
       - ByValKeyword
     - - " "
@@ -1625,7 +1625,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -1743,9 +1743,9 @@ tokens:
     - - cmdScanImage_Click
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -1789,7 +1789,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Not
       - NotKeyword
     - - " "
@@ -1797,7 +1797,7 @@ tokens:
     - - ScanEnabled
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - Then
@@ -2033,7 +2033,7 @@ tokens:
     - - TWAIN_AcquireToFilename
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - frmScanner
       - Identifier
     - - "."
@@ -2047,7 +2047,7 @@ tokens:
     - - ScannerCaptureFile
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -2099,11 +2099,11 @@ tokens:
     - - LoadPicture
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ScannerCaptureFile
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -2145,11 +2145,11 @@ tokens:
     - - optLoadImage
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - "0"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "."
       - PeriodOperator
     - - Value
@@ -2791,9 +2791,9 @@ tokens:
     - - cmdSelectScanner_Click
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -2827,7 +2827,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - frmScanner
       - Identifier
     - - "."
@@ -2835,7 +2835,7 @@ tokens:
     - - hWnd
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -2961,9 +2961,9 @@ tokens:
     - - Form_Load
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
@@ -3003,7 +3003,7 @@ tokens:
     - - Right
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ProgramPath
       - Identifier
     - - ","
@@ -3013,7 +3013,7 @@ tokens:
     - - "1"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "<"
@@ -3077,7 +3077,7 @@ tokens:
     - - LoadLibrary
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ProgramPath
       - Identifier
     - - " "
@@ -3089,7 +3089,7 @@ tokens:
     - - "\"EZTW32.dll\""
       - StringLiteral
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -3103,9 +3103,9 @@ tokens:
     - - TWAIN_IsAvailable
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - "="
@@ -3217,7 +3217,7 @@ tokens:
     - - Form_Unload
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Cancel
       - Identifier
     - - " "
@@ -3229,7 +3229,7 @@ tokens:
     - - Integer
       - IntegerKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "

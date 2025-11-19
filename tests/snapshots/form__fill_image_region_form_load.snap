@@ -443,7 +443,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - ByVal
       - ByValKeyword
     - - " "
@@ -531,7 +531,7 @@ tokens:
     - - Long
       - LongKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - " "
       - Whitespace
     - - As
@@ -617,7 +617,7 @@ tokens:
     - - picDemo_MouseDown
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Button
       - Identifier
     - - " "
@@ -671,7 +671,7 @@ tokens:
     - - Single
       - SingleKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -851,11 +851,11 @@ tokens:
     - - RGB
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Int
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Rnd
       - Identifier
     - - " "
@@ -867,7 +867,7 @@ tokens:
     - - "255"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - ","
       - Comma
     - - " "
@@ -875,7 +875,7 @@ tokens:
     - - Int
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Rnd
       - Identifier
     - - " "
@@ -887,7 +887,7 @@ tokens:
     - - "255"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - ","
       - Comma
     - - " "
@@ -895,7 +895,7 @@ tokens:
     - - Int
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Rnd
       - Identifier
     - - " "
@@ -907,9 +907,9 @@ tokens:
     - - "255"
       - Number
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -963,7 +963,7 @@ tokens:
     - - Point
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - x
       - Identifier
     - - ","
@@ -973,7 +973,7 @@ tokens:
     - - y
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - ","
       - Comma
     - - " "
@@ -1025,7 +1025,7 @@ tokens:
     - - picDemo_MouseMove
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Button
       - Identifier
     - - " "
@@ -1079,7 +1079,7 @@ tokens:
     - - Single
       - SingleKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "\r\n"
@@ -1131,7 +1131,7 @@ tokens:
     - - " "
       - Whitespace
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - xStart
       - Identifier
     - - ","
@@ -1141,11 +1141,11 @@ tokens:
     - - yStart
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "-"
       - SubtractionOperator
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - x
       - Identifier
     - - ","
@@ -1155,7 +1155,7 @@ tokens:
     - - y
       - Identifier
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "        "
@@ -1239,7 +1239,7 @@ tokens:
     - - picDemo_MouseUp
       - Identifier
     - - (
-      - LeftParentheses
+      - LeftParenthesis
     - - Button
       - Identifier
     - - " "
@@ -1293,7 +1293,7 @@ tokens:
     - - Single
       - SingleKeyword
     - - )
-      - RightParentheses
+      - RightParenthesis
     - - "\r\n"
       - Newline
     - - "    "
