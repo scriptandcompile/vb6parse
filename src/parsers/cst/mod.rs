@@ -75,6 +75,7 @@ mod conditionals;
 mod controlflow;
 mod declarations;
 mod for_statements;
+mod function_statements;
 mod helpers;
 mod if_statements;
 mod loop_statements;
