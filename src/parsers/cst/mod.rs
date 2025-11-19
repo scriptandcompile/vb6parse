@@ -74,6 +74,7 @@ mod conditionals;
 mod controlflow;
 mod declarations;
 mod deftype_statements;
+mod enum_statements;
 mod for_statements;
 mod function_statements;
 mod helpers;
@@ -237,6 +238,10 @@ impl<'a> Parser<'a> {
                 Some(VB6Token::DeclareKeyword) => {
                     self.parse_declare_statement();
                 }
+                // Enum statement: Enum Name ... End Enum
+                Some(VB6Token::EnumKeyword) => {
+                    self.parse_enum_statement();
+                }
                 // Sub procedure: Sub Name(...)
                 Some(VB6Token::SubKeyword) => {
                     self.parse_sub_statement();
@@ -266,18 +271,19 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::PublicKeyword)
                 | Some(VB6Token::FriendKeyword)
                 | Some(VB6Token::StaticKeyword) => {
-                    // Look ahead to see if this is a function/sub/property declaration
+                    // Look ahead to see if this is a function/sub/property/enum declaration
                     // Peek at the next 2 keywords to handle cases like "Public Static Function"
                     let next_keywords: Vec<_> = self
                         .peek_next_count_keywords(NonZeroUsize::new(2).unwrap())
                         .collect();
 
                     let procedure_type = match next_keywords.as_slice() {
-                        // Direct: Public/Private/Friend Function, Sub, Property, or Declare
+                        // Direct: Public/Private/Friend Function, Sub, Property, Enum, or Declare
                         [VB6Token::FunctionKeyword, ..] => Some(0), // Function
                         [VB6Token::SubKeyword, ..] => Some(1),      // Sub
                         [VB6Token::PropertyKeyword, ..] => Some(2), // Property
                         [VB6Token::DeclareKeyword, ..] => Some(3),  // Declare
+                        [VB6Token::EnumKeyword, ..] => Some(4),     // Enum
                         // With Static: Public/Private/Friend Static Function, Sub, or Property
                         [VB6Token::StaticKeyword, VB6Token::FunctionKeyword] => Some(0),
                         [VB6Token::StaticKeyword, VB6Token::SubKeyword] => Some(1),
@@ -291,6 +297,7 @@ impl<'a> Parser<'a> {
                         Some(1) => self.parse_sub_statement(),      // Sub
                         Some(2) => self.parse_property_statement(), // Property
                         Some(3) => self.parse_declare_statement(),  // Declare
+                        Some(4) => self.parse_enum_statement(),     // Enum
                         _ => self.parse_dim(),                      // Declaration
                     }
                 }

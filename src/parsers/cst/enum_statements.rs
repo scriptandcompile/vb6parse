@@ -1,0 +1,375 @@
+//! Enum statement parsing for VB6 CST.
+//!
+//! This module handles parsing of VB6 Enum (enumeration) statements.
+//!
+//! Enum statement syntax:
+//!
+//! \[ Public | Private \] Enum name
+//! membername \[= constantexpression\]
+//! membername \[= constantexpression\]
+//! ...
+//! End Enum
+//!
+//! Enumerations provide a convenient way to work with sets of related constants
+//! and to associate constant values with names.
+//!
+//! [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/enum-statement)
+
+use crate::language::VB6Token;
+use crate::parsers::SyntaxKind;
+
+use super::Parser;
+
+impl<'a> Parser<'a> {
+    /// Parse a Visual Basic 6 Enum statement with syntax:
+    ///
+    /// \[ Public | Private \] Enum name
+    /// membername \[= constantexpression\]
+    /// membername \[= constantexpression\]
+    /// ...
+    /// End Enum
+    ///
+    /// The Enum statement syntax has these parts:
+    ///
+    /// | Part        | Optional / Required | Description |
+    /// |-------------|---------------------|-------------|
+    /// | Public      | Optional | Indicates that the Enum type is accessible to all other procedures in all modules. If used in a module that contains an Option Private statement, the Enum is not available outside the project. |
+    /// | Private     | Optional | Indicates that the Enum type is accessible only to other procedures in the module where it is declared. |
+    /// | name        | Required | Name of the Enum type; follows standard variable naming conventions. |
+    /// | membername  | Required | Name of the enumeration member; follows standard variable naming conventions. |
+    /// | constantexpression | Optional | Value to be assigned to the member (evaluates to a Long). If no constantexpression is specified, the value assigned is either zero (if it is the first membername), or 1 greater than the value of the immediately preceding membername. |
+    ///
+    /// Remarks:
+    /// - Enumeration variables are variables declared with an Enum type.
+    /// - Both variables and properties can be declared with an Enum type.
+    /// - The values of Enum members are initialized to constant values within the Enum statement.
+    /// - Values can't be modified at run time.
+    /// - Enum values are Long integers.
+    /// - By default, the first member is initialized to 0, and subsequent members are initialized to 1 more than the previous member.
+    /// - You can assign specific values to members using the = operator.
+    ///
+    /// Examples:
+    /// ```vb
+    /// Public Enum SecurityLevel
+    ///     IllegalEntry = -1
+    ///     SecurityLevel1 = 0
+    ///     SecurityLevel2 = 1
+    /// End Enum
+    /// ```
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/enum-statement)
+    pub(super) fn parse_enum_statement(&mut self) {
+        // if we are now parsing an enum statement, we are no longer in the header.
+        self.parsing_header = false;
+        self.builder.start_node(SyntaxKind::EnumStatement.to_raw());
+
+        // Consume optional Public/Private keyword
+        if self.at_token(VB6Token::PublicKeyword) || self.at_token(VB6Token::PrivateKeyword) {
+            self.consume_token();
+
+            // Consume any whitespace after visibility modifier
+            self.consume_whitespace();
+        }
+
+        // Consume "Enum" keyword
+        self.consume_token();
+
+        // Consume any whitespace after "Enum"
+        self.consume_whitespace();
+
+        // Consume enum name
+        if self.at_token(VB6Token::Identifier) {
+            self.consume_token();
+        }
+
+        // Consume everything until newline (preserving all tokens)
+        self.consume_until(VB6Token::Newline);
+
+        // Consume the newline
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        // Parse enum members until "End Enum"
+        while !self.is_at_end() {
+            // Check if we've reached "End Enum"
+            if self.at_token(VB6Token::EndKeyword)
+                && self.peek_next_keyword() == Some(VB6Token::EnumKeyword)
+            {
+                break;
+            }
+
+            // Consume enum member lines (identifier [= expression])
+            // This includes whitespace, comments, identifiers, operators, and newlines
+            match self.current_token() {
+                Some(VB6Token::Whitespace)
+                | Some(VB6Token::Newline)
+                | Some(VB6Token::EndOfLineComment)
+                | Some(VB6Token::RemComment)
+                | Some(VB6Token::Identifier)
+                | Some(VB6Token::EqualityOperator)
+                | Some(VB6Token::Number)
+                | Some(VB6Token::SubtractionOperator)
+                | Some(VB6Token::AdditionOperator)
+                | Some(VB6Token::MultiplicationOperator)
+                | Some(VB6Token::DivisionOperator)
+                | Some(VB6Token::LeftParenthesis)
+                | Some(VB6Token::RightParenthesis)
+                | Some(VB6Token::Ampersand)
+                | Some(VB6Token::Comma) => {
+                    self.consume_token();
+                }
+                _ => {
+                    // Unknown token in enum body, consume it
+                    self.consume_token_as_unknown();
+                }
+            }
+        }
+
+        // Consume "End Enum" and trailing tokens
+        if self.at_token(VB6Token::EndKeyword) {
+            // Consume "End"
+            self.consume_token();
+
+            // Consume any whitespace between "End" and "Enum"
+            self.consume_whitespace();
+
+            // Consume "Enum"
+            self.consume_token();
+
+            // Consume until newline (including it)
+            self.consume_until(VB6Token::Newline);
+
+            // Consume the newline
+            if self.at_token(VB6Token::Newline) {
+                self.consume_token();
+            }
+        }
+
+        self.builder.finish_node(); // EnumStatement
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use crate::*;
+
+    #[test]
+    fn enum_simple() {
+        let source = r#"
+Enum Colors
+    Red
+    Green
+    Blue
+End Enum
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("EnumStatement"));
+        assert!(debug.contains("EnumKeyword"));
+        assert!(debug.contains("EndKeyword"));
+    }
+
+    #[test]
+    fn enum_with_values() {
+        let source = r#"
+Enum SecurityLevel
+    IllegalEntry = -1
+    SecurityLevel1 = 0
+    SecurityLevel2 = 1
+End Enum
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("EnumStatement"));
+        assert!(debug.contains("IllegalEntry"));
+        assert!(debug.contains("SecurityLevel1"));
+        assert!(debug.contains("SecurityLevel2"));
+    }
+
+    #[test]
+    fn enum_public() {
+        let source = r#"
+Public Enum Status
+    Active = 1
+    Inactive = 0
+End Enum
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("EnumStatement"));
+        assert!(debug.contains("PublicKeyword"));
+        assert!(debug.contains("Status"));
+    }
+
+    #[test]
+    fn enum_private() {
+        let source = r#"
+Private Enum InternalState
+    Pending = 0
+    Processing = 1
+    Complete = 2
+End Enum
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("EnumStatement"));
+        assert!(debug.contains("PrivateKeyword"));
+    }
+
+    #[test]
+    fn enum_at_module_level() {
+        let source = r#"Enum Direction
+    North = 0
+    South = 1
+    East = 2
+    West = 3
+End Enum
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.root_kind(), SyntaxKind::Root);
+        assert_eq!(cst.child_count(), 1);
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("EnumStatement"));
+    }
+
+    #[test]
+    fn enum_with_comments() {
+        let source = r#"
+Enum Priority
+    Low = 0      ' Lowest priority
+    Medium = 5   ' Medium priority
+    High = 10    ' Highest priority
+End Enum
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("EnumStatement"));
+        assert!(debug.contains("Comment"));
+    }
+
+    #[test]
+    fn enum_preserves_whitespace() {
+        let source = "    Enum Test\n        Value1 = 1\n    End Enum\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.text(), source);
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("EnumStatement"));
+    }
+
+    #[test]
+    fn enum_with_expressions() {
+        let source = r#"
+Enum Flags
+    None = 0
+    Read = 1
+    Write = 2
+    ReadWrite = Read + Write
+    All = &HFF
+End Enum
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("EnumStatement"));
+        assert!(debug.contains("ReadWrite"));
+    }
+
+    #[test]
+    fn enum_empty() {
+        let source = r#"
+Enum EmptyEnum
+End Enum
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("EnumStatement"));
+    }
+
+    #[test]
+    fn enum_multiple_in_module() {
+        let source = r#"
+Public Enum Color
+    Red = 1
+    Green = 2
+    Blue = 3
+End Enum
+
+Private Enum Size
+    Small = 0
+    Medium = 1
+    Large = 2
+End Enum
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        // Check that we have at least 2 enum statements (there may be whitespace nodes too)
+        let enum_count = debug.matches("EnumStatement").count();
+        assert_eq!(enum_count, 2);
+    }
+
+    #[test]
+    fn enum_with_hex_values() {
+        let source = r#"
+Enum FileAttributes
+    ReadOnly = &H1
+    Hidden = &H2
+    System = &H4
+    Archive = &H20
+End Enum
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("EnumStatement"));
+        assert!(debug.contains("FileAttributes"));
+    }
+
+    #[test]
+    fn enum_long_member_list() {
+        let source = r#"
+Enum DayOfWeek
+    Sunday = 1
+    Monday = 2
+    Tuesday = 3
+    Wednesday = 4
+    Thursday = 5
+    Friday = 6
+    Saturday = 7
+End Enum
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("EnumStatement"));
+        assert!(debug.contains("Sunday"));
+        assert!(debug.contains("Saturday"));
+    }
+
+    #[test]
+    fn enum_negative_values() {
+        let source = r#"
+Enum Temperature
+    FreezingPoint = -273
+    Zero = 0
+    BoilingPoint = 100
+End Enum
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("EnumStatement"));
+        assert!(debug.contains("FreezingPoint"));
+    }
+}
