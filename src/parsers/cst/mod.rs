@@ -72,6 +72,7 @@ mod controlflow;
 mod declarations;
 mod expressions;
 mod helpers;
+mod if_controlflow;
 mod statements;
 
 /// The language type for VB6 syntax trees.

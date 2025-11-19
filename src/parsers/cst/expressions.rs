@@ -3,7 +3,8 @@
 //! This module handles parsing of various VB6 expressions:
 //! - Conditional expressions (binary and unary)
 //! - Assignment statements
-//! - ElseIf and Else clauses
+//!
+//! Note: ElseIf and Else clauses are in the if_controlflow module.
 
 use crate::language::VB6Token;
 use crate::parsers::SyntaxKind;
@@ -11,64 +12,6 @@ use crate::parsers::SyntaxKind;
 use super::Parser;
 
 impl<'a> Parser<'a> {
-    /// Parse an ElseIf clause: ElseIf condition Then ...
-    pub(super) fn parse_elseif_clause(&mut self) {
-        self.builder.start_node(SyntaxKind::ElseIfClause.to_raw());
-
-        // Consume "ElseIf" keyword
-        self.consume_token();
-
-        // Parse the conditional expression
-        self.parse_conditional();
-
-        // Consume "Then" if present
-        if self.at_token(VB6Token::ThenKeyword) {
-            self.consume_token();
-        }
-
-        // Consume any whitespace after Then
-        self.consume_whitespace();
-
-        // Consume the newline after Then
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
-
-        // Parse body until "End If", "Else", or another "ElseIf"
-        self.parse_code_block(|parser| {
-            parser.at_token(VB6Token::ElseIfKeyword)
-                || parser.at_token(VB6Token::ElseKeyword)
-                || (parser.at_token(VB6Token::EndKeyword)
-                    && parser.peek_next_keyword() == Some(VB6Token::IfKeyword))
-        });
-
-        self.builder.finish_node(); // ElseIfClause
-    }
-
-    /// Parse an Else clause: Else ...
-    pub(super) fn parse_else_clause(&mut self) {
-        self.builder.start_node(SyntaxKind::ElseClause.to_raw());
-
-        // Consume "Else" keyword
-        self.consume_token();
-
-        // Consume any whitespace after Else
-        self.consume_whitespace();
-
-        // Consume the newline after Else
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
-
-        // Parse body until "End If"
-        self.parse_code_block(|parser| {
-            parser.at_token(VB6Token::EndKeyword)
-                && parser.peek_next_keyword() == Some(VB6Token::IfKeyword)
-        });
-
-        self.builder.finish_node(); // ElseClause
-    }
-
     /// Parse a conditional expression.
     ///
     /// This handles both:
