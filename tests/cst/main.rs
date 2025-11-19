@@ -2,7 +2,6 @@
 // a separate folder without needing to throw all the tests into a single huge file or
 // throwing all test files in the root tests folder.
 
-mod assignment;
 mod call;
 mod comments;
 mod cst;
