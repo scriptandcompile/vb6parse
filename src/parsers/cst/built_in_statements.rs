@@ -12,6 +12,36 @@ use crate::parsers::SyntaxKind;
 use super::Parser;
 
 impl<'a> Parser<'a> {
+    /// Generic parser for built-in statements that follow the pattern:
+    /// - Keyword [arguments]
+    /// 
+    /// All built-in statements in this module share the same structure:
+    /// 1. Set parsing_header to false
+    /// 2. Start a syntax node of the given kind
+    /// 3. Consume the keyword token
+    /// 4. Consume everything until newline (arguments/parameters)
+    /// 5. Consume the newline
+    /// 6. Finish the syntax node
+    fn parse_simple_builtin_statement(&mut self, kind: SyntaxKind) {
+        // if we are now parsing a built-in statement, we are no longer in the header.
+        self.parsing_header = false;
+
+        self.builder.start_node(kind.to_raw());
+
+        // Consume the keyword
+        self.consume_token();
+
+        // Consume everything until newline (arguments/parameters)
+        self.consume_until(VB6Token::Newline);
+
+        // Consume the newline
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        self.builder.finish_node();
+    }
+
     /// Parse an AppActivate statement.
     ///
     /// VB6 AppActivate statement syntax:
@@ -21,24 +51,7 @@ impl<'a> Parser<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/appactivate-statement)
     pub(super) fn parse_appactivate_statement(&mut self) {
-        // if we are now parsing an AppActivate statement, we are no longer in the header.
-        self.parsing_header = false;
-
-        self.builder
-            .start_node(SyntaxKind::AppActivateStatement.to_raw());
-
-        // Consume "AppActivate" keyword
-        self.consume_token();
-
-        // Consume everything until newline (title and optional wait parameter)
-        self.consume_until(VB6Token::Newline);
-
-        // Consume the newline
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
-
-        self.builder.finish_node(); // AppActivateStatement
+        self.parse_simple_builtin_statement(SyntaxKind::AppActivateStatement);
     }
 
     /// Parse a Beep statement.
@@ -50,23 +63,7 @@ impl<'a> Parser<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/beep-statement)
     pub(super) fn parse_beep_statement(&mut self) {
-        // if we are now parsing a beep statement, we are no longer in the header.
-        self.parsing_header = false;
-
-        self.builder.start_node(SyntaxKind::BeepStatement.to_raw());
-
-        // Consume "Beep" keyword
-        self.consume_token();
-
-        // Consume any whitespace and comments until newline
-        self.consume_until(VB6Token::Newline);
-
-        // Consume the newline
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
-
-        self.builder.finish_node(); // BeepStatement
+        self.parse_simple_builtin_statement(SyntaxKind::BeepStatement);
     }
 
     /// Parse a ChDir statement.
@@ -78,23 +75,7 @@ impl<'a> Parser<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/chdir-statement)
     pub(super) fn parse_chdir_statement(&mut self) {
-        // if we are now parsing a ChDir statement, we are no longer in the header.
-        self.parsing_header = false;
-
-        self.builder.start_node(SyntaxKind::ChDirStatement.to_raw());
-
-        // Consume "ChDir" keyword
-        self.consume_token();
-
-        // Consume everything until newline (the path parameter)
-        self.consume_until(VB6Token::Newline);
-
-        // Consume the newline
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
-
-        self.builder.finish_node(); // ChDirStatement
+        self.parse_simple_builtin_statement(SyntaxKind::ChDirStatement);
     }
 
     /// Parse a ChDrive statement.
@@ -106,24 +87,7 @@ impl<'a> Parser<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/chdrive-statement)
     pub(super) fn parse_chdrive_statement(&mut self) {
-        // if we are now parsing a ChDrive statement, we are no longer in the header.
-        self.parsing_header = false;
-
-        self.builder
-            .start_node(SyntaxKind::ChDriveStatement.to_raw());
-
-        // Consume "ChDrive" keyword
-        self.consume_token();
-
-        // Consume everything until newline (the drive parameter)
-        self.consume_until(VB6Token::Newline);
-
-        // Consume the newline
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
-
-        self.builder.finish_node(); // ChDriveStatement
+        self.parse_simple_builtin_statement(SyntaxKind::ChDriveStatement);
     }
 }
 
