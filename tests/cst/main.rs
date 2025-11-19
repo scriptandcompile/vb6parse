@@ -6,6 +6,7 @@ mod call;
 mod comments;
 mod for_loop;
 mod do_loop;
+mod do_loop_in_function;
 mod set_statement;
 mod conditional;
 mod cst_navigation;
@@ -26,3 +27,5 @@ mod beep_statement;
 mod chdir_statement;
 mod chdrive_statement;
 mod redim_statement;
+mod function_linecont;
+
