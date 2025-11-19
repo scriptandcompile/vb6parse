@@ -45,7 +45,7 @@ pub use project::{
     VB6ProjectReference,
 };
 
-pub use crate::parsers::cst::{parse, ConcreteSyntaxTree};
+pub use crate::parsers::cst::{parse, ConcreteSyntaxTree, CstNode};
 pub use crate::parsers::syntaxkind::SyntaxKind;
 pub use crate::sourcestream::*;
 pub use crate::SourceFile;

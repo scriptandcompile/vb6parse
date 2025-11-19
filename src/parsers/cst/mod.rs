@@ -77,9 +77,13 @@ mod for_statements;
 mod helpers;
 mod if_statements;
 mod loop_statements;
+mod navigation;
 mod object_statements;
 mod option_statements;
 mod select_statements;
+
+// Re-export navigation types
+pub use navigation::CstNode;
 
 /// The language type for VB6 syntax trees.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -140,139 +144,6 @@ impl ConcreteSyntaxTree {
     pub fn root_kind(&self) -> SyntaxKind {
         SyntaxKind::from_raw(self.root.kind())
     }
-
-    /// Get a textual representation of the tree structure (for debugging)
-    pub fn debug_tree(&self) -> String {
-        let syntax_node = rowan::SyntaxNode::<VB6Language>::new_root(self.root.clone());
-        format!("{:#?}", syntax_node)
-    }
-
-    /// Get the text content of the entire tree
-    pub fn text(&self) -> String {
-        let syntax_node = rowan::SyntaxNode::<VB6Language>::new_root(self.root.clone());
-        syntax_node.text().to_string()
-    }
-
-    /// Get the number of children of the root node
-    pub fn child_count(&self) -> usize {
-        self.root.children().count()
-    }
-
-    /// Get the children of the root node
-    ///
-    /// Returns a vector of child nodes with their kind and text content.
-    pub fn children(&self) -> Vec<CstNode> {
-        let syntax_node = rowan::SyntaxNode::<VB6Language>::new_root(self.root.clone());
-        syntax_node
-            .children_with_tokens()
-            .map(|child| Self::build_cst_node(child))
-            .collect()
-    }
-
-    /// Recursively build a CstNode from a rowan NodeOrToken
-    fn build_cst_node(
-        node_or_token: rowan::NodeOrToken<
-            rowan::SyntaxNode<VB6Language>,
-            rowan::SyntaxToken<VB6Language>,
-        >,
-    ) -> CstNode {
-        match node_or_token {
-            rowan::NodeOrToken::Node(node) => {
-                let children = node
-                    .children_with_tokens()
-                    .map(|child| Self::build_cst_node(child))
-                    .collect();
-
-                CstNode {
-                    kind: node.kind(),
-                    text: node.text().to_string(),
-                    is_token: false,
-                    children,
-                }
-            }
-            rowan::NodeOrToken::Token(token) => CstNode {
-                kind: token.kind(),
-                text: token.text().to_string(),
-                is_token: true,
-                children: Vec::new(),
-            },
-        }
-    }
-
-    /// Find all child nodes of a specific kind
-    ///
-    /// # Arguments
-    ///
-    /// * `kind` - The SyntaxKind to search for
-    ///
-    /// # Returns
-    ///
-    /// A vector of all child nodes matching the specified kind
-    pub fn find_children_by_kind(&self, kind: SyntaxKind) -> Vec<CstNode> {
-        self.children()
-            .into_iter()
-            .filter(|child| child.kind == kind)
-            .collect()
-    }
-
-    /// Check if the tree contains any node of the specified kind
-    ///
-    /// # Arguments
-    ///
-    /// * `kind` - The SyntaxKind to search for
-    ///
-    /// # Returns
-    ///
-    /// `true` if at least one node of the specified kind exists, `false` otherwise
-    pub fn contains_kind(&self, kind: SyntaxKind) -> bool {
-        self.children().iter().any(|child| child.kind == kind)
-    }
-
-    /// Get the first child node (including tokens)
-    ///
-    /// # Returns
-    ///
-    /// The first child node if it exists, `None` otherwise
-    pub fn first_child(&self) -> Option<CstNode> {
-        self.children().into_iter().next()
-    }
-
-    /// Get the last child node (including tokens)
-    ///
-    /// # Returns
-    ///
-    /// The last child node if it exists, `None` otherwise
-    pub fn last_child(&self) -> Option<CstNode> {
-        self.children().into_iter().last()
-    }
-
-    /// Get child at a specific index
-    ///
-    /// # Arguments
-    ///
-    /// * `index` - The index of the child to retrieve
-    ///
-    /// # Returns
-    ///
-    /// The child at the specified index if it exists, `None` otherwise
-    pub fn child_at(&self, index: usize) -> Option<CstNode> {
-        self.children().into_iter().nth(index)
-    }
-}
-
-/// Represents a node in the Concrete Syntax Tree
-///
-/// This can be either a structural node (like SubStatement) or a token (like Identifier).
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub struct CstNode {
-    /// The kind of syntax element this node represents
-    pub kind: SyntaxKind,
-    /// The text content of this node
-    pub text: String,
-    /// Whether this is a token (true) or a structural node (false)
-    pub is_token: bool,
-    /// The children of this node (empty for tokens)
-    pub children: Vec<CstNode>,
 }
 
 /// Parse a TokenStream into a Concrete Syntax Tree.
