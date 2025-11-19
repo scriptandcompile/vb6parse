@@ -41,8 +41,7 @@ impl<'a> Parser<'a> {
 
 #[cfg(test)]
 mod test {
-    use crate::parsers::{parse, SourceStream};
-    use crate::tokenize::tokenize;
+    use crate::*;
 
     #[test]
     fn redim_simple_array() {
@@ -51,11 +50,7 @@ Sub Test()
     ReDim myArray(10)
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ReDimStatement"));
@@ -69,11 +64,7 @@ Sub Test()
     ReDim Preserve argv(argc - 1&)
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ReDimStatement"));
@@ -88,11 +79,7 @@ Sub Test()
     ReDim ICI(1 To num) As ImageCodecInfo
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ReDimStatement"));
@@ -107,11 +94,7 @@ Sub Test()
     ReDim Preserve fileNameArray(rdIconMaximum) As String
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ReDimStatement"));
@@ -127,11 +110,7 @@ Sub Test()
     ReDim argv(0&)
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ReDimStatement"));
@@ -145,11 +124,7 @@ Sub Test()
     ReDim hIcon(lIconIndex To lIconIndex + nIcons * 2 - 1)
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ReDimStatement"));
@@ -164,11 +139,7 @@ Sub Test()
     ReDim arr1(10), arr2(20), arr3(30)
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ReDimStatement"));
@@ -182,11 +153,7 @@ Sub Test()
     If needResize Then ReDim myArray(newSize)
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ReDimStatement"));
@@ -200,11 +167,7 @@ Sub Test()
     ReDim Preserve fileNameArray(rdIconMaximum) As String ' the file location of the original icons
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ReDimStatement"));
@@ -221,11 +184,7 @@ Sub Test()
     ReDim Preserve namesListArray(rdIconMaximum) As String
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let redim_count = debug.matches("ReDimStatement").count();
@@ -241,11 +200,7 @@ Sub Test()
     End If
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ReDimStatement"));
@@ -259,11 +214,7 @@ Sub Test()
     ReDim Buffer(1 To Size) As Byte
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ReDimStatement"));
@@ -275,11 +226,7 @@ End Sub
         let source = r#"
 ReDim globalArray(100)
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ReDimStatement"));
@@ -293,11 +240,7 @@ Sub Test()
     ReDim matrix(10, 20)
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ReDimStatement"));
