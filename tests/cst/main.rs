@@ -4,6 +4,5 @@
 
 mod cst;
 mod cst_navigation;
-mod option_explicit;
 mod property_statement;
 mod sub;

@@ -78,6 +78,7 @@ mod helpers;
 mod if_statements;
 mod loop_statements;
 mod object_statements;
+mod option_statements;
 mod select_statements;
 
 /// The language type for VB6 syntax trees.
@@ -456,25 +457,6 @@ impl<'a> Parser<'a> {
         }
 
         self.builder.finish_node(); // AttributeStatement
-    }
-
-    /// Parse an Option statement: Option Explicit On/Off
-    fn parse_option_statement(&mut self) {
-        self.builder
-            .start_node(SyntaxKind::OptionStatement.to_raw());
-
-        // Consume "Option" keyword
-        self.consume_token();
-
-        // Consume everything until newline (preserving all tokens)
-        self.consume_until(VB6Token::Newline);
-
-        // Consume the newline
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
-
-        self.builder.finish_node(); // OptionStatement
     }
 
     /// Check if the current token is a control flow keyword.
