@@ -9,7 +9,6 @@ mod call;
 mod chdir_statement;
 mod chdrive_statement;
 mod comments;
-mod conditional;
 mod cst;
 mod cst_navigation;
 mod declaration;
