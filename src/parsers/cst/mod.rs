@@ -645,12 +645,8 @@ mod test {
     use crate::*;
     #[test]
     fn parse_rem_comment() {
-        let code = "REM This is a REM comment\nSub Test()\nEnd Sub\n";
-
-        let mut source_stream = SourceStream::new("test.bas", code);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let source = "REM This is a REM comment\nSub Test()\nEnd Sub\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
         // Should have 2 children: the REM comment and the SubStatement
@@ -665,12 +661,8 @@ mod test {
 
     #[test]
     fn parse_mixed_comments() {
-        let code = "' Single quote comment\nREM REM comment\nSub Test()\nEnd Sub\n";
-
-        let mut source_stream = SourceStream::new("test.bas", code);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let source = "' Single quote comment\nREM REM comment\nSub Test()\nEnd Sub\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
         // Should have 5 children: EndOfLineComment, Newline, RemComment, Newline, SubStatement
@@ -692,12 +684,8 @@ mod test {
 
     #[test]
     fn cst_with_comments() {
-        let code = "' This is a comment\nSub Main()\n";
-
-        let mut source_stream = SourceStream::new("test.bas", code);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let source = "' This is a comment\nSub Main()\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         // Now has 3 children: comment token, newline token, SubStatement
         assert_eq!(cst.child_count(), 3);
