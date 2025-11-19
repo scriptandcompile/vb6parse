@@ -1,19 +1,12 @@
-use vb6parse::parsers::{parse, SourceStream, SyntaxKind};
-use vb6parse::tokenize::tokenize;
-
-fn create_cst_from_source(source: &str) -> vb6parse::parsers::cst::ConcreteSyntaxTree {
-    let mut source_stream = SourceStream::new("test.bas", source);
-    let result = tokenize(&mut source_stream);
-    let token_stream = result.result.expect("Tokenization should succeed");
-    parse(token_stream)
-}
+use vb6parse::parsers::SyntaxKind;
+use vb6parse::parsers::cst::ConcreteSyntaxTree;
 
 #[test]
 fn test_simple_assignment() {
     let source = r#"
 x = 5
 "#;
-    let cst = create_cst_from_source(source);
+    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
     assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
     assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -34,7 +27,7 @@ fn test_string_assignment() {
     let source = r#"
 myName = "John"
 "#;
-    let cst = create_cst_from_source(source);
+    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
     assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
     assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -55,7 +48,7 @@ fn test_property_assignment() {
     let source = r#"
 obj.subProperty = value
 "#;
-    let cst = create_cst_from_source(source);
+    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
     assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
     assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -80,7 +73,7 @@ fn test_array_assignment() {
     let source = r#"
 arr(0) = 100
 "#;
-    let cst = create_cst_from_source(source);
+    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
     assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
     assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -105,7 +98,7 @@ fn test_multidimensional_array_assignment() {
     let source = r#"
 matrix(i, j) = value
 "#;
-    let cst = create_cst_from_source(source);
+    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
     assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
     assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -134,7 +127,7 @@ fn test_assignment_with_function_call() {
     let source = r#"
 result = MyFunction(arg1, arg2)
 "#;
-    let cst = create_cst_from_source(source);
+    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
     assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
     assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -163,7 +156,7 @@ fn test_assignment_with_expression() {
     let source = r#"
 sum = a + b * c
 "#;
-    let cst = create_cst_from_source(source);
+    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
     assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
     assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -195,7 +188,7 @@ fn test_assignment_with_method_call() {
     let source = r#"
 text = obj.GetText()
 "#;
-    let cst = create_cst_from_source(source);
+    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
     assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
     assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -221,7 +214,7 @@ fn test_assignment_with_nested_property() {
     let source = r#"
 value = obj.SubObj.SubProperty
 "#;
-    let cst = create_cst_from_source(source);
+    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
     assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
     assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -250,7 +243,7 @@ x = 1
 y = 2
 z = 3
 "#;
-    let cst = create_cst_from_source(source);
+    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
     assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
     assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -286,7 +279,7 @@ z = 3
 #[test]
 fn test_assignment_preserves_whitespace() {
     let source = "x   =   5";
-    let cst = create_cst_from_source(source);
+    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
     assert_eq!(cst.children()[0].kind, SyntaxKind::AssignmentStatement);
     assert_eq!(cst.children()[0].children[0].kind, SyntaxKind::Identifier);
@@ -307,7 +300,7 @@ Public Function Calculate()
     result = 42
 End Function
 "#;
-    let cst = create_cst_from_source(source);
+    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
     assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
     assert_eq!(cst.children()[1].kind, SyntaxKind::FunctionStatement);
@@ -347,7 +340,7 @@ fn test_assignment_with_collection_access() {
     let source = r#"
 item = Collection("Key")
 "#;
-    let cst = create_cst_from_source(source);
+    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
     assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
     assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -372,7 +365,7 @@ fn test_assignment_with_dollar_sign_function() {
     let source = r#"
 path = Environ$("TEMP")
 "#;
-    let cst = create_cst_from_source(source);
+    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
     assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
     assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -399,7 +392,7 @@ fn test_assignment_at_module_level() {
 Option Explicit
 x = 5
 "#;
-    let cst = create_cst_from_source(source);
+    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
     
     assert!(cst.children()[0].kind == SyntaxKind::Newline);
 
@@ -428,7 +421,7 @@ fn test_assignment_with_numeric_literal() {
     let source = r#"
 pi = 3.14159
 "#;
-    let cst = create_cst_from_source(source);
+    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
     assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
     assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -452,7 +445,7 @@ fn test_assignment_with_concatenation() {
     let source = r#"
 fullName = firstName & " " & lastName
 "#;
-    let cst = create_cst_from_source(source);
+    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
     assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
     assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -483,7 +476,7 @@ fn test_assignment_to_type_member() {
     let source = r#"
 person.Age = 25
 "#;
-    let cst = create_cst_from_source(source);
+    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
     assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
     assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -507,7 +500,7 @@ fn test_assignment_with_parenthesized_expression() {
     let source = r#"
 result = (a + b) * c
 "#;
-    let cst = create_cst_from_source(source);
+    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
     assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
     assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
