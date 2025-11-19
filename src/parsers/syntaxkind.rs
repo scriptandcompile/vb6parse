@@ -44,6 +44,7 @@ pub enum SyntaxKind {
     ChDriveStatement,
     CloseStatement,
     DateStatement,
+    DeleteSettingStatement,
     LabelStatement,
     AttributeStatement,
     OptionStatement,
