@@ -64,6 +64,7 @@ use rowan::{GreenNode, GreenNodeBuilder, Language};
 
 // Submodules for organized CST parsing
 mod helpers;
+mod controlflow;
 mod statements;
 mod declarations;
 mod expressions;
@@ -434,6 +435,49 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // OptionStatement
     }
 
+    /// Check if the current token is a control flow keyword.
+    fn is_control_flow_keyword(&self) -> bool {
+        matches!(
+            self.current_token(),
+            Some(VB6Token::IfKeyword)
+                | Some(VB6Token::SelectKeyword)
+                | Some(VB6Token::ForKeyword)
+                | Some(VB6Token::DoKeyword)
+                | Some(VB6Token::GotoKeyword)
+                | Some(VB6Token::ExitKeyword)
+        )
+    }
+
+    /// Dispatch control flow statement parsing to the appropriate parser.
+    fn parse_control_flow_statement(&mut self) {
+        match self.current_token() {
+            Some(VB6Token::IfKeyword) => {
+                self.parse_if_statement();
+            }
+            Some(VB6Token::SelectKeyword) => {
+                self.parse_select_case_statement();
+            }
+            Some(VB6Token::ForKeyword) => {
+                // Peek ahead to see if next keyword is "Each"
+                if let Some(VB6Token::EachKeyword) = self.peek_next_keyword() {
+                    self.parse_for_each_statement();
+                } else {
+                    self.parse_for_statement();
+                }
+            }
+            Some(VB6Token::DoKeyword) => {
+                self.parse_do_statement();
+            }
+            Some(VB6Token::GotoKeyword) => {
+                self.parse_goto_statement();
+            }
+            Some(VB6Token::ExitKeyword) => {
+                self.parse_exit_statement();
+            }
+            _ => {},
+        }
+    }
+
     /// Parse a code block, consuming tokens until a termination condition is met.
     ///
     /// This is a generic code block parser that can handle different termination conditions:
@@ -455,6 +499,12 @@ impl<'a> Parser<'a> {
         while !self.is_at_end() {
             if stop_conditions(self) {
                 break;
+            }
+
+            // Try control flow statements first
+            if self.is_control_flow_keyword() {
+                self.parse_control_flow_statement();
+                continue;
             }
 
             // Try to parse a statement using the centralized dispatcher
