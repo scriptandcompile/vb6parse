@@ -74,6 +74,7 @@ mod expressions;
 mod for_statements;
 mod helpers;
 mod if_statements;
+mod loop_statements;
 mod select_statements;
 mod statements;
 

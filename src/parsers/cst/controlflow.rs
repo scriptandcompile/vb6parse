@@ -1,12 +1,12 @@
 //! Control flow statement parsing for VB6 CST.
 //!
 //! This module handles parsing of VB6 control flow statements:
-//! - Loop statements (Do/Loop)
 //! - Jump statements (GoTo, Exit, Label)
 //!
 //! Note: If/Then/Else/ElseIf statements are in the if_statements module.
 //! Note: Select Case statements are in the select_statements module.
 //! Note: For/Next and For Each/Next statements are in the for_statements module.
+//! Note: Do/Loop statements are in the loop_statements module.
 
 use crate::language::VB6Token;
 use crate::parsers::SyntaxKind;
@@ -14,73 +14,6 @@ use crate::parsers::SyntaxKind;
 use super::Parser;
 
 impl<'a> Parser<'a> {
-    /// Parse a Do...Loop statement.
-    ///
-    /// VB6 supports several forms of Do loops:
-    /// - Do While condition...Loop
-    /// - Do Until condition...Loop
-    /// - Do...Loop While condition
-    /// - Do...Loop Until condition
-    /// - Do...Loop (infinite loop, requires Exit Do)
-    ///
-    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/doloop-statement)
-    pub(super) fn parse_do_statement(&mut self) {
-        // if we are now parsing a do statement, we are no longer in the header.
-        self.parsing_header = false;
-
-        self.builder.start_node(SyntaxKind::DoStatement.to_raw());
-
-        // Consume "Do" keyword
-        self.consume_token();
-
-        // Consume whitespace after Do
-        self.consume_whitespace();
-
-        // Check if we have While or Until after Do
-        let has_top_condition =
-            self.at_token(VB6Token::WhileKeyword) || self.at_token(VB6Token::UntilKeyword);
-
-        if has_top_condition {
-            // Consume While or Until
-            self.consume_token();
-
-            // Parse condition - consume everything until newline
-            self.parse_conditional();
-        }
-
-        // Consume newline after Do line
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
-
-        // Parse the loop body until "Loop"
-        self.parse_code_block(|parser| parser.at_token(VB6Token::LoopKeyword));
-
-        // Consume "Loop" keyword
-        if self.at_token(VB6Token::LoopKeyword) {
-            self.consume_token();
-
-            // Consume whitespace after Loop
-            self.consume_whitespace();
-
-            // Check if we have While or Until after Loop
-            if self.at_token(VB6Token::WhileKeyword) || self.at_token(VB6Token::UntilKeyword) {
-                // Consume While or Until
-                self.consume_token();
-
-                // Parse condition - consume everything until newline
-                self.parse_conditional();
-            }
-
-            // Consume newline after Loop
-            if self.at_token(VB6Token::Newline) {
-                self.consume_token();
-            }
-        }
-
-        self.builder.finish_node(); // DoStatement
-    }
-
     /// Parse a GoTo statement.
     ///
     /// Syntax:
