@@ -229,32 +229,6 @@ impl<'a> Parser<'a> {
 
         self.builder.finish_node(); // FunctionStatement
     }
-
-    /// Parse a parameter list: (param1 As Type, param2 As Type)
-    pub(super) fn parse_parameter_list(&mut self) {
-        self.builder.start_node(SyntaxKind::ParameterList.to_raw());
-
-        // Consume "("
-        self.consume_token();
-
-        // Consume everything until ")"
-        let mut depth = 1;
-        while !self.is_at_end() && depth > 0 {
-            if self.at_token(VB6Token::LeftParenthesis) {
-                depth += 1;
-            } else if self.at_token(VB6Token::RightParenthesis) {
-                depth -= 1;
-            }
-
-            self.consume_token();
-
-            if depth == 0 {
-                break;
-            }
-        }
-
-        self.builder.finish_node(); // ParameterList
-    }
 }
 
 #[cfg(test)]
