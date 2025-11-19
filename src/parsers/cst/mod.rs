@@ -73,6 +73,7 @@ mod declarations;
 mod expressions;
 mod helpers;
 mod if_statements;
+mod select_statements;
 mod statements;
 
 /// The language type for VB6 syntax trees.

@@ -2,10 +2,10 @@
 //!
 //! This module handles parsing of VB6 control flow statements:
 //! - Loop statements (Do/Loop, For/Next, For Each)
-//! - Case statements (Select Case)
 //! - Jump statements (GoTo, Exit, Label)
 //!
 //! Note: If/Then/Else/ElseIf statements are in the if_controlflow module.
+//! Note: Select Case statements are in the select_statements module.
 
 use crate::language::VB6Token;
 use crate::parsers::SyntaxKind;
@@ -212,137 +212,6 @@ impl<'a> Parser<'a> {
         }
 
         self.builder.finish_node(); // ForEachStatement
-    }
-
-    /// Parse a Select Case statement.
-    ///
-    /// Syntax:
-    ///   Select Case testexpression
-    ///     Case expression1
-    ///       statements1
-    ///     Case expression2
-    ///       statements2
-    ///     Case Else
-    ///       statementsElse
-    ///   End Select
-    ///
-    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/select-case-statement)
-    pub(super) fn parse_select_case_statement(&mut self) {
-        // if we are now parsing a select case statement, we are no longer in the header.
-        self.parsing_header = false;
-
-        self.builder
-            .start_node(SyntaxKind::SelectCaseStatement.to_raw());
-
-        // Consume "Select" keyword
-        self.consume_token();
-
-        // Consume any whitespace between "Select" and "Case"
-        self.consume_whitespace();
-
-        // Consume "Case" keyword
-        if self.at_token(VB6Token::CaseKeyword) {
-            self.consume_token();
-        }
-
-        // Consume everything until newline (the test expression)
-        self.consume_until(VB6Token::Newline);
-
-        // Consume the newline
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
-
-        // Parse Case clauses until "End Select"
-        while !self.is_at_end() {
-            // Check for "End Select"
-            if self.at_token(VB6Token::EndKeyword)
-                && self.peek_next_keyword() == Some(VB6Token::SelectKeyword)
-            {
-                break;
-            }
-
-            // Check for "Case" keyword
-            if self.at_token(VB6Token::CaseKeyword) {
-                // Check if this is "Case Else"
-                let is_case_else = self.peek_next_keyword() == Some(VB6Token::ElseKeyword);
-
-                if is_case_else {
-                    // Parse Case Else clause
-                    self.builder.start_node(SyntaxKind::CaseElseClause.to_raw());
-
-                    // Consume "Case"
-                    self.consume_token();
-
-                    // Consume any whitespace between "Case" and "Else"
-                    self.consume_whitespace();
-
-                    // Consume "Else"
-                    if self.at_token(VB6Token::ElseKeyword) {
-                        self.consume_token();
-                    }
-
-                    // Consume until newline
-                    self.consume_until(VB6Token::Newline);
-                    if self.at_token(VB6Token::Newline) {
-                        self.consume_token();
-                    }
-
-                    // Parse statements in Case Else until next Case or End Select
-                    self.parse_code_block(|parser| {
-                        (parser.at_token(VB6Token::CaseKeyword))
-                            || (parser.at_token(VB6Token::EndKeyword)
-                                && parser.peek_next_keyword() == Some(VB6Token::SelectKeyword))
-                    });
-
-                    self.builder.finish_node(); // CaseElseClause
-                } else {
-                    // Parse regular Case clause
-                    self.builder.start_node(SyntaxKind::CaseClause.to_raw());
-
-                    // Consume "Case"
-                    self.consume_token();
-
-                    // Consume the case expression(s) until newline
-                    self.consume_until(VB6Token::Newline);
-                    if self.at_token(VB6Token::Newline) {
-                        self.consume_token();
-                    }
-
-                    // Parse statements in Case until next Case or End Select
-                    self.parse_code_block(|parser| {
-                        (parser.at_token(VB6Token::CaseKeyword))
-                            || (parser.at_token(VB6Token::EndKeyword)
-                                && parser.peek_next_keyword() == Some(VB6Token::SelectKeyword))
-                    });
-
-                    self.builder.finish_node(); // CaseClause
-                }
-            } else {
-                // Consume whitespace, newlines, and comments
-                self.consume_token();
-            }
-        }
-
-        // Consume "End Select" and trailing tokens
-        if self.at_token(VB6Token::EndKeyword) {
-            // Consume "End"
-            self.consume_token();
-
-            // Consume any whitespace between "End" and "Select"
-            self.consume_whitespace();
-
-            // Consume "Select"
-            self.consume_token();
-
-            // Consume until newline (including it)
-            self.consume_until(VB6Token::Newline);
-            if self.at_token(VB6Token::Newline) {
-                self.consume_token();
-            }
-        }
-
-        self.builder.finish_node(); // SelectCaseStatement
     }
 
     /// Parse a GoTo statement.
