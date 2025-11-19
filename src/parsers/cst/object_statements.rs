@@ -5,7 +5,7 @@
 //! - Set - Assign object reference
 //! - With - Execute statements on object
 //!
-//! Note: Variable declarations (Dim, ReDim) 
+//! Note: Variable declarations (Dim, ReDim)
 //! are in the variable_declarations module.
 //! Note: Control flow statements (If, Do, For, Select Case, GoTo, Exit, Label)
 //! are in the controlflow module.
