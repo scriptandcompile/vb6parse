@@ -5,7 +5,8 @@
 //! - Set - Assign object reference
 //! - With - Execute statements on object
 //!
-//! Note: Array operations (ReDim) are in the array_statements module.
+//! Note: Variable declarations (Dim, ReDim) 
+//! are in the variable_declarations module.
 //! Note: Control flow statements (If, Do, For, Select Case, GoTo, Exit, Label)
 //! are in the controlflow module.
 //! Built-in system statements (AppActivate, Beep, ChDir, ChDrive) are in the
@@ -153,27 +154,6 @@ impl<'a> Parser<'a> {
             }
             _ => {}
         }
-    }
-
-    /// Parse a Dim statement: Dim/Private/Public x As Type
-    pub(super) fn parse_dim(&mut self) {
-        // if we are now parsing a dim statement, we are no longer in the header.
-        self.parsing_header = false;
-
-        self.builder.start_node(SyntaxKind::DimStatement.to_raw());
-
-        // Consume the keyword (Dim, Private, Public, etc.)
-        self.consume_token();
-
-        // Consume everything until newline (preserving all tokens)
-        self.consume_until(VB6Token::Newline);
-
-        // Consume the newline
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
-
-        self.builder.finish_node(); // DimStatement
     }
 }
 
@@ -676,103 +656,5 @@ End With
         let debug = cst.debug_tree();
         assert!(debug.contains("WithStatement"));
         assert!(debug.contains("GlobalObject"));
-    }
-
-    // Dim statement tests
-    #[test]
-    fn parse_dim_declaration() {
-        let source = "Dim x As Integer\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
-
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-        assert_eq!(cst.text(), "Dim x As Integer\n");
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-    }
-
-    #[test]
-    fn parse_private_declaration() {
-        let source = "Private m_value As Long\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
-
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-        assert_eq!(cst.text(), "Private m_value As Long\n");
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PrivateKeyword"));
-    }
-
-    #[test]
-    fn parse_public_declaration() {
-        let source = "Public g_config As String\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
-
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-        assert_eq!(cst.text(), "Public g_config As String\n");
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PublicKeyword"));
-    }
-
-    #[test]
-    fn parse_multiple_variable_declaration() {
-        let source = "Dim x, y, z As Integer\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
-
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-        assert_eq!(cst.text(), "Dim x, y, z As Integer\n");
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-    }
-
-    #[test]
-    fn parse_const_declaration() {
-        let source = "Const MAX_SIZE = 100\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
-
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-        assert_eq!(cst.text(), "Const MAX_SIZE = 100\n");
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("ConstKeyword"));
-    }
-
-    #[test]
-    fn parse_private_const_declaration() {
-        let source = "Private Const MODULE_NAME = \"MyModule\"\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
-
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-        assert_eq!(cst.text(), "Private Const MODULE_NAME = \"MyModule\"\n");
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PrivateKeyword"));
-        assert!(debug.contains("ConstKeyword"));
-    }
-
-    #[test]
-    fn parse_static_declaration() {
-        let source = "Static counter As Long\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
-
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-        assert_eq!(cst.text(), "Static counter As Long\n");
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("StaticKeyword"));
     }
 }

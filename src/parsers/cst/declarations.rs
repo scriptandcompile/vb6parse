@@ -287,7 +287,8 @@ mod test {
     #[test]
     fn declare_sub_no_return_type() {
         // Test Declare Sub doesn't have return type
-        let source = "Private Declare Sub GdiplusShutdown Lib \"GdiPlus.dll\" (ByVal mtoken As Long)\n";
+        let source =
+            "Private Declare Sub GdiplusShutdown Lib \"GdiPlus.dll\" (ByVal mtoken As Long)\n";
         let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
