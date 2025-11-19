@@ -3,10 +3,10 @@
 //! This module handles parsing of VB6 declarations:
 //! - Function statements
 //! - Sub statements
-//! - Property statements (Get, Let, Set)
 //! - Parameter lists
 //!
 //! Dim/ReDim and general Variable declarations are handled in the array_statements module.
+//! Property statements are handled in the property_statements module.
 
 use crate::language::VB6Token;
 use crate::parsers::SyntaxKind;
