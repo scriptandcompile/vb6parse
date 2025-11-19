@@ -12,7 +12,7 @@ End Property
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("PropertyStatement"));
     assert!(debug.contains("PropertyKeyword"));
@@ -30,7 +30,7 @@ End Property
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("PropertyStatement"));
     assert!(debug.contains("PropertyKeyword"));
@@ -48,7 +48,7 @@ End Property
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("PropertyStatement"));
     assert!(debug.contains("PropertyKeyword"));
@@ -66,7 +66,7 @@ End Property
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("PropertyStatement"));
     assert!(debug.contains("SetKeyword"));
@@ -84,7 +84,7 @@ End Property
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("PropertyStatement"));
     assert!(debug.contains("PublicKeyword"));
@@ -102,7 +102,7 @@ End Property
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("PropertyStatement"));
     assert!(debug.contains("PrivateKeyword"));
@@ -120,7 +120,7 @@ End Property
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("PropertyStatement"));
     assert!(debug.contains("FriendKeyword"));
@@ -138,7 +138,7 @@ End Property
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("PropertyStatement"));
     assert!(debug.contains("GetKeyword"));
@@ -156,7 +156,7 @@ End Property
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("PropertyStatement"));
     assert!(debug.contains("SetKeyword"));
@@ -179,7 +179,7 @@ End Property
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("PropertyStatement"));
     assert!(debug.contains("GetKeyword"));
@@ -200,7 +200,7 @@ End Property
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("PropertyStatement"));
     assert!(debug.contains("LetKeyword"));
@@ -218,7 +218,7 @@ End Property
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("PropertyStatement"));
     assert!(debug.contains("GetKeyword"));
@@ -235,7 +235,7 @@ End   Property
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("PropertyStatement"));
     assert!(debug.contains("Whitespace"));
@@ -267,7 +267,7 @@ End Property
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     let property_count = debug.matches("PropertyStatement").count();
     assert_eq!(property_count, 4);
@@ -284,7 +284,7 @@ End Property
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("PropertyStatement"));
     assert!(debug.contains("GetKeyword"));
@@ -303,7 +303,7 @@ End Property
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("PropertyStatement"));
     assert!(debug.contains("ExitStatement"));
@@ -323,7 +323,7 @@ End Property
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("PropertyStatement"));
     assert!(debug.contains("PublicKeyword"));
@@ -349,7 +349,7 @@ End Property
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("PropertyStatement"));
     assert!(debug.contains("LetKeyword"));

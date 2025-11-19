@@ -15,25 +15,24 @@ use super::Parser;
 
 impl<'a> Parser<'a> {
     /// Parse a Call statement:
-    /// 
+    ///
     /// \[ Call \] name \[ argumentlist \]
-    /// 
+    ///
     /// The Call statement syntax has these parts:
-    /// 
+    ///
     /// | Part        | Optional / Required | Description |
     /// |-------------|---------------------|-------------|
     /// | Call        | Optional            | Indicates that a procedure is being called. The Call keyword is optional; if omitted, the procedure name is used directly. |
     /// | name        | Required            | Name of the procedure to be called; follows standard variable naming conventions. |
     /// | argumentlist| Optional            | List of arguments to be passed to the procedure. Arguments are enclosed in parentheses and separated by commas. |
-    /// 
+    ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/call-statement)
     pub(super) fn parse_call_statement(&mut self) {
-
         // if we are now parsing a call statement, we are no longer in the header.
         self.parsing_header = false;
 
         self.builder.start_node(SyntaxKind::CallStatement.to_raw());
-        
+
         // Consume "Call" keyword
         self.consume_token();
 
@@ -55,7 +54,6 @@ impl<'a> Parser<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/set-statement)
     pub(super) fn parse_set_statement(&mut self) {
-
         // if we are now parsing a set statement, we are no longer in the header.
         self.parsing_header = false;
 
@@ -86,7 +84,6 @@ impl<'a> Parser<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/with-statement)
     pub(super) fn parse_with_statement(&mut self) {
-
         // if we are now parsing a with statement, we are no longer in the header.
         self.parsing_header = false;
 
@@ -227,7 +224,8 @@ impl<'a> Parser<'a> {
         // if we are now parsing a ChDrive statement, we are no longer in the header.
         self.parsing_header = false;
 
-        self.builder.start_node(SyntaxKind::ChDriveStatement.to_raw());
+        self.builder
+            .start_node(SyntaxKind::ChDriveStatement.to_raw());
 
         // Consume "ChDrive" keyword
         self.consume_token();
@@ -314,7 +312,7 @@ impl<'a> Parser<'a> {
             Some(VB6Token::ReDimKeyword) => {
                 self.parse_redim_statement();
             }
-            _ => {},
+            _ => {}
         }
     }
 }

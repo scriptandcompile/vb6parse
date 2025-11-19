@@ -12,7 +12,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("AppActivateStatement"));
     assert!(debug.contains("AppActivateKeyword"));
@@ -29,7 +29,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("AppActivateStatement"));
 }
@@ -45,7 +45,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("AppActivateStatement"));
 }
@@ -61,7 +61,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("AppActivateStatement"));
 }
@@ -77,7 +77,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("AppActivateStatement"));
     assert!(debug.contains("Whitespace"));
@@ -96,7 +96,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     let count = debug.matches("AppActivateStatement").count();
     assert_eq!(count, 3);
@@ -115,7 +115,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("AppActivateStatement"));
     assert!(debug.contains("IfStatement"));
@@ -132,7 +132,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("AppActivateStatement"));
 }
@@ -150,7 +150,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("AppActivateStatement"));
 }
@@ -164,7 +164,7 @@ AppActivate "MyApp"
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("AppActivateStatement"));
 }

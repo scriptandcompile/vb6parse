@@ -1077,7 +1077,6 @@ pub enum VB6Token {
 }
 
 impl VB6Token {
-
     /// Returns true if the token is a VB6 operator.
     pub fn is_operator(&self) -> bool {
         match self {
@@ -1096,7 +1095,7 @@ impl VB6Token {
             _ => false,
         }
     }
-    
+
     /// Returns true if the token is a VB6 keyword.
     pub fn is_keyword(&self) -> bool {
         match self {

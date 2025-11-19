@@ -15,7 +15,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("ExitStatement"));
     assert!(debug.contains("ExitKeyword"));
@@ -35,7 +35,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("ExitStatement"));
     assert!(debug.contains("ExitKeyword"));
@@ -56,7 +56,7 @@ End Function
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("ExitStatement"));
     assert!(debug.contains("ExitKeyword"));
@@ -75,7 +75,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("ExitStatement"));
     assert!(debug.contains("ExitKeyword"));
@@ -94,7 +94,7 @@ End Property
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("ExitStatement"));
     assert!(debug.contains("ExitKeyword"));
@@ -115,7 +115,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     // Should have two ExitStatements
     let exit_count = debug.matches("ExitStatement").count();
@@ -139,7 +139,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     let exit_count = debug.matches("ExitStatement").count();
     assert_eq!(exit_count, 2);
@@ -156,7 +156,7 @@ End Sub
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("ExitStatement"));
     // Check that whitespace is preserved
@@ -175,7 +175,7 @@ End Function
     let result = tokenize(&mut source_stream);
     let token_stream = result.result.expect("Tokenization should succeed");
     let cst = parse(token_stream);
-    
+
     let debug = cst.debug_tree();
     assert!(debug.contains("IfStatement"));
     assert!(debug.contains("ExitStatement"));

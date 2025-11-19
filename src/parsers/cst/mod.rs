@@ -63,11 +63,11 @@ use crate::tokenstream::TokenStream;
 use rowan::{GreenNode, GreenNodeBuilder, Language};
 
 // Submodules for organized CST parsing
-mod helpers;
 mod controlflow;
-mod statements;
 mod declarations;
 mod expressions;
+mod helpers;
+mod statements;
 
 /// The language type for VB6 syntax trees.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -337,7 +337,9 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::StaticKeyword) => {
                     // Look ahead to see if this is a function/sub/property declaration
                     // Peek at the next 2 keywords to handle cases like "Public Static Function"
-                    let next_keywords: Vec<_> = self.peek_next_count_keywords(NonZeroUsize::new(2).unwrap()).collect();
+                    let next_keywords: Vec<_> = self
+                        .peek_next_count_keywords(NonZeroUsize::new(2).unwrap())
+                        .collect();
 
                     let procedure_type = match next_keywords.as_slice() {
                         // Direct: Public/Private/Friend Function, Sub, or Property
@@ -474,7 +476,7 @@ impl<'a> Parser<'a> {
             Some(VB6Token::ExitKeyword) => {
                 self.parse_exit_statement();
             }
-            _ => {},
+            _ => {}
         }
     }
 
@@ -493,8 +495,7 @@ impl<'a> Parser<'a> {
         // Code blocks can appear in both header and body, so we do not modify parsing_header here.
 
         // Start a CodeBlock node
-        self.builder
-                .start_node(SyntaxKind::CodeBlock.to_raw());
+        self.builder.start_node(SyntaxKind::CodeBlock.to_raw());
 
         while !self.is_at_end() {
             if stop_conditions(self) {

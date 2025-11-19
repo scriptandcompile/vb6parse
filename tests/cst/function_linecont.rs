@@ -17,12 +17,18 @@ End Function
 
     let debug = cst.debug_tree();
     println!("{}", debug);
-    
+
     // Should have a FunctionStatement node
-    assert!(debug.contains("FunctionStatement"), "Should be FunctionStatement");
+    assert!(
+        debug.contains("FunctionStatement"),
+        "Should be FunctionStatement"
+    );
     // The function itself should not be parsed as a DimStatement
     // (although it may contain DimStatement nodes inside for variable declarations)
-    assert!(debug.contains("  FunctionStatement@"), "Function should be at root level, not inside DimStatement");
+    assert!(
+        debug.contains("  FunctionStatement@"),
+        "Function should be at root level, not inside DimStatement"
+    );
 }
 
 #[test]
@@ -46,11 +52,17 @@ End Function
 
     let debug = cst.debug_tree();
     println!("{}", debug);
-    
+
     // Should have a FunctionStatement node
-    assert!(debug.contains("FunctionStatement"), "Should be FunctionStatement");
+    assert!(
+        debug.contains("FunctionStatement"),
+        "Should be FunctionStatement"
+    );
     // The function itself should not be parsed as a DimStatement
-    assert!(debug.contains("  FunctionStatement@"), "Function should be at root level, not inside DimStatement");
+    assert!(
+        debug.contains("  FunctionStatement@"),
+        "Function should be at root level, not inside DimStatement"
+    );
 }
 
 #[test]
@@ -72,10 +84,19 @@ End Function
 
     let debug = cst.debug_tree();
     println!("{}", debug);
-    
-    assert!(debug.contains("FunctionStatement"), "Should have FunctionStatement");
-    assert!(!debug.contains("Unknown"), "Should not have any Unknown tokens");
-    assert!(debug.contains("  FunctionStatement@"), "Function should be at root level");
+
+    assert!(
+        debug.contains("FunctionStatement"),
+        "Should have FunctionStatement"
+    );
+    assert!(
+        !debug.contains("Unknown"),
+        "Should not have any Unknown tokens"
+    );
+    assert!(
+        debug.contains("  FunctionStatement@"),
+        "Function should be at root level"
+    );
 }
 
 #[test]
@@ -101,8 +122,17 @@ End Function
 
     let debug = cst.debug_tree();
     println!("{}", debug);
-    
-    assert!(debug.contains("FunctionStatement"), "Should have FunctionStatement");
-    assert!(!debug.contains("Unknown"), "Should not have any Unknown tokens");
-    assert!(debug.contains("  FunctionStatement@"), "Function should be at root level");
+
+    assert!(
+        debug.contains("FunctionStatement"),
+        "Should have FunctionStatement"
+    );
+    assert!(
+        !debug.contains("Unknown"),
+        "Should not have any Unknown tokens"
+    );
+    assert!(
+        debug.contains("  FunctionStatement@"),
+        "Function should be at root level"
+    );
 }

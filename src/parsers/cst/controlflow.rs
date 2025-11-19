@@ -59,7 +59,7 @@ impl<'a> Parser<'a> {
                 if self.at_token(VB6Token::ElseKeyword) {
                     break;
                 }
-                
+
                 // Try control flow statements first (Exit, GoTo, etc. can appear inline)
                 if self.is_control_flow_keyword() {
                     self.parse_control_flow_statement();
@@ -74,7 +74,9 @@ impl<'a> Parser<'a> {
 
                 // Handle other inline constructs
                 match self.current_token() {
-                    Some(VB6Token::Whitespace) | Some(VB6Token::EndOfLineComment) | Some(VB6Token::RemComment) => {
+                    Some(VB6Token::Whitespace)
+                    | Some(VB6Token::EndOfLineComment)
+                    | Some(VB6Token::RemComment) => {
                         self.consume_token();
                     }
                     Some(VB6Token::ColonOperator) => {
@@ -159,7 +161,6 @@ impl<'a> Parser<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/doloop-statement)
     pub(super) fn parse_do_statement(&mut self) {
-
         // if we are now parsing a do statement, we are no longer in the header.
         self.parsing_header = false;
 
@@ -172,7 +173,8 @@ impl<'a> Parser<'a> {
         self.consume_whitespace();
 
         // Check if we have While or Until after Do
-        let has_top_condition = self.at_token(VB6Token::WhileKeyword) || self.at_token(VB6Token::UntilKeyword);
+        let has_top_condition =
+            self.at_token(VB6Token::WhileKeyword) || self.at_token(VB6Token::UntilKeyword);
 
         if has_top_condition {
             // Consume While or Until
@@ -222,7 +224,6 @@ impl<'a> Parser<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/fornext-statement)
     pub(super) fn parse_for_statement(&mut self) {
-
         // if we are now parsing a for statement, we are no longer in the header.
         self.parsing_header = false;
 
@@ -233,9 +234,10 @@ impl<'a> Parser<'a> {
 
         // Consume everything until "To" or newline
         // This includes: counter variable, "=", start value
-        while !self.is_at_end() 
-            && !self.at_token(VB6Token::ToKeyword) 
-            && !self.at_token(VB6Token::Newline) {
+        while !self.is_at_end()
+            && !self.at_token(VB6Token::ToKeyword)
+            && !self.at_token(VB6Token::Newline)
+        {
             self.consume_token();
         }
 
@@ -244,9 +246,10 @@ impl<'a> Parser<'a> {
             self.consume_token();
 
             // Consume everything until "Step" or newline (the end value)
-            while !self.is_at_end() 
-                && !self.at_token(VB6Token::StepKeyword) 
-                && !self.at_token(VB6Token::Newline) {
+            while !self.is_at_end()
+                && !self.at_token(VB6Token::StepKeyword)
+                && !self.at_token(VB6Token::Newline)
+            {
                 self.consume_token();
             }
 
@@ -290,11 +293,11 @@ impl<'a> Parser<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/for-eachnext-statement)
     pub(super) fn parse_for_each_statement(&mut self) {
-
         // if we are now parsing a for each statement, we are no longer in the header.
         self.parsing_header = false;
 
-        self.builder.start_node(SyntaxKind::ForEachStatement.to_raw());
+        self.builder
+            .start_node(SyntaxKind::ForEachStatement.to_raw());
 
         // Consume "For" keyword
         self.consume_token();
@@ -309,9 +312,10 @@ impl<'a> Parser<'a> {
 
         // Consume everything until "In" or newline
         // This includes: element variable name and whitespace
-        while !self.is_at_end() 
-            && !self.at_token(VB6Token::InKeyword) 
-            && !self.at_token(VB6Token::Newline) {
+        while !self.is_at_end()
+            && !self.at_token(VB6Token::InKeyword)
+            && !self.at_token(VB6Token::Newline)
+        {
             self.consume_token();
         }
 
@@ -361,11 +365,11 @@ impl<'a> Parser<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/select-case-statement)
     pub(super) fn parse_select_case_statement(&mut self) {
-        
         // if we are now parsing a select case statement, we are no longer in the header.
         self.parsing_header = false;
 
-        self.builder.start_node(SyntaxKind::SelectCaseStatement.to_raw());
+        self.builder
+            .start_node(SyntaxKind::SelectCaseStatement.to_raw());
 
         // Consume "Select" keyword
         self.consume_token();
@@ -485,7 +489,6 @@ impl<'a> Parser<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/goto-statement)
     pub(super) fn parse_goto_statement(&mut self) {
-        
         // if we are now parsing a goto statement, we are no longer in the header.
         self.parsing_header = false;
 
@@ -516,7 +519,6 @@ impl<'a> Parser<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/exit-statement)
     pub(super) fn parse_exit_statement(&mut self) {
-        
         // if we are now parsing an exit statement, we are no longer in the header.
         self.parsing_header = false;
 
@@ -555,7 +557,6 @@ impl<'a> Parser<'a> {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/goto-statement)
     pub(super) fn parse_label_statement(&mut self) {
-
         // if we are now parsing a label statement, we are no longer in the header.
         self.parsing_header = false;
 
@@ -583,7 +584,6 @@ impl<'a> Parser<'a> {
     /// Check if the current position is at a label.
     /// A label is an identifier or number followed by a colon.
     pub(super) fn is_at_label(&self) -> bool {
-
         let next_token_is_colon = matches!(self.peek_next_token(), Some(VB6Token::ColonOperator));
 
         if next_token_is_colon == false {
@@ -591,12 +591,539 @@ impl<'a> Parser<'a> {
         }
 
         // If we are not parsing the header, then some keywords are valid identifiers (like "Begin")
-        // TODO: Consider adding a list of keywords that can be used as labels. 
+        // TODO: Consider adding a list of keywords that can be used as labels.
         // TODO: Also consider modifying tokenizer to recognize when inside header to more easily identify Identifiers vs header only keywords.
         if !self.parsing_header && matches!(self.current_token(), Some(VB6Token::BeginKeyword)) {
             return true;
         }
 
         self.is_identifier() || self.is_number()
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use crate::*;
+
+    #[test]
+    fn inline_if_then_goto() {
+        let source = r#"
+Sub Test()
+    If x > 0 Then GoTo Positive
+    Debug.Print "negative or zero"
+Positive:
+    Debug.Print "positive"
+End Sub
+"#;
+
+        let mut source_stream = SourceStream::new("test.bas", source);
+        let result = tokenize(&mut source_stream);
+        let token_stream = result.result.expect("Tokenization should succeed");
+        let cst = parse(token_stream);
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("IfStatement"));
+        assert!(debug.contains("GotoStatement"));
+        assert!(debug.contains("ThenKeyword"));
+    }
+
+    #[test]
+    fn inline_if_then_call() {
+        let source = r#"
+Sub Test()
+    If enabled Then Call DoSomething
+End Sub
+"#;
+
+        let mut source_stream = SourceStream::new("test.bas", source);
+        let result = tokenize(&mut source_stream);
+        let token_stream = result.result.expect("Tokenization should succeed");
+        let cst = parse(token_stream);
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("IfStatement"));
+        assert!(debug.contains("CallStatement"));
+    }
+
+    #[test]
+    fn inline_if_then_assignment() {
+        let source = r#"
+Sub Test()
+    If x > 10 Then result = "large"
+End Sub
+"#;
+
+        let mut source_stream = SourceStream::new("test.bas", source);
+        let result = tokenize(&mut source_stream);
+        let token_stream = result.result.expect("Tokenization should succeed");
+        let cst = parse(token_stream);
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("IfStatement"));
+        assert!(debug.contains("AssignmentStatement"));
+    }
+
+    #[test]
+    fn inline_if_then_set() {
+        let source = r#"
+Sub Test()
+    If obj Is Nothing Then Set obj = New MyClass
+End Sub
+"#;
+
+        let mut source_stream = SourceStream::new("test.bas", source);
+        let result = tokenize(&mut source_stream);
+        let token_stream = result.result.expect("Tokenization should succeed");
+        let cst = parse(token_stream);
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("IfStatement"));
+        assert!(debug.contains("SetStatement"));
+    }
+
+    #[test]
+    fn inline_if_then_exit() {
+        let source = r#"
+Sub Test()
+    If errorOccurred Then Exit Sub
+    Debug.Print "continuing"
+End Sub
+"#;
+
+        let mut source_stream = SourceStream::new("test.bas", source);
+        let result = tokenize(&mut source_stream);
+        let token_stream = result.result.expect("Tokenization should succeed");
+        let cst = parse(token_stream);
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("IfStatement"));
+        assert!(debug.contains("ExitKeyword"));
+    }
+
+    #[test]
+    fn inline_if_then_multiple_statements() {
+        let source = r#"
+Sub Test()
+    If condition Then x = 1: y = 2
+End Sub
+"#;
+
+        let mut source_stream = SourceStream::new("test.bas", source);
+        let result = tokenize(&mut source_stream);
+        let token_stream = result.result.expect("Tokenization should succeed");
+        let cst = parse(token_stream);
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("IfStatement"));
+        let count = debug.matches("AssignmentStatement").count();
+        assert_eq!(
+            count, 2,
+            "Expected 2 assignment statements separated by colon"
+        );
+    }
+
+    #[test]
+    fn inline_if_preserves_whitespace() {
+        let source = r#"
+Sub Test()
+    If x > 0 Then GoTo Label1
+Label1:
+    x = 1
+End Sub
+"#;
+
+        let mut source_stream = SourceStream::new("test.bas", source);
+        let result = tokenize(&mut source_stream);
+        let token_stream = result.result.expect("Tokenization should succeed");
+        let cst = parse(token_stream);
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("IfStatement"));
+        assert!(debug.contains("Whitespace"));
+        assert!(debug.contains("Newline"));
+    }
+
+    #[test]
+    fn inline_if_then_goto_with_comment() {
+        let source = r#"
+Sub Test()
+    If x > 0 Then GoTo Positive ' go to positive case
+Positive:
+    result = x
+End Sub
+"#;
+
+        let mut source_stream = SourceStream::new("test.bas", source);
+        let result = tokenize(&mut source_stream);
+        let token_stream = result.result.expect("Tokenization should succeed");
+        let cst = parse(token_stream);
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("IfStatement"));
+        assert!(debug.contains("GotoStatement"));
+        assert!(debug.contains("EndOfLineComment"));
+    }
+
+    #[test]
+    fn inline_if_then_call_with_args() {
+        let source = r#"
+Sub Test()
+    If ready Then Call Process(x, y, z)
+End Sub
+"#;
+
+        let mut source_stream = SourceStream::new("test.bas", source);
+        let result = tokenize(&mut source_stream);
+        let token_stream = result.result.expect("Tokenization should succeed");
+        let cst = parse(token_stream);
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("IfStatement"));
+        assert!(debug.contains("CallStatement"));
+    }
+
+    #[test]
+    fn inline_if_then_nested_calls() {
+        let source = r#"
+Sub Test()
+    If value > 0 Then result = Calculate(value)
+End Sub
+"#;
+
+        let mut source_stream = SourceStream::new("test.bas", source);
+        let result = tokenize(&mut source_stream);
+        let token_stream = result.result.expect("Tokenization should succeed");
+        let cst = parse(token_stream);
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("IfStatement"));
+        assert!(debug.contains("AssignmentStatement"));
+    }
+
+    #[test]
+    fn inline_if_complex_condition() {
+        let source = r#"
+Sub Test()
+    If x > 0 And y < 10 Then GoTo Valid
+Valid:
+    Process
+End Sub
+"#;
+
+        let mut source_stream = SourceStream::new("test.bas", source);
+        let result = tokenize(&mut source_stream);
+        let token_stream = result.result.expect("Tokenization should succeed");
+        let cst = parse(token_stream);
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("IfStatement"));
+        assert!(debug.contains("GotoStatement"));
+    }
+
+    #[test]
+    fn inline_if_not_condition() {
+        let source = r#"
+Sub Test()
+    If Not IsValid Then Exit Sub
+End Sub
+"#;
+
+        let mut source_stream = SourceStream::new("test.bas", source);
+        let result = tokenize(&mut source_stream);
+        let token_stream = result.result.expect("Tokenization should succeed");
+        let cst = parse(token_stream);
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("IfStatement"));
+        assert!(debug.contains("ExitKeyword"));
+    }
+
+    #[test]
+    fn binary_conditional() {
+        let code = r#"Sub Test()
+    If x = 5 Then
+    End If
+End Sub
+"#;
+
+        let mut source_stream = SourceStream::new("test.bas", code);
+        let result = tokenize(&mut source_stream);
+        let token_stream = result.result.expect("Tokenization should succeed");
+        let cst = parse(token_stream);
+
+        // Navigate the tree structure
+        let children = cst.children();
+
+        // Find the SubStatement node
+        let sub_statement = children
+            .iter()
+            .find(|child| child.kind == SyntaxKind::SubStatement)
+            .expect("Should have a SubStatement node");
+
+        // The SubStatement should contain a CodeBlock
+        let code_block = sub_statement
+            .children
+            .iter()
+            .find(|child| child.kind == SyntaxKind::CodeBlock)
+            .expect("SubStatement should contain a CodeBlock");
+
+        // The CodeBlock should contain an IfStatement
+        let if_statement = code_block
+            .children
+            .iter()
+            .find(|child| child.kind == SyntaxKind::IfStatement)
+            .expect("CodeBlock should contain an IfStatement");
+
+        // The IfStatement should contain a BinaryConditional
+        let binary_conditional = if_statement
+            .children
+            .iter()
+            .find(|child| child.kind == SyntaxKind::BinaryConditional)
+            .expect("IfStatement should contain a BinaryConditional");
+
+        // Verify the BinaryConditional structure
+        assert_eq!(binary_conditional.kind, SyntaxKind::BinaryConditional);
+        assert!(
+            !binary_conditional.is_token,
+            "BinaryConditional should be a node, not a token"
+        );
+
+        // Verify the BinaryConditional contains the expected elements:
+        // whitespace, identifier "x", whitespace, "=", whitespace, number "5", whitespace
+        assert!(binary_conditional
+            .children
+            .iter()
+            .any(|c| c.kind == SyntaxKind::Identifier && c.text == "x"));
+        assert!(binary_conditional
+            .children
+            .iter()
+            .any(|c| c.kind == SyntaxKind::EqualityOperator));
+        assert!(binary_conditional
+            .children
+            .iter()
+            .any(|c| c.kind == SyntaxKind::Number && c.text == "5"));
+    }
+
+    #[test]
+    fn unary_conditional() {
+        let code = r#"Sub Test()
+    If Not isEmpty(x) Then
+    End If
+End Sub
+"#;
+
+        let mut source_stream = SourceStream::new("test.bas", code);
+        let result = tokenize(&mut source_stream);
+        let token_stream = result.result.expect("Tokenization should succeed");
+        let cst = parse(token_stream);
+
+        // Navigate the tree structure
+        let children = cst.children();
+
+        // Find the SubStatement node
+        let sub_statement = children
+            .iter()
+            .find(|child| child.kind == SyntaxKind::SubStatement)
+            .expect("Should have a SubStatement node");
+
+        // The SubStatement should contain a CodeBlock
+        let code_block = sub_statement
+            .children
+            .iter()
+            .find(|child| child.kind == SyntaxKind::CodeBlock)
+            .expect("SubStatement should contain a CodeBlock");
+
+        // The CodeBlock should contain an IfStatement
+        let if_statement = code_block
+            .children
+            .iter()
+            .find(|child| child.kind == SyntaxKind::IfStatement)
+            .expect("CodeBlock should contain an IfStatement");
+
+        // The IfStatement should contain a UnaryConditional
+        let unary_conditional = if_statement
+            .children
+            .iter()
+            .find(|child| child.kind == SyntaxKind::UnaryConditional)
+            .expect("IfStatement should contain a UnaryConditional");
+
+        // Verify the UnaryConditional structure
+        assert_eq!(unary_conditional.kind, SyntaxKind::UnaryConditional);
+        assert!(
+            !unary_conditional.is_token,
+            "UnaryConditional should be a node, not a token"
+        );
+
+        // Verify the UnaryConditional contains the expected elements:
+        // whitespace, Not keyword, whitespace, identifier "isEmpty", parentheses, identifier "x", parentheses, whitespace
+        assert!(unary_conditional
+            .children
+            .iter()
+            .any(|c| c.kind == SyntaxKind::NotKeyword));
+        assert!(unary_conditional
+            .children
+            .iter()
+            .any(|c| c.kind == SyntaxKind::Identifier && c.text == "isEmpty"));
+        assert!(unary_conditional
+            .children
+            .iter()
+            .any(|c| c.kind == SyntaxKind::Identifier && c.text == "x"));
+        assert!(unary_conditional
+            .children
+            .iter()
+            .any(|c| c.kind == SyntaxKind::LeftParentheses));
+        assert!(unary_conditional
+            .children
+            .iter()
+            .any(|c| c.kind == SyntaxKind::RightParentheses));
+    }
+
+    #[test]
+    fn nested_if_elseif_else() {
+        let code = r#"Sub Test()
+    If x > 0 Then
+        If y > 0 Then
+        ElseIf y < 0 Then
+        Else
+        End If
+    ElseIf x < 0 Then
+    Else
+    End If
+End Sub
+"#;
+
+        let mut source_stream = SourceStream::new("test.bas", code);
+        let result = tokenize(&mut source_stream);
+        let token_stream = result.result.expect("Tokenization should succeed");
+        let cst = parse(token_stream);
+
+        // Navigate the tree structure
+        let children = cst.children();
+
+        // Find the SubStatement node
+        let sub_statement = children
+            .iter()
+            .find(|child| child.kind == SyntaxKind::SubStatement)
+            .expect("Should have a SubStatement node");
+
+        // The SubStatement should contain a CodeBlock
+        let code_block = sub_statement
+            .children
+            .iter()
+            .find(|child| child.kind == SyntaxKind::CodeBlock)
+            .expect("SubStatement should contain a CodeBlock");
+
+        // Find the outer IfStatement in the CodeBlock
+        let outer_if = code_block
+            .children
+            .iter()
+            .find(|child| child.kind == SyntaxKind::IfStatement)
+            .expect("CodeBlock should contain an outer IfStatement");
+
+        // Verify outer If has a BinaryConditional (x > 0)
+        let outer_conditional = outer_if
+            .children
+            .iter()
+            .find(|child| child.kind == SyntaxKind::BinaryConditional)
+            .expect("Outer IfStatement should contain a BinaryConditional");
+        assert!(outer_conditional
+            .children
+            .iter()
+            .any(|c| c.kind == SyntaxKind::Identifier && c.text == "x"));
+        assert!(outer_conditional
+            .children
+            .iter()
+            .any(|c| c.kind == SyntaxKind::GreaterThanOperator));
+
+        // Find the CodeBlock inside the outer If
+        let outer_code_block = outer_if
+            .children
+            .iter()
+            .find(|child| child.kind == SyntaxKind::CodeBlock)
+            .expect("Outer IfStatement should contain a CodeBlock");
+
+        // Find the inner IfStatement (nested within the outer If's CodeBlock)
+        let inner_if = outer_code_block
+            .children
+            .iter()
+            .find(|child| child.kind == SyntaxKind::IfStatement)
+            .expect("Outer CodeBlock should contain a nested IfStatement");
+
+        // Verify inner If has a BinaryConditional (y > 0)
+        let inner_conditional = inner_if
+            .children
+            .iter()
+            .find(|child| child.kind == SyntaxKind::BinaryConditional)
+            .expect("Inner IfStatement should contain a BinaryConditional");
+        assert!(inner_conditional
+            .children
+            .iter()
+            .any(|c| c.kind == SyntaxKind::Identifier && c.text == "y"));
+        assert!(inner_conditional
+            .children
+            .iter()
+            .any(|c| c.kind == SyntaxKind::GreaterThanOperator));
+
+        // Verify inner If has ElseIf clause
+        let inner_elseif = inner_if
+            .children
+            .iter()
+            .find(|child| child.kind == SyntaxKind::ElseIfClause)
+            .expect("Inner IfStatement should contain an ElseIfClause");
+
+        // Verify inner ElseIf has a BinaryConditional (y < 0)
+        let inner_elseif_conditional = inner_elseif
+            .children
+            .iter()
+            .find(|child| child.kind == SyntaxKind::BinaryConditional)
+            .expect("Inner ElseIfClause should contain a BinaryConditional");
+        assert!(inner_elseif_conditional
+            .children
+            .iter()
+            .any(|c| c.kind == SyntaxKind::Identifier && c.text == "y"));
+        assert!(inner_elseif_conditional
+            .children
+            .iter()
+            .any(|c| c.kind == SyntaxKind::LessThanOperator));
+
+        // Verify inner If has Else clause
+        assert!(
+            inner_if
+                .children
+                .iter()
+                .any(|child| child.kind == SyntaxKind::ElseClause),
+            "Inner IfStatement should contain an ElseClause"
+        );
+
+        // Verify outer If has ElseIf clause
+        let outer_elseif = outer_if
+            .children
+            .iter()
+            .find(|child| child.kind == SyntaxKind::ElseIfClause)
+            .expect("Outer IfStatement should contain an ElseIfClause");
+
+        // Verify outer ElseIf has a BinaryConditional (x < 0)
+        let outer_elseif_conditional = outer_elseif
+            .children
+            .iter()
+            .find(|child| child.kind == SyntaxKind::BinaryConditional)
+            .expect("Outer ElseIfClause should contain a BinaryConditional");
+        assert!(outer_elseif_conditional
+            .children
+            .iter()
+            .any(|c| c.kind == SyntaxKind::Identifier && c.text == "x"));
+        assert!(outer_elseif_conditional
+            .children
+            .iter()
+            .any(|c| c.kind == SyntaxKind::LessThanOperator));
+
+        // Verify outer If has Else clause
+        assert!(
+            outer_if
+                .children
+                .iter()
+                .any(|child| child.kind == SyntaxKind::ElseClause),
+            "Outer IfStatement should contain an ElseClause"
+        );
     }
 }

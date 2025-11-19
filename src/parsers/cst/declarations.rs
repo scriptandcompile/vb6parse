@@ -102,7 +102,7 @@ impl<'a> Parser<'a> {
 
             // Consume any whitespace between "End" and "Sub"
             self.consume_whitespace();
-            
+
             // Consume "Sub"
             self.consume_token();
 
@@ -360,10 +360,9 @@ impl<'a> Parser<'a> {
 
     /// Parse a declaration: Dim/Private/Public x As Type
     pub(super) fn parse_declaration(&mut self) {
-        
         // if we are now parsing a declaration, we are no longer in the header.
         self.parsing_header = false;
-        
+
         self.builder.start_node(SyntaxKind::DimStatement.to_raw());
 
         // Consume the keyword (Dim, Private, Public, etc.)
