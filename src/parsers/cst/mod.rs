@@ -216,6 +216,10 @@ impl<'a> Parser<'a> {
                 Some(VB6Token::OptionKeyword) => {
                     self.parse_option_statement();
                 }
+                // Declare statement: Declare Sub/Function Name Lib "..."
+                Some(VB6Token::DeclareKeyword) => {
+                    self.parse_declare_statement();
+                }
                 // Sub procedure: Sub Name(...)
                 Some(VB6Token::SubKeyword) => {
                     self.parse_sub_statement();
@@ -252,10 +256,11 @@ impl<'a> Parser<'a> {
                         .collect();
 
                     let procedure_type = match next_keywords.as_slice() {
-                        // Direct: Public/Private/Friend Function, Sub, or Property
+                        // Direct: Public/Private/Friend Function, Sub, Property, or Declare
                         [VB6Token::FunctionKeyword, ..] => Some(0), // Function
                         [VB6Token::SubKeyword, ..] => Some(1),      // Sub
                         [VB6Token::PropertyKeyword, ..] => Some(2), // Property
+                        [VB6Token::DeclareKeyword, ..] => Some(3),  // Declare
                         // With Static: Public/Private/Friend Static Function, Sub, or Property
                         [VB6Token::StaticKeyword, VB6Token::FunctionKeyword] => Some(0),
                         [VB6Token::StaticKeyword, VB6Token::SubKeyword] => Some(1),
@@ -268,6 +273,7 @@ impl<'a> Parser<'a> {
                         Some(0) => self.parse_function_statement(), // Function
                         Some(1) => self.parse_sub_statement(),      // Sub
                         Some(2) => self.parse_property_statement(), // Property
+                        Some(3) => self.parse_declare_statement(),  // Declare
                         _ => self.parse_dim(),                      // Declaration
                     }
                 }
