@@ -156,21 +156,38 @@ impl<'a> Parser<'a> {
             _ => {}
         }
     }
+
+    /// Parse a Dim statement: Dim/Private/Public x As Type
+    pub(super) fn parse_dim(&mut self) {
+        // if we are now parsing a dim statement, we are no longer in the header.
+        self.parsing_header = false;
+
+        self.builder.start_node(SyntaxKind::DimStatement.to_raw());
+
+        // Consume the keyword (Dim, Private, Public, etc.)
+        self.consume_token();
+
+        // Consume everything until newline (preserving all tokens)
+        self.consume_until(VB6Token::Newline);
+
+        // Consume the newline
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        self.builder.finish_node(); // DimStatement
+    }
 }
 
 #[cfg(test)]
 mod test {
-    use crate::parsers::{parse, SourceStream, SyntaxKind};
-    use crate::tokenize::tokenize;
+    use crate::*;
 
     // Call statement tests
     #[test]
     fn call_statement_simple() {
-        let code = "Call MySubroutine()\n";
-        let mut source_stream = SourceStream::new("test.bas", code);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let source = "Call MySubroutine()\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
 
@@ -178,16 +195,13 @@ mod test {
             assert_eq!(child.kind, SyntaxKind::CallStatement);
         }
 
-        assert_eq!(cst.text(), code);
+        assert_eq!(cst.text(), source);
     }
 
     #[test]
     fn call_statement_with_arguments() {
-        let code = "Call ProcessData(x, y, z)\n";
-        let mut source_stream = SourceStream::new("test.bas", code);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let source = "Call ProcessData(x, y, z)\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
 
@@ -201,22 +215,16 @@ mod test {
 
     #[test]
     fn call_statement_preserves_whitespace() {
-        let code = "Call  MyFunction (  arg1 ,  arg2  )\n";
-        let mut source_stream = SourceStream::new("test.bas", code);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let source = "Call  MyFunction (  arg1 ,  arg2  )\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
-        assert_eq!(cst.text(), code);
+        assert_eq!(cst.text(), source);
     }
 
     #[test]
     fn call_statement_in_sub() {
-        let code = "Sub Main()\nCall DoSomething()\nEnd Sub\n";
-        let mut source_stream = SourceStream::new("test.bas", code);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let source = "Sub Main()\nCall DoSomething()\nEnd Sub\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
 
@@ -225,16 +233,13 @@ mod test {
             assert!(sub_statement.text.contains("Call DoSomething"));
         }
 
-        assert_eq!(cst.text(), code);
+        assert_eq!(cst.text(), source);
     }
 
     #[test]
     fn call_statement_no_parentheses() {
-        let code = "Call MySubroutine\n";
-        let mut source_stream = SourceStream::new("test.bas", code);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let source = "Call MySubroutine\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
 
@@ -242,16 +247,13 @@ mod test {
             assert_eq!(child.kind, SyntaxKind::CallStatement);
         }
 
-        assert_eq!(cst.text(), code);
+        assert_eq!(cst.text(), source);
     }
 
     #[test]
     fn multiple_call_statements() {
-        let code = "Call First()\nCall Second()\nCall Third()\n";
-        let mut source_stream = SourceStream::new("test.bas", code);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let source = "Call First()\nCall Second()\nCall Third()\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 3);
 
@@ -268,11 +270,8 @@ mod test {
 
     #[test]
     fn call_statement_with_string_arguments() {
-        let code = "Call ShowMessage(\"Hello, World!\")\n";
-        let mut source_stream = SourceStream::new("test.bas", code);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let source = "Call ShowMessage(\"Hello, World!\")\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
 
@@ -285,11 +284,8 @@ mod test {
 
     #[test]
     fn call_statement_with_complex_expressions() {
-        let code = "Call Calculate(x + y, z * 2, (a - b) / c)\n";
-        let mut source_stream = SourceStream::new("test.bas", code);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let source = "Call Calculate(x + y, z * 2, (a - b) / c)\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
 
@@ -310,10 +306,7 @@ Sub Test()
 End Sub
 "#;
 
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetStatement"));
@@ -362,11 +355,7 @@ Sub Test()
     Set myObj.Property = otherObj
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetStatement"));
@@ -380,11 +369,7 @@ Sub Test()
     Set result = GetObject("WinMgmts:")
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetStatement"));
@@ -397,11 +382,7 @@ Sub Test()
     Set item = collection.Item(1)
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetStatement"));
@@ -416,11 +397,7 @@ Sub Test()
     Set obj3 = Nothing
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let set_count = debug.matches("SetStatement").count();
@@ -434,11 +411,7 @@ Sub Test()
     Set   obj   =   New   MyClass
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetStatement"));
@@ -452,11 +425,7 @@ Function GetObject() As Object
     Set GetObject = New MyClass
 End Function
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetStatement"));
@@ -468,11 +437,7 @@ End Function
         let source = r#"
 Set globalObj = New MyClass
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetStatement"));
@@ -489,11 +454,7 @@ Sub Test()
     End With
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("WithStatement"));
@@ -510,11 +471,7 @@ Sub Test()
     End With
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("WithStatement"));
@@ -531,11 +488,7 @@ Sub Test()
     End With
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("WithStatement"));
@@ -554,11 +507,7 @@ Sub Test()
     End With
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let count = debug.matches("WithStatement").count();
@@ -577,11 +526,7 @@ Sub Test()
     End With
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("WithStatement"));
@@ -599,11 +544,7 @@ Sub Test()
     End With
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("WithStatement"));
@@ -621,11 +562,7 @@ Sub Test()
     End With
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("WithStatement"));
@@ -642,11 +579,7 @@ Sub Test()
     End With
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("WithStatement"));
@@ -662,11 +595,7 @@ Sub Test()
     End With
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("WithStatement"));
@@ -681,11 +610,7 @@ Sub Test()
     End With
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("WithStatement"));
@@ -703,11 +628,7 @@ Sub Test()
     End With
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let count = debug.matches("WithStatement").count();
@@ -721,11 +642,7 @@ With obj
     .Property = value
 End With
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("WithStatement"));
@@ -742,11 +659,7 @@ Sub Test()
     End With
 End Sub
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("WithStatement"));
@@ -760,14 +673,108 @@ With GlobalObject
     .Config = value
 End With
 "#;
-
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
-        let cst = parse(token_stream);
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("WithStatement"));
         assert!(debug.contains("GlobalObject"));
+    }
+
+    // Dim statement tests
+    #[test]
+    fn parse_dim_declaration() {
+        let source = "Dim x As Integer\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.root_kind(), SyntaxKind::Root);
+        assert_eq!(cst.child_count(), 1);
+        assert_eq!(cst.text(), "Dim x As Integer\n");
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+    }
+
+    #[test]
+    fn parse_private_declaration() {
+        let source = "Private m_value As Long\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.root_kind(), SyntaxKind::Root);
+        assert_eq!(cst.child_count(), 1);
+        assert_eq!(cst.text(), "Private m_value As Long\n");
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("PrivateKeyword"));
+    }
+
+    #[test]
+    fn parse_public_declaration() {
+        let source = "Public g_config As String\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.root_kind(), SyntaxKind::Root);
+        assert_eq!(cst.child_count(), 1);
+        assert_eq!(cst.text(), "Public g_config As String\n");
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("PublicKeyword"));
+    }
+
+    #[test]
+    fn parse_multiple_variable_declaration() {
+        let source = "Dim x, y, z As Integer\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.root_kind(), SyntaxKind::Root);
+        assert_eq!(cst.child_count(), 1);
+        assert_eq!(cst.text(), "Dim x, y, z As Integer\n");
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+    }
+
+    #[test]
+    fn parse_const_declaration() {
+        let source = "Const MAX_SIZE = 100\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.root_kind(), SyntaxKind::Root);
+        assert_eq!(cst.child_count(), 1);
+        assert_eq!(cst.text(), "Const MAX_SIZE = 100\n");
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("ConstKeyword"));
+    }
+
+    #[test]
+    fn parse_private_const_declaration() {
+        let source = "Private Const MODULE_NAME = \"MyModule\"\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.root_kind(), SyntaxKind::Root);
+        assert_eq!(cst.child_count(), 1);
+        assert_eq!(cst.text(), "Private Const MODULE_NAME = \"MyModule\"\n");
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("PrivateKeyword"));
+        assert!(debug.contains("ConstKeyword"));
+    }
+
+    #[test]
+    fn parse_static_declaration() {
+        let source = "Static counter As Long\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.root_kind(), SyntaxKind::Root);
+        assert_eq!(cst.child_count(), 1);
+        assert_eq!(cst.text(), "Static counter As Long\n");
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("StaticKeyword"));
     }
 }

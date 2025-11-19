@@ -362,7 +362,7 @@ impl<'a> Parser<'a> {
                 // For Public/Private/Friend/Static, we need to look ahead to see if it's a
                 // function/sub declaration or a variable declaration
                 Some(VB6Token::DimKeyword) | Some(VB6Token::ConstKeyword) => {
-                    self.parse_declaration();
+                    self.parse_dim();
                 }
                 // Public/Private/Friend/Static - could be function/sub/property or declaration
                 Some(VB6Token::PrivateKeyword)
@@ -392,7 +392,7 @@ impl<'a> Parser<'a> {
                         Some(0) => self.parse_function_statement(), // Function
                         Some(1) => self.parse_sub_statement(),      // Sub
                         Some(2) => self.parse_property_statement(), // Property
-                        _ => self.parse_declaration(),              // Declaration
+                        _ => self.parse_dim(),                      // Declaration
                     }
                 }
                 // Whitespace and newlines - consume directly
@@ -589,7 +589,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::PublicKeyword)
                 | Some(VB6Token::ConstKeyword)
                 | Some(VB6Token::StaticKeyword) => {
-                    self.parse_declaration();
+                    self.parse_dim();
                 }
                 // Whitespace and newlines - consume directly
                 Some(VB6Token::Whitespace)
