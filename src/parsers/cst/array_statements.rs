@@ -1,6 +1,7 @@
 //! Array statement parsing for VB6 CST.
 //!
 //! This module handles parsing of VB6 array statements:
+//! - Variable declarations (Dim, Private, Public, Const, Static)
 //! - ReDim - Reallocate storage space for dynamic array variables
 
 use crate::language::VB6Token;

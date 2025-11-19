@@ -4,8 +4,9 @@
 //! - Function statements
 //! - Sub statements
 //! - Property statements (Get, Let, Set)
-//! - Variable declarations (Dim, Private, Public, Const, Static)
 //! - Parameter lists
+//! 
+//! Dim/ReDim and general Variable declarations are handled in the array_statements module.
 
 use crate::language::VB6Token;
 use crate::parsers::SyntaxKind;
