@@ -67,8 +67,8 @@ use crate::VB6CodeErrorKind;
 use rowan::{GreenNode, GreenNodeBuilder, Language};
 
 // Submodules for organized CST parsing
-mod assignment;
 mod array_statements;
+mod assignment;
 mod built_in_statements;
 mod conditionals;
 mod controlflow;
@@ -77,8 +77,8 @@ mod for_statements;
 mod helpers;
 mod if_statements;
 mod loop_statements;
-mod select_statements;
 mod object_statements;
+mod select_statements;
 
 /// The language type for VB6 syntax trees.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
