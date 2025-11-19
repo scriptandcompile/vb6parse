@@ -69,6 +69,7 @@ use rowan::{GreenNode, GreenNodeBuilder, Language};
 // Submodules for organized CST parsing
 mod array_statements;
 mod assignment;
+mod attribute_statements;
 mod built_in_statements;
 mod conditionals;
 mod controlflow;
@@ -309,25 +310,6 @@ impl<'a> Parser<'a> {
 
         let root = self.builder.finish();
         ConcreteSyntaxTree::new(root)
-    }
-
-    /// Parse an Attribute statement: Attribute VB_Name = "value"
-    fn parse_attribute_statement(&mut self) {
-        self.builder
-            .start_node(SyntaxKind::AttributeStatement.to_raw());
-
-        // Consume "Attribute" keyword
-        self.consume_token();
-
-        // Consume everything until newline (preserving all tokens)
-        self.consume_until(VB6Token::Newline);
-
-        // Consume the newline
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
-
-        self.builder.finish_node(); // AttributeStatement
     }
 
     /// Check if the current token is a control flow keyword.
