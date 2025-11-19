@@ -602,4 +602,43 @@ End Function
             "Function should be at root level"
         );
     }
+
+    #[test]
+    fn cst_public_static_sub() {
+        // Test Public Static Sub
+        let source = "Public Static Sub Initialize()\nEnd Sub\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.child_count(), 1);
+        if let Some(child) = cst.child_at(0) {
+            assert_eq!(child.kind, SyntaxKind::SubStatement);
+        }
+        assert!(cst.text().contains("Public Static Sub Initialize"));
+    }
+
+    #[test]
+    fn cst_public_sub() {
+        // Test Public Sub
+        let source = "Public Sub Initialize()\nEnd Sub\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.child_count(), 1);
+        if let Some(child) = cst.child_at(0) {
+            assert_eq!(child.kind, SyntaxKind::SubStatement);
+        }
+        assert!(cst.text().contains("Public Sub Initialize"));
+    }
+
+    #[test]
+    fn cst_private_sub() {
+        // Test Private Sub
+        let source = "Private Sub Initialize()\nEnd Sub\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.child_count(), 1);
+        if let Some(child) = cst.child_at(0) {
+            assert_eq!(child.kind, SyntaxKind::SubStatement);
+        }
+        assert!(cst.text().contains("Private Sub Initialize"));
+    }
 }
