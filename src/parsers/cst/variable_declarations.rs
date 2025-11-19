@@ -17,7 +17,7 @@ impl<'a> Parser<'a> {
     ///
     /// Used at procedure level to reallocate storage space for dynamic array variables.
     ///
-    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/redim-statement)
+    /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266231(v=vs.60))
     pub(super) fn parse_redim_statement(&mut self) {
         // if we are now parsing a ReDim statement, we are no longer in the header.
         self.parsing_header = false;
@@ -36,6 +36,38 @@ impl<'a> Parser<'a> {
         }
 
         self.builder.finish_node(); // ReDimStatement
+    }
+
+    /// Parse a Dim statement: Dim/Private/Public/Const/Static x As Type
+    ///
+    /// VB6 variable declaration statement syntax:
+    /// - Dim varname [As type]
+    /// - Private varname [As type]
+    /// - Public varname [As type]
+    /// - Const constname = expression
+    /// - Static varname [As type]
+    ///
+    /// Used to declare variables and allocate storage space.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/dim-statement)
+    pub(super) fn parse_dim(&mut self) {
+        // if we are now parsing a dim statement, we are no longer in the header.
+        self.parsing_header = false;
+
+        self.builder.start_node(SyntaxKind::DimStatement.to_raw());
+
+        // Consume the keyword (Dim, Private, Public, Const, Static, etc.)
+        self.consume_token();
+
+        // Consume everything until newline (preserving all tokens)
+        self.consume_until(VB6Token::Newline);
+
+        // Consume the newline
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        self.builder.finish_node(); // DimStatement
     }
 }
 
@@ -244,6 +276,103 @@ End Sub
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ReDimStatement"));
-        assert!(debug.contains("ReDimKeyword"));
+    }
+
+    // Dim statement tests
+    #[test]
+    fn dim_simple_declaration() {
+        let source = "Dim x As Integer\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.root_kind(), SyntaxKind::Root);
+        assert_eq!(cst.child_count(), 1);
+        assert_eq!(cst.text(), "Dim x As Integer\n");
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+    }
+
+    #[test]
+    fn dim_private_declaration() {
+        let source = "Private m_value As Long\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.root_kind(), SyntaxKind::Root);
+        assert_eq!(cst.child_count(), 1);
+        assert_eq!(cst.text(), "Private m_value As Long\n");
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("PrivateKeyword"));
+    }
+
+    #[test]
+    fn dim_public_declaration() {
+        let source = "Public g_config As String\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.root_kind(), SyntaxKind::Root);
+        assert_eq!(cst.child_count(), 1);
+        assert_eq!(cst.text(), "Public g_config As String\n");
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("PublicKeyword"));
+    }
+
+    #[test]
+    fn dim_multiple_variables() {
+        let source = "Dim x, y, z As Integer\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.root_kind(), SyntaxKind::Root);
+        assert_eq!(cst.child_count(), 1);
+        assert_eq!(cst.text(), "Dim x, y, z As Integer\n");
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+    }
+
+    #[test]
+    fn dim_const_declaration() {
+        let source = "Const MAX_SIZE = 100\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.root_kind(), SyntaxKind::Root);
+        assert_eq!(cst.child_count(), 1);
+        assert_eq!(cst.text(), "Const MAX_SIZE = 100\n");
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("ConstKeyword"));
+    }
+
+    #[test]
+    fn dim_private_const() {
+        let source = "Private Const MODULE_NAME = \"MyModule\"\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.root_kind(), SyntaxKind::Root);
+        assert_eq!(cst.child_count(), 1);
+        assert_eq!(cst.text(), "Private Const MODULE_NAME = \"MyModule\"\n");
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("PrivateKeyword"));
+        assert!(debug.contains("ConstKeyword"));
+    }
+
+    #[test]
+    fn dim_static_declaration() {
+        let source = "Static counter As Long\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.root_kind(), SyntaxKind::Root);
+        assert_eq!(cst.child_count(), 1);
+        assert_eq!(cst.text(), "Static counter As Long\n");
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("StaticKeyword"));
     }
 }

@@ -67,7 +67,6 @@ use crate::VB6CodeErrorKind;
 use rowan::{GreenNode, GreenNodeBuilder, Language};
 
 // Submodules for organized CST parsing
-mod array_statements;
 mod assignment;
 mod attribute_statements;
 mod built_in_statements;
@@ -87,6 +86,7 @@ mod parameters;
 mod property_statements;
 mod select_statements;
 mod sub_statements;
+mod variable_declarations;
 
 // Re-export navigation types
 pub use navigation::CstNode;
