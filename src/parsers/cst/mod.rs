@@ -67,6 +67,7 @@ use crate::tokenstream::TokenStream;
 use rowan::{GreenNode, GreenNodeBuilder, Language};
 
 // Submodules for organized CST parsing
+mod assignment;
 mod built_in_statements;
 mod controlflow;
 mod declarations;
