@@ -7,7 +7,6 @@ mod cst;
 mod cst_navigation;
 mod declaration;
 mod function_linecont;
-mod label;
 mod option_explicit;
 mod property_statement;
 mod redim_statement;
