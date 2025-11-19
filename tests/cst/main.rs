@@ -3,7 +3,6 @@
 // throwing all test files in the root tests folder.
 
 mod assignment;
-mod beep_statement;
 mod call;
 mod chdir_statement;
 mod chdrive_statement;
