@@ -390,7 +390,10 @@ impl<'a> Parser<'a> {
 
     /// Check if the current token is an array statement keyword.
     fn is_array_statement_keyword(&self) -> bool {
-        matches!(self.current_token(), Some(VB6Token::ReDimKeyword))
+        matches!(
+            self.current_token(),
+            Some(VB6Token::ReDimKeyword) | Some(VB6Token::EraseKeyword)
+        )
     }
 
     /// Dispatch array statement parsing to the appropriate parser.
@@ -398,6 +401,9 @@ impl<'a> Parser<'a> {
         match self.current_token() {
             Some(VB6Token::ReDimKeyword) => {
                 self.parse_redim_statement();
+            }
+            Some(VB6Token::EraseKeyword) => {
+                self.parse_erase_statement();
             }
             _ => {}
         }

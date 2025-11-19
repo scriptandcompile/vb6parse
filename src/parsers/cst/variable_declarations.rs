@@ -3,6 +3,7 @@
 //! This module handles parsing of VB6 array statements:
 //! - Variable declarations (Dim, Private, Public, Const, Static)
 //! - ReDim - Reallocate storage space for dynamic array variables
+//! - Erase - Reinitialize the elements of fixed-size arrays and deallocate dynamic arrays
 
 use crate::language::VB6Token;
 use crate::parsers::SyntaxKind;
@@ -68,6 +69,48 @@ impl<'a> Parser<'a> {
         }
 
         self.builder.finish_node(); // DimStatement
+    }
+
+    /// Parse an Erase statement: Erase array1 [, array2] ...
+    ///
+    /// VB6 Erase statement syntax:
+    /// - Erase arraylist
+    ///
+    /// The Erase statement is used to reinitialize the elements of fixed-size arrays
+    /// and to release storage space used by dynamic arrays.
+    ///
+    /// The arraylist argument is a list of one or more comma-delimited array variable names.
+    ///
+    /// Behavior:
+    /// - For fixed-size arrays: Reinitializes the elements to their default values
+    ///   (0 for numeric types, "" for strings, Nothing for objects)
+    /// - For dynamic arrays: Deallocates the memory used by the array
+    ///
+    /// Examples:
+    /// ```vb
+    /// Erase myArray
+    /// Erase array1, array2, array3
+    /// ```
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/erase-statement)
+    pub(super) fn parse_erase_statement(&mut self) {
+        // if we are now parsing an erase statement, we are no longer in the header.
+        self.parsing_header = false;
+
+        self.builder.start_node(SyntaxKind::EraseStatement.to_raw());
+
+        // Consume "Erase" keyword
+        self.consume_token();
+
+        // Consume everything until newline (array names, commas, etc.)
+        self.consume_until(VB6Token::Newline);
+
+        // Consume the newline
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        self.builder.finish_node(); // EraseStatement
     }
 }
 
@@ -374,5 +417,193 @@ End Sub
         let debug = cst.debug_tree();
         assert!(debug.contains("DimStatement"));
         assert!(debug.contains("StaticKeyword"));
+    }
+
+    // Erase statement tests
+    #[test]
+    fn erase_simple_array() {
+        let source = r#"
+Sub Test()
+    Erase myArray
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("EraseStatement"));
+        assert!(debug.contains("EraseKeyword"));
+    }
+
+    #[test]
+    fn erase_multiple_arrays() {
+        let source = r#"
+Sub Test()
+    Erase array1, array2, array3
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("EraseStatement"));
+        assert!(debug.contains("array1"));
+        assert!(debug.contains("array2"));
+        assert!(debug.contains("array3"));
+    }
+
+    #[test]
+    fn erase_at_module_level() {
+        let source = "Erase globalArray\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.root_kind(), SyntaxKind::Root);
+        assert_eq!(cst.child_count(), 1);
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("EraseStatement"));
+    }
+
+    #[test]
+    fn erase_preserves_whitespace() {
+        let source = "    Erase    myArray    \n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.text(), "    Erase    myArray    \n");
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("EraseStatement"));
+    }
+
+    #[test]
+    fn erase_with_comment() {
+        let source = r#"
+Sub Test()
+    Erase tempArray ' Free up memory
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("EraseStatement"));
+        assert!(debug.contains("Comment"));
+    }
+
+    #[test]
+    fn erase_in_if_statement() {
+        let source = r#"
+Sub Cleanup()
+    If shouldClear Then
+        Erase dataArray
+    End If
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("EraseStatement"));
+    }
+
+    #[test]
+    fn erase_inline_if() {
+        let source = r#"
+Sub Test()
+    If resetFlag Then Erase buffer
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("EraseStatement"));
+    }
+
+    #[test]
+    fn erase_in_loop() {
+        let source = r#"
+Sub Test()
+    For i = 1 To 10
+        Erase tempArrays(i)
+    Next i
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("EraseStatement"));
+    }
+
+    #[test]
+    fn erase_with_parentheses() {
+        let source = r#"
+Sub Test()
+    Erase myArray()
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("EraseStatement"));
+    }
+
+    #[test]
+    fn multiple_erase_statements() {
+        let source = r#"
+Sub Test()
+    Erase array1
+    DoSomething
+    Erase array2
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        let erase_count = debug.matches("EraseStatement").count();
+        assert_eq!(erase_count, 2);
+    }
+
+    #[test]
+    fn erase_with_error_handling() {
+        let source = r#"
+Sub Test()
+    On Error Resume Next
+    Erase dynamicArray
+    If Err.Number <> 0 Then
+        MsgBox "Error erasing array"
+    End If
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("EraseStatement"));
+    }
+
+    #[test]
+    fn erase_after_redim() {
+        let source = r#"
+Sub Test()
+    ReDim myArray(100)
+    ' Use the array
+    Erase myArray
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("EraseStatement"));
+        assert!(debug.contains("ReDimStatement"));
+    }
+
+    #[test]
+    fn erase_complex_array_list() {
+        let source = r#"
+Sub Test()
+    Erase buffer1, buffer2, cache(), tempData
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("EraseStatement"));
+        assert!(debug.contains("buffer1"));
+        assert!(debug.contains("cache"));
     }
 }
