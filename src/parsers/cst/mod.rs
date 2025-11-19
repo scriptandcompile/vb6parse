@@ -504,35 +504,6 @@ impl<'a> Parser<'a> {
         }
     }
 
-    /// Check if the current token is a built-in statement keyword.
-    fn is_builtin_statement_keyword(&self) -> bool {
-        matches!(
-            self.current_token(),
-            Some(VB6Token::AppActivateKeyword)
-                | Some(VB6Token::BeepKeyword)
-                | Some(VB6Token::ChDirKeyword)
-                | Some(VB6Token::ChDriveKeyword)
-        )
-    }
-
-    /// Dispatch built-in statement parsing to the appropriate parser.
-    fn parse_builtin_statement(&mut self) {
-        match self.current_token() {
-            Some(VB6Token::AppActivateKeyword) => {
-                self.parse_appactivate_statement();
-            }
-            Some(VB6Token::BeepKeyword) => {
-                self.parse_beep_statement();
-            }
-            Some(VB6Token::ChDirKeyword) => {
-                self.parse_chdir_statement();
-            }
-            Some(VB6Token::ChDriveKeyword) => {
-                self.parse_chdrive_statement();
-            }
-            _ => {}
-        }
-    }
 
     /// Parse a code block, consuming tokens until a termination condition is met.
     ///
