@@ -64,6 +64,7 @@ pub enum SyntaxKind {
     LSetStatement,
     MidStatement,
     MidBStatement,
+    MkDirStatement,
     LabelStatement,
     AttributeStatement,
     OptionStatement,

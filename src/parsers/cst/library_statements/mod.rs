@@ -23,6 +23,7 @@
 //! - LSet: Left-align a string or copy a user-defined type
 //! - Mid: Replace characters in a string variable
 //! - MidB: Replace bytes in a string variable
+//! - MkDir: Create a new directory or folder
 //! - Reset: Close all disk files opened using the Open statement
 //!
 
@@ -49,6 +50,7 @@ mod lock;
 mod lset;
 mod mid;
 mod midb;
+mod mkdir;
 mod reset;
 mod unlock;
 
@@ -76,6 +78,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::LSetKeyword)
                 | Some(VB6Token::MidKeyword)
                 | Some(VB6Token::MidBKeyword)
+                | Some(VB6Token::MkDirKeyword)
                 | Some(VB6Token::ResetKeyword)
         )
     }
@@ -139,6 +142,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::MidBKeyword) => {
                 self.parse_midb_statement();
+            }
+            Some(VB6Token::MkDirKeyword) => {
+                self.parse_mkdir_statement();
             }
             Some(VB6Token::ResetKeyword) => {
                 self.parse_reset_statement();
