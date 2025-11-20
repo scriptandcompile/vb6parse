@@ -300,6 +300,132 @@ impl<'a> Parser<'a> {
 
         self.builder.finish_node(); // OnErrorStatement
     }
+
+    /// Parse an On GoTo statement.
+    ///
+    /// VB6 On GoTo statement syntax:
+    /// - On expression GoTo label1[, label2, ...]
+    ///
+    /// Branches to one of several specified labels, depending on the value of an expression.
+    ///
+    /// The On...GoTo statement syntax has these parts:
+    ///
+    /// | Part | Description |
+    /// |------|-------------|
+    /// | expression | Required. Any numeric expression that evaluates to a whole number between 0 and 255, inclusive. If expression is any number other than a whole number, it is rounded before it is evaluated. |
+    /// | labellist | Required. List of line labels or line numbers separated by commas. |
+    ///
+    /// Remarks:
+    /// - The value of expression determines which line is branched to in the list of labels. If the value of expression is less than 1 or greater than the number of items in the list, one of the following results occurs:
+    ///   - If expression equals 0, execution continues with the statement following On...GoTo.
+    ///   - If expression is greater than the number of labels in the list, execution continues with the statement following On...GoTo.
+    ///   - If expression is negative or greater than 255, an error occurs.
+    /// - The On...GoTo statement is useful for branching to one of several different labels based on a value.
+    /// - Using On...GoTo is considered obsolete. Modern VB6 code should use Select Case instead.
+    ///
+    /// Examples:
+    /// ```vb
+    /// Sub Test()
+    ///     Dim choice As Integer
+    ///     choice = 2
+    ///     On choice GoTo Label1, Label2, Label3
+    ///     Exit Sub
+    /// Label1:
+    ///     MsgBox "Choice 1"
+    ///     Exit Sub
+    /// Label2:
+    ///     MsgBox "Choice 2"
+    ///     Exit Sub
+    /// Label3:
+    ///     MsgBox "Choice 3"
+    /// End Sub
+    /// ```
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/ongoto-and-ongosub-statements)
+    pub(super) fn parse_on_goto_statement(&mut self) {
+        // if we are now parsing an on goto statement, we are no longer in the header.
+        self.parsing_header = false;
+
+        self.builder
+            .start_node(SyntaxKind::OnGoToStatement.to_raw());
+
+        // Consume "On" keyword
+        self.consume_token();
+
+        // Consume everything until newline (expression GoTo labels)
+        self.consume_until(VB6Token::Newline);
+
+        // Consume the newline
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        self.builder.finish_node(); // OnGoToStatement
+    }
+
+    /// Parse an On GoSub statement.
+    ///
+    /// VB6 On GoSub statement syntax:
+    /// - On expression GoSub label1[, label2, ...]
+    ///
+    /// Branches to one of several specified subroutines, depending on the value of an expression.
+    ///
+    /// The On...GoSub statement syntax has these parts:
+    ///
+    /// | Part | Description |
+    /// |------|-------------|
+    /// | expression | Required. Any numeric expression that evaluates to a whole number between 0 and 255, inclusive. If expression is any number other than a whole number, it is rounded before it is evaluated. |
+    /// | labellist | Required. List of line labels or line numbers separated by commas. |
+    ///
+    /// Remarks:
+    /// - The value of expression determines which subroutine is called in the list of labels. If the value of expression is less than 1 or greater than the number of items in the list, one of the following results occurs:
+    ///   - If expression equals 0, execution continues with the statement following On...GoSub.
+    ///   - If expression is greater than the number of labels in the list, execution continues with the statement following On...GoSub.
+    ///   - If expression is negative or greater than 255, an error occurs.
+    /// - The On...GoSub statement is useful for branching to one of several different subroutines based on a value.
+    /// - Each subroutine must end with a Return statement to return to the statement following the On...GoSub.
+    /// - Using On...GoSub is considered obsolete. Modern VB6 code should use Select Case with Sub procedure calls instead.
+    ///
+    /// Examples:
+    /// ```vb
+    /// Sub Test()
+    ///     Dim menuChoice As Integer
+    ///     menuChoice = 1
+    ///     On menuChoice GoSub Menu1, Menu2, Menu3
+    ///     Exit Sub
+    /// Menu1:
+    ///     MsgBox "Menu 1 selected"
+    ///     Return
+    /// Menu2:
+    ///     MsgBox "Menu 2 selected"
+    ///     Return
+    /// Menu3:
+    ///     MsgBox "Menu 3 selected"
+    ///     Return
+    /// End Sub
+    /// ```
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/ongoto-and-ongosub-statements)
+    pub(super) fn parse_on_gosub_statement(&mut self) {
+        // if we are now parsing an on gosub statement, we are no longer in the header.
+        self.parsing_header = false;
+
+        self.builder
+            .start_node(SyntaxKind::OnGoSubStatement.to_raw());
+
+        // Consume "On" keyword
+        self.consume_token();
+
+        // Consume everything until newline (expression GoSub labels)
+        self.consume_until(VB6Token::Newline);
+
+        // Consume the newline
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        self.builder.finish_node(); // OnGoSubStatement
+    }
 }
 
 #[cfg(test)]
@@ -1582,6 +1708,399 @@ End Sub
 
         let debug = cst.debug_tree();
         let count = debug.matches("OnErrorStatement").count();
+        assert_eq!(count, 2);
+    }
+
+    #[test]
+    fn on_goto_simple() {
+        let source = r#"
+Sub Test()
+    Dim choice As Integer
+    choice = 2
+    On choice GoTo Label1, Label2, Label3
+    Exit Sub
+Label1:
+    MsgBox "Choice 1"
+    Exit Sub
+Label2:
+    MsgBox "Choice 2"
+    Exit Sub
+Label3:
+    MsgBox "Choice 3"
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnGoToStatement"));
+        assert!(debug.contains("OnKeyword"));
+    }
+
+    #[test]
+    fn on_goto_with_expression() {
+        let source = r#"
+Sub Test()
+    On x + 1 GoTo First, Second, Third
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnGoToStatement"));
+        assert!(debug.contains("GotoKeyword"));
+    }
+
+    #[test]
+    fn on_goto_single_label() {
+        let source = r#"
+Sub Test()
+    On errorCode GoTo ErrorHandler
+ErrorHandler:
+    MsgBox "Error"
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnGoToStatement"));
+        assert!(debug.contains("ErrorHandler"));
+    }
+
+    #[test]
+    fn on_goto_numeric_labels() {
+        let source = r#"
+Sub Test()
+    On choice GoTo 100, 200, 300
+    Exit Sub
+100:
+    x = 1
+    Exit Sub
+200:
+    x = 2
+    Exit Sub
+300:
+    x = 3
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnGoToStatement"));
+    }
+
+    #[test]
+    fn on_goto_preserves_whitespace() {
+        let source = r#"
+Sub Test()
+    On   choice   GoTo   Label1  ,  Label2
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnGoToStatement"));
+        assert!(debug.contains("Whitespace"));
+    }
+
+    #[test]
+    fn on_goto_in_if_statement() {
+        let source = r#"
+Sub Test()
+    If condition Then
+        On menuChoice GoTo Menu1, Menu2
+    End If
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnGoToStatement"));
+        assert!(debug.contains("IfStatement"));
+    }
+
+    #[test]
+    fn on_goto_inline_if() {
+        let source = r#"
+Sub Test()
+    If useMenu Then On choice GoTo Menu1, Menu2, Menu3
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnGoToStatement"));
+    }
+
+    #[test]
+    fn on_goto_at_module_level() {
+        let source = r#"On choice GoTo Label1, Label2"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnGoToStatement"));
+    }
+
+    #[test]
+    fn on_goto_with_comment() {
+        let source = r#"
+Sub Test()
+    On choice GoTo Label1, Label2 ' Branch based on choice
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnGoToStatement"));
+        assert!(debug.contains("Comment"));
+    }
+
+    #[test]
+    fn on_goto_complex_expression() {
+        let source = r#"
+Sub Test()
+    On (x * 2) + 1 GoTo First, Second, Third, Fourth
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnGoToStatement"));
+    }
+
+    #[test]
+    fn multiple_on_goto_statements() {
+        let source = r#"
+Sub Test()
+    On choice1 GoTo A1, A2, A3
+    On choice2 GoTo B1, B2, B3
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        let count = debug.matches("OnGoToStatement").count();
+        assert_eq!(count, 2);
+    }
+
+    #[test]
+    fn on_goto_many_labels() {
+        let source = r#"
+Sub Test()
+    On choice GoTo L1, L2, L3, L4, L5, L6, L7, L8, L9, L10
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnGoToStatement"));
+    }
+
+    #[test]
+    fn on_gosub_simple() {
+        let source = r#"
+Sub Test()
+    Dim menuChoice As Integer
+    menuChoice = 1
+    On menuChoice GoSub Menu1, Menu2, Menu3
+    Exit Sub
+Menu1:
+    MsgBox "Menu 1 selected"
+    Return
+Menu2:
+    MsgBox "Menu 2 selected"
+    Return
+Menu3:
+    MsgBox "Menu 3 selected"
+    Return
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnGoSubStatement"));
+        assert!(debug.contains("OnKeyword"));
+    }
+
+    #[test]
+    fn on_gosub_with_expression() {
+        let source = r#"
+Sub Test()
+    On x Mod 3 GoSub First, Second, Third
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnGoSubStatement"));
+        assert!(debug.contains("GoSubKeyword"));
+    }
+
+    #[test]
+    fn on_gosub_single_label() {
+        let source = r#"
+Sub Test()
+    On flag GoSub Handler
+    Exit Sub
+Handler:
+    Debug.Print "Called"
+    Return
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnGoSubStatement"));
+        assert!(debug.contains("Handler"));
+    }
+
+    #[test]
+    fn on_gosub_numeric_labels() {
+        let source = r#"
+Sub Test()
+    On choice GoSub 100, 200, 300
+    Exit Sub
+100:
+    Debug.Print "100"
+    Return
+200:
+    Debug.Print "200"
+    Return
+300:
+    Debug.Print "300"
+    Return
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnGoSubStatement"));
+    }
+
+    #[test]
+    fn on_gosub_preserves_whitespace() {
+        let source = r#"
+Sub Test()
+    On   choice   GoSub   Sub1  ,  Sub2
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnGoSubStatement"));
+        assert!(debug.contains("Whitespace"));
+    }
+
+    #[test]
+    fn on_gosub_in_if_statement() {
+        let source = r#"
+Sub Test()
+    If condition Then
+        On choice GoSub Handler1, Handler2
+    End If
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnGoSubStatement"));
+        assert!(debug.contains("IfStatement"));
+    }
+
+    #[test]
+    fn on_gosub_inline_if() {
+        let source = r#"
+Sub Test()
+    If needsProcessing Then On choice GoSub Process1, Process2
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnGoSubStatement"));
+    }
+
+    #[test]
+    fn on_gosub_at_module_level() {
+        let source = r#"On choice GoSub Sub1, Sub2"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnGoSubStatement"));
+    }
+
+    #[test]
+    fn on_gosub_with_comment() {
+        let source = r#"
+Sub Test()
+    On choice GoSub Sub1, Sub2 ' Call appropriate subroutine
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnGoSubStatement"));
+        assert!(debug.contains("Comment"));
+    }
+
+    #[test]
+    fn on_gosub_nested() {
+        let source = r#"
+Sub Test()
+    On choice1 GoSub Level1A, Level1B
+    Exit Sub
+Level1A:
+    On choice2 GoSub Level2A, Level2B
+    Return
+Level1B:
+    Return
+Level2A:
+    Return
+Level2B:
+    Return
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        let count = debug.matches("OnGoSubStatement").count();
+        assert_eq!(count, 2);
+    }
+
+    #[test]
+    fn on_gosub_in_loop() {
+        let source = r#"
+Sub Test()
+    For i = 1 To 10
+        On i Mod 3 GoSub Handler1, Handler2, Handler3
+    Next i
+    Exit Sub
+Handler1:
+    Return
+Handler2:
+    Return
+Handler3:
+    Return
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnGoSubStatement"));
+        assert!(debug.contains("ForStatement"));
+    }
+
+    #[test]
+    fn multiple_on_gosub_statements() {
+        let source = r#"
+Sub Test()
+    On choice1 GoSub A1, A2, A3
+    On choice2 GoSub B1, B2, B3
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        let count = debug.matches("OnGoSubStatement").count();
         assert_eq!(count, 2);
     }
 }

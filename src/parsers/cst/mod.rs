@@ -454,7 +454,29 @@ impl<'a> Parser<'a> {
                 self.parse_exit_statement();
             }
             Some(VB6Token::OnKeyword) => {
-                self.parse_on_error_statement();
+                // Look ahead to distinguish between On Error, On GoTo, and On GoSub
+                if let Some(VB6Token::ErrorKeyword) = self.peek_next_keyword() {
+                    self.parse_on_error_statement();
+                } else {
+                    // Need to scan ahead to find GoTo or GoSub keyword
+                    // to distinguish between On GoTo and On GoSub
+                    use std::num::NonZeroUsize;
+                    let keywords: Vec<VB6Token> = self
+                        .peek_next_count_keywords(NonZeroUsize::new(20).unwrap())
+                        .collect();
+
+                    let has_goto = keywords.iter().any(|t| *t == VB6Token::GotoKeyword);
+                    let has_gosub = keywords.iter().any(|t| *t == VB6Token::GoSubKeyword);
+
+                    if has_goto {
+                        self.parse_on_goto_statement();
+                    } else if has_gosub {
+                        self.parse_on_gosub_statement();
+                    } else {
+                        // Fallback - treat as On Error if we can't determine
+                        self.parse_on_error_statement();
+                    }
+                }
             }
             _ => {}
         }
