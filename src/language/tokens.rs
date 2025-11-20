@@ -934,6 +934,42 @@ pub enum VB6Token {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445150(v=vs.60))
     BinaryKeyword,
+    /// Represents the 'Random' keyword.
+    ///
+    /// The Random keyword is used in the Open statement to specify random access mode.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/open-statement)
+    RandomKeyword,
+    /// Represents the 'Read' keyword.
+    ///
+    /// The Read keyword is used in the Open statement to specify read access mode.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/open-statement)
+    ReadKeyword,
+    /// Represents the 'Write' keyword (already exists in VB6Token but adding documentation reference).
+    ///
+    /// The Write keyword is used in the Open statement to specify write access mode.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/open-statement)
+    /// Note: This comment is a placeholder - WriteKeyword already exists elsewhere in the enum.
+    /// Represents the 'Output' keyword.
+    ///
+    /// The Output keyword is used in the Open statement to specify output mode.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/open-statement)
+    OutputKeyword,
+    /// Represents the 'Append' keyword.
+    ///
+    /// The Append keyword is used in the Open statement to specify append mode.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/open-statement)
+    AppendKeyword,
+    /// Represents the 'Access' keyword.
+    ///
+    /// The Access keyword is used in the Open statement to specify access restrictions.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/open-statement)
+    AccessKeyword,
     /// Represents the 'Empty' keyword.
     ///
     /// The Empty keyword is used as a Variant subtype. It indicates an
@@ -1199,6 +1235,11 @@ impl VB6Token {
             | VB6Token::AppActivateKeyword
             | VB6Token::FriendKeyword
             | VB6Token::BinaryKeyword
+            | VB6Token::RandomKeyword
+            | VB6Token::ReadKeyword
+            | VB6Token::OutputKeyword
+            | VB6Token::AppendKeyword
+            | VB6Token::AccessKeyword
             | VB6Token::EmptyKeyword
             | VB6Token::NextKeyword
             | VB6Token::EachKeyword
