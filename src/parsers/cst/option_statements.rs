@@ -4,6 +4,7 @@
 //! - Option Explicit - Require explicit variable declarations
 //! - Option Base - Set default lower bound for array subscripts
 //! - Option Compare - Set string comparison method
+//! - Option Private - Set module visibility
 
 use crate::language::VB6Token;
 use crate::parsers::SyntaxKind;
@@ -127,6 +128,50 @@ impl<'a> Parser<'a> {
     ///
     /// [Microsoft Documentation](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/option-compare-statement)
     pub(super) fn parse_option_compare_statement(&mut self) {
+        self.parse_option_statement();
+    }
+
+    /// Parse an Option Private statement.
+    ///
+    /// Controls the visibility of module-level entities (classes, functions, etc.).
+    ///
+    /// # Syntax
+    ///
+    /// | Clause | Description |
+    /// |--------|-------------|
+    /// | `Option Private Module` | Makes entities in the module private to the project |
+    ///
+    /// # Remarks
+    ///
+    /// The `Option Private Module` statement is used to indicate that the entire module
+    /// is private to the project in which it resides. This means that the module and its
+    /// public members are not available to other projects or type libraries.
+    ///
+    /// - Must be used at module level (at the very top of the module)
+    /// - Only valid in standard modules (.bas files) and class modules (.cls files)
+    /// - Does not affect the visibility of members within the same project
+    /// - When used in a class module, the class cannot be created from outside the project
+    /// - Has no effect in form modules (.frm files)
+    ///
+    /// This is particularly useful for creating helper modules or classes that should only
+    /// be used internally within a project and not exposed to external projects that might
+    /// reference this one.
+    ///
+    /// # Examples
+    ///
+    /// ```vb6
+    /// Option Private Module
+    ///
+    /// ' This module's public functions are only accessible within this project
+    /// Public Function InternalHelper() As String
+    ///     InternalHelper = "This is private to the project"
+    /// End Function
+    /// ```
+    ///
+    /// # References
+    ///
+    /// [Microsoft Documentation](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/option-private-statement)
+    pub(super) fn parse_option_private_statement(&mut self) {
         self.parse_option_statement();
     }
 }
@@ -472,5 +517,158 @@ Option Compare Text
         assert!(debug.contains("CompareKeyword"));
         assert!(debug.contains("BinaryKeyword"));
         assert!(debug.contains("BaseKeyword"));
+    }
+
+    #[test]
+    fn parse_option_private_module() {
+        let source = "Option Private Module\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OptionStatement"));
+        assert!(debug.contains("OptionKeyword"));
+        assert!(debug.contains("PrivateKeyword"));
+        assert!(debug.contains("ModuleKeyword"));
+        assert_eq!(cst.text(), "Option Private Module\n");
+    }
+
+    #[test]
+    fn option_private_at_module_level() {
+        let source = "Option Private Module\n\nSub Test()\nEnd Sub\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OptionStatement"));
+        assert!(debug.contains("PrivateKeyword"));
+        assert!(debug.contains("SubStatement"));
+    }
+
+    #[test]
+    fn option_private_with_whitespace() {
+        let source = "Option  Private  Module\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OptionStatement"));
+        assert!(debug.contains("PrivateKeyword"));
+        assert_eq!(cst.text(), "Option  Private  Module\n");
+    }
+
+    #[test]
+    fn option_private_with_comment() {
+        let source = "Option Private Module ' Make this module private\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OptionStatement"));
+        assert!(debug.contains("PrivateKeyword"));
+        assert!(debug.contains("Comment"));
+    }
+
+    #[test]
+    fn option_private_preserves_whitespace() {
+        let source = "Option Private Module  \n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.text(), "Option Private Module  \n");
+    }
+
+    #[test]
+    fn multiple_options_with_private() {
+        let source = "Option Explicit\nOption Private Module\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert_eq!(cst.child_count(), 2);
+        assert!(debug.contains("ExplicitKeyword"));
+        assert!(debug.contains("PrivateKeyword"));
+    }
+
+    #[test]
+    fn option_private_case_insensitive() {
+        let source = "OPTION PRIVATE MODULE\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OptionStatement"));
+        assert!(debug.contains("PrivateKeyword"));
+    }
+
+    #[test]
+    fn option_private_with_line_continuation() {
+        let source = "Option _\nPrivate Module\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OptionStatement"));
+        assert!(debug.contains("PrivateKeyword"));
+    }
+
+    #[test]
+    fn option_private_before_declarations() {
+        let source = "Option Private Module\nDim x As Integer\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OptionStatement"));
+        assert!(debug.contains("PrivateKeyword"));
+        assert!(debug.contains("DimStatement"));
+    }
+
+    #[test]
+    fn option_private_in_class_module() {
+        let source = r#"VERSION 1.0 CLASS
+Option Private Module
+
+Public Function Test() As String
+End Function
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.cls", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OptionStatement"));
+        assert!(debug.contains("PrivateKeyword"));
+    }
+
+    #[test]
+    fn option_private_in_standard_module() {
+        let source = r#"Attribute VB_Name = "Module1"
+Option Private Module
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("AttributeStatement"));
+        assert!(debug.contains("OptionStatement"));
+        assert!(debug.contains("PrivateKeyword"));
+    }
+
+    #[test]
+    fn all_four_option_statements() {
+        let source = "Option Explicit\nOption Compare Binary\nOption Base 1\nOption Private Module\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert_eq!(cst.child_count(), 4);
+        assert!(debug.contains("ExplicitKeyword"));
+        assert!(debug.contains("CompareKeyword"));
+        assert!(debug.contains("BaseKeyword"));
+        assert!(debug.contains("PrivateKeyword"));
+    }
+
+    #[test]
+    fn option_private_typical_usage() {
+        let source = r#"Option Private Module
+
+Public Function InternalHelper() As String
+    InternalHelper = "Internal use only"
+End Function
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OptionStatement"));
+        assert!(debug.contains("PrivateKeyword"));
+        assert!(debug.contains("FunctionStatement"));
     }
 }

@@ -989,6 +989,12 @@ pub enum VB6Token {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445155(v=vs.60))
     EmptyKeyword,
+    /// Represents the 'Module' keyword.
+    ///
+    /// The Module keyword is used in the Option Private statement.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/option-private-statement)
+    ModuleKeyword,
     /// Represents the 'Next' keyword.
     ///
     /// The next keyword is used in these contexts:
@@ -1255,6 +1261,7 @@ impl VB6Token {
             | VB6Token::TextKeyword
             | VB6Token::DatabaseKeyword
             | VB6Token::EmptyKeyword
+            | VB6Token::ModuleKeyword
             | VB6Token::NextKeyword
             | VB6Token::EachKeyword
             | VB6Token::InKeyword

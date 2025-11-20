@@ -264,11 +264,13 @@ impl<'a> Parser<'a> {
                     self.parse_attribute_statement();
                 }
                 Some(VB6Token::OptionKeyword) => {
-                    // Peek ahead to check if this is Option Base or Option Compare
+                    // Peek ahead to check if this is Option Base, Option Compare, or Option Private
                     if let Some(VB6Token::BaseKeyword) = self.peek_next_keyword() {
                         self.parse_option_base_statement();
                     } else if let Some(VB6Token::CompareKeyword) = self.peek_next_keyword() {
                         self.parse_option_compare_statement();
+                    } else if let Some(VB6Token::PrivateKeyword) = self.peek_next_keyword() {
+                        self.parse_option_private_statement();
                     } else {
                         self.parse_option_statement();
                     }
