@@ -70,6 +70,7 @@ static KEYWORD_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, VB6Token> = phf_orde
     "Friend" => VB6Token::FriendKeyword,
     "Function" => VB6Token::FunctionKeyword,
     "Get" => VB6Token::GetKeyword,
+    "GoSub" => VB6Token::GoSubKeyword,
     "Goto" => VB6Token::GotoKeyword,
     "If" => VB6Token::IfKeyword,
     // switched so that `Imp` isn't selected for `Implements`.
@@ -116,6 +117,7 @@ static KEYWORD_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, VB6Token> = phf_orde
     "ReDim" => VB6Token::ReDimKeyword,
     "Reset" => VB6Token::ResetKeyword,
     "Resume" => VB6Token::ResumeKeyword,
+    "Return" => VB6Token::ReturnKeyword,
     "RmDir" => VB6Token::RmDirKeyword,
     "RSet" => VB6Token::RSetKeyword,
     "SavePicture" => VB6Token::SavePictureKeyword,

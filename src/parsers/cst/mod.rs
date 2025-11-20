@@ -360,6 +360,8 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::ForKeyword)
                 | Some(VB6Token::DoKeyword)
                 | Some(VB6Token::GotoKeyword)
+                | Some(VB6Token::GoSubKeyword)
+                | Some(VB6Token::ReturnKeyword)
                 | Some(VB6Token::ExitKeyword)
         )
     }
@@ -386,6 +388,12 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::GotoKeyword) => {
                 self.parse_goto_statement();
+            }
+            Some(VB6Token::GoSubKeyword) => {
+                self.parse_gosub_statement();
+            }
+            Some(VB6Token::ReturnKeyword) => {
+                self.parse_return_statement();
             }
             Some(VB6Token::ExitKeyword) => {
                 self.parse_exit_statement();
