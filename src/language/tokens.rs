@@ -401,6 +401,18 @@ pub enum VB6Token {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243380(v=vs.60))
     GotoKeyword,
+    /// Represents the 'GoSub' keyword.
+    ///
+    /// Branches to and returns from a subroutine within a procedure.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/gosubreturn-statement)
+    GoSubKeyword,
+    /// Represents the 'Return' keyword.
+    ///
+    /// Returns from a subroutine within a procedure.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/gosubreturn-statement)
+    ReturnKeyword,
     /// Represents the 'Exit' keyword.
     ///
     /// Exits a block of Do..Loop, For..Next, Function, Sub, or Property code.
@@ -1106,6 +1118,8 @@ impl VB6Token {
             | VB6Token::NotKeyword
             | VB6Token::ThenKeyword
             | VB6Token::GotoKeyword
+            | VB6Token::GoSubKeyword
+            | VB6Token::ReturnKeyword
             | VB6Token::ExitKeyword
             | VB6Token::ForKeyword
             | VB6Token::ToKeyword

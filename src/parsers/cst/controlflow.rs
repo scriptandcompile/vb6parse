@@ -1,7 +1,7 @@
 //! Control flow statement parsing for VB6 CST.
 //!
 //! This module handles parsing of VB6 control flow statements:
-//! - Jump statements (GoTo, Exit, Label)
+//! - Jump statements (GoTo, GoSub, Return, Exit, Label)
 //!
 //! Note: If/Then/Else/ElseIf statements are in the if_statements module.
 //! Note: Select Case statements are in the select_statements module.
@@ -14,6 +14,99 @@ use crate::parsers::SyntaxKind;
 use super::Parser;
 
 impl<'a> Parser<'a> {
+    /// Parse a GoSub statement.
+    ///
+    /// VB6 GoSub statement syntax:
+    /// - GoSub label
+    ///
+    /// Branches to and returns from a subroutine within a procedure.
+    ///
+    /// The GoSub...Return statement syntax has these parts:
+    ///
+    /// | Part   | Description |
+    /// |--------|-------------|
+    /// | label  | Required. A line label or line number. |
+    ///
+    /// Remarks:
+    /// - You can use GoSub and Return anywhere in a procedure, but GoSub and the corresponding Return statement must be in the same procedure.
+    /// - A subroutine can contain more than one Return statement, but the first one encountered causes the flow of execution to branch back to the statement immediately following the most recently executed GoSub statement.
+    /// - You can't enter or exit Sub procedures with GoSub...Return.
+    /// - Using GoSub and Return is considered obsolete. Modern VB6 code should use Sub or Function procedures instead.
+    ///
+    /// Examples:
+    /// ```vb
+    /// Sub Test()
+    ///     GoSub ErrorHandler
+    ///     Exit Sub
+    /// ErrorHandler:
+    ///     MsgBox "Error"
+    ///     Return
+    /// End Sub
+    /// ```
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/gosubreturn-statement)
+    pub(super) fn parse_gosub_statement(&mut self) {
+        // if we are now parsing a gosub statement, we are no longer in the header.
+        self.parsing_header = false;
+
+        self.builder.start_node(SyntaxKind::GoSubStatement.to_raw());
+
+        // Consume "GoSub" keyword
+        self.consume_token();
+
+        // Consume everything until newline (the label name)
+        self.consume_until(VB6Token::Newline);
+
+        // Consume the newline
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        self.builder.finish_node(); // GoSubStatement
+    }
+
+    /// Parse a Return statement.
+    ///
+    /// VB6 Return statement syntax:
+    /// - Return
+    ///
+    /// Returns from a subroutine within a procedure.
+    ///
+    /// Remarks:
+    /// - Return must be used with GoSub to return to the statement following the GoSub call.
+    /// - You can use GoSub and Return anywhere in a procedure, but GoSub and the corresponding Return statement must be in the same procedure.
+    /// - A subroutine can contain more than one Return statement, but the first one encountered causes the flow of execution to branch back to the statement immediately following the most recently executed GoSub statement.
+    /// - Using GoSub and Return is considered obsolete. Modern VB6 code should use Sub or Function procedures instead.
+    ///
+    /// Examples:
+    /// ```vb
+    /// Sub Test()
+    ///     GoSub Cleanup
+    ///     Exit Sub
+    /// Cleanup:
+    ///     Set obj = Nothing
+    ///     Return
+    /// End Sub
+    /// ```
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/gosubreturn-statement)
+    pub(super) fn parse_return_statement(&mut self) {
+        // if we are now parsing a return statement, we are no longer in the header.
+        self.parsing_header = false;
+
+        self.builder.start_node(SyntaxKind::ReturnStatement.to_raw());
+
+        // Consume "Return" keyword
+        self.consume_token();
+
+        // Consume the newline
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        self.builder.finish_node(); // ReturnStatement
+    }
+
     /// Parse a GoTo statement.
     ///
     /// Syntax:
@@ -744,4 +837,476 @@ End Sub
         assert!(debug.contains("LabelStatement"));
         assert!(debug.contains("MyErrorHandler"));
     }
+
+    // GoSub statement tests
+    #[test]
+    fn gosub_simple() {
+        let source = r#"
+Sub Test()
+    GoSub ErrorHandler
+    Exit Sub
+ErrorHandler:
+    MsgBox "Error"
+    Return
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("GoSubStatement"));
+        assert!(debug.contains("GoSubKeyword"));
+        assert!(debug.contains("ErrorHandler"));
+    }
+
+    #[test]
+    fn gosub_with_line_number() {
+        let source = r#"
+Sub Test()
+    GoSub 100
+    Exit Sub
+100:
+    Debug.Print "subroutine"
+    Return
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("GoSubStatement"));
+        assert!(debug.contains("GoSubKeyword"));
+    }
+
+    #[test]
+    fn gosub_in_if_statement() {
+        let source = r#"
+Sub Test()
+    If x > 0 Then
+        GoSub ProcessPositive
+    End If
+    Exit Sub
+ProcessPositive:
+    y = y + 1
+    Return
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("GoSubStatement"));
+        assert!(debug.contains("ProcessPositive"));
+    }
+
+    #[test]
+    fn gosub_multiple() {
+        let source = r#"
+Sub Test()
+    GoSub Sub1
+    GoSub Sub2
+    Exit Sub
+Sub1:
+    Debug.Print "one"
+    Return
+Sub2:
+    Debug.Print "two"
+    Return
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        let gosub_count = debug.matches("GoSubStatement").count();
+        assert_eq!(gosub_count, 2);
+    }
+
+    #[test]
+    fn gosub_nested_calls() {
+        let source = r#"
+Sub Test()
+    GoSub Level1
+    Exit Sub
+Level1:
+    GoSub Level2
+    Return
+Level2:
+    Debug.Print "deep"
+    Return
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        let gosub_count = debug.matches("GoSubStatement").count();
+        assert_eq!(gosub_count, 2);
+    }
+
+    #[test]
+    fn gosub_preserves_whitespace() {
+        let source = r#"
+Sub Test()
+    GoSub   MyLabel
+MyLabel:
+    Return
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("GoSubStatement"));
+        assert!(debug.contains("Whitespace"));
+    }
+
+    #[test]
+    fn gosub_with_comment() {
+        let source = r#"
+Sub Test()
+    GoSub Cleanup ' Call cleanup routine
+Cleanup:
+    Return
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("GoSubStatement"));
+        assert!(debug.contains("Comment"));
+    }
+
+    #[test]
+    fn gosub_inline_if() {
+        let source = r#"
+Sub Test()
+    If needsInit Then GoSub Initialize
+    Exit Sub
+Initialize:
+    x = 0
+    Return
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("GoSubStatement"));
+        assert!(debug.contains("Initialize"));
+    }
+
+    #[test]
+    fn gosub_in_loop() {
+        let source = r#"
+Sub Test()
+    For i = 1 To 10
+        GoSub ProcessItem
+    Next i
+    Exit Sub
+ProcessItem:
+    Debug.Print i
+    Return
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("GoSubStatement"));
+        assert!(debug.contains("ForStatement"));
+    }
+
+    #[test]
+    fn gosub_in_select_case() {
+        let source = r#"
+Sub Test()
+    Select Case x
+        Case 1
+            GoSub Handler1
+        Case 2
+            GoSub Handler2
+    End Select
+    Exit Sub
+Handler1:
+    Return
+Handler2:
+    Return
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("GoSubStatement"));
+        assert!(debug.contains("SelectCaseStatement"));
+    }
+
+    #[test]
+    fn gosub_with_underscore_label() {
+        let source = r#"
+Sub Test()
+    GoSub Error_Handler
+    Exit Sub
+Error_Handler:
+    Return
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("GoSubStatement"));
+        assert!(debug.contains("Error_Handler"));
+    }
+
+    #[test]
+    fn gosub_error_handling_pattern() {
+        let source = r#"
+Sub Test()
+    On Error GoTo ErrorExit
+    GoSub DoWork
+    Exit Sub
+DoWork:
+    ' work code
+    Return
+ErrorExit:
+    MsgBox "Error"
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("GoSubStatement"));
+        assert!(debug.contains("DoWork"));
+    }
+
+    // Return statement tests
+    #[test]
+    fn return_simple() {
+        let source = r#"
+Sub Test()
+    GoSub SubRoutine
+    Exit Sub
+SubRoutine:
+    Return
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("ReturnStatement"));
+        assert!(debug.contains("ReturnKeyword"));
+    }
+
+    #[test]
+    fn return_multiple() {
+        let source = r#"
+Sub Test()
+    GoSub Process
+    Exit Sub
+Process:
+    If x > 0 Then
+        Return
+    End If
+    y = 1
+    Return
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        let return_count = debug.matches("ReturnStatement").count();
+        assert_eq!(return_count, 2);
+    }
+
+    #[test]
+    fn return_in_if_statement() {
+        let source = r#"
+Sub Test()
+    GoSub Check
+    Exit Sub
+Check:
+    If x = 0 Then
+        Return
+    End If
+    x = x + 1
+    Return
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("ReturnStatement"));
+        assert!(debug.contains("IfStatement"));
+    }
+
+    #[test]
+    fn return_inline_if() {
+        let source = r#"
+Sub Test()
+    GoSub Validate
+    Exit Sub
+Validate:
+    If invalid Then Return
+    DoSomething
+    Return
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("ReturnStatement"));
+    }
+
+    #[test]
+    fn return_with_comment() {
+        let source = r#"
+Sub Test()
+    GoSub Cleanup
+    Exit Sub
+Cleanup:
+    Set obj = Nothing
+    Return ' Exit subroutine
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("ReturnStatement"));
+        assert!(debug.contains("Comment"));
+    }
+
+    #[test]
+    fn return_preserves_whitespace() {
+        let source = r#"
+Sub Test()
+    GoSub Sub1
+    Exit Sub
+Sub1:
+    Return
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("ReturnStatement"));
+        assert!(debug.contains("Whitespace"));
+        assert!(debug.contains("Newline"));
+    }
+
+    #[test]
+    fn return_in_select_case() {
+        let source = r#"
+Sub Test()
+    GoSub Process
+    Exit Sub
+Process:
+    Select Case x
+        Case 1
+            Return
+        Case 2
+            y = 2
+    End Select
+    Return
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("ReturnStatement"));
+        assert!(debug.contains("SelectCaseStatement"));
+    }
+
+    #[test]
+    fn return_in_loop() {
+        let source = r#"
+Sub Test()
+    GoSub FindValue
+    Exit Sub
+FindValue:
+    For i = 1 To 10
+        If arr(i) = target Then Return
+    Next i
+    Return
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("ReturnStatement"));
+        assert!(debug.contains("ForStatement"));
+    }
+
+    #[test]
+    fn gosub_return_complete_example() {
+        let source = r#"
+Sub Main()
+    x = 10
+    GoSub DoubleValue
+    Debug.Print x
+    Exit Sub
+DoubleValue:
+    x = x * 2
+    Return
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("GoSubStatement"));
+        assert!(debug.contains("ReturnStatement"));
+        assert!(debug.contains("LabelStatement"));
+    }
+
+    #[test]
+    fn gosub_return_nested_example() {
+        let source = r#"
+Sub Test()
+    GoSub Outer
+    Exit Sub
+Outer:
+    GoSub Inner
+    Return
+Inner:
+    Debug.Print "nested"
+    Return
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        let gosub_count = debug.matches("GoSubStatement").count();
+        let return_count = debug.matches("ReturnStatement").count();
+        assert_eq!(gosub_count, 2);
+        assert_eq!(return_count, 2);
+    }
+
+    #[test]
+    fn return_at_module_level() {
+        let source = r#"
+Public Sub TestReturn()
+    GoSub Handler
+    Exit Sub
+Handler:
+    Return
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("ReturnStatement"));
+    }
+
+    #[test]
+    fn gosub_return_error_pattern() {
+        let source = r#"
+Sub Test()
+    On Error GoTo ErrHandler
+    GoSub ProcessData
+    Exit Sub
+ProcessData:
+    ' process
+    Return
+ErrHandler:
+    MsgBox Err.Description
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("GoSubStatement"));
+        assert!(debug.contains("ReturnStatement"));
+    }
 }
+
