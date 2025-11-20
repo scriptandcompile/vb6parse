@@ -58,6 +58,7 @@ pub enum SyntaxKind {
     InputStatement,
     LineInputStatement,
     KillStatement,
+    LoadStatement,
     LabelStatement,
     AttributeStatement,
     OptionStatement,
