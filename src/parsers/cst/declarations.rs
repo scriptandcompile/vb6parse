@@ -3,12 +3,16 @@
 //! This module handles parsing of VB6 declaration statements:
 //! - Declare: External function/sub declarations
 //! - Event: Custom event declarations in classes
+//! - Implements: Interface implementation declarations
 //!
 //! Declare statement syntax:
 //! \[ Public | Private \] Declare { Sub | Function } name Lib "libname" \[ Alias "aliasname" \] \[ ( arglist ) \] \[ As type \]
 //!
 //! Event statement syntax:
 //! \[ Public \] Event eventname \[ ( arglist ) \]
+//!
+//! Implements statement syntax:
+//! Implements interfacename
 //!
 //! Sub statements are handled in the sub_statements module.
 //! Function statements are handled in the function_statements module.
@@ -18,6 +22,7 @@
 //!
 //! [Declare Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243324(v=vs.60))
 //! [Event Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/event-statement)
+//! [Implements Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/implements-statement)
 
 use crate::language::VB6Token;
 use crate::parsers::SyntaxKind;
@@ -205,6 +210,60 @@ impl<'a> Parser<'a> {
         }
 
         self.builder.finish_node(); // EventStatement
+    }
+
+    /// Parse an Implements statement.
+    ///
+    /// VB6 Implements statement syntax:
+    /// - Implements interfacename
+    ///
+    /// Specifies an interface or class that will be implemented in the class module in which it appears.
+    ///
+    /// The Implements statement syntax has this part:
+    ///
+    /// | Part          | Description |
+    /// |---------------|-------------|
+    /// | interfacename | Required. Name of an interface or class whose methods and properties will be implemented in the class containing the Implements statement. |
+    ///
+    /// Remarks:
+    /// - The Implements statement is used only in class modules.
+    /// - Once you have specified that a class implements an interface, you must provide a procedure in the class for each public procedure defined in the interface.
+    /// - The procedure in the implementing class must have the same name and signature as the procedure in the interface.
+    /// - A class module can implement more than one interface by including a separate Implements statement for each interface.
+    /// - The interface must be defined in a separate class module.
+    /// - You can't implement an interface within a single class module.
+    ///
+    /// Examples:
+    /// ```vb
+    /// ' In class module clsInterface:
+    /// Public Sub DoSomething(x As Integer)
+    /// End Sub
+    ///
+    /// ' In implementing class:
+    /// Implements clsInterface
+    ///
+    /// Private Sub clsInterface_DoSomething(x As Integer)
+    ///     ' Implementation code
+    /// End Sub
+    /// ```
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/implements-statement)
+    pub(super) fn parse_implements_statement(&mut self) {
+        self.builder
+            .start_node(SyntaxKind::ImplementsStatement.to_raw());
+
+        // Consume "Implements" keyword
+        self.consume_token();
+
+        // Consume everything until newline (the interface name)
+        self.consume_until(VB6Token::Newline);
+
+        // Consume the newline
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        self.builder.finish_node(); // ImplementsStatement
     }
 }
 
