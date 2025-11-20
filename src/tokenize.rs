@@ -77,6 +77,7 @@ static KEYWORD_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, VB6Token> = phf_orde
     "Implements" => VB6Token::ImplementsKeyword,
     "Imp" => VB6Token::ImpKeyword,
     "In" => VB6Token::InKeyword,
+    "Input" => VB6Token::InputKeyword,
     "Integer" => VB6Token::IntegerKeyword,
     "Is" => VB6Token::IsKeyword,
     "Kill" => VB6Token::KillKeyword,

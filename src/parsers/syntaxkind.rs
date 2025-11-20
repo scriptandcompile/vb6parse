@@ -54,6 +54,7 @@ pub enum SyntaxKind {
     ErrorStatement,
     FileCopyStatement,
     GetStatement,
+    InputStatement,
     LabelStatement,
     AttributeStatement,
     OptionStatement,
