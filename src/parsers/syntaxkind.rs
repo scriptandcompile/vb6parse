@@ -49,6 +49,7 @@ pub enum SyntaxKind {
     DeleteSettingStatement,
     ResetStatement,
     ErrorStatement,
+    FileCopyStatement,
     LabelStatement,
     AttributeStatement,
     OptionStatement,
