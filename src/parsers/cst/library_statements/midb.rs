@@ -117,7 +117,10 @@ End Sub
         let source = "    MidB  (  myString  ,  3  ,  2  )  =  \"XX\"    \n";
         let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
-        assert_eq!(cst.text(), "    MidB  (  myString  ,  3  ,  2  )  =  \"XX\"    \n");
+        assert_eq!(
+            cst.text(),
+            "    MidB  (  myString  ,  3  ,  2  )  =  \"XX\"    \n"
+        );
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MidBStatement"));
