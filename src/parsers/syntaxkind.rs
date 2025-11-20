@@ -70,6 +70,7 @@ pub enum SyntaxKind {
     MkDirStatement,
     NameStatement,
     OpenStatement,
+    PrintStatement,
     LabelStatement,
     AttributeStatement,
     OptionStatement,
