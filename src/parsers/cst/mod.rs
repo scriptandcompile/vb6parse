@@ -318,8 +318,11 @@ impl<'a> Parser<'a> {
                 }
                 // Anything else - check if it's a statement, label, assignment, or unknown
                 _ => {
+                    // Try control flow statements
+                    if self.is_control_flow_keyword() {
+                        self.parse_control_flow_statement();
                     // Try built-in statements
-                    if self.is_library_statement_keyword() {
+                    } else if self.is_library_statement_keyword() {
                         self.parse_library_statement();
                     // Try array statements
                     } else if self.is_variable_declaration_keyword() {
@@ -368,6 +371,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::GoSubKeyword)
                 | Some(VB6Token::ReturnKeyword)
                 | Some(VB6Token::ExitKeyword)
+                | Some(VB6Token::OnKeyword)
         )
     }
 
@@ -402,6 +406,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::ExitKeyword) => {
                 self.parse_exit_statement();
+            }
+            Some(VB6Token::OnKeyword) => {
+                self.parse_on_error_statement();
             }
             _ => {}
         }

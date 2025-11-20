@@ -225,6 +225,81 @@ impl<'a> Parser<'a> {
 
         self.is_identifier() || self.is_number()
     }
+
+    /// Parse an On Error statement.
+    ///
+    /// VB6 On Error statement syntax:
+    /// - On Error GoTo label
+    /// - On Error GoTo 0
+    /// - On Error Resume Next
+    ///
+    /// Enables an error-handling routine and specifies the location of the routine within a procedure.
+    ///
+    /// The On Error statement syntax has these forms:
+    ///
+    /// | Form | Description |
+    /// |------|-------------|
+    /// | On Error GoTo line | Enables the error-handling routine that starts at line. The line argument is any line label or line number. If a run-time error occurs, control branches to line, making the error handler active. |
+    /// | On Error Resume Next | Specifies that when a run-time error occurs, control goes to the statement immediately following the statement where the error occurred, and execution continues from that point. |
+    /// | On Error GoTo 0 | Disables any enabled error handler in the current procedure. |
+    ///
+    /// Remarks:
+    /// - If you don't use an On Error statement, any run-time error that occurs is fatal; that is, an error message is displayed and execution stops.
+    /// - An "enabled" error handler is one that is turned on by an On Error statement. An "active" error handler is an enabled handler that is in the process of handling an error.
+    /// - If an error occurs while an error handler is active (between the occurrence of the error and a Resume, Exit Sub, Exit Function, or Exit Property statement), the current procedure's error handler can't handle the error.
+    /// - Control returns to the calling procedure. If the calling procedure has an enabled error handler, it is activated to handle the error.
+    /// - If the calling procedure's error handler is also active, control passes back through previous calling procedures until an enabled, but inactive, error handler is found.
+    /// - If no inactive, enabled error handler is found, the error is fatal at the point at which it actually occurred.
+    /// - Each time the error handler passes control back to a calling procedure, that procedure becomes the current procedure. Once an error is handled in any procedure, execution resumes in the current procedure at the point designated by the Resume statement.
+    ///
+    /// Examples:
+    /// ```vb
+    /// Sub Test()
+    ///     On Error GoTo ErrorHandler
+    ///     ' Code that might cause an error
+    ///     Exit Sub
+    /// ErrorHandler:
+    ///     MsgBox "An error occurred: " & Err.Description
+    /// End Sub
+    ///
+    /// Sub Test2()
+    ///     On Error Resume Next
+    ///     ' Code continues even if errors occur
+    ///     MkDir "C:\Temp"  ' Won't stop if directory exists
+    /// End Sub
+    ///
+    /// Sub Test3()
+    ///     On Error GoTo 0  ' Disable error handling
+    ///     ' Normal error behavior
+    /// End Sub
+    /// ```
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/on-error-statement)
+    pub(super) fn parse_on_error_statement(&mut self) {
+        // if we are now parsing an on error statement, we are no longer in the header.
+        self.parsing_header = false;
+
+        self.builder
+            .start_node(SyntaxKind::OnErrorStatement.to_raw());
+
+        // Consume "On" keyword
+        self.consume_token();
+
+        // Consume "Error" keyword
+        if self.at_token(VB6Token::ErrorKeyword) {
+            self.consume_token();
+        }
+
+        // Consume everything until newline (GoTo label, Resume Next, GoTo 0, etc.)
+        self.consume_until(VB6Token::Newline);
+
+        // Consume the newline
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        self.builder.finish_node(); // OnErrorStatement
+    }
 }
 
 #[cfg(test)]
@@ -1308,5 +1383,205 @@ End Sub
         let debug = cst.debug_tree();
         assert!(debug.contains("GoSubStatement"));
         assert!(debug.contains("ReturnStatement"));
+    }
+
+    // On Error statement tests
+    #[test]
+    fn on_error_goto_label() {
+        let source = r#"
+Sub Test()
+    On Error GoTo ErrorHandler
+    ' Code that might error
+    Exit Sub
+ErrorHandler:
+    MsgBox Err.Description
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnErrorStatement"));
+        assert!(debug.contains("OnKeyword"));
+        assert!(debug.contains("ErrorKeyword"));
+    }
+
+    #[test]
+    fn on_error_resume_next() {
+        let source = r#"
+Sub Test()
+    On Error Resume Next
+    MkDir "C:\Temp"
+    MkDir "C:\Data"
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnErrorStatement"));
+        assert!(debug.contains("OnKeyword"));
+        assert!(debug.contains("ErrorKeyword"));
+        assert!(debug.contains("ResumeKeyword"));
+        assert!(debug.contains("NextKeyword"));
+    }
+
+    #[test]
+    fn on_error_goto_0() {
+        let source = r#"
+Sub Test()
+    On Error GoTo 0
+    ' Error handling disabled
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnErrorStatement"));
+        assert!(debug.contains("OnKeyword"));
+        assert!(debug.contains("ErrorKeyword"));
+    }
+
+    #[test]
+    fn on_error_at_module_level() {
+        let source = r#"On Error GoTo ErrorHandler"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnErrorStatement"));
+    }
+
+    #[test]
+    fn on_error_with_whitespace() {
+        let source = "On    Error    GoTo    Handler\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnErrorStatement"));
+    }
+
+    #[test]
+    fn on_error_with_comment() {
+        let source = r#"
+Sub Test()
+    On Error GoTo ErrorHandler ' Setup error handling
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnErrorStatement"));
+        assert!(debug.contains("Comment"));
+    }
+
+    #[test]
+    fn on_error_in_if_statement() {
+        let source = r#"
+Sub Test()
+    If needsErrorHandling Then
+        On Error GoTo ErrorHandler
+    End If
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnErrorStatement"));
+    }
+
+    #[test]
+    fn on_error_inline_if() {
+        let source = r#"
+Sub Test()
+    If debug Then On Error GoTo 0
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnErrorStatement"));
+    }
+
+    #[test]
+    fn multiple_on_error_statements() {
+        let source = r#"
+Sub Test()
+    On Error GoTo ErrorHandler
+    ' Do something
+    On Error GoTo 0
+    ' Disable error handling
+    On Error Resume Next
+    ' Continue on error
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        let count = debug.matches("OnErrorStatement").count();
+        assert_eq!(count, 3);
+    }
+
+    #[test]
+    fn on_error_complete_pattern() {
+        let source = r#"
+Sub ProcessFile(filePath As String)
+    On Error GoTo ErrorHandler
+    
+    Open filePath For Input As #1
+    ' Process file
+    Close #1
+    
+    Exit Sub
+    
+ErrorHandler:
+    If Err.Number <> 0 Then
+        MsgBox "Error: " & Err.Description
+    End If
+    Resume Next
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnErrorStatement"));
+        assert!(debug.contains("LabelStatement"));
+    }
+
+    #[test]
+    fn on_error_numeric_label() {
+        let source = r#"
+Sub Test()
+    On Error GoTo 100
+    ' Code
+    Exit Sub
+100:
+    MsgBox "Error"
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnErrorStatement"));
+    }
+
+    #[test]
+    fn on_error_nested_procedures() {
+        let source = r#"
+Sub Outer()
+    On Error GoTo OuterError
+    Inner
+    Exit Sub
+OuterError:
+    MsgBox "Outer error"
+End Sub
+
+Sub Inner()
+    On Error Resume Next
+    ' Code
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        let count = debug.matches("OnErrorStatement").count();
+        assert_eq!(count, 2);
     }
 }
