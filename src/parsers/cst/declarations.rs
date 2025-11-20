@@ -1,9 +1,14 @@
 //! Declare statement parsing for VB6 CST.
 //!
-//! This module handles parsing of VB6 Declare statements (external function/sub declarations).
+//! This module handles parsing of VB6 declaration statements:
+//! - Declare: External function/sub declarations
+//! - Event: Custom event declarations in classes
 //!
 //! Declare statement syntax:
 //! \[ Public | Private \] Declare { Sub | Function } name Lib "libname" \[ Alias "aliasname" \] \[ ( arglist ) \] \[ As type \]
+//!
+//! Event statement syntax:
+//! \[ Public \] Event eventname \[ ( arglist ) \]
 //!
 //! Sub statements are handled in the sub_statements module.
 //! Function statements are handled in the function_statements module.
@@ -12,6 +17,7 @@
 //! Parameter lists are handled in the parameters module.
 //!
 //! [Declare Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243324(v=vs.60))
+//! [Event Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/event-statement)
 
 use crate::language::VB6Token;
 use crate::parsers::SyntaxKind;
@@ -125,6 +131,80 @@ impl<'a> Parser<'a> {
         }
 
         self.builder.finish_node(); // DeclareStatement
+    }
+
+    /// Parse a Visual Basic 6 Event statement with syntax:
+    ///
+    /// \[ Public \] Event eventname \[ ( arglist ) \]
+    ///
+    /// The Event statement syntax has these parts:
+    ///
+    /// | Part        | Optional / Required | Description |
+    /// |-------------|---------------------|-------------|
+    /// | Public      | Optional | Indicates that the Event is accessible to all other procedures in all modules. Events are Public by default. Note that events can't be Private. |
+    /// | eventname   | Required | Name of the event; follows standard variable naming conventions. |
+    /// | arglist     | Optional | List of variables representing arguments that are passed to the event handler when the event occurs. |
+    ///
+    /// The arglist argument has the following syntax and parts:
+    ///
+    /// \[ ByVal | ByRef \] varname \[ ( ) \] \[ As type \]
+    ///
+    /// Remarks:
+    /// - Event statements can appear only in class modules, form modules, and user controls.
+    /// - Events are raised using the RaiseEvent statement.
+    /// - Events declared with Public are available to all procedures in the same project.
+    /// - Events cannot be declared as Private, Static, or Friend.
+    /// - Events cannot have named arguments, Optional arguments, or ParamArray arguments.
+    /// - Events do not have return values.
+    ///
+    /// Examples:
+    /// ```vb
+    /// Public Event StatusChanged(ByVal NewStatus As String)
+    /// Event DataReceived(ByVal Data() As Byte)
+    /// Event Click()
+    /// ```
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/event-statement)
+    pub(super) fn parse_event_statement(&mut self) {
+        // Event statements are only valid in class modules
+        self.builder.start_node(SyntaxKind::EventStatement.to_raw());
+
+        // Consume optional Public keyword
+        if self.at_token(VB6Token::PublicKeyword) {
+            self.consume_token();
+
+            // Consume any whitespace after visibility modifier
+            self.consume_whitespace();
+        }
+
+        // Consume "Event" keyword
+        self.consume_token();
+
+        // Consume any whitespace after "Event"
+        self.consume_whitespace();
+
+        // Consume event name
+        if self.at_token(VB6Token::Identifier) {
+            self.consume_token();
+        }
+
+        // Consume any whitespace before parameter list
+        self.consume_whitespace();
+
+        // Parse parameter list if present
+        if self.at_token(VB6Token::LeftParenthesis) {
+            self.parse_parameter_list();
+        }
+
+        // Consume everything until newline
+        self.consume_until(VB6Token::Newline);
+
+        // Consume the newline
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        self.builder.finish_node(); // EventStatement
     }
 }
 
@@ -340,5 +420,167 @@ mod test {
             assert_eq!(child.kind, SyntaxKind::DeclareStatement);
         }
         assert!(cst.text().contains("As Byte"));
+    }
+
+    // Event statement tests
+    #[test]
+    fn event_simple() {
+        let source = "Event StatusChanged()\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.child_count(), 1);
+        if let Some(child) = cst.child_at(0) {
+            assert_eq!(child.kind, SyntaxKind::EventStatement);
+        }
+        assert!(cst.text().contains("Event"));
+        assert!(cst.text().contains("StatusChanged"));
+    }
+
+    #[test]
+    fn event_with_parameter() {
+        let source = "Event DataReceived(ByVal Data As String)\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.child_count(), 1);
+        if let Some(child) = cst.child_at(0) {
+            assert_eq!(child.kind, SyntaxKind::EventStatement);
+        }
+        assert!(cst.text().contains("DataReceived"));
+        assert!(cst.text().contains("ByVal"));
+    }
+
+    #[test]
+    fn event_public() {
+        let source = "Public Event Click()\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.child_count(), 1);
+        if let Some(child) = cst.child_at(0) {
+            assert_eq!(child.kind, SyntaxKind::EventStatement);
+        }
+        assert!(cst.text().contains("Public"));
+        assert!(cst.text().contains("Click"));
+    }
+
+    #[test]
+    fn event_multiple_parameters() {
+        let source = "Event ValueChanged(ByVal OldValue As Long, ByVal NewValue As Long)\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.child_count(), 1);
+        if let Some(child) = cst.child_at(0) {
+            assert_eq!(child.kind, SyntaxKind::EventStatement);
+        }
+        assert!(cst.text().contains("OldValue"));
+        assert!(cst.text().contains("NewValue"));
+    }
+
+    #[test]
+    fn event_with_array_parameter() {
+        let source = "Event DataReceived(ByVal Data() As Byte)\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.child_count(), 1);
+        if let Some(child) = cst.child_at(0) {
+            assert_eq!(child.kind, SyntaxKind::EventStatement);
+        }
+        assert!(cst.text().contains("Data()"));
+    }
+
+    #[test]
+    fn event_no_parameters() {
+        let source = "Public Event Initialize()\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.child_count(), 1);
+        if let Some(child) = cst.child_at(0) {
+            assert_eq!(child.kind, SyntaxKind::EventStatement);
+        }
+    }
+
+    #[test]
+    fn event_byref_parameter() {
+        let source = "Event Modified(ByRef Cancel As Boolean)\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.child_count(), 1);
+        if let Some(child) = cst.child_at(0) {
+            assert_eq!(child.kind, SyntaxKind::EventStatement);
+        }
+        assert!(cst.text().contains("ByRef"));
+        assert!(cst.text().contains("Cancel"));
+    }
+
+    #[test]
+    fn event_preserves_whitespace() {
+        let source = "    Event    Test    (    )    \n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.text(), "    Event    Test    (    )    \n");
+    }
+
+    #[test]
+    fn event_complex_parameters() {
+        let source = "Public Event ProgressUpdate(ByVal PercentComplete As Integer, ByVal Message As String, ByRef Cancel As Boolean)\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.child_count(), 1);
+        if let Some(child) = cst.child_at(0) {
+            assert_eq!(child.kind, SyntaxKind::EventStatement);
+        }
+        assert!(cst.text().contains("ProgressUpdate"));
+        assert!(cst.text().contains("PercentComplete"));
+    }
+
+    #[test]
+    fn event_object_parameter() {
+        let source = "Event ItemAdded(ByVal Item As Object)\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.child_count(), 1);
+        if let Some(child) = cst.child_at(0) {
+            assert_eq!(child.kind, SyntaxKind::EventStatement);
+        }
+        assert!(cst.text().contains("Object"));
+    }
+
+    #[test]
+    fn multiple_event_declarations() {
+        let source = "Event Click()\nEvent DblClick()\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.child_count(), 2);
+        if let Some(child) = cst.child_at(0) {
+            assert_eq!(child.kind, SyntaxKind::EventStatement);
+        }
+        if let Some(child) = cst.child_at(1) {
+            assert_eq!(child.kind, SyntaxKind::EventStatement);
+        }
+        assert!(cst.text().contains("Click"));
+        assert!(cst.text().contains("DblClick"));
+    }
+
+    #[test]
+    fn event_variant_parameter() {
+        let source = "Event DataChanged(ByVal NewData As Variant)\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.child_count(), 1);
+        if let Some(child) = cst.child_at(0) {
+            assert_eq!(child.kind, SyntaxKind::EventStatement);
+        }
+        assert!(cst.text().contains("Variant"));
+    }
+
+    #[test]
+    fn event_custom_type_parameter() {
+        let source = "Event RecordChanged(ByVal Record As CustomerRecord)\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.child_count(), 1);
+        if let Some(child) = cst.child_at(0) {
+            assert_eq!(child.kind, SyntaxKind::EventStatement);
+        }
+        assert!(cst.text().contains("CustomerRecord"));
     }
 }

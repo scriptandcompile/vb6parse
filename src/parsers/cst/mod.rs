@@ -238,6 +238,10 @@ impl<'a> Parser<'a> {
                 Some(VB6Token::DeclareKeyword) => {
                     self.parse_declare_statement();
                 }
+                // Event statement: Event Name(...)
+                Some(VB6Token::EventKeyword) => {
+                    self.parse_event_statement();
+                }
                 // Enum statement: Enum Name ... End Enum
                 Some(VB6Token::EnumKeyword) => {
                     self.parse_enum_statement();
@@ -278,12 +282,13 @@ impl<'a> Parser<'a> {
                         .collect();
 
                     let procedure_type = match next_keywords.as_slice() {
-                        // Direct: Public/Private/Friend Function, Sub, Property, Enum, or Declare
+                        // Direct: Public/Private/Friend Function, Sub, Property, Enum, Declare, or Event
                         [VB6Token::FunctionKeyword, ..] => Some(0), // Function
                         [VB6Token::SubKeyword, ..] => Some(1),      // Sub
                         [VB6Token::PropertyKeyword, ..] => Some(2), // Property
                         [VB6Token::DeclareKeyword, ..] => Some(3),  // Declare
                         [VB6Token::EnumKeyword, ..] => Some(4),     // Enum
+                        [VB6Token::EventKeyword, ..] => Some(5),    // Event
                         // With Static: Public/Private/Friend Static Function, Sub, or Property
                         [VB6Token::StaticKeyword, VB6Token::FunctionKeyword] => Some(0),
                         [VB6Token::StaticKeyword, VB6Token::SubKeyword] => Some(1),
@@ -298,6 +303,7 @@ impl<'a> Parser<'a> {
                         Some(2) => self.parse_property_statement(), // Property
                         Some(3) => self.parse_declare_statement(),  // Declare
                         Some(4) => self.parse_enum_statement(),     // Enum
+                        Some(5) => self.parse_event_statement(),    // Event
                         _ => self.parse_dim(),                      // Declaration
                     }
                 }
