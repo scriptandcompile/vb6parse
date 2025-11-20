@@ -77,9 +77,11 @@ impl<'a> Parser<'a> {
         // Consume any whitespace after "Enum"
         self.consume_whitespace();
 
-        // Consume enum name
+        // Consume enum name (keywords can be used as enum names in VB6)
         if self.at_token(VB6Token::Identifier) {
             self.consume_token();
+        } else if self.at_keyword() {
+            self.consume_token_as_identifier();
         }
 
         // Consume everything until newline (preserving all tokens)

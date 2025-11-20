@@ -71,9 +71,11 @@ impl<'a> Parser<'a> {
         // Consume any whitespace after "Sub"
         self.consume_whitespace();
 
-        // Consume procedure name
+        // Consume procedure name (keywords can be used as procedure names in VB6)
         if self.at_token(VB6Token::Identifier) {
             self.consume_token();
+        } else if self.at_keyword() {
+            self.consume_token_as_identifier();
         }
 
         // Consume any whitespace before parameter list
@@ -286,5 +288,18 @@ mod test {
             assert_eq!(child.kind, SyntaxKind::SubStatement);
         }
         assert!(cst.text().contains("Optional"));
+    }
+
+    #[test]
+    fn sub_with_keyword_as_name() {
+        let source = r#"Sub Text()
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("SubStatement"));
+        // "Text" keyword should be converted to Identifier when used as procedure name
+        assert!(debug.contains("Identifier@4..8 \"Text\""));
     }
 }

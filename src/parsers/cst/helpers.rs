@@ -36,7 +36,7 @@ impl<'a> Parser<'a> {
     }
 
     /// Check if the current token is a keyword.
-    pub(super) fn is_keyword(&self) -> bool {
+    pub(super) fn at_keyword(&self) -> bool {
         match self.current_token() {
             Some(token) => token.is_keyword(),
             None => false,
