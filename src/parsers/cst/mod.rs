@@ -330,6 +330,9 @@ impl<'a> Parser<'a> {
                     // Check if this is a label (identifier followed by colon)
                     } else if self.is_at_label() {
                         self.parse_label_statement();
+                    // Check for Let statement (optional assignment keyword)
+                    } else if self.at_token(VB6Token::LetKeyword) {
+                        self.parse_let_statement();
                     // Check if this looks like an assignment statement (identifier = expression)
                     } else if self.is_at_assignment() {
                         self.parse_assignment_statement();
@@ -493,6 +496,9 @@ impl<'a> Parser<'a> {
                     // Check if this is a label (identifier followed by colon)
                     if self.is_at_label() {
                         self.parse_label_statement();
+                    // Check for Let statement (optional assignment keyword)
+                    } else if self.at_token(VB6Token::LetKeyword) {
+                        self.parse_let_statement();
                     // Check if this looks like an assignment statement (identifier = expression)
                     } else if self.is_at_assignment() {
                         self.parse_assignment_statement();

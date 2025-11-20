@@ -38,6 +38,7 @@ pub enum SyntaxKind {
     WithStatement,
     CallStatement,
     SetStatement,
+    LetStatement,
     AssignmentStatement,
     GotoStatement,
     GoSubStatement,
