@@ -264,7 +264,12 @@ impl<'a> Parser<'a> {
                     self.parse_attribute_statement();
                 }
                 Some(VB6Token::OptionKeyword) => {
-                    self.parse_option_statement();
+                    // Peek ahead to check if this is Option Base
+                    if let Some(VB6Token::BaseKeyword) = self.peek_next_keyword() {
+                        self.parse_option_base_statement();
+                    } else {
+                        self.parse_option_statement();
+                    }
                 }
                 // DefType statements: DefInt, DefLng, DefStr, etc.
                 Some(VB6Token::DefBoolKeyword)
