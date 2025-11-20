@@ -71,7 +71,7 @@ impl<'a> Parser<'a> {
                     continue;
                 }
 
-                // Try array statements
+                // Try variable declaration statements
                 if self.is_variable_declaration_keyword() {
                     self.parse_array_statement();
                     continue;
@@ -95,8 +95,11 @@ impl<'a> Parser<'a> {
                         self.consume_token();
                     }
                     _ => {
+                        // Check for Let statement (optional assignment keyword)
+                        if self.at_token(VB6Token::LetKeyword) {
+                            self.parse_let_statement();
                         // Check if this looks like an assignment
-                        if self.is_at_assignment() {
+                        } else if self.is_at_assignment() {
                             self.parse_assignment_statement();
                         } else {
                             // Consume as unknown

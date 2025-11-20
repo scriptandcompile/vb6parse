@@ -1,6 +1,7 @@
 //! Assignment statement parsing for VB6 CST.
 //!
 //! This module handles parsing of VB6 assignment statements:
+//! - Let statement: `Let x = 5` (optional keyword)
 //! - Simple variable assignment: `x = 5`
 //! - Property assignment: `obj.property = value`
 //! - Array assignment: `arr(index) = value`
@@ -42,9 +43,49 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // AssignmentStatement
     }
 
+    /// Parse a Let statement.
+    ///
+    /// VB6 Let statement syntax:
+    /// - Let variableName = expression
+    ///
+    /// The Let keyword is optional in VB6 and is provided for backward compatibility.
+    /// Most modern VB6 code omits the Let keyword.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/let-statement)
+    pub(super) fn parse_let_statement(&mut self) {
+        // Let statements can appear in both header and body, so we do not modify parsing_header here.
+
+        self.builder.start_node(SyntaxKind::LetStatement.to_raw());
+
+        // Consume "Let" keyword
+        self.consume_token();
+
+        // Consume everything until newline or colon (for inline If statements)
+        // This includes: variable/property, "=", expression
+        while !self.is_at_end()
+            && !self.at_token(VB6Token::Newline)
+            && !self.at_token(VB6Token::ColonOperator)
+        {
+            self.consume_token();
+        }
+
+        // Consume the newline if present (but not colon - that's handled by caller)
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        self.builder.finish_node(); // LetStatement
+    }
+
     /// Check if the current position is at the start of an assignment statement.
     /// This looks ahead to see if there's an `=` operator (not part of a comparison).
+    /// Note: Let statements are handled separately and should be checked first.
     pub(super) fn is_at_assignment(&self) -> bool {
+        // Let statements are handled separately
+        if self.at_token(VB6Token::LetKeyword) {
+            return false;
+        }
+
         // Look ahead through the tokens to find an = operator before a newline
         // We need to skip: identifiers, periods, parentheses, array indices, etc.
         // Note: In VB6, keywords can be used as property/member names (e.g., obj.Property = value)
@@ -809,5 +850,188 @@ result = (a + b) * c
         assert_eq!(cst.children()[1].children[15].kind, SyntaxKind::Newline);
 
         assert_eq!(cst.text().trim(), source.trim());
+    }
+
+    #[test]
+    fn test_let_simple() {
+        let source = r#"
+Sub Test()
+    Let x = 5
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("LetStatement"));
+        assert!(debug.contains("LetKeyword"));
+        assert!(debug.contains("x"));
+    }
+
+    #[test]
+    fn test_let_module_level() {
+        let source = "Let myVar = 10\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("LetStatement"));
+        assert!(debug.contains("myVar"));
+    }
+
+    #[test]
+    fn test_let_string() {
+        let source = r#"
+Sub Test()
+    Let myName = "John"
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("LetStatement"));
+        assert!(debug.contains("myName"));
+        assert!(debug.contains("John"));
+    }
+
+    #[test]
+    fn test_let_expression() {
+        let source = r#"
+Sub Test()
+    Let result = x + y * 2
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("LetStatement"));
+        assert!(debug.contains("result"));
+    }
+
+    #[test]
+    fn test_let_property_access() {
+        let source = r#"
+Sub Test()
+    Let obj.Value = 100
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("LetStatement"));
+        assert!(debug.contains("obj"));
+        assert!(debug.contains("Value"));
+    }
+
+    #[test]
+    fn test_let_array_element() {
+        let source = r#"
+Sub Test()
+    Let arr(5) = 42
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("LetStatement"));
+        assert!(debug.contains("arr"));
+    }
+
+    #[test]
+    fn test_let_preserves_whitespace() {
+        let source = "    Let    x    =    5    \n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.text(), "    Let    x    =    5    \n");
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("LetStatement"));
+    }
+
+    #[test]
+    fn test_let_with_comment() {
+        let source = r#"
+Sub Test()
+    Let counter = 0 ' Initialize counter
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("LetStatement"));
+        assert!(debug.contains("Comment"));
+    }
+
+    #[test]
+    fn test_let_in_if_statement() {
+        let source = r#"
+Sub Test()
+    If x > 0 Then
+        Let y = x
+    End If
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("LetStatement"));
+    }
+
+    #[test]
+    fn test_let_inline_if() {
+        let source = r#"
+Sub Test()
+    If condition Then Let x = 5
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("LetStatement"));
+    }
+
+    #[test]
+    fn test_multiple_let_statements() {
+        let source = r#"
+Sub Test()
+    Let a = 1
+    Let b = 2
+    Let c = 3
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        let let_count = debug.matches("LetStatement").count();
+        assert_eq!(let_count, 3);
+    }
+
+    #[test]
+    fn test_let_with_function_call() {
+        let source = r#"
+Sub Test()
+    Let result = Calculate(x, y)
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("LetStatement"));
+        assert!(debug.contains("result"));
+        assert!(debug.contains("Calculate"));
+    }
+
+    #[test]
+    fn test_let_with_concatenation() {
+        let source = r#"
+Sub Test()
+    Let fullName = firstName & " " & lastName
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("LetStatement"));
+        assert!(debug.contains("fullName"));
+        assert!(debug.contains("firstName"));
+        assert!(debug.contains("lastName"));
     }
 }
