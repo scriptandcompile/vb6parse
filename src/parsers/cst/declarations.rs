@@ -82,9 +82,11 @@ impl<'a> Parser<'a> {
         // Consume any whitespace after Sub/Function
         self.consume_whitespace();
 
-        // Consume procedure name
+        // Consume procedure name (keywords can be used as procedure names in VB6)
         if self.at_token(VB6Token::Identifier) {
             self.consume_token();
+        } else if self.at_keyword() {
+            self.consume_token_as_identifier();
         }
 
         // Consume any whitespace before Lib
@@ -188,9 +190,11 @@ impl<'a> Parser<'a> {
         // Consume any whitespace after "Event"
         self.consume_whitespace();
 
-        // Consume event name
+        // Consume event name (keywords can be used as event names in VB6)
         if self.at_token(VB6Token::Identifier) {
             self.consume_token();
+        } else if self.at_keyword() {
+            self.consume_token_as_identifier();
         }
 
         // Consume any whitespace before parameter list

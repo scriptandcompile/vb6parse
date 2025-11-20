@@ -79,9 +79,11 @@ impl<'a> Parser<'a> {
         // Consume any whitespace after "Function"
         self.consume_whitespace();
 
-        // Consume function name
+        // Consume function name (keywords can be used as function names in VB6)
         if self.at_token(VB6Token::Identifier) {
             self.consume_token();
+        } else if self.at_keyword() {
+            self.consume_token_as_identifier();
         }
 
         // Consume any whitespace before parameter list

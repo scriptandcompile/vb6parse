@@ -394,7 +394,7 @@ impl<'a> Parser<'a> {
                         self.parse_assignment_statement();
                     } else if self.is_identifier() {
                         self.consume_token();
-                    } else if self.is_keyword() {
+                    } else if self.at_keyword() {
                         self.consume_token();
                     } else {
                         // This is purely being done this way to make it easier during development.

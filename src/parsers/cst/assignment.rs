@@ -39,7 +39,7 @@ impl<'a> Parser<'a> {
             // In VB6, keywords can be used as identifiers in certain positions:
             // - At the start of an assignment (variable name)
             // - After a period (property/method name)
-            if (at_identifier_position || last_was_period) && self.current_token().map_or(false, |t| t.is_keyword()) {
+            if (at_identifier_position || last_was_period) && self.at_keyword() {
                 self.consume_token_as_identifier();
                 at_identifier_position = false;
                 last_was_period = false;
