@@ -10,7 +10,7 @@
 //! Note: Control flow statements (If, Do, For, Select Case, GoTo, Exit, Label)
 //! are in the controlflow module.
 //! Built-in system statements (AppActivate, Beep, ChDir, ChDrive) are in the
-//! built_in_statements module.
+//! library module.
 
 use crate::language::VB6Token;
 use crate::parsers::SyntaxKind;
