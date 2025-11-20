@@ -50,6 +50,7 @@ pub enum SyntaxKind {
     ResetStatement,
     ErrorStatement,
     FileCopyStatement,
+    GetStatement,
     LabelStatement,
     AttributeStatement,
     OptionStatement,
