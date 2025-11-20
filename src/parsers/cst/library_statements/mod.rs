@@ -17,6 +17,7 @@
 //! - Input: Read data from an open sequential file
 //! - Line Input: Read an entire line from a sequential file
 //! - Kill: Delete a file from disk
+//! - Load: Load a form or control into memory
 //! - Reset: Close all disk files opened using the Open statement
 //!
 
@@ -38,6 +39,7 @@ mod get;
 mod input;
 mod line_input;
 mod kill;
+mod load;
 mod reset;
 
 impl<'a> Parser<'a> {
@@ -58,6 +60,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::InputKeyword)
                 | Some(VB6Token::KillKeyword)
                 | Some(VB6Token::LineKeyword)
+                | Some(VB6Token::LoadKeyword)
                 | Some(VB6Token::ResetKeyword)
         )
     }
@@ -103,6 +106,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::LineKeyword) => {
                 self.parse_line_input_statement();
+            }
+            Some(VB6Token::LoadKeyword) => {
+                self.parse_load_statement();
             }
             Some(VB6Token::ResetKeyword) => {
                 self.parse_reset_statement();
