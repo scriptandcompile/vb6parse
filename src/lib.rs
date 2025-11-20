@@ -204,7 +204,7 @@ pub use crate::errors::*;
 pub use crate::language::*;
 pub use crate::parsers::parse;
 pub use crate::parsers::*;
-pub use crate::parsers::{ConcreteSyntaxTree, SyntaxKind};
+pub use crate::parsers::{ConcreteSyntaxTree, SerializableTree, SyntaxKind};
 pub use crate::sourcefile::*;
 pub use crate::sourcestream::SourceStream;
 pub use crate::tokenize::tokenize;

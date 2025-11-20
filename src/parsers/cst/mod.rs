@@ -93,6 +93,18 @@ mod variable_declarations;
 // Re-export navigation types
 pub use navigation::CstNode;
 
+/// A serializable representation of the CST for snapshot testing.
+///
+/// This struct wraps the tree structure in a way that can be serialized
+/// with serde, making it suitable for use with snapshot testing tools like insta.
+#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize)]
+pub struct SerializableTree {
+    /// The root node of the tree
+    pub root: CstNode,
+    /// The complete text content
+    pub text: String,
+}
+
 /// The language type for VB6 syntax trees.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum VB6Language {}
@@ -151,6 +163,40 @@ impl ConcreteSyntaxTree {
     /// Get the kind of the root node
     pub fn root_kind(&self) -> SyntaxKind {
         SyntaxKind::from_raw(self.root.kind())
+    }
+
+    /// Convert the CST to a serializable representation.
+    ///
+    /// This method creates a `SerializableTree` that can be used with
+    /// snapshot testing tools like `insta`. The serializable tree contains
+    /// the complete tree structure as a hierarchy of `CstNode` instances.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use vb6parse::ConcreteSyntaxTree;
+    ///
+    /// let source = "Sub Test()\nEnd Sub\n";
+    /// let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+    /// let serializable = cst.to_serializable();
+    ///
+    /// // Can now be used with insta::assert_yaml_snapshot!
+    /// ```
+    pub fn to_serializable(&self) -> SerializableTree {
+        SerializableTree {
+            root: self.to_root_node(),
+            text: self.text(),
+        }
+    }
+
+    /// Convert the internal rowan tree to a root CstNode.
+    fn to_root_node(&self) -> CstNode {
+        CstNode {
+            kind: SyntaxKind::Root,
+            text: self.text(),
+            is_token: false,
+            children: self.children(),
+        }
     }
 }
 
@@ -637,5 +683,37 @@ mod test {
         assert_eq!(cst.child_count(), 3);
         assert!(cst.text().contains("' This is a comment"));
         assert!(cst.text().contains("Sub Main()"));
+    }
+
+    #[test]
+    fn cst_serializable_tree() {
+        let source = "Sub Test()\nEnd Sub\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        // Convert to serializable format
+        let serializable = cst.to_serializable();
+
+        // Verify structure
+        assert_eq!(serializable.text, source);
+        assert_eq!(serializable.root.kind, SyntaxKind::Root);
+        assert!(!serializable.root.is_token);
+        assert_eq!(serializable.root.children.len(), 1);
+        assert_eq!(serializable.root.children[0].kind, SyntaxKind::SubStatement);
+
+        // Can be used with insta for snapshot testing:
+        // insta::assert_yaml_snapshot!(serializable);
+    }
+
+    #[test]
+    fn cst_serializable_with_insta() {
+        let source = "Dim x As Integer\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let serializable = cst.to_serializable();
+
+        // Example of using with insta (commented out to not create snapshot files in normal test runs)
+        // insta::assert_yaml_snapshot!(serializable);
+
+        // Verify it's serializable by checking structure
+        assert!(serializable.root.children.len() > 0);
     }
 }

@@ -3,7 +3,7 @@ use crate::language::VB6Token;
 /// Syntax kinds for the VB6 CST.
 ///
 /// This enum represents all possible node and token types in the CST.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, serde::Serialize)]
 #[repr(u16)]
 pub enum SyntaxKind {
     // Root node
