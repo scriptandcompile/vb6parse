@@ -20,6 +20,7 @@
 //! - [`ConcreteSyntaxTree`] - The main CST struct
 //! - [`SyntaxKind`] - An enum representing all possible node and token types
 //! - [`parse`] - A function to parse a [`TokenStream`] into a CST
+//! - [`CstNode`] - A structure for navigating and querying the CST
 //!
 //! # Example Usage
 //!
@@ -69,7 +70,6 @@ use rowan::{GreenNode, GreenNodeBuilder, Language};
 // Submodules for organized CST parsing
 mod assignment;
 mod attribute_statements;
-mod built_in_statements;
 mod conditionals;
 mod controlflow;
 mod declarations;
@@ -79,6 +79,7 @@ mod for_statements;
 mod function_statements;
 mod helpers;
 mod if_statements;
+mod library_statements;
 mod loop_statements;
 mod navigation;
 mod object_statements;
@@ -318,10 +319,10 @@ impl<'a> Parser<'a> {
                 // Anything else - check if it's a statement, label, assignment, or unknown
                 _ => {
                     // Try built-in statements
-                    if self.is_builtin_statement_keyword() {
-                        self.parse_builtin_statement();
+                    if self.is_library_statement_keyword() {
+                        self.parse_library_statement();
                     // Try array statements
-                    } else if self.is_array_statement_keyword() {
+                    } else if self.is_variable_declaration_keyword() {
                         self.parse_array_statement();
                     // Try to parse common statements using centralized dispatcher
                     } else if self.is_statement_keyword() {
@@ -404,7 +405,7 @@ impl<'a> Parser<'a> {
     }
 
     /// Check if the current token is an array statement keyword.
-    fn is_array_statement_keyword(&self) -> bool {
+    fn is_variable_declaration_keyword(&self) -> bool {
         matches!(
             self.current_token(),
             Some(VB6Token::ReDimKeyword) | Some(VB6Token::EraseKeyword)
@@ -452,14 +453,14 @@ impl<'a> Parser<'a> {
                 continue;
             }
 
-            // Try built-in statements
-            if self.is_builtin_statement_keyword() {
-                self.parse_builtin_statement();
+            // Try built-in library statements
+            if self.is_library_statement_keyword() {
+                self.parse_library_statement();
                 continue;
             }
 
             // Try array statements
-            if self.is_array_statement_keyword() {
+            if self.is_variable_declaration_keyword() {
                 self.parse_array_statement();
                 continue;
             }
@@ -505,33 +506,33 @@ impl<'a> Parser<'a> {
     }
 }
 
-#[test]
-fn parse_single_quote_comment() {
-    let code = "' This is a comment\nSub Main()\n";
-
-    let mut source_stream = SourceStream::new("test.bas", code);
-    let result = tokenize(&mut source_stream);
-    let token_stream = result.result.expect("Tokenization should succeed");
-    let cst = parse(token_stream);
-
-    assert_eq!(cst.root_kind(), SyntaxKind::Root);
-    // Should have 2 children: the comment and the SubStatement
-    assert_eq!(cst.child_count(), 3); // 2 statements + EOF
-    assert!(cst.text().contains("' This is a comment"));
-    assert!(cst.text().contains("Sub Main()"));
-
-    // Use navigation methods
-    assert!(cst.contains_kind(SyntaxKind::EndOfLineComment));
-    assert!(cst.contains_kind(SyntaxKind::SubStatement));
-
-    let first = cst.first_child().unwrap();
-    assert_eq!(first.kind, SyntaxKind::EndOfLineComment);
-    assert!(first.is_token);
-}
-
 #[cfg(test)]
 mod test {
     use crate::*;
+
+    #[test]
+    fn parse_single_quote_comment() {
+        let code = "' This is a comment\nSub Main()\n";
+
+        let mut source_stream = SourceStream::new("test.bas", code);
+        let result = tokenize(&mut source_stream);
+        let token_stream = result.result.expect("Tokenization should succeed");
+        let cst = parse(token_stream);
+
+        assert_eq!(cst.root_kind(), SyntaxKind::Root);
+        // Should have 2 children: the comment and the SubStatement
+        assert_eq!(cst.child_count(), 3); // 2 statements + EOF
+        assert!(cst.text().contains("' This is a comment"));
+        assert!(cst.text().contains("Sub Main()"));
+
+        // Use navigation methods
+        assert!(cst.contains_kind(SyntaxKind::EndOfLineComment));
+        assert!(cst.contains_kind(SyntaxKind::SubStatement));
+
+        let first = cst.first_child().unwrap();
+        assert_eq!(first.kind, SyntaxKind::EndOfLineComment);
+        assert!(first.is_token);
+    }
 
     #[test]
     fn syntax_kind_conversions() {

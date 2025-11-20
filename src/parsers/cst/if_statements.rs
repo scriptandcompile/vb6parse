@@ -65,14 +65,14 @@ impl<'a> Parser<'a> {
                     continue;
                 }
 
-                // Try built-in statements
-                if self.is_builtin_statement_keyword() {
-                    self.parse_builtin_statement();
+                // Try built-in library statements
+                if self.is_library_statement_keyword() {
+                    self.parse_library_statement();
                     continue;
                 }
 
                 // Try array statements
-                if self.is_array_statement_keyword() {
+                if self.is_variable_declaration_keyword() {
                     self.parse_array_statement();
                     continue;
                 }
