@@ -92,6 +92,7 @@ static KEYWORD_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, VB6Token> = phf_orde
     "LSet" => VB6Token::LSetKeyword,
     "Me" => VB6Token::MeKeyword,
     "Mid" => VB6Token::MidKeyword,
+    "MidB" => VB6Token::MidBKeyword,
     "MkDir" => VB6Token::MkDirKeyword,
     "Mod" => VB6Token::ModKeyword,
     "Name" => VB6Token::NameKeyword,

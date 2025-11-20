@@ -654,6 +654,12 @@ pub enum VB6Token {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266166(v=vs.60))
     MidKeyword,
+    /// Represents the 'MidB' keyword.
+    ///
+    /// Used in MidB statements to replace bytes in a string variable.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/midb-statement)
+    MidBKeyword,
     /// Represents the 'LSet' keyword.
     ///
     /// Left alligns a string within a string variable, or copies a variable of
@@ -1155,6 +1161,7 @@ impl VB6Token {
             | VB6Token::OffKeyword
             | VB6Token::NameKeyword
             | VB6Token::MkDirKeyword
+            | VB6Token::MidBKeyword
             | VB6Token::MidKeyword
             | VB6Token::LSetKeyword
             | VB6Token::LoadKeyword
