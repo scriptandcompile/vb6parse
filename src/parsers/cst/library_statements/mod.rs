@@ -20,6 +20,7 @@
 //! - Load: Load a form or control into memory
 //! - Lock: Control access to all or part of an open file
 //! - Unlock: Remove access restrictions from an open file
+//! - LSet: Left-align a string or copy a user-defined type
 //! - Reset: Close all disk files opened using the Open statement
 //!
 
@@ -44,6 +45,7 @@ mod kill;
 mod load;
 mod lock;
 mod unlock;
+mod lset;
 mod reset;
 
 impl<'a> Parser<'a> {
@@ -67,6 +69,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::LoadKeyword)
                 | Some(VB6Token::LockKeyword)
                 | Some(VB6Token::UnlockKeyword)
+                | Some(VB6Token::LSetKeyword)
                 | Some(VB6Token::ResetKeyword)
         )
     }
@@ -121,6 +124,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::UnlockKeyword) => {
                 self.parse_unlock_statement();
+            }
+            Some(VB6Token::LSetKeyword) => {
+                self.parse_lset_statement();
             }
             Some(VB6Token::ResetKeyword) => {
                 self.parse_reset_statement();
