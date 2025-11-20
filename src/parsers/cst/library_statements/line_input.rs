@@ -116,10 +116,7 @@ End Sub
         let source = "    Line    Input    #1  ,  myString    \n";
         let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
-        assert_eq!(
-            cst.text(),
-            "    Line    Input    #1  ,  myString    \n"
-        );
+        assert_eq!(cst.text(), "    Line    Input    #1  ,  myString    \n");
 
         let debug = cst.debug_tree();
         assert!(debug.contains("LineInputStatement"));

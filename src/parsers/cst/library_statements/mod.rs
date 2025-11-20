@@ -42,15 +42,15 @@ mod error;
 mod file_copy;
 mod get;
 mod input;
-mod line_input;
 mod kill;
+mod line_input;
 mod load;
 mod lock;
-mod unlock;
 mod lset;
 mod mid;
 mod midb;
 mod reset;
+mod unlock;
 
 impl<'a> Parser<'a> {
     /// Check if the current token is a library statement keyword.
