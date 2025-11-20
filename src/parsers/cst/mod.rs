@@ -242,6 +242,10 @@ impl<'a> Parser<'a> {
                 Some(VB6Token::EventKeyword) => {
                     self.parse_event_statement();
                 }
+                // Implements statement: Implements InterfaceName
+                Some(VB6Token::ImplementsKeyword) => {
+                    self.parse_implements_statement();
+                }
                 // Enum statement: Enum Name ... End Enum
                 Some(VB6Token::EnumKeyword) => {
                     self.parse_enum_statement();
@@ -281,31 +285,22 @@ impl<'a> Parser<'a> {
                         .peek_next_count_keywords(NonZeroUsize::new(2).unwrap())
                         .collect();
 
-                    let procedure_type = match next_keywords.as_slice() {
+                    match next_keywords.as_slice() {
                         // Direct: Public/Private/Friend Function, Sub, Property, Enum, Declare, or Event
-                        [VB6Token::FunctionKeyword, ..] => Some(0), // Function
-                        [VB6Token::SubKeyword, ..] => Some(1),      // Sub
-                        [VB6Token::PropertyKeyword, ..] => Some(2), // Property
-                        [VB6Token::DeclareKeyword, ..] => Some(3),  // Declare
-                        [VB6Token::EnumKeyword, ..] => Some(4),     // Enum
-                        [VB6Token::EventKeyword, ..] => Some(5),    // Event
+                        [VB6Token::FunctionKeyword, ..] => self.parse_function_statement(), // Function
+                        [VB6Token::SubKeyword, ..] => self.parse_sub_statement(),      // Sub
+                        [VB6Token::PropertyKeyword, ..] => self.parse_property_statement(), // Property
+                        [VB6Token::DeclareKeyword, ..] => self.parse_declare_statement(),  // Declare
+                        [VB6Token::EnumKeyword, ..] => self.parse_enum_statement(),     // Enum
+                        [VB6Token::EventKeyword, ..] => self.parse_event_statement(),    // Event
+                        [VB6Token::ImplementsKeyword, ..] => self.parse_implements_statement(), // Implements
                         // With Static: Public/Private/Friend Static Function, Sub, or Property
-                        [VB6Token::StaticKeyword, VB6Token::FunctionKeyword] => Some(0),
-                        [VB6Token::StaticKeyword, VB6Token::SubKeyword] => Some(1),
-                        [VB6Token::StaticKeyword, VB6Token::PropertyKeyword] => Some(2),
+                        [VB6Token::StaticKeyword, VB6Token::FunctionKeyword] => self.parse_function_statement(),
+                        [VB6Token::StaticKeyword, VB6Token::SubKeyword] => self.parse_sub_statement(),
+                        [VB6Token::StaticKeyword, VB6Token::PropertyKeyword] => self.parse_property_statement(),
                         // Anything else is a declaration
-                        _ => None,
+                        _ => self.parse_dim(),
                     };
-
-                    match procedure_type {
-                        Some(0) => self.parse_function_statement(), // Function
-                        Some(1) => self.parse_sub_statement(),      // Sub
-                        Some(2) => self.parse_property_statement(), // Property
-                        Some(3) => self.parse_declare_statement(),  // Declare
-                        Some(4) => self.parse_enum_statement(),     // Enum
-                        Some(5) => self.parse_event_statement(),    // Event
-                        _ => self.parse_dim(),                      // Declaration
-                    }
                 }
                 // Whitespace and newlines - consume directly
                 Some(VB6Token::Whitespace)
