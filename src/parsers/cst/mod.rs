@@ -288,16 +288,22 @@ impl<'a> Parser<'a> {
                     match next_keywords.as_slice() {
                         // Direct: Public/Private/Friend Function, Sub, Property, Enum, Declare, or Event
                         [VB6Token::FunctionKeyword, ..] => self.parse_function_statement(), // Function
-                        [VB6Token::SubKeyword, ..] => self.parse_sub_statement(),      // Sub
+                        [VB6Token::SubKeyword, ..] => self.parse_sub_statement(),           // Sub
                         [VB6Token::PropertyKeyword, ..] => self.parse_property_statement(), // Property
-                        [VB6Token::DeclareKeyword, ..] => self.parse_declare_statement(),  // Declare
-                        [VB6Token::EnumKeyword, ..] => self.parse_enum_statement(),     // Enum
-                        [VB6Token::EventKeyword, ..] => self.parse_event_statement(),    // Event
+                        [VB6Token::DeclareKeyword, ..] => self.parse_declare_statement(), // Declare
+                        [VB6Token::EnumKeyword, ..] => self.parse_enum_statement(),       // Enum
+                        [VB6Token::EventKeyword, ..] => self.parse_event_statement(),     // Event
                         [VB6Token::ImplementsKeyword, ..] => self.parse_implements_statement(), // Implements
                         // With Static: Public/Private/Friend Static Function, Sub, or Property
-                        [VB6Token::StaticKeyword, VB6Token::FunctionKeyword] => self.parse_function_statement(),
-                        [VB6Token::StaticKeyword, VB6Token::SubKeyword] => self.parse_sub_statement(),
-                        [VB6Token::StaticKeyword, VB6Token::PropertyKeyword] => self.parse_property_statement(),
+                        [VB6Token::StaticKeyword, VB6Token::FunctionKeyword] => {
+                            self.parse_function_statement()
+                        }
+                        [VB6Token::StaticKeyword, VB6Token::SubKeyword] => {
+                            self.parse_sub_statement()
+                        }
+                        [VB6Token::StaticKeyword, VB6Token::PropertyKeyword] => {
+                            self.parse_property_statement()
+                        }
                         // Anything else is a declaration
                         _ => self.parse_dim(),
                     };

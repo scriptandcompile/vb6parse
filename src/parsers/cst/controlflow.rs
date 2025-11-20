@@ -94,7 +94,8 @@ impl<'a> Parser<'a> {
         // if we are now parsing a return statement, we are no longer in the header.
         self.parsing_header = false;
 
-        self.builder.start_node(SyntaxKind::ReturnStatement.to_raw());
+        self.builder
+            .start_node(SyntaxKind::ReturnStatement.to_raw());
 
         // Consume "Return" keyword
         self.consume_token();
@@ -1309,4 +1310,3 @@ End Sub
         assert!(debug.contains("ReturnStatement"));
     }
 }
-
