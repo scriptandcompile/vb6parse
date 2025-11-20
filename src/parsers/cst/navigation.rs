@@ -10,7 +10,7 @@ use super::{ConcreteSyntaxTree, VB6Language};
 /// Represents a node in the Concrete Syntax Tree
 ///
 /// This can be either a structural node (like SubStatement) or a token (like Identifier).
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize)]
 pub struct CstNode {
     /// The kind of syntax element this node represents
     pub kind: SyntaxKind,
