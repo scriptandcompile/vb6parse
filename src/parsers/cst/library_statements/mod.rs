@@ -26,6 +26,7 @@
 //! - MkDir: Create a new directory or folder
 //! - Name: Rename a disk file, directory, or folder
 //! - Open: Open a file for input/output operations
+//! - Print: Write display-formatted data to a sequential file
 //! - Reset: Close all disk files opened using the Open statement
 //!
 
@@ -55,6 +56,7 @@ mod midb;
 mod mkdir;
 mod name;
 mod open;
+mod print;
 mod reset;
 mod unlock;
 
@@ -85,6 +87,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::MkDirKeyword)
                 | Some(VB6Token::NameKeyword)
                 | Some(VB6Token::OpenKeyword)
+                | Some(VB6Token::PrintKeyword)
                 | Some(VB6Token::ResetKeyword)
         )
     }
@@ -157,6 +160,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::OpenKeyword) => {
                 self.parse_open_statement();
+            }
+            Some(VB6Token::PrintKeyword) => {
+                self.parse_print_statement();
             }
             Some(VB6Token::ResetKeyword) => {
                 self.parse_reset_statement();
