@@ -15,6 +15,7 @@
 //! - FileCopy: Copy a file
 //! - Get: Read data from an open disk file into a variable
 //! - Input: Read data from an open sequential file
+//! - Line Input: Read an entire line from a sequential file
 //! - Kill: Delete a file from disk
 //! - Reset: Close all disk files opened using the Open statement
 //!
@@ -35,6 +36,7 @@ mod error;
 mod file_copy;
 mod get;
 mod input;
+mod line_input;
 mod kill;
 mod reset;
 
@@ -55,6 +57,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::GetKeyword)
                 | Some(VB6Token::InputKeyword)
                 | Some(VB6Token::KillKeyword)
+                | Some(VB6Token::LineKeyword)
                 | Some(VB6Token::ResetKeyword)
         )
     }
@@ -97,6 +100,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::KillKeyword) => {
                 self.parse_kill_statement();
+            }
+            Some(VB6Token::LineKeyword) => {
+                self.parse_line_input_statement();
             }
             Some(VB6Token::ResetKeyword) => {
                 self.parse_reset_statement();
