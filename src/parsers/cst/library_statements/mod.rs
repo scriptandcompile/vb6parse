@@ -19,6 +19,7 @@
 //! - Kill: Delete a file from disk
 //! - Load: Load a form or control into memory
 //! - Lock: Control access to all or part of an open file
+//! - Unlock: Remove access restrictions from an open file
 //! - Reset: Close all disk files opened using the Open statement
 //!
 
@@ -42,6 +43,7 @@ mod line_input;
 mod kill;
 mod load;
 mod lock;
+mod unlock;
 mod reset;
 
 impl<'a> Parser<'a> {
@@ -64,6 +66,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::LineKeyword)
                 | Some(VB6Token::LoadKeyword)
                 | Some(VB6Token::LockKeyword)
+                | Some(VB6Token::UnlockKeyword)
                 | Some(VB6Token::ResetKeyword)
         )
     }
@@ -115,6 +118,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::LockKeyword) => {
                 self.parse_lock_statement();
+            }
+            Some(VB6Token::UnlockKeyword) => {
+                self.parse_unlock_statement();
             }
             Some(VB6Token::ResetKeyword) => {
                 self.parse_reset_statement();
