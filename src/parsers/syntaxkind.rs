@@ -44,6 +44,7 @@ pub enum SyntaxKind {
     GoSubStatement,
     ReturnStatement,
     ExitStatement,
+    OnErrorStatement,
     AppActivateStatement,
     BeepStatement,
     ChDirStatement,
