@@ -65,6 +65,7 @@ pub enum SyntaxKind {
     MidStatement,
     MidBStatement,
     MkDirStatement,
+    NameStatement,
     LabelStatement,
     AttributeStatement,
     OptionStatement,

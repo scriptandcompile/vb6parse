@@ -24,6 +24,7 @@
 //! - Mid: Replace characters in a string variable
 //! - MidB: Replace bytes in a string variable
 //! - MkDir: Create a new directory or folder
+//! - Name: Rename a disk file, directory, or folder
 //! - Reset: Close all disk files opened using the Open statement
 //!
 
@@ -51,6 +52,7 @@ mod lset;
 mod mid;
 mod midb;
 mod mkdir;
+mod name;
 mod reset;
 mod unlock;
 
@@ -79,6 +81,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::MidKeyword)
                 | Some(VB6Token::MidBKeyword)
                 | Some(VB6Token::MkDirKeyword)
+                | Some(VB6Token::NameKeyword)
                 | Some(VB6Token::ResetKeyword)
         )
     }
@@ -145,6 +148,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::MkDirKeyword) => {
                 self.parse_mkdir_statement();
+            }
+            Some(VB6Token::NameKeyword) => {
+                self.parse_name_statement();
             }
             Some(VB6Token::ResetKeyword) => {
                 self.parse_reset_statement();
