@@ -168,6 +168,15 @@ impl<'a> Parser<'a> {
         }
     }
 
+    /// Consume the current token as an Identifier, regardless of whether it's actually a keyword.
+    /// This is used when keywords appear in identifier positions (e.g., variable names, property names).
+    pub(super) fn consume_token_as_identifier(&mut self) {
+        if let Some((text, _)) = self.tokens.get(self.pos) {
+            self.builder.token(SyntaxKind::Identifier.to_raw(), text);
+            self.pos += 1;
+        }
+    }
+
     /// Consume all whitespace tokens at the current position.
     pub(super) fn consume_whitespace(&mut self) {
         while self.at_token(VB6Token::Whitespace) {

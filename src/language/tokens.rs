@@ -970,6 +970,18 @@ pub enum VB6Token {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/open-statement)
     AccessKeyword,
+    /// Represents the 'Text' keyword.
+    ///
+    /// The Text keyword is used in the Option Compare statement to specify text-based string comparison.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/option-compare-statement)
+    TextKeyword,
+    /// Represents the 'Database' keyword.
+    ///
+    /// The Database keyword is used in the Option Compare statement to specify database-based string comparison.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/option-compare-statement)
+    DatabaseKeyword,
     /// Represents the 'Empty' keyword.
     ///
     /// The Empty keyword is used as a Variant subtype. It indicates an
@@ -1240,6 +1252,8 @@ impl VB6Token {
             | VB6Token::OutputKeyword
             | VB6Token::AppendKeyword
             | VB6Token::AccessKeyword
+            | VB6Token::TextKeyword
+            | VB6Token::DatabaseKeyword
             | VB6Token::EmptyKeyword
             | VB6Token::NextKeyword
             | VB6Token::EachKeyword

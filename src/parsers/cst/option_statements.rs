@@ -3,6 +3,7 @@
 //! This module handles parsing of VB6 Option statements:
 //! - Option Explicit - Require explicit variable declarations
 //! - Option Base - Set default lower bound for array subscripts
+//! - Option Compare - Set string comparison method
 
 use crate::language::VB6Token;
 use crate::parsers::SyntaxKind;
@@ -66,6 +67,66 @@ impl<'a> Parser<'a> {
     ///
     /// [Microsoft Documentation](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/option-base-statement)
     pub(super) fn parse_option_base_statement(&mut self) {
+        self.parse_option_statement();
+    }
+
+    /// Parse an Option Compare statement.
+    ///
+    /// Sets the string comparison method for the module.
+    ///
+    /// # Syntax
+    ///
+    /// | Clause | Description |
+    /// |--------|-------------|
+    /// | `Option Compare Binary` | Case-sensitive string comparison based on binary representation |
+    /// | `Option Compare Text` | Case-insensitive string comparison |
+    /// | `Option Compare Database` | String comparison based on database locale (Access only) |
+    ///
+    /// # Remarks
+    ///
+    /// The `Option Compare` statement is used to set the default string comparison method
+    /// for a module. This affects how VB6 compares strings in operations like `=`, `<`, `>`,
+    /// and in string functions.
+    ///
+    /// - Must be used at module level (before any procedures)
+    /// - If not specified, the default is `Binary`
+    /// - **Binary**: Case-sensitive comparison based on internal binary representation of characters
+    /// - **Text**: Case-insensitive comparison (A = a, B = b, etc.)
+    /// - **Database**: Uses database sort order (Microsoft Access only)
+    ///
+    /// Binary comparison is faster but case-sensitive. Text comparison is case-insensitive
+    /// but may be slower. The comparison method affects:
+    /// - String comparisons in If statements
+    /// - InStr function
+    /// - StrComp function (unless comparison argument is specified)
+    /// - Select Case with string expressions
+    ///
+    /// # Examples
+    ///
+    /// ```vb6
+    /// Option Compare Text
+    ///
+    /// Sub Example()
+    ///     If "ABC" = "abc" Then  ' True with Text, False with Binary
+    ///         Debug.Print "Strings are equal"
+    ///     End If
+    /// End Sub
+    /// ```
+    ///
+    /// ```vb6
+    /// Option Compare Binary
+    ///
+    /// Sub Example()
+    ///     If "ABC" = "abc" Then  ' False - case sensitive
+    ///         Debug.Print "This won't print"
+    ///     End If
+    /// End Sub
+    /// ```
+    ///
+    /// # References
+    ///
+    /// [Microsoft Documentation](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/option-compare-statement)
+    pub(super) fn parse_option_compare_statement(&mut self) {
         self.parse_option_statement();
     }
 }
@@ -231,6 +292,185 @@ Option Base 1
 
         let debug = cst.debug_tree();
         assert!(debug.contains("OptionStatement"));
+        assert!(debug.contains("BaseKeyword"));
+    }
+
+    #[test]
+    fn parse_option_compare_binary() {
+        let source = "Option Compare Binary\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OptionStatement"));
+        assert!(debug.contains("OptionKeyword"));
+        assert!(debug.contains("CompareKeyword"));
+        assert!(debug.contains("BinaryKeyword"));
+        assert_eq!(cst.text(), "Option Compare Binary\n");
+    }
+
+    #[test]
+    fn parse_option_compare_text() {
+        let source = "Option Compare Text\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OptionStatement"));
+        assert!(debug.contains("OptionKeyword"));
+        assert!(debug.contains("CompareKeyword"));
+        assert!(debug.contains("TextKeyword"));
+        assert_eq!(cst.text(), "Option Compare Text\n");
+    }
+
+    #[test]
+    fn parse_option_compare_database() {
+        let source = "Option Compare Database\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OptionStatement"));
+        assert!(debug.contains("OptionKeyword"));
+        assert!(debug.contains("CompareKeyword"));
+        assert!(debug.contains("DatabaseKeyword"));
+        assert_eq!(cst.text(), "Option Compare Database\n");
+    }
+
+    #[test]
+    fn option_compare_at_module_level() {
+        let source = "Option Compare Text\n\nSub Test()\nEnd Sub\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OptionStatement"));
+        assert!(debug.contains("CompareKeyword"));
+        assert!(debug.contains("SubStatement"));
+    }
+
+    #[test]
+    fn option_compare_with_whitespace() {
+        let source = "Option  Compare  Binary\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OptionStatement"));
+        assert!(debug.contains("CompareKeyword"));
+        assert_eq!(cst.text(), "Option  Compare  Binary\n");
+    }
+
+    #[test]
+    fn option_compare_with_comment() {
+        let source = "Option Compare Text ' Case-insensitive\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OptionStatement"));
+        assert!(debug.contains("CompareKeyword"));
+        assert!(debug.contains("Comment"));
+    }
+
+    #[test]
+    fn option_compare_preserves_whitespace() {
+        let source = "Option Compare Binary  \n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.text(), "Option Compare Binary  \n");
+    }
+
+    #[test]
+    fn multiple_option_statements_with_compare() {
+        let source = "Option Explicit\nOption Compare Text\nOption Base 1\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert_eq!(cst.child_count(), 3);
+        assert!(debug.contains("ExplicitKeyword"));
+        assert!(debug.contains("CompareKeyword"));
+        assert!(debug.contains("BaseKeyword"));
+    }
+
+    #[test]
+    fn option_compare_case_insensitive() {
+        let source = "OPTION COMPARE BINARY\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OptionStatement"));
+        assert!(debug.contains("CompareKeyword"));
+    }
+
+    #[test]
+    fn option_compare_with_line_continuation() {
+        let source = "Option _\nCompare Text\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OptionStatement"));
+        assert!(debug.contains("CompareKeyword"));
+    }
+
+    #[test]
+    fn option_compare_before_declarations() {
+        let source = "Option Compare Binary\nDim str As String\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OptionStatement"));
+        assert!(debug.contains("CompareKeyword"));
+        assert!(debug.contains("DimStatement"));
+    }
+
+    #[test]
+    fn option_compare_in_module() {
+        let source = r#"Attribute VB_Name = "Module1"
+Option Compare Text
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("AttributeStatement"));
+        assert!(debug.contains("OptionStatement"));
+        assert!(debug.contains("CompareKeyword"));
+    }
+
+    #[test]
+    fn option_compare_text_case_insensitive_behavior() {
+        let source = "Option Compare Text\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OptionStatement"));
+        assert!(debug.contains("TextKeyword"));
+    }
+
+    #[test]
+    fn option_compare_binary_default() {
+        let source = "Option Compare Binary\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OptionStatement"));
+        assert!(debug.contains("BinaryKeyword"));
+    }
+
+    #[test]
+    fn option_compare_database_access_only() {
+        let source = "Option Compare Database\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OptionStatement"));
+        assert!(debug.contains("DatabaseKeyword"));
+    }
+
+    #[test]
+    fn all_three_option_statements() {
+        let source = "Option Explicit\nOption Compare Binary\nOption Base 1\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert_eq!(cst.child_count(), 3);
+        assert!(debug.contains("ExplicitKeyword"));
+        assert!(debug.contains("CompareKeyword"));
+        assert!(debug.contains("BinaryKeyword"));
         assert!(debug.contains("BaseKeyword"));
     }
 }

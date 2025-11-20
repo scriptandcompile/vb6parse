@@ -26,13 +26,34 @@ impl<'a> Parser<'a> {
         self.builder
             .start_node(SyntaxKind::AssignmentStatement.to_raw());
 
+        // Track if we're at the start or after a period (where keywords can be identifiers)
+        let mut at_identifier_position = true;
+        let mut last_was_period = false;
+
         // Consume everything until newline or colon (for inline If statements)
         // This includes: variable/property, "=", expression
         while !self.is_at_end()
             && !self.at_token(VB6Token::Newline)
             && !self.at_token(VB6Token::ColonOperator)
         {
-            self.consume_token();
+            // In VB6, keywords can be used as identifiers in certain positions:
+            // - At the start of an assignment (variable name)
+            // - After a period (property/method name)
+            if (at_identifier_position || last_was_period) && self.current_token().map_or(false, |t| t.is_keyword()) {
+                self.consume_token_as_identifier();
+                at_identifier_position = false;
+                last_was_period = false;
+            } else {
+                // Check if this is a period
+                last_was_period = self.at_token(VB6Token::PeriodOperator);
+                
+                // After whitespace, we're still in an identifier position
+                if !self.at_token(VB6Token::Whitespace) {
+                    at_identifier_position = false;
+                }
+                
+                self.consume_token();
+            }
         }
 
         // Consume the newline if present (but not colon - that's handled by caller)
@@ -89,7 +110,9 @@ impl<'a> Parser<'a> {
         // Look ahead through the tokens to find an = operator before a newline
         // We need to skip: identifiers, periods, parentheses, array indices, etc.
         // Note: In VB6, keywords can be used as property/member names (e.g., obj.Property = value)
+        // and also as variable names (e.g., text = "hello")
         let mut last_was_period = false;
+        let mut at_start = true;
 
         for (_text, token) in self.tokens.iter().skip(self.pos) {
             match token {
@@ -103,6 +126,7 @@ impl<'a> Parser<'a> {
                 }
                 VB6Token::PeriodOperator => {
                     last_was_period = true;
+                    at_start = false;
                     continue;
                 }
                 // Skip tokens that could appear in the left-hand side of an assignment
@@ -115,14 +139,21 @@ impl<'a> Parser<'a> {
                 | VB6Token::Number
                 | VB6Token::Comma => {
                     last_was_period = false;
+                    at_start = false;
                     continue;
                 }
                 // After a period, keywords can be property names, so skip them
                 _ if last_was_period => {
                     last_was_period = false;
+                    at_start = false;
                     continue;
                 }
-                // If we hit a keyword or other operator (not after period), it's not an assignment
+                // At the start of a statement, keywords can be used as variable names
+                _ if at_start && token.is_keyword() => {
+                    at_start = false;
+                    continue;
+                }
+                // If we hit other operators, it's not an assignment
                 _ => {
                     return false;
                 }
@@ -378,6 +409,7 @@ text = obj.GetText()
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
         assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
+        // "text" is converted to Identifier even though it's TextKeyword in the tokenizer
         assert_eq!(cst.children()[1].children[0].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[0].text, "text");
         assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
@@ -1033,5 +1065,50 @@ End Sub
         assert!(debug.contains("fullName"));
         assert!(debug.contains("firstName"));
         assert!(debug.contains("lastName"));
+    }
+
+    #[test]
+    fn test_keyword_as_variable_name() {
+        let source = r#"
+text = "hello"
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
+        assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
+        // "text" keyword should be converted to Identifier
+        assert_eq!(cst.children()[1].children[0].kind, SyntaxKind::Identifier);
+        assert_eq!(cst.children()[1].children[0].text, "text");
+    }
+
+    #[test]
+    fn test_keyword_as_property_name() {
+        let source = r#"
+obj.text = "hello"
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
+        assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
+        assert_eq!(cst.children()[1].children[0].kind, SyntaxKind::Identifier);
+        assert_eq!(cst.children()[1].children[0].text, "obj");
+        assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::PeriodOperator);
+        // "text" keyword after period should be converted to Identifier
+        assert_eq!(cst.children()[1].children[2].kind, SyntaxKind::Identifier);
+        assert_eq!(cst.children()[1].children[2].text, "text");
+    }
+
+    #[test]
+    fn test_database_keyword_as_variable() {
+        let source = r#"
+database = "mydb.mdb"
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
+        assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
+        // "database" keyword should be converted to Identifier
+        assert_eq!(cst.children()[1].children[0].kind, SyntaxKind::Identifier);
+        assert_eq!(cst.children()[1].children[0].text, "database");
     }
 }
