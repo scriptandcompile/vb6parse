@@ -126,7 +126,10 @@ End Sub
         let source = "    Name    \"old.txt\"    As    \"new.txt\"    \n";
         let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
-        assert_eq!(cst.text(), "    Name    \"old.txt\"    As    \"new.txt\"    \n");
+        assert_eq!(
+            cst.text(),
+            "    Name    \"old.txt\"    As    \"new.txt\"    \n"
+        );
 
         let debug = cst.debug_tree();
         assert!(debug.contains("NameStatement"));
