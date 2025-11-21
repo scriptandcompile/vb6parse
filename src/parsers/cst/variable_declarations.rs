@@ -2,32 +2,36 @@
 //!
 //! This module handles parsing of VB6 array statements and variable declarations:
 //! - Variable declarations (Dim, Private, Public, Const, Static)
-//! - Private variables with WithEvents keyword for event-capable objects
+//! - Private and Public variables with WithEvents keyword for event-capable objects
 //! - ReDim - Reallocate storage space for dynamic array variables
 //! - Erase - Reinitialize the elements of fixed-size arrays and deallocate dynamic arrays
 //!
-//! # Private Variables with WithEvents
+//! # Variables with WithEvents
 //!
-//! The `WithEvents` keyword is used with `Private` (or `Dim`) to declare object variables
+//! The `WithEvents` keyword is used with `Private`, `Public`, or `Dim` to declare object variables
 //! that can respond to events raised by the object. This is commonly used in class modules
 //! and form modules.
 //!
 //! ## Syntax
 //! ```vb
 //! Private WithEvents variablename As objecttype
+//! Public WithEvents variablename As objecttype
+//! Dim WithEvents variablename As objecttype
 //! ```
 //!
 //! ## Examples
 //! ```vb
 //! Private WithEvents m_button As CommandButton
-//! Private WithEvents m_conn As ADODB.Connection
+//! Public WithEvents g_conn As ADODB.Connection
 //! Private WithEvents txtInput As TextBox
+//! Public WithEvents AppEvents As Application
 //! ```
 //!
 //! ## Remarks
 //! - `WithEvents` can only be used with object variables
 //! - `WithEvents` variables must be declared as a specific class type, not As Object
 //! - Events are accessible through the object's event procedures (objectname_eventname)
+//! - Public WithEvents variables are accessible from other modules
 //! - Commonly used with form controls, ActiveX objects, and custom classes that raise events
 //!
 //! [WithEvents Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243352(v=vs.60))
@@ -73,12 +77,13 @@ impl<'a> Parser<'a> {
     /// - Private varname [As type]
     /// - Private WithEvents varname As objecttype
     /// - Public varname [As type]
+    /// - Public WithEvents varname As objecttype
     /// - Const constname = expression
     /// - Static varname [As type]
     ///
     /// Used to declare variables and allocate storage space.
     ///
-    /// The `WithEvents` keyword can be used with `Private` (or `Dim`) to declare
+    /// The `WithEvents` keyword can be used with `Private`, `Public`, or `Dim` to declare
     /// object variables that can respond to events raised by the object.
     ///
     /// Examples:
@@ -87,6 +92,7 @@ impl<'a> Parser<'a> {
     /// Private m_value As Long
     /// Private WithEvents m_button As CommandButton
     /// Public g_config As String
+    /// Public WithEvents g_app As Application
     /// Const MAX_SIZE = 100
     /// Static counter As Long
     /// ```
@@ -1022,4 +1028,264 @@ End Sub
         assert!(debug.contains("DimStatement"));
         assert!(debug.contains("Double"));
     }
+
+    // Public WithEvents tests
+    #[test]
+    fn public_withevents_simple() {
+        let source = "Public WithEvents g_app As Application\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.root_kind(), SyntaxKind::Root);
+        assert_eq!(cst.child_count(), 1);
+        assert_eq!(cst.text(), "Public WithEvents g_app As Application\n");
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("PublicKeyword"));
+        assert!(debug.contains("WithEventsKeyword"));
+        assert!(debug.contains("g_app"));
+        assert!(debug.contains("Application"));
+    }
+
+    #[test]
+    fn public_withevents_form() {
+        let source = "Public WithEvents MainForm As Form\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("PublicKeyword"));
+        assert!(debug.contains("WithEventsKeyword"));
+        assert!(debug.contains("Form"));
+    }
+
+    #[test]
+    fn public_withevents_excel_application() {
+        let source = "Public WithEvents xlApp As Excel.Application\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("PublicKeyword"));
+        assert!(debug.contains("WithEventsKeyword"));
+        assert!(debug.contains("xlApp"));
+        assert!(debug.contains("Application"));
+    }
+
+    #[test]
+    fn public_withevents_adodb_connection() {
+        let source = "Public WithEvents dbConn As ADODB.Connection\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("PublicKeyword"));
+        assert!(debug.contains("WithEventsKeyword"));
+        assert!(debug.contains("Connection"));
+    }
+
+    #[test]
+    fn public_withevents_custom_class() {
+        let source = "Public WithEvents TaskManager As TaskProcessor\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("PublicKeyword"));
+        assert!(debug.contains("WithEventsKeyword"));
+        assert!(debug.contains("TaskProcessor"));
+    }
+
+    #[test]
+    fn public_withevents_preserves_whitespace() {
+        let source = "    Public    WithEvents    g_obj    As    CustomClass    \n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(
+            cst.text(),
+            "    Public    WithEvents    g_obj    As    CustomClass    \n"
+        );
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("PublicKeyword"));
+        assert!(debug.contains("WithEventsKeyword"));
+    }
+
+    #[test]
+    fn public_withevents_multiple_declarations() {
+        let source = "Public WithEvents g_ctrl1 As Control\nPublic WithEvents g_ctrl2 As Control\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.child_count(), 2);
+
+        let debug = cst.debug_tree();
+        let dim_count = debug.matches("DimStatement").count();
+        assert_eq!(dim_count, 2);
+        let withevents_count = debug.matches("WithEventsKeyword").count();
+        assert_eq!(withevents_count, 2);
+        let public_count = debug.matches("PublicKeyword").count();
+        assert_eq!(public_count, 2);
+    }
+
+    #[test]
+    fn public_withevents_in_class_module() {
+        let source = r#"VERSION 1.0 CLASS
+BEGIN
+  MultiUse = -1  'True
+END
+Public WithEvents g_worker As BackgroundWorker
+
+Private Sub g_worker_Complete()
+    ' Handle completion event
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.cls", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("PublicKeyword"));
+        assert!(debug.contains("WithEventsKeyword"));
+        assert!(debug.contains("g_worker"));
+    }
+
+    #[test]
+    fn public_withevents_mixed_with_private() {
+        let source = "Private WithEvents m_local As Control\nPublic WithEvents g_shared As Control\nPrivate m_data As String\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.child_count(), 3);
+
+        let debug = cst.debug_tree();
+        let dim_count = debug.matches("DimStatement").count();
+        assert_eq!(dim_count, 3);
+        let withevents_count = debug.matches("WithEventsKeyword").count();
+        assert_eq!(withevents_count, 2);
+        let private_count = debug.matches("PrivateKeyword").count();
+        assert_eq!(private_count, 2);
+        let public_count = debug.matches("PublicKeyword").count();
+        assert_eq!(public_count, 1);
+    }
+
+    #[test]
+    fn public_withevents_word_application() {
+        let source = "Public WithEvents wdApp As Word.Application\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("PublicKeyword"));
+        assert!(debug.contains("WithEventsKeyword"));
+        assert!(debug.contains("Application"));
+    }
+
+    #[test]
+    fn public_withevents_outlook_application() {
+        let source = "Public WithEvents olApp As Outlook.Application\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("PublicKeyword"));
+        assert!(debug.contains("WithEventsKeyword"));
+        assert!(debug.contains("olApp"));
+    }
+
+    #[test]
+    fn public_withevents_chart() {
+        let source = "Public WithEvents ChartObject As Chart\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("PublicKeyword"));
+        assert!(debug.contains("WithEventsKeyword"));
+        assert!(debug.contains("Chart"));
+    }
+
+    #[test]
+    fn public_withevents_worksheet() {
+        let source = "Public WithEvents ws As Worksheet\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("PublicKeyword"));
+        assert!(debug.contains("WithEventsKeyword"));
+        assert!(debug.contains("Worksheet"));
+    }
+
+    #[test]
+    fn public_withevents_recordset() {
+        let source = "Public WithEvents rs As ADODB.Recordset\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("PublicKeyword"));
+        assert!(debug.contains("WithEventsKeyword"));
+        assert!(debug.contains("Recordset"));
+    }
+
+    #[test]
+    fn public_withevents_at_module_level() {
+        let source = "Public WithEvents ServerSocket As Winsock\n\nSub Initialize()\n    Set ServerSocket = New Winsock\nEnd Sub\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("PublicKeyword"));
+        assert!(debug.contains("WithEventsKeyword"));
+        assert!(debug.contains("Winsock"));
+        assert!(debug.contains("SubStatement"));
+    }
+
+    #[test]
+    fn public_withevents_commandbutton() {
+        let source = "Public WithEvents cmdSubmit As CommandButton\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("PublicKeyword"));
+        assert!(debug.contains("WithEventsKeyword"));
+        assert!(debug.contains("CommandButton"));
+    }
+
+    #[test]
+    fn public_withevents_listbox() {
+        let source = "Public WithEvents lstItems As ListBox\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("PublicKeyword"));
+        assert!(debug.contains("WithEventsKeyword"));
+        assert!(debug.contains("ListBox"));
+    }
+
+    #[test]
+    fn public_withevents_timer() {
+        let source = "Public WithEvents tmrMain As Timer\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("PublicKeyword"));
+        assert!(debug.contains("WithEventsKeyword"));
+        assert!(debug.contains("Timer"));
+    }
+
+    #[test]
+    fn public_withevents_class_factory() {
+        let source = "Public WithEvents Factory As ClassFactory\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("DimStatement"));
+        assert!(debug.contains("PublicKeyword"));
+        assert!(debug.contains("WithEventsKeyword"));
+        assert!(debug.contains("ClassFactory"));
+    }
 }
+
