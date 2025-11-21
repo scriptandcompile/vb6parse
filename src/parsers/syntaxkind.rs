@@ -72,6 +72,7 @@ pub enum SyntaxKind {
     MidStatement,
     MidBStatement,
     MkDirStatement,
+    RmDirStatement,
     NameStatement,
     OpenStatement,
     PrintStatement,

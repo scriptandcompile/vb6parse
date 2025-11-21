@@ -25,6 +25,7 @@
 //! - Mid: Replace characters in a string variable
 //! - MidB: Replace bytes in a string variable
 //! - MkDir: Create a new directory or folder
+//! - RmDir: Remove an empty directory or folder
 //! - Name: Rename a disk file, directory, or folder
 //! - Open: Open a file for input/output operations
 //! - Print: Write display-formatted data to a sequential file
@@ -62,6 +63,7 @@ mod print;
 mod put;
 mod randomize;
 mod reset;
+mod rmdir;
 mod unlock;
 
 impl<'a> Parser<'a> {
@@ -95,6 +97,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::PrintKeyword)
                 | Some(VB6Token::RandomizeKeyword)
                 | Some(VB6Token::ResetKeyword)
+                | Some(VB6Token::RmDirKeyword)
         )
     }
 
@@ -178,6 +181,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::ResetKeyword) => {
                 self.parse_reset_statement();
+            }
+            Some(VB6Token::RmDirKeyword) => {
+                self.parse_rmdir_statement();
             }
             _ => {}
         }
