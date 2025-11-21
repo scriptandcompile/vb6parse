@@ -63,6 +63,7 @@ pub enum SyntaxKind {
     SendKeysStatement,
     SetAttrStatement,
     StopStatement,
+    TimeStatement,
     RandomizeStatement,
     ErrorStatement,
     FileCopyStatement,

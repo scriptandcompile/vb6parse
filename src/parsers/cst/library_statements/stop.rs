@@ -111,10 +111,10 @@
 //!
 //! ```vb
 //! On Error GoTo ErrorHandler
-//! 
+//!
 //! ProcessData
 //! Exit Sub
-//! 
+//!
 //! ErrorHandler:
 //!     Stop  ' Pause to examine error
 //!     MsgBox Err.Description
