@@ -29,6 +29,7 @@
 //! - Open: Open a file for input/output operations
 //! - Print: Write display-formatted data to a sequential file
 //! - Reset: Close all disk files opened using the Open statement
+//! - Randomize: Initialize the random number generator
 //!
 
 use crate::language::VB6Token;
@@ -59,6 +60,7 @@ mod name;
 mod open;
 mod print;
 mod put;
+mod randomize;
 mod reset;
 mod unlock;
 
@@ -91,6 +93,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::NameKeyword)
                 | Some(VB6Token::OpenKeyword)
                 | Some(VB6Token::PrintKeyword)
+                | Some(VB6Token::RandomizeKeyword)
                 | Some(VB6Token::ResetKeyword)
         )
     }
@@ -169,6 +172,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::PrintKeyword) => {
                 self.parse_print_statement();
+            }
+            Some(VB6Token::RandomizeKeyword) => {
+                self.parse_randomize_statement();
             }
             Some(VB6Token::ResetKeyword) => {
                 self.parse_reset_statement();

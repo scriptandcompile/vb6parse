@@ -56,6 +56,7 @@ pub enum SyntaxKind {
     DateStatement,
     DeleteSettingStatement,
     ResetStatement,
+    RandomizeStatement,
     ErrorStatement,
     FileCopyStatement,
     GetStatement,
