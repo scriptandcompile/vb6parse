@@ -36,6 +36,7 @@
 //! - Seek: Set the position for the next read/write operation in a file
 //! - SendKeys: Send keystrokes to the active window
 //! - SetAttr: Set attribute information for a file
+//! - Stop: Suspend execution
 //! - Randomize: Initialize the random number generator
 //!
 
@@ -76,6 +77,7 @@ mod savesetting;
 mod seek;
 mod sendkeys;
 mod setattr;
+mod stop;
 mod unlock;
 
 impl<'a> Parser<'a> {
@@ -116,6 +118,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::SeekKeyword)
                 | Some(VB6Token::SendKeysKeyword)
                 | Some(VB6Token::SetAttrKeyword)
+                | Some(VB6Token::StopKeyword)
         )
     }
 
@@ -220,6 +223,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::SetAttrKeyword) => {
                 self.parse_setattr_statement();
+            }
+            Some(VB6Token::StopKeyword) => {
+                self.parse_stop_statement();
             }
             _ => {}
         }
