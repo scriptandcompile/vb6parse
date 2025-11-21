@@ -35,6 +35,7 @@
 //! - SaveSetting: Save or create an application entry in the Windows registry
 //! - Seek: Set the position for the next read/write operation in a file
 //! - SendKeys: Send keystrokes to the active window
+//! - SetAttr: Set attribute information for a file
 //! - Randomize: Initialize the random number generator
 //!
 
@@ -74,6 +75,7 @@ mod savepicture;
 mod savesetting;
 mod seek;
 mod sendkeys;
+mod setattr;
 mod unlock;
 
 impl<'a> Parser<'a> {
@@ -113,6 +115,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::SaveSettingKeyword)
                 | Some(VB6Token::SeekKeyword)
                 | Some(VB6Token::SendKeysKeyword)
+                | Some(VB6Token::SetAttrKeyword)
         )
     }
 
@@ -214,6 +217,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::SendKeysKeyword) => {
                 self.parse_sendkeys_statement();
+            }
+            Some(VB6Token::SetAttrKeyword) => {
+                self.parse_setattr_statement();
             }
             _ => {}
         }
