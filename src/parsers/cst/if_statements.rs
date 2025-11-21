@@ -471,7 +471,7 @@ End Sub
         assert!(binary_conditional
             .children
             .iter()
-            .any(|c| c.kind == SyntaxKind::Number && c.text == "5"));
+            .any(|c| c.kind == SyntaxKind::IntegerLiteral && c.text == "5"));
     }
 
     #[test]

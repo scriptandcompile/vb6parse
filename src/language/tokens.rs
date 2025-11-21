@@ -1142,10 +1142,18 @@ pub enum VB6Token {
     /// Represents an Identifier, variable, or function name.
     /// This is a name that starts with a letter and can contain letters, numbers, and underscores.
     Identifier,
-    /// Represents a number.
-    /// This is just a collection of digits and hasn't been parsed into a
-    /// specific kind of number yet.
-    Number,
+    /// Represents an Integer literal with % suffix or plain integer (e.g., 42, 42%).
+    IntegerLiteral,
+    /// Represents a Long literal with & suffix (e.g., 42&).
+    LongLiteral,
+    /// Represents a Single (float) literal with ! suffix or decimal/exponent without suffix (e.g., 3.14, 3.14!, 1.5E+10).
+    SingleLiteral,
+    /// Represents a Double literal with # suffix (e.g., 3.14#).
+    DoubleLiteral,
+    /// Represents a Decimal literal with @ suffix (e.g., 12.50@).
+    DecimalLiteral,
+    /// Represents a Date literal with # delimiters (e.g., #1/1/2000#).
+    DateLiteral,
 }
 
 impl VB6Token {

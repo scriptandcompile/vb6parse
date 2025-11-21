@@ -43,9 +43,16 @@ impl<'a> Parser<'a> {
         }
     }
 
-    /// Check if the current token is a number.
+    /// Check if the current token is a number (any numeric literal type).
     pub(super) fn is_number(&self) -> bool {
-        matches!(self.current_token(), Some(VB6Token::Number))
+        matches!(
+            self.current_token(),
+            Some(VB6Token::IntegerLiteral)
+                | Some(VB6Token::LongLiteral)
+                | Some(VB6Token::SingleLiteral)
+                | Some(VB6Token::DoubleLiteral)
+                | Some(VB6Token::DecimalLiteral)
+        )
     }
 
     /// Check if we're at the end of a logical line (newline that's NOT a line continuation)
