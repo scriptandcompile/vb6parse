@@ -32,6 +32,7 @@
 //! - Print: Write display-formatted data to a sequential file
 //! - Reset: Close all disk files opened using the Open statement
 //! - SavePicture: Save a graphical image to a file
+//! - SaveSetting: Save or create an application entry in the Windows registry
 //! - Randomize: Initialize the random number generator
 //!
 
@@ -68,6 +69,7 @@ mod reset;
 mod rmdir;
 mod rset;
 mod savepicture;
+mod savesetting;
 mod unlock;
 
 impl<'a> Parser<'a> {
@@ -104,6 +106,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::RmDirKeyword)
                 | Some(VB6Token::RSetKeyword)
                 | Some(VB6Token::SavePictureKeyword)
+                | Some(VB6Token::SaveSettingKeyword)
         )
     }
 
@@ -196,6 +199,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::SavePictureKeyword) => {
                 self.parse_savepicture_statement();
+            }
+            Some(VB6Token::SaveSettingKeyword) => {
+                self.parse_savesetting_statement();
             }
             _ => {}
         }
