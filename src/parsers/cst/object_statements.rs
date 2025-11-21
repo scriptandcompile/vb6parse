@@ -42,12 +42,7 @@ impl<'a> Parser<'a> {
         self.consume_token();
 
         // Consume everything until newline (preserving all tokens)
-        self.consume_until(VB6Token::Newline);
-
-        // Consume the newline
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        self.consume_until_after(VB6Token::Newline);
 
         self.builder.finish_node(); // CallStatement
     }
@@ -101,12 +96,7 @@ impl<'a> Parser<'a> {
         self.consume_token();
 
         // Consume everything until newline (event name and arguments)
-        self.consume_until(VB6Token::Newline);
-
-        // Consume the newline
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        self.consume_until_after(VB6Token::Newline);
 
         self.builder.finish_node(); // RaiseEventStatement
     }
@@ -128,12 +118,7 @@ impl<'a> Parser<'a> {
 
         // Consume everything until newline
         // This includes: variable, "=", [New], object expression
-        self.consume_until(VB6Token::Newline);
-
-        // Consume the newline
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        self.consume_until_after(VB6Token::Newline);
 
         self.builder.finish_node(); // SetStatement
     }
@@ -157,12 +142,7 @@ impl<'a> Parser<'a> {
         self.consume_token();
 
         // Consume everything until newline (the object expression)
-        self.consume_until(VB6Token::Newline);
-
-        // Consume the newline
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        self.consume_until_after(VB6Token::Newline);
 
         // Parse the body until "End With"
         self.parse_code_block(|parser| {
@@ -182,10 +162,7 @@ impl<'a> Parser<'a> {
             self.consume_token();
 
             // Consume until newline (including it)
-            self.consume_until(VB6Token::Newline);
-            if self.at_token(VB6Token::Newline) {
-                self.consume_token();
-            }
+            self.consume_until_after(VB6Token::Newline);
         }
 
         self.builder.finish_node(); // WithStatement

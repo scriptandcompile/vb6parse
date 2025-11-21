@@ -236,4 +236,18 @@ impl<'a> Parser<'a> {
             }
         }
     }
+
+    /// Consume tokens until reaching the specified token, then consume that token as well.
+    ///
+    /// This is a convenience method that combines `consume_until` with consuming the target token.
+    /// Handles line continuations when consuming until a newline.
+    ///
+    /// # Arguments
+    /// * `target` - The token to stop at and consume
+    pub(super) fn consume_until_after(&mut self, target: VB6Token) {
+        self.consume_until(target);
+        if self.at_token(target) {
+            self.consume_token();
+        }
+    }
 }

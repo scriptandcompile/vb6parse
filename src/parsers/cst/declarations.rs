@@ -130,12 +130,7 @@ impl<'a> Parser<'a> {
         }
 
         // Consume everything until newline (includes "As Type" if present for Function)
-        self.consume_until(VB6Token::Newline);
-
-        // Consume the newline
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        self.consume_until_after(VB6Token::Newline);
 
         self.builder.finish_node(); // DeclareStatement
     }
@@ -206,12 +201,7 @@ impl<'a> Parser<'a> {
         }
 
         // Consume everything until newline
-        self.consume_until(VB6Token::Newline);
-
-        // Consume the newline
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        self.consume_until_after(VB6Token::Newline);
 
         self.builder.finish_node(); // EventStatement
     }
@@ -260,12 +250,7 @@ impl<'a> Parser<'a> {
         self.consume_token();
 
         // Consume everything until newline (the interface name)
-        self.consume_until(VB6Token::Newline);
-
-        // Consume the newline
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        self.consume_until_after(VB6Token::Newline);
 
         self.builder.finish_node(); // ImplementsStatement
     }

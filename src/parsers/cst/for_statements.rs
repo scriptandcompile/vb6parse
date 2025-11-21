@@ -58,9 +58,7 @@ impl<'a> Parser<'a> {
         }
 
         // Consume newline after For line
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        self.consume_until_after(VB6Token::Newline);
 
         // Parse the loop body until "Next"
         self.parse_code_block(|parser| parser.at_token(VB6Token::NextKeyword));
@@ -70,12 +68,7 @@ impl<'a> Parser<'a> {
             self.consume_token();
 
             // Consume everything until newline (optional counter variable)
-            self.consume_until(VB6Token::Newline);
-
-            // Consume newline after Next
-            if self.at_token(VB6Token::Newline) {
-                self.consume_token();
-            }
+            self.consume_until_after(VB6Token::Newline);
         }
 
         self.builder.finish_node(); // ForStatement
@@ -123,9 +116,7 @@ impl<'a> Parser<'a> {
         }
 
         // Consume newline after For Each line
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        self.consume_until_after(VB6Token::Newline);
 
         // Parse the loop body until "Next"
         self.parse_code_block(|parser| parser.at_token(VB6Token::NextKeyword));
@@ -135,12 +126,7 @@ impl<'a> Parser<'a> {
             self.consume_token();
 
             // Consume everything until newline (optional element variable)
-            self.consume_until(VB6Token::Newline);
-
-            // Consume newline after Next
-            if self.at_token(VB6Token::Newline) {
-                self.consume_token();
-            }
+            self.consume_until_after(VB6Token::Newline);
         }
 
         self.builder.finish_node(); // ForEachStatement

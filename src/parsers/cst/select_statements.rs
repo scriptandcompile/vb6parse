@@ -42,13 +42,8 @@ impl<'a> Parser<'a> {
             self.consume_token();
         }
 
-        // Consume everything until newline (the test expression)
-        self.consume_until(VB6Token::Newline);
-
-        // Consume the newline
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        // Consume everything until newline (the expression)
+        self.consume_until_after(VB6Token::Newline);
 
         // Parse Case clauses until "End Select"
         while !self.is_at_end() {
@@ -80,10 +75,7 @@ impl<'a> Parser<'a> {
                     }
 
                     // Consume until newline
-                    self.consume_until(VB6Token::Newline);
-                    if self.at_token(VB6Token::Newline) {
-                        self.consume_token();
-                    }
+                    self.consume_until_after(VB6Token::Newline);
 
                     // Parse statements in Case Else until next Case or End Select
                     self.parse_code_block(|parser| {
@@ -101,10 +93,7 @@ impl<'a> Parser<'a> {
                     self.consume_token();
 
                     // Consume the case expression(s) until newline
-                    self.consume_until(VB6Token::Newline);
-                    if self.at_token(VB6Token::Newline) {
-                        self.consume_token();
-                    }
+                    self.consume_until_after(VB6Token::Newline);
 
                     // Parse statements in Case until next Case or End Select
                     self.parse_code_block(|parser| {
@@ -133,10 +122,7 @@ impl<'a> Parser<'a> {
             self.consume_token();
 
             // Consume until newline (including it)
-            self.consume_until(VB6Token::Newline);
-            if self.at_token(VB6Token::Newline) {
-                self.consume_token();
-            }
+            self.consume_until_after(VB6Token::Newline);
         }
 
         self.builder.finish_node(); // SelectCaseStatement

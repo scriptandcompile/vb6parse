@@ -85,12 +85,7 @@ impl<'a> Parser<'a> {
         }
 
         // Consume everything until newline (preserving all tokens)
-        self.consume_until(VB6Token::Newline);
-
-        // Consume the newline
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        self.consume_until_after(VB6Token::Newline);
 
         // Parse enum members until "End Enum"
         while !self.is_at_end() {
@@ -143,12 +138,7 @@ impl<'a> Parser<'a> {
             self.consume_token();
 
             // Consume until newline (including it)
-            self.consume_until(VB6Token::Newline);
-
-            // Consume the newline
-            if self.at_token(VB6Token::Newline) {
-                self.consume_token();
-            }
+            self.consume_until_after(VB6Token::Newline);
         }
 
         self.builder.finish_node(); // EnumStatement
