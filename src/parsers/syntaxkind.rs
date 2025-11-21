@@ -60,6 +60,7 @@ pub enum SyntaxKind {
     SavePictureStatement,
     SaveSettingStatement,
     SeekStatement,
+    SendKeysStatement,
     RandomizeStatement,
     ErrorStatement,
     FileCopyStatement,
