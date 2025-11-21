@@ -57,6 +57,7 @@ pub enum SyntaxKind {
     DateStatement,
     DeleteSettingStatement,
     ResetStatement,
+    SavePictureStatement,
     RandomizeStatement,
     ErrorStatement,
     FileCopyStatement,

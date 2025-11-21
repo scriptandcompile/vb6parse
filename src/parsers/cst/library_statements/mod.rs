@@ -31,6 +31,7 @@
 //! - Open: Open a file for input/output operations
 //! - Print: Write display-formatted data to a sequential file
 //! - Reset: Close all disk files opened using the Open statement
+//! - SavePicture: Save a graphical image to a file
 //! - Randomize: Initialize the random number generator
 //!
 
@@ -66,6 +67,7 @@ mod randomize;
 mod reset;
 mod rmdir;
 mod rset;
+mod savepicture;
 mod unlock;
 
 impl<'a> Parser<'a> {
@@ -101,6 +103,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::ResetKeyword)
                 | Some(VB6Token::RmDirKeyword)
                 | Some(VB6Token::RSetKeyword)
+                | Some(VB6Token::SavePictureKeyword)
         )
     }
 
@@ -190,6 +193,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::RSetKeyword) => {
                 self.parse_rset_statement();
+            }
+            Some(VB6Token::SavePictureKeyword) => {
+                self.parse_savepicture_statement();
             }
             _ => {}
         }
