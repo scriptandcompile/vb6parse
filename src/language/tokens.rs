@@ -673,6 +673,12 @@ pub enum VB6Token {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445825(v=vs.60))
     LoadKeyword,
+    /// Represents the 'Unload' keyword.
+    ///
+    /// Removes a form or control from memory.
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/unload-statement)
+    UnloadKeyword,
     /// Represents the 'Line' keyword.
     ///
     /// Reads a single line from an open sequential file and assigns it to a string variable.
@@ -1227,6 +1233,7 @@ impl VB6Token {
             | VB6Token::MidKeyword
             | VB6Token::LSetKeyword
             | VB6Token::LoadKeyword
+            | VB6Token::UnloadKeyword
             | VB6Token::LineKeyword
             | VB6Token::InputKeyword
             | VB6Token::LetKeyword

@@ -89,6 +89,7 @@ static KEYWORD_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, VB6Token> = phf_orde
     "Line" => VB6Token::LineKeyword,
     "Lock" => VB6Token::LockKeyword,
     "Load" => VB6Token::LoadKeyword,
+    "Unload" => VB6Token::UnloadKeyword,
     "Long" => VB6Token::LongKeyword,
     "Loop" => VB6Token::LoopKeyword,
     "LSet" => VB6Token::LSetKeyword,
