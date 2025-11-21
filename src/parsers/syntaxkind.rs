@@ -58,6 +58,7 @@ pub enum SyntaxKind {
     ErrorStatement,
     FileCopyStatement,
     GetStatement,
+    PutStatement,
     InputStatement,
     LineInputStatement,
     KillStatement,
