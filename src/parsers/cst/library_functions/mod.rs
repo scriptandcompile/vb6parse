@@ -7,6 +7,7 @@
 //!
 //! The library functions handled here include:
 //! - Abs: Returns the absolute value of a number
+//! - Array: Returns a Variant containing an array
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -14,3 +15,4 @@
 //! built-in function library.
 
 mod abs;
+mod array;
