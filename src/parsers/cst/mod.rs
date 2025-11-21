@@ -88,6 +88,7 @@ mod parameters;
 mod property_statements;
 mod select_statements;
 mod sub_statements;
+mod type_statements;
 mod variable_declarations;
 
 // Re-export navigation types
@@ -306,6 +307,10 @@ impl<'a> Parser<'a> {
                 Some(VB6Token::EnumKeyword) => {
                     self.parse_enum_statement();
                 }
+                // Type statement: Type Name ... End Type
+                Some(VB6Token::TypeKeyword) => {
+                    self.parse_type_statement();
+                }
                 // Sub procedure: Sub Name(...)
                 Some(VB6Token::SubKeyword) => {
                     self.parse_sub_statement();
@@ -342,12 +347,13 @@ impl<'a> Parser<'a> {
                         .collect();
 
                     match next_keywords.as_slice() {
-                        // Direct: Public/Private/Friend Function, Sub, Property, Enum, Declare, or Event
+                        // Direct: Public/Private/Friend Function, Sub, Property, Enum, Type, Declare, or Event
                         [VB6Token::FunctionKeyword, ..] => self.parse_function_statement(), // Function
                         [VB6Token::SubKeyword, ..] => self.parse_sub_statement(),           // Sub
                         [VB6Token::PropertyKeyword, ..] => self.parse_property_statement(), // Property
                         [VB6Token::DeclareKeyword, ..] => self.parse_declare_statement(), // Declare
                         [VB6Token::EnumKeyword, ..] => self.parse_enum_statement(),       // Enum
+                        [VB6Token::TypeKeyword, ..] => self.parse_type_statement(),       // Type
                         [VB6Token::EventKeyword, ..] => self.parse_event_statement(),     // Event
                         [VB6Token::ImplementsKeyword, ..] => self.parse_implements_statement(), // Implements
                         // With Static: Public/Private/Friend Static Function, Sub, or Property
