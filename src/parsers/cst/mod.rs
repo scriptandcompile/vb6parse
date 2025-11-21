@@ -428,6 +428,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::SelectKeyword)
                 | Some(VB6Token::ForKeyword)
                 | Some(VB6Token::DoKeyword)
+                | Some(VB6Token::WhileKeyword)
                 | Some(VB6Token::GotoKeyword)
                 | Some(VB6Token::GoSubKeyword)
                 | Some(VB6Token::ReturnKeyword)
@@ -456,6 +457,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::DoKeyword) => {
                 self.parse_do_statement();
+            }
+            Some(VB6Token::WhileKeyword) => {
+                self.parse_while_statement();
             }
             Some(VB6Token::GotoKeyword) => {
                 self.parse_goto_statement();
