@@ -40,6 +40,7 @@
 //! - Stop: Suspend execution
 //! - Time: Set the current system time
 //! - Randomize: Initialize the random number generator
+//! - Width: Assign an output line width to a file
 //!
 
 use crate::language::VB6Token;
@@ -83,6 +84,7 @@ mod stop;
 mod time;
 mod unload;
 mod unlock;
+mod width;
 
 impl<'a> Parser<'a> {
     /// Check if the current token is a library statement keyword.
@@ -125,6 +127,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::SetAttrKeyword)
                 | Some(VB6Token::StopKeyword)
                 | Some(VB6Token::TimeKeyword)
+                | Some(VB6Token::WidthKeyword)
         )
     }
 
@@ -238,6 +241,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::TimeKeyword) => {
                 self.parse_time_statement();
+            }
+            Some(VB6Token::WidthKeyword) => {
+                self.parse_width_statement();
             }
             _ => {}
         }
