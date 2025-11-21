@@ -2,6 +2,7 @@
 //!
 //! This module handles parsing of VB6 object manipulation statements:
 //! - Call - Call a procedure
+//! - RaiseEvent - Fire an event declared at module level
 //! - Set - Assign object reference
 //! - With - Execute statements on object
 //!
@@ -49,6 +50,65 @@ impl<'a> Parser<'a> {
         }
 
         self.builder.finish_node(); // CallStatement
+    }
+
+    /// Parse a RaiseEvent statement.
+    ///
+    /// VB6 RaiseEvent statement syntax:
+    /// - RaiseEvent eventname [(argumentlist)]
+    ///
+    /// Fires an event declared at module level within a class, form, or document.
+    ///
+    /// The RaiseEvent statement syntax has these parts:
+    ///
+    /// | Part         | Description |
+    /// |--------------|-------------|
+    /// | eventname    | Required. Name of the event to fire. |
+    /// | argumentlist | Optional. Comma-delimited list of variables, arrays, or expressions. The argumentlist must match the parameters defined in the Event declaration. |
+    ///
+    /// Remarks:
+    /// - If the event has no arguments, don't include the parentheses.
+    /// - RaiseEvent can only be used to fire events declared in the same class or form module.
+    /// - Events can't be raised within a standard module.
+    /// - When an event is raised, all procedures connected to that event are executed.
+    /// - Events can have ByVal and ByRef arguments like normal procedures.
+    /// - Events with arguments can be cancelled by the event handler if declared with a Cancel parameter.
+    /// - RaiseEvent can only fire events that are explicitly declared with the Event statement in the same module.
+    ///
+    /// Examples:
+    /// ```vb
+    /// ' In a class module
+    /// Public Event DataReceived(ByVal data As String)
+    /// Public Event StatusChanged(ByVal oldStatus As Integer, ByVal newStatus As Integer)
+    /// Public Event ProcessComplete()
+    ///
+    /// Private Sub ProcessData()
+    ///     RaiseEvent DataReceived("Test data")
+    ///     RaiseEvent StatusChanged(0, 1)
+    ///     RaiseEvent ProcessComplete
+    /// End Sub
+    /// ```
+    ///
+    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/raiseevent-statement)
+    pub(super) fn parse_raiseevent_statement(&mut self) {
+        // if we are now parsing a raiseevent statement, we are no longer in the header.
+        self.parsing_header = false;
+
+        self.builder
+            .start_node(SyntaxKind::RaiseEventStatement.to_raw());
+
+        // Consume "RaiseEvent" keyword
+        self.consume_token();
+
+        // Consume everything until newline (event name and arguments)
+        self.consume_until(VB6Token::Newline);
+
+        // Consume the newline
+        if self.at_token(VB6Token::Newline) {
+            self.consume_token();
+        }
+
+        self.builder.finish_node(); // RaiseEventStatement
     }
 
     /// Parse a Set statement.
@@ -135,7 +195,10 @@ impl<'a> Parser<'a> {
     pub(super) fn is_statement_keyword(&self) -> bool {
         matches!(
             self.current_token(),
-            Some(VB6Token::CallKeyword) | Some(VB6Token::SetKeyword) | Some(VB6Token::WithKeyword)
+            Some(VB6Token::CallKeyword)
+                | Some(VB6Token::RaiseEventKeyword)
+                | Some(VB6Token::SetKeyword)
+                | Some(VB6Token::WithKeyword)
         )
     }
 
@@ -145,6 +208,9 @@ impl<'a> Parser<'a> {
         match self.current_token() {
             Some(VB6Token::CallKeyword) => {
                 self.parse_call_statement();
+            }
+            Some(VB6Token::RaiseEventKeyword) => {
+                self.parse_raiseevent_statement();
             }
             Some(VB6Token::SetKeyword) => {
                 self.parse_set_statement();
@@ -656,5 +722,400 @@ End With
         let debug = cst.debug_tree();
         assert!(debug.contains("WithStatement"));
         assert!(debug.contains("GlobalObject"));
+    }
+
+    // RaiseEvent statement tests
+    #[test]
+    fn raiseevent_simple() {
+        let source = r#"
+Sub Test()
+    RaiseEvent DataReceived
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("RaiseEventStatement"));
+        assert!(debug.contains("RaiseEventKeyword"));
+        assert!(debug.contains("DataReceived"));
+    }
+
+    #[test]
+    fn raiseevent_with_single_argument() {
+        let source = r#"
+Sub Test()
+    RaiseEvent StatusChanged(newStatus)
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("RaiseEventStatement"));
+        assert!(debug.contains("StatusChanged"));
+        assert!(debug.contains("newStatus"));
+    }
+
+    #[test]
+    fn raiseevent_with_multiple_arguments() {
+        let source = r#"
+Sub Test()
+    RaiseEvent DataChanged(oldValue, newValue, timestamp)
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("RaiseEventStatement"));
+        assert!(debug.contains("oldValue"));
+        assert!(debug.contains("newValue"));
+        assert!(debug.contains("timestamp"));
+    }
+
+    #[test]
+    fn raiseevent_at_module_level() {
+        let source = "RaiseEvent ProcessComplete\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.root_kind(), SyntaxKind::Root);
+        assert_eq!(cst.child_count(), 1);
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("RaiseEventStatement"));
+    }
+
+    #[test]
+    fn raiseevent_preserves_whitespace() {
+        let source = "    RaiseEvent    DataReady  (  value  )    \n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.text(), "    RaiseEvent    DataReady  (  value  )    \n");
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("RaiseEventStatement"));
+    }
+
+    #[test]
+    fn raiseevent_with_comment() {
+        let source = r#"
+Sub Test()
+    RaiseEvent Updated ' Notify listeners
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("RaiseEventStatement"));
+        assert!(debug.contains("Comment"));
+    }
+
+    #[test]
+    fn raiseevent_in_if_statement() {
+        let source = r#"
+Sub Test()
+    If dataReady Then
+        RaiseEvent DataAvailable(data)
+    End If
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("RaiseEventStatement"));
+        assert!(debug.contains("IfStatement"));
+    }
+
+    #[test]
+    fn raiseevent_inline_if() {
+        let source = r#"
+Sub Test()
+    If condition Then RaiseEvent EventFired
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("RaiseEventStatement"));
+    }
+
+    #[test]
+    fn raiseevent_in_loop() {
+        let source = r#"
+Sub Test()
+    For i = 1 To 10
+        RaiseEvent Progress(i)
+    Next i
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("RaiseEventStatement"));
+        assert!(debug.contains("ForStatement"));
+    }
+
+    #[test]
+    fn raiseevent_with_string_argument() {
+        let source = r#"
+Sub Test()
+    RaiseEvent MessageSent("Hello, World!")
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("RaiseEventStatement"));
+        assert!(debug.contains("Hello"));
+    }
+
+    #[test]
+    fn raiseevent_with_numeric_arguments() {
+        let source = r#"
+Sub Test()
+    RaiseEvent PositionChanged(100, 200)
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("RaiseEventStatement"));
+        assert!(debug.contains("100"));
+        assert!(debug.contains("200"));
+    }
+
+    #[test]
+    fn raiseevent_with_object_property() {
+        let source = r#"
+Sub Test()
+    RaiseEvent ValueChanged(obj.Property)
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("RaiseEventStatement"));
+        assert!(debug.contains("obj"));
+        assert!(debug.contains("Property"));
+    }
+
+    #[test]
+    fn raiseevent_with_function_call() {
+        let source = r#"
+Sub Test()
+    RaiseEvent DataProcessed(ProcessData(input))
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("RaiseEventStatement"));
+        assert!(debug.contains("ProcessData"));
+    }
+
+    #[test]
+    fn raiseevent_in_select_case() {
+        let source = r#"
+Sub Test()
+    Select Case status
+        Case 0
+            RaiseEvent StatusIdle
+        Case 1
+            RaiseEvent StatusBusy
+        Case 2
+            RaiseEvent StatusError
+    End Select
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        let raiseevent_count = debug.matches("RaiseEventStatement").count();
+        assert_eq!(raiseevent_count, 3);
+    }
+
+    #[test]
+    fn raiseevent_multiple_in_sequence() {
+        let source = r#"
+Sub Test()
+    RaiseEvent BeforeUpdate
+    RaiseEvent Update(data)
+    RaiseEvent AfterUpdate
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        let raiseevent_count = debug.matches("RaiseEventStatement").count();
+        assert_eq!(raiseevent_count, 3);
+    }
+
+    #[test]
+    fn raiseevent_with_byref_argument() {
+        let source = r#"
+Sub Test()
+    RaiseEvent BeforeClose(Cancel)
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("RaiseEventStatement"));
+        assert!(debug.contains("Cancel"));
+    }
+
+    #[test]
+    fn raiseevent_in_error_handler() {
+        let source = r#"
+Sub Test()
+    On Error GoTo ErrorHandler
+    Exit Sub
+ErrorHandler:
+    RaiseEvent ErrorOccurred(Err.Number, Err.Description)
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("RaiseEventStatement"));
+        assert!(debug.contains("ErrorOccurred"));
+    }
+
+    #[test]
+    fn raiseevent_with_array_element() {
+        let source = r#"
+Sub Test()
+    RaiseEvent ItemSelected(items(index))
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("RaiseEventStatement"));
+        assert!(debug.contains("items"));
+    }
+
+    #[test]
+    fn raiseevent_with_expression() {
+        let source = r#"
+Sub Test()
+    RaiseEvent ProgressChanged((current / total) * 100)
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("RaiseEventStatement"));
+        assert!(debug.contains("current"));
+        assert!(debug.contains("total"));
+    }
+
+    #[test]
+    fn raiseevent_in_do_loop() {
+        let source = r#"
+Sub Test()
+    Do While processing
+        RaiseEvent Processing
+    Loop
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("RaiseEventStatement"));
+        assert!(debug.contains("DoStatement"));
+    }
+
+    #[test]
+    fn raiseevent_in_with_block() {
+        let source = r#"
+Sub Test()
+    With myObject
+        .Value = 100
+        RaiseEvent ValueUpdated(.Value)
+    End With
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("RaiseEventStatement"));
+        assert!(debug.contains("WithStatement"));
+    }
+
+    #[test]
+    fn raiseevent_in_class_module() {
+        let source = r#"VERSION 1.0 CLASS
+BEGIN
+  MultiUse = -1  'True
+END
+Public Event StatusChanged(ByVal newStatus As String)
+
+Public Sub UpdateStatus(ByVal status As String)
+    RaiseEvent StatusChanged(status)
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.cls", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("RaiseEventStatement"));
+        assert!(debug.contains("EventStatement"));
+    }
+
+    #[test]
+    fn raiseevent_with_boolean_argument() {
+        let source = r#"
+Sub Test()
+    RaiseEvent ValidationComplete(True)
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("RaiseEventStatement"));
+        assert!(debug.contains("True"));
+    }
+
+    #[test]
+    fn raiseevent_with_date_argument() {
+        let source = r#"
+Sub Test()
+    RaiseEvent DateChanged(#1/1/2025#)
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("RaiseEventStatement"));
+    }
+
+    #[test]
+    fn raiseevent_conditional_firing() {
+        let source = r#"
+Sub Test()
+    If shouldNotify Then
+        RaiseEvent Notification(message)
+    Else
+        RaiseEvent SilentUpdate
+    End If
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        let raiseevent_count = debug.matches("RaiseEventStatement").count();
+        assert_eq!(raiseevent_count, 2);
+    }
+
+    #[test]
+    fn raiseevent_empty_parentheses() {
+        let source = r#"
+Sub Test()
+    RaiseEvent Complete()
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("RaiseEventStatement"));
+        assert!(debug.contains("Complete"));
     }
 }

@@ -37,6 +37,7 @@ pub enum SyntaxKind {
     CaseElseClause,
     WithStatement,
     CallStatement,
+    RaiseEventStatement,
     SetStatement,
     LetStatement,
     AssignmentStatement,
