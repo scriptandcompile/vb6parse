@@ -28,12 +28,8 @@ tokens:
       - VersionKeyword
     - - " "
       - Whitespace
-    - - "1"
-      - Number
-    - - "."
-      - PeriodOperator
-    - - "0"
-      - Number
+    - - "1.0"
+      - SingleLiteral
     - - " "
       - Whitespace
     - - CLASS
@@ -57,7 +53,7 @@ tokens:
     - - "-"
       - SubtractionOperator
     - - "1"
-      - Number
+      - IntegerLiteral
     - - "  "
       - Whitespace
     - - "'True"
@@ -75,7 +71,7 @@ tokens:
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - "  "
       - Whitespace
     - - "'NotPersistable"
@@ -93,7 +89,7 @@ tokens:
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - "  "
       - Whitespace
     - - "'vbNone"
@@ -111,7 +107,7 @@ tokens:
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - "  "
       - Whitespace
     - - "'vbNone"
@@ -129,7 +125,7 @@ tokens:
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - "  "
       - Whitespace
     - - "'NotAnMTSObject"
@@ -868,10 +864,8 @@ tokens:
       - EqualityOperator
     - - " "
       - Whitespace
-    - - "0"
-      - Number
-    - - "&"
-      - Ampersand
+    - - 0&
+      - LongLiteral
     - - ","
       - Comma
     - - " "
@@ -961,7 +955,7 @@ tokens:
     - - (
       - LeftParenthesis
     - - "15"
-      - Number
+      - IntegerLiteral
     - - )
       - RightParenthesis
     - - " "
@@ -1021,7 +1015,7 @@ tokens:
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - )
       - RightParenthesis
     - - " "
@@ -1047,7 +1041,7 @@ tokens:
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
@@ -1163,7 +1157,7 @@ tokens:
     - - (
       - LeftParenthesis
     - - "0"
-      - Number
+      - IntegerLiteral
     - - )
       - RightParenthesis
     - - )
@@ -1239,7 +1233,7 @@ tokens:
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - )
       - RightParenthesis
     - - "\r\n"

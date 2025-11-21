@@ -1035,7 +1035,7 @@ tokens:
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - "\r\n"
       - Newline
     - - "            "
@@ -1059,7 +1059,7 @@ tokens:
     - - " "
       - Whitespace
     - - "1"
-      - Number
+      - IntegerLiteral
     - - "\r\n"
       - Newline
     - - "            "
@@ -1143,7 +1143,7 @@ tokens:
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - "\r\n"
       - Newline
     - - "            "
@@ -1167,7 +1167,7 @@ tokens:
     - - " "
       - Whitespace
     - - "1"
-      - Number
+      - IntegerLiteral
     - - "\r\n"
       - Newline
     - - "            "
@@ -1289,7 +1289,7 @@ tokens:
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - "\r\n"
       - Newline
     - - "    "
@@ -1375,7 +1375,7 @@ tokens:
     - - "#"
       - Octothorpe
     - - "1"
-      - Number
+      - IntegerLiteral
     - - "\r\n"
       - Newline
     - - "        "
@@ -1393,13 +1393,13 @@ tokens:
     - - "#"
       - Octothorpe
     - - "1"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "1"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
@@ -1417,7 +1417,7 @@ tokens:
     - - "#"
       - Octothorpe
     - - "1"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
@@ -1441,7 +1441,7 @@ tokens:
     - - (
       - LeftParenthesis
     - - "0"
-      - Number
+      - IntegerLiteral
     - - " "
       - Whitespace
     - - To
@@ -1455,7 +1455,7 @@ tokens:
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - " "
       - Whitespace
     - - To
@@ -1485,7 +1485,7 @@ tokens:
     - - "#"
       - Octothorpe
     - - "1"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
@@ -1507,7 +1507,7 @@ tokens:
     - - "#"
       - Octothorpe
     - - "1"
-      - Number
+      - IntegerLiteral
     - - "\r\n"
       - Newline
     - - "    "
@@ -1855,7 +1855,7 @@ tokens:
     - - " "
       - Whitespace
     - - "1"
-      - Number
+      - IntegerLiteral
     - - " "
       - Whitespace
     - - Then
@@ -1903,7 +1903,7 @@ tokens:
     - - " "
       - Whitespace
     - - "2"
-      - Number
+      - IntegerLiteral
     - - " "
       - Whitespace
     - - Then
@@ -2047,7 +2047,7 @@ tokens:
     - - " "
       - Whitespace
     - - "1"
-      - Number
+      - IntegerLiteral
     - - " "
       - Whitespace
     - - Then
@@ -2089,7 +2089,7 @@ tokens:
     - - " "
       - Whitespace
     - - "2"
-      - Number
+      - IntegerLiteral
     - - " "
       - Whitespace
     - - Then
@@ -2317,7 +2317,7 @@ tokens:
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - " "
       - Whitespace
     - - To
@@ -2343,7 +2343,7 @@ tokens:
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - " "
       - Whitespace
     - - To
@@ -2377,7 +2377,7 @@ tokens:
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - "\r\n"
       - Newline
     - - "    "
@@ -2627,7 +2627,7 @@ tokens:
     - - " "
       - Whitespace
     - - "1"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
@@ -2695,7 +2695,7 @@ tokens:
     - - "#"
       - Octothorpe
     - - "1"
-      - Number
+      - IntegerLiteral
     - - "\r\n"
       - Newline
     - - "            "
@@ -2713,13 +2713,13 @@ tokens:
     - - "#"
       - Octothorpe
     - - "1"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "1"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
@@ -2737,7 +2737,7 @@ tokens:
     - - "#"
       - Octothorpe
     - - "1"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
@@ -2761,7 +2761,7 @@ tokens:
     - - (
       - LeftParenthesis
     - - "0"
-      - Number
+      - IntegerLiteral
     - - " "
       - Whitespace
     - - To
@@ -2775,7 +2775,7 @@ tokens:
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - " "
       - Whitespace
     - - To
@@ -2805,7 +2805,7 @@ tokens:
     - - "#"
       - Octothorpe
     - - "1"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
@@ -2827,7 +2827,7 @@ tokens:
     - - "#"
       - Octothorpe
     - - "1"
-      - Number
+      - IntegerLiteral
     - - "\r\n"
       - Newline
     - - "        "
@@ -3149,7 +3149,7 @@ tokens:
     - - " "
       - Whitespace
     - - "1"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
@@ -3219,7 +3219,7 @@ tokens:
     - - "#"
       - Octothorpe
     - - "1"
-      - Number
+      - IntegerLiteral
     - - "\r\n"
       - Newline
     - - "            "
@@ -3237,13 +3237,13 @@ tokens:
     - - "#"
       - Octothorpe
     - - "1"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "1"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
@@ -3261,7 +3261,7 @@ tokens:
     - - "#"
       - Octothorpe
     - - "1"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
@@ -3283,7 +3283,7 @@ tokens:
     - - "#"
       - Octothorpe
     - - "1"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
@@ -3305,7 +3305,7 @@ tokens:
     - - "#"
       - Octothorpe
     - - "1"
-      - Number
+      - IntegerLiteral
     - - "\r\n"
       - Newline
     - - "        "
@@ -3465,7 +3465,7 @@ tokens:
     - - " "
       - Whitespace
     - - "1"
-      - Number
+      - IntegerLiteral
     - - " "
       - Whitespace
     - - Then
@@ -3499,7 +3499,7 @@ tokens:
     - - " "
       - Whitespace
     - - "64"
-      - Number
+      - IntegerLiteral
     - - )
       - RightParenthesis
     - - " "
@@ -3553,25 +3553,25 @@ tokens:
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "64"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "64"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
@@ -3595,25 +3595,25 @@ tokens:
     - - " "
       - Whitespace
     - - "64"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "64"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "64"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
@@ -3649,25 +3649,25 @@ tokens:
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "64"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "64"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
@@ -3681,25 +3681,25 @@ tokens:
     - - " "
       - Whitespace
     - - "64"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "64"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "64"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
@@ -3739,7 +3739,7 @@ tokens:
     - - " "
       - Whitespace
     - - "2"
-      - Number
+      - IntegerLiteral
     - - " "
       - Whitespace
     - - Then
@@ -3767,7 +3767,7 @@ tokens:
     - - " "
       - Whitespace
     - - "64"
-      - Number
+      - IntegerLiteral
     - - )
       - RightParenthesis
     - - " "
@@ -3815,25 +3815,25 @@ tokens:
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "64"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "64"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
@@ -3857,25 +3857,25 @@ tokens:
     - - " "
       - Whitespace
     - - "64"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "64"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "64"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
@@ -3911,25 +3911,25 @@ tokens:
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "64"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "64"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
@@ -3943,25 +3943,25 @@ tokens:
     - - " "
       - Whitespace
     - - "64"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "64"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "
       - Whitespace
     - - "64"
-      - Number
+      - IntegerLiteral
     - - ","
       - Comma
     - - " "

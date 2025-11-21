@@ -762,7 +762,7 @@ fn vb6_token_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<(&'a str, VB6Toke
         vb6_keyword_parse,
         vb6_symbol_parse,
         alt((
-            digit1.map(|token: &BStr| (token.to_str().unwrap(), VB6Token::Number)),
+            digit1.map(|token: &BStr| (token.to_str().unwrap(), VB6Token::IntegerLiteral)),
             variable_name_parse.map(|token: &BStr| (token.to_str().unwrap(), VB6Token::Identifier)),
             space1.map(|token: &BStr| (token.to_str().unwrap(), VB6Token::Whitespace)),
         )),

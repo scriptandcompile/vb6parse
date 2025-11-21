@@ -1729,7 +1729,7 @@ tokens:
     - - " "
       - Whitespace
     - - "1"
-      - Number
+      - IntegerLiteral
     - - "\r\n"
       - Newline
     - - "        "
@@ -1829,7 +1829,7 @@ tokens:
     - - " "
       - Whitespace
     - - "1"
-      - Number
+      - IntegerLiteral
     - - "\r\n"
       - Newline
     - - "        "
@@ -1927,7 +1927,7 @@ tokens:
     - - " "
       - Whitespace
     - - "1"
-      - Number
+      - IntegerLiteral
     - - "\r\n"
       - Newline
     - - "    "
@@ -1971,7 +1971,7 @@ tokens:
     - - " "
       - Whitespace
     - - "1"
-      - Number
+      - IntegerLiteral
     - - "\r\n"
       - Newline
     - - "    "
@@ -2159,7 +2159,7 @@ tokens:
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - "\r\n"
       - Newline
     - - "    "
@@ -2193,7 +2193,7 @@ tokens:
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - "\r\n"
       - Newline
     - - "    "
@@ -2227,7 +2227,7 @@ tokens:
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - "\r\n"
       - Newline
     - - "    "
@@ -2261,7 +2261,7 @@ tokens:
     - - " "
       - Whitespace
     - - "0"
-      - Number
+      - IntegerLiteral
     - - "\r\n"
       - Newline
     - - "    "
@@ -2521,7 +2521,7 @@ tokens:
     - - (
       - LeftParenthesis
     - - "50"
-      - Number
+      - IntegerLiteral
     - - " "
       - Whitespace
     - - "-"
@@ -2655,17 +2655,17 @@ tokens:
     - - " "
       - Whitespace
     - - "1"
-      - Number
+      - IntegerLiteral
     - - "."
       - PeriodOperator
     - - "66666666666667"
-      - Number
+      - IntegerLiteral
     - - E
       - Identifier
     - - "-"
       - SubtractionOperator
     - - "02"
-      - Number
+      - IntegerLiteral
     - - )
       - RightParenthesis
     - - )

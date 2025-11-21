@@ -279,6 +279,12 @@ pub fn tokenize<'a>(
             continue;
         }
 
+        // Try to parse date literal first (#date#)
+        if let Some((date_text, date_token)) = take_date_literal(input) {
+            tokens.push((date_text, date_token));
+            continue;
+        }
+
         if let Some((keyword_text, keyword_token)) = take_keyword(input) {
             tokens.push((keyword_text, keyword_token));
             continue;
@@ -289,8 +295,9 @@ pub fn tokenize<'a>(
             continue;
         }
 
-        if let Some(digit_characters) = input.take_ascii_digits() {
-            tokens.push((digit_characters, VB6Token::Number));
+        // Try to parse numeric literal with type suffix
+        if let Some((literal_text, literal_token)) = take_numeric_literal(input) {
+            tokens.push((literal_text, literal_token));
             continue;
         }
 
@@ -432,6 +439,136 @@ fn take_rem_comment<'a>(
             }
         }
     }
+}
+
+/// Parses a VB6 numeric literal with optional type suffix from the input stream.
+///
+/// Recognizes:
+/// - Integer literals: `42%`
+/// - Long literals: `42&`
+/// - Single literals: `3.14!`
+/// - Double literals: `3.14#`
+/// - Decimal literals: `12.50@`
+///
+/// # Arguments
+///
+/// * `input` - The input stream to parse.
+///
+/// # Returns
+///
+/// `Some()` with a tuple containing the matched numeric literal text and its corresponding VB6 token
+/// if a numeric literal is found at the current position in the stream; otherwise, `None`.
+fn take_numeric_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB6Token)> {
+    let start_offset = input.offset;
+    
+    // Parse the numeric part (digits, optional decimal point, optional exponent)
+    let _digits = input.take_ascii_digits()?;
+    
+    let mut has_decimal = false;
+    let mut has_exponent = false;
+    
+    // Check for decimal point followed by more digits
+    if input.peek_text(".", Comparator::CaseInsensitive).is_some() {
+        // Peek ahead to see if there are digits after the period
+        let _ = input.take_count(1); // consume '.'
+        if input.peek(1).and_then(|s| s.chars().next()).map_or(false, |c| c.is_ascii_digit()) {
+            input.take_ascii_digits(); // fractional part
+            has_decimal = true;
+        }
+    }
+    
+    // Check for exponent (E or D followed by optional sign and digits)
+    if input.peek_text("E", Comparator::CaseInsensitive).is_some()
+        || input.peek_text("D", Comparator::CaseInsensitive).is_some()
+    {
+        let _ = input.take_count(1); // consume 'E' or 'D'
+        if input.peek_text("+", Comparator::CaseInsensitive).is_some()
+            || input.peek_text("-", Comparator::CaseInsensitive).is_some()
+        {
+            let _ = input.take_count(1); // optional sign
+        }
+        input.take_ascii_digits(); // exponent digits
+        has_exponent = true;
+    }
+    
+    // Check for type suffix
+    let token_type = if input.peek_text("%", Comparator::CaseInsensitive).is_some() {
+        let _ = input.take_count(1);
+        VB6Token::IntegerLiteral
+    } else if input.peek_text("&", Comparator::CaseInsensitive).is_some() {
+        let _ = input.take_count(1);
+        VB6Token::LongLiteral
+    } else if input.peek_text("!", Comparator::CaseInsensitive).is_some() {
+        let _ = input.take_count(1);
+        VB6Token::SingleLiteral
+    } else if input.peek_text("#", Comparator::CaseInsensitive).is_some() {
+        let _ = input.take_count(1);
+        VB6Token::DoubleLiteral
+    } else if input.peek_text("@", Comparator::CaseInsensitive).is_some() {
+        let _ = input.take_count(1);
+        VB6Token::DecimalLiteral
+    } else if has_decimal || has_exponent {
+        // No explicit suffix, but has decimal point or exponent -> Single (VB6 default)
+        VB6Token::SingleLiteral
+    } else {
+        // No suffix, no decimal, no exponent -> Integer
+        VB6Token::IntegerLiteral
+    };
+    
+    let end_offset = input.offset;
+    let literal_text = &input.contents[start_offset..end_offset];
+    
+    Some((literal_text, token_type))
+}
+
+/// Parses a VB6 date literal from the input stream.
+///
+/// Date literals are enclosed in # characters, e.g., `#1/1/2000#`, `#12:30:00 PM#`
+///
+/// # Arguments
+///
+/// * `input` - The input stream to parse.
+///
+/// # Returns
+///
+/// `Some()` with a tuple containing the matched date literal text and its corresponding VB6 token
+/// if a date literal is found at the current position in the stream; otherwise, `None`.
+fn take_date_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB6Token)> {
+    let start_offset = input.offset;
+    
+    // Must start with #
+    input.peek_text("#", Comparator::CaseInsensitive)?;
+    let _ = input.take_count(1);
+    
+    // Take everything until the closing # or newline
+    let found_closing = loop {
+        if let Some(peek) = input.peek(1) {
+            let ch = peek.chars().next()?;
+            if ch == '#' {
+                let _ = input.take_count(1);
+                break true;
+            } else if ch == '\r' || ch == '\n' {
+                // Date literals cannot span multiple lines
+                break false;
+            } else {
+                let _ = input.take_count(1);
+            }
+        } else {
+            // End of input
+            break false;
+        }
+    };
+    
+    if !found_closing {
+        // Rollback if we didn't find a closing #
+        input.offset = start_offset;
+        return None;
+    }
+    
+    let end_offset = input.offset;
+    let date_text = &input.contents[start_offset..end_offset];
+    
+    Some((date_text, VB6Token::DateLiteral))
 }
 
 /// Parses a VB6 string literal from the input stream.
@@ -722,15 +859,13 @@ Attribute VB_Exposed = False
 
         let mut tokens = result.result.unwrap().into_iter();
 
-        assert_eq!(tokens.len(), 98);
+        assert_eq!(tokens.len(), 96);
         assert_eq!(
             tokens.next().unwrap(),
             ("VERSION", VB6Token::VersionKeyword)
         );
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("1", VB6Token::Number));
-        assert_eq!(tokens.next().unwrap(), (".", VB6Token::PeriodOperator));
-        assert_eq!(tokens.next().unwrap(), ("0", VB6Token::Number));
+        assert_eq!(tokens.next().unwrap(), ("1.0", VB6Token::SingleLiteral));
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
         assert_eq!(tokens.next().unwrap(), ("CLASS", VB6Token::ClassKeyword));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
@@ -742,7 +877,7 @@ Attribute VB_Exposed = False
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
         assert_eq!(tokens.next().unwrap(), ("-", VB6Token::SubtractionOperator));
-        assert_eq!(tokens.next().unwrap(), ("1", VB6Token::Number));
+        assert_eq!(tokens.next().unwrap(), ("1", VB6Token::IntegerLiteral));
         assert_eq!(tokens.next().unwrap(), ("  ", VB6Token::Whitespace));
         assert_eq!(
             tokens.next().unwrap(),
@@ -757,7 +892,7 @@ Attribute VB_Exposed = False
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("0", VB6Token::Number));
+        assert_eq!(tokens.next().unwrap(), ("0", VB6Token::IntegerLiteral));
         assert_eq!(tokens.next().unwrap(), ("  ", VB6Token::Whitespace));
         assert_eq!(
             tokens.next().unwrap(),
@@ -772,7 +907,7 @@ Attribute VB_Exposed = False
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("0", VB6Token::Number));
+        assert_eq!(tokens.next().unwrap(), ("0", VB6Token::IntegerLiteral));
         assert_eq!(tokens.next().unwrap(), ("  ", VB6Token::Whitespace));
         assert_eq!(
             tokens.next().unwrap(),
@@ -787,7 +922,7 @@ Attribute VB_Exposed = False
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("0", VB6Token::Number));
+        assert_eq!(tokens.next().unwrap(), ("0", VB6Token::IntegerLiteral));
         assert_eq!(tokens.next().unwrap(), ("  ", VB6Token::Whitespace));
         assert_eq!(
             tokens.next().unwrap(),
@@ -802,7 +937,7 @@ Attribute VB_Exposed = False
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("0", VB6Token::Number));
+        assert_eq!(tokens.next().unwrap(), ("0", VB6Token::IntegerLiteral));
         assert_eq!(tokens.next().unwrap(), ("  ", VB6Token::Whitespace));
         assert_eq!(
             tokens.next().unwrap(),
@@ -910,14 +1045,12 @@ Attribute VB_Exposed = False
 
         let mut tokens = result.result.unwrap().into_iter();
 
-        assert_eq!(tokens.len(), 61);
+        assert_eq!(tokens.len(), 59);
         assert_eq!(
             tokens.next().unwrap(),
             ("VERSION", VB6Token::VersionKeyword)
         );
-        assert_eq!(tokens.next().unwrap(), ("1", VB6Token::Number));
-        assert_eq!(tokens.next().unwrap(), (".", VB6Token::PeriodOperator));
-        assert_eq!(tokens.next().unwrap(), ("0", VB6Token::Number));
+        assert_eq!(tokens.next().unwrap(), ("1.0", VB6Token::SingleLiteral));
         assert_eq!(tokens.next().unwrap(), ("CLASS", VB6Token::ClassKeyword));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
         assert_eq!(tokens.next().unwrap(), ("BEGIN", VB6Token::BeginKeyword));
@@ -925,7 +1058,7 @@ Attribute VB_Exposed = False
         assert_eq!(tokens.next().unwrap(), ("MultiUse", VB6Token::Identifier));
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
         assert_eq!(tokens.next().unwrap(), ("-", VB6Token::SubtractionOperator));
-        assert_eq!(tokens.next().unwrap(), ("1", VB6Token::Number));
+        assert_eq!(tokens.next().unwrap(), ("1", VB6Token::IntegerLiteral));
         assert_eq!(
             tokens.next().unwrap(),
             ("'True", VB6Token::EndOfLineComment)
@@ -936,7 +1069,7 @@ Attribute VB_Exposed = False
             ("Persistable", VB6Token::Identifier)
         );
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens.next().unwrap(), ("0", VB6Token::Number));
+        assert_eq!(tokens.next().unwrap(), ("0", VB6Token::IntegerLiteral));
         assert_eq!(
             tokens.next().unwrap(),
             ("'NotPersistable", VB6Token::EndOfLineComment)
@@ -947,7 +1080,7 @@ Attribute VB_Exposed = False
             ("DataBindingBehavior", VB6Token::Identifier)
         );
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens.next().unwrap(), ("0", VB6Token::Number));
+        assert_eq!(tokens.next().unwrap(), ("0", VB6Token::IntegerLiteral));
         assert_eq!(
             tokens.next().unwrap(),
             ("'vbNone", VB6Token::EndOfLineComment)
@@ -958,7 +1091,7 @@ Attribute VB_Exposed = False
             ("DataSourceBehavior", VB6Token::Identifier)
         );
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens.next().unwrap(), ("0", VB6Token::Number));
+        assert_eq!(tokens.next().unwrap(), ("0", VB6Token::IntegerLiteral));
         assert_eq!(
             tokens.next().unwrap(),
             ("'vbNone", VB6Token::EndOfLineComment)
@@ -969,7 +1102,7 @@ Attribute VB_Exposed = False
             ("MTSTransactionMode", VB6Token::Identifier)
         );
         assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens.next().unwrap(), ("0", VB6Token::Number));
+        assert_eq!(tokens.next().unwrap(), ("0", VB6Token::IntegerLiteral));
         assert_eq!(
             tokens.next().unwrap(),
             ("'NotAnMTSObject", VB6Token::EndOfLineComment)
@@ -1030,5 +1163,198 @@ Attribute VB_Exposed = False
         assert_eq!(tokens.next().unwrap(), ("False", VB6Token::FalseKeyword));
         assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
         assert!(tokens.next().is_none());
+    }
+
+    #[test]
+    fn integer_literal_tokenize() {
+        use crate::tokenize::tokenize;
+        use crate::SourceStream;
+
+        let mut input = SourceStream::new("", "x = 42%");
+        let result = tokenize(&mut input);
+
+        assert!(!result.has_failures());
+        let tokens = result.result.unwrap();
+
+        assert_eq!(tokens[0], ("x", VB6Token::Identifier));
+        assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
+        assert_eq!(tokens[2], ("=", VB6Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
+        assert_eq!(tokens[4], ("42%", VB6Token::IntegerLiteral));
+        assert_eq!(tokens.len(), 5);
+    }
+
+    #[test]
+    fn long_literal_tokenize() {
+        use crate::tokenize::tokenize;
+        use crate::SourceStream;
+
+        let mut input = SourceStream::new("", "x = 123456&");
+        let result = tokenize(&mut input);
+
+        assert!(!result.has_failures());
+        let tokens = result.result.unwrap();
+
+        assert_eq!(tokens[0], ("x", VB6Token::Identifier));
+        assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
+        assert_eq!(tokens[2], ("=", VB6Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
+        assert_eq!(tokens[4], ("123456&", VB6Token::LongLiteral));
+        assert_eq!(tokens.len(), 5);
+    }
+
+    #[test]
+    fn single_literal_tokenize() {
+        use crate::tokenize::tokenize;
+        use crate::SourceStream;
+
+        let mut input = SourceStream::new("", "x = 3.14!");
+        let result = tokenize(&mut input);
+
+        assert!(!result.has_failures());
+        let tokens = result.result.unwrap();
+
+        assert_eq!(tokens[0], ("x", VB6Token::Identifier));
+        assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
+        assert_eq!(tokens[2], ("=", VB6Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
+        assert_eq!(tokens[4], ("3.14!", VB6Token::SingleLiteral));
+        assert_eq!(tokens.len(), 5);
+    }
+
+    #[test]
+    fn double_literal_tokenize() {
+        use crate::tokenize::tokenize;
+        use crate::SourceStream;
+
+        let mut input = SourceStream::new("", "x = 3.14159265#");
+        let result = tokenize(&mut input);
+
+        assert!(!result.has_failures());
+        let tokens = result.result.unwrap();
+
+        assert_eq!(tokens[0], ("x", VB6Token::Identifier));
+        assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
+        assert_eq!(tokens[2], ("=", VB6Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
+        assert_eq!(tokens[4], ("3.14159265#", VB6Token::DoubleLiteral));
+        assert_eq!(tokens.len(), 5);
+    }
+
+    #[test]
+    fn decimal_literal_tokenize() {
+        use crate::tokenize::tokenize;
+        use crate::SourceStream;
+
+        let mut input = SourceStream::new("", "price = 12.50@");
+        let result = tokenize(&mut input);
+
+        assert!(!result.has_failures());
+        let tokens = result.result.unwrap();
+
+        assert_eq!(tokens[0], ("price", VB6Token::Identifier));
+        assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
+        assert_eq!(tokens[2], ("=", VB6Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
+        assert_eq!(tokens[4], ("12.50@", VB6Token::DecimalLiteral));
+        assert_eq!(tokens.len(), 5);
+    }
+
+    #[test]
+    fn date_literal_tokenize() {
+        use crate::tokenize::tokenize;
+        use crate::SourceStream;
+
+        let mut input = SourceStream::new("", "d = #1/1/2000#");
+        let result = tokenize(&mut input);
+
+        assert!(!result.has_failures());
+        let tokens = result.result.unwrap();
+
+        assert_eq!(tokens[0], ("d", VB6Token::Identifier));
+        assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
+        assert_eq!(tokens[2], ("=", VB6Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
+        assert_eq!(tokens[4], ("#1/1/2000#", VB6Token::DateLiteral));
+        assert_eq!(tokens.len(), 5);
+    }
+
+    #[test]
+    fn date_literal_with_time_tokenize() {
+        use crate::tokenize::tokenize;
+        use crate::SourceStream;
+
+        let mut input = SourceStream::new("", "d = #12/31/1999 11:59:59 PM#");
+        let result = tokenize(&mut input);
+
+        assert!(!result.has_failures());
+        let tokens = result.result.unwrap();
+
+        assert_eq!(tokens[0], ("d", VB6Token::Identifier));
+        assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
+        assert_eq!(tokens[2], ("=", VB6Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
+        assert_eq!(
+            tokens[4],
+            ("#12/31/1999 11:59:59 PM#", VB6Token::DateLiteral)
+        );
+        assert_eq!(tokens.len(), 5);
+    }
+
+    #[test]
+    fn plain_number_tokenize() {
+        use crate::tokenize::tokenize;
+        use crate::SourceStream;
+
+        let mut input = SourceStream::new("", "x = 42");
+        let result = tokenize(&mut input);
+
+        assert!(!result.has_failures());
+        let tokens = result.result.unwrap();
+
+        assert_eq!(tokens[0], ("x", VB6Token::Identifier));
+        assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
+        assert_eq!(tokens[2], ("=", VB6Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
+        assert_eq!(tokens[4], ("42", VB6Token::IntegerLiteral));
+        assert_eq!(tokens.len(), 5);
+    }
+
+    #[test]
+    fn decimal_number_tokenize() {
+        use crate::tokenize::tokenize;
+        use crate::SourceStream;
+
+        let mut input = SourceStream::new("", "x = 3.14");
+        let result = tokenize(&mut input);
+
+        assert!(!result.has_failures());
+        let tokens = result.result.unwrap();
+
+        assert_eq!(tokens[0], ("x", VB6Token::Identifier));
+        assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
+        assert_eq!(tokens[2], ("=", VB6Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
+        assert_eq!(tokens[4], ("3.14", VB6Token::SingleLiteral));
+        assert_eq!(tokens.len(), 5);
+    }
+
+    #[test]
+    fn exponent_number_tokenize() {
+        use crate::tokenize::tokenize;
+        use crate::SourceStream;
+
+        let mut input = SourceStream::new("", "x = 1.5E+10");
+        let result = tokenize(&mut input);
+
+        assert!(!result.has_failures());
+        let tokens = result.result.unwrap();
+
+        assert_eq!(tokens[0], ("x", VB6Token::Identifier));
+        assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
+        assert_eq!(tokens[2], ("=", VB6Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
+        assert_eq!(tokens[4], ("1.5E+10", VB6Token::SingleLiteral));
+        assert_eq!(tokens.len(), 5);
     }
 }

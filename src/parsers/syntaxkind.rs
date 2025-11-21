@@ -258,7 +258,13 @@ pub enum SyntaxKind {
     // Literals and identifiers
     Identifier,
     StringLiteral,
-    Number,
+    IntegerLiteral,
+    LongLiteral,
+    SingleLiteral,
+    DoubleLiteral,
+    DecimalLiteral,
+    CurrencyLiteral,
+    DateLiteral,
 
     // Operators and punctuation
     DollarSign,
@@ -341,6 +347,12 @@ impl From<VB6Token> for SyntaxKind {
             VB6Token::StringKeyword => SyntaxKind::StringKeyword,
             VB6Token::IntegerKeyword => SyntaxKind::IntegerKeyword,
             VB6Token::StringLiteral => SyntaxKind::StringLiteral,
+            VB6Token::IntegerLiteral => SyntaxKind::IntegerLiteral,
+            VB6Token::LongLiteral => SyntaxKind::LongLiteral,
+            VB6Token::SingleLiteral => SyntaxKind::SingleLiteral,
+            VB6Token::DoubleLiteral => SyntaxKind::DoubleLiteral,
+            VB6Token::DecimalLiteral => SyntaxKind::DecimalLiteral,
+            VB6Token::DateLiteral => SyntaxKind::DateLiteral,
             VB6Token::IfKeyword => SyntaxKind::IfKeyword,
             VB6Token::ElseKeyword => SyntaxKind::ElseKeyword,
             VB6Token::ElseIfKeyword => SyntaxKind::ElseIfKeyword,
@@ -473,7 +485,6 @@ impl From<VB6Token> for SyntaxKind {
             VB6Token::ColonOperator => SyntaxKind::ColonOperator,
             VB6Token::ExponentiationOperator => SyntaxKind::ExponentiationOperator,
             VB6Token::Identifier => SyntaxKind::Identifier,
-            VB6Token::Number => SyntaxKind::Number,
         }
     }
 }

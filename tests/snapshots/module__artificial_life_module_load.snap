@@ -475,7 +475,7 @@ tokens:
     - - " "
       - Whitespace
     - - "499"
-      - Number
+      - IntegerLiteral
     - - "\r\n"
       - Newline
     - - Public
@@ -503,7 +503,7 @@ tokens:
     - - " "
       - Whitespace
     - - "499"
-      - Number
+      - IntegerLiteral
     - - "\r\n"
       - Newline
     - - "\r\n"

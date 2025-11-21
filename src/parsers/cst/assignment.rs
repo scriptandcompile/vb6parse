@@ -136,7 +136,10 @@ impl<'a> Parser<'a> {
                 VB6Token::Identifier
                 | VB6Token::LeftParenthesis
                 | VB6Token::RightParenthesis
-                | VB6Token::Number
+                | VB6Token::IntegerLiteral
+                | VB6Token::LongLiteral
+                | VB6Token::SingleLiteral
+                | VB6Token::DoubleLiteral
                 | VB6Token::Comma => {
                     last_was_period = false;
                     at_start = false;
@@ -185,7 +188,7 @@ x = 5
             SyntaxKind::EqualityOperator
         );
         assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::Number);
+        assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::IntegerLiteral);
         assert_eq!(cst.children()[1].children[4].text, "5");
         assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Newline);
 
@@ -265,7 +268,7 @@ arr(0) = 100
             cst.children()[1].children[1].kind,
             SyntaxKind::LeftParenthesis
         );
-        assert_eq!(cst.children()[1].children[2].kind, SyntaxKind::Number);
+        assert_eq!(cst.children()[1].children[2].kind, SyntaxKind::IntegerLiteral);
         assert_eq!(cst.children()[1].children[2].text, "0");
         assert_eq!(
             cst.children()[1].children[3].kind,
@@ -277,7 +280,7 @@ arr(0) = 100
             SyntaxKind::EqualityOperator
         );
         assert_eq!(cst.children()[1].children[6].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[7].kind, SyntaxKind::Number);
+        assert_eq!(cst.children()[1].children[7].kind, SyntaxKind::IntegerLiteral);
         assert_eq!(cst.children()[1].children[7].text, "100");
         assert_eq!(cst.children()[1].children[8].kind, SyntaxKind::Newline);
 
@@ -494,7 +497,7 @@ z = 3
             SyntaxKind::EqualityOperator
         );
         assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::Number);
+        assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::IntegerLiteral);
         assert_eq!(cst.children()[1].children[4].text, "1");
 
         assert_eq!(cst.children()[2].kind, SyntaxKind::AssignmentStatement);
@@ -506,7 +509,7 @@ z = 3
             SyntaxKind::EqualityOperator
         );
         assert_eq!(cst.children()[2].children[3].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[2].children[4].kind, SyntaxKind::Number);
+        assert_eq!(cst.children()[2].children[4].kind, SyntaxKind::IntegerLiteral);
         assert_eq!(cst.children()[2].children[4].text, "2");
 
         assert_eq!(cst.children()[3].kind, SyntaxKind::AssignmentStatement);
@@ -518,7 +521,7 @@ z = 3
             SyntaxKind::EqualityOperator
         );
         assert_eq!(cst.children()[3].children[3].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[3].children[4].kind, SyntaxKind::Number);
+        assert_eq!(cst.children()[3].children[4].kind, SyntaxKind::IntegerLiteral);
         assert_eq!(cst.children()[3].children[4].text, "3");
 
         assert_eq!(cst.text().trim(), source.trim());
@@ -538,7 +541,7 @@ z = 3
             SyntaxKind::EqualityOperator
         );
         assert_eq!(cst.children()[0].children[3].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[0].children[4].kind, SyntaxKind::Number);
+        assert_eq!(cst.children()[0].children[4].kind, SyntaxKind::IntegerLiteral);
 
         // Verify whitespace is preserved
         assert_eq!(cst.text(), source);
@@ -612,7 +615,7 @@ End Function
         );
         assert_eq!(
             cst.children()[1].children[7].children[1].children[4].kind,
-            SyntaxKind::Number
+            SyntaxKind::IntegerLiteral
         );
         assert_eq!(
             cst.children()[1].children[7].children[1].children[4].text,
@@ -731,7 +734,7 @@ x = 5
         assert!(cst.children()[2].children[1].kind == SyntaxKind::Whitespace);
         assert!(cst.children()[2].children[2].kind == SyntaxKind::EqualityOperator);
         assert!(cst.children()[2].children[3].kind == SyntaxKind::Whitespace);
-        assert!(cst.children()[2].children[4].kind == SyntaxKind::Number);
+        assert!(cst.children()[2].children[4].kind == SyntaxKind::IntegerLiteral);
         assert!(cst.children()[2].children[4].text == "5");
         assert!(cst.children()[2].children[5].kind == SyntaxKind::Newline);
 
@@ -756,15 +759,9 @@ pi = 3.14159
             SyntaxKind::EqualityOperator
         );
         assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::Number);
-        assert_eq!(cst.children()[1].children[4].text, "3");
-        assert_eq!(
-            cst.children()[1].children[5].kind,
-            SyntaxKind::PeriodOperator
-        );
-        assert_eq!(cst.children()[1].children[6].kind, SyntaxKind::Number);
-        assert_eq!(cst.children()[1].children[6].text, "14159");
-        assert_eq!(cst.children()[1].children[7].kind, SyntaxKind::Newline);
+        assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::SingleLiteral);
+        assert_eq!(cst.children()[1].children[4].text, "3.14159");
+        assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Newline);
 
         assert_eq!(cst.text().trim(), source.trim());
     }
@@ -829,7 +826,7 @@ person.Age = 25
             SyntaxKind::EqualityOperator
         );
         assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[6].kind, SyntaxKind::Number);
+        assert_eq!(cst.children()[1].children[6].kind, SyntaxKind::IntegerLiteral);
         assert_eq!(cst.children()[1].children[6].text, "25");
         assert_eq!(cst.children()[1].children[7].kind, SyntaxKind::Newline);
 
