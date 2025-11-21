@@ -55,12 +55,7 @@ impl<'a> Parser<'a> {
         self.consume_token();
 
         // Consume everything until newline (the label name)
-        self.consume_until(VB6Token::Newline);
-
-        // Consume the newline
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        self.consume_until_after(VB6Token::Newline);
 
         self.builder.finish_node(); // GoSubStatement
     }
@@ -124,12 +119,7 @@ impl<'a> Parser<'a> {
         self.consume_token();
 
         // Consume everything until newline (the label name)
-        self.consume_until(VB6Token::Newline);
-
-        // Consume the newline
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        self.consume_until_after(VB6Token::Newline);
 
         self.builder.finish_node(); // GotoStatement
     }
@@ -291,12 +281,7 @@ impl<'a> Parser<'a> {
         }
 
         // Consume everything until newline (GoTo label, Resume Next, GoTo 0, etc.)
-        self.consume_until(VB6Token::Newline);
-
-        // Consume the newline
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        self.consume_until_after(VB6Token::Newline);
 
         self.builder.finish_node(); // OnErrorStatement
     }
@@ -353,12 +338,7 @@ impl<'a> Parser<'a> {
         self.consume_token();
 
         // Consume everything until newline (expression GoTo labels)
-        self.consume_until(VB6Token::Newline);
-
-        // Consume the newline
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        self.consume_until_after(VB6Token::Newline);
 
         self.builder.finish_node(); // OnGoToStatement
     }
@@ -417,12 +397,7 @@ impl<'a> Parser<'a> {
         self.consume_token();
 
         // Consume everything until newline (expression GoSub labels)
-        self.consume_until(VB6Token::Newline);
-
-        // Consume the newline
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        self.consume_until_after(VB6Token::Newline);
 
         self.builder.finish_node(); // OnGoSubStatement
     }

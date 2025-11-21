@@ -60,12 +60,7 @@ impl<'a> Parser<'a> {
         self.consume_token();
 
         // Consume everything until newline (Preserve, variable declarations, etc.)
-        self.consume_until(VB6Token::Newline);
-
-        // Consume the newline
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        self.consume_until_after(VB6Token::Newline);
 
         self.builder.finish_node(); // ReDimStatement
     }
@@ -109,12 +104,7 @@ impl<'a> Parser<'a> {
         self.consume_token();
 
         // Consume everything until newline (preserving all tokens)
-        self.consume_until(VB6Token::Newline);
-
-        // Consume the newline
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        self.consume_until_after(VB6Token::Newline);
 
         self.builder.finish_node(); // DimStatement
     }
@@ -151,12 +141,7 @@ impl<'a> Parser<'a> {
         self.consume_token();
 
         // Consume everything until newline (array names, commas, etc.)
-        self.consume_until(VB6Token::Newline);
-
-        // Consume the newline
-        if self.at_token(VB6Token::Newline) {
-            self.consume_token();
-        }
+        self.consume_until_after(VB6Token::Newline);
 
         self.builder.finish_node(); // EraseStatement
     }

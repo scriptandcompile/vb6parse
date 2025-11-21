@@ -151,13 +151,8 @@ impl<'a> Parser<'a> {
                 // Consume "If"
                 self.consume_token();
 
-                // Consume until newline (including it)
-                self.consume_until(VB6Token::Newline);
-
-                // Consume the newline
-                if self.at_token(VB6Token::Newline) {
-                    self.consume_token();
-                }
+                // Consume until newline
+                self.consume_until_after(VB6Token::Newline);
             }
         }
 
