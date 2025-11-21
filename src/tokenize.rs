@@ -460,23 +460,27 @@ fn take_rem_comment<'a>(
 /// if a numeric literal is found at the current position in the stream; otherwise, `None`.
 fn take_numeric_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB6Token)> {
     let start_offset = input.offset;
-    
+
     // Parse the numeric part (digits, optional decimal point, optional exponent)
     let _digits = input.take_ascii_digits()?;
-    
+
     let mut has_decimal = false;
     let mut has_exponent = false;
-    
+
     // Check for decimal point followed by more digits
     if input.peek_text(".", Comparator::CaseInsensitive).is_some() {
         // Peek ahead to see if there are digits after the period
         let _ = input.take_count(1); // consume '.'
-        if input.peek(1).and_then(|s| s.chars().next()).map_or(false, |c| c.is_ascii_digit()) {
+        if input
+            .peek(1)
+            .and_then(|s| s.chars().next())
+            .map_or(false, |c| c.is_ascii_digit())
+        {
             input.take_ascii_digits(); // fractional part
             has_decimal = true;
         }
     }
-    
+
     // Check for exponent (E or D followed by optional sign and digits)
     if input.peek_text("E", Comparator::CaseInsensitive).is_some()
         || input.peek_text("D", Comparator::CaseInsensitive).is_some()
@@ -490,7 +494,7 @@ fn take_numeric_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB
         input.take_ascii_digits(); // exponent digits
         has_exponent = true;
     }
-    
+
     // Check for type suffix
     let token_type = if input.peek_text("%", Comparator::CaseInsensitive).is_some() {
         let _ = input.take_count(1);
@@ -514,10 +518,10 @@ fn take_numeric_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB
         // No suffix, no decimal, no exponent -> Integer
         VB6Token::IntegerLiteral
     };
-    
+
     let end_offset = input.offset;
     let literal_text = &input.contents[start_offset..end_offset];
-    
+
     Some((literal_text, token_type))
 }
 
@@ -535,11 +539,11 @@ fn take_numeric_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB
 /// if a date literal is found at the current position in the stream; otherwise, `None`.
 fn take_date_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB6Token)> {
     let start_offset = input.offset;
-    
+
     // Must start with #
     input.peek_text("#", Comparator::CaseInsensitive)?;
     let _ = input.take_count(1);
-    
+
     // Take everything until the closing # or newline
     let found_closing = loop {
         if let Some(peek) = input.peek(1) {
@@ -558,16 +562,16 @@ fn take_date_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB6To
             break false;
         }
     };
-    
+
     if !found_closing {
         // Rollback if we didn't find a closing #
         input.offset = start_offset;
         return None;
     }
-    
+
     let end_offset = input.offset;
     let date_text = &input.contents[start_offset..end_offset];
-    
+
     Some((date_text, VB6Token::DateLiteral))
 }
 

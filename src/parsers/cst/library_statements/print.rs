@@ -245,7 +245,11 @@ End Sub
         let debug = cst.debug_tree();
         assert!(debug.contains("PrintStatement"));
         assert!(debug.contains("PrintKeyword"));
-        assert!(debug.contains("IntegerLiteral") || debug.contains("SingleLiteral") || debug.contains("DoubleLiteral"));
+        assert!(
+            debug.contains("IntegerLiteral")
+                || debug.contains("SingleLiteral")
+                || debug.contains("DoubleLiteral")
+        );
     }
 
     #[test]

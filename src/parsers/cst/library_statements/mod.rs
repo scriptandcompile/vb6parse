@@ -46,7 +46,6 @@ mod delete_setting;
 mod error;
 mod file_copy;
 mod get;
-mod put;
 mod input;
 mod kill;
 mod line_input;
@@ -59,6 +58,7 @@ mod mkdir;
 mod name;
 mod open;
 mod print;
+mod put;
 mod reset;
 mod unlock;
 

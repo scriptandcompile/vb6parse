@@ -1288,4 +1288,3 @@ End Sub
         assert!(debug.contains("ClassFactory"));
     }
 }
-

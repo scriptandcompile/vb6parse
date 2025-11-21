@@ -654,11 +654,26 @@ mod test {
             SyntaxKind::from(VB6Token::StringLiteral),
             SyntaxKind::StringLiteral
         );
-        assert_eq!(SyntaxKind::from(VB6Token::IntegerLiteral), SyntaxKind::IntegerLiteral);
-        assert_eq!(SyntaxKind::from(VB6Token::LongLiteral), SyntaxKind::LongLiteral);
-        assert_eq!(SyntaxKind::from(VB6Token::SingleLiteral), SyntaxKind::SingleLiteral);
-        assert_eq!(SyntaxKind::from(VB6Token::DoubleLiteral), SyntaxKind::DoubleLiteral);
-        assert_eq!(SyntaxKind::from(VB6Token::DateLiteral), SyntaxKind::DateLiteral);
+        assert_eq!(
+            SyntaxKind::from(VB6Token::IntegerLiteral),
+            SyntaxKind::IntegerLiteral
+        );
+        assert_eq!(
+            SyntaxKind::from(VB6Token::LongLiteral),
+            SyntaxKind::LongLiteral
+        );
+        assert_eq!(
+            SyntaxKind::from(VB6Token::SingleLiteral),
+            SyntaxKind::SingleLiteral
+        );
+        assert_eq!(
+            SyntaxKind::from(VB6Token::DoubleLiteral),
+            SyntaxKind::DoubleLiteral
+        );
+        assert_eq!(
+            SyntaxKind::from(VB6Token::DateLiteral),
+            SyntaxKind::DateLiteral
+        );
     }
 
     #[test]

@@ -645,7 +645,8 @@ Option Private Module
 
     #[test]
     fn all_four_option_statements() {
-        let source = "Option Explicit\nOption Compare Binary\nOption Base 1\nOption Private Module\n";
+        let source =
+            "Option Explicit\nOption Compare Binary\nOption Base 1\nOption Private Module\n";
         let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

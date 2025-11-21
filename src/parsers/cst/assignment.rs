@@ -46,12 +46,12 @@ impl<'a> Parser<'a> {
             } else {
                 // Check if this is a period
                 last_was_period = self.at_token(VB6Token::PeriodOperator);
-                
+
                 // After whitespace, we're still in an identifier position
                 if !self.at_token(VB6Token::Whitespace) {
                     at_identifier_position = false;
                 }
-                
+
                 self.consume_token();
             }
         }
@@ -188,7 +188,10 @@ x = 5
             SyntaxKind::EqualityOperator
         );
         assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::IntegerLiteral);
+        assert_eq!(
+            cst.children()[1].children[4].kind,
+            SyntaxKind::IntegerLiteral
+        );
         assert_eq!(cst.children()[1].children[4].text, "5");
         assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Newline);
 
@@ -268,7 +271,10 @@ arr(0) = 100
             cst.children()[1].children[1].kind,
             SyntaxKind::LeftParenthesis
         );
-        assert_eq!(cst.children()[1].children[2].kind, SyntaxKind::IntegerLiteral);
+        assert_eq!(
+            cst.children()[1].children[2].kind,
+            SyntaxKind::IntegerLiteral
+        );
         assert_eq!(cst.children()[1].children[2].text, "0");
         assert_eq!(
             cst.children()[1].children[3].kind,
@@ -280,7 +286,10 @@ arr(0) = 100
             SyntaxKind::EqualityOperator
         );
         assert_eq!(cst.children()[1].children[6].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[7].kind, SyntaxKind::IntegerLiteral);
+        assert_eq!(
+            cst.children()[1].children[7].kind,
+            SyntaxKind::IntegerLiteral
+        );
         assert_eq!(cst.children()[1].children[7].text, "100");
         assert_eq!(cst.children()[1].children[8].kind, SyntaxKind::Newline);
 
@@ -497,7 +506,10 @@ z = 3
             SyntaxKind::EqualityOperator
         );
         assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::IntegerLiteral);
+        assert_eq!(
+            cst.children()[1].children[4].kind,
+            SyntaxKind::IntegerLiteral
+        );
         assert_eq!(cst.children()[1].children[4].text, "1");
 
         assert_eq!(cst.children()[2].kind, SyntaxKind::AssignmentStatement);
@@ -509,7 +521,10 @@ z = 3
             SyntaxKind::EqualityOperator
         );
         assert_eq!(cst.children()[2].children[3].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[2].children[4].kind, SyntaxKind::IntegerLiteral);
+        assert_eq!(
+            cst.children()[2].children[4].kind,
+            SyntaxKind::IntegerLiteral
+        );
         assert_eq!(cst.children()[2].children[4].text, "2");
 
         assert_eq!(cst.children()[3].kind, SyntaxKind::AssignmentStatement);
@@ -521,7 +536,10 @@ z = 3
             SyntaxKind::EqualityOperator
         );
         assert_eq!(cst.children()[3].children[3].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[3].children[4].kind, SyntaxKind::IntegerLiteral);
+        assert_eq!(
+            cst.children()[3].children[4].kind,
+            SyntaxKind::IntegerLiteral
+        );
         assert_eq!(cst.children()[3].children[4].text, "3");
 
         assert_eq!(cst.text().trim(), source.trim());
@@ -541,7 +559,10 @@ z = 3
             SyntaxKind::EqualityOperator
         );
         assert_eq!(cst.children()[0].children[3].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[0].children[4].kind, SyntaxKind::IntegerLiteral);
+        assert_eq!(
+            cst.children()[0].children[4].kind,
+            SyntaxKind::IntegerLiteral
+        );
 
         // Verify whitespace is preserved
         assert_eq!(cst.text(), source);
@@ -759,7 +780,10 @@ pi = 3.14159
             SyntaxKind::EqualityOperator
         );
         assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::SingleLiteral);
+        assert_eq!(
+            cst.children()[1].children[4].kind,
+            SyntaxKind::SingleLiteral
+        );
         assert_eq!(cst.children()[1].children[4].text, "3.14159");
         assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Newline);
 
@@ -826,7 +850,10 @@ person.Age = 25
             SyntaxKind::EqualityOperator
         );
         assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Whitespace);
-        assert_eq!(cst.children()[1].children[6].kind, SyntaxKind::IntegerLiteral);
+        assert_eq!(
+            cst.children()[1].children[6].kind,
+            SyntaxKind::IntegerLiteral
+        );
         assert_eq!(cst.children()[1].children[6].text, "25");
         assert_eq!(cst.children()[1].children[7].kind, SyntaxKind::Newline);
 
@@ -1089,7 +1116,10 @@ obj.text = "hello"
         assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
         assert_eq!(cst.children()[1].children[0].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[0].text, "obj");
-        assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::PeriodOperator);
+        assert_eq!(
+            cst.children()[1].children[1].kind,
+            SyntaxKind::PeriodOperator
+        );
         // "text" keyword after period should be converted to Identifier
         assert_eq!(cst.children()[1].children[2].kind, SyntaxKind::Identifier);
         assert_eq!(cst.children()[1].children[2].text, "text");
