@@ -34,6 +34,7 @@
 //! - SavePicture: Save a graphical image to a file
 //! - SaveSetting: Save or create an application entry in the Windows registry
 //! - Seek: Set the position for the next read/write operation in a file
+//! - SendKeys: Send keystrokes to the active window
 //! - Randomize: Initialize the random number generator
 //!
 
@@ -72,6 +73,7 @@ mod rset;
 mod savepicture;
 mod savesetting;
 mod seek;
+mod sendkeys;
 mod unlock;
 
 impl<'a> Parser<'a> {
@@ -110,6 +112,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::SavePictureKeyword)
                 | Some(VB6Token::SaveSettingKeyword)
                 | Some(VB6Token::SeekKeyword)
+                | Some(VB6Token::SendKeysKeyword)
         )
     }
 
@@ -208,6 +211,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::SeekKeyword) => {
                 self.parse_seek_statement();
+            }
+            Some(VB6Token::SendKeysKeyword) => {
+                self.parse_sendkeys_statement();
             }
             _ => {}
         }
