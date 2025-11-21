@@ -1,7 +1,7 @@
 //! Control flow statement parsing for VB6 CST.
 //!
 //! This module handles parsing of VB6 control flow statements:
-//! - Jump statements (GoTo, GoSub, Return, Exit, Label)
+//! - Jump statements (GoTo, GoSub, Return, Resume, Exit, Label)
 //!
 //! Note: If/Then/Else/ElseIf statements are in the if_statements module.
 //! Note: Select Case statements are in the select_statements module.
@@ -122,6 +122,83 @@ impl<'a> Parser<'a> {
         self.consume_until_after(VB6Token::Newline);
 
         self.builder.finish_node(); // GotoStatement
+    }
+
+    /// Parse a Resume statement.
+    ///
+    /// VB6 Resume statement syntax:
+    /// - Resume
+    /// - Resume Next
+    /// - Resume label
+    ///
+    /// Resumes execution after an error-handling routine is finished.
+    ///
+    /// # Syntax
+    ///
+    /// The Resume statement has these forms:
+    ///
+    /// | Form | Description |
+    /// |------|-------------|
+    /// | Resume | If the error occurred in the same procedure as the error handler, execution resumes with the statement that caused the error. If the error occurred in a called procedure, execution resumes at the statement that last called out of the procedure containing the error-handling routine. |
+    /// | Resume Next | If the error occurred in the same procedure as the error handler, execution resumes with the statement immediately following the statement that caused the error. If the error occurred in a called procedure, execution resumes with the statement immediately following the statement that last called out of the procedure containing the error-handling routine (or On Error Resume Next statement). |
+    /// | Resume label | Execution resumes at the line specified by the label argument. The label argument can be a line label or line number. |
+    ///
+    /// # Remarks
+    ///
+    /// - The Resume statement can be used only in an error-handling routine.
+    /// - Using Resume without specifying a label causes execution to resume at the statement that caused the error.
+    /// - Resume Next is useful when you want to continue execution despite an error.
+    /// - Resume label is useful when you want to continue execution at a specific location after handling an error.
+    /// - If you use a Resume statement anywhere except in an error-handling routine, an error occurs.
+    /// - Resume cannot be used in any procedure that contains an On Error Resume Next statement.
+    ///
+    /// # Examples
+    ///
+    /// ```vb
+    /// Sub Test()
+    ///     On Error GoTo ErrorHandler
+    ///     ' Code that might cause error
+    ///     x = 1 / 0
+    ///     Exit Sub
+    /// ErrorHandler:
+    ///     MsgBox "Error occurred"
+    ///     Resume Next
+    /// End Sub
+    /// ```
+    ///
+    /// ```vb
+    /// Sub Test2()
+    ///     On Error GoTo ErrorHandler
+    ///     ' Code that might cause error
+    ///     Exit Sub
+    /// ErrorHandler:
+    ///     If Err.Number = 11 Then
+    ///         Resume
+    ///     Else
+    ///         Resume CleanUp
+    ///     End If
+    /// CleanUp:
+    ///     ' Cleanup code
+    /// End Sub
+    /// ```
+    ///
+    /// # References
+    ///
+    /// [Microsoft VBA Language Reference - Resume Statement](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/resume-statement)
+    pub(super) fn parse_resume_statement(&mut self) {
+        // if we are now parsing a resume statement, we are no longer in the header.
+        self.parsing_header = false;
+
+        self.builder
+            .start_node(SyntaxKind::ResumeStatement.to_raw());
+
+        // Consume "Resume" keyword
+        self.consume_token();
+
+        // Consume everything until newline (Next keyword or label)
+        self.consume_until_after(VB6Token::Newline);
+
+        self.builder.finish_node(); // ResumeStatement
     }
 
     /// Parse an Exit statement.
@@ -2077,5 +2154,511 @@ End Sub
         let debug = cst.debug_tree();
         let count = debug.matches("OnGoSubStatement").count();
         assert_eq!(count, 2);
+    }
+
+    // Resume statement tests
+    #[test]
+    fn resume_simple() {
+        let source = r#"
+Sub Test()
+    On Error GoTo ErrorHandler
+    Exit Sub
+ErrorHandler:
+    Resume
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("ResumeStatement"));
+        assert!(debug.contains("ResumeKeyword"));
+    }
+
+    #[test]
+    fn resume_next() {
+        let source = r#"
+Sub Test()
+    On Error GoTo ErrorHandler
+    x = 1 / 0
+    Exit Sub
+ErrorHandler:
+    Resume Next
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("ResumeStatement"));
+        assert!(debug.contains("ResumeKeyword"));
+        assert!(debug.contains("NextKeyword"));
+    }
+
+    #[test]
+    fn resume_with_label() {
+        let source = r#"
+Sub Test()
+    On Error GoTo ErrorHandler
+    Exit Sub
+ErrorHandler:
+    Resume CleanUp
+CleanUp:
+    MsgBox "Cleanup"
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("ResumeStatement"));
+        assert!(debug.contains("CleanUp"));
+    }
+
+    #[test]
+    fn resume_with_line_number() {
+        let source = r#"
+Sub Test()
+    On Error GoTo ErrorHandler
+    Exit Sub
+ErrorHandler:
+    Resume 100
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("ResumeStatement"));
+        assert!(debug.contains("100"));
+    }
+
+    #[test]
+    fn resume_in_error_handler() {
+        let source = r#"
+Sub ProcessFile()
+    On Error GoTo FileError
+    Open "test.txt" For Input As #1
+    Exit Sub
+FileError:
+    If Err.Number = 53 Then
+        MsgBox "File not found"
+        Resume Next
+    Else
+        Resume
+    End If
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        let resume_count = debug.matches("ResumeStatement").count();
+        assert_eq!(resume_count, 2);
+    }
+
+    #[test]
+    fn resume_with_comment() {
+        let source = r#"
+Sub Test()
+    On Error GoTo ErrorHandler
+    Exit Sub
+ErrorHandler:
+    Resume Next ' Continue after error
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("ResumeStatement"));
+        assert!(debug.contains("Comment"));
+    }
+
+    #[test]
+    fn resume_preserves_whitespace() {
+        let source = "    Resume    Next    \n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.text(), "    Resume    Next    \n");
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("ResumeStatement"));
+    }
+
+    #[test]
+    fn resume_in_nested_error_handler() {
+        let source = r#"
+Sub Test()
+    On Error GoTo ErrorHandler
+    Call SubProcedure
+    Exit Sub
+ErrorHandler:
+    If Err.Number = 5 Then
+        Resume Next
+    Else
+        Resume CleanUp
+    End If
+CleanUp:
+    ' Cleanup code
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        let resume_count = debug.matches("ResumeStatement").count();
+        assert_eq!(resume_count, 2);
+    }
+
+    #[test]
+    fn resume_at_module_level() {
+        let source = "Resume Next\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.root_kind(), SyntaxKind::Root);
+        assert_eq!(cst.child_count(), 1);
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("ResumeStatement"));
+    }
+
+    #[test]
+    fn resume_with_select_case() {
+        let source = r#"
+Sub Test()
+    On Error GoTo ErrorHandler
+    Exit Sub
+ErrorHandler:
+    Select Case Err.Number
+        Case 5
+            Resume Next
+        Case 11
+            Resume
+        Case Else
+            Resume CleanUp
+    End Select
+CleanUp:
+    ' Cleanup
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        let resume_count = debug.matches("ResumeStatement").count();
+        assert_eq!(resume_count, 3);
+    }
+
+    #[test]
+    fn resume_in_loop() {
+        let source = r#"
+Sub ProcessFiles()
+    On Error GoTo ErrorHandler
+    For i = 1 To 10
+        ProcessFile i
+    Next i
+    Exit Sub
+ErrorHandler:
+    Resume Next
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("ResumeStatement"));
+        assert!(debug.contains("ForStatement"));
+    }
+
+    #[test]
+    fn resume_complex_error_handling() {
+        let source = r#"
+Function OpenDatabase() As Boolean
+    On Error GoTo DBError
+    ' Database opening code
+    OpenDatabase = True
+    Exit Function
+DBError:
+    Select Case Err.Number
+        Case 3024
+            MsgBox "Database locked"
+            Resume Retry
+        Case 3044
+            MsgBox "Path not found"
+            Resume Next
+        Case Else
+            MsgBox "Unknown error"
+            Resume ExitPoint
+    End Select
+Retry:
+    ' Retry logic
+    Resume
+ExitPoint:
+    OpenDatabase = False
+End Function
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        let resume_count = debug.matches("ResumeStatement").count();
+        assert_eq!(resume_count, 4);
+    }
+
+    #[test]
+    fn resume_with_do_loop() {
+        let source = r#"
+Sub Test()
+    On Error GoTo ErrorHandler
+    Do
+        ' Code
+    Loop
+    Exit Sub
+ErrorHandler:
+    Resume Next
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("ResumeStatement"));
+        assert!(debug.contains("DoStatement"));
+    }
+
+    #[test]
+    fn multiple_resume_statements() {
+        let source = r#"
+Sub Test()
+    On Error GoTo ErrorHandler
+    Exit Sub
+ErrorHandler:
+    If Err.Number = 5 Then
+        Resume
+    End If
+    If Err.Number = 11 Then
+        Resume Next
+    End If
+    Resume CleanUp
+CleanUp:
+    ' Cleanup
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        let resume_count = debug.matches("ResumeStatement").count();
+        assert_eq!(resume_count, 3);
+    }
+
+    #[test]
+    fn resume_with_on_error_resume_next() {
+        let source = r#"
+Sub Test()
+    On Error Resume Next
+    x = 1 / 0
+    If Err.Number <> 0 Then
+        MsgBox "Error occurred"
+    End If
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("OnErrorStatement"));
+        assert!(debug.contains("ResumeKeyword"));
+    }
+
+    #[test]
+    fn resume_in_class_module() {
+        let source = r#"
+Private Sub Class_Initialize()
+    On Error GoTo InitError
+    ' Initialization code
+    Exit Sub
+InitError:
+    Resume Next
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.cls", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("ResumeStatement"));
+    }
+
+    #[test]
+    fn resume_with_error_number_check() {
+        let source = r#"
+Sub Test()
+    On Error GoTo ErrorHandler
+    Exit Sub
+ErrorHandler:
+    If Err.Number = 53 Then
+        Resume Next
+    ElseIf Err.Number = 5 Then
+        Resume
+    Else
+        Resume ExitSub
+    End If
+ExitSub:
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        let resume_count = debug.matches("ResumeStatement").count();
+        assert_eq!(resume_count, 3);
+    }
+
+    #[test]
+    fn resume_in_function() {
+        let source = r#"
+Function Calculate() As Double
+    On Error GoTo CalcError
+    Calculate = x / y
+    Exit Function
+CalcError:
+    Calculate = 0
+    Resume Next
+End Function
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("ResumeStatement"));
+        assert!(debug.contains("FunctionStatement"));
+    }
+
+    #[test]
+    fn resume_with_line_continuation() {
+        let source = r#"
+Sub Test()
+    On Error GoTo ErrorHandler
+    Exit Sub
+ErrorHandler:
+    Resume _
+        Next
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("ResumeStatement"));
+    }
+
+    #[test]
+    fn resume_inline_if() {
+        let source = r#"
+Sub Test()
+    On Error GoTo ErrorHandler
+    Exit Sub
+ErrorHandler:
+    If Err.Number = 5 Then Resume Next
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("ResumeStatement"));
+    }
+
+    #[test]
+    fn resume_with_transaction() {
+        let source = r#"
+Sub ProcessTransaction()
+    On Error GoTo TransError
+    BeginTrans
+    ' Transaction code
+    CommitTrans
+    Exit Sub
+TransError:
+    Rollback
+    Resume Next
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("ResumeStatement"));
+    }
+
+    #[test]
+    fn resume_with_goto_label() {
+        let source = r#"
+Sub Test()
+    On Error GoTo ErrorHandler
+    GoTo ProcessData
+ProcessData:
+    ' Code
+    Exit Sub
+ErrorHandler:
+    Resume ProcessData
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("ResumeStatement"));
+        assert!(debug.contains("GotoStatement"));
+    }
+
+    #[test]
+    fn resume_with_exit_statement() {
+        let source = r#"
+Sub Test()
+    On Error GoTo ErrorHandler
+    For i = 1 To 10
+        If i = 5 Then Exit For
+    Next i
+    Exit Sub
+ErrorHandler:
+    Resume Next
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        assert!(debug.contains("ResumeStatement"));
+        assert!(debug.contains("ExitStatement"));
+    }
+
+    #[test]
+    fn resume_file_operations() {
+        let source = r#"
+Sub ReadFile()
+    On Error GoTo FileError
+    Open "data.txt" For Input As #1
+    Line Input #1, dataLine
+    Close #1
+    Exit Sub
+FileError:
+    If Err.Number = 53 Then
+        Resume CreateFile
+    Else
+        Resume Next
+    End If
+CreateFile:
+    ' Create file logic
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        let resume_count = debug.matches("ResumeStatement").count();
+        assert_eq!(resume_count, 2);
+    }
+
+    #[test]
+    fn resume_database_operations() {
+        let source = r#"
+Sub QueryDatabase()
+    On Error GoTo DBError
+    rs.Open "SELECT * FROM Users"
+    Exit Sub
+DBError:
+    If Err.Number = 3021 Then
+        Resume Next
+    Else
+        Resume CleanUp
+    End If
+CleanUp:
+    rs.Close
+End Sub
+"#;
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        let debug = cst.debug_tree();
+        let resume_count = debug.matches("ResumeStatement").count();
+        assert_eq!(resume_count, 2);
     }
 }

@@ -425,6 +425,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::GotoKeyword)
                 | Some(VB6Token::GoSubKeyword)
                 | Some(VB6Token::ReturnKeyword)
+                | Some(VB6Token::ResumeKeyword)
                 | Some(VB6Token::ExitKeyword)
                 | Some(VB6Token::OnKeyword)
         )
@@ -458,6 +459,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::ReturnKeyword) => {
                 self.parse_return_statement();
+            }
+            Some(VB6Token::ResumeKeyword) => {
+                self.parse_resume_statement();
             }
             Some(VB6Token::ExitKeyword) => {
                 self.parse_exit_statement();
