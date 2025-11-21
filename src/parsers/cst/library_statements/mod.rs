@@ -19,6 +19,7 @@
 //! - Line Input: Read an entire line from a sequential file
 //! - Kill: Delete a file from disk
 //! - Load: Load a form or control into memory
+//! - Unload: Remove a form or control from memory
 //! - Lock: Control access to all or part of an open file
 //! - Unlock: Remove access restrictions from an open file
 //! - LSet: Left-align a string or copy a user-defined type
@@ -80,6 +81,7 @@ mod sendkeys;
 mod setattr;
 mod stop;
 mod time;
+mod unload;
 mod unlock;
 
 impl<'a> Parser<'a> {
@@ -102,6 +104,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::KillKeyword)
                 | Some(VB6Token::LineKeyword)
                 | Some(VB6Token::LoadKeyword)
+                | Some(VB6Token::UnloadKeyword)
                 | Some(VB6Token::LockKeyword)
                 | Some(VB6Token::UnlockKeyword)
                 | Some(VB6Token::LSetKeyword)
@@ -172,6 +175,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::LoadKeyword) => {
                 self.parse_load_statement();
+            }
+            Some(VB6Token::UnloadKeyword) => {
+                self.parse_unload_statement();
             }
             Some(VB6Token::LockKeyword) => {
                 self.parse_lock_statement();
