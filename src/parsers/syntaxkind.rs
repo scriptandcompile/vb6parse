@@ -69,6 +69,7 @@ pub enum SyntaxKind {
     LockStatement,
     UnlockStatement,
     LSetStatement,
+    RSetStatement,
     MidStatement,
     MidBStatement,
     MkDirStatement,

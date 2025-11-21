@@ -22,6 +22,7 @@
 //! - Lock: Control access to all or part of an open file
 //! - Unlock: Remove access restrictions from an open file
 //! - LSet: Left-align a string or copy a user-defined type
+//! - RSet: Right-align a string within a string variable
 //! - Mid: Replace characters in a string variable
 //! - MidB: Replace bytes in a string variable
 //! - MkDir: Create a new directory or folder
@@ -64,6 +65,7 @@ mod put;
 mod randomize;
 mod reset;
 mod rmdir;
+mod rset;
 mod unlock;
 
 impl<'a> Parser<'a> {
@@ -98,6 +100,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::RandomizeKeyword)
                 | Some(VB6Token::ResetKeyword)
                 | Some(VB6Token::RmDirKeyword)
+                | Some(VB6Token::RSetKeyword)
         )
     }
 
@@ -184,6 +187,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::RmDirKeyword) => {
                 self.parse_rmdir_statement();
+            }
+            Some(VB6Token::RSetKeyword) => {
+                self.parse_rset_statement();
             }
             _ => {}
         }
