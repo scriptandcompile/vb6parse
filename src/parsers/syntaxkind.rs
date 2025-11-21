@@ -44,6 +44,7 @@ pub enum SyntaxKind {
     GotoStatement,
     GoSubStatement,
     ReturnStatement,
+    ResumeStatement,
     ExitStatement,
     OnErrorStatement,
     OnGoToStatement,
