@@ -14,6 +14,7 @@
 //! - Error: Generate a run-time error
 //! - FileCopy: Copy a file
 //! - Get: Read data from an open disk file into a variable
+//! - Put: Write data from a variable to a disk file
 //! - Input: Read data from an open sequential file
 //! - Line Input: Read an entire line from a sequential file
 //! - Kill: Delete a file from disk
@@ -45,6 +46,7 @@ mod delete_setting;
 mod error;
 mod file_copy;
 mod get;
+mod put;
 mod input;
 mod kill;
 mod line_input;
@@ -75,6 +77,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::ErrorKeyword)
                 | Some(VB6Token::FileCopyKeyword)
                 | Some(VB6Token::GetKeyword)
+                | Some(VB6Token::PutKeyword)
                 | Some(VB6Token::InputKeyword)
                 | Some(VB6Token::KillKeyword)
                 | Some(VB6Token::LineKeyword)
@@ -124,6 +127,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::GetKeyword) => {
                 self.parse_get_statement();
+            }
+            Some(VB6Token::PutKeyword) => {
+                self.parse_put_statement();
             }
             Some(VB6Token::InputKeyword) => {
                 self.parse_input_statement();
