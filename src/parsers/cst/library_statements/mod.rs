@@ -33,6 +33,7 @@
 //! - Reset: Close all disk files opened using the Open statement
 //! - SavePicture: Save a graphical image to a file
 //! - SaveSetting: Save or create an application entry in the Windows registry
+//! - Seek: Set the position for the next read/write operation in a file
 //! - Randomize: Initialize the random number generator
 //!
 
@@ -70,6 +71,7 @@ mod rmdir;
 mod rset;
 mod savepicture;
 mod savesetting;
+mod seek;
 mod unlock;
 
 impl<'a> Parser<'a> {
@@ -107,6 +109,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::RSetKeyword)
                 | Some(VB6Token::SavePictureKeyword)
                 | Some(VB6Token::SaveSettingKeyword)
+                | Some(VB6Token::SeekKeyword)
         )
     }
 
@@ -202,6 +205,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::SaveSettingKeyword) => {
                 self.parse_savesetting_statement();
+            }
+            Some(VB6Token::SeekKeyword) => {
+                self.parse_seek_statement();
             }
             _ => {}
         }
