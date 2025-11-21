@@ -37,6 +37,7 @@
 //! - SendKeys: Send keystrokes to the active window
 //! - SetAttr: Set attribute information for a file
 //! - Stop: Suspend execution
+//! - Time: Set the current system time
 //! - Randomize: Initialize the random number generator
 //!
 
@@ -78,6 +79,7 @@ mod seek;
 mod sendkeys;
 mod setattr;
 mod stop;
+mod time;
 mod unlock;
 
 impl<'a> Parser<'a> {
@@ -119,6 +121,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::SendKeysKeyword)
                 | Some(VB6Token::SetAttrKeyword)
                 | Some(VB6Token::StopKeyword)
+                | Some(VB6Token::TimeKeyword)
         )
     }
 
@@ -226,6 +229,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::StopKeyword) => {
                 self.parse_stop_statement();
+            }
+            Some(VB6Token::TimeKeyword) => {
+                self.parse_time_statement();
             }
             _ => {}
         }
