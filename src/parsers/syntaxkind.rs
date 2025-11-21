@@ -86,6 +86,7 @@ pub enum SyntaxKind {
     OpenStatement,
     PrintStatement,
     WidthStatement,
+    WriteStatement,
     LabelStatement,
     AttributeStatement,
     OptionStatement,

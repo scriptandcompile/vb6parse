@@ -41,6 +41,7 @@
 //! - Time: Set the current system time
 //! - Randomize: Initialize the random number generator
 //! - Width: Assign an output line width to a file
+//! - Write: Write data to a sequential file
 //!
 
 use crate::language::VB6Token;
@@ -85,6 +86,7 @@ mod time;
 mod unload;
 mod unlock;
 mod width;
+mod write;
 
 impl<'a> Parser<'a> {
     /// Check if the current token is a library statement keyword.
@@ -128,6 +130,7 @@ impl<'a> Parser<'a> {
                 | Some(VB6Token::StopKeyword)
                 | Some(VB6Token::TimeKeyword)
                 | Some(VB6Token::WidthKeyword)
+                | Some(VB6Token::WriteKeyword)
         )
     }
 
@@ -244,6 +247,9 @@ impl<'a> Parser<'a> {
             }
             Some(VB6Token::WidthKeyword) => {
                 self.parse_width_statement();
+            }
+            Some(VB6Token::WriteKeyword) => {
+                self.parse_write_statement();
             }
             _ => {}
         }
