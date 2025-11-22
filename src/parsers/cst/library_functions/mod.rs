@@ -50,6 +50,7 @@
 //! - GetSetting: Returns a registry key setting value from the Windows registry
 //! - Hex: Returns a String representing the hexadecimal value of a number
 //! - Hour: Returns an Integer specifying a whole number between 0 and 23, inclusive, representing the hour of the day
+//! - IIf: Returns one of two parts, depending on the evaluation of an expression
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -100,3 +101,4 @@ mod getobject;
 mod getsetting;
 mod hex;
 mod hour;
+mod iif;
