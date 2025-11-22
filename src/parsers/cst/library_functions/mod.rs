@@ -21,6 +21,7 @@
 //! - Date: Returns the current system date
 //! - DateAdd: Returns a date to which a specified time interval has been added
 //! - DateDiff: Returns the number of time intervals between two dates
+//! - DatePart: Returns a specified part of a given date
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -42,3 +43,4 @@ mod cverr;
 mod date;
 mod dateadd;
 mod datediff;
+mod datepart;
