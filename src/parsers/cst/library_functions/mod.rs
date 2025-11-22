@@ -16,6 +16,7 @@
 //! - Command: Returns the command-line arguments passed to the program
 //! - Cos: Returns the cosine of an angle in radians
 //! - CreateObject: Creates and returns a reference to an ActiveX object
+//! - CurDir: Returns the current path for the specified drive
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -32,3 +33,4 @@ mod chr;
 mod command;
 mod cos;
 mod createobject;
+mod curdir;
