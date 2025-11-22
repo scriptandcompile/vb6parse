@@ -48,6 +48,7 @@
 //! - GetAutoServerSettings: Returns information about the security settings for a DCOM server
 //! - GetObject: Returns a reference to an ActiveX object from a file or a running instance
 //! - GetSetting: Returns a registry key setting value from the Windows registry
+//! - Hex: Returns a String representing the hexadecimal value of a number
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -96,3 +97,4 @@ mod getattr;
 mod getautoserversettings;
 mod getobject;
 mod getsetting;
+mod hex;
