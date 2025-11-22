@@ -19,6 +19,7 @@
 //! - CurDir: Returns the current path for the specified drive
 //! - CVErr: Returns a Variant of subtype Error containing an error number
 //! - Date: Returns the current system date
+//! - DateAdd: Returns a date to which a specified time interval has been added
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -38,3 +39,4 @@ mod createobject;
 mod curdir;
 mod cverr;
 mod date;
+mod dateadd;
