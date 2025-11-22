@@ -34,6 +34,7 @@
 //! - Exp: Returns e (the base of natural logarithms) raised to a power
 //! - FileAttr: Returns the file mode or file handle for an open file
 //! - FileDateTime: Returns the date and time when a file was created or last modified
+//! - FileLen: Returns the length of a file in bytes
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -68,3 +69,4 @@ mod error;
 mod exp;
 mod fileattr;
 mod filedatetime;
+mod filelen;
