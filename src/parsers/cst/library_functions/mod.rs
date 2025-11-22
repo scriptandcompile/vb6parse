@@ -39,6 +39,7 @@
 //! - Format: Returns a formatted string expression according to format instructions
 //! - FormatCurrency: Returns an expression formatted as a currency value using the system currency symbol
 //! - FormatDateTime: Returns an expression formatted as a date or time
+//! - FormatNumber: Returns an expression formatted as a number
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -78,3 +79,4 @@ mod filter;
 mod format;
 mod formatcurrency;
 mod formatdatetime;
+mod formatnumber;
