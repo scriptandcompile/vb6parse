@@ -12,6 +12,7 @@
 //! - Atn: Returns the arctangent of a number in radians
 //! - CallByName: Executes a method or accesses a property by name at runtime
 //! - Choose: Returns a value from a list of choices based on an index
+//! - Chr: Returns the character associated with the specified character code
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -24,3 +25,4 @@ mod asc;
 mod atn;
 mod callbyname;
 mod choose;
+mod chr;
