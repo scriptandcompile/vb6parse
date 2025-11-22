@@ -769,7 +769,7 @@
 //! # Registry Location
 //!
 //! Settings are stored at:
-//! ```
+//! ```text
 //! HKEY_CURRENT_USER\Software\VB and VBA Program Settings\appname\section
 //! ```
 //!
