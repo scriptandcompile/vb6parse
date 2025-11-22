@@ -895,10 +895,7 @@ For i = 0 To UBound(filtered)
     lstBox.AddItem filtered(i)
 Next i
 "#;
-        let source2 = r#"
-filtered = Filter(items, searchText, True, vbTextCompare)
-"#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source2).unwrap();
+        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));
