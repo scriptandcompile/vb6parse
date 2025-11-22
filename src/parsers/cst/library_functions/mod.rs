@@ -29,6 +29,7 @@
 //! - Dir: Returns a file or directory name matching a pattern
 //! - DoEvents: Yields execution to process other events
 //! - Environ: Returns the value of an operating system environment variable
+//! - EOF: Returns a Boolean indicating whether the end of a file has been reached
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -58,3 +59,4 @@ mod ddb;
 mod dir;
 mod doevents;
 mod environ;
+mod eof;
