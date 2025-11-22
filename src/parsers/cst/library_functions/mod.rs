@@ -10,6 +10,7 @@
 //! - Array: Returns a Variant containing an array
 //! - Asc: Returns the character code of the first letter in a string
 //! - Atn: Returns the arctangent of a number in radians
+//! - CallByName: Executes a method or accesses a property by name at runtime
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -20,3 +21,4 @@ mod abs;
 mod array;
 mod asc;
 mod atn;
+mod callbyname;
