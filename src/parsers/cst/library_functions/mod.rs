@@ -20,6 +20,7 @@
 //! - CVErr: Returns a Variant of subtype Error containing an error number
 //! - Date: Returns the current system date
 //! - DateAdd: Returns a date to which a specified time interval has been added
+//! - DateDiff: Returns the number of time intervals between two dates
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -40,3 +41,4 @@ mod curdir;
 mod cverr;
 mod date;
 mod dateadd;
+mod datediff;
