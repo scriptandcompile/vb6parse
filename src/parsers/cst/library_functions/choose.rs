@@ -10,20 +10,20 @@
 //!
 //! ## Parameters
 //!
-//! - **index**: Required. Numeric expression (typically Integer or Long) that results in a value 
+//! - **index**: Required. Numeric expression (typically Integer or Long) that results in a value
 //!   between 1 and the number of available choices. The index is 1-based.
 //!
-//! - **choice**: Required. Variant expression containing one of the possible choices. You must 
+//! - **choice**: Required. Variant expression containing one of the possible choices. You must
 //!   provide at least one choice argument.
 //!
 //! ## Return Value
 //!
-//! Returns a Variant containing the value of the choice at the specified index position. If the 
+//! Returns a Variant containing the value of the choice at the specified index position. If the
 //! index is less than 1 or greater than the number of choices, `Choose` returns `Null`.
 //!
 //! ## Remarks
 //!
-//! The `Choose` function provides a convenient way to select from a list of values based on an 
+//! The `Choose` function provides a convenient way to select from a list of values based on an
 //! index, similar to a switch/case statement but as an expression. It's particularly useful for:
 //!
 //! - Mapping numeric codes to string values
