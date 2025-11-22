@@ -37,6 +37,7 @@
 //! - FileLen: Returns the length of a file in bytes
 //! - Filter: Returns a zero-based array containing a subset of a string array based on filter criteria
 //! - Format: Returns a formatted string expression according to format instructions
+//! - FormatCurrency: Returns an expression formatted as a currency value using the system currency symbol
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -74,3 +75,4 @@ mod filedatetime;
 mod filelen;
 mod filter;
 mod format;
+mod formatcurrency;
