@@ -14,6 +14,7 @@
 //! - Choose: Returns a value from a list of choices based on an index
 //! - Chr: Returns the character associated with the specified character code
 //! - Command: Returns the command-line arguments passed to the program
+//! - Cos: Returns the cosine of an angle in radians
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -28,3 +29,4 @@ mod callbyname;
 mod choose;
 mod chr;
 mod command;
+mod cos;
