@@ -46,6 +46,7 @@
 //! - GetAllSettings: Returns a list of key settings and their values from the Windows registry
 //! - GetAttr: Returns an Integer representing the attributes of a file, directory, or folder
 //! - GetAutoServerSettings: Returns information about the security settings for a DCOM server
+//! - GetObject: Returns a reference to an ActiveX object from a file or a running instance
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -92,3 +93,4 @@ mod fv;
 mod getallsettings;
 mod getattr;
 mod getautoserversettings;
+mod getobject;
