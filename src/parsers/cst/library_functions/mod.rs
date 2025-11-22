@@ -23,6 +23,7 @@
 //! - DateDiff: Returns the number of time intervals between two dates
 //! - DatePart: Returns a specified part of a given date
 //! - DateSerial: Returns a date for a specified year, month, and day
+//! - DateValue: Returns a date from a string expression
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -46,3 +47,4 @@ mod dateadd;
 mod datediff;
 mod datepart;
 mod dateserial;
+mod datevalue;
