@@ -9,6 +9,7 @@
 //! - Abs: Returns the absolute value of a number
 //! - Array: Returns a Variant containing an array
 //! - Asc: Returns the character code of the first letter in a string
+//! - Atn: Returns the arctangent of a number in radians
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -18,3 +19,4 @@
 mod abs;
 mod array;
 mod asc;
+mod atn;
