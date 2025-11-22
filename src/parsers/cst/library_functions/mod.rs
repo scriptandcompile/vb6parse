@@ -52,6 +52,7 @@
 //! - Hour: Returns an Integer specifying a whole number between 0 and 23, inclusive, representing the hour of the day
 //! - IIf: Returns one of two parts, depending on the evaluation of an expression
 //! - IMEStatus: Returns an Integer indicating the current Input Method Editor (IME) mode of Microsoft Windows
+//! - Input: Returns String containing characters from a file opened in Input or Binary mode
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -104,3 +105,4 @@ mod hex;
 mod hour;
 mod iif;
 mod imestatus;
+mod input;
