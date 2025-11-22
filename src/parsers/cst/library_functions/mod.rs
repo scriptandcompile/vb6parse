@@ -24,6 +24,7 @@
 //! - DatePart: Returns a specified part of a given date
 //! - DateSerial: Returns a date for a specified year, month, and day
 //! - DateValue: Returns a date from a string expression
+//! - Day: Returns the day of the month (1-31)
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -48,3 +49,4 @@ mod datediff;
 mod datepart;
 mod dateserial;
 mod datevalue;
+mod day;
