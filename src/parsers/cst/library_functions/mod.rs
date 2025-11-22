@@ -42,6 +42,7 @@
 //! - FormatNumber: Returns an expression formatted as a number
 //! - FormatPercent: Returns an expression formatted as a percentage (multiplied by 100) with a trailing % character
 //! - FreeFile: Returns the next file number available for use by the Open statement
+//! - Fv: Returns the future value of an annuity based on periodic, fixed payments and a fixed interest rate
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -84,3 +85,4 @@ mod formatdatetime;
 mod formatnumber;
 mod formatpercent;
 mod freefile;
+mod fv;
