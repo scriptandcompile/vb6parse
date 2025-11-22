@@ -35,6 +35,7 @@
 //! - FileAttr: Returns the file mode or file handle for an open file
 //! - FileDateTime: Returns the date and time when a file was created or last modified
 //! - FileLen: Returns the length of a file in bytes
+//! - Filter: Returns a zero-based array containing a subset of a string array based on filter criteria
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -70,3 +71,4 @@ mod exp;
 mod fileattr;
 mod filedatetime;
 mod filelen;
+mod filter;
