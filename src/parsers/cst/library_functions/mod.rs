@@ -30,6 +30,7 @@
 //! - DoEvents: Yields execution to process other events
 //! - Environ: Returns the value of an operating system environment variable
 //! - EOF: Returns a Boolean indicating whether the end of a file has been reached
+//! - Error: Returns the error message corresponding to a given error number
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -60,3 +61,4 @@ mod dir;
 mod doevents;
 mod environ;
 mod eof;
+mod error;
