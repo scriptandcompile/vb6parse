@@ -262,13 +262,9 @@
 //! | Upper Bound | Number of arguments - 1 |
 //! | Dimensions | Always single-dimensional |
 //! | Size | Dynamic, determined by argument count |
-
-use crate::parsers::SyntaxKind;
-
-use super::super::Parser;
-
-// Array is parsed as a regular function call (CallExpression)
-// This module serves as documentation and reference for the Array function
+//!
+//! Array is parsed as a regular function call (CallExpression)
+//! This module serves as documentation and reference for the Array function
 
 #[cfg(test)]
 mod test {
