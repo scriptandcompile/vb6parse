@@ -49,6 +49,7 @@
 //! - GetObject: Returns a reference to an ActiveX object from a file or a running instance
 //! - GetSetting: Returns a registry key setting value from the Windows registry
 //! - Hex: Returns a String representing the hexadecimal value of a number
+//! - Hour: Returns an Integer specifying a whole number between 0 and 23, inclusive, representing the hour of the day
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -98,3 +99,4 @@ mod getautoserversettings;
 mod getobject;
 mod getsetting;
 mod hex;
+mod hour;
