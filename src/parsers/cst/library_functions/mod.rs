@@ -28,6 +28,7 @@
 //! - DDB: Returns depreciation using the double-declining balance method
 //! - Dir: Returns a file or directory name matching a pattern
 //! - DoEvents: Yields execution to process other events
+//! - Environ: Returns the value of an operating system environment variable
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -56,3 +57,4 @@ mod day;
 mod ddb;
 mod dir;
 mod doevents;
+mod environ;
