@@ -18,6 +18,7 @@
 //! - CreateObject: Creates and returns a reference to an ActiveX object
 //! - CurDir: Returns the current path for the specified drive
 //! - CVErr: Returns a Variant of subtype Error containing an error number
+//! - Date: Returns the current system date
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -36,3 +37,4 @@ mod cos;
 mod createobject;
 mod curdir;
 mod cverr;
+mod date;
