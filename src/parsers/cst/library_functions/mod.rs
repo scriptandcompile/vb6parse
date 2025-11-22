@@ -44,6 +44,7 @@
 //! - FreeFile: Returns the next file number available for use by the Open statement
 //! - Fv: Returns the future value of an annuity based on periodic, fixed payments and a fixed interest rate
 //! - GetAllSettings: Returns a list of key settings and their values from the Windows registry
+//! - GetAttr: Returns an Integer representing the attributes of a file, directory, or folder
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -88,3 +89,4 @@ mod formatpercent;
 mod freefile;
 mod fv;
 mod getallsettings;
+mod getattr;
