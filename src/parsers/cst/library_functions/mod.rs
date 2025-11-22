@@ -33,6 +33,7 @@
 //! - Error: Returns the error message corresponding to a given error number
 //! - Exp: Returns e (the base of natural logarithms) raised to a power
 //! - FileAttr: Returns the file mode or file handle for an open file
+//! - FileDateTime: Returns the date and time when a file was created or last modified
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -66,3 +67,4 @@ mod eof;
 mod error;
 mod exp;
 mod fileattr;
+mod filedatetime;
