@@ -891,6 +891,7 @@ result = temp
     #[test]
     fn test_filter_in_loop() {
         let source = r#"
+filtered = Filter(sourceArray, "test")
 For i = 0 To UBound(filtered)
     lstBox.AddItem filtered(i)
 Next i
