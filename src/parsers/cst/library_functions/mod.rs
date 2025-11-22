@@ -41,6 +41,7 @@
 //! - FormatDateTime: Returns an expression formatted as a date or time
 //! - FormatNumber: Returns an expression formatted as a number
 //! - FormatPercent: Returns an expression formatted as a percentage (multiplied by 100) with a trailing % character
+//! - FreeFile: Returns the next file number available for use by the Open statement
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -82,3 +83,4 @@ mod formatcurrency;
 mod formatdatetime;
 mod formatnumber;
 mod formatpercent;
+mod freefile;
