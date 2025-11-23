@@ -63,6 +63,7 @@
 //! - IsArray: Returns a Boolean indicating whether a variable is an array
 //! - IsDate: Returns a Boolean indicating whether an expression can be converted to a date
 //! - IsEmpty: Returns a Boolean indicating whether a Variant variable has been initialized
+//! - IsError: Returns a Boolean indicating whether an expression is an error value
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -126,3 +127,4 @@ mod irr;
 mod isarray;
 mod isdate;
 mod isempty;
+mod iserror;
