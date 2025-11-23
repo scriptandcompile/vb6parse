@@ -79,6 +79,7 @@
 //! - LoadResString: Returns a string from a resource (.res) file
 //! - Loc: Returns the current read/write position within an open file
 //! - LOF: Returns the size, in bytes, of a file opened using the Open statement
+//! - Log: Returns the natural logarithm of a number
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -158,3 +159,4 @@ mod loadrespicture;
 mod loadresstring;
 mod loc;
 mod lof;
+mod log;
