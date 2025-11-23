@@ -81,6 +81,7 @@
 //! - LOF: Returns the size, in bytes, of a file opened using the Open statement
 //! - Log: Returns the natural logarithm of a number
 //! - LTrim: Returns a string with leading spaces removed
+//! - Mid: Returns a specified number of characters from a string
 //! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
@@ -164,5 +165,6 @@ mod loc;
 mod lof;
 mod log;
 mod ltrim;
+mod mid;
 mod rtrim;
 mod trim;
