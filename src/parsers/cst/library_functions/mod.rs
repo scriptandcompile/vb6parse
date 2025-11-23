@@ -62,6 +62,7 @@
 //! - IRR: Returns the internal rate of return for a series of periodic cash flows
 //! - IsArray: Returns a Boolean indicating whether a variable is an array
 //! - IsDate: Returns a Boolean indicating whether an expression can be converted to a date
+//! - IsEmpty: Returns a Boolean indicating whether a Variant variable has been initialized
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -124,3 +125,4 @@ mod ipmt;
 mod irr;
 mod isarray;
 mod isdate;
+mod isempty;
