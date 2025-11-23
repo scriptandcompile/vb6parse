@@ -82,6 +82,7 @@
 //! - Log: Returns the natural logarithm of a number
 //! - LTrim: Returns a string with leading spaces removed
 //! - Mid: Returns a specified number of characters from a string
+//! - Minute: Returns the minute of the hour (0-59)
 //! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
@@ -166,5 +167,6 @@ mod lof;
 mod log;
 mod ltrim;
 mod mid;
+mod minute;
 mod rtrim;
 mod trim;
