@@ -54,6 +54,7 @@
 //! - IMEStatus: Returns an Integer indicating the current Input Method Editor (IME) mode of Microsoft Windows
 //! - Input: Returns String containing characters from a file opened in Input or Binary mode
 //! - InputBox: Displays a prompt in a dialog box, waits for user input, and returns a String
+//! - InStr: Returns a Long specifying the position of the first occurrence of one string within another
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -108,3 +109,4 @@ mod iif;
 mod imestatus;
 mod input;
 mod inputbox;
+mod instr;
