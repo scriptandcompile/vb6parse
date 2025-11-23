@@ -86,6 +86,7 @@
 //! - MIRR: Returns the modified internal rate of return for a series of periodic cash flows
 //! - Month: Returns the month of the year (1-12)
 //! - MonthName: Returns the name of the specified month
+//! - MsgBox: Displays a message in a dialog box and returns which button was clicked
 //! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
@@ -174,5 +175,6 @@ mod minute;
 mod mirr;
 mod month;
 mod monthname;
+mod msgbox;
 mod rtrim;
 mod trim;
