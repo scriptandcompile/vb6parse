@@ -73,6 +73,7 @@
 //! - LCase: Returns a String that has been converted to lowercase
 //! - Left: Returns a String containing a specified number of characters from the left side of a string
 //! - Len: Returns a Long containing the number of characters in a string or the number of bytes required to store a variable
+//! - LoadPicture: Returns a picture object containing an image from a file or memory
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -146,3 +147,4 @@ mod lbound;
 mod lcase;
 mod left;
 mod len;
+mod loadpicture;
