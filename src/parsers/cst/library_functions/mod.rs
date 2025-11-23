@@ -81,6 +81,7 @@
 //! - LOF: Returns the size, in bytes, of a file opened using the Open statement
 //! - Log: Returns the natural logarithm of a number
 //! - LTrim: Returns a string with leading spaces removed
+//! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
@@ -163,4 +164,5 @@ mod loc;
 mod lof;
 mod log;
 mod ltrim;
+mod rtrim;
 mod trim;
