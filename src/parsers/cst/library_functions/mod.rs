@@ -60,6 +60,7 @@
 //! - Int: Returns the integer portion of a number
 //! - IPmt: Returns the interest payment for a given period of an annuity
 //! - IRR: Returns the internal rate of return for a series of periodic cash flows
+//! - IsArray: Returns a Boolean indicating whether a variable is an array
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -120,3 +121,4 @@ mod instrrev;
 mod int;
 mod ipmt;
 mod irr;
+mod isarray;
