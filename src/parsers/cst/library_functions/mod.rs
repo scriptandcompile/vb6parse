@@ -72,6 +72,7 @@
 //! - LBound: Returns a Long containing the smallest available subscript for the indicated dimension of an array
 //! - LCase: Returns a String that has been converted to lowercase
 //! - Left: Returns a String containing a specified number of characters from the left side of a string
+//! - Len: Returns a Long containing the number of characters in a string or the number of bytes required to store a variable
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -144,3 +145,4 @@ mod join;
 mod lbound;
 mod lcase;
 mod left;
+mod len;
