@@ -36,6 +36,7 @@
 //! - FileDateTime: Returns the date and time when a file was created or last modified
 //! - FileLen: Returns the length of a file in bytes
 //! - Filter: Returns a zero-based array containing a subset of a string array based on filter criteria
+//! - Fix: Returns the integer portion of a number
 //! - Format: Returns a formatted string expression according to format instructions
 //! - FormatCurrency: Returns an expression formatted as a currency value using the system currency symbol
 //! - FormatDateTime: Returns an expression formatted as a date or time
@@ -93,6 +94,7 @@ mod fileattr;
 mod filedatetime;
 mod filelen;
 mod filter;
+mod fix;
 mod format;
 mod formatcurrency;
 mod formatdatetime;
