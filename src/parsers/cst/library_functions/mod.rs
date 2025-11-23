@@ -67,6 +67,7 @@
 //! - IsMissing: Returns a Boolean indicating whether an optional Variant parameter was passed to a procedure
 //! - IsNull: Returns a Boolean indicating whether an expression contains no valid data (Null)
 //! - IsNumeric: Returns a Boolean indicating whether an expression can be evaluated as a number
+//! - IsObject: Returns a Boolean indicating whether an identifier represents an object variable
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -134,3 +135,4 @@ mod iserror;
 mod ismissing;
 mod isnull;
 mod isnumeric;
+mod isobject;
