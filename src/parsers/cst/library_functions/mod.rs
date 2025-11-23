@@ -58,6 +58,7 @@
 //! - InStr: Returns a Long specifying the position of the first occurrence of one string within another
 //! - InStrRev: Returns the position of an occurrence of one string within another, from the end of string
 //! - Int: Returns the integer portion of a number
+//! - IPmt: Returns the interest payment for a given period of an annuity
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -116,3 +117,4 @@ mod inputbox;
 mod instr;
 mod instrrev;
 mod int;
+mod ipmt;
