@@ -87,6 +87,7 @@
 //! - Month: Returns the month of the year (1-12)
 //! - MonthName: Returns the name of the specified month
 //! - MsgBox: Displays a message in a dialog box and returns which button was clicked
+//! - Now: Returns the current system date and time
 //! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
@@ -176,5 +177,6 @@ mod mirr;
 mod month;
 mod monthname;
 mod msgbox;
+mod now;
 mod rtrim;
 mod trim;
