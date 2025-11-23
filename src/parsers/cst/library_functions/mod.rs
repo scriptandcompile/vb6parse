@@ -85,6 +85,7 @@
 //! - Minute: Returns the minute of the hour (0-59)
 //! - MIRR: Returns the modified internal rate of return for a series of periodic cash flows
 //! - Month: Returns the month of the year (1-12)
+//! - MonthName: Returns the name of the specified month
 //! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
@@ -172,5 +173,6 @@ mod mid;
 mod minute;
 mod mirr;
 mod month;
+mod monthname;
 mod rtrim;
 mod trim;
