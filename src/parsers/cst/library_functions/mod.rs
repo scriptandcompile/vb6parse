@@ -77,6 +77,7 @@
 //! - LoadResData: Returns the data stored in a resource (.res) file
 //! - LoadResPicture: Returns a picture object containing an image from a resource (.res) file
 //! - LoadResString: Returns a string from a resource (.res) file
+//! - Loc: Returns the current read/write position within an open file
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -154,3 +155,4 @@ mod loadpicture;
 mod loadresdata;
 mod loadrespicture;
 mod loadresstring;
+mod loc;
