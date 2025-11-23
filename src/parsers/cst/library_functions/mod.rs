@@ -75,6 +75,7 @@
 //! - Len: Returns a Long containing the number of characters in a string or the number of bytes required to store a variable
 //! - LoadPicture: Returns a picture object containing an image from a file or memory
 //! - LoadResData: Returns the data stored in a resource (.res) file
+//! - LoadResPicture: Returns a picture object containing an image from a resource (.res) file
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -150,3 +151,4 @@ mod left;
 mod len;
 mod loadpicture;
 mod loadresdata;
+mod loadrespicture;
