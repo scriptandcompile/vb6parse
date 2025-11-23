@@ -71,6 +71,7 @@
 //! - Join: Returns a string created by joining a number of substrings contained in an array
 //! - LBound: Returns a Long containing the smallest available subscript for the indicated dimension of an array
 //! - LCase: Returns a String that has been converted to lowercase
+//! - Left: Returns a String containing a specified number of characters from the left side of a string
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -142,3 +143,4 @@ mod isobject;
 mod join;
 mod lbound;
 mod lcase;
+mod left;
