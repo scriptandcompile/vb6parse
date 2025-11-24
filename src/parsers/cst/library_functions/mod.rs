@@ -92,6 +92,7 @@
 //! - NPV: Returns the net present value of an investment based on a series of periodic cash flows and a discount rate
 //! - Oct: Returns a string representing the octal (base-8) value of a number
 //! - Partition: Returns a string indicating where a number occurs within a calculated series of ranges
+//! - Pmt: Returns the payment for an annuity based on periodic, fixed payments and a fixed interest rate
 //! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
@@ -186,5 +187,6 @@ mod nper;
 mod npv;
 mod oct;
 mod partition;
+mod pmt;
 mod rtrim;
 mod trim;
