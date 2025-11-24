@@ -94,6 +94,7 @@
 //! - Partition: Returns a string indicating where a number occurs within a calculated series of ranges
 //! - Pmt: Returns the payment for an annuity based on periodic, fixed payments and a fixed interest rate
 //! - PPmt: Returns the principal payment for a given period of an annuity
+//! - PV: Returns the present value of an annuity based on periodic, fixed payments and a fixed interest rate
 //! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
@@ -190,5 +191,6 @@ mod oct;
 mod partition;
 mod pmt;
 mod ppmt;
+mod pv;
 mod rtrim;
 mod trim;
