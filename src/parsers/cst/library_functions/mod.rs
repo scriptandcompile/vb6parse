@@ -89,6 +89,7 @@
 //! - MsgBox: Displays a message in a dialog box and returns which button was clicked
 //! - Now: Returns the current system date and time
 //! - NPer: Returns the number of periods for an annuity based on periodic fixed payments and a fixed interest rate
+//! - NPV: Returns the net present value of an investment based on a series of periodic cash flows and a discount rate
 //! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
@@ -180,5 +181,6 @@ mod monthname;
 mod msgbox;
 mod now;
 mod nper;
+mod npv;
 mod rtrim;
 mod trim;
