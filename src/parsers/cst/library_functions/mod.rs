@@ -97,6 +97,7 @@
 //! - PV: Returns the present value of an annuity based on periodic, fixed payments and a fixed interest rate
 //! - QBColor: Returns the RGB color code corresponding to the specified QBasic color number
 //! - Rate: Returns the interest rate per period for an annuity
+//! - Replace: Returns a string in which a specified substring has been replaced with another substring
 //! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
@@ -196,5 +197,6 @@ mod ppmt;
 mod pv;
 mod qbcolor;
 mod rate;
+mod replace;
 mod rtrim;
 mod trim;
