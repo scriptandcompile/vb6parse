@@ -96,6 +96,7 @@
 //! - PPmt: Returns the principal payment for a given period of an annuity
 //! - PV: Returns the present value of an annuity based on periodic, fixed payments and a fixed interest rate
 //! - QBColor: Returns the RGB color code corresponding to the specified QBasic color number
+//! - Rate: Returns the interest rate per period for an annuity
 //! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
@@ -194,5 +195,6 @@ mod pmt;
 mod ppmt;
 mod pv;
 mod qbcolor;
+mod rate;
 mod rtrim;
 mod trim;
