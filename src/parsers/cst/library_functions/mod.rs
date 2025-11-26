@@ -103,6 +103,7 @@
 //! - Rnd: Returns a Single containing a pseudo-random number
 //! - Round: Returns a number rounded to a specified number of decimal places
 //! - Second: Returns an Integer specifying the second of the minute (0-59)
+//! - Seek: Returns a Long specifying the current read/write position within a file
 //! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
@@ -209,4 +210,5 @@ mod rnd;
 mod round;
 mod rtrim;
 mod second;
+mod seek;
 mod trim;
