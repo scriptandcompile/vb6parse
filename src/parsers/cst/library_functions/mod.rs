@@ -107,6 +107,7 @@
 //! - Sgn: Returns an Integer indicating the sign of a number (-1, 0, or 1)
 //! - Shell: Runs an executable program and returns a task ID
 //! - Sin: Returns the sine of an angle in radians
+//! - SLN: Returns straight-line depreciation of an asset for a single period
 //! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
@@ -217,4 +218,5 @@ mod seek;
 mod sgn;
 mod shell;
 mod sin;
+mod sln;
 mod trim;
