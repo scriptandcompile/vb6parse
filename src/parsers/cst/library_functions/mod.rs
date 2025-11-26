@@ -102,6 +102,7 @@
 //! - Right: Returns a String containing a specified number of characters from the right side of a string
 //! - Rnd: Returns a Single containing a pseudo-random number
 //! - Round: Returns a number rounded to a specified number of decimal places
+//! - Second: Returns an Integer specifying the second of the minute (0-59)
 //! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
@@ -207,4 +208,5 @@ mod right;
 mod rnd;
 mod round;
 mod rtrim;
+mod second;
 mod trim;
