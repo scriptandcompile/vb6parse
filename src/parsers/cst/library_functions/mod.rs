@@ -98,6 +98,7 @@
 //! - QBColor: Returns the RGB color code corresponding to the specified QBasic color number
 //! - Rate: Returns the interest rate per period for an annuity
 //! - Replace: Returns a string in which a specified substring has been replaced with another substring
+//! - RGB: Returns a Long representing an RGB color value from red, green, and blue color components
 //! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
@@ -198,5 +199,6 @@ mod pv;
 mod qbcolor;
 mod rate;
 mod replace;
+mod rgb;
 mod rtrim;
 mod trim;
