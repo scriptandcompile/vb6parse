@@ -108,6 +108,7 @@
 //! - Shell: Runs an executable program and returns a task ID
 //! - Sin: Returns the sine of an angle in radians
 //! - SLN: Returns straight-line depreciation of an asset for a single period
+//! - Space: Returns a string consisting of the specified number of spaces
 //! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
@@ -219,4 +220,5 @@ mod sgn;
 mod shell;
 mod sin;
 mod sln;
+mod space;
 mod trim;
