@@ -109,6 +109,7 @@
 //! - Sin: Returns the sine of an angle in radians
 //! - SLN: Returns straight-line depreciation of an asset for a single period
 //! - Space: Returns a string consisting of the specified number of spaces
+//! - Spc: Positions output by inserting spaces in Print statements
 //! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
@@ -221,4 +222,5 @@ mod shell;
 mod sin;
 mod sln;
 mod space;
+mod spc;
 mod trim;
