@@ -105,6 +105,7 @@
 //! - Second: Returns an Integer specifying the second of the minute (0-59)
 //! - Seek: Returns a Long specifying the current read/write position within a file
 //! - Sgn: Returns an Integer indicating the sign of a number (-1, 0, or 1)
+//! - Shell: Runs an executable program and returns a task ID
 //! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
@@ -213,4 +214,5 @@ mod rtrim;
 mod second;
 mod seek;
 mod sgn;
+mod shell;
 mod trim;
