@@ -3,7 +3,7 @@
 //! This module provides documentation and parsing support for VB6's built-in
 //! library functions. While these functions are parsed as regular function calls
 //! (CallExpression nodes), this module serves to document their behavior and
-//! provide reference implementations.
+//! provide unit tests to ensure parsing support.
 //!
 //! The library functions handled here include:
 //! - Abs: Returns the absolute value of a number
