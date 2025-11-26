@@ -99,6 +99,7 @@
 //! - Rate: Returns the interest rate per period for an annuity
 //! - Replace: Returns a string in which a specified substring has been replaced with another substring
 //! - RGB: Returns a Long representing an RGB color value from red, green, and blue color components
+//! - Right: Returns a String containing a specified number of characters from the right side of a string
 //! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
@@ -200,5 +201,6 @@ mod qbcolor;
 mod rate;
 mod replace;
 mod rgb;
+mod right;
 mod rtrim;
 mod trim;
