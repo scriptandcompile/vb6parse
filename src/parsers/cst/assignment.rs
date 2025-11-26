@@ -172,7 +172,7 @@ mod test {
     use crate::parsers::SyntaxKind;
 
     #[test]
-    fn test_simple_assignment() {
+    fn simple_assignment() {
         let source = r#"
 x = 5
 "#;
@@ -199,7 +199,7 @@ x = 5
     }
 
     #[test]
-    fn test_string_assignment() {
+    fn string_assignment() {
         let source = r#"
 myName = "John"
 "#;
@@ -226,7 +226,7 @@ myName = "John"
     }
 
     #[test]
-    fn test_property_assignment() {
+    fn property_assignment() {
         let source = r#"
 obj.subProperty = value
 "#;
@@ -257,7 +257,7 @@ obj.subProperty = value
     }
 
     #[test]
-    fn test_array_assignment() {
+    fn array_assignment() {
         let source = r#"
 arr(0) = 100
 "#;
@@ -297,7 +297,7 @@ arr(0) = 100
     }
 
     #[test]
-    fn test_multidimensional_array_assignment() {
+    fn multidimensional_array_assignment() {
         let source = r#"
 matrix(i, j) = value
 "#;
@@ -335,7 +335,7 @@ matrix(i, j) = value
     }
 
     #[test]
-    fn test_assignment_with_function_call() {
+    fn assignment_with_function_call() {
         let source = r#"
 result = MyFunction(arg1, arg2)
 "#;
@@ -373,7 +373,7 @@ result = MyFunction(arg1, arg2)
     }
 
     #[test]
-    fn test_assignment_with_expression() {
+    fn assignment_with_expression() {
         let source = r#"
 sum = a + b * c
 "#;
@@ -413,7 +413,7 @@ sum = a + b * c
     }
 
     #[test]
-    fn test_assignment_with_method_call() {
+    fn assignment_with_method_call() {
         let source = r#"
 text = obj.GetText()
 "#;
@@ -452,7 +452,7 @@ text = obj.GetText()
     }
 
     #[test]
-    fn test_assignment_with_nested_property() {
+    fn assignment_with_nested_property() {
         let source = r#"
 value = obj.SubObj.SubProperty
 "#;
@@ -488,7 +488,7 @@ value = obj.SubObj.SubProperty
     }
 
     #[test]
-    fn test_multiple_assignments() {
+    fn multiple_assignments() {
         let source = r#"
 x = 1
 y = 2
@@ -546,7 +546,7 @@ z = 3
     }
 
     #[test]
-    fn test_assignment_preserves_whitespace() {
+    fn assignment_preserves_whitespace() {
         let source = "x   =   5";
         let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
@@ -569,7 +569,7 @@ z = 3
     }
 
     #[test]
-    fn test_assignment_in_function() {
+    fn assignment_in_function() {
         let source = r#"
 Public Function Calculate()
     result = 42
@@ -659,7 +659,7 @@ End Function
     }
 
     #[test]
-    fn test_assignment_with_collection_access() {
+    fn assignment_with_collection_access() {
         let source = r#"
 item = Collection("Key")
 "#;
@@ -696,7 +696,7 @@ item = Collection("Key")
     }
 
     #[test]
-    fn test_assignment_with_dollar_sign_function() {
+    fn assignment_with_dollar_sign_function() {
         let source = r#"
 path = Environ$("TEMP")
 "#;
@@ -734,7 +734,7 @@ path = Environ$("TEMP")
     }
 
     #[test]
-    fn test_assignment_at_module_level() {
+    fn assignment_at_module_level() {
         let source = r#"
 Option Explicit
 x = 5
@@ -764,7 +764,7 @@ x = 5
     }
 
     #[test]
-    fn test_assignment_with_numeric_literal() {
+    fn assignment_with_numeric_literal() {
         let source = r#"
 pi = 3.14159
 "#;
@@ -791,7 +791,7 @@ pi = 3.14159
     }
 
     #[test]
-    fn test_assignment_with_concatenation() {
+    fn assignment_with_concatenation() {
         let source = r#"
 fullName = firstName & " " & lastName
 "#;
@@ -828,7 +828,7 @@ fullName = firstName & " " & lastName
     }
 
     #[test]
-    fn test_assignment_to_type_member() {
+    fn assignment_to_type_member() {
         let source = r#"
 person.Age = 25
 "#;
@@ -861,7 +861,7 @@ person.Age = 25
     }
 
     #[test]
-    fn test_assignment_with_parenthesized_expression() {
+    fn assignment_with_parenthesized_expression() {
         let source = r#"
 result = (a + b) * c
 "#;
@@ -909,7 +909,7 @@ result = (a + b) * c
     }
 
     #[test]
-    fn test_let_simple() {
+    fn let_simple() {
         let source = r#"
 Sub Test()
     Let x = 5
@@ -924,7 +924,7 @@ End Sub
     }
 
     #[test]
-    fn test_let_module_level() {
+    fn let_module_level() {
         let source = "Let myVar = 10\n";
         let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
@@ -934,7 +934,7 @@ End Sub
     }
 
     #[test]
-    fn test_let_string() {
+    fn let_string() {
         let source = r#"
 Sub Test()
     Let myName = "John"
@@ -949,7 +949,7 @@ End Sub
     }
 
     #[test]
-    fn test_let_expression() {
+    fn let_expression() {
         let source = r#"
 Sub Test()
     Let result = x + y * 2
@@ -963,7 +963,7 @@ End Sub
     }
 
     #[test]
-    fn test_let_property_access() {
+    fn let_property_access() {
         let source = r#"
 Sub Test()
     Let obj.Value = 100
@@ -978,7 +978,7 @@ End Sub
     }
 
     #[test]
-    fn test_let_array_element() {
+    fn let_array_element() {
         let source = r#"
 Sub Test()
     Let arr(5) = 42
@@ -992,7 +992,7 @@ End Sub
     }
 
     #[test]
-    fn test_let_preserves_whitespace() {
+    fn let_preserves_whitespace() {
         let source = "    Let    x    =    5    \n";
         let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
 
@@ -1003,7 +1003,7 @@ End Sub
     }
 
     #[test]
-    fn test_let_with_comment() {
+    fn let_with_comment() {
         let source = r#"
 Sub Test()
     Let counter = 0 ' Initialize counter
@@ -1017,7 +1017,7 @@ End Sub
     }
 
     #[test]
-    fn test_let_in_if_statement() {
+    fn let_in_if_statement() {
         let source = r#"
 Sub Test()
     If x > 0 Then
@@ -1032,7 +1032,7 @@ End Sub
     }
 
     #[test]
-    fn test_let_inline_if() {
+    fn let_inline_if() {
         let source = r#"
 Sub Test()
     If condition Then Let x = 5
@@ -1045,7 +1045,7 @@ End Sub
     }
 
     #[test]
-    fn test_multiple_let_statements() {
+    fn multiple_let_statements() {
         let source = r#"
 Sub Test()
     Let a = 1
@@ -1061,7 +1061,7 @@ End Sub
     }
 
     #[test]
-    fn test_let_with_function_call() {
+    fn let_with_function_call() {
         let source = r#"
 Sub Test()
     Let result = Calculate(x, y)
@@ -1076,7 +1076,7 @@ End Sub
     }
 
     #[test]
-    fn test_let_with_concatenation() {
+    fn let_with_concatenation() {
         let source = r#"
 Sub Test()
     Let fullName = firstName & " " & lastName
@@ -1092,7 +1092,7 @@ End Sub
     }
 
     #[test]
-    fn test_keyword_as_variable_name() {
+    fn keyword_as_variable_name() {
         let source = r#"
 text = "hello"
 "#;
@@ -1106,7 +1106,7 @@ text = "hello"
     }
 
     #[test]
-    fn test_keyword_as_property_name() {
+    fn keyword_as_property_name() {
         let source = r#"
 obj.text = "hello"
 "#;
@@ -1126,7 +1126,7 @@ obj.text = "hello"
     }
 
     #[test]
-    fn test_database_keyword_as_variable() {
+    fn database_keyword_as_variable() {
         let source = r#"
 database = "mydb.mdb"
 "#;
