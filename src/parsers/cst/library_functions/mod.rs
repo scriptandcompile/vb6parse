@@ -111,6 +111,7 @@
 //! - Space: Returns a string consisting of the specified number of spaces
 //! - Spc: Positions output by inserting spaces in Print statements
 //! - Split: Returns a zero-based array containing a specified number of substrings
+//! - Sqr: Returns the square root of a number
 //! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
@@ -225,4 +226,5 @@ mod sln;
 mod space;
 mod spc;
 mod split;
+mod sqr;
 mod trim;
