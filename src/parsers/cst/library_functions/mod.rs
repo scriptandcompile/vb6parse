@@ -114,6 +114,7 @@
 //! - Sqr: Returns the square root of a number
 //! - Str: Converts a number to a string representation
 //! - StrComp: Compares two strings and returns a value indicating their relationship
+//! - StrConv: Converts a string to a specified format
 //! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
@@ -231,4 +232,5 @@ mod split;
 mod sqr;
 mod str;
 mod strcomp;
+mod strconv;
 mod trim;
