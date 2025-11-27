@@ -120,6 +120,7 @@
 //! - Switch: Evaluates a list of expressions and returns a value associated with the first expression that is True
 //! - SYD: Returns the sum-of-years digits depreciation of an asset for a specified period
 //! - UBound: Returns the largest available subscript for the indicated dimension of an array
+//! - UCase: Returns a string that has been converted to uppercase
 //! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
@@ -244,3 +245,4 @@ mod switch;
 mod syd;
 mod trim;
 mod ubound;
+mod ucase;
