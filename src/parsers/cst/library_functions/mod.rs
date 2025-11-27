@@ -116,6 +116,7 @@
 //! - StrComp: Compares two strings and returns a value indicating their relationship
 //! - StrConv: Converts a string to a specified format
 //! - String: Returns a string consisting of a repeating character
+//! - StrReverse: Returns a string in which the character order is reversed
 //! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
@@ -235,4 +236,5 @@ mod str;
 mod strcomp;
 mod strconv;
 mod string;
+mod strreverse;
 mod trim;
