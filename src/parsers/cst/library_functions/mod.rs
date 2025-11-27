@@ -118,6 +118,7 @@
 //! - String: Returns a string consisting of a repeating character
 //! - StrReverse: Returns a string in which the character order is reversed
 //! - Switch: Evaluates a list of expressions and returns a value associated with the first expression that is True
+//! - SYD: Returns the sum-of-years digits depreciation of an asset for a specified period
 //! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
@@ -239,4 +240,5 @@ mod strconv;
 mod string;
 mod strreverse;
 mod switch;
+mod syd;
 mod trim;
