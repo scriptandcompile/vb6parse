@@ -117,6 +117,7 @@
 //! - StrConv: Converts a string to a specified format
 //! - String: Returns a string consisting of a repeating character
 //! - StrReverse: Returns a string in which the character order is reversed
+//! - Switch: Evaluates a list of expressions and returns a value associated with the first expression that is True
 //! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
@@ -237,4 +238,5 @@ mod strcomp;
 mod strconv;
 mod string;
 mod strreverse;
+mod switch;
 mod trim;
