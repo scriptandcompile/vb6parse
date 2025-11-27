@@ -113,6 +113,7 @@
 //! - Split: Returns a zero-based array containing a specified number of substrings
 //! - Sqr: Returns the square root of a number
 //! - Str: Converts a number to a string representation
+//! - StrComp: Compares two strings and returns a value indicating their relationship
 //! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
@@ -229,4 +230,5 @@ mod spc;
 mod split;
 mod sqr;
 mod str;
+mod strcomp;
 mod trim;
