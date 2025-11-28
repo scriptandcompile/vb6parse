@@ -318,7 +318,6 @@ pub fn tokenize<'a>(
             });
 
             failures.push(error);
-            continue;
         }
     }
 
