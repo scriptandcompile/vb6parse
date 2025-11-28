@@ -1161,7 +1161,7 @@ impl VB6Token {
     /// Returns true if the token is a VB6 operator.
     #[must_use]
     pub fn is_operator(&self) -> bool {
-        match self {
+        matches!(self,
             VB6Token::EqualityOperator
             | VB6Token::LessThanOperator
             | VB6Token::GreaterThanOperator
@@ -1173,15 +1173,13 @@ impl VB6Token {
             | VB6Token::PeriodOperator
             | VB6Token::ColonOperator
             | VB6Token::ExponentiationOperator
-            | VB6Token::Ampersand => true,
-            _ => false,
-        }
+            | VB6Token::Ampersand)
     }
 
     /// Returns true if the token is a VB6 keyword.
     #[must_use]
     pub fn is_keyword(&self) -> bool {
-        match self {
+        matches!(self,
             VB6Token::AddressOfKeyword
             | VB6Token::ImpKeyword
             | VB6Token::IsKeyword
@@ -1282,8 +1280,6 @@ impl VB6Token {
             | VB6Token::MeKeyword
             | VB6Token::NullKeyword
             | VB6Token::ParamArrayKeyword
-            | VB6Token::VersionKeyword => true,
-            _ => false,
-        }
+            | VB6Token::VersionKeyword)
     }
 }
