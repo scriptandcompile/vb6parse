@@ -19,34 +19,34 @@ pub enum VB6Token {
     ///
     /// Used in the header of a class module to indicate that the module is a class module.
     ClassKeyword,
-    /// Represents the 'ReDim' keyword.
+    /// Represents the `ReDim` keyword.
     ///
     /// Used at a procedure level to reallocate storage space for a dynamic
     /// array.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266231(v=vs.60))
     ReDimKeyword,
-    /// Represents the 'Preserve' keyword.
+    /// Represents the `Preserve` keyword.
     ///
-    /// Used with the 'ReDim' keyword to preserve the contents of an array when
+    /// Used with the `ReDim` keyword to preserve the contents of an array when
     /// reallocating storage space.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266231(v=vs.60))
     PreserveKeyword,
-    /// Represents the 'Dim' keyword.
+    /// Represents the `Dim` keyword.
     ///
     /// Used to declare variables and allocate storage space.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243352(v=vs.60))
     DimKeyword,
-    /// Represents the 'Declare' keyword.
+    /// Represents the `Declare` keyword.
     ///
     /// Used at the module level to declare references to external procedures
     /// in a dynamic-link library (DLL).
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243324(v=vs.60))
     DeclareKeyword,
-    /// Represents the 'Alias' keyword.
+    /// Represents the `Alias` keyword.
     ///
     /// Used optionally in a Declare statement. Indicates that the procedure
     /// being called has another name in the DLL. This is useful when the
@@ -58,244 +58,244 @@ pub enum VB6Token {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243324(v=vs.60))
     AliasKeyword,
-    /// Represents the 'Attribute' keyword.
+    /// Represents the `Attribute` keyword.
     ///
     /// Used to define metadata for a class, method, or property.
     AttributeKeyword,
-    /// Represents the 'Begin' keyword.
+    /// Represents the `Begin` keyword.
     ///
     /// Used to indicate the beginning of a block of code for a header section
     /// in a module, class, or form.
     BeginKeyword,
-    /// Represents the 'Lib' keyword.
+    /// Represents the `Lib` keyword.
     ///
     /// Indicates that a DLL or code resource contains the procedure being declared.
     /// The Lib clause is required for all declarations.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243324(v=vs.60))
     LibKeyword,
-    /// Represents the 'With' keyword.
+    /// Represents the `With` keyword.
     ///
     /// Executes a series of statements on a single object or a user-defined type.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266330(v=vs.60))
     WithKeyword,
-    /// Represents the 'WithEvents' keyword.
+    /// Represents the `WithEvents` keyword.
     ///
-    /// Used with the 'Dim' keyword to declare a variable that can respond to
+    /// Used with the `Dim` keyword to declare a variable that can respond to
     /// events raised by an object.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243352(v=vs.60))
     WithEventsKeyword,
-    /// Represents the 'Base' keyword.
+    /// Represents the `Base` keyword.
     ///
     /// Used at module level to declare the default lower bound for array
     /// subscripts.
     ///
     ///[Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266179(v=vs.60))
     BaseKeyword,
-    /// Represents the 'Compare' keyword.
+    /// Represents the `Compare` keyword.
     ///
     /// Used at module level to declare the default comparison method to use
     /// when string data is compared.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266181(v=vs.60))
     CompareKeyword,
-    /// Represents the 'Option' keyword.
+    /// Represents the `Option` keyword.
     ///
     /// Used at the module level in the Option Base, Option Compare, Option
     /// Explicit, or Option Private statements.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266185(v=vs.60))
     OptionKeyword,
-    /// Represents the 'Explicit' keyword.
+    /// Represents the `Explicit` keyword.
     ///
     /// Used at the module level in the Option Explicit statement to force
     /// explicit declaration of all variables in that module.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266183(v=vs.60))
     ExplicitKeyword,
-    /// Represents the 'Private' keyword.
+    /// Represents the `Private` keyword.
     ///
     /// Used at the module level to declare private variables and allocate storage space.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266189(v=vs.60))
     PrivateKeyword,
-    /// Represents the 'Public' keyword.
+    /// Represents the `Public` keyword.
     ///
     /// Used at the module level to declare public variables and allocate storage space.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266207(v=vs.60))
     PublicKeyword,
-    /// Represents the 'Const' keyword.
+    /// Represents the `Const` keyword.
     ///
     /// Declares constants for use in place of literal values.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243294(v=vs.60))
     ConstKeyword,
-    /// Represents the 'As' keyword.
+    /// Represents the `As` keyword.
     ///
-    /// The 'As' keyword is used in these contexts:
-    /// Const statement, Declare statement, Dim statement, Function statement,
-    /// Name statement, Open statement, Open statement, private statement,
-    /// Property Get statement, Property Let statement, Property Set statement,
-    /// Public statement, ReDim statement, Static statement, Sub statement, and
-    /// Type statement.
+    /// The `As` keyword is used in these contexts:
+    /// `Const` statement, `Declare` statement, `Dim` statement, `Function` statement,
+    /// `Name` statement, `Open` statement, `Private` statement,
+    /// `Property Get` statement, `Property Let` statement, `Property Set` statement,
+    /// `Public` statement, `ReDim` statement, `Static` statement, `Sub` statement, and
+    /// `Type` statement.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445149(v=vs.60))
     AsKeyword,
-    /// Represents the 'ByVal' keyword.
+    /// Represents the `ByVal` keyword.
     ///
     /// Used in the following contexts:
-    /// Call statement, Declare statement, Function statement, Property Get
-    /// statement, Property Let statement, Property Set statement, and Sub
+    /// `Call` statement, `Declare` statement, `Function` statement, `Property Get`
+    /// statement, `Property Let` statement, `Property Set` statement, and `Sub`
     /// statement.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445152(v=vs.60))
     ByValKeyword,
-    /// Represents the 'ByRef' keyword.
+    /// Represents the `ByRef` keyword.
     ///
     /// Used in the following contexts:
-    /// Call statement, Declare statement, Function statement, Property Get
-    /// statement, Property Let statement, Property Set statement, and Sub
+    /// `Call` statement, `Declare` statement, `Function` statement, `Property Get`
+    /// statement, `Property Let` statement, `Property Set` statement, and `Sub`
     /// statement.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445151(v=vs.60))
     ByRefKeyword,
-    /// Represents the 'Optional' keyword.
+    /// Represents the `Optional` keyword.
     ///
     /// Used in the following contexts:
-    /// Declare statement, Function statement, Property Get statement,
-    /// Property Let statement, Property Set statement, and Sub statement.
+    /// `Declare` statement, `Function` statement, `Property Get` statement,
+    /// `Property Let` statement, `Property Set` statement, and `Sub` statement.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445195(v=vs.60))
     OptionalKeyword,
-    /// Represents the 'Function' keyword.
+    /// Represents the `Function` keyword.
     ///
     /// Used to declare the name, argument, and code that forms the body of a
     /// function procedure.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243374(v=vs.60))
     FunctionKeyword,
-    /// Represents the 'Static' keyword.
+    /// Represents the `Static` keyword.
     ///
     /// Used at the procedure level to declare variable and allocate storage space.
-    /// Variables declared the with Static statement retain their values as long
+    /// Variables declared the with `Static` statement retain their values as long
     /// as the module is loaded in memory.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266296(v=vs.60))
     StaticKeyword,
-    /// Represents the 'Sub' keyword.
+    /// Represents the `Sub` keyword.
     ///
     /// Used to declare the name, argument, and code that form the body of a sub
     /// procedure.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266305(v=vs.60))
     SubKeyword,
-    /// Represents the 'End' keyword.
+    /// Represents the `End` keyword.
     ///
     /// Used to end a procedure or block.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243356(v=vs.60))
     EndKeyword,
-    /// Represents the 'True' keyword.
+    /// Represents the `True` keyword.
     ///
-    /// The True keyword is used to represent the boolean value true and has a
+    /// The `True` keyword is used to represent the boolean value true and has a
     /// value equal to -1.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445231(v=vs.60))
     TrueKeyword,
-    /// Represents the 'False' keyword.
+    /// Represents the `False` keyword.
     ///
-    /// The False keyword is used to represent the boolean value false and has a
+    /// The `False` keyword is used to represent the boolean value false and has a
     /// value equal to 0.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445157(v=vs.60))
     FalseKeyword,
-    /// Represents the 'Enum' keyword.
+    /// Represents the `Enum` keyword.
     ///
     /// Used to declare a type for an enumeration.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243358(v=vs.60))
     EnumKeyword,
-    /// Represents the 'Type' keyword.
+    /// Represents the `Type` keyword.
     ///
     /// Used at the module level to declare a user-defined data type containing
     /// one or more elements.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266315(v=vs.60))
     TypeKeyword,
-    /// Represents the 'Boolean' keyword.
+    /// Represents the `Boolean` keyword.
     ///
     /// Used to declare a variable that can contain one of two values: True or
     /// False.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263420(v=vs.60))
     BooleanKeyword,
-    /// Represents the 'Double' keyword.
+    /// Represents the `Double` keyword.
     ///
     /// Used to declare a variable that can contain a double-precision floating-point
     /// number.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263420(v=vs.60))
     DoubleKeyword,
-    /// Represents the 'Currency' keyword.
+    /// Represents the `Currency` keyword.
     ///
     /// Used to declare a variable that can contain a currency value.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263420(v=vs.60))
     CurrencyKeyword,
-    /// Represents the 'Decimal' keyword.
+    /// Represents the `Decimal` keyword.
     ///
     /// Used to declare a variable that can contain a decimal value.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263420(v=vs.60))
     DecimalKeyword,
-    /// Represents the 'Date' keyword.
+    /// Represents the `Date` keyword.
     ///
     /// Used to declare a variable that can contain a date value.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263420(v=vs.60))
     DateKeyword,
-    /// Represents the 'Object' keyword.
+    /// Represents the `Object` keyword.
     ///
     /// Used to declare a variable that can contain an object reference.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263420(v=vs.60))
     ObjectKeyword,
-    /// Represents the 'Variant' keyword.
+    /// Represents the `Variant` keyword.
     ///
     /// Used to declare a variable that can contain multiple kinds of types of
     /// data.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263420(v=vs.60))
     VariantKeyword,
-    /// Represents the 'Byte' keyword.
+    /// Represents the `Byte` keyword.
     ///
     /// Used to declare a variable that can contain a byte value.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263420(v=vs.60))
     ByteKeyword,
-    /// Represents the 'Long' keyword.
+    /// Represents the `Long` keyword.
     ///
     /// Used to declare a variable that can contain a long integer value.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263420(v=vs.60))
     LongKeyword,
-    /// Represents the 'Single' keyword.
+    /// Represents the `Single` keyword.
     ///
     /// Used to declare a variable that can contain a single-precision
     /// floating-point value.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263420(v=vs.60))
     SingleKeyword,
-    /// Represents the 'String' keyword.
+    /// Represents the `String` keyword.
     ///
     /// Used to declare a variable that can contain a string value.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263420(v=vs.60))
     StringKeyword,
-    /// Represents the 'Integer' keyword.
+    /// Represents the `Integer` keyword.
     ///
     /// Used to declare a variable that can contain an integer value.
     ///
@@ -305,58 +305,58 @@ pub enum VB6Token {
     ///
     /// The string literal includes the enclosing double quotes.
     StringLiteral,
-    /// Represents the 'If' keyword.
+    /// Represents the `If` keyword.
     ///
     /// Used to conditionally execute a block of code depending on the value
     /// of an expression.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243382(v=vs.60))
     IfKeyword,
-    /// Represents the 'Else' keyword.
+    /// Represents the `Else` keyword.
     ///
     /// Used to conditionally execute a block of code depending on the value
     /// of an expression.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243382(v=vs.60))
     ElseKeyword,
-    /// Represents the 'ElseIf' keyword.
+    /// Represents the `ElseIf` keyword.
     ///
     /// Used to conditionally execute a block of code depending on the value
     /// of an expression.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243382(v=vs.60))
     ElseIfKeyword,
-    /// Represents the 'And' keyword.
+    /// Represents the `And` keyword.
     ///
     /// Used to perform a logical conjunction on two expressions.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242751(v=vs.60))
     AndKeyword,
-    /// Represents the 'Or' keyword.
+    /// Represents the `Or` keyword.
     ///
     /// Used to perform a logical disjunction on two expressions.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242850(v=vs.60))
     OrKeyword,
-    /// Represents the 'Xor' keyword.
+    /// Represents the `Xor` keyword.
     ///
     /// Used to perform a logical exclusive disjunction on two expressions.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242859(v=vs.60))
     XorKeyword,
-    /// Represents the 'Mod' keyword.
+    /// Represents the `Mod` keyword.
     ///
     /// Used to perform a modulus operation on two expressions.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242823(v=vs.60))
     ModKeyword,
-    /// Represents the 'Eqv' keyword.
+    /// Represents the `Eqv` keyword.
     ///
     /// Used to perform a logical equivalence operation on two expressions.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242780(v=vs.60))
     EqvKeyword,
-    /// Represents the 'AddressOf' keyword.
+    /// Represents the `AddressOf` keyword.
     ///
     /// A unary operator that obtains the address of the procedure it precedes
     /// and is used with API procedures that expect a function pointer at that
@@ -364,601 +364,595 @@ pub enum VB6Token {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242738(v=vs.60))
     AddressOfKeyword,
-    /// Represents the 'Imp' keyword.
+    /// Represents the `Imp` keyword.
     ///
     /// Used to perform a logical implication operation on two expressions.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242794(v=vs.60))
     ImpKeyword,
-    /// Represents the 'Is' keyword.
+    /// Represents the `Is` keyword.
     ///
     /// Used to perform a reference comparison between two object variables.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242809(v=vs.60))
     IsKeyword,
-    /// Represents the 'Like' keyword.
+    /// Represents the `Like` keyword.
     ///
     /// Used to compare two strings.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242817(v=vs.60))
     LikeKeyword,
-    /// Represents the 'Not' keyword.
+    /// Represents the `Not` keyword.
     ///
     /// Used to perform a logical negation on an expression.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242842(v=vs.60))
     NotKeyword,
-    /// Represents the 'Then' keyword.
+    /// Represents the `Then` keyword.
     ///
     /// Used to indicate the start of a block of code that is executed if the
-    /// condition in an If statement is true.
+    /// condition in an `If` statement is true.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445224(v=vs.60))
     ThenKeyword,
-    /// Represents the 'Goto' keyword.
+    /// Represents the `Goto` keyword.
     ///
     /// Branches unconditionally to a specific line within a procedure.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243380(v=vs.60))
     GotoKeyword,
-    /// Represents the 'GoSub' keyword.
+    /// Represents the `GoSub` keyword.
     ///
     /// Branches to and returns from a subroutine within a procedure.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/gosubreturn-statement)
     GoSubKeyword,
-    /// Represents the 'Return' keyword.
+    /// Represents the `Return` keyword.
     ///
     /// Returns from a subroutine within a procedure.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/gosubreturn-statement)
     ReturnKeyword,
-    /// Represents the 'Exit' keyword.
+    /// Represents the `Exit` keyword.
     ///
-    /// Exits a block of Do..Loop, For..Next, Function, Sub, or Property code.
+    /// Exits a block of `Do..Loop`, `For..Next`, `Function`, `Sub`, or `Property` code.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243366(v=vs.60))
     ExitKeyword,
-    /// Represents the 'For' keyword.
+    /// Represents the `For` keyword.
     ///
-    /// Used to declare a For..Next loop, or a For Each...Next loop.
+    /// Used to declare a `For..Next` loop, or a `For Each...Next` loop.
     /// Repeats a group of statements a specified number of times.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243370(v=vs.60))
     ForKeyword,
-    /// Represents the 'To' keyword.
+    /// Represents the `To` keyword.
     ///
-    /// The To keyword is used in these contexts:
+    /// The `To` keyword is used in these contexts:
     ///
-    /// Dim statement, For...Next statement, Lock statement, Unlock statement,
-    /// Private statement, Public statement, ReDim statement, Select Case statement,
-    /// Static statement, and Type statement.
+    /// `Dim` statement, `For...Next` statement, `Lock` statement, `Unlock` statement,
+    /// `Private` statement, `Public` statement, `ReDim` statement, `Select Case` statement,
+    /// `Static` statement, and `Type` statement.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445229(v=vs.60))
     ToKeyword,
-    /// Represents the 'Lock' keyword.
+    /// Represents the `Lock` keyword.
     ///
     /// Controls access by other processes to all or part of a file opened using
     /// the Open statement.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266161(v=vs.60))
     LockKeyword,
-    /// Represents the 'Unlock' keyword.
+    /// Represents the `Unlock` keyword.
     ///
     /// Controls access by other processes to all or part of a file opened using
     /// the Open statement.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266161(v=vs.60))
     UnlockKeyword,
-    /// Represents the 'Step' keyword.
+    /// Represents the `Step` keyword.
     ///
-    /// Used in the For...Next statement to specify the increment of the loop
+    /// Used in the `For...Next` statement to specify the increment of the loop
     /// variable.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445219(v=vs.60))
     StepKeyword,
-    /// Represents the 'Stop' keyword.
+    /// Represents the `Stop` keyword.
     ///
     /// Used to suspend execution of a program.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266300(v=vs.60))
     StopKeyword,
-    /// Represents the 'While' keyword.
+    /// Represents the `While` keyword.
     ///
     /// Used to execute a series of statements as long as a given condition is
     /// True.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266320(v=vs.60))
     WhileKeyword,
-    /// Represents the 'Wend' keyword.
+    /// Represents the `Wend` keyword.
     ///
     /// Used to execute a series of statements as long as a given condition is
     /// True.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266320(v=vs.60))
     WendKeyword,
-    /// Represents the 'Width' keyword.
+    /// Represents the `Width` keyword.
     ///
     /// Assigns an output line width to a file opened with the Open statement.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266324(v=vs.60))
     WidthKeyword,
-    /// Represents the 'Write' keyword.
+    /// Represents the `Write` keyword.
     ///
     /// Used to write data to a sequential file opened with the Open statement.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266338(v=vs.60))
     WriteKeyword,
-    /// Represents the 'Time' keyword.
+    /// Represents the `Time` keyword.
     ///
     /// Used to set the System time.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266310(v=vs.60))
     TimeKeyword,
-    /// Represents the 'SetAttr' keyword.
+    /// Represents the `SetAttr` keyword.
     ///
     /// Used to set attribute information for a file.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266286(v=vs.60))
     SetAttrKeyword,
-    /// Represents the 'Set' keyword.
+    /// Represents the `Set` keyword.
     ///
     /// Used to assign an object reference to a variable or property.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266283(v=vs.60))
     SetKeyword,
-    /// Represents the 'SendKeys' keyword.
+    /// Represents the `SendKeys` keyword.
     ///
     /// Used to send one or more keystrokes to the active window as if typed at
     /// the keyboard.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266279(v=vs.60))
     SendKeysKeyword,
-    /// Represents the 'Select' keyword.
+    /// Represents the `Select` keyword.
     ///
     /// Used to execute one of a several groups of statements, depending on the
     /// value of an expression.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266274(v=vs.60))
     SelectKeyword,
-    /// Represents the 'Case' keyword.
+    /// Represents the `Case` keyword.
     ///
     /// Used to execute one of a several groups of statements, depending on the
     /// value of an expression.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266274(v=vs.60))
     CaseKeyword,
-    /// Represents the 'Seek' keyword.
+    /// Represents the `Seek` keyword.
     ///
     /// Used to set the position for the next read/write operation on a file
     /// opened using the Open statement.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266268(v=vs.60))
     SeekKeyword,
-    /// Represents the 'SaveSetting' keyword.
+    /// Represents the `SaveSetting` keyword.
     ///
     /// Saves or creates an application entry in the application's entry in the Windows registry.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266261(v=vs.60))
     SaveSettingKeyword,
-    /// Represents the 'SavePicture' keyword.
+    /// Represents the `SavePicture` keyword.
     ///
     /// Saves a graphic from the `Picture` or `Image` property of an object or
     /// control (if one is associated with it) to a file.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445827(v=vs.60))
     SavePictureKeyword,
-    /// Represents the 'RSet' keyword.
+    /// Represents the `RSet` keyword.
     ///
     /// Right aligns a string within a string variable.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266256(v=vs.60))
     RSetKeyword,
-    /// Represents the 'RmDir' keyword.
+    /// Represents the `RmDir` keyword.
     ///
     /// Removes an existing directory or folder.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266252(v=vs.60))
     RmDirKeyword,
-    /// Represents the 'Resume' keyword.
+    /// Represents the `Resume` keyword.
     ///
     /// Resumes execution after an error-handling routine is finished.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266247(v=vs.60))
     ResumeKeyword,
-    /// Represents the 'Reset' keyword.
+    /// Represents the `Reset` keyword.
     ///
     /// Closes all disk files opened using the Open statement.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266242(v=vs.60))
     ResetKeyword,
-    /// Represents a 'REM' line comment.
+    /// Represents a `REM` line comment.
     ///
-    /// Includes the 'REM' characters and the comment text but not the newline.
+    /// Includes the `REM` characters and the comment text but not the newline.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266237(v=vs.60))
     RemComment,
-    /// Represents the 'Randomize' keyword.
+    /// Represents the `Randomize` keyword.
     ///
     /// Initializes the random-number generator with a seed value.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266225(v=vs.60))
     RandomizeKeyword,
-    /// Represents the 'RaiseEvent' keyword.
+    /// Represents the `RaiseEvent` keyword.
     ///
     /// Fires an event declared at module level within a class, form, or
     /// document.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266219(v=vs.60))
     RaiseEventKeyword,
-    /// Represents the 'Put' keyword.
+    /// Represents the `Put` keyword.
     ///
     /// Writes data from a variable to a disk file.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266212(v=vs.60))
     PutKeyword,
-    /// Represents the 'Property' keyword.
+    /// Represents the `Property` keyword.
     ///
     /// Declares the name, argument, and code that forms the body of a property
     /// procedure, which sets a reference to a property of an object.
     ///
-    /// Used in Property Get, Property Let, and Property Set statements.
+    /// Used in `Property Get`, `Property Let`, and `Property Set` statements.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266202(v=vs.60))
     PropertyKeyword,
-    /// Represents the 'Print' keyword.
+    /// Represents the `Print` keyword.
     ///
     /// Writes display-formatted data to a sequential file.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266187(v=vs.60))
     PrintKeyword,
-    /// Represents the 'Open' keyword.
+    /// Represents the `Open` keyword.
     ///
     /// Enables input/output (I/O) to a file.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266177(v=vs.60))
     OpenKeyword,
-    /// Represents the 'On' keyword.
+    /// Represents the `On` keyword.
     ///
     /// Branch to one of several specified lines, depending on the value of an expression.
     /// Used in the following contexts:
     ///
-    /// On...GoSub statement, On...Goto statement, and On...Error statements.
+    /// `On...GoSub` statement, `On...Goto` statement, and `On...Error` statements.
     ///
-    /// Also used when specifying Option Explicit On or Off.
+    /// Also used when specifying `Option Explicit On` or `Option Explicit Off`.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266175(v=vs.60))
     OnKeyword,
-    /// Represents the 'Off' keyword.
+    /// Represents the `Off` keyword.
     ///
-    /// Used when specifying Option Explicit On or Off.
+    /// Used when specifying `Option Explicit On` or `Option Explicit Off`.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266175(v=vs.60))
     OffKeyword,
-    /// Represents the 'Name' keyword.
+    /// Represents the `Name` keyword.
     ///
     /// Renames a disk file, directory, or folder.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266171(v=vs.60))
     NameKeyword,
-    /// Represents the 'MkDir' keyword.
+    /// Represents the `MkDir` keyword.
     ///
     /// Creates a new directory or folder.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266169(v=vs.60))
     MkDirKeyword,
-    /// Represents the 'Mid' keyword.
+    /// Represents the `Mid` keyword.
     ///
-    /// Replaces a specified number of characters in a Variant (String) variable
+    /// Replaces a specified number of characters in a `Variant` (String) variable
     /// with characters from another string.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266166(v=vs.60))
     MidKeyword,
-    /// Represents the 'MidB' keyword.
+    /// Represents the `MidB` keyword.
     ///
-    /// Used in MidB statements to replace bytes in a string variable.
+    /// Used in `MidB` statements to replace bytes in a string variable.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/midb-statement)
     MidBKeyword,
-    /// Represents the 'LSet' keyword.
+    /// Represents the `LSet` keyword.
     ///
     /// Left alligns a string within a string variable, or copies a variable of
     /// one user-defined type to another variable of a different user-defined type.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266163(v=vs.60))
     LSetKeyword,
-    /// Represents the 'Load' keyword.
+    /// Represents the `Load` keyword.
     ///
     /// Loads a form or control into memory.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445825(v=vs.60))
     LoadKeyword,
-    /// Represents the 'Unload' keyword.
+    /// Represents the `Unload` keyword.
     ///
     /// Removes a form or control from memory.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/unload-statement)
     UnloadKeyword,
-    /// Represents the 'Line' keyword.
+    /// Represents the `Line` keyword.
     ///
     /// Reads a single line from an open sequential file and assigns it to a string variable.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243392(v=vs.60))
     LineKeyword,
-    /// Represents the 'Input' keyword.
+    /// Represents the `Input` keyword.
     ///
     /// Reads data from an open sequential file and assigns the data to variables.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243386(v=vs.60))
     InputKeyword,
-    //// Represents the 'Let' keyword.
+    //// Represents the `Let` keyword.
     ///
     /// Assigns the value of an expression to a variable or property.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243390(v=vs.60))
     LetKeyword,
-    /// Represents the 'Kill' keyword.
+    /// Represents the `Kill` keyword.
     ///
     /// Deletes files from a disk.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243388(v=vs.60))
     KillKeyword,
-    /// Represents the 'Implements' keyword.
+    /// Represents the `Implements` keyword.
     ///
     /// Specifies an interface or class that will be implemented in the class module in which it appears.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243384(v=vs.60))
     ImplementsKeyword,
-    /// Represents the 'Get' keyword.
+    /// Represents the `Get` keyword.
     ///
     /// Reads data from an open disk file into a variable.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243376(v=vs.60))
     GetKeyword,
-    /// Represents the 'FileCopy' keyword.
+    /// Represents the `FileCopy` keyword.
     ///
     /// Copies a file from one location to another.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243368(v=vs.60))
     FileCopyKeyword,
-    /// Represents the 'Event' keyword.
+    /// Represents the `Event` keyword.
     ///
     /// Declares a user-defined event.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243364(v=vs.60))
     EventKeyword,
-    /// Represents the 'Error' keyword.
+    /// Represents the `Error` keyword.
     ///
     /// Simulates the occurance of an error.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243362(v=vs.60))
     ErrorKeyword,
-    /// Represents the 'Erase' keyword.
+    /// Represents the `Erase` keyword.
     ///
     /// Reinitializes the elements of a fixed-size array and releases dynamic-array
     /// storage space.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243360(v=vs.60))
     EraseKeyword,
-    /// Represents the 'Do' keyword.
+    /// Represents the `Do` keyword.
     ///
-    /// Repeats a block of statements while a condition is True or until a
-    /// condition becomes True.
+    /// Repeats a block of statements while a condition is `True` or until a
+    /// condition becomes `True`.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243354(v=vs.60))
     DoKeyword,
-    /// Represents the 'Until' keyword.
+    /// Represents the `Until` keyword.
     ///
-    /// Used in the Do...Loop statement to specify the condition under which
+    /// Used in the `Do...Loop` statement to specify the condition under which
     /// the loop terminates.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243354(v=vs.60))
     UntilKeyword,
-    /// Represents the 'Loop' keyword.
+    /// Represents the `Loop` keyword.
     ///
-    /// Used with the Do keyword to terminate a Do...Loop statement.
+    /// Used with the `Do` keyword to terminate a `Do...Loop` statement.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243354(v=vs.60))
     LoopKeyword,
-    /// Represents the 'DeleteSetting' keyword.
+    /// Represents the `DeleteSetting` keyword.
     ///
     /// Deletes a section or key setting from an application's entry in the
     /// Windows registry.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243347(v=vs.60))
     DeleteSettingKeyword,
-    /// Represents the 'DefBool' keyword.
+    /// Represents the `DefBool` keyword.
     ///
     /// Used at module level to set the default data type for variables,
-    /// arguments passed to procedures, and the return type for Function and
-    /// PropertyGet procedures whose names start with the specified characters.
+    /// arguments passed to procedures, and the return type for `Function` and
+    /// `PropertyGet` procedures whose names start with the specified characters.
     ///
     /// Sets the default for a variable to the Boolean data type.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
     DefBoolKeyword,
-    /// Represents the 'DefByte' keyword.
+    /// Represents the `DefByte` keyword.
     ///
     /// Used at module level to set the default data type for variables,
-    /// arguments passed to procedures, and the return type for Function and
-    /// PropertyGet procedures whose names start with the specified characters.
+    /// arguments passed to procedures, and the return type for `Function` and
+    /// `PropertyGet` procedures whose names start with the specified characters.
     ///
     /// Sets the default for a variable to the Byte data type.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
     DefByteKeyword,
-    /// Represents the 'DefInt' keyword.
+    /// Represents the `DefInt` keyword.
     ///
     /// Used at module level to set the default data type for variables,
-    /// arguments passed to procedures, and the return type for Function and
-    /// PropertyGet procedures whose names start with the specified characters.
+    /// arguments passed to procedures, and the return type for `Function` and
+    /// `PropertyGet` procedures whose names start with the specified characters.
     ///
     /// Sets the default for a variable to the Int data type.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
     DefIntKeyword,
-    /// Represents the 'DefLng' keyword.
+    /// Represents the `DefLng` keyword.
     ///
     /// Used at module level to set the default data type for variables,
-    /// arguments passed to procedures, and the return type for Function and
-    /// PropertyGet procedures whose names start with the specified characters.
+    /// arguments passed to procedures, and the return type for `Function` and
+    /// `PropertyGet` procedures whose names start with the specified characters.
     ///
     /// Sets the default for a variable to the Long data type.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
     DefLngKeyword,
-    /// Represents the 'DefCur' keyword.
+    /// Represents the `DefCur` keyword.
     ///
     /// Used at module level to set the default data type for variables,
-    /// arguments passed to procedures, and the return type for Function and
-    /// PropertyGet procedures whose names start with the specified characters.
+    /// arguments passed to procedures, and the return type for `Function` and
+    /// `PropertyGet` procedures whose names start with the specified characters.
     ///
     /// Sets the default for a variable to the Currency data type.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
     DefCurKeyword,
-    /// Represents the 'DefSng' keyword.
+    /// Represents the `DefSng` keyword.
     ///
     /// Used at module level to set the default data type for variables,
-    /// arguments passed to procedures, and the return type for Function and
-    /// PropertyGet procedures whose names start with the specified characters.
+    /// arguments passed to procedures, and the return type for `Function` and
+    /// `PropertyGet` procedures whose names start with the specified characters.
     ///
     /// Sets the default for a variable to the Single data type.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
     DefSngKeyword,
-    /// Represents the 'DefDbl' keyword.
+    /// Represents the `DefDbl` keyword.
     ///
     /// Used at module level to set the default data type for variables,
-    /// arguments passed to procedures, and the return type for Function and
-    /// PropertyGet procedures whose names start with the specified characters.
+    /// arguments passed to procedures, and the return type for `Function` and
+    /// `PropertyGet` procedures whose names start with the specified characters.
     ///
     /// Sets the default for a variable to the Double data type.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
     DefDblKeyword,
-    /// Represents the 'DefDec' keyword.
+    /// Represents the `DefDec` keyword.
     ///
     /// Used at module level to set the default data type for variables,
-    /// arguments passed to procedures, and the return type for Function and
-    /// PropertyGet procedures whose names start with the specified characters.
+    /// arguments passed to procedures, and the return type for `Function` and
+    /// `PropertyGet` procedures whose names start with the specified characters.
     ///
     /// Sets the default for a variable to the Decimal data type.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
     DefDecKeyword,
-    /// Represents the 'DefDate' keyword.
+    /// Represents the `DefDate` keyword.
     ///
     /// Used at module level to set the default data type for variables,
-    /// arguments passed to procedures, and the return type for Function and
-    /// PropertyGet procedures whose names start with the specified characters.
+    /// arguments passed to procedures, and the return type for `Function` and
+    /// `PropertyGet` procedures whose names start with the specified characters.
     ///
     /// Sets the default for a variable to the Date data type.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
     DefDateKeyword,
-    /// Represents the 'DefStr' keyword.
+    /// Represents the `DefStr` keyword.
     ///
     /// Used at module level to set the default data type for variables,
-    /// arguments passed to procedures, and the return type for Function and
-    /// PropertyGet procedures whose names start with the specified characters.
+    /// arguments passed to procedures, and the return type for `Function` and
+    /// `PropertyGet` procedures whose names start with the specified characters.
     ///
     /// Sets the default for a variable to the String data type.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
     DefStrKeyword,
-    /// Represents the 'DefObj' keyword.
+    /// Represents the `DefObj` keyword.
     ///
     /// Used at module level to set the default data type for variables,
-    /// arguments passed to procedures, and the return type for Function and
-    /// PropertyGet procedures whose names start with the specified characters.
+    /// arguments passed to procedures, and the return type for `Function` and
+    /// `PropertyGet` procedures whose names start with the specified characters.
     ///
     /// Sets the default for a variable to the Object data type.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
     DefObjKeyword,
-    /// Represents the 'DefVar' keyword.
+    /// Represents the `DefVar` keyword.
     ///
     /// Used at module level to set the default data type for variables,
-    /// arguments passed to procedures, and the return type for Function and
-    /// PropertyGet procedures whose names start with the specified characters.
+    /// arguments passed to procedures, and the return type for `Function` and
+    /// `PropertyGet` procedures whose names start with the specified characters.
     ///
     /// Sets the default for a variable to the Variant data type.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
     DefVarKeyword,
-    /// Represents the 'Close' keyword.
+    /// Represents the `Close` keyword.
     ///
     /// Concludes input/output (I/O) to a file opened using the Open statement.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243283(v=vs.60))
     CloseKeyword,
-    /// Represents the 'ChDir' keyword.
+    /// Represents the `ChDir` keyword.
     ///
     /// Changes the current drive.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243270(v=vs.60))
     ChDriveKeyword,
-    /// Represents the 'ChDir' keyword.
+    /// Represents the `ChDir` keyword.
     ///
     /// Changes the current directory or folder.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243256(v=vs.60))
     ChDirKeyword,
-    /// Represents the 'Call' keyword.
+    /// Represents the `Call` keyword.
     ///
-    /// Transfers control to a sub procedure, Function procedure, or dynamic-link
+    /// Transfers control to a `Sub` procedure, `Function` procedure, or dynamic-link
     /// library (DLL) procedure.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243242(v=vs.60))
     CallKeyword,
-    /// Represents the 'Beep' keyword.
+    /// Represents the `Beep` keyword.
     ///
     /// Sounds a tone through the computer's speaker.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243233(v=vs.60))
     BeepKeyword,
-    /// Represents the 'AppActivate' keyword.
+    /// Represents the `AppActivate` keyword.
     ///
     /// Activates an application window.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243211(v=vs.60))
     AppActivateKeyword,
-    /// Represents the 'Friend' keyword.
+    /// Represents the `Friend` keyword.
     ///
     /// Modifies the definition of a procedure in a form module or class module
     /// to make the procedure callable from modules that are outside the class,
-    /// but part of the project within which the class is defined. Friend
+    /// but part of the project within which the class is defined. `Friend`
     /// procedures cannot be used in standard modules.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445159(v=vs.60))
     FriendKeyword,
-    /// Represents the 'Binary' keyword.
+    /// Represents the `Binary` keyword.
     ///
-    /// The Binary keyword is used in these contexts:
-    /// Open statement, Option Compare statement.
+    /// The `Binary` keyword is used in these contexts:
+    /// `Open` statement, `Option Compare` statement.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445150(v=vs.60))
     BinaryKeyword,
-    /// Represents the 'Random' keyword.
+    /// Represents the `Random` keyword.
     ///
-    /// The Random keyword is used in the Open statement to specify random access mode.
+    /// The `Random` keyword is used in the `Open` statement to specify random access mode.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/open-statement)
     RandomKeyword,
-    /// Represents the 'Read' keyword.
+    /// Represents the `Read` keyword.
     ///
-    /// The Read keyword is used in the Open statement to specify read access mode.
+    /// The `Read` keyword is used in the `Open` statement to specify read access mode.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/open-statement)
     ReadKeyword,
-    /// Represents the 'Write' keyword (already exists in VB6Token but adding documentation reference).
-    ///
-    /// The Write keyword is used in the Open statement to specify write access mode.
-    ///
-    /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/open-statement)
-    /// Note: This comment is a placeholder - WriteKeyword already exists elsewhere in the enum.
-    /// Represents the 'Output' keyword.
+    /// Represents the `Output` keyword.
     ///
     /// The Output keyword is used in the Open statement to specify output mode.
     ///
@@ -1063,15 +1057,15 @@ pub enum VB6Token {
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445190(v=vs.60))
     NullKeyword,
-    /// Represents the 'ParamArray' keyword.
+    /// Represents the `ParamArray` keyword.
     ///
-    /// The 'ParamArray' keyword is used in these contexts:
+    /// The `ParamArray` keyword is used in these contexts:
     ///
-    /// Declare statement, Function statement, Property Get statement,
-    /// Property Let statement, and Sub statement.
+    /// `Declare` statement, `Function` statement, `Property Get` statement,
+    /// `Property Let` statement, and `Sub` statement.
     ///
     /// Used only as the last argument in arglist to indicate that the final
-    /// argument is an Optional array of Variant elements. The 'ParamArray'
+    /// argument is an `Optional` array of `Variant` elements. The `ParamArray`
     /// keyword allows you to provide an arbitrary number of arguments. It may
     /// not be used with `ByVal`, `ByRef`, or `Optional`.
     ///
@@ -1082,87 +1076,88 @@ pub enum VB6Token {
     /// Often used to indicate a variable is a string or that a function
     /// works with strings.
     DollarSign,
-    /// Represents an underscore '_'.
+    /// Represents an underscore `_`.
     ///
     /// Used to indicate that a statement continues on the next line.
     /// It must be preceded by at least one whitespace and must be the last
     /// character on the line.
     Underscore,
-    /// Represents an ampersand '&'.
+    /// Represents an ampersand `&`.
     ///
     /// Used to force string concatenation of two expressions.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242763(v=vs.60))
     Ampersand,
-    /// Represents a percent sign '%'.
+    /// Represents a percent sign `%`.
     Percent,
-    /// Represents an octothorpe '#'.
+    /// Represents an octothorpe `#`.
     Octothorpe,
-    /// Represents a left parenthesis '('.
+    /// Represents a left parenthesis `(`.
     LeftParenthesis,
-    /// Represents a right parenthesis ')'.
+    /// Represents a right parenthesis `)`.
     RightParenthesis,
-    /// Represents a left square bracket '['.
+    /// Represents a left square bracket `[`.
     LeftSquareBracket,
-    /// Represents a right square bracket ']'.
+    /// Represents a right square bracket `]`.
     RightSquareBracket,
-    /// Represents a comma ','.
+    /// Represents a comma `,`.
     Comma,
-    /// Represents a semicolon ';'.
+    /// Represents a semicolon `;`.
     Semicolon,
-    /// Represents the 'at' symbol '@'.
+    /// Represents the 'at' symbol `@`.
     AtSign,
-    /// Represents an exclamation mark '!'.
+    /// Represents an exclamation mark `!`.
     ExclamationMark,
-    /// Represents the 'Version' keyword.
+    /// Represents the `Version` keyword.
     ///
-    /// The 'Version' keyword is used to specify the version of the header
+    /// The `Version` keyword is used to specify the version of the header
     /// information for a module / class / form.
     VersionKeyword,
-    /// Represents an equality operator '=' can also be the assignment operator.
+    /// Represents an equality operator `=` can also be the assignment operator.
     ///
     /// Used to assign a value to a variable or property.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa242760(v=vs.60))
     EqualityOperator,
-    /// Represents a less than operator '<'.
+    /// Represents a less than operator `<`.
     LessThanOperator,
-    /// Represents a greater than operator '>'.
+    /// Represents a greater than operator `>`.
     GreaterThanOperator,
-    /// Represents a multiplication operator '*'.
+    /// Represents a multiplication operator `*`.
     MultiplicationOperator,
-    /// Represents a subtraction operator '-'.
+    /// Represents a subtraction operator `-`.
     SubtractionOperator,
-    /// Represents an addition operator '+'.
+    /// Represents an addition operator `+`.
     AdditionOperator,
-    /// Represents a division operator '/'.
+    /// Represents a division operator `/`.
     DivisionOperator,
-    /// Represents a backward slash operator '\\'.
+    /// Represents a backward slash operator `\\`.
     BackwardSlashOperator,
-    /// Represents a period operator '.'.
+    /// Represents a period operator `.`.
     PeriodOperator,
-    /// Represents a colon operator ':'.
+    /// Represents a colon operator `:`.
     ColonOperator,
-    /// Represents an exponentiation operator '^'.
+    /// Represents an exponentiation operator `^`.
     ExponentiationOperator,
     /// Represents an Identifier, variable, or function name.
     /// This is a name that starts with a letter and can contain letters, numbers, and underscores.
     Identifier,
-    /// Represents an Integer literal with % suffix or plain integer (e.g., 42, 42%).
+    /// Represents an `Integer` literal with `%` suffix or plain integer (e.g., 42, 42%).
     IntegerLiteral,
-    /// Represents a Long literal with & suffix (e.g., 42&).
+    /// Represents a `Long` literal with `&` suffix (e.g., 42&).
     LongLiteral,
-    /// Represents a Single (float) literal with ! suffix or decimal/exponent without suffix (e.g., 3.14, 3.14!, 1.5E+10).
+    /// Represents a `Single` (float) literal with `!` suffix or decimal/exponent without suffix (e.g., 3.14, 3.14!, 1.5E+10).
     SingleLiteral,
-    /// Represents a Double literal with # suffix (e.g., 3.14#).
+    /// Represents a `Double` literal with `#` suffix (e.g., 3.14#).
     DoubleLiteral,
-    /// Represents a Decimal literal with @ suffix (e.g., 12.50@).
+    /// Represents a `Decimal` literal with `@` suffix (e.g., 12.50@).
     DecimalLiteral,
-    /// Represents a Date literal with # delimiters (e.g., #1/1/2000#).
+    /// Represents a `Date` literal with `#` delimiters (e.g., #1/1/2000#).
     DateLiteral,
 }
 
 impl VB6Token {
+
     /// Returns true if the token is a VB6 operator.
     pub fn is_operator(&self) -> bool {
         match self {

@@ -295,7 +295,7 @@ impl TryFrom<&str> for Connection {
     }
 }
 
-/// Controls what type of cursor driver is used on the connection (ODBCDirect only)
+/// Controls what type of cursor driver is used on the connection (`ODBCDirect` only)
 /// created by the `Data` control.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa234557(v=vs.60))
@@ -315,16 +315,16 @@ pub enum DefaultCursorType {
     ServerSide = 2,
 }
 
-/// Determines the type of data source (Jet or ODBCDirect) that is used by the
+/// Determines the type of data source (`Jet` or `ODBCDirect`) that is used by the
 /// `Data` control.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa234568(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum DefaultType {
-    /// Use the ODBCDirect driver to access the data source.
+    /// Use the `ODBCDirect` driver to access the data source.
     UseODBC = 1,
-    /// Use the Microsoft Jet database engine to access the data source.
+    /// Use the `Microsoft Jet` database engine to access the data source.
     ///
     /// This is the default value.
     #[default]
