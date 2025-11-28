@@ -148,6 +148,9 @@ pub enum VB6ClassErrorKind<'a> {
     #[error("The 'Class' keyword is missing from the class file header.")]
     ClassKeywordMissing,
 
+    #[error("The 'Form' keyword is missing from the class file header.")]
+    FormKeywordMissing,
+
     #[error(
         "After the 'VERSION' keyword there should be a space before the major version number."
     )]
@@ -158,6 +161,9 @@ pub enum VB6ClassErrorKind<'a> {
 
     #[error("The 'CLASS' keyword should be in uppercase to be fully compatible with Microsoft's VB6 IDE.")]
     ClassKeywordNotFullyUppercase { class_text: &'a str },
+
+    #[error("The 'Form' keyword should be in uppercase to be fully compatible with Microsoft's VB6 IDE.")]
+    FormKeywordNotFullyUppercase { form_text: &'a str },
 
     #[error("The 'BEGIN' keyword should be in uppercase to be fully compatible with Microsoft's VB6 IDE.")]
     BeginKeywordNotFullyUppercase { begin_text: &'a str },

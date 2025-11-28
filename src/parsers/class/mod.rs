@@ -299,8 +299,7 @@ fn version_header_parse<'a>(
     let Some(match_text_keyword) = take_matching_text(input, match_text) else {
         let error = match header_kind {
             HeaderKind::Class => input.generate_error(VB6ClassErrorKind::ClassKeywordMissing),
-            // TODO: Correct this to a 'Form' keyword missing error message when I get a chance.
-            HeaderKind::Form => input.generate_error(VB6ClassErrorKind::ClassKeywordMissing),
+            HeaderKind::Form => input.generate_error(VB6ClassErrorKind::FormKeywordMissing),
         };
         failures.push(error);
 
@@ -321,11 +320,10 @@ fn version_header_parse<'a>(
                     class_text: match_text_keyword,
                 },
             ),
-            // TODO: Correct this to a 'Form' keyword not fully uppercase error message when I get a chance.
             HeaderKind::Form => input.generate_error_at(
                 match_text_start_offset,
-                VB6ClassErrorKind::ClassKeywordNotFullyUppercase {
-                    class_text: match_text_keyword,
+                VB6ClassErrorKind::FormKeywordNotFullyUppercase {
+                    form_text: match_text_keyword,
                 },
             ),
         };
