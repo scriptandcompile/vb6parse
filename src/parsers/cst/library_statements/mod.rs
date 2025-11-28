@@ -93,44 +93,46 @@ impl<'a> Parser<'a> {
     pub(super) fn is_library_statement_keyword(&self) -> bool {
         matches!(
             self.current_token(),
-            Some(VB6Token::AppActivateKeyword)
-                | Some(VB6Token::BeepKeyword)
-                | Some(VB6Token::ChDirKeyword)
-                | Some(VB6Token::ChDriveKeyword)
-                | Some(VB6Token::CloseKeyword)
-                | Some(VB6Token::DateKeyword)
-                | Some(VB6Token::DeleteSettingKeyword)
-                | Some(VB6Token::ErrorKeyword)
-                | Some(VB6Token::FileCopyKeyword)
-                | Some(VB6Token::GetKeyword)
-                | Some(VB6Token::PutKeyword)
-                | Some(VB6Token::InputKeyword)
-                | Some(VB6Token::KillKeyword)
-                | Some(VB6Token::LineKeyword)
-                | Some(VB6Token::LoadKeyword)
-                | Some(VB6Token::UnloadKeyword)
-                | Some(VB6Token::LockKeyword)
-                | Some(VB6Token::UnlockKeyword)
-                | Some(VB6Token::LSetKeyword)
-                | Some(VB6Token::MidKeyword)
-                | Some(VB6Token::MidBKeyword)
-                | Some(VB6Token::MkDirKeyword)
-                | Some(VB6Token::NameKeyword)
-                | Some(VB6Token::OpenKeyword)
-                | Some(VB6Token::PrintKeyword)
-                | Some(VB6Token::RandomizeKeyword)
-                | Some(VB6Token::ResetKeyword)
-                | Some(VB6Token::RmDirKeyword)
-                | Some(VB6Token::RSetKeyword)
-                | Some(VB6Token::SavePictureKeyword)
-                | Some(VB6Token::SaveSettingKeyword)
-                | Some(VB6Token::SeekKeyword)
-                | Some(VB6Token::SendKeysKeyword)
-                | Some(VB6Token::SetAttrKeyword)
-                | Some(VB6Token::StopKeyword)
-                | Some(VB6Token::TimeKeyword)
-                | Some(VB6Token::WidthKeyword)
-                | Some(VB6Token::WriteKeyword)
+            Some(
+                VB6Token::AppActivateKeyword
+                    | VB6Token::BeepKeyword
+                    | VB6Token::ChDirKeyword
+                    | VB6Token::ChDriveKeyword
+                    | VB6Token::CloseKeyword
+                    | VB6Token::DateKeyword
+                    | VB6Token::DeleteSettingKeyword
+                    | VB6Token::ErrorKeyword
+                    | VB6Token::FileCopyKeyword
+                    | VB6Token::GetKeyword
+                    | VB6Token::PutKeyword
+                    | VB6Token::InputKeyword
+                    | VB6Token::KillKeyword
+                    | VB6Token::LineKeyword
+                    | VB6Token::LoadKeyword
+                    | VB6Token::UnloadKeyword
+                    | VB6Token::LockKeyword
+                    | VB6Token::UnlockKeyword
+                    | VB6Token::LSetKeyword
+                    | VB6Token::MidKeyword
+                    | VB6Token::MidBKeyword
+                    | VB6Token::MkDirKeyword
+                    | VB6Token::NameKeyword
+                    | VB6Token::OpenKeyword
+                    | VB6Token::PrintKeyword
+                    | VB6Token::RandomizeKeyword
+                    | VB6Token::ResetKeyword
+                    | VB6Token::RmDirKeyword
+                    | VB6Token::RSetKeyword
+                    | VB6Token::SavePictureKeyword
+                    | VB6Token::SaveSettingKeyword
+                    | VB6Token::SeekKeyword
+                    | VB6Token::SendKeysKeyword
+                    | VB6Token::SetAttrKeyword
+                    | VB6Token::StopKeyword
+                    | VB6Token::TimeKeyword
+                    | VB6Token::WidthKeyword
+                    | VB6Token::WriteKeyword
+            )
         )
     }
 

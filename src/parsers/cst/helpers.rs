@@ -47,11 +47,13 @@ impl<'a> Parser<'a> {
     pub(super) fn is_number(&self) -> bool {
         matches!(
             self.current_token(),
-            Some(VB6Token::IntegerLiteral)
-                | Some(VB6Token::LongLiteral)
-                | Some(VB6Token::SingleLiteral)
-                | Some(VB6Token::DoubleLiteral)
-                | Some(VB6Token::DecimalLiteral)
+            Some(
+                VB6Token::IntegerLiteral
+                    | VB6Token::LongLiteral
+                    | VB6Token::SingleLiteral
+                    | VB6Token::DoubleLiteral
+                    | VB6Token::DecimalLiteral
+            )
         )
     }
 

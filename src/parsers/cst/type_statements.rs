@@ -239,32 +239,32 @@ impl<'a> Parser<'a> {
             // Consume type member lines (elementname [(subscripts)] As type)
             // This includes whitespace, comments, identifiers, operators, and newlines
             match self.current_token() {
-                Some(VB6Token::Whitespace)
-                | Some(VB6Token::Newline)
-                | Some(VB6Token::EndOfLineComment)
-                | Some(VB6Token::RemComment)
-                | Some(VB6Token::Identifier)
-                | Some(VB6Token::AsKeyword)
-                | Some(VB6Token::LeftParenthesis)
-                | Some(VB6Token::RightParenthesis)
-                | Some(VB6Token::ToKeyword)
-                | Some(VB6Token::IntegerLiteral)
-                | Some(VB6Token::LongLiteral)
-                | Some(VB6Token::Comma)
-                | Some(VB6Token::MultiplicationOperator) // For String * length
-                | Some(VB6Token::SubtractionOperator)   // For negative array bounds
+                Some(VB6Token::Whitespace
+                | VB6Token::Newline
+                | VB6Token::EndOfLineComment
+                | VB6Token::RemComment
+                | VB6Token::Identifier
+                | VB6Token::AsKeyword
+                | VB6Token::LeftParenthesis
+                | VB6Token::RightParenthesis
+                | VB6Token::ToKeyword
+                | VB6Token::IntegerLiteral
+                | VB6Token::LongLiteral
+                | VB6Token::Comma
+                | VB6Token::MultiplicationOperator // For String * length
+                | VB6Token::SubtractionOperator   // For negative array bounds
                 // Data type keywords that can appear in Type members
-                | Some(VB6Token::ByteKeyword)
-                | Some(VB6Token::BooleanKeyword)
-                | Some(VB6Token::IntegerKeyword)
-                | Some(VB6Token::LongKeyword)
-                | Some(VB6Token::CurrencyKeyword)
-                | Some(VB6Token::SingleKeyword)
-                | Some(VB6Token::DoubleKeyword)
-                | Some(VB6Token::DateKeyword)
-                | Some(VB6Token::StringKeyword)
-                | Some(VB6Token::ObjectKeyword)
-                | Some(VB6Token::VariantKeyword) => {
+                | VB6Token::ByteKeyword
+                | VB6Token::BooleanKeyword
+                | VB6Token::IntegerKeyword
+                | VB6Token::LongKeyword
+                | VB6Token::CurrencyKeyword
+                | VB6Token::SingleKeyword
+                | VB6Token::DoubleKeyword
+                | VB6Token::DateKeyword
+                | VB6Token::StringKeyword
+                | VB6Token::ObjectKeyword
+                | VB6Token::VariantKeyword) => {
                     self.consume_token();
                 }
                 _ => {

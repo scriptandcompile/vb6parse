@@ -85,9 +85,11 @@ impl<'a> Parser<'a> {
     pub(super) fn is_comparison_operator(&self) -> bool {
         matches!(
             self.current_token(),
-            Some(VB6Token::EqualityOperator)
-                | Some(VB6Token::LessThanOperator)
-                | Some(VB6Token::GreaterThanOperator)
+            Some(
+                VB6Token::EqualityOperator
+                    | VB6Token::LessThanOperator
+                    | VB6Token::GreaterThanOperator
+            )
         )
     }
 }
