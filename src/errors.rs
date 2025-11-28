@@ -86,7 +86,7 @@ where
     }
 
     /// Convert the `ErrorDetails` into a string using ariadne for formatting
-    /// 
+    ///
     /// # Errors
     /// This function will return an error if there is an issue converting the
     /// formatted report into a UTF-8 string.
