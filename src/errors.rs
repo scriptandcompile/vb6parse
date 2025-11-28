@@ -85,6 +85,11 @@ where
         }
     }
 
+    /// Convert the `ErrorDetails` into a string using ariadne for formatting
+    /// 
+    /// # Errors
+    /// This function will return an error if there is an issue converting the
+    /// formatted report into a UTF-8 string.
     pub fn print_to_string(&self) -> Result<String, Box<dyn Error>> {
         let cache = (
             self.source_name.clone(),
@@ -93,7 +98,7 @@ where
 
         let mut buf = Vec::new();
 
-        let report = Report::build(
+        let _ = Report::build(
             ReportKind::Error,
             (self.source_name.clone(), self.line_start..=self.line_end),
         )
@@ -107,10 +112,6 @@ where
         )
         .finish()
         .write(cache, &mut buf);
-
-        if let Some(e) = report.err() {
-            eprint!("Error attempting to build ErrorDetails print_to_string message {e:?}");
-        }
 
         let text = String::from_utf8(buf.clone())?;
 
@@ -761,7 +762,7 @@ impl Display for VB6Error {
     fn fmt(&self, _: &mut Formatter) -> Result<(), std::fmt::Error> {
         let error_range = self.source_offset..=self.source_offset;
 
-        let report = Report::build(
+        let _ = Report::build(
             ReportKind::Error,
             (self.file_name.clone(), error_range.clone()),
         )
@@ -775,10 +776,6 @@ impl Display for VB6Error {
             self.file_name.clone(),
             Source::from(self.source_code.clone()),
         ));
-
-        if let Some(e) = report.err() {
-            eprint!("Error attempting to build ErrorDetails fmt message {e:?}");
-        }
 
         Ok(())
     }
