@@ -109,7 +109,7 @@ impl<'a> Parser<'a> {
                         back_pos -= 1;
                         if let Some((_, back_token)) = self.tokens.get(back_pos) {
                             match back_token {
-                                VB6Token::Whitespace => {},
+                                VB6Token::Whitespace => {}
                                 VB6Token::Underscore => return false, // Line continuation
                                 _ => return true,                     // Logical line end
                             }
