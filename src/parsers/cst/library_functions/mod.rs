@@ -132,32 +132,27 @@
 //! - Weekday: Returns an Integer representing the day of the week
 //! - WeekdayName: Returns a String indicating the specified day of the week
 //! - Year: Returns an Integer representing the year
-// - Split: Returns a zero-based array containing a specified number of substrings
-// - Sqr: Returns the square root of a number
-// - Str: Converts a number to a string representation
-// - StrComp: Compares two strings and returns a value indicating their relationship
-// - StrConv: Converts a string to a specified format
-// - String: Returns a string consisting of a repeating character
-// - StrReverse: Returns a string in which the character order is reversed
-// - Switch: Evaluates a list of expressions and returns a value associated with the first expression that is True
-// - SYD: Returns the sum-of-years digits depreciation of an asset for a specified period
-// - Tan: Returns the tangent of an angle in radians
-// - Time: Returns the current system time
-// - Timer: Returns the number of seconds elapsed since midnight
-// - TimeSerial: Returns a time for a specific hour, minute, and second
-// - TimeValue: Returns a time value from a string expression
-// - Trim: Returns a string with both leading and trailing spaces removed
-// - UBound: Returns the largest available subscript for the indicated dimension of an array
-// - UCase: Returns a string that has been converted to uppercase
-// - Weekday: Returns an Integer representing the day of the week
-// - WeekdayName: Returns a String indicating the specified day of the week
-// - Year: Returns an Integer representing the year
-
-// Note: Unlike library statements (which are keywords), library functions are
-// called like regular functions and are parsed as CallExpression nodes in the CST.
-// This module primarily serves as documentation and reference for VB6's
-// built-in function library.
-
+//! - Split: Returns a zero-based array containing a specified number of substrings
+//! - Sqr: Returns the square root of a number
+//! - Str: Converts a number to a string representation
+//! - StrComp: Compares two strings and returns a value indicating their relationship
+//! - StrConv: Converts a string to a specified format
+//! - String: Returns a string consisting of a repeating character
+//! - StrReverse: Returns a string in which the character order is reversed
+//! - Switch: Evaluates a list of expressions and returns a value associated with the first expression that is True
+//! - SYD: Returns the sum-of-years digits depreciation of an asset for a specified period
+//! - Tan: Returns the tangent of an angle in radians
+//! - Time: Returns the current system time
+//! - Timer: Returns the number of seconds elapsed since midnight
+//! - TimeSerial: Returns a time for a specific hour, minute, and second
+//! - TimeValue: Returns a time value from a string expression
+//! - Trim: Returns a string with both leading and trailing spaces removed
+//! - TypeName: Returns a string describing the data type of a variable or expression
+//! - UBound: Returns the largest available subscript for the indicated dimension of an array
+//! - UCase: Returns a string that has been converted to uppercase
+//! - Weekday: Returns an Integer representing the day of the week
+//! - WeekdayName: Returns a String indicating the specified day of the week
+//! - Year: Returns an Integer representing the year
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -285,6 +280,7 @@ mod timer;
 mod timeserial;
 mod timevalue;
 mod trim;
+mod typename;
 mod ubound;
 mod ucase;
 mod weekday;
