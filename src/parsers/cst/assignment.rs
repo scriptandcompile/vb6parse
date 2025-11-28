@@ -127,11 +127,9 @@ impl<'a> Parser<'a> {
                 VB6Token::PeriodOperator => {
                     last_was_period = true;
                     at_start = false;
-                    continue;
                 }
                 // Skip tokens that could appear in the left-hand side of an assignment
                 VB6Token::Whitespace => {
-                    continue;
                 }
                 VB6Token::Identifier
                 | VB6Token::LeftParenthesis
@@ -143,18 +141,15 @@ impl<'a> Parser<'a> {
                 | VB6Token::Comma => {
                     last_was_period = false;
                     at_start = false;
-                    continue;
                 }
                 // After a period, keywords can be property names, so skip them
                 _ if last_was_period => {
                     last_was_period = false;
                     at_start = false;
-                    continue;
                 }
                 // At the start of a statement, keywords can be used as variable names
                 _ if at_start && token.is_keyword() => {
                     at_start = false;
-                    continue;
                 }
                 // If we hit other operators, it's not an assignment
                 _ => {
