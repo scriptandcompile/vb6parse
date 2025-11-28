@@ -1157,129 +1157,132 @@ pub enum VB6Token {
 }
 
 impl VB6Token {
-
     /// Returns true if the token is a VB6 operator.
     #[must_use]
     pub fn is_operator(&self) -> bool {
-        matches!(self,
+        matches!(
+            self,
             VB6Token::EqualityOperator
-            | VB6Token::LessThanOperator
-            | VB6Token::GreaterThanOperator
-            | VB6Token::MultiplicationOperator
-            | VB6Token::SubtractionOperator
-            | VB6Token::AdditionOperator
-            | VB6Token::DivisionOperator
-            | VB6Token::BackwardSlashOperator
-            | VB6Token::PeriodOperator
-            | VB6Token::ColonOperator
-            | VB6Token::ExponentiationOperator
-            | VB6Token::Ampersand)
+                | VB6Token::LessThanOperator
+                | VB6Token::GreaterThanOperator
+                | VB6Token::MultiplicationOperator
+                | VB6Token::SubtractionOperator
+                | VB6Token::AdditionOperator
+                | VB6Token::DivisionOperator
+                | VB6Token::BackwardSlashOperator
+                | VB6Token::PeriodOperator
+                | VB6Token::ColonOperator
+                | VB6Token::ExponentiationOperator
+                | VB6Token::Ampersand
+        )
     }
 
     /// Returns true if the token is a VB6 keyword.
     #[must_use]
     pub fn is_keyword(&self) -> bool {
-        matches!(self,
+        matches!(
+            self,
             VB6Token::AddressOfKeyword
-            | VB6Token::ImpKeyword
-            | VB6Token::IsKeyword
-            | VB6Token::LikeKeyword
-            | VB6Token::NotKeyword
-            | VB6Token::ThenKeyword
-            | VB6Token::GotoKeyword
-            | VB6Token::GoSubKeyword
-            | VB6Token::ReturnKeyword
-            | VB6Token::ExitKeyword
-            | VB6Token::ForKeyword
-            | VB6Token::ToKeyword
-            | VB6Token::LockKeyword
-            | VB6Token::UnlockKeyword
-            | VB6Token::StepKeyword
-            | VB6Token::StopKeyword
-            | VB6Token::WhileKeyword
-            | VB6Token::WendKeyword
-            | VB6Token::WidthKeyword
-            | VB6Token::WriteKeyword
-            | VB6Token::TimeKeyword
-            | VB6Token::SetAttrKeyword
-            | VB6Token::SetKeyword
-            | VB6Token::SendKeysKeyword
-            | VB6Token::SelectKeyword
-            | VB6Token::CaseKeyword
-            | VB6Token::SeekKeyword
-            | VB6Token::SaveSettingKeyword
-            | VB6Token::SavePictureKeyword
-            | VB6Token::RSetKeyword
-            | VB6Token::RmDirKeyword
-            | VB6Token::ResumeKeyword
-            | VB6Token::ResetKeyword
-            | VB6Token::RemComment
-            | VB6Token::RandomizeKeyword
-            | VB6Token::RaiseEventKeyword
-            | VB6Token::PutKeyword
-            | VB6Token::PropertyKeyword
-            | VB6Token::PrintKeyword
-            | VB6Token::OpenKeyword
-            | VB6Token::OnKeyword
-            | VB6Token::OffKeyword
-            | VB6Token::NameKeyword
-            | VB6Token::MkDirKeyword
-            | VB6Token::MidBKeyword
-            | VB6Token::MidKeyword
-            | VB6Token::LSetKeyword
-            | VB6Token::LoadKeyword
-            | VB6Token::UnloadKeyword
-            | VB6Token::LineKeyword
-            | VB6Token::InputKeyword
-            | VB6Token::LetKeyword
-            | VB6Token::KillKeyword
-            | VB6Token::ImplementsKeyword
-            | VB6Token::GetKeyword
-            | VB6Token::FileCopyKeyword
-            | VB6Token::EventKeyword
-            | VB6Token::ErrorKeyword
-            | VB6Token::EraseKeyword
-            | VB6Token::DoKeyword
-            | VB6Token::UntilKeyword
-            | VB6Token::LoopKeyword
-            | VB6Token::DeleteSettingKeyword
-            | VB6Token::DefBoolKeyword
-            | VB6Token::DefByteKeyword
-            | VB6Token::DefIntKeyword
-            | VB6Token::DefLngKeyword
-            | VB6Token::DefCurKeyword
-            | VB6Token::DefSngKeyword
-            | VB6Token::DefDblKeyword
-            | VB6Token::DefDecKeyword
-            | VB6Token::DefDateKeyword
-            | VB6Token::DefStrKeyword
-            | VB6Token::DefObjKeyword
-            | VB6Token::DefVarKeyword
-            | VB6Token::CloseKeyword
-            | VB6Token::ChDriveKeyword
-            | VB6Token::ChDirKeyword
-            | VB6Token::CallKeyword
-            | VB6Token::BeepKeyword
-            | VB6Token::AppActivateKeyword
-            | VB6Token::FriendKeyword
-            | VB6Token::BinaryKeyword
-            | VB6Token::RandomKeyword
-            | VB6Token::ReadKeyword
-            | VB6Token::OutputKeyword
-            | VB6Token::AppendKeyword
-            | VB6Token::AccessKeyword
-            | VB6Token::TextKeyword
-            | VB6Token::DatabaseKeyword
-            | VB6Token::EmptyKeyword
-            | VB6Token::ModuleKeyword
-            | VB6Token::NextKeyword
-            | VB6Token::EachKeyword
-            | VB6Token::InKeyword
-            | VB6Token::NewKeyword
-            | VB6Token::LenKeyword
-            | VB6Token::MeKeyword
-            | VB6Token::NullKeyword
-            | VB6Token::ParamArrayKeyword
-            | VB6Token::VersionKeyword)
+                | VB6Token::ImpKeyword
+                | VB6Token::IsKeyword
+                | VB6Token::LikeKeyword
+                | VB6Token::NotKeyword
+                | VB6Token::ThenKeyword
+                | VB6Token::GotoKeyword
+                | VB6Token::GoSubKeyword
+                | VB6Token::ReturnKeyword
+                | VB6Token::ExitKeyword
+                | VB6Token::ForKeyword
+                | VB6Token::ToKeyword
+                | VB6Token::LockKeyword
+                | VB6Token::UnlockKeyword
+                | VB6Token::StepKeyword
+                | VB6Token::StopKeyword
+                | VB6Token::WhileKeyword
+                | VB6Token::WendKeyword
+                | VB6Token::WidthKeyword
+                | VB6Token::WriteKeyword
+                | VB6Token::TimeKeyword
+                | VB6Token::SetAttrKeyword
+                | VB6Token::SetKeyword
+                | VB6Token::SendKeysKeyword
+                | VB6Token::SelectKeyword
+                | VB6Token::CaseKeyword
+                | VB6Token::SeekKeyword
+                | VB6Token::SaveSettingKeyword
+                | VB6Token::SavePictureKeyword
+                | VB6Token::RSetKeyword
+                | VB6Token::RmDirKeyword
+                | VB6Token::ResumeKeyword
+                | VB6Token::ResetKeyword
+                | VB6Token::RemComment
+                | VB6Token::RandomizeKeyword
+                | VB6Token::RaiseEventKeyword
+                | VB6Token::PutKeyword
+                | VB6Token::PropertyKeyword
+                | VB6Token::PrintKeyword
+                | VB6Token::OpenKeyword
+                | VB6Token::OnKeyword
+                | VB6Token::OffKeyword
+                | VB6Token::NameKeyword
+                | VB6Token::MkDirKeyword
+                | VB6Token::MidBKeyword
+                | VB6Token::MidKeyword
+                | VB6Token::LSetKeyword
+                | VB6Token::LoadKeyword
+                | VB6Token::UnloadKeyword
+                | VB6Token::LineKeyword
+                | VB6Token::InputKeyword
+                | VB6Token::LetKeyword
+                | VB6Token::KillKeyword
+                | VB6Token::ImplementsKeyword
+                | VB6Token::GetKeyword
+                | VB6Token::FileCopyKeyword
+                | VB6Token::EventKeyword
+                | VB6Token::ErrorKeyword
+                | VB6Token::EraseKeyword
+                | VB6Token::DoKeyword
+                | VB6Token::UntilKeyword
+                | VB6Token::LoopKeyword
+                | VB6Token::DeleteSettingKeyword
+                | VB6Token::DefBoolKeyword
+                | VB6Token::DefByteKeyword
+                | VB6Token::DefIntKeyword
+                | VB6Token::DefLngKeyword
+                | VB6Token::DefCurKeyword
+                | VB6Token::DefSngKeyword
+                | VB6Token::DefDblKeyword
+                | VB6Token::DefDecKeyword
+                | VB6Token::DefDateKeyword
+                | VB6Token::DefStrKeyword
+                | VB6Token::DefObjKeyword
+                | VB6Token::DefVarKeyword
+                | VB6Token::CloseKeyword
+                | VB6Token::ChDriveKeyword
+                | VB6Token::ChDirKeyword
+                | VB6Token::CallKeyword
+                | VB6Token::BeepKeyword
+                | VB6Token::AppActivateKeyword
+                | VB6Token::FriendKeyword
+                | VB6Token::BinaryKeyword
+                | VB6Token::RandomKeyword
+                | VB6Token::ReadKeyword
+                | VB6Token::OutputKeyword
+                | VB6Token::AppendKeyword
+                | VB6Token::AccessKeyword
+                | VB6Token::TextKeyword
+                | VB6Token::DatabaseKeyword
+                | VB6Token::EmptyKeyword
+                | VB6Token::ModuleKeyword
+                | VB6Token::NextKeyword
+                | VB6Token::EachKeyword
+                | VB6Token::InKeyword
+                | VB6Token::NewKeyword
+                | VB6Token::LenKeyword
+                | VB6Token::MeKeyword
+                | VB6Token::NullKeyword
+                | VB6Token::ParamArrayKeyword
+                | VB6Token::VersionKeyword
+        )
     }
 }
