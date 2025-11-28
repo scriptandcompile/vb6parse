@@ -28,12 +28,12 @@ impl<'a> Parser<'a> {
     ///
     /// | Part        | Optional / Required | Description |
     /// |-------------|---------------------|-------------|
-    /// | Public   	  | Optional | Indicates that the Sub procedure is accessible to all other procedures in all modules. If used in a module that contains an Option Private statement, the procedure is not available outside the project. |
-    /// | Private  	  | Optional | Indicates that the Sub procedure is accessible only to other procedures in the module where it is declared. |
-    /// | Friend 	  | Optional | Used only in a class module. Indicates that the Sub procedure is visible throughout the project, but not visible to a controller of an instance of an object. |
-    /// | Static 	  | Optional | Indicates that the Sub procedure's local variables are preserved between calls. The Static attribute doesn't affect variables that are declared outside the Sub, even if they are used in the procedure. |
-    /// | name 	      | Required | Name of the Sub; follows standard variable naming conventions. |
-    /// | arglist 	  | Optional | List of variables representing arguments that are passed to the Sub procedure when it is called. Multiple variables are separated by commas. |
+    /// | Public      | Optional | Indicates that the Sub procedure is accessible to all other procedures in all modules. If used in a module that contains an Option Private statement, the procedure is not available outside the project. |
+    /// | Private     | Optional | Indicates that the Sub procedure is accessible only to other procedures in the module where it is declared. |
+    /// | Friend      | Optional | Used only in a class module. Indicates that the Sub procedure is visible throughout the project, but not visible to a controller of an instance of an object. |
+    /// | Static      | Optional | Indicates that the Sub procedure's local variables are preserved between calls. The Static attribute doesn't affect variables that are declared outside the Sub, even if they are used in the procedure. |
+    /// | name        | Required | Name of the Sub; follows standard variable naming conventions. |
+    /// | arglist     | Optional | List of variables representing arguments that are passed to the Sub procedure when it is called. Multiple variables are separated by commas. |
     /// | statements  | Optional | Any group of statements to be executed within the Sub procedure.
     ///
     /// The arglist argument has the following syntax and parts:
