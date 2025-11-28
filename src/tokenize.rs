@@ -554,9 +554,9 @@ fn take_date_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB6To
             } else if ch == '\r' || ch == '\n' {
                 // Date literals cannot span multiple lines
                 break false;
-            } else {
-                let _ = input.take_count(1);
             }
+
+            let _ = input.take_count(1);
         } else {
             // End of input
             break false;
@@ -709,9 +709,9 @@ pub fn take_matching_text<'a>(
             Some(last) => {
                 if last.is_alphanumeric() || last == '_' && last != ' ' {
                     return None;
-                } else {
-                    return input.take(keyword_match_text, Comparator::CaseInsensitive);
                 }
+
+                return input.take(keyword_match_text, Comparator::CaseInsensitive);
             }
         }
     }
