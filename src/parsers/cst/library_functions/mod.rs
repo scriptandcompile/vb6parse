@@ -120,6 +120,7 @@
 //! - Switch: Evaluates a list of expressions and returns a value associated with the first expression that is True
 //! - SYD: Returns the sum-of-years digits depreciation of an asset for a specified period
 //! - Time: Returns the current system time
+//! - Timer: Returns the number of seconds elapsed since midnight
 //! - UBound: Returns the largest available subscript for the indicated dimension of an array
 //! - UCase: Returns a string that has been converted to uppercase
 //! - Weekday: Returns an Integer representing the day of the week
@@ -248,6 +249,7 @@ mod strreverse;
 mod switch;
 mod syd;
 mod time;
+mod timer;
 mod trim;
 mod ubound;
 mod ucase;
