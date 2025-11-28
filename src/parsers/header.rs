@@ -302,8 +302,6 @@ pub fn object_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6ObjectReferen
 }
 
 pub fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FileAttributes<'a>> {
-    let _ = space0::<_, VB6ErrorKind>.parse_next(input);
-
     enum Attributes {
         Name,
         GlobalNameSpace,
@@ -321,6 +319,8 @@ pub fn attributes_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<VB6FileAttri
     let mut exposed = Exposed::False;
     let mut description = None;
     let mut ext_key = HashMap::new();
+
+    let _ = space0::<_, VB6ErrorKind>.parse_next(input);
 
     while (space0, keyword_parse("Attribute"), space0)
         .parse_next(input)
