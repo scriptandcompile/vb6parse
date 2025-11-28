@@ -102,6 +102,7 @@
 //! - Right: Returns a String containing a specified number of characters from the right side of a string
 //! - Rnd: Returns a Single containing a pseudo-random number
 //! - Round: Returns a number rounded to a specified number of decimal places
+//! - RTrim: Returns a string with trailing spaces removed
 //! - Second: Returns an Integer specifying the second of the minute (0-59)
 //! - Seek: Returns a Long specifying the current read/write position within a file
 //! - Sgn: Returns an Integer indicating the sign of a number (-1, 0, or 1)
@@ -119,17 +120,18 @@
 //! - StrReverse: Returns a string in which the character order is reversed
 //! - Switch: Evaluates a list of expressions and returns a value associated with the first expression that is True
 //! - SYD: Returns the sum-of-years digits depreciation of an asset for a specified period
+//! - Tan: Returns the tangent of an angle in radians
 //! - Time: Returns the current system time
 //! - Timer: Returns the number of seconds elapsed since midnight
 //! - TimeSerial: Returns a time for a specific hour, minute, and second
 //! - TimeValue: Returns a time value from a string expression
+//! - Trim: Returns a string with both leading and trailing spaces removed
 //! - UBound: Returns the largest available subscript for the indicated dimension of an array
 //! - UCase: Returns a string that has been converted to uppercase
 //! - Weekday: Returns an Integer representing the day of the week
 //! - WeekdayName: Returns a String indicating the specified day of the week
 //! - Year: Returns an Integer representing the year
-//! - RTrim: Returns a string with trailing spaces removed
-//! - Trim: Returns a string with both leading and trailing spaces removed
+
 //!
 //! Note: Unlike library statements (which are keywords), library functions are
 //! called like regular functions and are parsed as CallExpression nodes in the CST.
@@ -250,6 +252,7 @@ mod string;
 mod strreverse;
 mod switch;
 mod syd;
+mod tan;
 mod time;
 mod timer;
 mod timeserial;
