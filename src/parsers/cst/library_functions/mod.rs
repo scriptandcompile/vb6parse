@@ -122,6 +122,7 @@
 //! - Time: Returns the current system time
 //! - Timer: Returns the number of seconds elapsed since midnight
 //! - TimeSerial: Returns a time for a specific hour, minute, and second
+//! - TimeValue: Returns a time value from a string expression
 //! - UBound: Returns the largest available subscript for the indicated dimension of an array
 //! - UCase: Returns a string that has been converted to uppercase
 //! - Weekday: Returns an Integer representing the day of the week
@@ -252,6 +253,7 @@ mod syd;
 mod time;
 mod timer;
 mod timeserial;
+mod timevalue;
 mod trim;
 mod ubound;
 mod ucase;
