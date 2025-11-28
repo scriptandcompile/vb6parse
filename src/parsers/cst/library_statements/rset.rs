@@ -73,7 +73,6 @@ use crate::parsers::syntaxkind::SyntaxKind;
 /// ## References
 ///
 /// - [RSet Statement (Visual Basic 6.0)](https://docs.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266258(v=vs.60))
-
 impl<'a> Parser<'a> {
     pub(crate) fn parse_rset_statement(&mut self) {
         self.parse_simple_builtin_statement(SyntaxKind::RSetStatement);
