@@ -5,18 +5,18 @@ use crate::parsers::header::{VB6FileAttributes, VB6FileFormatVersion};
 /// Represents the COM usage of a class file.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
 pub enum FileUsage {
-    /// In a COM object a MultiUse class object will be created for all clients.
+    /// In a `COM` object a `MultiUse` class object will be created for all clients.
     /// This value is stored as -1 (true) in the file.
     #[default]
     MultiUse = -1,
-    /// In a COM object a SingleUse class object will be created for each client.
+    /// In a `COM` object a `SingleUse` class object will be created for each client.
     /// This value is stored as 0 (false) in the file.
     SingleUse = 0, // 0 (false)
 }
 
 /// Represents the persistability of a file.
 ///
-/// Only available when the class is part of an activeX DLL project that is both
+/// Only available when the class is part of an `ActiveX` DLL project that is both
 /// public and creatable.
 ///
 /// Determines whether the class can be saved to disk.
@@ -66,38 +66,37 @@ pub enum MtsStatus {
     RequiresNewTransaction = 4,
 }
 
-/// Determines if a class can act as a DataSource for VB6 DataBinding.
+/// Determines if a class can act as a `DataSource` for VB6 `DataBinding`.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
 pub enum DataSourceBehavior {
-    /// The class does not support acting as a Data Source.
+    /// The class does not support acting as a `DataSource`.
     /// This value is stored as 0 in the file.
     #[default]
     None = 0,
-    /// The class supports acting as a Data Source.
+    /// The class supports acting as a `DataSource`.
     /// This value is stored as 1 in the file.
     DataSource = 1,
 }
 
-/// Determines the default VB6 DataBinding behavior.
+/// Determines the default VB6 `DataBinding` behavior.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
 pub enum DataBindingBehavior {
-    /// The class does not support data binding.
+    /// The class does not support `DataBinding`.
     /// This value is stored as 0 in the file.
     #[default]
     None = 0,
-    /// The class supports simple data binding.
+    /// The class supports simple `DataBinding`.
     /// This value is stored as 1 in the file.
     Simple = 1,
-    /// The class supports complex data binding.
+    /// The class supports complex `DataBinding`.
     /// This value is stored as 2 in the file.
     Complex = 2,
 }
 
 /// The properties of a VB6 class file is the list of key/value pairs
-/// found between the BEGIN and END lines in the header.
+/// found between the `BEGIN` and `END` lines in the header.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
 pub struct VB6ClassProperties {
-    ///
     pub multi_use: FileUsage,
     pub persistable: Persistence,
     pub data_binding_behavior: DataBindingBehavior,
