@@ -242,7 +242,7 @@ fn version_header_parse<'a>(
             );
             failures.push(error);
         }
-    };
+    }
 
     let minor_digit_offset = input.offset();
     // sadly, we can't really continue if we can't get the version numbers since
