@@ -123,6 +123,7 @@
 //! - UCase: Returns a string that has been converted to uppercase
 //! - Weekday: Returns an Integer representing the day of the week
 //! - WeekdayName: Returns a String indicating the specified day of the week
+//! - Year: Returns an Integer representing the year
 //! - RTrim: Returns a string with trailing spaces removed
 //! - Trim: Returns a string with both leading and trailing spaces removed
 //!
@@ -250,3 +251,4 @@ mod ubound;
 mod ucase;
 mod weekday;
 mod weekdayname;
+mod year;
