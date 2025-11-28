@@ -172,10 +172,12 @@ impl<'a> Parser<'a> {
     pub(super) fn is_statement_keyword(&self) -> bool {
         matches!(
             self.current_token(),
-            Some(VB6Token::CallKeyword)
-                | Some(VB6Token::RaiseEventKeyword)
-                | Some(VB6Token::SetKeyword)
-                | Some(VB6Token::WithKeyword)
+            Some(
+                VB6Token::CallKeyword
+                    | VB6Token::RaiseEventKeyword
+                    | VB6Token::SetKeyword
+                    | VB6Token::WithKeyword
+            )
         )
     }
 

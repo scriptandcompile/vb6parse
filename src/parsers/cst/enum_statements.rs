@@ -99,24 +99,26 @@ impl<'a> Parser<'a> {
             // Consume enum member lines (identifier [= expression])
             // This includes whitespace, comments, identifiers, operators, and newlines
             match self.current_token() {
-                Some(VB6Token::Whitespace)
-                | Some(VB6Token::Newline)
-                | Some(VB6Token::EndOfLineComment)
-                | Some(VB6Token::RemComment)
-                | Some(VB6Token::Identifier)
-                | Some(VB6Token::EqualityOperator)
-                | Some(VB6Token::IntegerLiteral)
-                | Some(VB6Token::LongLiteral)
-                | Some(VB6Token::SingleLiteral)
-                | Some(VB6Token::DoubleLiteral)
-                | Some(VB6Token::SubtractionOperator)
-                | Some(VB6Token::AdditionOperator)
-                | Some(VB6Token::MultiplicationOperator)
-                | Some(VB6Token::DivisionOperator)
-                | Some(VB6Token::LeftParenthesis)
-                | Some(VB6Token::RightParenthesis)
-                | Some(VB6Token::Ampersand)
-                | Some(VB6Token::Comma) => {
+                Some(
+                    VB6Token::Whitespace
+                    | VB6Token::Newline
+                    | VB6Token::EndOfLineComment
+                    | VB6Token::RemComment
+                    | VB6Token::Identifier
+                    | VB6Token::EqualityOperator
+                    | VB6Token::IntegerLiteral
+                    | VB6Token::LongLiteral
+                    | VB6Token::SingleLiteral
+                    | VB6Token::DoubleLiteral
+                    | VB6Token::SubtractionOperator
+                    | VB6Token::AdditionOperator
+                    | VB6Token::MultiplicationOperator
+                    | VB6Token::DivisionOperator
+                    | VB6Token::LeftParenthesis
+                    | VB6Token::RightParenthesis
+                    | VB6Token::Ampersand
+                    | VB6Token::Comma,
+                ) => {
                     self.consume_token();
                 }
                 _ => {

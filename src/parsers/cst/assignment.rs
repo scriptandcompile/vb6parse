@@ -129,8 +129,7 @@ impl<'a> Parser<'a> {
                     at_start = false;
                 }
                 // Skip tokens that could appear in the left-hand side of an assignment
-                VB6Token::Whitespace => {
-                }
+                VB6Token::Whitespace => {}
                 VB6Token::Identifier
                 | VB6Token::LeftParenthesis
                 | VB6Token::RightParenthesis

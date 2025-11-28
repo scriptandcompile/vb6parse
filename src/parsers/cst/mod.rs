@@ -278,18 +278,18 @@ impl<'a> Parser<'a> {
                     }
                 }
                 // DefType statements: DefInt, DefLng, DefStr, etc.
-                Some(VB6Token::DefBoolKeyword)
-                | Some(VB6Token::DefByteKeyword)
-                | Some(VB6Token::DefIntKeyword)
-                | Some(VB6Token::DefLngKeyword)
-                | Some(VB6Token::DefCurKeyword)
-                | Some(VB6Token::DefSngKeyword)
-                | Some(VB6Token::DefDblKeyword)
-                | Some(VB6Token::DefDecKeyword)
-                | Some(VB6Token::DefDateKeyword)
-                | Some(VB6Token::DefStrKeyword)
-                | Some(VB6Token::DefObjKeyword)
-                | Some(VB6Token::DefVarKeyword) => {
+                Some(VB6Token::DefBoolKeyword
+                | VB6Token::DefByteKeyword
+                | VB6Token::DefIntKeyword
+                | VB6Token::DefLngKeyword
+                | VB6Token::DefCurKeyword
+                | VB6Token::DefSngKeyword
+                | VB6Token::DefDblKeyword
+                | VB6Token::DefDecKeyword
+                | VB6Token::DefDateKeyword
+                | VB6Token::DefStrKeyword
+                | VB6Token::DefObjKeyword
+                | VB6Token::DefVarKeyword) => {
                     self.parse_deftype_statement();
                 }
                 // Declare statement: Declare Sub/Function Name Lib "..."
@@ -333,14 +333,14 @@ impl<'a> Parser<'a> {
                 // Variable declarations: Dim/Const
                 // For Public/Private/Friend/Static, we need to look ahead to see if it's a
                 // function/sub declaration or a variable declaration
-                Some(VB6Token::DimKeyword) | Some(VB6Token::ConstKeyword) => {
+                Some(VB6Token::DimKeyword | VB6Token::ConstKeyword) => {
                     self.parse_dim();
                 }
                 // Public/Private/Friend/Static - could be function/sub/property or declaration
-                Some(VB6Token::PrivateKeyword)
-                | Some(VB6Token::PublicKeyword)
-                | Some(VB6Token::FriendKeyword)
-                | Some(VB6Token::StaticKeyword) => {
+                Some(VB6Token::PrivateKeyword
+                | VB6Token::PublicKeyword
+                | VB6Token::FriendKeyword
+                | VB6Token::StaticKeyword) => {
                     // Look ahead to see if this is a function/sub/property/enum declaration
                     // Peek at the next 2 keywords to handle cases like "Public Static Function"
                     let next_keywords: Vec<_> = self
@@ -372,10 +372,10 @@ impl<'a> Parser<'a> {
                     };
                 }
                 // Whitespace and newlines - consume directly
-                Some(VB6Token::Whitespace)
-                | Some(VB6Token::Newline)
-                | Some(VB6Token::EndOfLineComment)
-                | Some(VB6Token::RemComment) => {
+                Some(VB6Token::Whitespace
+                | VB6Token::Newline
+                | VB6Token::EndOfLineComment
+                | VB6Token::RemComment) => {
                     self.consume_token();
                 }
                 // Anything else - check if it's a statement, label, assignment, or unknown
@@ -425,17 +425,17 @@ impl<'a> Parser<'a> {
     fn is_control_flow_keyword(&self) -> bool {
         matches!(
             self.current_token(),
-            Some(VB6Token::IfKeyword)
-                | Some(VB6Token::SelectKeyword)
-                | Some(VB6Token::ForKeyword)
-                | Some(VB6Token::DoKeyword)
-                | Some(VB6Token::WhileKeyword)
-                | Some(VB6Token::GotoKeyword)
-                | Some(VB6Token::GoSubKeyword)
-                | Some(VB6Token::ReturnKeyword)
-                | Some(VB6Token::ResumeKeyword)
-                | Some(VB6Token::ExitKeyword)
-                | Some(VB6Token::OnKeyword)
+            Some(VB6Token::IfKeyword
+                | VB6Token::SelectKeyword
+                | VB6Token::ForKeyword
+                | VB6Token::DoKeyword
+                | VB6Token::WhileKeyword
+                | VB6Token::GotoKeyword
+                | VB6Token::GoSubKeyword
+                | VB6Token::ReturnKeyword
+                | VB6Token::ResumeKeyword
+                | VB6Token::ExitKeyword
+                | VB6Token::OnKeyword)
         )
     }
 
@@ -510,7 +510,7 @@ impl<'a> Parser<'a> {
     fn is_variable_declaration_keyword(&self) -> bool {
         matches!(
             self.current_token(),
-            Some(VB6Token::ReDimKeyword) | Some(VB6Token::EraseKeyword)
+            Some(VB6Token::ReDimKeyword | VB6Token::EraseKeyword)
         )
     }
 
@@ -576,18 +576,18 @@ impl<'a> Parser<'a> {
             // Handle other constructs that aren't in parse_statement
             match self.current_token() {
                 // Variable declarations: Dim/Private/Public/Const/Static
-                Some(VB6Token::DimKeyword)
-                | Some(VB6Token::PrivateKeyword)
-                | Some(VB6Token::PublicKeyword)
-                | Some(VB6Token::ConstKeyword)
-                | Some(VB6Token::StaticKeyword) => {
+                Some(VB6Token::DimKeyword
+                | VB6Token::PrivateKeyword
+                | VB6Token::PublicKeyword
+                | VB6Token::ConstKeyword
+                | VB6Token::StaticKeyword) => {
                     self.parse_dim();
                 }
                 // Whitespace and newlines - consume directly
-                Some(VB6Token::Whitespace)
-                | Some(VB6Token::Newline)
-                | Some(VB6Token::EndOfLineComment)
-                | Some(VB6Token::RemComment) => {
+                Some(VB6Token::Whitespace
+                | VB6Token::Newline
+                | VB6Token::EndOfLineComment
+                | VB6Token::RemComment) => {
                     self.consume_token();
                 }
                 // Anything else - check if it's a label, assignment, or unknown

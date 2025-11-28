@@ -85,9 +85,9 @@ impl<'a> Parser<'a> {
 
                 // Handle other inline constructs
                 match self.current_token() {
-                    Some(VB6Token::Whitespace)
-                    | Some(VB6Token::EndOfLineComment)
-                    | Some(VB6Token::RemComment) => {
+                    Some(
+                        VB6Token::Whitespace | VB6Token::EndOfLineComment | VB6Token::RemComment,
+                    ) => {
                         self.consume_token();
                     }
                     Some(VB6Token::ColonOperator) => {
