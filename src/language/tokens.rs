@@ -1159,6 +1159,7 @@ pub enum VB6Token {
 impl VB6Token {
 
     /// Returns true if the token is a VB6 operator.
+    #[must_use]
     pub fn is_operator(&self) -> bool {
         match self {
             VB6Token::EqualityOperator
@@ -1178,6 +1179,7 @@ impl VB6Token {
     }
 
     /// Returns true if the token is a VB6 keyword.
+    #[must_use]
     pub fn is_keyword(&self) -> bool {
         match self {
             VB6Token::AddressOfKeyword
