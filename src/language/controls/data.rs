@@ -228,41 +228,41 @@ pub enum Connection {
     /// This is the default value.
     #[default]
     Access,
-    /// The Data control is connecting to dBase III database.
+    /// The Data control is connecting to `dBase III` database.
     DBaseIII,
-    /// The Data control is connecting to dBase IV database.
+    /// The Data control is connecting to `dBase IV` database.
     DBaseIV,
-    /// The Data control is connecting to dBase 5.0 database.
+    /// The Data control is connecting to `dBase 5.0` database.
     DBase5_0,
-    /// The Data control is connecting to Excel 3.0 database.
+    /// The Data control is connecting to `Excel 3.0` database.
     Excel3_0,
-    /// The Data control is connecting to Excel 4.0 database.
+    /// The Data control is connecting to `Excel 4.0` database.
     Excel4_0,
-    /// The Data control is connecting to Excel 5.0 database.
+    /// The Data control is connecting to `Excel 5.0` database.
     Excel5_0,
-    /// The Data control is connecting to Excel 8.0 database.
+    /// The Data control is connecting to `Excel 8.0` database.
     Excel8_0,
-    /// The Data control is connecting to FoxPro 2.0 database.
+    /// The Data control is connecting to `FoxPro 2.0` database.
     FoxPro2_0,
-    /// The Data control is connecting to FoxPro 2.5 database.
+    /// The Data control is connecting to `FoxPro 2.5` database.
     FoxPro2_5,
-    /// The Data control is connecting to FoxPro 2.6 database.
+    /// The Data control is connecting to `FoxPro 2.6` database.
     FoxPro2_6,
-    /// The Data control is connecting to FoxPro 3.0 database.
+    /// The Data control is connecting to `FoxPro 3.0` database.
     FoxPro3_0,
-    /// The Data control is connecting to Lotus Works 1 database.
+    /// The Data control is connecting to `Lotus Works 1` database.
     LotusWk1,
-    /// The Data control is connecting to Lotus Works 3 database.
+    /// The Data control is connecting to `Lotus Works 3` database.
     LotusWk3,
-    /// The Data control is connecting to Lotus Works 4 database.
+    /// The Data control is connecting to `Lotus Works 4` database.
     LotusWk4,
-    /// The Data control is connecting to Paradox 3.X database.
+    /// The Data control is connecting to `Paradox 3.X` database.
     Paradox3X,
-    /// The Data control is connecting to Paradox 4.X database.
+    /// The Data control is connecting to `Paradox 4.X` database.
     Paradox4X,
-    /// The Data control is connecting to Paradox 5.X database.
+    /// The Data control is connecting to `Paradox 5.X` database.
     Paradox5X,
-    /// The Data control is connecting to Text data set.
+    /// The Data control is connecting to a `Text` data set.
     Text,
 }
 
