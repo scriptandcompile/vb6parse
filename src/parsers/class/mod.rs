@@ -87,7 +87,7 @@ impl<'a> VB6ClassFile<'a> {
 
         let mut failures = vec![];
 
-        let version_result = version_header_parse(&mut input, HeaderKind::Class);
+        let version_result = version_header_parse(&mut input, &HeaderKind::Class);
 
         let Some(version) = version_result.result else {
             for failure in version_result.failures {
@@ -151,7 +151,7 @@ impl<'a> VB6ClassFile<'a> {
 
 fn version_header_parse<'a>(
     input: &mut SourceStream<'a>,
-    header_kind: HeaderKind,
+    header_kind: &HeaderKind,
 ) -> ParseResult<'a, VB6FileFormatVersion, VB6ClassErrorKind<'a>> {
     let mut failures = vec![];
 
@@ -742,7 +742,7 @@ Option Explicit
 
         let mut source_stream = source_file.get_source_stream();
 
-        let result = version_header_parse(&mut source_stream, HeaderKind::Class);
+        let result = version_header_parse(&mut source_stream, &HeaderKind::Class);
 
         assert!(result.has_result());
         assert!(!result.has_failures());
@@ -762,7 +762,7 @@ Option Explicit
 
         let mut source_stream = source_file.get_source_stream();
 
-        let result = version_header_parse(&mut source_stream, HeaderKind::Class);
+        let result = version_header_parse(&mut source_stream, &HeaderKind::Class);
 
         assert!(!result.has_result());
         assert!(result.has_failures());
