@@ -29,6 +29,18 @@
 //!
 //! The `Rnd` function returns a pseudo-random number from a deterministic sequence. It is used for generating random values in games, simulations, testing, and sampling.
 //!
+//! Each new number is the product of the previous number times a constant (a) plus another constant (c).
+//! The result is kept modulo a third number (m), which is invariably the width of its ‘long’ integer size (or fraction thereof).
+//! Standard examples are m=2^64, 2^48 or 2^32.
+//! Mathematically, this is represented as: r(i+1)=r(i)*a+c (mod m), where r(0) is the ‘seed’ value.
+//!
+//! Although the algorithm in use can be obtained from analyzing a string of outputs from the generator and deducing the values of a, c and M.
+//! Microsoft has published their constants on their web site and it turns out that they use an LCPRNG with:
+//!
+//! ```a = 16598013, c = 2820163 and m=2^24 = 16777216```
+//!
+//! [Reference](http://www.noesis.net.au/main/Resources/Resources/prng_files/vba_prng.html)
+//!
 //! **Important Notes**:
 //! - Returns values in range [0, 1) - includes 0, excludes 1
 //! - Same seed produces same sequence (deterministic)
