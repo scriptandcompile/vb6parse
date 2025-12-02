@@ -50,6 +50,7 @@
 //! - `Filter`: Returns a zero-based array containing a subset of a string array based on filter criteria
 //! - `Fix`: Returns the integer portion of a number
 //! - `Format`: Returns a formatted string expression according to format instructions
+//! - `Format$`: Returns a String formatted according to instructions in a format expression
 //! - `FormatCurrency`: Returns an expression formatted as a currency value using the system currency symbol
 //! - `FormatDateTime`: Returns an expression formatted as a date or time
 //! - `FormatNumber`: Returns an expression formatted as a number
@@ -208,6 +209,7 @@ mod filelen;
 mod filter;
 mod fix;
 mod format;
+mod format_dollar;
 mod formatcurrency;
 mod formatdatetime;
 mod formatnumber;
