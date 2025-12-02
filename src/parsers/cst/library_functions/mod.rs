@@ -39,6 +39,7 @@
 //! - `Dir`: Returns a file or directory name matching a pattern
 //! - `DoEvents`: Yields execution to process other events
 //! - `Environ`: Returns the value of an operating system environment variable
+//! - `Environ$`: Returns the string value associated with an environment variable
 //! - `EOF`: Returns a Boolean indicating whether the end of a file has been reached
 //! - `Error`: Returns the error message corresponding to a given error number
 //! - `Error$`: Returns the error message string corresponding to a given error number
@@ -196,6 +197,7 @@ mod ddb;
 mod dir;
 mod doevents;
 mod environ;
+mod environ_dollar;
 mod eof;
 mod error;
 mod error_dollar;
