@@ -102,6 +102,7 @@
 //! - `Mid`: Returns a specified number of characters from a string
 //! - `Mid$`: Returns a specified number of characters from a string (always returns `String`)
 //! - `MidB`: Returns a specified number of bytes from a string
+//! - `MidB$`: Returns a String containing a specified number of bytes from a string
 //! - `Minute`: Returns the minute of the hour (0-59)
 //! - `MIRR`: Returns the modified internal rate of return for a series of periodic cash flows
 //! - `Month`: Returns the month of the year (1-12)
@@ -264,6 +265,7 @@ mod ltrim_dollar;
 mod mid;
 mod mid_dollar;
 mod midb;
+mod midb_dollar;
 mod minute;
 mod mirr;
 mod month;
