@@ -155,6 +155,7 @@
 //! - `TimeSerial`: Returns a time for a specific hour, minute, and second
 //! - `TimeValue`: Returns a time value from a string expression
 //! - `Trim`: Returns a `String` with both leading and trailing spaces removed
+//! - `Trim$`: Returns a String with both leading and trailing spaces removed
 //! - `TypeName`: Returns a `String` describing the data type of a variable or expression
 //! - `UBound`: Returns the largest available subscript for the indicated dimension of an array
 //! - `UCase`: Returns a `String` that has been converted to uppercase
@@ -325,6 +326,7 @@ mod timer;
 mod timeserial;
 mod timevalue;
 mod trim;
+mod trim_dollar;
 mod typename;
 mod ubound;
 mod ucase;
