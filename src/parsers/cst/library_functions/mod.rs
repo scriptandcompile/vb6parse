@@ -122,6 +122,7 @@
 //! - `Replace`: Returns a `String` in which a specified substring has been replaced with another substring
 //! - `RGB`: Returns a `Long` representing an RGB color value from red, green, and blue color components
 //! - `Right`: Returns a `String` containing a specified number of characters from the right side of a string
+//! - `Right$`: Returns a String containing a specified number of characters from the right side of a string
 //! - `Rnd`: Returns a `Single` containing a pseudo-random number
 //! - `Round`: Returns a number rounded to a specified number of decimal places
 //! - `RTrim`: Returns a `String` with trailing spaces removed
@@ -286,6 +287,7 @@ mod rate;
 mod replace;
 mod rgb;
 mod right;
+mod right_dollar;
 mod rnd;
 mod round;
 mod rtrim;
