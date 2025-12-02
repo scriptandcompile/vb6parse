@@ -39,9 +39,9 @@ impl<'a> Parser<'a> {
                 && !self.at_token(VB6Token::ThenKeyword)
                 && !self.is_at_logical_line_end()
             {
-                // Check for Error$ pattern and merge it
-                if self.at_error_dollar() {
-                    self.consume_error_dollar_as_identifier();
+                // Check for keyword/identifier + $ pattern and merge it
+                if self.at_keyword_dollar() {
+                    self.consume_keyword_dollar_as_identifier();
                 } else {
                     self.consume_token();
                 }
@@ -71,9 +71,9 @@ impl<'a> Parser<'a> {
                         && !self.at_token(VB6Token::ThenKeyword)
                         && !self.is_at_logical_line_end()
                     {
-                        // Check for Error$ pattern and merge it
-                        if self.at_error_dollar() {
-                            self.consume_error_dollar_as_identifier();
+                        // Check for keyword/identifier + $ pattern and merge it
+                        if self.at_keyword_dollar() {
+                            self.consume_keyword_dollar_as_identifier();
                         } else {
                             self.consume_token();
                         }
@@ -81,9 +81,9 @@ impl<'a> Parser<'a> {
                     break;
                 }
 
-                // Check for Error$ pattern and merge it
-                if self.at_error_dollar() {
-                    self.consume_error_dollar_as_identifier();
+                // Check for keyword/identifier + $ pattern and merge it
+                if self.at_keyword_dollar() {
+                    self.consume_keyword_dollar_as_identifier();
                 } else {
                     self.consume_token();
                 }
