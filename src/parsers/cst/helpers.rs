@@ -187,6 +187,7 @@ impl<'a> Parser<'a> {
                 VB6Token::ErrorKeyword
                     | VB6Token::LenKeyword
                     | VB6Token::MidKeyword
+                    | VB6Token::DateKeyword
                     | VB6Token::StringKeyword
             )
         );
@@ -207,7 +208,6 @@ impl<'a> Parser<'a> {
                         | "CHRW"
                         | "COMMAND"
                         | "CURDIR"
-                        | "DATE"
                         | "ENVIRON"
                         | "FORMAT"
                         | "HEX"

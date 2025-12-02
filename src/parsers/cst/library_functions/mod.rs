@@ -28,6 +28,7 @@
 //! - `CurDir$`: Returns the current path for the specified drive
 //! - `CVErr`: Returns a Variant of subtype Error containing an error number
 //! - `Date`: Returns the current system date
+//! - `Date$`: Returns the current system date as a String
 //! - `DateAdd`: Returns a date to which a specified time interval has been added
 //! - `DateDiff`: Returns the number of time intervals between two dates
 //! - `DatePart`: Returns a specified part of a given date
@@ -184,6 +185,7 @@ mod curdir;
 mod curdir_dollar;
 mod cverr;
 mod date;
+mod date_dollar;
 mod dateadd;
 mod datediff;
 mod datepart;
