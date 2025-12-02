@@ -1,4 +1,4 @@
-//! # InStrRev Function
+//! # `InStrRev` Function
 //!
 //! Returns the position of an occurrence of one string within another, from the end of string.
 //!
@@ -10,14 +10,14 @@
 //!
 //! ## Parameters
 //!
-//! - `stringcheck` (Required): String expression being searched
-//! - `stringmatch` (Required): String expression to search for
+//! - `stringcheck` (Required): `String` expression being searched
+//! - `stringmatch` (Required): `String` expression to search for
 //! - `start` (Optional): Numeric expression that sets the starting position for each search. If omitted, -1 is used, which means the search begins at the last character position. If start contains Null, an error occurs
 //! - `compare` (Optional): Numeric value indicating the kind of comparison to use when evaluating substrings. If omitted, a binary comparison is performed
 //!
 //! ### Compare Parameter Values
 //!
-//! - `vbUseCompareOption` (-1): Performs a comparison using the setting of the Option Compare statement
+//! - `vbUseCompareOption` (-1): Performs a comparison using the setting of the `Option Compare` statement
 //! - `vbBinaryCompare` (0): Performs a binary comparison (case-sensitive)
 //! - `vbTextCompare` (1): Performs a textual comparison (case-insensitive)
 //! - `vbDatabaseCompare` (2): Microsoft Access only. Performs a comparison based on information in your database
@@ -26,26 +26,26 @@
 //!
 //! Returns a Long:
 //! - If stringcheck is zero-length: Returns 0
-//! - If stringcheck is Null: Returns Null
+//! - If stringcheck is `Null`: Returns `Null`
 //! - If stringmatch is zero-length: Returns start
-//! - If stringmatch is Null: Returns Null
+//! - If stringmatch is `Null`: Returns `Null`
 //! - If stringmatch is not found: Returns 0
 //! - If stringmatch is found within stringcheck: Returns position where match begins
 //! - If start is greater than length of stringcheck: Search begins at the last character position
 //!
 //! ## Remarks
 //!
-//! The InStrRev function searches from the end of the string backward:
+//! The `InStrRev` function searches from the end of the string backward:
 //!
 //! - Searches from right to left (reverse direction)
 //! - Returns the character position of the LAST occurrence (1-based indexing)
 //! - Default start position is -1 (end of string) if omitted
-//! - Search is case-sensitive by default (vbBinaryCompare)
-//! - Use vbTextCompare for case-insensitive searching
-//! - Unlike InStr, start parameter comes after the strings being compared
+//! - Search is case-sensitive by default (`vbBinaryCompare`)
+//! - Use `vbTextCompare` for case-insensitive searching
+//! - Unlike `InStr`, start parameter comes after the strings being compared
 //! - The returned position is still counted from the beginning (1-based), not from the end
 //! - Useful for finding file extensions, last delimiters, etc.
-//! - More efficient than repeated InStr calls for finding last occurrence
+//! - More efficient than repeated `InStr` calls for finding last occurrence
 //! - The compare parameter affects performance (binary is faster than text)
 //! - Returns 0 if substring not found (test with > 0 for found)
 //!
@@ -442,10 +442,10 @@
 //!
 //! ## Error Handling
 //!
-//! The InStrRev function can raise errors or return Null:
+//! The `InStrRev` function can raise errors or return `Null`:
 //!
 //! - **Type Mismatch (Error 13)**: If arguments are not string-compatible or numeric where expected
-//! - **Invalid use of Null (Error 94)**: If stringcheck or stringmatch is Null and result is assigned to non-Variant
+//! - **Invalid use of Null (Error 94)**: If `stringcheck` or `stringmatch` is `Null` and result is assigned to non-Variant
 //! - **Invalid procedure call (Error 5)**: If start is 0 or negative (except -1)
 //!
 //! ```vb
@@ -472,44 +472,44 @@
 //! - **Binary vs Text Compare**: Binary comparison (vbBinaryCompare) is faster than text comparison
 //! - **String Length**: Performance degrades with very long strings
 //! - **Start Position**: Using specific start position can improve performance for partial searches
-//! - **Reverse Search**: More efficient than repeated InStr calls to find last occurrence
+//! - **Reverse Search**: More efficient than repeated `InStr` calls to find last occurrence
 //! - **Alternative**: For complex pattern matching, consider regular expressions (VBScript.RegExp)
 //!
 //! ## Best Practices
 //!
 //! 1. **Test for Found**: Always check if result > 0 before using position
 //! 2. **Default Start**: Use -1 or omit start parameter to search from end
-//! 3. **Path Operations**: Prefer InStrRev for file path operations (finding last separator)
-//! 4. **Extension Extraction**: InStrRev is ideal for getting file extensions
-//! 5. **Null Handling**: Use Variant for result if strings might be Null
-//! 6. **Parameter Order**: Remember InStrRev has different parameter order than InStr
+//! 3. **Path Operations**: Prefer `InStrRev` for file path operations (finding last separator)
+//! 4. **Extension Extraction**: `InStrRev` is ideal for getting file extensions
+//! 5. **Null Handling**: Use `Variant` for result if strings might be `Null`
+//! 6. **Parameter Order**: Remember `InStrRev` has different parameter order than `InStr`
 //! 7. **Return Value**: Position is still counted from beginning (not from end)
 //!
 //! ## Comparison with Other Functions
 //!
 //! | Function | Purpose | Search Direction | Start Parameter |
 //! |----------|---------|------------------|-----------------|
-//! | InStr | Find substring | Left to right | Optional, before strings |
-//! | InStrRev | Find substring | Right to left | Optional, after strings |
-//! | Like | Pattern matching | N/A | N/A |
-//! | StrComp | Compare strings | N/A | N/A |
+//! | `InStr` | Find substring | Left to right | Optional, before strings |
+//! | `InStrRev` | Find substring | Right to left | Optional, after strings |
+//! | `Like` | Pattern matching | N/A | N/A |
+//! | `StrComp` | Compare strings | N/A | N/A |
 //!
 //! ## Platform and Version Notes
 //!
 //! - Available in VB6 and VBA (not in earlier VB versions)
-//! - Returns Long (32-bit integer), not Integer
+//! - Returns `Long` (32-bit integer), not `Integer`
 //! - 1-based indexing (first character is position 1)
 //! - Position returned is from the start of string, not from the end
 //! - Default start is -1 (search from end)
-//! - Parameter order differs from InStr (strings first, then start)
+//! - Parameter order differs from `InStr` (strings first, then start)
 //! - Maximum string length is approximately 2GB
 //!
 //! ## Limitations
 //!
 //! - Finds only one occurrence (the last one)
 //! - No built-in regex or wildcard support
-//! - Case-insensitive search (vbTextCompare) is slower
-//! - Different parameter order than InStr can cause confusion
+//! - Case-insensitive search (`vbTextCompare`) is slower
+//! - Different parameter order than `InStr` can cause confusion
 //! - Cannot search for multiple substrings in single call
 //! - Performance can degrade with very long strings
 //!

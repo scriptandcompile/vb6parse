@@ -1,6 +1,6 @@
-//! # IsNull Function
+//! # `IsNull` Function
 //!
-//! Returns a Boolean value indicating whether an expression contains no valid data (Null).
+//! Returns a `Boolean` value indicating whether an expression contains no valid data (`Null`).
 //!
 //! ## Syntax
 //!
@@ -15,42 +15,42 @@
 //! ## Return Value
 //!
 //! Returns a Boolean:
-//! - `True` if the expression is Null
+//! - `True` if the expression is `Null`
 //! - `False` if the expression contains valid data
-//! - Null is different from Empty (uninitialized)
-//! - Null is different from zero-length string ("")
-//! - Null is different from zero (0)
-//! - Null propagates through expressions (Null + 5 = Null)
-//! - Used to detect database NULL values
+//! - `Null` is different from `Empty` (uninitialized)
+//! - `Null` is different from zero-length string ("")
+//! - `Null` is different from zero (0)
+//! - `Null` propagates through expressions ```(Null + 5 = Null)```
+//! - Used to detect database `NULL` values
 //!
 //! ## Remarks
 //!
-//! The IsNull function is used to determine whether an expression evaluates to Null:
+//! The `IsNull` function is used to determine whether an expression evaluates to `Null`:
 //!
-//! - Null represents "no valid data" or "unknown value"
-//! - Common in database operations (NULL field values)
-//! - Null is different from Empty, zero, or empty string
-//! - Null propagates: any operation involving Null yields Null
-//! - Use Null for missing or unknown data
-//! - Cannot compare Null with = operator (use IsNull instead)
-//! - `var = Null` is always Null (not True or False)
-//! - Only IsNull can reliably test for Null
-//! - Null can be explicitly assigned: `myVar = Null`
-//! - Only Variant variables can contain Null
-//! - Common pattern: check IsNull before using database field values
-//! - VarType(expr) = vbNull provides same functionality
-//! - Null is tri-state: True, False, Null (for database three-valued logic)
+//! - `Null` represents "no valid data" or "unknown value"
+//! - Common in database operations (`NULL` field values)
+//! - `Null` is different from `Empty`, zero, or empty string
+//! - `Null` propagates: any operation involving `Null` yields `Null`
+//! - Use `Null` for missing or unknown data
+//! - Cannot compare `Null` with = operator (use `IsNull` instead)
+//! - `var = Null` is always `Null` (not `True` or `False`)
+//! - Only `IsNull` can reliably test for `Null`
+//! - `Null` can be explicitly assigned: `myVar = Null`
+//! - Only `Variant` variables can contain `Null`
+//! - Common pattern: check `IsNull` before using database field values
+//! - ```VarType(expr) = vbNull``` provides same functionality
+//! - `Null` is tri-state: `True`, `False`, `Null` (for database three-valued logic)
 //!
 //! ## Typical Uses
 //!
-//! 1. **Database NULL Handling**: Check if database field contains NULL
+//! 1. **Database `NULL` Handling**: Check if database field contains `NULL`
 //! 2. **Data Validation**: Detect missing or unknown values
-//! 3. **Error Prevention**: Avoid errors from Null propagation
+//! 3. **Error Prevention**: Avoid errors from `Null` propagation
 //! 4. **Optional Values**: Represent "not applicable" or "unknown"
-//! 5. **Recordset Processing**: Handle NULL fields safely
+//! 5. **Recordset Processing**: Handle `NULL` fields safely
 //! 6. **Form Input**: Detect unselected combo boxes or list boxes
 //! 7. **API Results**: Check for invalid return values
-//! 8. **Null Coalescing**: Provide defaults for Null values
+//! 8. **`Null` Coalescing**: Provide defaults for `Null` values
 //!
 //! ## Basic Usage Examples
 //!
@@ -456,7 +456,7 @@
 //!
 //! ## Error Handling
 //!
-//! The IsNull function itself does not raise errors:
+//! The `IsNull` function itself does not raise errors:
 //!
 //! ```vb
 //! ' IsNull is safe to call on any value
@@ -483,35 +483,35 @@
 //!
 //! ## Performance Considerations
 //!
-//! - **Fast Operation**: IsNull is a very fast type check
-//! - **Database Overhead**: Null checking is critical for database operations
-//! - **Propagation**: Be aware of Null propagation in calculations
-//! - **Early Check**: Check IsNull early to avoid Null propagation issues
+//! - **Fast Operation**: `IsNull` is a very fast type check
+//! - **Database Overhead**: `Null` checking is critical for database operations
+//! - **Propagation**: Be aware of `Null` propagation in calculations
+//! - **Early Check**: Check `IsNull` early to avoid `Null` propagation issues
 //!
 //! ## Best Practices
 //!
-//! 1. **Always Check Database Fields**: Use IsNull for all database field access
-//! 2. **Never Use = Null**: Always use IsNull, never `var = Null`
-//! 3. **Provide Defaults**: Use Null coalescing pattern for display values
-//! 4. **Document Null Behavior**: Clearly document when functions can return Null
-//! 5. **Combine Checks**: Often check both IsNull and IsEmpty for complete validation
-//! 6. **Handle Propagation**: Be aware that Null propagates through expressions
-//! 7. **Database Inserts**: Convert Null to SQL NULL in INSERT/UPDATE statements
-//! 8. **Form Validation**: Check for Null in combo boxes and optional fields
+//! 1. **Always Check Database Fields**: Use `IsNull` for all database field access
+//! 2. **Never Use = Null**: Always use `IsNull`, never `var = Null`
+//! 3. **Provide Defaults**: Use `Null` coalescing pattern for display values
+//! 4. **Document Null Behavior**: Clearly document when functions can return `Null`
+//! 5. **Combine Checks**: Often check both `IsNull` and `IsEmpty` for complete validation
+//! 6. **Handle Propagation**: Be aware that `Null` propagates through expressions
+//! 7. **Database Inserts**: Convert `Null` to SQL `NULL` in INSERT/UPDATE statements
+//! 8. **Form Validation**: Check for `Null` in combo boxes and optional fields
 //!
 //! ## Comparison with Related Functions
 //!
 //! | Function | Purpose | Returns | Use Case |
 //! |----------|---------|---------|----------|
-//! | IsNull | Check if Null | Boolean | Detect Null values |
-//! | IsEmpty | Check if uninitialized | Boolean | Detect Empty Variants |
-//! | IsError | Check if error value | Boolean | Detect CVErr error values |
-//! | IsMissing | Check if parameter omitted | Boolean | Detect missing Optional Variant |
-//! | VarType | Get variant type | Integer | Detailed type information |
-//! | TypeName | Get type name | String | Type name as string |
-//! | Nz (Access) | Null to zero/string | Variant | MS Access Null coalescing |
+//! | `IsNull` | Check if `Null` | `Boolean` | Detect `Null` values |
+//! | `IsEmpty` | Check if uninitialized | `Boolean` | Detect `Empty` `Variants` |
+//! | `IsError` | Check if error value | `Boolean` | Detect `CVErr` error values |
+//! | `IsMissing` | Check if parameter omitted | `Boolean` | Detect missing Optional `Variant` |
+//! | `VarType` | Get variant type | `Integer` | Detailed type information |
+//! | `TypeName` | Get type name | `String` | Type name as `String` |
+//! | `Nz` (Access) | `Null` to zero/string | `Variant` | MS Access `Null` coalescing |
 //!
-//! ## Null vs Empty vs Zero vs Empty String
+//! ## `Null` vs `Empty` vs `Zero` vs `Empty` `String`
 //!
 //! ```vb
 //! Dim v As Variant
@@ -573,27 +573,27 @@
 //!
 //! - Available in all VB6 versions
 //! - Part of VBA core functions
-//! - Returns Boolean type
-//! - Only Variant variables can contain Null
+//! - Returns `Boolean` type
+//! - Only `Variant` variables can contain `Null`
 //! - Critical for database programming
-//! - MS Access has additional Nz() function for Null coalescing
+//! - MS Access has additional `Nz()` function for `Null` coalescing
 //!
 //! ## Limitations
 //!
-//! - Cannot use = operator to test for Null (must use IsNull)
-//! - Only Variant type can contain Null
-//! - Null propagates through expressions (can be surprising)
-//! - No built-in Null coalescing operator (must use IIf or custom function)
-//! - Null in If statement is treated as False (can be confusing)
-//! - No way to distinguish "Null from database" vs "assigned Null"
+//! - Cannot use = operator to test for `Null` (must use `IsNull`)
+//! - Only `Variant` type can contain `Null`
+//! - `Null` propagates through expressions (can be surprising)
+//! - No built-in `Null` coalescing operator (must use `IIf` or custom function)
+//! - `Null` in `If` statement is treated as `False` (can be confusing)
+//! - No way to distinguish "`Null` from database" vs "assigned `Null`"
 //!
 //! ## Related Functions
 //!
-//! - `IsEmpty`: Check if Variant is uninitialized (Empty)
-//! - `VarType`: Get detailed Variant type information (vbNull = 1)
-//! - `TypeName`: Get type name as string ("Null" for Null values)
-//! - `IIf`: Can be used for simple Null coalescing: `IIf(IsNull(v), default, v)`
-//! - `Nz` (Access only): Null to zero/string conversion
+//! - `IsEmpty`: Check if `Variant` is uninitialized (`Empty`)
+//! - `VarType`: Get detailed `Variant` type information (vbNull = 1)
+//! - `TypeName`: Get type name as string ("Null" for `Null` values)
+//! - `IIf`: Can be used for simple `Null` coalescing: `IIf(IsNull(v), default, v)`
+//! - `Nz` (Access only): `Null` to zero/string conversion
 
 #[cfg(test)]
 mod tests {

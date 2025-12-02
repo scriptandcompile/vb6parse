@@ -1,6 +1,6 @@
-//! # IsError Function
+//! # `IsError` Function
 //!
-//! Returns a Boolean value indicating whether an expression is an error value.
+//! Returns a `Boolean` value indicating whether an expression is an error value.
 //!
 //! ## Syntax
 //!
@@ -14,39 +14,39 @@
 //!
 //! ## Return Value
 //!
-//! Returns a Boolean:
-//! - `True` if the expression is an error value created by CVErr
+//! Returns a `Boolean`:
+//! - `True` if the expression is an error value created by `CVErr`
 //! - `False` if the expression is not an error value
-//! - Only detects error values created with CVErr function
+//! - Only detects error values created with `CVErr` function
 //! - Does not detect runtime errors or error objects
-//! - Works with Variant variables containing error values
-//! - Returns `False` for Null, Empty, or any non-error value
+//! - Works with `Variant` variables containing error values
+//! - Returns `False` for `Null`, `Empty`, or any non-error value
 //!
 //! ## Remarks
 //!
-//! The IsError function is used to determine whether a Variant expression contains an error value:
+//! The `IsError` function is used to determine whether a `Variant` expression contains an error value:
 //!
-//! - Only detects CVErr error values (Variant subtype vbError)
-//! - Does not detect Err object or runtime errors
-//! - Error values are created using CVErr function
-//! - Useful for propagating errors through Variant returns
+//! - Only detects `CVErr` error values (`Variant` subtype `vbError`)
+//! - Does not detect `Err` object or runtime errors
+//! - Error values are created using `CVErr` function
+//! - Useful for propagating errors through `Variant` returns
 //! - Common in functions that need to return error indicators
 //! - Error values are different from Null or Empty
 //! - Can be used to check function return values for errors
 //! - Error values preserve error numbers through call chains
-//! - Use CVErr to create error values, IsError to detect them
-//! - VarType(expr) = vbError provides same functionality
+//! - Use `CVErr` to create error values, `IsError` to detect them
+//! - `VarType(expr) = vbError` provides same functionality
 //! - Error values are uncommon in modern VB6 code
-//! - Most code uses Err.Raise for error handling instead
+//! - Most code uses `Err.Raise` for error handling instead
 //!
 //! ## Typical Uses
 //!
 //! 1. **Error Propagation**: Check if function returned an error value
-//! 2. **Error Value Detection**: Identify CVErr values in Variant data
+//! 2. **Error Value Detection**: Identify `CVErr` values in `Variant` data
 //! 3. **Function Return Checking**: Validate function results
 //! 4. **Array Processing**: Detect errors in array elements
 //! 5. **Data Validation**: Distinguish errors from valid data
-//! 6. **Legacy Code**: Work with older code using CVErr pattern
+//! 6. **Legacy Code**: Work with older code using `CVErr` pattern
 //! 7. **Error Chains**: Propagate errors through multiple function calls
 //! 8. **Conditional Logic**: Branch based on error presence
 //!
@@ -470,7 +470,7 @@
 //!
 //! ## Error Handling
 //!
-//! The IsError function itself does not raise errors:
+//! The `IsError` function itself does not raise errors:
 //!
 //! ```vb
 //! ' IsError is safe to call on any value
@@ -490,35 +490,35 @@
 //!
 //! ## Performance Considerations
 //!
-//! - **Fast Operation**: IsError is a very fast type check
-//! - **Overhead**: CVErr/IsError pattern has more overhead than Err.Raise
+//! - **Fast Operation**: `IsError` is a very fast type check
+//! - **Overhead**: `CVErr`/`IsError` pattern has more overhead than `Err.Raise`
 //! - **Modern Alternative**: Most code uses structured error handling instead
 //! - **Legacy Code**: Primarily seen in older VB6 and Excel VBA code
 //!
 //! ## Best Practices
 //!
-//! 1. **Prefer Err.Raise**: Use structured error handling for most scenarios
-//! 2. **Check Returns**: Always check IsError for functions returning Variant
+//! 1. **Prefer `Err.Raise`**: Use structured error handling for most scenarios
+//! 2. **Check Returns**: Always check `IsError` for functions returning `Variant`
 //! 3. **Propagate Errors**: Pass error values through call chains when appropriate
 //! 4. **Document Behavior**: Clearly document when functions return error values
-//! 5. **Extract Numbers**: Use CLng(errorValue) to get error number from error value
-//! 6. **Combine Checks**: Check IsError, IsNull, and IsEmpty for complete validation
+//! 5. **Extract Numbers**: Use `CLng(errorValue)` to get error number from error value
+//! 6. **Combine Checks**: Check `IsError`, `IsNull`, and `IsEmpty` for complete validation
 //! 7. **Error Messages**: Convert error numbers to messages for user display
-//! 8. **Avoid Overuse**: CVErr pattern less common in modern VB6 code
+//! 8. **Avoid Overuse**: `CVErr` pattern less common in modern VB6 code
 //!
 //! ## Comparison with Related Functions
 //!
 //! | Function | Purpose | Returns | Use Case |
 //! |----------|---------|---------|----------|
-//! | IsError | Check if CVErr value | Boolean | Detect error values |
-//! | CVErr | Create error value | Variant (Error) | Return error indicator |
-//! | IsNull | Check if Null | Boolean | Detect Null values |
-//! | IsEmpty | Check if uninitialized | Boolean | Detect Empty Variants |
-//! | VarType | Get variant type | Integer | Detailed type information |
-//! | Err.Raise | Raise runtime error | N/A | Structured error handling |
-//! | Error$ | Get error description | String | Error message from number |
+//! | `IsError` | Check if `CVErr` value | `Boolean` | Detect error values |
+//! | `CVErr` | Create error value | `Variant` (Error) | Return error indicator |
+//! | `IsNull` | Check if Null | `Boolean` | Detect Null values |
+//! | `IsEmpty` | Check if uninitialized | `Boolean` | Detect Empty Variants |
+//! | `VarType` | Get variant type | `Integer` | Detailed type information |
+//! | `Err.Raise` | Raise runtime error | N/A | Structured error handling |
+//! | `Error$` | Get error description | `String` | Error message from number |
 //!
-//! ## CVErr vs Err.Raise
+//! ## `CVErr` vs `Err.Raise`
 //!
 //! ```vb
 //! ' CVErr pattern (older style)
@@ -554,29 +554,29 @@
 //!
 //! - Available in all VB6 versions
 //! - Part of VBA core functions
-//! - Returns Boolean type
-//! - Only detects CVErr error values (Variant subtype vbError)
-//! - Does not detect Err object or runtime errors
+//! - Returns `Boolean` type
+//! - Only detects `CVErr` error values (Variant subtype vbError)
+//! - Does not detect `Err` object or runtime errors
 //! - More common in Excel VBA than desktop VB6
-//! - Excel has predefined errors: xlErrDiv0, xlErrNA, xlErrName, xlErrNull, xlErrNum, xlErrRef, xlErrValue
+//! - Excel has predefined errors: `xlErrDiv0`, `xlErrNA`, `xlErrName`, `xlErrNull`, `xlErrNum`, `xlErrRef`, `xlErrValue`
 //!
 //! ## Limitations
 //!
-//! - Only detects CVErr error values, not runtime errors
-//! - Does not provide error description (use Error$ function)
+//! - Only detects `CVErr` error values, not runtime errors
+//! - Does not provide error description (use `Error$` function)
 //! - Cannot distinguish different error types beyond number
 //! - Less flexible than structured error handling (Try/Catch equivalent)
 //! - Error values can be confusing when mixed with normal values
 //! - Not widely used in modern VB6 applications
-//! - Requires Variant return types (cannot use with typed returns)
+//! - Requires `Variant` return types (cannot use with typed returns)
 //!
 //! ## Related Functions
 //!
 //! - `CVErr`: Create error value from error number
 //! - `Error$`: Get error description from error number
-//! - `IsNull`: Check if Variant is Null
-//! - `IsEmpty`: Check if Variant is Empty
-//! - `VarType`: Get detailed Variant type information
+//! - `IsNull`: Check if `Variant` is `Null`
+//! - `IsEmpty`: Check if `Variant` is `Empty`
+//! - `VarType`: Get detailed `Variant` type information
 //! - `Err.Raise`: Raise runtime error (preferred modern approach)
 
 #[cfg(test)]

@@ -1,4 +1,4 @@
-//! FormatPercent Function
+//! `FormatPercent` Function
 //!
 //! Returns an expression formatted as a percentage (multiplied by 100) with a trailing % character.
 //!
@@ -36,10 +36,10 @@
 //!
 //! # Remarks
 //!
-//! - The FormatPercent function multiplies the numeric value by 100 and appends a percent sign.
+//! - The `FormatPercent` function multiplies the numeric value by 100 and appends a percent sign.
 //! - When one or more optional arguments are omitted, the computer's regional settings provide the default values.
 //! - The number is formatted according to the computer's locale settings.
-//! - If the expression is Null, FormatPercent returns an empty string.
+//! - If the expression is `Null`, `FormatPercent` returns an empty string.
 //! - The default number of decimal places is 2 (from regional settings).
 //!
 //! # Typical Uses
@@ -171,7 +171,7 @@
 //! lblStatus.Caption = "Target Achievement: " & FormatPercent(achievement, 1)  ' "Target Achievement: 95.0%"
 //! ```
 //!
-//! ## 8. ListBox Population with Percentages
+//! ## 8. `ListBox` Population with Percentages
 //!
 //! ```vb
 //! Dim i As Integer
@@ -350,7 +350,7 @@
 //!
 //! # Performance Considerations
 //!
-//! - FormatPercent is relatively fast for single values but can be optimized in loops
+//! - `FormatPercent` is relatively fast for single values but can be optimized in loops
 //! - For large datasets, consider caching formatted values
 //! - The multiplication by 100 is automatic and efficient
 //! - Regional settings lookup may have slight overhead
@@ -359,17 +359,17 @@
 //!
 //! 1. Use appropriate decimal places for your context (financial: 2, statistics: 1, progress: 0)
 //! 2. Consider the audience when choosing precision
-//! 3. Handle division by zero before calling FormatPercent
+//! 3. Handle division by zero before calling `FormatPercent`
 //! 4. Use consistent formatting throughout your application
 //! 5. Remember that the input is a decimal (0.5 = 50%)
 //! 6. Consider using parentheses for negative values in financial contexts
 //!
 //! # Comparison with Other Functions
 //!
-//! - **FormatNumber**: Does not multiply by 100 or add %, gives more control over formatting
-//! - **FormatCurrency**: Adds currency symbol instead of %, doesn't multiply by 100
+//! - **`FormatNumber`**: Does not multiply by 100 or add %, gives more control over formatting
+//! - **`FormatCurrency`**: Adds currency symbol instead of %, doesn't multiply by 100
 //! - **Format with "%"**: More flexible but requires manual multiplication by 100
-//! - **Str/CStr**: No automatic multiplication or % symbol, no locale support
+//! - **`Str`/`CStr`**: No automatic multiplication or % symbol, no locale support
 //!
 //! # Limitations
 //!

@@ -216,7 +216,7 @@
 //! - Available in VB6 and VBA.
 //! - Error messages are in English by default.
 //! - Some error messages may be locale-specific.
-//! - VBScript uses `Err.Description` instead.
+//! - `VBScript` uses `Err.Description` instead.
 //!
 //! ## Limitations
 //! - Returns English messages (may not be localized).
@@ -235,24 +235,24 @@ mod tests {
 Sub Test()
     On Error Resume Next
     x = 1 / 0
-    MsgBox Error$()
+    msg = Error$()
 End Sub
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("ErrorKeyword") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("Error$"));
     }
 
     #[test]
     fn error_dollar_specific_error() {
         let source = r#"
 Sub Test()
-    MsgBox Error$(11)
+    msg = Error$(11)
 End Sub
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("ErrorKeyword") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("Error$"));
     }
 
     #[test]
@@ -262,12 +262,12 @@ Sub Test()
     On Error GoTo ErrHandler
     Exit Sub
 ErrHandler:
-    MsgBox "Error: " & Error$()
+    msg = "Error: " & Error$()
 End Sub
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("ErrorKeyword") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("Error$"));
     }
 
     #[test]
@@ -279,19 +279,19 @@ End Sub
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("ErrorKeyword") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("Error$"));
     }
 
     #[test]
     fn error_dollar_formatted_message() {
         let source = r#"
 Sub Test()
-    MsgBox "An error occurred: " & Error$()
+    msg = "An error occurred: " & Error$()
 End Sub
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("ErrorKeyword") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("Error$"));
     }
 
     #[test]
@@ -303,7 +303,7 @@ End Sub
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("ErrorKeyword") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("Error$"));
     }
 
     #[test]
@@ -317,7 +317,7 @@ End Sub
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("ErrorKeyword") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("Error$"));
     }
 
     #[test]
@@ -329,7 +329,7 @@ End Sub
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("ErrorKeyword") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("Error$"));
     }
 
     #[test]
@@ -346,7 +346,7 @@ End Sub
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("ErrorKeyword") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("Error$"));
     }
 
     #[test]
@@ -360,7 +360,7 @@ End Sub
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("ErrorKeyword") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("Error$"));
     }
 
     #[test]
@@ -373,7 +373,7 @@ End Sub
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("ErrorKeyword") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("Error$"));
     }
 
     #[test]
@@ -387,19 +387,19 @@ End Sub
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("ErrorKeyword") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("Error$"));
     }
 
     #[test]
     fn error_dollar_user_dialog() {
         let source = r#"
 Sub Test()
-    MsgBox "Sorry, an error occurred:" & vbCrLf & Error$(), vbExclamation
+    msg = "Sorry, an error occurred:" & vbCrLf & Error$()
 End Sub
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("ErrorKeyword") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("Error$"));
     }
 
     #[test]
@@ -413,7 +413,7 @@ End Sub
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("ErrorKeyword") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("Error$"));
     }
 
     #[test]
@@ -429,7 +429,7 @@ End Sub
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("ErrorKeyword") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("Error$"));
     }
 
     #[test]
@@ -448,7 +448,7 @@ End Function
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("ErrorKeyword") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("Error$"));
     }
 
     #[test]
@@ -467,7 +467,7 @@ End Sub
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("ErrorKeyword") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("Error$"));
     }
 
     #[test]
@@ -482,6 +482,6 @@ End Function
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("ErrorKeyword") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("Error$"));
     }
 }

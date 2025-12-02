@@ -1,4 +1,4 @@
-//! # FormatDateTime Function
+//! # `FormatDateTime` Function
 //!
 //! Returns an expression formatted as a date or time.
 //!
@@ -11,15 +11,15 @@
 //! ## Parameters
 //!
 //! - **date**: Required. Date expression to be formatted.
-//! - **namedformat**: Optional. Numeric value that indicates the date/time format used. If omitted, vbGeneralDate is used.
+//! - **namedformat**: Optional. `Numeric` value that indicates the date/time format used. If omitted, `vbGeneralDate` is used.
 //!
 //! ## Named Format Constants
 //!
-//! - **vbGeneralDate** (0): Display a date and/or time. For real numbers, display a date and time. If there is no fractional part, display only a date. If there is no integer part, display time only. Date and time display is determined by system settings.
-//! - **vbLongDate** (1): Display a date using the long date format specified in the computer's regional settings.
-//! - **vbShortDate** (2): Display a date using the short date format specified in the computer's regional settings.
-//! - **vbLongTime** (3): Display a time using the time format specified in the computer's regional settings.
-//! - **vbShortTime** (4): Display a time using the 24-hour format (hh:mm).
+//! - **`vbGeneralDate`** (0): Display a date and/or time. For real numbers, display a date and time. If there is no fractional part, display only a date. If there is no integer part, display time only. Date and time display is determined by system settings.
+//! - **`vbLongDate`** (1): Display a date using the long date format specified in the computer's regional settings.
+//! - **`vbShortDate`** (2): Display a date using the short date format specified in the computer's regional settings.
+//! - **`vbLongTime`** (3): Display a time using the time format specified in the computer's regional settings.
+//! - **`vbShortTime`** (4): Display a time using the 24-hour format (hh:mm).
 //!
 //! ## Return Value
 //!
@@ -158,7 +158,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Format ListBox Items
+//! ### Format `ListBox` Items
 //!
 //! ```vb
 //! Sub PopulateDateList(lstDates As ListBox, dates() As Date)
@@ -459,15 +459,15 @@
 //!
 //! ## Performance Considerations
 //!
-//! - FormatDateTime is fast for predefined formats
-//! - Faster than Format for simple date/time display
+//! - `FormatDateTime` is fast for predefined formats
+//! - Faster than `Format` for simple date/time display
 //! - Locale lookups cached by system
 //! - Minimal overhead for formatting
 //! - Consider caching formatted strings for repeated display
 //!
 //! ## Best Practices
 //!
-//! ### Use FormatDateTime for Simple Formatting
+//! ### Use `FormatDateTime` for Simple Formatting
 //!
 //! ```vb
 //! ' Good - Simple and locale-aware
@@ -500,17 +500,17 @@
 //!
 //! ## Comparison with Other Functions
 //!
-//! ### FormatDateTime vs Format
+//! ### `FormatDateTime` vs `Format`
 //!
 //! ```vb
-//! ' FormatDateTime - Predefined formats only
+//! ' `FormatDateTime` - Predefined formats only
 //! result = FormatDateTime(Now, vbLongDate)
 //!
-//! ' Format - Custom patterns possible
+//! ' `Format` - Custom patterns possible
 //! result = Format(Now, "dddd, mmmm d, yyyy")
 //! ```
 //!
-//! ### FormatDateTime vs DatePart
+//! ### `FormatDateTime` vs `DatePart`
 //!
 //! ```vb
 //! ' FormatDateTime - Returns formatted string
@@ -520,7 +520,7 @@
 //! result = DatePart("m", Now)                ' 1
 //! ```
 //!
-//! ### FormatDateTime vs CStr/Str
+//! ### `FormatDateTime` vs `CStr`/`Str`
 //!
 //! ```vb
 //! ' FormatDateTime - Locale-aware formatting
@@ -535,14 +535,14 @@
 //! - Only 5 predefined formats available
 //! - Cannot customize format patterns
 //! - Uses system locale (cannot specify different locale)
-//! - Less flexible than Format function
+//! - Less flexible than `Format` function
 //! - No control over date/time separators
 //! - Cannot specify culture-specific formats
-//! - Format style depends on Windows settings
+//! - `Format` style depends on Windows settings
 //!
 //! ## Regional Settings Impact
 //!
-//! The FormatDateTime function behavior varies by locale:
+//! The `FormatDateTime` function behavior varies by locale:
 //!
 //! ### vbShortDate
 //! - **United States**: 1/15/2025

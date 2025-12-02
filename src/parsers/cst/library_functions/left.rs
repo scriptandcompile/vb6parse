@@ -475,24 +475,23 @@
 //! ## Best Practices
 //!
 //! 1. **Validate Length**: Ensure length is non-negative
-//! 2. **Null Safety**: Check for Null before calling Left if needed
-//! 3. **StartsWith Pattern**: Use Left for prefix checking
+//! 2. **`Null` Safety**: Check for `Null` before calling `Left` if needed
+//! 3. **`StartsWith` Pattern**: Use `Left` for prefix checking
 //! 4. **Truncation**: Consider word boundaries when truncating display text
-//! 5. **Use Left$ **: For String variables, use Left$ for type safety
-//! 6. **Combine with Len**: Check string length before extracting
-//! 7. **Fixed-Width Data**: Use Left for fixed-width field extraction
-//! 8. **Path Manipulation**: Use Left for drive/path prefix extraction
+//! 5. **Use `Left$`**: For `String` variables, use `Left$` for type safety
+//! 6. **Combine with `Len`**: Check string length before extracting
+//! 7. **Fixed-Width Data**: Use `Left` for fixed-width field extraction
+//! 8. **Path Manipulation**: Use `Left` for drive/path prefix extraction
 //!
 //! ## Comparison with Related Functions
 //!
 //! | Function | Purpose | Parameters | Use Case |
 //! |----------|---------|------------|----------|
-//! | Left | Extract from left | string, length | Get prefix/first N chars |
-//! | Right | Extract from right | string, length | Get suffix/last N chars |
-//! | Mid | Extract from middle | string, start, [length] | Get substring from any position |
-//! | InStr | Find substring | [start,] string1, string2 | Locate substring position |
-//! | Len | Get string length | string | Measure string |
-//!
+//! | `Left` | Extract from left | `String`, `Long` | Get prefix/first N chars |
+//! | `Right` | Extract from right | `String`, `Long` | Get suffix/last N chars |
+//! | `Mid` | Extract from middle | `String`, `Long`, [ `Long` ] | Get substring from any position |
+//! | `InStr` | Find substring | [ `Long`, ] `String`, `String` | Locate substring position |
+//! | `Len` | Get string length | `String` | Measure string |
 //! ## Left vs Mid
 //!
 //! ```vb

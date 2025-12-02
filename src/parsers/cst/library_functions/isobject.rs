@@ -1,6 +1,6 @@
-//! # IsObject Function
+//! # `IsObject` Function
 //!
-//! Returns a Boolean value indicating whether an identifier represents an object variable.
+//! Returns a `Boolean` value indicating whether an identifier represents an object variable.
 //!
 //! ## Syntax
 //!
@@ -14,30 +14,30 @@
 //!
 //! ## Return Value
 //!
-//! Returns a Boolean:
-//! - `True` if the identifier is an object variable (Object, Form, Control, etc.)
+//! Returns a `Boolean`:
+//! - `True` if the identifier is an object variable (`Object`, `Form`, `Control`, etc.)
 //! - `False` if the identifier is not an object variable
-//! - Returns `True` for any object reference (including Nothing)
+//! - Returns `True` for any object reference (including `Nothing`)
 //! - Returns `False` for numeric types, strings, dates, arrays of non-objects
-//! - Returns `False` for Null and Empty
-//! - Works with Variant variables containing object references
-//! - Use to determine if variable can be used with Set statement
+//! - Returns `False` for `Null` and `Empty`
+//! - Works with `Variant` variables containing object references
+//! - Use to determine if variable can be used with `Set` statement
 //!
 //! ## Remarks
 //!
-//! The IsObject function is used to determine whether a variable is an object reference:
+//! The `IsObject` function is used to determine whether a `variable` is an object reference:
 //!
-//! - Returns True for any object variable type (Form, Control, Collection, etc.)
-//! - Returns True even if object is Nothing (uninitialized object reference)
-//! - Returns False for value types (Integer, String, Double, Boolean, etc.)
-//! - Returns False for Null and Empty
+//! - Returns `True` for any object variable type (`Form`, `Control`, `Collection`, etc.)
+//! - Returns `True` even if object is `Nothing` (uninitialized object reference)
+//! - Returns `False` for value types (`Integer`, `String`, `Double`, `Boolean`, etc.)
+//! - Returns `False` for `Null` and `Empty`
 //! - Useful before calling object methods or properties
-//! - Use to determine if Set statement is needed for assignment
+//! - Use to determine if `Set` statement is needed for assignment
 //! - Common in COM/ActiveX programming
-//! - Works with Variant variables containing object references
-//! - Cannot distinguish between different object types (use TypeOf...Is for that)
-//! - VarType(var) = vbObject provides similar but not identical information
-//! - Important for proper cleanup (setting objects to Nothing)
+//! - Works with `Variant` variables containing object references
+//! - Cannot distinguish between different object types (use `TypeOf...Is` for that)
+//! - `VarType(var) = vbObject` provides similar but not identical information
+//! - Important for proper cleanup (setting objects to `Nothing`)
 //! - Use before accessing object members to avoid errors
 //!
 //! ## Typical Uses
@@ -432,7 +432,7 @@
 //!
 //! ## Error Handling
 //!
-//! The IsObject function itself does not raise errors:
+//! The `IsObject` function itself does not raise errors:
 //!
 //! ```vb
 //! ' IsObject is safe to call on any variable
@@ -461,35 +461,35 @@
 //!
 //! ## Performance Considerations
 //!
-//! - **Fast Operation**: IsObject is a very fast type check
-//! - **Variant Overhead**: Using Variant variables has more overhead than typed variables
+//! - **Fast Operation**: `IsObject` is a very fast type check
+//! - **Variant Overhead**: Using `Variant` variables has more overhead than typed variables
 //! - **Early Binding**: When possible, use typed object variables for better performance
 //! - **Frequent Checks**: Cache results if checking same variable multiple times
 //!
 //! ## Best Practices
 //!
-//! 1. **Check Before Use**: Use IsObject before accessing object members
-//! 2. **Proper Assignment**: Use Set for object assignment, regular = for values
-//! 3. **Cleanup Objects**: Set object variables to Nothing when done
-//! 4. **Combine with Is Nothing**: Check both IsObject and Is Nothing for complete validation
-//! 5. **Type-Specific Checks**: Use TypeOf...Is for specific object type testing
+//! 1. **Check Before Use**: Use `IsObject` before accessing object members
+//! 2. **Proper Assignment**: Use `Set` for object assignment, regular = for values
+//! 3. **Cleanup Objects**: `Set` object variables to `Nothing` when done
+//! 4. **Combine with `Is Nothing`**: Check both `IsObject` and `Is Nothing` for complete validation
+//! 5. **Type-Specific Checks**: Use `TypeOf...Is` for specific object type testing
 //! 6. **Error Handling**: Provide clear error messages for type mismatches
-//! 7. **Variant Collections**: Use IsObject when working with mixed-type collections
+//! 7. **Variant Collections**: Use `IsObject` when working with mixed-type collections
 //! 8. **Documentation**: Clearly document when functions accept/return objects
 //!
 //! ## Comparison with Related Functions
 //!
 //! | Function | Purpose | Returns | Use Case |
 //! |----------|---------|---------|----------|
-//! | IsObject | Check if object type | Boolean | Detect object variables |
-//! | TypeOf...Is | Check specific object type | Boolean | Test for specific class/interface |
-//! | Is Nothing | Check if object is Nothing | Boolean | Test if object is initialized |
-//! | VarType | Get variant type | Integer | Detailed type information |
-//! | TypeName | Get type name | String | Type name as string |
-//! | IsNull | Check if Null | Boolean | Detect Null values |
-//! | IsEmpty | Check if uninitialized | Boolean | Detect Empty Variants |
+//! | `IsObject` | Check if object type | `Boolean` | Detect object variables |
+//! | `TypeOf...Is` | Check specific object type | `Boolean` | Test for specific class/interface |
+//! | `Is Nothing` | Check if object is Nothing | `Boolean` | Test if object is initialized |
+//! | `VarType` | Get variant type | `Integer` | Detailed type information |
+//! | `TypeName` | Get type name | `String` | Type name as string |
+//! | `IsNull` | Check if `Null` | `Boolean` | Detect `Null` values |
+//! | `IsEmpty` | Check if uninitialized | `Boolean` | Detect Empty Variants |
 //!
-//! ## IsObject vs TypeOf...Is
+//! ## `IsObject` vs `TypeOf...Is`
 //!
 //! ```vb
 //! Dim obj As Object
@@ -512,7 +512,7 @@
 //! ' Use TypeOf...Is for specific type validation
 //! ```
 //!
-//! ## IsObject with Nothing
+//! ## `IsObject` with `Nothing`
 //!
 //! ```vb
 //! Dim obj As Object
@@ -545,15 +545,15 @@
 //!
 //! - Available in all VB6 versions
 //! - Part of VBA core functions
-//! - Returns Boolean type
-//! - Works with all object types (Form, Control, Collection, COM objects, etc.)
-//! - Returns True for Nothing (object type, but not initialized)
+//! - Returns `Boolean` type
+//! - Works with all object types (`Form`, `Control`, `Collection`, `COM objects`, etc.)
+//! - Returns `True` for `Nothing` (object type, but not initialized)
 //! - Critical for proper object lifecycle management
 //!
 //! ## Limitations
 //!
-//! - Cannot distinguish between different object types (use TypeOf...Is)
-//! - Returns True for Nothing (need to check Is Nothing separately)
+//! - Cannot distinguish between different object types (use `TypeOf...Is`)
+//! - Returns `True` for `Nothing` (need to check `Is Nothing` separately)
 //! - Cannot detect if object has been destroyed/released externally
 //! - Does not validate object's internal state or usability
 //! - Cannot determine object's capabilities or supported interfaces
@@ -561,11 +561,11 @@
 //! ## Related Functions
 //!
 //! - `TypeOf...Is`: Check if object is specific type
-//! - `Is Nothing`: Check if object reference is Nothing
-//! - `VarType`: Get detailed Variant type information (vbObject = 9)
+//! - `Is Nothing`: Check if object reference is `Nothing`
+//! - `VarType`: Get detailed `Variant` type information (`vbObject` = 9)
 //! - `TypeName`: Get type name as string
-//! - `IsNull`: Check if Variant is Null
-//! - `IsEmpty`: Check if Variant is Empty
+//! - `IsNull`: Check if `Variant` is `Null`
+//! - `IsEmpty`: Check if `Variant` is `Empty`
 
 #[cfg(test)]
 mod tests {

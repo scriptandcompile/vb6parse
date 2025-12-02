@@ -1,6 +1,6 @@
-//! # DateValue Function
+//! # `DateValue` Function
 //!
-//! Returns a Variant (Date) containing the date represented by a string expression.
+//! Returns a `Variant` (`Date`) containing the date represented by a string expression.
 //!
 //! ## Syntax
 //!
@@ -10,20 +10,20 @@
 //!
 //! ## Parameters
 //!
-//! - **date**: Required. String expression representing a date from January 1, 100 through
+//! - **date**: Required. `String` expression representing a date from January 1, 100 through
 //!   December 31, 9999. Can also be any expression that can represent a date, a time, or
 //!   both a date and time, in that range.
 //!
 //! ## Return Value
 //!
-//! Returns a Variant of subtype Date. If the string includes valid time information, it's
-//! not returned as part of the date (time is set to midnight). Returns Null if the string
+//! Returns a `Variant` of subtype `Date`. If the string includes valid time information, it's
+//! not returned as part of the date (time is set to midnight). Returns `Null` if the string
 //! cannot be converted to a valid date.
 //!
 //! ## Remarks
 //!
 //! The `DateValue` function is used to convert string representations of dates into actual
-//! Date values. It recognizes dates according to the system locale settings.
+//! `Date` values. It recognizes dates according to the system locale settings.
 //!
 //! **Important Characteristics:**
 //!
@@ -38,7 +38,7 @@
 //!
 //! ## Recognized Date Formats
 //!
-//! DateValue recognizes many formats (locale-dependent):
+//! `DateValue` recognizes many formats (locale-dependent):
 //!
 //! ```vb
 //! ' Numeric formats
@@ -97,7 +97,7 @@
 //! End If
 //! ```
 //!
-//! ### Strip Time from DateTime
+//! ### Strip Time from `DateTime`
 //!
 //! ```vb
 //! Function GetDateOnly(dateTime As Variant) As Date
@@ -480,8 +480,8 @@
 //!
 //! ### Common Errors
 //!
-//! - **Error 13** (Type mismatch): String cannot be recognized as a date
-//! - **Error 5** (Invalid procedure call): Date is outside valid range
+//! - **Error 13** (Type mismatch): `String` cannot be recognized as a date
+//! - **Error 5** (Invalid procedure call): `Date` is outside valid range
 //!
 //! ## Performance Considerations
 //!
@@ -508,7 +508,7 @@
 //! userDate = DateValue(txtInput.Text)  ' May crash
 //! ```
 //!
-//! ### Use IsDate for Pre-validation
+//! ### Use `IsDate` for Pre-validation
 //!
 //! ```vb
 //! If IsDate(txtInput.Text) Then
@@ -518,7 +518,7 @@
 //! End If
 //! ```
 //!
-//! ### Prefer DateSerial for Programmatic Dates
+//! ### Prefer `DateSerial` for Programmatic Dates
 //!
 //! ```vb
 //! ' Good - Fast and unambiguous
@@ -544,7 +544,7 @@
 //!
 //! ## Comparison with Other Functions
 //!
-//! ### DateValue vs DateSerial
+//! ### `DateValue` vs `DateSerial`
 //!
 //! ```vb
 //! ' DateValue - From string representation
@@ -554,7 +554,7 @@
 //! dt = DateSerial(2025, 12, 25)
 //! ```
 //!
-//! ### DateValue vs CDate
+//! ### `DateValue` vs `CDate`
 //!
 //! ```vb
 //! ' DateValue - Returns date portion only (strips time)
@@ -564,7 +564,7 @@
 //! dt = CDate("12/25/2025 3:30 PM")      ' Returns 12/25/2025 15:30:00
 //! ```
 //!
-//! ### DateValue vs IsDate
+//! ### `DateValue` vs `IsDate`
 //!
 //! ```vb
 //! ' IsDate - Tests if string can be converted (returns Boolean)
@@ -579,20 +579,20 @@
 //! - Locale-dependent interpretation can cause unexpected results
 //! - Cannot directly parse custom date formats
 //! - Limited control over parsing rules
-//! - Strips time information (use CDate to preserve time)
+//! - Strips time information (use `CDate` to preserve time)
 //! - Two-digit year interpretation fixed (0-29=2000-2029, 30-99=1930-1999)
 //! - Error handling required for user input
 //!
 //! ## Related Functions
 //!
-//! - `CDate`: Converts expression to Date (preserves time)
+//! - `CDate`: Converts expression to `Date` (preserves time)
 //! - `DateSerial`: Creates date from year, month, day (numeric)
 //! - `IsDate`: Tests if expression can be converted to date
-//! - `Format`: Formats date as string (opposite direction)
-//! - `TimeValue`: Returns time portion from string
+//! - `Format`: Formats date as `String` (opposite direction)
+//! - `TimeValue`: Returns time portion from `String`
 //! - `Year`, `Month`, `Day`: Extract date components
 //! - `Date`: Returns current system date
-//! - `CVDate`: Converts expression to Date (legacy function)
+//! - `CVDate`: Converts expression to `Date` (legacy function)
 
 #[cfg(test)]
 mod tests {

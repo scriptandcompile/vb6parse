@@ -1,6 +1,6 @@
-//! # LBound Function
+//! # `LBound` Function
 //!
-//! Returns a Long containing the smallest available subscript for the indicated dimension of an array.
+//! Returns a `Long` containing the smallest available subscript for the indicated dimension of an array.
 //!
 //! ## Syntax
 //!
@@ -11,41 +11,41 @@
 //! ## Parameters
 //!
 //! - `arrayname` (Required): Name of the array variable
-//! - `dimension` (Optional): Integer specifying which dimension's lower bound to return
+//! - `dimension` (Optional): `Integer` specifying which dimension's lower bound to return
 //!   - If omitted, defaults to 1 (first dimension)
 //!   - Must be between 1 and the number of dimensions in the array
 //!
 //! ## Return Value
 //!
-//! Returns a Long:
+//! Returns a `Long`:
 //! - The smallest available subscript for the specified dimension
-//! - By default, arrays start at 0 unless Option Base 1 is specified
-//! - Returns 0 for standard arrays (Option Base 0)
-//! - Returns 1 for arrays when Option Base 1 is specified
+//! - By default, arrays start at 0 unless `Option Base 1` is specified
+//! - Returns 0 for standard arrays (`Option Base 0`)
+//! - Returns 1 for arrays when `Option Base 1` is specified
 //! - For arrays declared with explicit bounds, returns the specified lower bound
-//! - Dynamic arrays preserve their lower bound across ReDim operations
+//! - Dynamic arrays preserve their lower bound across `ReDim` operations
 //! - Error 9 (Subscript out of range) if dimension exceeds array dimensions
 //! - Error 9 if array has not been dimensioned (for dynamic arrays)
 //!
 //! ## Remarks
 //!
-//! The LBound function is essential for array processing:
+//! The `LBound` function is essential for array processing:
 //!
 //! - Returns the lower bound (minimum index) of an array dimension
-//! - Counterpart to UBound (which returns upper bound)
+//! - Counterpart to `UBound` (which returns upper bound)
 //! - Critical for correctly iterating through arrays
-//! - Default lower bound is 0 (unless Option Base 1)
-//! - Can specify explicit lower bounds: Dim arr(5 To 10) has LBound = 5
+//! - Default lower bound is 0 (unless `Option Base 1`)
+//! - Can specify explicit lower bounds: ```Dim arr(5 To 10)``` has ```LBound = 5```
 //! - Works with multi-dimensional arrays using dimension parameter
 //! - Omitting dimension parameter returns bound of first dimension
-//! - Dynamic arrays must be dimensioned before calling LBound
+//! - Dynamic arrays must be dimensioned before calling `LBound`
 //! - Fixed-size arrays always have bounds available
-//! - ParamArray parameters always have LBound = 0
+//! - `ParamArray` parameters always have ```LBound = 0```
 //! - Essential for writing dimension-agnostic code
-//! - Use with UBound to determine array size: UBound - LBound + 1
+//! - Use with `UBound` to determine array size: ```UBound - LBound + 1```
 //! - Safer than assuming arrays start at 0
-//! - ReDim Preserve maintains lower bounds
-//! - Common in For loops: For i = LBound(arr) To UBound(arr)
+//! - `ReDim Preserve` maintains lower bounds
+//! - Common in For loops: ```For i = LBound(arr) To UBound(arr)```
 //!
 //! ## Typical Uses
 //!
@@ -56,7 +56,7 @@
 //! 5. **Multi-dimensional Arrays**: Access correct dimension bounds
 //! 6. **Dynamic Arrays**: Verify array has been dimensioned
 //! 7. **Generic Functions**: Write functions that work with any array bounds
-//! 8. **Option Base Handling**: Code that works regardless of Option Base setting
+//! 8. **`Option Base` Handling**: Code that works regardless of `Option Base` setting
 //!
 //! ## Basic Usage Examples
 //!
@@ -474,7 +474,7 @@
 //!
 //! ## Error Handling
 //!
-//! LBound can raise errors in specific cases:
+//! `LBound` can raise errors in specific cases:
 //!
 //! ```vb
 //! ' Error 9: Subscript out of range - dimension exceeds array dimensions
@@ -498,9 +498,9 @@
 //!
 //! ## Performance Considerations
 //!
-//! - **Fast Operation**: LBound is a very fast intrinsic function
+//! - **Fast Operation**: `LBound` is a very fast intrinsic function
 //! - **No Overhead**: Direct access to array metadata
-//! - **Cache Results**: If using in loops, cache LBound/UBound values
+//! - **Cache Results**: If using in loops, cache `LBound`/`UBound` values
 //! - **Bounds in Loops**: Better to cache than call repeatedly
 //!
 //! Performance optimization:
@@ -521,26 +521,26 @@
 //!
 //! ## Best Practices
 //!
-//! 1. **Always Use LBound**: Don't assume arrays start at 0
+//! 1. **Always Use `LBound`**: Don't assume arrays start at 0
 //! 2. **Dimension Parameter**: Specify dimension for multi-dimensional arrays
 //! 3. **Error Handling**: Handle undimensioned dynamic arrays
-//! 4. **Array Size**: Use UBound - LBound + 1 for element count
-//! 5. **Cache Values**: Store LBound/UBound in variables for repeated use
+//! 4. **Array Size**: Use ```UBound - LBound + 1``` for element count
+//! 5. **Cache Values**: Store `LBound`/`UBound` in variables for repeated use
 //! 6. **Generic Code**: Write functions that work with any array bounds
-//! 7. **Validate Bounds**: Check if indices are within LBound to UBound range
+//! 7. **Validate Bounds**: Check if indices are within `LBound` to `UBound` range
 //! 8. **Document Assumptions**: Note expected array bounds in comments
 //!
 //! ## Comparison with Related Functions
 //!
 //! | Function | Purpose | Returns | Use Case |
 //! |----------|---------|---------|----------|
-//! | LBound | Get lower bound | Long | Minimum valid index |
-//! | UBound | Get upper bound | Long | Maximum valid index |
-//! | IsArray | Check if array | Boolean | Validate array type |
-//! | Array | Create array | Variant | Initialize arrays |
-//! | ReDim | Resize array | N/A | Dynamic array sizing |
+//! | `LBound` | Get lower bound | `Long` | Minimum valid index |
+//! | `UBound` | Get upper bound | `Long` | Maximum valid index |
+//! | `IsArray` | Check if array | `Boolean` | Validate array type |
+//! | `Array` | Create array | `Variant` | Initialize arrays |
+//! | `ReDim` | Resize array | N/A | Dynamic array sizing |
 //!
-//! ## LBound and Option Base
+//! ## `LBound` and `Option Base`
 //!
 //! ```vb
 //! ' Option Base 0 (default)
@@ -588,12 +588,12 @@
 //! - Part of VBA core functions
 //! - Returns Long type
 //! - Works with all array types (Variant, typed, object arrays)
-//! - ReDim Preserve maintains lower bounds
-//! - ParamArray always has LBound = 0
+//! - `ReDim` Preserve maintains lower bounds
+//! - `ParamArray` always has ```LBound = 0```
 //!
 //! ## Limitations
 //!
-//! - Cannot modify array bounds (use ReDim for that)
+//! - Cannot modify array bounds (use `ReDim` for that)
 //! - Raises error for undimensioned dynamic arrays
 //! - Dimension parameter must be valid (1 to number of dimensions)
 //! - Cannot determine if array is fixed-size or dynamic

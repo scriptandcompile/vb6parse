@@ -500,7 +500,7 @@
 //! dayNum = Day(dateVariant)
 //! ```
 //!
-//! ### Combine with DateSerial for Date Manipulation
+//! ### Combine with `DateSerial` for Date Manipulation
 //!
 //! ```vb
 //! ' Good - Reconstruct date with modified component
@@ -512,7 +512,7 @@
 //!
 //! ## Comparison with Other Functions
 //!
-//! ### Day vs Format
+//! ### `Day` vs `Format`
 //!
 //! ```vb
 //! ' Day - Returns integer, fast
@@ -523,7 +523,7 @@
 //! dayStr = Format(someDate, "d")   ' Returns "15" (no leading zero)
 //! ```
 //!
-//! ### Day vs DatePart
+//! ### `Day` vs `DatePart`
 //!
 //! ```vb
 //! ' Day - Specific function for day of month
@@ -533,7 +533,7 @@
 //! dayNum = DatePart("d", someDate)  ' Same result
 //! ```
 //!
-//! ### Day vs Weekday
+//! ### `Day` vs `Weekday`
 //!
 //! ```vb
 //! ' Day - Day of month (1-31)
@@ -546,7 +546,7 @@
 //! ## Limitations
 //!
 //! - Only returns day of month, not day of year or week
-//! - Returns Null for Null input (Variant propagation)
+//! - Returns `Null` for `Null` input (`Variant` propagation)
 //! - No built-in validation of day validity for given month
 //! - Does not indicate if day is weekend, holiday, etc.
 //! - Cannot distinguish between different months with same day

@@ -1,4 +1,4 @@
-//! Fv Function
+//! `Fv` Function
 //!
 //! Returns a Double specifying the future value of an annuity based on periodic, fixed payments and a fixed interest rate.
 //!
@@ -27,7 +27,7 @@
 //! - The rate and nper arguments must be calculated using payment periods expressed in the same units.
 //! - For example, if rate is calculated using months, nper must also be calculated using months.
 //! - For all arguments, cash paid out (such as deposits to savings) is represented by negative numbers; cash received (such as dividend checks) is represented by positive numbers.
-//! - Fv is related to the Pv function. Fv calculates what a series of payments will be worth in the future, while Pv calculates what a series of future payments is worth now.
+//! - `Fv` is related to the `Pv` function. `Fv` calculates what a series of payments will be worth in the future, while `Pv` calculates what a series of future payments is worth now.
 //!
 //! # Typical Uses
 //!
@@ -592,7 +592,7 @@
 //!
 //! # Performance Considerations
 //!
-//! - Fv is a mathematical calculation, very fast
+//! - `Fv` is a mathematical calculation, very fast
 //! - No I/O or external dependencies
 //! - Safe to call repeatedly in loops for scenario analysis
 //! - Consider caching results if using same parameters multiple times
@@ -610,7 +610,7 @@
 //!
 //! # Comparison with Other Functions
 //!
-//! ## Fv vs Pv
+//! ## `Fv` vs `Pv`
 //!
 //! ```vb
 //! ' Fv: Future value of an investment
@@ -620,7 +620,7 @@
 //! presentValue = Pv(0.06 / 12, 10 * 12, -100)  ' What is it worth today?
 //! ```
 //!
-//! ## Fv vs NPer
+//! ## `Fv` vs `NPer`
 //!
 //! ```vb
 //! ' Fv: Calculate future value given payments

@@ -1,4 +1,4 @@
-//! # CallByName Function
+//! # `CallByName` Function
 //!
 //! Executes a method, sets or returns a property, or sets or returns a field of an object.
 //!
@@ -12,21 +12,21 @@
 //!
 //! - `object` - Required. Object expression on which the function will be executed.
 //! - `procname` - Required. String expression containing the name of the property, method, or field member of the object.
-//! - `calltype` - Required. Member of the VbCallType enumeration representing the type of procedure being called.
-//! - `args()` - Optional. Variant array containing the arguments to be passed to the property, method, or field being called.
+//! - `calltype` - Required. Member of the `VbCallType` enumeration representing the type of procedure being called.
+//! - `args()` - Optional. `Variant` array containing the arguments to be passed to the property, method, or field being called.
 //!
-//! ## VbCallType Constants
+//! ## `VbCallType` Constants
 //!
 //! | Constant | Value | Description |
 //! |----------|-------|-------------|
-//! | VbMethod | 1 | A method is being called |
-//! | VbGet | 2 | A property value is being retrieved |
-//! | VbLet | 4 | A property value is being set |
-//! | VbSet | 8 | A reference to an object is being set |
+//! | `VbMethod` | 1 | A method is being called |
+//! | `VbGet` | 2 | A property value is being retrieved |
+//! | `VbLet` | 4 | A property value is being set |
+//! | `VbSet` | 8 | A reference to an object is being set |
 //!
 //! ## Return Value
 //!
-//! Returns a Variant containing the result of the called property or method. For VbLet and VbSet,
+//! Returns a `Variant` containing the result of the called property or method. For `VbLet` and `VbSet`,
 //! the return value is not meaningful.
 //!
 //! ## Remarks
@@ -41,33 +41,33 @@
 //!
 //! ### Important Notes
 //!
-//! 1. **Late Binding**: CallByName always uses late binding, even if the object variable is early bound
+//! 1. **Late Binding**: `CallByName` always uses late binding, even if the object variable is early bound
 //! 2. **Performance**: Slower than direct method/property calls due to name lookup overhead
-//! 3. **Case Insensitive**: The procname parameter is case-insensitive
+//! 3. **Case Insensitive**: The `procname` parameter is case-insensitive
 //! 4. **Error Handling**: Raises run-time error if the member doesn't exist
 //! 5. **Type Safety**: No compile-time checking of member existence or argument types
 //!
 //! ### Call Type Details
 //!
-//! **VbMethod (1)**:
+//! **`VbMethod` (1)**:
 //! - Calls a Sub or Function
 //! - Returns the function's return value (or Empty for Subs)
 //! - Passes arguments in the args array
 //!
-//! **VbGet (2)**:
+//! **`VbGet` (2)**:
 //! - Retrieves a property value or field value
 //! - Can be used with property procedures (Property Get) or public fields
 //! - For parameterized properties, pass indices in args array
 //!
-//! **VbLet (4)**:
-//! - Sets a property value or field value
+//! **`VbLet` (4)**:
+//! - Sets a `property` value or field value
 //! - For simple data types (numbers, strings, etc.)
 //! - The new value must be the last element in the args array
 //! - For parameterized properties, indices come before the value
 //!
-//! **VbSet (8)**:
+//! **`VbSet` (8)**:
 //! - Sets an object reference property
-//! - Similar to VbLet but for object references
+//! - Similar to `VbLet` but for object references
 //! - Used when you would normally use the Set keyword
 //!
 //! ## Examples
@@ -325,16 +325,16 @@
 //!
 //! ## Error Handling
 //!
-//! Common errors when using CallByName:
+//! Common errors when using `CallByName`:
 //!
 //! - **Error 438**: Object doesn't support this property or method
 //!   - The specified member doesn't exist
-//!   - Check spelling and case (though CallByName is case-insensitive)
+//!   - Check spelling and case (though `CallByName` is case-insensitive)
 //!
 //! - **Error 450**: Wrong number of arguments or invalid property assignment
 //!   - Incorrect number of arguments in the args array
-//!   - Using VbLet for an object (should use VbSet)
-//!   - Using VbSet for a value type (should use VbLet)
+//!   - Using `VbLet` for an object (should use `VbSet`)
+//!   - Using `VbSet` for a value type (should use `VbLet`)
 //!
 //! - **Error 13**: Type mismatch
 //!   - Argument types don't match what the member expects
@@ -350,17 +350,17 @@
 //!
 //! ## Performance Considerations
 //!
-//! - CallByName is significantly slower than direct member access
+//! - `CallByName` is significantly slower than direct member access
 //! - Name resolution happens at runtime, not compile time
 //! - Consider caching frequently accessed members
 //! - Use early binding and direct calls in performance-critical code
-//! - CallByName is best for scenarios where dynamic access is necessary
+//! - `CallByName` is best for scenarios where dynamic access is necessary
 //!
 //! ## Limitations
 //!
 //! - Cannot call private members
 //! - Cannot call Friend members from outside the project
-//! - No IntelliSense support for the member being called
+//! - No `IntelliSense` support for the member being called
 //! - No compile-time type checking
 //! - Cannot call default members by passing empty string
 //! - More difficult to debug than direct calls
@@ -377,7 +377,7 @@
 //! ## Parsing Notes
 //!
 //! The `CallByName` function is not a reserved keyword in VB6. It is parsed as a regular
-//! function call (CallExpression). This module exists primarily for documentation
+//! function call (`CallExpression`). This module exists primarily for documentation
 //! purposes and to provide a comprehensive test suite that validates the parser
 //! correctly handles `CallByName` function calls in various contexts.
 

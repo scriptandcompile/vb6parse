@@ -1,6 +1,6 @@
-//! # Atn Function
+//! # `Atn` Function
 //!
-//! Returns a Double specifying the arctangent of a number.
+//! Returns a `Double` specifying the arctangent of a number.
 //!
 //! ## Syntax
 //!
@@ -10,7 +10,7 @@
 //!
 //! ## Parameters
 //!
-//! - `number` - Required. A Double or any valid numeric expression. The tangent value for which you want the angle.
+//! - `number` - Required. A `Double` or any valid numeric expression. The tangent value for which you want the angle.
 //!
 //! ## Return Value
 //!
@@ -27,11 +27,11 @@
 //!
 //! ### Important Notes
 //!
-//! 1. **Return Type**: Always returns Double regardless of input type
+//! 1. **Return Type**: Always returns `Double` regardless of input type
 //! 2. **Radians**: Result is always in radians, not degrees
 //! 3. **Range**: Return value is between -π/2 and π/2 (-1.5708 to 1.5708 radians)
 //! 4. **Ratio Input**: The argument represents the tangent (opposite/adjacent) of the angle
-//! 5. **Inverse Function**: Atn is the inverse of Tan (Atn(Tan(x)) = x for x in valid range)
+//! 5. **Inverse Function**: `Atn` is the inverse of `Tan` (`Atn(Tan(x)) = x` for x in valid range)
 //!
 //! ### Mathematical Relationship
 //!
@@ -301,37 +301,37 @@
 //!
 //! | Input Type | Converted To | Example |
 //! |------------|--------------|---------|
-//! | Integer    | Double       | Atn(1) → Atn(1.0) |
-//! | Long       | Double       | Atn(10&) → Atn(10.0) |
-//! | Single     | Double       | Atn(1.5!) → Atn(1.5) |
-//! | Double     | Double       | Atn(1.5#) → 1.5 |
-//! | Currency   | Double       | Atn(100@) → Atn(100.0) |
-//! | Variant    | Double       | Depends on content |
+//! | `Integer`  | `Double`     | Atn(1) → Atn(1.0) |
+//! | `Long`     | `Double`     | Atn(10&) → Atn(10.0) |
+//! | `Single`   | `Double`     | Atn(1.5!) → Atn(1.5) |
+//! | `Double`   | `Double`     | Atn(1.5#) → 1.5 |
+//! | `Currency` | `Double`     | Atn(100@) → Atn(100.0) |
+//! | `Variant`  | `Double`     | Depends on content |
 //!
 //! ## Error Conditions
 //!
 //! - **Type Mismatch**: If the argument cannot be converted to a numeric value
-//! - **No overflow**: Unlike some functions, Atn cannot overflow as it's bounded to ±π/2
+//! - **No overflow**: Unlike some functions, `Atn` cannot overflow as it's bounded to ±π/2
 //!
 //! ## Related Functions
 //!
-//! - `Tan`: Returns the tangent of an angle (inverse of Atn)
+//! - `Tan`: Returns the tangent of an angle (inverse of `Atn`)
 //! - `Sin`: Returns the sine of an angle
 //! - `Cos`: Returns the cosine of an angle
-//! - `Sqr`: Returns the square root (used with Atn to calculate other inverse trig functions)
+//! - `Sqr`: Returns the square root (used with `Atn` to calculate other inverse trig functions)
 //! - `Abs`: Returns absolute value (useful in angle calculations)
 //!
 //! ## Performance Notes
 //!
-//! - Atn is a fast intrinsic function
+//! - `Atn` is a fast intrinsic function
 //! - Implemented using CPU floating-point instructions
-//! - No significant performance difference between Integer, Long, or Double arguments
-//! - For repeated π calculations, cache the value of 4 * Atn(1) rather than recalculating
+//! - No significant performance difference between `Integer`, `Long`, or `Double` arguments
+//! - For repeated π calculations, cache the value of 4 * `Atn`(1) rather than recalculating
 //!
 //! ## Parsing Notes
 //!
 //! The `Atn` function is not a reserved keyword in VB6. It is parsed as a regular
-//! function call (CallExpression). This module exists primarily for documentation
+//! function call (`CallExpression`). This module exists primarily for documentation
 //! purposes and to provide a comprehensive test suite that validates the parser
 //! correctly handles `Atn` function calls in various contexts.
 

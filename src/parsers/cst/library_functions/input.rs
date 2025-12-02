@@ -1,6 +1,6 @@
-//! # Input Function
+//! # `Input` Function
 //!
-//! Returns String containing characters from a file opened in Input or Binary mode.
+//! Returns a `String` containing characters from a file opened in `Input` or `Binary` mode.
 //!
 //! ## Syntax
 //!
@@ -10,27 +10,27 @@
 //!
 //! ## Parameters
 //!
-//! - `number` (Required): Long expression specifying the number of characters to return
-//! - `filenumber` (Required): Integer file number used in the Open statement (the # is optional)
+//! - `number` (Required): `Long` expression specifying the number of characters to return
+//! - `filenumber` (Required): `Integer` file number used in the `Open` statement (the # is optional)
 //!
 //! ## Return Value
 //!
-//! Returns a String containing `number` characters read from the file. If fewer than `number`
+//! Returns a `String` containing `number` characters read from the file. If fewer than `number`
 //! characters remain in the file, returns all remaining characters.
 //!
 //! ## Remarks
 //!
-//! The Input function reads data from files:
+//! The `Input` function reads data from files:
 //!
-//! - Used with files opened in Input or Binary mode
+//! - Used with files opened in `Input` or `Binary` mode
 //! - Returns exactly the number of characters requested (or fewer if end of file reached)
-//! - Does not skip or ignore any characters (unlike Input # statement)
+//! - Does not skip or ignore any characters (unlike `Input #` statement)
 //! - Reads all characters including commas, quotes, line feeds, carriage returns, etc.
 //! - The file pointer advances by the number of characters read
-//! - Use EOF function to check for end of file before reading
-//! - For Binary mode files, reads raw bytes
-//! - For Input mode files, reads text characters
-//! - Cannot be used with files opened in Output or Append mode
+//! - Use `EOF` function to check for end of file before reading
+//! - For `Binary` mode files, reads raw bytes
+//! - For `Input` mode files, reads text characters
+//! - Cannot be used with files opened in `Output` or `Append` mode
 //! - The # symbol before filenumber is optional but commonly used
 //!
 //! ## Typical Uses
@@ -410,11 +410,11 @@
 //!
 //! ## Error Handling
 //!
-//! The Input function can raise several errors:
+//! The `Input` function can raise several errors:
 //!
-//! - **Bad file mode (Error 54)**: If file is not opened in Input or Binary mode
+//! - **Bad file mode (Error 54)**: If file is not opened in `Input` or `Binary` mode
 //! - **Bad file number (Error 52)**: If filenumber is invalid or file is not open
-//! - **Input past end of file (Error 62)**: Only if reading past EOF (rare, usually returns partial data)
+//! - **Input past end of file (Error 62)**: Only if reading past `EOF` (rare, usually returns partial data)
 //! - **Type Mismatch (Error 13)**: If number parameter is not numeric
 //!
 //! ```vb
@@ -436,31 +436,31 @@
 //! ## Performance Considerations
 //!
 //! - **Buffer Size**: Reading in larger chunks (4KB-32KB) is more efficient than single bytes
-//! - **String Concatenation**: For large files, use collection of chunks then join
+//! - **`String` Concatenation**: For large files, use collection of chunks then join
 //! - **Memory Usage**: Reading entire large files into memory can cause issues
 //! - **File Mode**: Binary mode is faster than Input mode for raw data
-//! - **LOF Function**: Call LOF once and store result rather than calling repeatedly
+//! - **`LOF` Function**: Call `LOF` once and store result rather than calling repeatedly
 //!
 //! ## Best Practices
 //!
-//! 1. **Check EOF**: Always check EOF before reading to avoid errors
+//! 1. **Check `EOF`**: Always check `EOF` before reading to avoid errors
 //! 2. **Close Files**: Always close files in error handlers to prevent leaks
-//! 3. **Use LOF**: Use LOF to determine file size before reading entire file
+//! 3. **Use `LOF`**: Use `LOF` to determine file size before reading entire file
 //! 4. **Chunk Reading**: Read large files in chunks to manage memory
-//! 5. **Binary Mode**: Use Binary mode for most file reading operations
+//! 5. **Binary Mode**: Use `Binary` mode for most file reading operations
 //! 6. **Error Handling**: Wrap file operations in proper error handling
-//! 7. **Free Resources**: Close files as soon as done reading
+//! 7. **Free Resources**: `Close` files as soon as done reading
 //!
 //! ## Comparison with Other Functions
 //!
 //! | Function/Statement | Purpose | Usage |
 //! |--------------------|---------|-------|
-//! | Input | Read exact number of characters | `s = Input(100, #1)` |
-//! | Input # | Read comma-delimited data | `Input #1, var1, var2` |
-//! | Line Input # | Read entire line | `Line Input #1, s` |
-//! | Get | Read binary data into variables | `Get #1, , myVar` |
-//! | LOF | Get file length | `size = LOF(1)` |
-//! | EOF | Check end of file | `If EOF(1) Then...` |
+//! | `Input` | Read exact number of characters | `s = Input(100, #1)` |
+//! | `Input #` | Read comma-delimited data | `Input #1, var1, var2` |
+//! | `Line Input #` | Read entire line | `Line Input #1, s` |
+//! | `Get` | Read binary data into variables | `Get #1, , myVar` |
+//! | `LOF` | Get file length | `size = LOF(1)` |
+//! | `EOF` | Check end of file | `If EOF(1) Then...` |
 //!
 //! ## Platform and Version Notes
 //!
@@ -472,10 +472,10 @@
 //!
 //! ## Limitations
 //!
-//! - Cannot be used with files opened in Output or Append mode
+//! - Cannot be used with files opened in `Output` or `Append` mode
 //! - Reading very large files into single string may cause memory issues
-//! - No built-in Unicode support (use ADODB.Stream for Unicode)
-//! - String concatenation for large files can be slow
+//! - No built-in Unicode support (use `ADODB.Stream` for Unicode)
+//! - `String` concatenation for large files can be slow
 //! - Limited to approximately 2GB string size on 32-bit systems
 //! - No built-in compression or encoding support
 //!
@@ -485,7 +485,7 @@
 //! - `Line Input #`: Statement for reading complete lines
 //! - `Get`: Statement for reading binary data into variables
 //! - `LOF`: Returns the size of an open file in bytes
-//! - `EOF`: Returns True if at end of file
+//! - `EOF`: Returns `True` if at end of file
 //! - `Seek`: Function/statement for getting/setting file position
 //! - `Open`: Statement for opening files
 //! - `Close`: Statement for closing files

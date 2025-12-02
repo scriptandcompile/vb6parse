@@ -1,4 +1,4 @@
-//! # DoEvents Function
+//! # `DoEvents` Function
 //!
 //! Yields execution so that the operating system can process other events and messages.
 //!
@@ -14,7 +14,7 @@
 //!
 //! ## Return Value
 //!
-//! Returns an Integer representing the number of open forms in stand-alone versions of
+//! Returns an `Integer` representing the number of open forms in stand-alone versions of
 //! Visual Basic. Returns 0 in all other applications.
 //!
 //! ## Remarks
@@ -36,7 +36,7 @@
 //! - Processes Windows messages in the queue
 //! - Can trigger event handlers and user interactions
 //!
-//! ## When to Use DoEvents
+//! ## When to Use `DoEvents`
 //!
 //! - Long-running loops that process data
 //! - File operations on large files
@@ -44,7 +44,7 @@
 //! - Batch processing operations
 //! - Any operation that could make UI unresponsive
 //!
-//! ## When NOT to Use DoEvents
+//! ## When NOT to Use `DoEvents`
 //!
 //! - In event handlers that could be re-entered
 //! - When reentrancy could cause data corruption
@@ -346,7 +346,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Throttled DoEvents
+//! ### Throttled `DoEvents`
 //!
 //! ```vb
 //! Sub ProcessWithThrottledDoEvents()
@@ -443,7 +443,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Smart DoEvents with CPU Management
+//! ### Smart `DoEvents` with CPU Management
 //!
 //! ```vb
 //! Sub ProcessWithCPUManagement()
@@ -523,9 +523,9 @@
 //!
 //! ### Common Errors
 //!
-//! - **Error 11** (Division by zero): Can occur if DoEvents allows user to clear data
-//! - **Error 91** (Object variable not set): If DoEvents allows object to be destroyed
-//! - **Reentrancy errors**: If DoEvents allows same code to be called recursively
+//! - **Error 11** (Division by zero): Can occur if `DoEvents` allows user to clear data
+//! - **Error 91** (Object variable not set): If `DoEvents` allows object to be destroyed
+//! - **Reentrancy errors**: If `DoEvents` allows same code to be called recursively
 //!
 //! ## Performance Considerations
 //!
@@ -535,7 +535,7 @@
 //! - Typical guideline: every 50-100 iterations or every 100ms
 //! - For very fast loops, use time-based checking instead of iteration-based
 //! - Consider alternatives for truly asynchronous operations
-//! - Sleep() between DoEvents can reduce CPU usage in wait loops
+//! - `Sleep()` between `DoEvents` can reduce CPU usage in wait loops
 //!
 //! ## Best Practices
 //!
@@ -599,7 +599,7 @@
 //!
 //! ## Comparison with Other Approaches
 //!
-//! ### DoEvents vs Timer Control
+//! ### `DoEvents` vs Timer Control
 //!
 //! ```vb
 //! ' DoEvents - Synchronous, blocks until complete
@@ -624,7 +624,7 @@
 //! End Sub
 //! ```
 //!
-//! ### DoEvents vs Application.Wait (Excel VBA)
+//! ### `DoEvents` vs `Application.Wait` (Excel VBA)
 //!
 //! ```vb
 //! ' DoEvents - Yields immediately

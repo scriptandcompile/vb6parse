@@ -1,4 +1,4 @@
-//! # GetSetting Function
+//! # `GetSetting` Function
 //!
 //! Returns a registry key setting value from the Windows registry.
 //!
@@ -10,9 +10,9 @@
 //!
 //! ## Parameters
 //!
-//! - `appname` (Required): String expression containing the name of the application or project whose key setting is requested. On Windows, this is a subkey under HKEY_CURRENT_USER\Software\VB and VBA Program Settings.
-//! - `section` (Required): String expression containing the name of the section where the key setting is found.
-//! - `key` (Required): String expression containing the name of the key setting to return.
+//! - `appname` (Required): `String` expression containing the name of the application or project whose key setting is requested. On Windows, this is a subkey under `HKEY_CURRENT_USER\Software\VB and VBA Program Settings`.
+//! - `section` (Required): `String` expression containing the name of the section where the key setting is found.
+//! - `key` (Required): `String` expression containing the name of the key setting to return.
 //! - `default` (Optional): Expression containing the value to return if no value is set in the key setting. If omitted, default is assumed to be a zero-length string ("").
 //!
 //! ## Return Value
@@ -21,15 +21,15 @@
 //!
 //! ## Remarks
 //!
-//! The GetSetting function retrieves settings from the Windows registry that were previously saved using the SaveSetting statement. The settings are stored in the application's subkey under:
+//! The `GetSetting` function retrieves settings from the Windows registry that were previously saved using the `SaveSetting` statement. The settings are stored in the application's subkey under:
 //!
 //! `HKEY_CURRENT_USER\Software\VB and VBA Program Settings\appname\section`
 //!
-//! - If the registry key doesn't exist, GetSetting returns the default value (or "" if no default specified)
-//! - GetSetting only works with the HKEY_CURRENT_USER registry hive
-//! - For more advanced registry access, use Windows API functions like RegOpenKeyEx and RegQueryValueEx
-//! - The appname, section, and key parameters are case-insensitive
-//! - GetSetting is designed to work with SaveSetting, DeleteSetting, and GetAllSettings
+//! - If the registry key doesn't exist, `GetSetting` returns the default value (or "" if no default specified)
+//! - `GetSetting` only works with the `HKEY_CURRENT_USER` registry hive
+//! - For more advanced registry access, use Windows API functions like `RegOpenKeyEx` and `RegQueryValueEx`
+//! - The `appname`, `section`, and `key` parameters are case-insensitive
+//! - `GetSetting` is designed to work with `SaveSetting`, `DeleteSetting`, and `GetAllSettings`
 //! - On non-Windows platforms, behavior may vary or be unsupported
 //!
 //! ## Typical Uses
@@ -246,11 +246,11 @@
 //!
 //! ## Error Handling
 //!
-//! GetSetting generally doesn't raise errors, but returns the default value if the setting doesn't exist:
+//! `GetSetting` generally doesn't raise errors, but returns the default value if the setting doesn't exist:
 //!
 //! - **No Error**: If the registry key doesn't exist, returns default (or "" if no default)
 //! - **No Error**: If appname, section, or key is empty, returns default value
-//! - **Type Mismatch**: Can occur when converting returned String to another type (e.g., CInt)
+//! - **Type Mismatch**: Can occur when converting returned String to another type (e.g., `CInt`)
 //! - **Registry Access**: On systems where registry access is restricted, may return defaults
 //!
 //! ```vb
@@ -270,40 +270,40 @@
 //! - **Registry Access**: Each call accesses the Windows registry, which is slower than memory access
 //! - **Caching**: Consider caching frequently used settings in memory
 //! - **Startup Time**: Loading many settings at startup can slow application initialization
-//! - **Batch Loading**: Use GetAllSettings to retrieve all settings in a section at once for better performance
+//! - **Batch Loading**: Use `GetAllSettings` to retrieve all settings in a section at once for better performance
 //!
 //! ## Best Practices
 //!
 //! 1. **Use Defaults**: Always provide sensible default values
 //! 2. **Validate Values**: Validate retrieved settings before using them
 //! 3. **Cache Settings**: Load settings once and cache them for the session
-//! 4. **Consistent Naming**: Use consistent naming conventions for appname, section, and key
+//! 4. **Consistent Naming**: Use consistent naming conventions for `appname`, `section`, and `key`
 //! 5. **Error Handling**: Use error handling when converting string values to other types
-//! 6. **Cleanup**: Use DeleteSetting to remove obsolete settings
+//! 6. **Cleanup**: Use `DeleteSetting` to remove obsolete settings
 //! 7. **Documentation**: Document all registry keys used by your application
 //!
 //! ## Comparison with Other Registry Functions
 //!
 //! | Function | Purpose | Returns |
 //! |----------|---------|---------|
-//! | GetSetting | Get single registry value | String |
-//! | GetAllSettings | Get all values in a section | Variant array |
-//! | SaveSetting | Save registry value | N/A (statement) |
-//! | DeleteSetting | Delete registry key/section | N/A (statement) |
+//! | `GetSetting` | Get single registry value | `String` |
+//! | `GetAllSettings` | Get all values in a section | `Variant` array |
+//! | `SaveSetting` | Save registry value | N/A (statement) |
+//! | `DeleteSetting` | Delete registry key/section | N/A (statement) |
 //!
 //! ## Platform Compatibility
 //!
-//! - **Windows**: Full support, uses HKEY_CURRENT_USER registry hive
+//! - **Windows**: Full support, uses `HKEY_CURRENT_USER` registry hive
 //! - **Other Platforms**: May use alternative storage mechanisms or be unsupported
-//! - **Registry Location**: HKEY_CURRENT_USER\Software\VB and VBA Program Settings\appname\section\key
+//! - **Registry Location**: `HKEY_CURRENT_USER\Software\VB and VBA Program Settings\appname\section\key`
 //!
 //! ## Limitations
 //!
-//! - Only accesses HKEY_CURRENT_USER hive (use Windows API for other hives)
-//! - Returns String type only (requires conversion for other types)
+//! - Only accesses `HKEY_CURRENT_USER` hive (use Windows API for other hives)
+//! - Returns `String` type only (requires conversion for other types)
 //! - No direct way to check if a key exists (use unique default value trick)
 //! - Limited to VB's registry structure (use Windows API for custom locations)
-//! - No support for REG_BINARY or other complex registry types
+//! - No support for `REG_BINARY` or other complex registry types
 //! - Settings are user-specific, not machine-wide
 //!
 //! ## Related Functions

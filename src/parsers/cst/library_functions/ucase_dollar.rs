@@ -1,4 +1,4 @@
-//! # UCase$ Function
+//! # `UCase$` Function
 //!
 //! Returns a `String` that has been converted to uppercase.
 //! The "$" suffix indicates this function returns a `String` type.

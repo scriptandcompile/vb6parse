@@ -1,4 +1,4 @@
-//! # Array Function
+//! # `Array` Function
 //!
 //! Returns a Variant containing an array.
 //!
@@ -10,28 +10,28 @@
 //!
 //! ## Parts
 //!
-//! - **arglist**: Required. A comma-delimited list of values that are assigned to the elements
+//! - `arglist`: Required. A comma-delimited list of values that are assigned to the elements
 //!   of the array contained within the Variant. If no arguments are specified, an array of zero
 //!   length is created.
 //!
 //! ## Return Value
 //!
-//! Returns a Variant whose subtype is Array containing the specified elements.
+//! Returns a `Variant` whose subtype is `Array` containing the specified elements.
 //!
 //! ## Remarks
 //!
-//! - **Variant Array**: The Array function returns a Variant that contains an array. The array
-//!   elements are Variants that can hold any data type.
-//! - **Zero-Based**: The array created by the Array function is zero-based. The first element
+//! - `Variant Array`: The `Array` function returns a `Variant` that contains an array. The array
+//!   elements are `Variants` that can hold any data type.
+//! - `Zero-Based`: The array created by the `Array` function is zero-based. The first element
 //!   has an index of 0.
-//! - **Dynamic Size**: The size of the array is determined by the number of arguments provided.
-//! - **Mixed Types**: Array elements can be of different types since they are stored as Variants.
-//! - **Assignment**: The result must be assigned to a Variant variable, not an array declared
+//! - `Dynamic Size`: The size of the array is determined by the number of arguments provided.
+//! - `Mixed Types`: `Array` elements can be of different types since they are stored as `Variants`.
+//! - `Assignment`: The result must be assigned to a `Variant` variable, not an array declared
 //!   with specific dimensions.
-//! - **Empty Array**: Calling Array() with no arguments creates a zero-length array.
-//! - **LBound and UBound**: You can use LBound and UBound to determine the array bounds.
-//!   LBound always returns 0, UBound returns (number of elements - 1).
-//! - **Option Base**: The Array function is not affected by Option Base statements; it always
+//! - `Empty Array`: Calling `Array()` with no arguments creates a zero-length array.
+//! - `LBound and UBound`: You can use `LBound` and `UBound` to determine the array bounds.
+//!   `LBound` always returns 0, `UBound` returns (number of elements - 1).
+//! - `Option Base`: The `Array` function is not affected by `Option Base` statements; it always
 //!   creates zero-based arrays.
 //!
 //! ## Examples
@@ -213,12 +213,12 @@
 //!
 //! ## Related Functions
 //!
-//! - **Split**: Splits a string into an array of substrings
-//! - **Join**: Concatenates array elements into a string
-//! - **LBound**: Returns the lowest available subscript for an array dimension
-//! - **UBound**: Returns the highest available subscript for an array dimension
-//! - **IsArray**: Determines whether a variable is an array
-//! - **Filter**: Returns a zero-based array containing a subset of a string array
+//! - `Split`: Splits a string into an array of substrings
+//! - `Join`: Concatenates array elements into a string
+//! - `LBound`: Returns the lowest available subscript for an array dimension
+//! - `UBound`: Returns the highest available subscript for an array dimension
+//! - `IsArray`: Determines whether a variable is an array
+//! - `Filter`: Returns a zero-based array containing a subset of a string array
 //!
 //! ## Important Notes
 //!
@@ -247,24 +247,24 @@
 //!
 //! ### Performance Considerations
 //!
-//! - Array() creates a Variant array, which has more overhead than typed arrays
-//! - For large arrays with known types, consider using ReDim instead
-//! - Array() is best for small, temporary arrays or mixed-type collections
-//! - Each element is a Variant, which uses more memory than native types
+//! - `Array()` creates a `Variant` array, which has more overhead than typed arrays
+//! - For large arrays with known types, consider using `ReDim` instead
+//! - `Array()` is best for small, temporary arrays or mixed-type collections
+//! - Each element is a `Variant`, which uses more memory than native types
 //!
 //! ## Type Information
 //!
 //! | Aspect | Details |
 //! |--------|---------|
-//! | Return Type | Variant (subtype: Array) |
-//! | Element Type | Variant (can hold any type) |
-//! | Lower Bound | Always 0 (not affected by Option Base) |
+//! | Return Type | `Variant` (subtype: Array) |
+//! | Element Type | `Variant` (can hold any type) |
+//! | Lower Bound | Always 0 (not affected by `Option Base`) |
 //! | Upper Bound | Number of arguments - 1 |
 //! | Dimensions | Always single-dimensional |
 //! | Size | Dynamic, determined by argument count |
 //!
-//! Array is parsed as a regular function call (CallExpression)
-//! This module serves as documentation and reference for the Array function
+//! `Array` is parsed as a regular function call (`CallExpression`)
+//! This module serves as documentation and reference for the `Array` function
 
 #[cfg(test)]
 mod test {

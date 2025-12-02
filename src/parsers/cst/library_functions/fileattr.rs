@@ -1,6 +1,6 @@
-//! # FileAttr Function
+//! # `FileAttr` Function
 //!
-//! Returns a Long representing the file mode for files opened using the Open statement,
+//! Returns a `Long` representing the file mode for files opened using the `Open` statement,
 //! or the file attribute information for files, directories, or folders.
 //!
 //! ## Syntax
@@ -11,21 +11,21 @@
 //!
 //! ## Parameters
 //!
-//! - **filenumber**: Required. An Integer containing a valid file number of an open file.
-//! - **returntype**: Required. A Long indicating the type of information to return.
-//!   - **1**: Returns a value indicating the file mode (Input, Output, Append, Binary, Random)
+//! - **filenumber**: Required. An `Integer` containing a valid file number of an open file.
+//! - **returntype**: Required. A `Long` indicating the type of information to return.
+//!   - **1**: Returns a value indicating the file mode (`Input`, `Output`, `Append`, `Binary`, `Random`)
 //!   - **2**: Returns the file handle used by the operating system
 //!
 //! ## Return Value
 //!
-//! Returns a Long value. The meaning depends on the returntype parameter:
+//! Returns a `Long` value. The meaning depends on the returntype parameter:
 //!
 //! ### When returntype = 1 (File Mode):
-//! - **1**: Input mode
-//! - **2**: Output mode
-//! - **4**: Random access mode
-//! - **8**: Append mode
-//! - **32**: Binary mode
+//! - **1**: `Input` mode
+//! - **2**: `Output` mode
+//! - **4**: `Random` access mode
+//! - **8**: `Append` mode
+//! - **32**: `Binary` mode
 //!
 //! ### When returntype = 2 (File Handle):
 //! Returns the operating system file handle (an integer value used by the OS to identify the file).
@@ -38,7 +38,7 @@
 //!
 //! **Important Characteristics:**
 //!
-//! - File must be open before calling FileAttr
+//! - File must be open before calling `FileAttr`
 //! - Error if file number is invalid or file is closed
 //! - returntype must be 1 or 2
 //! - File mode values are mutually exclusive
@@ -732,7 +732,7 @@
 //!
 //! ## Comparison with Other Functions
 //!
-//! ### FileAttr vs GetAttr
+//! ### `FileAttr` vs `GetAttr`
 //!
 //! ```vb
 //! ' FileAttr - For open files, returns mode or handle
@@ -742,7 +742,7 @@
 //! attrs = GetAttr("C:\file.txt")   ' File can be closed
 //! ```
 //!
-//! ### FileAttr vs LOF
+//! ### `FileAttr` vs `LOF`
 //!
 //! ```vb
 //! ' FileAttr - Returns mode or handle

@@ -1,6 +1,6 @@
-//! # CreateObject Function
+//! # `CreateObject` Function
 //!
-//! Creates and returns a reference to an ActiveX object (COM object).
+//! Creates and returns a reference to an `ActiveX` object (`COM` object).
 //!
 //! ## Syntax
 //!
@@ -10,38 +10,38 @@
 //!
 //! ## Parameters
 //!
-//! - **class**: Required. String expression representing the programmatic identifier (ProgID) of
+//! - **`class`**: Required. `String` expression representing the programmatic identifier (`ProgID`) of
 //!   the object to create. The format is typically "Application.ObjectType" or
 //!   "Library.Class".
 //!
-//! - **servername**: Optional. String expression representing the name of the network server where
+//! - **`servername`**: Optional. `String` expression representing the name of the network server where
 //!   the object will be created. If omitted or an empty string (""), the object is created on the
-//!   local machine. This parameter is only used for DCOM (Distributed COM).
+//!   local machine. This parameter is only used for `DCOM` (`Distributed COM`).
 //!
 //! ## Return Value
 //!
-//! Returns an Object reference to the created COM object. The actual type depends on the class
+//! Returns an `Object` reference to the created `COM` object. The actual type depends on the class
 //! specified. Returns `Nothing` if the object cannot be created.
 //!
 //! ## Remarks
 //!
-//! `CreateObject` is used to instantiate COM objects at runtime. This is known as late binding,
+//! `CreateObject` is used to instantiate `COM` objects at runtime. This is known as late binding,
 //! as opposed to early binding where you reference the object library and declare objects with
 //! specific types at design time.
 //!
 //! **Important Characteristics:**
 //!
 //! - Creates objects using late binding (runtime resolution)
-//! - Requires the COM object to be registered on the system
-//! - Returns generic Object type (requires type casting for IntelliSense)
+//! - Requires the `COM` object to be registered on the system
+//! - Returns generic `Object` type (requires type casting for `IntelliSense`)
 //! - Slower than early binding but more flexible
 //! - No compile-time type checking
 //! - Enables automation of external applications
-//! - Can create objects on remote servers (DCOM)
+//! - Can create objects on remote servers (`DCOM`)
 //!
-//! ## Common ProgIDs
+//! ## Common `ProgID`s
 //!
-//! | ProgID | Description |
+//! | `ProgID` | Description |
 //! |--------|-------------|
 //! | "Excel.Application" | Microsoft Excel application |
 //! | "Word.Application" | Microsoft Word application |
@@ -383,22 +383,22 @@
 //!
 //! ### Common Errors
 //!
-//! - **Error 429** (ActiveX component can't create object): Object not registered or not installed
+//! - **Error 429** (`ActiveX` component can't create object): `Object` not registered or not installed
 //! - **Error 70** (Permission denied): Insufficient permissions to create the object
-//! - **Error 462** (The remote server machine does not exist or is unavailable): DCOM server issue
-//! - **Error 13** (Type mismatch): Invalid ProgID format
+//! - **Error 462** (The remote server machine does not exist or is unavailable): `DCOM` server issue
+//! - **Error 13** (Type mismatch): Invalid `ProgID` format
 //!
 //! ## Performance Considerations
 //!
-//! - Late binding (CreateObject) is slower than early binding
-//! - No IntelliSense or compile-time checking with CreateObject
+//! - Late binding (`CreateObject`) is slower than early binding
+//! - No `IntelliSense` or compile-time checking with `CreateObject`
 //! - Reuse objects when possible instead of creating multiple instances
-//! - Always set objects to Nothing when done to release resources
+//! - Always set objects to `Nothing` when done to release resources
 //! - Creating objects on remote servers has network overhead
 //!
 //! ## Early Binding vs Late Binding
 //!
-//! ### Late Binding (CreateObject)
+//! ### Late Binding (`CreateObject`)
 //! ```vb
 //! Dim xlApp As Object  ' Generic Object type
 //! Set xlApp = CreateObject("Excel.Application")
@@ -412,7 +412,7 @@
 //!
 //! **Disadvantages:**
 //! - Slower performance
-//! - No IntelliSense
+//! - No `IntelliSense`
 //! - No compile-time checking
 //! - Errors only at runtime
 //!
@@ -426,7 +426,7 @@
 //!
 //! **Advantages:**
 //! - Faster performance
-//! - IntelliSense support
+//! - `IntelliSense` support
 //! - Compile-time checking
 //! - Better debugging
 //!
@@ -491,8 +491,8 @@
 //! - Requires COM object to be registered on the system
 //! - No compile-time type checking
 //! - Slower than early binding
-//! - No IntelliSense support in IDE
-//! - DCOM requires proper network and security configuration
+//! - No `IntelliSense` support in IDE
+//! - `DCOM` requires proper network and security configuration
 //! - Cannot create objects with parameterized constructors
 //! - Limited to COM/ActiveX objects only
 //!

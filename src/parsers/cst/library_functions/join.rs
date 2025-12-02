@@ -1,4 +1,4 @@
-//! # Join Function
+//! # `Join` Function
 //!
 //! Returns a string created by joining a number of substrings contained in an array.
 //!
@@ -11,31 +11,31 @@
 //! ## Parameters
 //!
 //! - `sourcearray` (Required): One-dimensional array containing substrings to be joined
-//! - `delimiter` (Optional): String used to separate the substrings in the returned string
+//! - `delimiter` (Optional): `String` used to separate the substrings in the returned string
 //!   - If omitted, space character (" ") is used
 //!   - If empty string (""), items are concatenated with no separator
 //!
 //! ## Return Value
 //!
-//! Returns a String:
-//! - String containing all elements of the array joined by the delimiter
-//! - Empty string ("") if array has zero length
-//! - Returns Null if sourcearray is Null
-//! - Each array element is converted to String before joining
-//! - Non-string elements are automatically converted using Str/CStr
-//! - Empty array elements become empty strings in result
+//! Returns a `String`:
+//! - `String` containing all elements of the array joined by the delimiter
+//! - `Empty` string ("") if array has zero length
+//! - Returns `Null` if `sourcearray` is `Null`
+//! - Each array element is converted to `String` before joining
+//! - Non-string elements are automatically converted using `Str`/`CStr`
+//! - `Empty` array elements become empty strings in result
 //! - Trailing/leading spaces in delimiter are preserved
 //!
 //! ## Remarks
 //!
-//! The Join function is the inverse of the Split function:
+//! The `Join` function is the inverse of the Split function:
 //!
 //! - Combines array elements into a single string
 //! - Only works with one-dimensional arrays
 //! - Array elements are converted to strings automatically
 //! - Default delimiter is a space (" ")
-//! - Empty string delimiter concatenates without separators
-//! - Null array returns Null (not an error)
+//! - `Empty` string delimiter concatenates without separators
+//! - `Null` array returns `Null` (not an error)
 //! - Empty array (zero length) returns empty string
 //! - Preserves empty array elements as empty strings
 //! - Very efficient for building strings from multiple parts
@@ -530,23 +530,23 @@
 //! 1. **Use Join for String Building**: Much faster than repeated concatenation
 //! 2. **CSV Generation**: Properly escape values containing delimiters
 //! 3. **Empty Delimiter**: Use "" to concatenate without separators
-//! 4. **Check Array**: Verify array exists before calling Join
-//! 5. **Null Handling**: Be aware Join returns Null for Null arrays
-//! 6. **Line Breaks**: Use vbCrLf, vbLf, or vbCr as delimiter for multi-line text
-//! 7. **Collection to String**: Convert Collection to array first, then Join
-//! 8. **Type Conversion**: Join automatically converts non-string elements
+//! 4. **Check Array**: Verify array exists before calling `Join`
+//! 5. **Null Handling**: Be aware `Join` returns `Null` for `Null` arrays
+//! 6. **Line Breaks**: Use `vbCrLf`, `vbLf`, or `vbCr` as delimiter for multi-line text
+//! 7. **Collection to String**: Convert `Collection` to array first, then `Join`
+//! 8. **Type Conversion**: `Join` automatically converts non-string elements
 //!
 //! ## Comparison with Related Functions
 //!
 //! | Function | Purpose | Input | Output |
 //! |----------|---------|-------|--------|
-//! | Join | Combine array to string | Array | String |
-//! | Split | Split string to array | String | Array |
-//! | String concatenation (&) | Combine two strings | Strings | String |
-//! | Filter | Filter array elements | Array | Array |
-//! | UBound/LBound | Get array bounds | Array | Long |
+//! | `Join` | Combine array to string | `Array` | `String` |
+//! | `Split` | Split string to array | `String` | `Array` |
+//! | `String` concatenation (&) | Combine two strings | `Strings` | `String` |
+//! | `Filter` | Filter array elements | `Array` | `Array` |
+//! | `UBound`/`LBound` | Get array bounds | `Array` | `Long` |
 //!
-//! ## Join vs String Concatenation
+//! ## `Join` vs `String` Concatenation
 //!
 //! ```vb
 //! Dim arr(2) As String
@@ -563,7 +563,7 @@
 //! ' For large arrays, Join is dramatically faster
 //! ```
 //!
-//! ## Join and Split Round-Trip
+//! ## `Join` and `Split` Round-Trip
 //!
 //! ```vb
 //! ' Original string
@@ -582,15 +582,15 @@
 //!
 //! - Added in VB6 and Office 2000 VBA
 //! - Not available in VB5 or earlier
-//! - Part of VBA.Strings module
-//! - Returns String type
+//! - Part of `VBA.Strings` module
+//! - Returns `String` type
 //! - Only works with one-dimensional arrays
-//! - Automatically converts array elements to strings
+//! - Automatically converts array elements to `String`
 //!
 //! ## Limitations
 //!
 //! - Cannot join multi-dimensional arrays (use loops to flatten first)
-//! - Returns Null for Null array (not empty string)
+//! - Returns `Null` for `Null` array (not empty `String`)
 //! - No built-in escaping for CSV (must implement manually)
 //! - Cannot skip empty elements automatically
 //! - No formatting options for numeric values
@@ -598,11 +598,11 @@
 //!
 //! ## Related Functions
 //!
-//! - `Split`: Split string into array (inverse of Join)
+//! - `Split`: Split string into array (inverse of `Join`)
 //! - `Filter`: Filter array elements based on criteria
 //! - `UBound`/`LBound`: Get array bounds
 //! - `Array`: Create array from values
-//! - `Replace`: Replace substrings in string
+//! - `Replace`: Replace substrings in `String`
 
 #[cfg(test)]
 mod tests {

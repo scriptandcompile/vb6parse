@@ -1,24 +1,24 @@
-//! Declare statement parsing for VB6 CST.
+//! `Declare` statement parsing for VB6 CST.
 //!
 //! This module handles parsing of VB6 declaration statements:
-//! - Declare: External function/sub declarations
-//! - Event: Custom event declarations in classes
-//! - Implements: Interface implementation declarations
+//! - `Declare`: External function/sub declarations
+//! - `Event`: Custom event declarations in classes
+//! - `Implements`: Interface implementation declarations
 //!
-//! Declare statement syntax:
-//! \[ Public | Private \] Declare { Sub | Function } name Lib "libname" \[ Alias "aliasname" \] \[ ( arglist ) \] \[ As type \]
+//! `Declare` statement syntax:
+//! `\[ Public | Private \] Declare { Sub | Function } name Lib "libname" \[ Alias "aliasname" \] \[ ( arglist ) \] \[ As type \]`
 //!
-//! Event statement syntax:
-//! \[ Public \] Event eventname \[ ( arglist ) \]
+//! `Event` statement syntax:
+//! `\[ Public \] Event eventname \[ ( arglist ) \]`
 //!
-//! Implements statement syntax:
-//! Implements interfacename
+//! `Implements` statement syntax:
+//! `Implements interfacename`
 //!
-//! Sub statements are handled in the sub_statements module.
-//! Function statements are handled in the function_statements module.
-//! Dim/ReDim and general Variable declarations are handled in the array_statements module.
-//! Property statements are handled in the property_statements module.
-//! Parameter lists are handled in the parameters module.
+//! `Sub` statements are handled in the `sub_statements` module.
+//! `Function` statements are handled in the `function_statements` module.
+//! `Dim`/`ReDim` and general `Variable` declarations are handled in the `array_statements` module.
+//! `Property` statements are handled in the `property_statements` module.
+//! `Parameter` lists are handled in the `parameters` module.
 //!
 //! [Declare Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243324(v=vs.60))
 //! [Event Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/event-statement)
@@ -30,29 +30,29 @@ use crate::parsers::SyntaxKind;
 use super::Parser;
 
 impl<'a> Parser<'a> {
-    /// Parse a Visual Basic 6 Declare statement with syntax:
+    /// Parse a Visual Basic 6 `Declare` statement with syntax:
     ///
-    /// \[ Public | Private \] Declare { Sub | Function } name Lib "libname" \[ Alias "aliasname" \] \[ ( arglist ) \] \[ As type \]
+    /// `\[ Public | Private \] Declare { Sub | Function } name Lib "libname" \[ Alias "aliasname" \] \[ ( arglist ) \] \[ As type \]`
     ///
-    /// The Declare statement syntax has these parts:
+    /// The `Declare` statement syntax has these parts:
     ///
     /// | Part        | Optional / Required | Description |
     /// |-------------|---------------------|-------------|
-    /// | Public      | Optional | Indicates that the Declare statement is accessible to all other procedures in all modules. |
-    /// | Private     | Optional | Indicates that the Declare statement is accessible only to other procedures in the module where it is declared. |
+    /// | Public      | Optional | Indicates that the `Declare` statement is accessible to all other procedures in all modules. |
+    /// | Private     | Optional | Indicates that the `Declare` statement is accessible only to other procedures in the module where it is declared. |
     /// | Sub         | Required | Indicates that the procedure doesn't return a value. |
     /// | Function    | Required | Indicates that the procedure returns a value that can be used in an expression. |
     /// | name        | Required | Name of the external procedure; follows standard variable naming conventions. |
-    /// | Lib         | Required | Indicates that a DLL or code resource contains the procedure being declared. The Lib clause is required for all declarations. |
+    /// | Lib         | Required | Indicates that a DLL or code resource contains the procedure being declared. The `Lib` clause is required for all declarations. |
     /// | libname     | Required | Name of the DLL or code resource that contains the declared procedure. |
     /// | Alias       | Optional | Indicates that the procedure being called has another name in the DLL. This is useful when the external procedure name is the same as a keyword. |
     /// | aliasname   | Optional | Name of the procedure in the DLL or code resource. If the first character is not a number sign (#), aliasname is the name of the procedure's entry point in the DLL. |
     /// | arglist     | Optional | List of variables representing arguments that are passed to the procedure when it is called. |
-    /// | type        | Optional | Data type of the value returned by a Function procedure; may be Byte, Boolean, Integer, Long, Currency, Single, Double, Decimal, Date, String, Object, Variant, or any user-defined type. |
+    /// | type        | Optional | Data type of the value returned by a Function procedure; may be `Byte`, `Boolean`, `Integer`, `Long`, `Currency`, `Single`, `Double`, `Decimal`, `Date`, `String`, `Object`, `Variant`, or any user-defined type. |
     ///
     /// The arglist argument has the following syntax and parts:
     ///
-    /// \[ Optional \] \[ ByVal | ByRef \] \[ ParamArray \] varname \[ ( ) \] \[ As type \]
+    /// `\[ Optional \] \[ ByVal | ByRef \] \[ ParamArray \] varname \[ ( ) \] \[ As type \]`
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243324(v=vs.60))
     pub(super) fn parse_declare_statement(&mut self) {
@@ -135,29 +135,29 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // DeclareStatement
     }
 
-    /// Parse a Visual Basic 6 Event statement with syntax:
+    /// Parse a Visual Basic 6 `Event` statement with syntax:
     ///
-    /// \[ Public \] Event eventname \[ ( arglist ) \]
+    /// `\[ Public \] Event eventname \[ ( arglist ) \]`
     ///
-    /// The Event statement syntax has these parts:
+    /// The `Event` statement syntax has these parts:
     ///
     /// | Part        | Optional / Required | Description |
     /// |-------------|---------------------|-------------|
-    /// | Public      | Optional | Indicates that the Event is accessible to all other procedures in all modules. Events are Public by default. Note that events can't be Private. |
+    /// | Public      | Optional | Indicates that the `Event` is accessible to all other procedures in all modules. Events are Public by default. Note that events can't be Private. |
     /// | eventname   | Required | Name of the event; follows standard variable naming conventions. |
     /// | arglist     | Optional | List of variables representing arguments that are passed to the event handler when the event occurs. |
     ///
-    /// The arglist argument has the following syntax and parts:
+    /// The `arglist` argument has the following syntax and parts:
     ///
-    /// \[ ByVal | ByRef \] varname \[ ( ) \] \[ As type \]
+    /// `\[ ByVal | ByRef \] varname \[ ( ) \] \[ As type \]`
     ///
     /// Remarks:
-    /// - Event statements can appear only in class modules, form modules, and user controls.
-    /// - Events are raised using the RaiseEvent statement.
-    /// - Events declared with Public are available to all procedures in the same project.
-    /// - Events cannot be declared as Private, Static, or Friend.
-    /// - Events cannot have named arguments, Optional arguments, or ParamArray arguments.
-    /// - Events do not have return values.
+    /// - `Event` statements can appear only in class modules, form modules, and user controls.
+    /// - `Event`s are raised using the `RaiseEvent` statement.
+    /// - `Event`s declared with `Public` are available to all procedures in the same project.
+    /// - `Event`s cannot be declared as `Private`, `Static`, or `Friend`.
+    /// - `Event`s cannot have named arguments, `Optional` arguments, or `ParamArray` arguments.
+    /// - `Event`s do not have return values.
     ///
     /// Examples:
     /// ```vb

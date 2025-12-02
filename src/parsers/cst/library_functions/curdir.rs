@@ -1,6 +1,6 @@
-//! # CurDir Function
+//! # `CurDir` Function
 //!
-//! Returns a String representing the current path for the specified drive or the default drive.
+//! Returns a `String` representing the current path for the specified drive or the default drive.
 //!
 //! ## Syntax
 //!
@@ -10,14 +10,14 @@
 //!
 //! ## Parameters
 //!
-//! - **drive**: Optional. String expression that specifies an existing drive. If no drive is
+//! - **`drive`**: Optional. `String` expression that specifies an existing drive. If no drive is
 //!   specified or if drive is a zero-length string (""), `CurDir` returns the path for the
 //!   current drive. The drive parameter can be just the drive letter (e.g., "C") or include
 //!   a colon (e.g., "C:").
 //!
 //! ## Return Value
 //!
-//! Returns a String containing the current directory path for the specified drive. The returned
+//! Returns a `String` containing the current directory path for the specified drive. The returned
 //! path does not include a trailing backslash unless the current directory is the root directory.
 //!
 //! ## Remarks
@@ -446,14 +446,14 @@
 //!
 //! - **Windows**: Returns paths with backslashes (e.g., "C:\Windows")
 //! - **Drive letters**: Windows-specific concept
-//! - **Network paths**: UNC paths (\\server\share) not supported by CurDir
+//! - **Network paths**: `UNC` paths (\\server\share) not supported by `CurDir`
 //! - **Long paths**: Paths longer than 260 characters may cause issues
 //! - **Case sensitivity**: Windows file system is case-insensitive
 //!
 //! ## Limitations
 //!
-//! - Returns only local drive paths, not UNC network paths
-//! - Cannot set the current directory (use ChDir for that)
+//! - Returns only local drive paths, not `UNC` network paths
+//! - Cannot set the current directory (use `ChDir` for that)
 //! - Drive must be available and ready
 //! - Does not validate that the returned path still exists
 //! - Each drive remembers its own current directory independently

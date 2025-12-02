@@ -1,6 +1,6 @@
-//! # IsNumeric Function
+//! # `IsNumeric` Function
 //!
-//! Returns a Boolean value indicating whether an expression can be evaluated as a number.
+//! Returns a `Boolean` value indicating whether an expression can be evaluated as a number.
 //!
 //! ## Syntax
 //!
@@ -10,49 +10,49 @@
 //!
 //! ## Parameters
 //!
-//! - `expression` (Required): Variant expression to test
+//! - `expression` (Required): `Variant` expression to test
 //!
 //! ## Return Value
 //!
-//! Returns a Boolean:
+//! Returns a `Boolean`:
 //! - `True` if the expression can be evaluated as a number
 //! - `False` if the expression cannot be evaluated as a number
 //! - Returns `True` for numeric strings ("123", "45.67", "-89")
 //! - Returns `True` for date/time values (they're stored as numbers)
-//! - Returns `True` for Boolean values (True = -1, False = 0)
-//! - Returns `False` for Null
-//! - Returns `False` for Empty
+//! - Returns `True` for `Boolean` values (True = -1, False = 0)
+//! - Returns `False` for `Null`
+//! - Returns `False` for `Empty`
 //! - Returns `False` for non-numeric strings
 //! - Recognizes hexadecimal (&H) and octal (&O) notation
 //! - Recognizes currency symbols in some locales
 //!
 //! ## Remarks
 //!
-//! The IsNumeric function is used to determine whether an expression can be converted to a number:
+//! The `IsNumeric` function is used to determine whether an expression can be converted to a number:
 //!
 //! - Validates input before numeric conversion
-//! - Prevents Type Mismatch errors from CInt, CLng, CDbl, etc.
-//! - Recognizes various numeric formats (integer, decimal, scientific notation)
+//! - Prevents Type Mismatch errors from `CInt`, `CLng`, `CDbl`, etc.
+//! - Recognizes various numeric formats (`Integer`, `Decimal`, and scientific notation)
 //! - Locale-dependent for currency and decimal separators
-//! - Date/Time values return True (internally stored as Double)
-//! - Boolean values return True (True = -1, False = 0)
-//! - Returns False for Null and Empty
-//! - Hexadecimal literals (&H10) return True
-//! - Octal literals (&O77) return True
+//! - `Date`/`Time` values return `True` (internally stored as `Double`)
+//! - `Boolean` values return `True` (`True` = -1, `False` = 0)
+//! - Returns `False` for `Null` and `Empty`
+//! - Hexadecimal literals (&H10) return `True`
+//! - Octal literals (&O77) return `True`
 //! - Leading/trailing spaces are ignored
 //! - Common in data validation and input processing
 //! - Use before converting strings to numbers
 //! - Cannot distinguish between integer and floating-point capable strings
-//! - VarType and TypeName provide more detailed type information
+//! - `VarType` and `TypeName` provide more detailed type information
 //!
 //! ## Typical Uses
 //!
 //! 1. **Input Validation**: Verify user input is numeric before conversion
-//! 2. **Data Type Checking**: Determine if Variant contains numeric data
+//! 2. **Data Type Checking**: Determine if `Variant` contains numeric data
 //! 3. **Form Validation**: Validate textbox entries contain valid numbers
 //! 4. **File Processing**: Validate data from CSV or text files
 //! 5. **Error Prevention**: Avoid Type Mismatch errors in calculations
-//! 6. **Dynamic Typing**: Handle Variant data with unknown types
+//! 6. **Dynamic Typing**: Handle `Variant` data with unknown types
 //! 7. **Database Import**: Validate data before insertion
 //! 8. **Report Generation**: Filter numeric values from mixed data
 //!
@@ -542,7 +542,7 @@
 //!
 //! ## Error Handling
 //!
-//! The IsNumeric function itself does not raise errors:
+//! The `IsNumeric` function itself does not raise errors:
 //!
 //! ```vb
 //! ' IsNumeric is safe to call on any value
@@ -565,19 +565,19 @@
 //!
 //! ## Performance Considerations
 //!
-//! - **Fast Operation**: IsNumeric is a relatively fast check
+//! - **Fast Operation**: `IsNumeric` is a relatively fast check
 //! - **Locale-Dependent**: May be slower in some locales due to format parsing
 //! - **Cache Results**: If checking the same value multiple times, cache the result
 //! - **Prefer Typed Variables**: When possible, use typed variables to avoid checks
 //!
 //! ## Best Practices
 //!
-//! 1. **Always Validate Input**: Check IsNumeric before converting user input
-//! 2. **Handle All Cases**: Account for Null, Empty, and empty string
+//! 1. **Always Validate Input**: Check `IsNumeric` before converting user input
+//! 2. **Handle All Cases**: Account for `Null`, `Empty`, and empty string
 //! 3. **Provide Feedback**: Give clear error messages when validation fails
-//! 4. **Consider Range**: IsNumeric doesn't check if value fits in target type
+//! 4. **Consider Range**: `IsNumeric` doesn't check if value fits in target type
 //! 5. **Locale Awareness**: Be aware of decimal separator differences across locales
-//! 6. **Combine Checks**: Often combine with IsNull, IsEmpty for complete validation
+//! 6. **Combine Checks**: Often combine with `IsNull`, `IsEmpty` for complete validation
 //! 7. **Type-Specific Validation**: Check if integer is needed vs. any numeric
 //! 8. **Error Messages**: Provide helpful guidance when validation fails
 //!
@@ -585,15 +585,15 @@
 //!
 //! | Function | Purpose | Returns | Use Case |
 //! |----------|---------|---------|----------|
-//! | IsNumeric | Check if numeric | Boolean | Validate numeric data |
-//! | IsDate | Check if date | Boolean | Validate date data |
-//! | IsNull | Check if Null | Boolean | Detect Null values |
-//! | IsEmpty | Check if uninitialized | Boolean | Detect Empty Variants |
-//! | VarType | Get variant type | Integer | Detailed type information |
-//! | TypeName | Get type name | String | Type name as string |
-//! | Val | Extract number | Double | Convert string to number (partial) |
+//! | `IsNumeric` | Check if numeric | `Boolean` | Validate numeric data |
+//! | `IsDate` | Check if date | `Boolean` | Validate date data |
+//! | `IsNull` | Check if `Null` | `Boolean` | Detect `Null` values |
+//! | `IsEmpty` | Check if uninitialized | `Boolean` | Detect `Empty` Variants |
+//! | `VarType` | Get variant type | `Integer` | Detailed type information |
+//! | `TypeName` | Get type name | `String` | Type name as string |
+//! | `Val` | Extract number | `Double` | Convert string to number (partial) |
 //!
-//! ## IsNumeric vs Val Function
+//! ## `IsNumeric` vs `Val` Function
 //!
 //! ```vb
 //! Dim text As String
@@ -618,16 +618,16 @@
 //!
 //! - Available in all VB6 versions
 //! - Part of VBA core functions
-//! - Returns Boolean type
+//! - Returns `Boolean` type
 //! - Locale-dependent for decimal separators and currency
 //! - Recognizes hexadecimal (&H) and octal (&O) notation
-//! - Date/Time values return True
-//! - Boolean values return True
+//! - `Date`/`Time` values return `True`
+//! - `Boolean` values return `True`
 //!
 //! ## Limitations
 //!
 //! - Does not distinguish between integer and floating-point capable values
-//! - Does not check if value fits in target type (Integer, Long, etc.)
+//! - Does not check if value fits in target type (`Integer`, `Long`, etc.)
 //! - Locale-dependent behavior can cause issues across regions
 //! - Cannot validate specific numeric formats (phone numbers, SSN, etc.)
 //! - Scientific notation may not be recognized in all locales

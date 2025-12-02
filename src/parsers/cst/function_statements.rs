@@ -18,33 +18,33 @@ use crate::parsers::SyntaxKind;
 use super::Parser;
 
 impl<'a> Parser<'a> {
-    /// Parse a Visual Basic 6 function with syntax:
+    /// Parse a Visual Basic 6 `Function` with syntax:
     ///
-    /// \[ Public | Private | Friend \] \[ Static \] Function name \[ ( arglist ) \] \[ As type \]
-    /// \[ statements \]
-    /// \[ name = expression \]
-    /// \[ Exit Function \]
-    /// \[ statements \]
-    /// \[ name = expression \]
-    /// End Function
+    /// `\[ Public | Private | Friend \] \[ Static \] Function name \[ ( arglist ) \] \[ As type \]`
+    /// `\[ statements \]`
+    /// `\[ name = expression \]`
+    /// `\[ Exit Function \]`
+    /// `\[ statements \]`
+    /// `\[ name = expression \]`
+    /// `End Function`
     ///
-    /// The Function statement syntax has these parts:
+    /// The `Function` statement syntax has these parts:
     ///
     /// | Part        | Optional / Required | Description |
     /// |-------------|---------------------|-------------|
-    /// | Public      | Optional | Indicates that the Function procedure is accessible to all other procedures in all modules. If used in a module that contains an Option Private, the procedure is not available outside the project. |
-    /// | Private     | Optional | Indicates that the Function procedure is accessible only to other procedures in the module where it is declared. |
-    /// | Friend      | Optional | Used only in a class module. Indicates that the Function procedure is visible throughout the project, but not visible to a controller of an instance of an object. |
-    /// | Static      | Optional | Indicates that the Function procedure's local variables are preserved between calls. The Static attribute doesn't affect variables that are declared outside the Function, even if they are used in the procedure. |
-    /// | name        | Required | Name of the Function; follows standard variable naming conventions. |
-    /// | arglist     | Optional | List of variables representing arguments that are passed to the Function procedure when it is called. Multiple variables are separated by commas. |
-    /// | type        | Optional | Data type of the value returned by the Function procedure; may be Byte, Boolean, Integer, Long, Currency, Single, Double, Decimal (not currently supported), Date, String (except fixed length), Object, Variant, or any user-defined type. |
-    /// | statements  | Optional | Any group of statements to be executed within the Function procedure.
-    /// | expression  | Optional | Return value of the Function. |
+    /// | Public      | Optional | Indicates that the `Function` procedure is accessible to all other procedures in all modules. If used in a module that contains an Option Private, the procedure is not available outside the project. |
+    /// | Private     | Optional | Indicates that the `Function` procedure is accessible only to other procedures in the module where it is declared. |
+    /// | Friend      | Optional | Used only in a class module. Indicates that the `Function` procedure is visible throughout the project, but not visible to a controller of an instance of an object. |
+    /// | Static      | Optional | Indicates that the `Function` procedure's local variables are preserved between calls. The Static attribute doesn't affect variables that are declared outside the `Function`, even if they are used in the procedure. |
+    /// | name        | Required | Name of the `Function`; follows standard variable naming conventions. |
+    /// | arglist     | Optional | List of variables representing arguments that are passed to the `Function` procedure when it is called. Multiple variables are separated by commas. |
+    /// | type        | Optional | Data type of the value returned by the `Function` procedure; may be `Byte`, `Boolean`, `Integer`, `Long`, `Currency`, `Single`, `Double`, `Decimal` (not currently supported), `Date`, `String` (except fixed length), `Object`, `Variant`, or any user-defined type. |
+    /// | statements  | Optional | Any group of statements to be executed within the `Function` procedure.
+    /// | expression  | Optional | Return value of the `Function`. |
     ///
     /// The arglist argument has the following syntax and parts:
     ///
-    /// \[ Optional \] \[ ByVal | ByRef \] \[ ParamArray \] varname \[ ( ) \] \[ As type \] \[ = defaultvalue \]
+    /// `\[ Optional \] \[ ByVal | ByRef \] \[ ParamArray \] varname \[ ( ) \] \[ As type \] \[ = defaultvalue \]`
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/function-statement)
     pub(super) fn parse_function_statement(&mut self) {

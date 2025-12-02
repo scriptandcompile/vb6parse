@@ -1,6 +1,6 @@
-//! # IRR Function
+//! # `IRR` Function
 //!
-//! Returns a Double specifying the internal rate of return for a series of periodic cash flows (payments and receipts).
+//! Returns a `Double` specifying the internal rate of return for a series of periodic cash flows (payments and receipts).
 //!
 //! ## Syntax
 //!
@@ -10,39 +10,39 @@
 //!
 //! ## Parameters
 //!
-//! - `values()` (Required): Array of Double specifying cash flow values. The array must contain at least one positive value (receipt) and one negative value (payment)
-//! - `guess` (Optional): Variant specifying value you estimate will be returned by IRR. If omitted, guess is 0.1 (10 percent)
+//! - `values()` (Required): `Array` of `Double` specifying cash flow values. The array must contain at least one positive value (receipt) and one negative value (payment)
+//! - `guess` (Optional): `Variant` specifying value you estimate will be returned by `IRR`. If omitted, guess is 0.1 (10 percent)
 //!
 //! ## Return Value
 //!
-//! Returns a Double representing the internal rate of return:
+//! Returns a `Double` representing the internal rate of return:
 //! - Expressed as a decimal (0.1 = 10%)
-//! - The discount rate that makes the net present value (NPV) of all cash flows equal to zero
+//! - The discount rate that makes the net present value (`NPV`) of all cash flows equal to zero
 //! - Used to evaluate the profitability of potential investments
-//! - Higher IRR indicates more desirable investment
+//! - Higher `IRR` indicates more desirable investment
 //!
 //! ## Remarks
 //!
 //! The internal rate of return is the interest rate received for an investment consisting of payments and receipts that occur at regular intervals:
 //!
-//! - IRR uses the order of values within the array to interpret the order of cash flows
+//! - `IRR` uses the order of values within the array to interpret the order of cash flows
 //! - Cash flows must occur at regular intervals (monthly, quarterly, annually, etc.)
 //! - First element is typically a negative value (initial investment)
 //! - Array must contain at least one positive and one negative value
-//! - Uses an iterative technique to calculate IRR
+//! - Uses an iterative technique to calculate `IRR`
 //! - Begins with the value of `guess` and cycles through until result is accurate to within 0.00001 percent
-//! - If IRR can't find a result after 20 tries, it fails with Error 5
+//! - If `IRR` can't find a result after 20 tries, it fails with Error 5
 //! - Most cases, you don't need to provide `guess`; if omitted, 10% is assumed
-//! - If IRR returns Error 5, try different value for `guess`
-//! - IRR is closely related to NPV (net present value) function
-//! - IRR is the rate where NPV equals zero: `NPV(IRR(values), values) = 0` (approximately)
+//! - If `IRR` returns Error 5, try different value for `guess`
+//! - `IRR` is closely related to `NPV` (net present value) function
+//! - `IRR` is the rate where `NPV` equals zero: `NPV(IRR(values), values) = 0` (approximately)
 //!
 //! ## Typical Uses
 //!
 //! 1. **Investment Analysis**: Evaluate profitability of potential investments
 //! 2. **Project Evaluation**: Compare multiple projects to select most profitable
 //! 3. **Capital Budgeting**: Assess capital expenditure decisions
-//! 4. **Business Case Analysis**: Justify business investments with ROI calculations
+//! 4. **Business Case Analysis**: Justify business investments with `ROI` calculations
 //! 5. **Equipment Purchase**: Evaluate cost savings from new equipment
 //! 6. **Real Estate Investment**: Analyze property investment returns
 //! 7. **Lease vs Buy**: Compare financial impact of leasing versus purchasing
@@ -563,49 +563,49 @@
 //!
 //! ## Performance Considerations
 //!
-//! - **Iterative Calculation**: IRR uses iterative algorithm that can be slow for complex cash flows
+//! - **Iterative Calculation**: `IRR` uses iterative algorithm that can be slow for complex cash flows
 //! - **Convergence**: May require multiple iterations; providing good `guess` can improve performance
 //! - **Array Size**: Larger arrays take longer to process
-//! - **Caching**: Cache calculated IRR values rather than recalculating repeatedly
+//! - **Caching**: Cache calculated `IRR` values rather than recalculating repeatedly
 //!
 //! ## Best Practices
 //!
 //! 1. **Validate Input**: Ensure array contains at least one positive and one negative value
-//! 2. **Error Handling**: Always wrap IRR in error handler as it may fail to converge
+//! 2. **Error Handling**: Always wrap `IRR` in error handler as it may fail to converge
 //! 3. **Sign Convention**: Use negative for cash outflows (investments), positive for inflows (returns)
 //! 4. **Provide Guess**: For complex cash flows or when default fails, provide appropriate guess value
 //! 5. **Regular Intervals**: Ensure cash flows occur at regular, consistent intervals
 //! 6. **Order Matters**: Values must be in chronological order in the array
-//! 7. **Hurdle Rate**: Compare IRR to hurdle rate or cost of capital to make decisions
-//! 8. **Multiple IRRs**: Be aware that some cash flow patterns can have multiple valid IRRs
-//! 9. **Complement with NPV**: Use NPV alongside IRR for complete investment analysis
+//! 7. **Hurdle Rate**: Compare `IRR` to hurdle rate or cost of capital to make decisions
+//! 8. **Multiple IRRs**: Be aware that some cash flow patterns can have multiple valid `IRR`s
+//! 9. **Complement with NPV**: Use `NPV` alongside `IRR` for complete investment analysis
 //! 10. **Format for Display**: Multiply by 100 and format as percentage for user display
 //!
 //! ## Comparison with Related Functions
 //!
 //! | Function | Purpose | Return Value | Use Case |
 //! |----------|---------|--------------|----------|
-//! | IRR | Internal rate of return | Rate (decimal) | Evaluate single investment profitability |
-//! | MIRR | Modified IRR | Rate (decimal) | Handle reinvestment assumptions |
-//! | NPV | Net present value | Currency amount | Calculate dollar value at given rate |
-//! | PV | Present value | Currency amount | Simple annuity present value |
-//! | FV | Future value | Currency amount | Simple annuity future value |
+//! | `IRR` | Internal rate of return | Rate (`Decimal`) | Evaluate single investment profitability |
+//! | `MIRR` | Modified `IRR` | Rate (`Decimal`) | Handle reinvestment assumptions |
+//! | `NPV` | Net present value | `Currency` amount | Calculate dollar value at given rate |
+//! | `PV` | Present value | `Currency` amount | Simple annuity present value |
+//! | `FV` | Future value | `Currency` amount | Simple annuity future value |
 //!
 //! ## Platform and Version Notes
 //!
 //! - Available in all VB6 versions
 //! - Part of VBA financial functions
-//! - Uses Double precision
-//! - Consistent with Excel's IRR function
+//! - Uses `Double` precision
+//! - Consistent with Excel's `IRR` function
 //! - Maximum 20 iterations for convergence
 //!
 //! ## Limitations
 //!
 //! - Assumes cash flows occur at regular intervals
 //! - May fail to converge for certain cash flow patterns
-//! - Assumes reinvestment at the IRR rate (use MIRR for different assumption)
-//! - Cannot handle irregular time periods between cash flows (use XIRR in Excel for that)
-//! - Multiple IRRs possible for some cash flow patterns (multiple sign changes)
+//! - Assumes reinvestment at the `IRR` rate (use `MIRR` for different assumption)
+//! - Cannot handle irregular time periods between cash flows (use `XIRR` in Excel for that)
+//! - Multiple `IRR`s possible for some cash flow patterns (multiple sign changes)
 //! - Does not account for risk differences between projects
 //!
 //! ## Related Functions

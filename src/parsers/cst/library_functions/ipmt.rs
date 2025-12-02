@@ -1,6 +1,6 @@
-//! # IPmt Function
+//! # `IPmt` Function
 //!
-//! Returns a Double specifying the interest payment for a given period of an annuity based on periodic, fixed payments and a fixed interest rate.
+//! Returns a `Double` specifying the interest payment for a given period of an annuity based on periodic, fixed payments and a fixed interest rate.
 //!
 //! ## Syntax
 //!
@@ -10,19 +10,19 @@
 //!
 //! ## Parameters
 //!
-//! - `rate` (Required): Double specifying interest rate per period. For example, if you get a car loan at an annual percentage rate (APR) of 10 percent and make monthly payments, the rate per period is 0.1/12, or 0.0083
-//! - `per` (Required): Double specifying payment period in the range 1 through nper
-//! - `nper` (Required): Double specifying total number of payment periods in the annuity. For example, if you make monthly payments on a four-year car loan, your loan has 4 * 12 (or 48) payment periods
-//! - `pv` (Required): Double specifying present value, or value today, of a series of future payments or receipts. For example, when you borrow money to buy a car, the loan amount is the present value to the lender of the monthly car payments you will make
-//! - `fv` (Optional): Variant specifying future value or cash balance you want after you've made the final payment. For example, the future value of a loan is $0 because that's its value after the final payment. However, if you want to save $50,000 over 18 years for your child's education, then $50,000 is the future value. If omitted, 0 is assumed
-//! - `type` (Optional): Variant specifying when payments are due. Use 0 if payments are due at the end of the payment period, or use 1 if payments are due at the beginning of the period. If omitted, 0 is assumed
+//! - `rate` (Required): `Double` specifying interest rate per period. For example, if you get a car loan at an annual percentage rate (APR) of 10 percent and make monthly payments, the rate per period is 0.1/12, or 0.0083
+//! - `per` (Required): `Double` specifying payment period in the range 1 through nper
+//! - `nper` (Required): `Double` specifying total number of payment periods in the annuity. For example, if you make monthly payments on a four-year car loan, your loan has 4 * 12 (or 48) payment periods
+//! - `pv` (Required): `Double` specifying present value, or value today, of a series of future payments or receipts. For example, when you borrow money to buy a car, the loan amount is the present value to the lender of the monthly car payments you will make
+//! - `fv` (Optional): `Variant` specifying future value or cash balance you want after you've made the final payment. For example, the future value of a loan is $0 because that's its value after the final payment. However, if you want to save $50,000 over 18 years for your child's education, then $50,000 is the future value. If omitted, 0 is assumed
+//! - `type` (Optional): `Variant` specifying when payments are due. Use 0 if payments are due at the end of the payment period, or use 1 if payments are due at the beginning of the period. If omitted, 0 is assumed
 //!
 //! ## Return Value
 //!
-//! Returns a Double representing the interest payment for the specified period:
+//! Returns a `Double` representing the interest payment for the specified period:
 //! - Negative value indicates money paid out (such as loan interest payments)
 //! - Positive value indicates money received (such as investment interest earnings)
-//! - The sum of interest payments (IPmt) and principal payments (PPmt) equals the total payment for a period
+//! - The sum of interest payments (`IPmt`) and principal payments (`PPmt`) equals the total payment for a period
 //!
 //! ## Remarks
 //!
@@ -37,8 +37,8 @@
 //! - For quarterly payments, divide annual rate by 4, multiply years by 4
 //! - All arguments referring to cash paid out are negative; cash received is positive
 //! - The interest payment varies by period (unlike fixed total payment)
-//! - Use PPmt to calculate the principal portion of a payment
-//! - Use Pmt to calculate the total payment amount
+//! - Use `PPmt` to calculate the principal portion of a payment
+//! - Use `Pmt` to calculate the total payment amount
 //!
 //! ## Typical Uses
 //!
@@ -455,7 +455,7 @@
 //!
 //! ## Error Handling
 //!
-//! The IPmt function can raise errors:
+//! The `IPmt` function can raise errors:
 //!
 //! - **Invalid procedure call (Error 5)**: If `per` is less than 1 or greater than `nper`
 //! - **Type Mismatch (Error 13)**: If arguments are not numeric
@@ -475,10 +475,10 @@
 //!
 //! ## Performance Considerations
 //!
-//! - **Calculation Intensity**: IPmt involves complex financial calculations
+//! - **Calculation Intensity**: `IPmt` involves complex financial calculations
 //! - **Loop Performance**: Calculating all payments can be slow for long-term loans
 //! - **Caching**: Consider caching amortization schedules rather than recalculating
-//! - **Precision**: Uses Double precision for accurate financial calculations
+//! - **Precision**: Uses `Double` precision for accurate financial calculations
 //!
 //! ## Best Practices
 //!
@@ -488,14 +488,14 @@
 //! 4. **Error Handling**: Wrap financial calculations in error handlers
 //! 5. **Rounding**: Round currency values appropriately for display
 //! 6. **Documentation**: Document assumptions about payment timing (beginning/end of period)
-//! 7. **Testing**: Verify that IPmt + PPmt = Pmt for each period
+//! 7. **Testing**: Verify that `IPmt` + `PPmt` = `Pmt` for each period
 //!
 //! ## Platform and Version Notes
 //!
 //! - Available in all VB6 versions
 //! - Part of VBA financial functions
-//! - Uses Double precision (not Currency type)
-//! - Consistent with Excel's IPMT function
+//! - Uses `Double` precision (not Currency type)
+//! - Consistent with Excel's `IPMT` function
 //! - Sign convention follows financial standards
 //!
 //! ## Limitations

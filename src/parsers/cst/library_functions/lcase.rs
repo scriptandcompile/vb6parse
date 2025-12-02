@@ -1,6 +1,6 @@
-//! # LCase Function
+//! # `LCase` Function
 //!
-//! Returns a String that has been converted to lowercase.
+//! Returns a `String` that has been converted to lowercase.
 //!
 //! ## Syntax
 //!
@@ -11,14 +11,14 @@
 //! ## Parameters
 //!
 //! - `string` (Required): Any valid string expression
-//!   - If string contains Null, Null is returned
+//!   - If string contains `Null`, `Null` is returned
 //!
 //! ## Return Value
 //!
-//! Returns a String:
+//! Returns a `String`:
 //! - Contains the same string with all uppercase letters converted to lowercase
 //! - Lowercase letters and non-alphabetic characters are unchanged
-//! - Returns Null if string argument is Null
+//! - Returns `Null` if string argument is `Null`
 //! - Empty string returns empty string
 //! - Only affects A-Z characters (not accented characters in some locales)
 //! - Numbers, punctuation, and symbols are unchanged
@@ -26,21 +26,21 @@
 //!
 //! ## Remarks
 //!
-//! The LCase function converts uppercase letters to lowercase:
+//! The `LCase` function converts uppercase letters to lowercase:
 //!
 //! - Only affects uppercase letters A-Z
 //! - All other characters remain unchanged
-//! - Counterpart to UCase function (converts to uppercase)
-//! - Null propagates through the function (Null input returns Null)
+//! - Counterpart to `UCase` function (converts to uppercase)
+//! - `Null` propagates through the function (`Null` input returns `Null`)
 //! - Does not modify the original string (strings are immutable in VB6)
 //! - Locale-aware in some versions (may affect accented characters)
 //! - Common for case-insensitive string comparisons
 //! - Useful for normalizing user input
 //! - Works with string variables, literals, and expressions
-//! - Can be combined with other string functions (Trim, Replace, etc.)
+//! - Can be combined with other string functions (`Trim`, `Replace`, etc.)
 //! - Performance is generally fast for typical strings
-//! - For single character, consider using LCase$ for slightly better performance
-//! - LCase$ variant returns String type (not Variant)
+//! - For single character, consider using `LCase$` for slightly better performance
+//! - `LCase$` variant returns `String` type (not `Variant`)
 //!
 //! ## Typical Uses
 //!
@@ -401,7 +401,7 @@
 //!
 //! ## Error Handling
 //!
-//! LCase handles special cases gracefully:
+//! `LCase` handles special cases gracefully:
 //!
 //! ```vb
 //! ' Empty string returns empty string
@@ -430,10 +430,10 @@
 //!
 //! ## Performance Considerations
 //!
-//! - **Fast Operation**: LCase is generally very fast
+//! - **Fast Operation**: `LCase` is generally very fast
 //! - **String Creation**: Creates new string (strings are immutable)
 //! - **Repeated Calls**: Cache result if using same lowercase value multiple times
-//! - **LCase$ Variant**: Use LCase$ for String return type (slightly faster)
+//! - **`LCase$` Variant**: Use `LCase$` for `String` return type (slightly faster)
 //!
 //! Performance tips:
 //! ```vb
@@ -448,26 +448,26 @@
 //!
 //! ## Best Practices
 //!
-//! 1. **Case-Insensitive Comparisons**: Always use LCase for both operands
-//! 2. **Null Handling**: Check for Null before calling LCase if needed
+//! 1. **Case-Insensitive Comparisons**: Always use `LCase` for both operands
+//! 2. **Null Handling**: Check for `Null` before calling `LCase` if needed
 //! 3. **Cache Results**: Store converted strings when used multiple times
-//! 4. **Database Comparisons**: Use LCase to normalize before database queries
-//! 5. **User Input**: Always normalize user input with LCase + Trim
+//! 4. **Database Comparisons**: Use `LCase` to normalize before database queries
+//! 5. **User Input**: Always normalize user input with `LCase` + `Trim`
 //! 6. **Email Addresses**: Convert email addresses to lowercase for storage/comparison
-//! 7. **File Extensions**: Use LCase when comparing file extensions
+//! 7. **File Extensions**: Use `LCase` when comparing file extensions
 //! 8. **Configuration**: Use consistent casing for configuration keys
 //!
 //! ## Comparison with Related Functions
 //!
 //! | Function | Purpose | Returns | Use Case |
 //! |----------|---------|---------|----------|
-//! | LCase | Convert to lowercase | String | Lowercase conversion |
-//! | UCase | Convert to uppercase | String | Uppercase conversion |
-//! | StrComp | Compare strings | Integer | Case-sensitive or insensitive comparison |
-//! | Trim | Remove whitespace | String | Cleanup whitespace |
-//! | Left/Right/Mid | Extract substring | String | Substring extraction |
+//! | `LCase` | Convert to lowercase | `String` | Lowercase conversion |
+//! | `UCase` | Convert to uppercase | `String` | Uppercase conversion |
+//! | `StrComp` | Compare strings | `Integer` | Case-sensitive or insensitive comparison |
+//! | `Trim` | Remove whitespace | `String` | Cleanup whitespace |
+//! | `Left`/`Right`/`Mid` | Extract substring | `String` | Substring extraction |
 //!
-//! ## LCase vs StrComp
+//! ## `LCase` vs `StrComp`
 //!
 //! ```vb
 //! Dim str1 As String, str2 As String
@@ -488,7 +488,7 @@
 //! ' StrComp is better when you need the comparison result (-1, 0, 1)
 //! ```
 //!
-//! ## LCase$ Variant
+//! ## `LCase$` Variant
 //!
 //! ```vb
 //! ' LCase returns Variant
@@ -507,7 +507,7 @@
 //!
 //! - Available in all VB6 versions
 //! - Part of VBA core functions
-//! - Returns Variant containing String (LCase$  returns String type)
+//! - Returns `Variant` containing `String` (`LCase$` returns `String` type)
 //! - Locale-aware in some implementations
 //! - Only converts A-Z in most locales
 //! - Accented characters may or may not be converted depending on locale

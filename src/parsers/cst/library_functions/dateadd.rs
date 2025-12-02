@@ -1,6 +1,6 @@
-//! # DateAdd Function
+//! # `DateAdd` Function
 //!
-//! Returns a Variant (Date) containing a date to which a specified time interval has been added.
+//! Returns a `Variant` (`Date`) containing a date to which a specified time interval has been added.
 //!
 //! ## Syntax
 //!
@@ -10,11 +10,11 @@
 //!
 //! ## Parameters
 //!
-//! - **interval**: Required. String expression that is the interval of time you want to add.
+//! - **`interval`**: Required. `String` expression that is the interval of time you want to add.
 //!   See the Interval Settings section for valid values.
-//! - **number**: Required. Numeric expression that is the number of intervals you want to add.
+//! - **`number`**: Required. `Numeric` expression that is the number of intervals you want to add.
 //!   Can be positive (to get dates in the future) or negative (to get dates in the past).
-//! - **date**: Required. Variant (Date) or literal representing the date to which the interval is added.
+//! - **`date`**: Required. `Variant` (`Date`) or literal representing the date to which the interval is added.
 //!
 //! ## Interval Settings
 //!
@@ -35,7 +35,7 @@
 //!
 //! ## Return Value
 //!
-//! Returns a Variant of subtype Date containing the result of adding the specified interval
+//! Returns a `Variant` of subtype `Date` containing the result of adding the specified interval
 //! to the given date. Returns Null if any parameter is Null.
 //!
 //! ## Remarks
@@ -56,7 +56,7 @@
 //!
 //! ## Month and Year Calculations
 //!
-//! When adding months or years, DateAdd ensures the result is valid:
+//! When adding months or years, `DateAdd` ensures the result is valid:
 //! - Jan 31 + 1 month = Feb 28 (or 29 in leap year)
 //! - Jan 31 + 2 months = Mar 31
 //! - Aug 31 - 3 months = May 31
@@ -460,7 +460,7 @@
 //!
 //! ## Comparison with Other Date Functions
 //!
-//! ### DateAdd vs DateDiff
+//! ### `DateAdd` vs `DateDiff`
 //!
 //! ```vb
 //! ' DateAdd - Adds interval to date, returns new date
@@ -472,7 +472,7 @@
 //! difference = DateDiff("d", Date, future)  ' Returns 30
 //! ```
 //!
-//! ### DateAdd vs Simple Arithmetic
+//! ### `DateAdd` vs Simple Arithmetic
 //!
 //! ```vb
 //! ' Simple arithmetic works for days

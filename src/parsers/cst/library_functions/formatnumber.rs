@@ -1,4 +1,4 @@
-//! # FormatNumber Function
+//! # `FormatNumber` Function
 //!
 //! Returns an expression formatted as a number.
 //!
@@ -11,7 +11,7 @@
 //! ## Parameters
 //!
 //! - **expression**: Required. Expression to be formatted.
-//! - **numdigitsafterdecimal**: Optional. Numeric value indicating how many places to the right of the decimal are displayed. Default is -1, which indicates the computer's regional settings are used.
+//! - **numdigitsafterdecimal**: Optional. `Numeric` value indicating how many places to the right of the decimal are displayed. Default is -1, which indicates the computer's regional settings are used.
 //! - **includeleadingdigit**: Optional. Tristate constant that indicates whether a leading zero is displayed for fractional values. See Settings for values.
 //! - **useparensfornegativenumbers**: Optional. Tristate constant that indicates whether to place negative values within parentheses. See Settings for values.
 //! - **groupdigits**: Optional. Tristate constant that indicates whether numbers are grouped using the group delimiter specified in the computer's regional settings. See Settings for values.
@@ -31,7 +31,7 @@
 //! ## Remarks
 //!
 //! The `FormatNumber` function provides a simple way to format numeric values using
-//! the system's locale settings. Unlike FormatCurrency, it does not add a currency symbol,
+//! the system's locale settings. Unlike `FormatCurrency`, it does not add a currency symbol,
 //! making it ideal for general numeric display.
 //!
 //! **Important Characteristics:**
@@ -259,7 +259,7 @@
 //! End Function
 //! ```
 //!
-//! ### ListBox Population with Numbers
+//! ### `ListBox` Population with Numbers
 //!
 //! ```vb
 //! Sub PopulateNumberList(lst As ListBox, values() As Double, decimals As Integer)
@@ -460,8 +460,8 @@
 //!
 //! ## Performance Considerations
 //!
-//! - FormatNumber is fast for simple formatting
-//! - Slightly slower than Format for custom patterns
+//! - `FormatNumber` is fast for simple formatting
+//! - Slightly slower than `Format` for custom patterns
 //! - Faster than building format strings manually
 //! - Locale lookups cached by system
 //! - Avoid repeated calls in tight loops if possible
@@ -469,7 +469,7 @@
 //!
 //! ## Best Practices
 //!
-//! ### Use FormatNumber for General Numeric Display
+//! ### Use `FormatNumber` for General Numeric Display
 //!
 //! ```vb
 //! ' Good - Locale-aware, user-friendly
@@ -501,7 +501,7 @@
 //!
 //! ## Comparison with Other Functions
 //!
-//! ### FormatNumber vs FormatCurrency
+//! ### `FormatNumber` vs `FormatCurrency`
 //!
 //! ```vb
 //! ' FormatNumber - No currency symbol
@@ -511,7 +511,7 @@
 //! result = FormatCurrency(1234.56)        ' $1,234.56
 //! ```
 //!
-//! ### FormatNumber vs Format
+//! ### `FormatNumber` vs `Format`
 //!
 //! ```vb
 //! ' FormatNumber - Simple, predefined
@@ -521,7 +521,7 @@
 //! result = Format(1234.56, "#,##0.00")
 //! ```
 //!
-//! ### FormatNumber vs FormatPercent
+//! ### `FormatNumber` vs `FormatPercent`
 //!
 //! ```vb
 //! ' FormatNumber - No percent symbol, no multiplication
@@ -531,7 +531,7 @@
 //! result = FormatPercent(0.1234)          ' 12.34%
 //! ```
 //!
-//! ### FormatNumber vs Str/CStr
+//! ### `FormatNumber` vs `Str`/`CStr`
 //!
 //! ```vb
 //! ' FormatNumber - Full formatting
@@ -556,7 +556,7 @@
 //!
 //! ## Regional Settings Impact
 //!
-//! The FormatNumber function behavior varies by locale:
+//! The `FormatNumber` function behavior varies by locale:
 //!
 //! - **United States**: 1,234.56
 //! - **European Union**: 1.234,56 (note decimal/thousand separators swapped)

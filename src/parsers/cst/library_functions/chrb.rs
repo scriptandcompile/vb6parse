@@ -287,17 +287,17 @@
 //!
 //! | Function | Character Set | Return Type | Use Case |
 //! |----------|--------------|-------------|----------|
-//! | ChrB     | ANSI (byte)  | String (1 byte) | Legacy ANSI text, byte operations |
-//! | Chr      | ANSI/Unicode | String      | General character conversion |
-//! | ChrW     | Unicode      | String (2 bytes) | Unicode character conversion |
-//! | AscB     | ANSI (byte)  | Integer     | Get ANSI code from character |
+//! | `ChrB`     | ANSI (byte)  | `String (1 byte) | Legacy ANSI text, byte operations |
+//! | `Chr`      | ANSI/Unicode | `String`      | General character conversion |
+//! | `ChrW`     | Unicode      | `String (2 bytes)` | Unicode character conversion |
+//! | `AscB`     | ANSI (byte)  | `Integer`     | Get ANSI code from character |
 //!
 //! ## Platform Notes
 //!
-//! - ChrB behavior is consistent across Windows platforms.
+//! - `ChrB` behavior is consistent across Windows platforms.
 //! - Extended ANSI characters (128-255) may vary by system code page.
-//! - In VB6, strings are internally Unicode but ChrB returns ANSI byte values.
-//! - ChrB is primarily for backward compatibility with older code.
+//! - In VB6, strings are internally Unicode but `ChrB` returns ANSI byte values.
+//! - `ChrB` is primarily for backward compatibility with older code.
 //!
 //! ## Common Character Codes
 //!

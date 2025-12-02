@@ -1,6 +1,6 @@
-//! # Dir Function
+//! # `Dir` Function
 //!
-//! Returns a String representing the name of a file, directory, or folder that matches a
+//! Returns a `String` representing the name of a file, directory, or folder that matches a
 //! specified pattern or file attribute, or the volume label of a drive.
 //!
 //! ## Syntax
@@ -11,9 +11,9 @@
 //!
 //! ## Parameters
 //!
-//! - **pathname**: Optional. String expression that specifies a file name, directory name,
+//! - **pathname**: Optional. `String` expression that specifies a file name, directory name,
 //!   or folder name. May include wildcards (* and ?). If not specified, uses the pattern
-//!   from the previous Dir call.
+//!   from the previous `Dir` call.
 //! - **attributes**: Optional. Constant or numeric expression whose sum specifies file
 //!   attributes. If omitted, returns files that match pathname but have no attributes.
 //!
@@ -29,7 +29,7 @@
 //!
 //! ## Return Value
 //!
-//! Returns a String containing the name of a file, directory, or folder that matches the
+//! Returns a `String` containing the name of a file, directory, or folder that matches the
 //! specified pattern and attributes. Returns a zero-length string ("") when no more files
 //! are found.
 //!
@@ -586,8 +586,8 @@
 //! - `Dir` is relatively fast for simple file enumeration
 //! - For large directories, consider showing progress
 //! - Network paths can be slow; consider timeout handling
-//! - Avoid nested Dir loops (collect to array first)
-//! - FileSystemObject may be faster for complex operations
+//! - Avoid nested `Dir` loops (collect to array first)
+//! - `FileSystemObject` may be faster for complex operations
 //! - Cache results if scanning same directory repeatedly
 //!
 //! ## Best Practices
@@ -652,7 +652,7 @@
 //!
 //! ## Comparison with Other Methods
 //!
-//! ### Dir vs FileSystemObject
+//! ### `Dir` vs `FileSystemObject`
 //!
 //! ```vb
 //! ' Dir - Built-in, faster for simple cases
@@ -665,7 +665,7 @@
 //! ' ... more complex but more powerful
 //! ```
 //!
-//! ### Dir vs File Dialog
+//! ### `Dir` vs `File Dialog`
 //!
 //! ```vb
 //! ' Dir - Programmatic file discovery
@@ -683,7 +683,7 @@
 //! - No built-in recursion into subdirectories
 //! - Cannot filter by date, size, or other attributes directly
 //! - Changing current directory during enumeration causes issues
-//! - Limited attribute filtering compared to FileSystemObject
+//! - Limited attribute filtering compared to `FileSystemObject`
 //!
 //! ## Related Functions
 //!

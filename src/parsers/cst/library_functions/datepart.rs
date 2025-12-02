@@ -1,6 +1,6 @@
-//! # DatePart Function
+//! # `DatePart` Function
 //!
-//! Returns a Variant (Integer) containing the specified part of a given date.
+//! Returns a `Variant` (`Integer`) containing the specified part of a given date.
 //!
 //! ## Syntax
 //!
@@ -10,14 +10,14 @@
 //!
 //! ## Parameters
 //!
-//! - **interval**: Required. String expression that is the interval of time you want to return.
+//! - **interval**: Required. `String` expression that is the interval of time you want to return.
 //!   See the Interval Settings section for valid values.
-//! - **date**: Required. Variant (Date) value that you want to evaluate.
+//! - **date**: Required. `Variant` (`Date`) value that you want to evaluate.
 //! - **firstdayofweek**: Optional. Constant that specifies the first day of the week.
-//!   If not specified, Sunday is assumed. See FirstDayOfWeek Constants.
+//!   If not specified, Sunday is assumed. See `FirstDayOfWeek` Constants.
 //! - **firstweekofyear**: Optional. Constant that specifies the first week of the year.
 //!   If not specified, the first week is assumed to be the week containing January 1.
-//!   See FirstWeekOfYear Constants.
+//!   See `FirstWeekOfYear` Constants.
 //!
 //! ## Interval Settings
 //!
@@ -36,7 +36,7 @@
 //! | "n" | Minute | 0-59 |
 //! | "s" | Second | 0-59 |
 //!
-//! ## FirstDayOfWeek Constants
+//! ## `FirstDayOfWeek` Constants
 //!
 //! | Constant | Value | Description |
 //! |----------|-------|-------------|
@@ -49,7 +49,7 @@
 //! | vbFriday | 6 | Friday |
 //! | vbSaturday | 7 | Saturday |
 //!
-//! ## FirstWeekOfYear Constants
+//! ## `FirstWeekOfYear` Constants
 //!
 //! | Constant | Value | Description |
 //! |----------|-------|-------------|
@@ -60,7 +60,7 @@
 //!
 //! ## Return Value
 //!
-//! Returns an Integer representing the specified part of the date. Returns Null if the date is Null.
+//! Returns an `Integer` representing the specified part of the date. Returns `Null` if the date is `Null`.
 //!
 //! ## Remarks
 //!
@@ -69,13 +69,13 @@
 //!
 //! **Important Characteristics:**
 //!
-//! - More flexible than Year(), Month(), Day() functions
-//! - Can extract quarter, week, and day of year
-//! - Weekday numbering depends on firstdayofweek parameter
-//! - Week numbering depends on firstweekofyear parameter
-//! - Hours use 24-hour format (0-23)
-//! - Sunday is 1 by default for weekday ("w")
-//! - Compatible with SQL Server's DATEPART function
+//! - More flexible than `Year()`, `Month()`, or `Day()` functions.
+//! - Can extract quarter, week, and day of year.
+//! - Weekday numbering depends on `firstdayofweek` parameter.
+//! - Week numbering depends on `firstweekofyear` parameter.
+//! - Hours use 24-hour format (0-23).
+//! - Sunday is 1 by default for weekday ("w").
+//! - Compatible with SQL Server's `DATEPART` function
 //!
 //! ## Equivalent Simple Functions
 //!
@@ -537,7 +537,7 @@
 //!
 //! ## Comparison with Other Functions
 //!
-//! ### DatePart vs Dedicated Functions
+//! ### `DatePart` vs Dedicated Functions
 //!
 //! ```vb
 //! ' DatePart - Flexible, supports all intervals
@@ -557,7 +557,7 @@
 //! - Week numbering can be confusing with different standards (ISO vs US)
 //! - Quarter calculation doesn't support fiscal quarters directly
 //! - No built-in locale-aware day/month names
-//! - FirstWeekOfYear affects week numbering interpretation
+//! - `FirstWeekOfYear` affects week numbering interpretation
 //!
 //! ## Related Functions
 //!

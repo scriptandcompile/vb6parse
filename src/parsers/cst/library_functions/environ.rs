@@ -614,9 +614,9 @@
 //! - `CurDir`: Returns current directory
 //! - `ChDir`: Changes current directory
 //! - `App.Path`: Returns application path
-//! - **Shell**: Executes external programs (can set environment)
-//! - **GetSetting**: Reads application settings from registry
-//! - **SaveSetting**: Writes application settings to registry
+//! - `Shell`: Executes external programs (can set environment)
+//! - `GetSetting`: Reads application settings from registry
+//! - `SaveSetting`: Writes application settings to registry
 
 #[cfg(test)]
 mod tests {

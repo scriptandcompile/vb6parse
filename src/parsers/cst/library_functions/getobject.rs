@@ -1,6 +1,6 @@
-//! GetObject Function
+//! `GetObject` Function
 //!
-//! Returns a reference to an ActiveX object from a file or a running instance of an object.
+//! Returns a reference to an `ActiveX` object from a file or a running instance of an object.
 //!
 //! # Syntax
 //!
@@ -10,34 +10,34 @@
 //!
 //! # Parameters
 //!
-//! - `pathname` - Optional. String expression that specifies the full path and name of the file containing the object to retrieve. If pathname is omitted, class is required.
-//! - `class` - Optional. String expression that specifies the class of the object. The class argument uses the syntax `appname.objecttype` and has these parts:
+//! - `pathname` - Optional. `String` expression that specifies the full path and name of the file containing the object to retrieve. If pathname is omitted, class is required.
+//! - `class` - Optional. `String` expression that specifies the class of the object. The class argument uses the syntax `appname.objecttype` and has these parts:
 //!   - `appname` - Required. The name of the application providing the object.
 //!   - `objecttype` - Required. The type or class of object to create.
 //!
 //! # Return Value
 //!
-//! Returns an Object reference to the specified ActiveX object. The specific type depends on the class requested.
+//! Returns an `Object` reference to the specified `ActiveX` object. The specific type depends on the class requested.
 //!
 //! # Remarks
 //!
-//! - Use GetObject to access an existing ActiveX object from a file or to get a reference to a running instance of an application.
-//! - If pathname is omitted, GetObject returns a currently active object of the specified class.
+//! - Use `GetObject` to access an existing `ActiveX` object from a file or to get a reference to a running instance of an application.
+//! - If pathname is omitted, `GetObject` returns a currently active object of the specified class.
 //! - If no instance of the object is running, an error occurs when pathname is omitted.
-//! - Some applications allow you to activate part of a file (e.g., Excel can activate a range in a workbook).
+//! - Some applications allow you to activate part of a file (e.g., `Excel` can activate a range in a workbook).
 //! - Use the `!` character in pathname to separate the file name from the part you want to activate: `"C:\MyDoc.xls!Sheet1!R1C1:R5C5"`.
-//! - GetObject is useful when there is a current instance of the object or if you want to create the object with a file already loaded.
-//! - If there is no current instance and you don't want the object started with a file loaded, use CreateObject.
+//! - `GetObject` is useful when there is a current instance of the object or if you want to create the object with a file already loaded.
+//! - If there is no current instance and you don't want the object started with a file loaded, use `CreateObject`.
 //! - Once an object has been activated, you reference it in code using the object variable you defined.
-//! - GetObject always returns a single instance. If you call GetObject multiple times, you may get different instances.
-//! - The object must support Automation for GetObject to work.
+//! - `GetObject` always returns a single instance. If you call `GetObject` multiple times, you may get different instances.
+//! - The object must support Automation for `GetObject` to work.
 //!
 //! # Typical Uses
 //!
-//! - Opening existing Office documents (Excel, Word, PowerPoint)
+//! - Opening existing Office documents (`Excel`, `Word`, `PowerPoint`)
 //! - Getting references to running application instances
-//! - Accessing specific portions of files (Excel ranges, Word bookmarks)
-//! - Working with embedded or linked OLE objects
+//! - Accessing specific portions of files (`Excel` ranges, `Word` bookmarks)
+//! - Working with embedded or linked `OLE` objects
 //! - Automation of existing application instances
 //! - Document manipulation and data extraction
 //!
@@ -721,7 +721,7 @@
 //! ```
 //!
 //! Common errors:
-//! - **Error 429**: ActiveX component can't create object - object not available or not registered.
+//! - **Error 429**: `ActiveX` component can't create object - object not available or not registered.
 //! - **Error 432**: File name or class name not found during Automation operation.
 //! - **Error 462**: Remote server machine does not exist or is unavailable.
 //! - **Error 70**: Permission denied - file is locked or insufficient permissions.
@@ -729,8 +729,8 @@
 //!
 //! # Performance Considerations
 //!
-//! - GetObject can be slower than CreateObject for new instances
-//! - Opening files with GetObject loads the entire file into memory
+//! - `GetObject` can be slower than `CreateObject` for new instances
+//! - Opening files with `GetObject` loads the entire file into memory
 //! - Use specific ranges when possible to minimize memory usage
 //! - Consider caching object references for frequently accessed files
 //! - Close objects when done to free resources
@@ -745,11 +745,11 @@
 //! 5. **Use specific object types** when possible (late vs early binding)
 //! 6. **Handle both file and instance retrieval** scenarios
 //! 7. **Cache references** for frequently accessed objects
-//! 8. **Test file existence** before calling GetObject
+//! 8. **Test file existence** before calling `GetObject`
 //!
 //! # Comparison with Other Functions
 //!
-//! ## GetObject vs CreateObject
+//! ## `GetObject` vs `CreateObject`
 //!
 //! ```vb
 //! ' GetObject - Get existing instance or open file
@@ -761,7 +761,7 @@
 //! Set workbook = excel.Workbooks.Open("C:\Data.xls") ' Opens file
 //! ```
 //!
-//! ## GetObject with File vs Without
+//! ## `GetObject` with File vs Without
 //!
 //! ```vb
 //! ' With file - Opens the file
@@ -802,8 +802,8 @@
 //!
 //! # Related Functions
 //!
-//! - `CreateObject` - Creates a new instance of an ActiveX object
-//! - `GetAutoServerSettings` - Returns DCOM server security settings
+//! - `CreateObject` - Creates a new instance of an `ActiveX` object
+//! - `GetAutoServerSettings` - Returns `DCOM` server security settings
 //! - `CallByName` - Calls a method or accesses a property dynamically
 //! - `TypeName` - Returns type information about an object
 //! - `IsObject` - Checks if a variable contains an object reference
