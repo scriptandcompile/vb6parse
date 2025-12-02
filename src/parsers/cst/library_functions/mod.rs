@@ -15,6 +15,7 @@
 //! - `CallByName`: Executes a method or accesses a property by name at runtime
 //! - `Choose`: Returns a value from a list of choices based on an index
 //! - `Chr`: Returns the character associated with the specified character code
+//! - `Chr$`: Returns a String containing the character associated with the specified character code
 //! - `ChrB`: Returns a String containing the character associated with the specified ANSI character code
 //! - `ChrW`: Returns a String containing the Unicode character associated with the specified character code
 //! - `Command`: Returns the command-line arguments passed to the program
@@ -166,6 +167,7 @@ mod atn;
 mod callbyname;
 mod choose;
 mod chr;
+mod chr_dollar;
 mod chrb;
 mod chrw;
 mod command;
