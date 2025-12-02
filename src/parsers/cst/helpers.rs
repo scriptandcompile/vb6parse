@@ -222,7 +222,6 @@ impl<'a> Parser<'a> {
                         | "RTRIM"
                         | "SPACE"
                         | "STR"
-                        | "STRING"
                         | "TIME"
                         | "TRIM"
                         | "UCASE")
