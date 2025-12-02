@@ -1,6 +1,6 @@
-//! # DateSerial Function
+//! # `DateSerial` Function
 //!
-//! Returns a Variant (Date) for a specified year, month, and day.
+//! Returns a `Variant` (`Date`) for a specified year, month, and day.
 //!
 //! ## Syntax
 //!
@@ -10,19 +10,19 @@
 //!
 //! ## Parameters
 //!
-//! - **year**: Required. Integer expression between 100 and 9999, inclusive, or a numeric
+//! - **year**: Required. `Integer` expression between 100 and 9999, inclusive, or a numeric
 //!   expression. Values from 0 to 29 are interpreted as 2000-2029; values from 30 to 99
 //!   are interpreted as 1930-1999.
-//! - **month**: Required. Integer expression from 1 to 12, but can be any numeric expression
+//! - **month**: Required. `Integer` expression from 1 to 12, but can be any numeric expression
 //!   representing months from -32,768 to 32,767. Month values outside 1-12 adjust the year
 //!   accordingly.
-//! - **day**: Required. Integer expression from 1 to 31, but can be any numeric expression
+//! - **day**: Required. `Integer` expression from 1 to 31, but can be any numeric expression
 //!   representing days from -32,768 to 32,767. Day values outside the valid range adjust
 //!   the month and year accordingly.
 //!
 //! ## Return Value
 //!
-//! Returns a Variant of subtype Date representing the specified date. The time portion
+//! Returns a `Variant` of subtype `Date` representing the specified date. The time portion
 //! is set to midnight (00:00:00).
 //!
 //! ## Remarks
@@ -493,7 +493,7 @@
 //!
 //! ## Comparison with Other Functions
 //!
-//! ### DateSerial vs Date Literals
+//! ### `DateSerial` vs Date Literals
 //!
 //! ```vb
 //! ' DateSerial - Dynamic, programmatic
@@ -503,17 +503,17 @@
 //! dt = #12/25/2025#
 //! ```
 //!
-//! ### DateSerial vs DateValue
+//! ### `DateSerial` vs `DateValue`
 //!
 //! ```vb
-//! ' DateSerial - From numeric components
+//! ' `DateSerial` - From numeric components
 //! dt = DateSerial(2025, 12, 25)
 //!
-//! ' DateValue - From string representation
+//! ' `DateValue` - From string representation
 //! dt = DateValue("December 25, 2025")
 //! ```
 //!
-//! ### DateSerial vs DateAdd
+//! ### `DateSerial` vs `DateAdd`
 //!
 //! ```vb
 //! ' DateSerial - Absolute date construction

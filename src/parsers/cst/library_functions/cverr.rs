@@ -1,6 +1,6 @@
-//! # CVErr Function
+//! # `CVErr` Function
 //!
-//! Returns a Variant of subtype Error containing an error number.
+//! Returns a `Variant` of subtype Error containing an error number.
 //!
 //! ## Syntax
 //!
@@ -10,20 +10,20 @@
 //!
 //! ## Parameters
 //!
-//! - **errornumber**: Required. Long integer that identifies an error. The valid range is from
+//! - **`errornumber`**: Required. `Long` integer that identifies an error. The valid range is from
 //!   0 to 65535, though application-defined errors are typically in the range 513-65535 (VB6
 //!   uses 1-512 for system errors).
 //!
 //! ## Return Value
 //!
-//! Returns a Variant of subtype Error (VarType = 10) containing the specified error number.
-//! This is not the same as raising an error with `Err.Raise`; instead, it creates an Error
+//! Returns a `Variant` of subtype `Error` (`VarType = 10`) containing the specified error number.
+//! This is not the same as raising an error with `Err.Raise`; instead, it creates an `Error`
 //! value that can be assigned to variables and returned from functions.
 //!
 //! ## Remarks
 //!
 //! The `CVErr` function is used to create user-defined error values that can be returned from
-//! functions or assigned to Variant variables. This is particularly useful for:
+//! functions or assigned to `Variant` variables. This is particularly useful for:
 //!
 //! - Returning error conditions from functions without raising exceptions
 //! - Creating functions that behave like Excel worksheet functions (returning error values)
@@ -32,13 +32,13 @@
 //!
 //! **Important Characteristics:**
 //!
-//! - Returns a Variant of subtype Error (not an exception)
-//! - Error values propagate through expressions
+//! - Returns a `Variant` of subtype `Error` (not an exception)
+//! - `Error` values propagate through expressions
 //! - Can be tested with `IsError()` function
 //! - Not the same as `Err` object or `Err.Raise`
 //! - Commonly used with VBA functions called from Excel
-//! - Error values cannot be used in arithmetic operations
-//! - VarType of CVErr result is 10 (vbError)
+//! - `Error` values cannot be used in arithmetic operations
+//! - `VarType` of `CVErr` result is 10 (vbError)
 //!
 //! ## Error Number Ranges
 //!
@@ -404,14 +404,14 @@
 //! ## Performance Considerations
 //!
 //! - `CVErr` is a fast function with minimal overhead
-//! - Error values are lightweight Variant subtypes
-//! - Using CVErr is more efficient than raising and catching exceptions
-//! - Error propagation through calculations is automatic
-//! - No significant memory overhead compared to other Variant values
+//! - `Error` values are lightweight `Variant` subtypes
+//! - Using `CVErr` is more efficient than raising and catching exceptions
+//! - `Error` propagation through calculations is automatic
+//! - No significant memory overhead compared to other `Variant` values
 //!
 //! ## Comparison with Other Error Mechanisms
 //!
-//! ### CVErr vs Err.Raise
+//! ### `CVErr` vs `Err.Raise`
 //!
 //! ```vb
 //! ' CVErr - Returns error value (doesn't stop execution)
@@ -433,13 +433,13 @@
 //! End Function
 //! ```
 //!
-//! **CVErr advantages:**
+//! **`CVErr` advantages:**
 //! - Doesn't interrupt program flow
 //! - Can be used in expressions
 //! - Natural for functional-style programming
 //! - Compatible with Excel worksheet functions
 //!
-//! **Err.Raise advantages:**
+//! **`Err.Raise` advantages:**
 //! - Forces immediate attention to errors
 //! - Provides error description and source
 //! - Traditional exception handling model
@@ -484,19 +484,19 @@
 //! ## Limitations
 //!
 //! - Cannot extract error number from error value directly in VB6
-//! - Error values cannot be used in arithmetic operations
+//! - `Error` values cannot be used in arithmetic operations
 //! - Limited to Long integer error numbers (0-65535)
-//! - No built-in error description with CVErr (unlike Err object)
-//! - VarType test required to detect errors (IsError function)
+//! - No built-in error description with `CVErr` (unlike `Err` object)
+//! - `VarType` test required to detect errors (`IsError` function)
 //! - Not all VB6 functions handle error values gracefully
 //!
 //! ## Related Functions
 //!
 //! - `IsError`: Tests if a Variant contains an error value
-//! - `Err.Raise`: Raises a runtime error (different from CVErr)
+//! - `Err.Raise`: Raises a runtime error (different from `CVErr`)
 //! - `Error`: Returns error message for an error number
-//! - `Error$`: String version of Error function
-//! - `VarType`: Returns the subtype of a Variant (10 for Error)
+//! - `Error$`: `String` version of `Error` function
+//! - `VarType`: Returns the subtype of a Variant (10 for `Error`)
 
 #[cfg(test)]
 mod tests {

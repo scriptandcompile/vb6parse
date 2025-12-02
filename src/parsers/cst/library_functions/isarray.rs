@@ -1,6 +1,6 @@
-//! # IsArray Function
+//! # `IsArray` Function
 //!
-//! Returns a Boolean value indicating whether a variable is an array.
+//! Returns a `Boolean` value indicating whether a variable is an array.
 //!
 //! ## Syntax
 //!
@@ -14,32 +14,32 @@
 //!
 //! ## Return Value
 //!
-//! Returns a Boolean:
+//! Returns a `Boolean`:
 //! - `True` if the variable is an array
 //! - `False` if the variable is not an array
 //! - `True` for both fixed-size and dynamic arrays
-//! - `True` even for unallocated dynamic arrays (dimensioned but not ReDimmed)
+//! - `True` even for unallocated dynamic arrays (dimensioned but not `ReDim`-med)
 //!
 //! ## Remarks
 //!
-//! The IsArray function is used to determine whether a variable is an array:
+//! The `IsArray` function is used to determine whether a variable is an array:
 //!
 //! - Returns `True` for any array variable, regardless of dimensions
-//! - Returns `True` for dynamic arrays even before they're allocated with ReDim
+//! - Returns `True` for dynamic arrays even before they're allocated with `ReDim`
 //! - Returns `False` for all non-array variables
-//! - Useful when working with Variant variables that might contain arrays
-//! - Often used with ParamArray parameters to validate input
-//! - Can be used with the Array function result
-//! - Returns `True` for arrays passed as Variant parameters
-//! - Returns `True` for arrays stored in Variant variables
+//! - Useful when working with `Variant` variables that might contain arrays
+//! - Often used with `ParamArray` parameters to validate input
+//! - Can be used with the `Array` function result
+//! - Returns `True` for arrays passed as `Variant` parameters
+//! - Returns `True` for arrays stored in `Variant` variables
 //! - Commonly used in procedures that accept flexible data types
 //! - Important for validating function arguments
 //!
 //! ## Typical Uses
 //!
-//! 1. **Parameter Validation**: Verify that a Variant parameter contains an array
-//! 2. **Data Type Detection**: Determine if a Variant holds array data
-//! 3. **ParamArray Handling**: Check individual elements of ParamArray
+//! 1. **Parameter Validation**: Verify that a `Variant` parameter contains an array
+//! 2. **Data Type Detection**: Determine if a `Variant` holds array data
+//! 3. **`ParamArray` Handling**: Check individual elements of `ParamArray`
 //! 4. **Dynamic Programming**: Handle different data types in generic routines
 //! 5. **Array Processing**: Validate data before array operations
 //! 6. **Error Prevention**: Avoid runtime errors by checking array status
@@ -483,7 +483,7 @@
 //!
 //! ## Error Handling
 //!
-//! The IsArray function itself does not raise errors, but it's often used in error prevention:
+//! The `IsArray` function itself does not raise errors, but it's often used in error prevention:
 //!
 //! ```vb
 //! Function SafeArrayOperation(arr As Variant) As Variant
@@ -509,45 +509,45 @@
 //!
 //! ## Performance Considerations
 //!
-//! - **Fast Operation**: IsArray is a very fast check with minimal overhead
+//! - **Fast Operation**: `IsArray` is a very fast check with minimal overhead
 //! - **Type Checking**: More efficient than attempting array operations and handling errors
-//! - **Avoid Redundant Checks**: Cache IsArray result if checking multiple times
-//! - **Early Validation**: Check IsArray early to avoid unnecessary processing
+//! - **Avoid Redundant Checks**: Cache `IsArray` result if checking multiple times
+//! - **Early Validation**: Check `IsArray` early to avoid unnecessary processing
 //!
 //! ## Best Practices
 //!
-//! 1. **Validate Parameters**: Use IsArray to validate Variant parameters before array operations
+//! 1. **Validate Parameters**: Use `IsArray` to validate `Variant` parameters before array operations
 //! 2. **Flexible Functions**: Create functions that gracefully handle both arrays and single values
 //! 3. **Clear Error Messages**: Provide informative errors when array is expected but not received
-//! 4. **Combine Checks**: Use with other Is functions (IsNumeric, IsNull, etc.) for complete validation
+//! 4. **Combine Checks**: Use with other Is functions (`IsNumeric`, `IsNull`, etc.) for complete validation
 //! 5. **Document Expectations**: Clearly document whether functions expect arrays or single values
-//! 6. **Handle Edge Cases**: Consider unallocated dynamic arrays (IsArray returns True but UBound fails)
-//! 7. **Use Early Returns**: Check IsArray early and return/exit if validation fails
-//! 8. **ParamArray Elements**: Remember each ParamArray element might be an array
+//! 6. **Handle Edge Cases**: Consider unallocated dynamic arrays (`IsArray` returns `True` but `UBound` fails)
+//! 7. **Use Early Returns**: Check `IsArray` early and return/exit if validation fails
+//! 8. **`ParamArray` Elements**: Remember each `ParamArray` element might be an array
 //!
 //! ## Comparison with Related Functions
 //!
 //! | Function | Purpose | Returns | Use Case |
 //! |----------|---------|---------|----------|
-//! | IsArray | Check if array | Boolean | Validate array variables |
-//! | IsEmpty | Check if uninitialized | Boolean | Check Variant initialization |
-//! | IsNull | Check if Null | Boolean | Check for Null values |
-//! | IsNumeric | Check if numeric | Boolean | Validate numeric data |
-//! | IsObject | Check if object | Boolean | Validate object references |
-//! | VarType | Get variant type | Integer | Detailed type information |
-//! | TypeName | Get type name | String | Type name as string |
+//! | `IsArray` | Check if array | `Boolean` | Validate array variables |
+//! | `IsEmpty` | Check if uninitialized | `Boolean` | Check Variant initialization |
+//! | `IsNull` | Check if Null | `Boolean` | Check for Null values |
+//! | `IsNumeric` | Check if numeric | `Boolean` | Validate numeric data |
+//! | `IsObject` | Check if object | `Boolean` | Validate object references |
+//! | `VarType` | Get variant type | `Integer` | Detailed type information |
+//! | `TypeName` | Get type name | `String` | Type name as string |
 //!
 //! ## Platform and Version Notes
 //!
 //! - Available in all VB6 versions
 //! - Part of VBA core functions
-//! - Returns Boolean type
+//! - Returns `Boolean` type
 //! - Works with all array types (fixed, dynamic, single or multi-dimensional)
-//! - Returns True for unallocated dynamic arrays
+//! - Returns `True` for unallocated dynamic arrays
 //!
 //! ## Limitations
 //!
-//! - Does not indicate whether dynamic array is allocated (dimensioned vs ReDimmed)
+//! - Does not indicate whether dynamic array is allocated (dimensioned vs `ReDim`-med)
 //! - Cannot determine number of dimensions
 //! - Cannot determine array bounds
 //! - Does not validate array contents
@@ -557,11 +557,11 @@
 //!
 //! - `UBound`: Upper bound of array dimension
 //! - `LBound`: Lower bound of array dimension
-//! - `Array`: Create Variant array
+//! - `Array`: Create `Variant` array
 //! - `VarType`: Get detailed type information
 //! - `TypeName`: Get type name as string
-//! - `IsEmpty`: Check if Variant is uninitialized
-//! - `IsNull`: Check if Variant is Null
+//! - `IsEmpty`: Check if `Variant` is uninitialized
+//! - `IsNull`: Check if `Variant` is `Null`
 
 #[cfg(test)]
 mod tests {

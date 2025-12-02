@@ -1,4 +1,4 @@
-//! # Int Function
+//! # `Int` Function
 //!
 //! Returns the integer portion of a number.
 //!
@@ -10,35 +10,35 @@
 //!
 //! ## Parameters
 //!
-//! - `number` (Required): Any valid numeric expression. If number contains Null, Null is returned
+//! - `number` (Required): Any valid numeric expression. If `number` contains `Null`, `Null` is returned
 //!
 //! ## Return Value
 //!
 //! Returns the integer portion of a number:
-//! - For positive numbers: Returns the largest integer less than or equal to number
-//! - For negative numbers: Returns the first negative integer less than or equal to number
-//! - If number is Null: Returns Null
+//! - For positive numbers: Returns the largest integer less than or equal to `number`
+//! - For negative numbers: Returns the first negative integer less than or equal to `number`
+//! - If `number` is `Null`: Returns `Null`
 //! - Return type matches the input type (Integer, Long, Single, Double, Currency, Decimal)
 //!
 //! ## Remarks
 //!
-//! The Int function truncates toward negative infinity:
+//! The `Int` function truncates toward negative infinity:
 //!
 //! - Removes the fractional part of a number
-//! - For positive numbers, behaves like truncation (same as Fix)
+//! - For positive numbers, behaves like truncation (same as `Fix`)
 //! - For negative numbers, rounds DOWN (toward negative infinity)
-//! - Fix rounds toward zero (always truncates), Int rounds down
-//! - Int(-8.4) returns -9, Fix(-8.4) returns -8
-//! - Int(8.4) returns 8, Fix(8.4) returns 8
-//! - Does not round to nearest integer (use Round for rounding)
+//! - `Fix` rounds toward zero (always truncates), `Int` rounds down
+//! - `Int`(-8.4) returns -9, `Fix`(-8.4) returns -8
+//! - `Int`(8.4) returns 8, `Fix`(8.4) returns 8
+//! - Does not round to nearest integer (use `Round` for rounding)
 //! - The return type preserves the input numeric type
-//! - Commonly used with Rnd for generating random integers
-//! - For currency calculations, consider using Round or CCur instead
+//! - Commonly used with `Rnd` for generating random integers
+//! - For currency calculations, consider using `Round` or `CCur` instead
 //!
 //! ## Typical Uses
 //!
 //! 1. **Remove Decimals**: Strip fractional part from numbers
-//! 2. **Random Integers**: Generate random integer values with Rnd
+//! 2. **Random Integers**: Generate random integer values with `Rnd`
 //! 3. **Array Indices**: Convert floats to valid array indices
 //! 4. **Loop Counters**: Ensure integer values for loops
 //! 5. **Division Results**: Get whole number quotients
@@ -364,10 +364,10 @@
 //!
 //! ## Error Handling
 //!
-//! The Int function can raise errors or return Null:
+//! The `Int` function can raise errors or return `Null`:
 //!
-//! - **Type Mismatch (Error 13)**: If number is not a numeric expression
-//! - **Invalid use of Null (Error 94)**: If number is Null and result is assigned to non-Variant
+//! - **Type Mismatch (Error 13)**: If `number` is not a numeric expression
+//! - **Invalid use of Null (Error 94)**: If `number` is `Null` and result is assigned to non-Variant
 //! - **Overflow (Error 6)**: If result exceeds the range of the target data type
 //!
 //! ```vb
@@ -387,31 +387,31 @@
 //!
 //! ## Performance Considerations
 //!
-//! - **Fast Operation**: Int is a very fast built-in function
+//! - **Fast Operation**: `Int` is a very fast built-in function
 //! - **Type Preservation**: Return type matches input type
-//! - **No Rounding**: Faster than Round (no complex calculation)
-//! - **Alternative**: For truncation toward zero, Fix is equivalent for positive numbers
-//! - **Currency**: For financial calculations, consider Round or CCur
+//! - **No Rounding**: Faster than `Round` (no complex calculation)
+//! - **Alternative**: For truncation toward zero, `Fix` is equivalent for positive numbers
+//! - **Currency**: For financial calculations, consider `Round` or `CCur`
 //!
 //! ## Best Practices
 //!
-//! 1. **Understand Behavior**: Know that Int rounds DOWN (toward negative infinity)
-//! 2. **Fix vs Int**: Use Fix for truncation toward zero, Int for floor operation
-//! 3. **Random Numbers**: Always Randomize before using Rnd with Int
+//! 1. **Understand Behavior**: Know that `Int` rounds DOWN (toward negative infinity)
+//! 2. **Fix vs Int**: Use `Fix` for truncation toward zero, `Int` for floor operation
+//! 3. **Random Numbers**: Always Randomize before using `Rnd` with `Int`
 //! 4. **Type Awareness**: Be aware of return type matching input type
-//! 5. **Null Handling**: Use Variant if input might be Null
-//! 6. **Array Bounds**: Ensure Int result is within array bounds
+//! 5. **Null Handling**: Use Variant if input might be `Null`
+//! 6. **Array Bounds**: Ensure `Int` result is within array bounds
 //! 7. **Division**: For integer division, consider using \ operator instead
 //!
 //! ## Comparison with Other Functions
 //!
 //! | Function | Behavior | Example |
 //! |----------|----------|---------|
-//! | Int | Rounds down (floor) | Int(-8.7) = -9 |
-//! | Fix | Truncates toward zero | Fix(-8.7) = -8 |
-//! | Round | Rounds to nearest | Round(-8.7) = -9 |
-//! | CLng | Converts to Long with rounding | CLng(-8.7) = -9 |
-//! | CInt | Converts to Integer with rounding | CInt(-8.7) = -9 |
+//! | `Int` | Rounds down (floor) | Int(-8.7) = -9 |
+//! | `Fix` | Truncates toward zero | Fix(-8.7) = -8 |
+//! | `Round` | Rounds to nearest | Round(-8.7) = -9 |
+//! | `CLng` | Converts to Long with rounding | CLng(-8.7) = -9 |
+//! | `CInt` | Converts to Integer with rounding | CInt(-8.7) = -9 |
 //! | \ | Integer division | -87 \ 10 = -8 |
 //!
 //! ## Platform and Version Notes
@@ -419,8 +419,8 @@
 //! - Available in all VB6 versions
 //! - Consistent behavior across platforms
 //! - Return type matches input numeric type
-//! - Different from many languages' int() which truncates toward zero
-//! - Equivalent to Math.floor() in many other languages
+//! - Different from many languages `int()` which truncates toward zero
+//! - Equivalent to `Math.floor()` in many other languages
 //!
 //! ## Limitations
 //!

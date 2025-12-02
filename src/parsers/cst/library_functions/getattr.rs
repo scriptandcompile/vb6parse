@@ -1,4 +1,4 @@
-//! GetAttr Function
+//! `GetAttr` Function
 //!
 //! Returns an Integer representing the attributes of a file, directory, or folder.
 //!
@@ -32,10 +32,10 @@
 //! - Use the And operator to test for a specific attribute.
 //! - The return value can be a combination of multiple attributes.
 //! - To check if a file has a specific attribute, use bitwise AND comparison.
-//! - GetAttr generates an error if the file doesn't exist.
-//! - Use Dir to check if a file exists before calling GetAttr.
-//! - On systems other than Macintosh, vbAlias is never set.
-//! - The vbVolume constant is used for volume labels only.
+//! - `GetAttr` generates an error if the file doesn't exist.
+//! - Use `Dir` to check if a file exists before calling `GetAttr`.
+//! - On systems other than Macintosh, `vbAlias` is never set.
+//! - The `vbVolume` constant is used for volume labels only.
 //!
 //! # Typical Uses
 //!
@@ -705,8 +705,8 @@
 //!
 //! # Performance Considerations
 //!
-//! - GetAttr is a fast file system call
-//! - Use Dir to check existence before calling GetAttr if unsure
+//! - `GetAttr` is a fast file system call
+//! - Use `Dir` to check existence before calling `GetAttr` if unsure
 //! - For multiple files, consider caching attribute values
 //! - Network paths may be slower than local paths
 //! - Accessing removable media can cause delays if not present
@@ -723,7 +723,7 @@
 //!
 //! # Comparison with Other Functions
 //!
-//! ## GetAttr vs FileLen
+//! ## `GetAttr` vs `FileLen`
 //!
 //! ```vb
 //! ' GetAttr - Returns file attributes
@@ -733,7 +733,7 @@
 //! size = FileLen("file.txt")  ' Returns size in bytes
 //! ```
 //!
-//! ## GetAttr vs Dir
+//! ## `GetAttr` vs `Dir`
 //!
 //! ```vb
 //! ' GetAttr - Gets attributes of specific file
@@ -743,7 +743,7 @@
 //! filename = Dir("*.txt", vbNormal)
 //! ```
 //!
-//! ## GetAttr vs FileDateTime
+//! ## `GetAttr` vs `FileDateTime`
 //!
 //! ```vb
 //! ' GetAttr - Returns attributes
@@ -756,8 +756,8 @@
 //! # Limitations
 //!
 //! - Returns Integer (limited to values 0-32767 due to VB6 Integer type)
-//! - vbAlias only works on Macintosh systems
-//! - Cannot set attributes (use SetAttr for that)
+//! - `vbAlias` only works on Macintosh systems
+//! - Cannot set attributes (use `SetAttr` for that)
 //! - No support for extended attributes or NTFS features
 //! - Limited to file system attributes only
 //! - Does not provide security descriptor information

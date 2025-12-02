@@ -1,6 +1,6 @@
-//! # FileLen Function
+//! # `FileLen` Function
 //!
-//! Returns a Long specifying the length of a file in bytes.
+//! Returns a `Long` specifying the length of a file in bytes.
 //!
 //! ## Syntax
 //!
@@ -10,12 +10,12 @@
 //!
 //! ## Parameters
 //!
-//! - **pathname**: Required. A String expression that specifies a file name. May include
+//! - **pathname**: Required. A `String` expression that specifies a file name. May include
 //!   directory or folder, and drive. If the file is not found, an error occurs.
 //!
 //! ## Return Value
 //!
-//! Returns a Long representing the length of the file in bytes. For open files, the value
+//! Returns a `Long` representing the length of the file in bytes. For open files, the value
 //! returned is the size of the file immediately before it was opened.
 //!
 //! ## Remarks
@@ -32,10 +32,10 @@
 //! - Error if path is invalid (Error 76)
 //! - Works with full paths and relative paths
 //! - For open files, returns size before opening
-//! - Maximum file size: 2,147,483,647 bytes (2GB - 1) due to Long limit
+//! - Maximum file size: 2,147,483,647 bytes (2GB - 1) due to `Long` limit
 //! - Returns 0 for empty files
 //! - Does not include file system overhead
-//! - Can be used with wildcards via Dir function
+//! - Can be used with wildcards via `Dir` function
 //!
 //! ## Typical Uses
 //!
@@ -789,7 +789,7 @@
 //!
 //! ## Comparison with Other Functions
 //!
-//! ### FileLen vs LOF
+//! ### `FileLen` vs `LOF`
 //!
 //! ```vb
 //! ' FileLen - For closed files, returns current size
@@ -801,7 +801,7 @@
 //! Close #1
 //! ```
 //!
-//! ### FileLen vs FileSystemObject.GetFile.Size
+//! ### `FileLen` vs `FileSystemObject.GetFile.Size`
 //!
 //! ```vb
 //! ' FileLen - Built-in VB6 function
@@ -815,12 +815,12 @@
 //!
 //! ## Limitations
 //!
-//! - Maximum file size: 2,147,483,647 bytes (2GB - 1) due to Long type
-//! - For files > 2GB, use FileSystemObject or API calls
+//! - Maximum file size: 2,147,483,647 bytes (2GB - 1) due to `Long` type
+//! - For files > 2GB, use `FileSystemObject` or API calls
 //! - File must exist (cannot get size of non-existent files)
 //! - Cannot get size of directories
 //! - Returns size before opening for open files
-//! - No built-in wildcard support (must use with Dir)
+//! - No built-in wildcard support (must use with `Dir`)
 //!
 //! ## Related Functions
 //!

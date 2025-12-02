@@ -1,6 +1,6 @@
-//! # Len Function
+//! # `Len` Function
 //!
-//! Returns a Long containing the number of characters in a string or the number of bytes required to store a variable.
+//! Returns a `Long` containing the number of characters in a string or the number of bytes required to store a variable.
 //!
 //! ## Syntax
 //!
@@ -11,7 +11,7 @@
 //! ## Parameters
 //!
 //! - `string` (Optional): Any valid string expression
-//!   - If string contains Null, Null is returned
+//!   - If string contains `Null`, `Null` is returned
 //! - `varname` (Optional): Any valid variable name
 //!   - For user-defined types, returns size in bytes
 //!   - For objects, may return implementation-defined value
@@ -22,14 +22,14 @@
 //! - For strings: Number of characters in the string
 //! - For variables: Number of bytes required to store the variable
 //! - Returns 0 for empty string ("")
-//! - Returns Null if string argument is Null
+//! - Returns `Null` if string argument is `Null`
 //! - For fixed-length strings: Returns declared length
 //! - For Variant containing string: Returns length of string
 //! - For user-defined types: Returns total size in bytes
 //!
 //! ## Remarks
 //!
-//! The Len function measures string length or variable size:
+//! The `Len` function measures string length or variable size:
 //!
 //! - Most commonly used for string length
 //! - Returns character count, not byte count (for strings)
@@ -38,7 +38,7 @@
 //! - Spaces and special characters are counted
 //! - For fixed-length strings (e.g., String * 10), returns declared length
 //! - Variable-length strings return actual content length
-//! - LenB function returns byte count (useful for Unicode/DBCS)
+//! - `LenB` function returns byte count (useful for Unicode/DBCS)
 //! - Cannot determine array size (use UBound/LBound instead)
 //! - Essential for string manipulation and validation
 //! - Used with Left, Right, Mid for substring operations
@@ -481,10 +481,10 @@
 //!
 //! ## Performance Considerations
 //!
-//! - **Fast Operation**: Len is very fast, minimal overhead
+//! - **Fast Operation**: `Len` is very fast, minimal overhead
 //! - **Cache Result**: If checking length multiple times, cache the value
-//! - **String Iteration**: For large strings, cache Len result in loop variable
-//! - **No Side Effects**: Len does not modify the string
+//! - **String Iteration**: For large strings, cache `Len` result in loop variable
+//! - **No Side Effects**: `Len` does not modify the string
 //!
 //! Performance tips:
 //! ```vb
@@ -504,24 +504,23 @@
 //! ## Best Practices
 //!
 //! 1. **Validate Input**: Always check string length for validation
-//! 2. **Null Safety**: Handle Null values before calling Len if needed
+//! 2. **`Null` Safety**: Handle `Null` values before calling `Len` if needed
 //! 3. **Cache Results**: Store length in variable when used multiple times
-//! 4. **Empty Check**: Use Len(str) = 0 to check for empty strings
-//! 5. **Loop Optimization**: Cache Len result before loops
+//! 4. **Empty Check**: Use ```Len(str) = 0``` to check for empty strings
+//! 5. **Loop Optimization**: Cache `Len` result before loops
 //! 6. **Bounds Checking**: Verify length before substring operations
-//! 7. **Fixed-Length Strings**: Remember Len returns declared length, not content
+//! 7. **Fixed-Length Strings**: Remember `Len` returns declared length, not content
 //! 8. **Database Fields**: Validate field lengths before database inserts
 //!
 //! ## Comparison with Related Functions
 //!
 //! | Function | Purpose | Returns | Use Case |
 //! |----------|---------|---------|----------|
-//! | Len | Get string length | Long | Character count |
-//! | LenB | Get byte length | Long | Byte count (Unicode/DBCS) |
-//! | UBound | Get array upper bound | Long | Array size calculation |
-//! | InStr | Find substring | Long | Substring position |
-//! | Left/Right/Mid | Extract substring | String | Substring extraction |
-//!
+//! | `Len` | Get string length | `Long` | Character count |
+//! | `LenB` | Get byte length | `Long` | Byte count (Unicode/DBCS) |
+//! | `UBound` | Get array upper bound | `Long` | Array size calculation |
+//! | `InStr` | Find substring | `Long` | Substring position |
+//! | `Left`/`Right`/`Mid` | Extract substring | `String` | Substring extraction |
 //! ## Len vs LenB
 //!
 //! ```vb

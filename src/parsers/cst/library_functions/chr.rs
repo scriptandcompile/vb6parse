@@ -1,6 +1,6 @@
-//! # Chr Function
+//! # `Chr` Function
 //!
-//! Returns a String containing the character associated with the specified character code.
+//! Returns a `String` containing the character associated with the specified character code.
 //!
 //! ## Syntax
 //!
@@ -10,12 +10,12 @@
 //!
 //! ## Parameters
 //!
-//! - **charcode**: Required. Long value that identifies a character. The valid range for
-//!   charcode is 0-255. For values outside this range, an error occurs.
+//! - **`charcode`**: Required. Long value that identifies a character. The valid range for
+//!   `charcode` is 0-255. For values outside this range, an error occurs.
 //!
 //! ## Return Value
 //!
-//! Returns a String containing the single character corresponding to the specified character
+//! Returns a `String` containing the single character corresponding to the specified character
 //! code. For charcode values 0-127, this corresponds to the ASCII character set. For values
 //! 128-255, this corresponds to the extended ASCII or ANSI character set based on the system's
 //! code page.
@@ -320,7 +320,7 @@
 //! End Function
 //! ```
 //!
-//! ### Unicode Support (ChrW variant)
+//! ### Unicode Support (`ChrW` variant)
 //!
 //! ```vb
 //! ' Note: VB6 has ChrW for Unicode characters
@@ -380,11 +380,11 @@
 //! ## Performance Considerations
 //!
 //! - `Chr` is a fast function with minimal overhead
-//! - For building long strings with many `Chr` calls, consider using a StringBuilder pattern
+//! - For building long strings with many `Chr` calls, consider using a `StringBuilder` pattern
 //! - Avoid repeated `Chr` calls for the same character code (use a constant instead)
 //! - For Unicode support beyond 255, use `ChrW` or `ChrB` functions
 //!
-//! ## VB6 String Constants vs Chr
+//! ## VB6 String Constants vs `Chr`
 //!
 //! VB6 provides built-in constants for common characters:
 //!

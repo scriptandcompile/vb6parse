@@ -207,7 +207,7 @@
 //! filtered = FilterMultiple(sourceArray, criteria)
 //! ```
 //!
-//! ### Populate ListBox with Filtered Results
+//! ### Populate `ListBox` with Filtered Results
 //!
 //! ```vb
 //! Sub UpdateFilteredList(lstBox As ListBox, items() As String, searchText As String)

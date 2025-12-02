@@ -1,6 +1,6 @@
-//! # Format Function
+//! # `Format` Function
 //!
-//! Returns a Variant (String) containing an expression formatted according to instructions contained in a format expression.
+//! Returns a `Variant` (`String`) containing an expression formatted according to instructions contained in a format expression.
 //!
 //! ## Syntax
 //!
@@ -17,8 +17,8 @@
 //!
 //! ## Return Value
 //!
-//! Returns a Variant of subtype String containing the formatted expression. If format is omitted,
-//! Format returns a string similar to the Str function.
+//! Returns a `Variant` of subtype `String` containing the formatted expression. If format is omitted,
+//! `Format` returns a string similar to the `Str` function.
 //!
 //! ## Remarks
 //!
@@ -533,7 +533,7 @@
 //!
 //! ## Comparison with Other Functions
 //!
-//! ### Format vs FormatNumber
+//! ### `Format` vs `FormatNumber`
 //!
 //! ```vb
 //! ' Format - More flexible, custom formats
@@ -543,7 +543,7 @@
 //! result = FormatNumber(1234.567, 2)
 //! ```
 //!
-//! ### Format vs FormatCurrency
+//! ### `Format` vs `FormatCurrency`
 //!
 //! ```vb
 //! ' Format - Custom currency format
@@ -553,7 +553,7 @@
 //! result = FormatCurrency(1234.56)
 //! ```
 //!
-//! ### Format vs FormatDateTime
+//! ### `Format` vs `FormatDateTime`
 //!
 //! ```vb
 //! ' Format - Custom date format
@@ -570,7 +570,7 @@
 //! - Cannot format arrays or objects directly
 //! - No built-in support for custom cultures
 //! - Some format characters are locale-dependent
-//! - Return value is always String (Variant)
+//! - Return value is always `String` (`Variant`)
 //!
 //! ## Format String Reference
 //!

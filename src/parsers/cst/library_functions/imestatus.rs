@@ -1,6 +1,6 @@
-//! # IMEStatus Function
+//! # `IMEStatus` Function
 //!
-//! Returns an Integer indicating the current Input Method Editor (IME) mode of Microsoft Windows.
+//! Returns an `Integer` indicating the current `Input Method Editor` (`IME`) mode of Microsoft Windows.
 //!
 //! ## Syntax
 //!
@@ -14,14 +14,14 @@
 //!
 //! ## Return Value
 //!
-//! Returns an Integer representing the current IME mode:
+//! Returns an `Integer` representing the current `IME` mode:
 //!
 //! | Constant | Value | Description |
 //! |----------|-------|-------------|
-//! | vbIMENoOp | 0 | No IME installed or IME is disabled |
-//! | vbIMEOn | 1 | IME is on (active) |
-//! | vbIMEOff | 2 | IME is off (inactive) |
-//! | vbIMEDisable | 3 | IME is disabled |
+//! | vbIMENoOp | 0 | No `IME` installed or `IME` is disabled |
+//! | vbIMEOn | 1 | `IME` is on (active) |
+//! | vbIMEOff | 2 | `IME` is off (inactive) |
+//! | vbIMEDisable | 3 | `IME` is disabled |
 //! | vbIMEHiragana | 4 | Double-byte Hiragana mode |
 //! | vbIMEKatakanHalf | 5 | Single-byte Katakana mode |
 //! | vbIMEKatakanaFull | 6 | Double-byte Katakana mode |
@@ -32,24 +32,24 @@
 //!
 //! ## Remarks
 //!
-//! The IMEStatus function provides information about the Input Method Editor:
+//! The `IMEStatus` function provides information about the `Input Method Editor`:
 //!
-//! - Returns the current state of the IME for the active window
-//! - IME is used primarily for Asian language input (Japanese, Chinese, Korean)
-//! - Only meaningful on systems with IME support installed
-//! - Returns vbIMENoOp (0) if no IME is installed or available
-//! - The return value reflects the IME state at the moment the function is called
+//! - Returns the current state of the `IME` for the active window
+//! - `IME` is used primarily for Asian language input (Japanese, Chinese, Korean)
+//! - Only meaningful on systems with `IME` support installed
+//! - Returns `vbIMENoOp` (0) if no `IME` is installed or available
+//! - The return value reflects the `IME` state at the moment the function is called
 //! - Can be used to detect if the user is in native language input mode
 //! - Useful for applications that need to work with multibyte character sets
-//! - The actual modes available depend on the installed IME and Windows version
+//! - The actual modes available depend on the installed `IME` and Windows version
 //!
 //! ## Typical Uses
 //!
-//! 1. **IME Detection**: Check if an IME is installed and active
+//! 1. **IME Detection**: Check if an `IME` is installed and active
 //! 2. **Input Mode Validation**: Verify the user is in the correct input mode
-//! 3. **Localization**: Adjust application behavior based on IME state
+//! 3. **Localization**: Adjust application behavior based on `IME` state
 //! 4. **Data Entry**: Ensure proper input mode for specific fields
-//! 5. **User Guidance**: Provide instructions based on current IME mode
+//! 5. **User Guidance**: Provide instructions based on current `IME` mode
 //! 6. **Form Validation**: Check input mode before processing data
 //!
 //! ## Basic Usage Examples
@@ -321,11 +321,11 @@
 //!
 //! ## Error Handling
 //!
-//! The IMEStatus function rarely raises errors:
+//! The `IMEStatus` function rarely raises errors:
 //!
-//! - Returns vbIMENoOp (0) on systems without IME support
-//! - Does not raise errors if IME is not available
-//! - Always returns a valid Integer value
+//! - Returns `vbIMENoOp` (0) on systems without `IME` support
+//! - Does not raise errors if `IME` is not available
+//! - Always returns a valid `Integer` value
 //! - No error handling typically required
 //!
 //! ```vb
@@ -336,48 +336,48 @@
 //!
 //! ## Performance Considerations
 //!
-//! - **Fast Operation**: IMEStatus is a very fast system query
+//! - **Fast Operation**: `IMEStatus` is a very fast system query
 //! - **No Overhead**: Minimal performance impact even when called frequently
 //! - **Real-time Monitoring**: Safe to call in timer events for status updates
 //! - **No Caching Needed**: The function is efficient enough to call directly
 //!
 //! ## Best Practices
 //!
-//! 1. **System Compatibility**: Always check for vbIMENoOp before assuming IME functionality
-//! 2. **User Guidance**: Provide clear instructions when specific IME modes are required
-//! 3. **Non-intrusive**: Don't force IME mode changes; suggest them to the user
-//! 4. **Status Display**: Show current IME mode in status bars for user awareness
-//! 5. **Localization**: Use IMEStatus to adapt UI for different language inputs
-//! 6. **Testing**: Test on both IME-enabled and non-IME systems
-//! 7. **Documentation**: Document IME mode requirements for specific fields
+//! 1. **System Compatibility**: Always check for `vbIMENoOp` before assuming `IME` functionality
+//! 2. **User Guidance**: Provide clear instructions when specific `IME` modes are required
+//! 3. **Non-intrusive**: Don't force `IME` mode changes; suggest them to the user
+//! 4. **Status Display**: Show current `IME` mode in status bars for user awareness
+//! 5. **Localization**: Use `IMEStatus` to adapt UI for different language inputs
+//! 6. **Testing**: Test on both `IME`-enabled and non-`IME` systems
+//! 7. **Documentation**: Document `IME` mode requirements for specific fields
 //!
 //! ## Platform and Version Notes
 //!
 //! - Available in all VB6 versions
-//! - Returns meaningful values only on Windows with IME support
-//! - IME modes depend on installed Windows language packs
+//! - Returns meaningful values only on Windows with `IME` support
+//! - `IME` modes depend on installed Windows language packs
 //! - Japanese Windows: Hiragana, Katakana modes available
 //! - Korean Windows: Hangul modes available
 //! - Chinese Windows: May have different mode constants
-//! - Western Windows without IME: Typically returns vbIMENoOp
+//! - Western Windows without `IME`: Typically returns `vbIMENoOp`
 //!
 //! ## Limitations
 //!
-//! - Only detects IME state, cannot change it (use SendKeys or Windows API for that)
-//! - Return values depend on installed IME and language packs
-//! - Some IME modes may not be available on all systems
-//! - Does not detect which specific IME software is being used
-//! - Limited to Windows IME implementation
-//! - Cannot distinguish between different Chinese IME modes
+//! - Only detects `IME` state, cannot change it (use `SendKeys` or Windows API for that)
+//! - Return values depend on installed `IME` and language packs
+//! - Some `IME` modes may not be available on all systems
+//! - Does not detect which specific `IME` software is being used
+//! - Limited to Windows `IME` implementation
+//! - Cannot distinguish between different Chinese `IME` modes
 //! - Return value reflects system state at call time (may change immediately after)
 //!
 //! ## Related Functions and Properties
 //!
-//! - `IMEMode` property: Sets/gets the IME mode for controls
-//! - `SendKeys`: Can be used to change IME mode via keyboard shortcuts
-//! - Windows API functions for IME control (ImmGetContext, etc.)
+//! - `IMEMode` property: Sets/gets the `IME` mode for controls
+//! - `SendKeys`: Can be used to change `IME` mode via keyboard shortcuts
+//! - Windows API functions for `IME` control (`ImmGetContext`, etc.)
 //!
-//! ## IME Mode Constants Reference
+//! ## `IME` Mode Constants Reference
 //!
 //! ```vb
 //! Public Const vbIMENoOp = 0         ' No IME

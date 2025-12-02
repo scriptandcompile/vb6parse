@@ -1,6 +1,6 @@
-//! # DateDiff Function
+//! # `DateDiff` Function
 //!
-//! Returns a Variant (Long) specifying the number of time intervals between two specified dates.
+//! Returns a `Variant` (`Long`) specifying the number of time intervals between two specified dates.
 //!
 //! ## Syntax
 //!
@@ -10,14 +10,14 @@
 //!
 //! ## Parameters
 //!
-//! - **interval**: Required. String expression that is the interval of time you want to use
+//! - **interval**: Required. `String` expression that is the interval of time you want to use
 //!   to calculate the difference between date1 and date2. See Interval Settings for values.
-//! - **date1**, **date2**: Required. Variant (Date) values that you want to use in the calculation.
+//! - **date1**, **date2**: Required. `Variant` (`Date`) values that you want to use in the calculation.
 //! - **firstdayofweek**: Optional. Constant that specifies the first day of the week.
-//!   If not specified, Sunday is assumed. See FirstDayOfWeek Constants.
+//!   If not specified, Sunday is assumed. See `FirstDayOfWeek` Constants.
 //! - **firstweekofyear**: Optional. Constant that specifies the first week of the year.
 //!   If not specified, the first week is assumed to be the week containing January 1.
-//!   See FirstWeekOfYear Constants.
+//!   See `FirstWeekOfYear` Constants.
 //!
 //! ## Interval Settings
 //!
@@ -36,7 +36,7 @@
 //! | "n" | Minute |
 //! | "s" | Second |
 //!
-//! ## FirstDayOfWeek Constants
+//! ## `FirstDayOfWeek` Constants
 //!
 //! | Constant | Value | Description |
 //! |----------|-------|-------------|
@@ -49,7 +49,7 @@
 //! | vbFriday | 6 | Friday |
 //! | vbSaturday | 7 | Saturday |
 //!
-//! ## FirstWeekOfYear Constants
+//! ## `FirstWeekOfYear` Constants
 //!
 //! | Constant | Value | Description |
 //! |----------|-------|-------------|
@@ -60,7 +60,7 @@
 //!
 //! ## Return Value
 //!
-//! Returns a Long integer representing the number of intervals between the two dates.
+//! Returns a `Long` integer representing the number of intervals between the two dates.
 //! The result is positive if date2 is later than date1, negative if date2 is earlier than date1,
 //! and zero if they are equal.
 //!
@@ -84,7 +84,7 @@
 //!
 //! ## Boundary Counting vs Elapsed Time
 //!
-//! DateDiff counts boundaries crossed, not elapsed time:
+//! `DateDiff` counts boundaries crossed, not elapsed time:
 //!
 //! ```vb
 //! ' Year example
@@ -469,8 +469,8 @@
 //! - `DateDiff` is very fast for simple interval calculations
 //! - Day ("d") calculations are fastest
 //! - Month ("m") and year ("yyyy") require more computation
-//! - Week calculations depend on firstdayofweek and firstweekofyear parameters
-//! - For large datasets, cache DateDiff results when possible
+//! - Week calculations depend on `FirstDayOfWeek` and `FirstWeekOfYear` parameters
+//! - For large datasets, cache `DateDiff` results when possible
 //!
 //! ## Best Practices
 //!
@@ -516,17 +516,17 @@
 //!
 //! ## Comparison with Other Functions
 //!
-//! ### DateDiff vs DateAdd
+//! ### `DateDiff` vs `DateAdd`
 //!
 //! ```vb
-//! ' DateDiff - Calculate interval between dates (returns Long)
+//! ' `DateDiff` - Calculate interval between dates (returns Long)
 //! diff = DateDiff("d", #1/1/2025#, #1/31/2025#)  ' Returns 30
 //!
-//! ' DateAdd - Add interval to date (returns Date)
+//! ' `DateAdd` - Add interval to date (returns Date)
 //! newDate = DateAdd("d", 30, #1/1/2025#)  ' Returns #1/31/2025#
 //! ```
 //!
-//! ### DateDiff vs Subtraction
+//! ### `DateDiff` vs Subtraction
 //!
 //! ```vb
 //! ' Subtraction gives days as Double

@@ -1,4 +1,4 @@
-//! # IIf Function
+//! # `IIf` Function
 //!
 //! Returns one of two parts, depending on the evaluation of an expression.
 //!
@@ -17,20 +17,20 @@
 //! ## Return Value
 //!
 //! Returns `truepart` if `expr` evaluates to True; otherwise returns `falsepart`. The return type
-//! is Variant and depends on the types of `truepart` and `falsepart`.
+//! is `Variant` and depends on the types of `truepart` and `falsepart`.
 //!
 //! ## Remarks
 //!
-//! The IIf function provides inline conditional evaluation:
+//! The `IIf` function provides inline conditional evaluation:
 //!
 //! - Always evaluates BOTH `truepart` and `falsepart` regardless of the condition result
 //! - This can cause side effects if either part contains function calls or property accesses
-//! - Returns Variant type, which may require explicit type conversion
-//! - Can nest IIf calls for multiple conditions (though readability suffers)
+//! - Returns `Variant` type, which may require explicit type conversion
+//! - Can nest `IIf` calls for multiple conditions (though readability suffers)
 //! - If `expr` is Null, the function returns Null
-//! - Unlike If...Then...Else statements, IIf is an expression that returns a value
+//! - Unlike `If...Then...Else` statements, `IIf` is an expression that returns a value
 //! - Useful for inline assignments, but beware of evaluation side effects
-//! - Consider using If...Then...Else for complex logic or when side effects matter
+//! - Consider using `If...Then...Else` for complex logic or when side effects matter
 //!
 //! ## Typical Uses
 //!
@@ -188,11 +188,11 @@
 //!
 //! ## Error Handling
 //!
-//! The IIf function itself rarely raises errors, but be aware of:
+//! The `IIf` function itself rarely raises errors, but be aware of:
 //!
 //! - **Type Mismatch (Error 13)**: Can occur if the result type doesn't match the receiving variable
 //! - **Evaluation Errors**: Both `truepart` and `falsepart` are always evaluated, so errors in either will occur
-//! - **Null Propagation**: If `expr` is Null, IIf returns Null
+//! - **Null Propagation**: If `expr` is Null, `IIf` returns Null
 //! - **Division by Zero**: Can occur if either part contains division and is evaluated
 //!
 //! ```vb
@@ -210,22 +210,22 @@
 //!
 //! ## Performance Considerations
 //!
-//! - **Both Branches Evaluate**: IIf always evaluates both `truepart` and `falsepart`
-//! - **Function Call Overhead**: IIf has function call overhead vs. If...Then...Else
-//! - **Variant Boxing**: Results are Variant type, which may require type conversion
-//! - **Nested Performance**: Deeply nested IIf calls can be slow and hard to read
-//! - **Use If...Then...Else When**: Either branch has expensive operations or side effects
+//! - **Both Branches Evaluate**: `IIf` always evaluates both `truepart` and `falsepart`
+//! - **Function Call Overhead**: `IIf` has function call overhead vs. `If...Then...Else`
+//! - **Variant Boxing**: Results are `Variant` type, which may require type conversion
+//! - **Nested Performance**: Deeply nested `IIf` calls can be slow and hard to read
+//! - **Use `If...Then...Else` When**: Either branch has expensive operations or side effects
 //!
 //! ## Best Practices
 //!
-//! 1. **Avoid Side Effects**: Don't use IIf when either part has side effects (function calls, object creation, I/O)
-//! 2. **Keep It Simple**: Use IIf for simple value selection only
-//! 3. **Limit Nesting**: Avoid deeply nested IIf calls (use Select Case or If...Then...Else instead)
-//! 4. **Type Safety**: Be aware of Variant return type and convert explicitly if needed
-//! 5. **Readability**: If IIf makes code harder to read, use If...Then...Else
-//! 6. **Document Expectations**: When using IIf, document that both branches evaluate
+//! 1. **Avoid Side Effects**: Don't use `IIf` when either part has side effects (function calls, object creation, I/O)
+//! 2. **Keep It Simple**: Use `IIf` for simple value selection only
+//! 3. **Limit Nesting**: Avoid deeply nested `IIf` calls (use `Select Case` or `If...Then...Else` instead)
+//! 4. **Type Safety**: Be aware of `Variant` return type and convert explicitly if needed
+//! 5. **Readability**: If `IIf` makes code harder to read, use `If...Then...Else`
+//! 6. **Document Expectations**: When using `IIf`, document that both branches evaluate
 //!
-//! ## When NOT to Use IIf
+//! ## When NOT to Use `IIf`
 //!
 //! ```vb
 //! ' DON'T: Object creation (both execute!)
@@ -252,27 +252,27 @@
 //!
 //! | Approach | Evaluates Both | Return Type | Use Case |
 //! |----------|---------------|-------------|----------|
-//! | IIf | Yes | Variant | Simple inline value selection |
-//! | If...Then...Else | No | Any | Conditional execution, side effects |
-//! | Select Case | No | Any | Multiple conditions |
-//! | Choose | Yes | Variant | Index-based selection |
+//! | `IIf` | Yes | `Variant` | Simple inline value selection |
+//! | `If...Then...Else` | No | Any | Conditional execution, side effects |
+//! | `Select Case` | No | Any | Multiple conditions |
+//! | `Choose` | Yes | `Variant` | Index-based selection |
 //!
 //! ## Platform and Version Notes
 //!
 //! - Available in all VB6 versions
 //! - Consistent behavior across Windows platforms
-//! - VBA also includes IIf with identical behavior
-//! - Always returns Variant type
+//! - VBA also includes `IIf` with identical behavior
+//! - Always returns `Variant` type
 //! - Evaluation of both branches is by design, not a bug
 //!
 //! ## Limitations
 //!
 //! - Cannot short-circuit evaluation (both parts always execute)
 //! - Returns Variant type (requires explicit conversion for strong typing)
-//! - Not suitable for conditional execution (use If...Then...Else)
-//! - Nested IIf calls quickly become unreadable
-//! - Cannot handle multiple conditions as cleanly as Select Case
-//! - May have performance overhead compared to If...Then...Else
+//! - Not suitable for conditional execution (use `If...Then...Else`)
+//! - Nested `IIf` calls quickly become unreadable
+//! - Cannot handle multiple conditions as cleanly as `Select Case`
+//! - May have performance overhead compared to `If...Then...Else`
 //!
 //! ## Related Functions
 //!

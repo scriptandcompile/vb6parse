@@ -1,6 +1,6 @@
-//! # Hex Function
+//! # `Hex` Function
 //!
-//! Returns a String representing the hexadecimal value of a number.
+//! Returns a `String` representing the hexadecimal value of a number.
 //!
 //! ## Syntax
 //!
@@ -14,22 +14,22 @@
 //!
 //! ## Return Value
 //!
-//! Returns a String representing the hexadecimal value of the number. The return value contains hexadecimal digits (0-9, A-F) without the "&H" prefix.
+//! Returns a `String` representing the hexadecimal value of the number. The return value contains hexadecimal digits (0-9, A-F) without the "&H" prefix.
 //!
 //! ## Remarks
 //!
-//! The Hex function converts a decimal number to its hexadecimal (base 16) string representation:
+//! The `Hex` function converts a decimal number to its hexadecimal (base 16) string representation:
 //!
-//! - If `number` is Null, Hex returns Null
-//! - If `number` is Empty, Hex returns "0"
+//! - If `number` is `Null`, `Hex` returns `Null`
+//! - If `number` is `Empty`, `Hex` returns "0"
 //! - Negative numbers are represented in two's complement form
 //! - For Byte values: Returns up to 2 hexadecimal digits
 //! - For Integer values: Returns up to 4 hexadecimal digits
 //! - For Long values: Returns up to 8 hexadecimal digits
 //! - Fractional values are rounded to the nearest integer before conversion
-//! - The result does not include the "&H" prefix (use "&H" & Hex(n) to include it)
+//! - The result does not include the "&H" prefix (use "&H" & `Hex(n)` to include it)
 //! - Leading zeros are not included in the result (e.g., 15 returns "F", not "0F")
-//! - For hexadecimal to decimal conversion, use the CLng or CInt functions with "&H" prefix
+//! - For hexadecimal to decimal conversion, use the `CLng` or `CInt` functions with "&H" prefix
 //!
 //! ## Typical Uses
 //!

@@ -1,9 +1,9 @@
-//! If/Then/Else/ElseIf statement parsing for VB6 CST.
+//! `If`/`Then`/`Else`/`ElseIf` statement parsing for VB6 CST.
 //!
 //! This module handles parsing of VB6 conditional statements:
-//! - If/Then/Else statements (both single-line and multi-line)
-//! - ElseIf clauses
-//! - Else clauses
+//! - `If`/`Then`/`Else` statements (both single-line and multi-line)
+//! - `ElseIf` clauses
+//! - `Else` clauses
 
 use crate::language::VB6Token;
 use crate::parsers::SyntaxKind;
@@ -11,24 +11,24 @@ use crate::parsers::SyntaxKind;
 use super::Parser;
 
 impl<'a> Parser<'a> {
-    /// Parse an If statement: If condition Then ... End If
-    /// Handles both single-line and multi-line If statements
+    /// Parse an `If` statement: `If` condition `Then` ... `End If`
+    /// Handles both single-line and multi-line `If` statements
     ///
-    /// IfStatement
-    /// ├─ If keyword
+    /// `IfStatement`
+    /// ├─ `If` keyword
     /// ├─ condition tokens
-    /// ├─ Then keyword
+    /// ├─ `Then` keyword
     /// ├─ body tokens
-    /// ├─ ElseIfClause (if present)
-    /// │  ├─ ElseIf keyword
+    /// ├─ `ElseIfClause` (if present)
+    /// │  ├─ `ElseIf` keyword
     /// │  ├─ condition tokens
-    /// │  ├─ Then keyword
+    /// │  ├─ `Then` keyword
     /// │  └─ body tokens
-    /// ├─ ElseClause (if present)
-    /// │  ├─ Else keyword
+    /// ├─ `ElseClause` (if present)
+    /// │  ├─ `Else` keyword
     /// │  └─ body tokens
-    /// ├─ End keyword
-    /// └─ If keyword
+    /// ├─ `End` keyword
+    /// └─ `If` keyword
     ///
     pub(super) fn parse_if_statement(&mut self) {
         self.builder.start_node(SyntaxKind::IfStatement.to_raw());
@@ -159,17 +159,17 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // IfStatement
     }
 
-    /// Parse an ElseIf clause: ElseIf condition Then ...
+    /// Parse an `ElseIf` clause: `ElseIf` condition `Then` ...
     pub(super) fn parse_elseif_clause(&mut self) {
         self.builder.start_node(SyntaxKind::ElseIfClause.to_raw());
 
-        // Consume "ElseIf" keyword
+        // Consume `ElseIf` keyword
         self.consume_token();
 
         // Parse the conditional expression
         self.parse_conditional();
 
-        // Consume "Then" if present
+        // Consume `Then` if present
         if self.at_token(VB6Token::ThenKeyword) {
             self.consume_token();
         }
@@ -182,7 +182,7 @@ impl<'a> Parser<'a> {
             self.consume_token();
         }
 
-        // Parse body until "End If", "Else", or another "ElseIf"
+        // Parse body until `End If`, `Else`, or another `ElseIf`
         self.parse_code_block(|parser| {
             parser.at_token(VB6Token::ElseIfKeyword)
                 || parser.at_token(VB6Token::ElseKeyword)
@@ -193,28 +193,28 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // ElseIfClause
     }
 
-    /// Parse an Else clause: Else ...
+    /// Parse an `Else` clause: `Else` ...
     pub(super) fn parse_else_clause(&mut self) {
         self.builder.start_node(SyntaxKind::ElseClause.to_raw());
 
-        // Consume "Else" keyword
+        // Consume `Else` keyword
         self.consume_token();
 
-        // Consume any whitespace after Else
+        // Consume any whitespace after `Else`
         self.consume_whitespace();
 
-        // Consume the newline after Else
+        // Consume the newline after `Else`
         if self.at_token(VB6Token::Newline) {
             self.consume_token();
         }
 
-        // Parse body until "End If"
+        // Parse body until `End If`
         self.parse_code_block(|parser| {
             parser.at_token(VB6Token::EndKeyword)
                 && parser.peek_next_keyword() == Some(VB6Token::IfKeyword)
         });
 
-        self.builder.finish_node(); // ElseClause
+        self.builder.finish_node(); // `ElseClause`
     }
 }
 

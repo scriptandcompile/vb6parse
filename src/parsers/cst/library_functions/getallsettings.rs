@@ -1,6 +1,6 @@
-//! GetAllSettings Function
+//! `GetAllSettings` Function
 //!
-//! Returns a list of key settings and their respective values (originally created with SaveSetting) from an application's entry in the Windows registry.
+//! Returns a list of key settings and their respective values (originally created with `SaveSetting`) from an application's entry in the Windows registry.
 //!
 //! # Syntax
 //!
@@ -15,18 +15,18 @@
 //!
 //! # Return Value
 //!
-//! Returns a Variant containing a two-dimensional array of strings. The first dimension contains the key names, and the second dimension contains the corresponding values.
+//! Returns a `Variant` containing a two-dimensional array of strings. The first dimension contains the key names, and the second dimension contains the corresponding values.
 //!
 //! # Remarks
 //!
-//! - GetAllSettings returns an uninitialized Variant if either appname or section does not exist.
+//! - `GetAllSettings` returns an uninitialized `Variant` if either `appname` or `section` does not exist.
 //! - The returned array is zero-based with two columns: column 0 contains key names, column 1 contains values.
-//! - Works with the Windows registry (HKEY_CURRENT_USER\Software\VB and VBA Program Settings\appname\section).
-//! - On Windows, settings are stored in: HKEY_CURRENT_USER\Software\VB and VBA Program Settings\appname\section.
-//! - Use SaveSetting to write values that GetAllSettings can retrieve.
-//! - Use GetSetting to retrieve individual settings.
-//! - Use DeleteSetting to remove settings from the registry.
-//! - GetAllSettings is Windows-specific and relies on the registry.
+//! - Works with the Windows registry (`HKEY_CURRENT_USER\Software\VB and VBA Program Settings\appname\section`).
+//! - On Windows, settings are stored in: `HKEY_CURRENT_USER\Software\VB and VBA Program Settings\appname\section`.
+//! - Use `SaveSetting` to write values that `GetAllSettings` can retrieve.
+//! - Use `GetSetting` to retrieve individual settings.
+//! - Use `DeleteSetting` to remove settings from the registry.
+//! - `GetAllSettings` is Windows-specific and relies on the registry.
 //!
 //! # Typical Uses
 //!
@@ -204,7 +204,7 @@
 //! End Sub
 //! ```
 //!
-//! ## 5. Display Settings in ListBox
+//! ## 5. Display Settings in `ListBox`
 //!
 //! ```vb
 //! Sub PopulateSettingsList(lst As ListBox)
@@ -715,9 +715,9 @@
 //!
 //! # Performance Considerations
 //!
-//! - GetAllSettings reads from the Windows registry, which is relatively fast
+//! - `GetAllSettings` reads from the Windows registry, which is relatively fast
 //! - For frequently accessed settings, consider caching the results
-//! - Reading all settings at once is more efficient than multiple GetSetting calls
+//! - Reading all settings at once is more efficient than multiple `GetSetting` calls
 //! - Registry access can be affected by antivirus software
 //! - Consider using INI files or XML for cross-platform compatibility
 //!
@@ -729,11 +729,11 @@
 //! 4. **Validate settings** after retrieval
 //! 5. **Provide defaults** when settings don't exist
 //! 6. **Document registry structure** for your application
-//! 7. **Consider cleanup** - use DeleteSetting when settings are no longer needed
+//! 7. **Consider cleanup** - use `DeleteSetting` when settings are no longer needed
 //!
 //! # Comparison with Other Functions
 //!
-//! ## GetAllSettings vs GetSetting
+//! ## `GetAllSettings` vs `GetSetting`
 //!
 //! ```vb
 //! ' GetAllSettings - Retrieve all settings at once
@@ -745,7 +745,7 @@
 //! value = GetSetting("MyApp", "Config", "Theme", "Default")
 //! ```
 //!
-//! ## GetAllSettings vs File-Based Storage
+//! ## `GetAllSettings` vs File-Based Storage
 //!
 //! ```vb
 //! ' GetAllSettings - Windows registry
@@ -758,8 +758,8 @@
 //! # Limitations
 //!
 //! - Windows-specific (uses Windows registry)
-//! - Limited to HKEY_CURRENT_USER hive
-//! - String values only (need to parse numbers, dates, etc.)
+//! - Limited to `HKEY_CURRENT_USER` hive
+//! - `String` values only (need to parse numbers, dates, etc.)
 //! - Registry size limits (though rarely hit in practice)
 //! - No built-in encryption or security
 //! - Requires appropriate registry permissions

@@ -1,6 +1,6 @@
-//! # InStr Function
+//! # `InStr` Function
 //!
-//! Returns a Long specifying the position of the first occurrence of one string within another.
+//! Returns a `Long` specifying the position of the first occurrence of one string within another.
 //!
 //! ## Syntax
 //!
@@ -13,47 +13,47 @@
 //! - `start` (Optional): Numeric expression that sets the starting position for each search. If omitted, search begins at the first character position. If start contains Null, an error occurs. The start argument is required if compare is specified
 //! - `string1` (Required): String expression being searched
 //! - `string2` (Required): String expression sought
-//! - `compare` (Optional): Specifies the type of string comparison. If compare is Null, an error occurs. If compare is omitted, the Option Compare setting determines the type of comparison. Specify a valid LCID (LocaleID) to use locale-specific rules in the comparison
+//! - `compare` (Optional): Specifies the type of string comparison. If compare is `Null`, an error occurs. If compare is omitted, the `Option Compare` setting determines the type of comparison. Specify a valid `LCID` (`LocaleID`) to use locale-specific rules in the comparison
 //!
 //! ### Compare Parameter Values
 //!
-//! - `vbUseCompareOption` (-1): Performs a comparison using the setting of the Option Compare statement
+//! - `vbUseCompareOption` (-1): Performs a comparison using the setting of the `Option Compare` statement
 //! - `vbBinaryCompare` (0): Performs a binary comparison (case-sensitive)
 //! - `vbTextCompare` (1): Performs a textual comparison (case-insensitive)
 //! - `vbDatabaseCompare` (2): Microsoft Access only. Performs a comparison based on information in your database
 //!
 //! ## Return Value
 //!
-//! Returns a Long:
+//! Returns a `Long`:
 //! - If string1 is zero-length: Returns 0
-//! - If string1 is Null: Returns Null
+//! - If string1 is `Null`: Returns `Null`
 //! - If string2 is zero-length: Returns start
-//! - If string2 is Null: Returns Null
+//! - If string2 is `Null`: Returns `Null`
 //! - If string2 is not found: Returns 0
 //! - If string2 is found within string1: Returns position where match begins
 //! - If start > Len(string2): Returns 0
 //!
 //! ## Remarks
 //!
-//! The InStr function is used for string searching:
+//! The `InStr` function is used for string searching:
 //!
 //! - Returns the character position of the first occurrence (1-based indexing)
-//! - Search is case-sensitive by default (vbBinaryCompare)
-//! - Use vbTextCompare for case-insensitive searching
+//! - Search is case-sensitive by default (`vbBinaryCompare`)
+//! - Use `vbTextCompare` for case-insensitive searching
 //! - Start position is 1-based (first character is position 1, not 0)
-//! - To find all occurrences, call InStr repeatedly with updated start position
-//! - InStrRev searches from the end of the string backward
+//! - To find all occurrences, call `InStr` repeatedly with updated start position
+//! - `InStrRev` searches from the end of the string backward
 //! - The compare parameter affects performance (binary is faster than text)
-//! - Commonly used with Mid, Left, and Right functions for string parsing
+//! - Commonly used with `Mid`, `Left`, and `Right` functions for string parsing
 //! - Returns 0 if substring not found (test with > 0 for found)
-//! - Option Compare setting affects default comparison when compare is omitted
+//! - `Option Compare` setting affects default comparison when compare is omitted
 //!
 //! ## Typical Uses
 //!
 //! 1. **String Searching**: Find if a substring exists in a string
 //! 2. **String Parsing**: Locate delimiters for parsing data
 //! 3. **Validation**: Check if string contains specific characters
-//! 4. **String Extraction**: Find position for Mid, Left, Right operations
+//! 4. **String Extraction**: Find position for `Mid`, `Left`, `Right` operations
 //! 5. **Path Manipulation**: Find path separators in file paths
 //! 6. **Email Validation**: Locate @ and . in email addresses
 //! 7. **Text Processing**: Find keywords or patterns in text
@@ -428,7 +428,7 @@
 //!
 //! ## Error Handling
 //!
-//! The InStr function can raise errors or return Null:
+//! The `InStr` function can raise errors or return Null:
 //!
 //! - **Type Mismatch (Error 13)**: If arguments are not string-compatible or numeric where expected
 //! - **Invalid use of Null (Error 94)**: If string1 or string2 is Null and result is assigned to non-Variant
@@ -475,26 +475,26 @@
 //!
 //! | Function | Purpose | Search Direction |
 //! |----------|---------|------------------|
-//! | InStr | Find substring position | Left to right |
-//! | InStrRev | Find substring position | Right to left |
-//! | Like | Pattern matching | N/A |
-//! | StrComp | Compare strings | N/A |
-//! | Replace | Find and replace | N/A |
+//! | `InStr` | Find substring position | Left to right |
+//! | `InStrRev` | Find substring position | Right to left |
+//! | `Like` | Pattern matching | N/A |
+//! | `StrComp` | Compare strings | N/A |
+//! | `Replace` | Find and replace | N/A |
 //!
 //! ## Platform and Version Notes
 //!
 //! - Available in all VB6 versions
-//! - Returns Long (32-bit integer), not Integer
+//! - Returns `Long` (32-bit integer), not `Integer`
 //! - 1-based indexing (first character is position 1)
 //! - Maximum string length is approximately 2GB
 //! - Compare parameter affects locale-sensitive comparisons
-//! - Option Compare statement affects default comparison when compare parameter omitted
+//! - `Option Compare` statement affects default comparison when compare parameter omitted
 //!
 //! ## Limitations
 //!
 //! - Finds only first occurrence (use loop for all occurrences)
 //! - No built-in regex or wildcard support
-//! - Case-insensitive search (vbTextCompare) is slower
+//! - Case-insensitive search (`vbTextCompare`) is slower
 //! - Cannot search for multiple substrings in single call
 //! - No built-in way to get all positions at once
 //! - Performance can degrade with very long strings

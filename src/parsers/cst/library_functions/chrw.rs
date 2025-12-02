@@ -264,7 +264,7 @@
 //!
 //! ## Unicode Ranges Reference
 //!
-//! Some common Unicode ranges that work with ChrW:
+//! Some common Unicode ranges that work with `ChrW`:
 //!
 //! - **Basic Latin**: 0-127 (ASCII)
 //! - **Latin-1 Supplement**: 128-255

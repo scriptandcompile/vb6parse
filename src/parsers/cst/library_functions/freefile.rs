@@ -1,6 +1,6 @@
-//! FreeFile Function
+//! `FreeFile` Function
 //!
-//! Returns an Integer representing the next file number available for use by the Open statement.
+//! Returns an `Integer` representing the next file number available for use by the Open statement.
 //!
 //! # Syntax
 //!
@@ -16,16 +16,16 @@
 //!
 //! # Return Value
 //!
-//! Returns an Integer representing the next available file number that is not already in use.
+//! Returns an `Integer` representing the next available file number that is not already in use.
 //!
 //! # Remarks
 //!
-//! - Use FreeFile to obtain a file number that is not already associated with an open file.
-//! - FreeFile returns the lowest available file number in the specified range.
-//! - When using multiple files, always use FreeFile to avoid conflicts with file numbers.
-//! - The file number returned can be used with the Open statement to open a file.
-//! - After obtaining a file number with FreeFile, use it immediately to avoid conflicts.
-//! - File numbers are released when the file is closed with the Close statement.
+//! - Use `FreeFile` to obtain a file number that is not already associated with an open file.
+//! - `FreeFile` returns the lowest available file number in the specified range.
+//! - When using multiple files, always use `FreeFile` to avoid conflicts with file numbers.
+//! - The file number returned can be used with the `Open` statement to open a file.
+//! - After obtaining a file number with `FreeFile`, use it immediately to avoid conflicts.
+//! - File numbers are released when the file is closed with the `Close` statement.
 //! - The function is particularly important in libraries and reusable code where you don't know what file numbers are already in use.
 //!
 //! # Typical Uses
@@ -533,32 +533,32 @@
 //! ```
 //!
 //! Common errors:
-//! - **Error 55 (File already open)**: File number is already in use. Always use FreeFile to avoid this.
+//! - **Error 55 (File already open)**: File number is already in use. Always use `FreeFile` to avoid this.
 //! - **Error 52 (Bad file name or number)**: Invalid file number. Ensure the number is in the valid range.
 //! - **Error 53 (File not found)**: The specified file does not exist.
 //! - **Error 76 (Path not found)**: The specified path does not exist.
 //!
 //! # Performance Considerations
 //!
-//! - FreeFile is a very fast operation - no overhead in calling it
-//! - Always store the result in a variable for later use with Close
-//! - Don't call FreeFile repeatedly in tight loops - get the number once and reuse it
+//! - `FreeFile` is a very fast operation - no overhead in calling it
+//! - Always store the result in a variable for later use with `Close`
+//! - Don't call `FreeFile` repeatedly in tight loops - get the number once and reuse it
 //! - Consider using the high range (256-511) for system or library files to avoid conflicts with user code
-//! - File operations themselves (Open, Close, Read, Write) are much slower than FreeFile
+//! - File operations themselves (`Open`, `Close`, `Read`, `Write`) are much slower than `FreeFile`
 //!
 //! # Best Practices
 //!
-//! 1. **Always use FreeFile** instead of hard-coding file numbers
+//! 1. **Always use `FreeFile`** instead of hard-coding file numbers
 //! 2. **Store the file number** in a variable so you can close the file later
 //! 3. **Close files promptly** when done to release the file number
 //! 4. **Use error handling** to ensure files are closed even if an error occurs
 //! 5. **Use high range (1)** for system/library code to avoid conflicts
-//! 6. **Open and close files in pairs** - every Open should have a corresponding Close
-//! 7. **Don't assume file numbers** - always get a fresh number with FreeFile
+//! 6. **Open and close files in pairs** - every `Open` should have a corresponding `Close`
+//! 7. **Don't assume file numbers** - always get a fresh number with `FreeFile`
 //!
 //! # Comparison with Other Approaches
 //!
-//! ## FreeFile vs Hard-Coded Numbers
+//! ## `FreeFile` vs Hard-Coded Numbers
 //!
 //! ```vb
 //! ' Bad - Hard-coded file number
@@ -571,7 +571,7 @@
 //! Open "data.txt" For Input As #fileNum
 //! ```
 //!
-//! ## FreeFile vs FileSystemObject
+//! ## `FreeFile` vs `FileSystemObject`
 //!
 //! ```vb
 //! ' FreeFile approach - built-in, fast, simple

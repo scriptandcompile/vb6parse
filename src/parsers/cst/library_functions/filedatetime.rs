@@ -1,6 +1,6 @@
-//! # FileDateTime Function
+//! # `FileDateTime` Function
 //!
-//! Returns a Variant (Date) representing the date and time when a file was created or last modified.
+//! Returns a `Variant` (`Date`) representing the date and time when a file was created or last modified.
 //!
 //! ## Syntax
 //!
@@ -10,12 +10,12 @@
 //!
 //! ## Parameters
 //!
-//! - **pathname**: Required. A String expression that specifies a file name. May include
+//! - **pathname**: Required. A `String` expression that specifies a file name. May include
 //!   directory or folder, and drive. If the file is not found, an error occurs.
 //!
 //! ## Return Value
 //!
-//! Returns a Variant of subtype Date representing the date and time when the file was
+//! Returns a `Variant` of subtype `Date` representing the date and time when the file was
 //! last modified. The returned value includes both date and time components.
 //!
 //! ## Remarks
@@ -35,7 +35,7 @@
 //! - Precision depends on file system (typically 2-second resolution on FAT, 100ns on NTFS)
 //! - Affected by daylight saving time changes
 //! - Returns local time (not UTC)
-//! - Can be used with wildcards via Dir function
+//! - Can be used with wildcards via `Dir` function
 //!
 //! ## Typical Uses
 //!
@@ -766,7 +766,7 @@
 //! - Performance depends on file system and disk speed
 //! - Network paths are slower than local paths
 //! - Consider caching results if checking same file repeatedly
-//! - Use Dir function to check existence before calling FileDateTime
+//! - Use `Dir` function to check existence before calling `FileDateTime`
 //!
 //! ## Best Practices
 //!
@@ -801,7 +801,7 @@
 //!
 //! ## Comparison with Other Functions
 //!
-//! ### FileDateTime vs Now
+//! ### `FileDateTime` vs `Now`
 //!
 //! ```vb
 //! ' FileDateTime - Gets file modification date
@@ -811,7 +811,7 @@
 //! currentDate = Now
 //! ```
 //!
-//! ### FileDateTime vs GetAttr
+//! ### `FileDateTime` vs `GetAttr`
 //!
 //! ```vb
 //! ' FileDateTime - Returns date/time of modification
@@ -828,8 +828,8 @@
 //! - Returns local time (not UTC)
 //! - Precision limited by file system
 //! - Cannot set file date/time (read-only function)
-//! - Does not work with directories (use Dir with vbDirectory)
-//! - No built-in wildcard support (must use with Dir)
+//! - Does not work with directories (use `Dir` with `vbDirectory`)
+//! - No built-in wildcard support (must use with `Dir`)
 //!
 //! ## Related Functions
 //!

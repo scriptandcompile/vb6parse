@@ -1,4 +1,4 @@
-//! # Error Function
+//! # `Error` Function
 //!
 //! Returns the error message that corresponds to a given error number.
 //!
@@ -12,12 +12,12 @@
 //!
 //! - **errornumber**: Optional. A Long or any valid numeric expression that represents
 //!   an error number. If omitted, the error message for the most recent run-time error
-//!   (the current value of Err.Number) is returned.
+//!   (the current value of `Err.Number`) is returned.
 //!
 //! ## Return Value
 //!
-//! Returns a String containing the error message associated with the specified error number.
-//! If the error number is not recognized, Error returns "Application-defined or object-defined error".
+//! Returns a `String` containing the error message associated with the specified error number.
+//! If the error number is not recognized, `Error` returns "Application-defined or object-defined error".
 //!
 //! ## Remarks
 //!
@@ -26,8 +26,8 @@
 //!
 //! **Important Characteristics:**
 //!
-//! - Returns error message as String
-//! - Without argument, returns message for current error (Err.Number)
+//! - Returns error message as `String`
+//! - Without argument, returns message for current error (`Err.Number`)
 //! - With argument, returns message for specified error number
 //! - VB6 error numbers range from 0 to 65535
 //! - User-defined errors typically use 512-65535 range
@@ -35,11 +35,11 @@
 //! - Unrecognized errors return generic message
 //! - Does not clear or raise errors
 //! - Can be used without On Error statement
-//! - Err.Description also provides error messages
+//! - `Err.Description` also provides error messages
 //!
 //! ## Common VB6 Error Numbers
 //!
-//! - **3**: Return without GoSub
+//! - **3**: Return without `GoSub`
 //! - **5**: Invalid procedure call or argument
 //! - **6**: Overflow
 //! - **7**: Out of memory
@@ -68,7 +68,7 @@
 //! - **74**: Can't rename with different drive
 //! - **75**: Path/File access error
 //! - **76**: Path not found
-//! - **91**: Object variable or With block variable not set
+//! - **91**: `Object` variable or `With` block variable not set
 //! - **92**: For loop not initialized
 //! - **93**: Invalid pattern string
 //! - **94**: Invalid use of Null
@@ -77,19 +77,19 @@
 //! - **322**: Can't create necessary temporary file
 //! - **325**: Invalid format in resource file
 //! - **380**: Invalid property value
-//! - **424**: Object required
-//! - **429**: ActiveX component can't create object
+//! - **424**: `Object` required
+//! - **429**: `ActiveX` component can't create `Object`
 //! - **430**: Class does not support Automation
 //! - **432**: File name or class name not found during Automation operation
-//! - **438**: Object doesn't support this property or method
+//! - **438**: `Object` doesn't support this property or method
 //! - **440**: Automation error
-//! - **445**: Object doesn't support this action
-//! - **446**: Object doesn't support named arguments
-//! - **447**: Object doesn't support current locale setting
+//! - **445**: `Object` doesn't support this action
+//! - **446**: `Object` doesn't support named arguments
+//! - **447**: `Object` doesn't support current locale setting
 //! - **448**: Named argument not found
 //! - **449**: Argument not optional
 //! - **450**: Wrong number of arguments or invalid property assignment
-//! - **451**: Object not a collection
+//! - **451**: `Object` not a collection
 //! - **452**: Invalid ordinal
 //! - **453**: Specified DLL function not found
 //! - **454**: Code resource not found
@@ -99,7 +99,7 @@
 //! - **459**: This component doesn't support events
 //! - **460**: Invalid Clipboard format
 //! - **461**: Specified format doesn't match format of data
-//! - **480**: Can't create AutoRedraw image
+//! - **480**: Can't create `AutoRedraw` image
 //! - **481**: Invalid picture
 //! - **482**: Printer error
 //! - **735**: Can't save file to TEMP
@@ -645,14 +645,14 @@
 //! ## Performance Considerations
 //!
 //! - `Error` function is very fast (simple lookup)
-//! - No performance difference between Error() and Error(n)
+//! - No performance difference between `Error()` and `Error(n)`
 //! - Message strings are pre-defined in VB6 runtime
 //! - Consider caching messages if calling repeatedly
 //! - Minimal overhead for error message retrieval
 //!
 //! ## Comparison with Other Error Functions
 //!
-//! ### Error vs Err.Description
+//! ### `Error` vs `Err.Description`
 //!
 //! ```vb
 //! ' Error() - Returns message for specified or current error
@@ -663,7 +663,7 @@
 //! msg = Err.Description    ' Current error message only
 //! ```
 //!
-//! ### Error vs Err.Raise
+//! ### `Error` vs `Err.Raise`
 //!
 //! ```vb
 //! ' Error() - Retrieves error message (does not raise)

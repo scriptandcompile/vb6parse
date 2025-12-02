@@ -1,7 +1,7 @@
-//! # InputBox Function
+//! # `InputBox` Function
 //!
 //! Displays a prompt in a dialog box, waits for the user to input text or click a button,
-//! and returns a String containing the contents of the text box.
+//! and returns a `String` containing the contents of the text box.
 //!
 //! ## Syntax
 //!
@@ -11,17 +11,17 @@
 //!
 //! ## Parameters
 //!
-//! - `prompt` (Required): String expression displayed as the message in the dialog box. Maximum length is approximately 1024 characters, depending on width of characters used. Can include line breaks using vbCrLf, vbNewLine, or Chr(13) & Chr(10)
-//! - `title` (Optional): String expression displayed in the title bar of the dialog box. If omitted, the application name is displayed
-//! - `default` (Optional): String expression displayed in the text box as the default response if no other input is provided. If omitted, the text box is displayed empty
+//! - `prompt` (Required): `String` expression displayed as the message in the dialog box. Maximum length is approximately 1024 characters, depending on width of characters used. Can include line breaks using `vbCrLf`, `vbNewLine`, or `Chr(13) & Chr(10)`
+//! - `title` (Optional): `String` expression displayed in the title bar of the dialog box. If omitted, the application name is displayed
+//! - `default` (Optional): `String` expression displayed in the text box as the default response if no other input is provided. If omitted, the text box is displayed empty
 //! - `xpos` (Optional): Numeric expression that specifies, in twips, the horizontal distance from the left edge of the screen. If omitted, the dialog box is horizontally centered
 //! - `ypos` (Optional): Numeric expression that specifies, in twips, the vertical distance from the top of the screen. If omitted, the dialog box is positioned vertically approximately one-third down the screen
-//! - `helpfile` (Optional): String expression that identifies the Help file to use. If provided, context must also be provided
+//! - `helpfile` (Optional): `String` expression that identifies the Help file to use. If provided, context must also be provided
 //! - `context` (Optional): Numeric expression that identifies the Help context number assigned to the Help topic. If provided, helpfile must also be provided
 //!
 //! ## Return Value
 //!
-//! Returns a String:
+//! Returns a `String`:
 //! - If OK is clicked or Enter is pressed: Returns the text in the text box
 //! - If Cancel is clicked: Returns an empty string ("")
 //! - If Esc is pressed: Returns an empty string ("")
@@ -29,7 +29,7 @@
 //!
 //! ## Remarks
 //!
-//! The InputBox function provides a simple way to get user input:
+//! The `InputBox` function provides a simple way to get user input:
 //!
 //! - Displays a modal dialog box that blocks execution until user responds
 //! - The dialog always includes OK and Cancel buttons
@@ -42,7 +42,7 @@
 //! - Help integration requires both helpfile and context parameters
 //! - The text box accepts a single line of text (no multi-line support)
 //! - Input is returned as typed (no automatic validation or conversion)
-//! - Always returns a String, even if numeric input is expected
+//! - Always returns a `String`, even if numeric input is expected
 //!
 //! ## Typical Uses
 //!
@@ -462,7 +462,7 @@
 //!
 //! ## Error Handling
 //!
-//! The InputBox function rarely raises errors, but should be used with error handling:
+//! The `InputBox` function rarely raises errors, but should be used with error handling:
 //!
 //! ```vb
 //! On Error GoTo ErrorHandler
@@ -485,29 +485,29 @@
 //!
 //! - **Modal Dialog**: Blocks execution until user responds
 //! - **User Interaction**: Performance depends entirely on user response time
-//! - **String Returns**: Always returns a String regardless of expected data type
+//! - **String Returns**: Always returns a `String` regardless of expected data type
 //! - **No Timeout**: Dialog waits indefinitely for user action
 //! - **Lightweight**: Minimal overhead for displaying dialog
 //!
 //! ## Best Practices
 //!
 //! 1. **Clear Prompts**: Write clear, concise prompts that explain what input is needed
-//! 2. **Validate Input**: Always validate and convert input as needed (InputBox returns String)
+//! 2. **Validate Input**: Always validate and convert input as needed (`InputBox` returns `String`)
 //! 3. **Handle Cancel**: Check for empty string return value (could be Cancel or empty input)
 //! 4. **Provide Defaults**: Use default parameter for common or suggested values
-//! 5. **Error Handling**: Wrap InputBox calls in error handling
-//! 6. **Alternative UI**: For complex input, use custom forms instead of InputBox
+//! 5. **Error Handling**: Wrap `InputBox` calls in error handling
+//! 6. **Alternative UI**: For complex input, use custom forms instead of `InputBox`
 //! 7. **Accessibility**: Consider users who need keyboard navigation
-//! 8. **Multi-line Prompts**: Use vbCrLf to create multi-line prompts for clarity
+//! 8. **Multi-line Prompts**: Use `vbCrLf` to create multi-line prompts for clarity
 //!
 //! ## Comparison with Other Functions
 //!
 //! | Function | Purpose | Return Type |
 //! |----------|---------|-------------|
-//! | InputBox | Get user text input | String |
-//! | MsgBox | Display message, get button click | VbMsgBoxResult |
+//! | `InputBox` | Get user text input | `String` |
+//! | `MsgBox` | Display message, get button click | `VbMsgBoxResult` |
 //! | Custom Form | Complex input with multiple fields | Varies |
-//! | FileDialog | Get file/folder selection | String |
+//! | `FileDialog` | Get file/folder selection | `String` |
 //!
 //! ## Platform and Version Notes
 //!
@@ -533,7 +533,7 @@
 //! ## Related Functions
 //!
 //! - `MsgBox`: Display messages and get button responses
-//! - `Input`: Read from files (different from InputBox)
+//! - `Input`: Read from files (different from `InputBox`)
 //! - Custom Forms: For complex input scenarios
 //! - `Shell`: Execute external programs for advanced input
 

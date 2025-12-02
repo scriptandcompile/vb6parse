@@ -1,4 +1,4 @@
-//! # Abs Function
+//! # `Abs` Function
 //!
 //! Returns the absolute value of a number.
 //!
@@ -176,10 +176,10 @@
 //!
 //! ## Related Functions
 //!
-//! - **Sgn**: Returns the sign of a number (-1, 0, or 1)
-//! - **Fix**: Returns the integer portion of a number (truncates toward zero)
-//! - **Int**: Returns the integer portion of a number (rounds down)
-//! - **Round**: Rounds a number to a specified number of decimal places
+//! - `Sgn`: Returns the sign of a number (-1, 0, or 1)
+//! - `Fix`: Returns the integer portion of a number (truncates toward zero)
+//! - `Int`: Returns the integer portion of a number (rounds down)
+//! - `Round`: Rounds a number to a specified number of decimal places
 //!
 //! ## Type Compatibility
 //!
@@ -196,12 +196,12 @@
 //!
 //! ## Performance Notes
 //!
-//! - Abs is a very fast intrinsic function
+//! - `Abs` is a very fast intrinsic function
 //! - No function call overhead in compiled code
 //! - Optimized to CPU instructions where possible
-//! - Prefer Abs over manual If/Then checks for performance
+//! - Prefer `Abs` over manual `If`/`Then` checks for performance
 //!
-//! Abs is parsed as a regular function call (CallExpression)
+//! `Abs` is parsed as a regular function call (`CallExpression`)
 //! This module serves as documentation and reference for the Abs function
 
 #[cfg(test)]

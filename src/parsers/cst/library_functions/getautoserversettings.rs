@@ -1,6 +1,6 @@
-//! GetAutoServerSettings Function
+//! `GetAutoServerSettings` Function
 //!
-//! Returns information about the security settings for a DCOM (Distributed Component Object Model) server.
+//! Returns information about the security settings for a `DCOM` (`Distributed Component Object Model`) server.
 //!
 //! # Syntax
 //!
@@ -10,24 +10,24 @@
 //!
 //! # Parameters
 //!
-//! - `progid` - Required. String expression that specifies the programmatic identifier (ProgID) of the server.
-//! - `clsid` - Required. String expression that specifies the class identifier (CLSID) of the server.
+//! - `progid` - Required. String expression that specifies the programmatic identifier (`ProgID`) of the server.
+//! - `clsid` - Required. String expression that specifies the class identifier (`CLSID`) of the server.
 //! - `machine` - Required. String expression that specifies the name of the machine where the server is located.
 //!
 //! # Return Value
 //!
-//! Returns a Long value containing security settings information for the specified DCOM server.
+//! Returns a `Long` value containing security settings information for the specified `DCOM` server.
 //!
 //! # Remarks
 //!
-//! - This function is specific to DCOM automation servers.
+//! - This function is specific to `DCOM` (`Distributed Component Object Model`) automation servers.
 //! - Used primarily in distributed computing scenarios.
 //! - Returns security configuration information from the Windows registry.
-//! - The function is part of VB6's DCOM support infrastructure.
+//! - The function is part of VB6's `DCOM` support infrastructure.
 //! - Typically used in enterprise applications with distributed components.
-//! - Requires appropriate DCOM permissions on the target machine.
-//! - The progid and clsid must correspond to a registered COM/DCOM server.
-//! - Machine name can be a NetBIOS name, DNS name, or IP address.
+//! - Requires appropriate `DCOM` permissions on the target machine.
+//! - The progid and clsid must correspond to a registered `COM`/`DCOM` server.
+//! - Machine name can be a `NetBIOS` name, `DNS` name, or `IP` address.
 //! - Returns 0 if the server settings cannot be retrieved.
 //!
 //! # Typical Uses
@@ -644,10 +644,10 @@
 //! ```
 //!
 //! Common errors:
-//! - **Error 429**: ActiveX component can't create object - server not registered or accessible.
+//! - **Error 429**: `ActiveX` component can't create object - server not registered or accessible.
 //! - **Error 462**: Remote server machine does not exist or is unavailable.
-//! - **Error 70**: Permission denied - insufficient DCOM permissions.
-//! - **Error 5**: Invalid procedure call - invalid ProgID or CLSID format.
+//! - **Error 70**: Permission denied - insufficient `DCOM` permissions.
+//! - **Error 5**: Invalid procedure call - invalid `ProgID` or `CLSID` format.
 //!
 //! # Performance Considerations
 //!
@@ -660,18 +660,18 @@
 //!
 //! # Best Practices
 //!
-//! 1. **Always use error handling** - network and DCOM issues are common
-//! 2. **Validate ProgID and CLSID format** before calling
+//! 1. **Always use error handling** - network and `DCOM` issues are common
+//! 2. **Validate `ProgID` and `CLSID` format** before calling
 //! 3. **Use descriptive server names** for better diagnostics
 //! 4. **Implement retry logic** for transient failures
 //! 5. **Cache results** to reduce network overhead
 //! 6. **Log all queries** for auditing and troubleshooting
 //! 7. **Test connectivity** before production deployment
-//! 8. **Configure DCOM security** appropriately on all servers
+//! 8. **Configure `DCOM` security** appropriately on all servers
 //!
 //! # Comparison with Other Functions
 //!
-//! ## GetAutoServerSettings vs CreateObject
+//! ## `GetAutoServerSettings` vs `CreateObject`
 //!
 //! ```vb
 //! ' GetAutoServerSettings - Query server settings
@@ -681,7 +681,7 @@
 //! Set obj = CreateObject(progID, serverName)
 //! ```
 //!
-//! ## GetAutoServerSettings vs GetObject
+//! ## `GetAutoServerSettings` vs `GetObject`
 //!
 //! ```vb
 //! ' GetAutoServerSettings - Check DCOM configuration
@@ -714,8 +714,8 @@
 //!
 //! # Related Functions
 //!
-//! - `CreateObject` - Creates an instance of a COM object
-//! - `GetObject` - Returns a reference to an ActiveX object
+//! - `CreateObject` - Creates an instance of a `COM` object
+//! - `GetObject` - Returns a reference to an `ActiveX` object
 //! - `CallByName` - Executes methods on objects dynamically
 //! - `TypeName` - Returns type information about an object
 //! - `GetSetting` - Retrieves application settings from registry

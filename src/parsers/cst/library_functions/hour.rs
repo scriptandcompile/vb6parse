@@ -1,4 +1,4 @@
-//! # Hour Function
+//! # `Hour` Function
 //!
 //! Returns an Integer specifying a whole number between 0 and 23, inclusive, representing the hour of the day.
 //!
@@ -10,24 +10,24 @@
 //!
 //! ## Parameters
 //!
-//! - `time` (Required): Any Variant, numeric expression, string expression, or any combination that can represent a time. If `time` contains Null, Null is returned.
+//! - `time` (Required): Any `Variant`, numeric expression, string expression, or any combination that can represent a time. If `time` contains `Null`, `Null` is returned.
 //!
 //! ## Return Value
 //!
-//! Returns an Integer from 0 to 23 representing the hour of the day. The hour is returned in 24-hour format (0 = midnight, 23 = 11 PM).
+//! Returns an `Integer` from 0 to 23 representing the hour of the day. The hour is returned in 24-hour format (0 = midnight, 23 = 11 PM).
 //!
 //! ## Remarks
 //!
-//! The Hour function extracts the hour component from a date/time value:
+//! The `Hour` function extracts the hour component from a date/time value:
 //!
 //! - Returns values from 0 (midnight) to 23 (11 PM)
 //! - Uses 24-hour format, not 12-hour AM/PM format
-//! - If `time` is Null, the function returns Null
+//! - If `time` is `Null`, the function returns `Null`
 //! - If `time` contains only a date with no time component, returns 0
-//! - Works with Date variables, time strings, and numeric date/time values
-//! - Can be used with Now, Time, TimeValue, and other date/time functions
-//! - For 12-hour format with AM/PM, use Format$ function instead
-//! - Complements Minute and Second functions for complete time extraction
+//! - Works with `Date` variables, time strings, and numeric date/time values
+//! - Can be used with `Now`, `Time`, `TimeValue`, and other date/time functions
+//! - For 12-hour format with AM/PM, use `Format$` function instead
+//! - Complements `Minute` and `Second` functions for complete time extraction
 //!
 //! ## Typical Uses
 //!
@@ -330,7 +330,7 @@
 //!
 //! - **Type Mismatch (Error 13)**: If the argument cannot be interpreted as a date/time value
 //! - **Invalid Procedure Call (Error 5)**: If the date value is invalid
-//! - **Null Propagation**: If the argument is Null, the function returns Null (not an error)
+//! - **Null Propagation**: If the argument is `Null`, the function returns `Null` (not an error)
 //!
 //! ```vb
 //! On Error Resume Next
@@ -348,30 +348,30 @@
 //!
 //! - **Fast Operation**: Hour extraction is a very fast, native operation
 //! - **No Overhead**: Minimal performance impact even in tight loops
-//! - **Caching**: If checking the same time repeatedly, cache the Hour() result
-//! - **Comparison**: Direct Hour() comparisons are faster than full time comparisons
+//! - **Caching**: If checking the same time repeatedly, cache the `Hour()` result
+//! - **Comparison**: Direct `Hour()` comparisons are faster than full time comparisons
 //!
 //! ## Best Practices
 //!
-//! 1. **24-Hour Format**: Remember Hour returns 0-23, not 1-12 with AM/PM
-//! 2. **Midnight**: Hour(#12:00:00 AM#) returns 0, not 12
-//! 3. **Noon**: Hour(#12:00:00 PM#) returns 12
+//! 1. **24-Hour Format**: Remember `Hour` returns 0-23, not 1-12 with AM/PM
+//! 2. **Midnight**: `Hour(#12:00:00 AM#)` returns 0, not 12
+//! 3. **Noon**: `Hour(#12:00:00 PM#)` returns 12
 //! 4. **Validation**: Validate hour ranges (0-23) when accepting user input
-//! 5. **Date-Only Values**: Hour of date-only value (no time) is always 0
-//! 6. **Null Handling**: Check for Null when working with Variant date values
-//! 7. **Time Zones**: Hour doesn't handle time zones; use explicit conversion if needed
+//! 5. **Date-Only Values**: The hour component of a date-only value (no time) is always 0
+//! 6. **Null Handling**: Check for `Null` when working with `Variant` date values
+//! 7. **Time Zones**: `Hour` doesn't handle time zones; use explicit conversion if needed
 //!
 //! ## Comparison with Other Functions
 //!
 //! | Function | Purpose | Return Range |
 //! |----------|---------|--------------|
-//! | Hour | Extract hour from time | 0-23 (24-hour) |
-//! | Minute | Extract minute from time | 0-59 |
-//! | Second | Extract second from time | 0-59 |
-//! | Day | Extract day from date | 1-31 |
-//! | Month | Extract month from date | 1-12 |
-//! | Year | Extract year from date | 100-9999 |
-//! | Weekday | Get day of week | 1-7 |
+//! | `Hour` | Extract hour from time | 0-23 (24-hour) |
+//! | `Minute` | Extract minute from time | 0-59 |
+//! | `Second` | Extract second from time | 0-59 |
+//! | `Day` | Extract day from date | 1-31 |
+//! | `Month` | Extract month from date | 1-12 |
+//! | `Year` | Extract year from date | 100-9999 |
+//! | `Weekday` | Get day of week | 1-7 |
 //!
 //! ## Conversion Examples
 //!

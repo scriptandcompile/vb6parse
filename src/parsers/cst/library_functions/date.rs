@@ -1,6 +1,6 @@
-//! # Date Function
+//! # `Date` Function
 //!
-//! Returns the current system date as a Variant of subtype Date.
+//! Returns the current system date as a `Variant` of subtype `Date`.
 //!
 //! ## Syntax
 //!
@@ -14,7 +14,7 @@
 //!
 //! ## Return Value
 //!
-//! Returns a Variant of subtype Date (VarType = 7) containing the current system date.
+//! Returns a `Variant` of subtype `Date` (`VarType = 7`) containing the current system date.
 //! The time portion is set to midnight (00:00:00).
 //!
 //! ## Remarks
@@ -29,7 +29,7 @@
 //! - Uses system date from computer's clock
 //! - Can also be used as a statement to set the system date: `Date = #1/1/2025#`
 //! - Date values are stored internally as Double (days since Dec 30, 1899)
-//! - VarType of result is 7 (vbDate)
+//! - `VarType` of result is 7 (vbDate)
 //! - Locale-aware for display formatting
 //! - Date range: January 1, 100 to December 31, 9999
 //!

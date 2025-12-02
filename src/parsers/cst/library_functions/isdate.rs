@@ -1,4 +1,4 @@
-//! # IsDate Function
+//! # `IsDate` Function
 //!
 //! Returns a Boolean value indicating whether an expression can be converted to a date.
 //!
@@ -10,33 +10,33 @@
 //!
 //! ## Parameters
 //!
-//! - `expression` (Required): Variant expression to test for date validity
+//! - `expression` (Required): `Variant` expression to test for date validity
 //!
 //! ## Return Value
 //!
-//! Returns a Boolean:
+//! Returns a `Boolean`:
 //! - `True` if the expression is a date or can be recognized as a valid date
 //! - `False` if the expression cannot be converted to a date
 //! - Recognizes dates in various formats based on locale settings
-//! - Returns `True` for Date data type variables
+//! - Returns `True` for `Date` data type variables
 //! - Returns `True` for valid date strings
-//! - Returns `False` for Null, Empty, and invalid date expressions
+//! - Returns `False` for `Null`, `Empty`, and invalid date expressions
 //!
 //! ## Remarks
 //!
-//! The IsDate function determines whether an expression represents a valid date:
+//! The `IsDate` function determines whether an expression represents a valid date:
 //!
-//! - Returns `True` for Date type variables
+//! - Returns `True` for `Date` type variables
 //! - Returns `True` for strings that can be interpreted as valid dates
-//! - Date format recognition depends on locale settings of the system
-//! - Recognizes many common date formats (MM/DD/YYYY, DD-MMM-YYYY, etc.)
-//! - Returns `False` for Null values
-//! - Returns `False` for Empty variants
+//! - `Date` format recognition depends on locale settings of the system
+//! - Recognizes many common `Date` formats (MM/DD/YYYY, DD-MMM-YYYY, etc.)
+//! - Returns `False` for `Null` values
+//! - Returns `False` for `Empty` variants
 //! - Can validate user input before date conversion
 //! - Useful for preventing Type Mismatch errors with date operations
 //! - Returns `True` for date/time combinations
 //! - Returns `True` for time-only values
-//! - Date range must be valid (e.g., not February 30)
+//! - `Date` range must be valid (e.g., not February 30)
 //! - Years typically need to be in valid range (100-9999)
 //!
 //! ## Typical Uses
@@ -463,7 +463,7 @@
 //!
 //! ## Error Handling
 //!
-//! The IsDate function itself does not raise errors, but it's commonly used to prevent errors:
+//! The `IsDate` function itself does not raise errors, but it's commonly used to prevent errors:
 //!
 //! ```vb
 //! Function SafeDateOperation(dateStr As String) As Variant
@@ -485,19 +485,19 @@
 //!
 //! ## Performance Considerations
 //!
-//! - **Fast Operation**: IsDate is a fast check with minimal overhead
-//! - **Locale Dependent**: Date parsing depends on system locale settings
-//! - **Validation Before Conversion**: More efficient than Try/Catch approach with CDate
-//! - **String Parsing**: IsDate must parse string to determine validity
+//! - **Fast Operation**: `IsDate` is a fast check with minimal overhead
+//! - **Locale Dependent**: `Date` parsing depends on system locale settings
+//! - **Validation Before Conversion**: More efficient than Try/Catch approach with `CDate`
+//! - **String Parsing**: `IsDate` must parse string to determine validity
 //!
 //! ## Best Practices
 //!
-//! 1. **Always Validate**: Check IsDate before CDate to prevent Type Mismatch errors
+//! 1. **Always Validate**: Check `IsDate` before `CDate` to prevent Type Mismatch errors
 //! 2. **User Input**: Essential for validating user-entered dates
 //! 3. **Locale Awareness**: Be aware that date format recognition varies by locale
 //! 4. **Clear Messages**: Provide clear error messages when dates are invalid
-//! 5. **Range Validation**: Combine IsDate with range checks for complete validation
-//! 6. **Null Handling**: Remember IsDate returns False for Null and Empty
+//! 5. **Range Validation**: Combine `IsDate` with range checks for complete validation
+//! 6. **Null Handling**: Remember `IsDate` returns False for `Null` and `Empty`
 //! 7. **Database Dates**: Validate before inserting into database date fields
 //! 8. **Format Consistency**: Consider standardizing date format after validation
 //!
@@ -505,19 +505,19 @@
 //!
 //! | Function | Purpose | Returns | Use Case |
 //! |----------|---------|---------|----------|
-//! | IsDate | Check if valid date | Boolean | Validate date expressions |
-//! | IsNumeric | Check if numeric | Boolean | Validate numeric data |
-//! | IsNull | Check if Null | Boolean | Check for Null values |
-//! | IsEmpty | Check if uninitialized | Boolean | Check Variant initialization |
-//! | CDate | Convert to date | Date | Perform conversion |
-//! | VarType | Get variant type | Integer | Detailed type information |
-//! | DateValue | Extract date part | Date | Get date without time |
+//! | `IsDate` | Check if valid date | Boolean | Validate date expressions |
+//! | `IsNumeric` | Check if numeric | Boolean | Validate numeric data |
+//! | `IsNull` | Check if Null | Boolean | Check for Null values |
+//! | `IsEmpty` | Check if uninitialized | Boolean | Check Variant initialization |
+//! | `CDate` | Convert to date | Date | Perform conversion |
+//! | `VarType` | Get variant type | Integer | Detailed type information |
+//! | `DateValue` | Extract date part | Date | Get date without time |
 //!
 //! ## Platform and Version Notes
 //!
 //! - Available in all VB6 versions
 //! - Part of VBA core functions
-//! - Returns Boolean type
+//! - Returns `Boolean` type
 //! - Date format recognition depends on system locale
 //! - Valid date range typically: January 1, 100 to December 31, 9999
 //! - Recognizes time-only values as valid dates
@@ -533,12 +533,12 @@
 //!
 //! ## Related Functions
 //!
-//! - `CDate`: Convert expression to Date type
+//! - `CDate`: Convert expression to `Date` type
 //! - `DateValue`: Return date part of date/time
 //! - `IsNumeric`: Check if numeric
-//! - `IsNull`: Check if Null
+//! - `IsNull`: Check if `Null`
 //! - `VarType`: Get detailed type information
-//! - `TypeName`: Get type name as string
+//! - `TypeName`: Get type name as `String`
 //! - `Format`: Format date for display
 
 #[cfg(test)]

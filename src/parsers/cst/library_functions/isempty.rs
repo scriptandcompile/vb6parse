@@ -1,6 +1,6 @@
-//! # IsEmpty Function
+//! # `IsEmpty` Function
 //!
-//! Returns a Boolean value indicating whether a Variant variable has been initialized.
+//! Returns a `Boolean` value indicating whether a `Variant` variable has been initialized.
 //!
 //! ## Syntax
 //!
@@ -10,31 +10,31 @@
 //!
 //! ## Parameters
 //!
-//! - `expression` (Required): Variant expression to test
+//! - `expression` (Required): `Variant` expression to test
 //!
 //! ## Return Value
 //!
-//! Returns a Boolean:
-//! - `True` if the variable is Empty (uninitialized)
+//! Returns a `Boolean`:
+//! - `True` if the variable is `Empty` (uninitialized)
 //! - `False` if the variable has been initialized
-//! - Only Variant variables can be Empty
+//! - Only `Variant` variables can be `Empty`
 //! - All other variable types are always initialized with default values
-//! - Returns `False` for Null values (Null is not the same as Empty)
-//! - Returns `False` for zero, empty strings, and False
+//! - Returns `False` for `Null` values (`Null` is not the same as `Empty`)
+//! - Returns `False` for zero, empty strings, and `False`
 //!
 //! ## Remarks
 //!
-//! The IsEmpty function is used to determine whether a Variant variable has been initialized:
+//! The `IsEmpty` function is used to determine whether a `Variant` variable has been initialized:
 //!
-//! - Only works with Variant data type
-//! - Returns `True` only for uninitialized Variant variables
-//! - Empty is different from Null (IsNull) and zero
-//! - Empty is different from zero-length string ("")
-//! - Empty is different from False
-//! - Useful for checking optional Variant parameters
-//! - Can detect uninitialized elements in Variant arrays
-//! - Once a Variant is assigned any value (including Null), it is no longer Empty
-//! - Use VarType(var) = vbEmpty for the same check
+//! - Only works with `Variant` data type
+//! - Returns `True` only for uninitialized `Variant` variables
+//! - `Empty` is different from `Null` (`IsNull`) and zero
+//! - `Empty` is different from zero-length string ("")
+//! - `Empty` is different from `False`
+//! - Useful for checking optional `Variant` parameters
+//! - Can detect uninitialized elements in `Variant` arrays
+//! - Once a `Variant` is assigned any value (including `Null`), it is no longer `Empty`
+//! - Use ```VarType(var) = vbEmpty``` for the same check
 //! - Cannot be used to test whether procedure or function exists
 //! - Commonly used in procedures with optional Variant parameters
 //!
@@ -418,7 +418,7 @@
 //!
 //! ## Error Handling
 //!
-//! The IsEmpty function itself does not raise errors, but it's commonly used in error prevention:
+//! The `IsEmpty` function itself does not raise errors, but it's commonly used in error prevention:
 //!
 //! ```vb
 //! Function SafeOperation(value As Variant) As Boolean
@@ -435,35 +435,35 @@
 //!
 //! ## Performance Considerations
 //!
-//! - **Fast Operation**: IsEmpty is a very fast check with minimal overhead
-//! - **Variant Only**: Only applicable to Variant variables
-//! - **Early Validation**: Check IsEmpty early to avoid unnecessary processing
-//! - **VarType Alternative**: `VarType(var) = vbEmpty` provides same check
+//! - **Fast Operation**: `IsEmpty` is a very fast check with minimal overhead
+//! - **Variant Only**: Only applicable to `Variant` variables
+//! - **Early Validation**: Check `IsEmpty` early to avoid unnecessary processing
+//! - **`VarType` Alternative**: ```VarType(var) = vbEmpty``` provides same check
 //!
 //! ## Best Practices
 //!
-//! 1. **Optional Parameters**: Always check IsEmpty for optional Variant parameters
-//! 2. **Explicit Defaults**: Provide clear default values when parameters are Empty
-//! 3. **Document Behavior**: Document whether Empty is valid for function parameters
-//! 4. **Distinguish States**: Understand difference between Empty, Null, zero, and empty string
-//! 5. **Initialization**: Consider explicitly initializing Variants when Empty is not desired
-//! 6. **Combine Checks**: Use with IsNull for comprehensive validation
-//! 7. **Clear Code**: Use IsEmpty rather than VarType for better readability
+//! 1. **Optional Parameters**: Always check `IsEmpty` for optional `Variant` parameters
+//! 2. **Explicit Defaults**: Provide clear default values when parameters are `Empty`
+//! 3. **Document Behavior**: Document whether `Empty` is valid for function parameters
+//! 4. **Distinguish States**: Understand difference between `Empty`, `Null`, zero, and empty string
+//! 5. **Initialization**: Consider explicitly initializing `Variant`s when `Empty` is not desired
+//! 6. **Combine Checks**: Use with `IsNull` for comprehensive validation
+//! 7. **Clear Code**: Use `IsEmpty` rather than `VarType` for better readability
 //! 8. **Reset to Empty**: Use `var = Empty` to reset Variant to uninitialized state
 //!
 //! ## Comparison with Related Functions
 //!
 //! | Function | Purpose | Returns | Use Case |
 //! |----------|---------|---------|----------|
-//! | IsEmpty | Check if uninitialized | Boolean | Detect Empty Variants |
-//! | IsNull | Check if Null | Boolean | Detect Null values |
-//! | IsNumeric | Check if numeric | Boolean | Validate numeric data |
-//! | IsDate | Check if date | Boolean | Validate date data |
-//! | IsArray | Check if array | Boolean | Validate array variables |
-//! | VarType | Get variant type | Integer | Detailed type information |
-//! | TypeName | Get type name | String | Type name as string |
+//! | `IsEmpty` | Check if uninitialized | `Boolean` | Detect Empty Variants |
+//! | `IsNull` | Check if Null | `Boolean` | Detect Null values |
+//! | `IsNumeric` | Check if numeric | `Boolean` | Validate numeric data |
+//! | `IsDate` | Check if date | `Boolean` | Validate date data |
+//! | `IsArray` | Check if array | `Boolean` | Validate array variables |
+//! | `VarType` | Get variant type | `Integer` | Detailed type information |
+//! | `TypeName` | Get type name | `String` | Type name as string |
 //!
-//! ## Empty vs Null vs Zero vs Empty String
+//! ## `Empty` vs `Null` vs `Zero` vs Empty `String`
 //!
 //! ```vb
 //! Dim v As Variant
@@ -494,26 +494,26 @@
 //!
 //! - Available in all VB6 versions
 //! - Part of VBA core functions
-//! - Returns Boolean type
-//! - Only works with Variant data type
-//! - Empty is VB-specific concept (not in all languages)
+//! - Returns `Boolean` type
+//! - Only works with `Variant` data type
+//! - `Empty` is VB-specific concept (not in all languages)
 //!
 //! ## Limitations
 //!
-//! - Only works with Variant variables
+//! - Only works with `Variant` variables
 //! - Cannot test non-Variant types (they're always initialized)
 //! - Does not indicate what type of value is expected
 //! - Cannot distinguish between intentionally Empty and accidentally uninitialized
-//! - Empty has different coercion behavior in different contexts
+//! - `Empty` has different coercion behavior in different contexts
 //!
 //! ## Related Functions
 //!
-//! - `IsNull`: Check if Variant is Null
-//! - `VarType`: Get detailed Variant type information
-//! - `TypeName`: Get type name as string
+//! - `IsNull`: Check if `Variant` is `Null`
+//! - `VarType`: Get detailed `Variant` type information
+//! - `TypeName`: Get type name as `String`
 //! - `IsNumeric`: Check if numeric
-//! - `IsDate`: Check if date
-//! - `IsArray`: Check if array
+//! - `IsDate`: Check if `Date`
+//! - `IsArray`: Check if `Array`
 
 #[cfg(test)]
 mod tests {

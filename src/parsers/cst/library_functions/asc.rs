@@ -1,6 +1,6 @@
-//! # Asc Function
+//! # `Asc` Function
 //!
-//! Returns an Integer representing the character code corresponding to the first letter in a string.
+//! Returns an `Integer` representing the character code corresponding to the first letter in a string.
 //!
 //! ## Syntax
 //!
@@ -14,15 +14,15 @@
 //!
 //! ## Return Value
 //!
-//! Returns an `Integer` representing the ANSI character code of the first character in the string.
+//! Returns an `Integer` representing the `ANSI` character code of the first character in the string.
 //!
-//! - For ANSI characters (0-127), returns standard ASCII values
-//! - For extended ANSI characters (128-255), returns extended ASCII values
-//! - Unicode characters are converted to ANSI before the code is returned
+//! - For `ANSI` characters (0-127), returns standard `ASCII` values
+//! - For extended `ANSI` characters (128-255), returns extended `ASCII` values
+//! - Unicode characters are converted to `ANSI` before the code is returned
 //!
 //! ## Remarks
 //!
-//! The `Asc` function returns the numeric ANSI character code for the first character in a string.
+//! The `Asc` function returns the numeric `ANSI` character code for the first character in a string.
 //! This is useful for:
 //! - Validating input characters
 //! - Performing character-based operations
@@ -33,8 +33,8 @@
 //!
 //! 1. **Only First Character**: Only the first character of the string is examined
 //! 2. **Empty String Error**: Passing an empty string results in a run-time error (Error 5: Invalid procedure call or argument)
-//! 3. **ANSI vs. Unicode**: In VB6, Asc returns ANSI codes; AscW returns Unicode values
-//! 4. **Return Type**: Returns Integer (16-bit signed), range -32,768 to 32,767, but character codes are 0-255
+//! 3. **ANSI vs. Unicode**: In VB6, `Asc` returns `ANSI` codes; `AscW` returns Unicode values
+//! 4. **Return Type**: Returns `Integer` (16-bit signed), range -32,768 to 32,767, but character codes are 0-255
 //! 5. **Case Sensitive**: Upper and lowercase letters have different codes (e.g., "A" = 65, "a" = 97)
 //!
 //! ### Character Code Ranges
@@ -241,7 +241,7 @@
 //! ## Parsing Notes
 //!
 //! The `Asc` function is not a reserved keyword in VB6. It is parsed as a regular
-//! function call (CallExpression). This module exists primarily for documentation
+//! function call (`CallExpression`). This module exists primarily for documentation
 //! purposes and to provide a comprehensive test suite that validates the parser
 //! correctly handles `Asc` function calls in various contexts.
 

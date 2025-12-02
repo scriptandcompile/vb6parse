@@ -1,4 +1,4 @@
-//! # FormatCurrency Function
+//! # `FormatCurrency` Function
 //!
 //! Returns an expression formatted as a currency value using the currency symbol defined in the system control panel.
 //!
@@ -26,7 +26,7 @@
 //!
 //! ## Return Value
 //!
-//! Returns a Variant of subtype String containing the expression formatted as a currency value.
+//! Returns a `Variant` of subtype `String` containing the expression formatted as a currency value.
 //!
 //! ## Remarks
 //!
@@ -43,8 +43,8 @@
 //! - Leading zeros controlled by regional settings or parameter
 //! - Currency symbol position depends on locale (before or after amount)
 //! - Returns empty string if expression is Null
-//! - More convenient than Format for simple currency formatting
-//! - Less flexible than Format for custom patterns
+//! - More convenient than `Format` for simple currency formatting
+//! - Less flexible than `Format` for custom patterns
 //! - Locale-aware (respects user's regional settings)
 //!
 //! ## Typical Uses
@@ -209,7 +209,7 @@
 //! End Sub
 //! ```
 //!
-//! ### ListBox/ComboBox Population
+//! ### `ListBox`/`ComboBox` Population
 //!
 //! ```vb
 //! Sub PopulatePriceList(lstPrices As ListBox, prices() As Double)
@@ -480,13 +480,13 @@
 //! ### Common Errors
 //!
 //! - **Error 13** (Type Mismatch): Expression cannot be converted to numeric
-//! - **Error 6** (Overflow): Value too large for Double
+//! - **Error 6** (Overflow): Value too large for `Double`
 //! - **Error 5** (Invalid procedure call): Invalid decimal places parameter
 //!
 //! ## Performance Considerations
 //!
-//! - FormatCurrency is fast for simple formatting
-//! - Slightly slower than Format for custom patterns
+//! - `FormatCurrency` is fast for simple formatting
+//! - Slightly slower than `Format` for custom patterns
 //! - Faster than building format strings manually
 //! - Locale lookups cached by system
 //! - Avoid repeated calls in tight loops if possible
@@ -494,7 +494,7 @@
 //!
 //! ## Best Practices
 //!
-//! ### Use FormatCurrency for User-Facing Amounts
+//! ### Use `FormatCurrency` for User-Facing Amounts
 //!
 //! ```vb
 //! ' Good - Locale-aware, user-friendly
@@ -504,7 +504,7 @@
 //! lblPrice.Caption = "$" & Format(price, "0.00")
 //! ```
 //!
-//! ### Handle Null Values
+//! ### Handle `Null` Values
 //!
 //! ```vb
 //! ' Good - Check for Null
@@ -525,7 +525,7 @@
 //!
 //! ## Comparison with Other Functions
 //!
-//! ### FormatCurrency vs Format
+//! ### `FormatCurrency` vs `Format`
 //!
 //! ```vb
 //! ' FormatCurrency - Simple, locale-aware
@@ -535,7 +535,7 @@
 //! result = Format(1234.56, "$#,##0.00")
 //! ```
 //!
-//! ### FormatCurrency vs FormatNumber
+//! ### `FormatCurrency` vs `FormatNumber`
 //!
 //! ```vb
 //! ' FormatCurrency - Adds currency symbol
@@ -545,7 +545,7 @@
 //! result = FormatNumber(1234.56)          ' 1,234.56
 //! ```
 //!
-//! ### FormatCurrency vs Str/CStr
+//! ### `FormatCurrency` vs `Str`/`CStr`
 //!
 //! ```vb
 //! ' FormatCurrency - Full formatting
@@ -570,7 +570,7 @@
 //!
 //! ## Regional Settings Impact
 //!
-//! The FormatCurrency function behavior varies by locale:
+//! The `FormatCurrency` function behavior varies by locale:
 //!
 //! - **United States**: $1,234.56
 //! - **United Kingdom**: £1,234.56
@@ -583,8 +583,8 @@
 //! - `FormatNumber`: Format numbers without currency symbol
 //! - `FormatPercent`: Format numbers as percentages
 //! - `FormatDateTime`: Format date/time values
-//! - `CCur`: Convert expression to Currency type
-//! - `CDbl`: Convert expression to Double
+//! - `CCur`: Convert expression to `Currency` type
+//! - `CDbl`: Convert expression to `Double` type
 
 #[cfg(test)]
 mod tests {

@@ -1,6 +1,6 @@
-//! # IsMissing Function
+//! # `IsMissing` Function
 //!
-//! Returns a Boolean value indicating whether an optional Variant parameter was passed to a procedure.
+//! Returns a `Boolean` value indicating whether an optional `Variant` parameter was passed to a procedure.
 //!
 //! ## Syntax
 //!
@@ -10,33 +10,33 @@
 //!
 //! ## Parameters
 //!
-//! - `argname` (Required): Name of an optional Variant parameter
+//! - `argname` (Required): Name of an optional `Variant` parameter
 //!
 //! ## Return Value
 //!
 //! Returns a Boolean:
-//! - `True` if the optional Variant argument was not passed
-//! - `False` if the optional Variant argument was passed
-//! - Only works with optional Variant parameters
-//! - Does not work with other data types (only Variant)
-//! - Does not work with ParamArray parameters
-//! - Returns `False` if Null, Empty, or any value was explicitly passed
+//! - `True` if the optional `Variant` argument was not passed
+//! - `False` if the optional `Variant` argument was passed
+//! - Only works with optional `Variant` parameters
+//! - Does not work with other data types (only `Variant`)
+//! - Does not work with `ParamArray` parameters
+//! - Returns `False` if `Null`, `Empty`, or any value was explicitly passed
 //!
 //! ## Remarks
 //!
-//! The IsMissing function is used to detect whether an optional parameter was omitted:
+//! The `IsMissing` function is used to detect whether an optional parameter was omitted:
 //!
-//! - Only works with Optional Variant parameters
+//! - Only works with Optional `Variant` parameters
 //! - Cannot be used with typed optional parameters (Integer, String, etc.)
 //! - Returns `True` only when argument was completely omitted
-//! - Returns `False` if any value was passed (including Empty, Null, 0, "")
+//! - Returns `False` if any value was passed (including `Empty`, `Null`, 0, "")
 //! - Useful for implementing functions with truly optional behavior
-//! - Different from checking IsEmpty - IsMissing detects omission
-//! - Empty can be explicitly passed: `MyFunc Empty` - IsMissing returns False
+//! - Different from checking `IsEmpty` - `IsMissing` detects omission
+//! - `Empty` can be explicitly passed: `MyFunc Empty` - `IsMissing` returns `False`
 //! - Common in COM/ActiveX programming for optional parameters
 //! - Allows distinguishing "not provided" from "provided as Empty/Null/0"
 //! - Must be used directly on parameter name, not on expressions
-//! - Parameter must be declared as Optional Variant
+//! - Parameter must be declared as Optional `Variant`
 //! - Cannot be used after assigning the parameter to another variable
 //!
 //! ## Typical Uses
@@ -46,7 +46,7 @@
 //! 3. **API Compatibility**: Maintain backward compatibility with varying parameter counts
 //! 4. **COM Interop**: Work with COM objects expecting optional parameters
 //! 5. **Flexible Functions**: Create functions with multiple optional behaviors
-//! 6. **Database Operations**: Handle optional WHERE clause parameters
+//! 6. **Database Operations**: Handle optional `WHERE` clause parameters
 //! 7. **Configuration Functions**: Apply settings only when explicitly provided
 //! 8. **Validation Logic**: Distinguish "no value" from "zero value"
 //!
@@ -477,7 +477,7 @@
 //!
 //! ## Error Handling
 //!
-//! IsMissing itself does not raise errors, but improper usage can:
+//! `IsMissing` itself does not raise errors, but improper usage can:
 //!
 //! ```vb
 //! ' ERROR: Cannot use with non-Variant optional parameters
@@ -505,34 +505,34 @@
 //!
 //! ## Performance Considerations
 //!
-//! - **Fast Operation**: IsMissing is a very fast check with minimal overhead
-//! - **Compile-Time Check**: VB6 can optimize IsMissing checks
-//! - **Variant Overhead**: Optional Variant parameters have more overhead than typed parameters
+//! - **Fast Operation**: `IsMissing` is a very fast check with minimal overhead
+//! - **Compile-Time Check**: VB6 can optimize `IsMissing` checks
+//! - **Variant Overhead**: Optional `Variant` parameters have more overhead than typed parameters
 //! - **Use Sparingly**: Only use when you truly need to distinguish missing from provided
 //!
 //! ## Best Practices
 //!
-//! 1. **Use Only with Variant**: IsMissing only works with Optional Variant parameters
-//! 2. **Direct Check**: Always check IsMissing directly on the parameter name
+//! 1. **Use Only with Variant**: `IsMissing` only works with Optional `Variant` parameters
+//! 2. **Direct Check**: Always check `IsMissing` directly on the parameter name
 //! 3. **Document Behavior**: Clearly document what happens when parameter is omitted
 //! 4. **Provide Defaults**: Consider if default values on Optional parameters would work instead
 //! 5. **Avoid Complexity**: Don't overuse optional parameters - can make APIs confusing
-//! 6. **Check Early**: Test IsMissing before using the parameter value
-//! 7. **Combine Wisely**: Can combine with IsEmpty, IsNull checks for complete validation
+//! 6. **Check Early**: Test `IsMissing` before using the parameter value
+//! 7. **Combine Wisely**: Can combine with `IsEmpty`, `IsNull` checks for complete validation
 //! 8. **API Design**: Use for true optional behavior, not just to avoid typing
 //!
 //! ## Comparison with Related Functions
 //!
 //! | Function | Purpose | Returns | Use Case |
 //! |----------|---------|---------|----------|
-//! | IsMissing | Check if optional parameter omitted | Boolean | Detect missing Optional Variant arguments |
-//! | IsEmpty | Check if uninitialized | Boolean | Detect Empty Variant values |
-//! | IsNull | Check if Null | Boolean | Detect Null values |
-//! | IsError | Check if error value | Boolean | Detect CVErr error values |
-//! | VarType | Get variant type | Integer | Detailed type information |
-//! | TypeName | Get type name | String | Type name as string |
+//! | `IsMissing` | Check if optional parameter omitted | `Boolean` | Detect missing Optional `Variant` arguments |
+//! | `IsEmpty` | Check if uninitialized | `Boolean` | Detect `Empty` `Variant` values |
+//! | `IsNull` | Check if Null | `Boolean` | Detect `Null` values |
+//! | `IsError` | Check if error value | `Boolean` | Detect `CVErr` error values |
+//! | `VarType` | Get variant type | `Integer` | Detailed type information |
+//! | `TypeName` | Get type name | `String` | Type name as string |
 //!
-//! ## IsMissing vs IsEmpty
+//! ## `IsMissing` vs `IsEmpty`
 //!
 //! ```vb
 //! Sub Test(Optional param As Variant)
@@ -562,28 +562,28 @@
 //!
 //! - Available in all VB6 versions
 //! - Part of VBA core functions
-//! - Returns Boolean type
-//! - Only works with Optional Variant parameters
-//! - Compile-time requirement: parameter must be Optional Variant
-//! - Cannot be used with ParamArray
+//! - Returns `Boolean` type
+//! - Only works with Optional `Variant` parameters
+//! - Compile-time requirement: parameter must be Optional `Variant`
+//! - Cannot be used with `ParamArray`
 //! - Common in COM/ActiveX programming
 //!
 //! ## Limitations
 //!
-//! - Only works with Optional Variant parameters (not Integer, String, etc.)
+//! - Only works with Optional `Variant` parameters (not `Integer`, `String`, etc.)
 //! - Cannot be used on expressions, only on parameter names
 //! - Cannot be used after assigning parameter to another variable
-//! - Does not work with ParamArray parameters
-//! - Cannot detect which parameter in ParamArray was omitted
-//! - Requires Variant type (introduces type safety concerns)
+//! - Does not work with `ParamArray` parameters
+//! - Cannot detect which parameter in `ParamArray` was omitted
+//! - Requires `Variant` type (introduces type safety concerns)
 //! - Can make function signatures more complex
 //!
 //! ## Related Functions
 //!
-//! - `IsEmpty`: Check if Variant is uninitialized (Empty)
-//! - `IsNull`: Check if Variant is Null
-//! - `VarType`: Get detailed Variant type information
-//! - `TypeName`: Get type name as string
+//! - `IsEmpty`: Check if `Variant` is uninitialized (`Empty`)
+//! - `IsNull`: Check if `Variant` is `Null`
+//! - `VarType`: Get detailed `Variant` type information
+//! - `TypeName`: Get type name as `String`
 
 #[cfg(test)]
 mod tests {

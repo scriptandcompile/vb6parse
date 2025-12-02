@@ -26,15 +26,15 @@
 //!
 //! - Removes the fractional part of a number
 //! - Always truncates toward zero (removes decimal without rounding)
-//! - For positive numbers, behaves like Int (same result)
-//! - For negative numbers, different from Int (Int rounds down, Fix truncates)
-//! - Fix(-8.4) returns -8, Int(-8.4) returns -9
-//! - Fix(8.4) returns 8, Int(8.4) returns 8
-//! - Does not round to nearest integer (use Round for rounding)
+//! - For positive numbers, behaves like `Int` (same result)
+//! - For negative numbers, different from `Int` (`Int` rounds down, `Fix` truncates)
+//! - `Fix`(-8.4) returns -8, `Int`(-8.4) returns -9
+//! - `Fix`(8.4) returns 8, `Int`(8.4) returns 8
+//! - Does not round to nearest integer (use `Round` for rounding)
 //! - The return type preserves the input numeric type
 //! - More intuitive for most developers (truncation toward zero)
 //! - Commonly used when you want to discard fractional parts
-//! - For financial calculations, consider using Round or CCur instead
+//! - For financial calculations, consider using `Round` or `CCur` instead
 //!
 //! ## Typical Uses
 //!
@@ -301,13 +301,12 @@
 //!
 //! | Function | Behavior with -8.7 | Behavior with 8.7 | Description |
 //! |----------|-------------------|-------------------|-------------|
-//! | Fix | -8 | 8 | Truncates toward zero |
-//! | Int | -9 | 8 | Rounds down (floor) |
-//! | Round | -9 | 9 | Rounds to nearest |
-//! | CLng | -9 | 9 | Converts to Long with rounding |
-//! | CInt | -9 | 9 | Converts to Integer with rounding |
-//! | \ | N/A | N/A | Integer division operator |
-//!
+//! | `Fix` | -8 | 8 | Truncates toward zero |
+//! | `Int` | -9 | 8 | Rounds down (floor) |
+//! | `Round` | -9 | 9 | Rounds to nearest |
+//! | `CLng` | -9 | 9 | Converts to `Long` with rounding |
+//! | `CInt` | -9 | 9 | Converts to `Integer` with rounding |
+//! | `\` | N/A | N/A | `Integer` division operator |
 //! ## Platform and Version Notes
 //!
 //! - Available in all VB6 versions
@@ -318,20 +317,20 @@
 //!
 //! ## Limitations
 //!
-//! - Does not round to nearest (use Round for that)
-//! - Behavior with negative numbers differs from Int
+//! - Does not round to nearest (use `Round` for that)
+//! - Behavior with negative numbers differs from `Int`
 //! - Return type depends on input type (can cause overflow)
 //! - Cannot specify decimal places (always removes all decimals)
 //! - No control over rounding direction (always toward zero)
 //!
 //! ## Related Functions
 //!
-//! - `Int`: Returns integer portion, rounding down (floor)
+//! - `Int`: Returns `Integer` portion, rounding down (floor)
 //! - `Round`: Rounds to nearest integer or specified decimal places
-//! - `CInt`: Converts to Integer with rounding
-//! - `CLng`: Converts to Long with rounding
-//! - `Abs`: Absolute value (often used with Fix)
-//! - `Sgn`: Sign of number (often used with Fix)
+//! - `CInt`: Converts to `Integer` with rounding
+//! - `CLng`: Converts to `Long` with rounding
+//! - `Abs`: Absolute value (often used with `Fix`)
+//! - `Sgn`: Sign of number (often used with `Fix`)
 
 #[cfg(test)]
 mod tests {

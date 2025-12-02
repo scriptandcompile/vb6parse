@@ -1,4 +1,4 @@
-//! # Command Function
+//! # `Command` Function
 //!
 //! Returns the argument portion of the command line used to launch Microsoft Visual Basic or an
 //! executable program developed with Visual Basic.
@@ -497,7 +497,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Use Sub Main() for Command Line Apps
+//! ### Use `Sub Main()` for Command Line Apps
 //!
 //! ```vb
 //! Sub Main()
@@ -527,7 +527,7 @@
 //!
 //! ## Platform Considerations
 //!
-//! - Windows: Uses GetCommandLine API internally
+//! - Windows: Uses `GetCommandLine` API internally
 //! - Command line length limits vary by Windows version
 //! - Unicode characters may require special handling
 //! - Some special characters may need escaping in batch files
