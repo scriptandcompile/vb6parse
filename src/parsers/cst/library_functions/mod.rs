@@ -17,6 +17,7 @@
 //! - `Chr`: Returns the character associated with the specified character code
 //! - `Chr$`: Returns a String containing the character associated with the specified character code
 //! - `ChrB`: Returns a String containing the character associated with the specified ANSI character code
+//! - `ChrB$`: Returns a String containing the character associated with the specified ANSI character code
 //! - `ChrW`: Returns a String containing the Unicode character associated with the specified character code
 //! - `Command`: Returns the command-line arguments passed to the program
 //! - `Cos`: Returns the cosine of an angle in radians
@@ -169,6 +170,7 @@ mod choose;
 mod chr;
 mod chr_dollar;
 mod chrb;
+mod chrb_dollar;
 mod chrw;
 mod command;
 mod cos;
