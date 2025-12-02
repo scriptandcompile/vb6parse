@@ -98,6 +98,7 @@
 //! - `LOF`: Returns the size, in bytes, of a file opened using the Open statement
 //! - `Log`: Returns the natural logarithm of a number
 //! - `LTrim`: Returns a string with leading spaces removed
+//! - `LTrim$`: Returns a String with leading spaces removed
 //! - `Mid`: Returns a specified number of characters from a string
 //! - `Mid$`: Returns a specified number of characters from a string (always returns `String`)
 //! - `MidB`: Returns a specified number of bytes from a string
@@ -259,6 +260,7 @@ mod loc;
 mod lof;
 mod log;
 mod ltrim;
+mod ltrim_dollar;
 mod mid;
 mod mid_dollar;
 mod midb;
