@@ -150,6 +150,7 @@
 //! - `Tab`: Positions output at a specific column in Print statements
 //! - `Tan`: Returns the tangent of an angle in radians
 //! - `Time`: Returns the current system time
+//! - `Time$`: Returns a String representing the current system time
 //! - `Timer`: Returns the number of seconds elapsed since midnight
 //! - `TimeSerial`: Returns a time for a specific hour, minute, and second
 //! - `TimeValue`: Returns a time value from a string expression
@@ -319,6 +320,7 @@ mod syd;
 mod tab;
 mod tan;
 mod time;
+mod time_dollar;
 mod timer;
 mod timeserial;
 mod timevalue;
