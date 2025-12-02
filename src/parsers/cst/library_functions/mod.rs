@@ -63,6 +63,7 @@
 //! - `GetObject`: Returns a reference to an `ActiveX` object from a file or a running instance
 //! - `GetSetting`: Returns a registry key setting value from the Windows registry
 //! - `Hex`: Returns a `String` representing the hexadecimal value of a number
+//! - `Hex$`: Returns a String representing the hexadecimal value of a number
 //! - `Hour`: Returns an `Integer` specifying a whole number between 0 and 23, inclusive, representing the hour of the day
 //! - `IIf`: Returns one of two parts, depending on the evaluation of an expression
 //! - `IMEStatus`: Returns an `Integer` indicating the current `Input Method Editor` (`IME`) mode of Microsoft Windows
@@ -234,6 +235,7 @@ mod getautoserversettings;
 mod getobject;
 mod getsetting;
 mod hex;
+mod hex_dollar;
 mod hour;
 mod iif;
 mod imestatus;
