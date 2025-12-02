@@ -135,6 +135,7 @@
 //! - `Sin`: Returns the sine of an angle in radians
 //! - `SLN`: Returns straight-line depreciation of an asset for a single period
 //! - `Space`: Returns a `String` consisting of the specified number of spaces
+//! - `Space$`: Returns a String consisting of the specified number of spaces
 //! - `Spc`: Positions output by inserting spaces in Print statements
 //! - `Split`: Returns a zero-based array containing a specified number of substrings
 //! - `Sqr`: Returns the square root of a number
@@ -302,6 +303,7 @@ mod shell;
 mod sin;
 mod sln;
 mod space;
+mod space_dollar;
 mod spc;
 mod split;
 mod sqr;
