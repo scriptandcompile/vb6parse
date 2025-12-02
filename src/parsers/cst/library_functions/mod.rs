@@ -127,6 +127,7 @@
 //! - `Rnd`: Returns a `Single` containing a pseudo-random number
 //! - `Round`: Returns a number rounded to a specified number of decimal places
 //! - `RTrim`: Returns a `String` with trailing spaces removed
+//! - `RTrim$`: Returns a String with trailing spaces removed
 //! - `Second`: Returns an `Integer` specifying the second of the minute (0-59)
 //! - `Seek`: Returns a `Long` specifying the current read/write position within a file
 //! - `Sgn`: Returns an `Integer` indicating the sign of a number (-1, 0, or 1)
@@ -293,6 +294,7 @@ mod rightb_dollar;
 mod rnd;
 mod round;
 mod rtrim;
+mod rtrim_dollar;
 mod second;
 mod seek;
 mod sgn;
