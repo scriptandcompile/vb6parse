@@ -140,6 +140,7 @@
 //! - `Split`: Returns a zero-based array containing a specified number of substrings
 //! - `Sqr`: Returns the square root of a number
 //! - `Str`: Converts a number to a string representation
+//! - `Str$`: Converts a number to a String representation
 //! - `StrComp`: Compares two `String`s and returns a value indicating their relationship
 //! - `StrConv`: Converts a `String` to a specified format
 //! - `String`: Returns a `String` consisting of a repeating character
@@ -308,6 +309,7 @@ mod spc;
 mod split;
 mod sqr;
 mod str;
+mod str_dollar;
 mod strcomp;
 mod strconv;
 mod string;
