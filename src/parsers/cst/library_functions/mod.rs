@@ -87,6 +87,7 @@
 //! - `LCase$`: Returns a `String` that has been converted to lowercase (explicit String type)
 //! - `Left`: Returns a `String` containing a specified number of characters from the left side of a string
 //! - `Left$`: Returns a String containing a specified number of characters from the left side of a string
+//! - `LeftB$`: Returns a String containing a specified number of bytes from the left side of a string
 //! - `Len`: Returns a `Long` containing the number of characters in a string or the number of bytes required to store a variable
 //! - `LenB`: Returns a `Long` containing the number of bytes used to represent a string in memory
 //! - `LoadPicture`: Returns a picture object containing an image from a file or memory
@@ -247,6 +248,7 @@ mod lcase;
 mod lcase_dollar;
 mod left;
 mod left_dollar;
+mod leftb_dollar;
 mod len;
 mod lenb;
 mod loadpicture;
