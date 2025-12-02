@@ -368,7 +368,7 @@ End Sub
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
 
     #[test]
@@ -380,7 +380,7 @@ End Sub
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
 
     #[test]
@@ -392,7 +392,7 @@ End Sub
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
 
     #[test]
@@ -404,7 +404,7 @@ End Function
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
 
     #[test]
@@ -416,7 +416,7 @@ End Function
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
 
     #[test]
@@ -428,7 +428,7 @@ End Function
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
 
     #[test]
@@ -440,7 +440,7 @@ End Function
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
 
     #[test]
@@ -452,7 +452,7 @@ End Function
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
 
     #[test]
@@ -466,7 +466,7 @@ End Function
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
 
     #[test]
@@ -478,7 +478,7 @@ End Sub
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
 
     #[test]
@@ -491,7 +491,7 @@ End Function
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
 
     #[test]
@@ -504,7 +504,7 @@ End Function
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
 
     #[test]
@@ -517,7 +517,7 @@ End Function
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
 
     #[test]
@@ -529,7 +529,7 @@ End Function
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
 
     #[test]
@@ -543,7 +543,7 @@ End Function
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
 
     #[test]
@@ -555,7 +555,7 @@ End Function
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
 
     #[test]
@@ -571,7 +571,7 @@ End Function
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
 
     #[test]
@@ -584,7 +584,7 @@ End Function
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
 
     #[test]
@@ -601,7 +601,7 @@ End Sub
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
 
     #[test]
@@ -615,6 +615,6 @@ End Sub
 "#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("DollarSign"));
+        assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
 }

@@ -44,10 +44,10 @@ impl<'a> Parser<'a> {
                 at_identifier_position = false;
                 last_was_period = false;
             } else {
-                // Check for Error$ pattern (ErrorKeyword followed by DollarSign)
+                // Check for keyword/identifier + $ pattern (Error$, Len$, Mid$, UCase$, LCase$, etc.)
                 // This should be merged into a single Identifier token
-                if self.at_error_dollar() {
-                    self.consume_error_dollar_as_identifier();
+                if self.at_keyword_dollar() {
+                    self.consume_keyword_dollar_as_identifier();
                     at_identifier_position = false;
                     last_was_period = false;
                 } else {
@@ -715,22 +715,21 @@ path = Environ$("TEMP")
         );
         assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(cst.children()[1].children[4].kind, SyntaxKind::Identifier);
-        assert_eq!(cst.children()[1].children[4].text, "Environ");
-        assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::DollarSign);
+        assert_eq!(cst.children()[1].children[4].text, "Environ$");
         assert_eq!(
-            cst.children()[1].children[6].kind,
+            cst.children()[1].children[5].kind,
             SyntaxKind::LeftParenthesis
         );
         assert_eq!(
-            cst.children()[1].children[7].kind,
+            cst.children()[1].children[6].kind,
             SyntaxKind::StringLiteral
         );
-        assert_eq!(cst.children()[1].children[7].text, "\"TEMP\"");
+        assert_eq!(cst.children()[1].children[6].text, "\"TEMP\"");
         assert_eq!(
-            cst.children()[1].children[8].kind,
+            cst.children()[1].children[7].kind,
             SyntaxKind::RightParenthesis
         );
-        assert_eq!(cst.children()[1].children[9].kind, SyntaxKind::Newline);
+        assert_eq!(cst.children()[1].children[8].kind, SyntaxKind::Newline);
 
         assert_eq!(cst.text().trim(), source.trim());
     }

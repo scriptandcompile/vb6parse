@@ -177,31 +177,92 @@ impl<'a> Parser<'a> {
         }
     }
 
-    /// Check if the current token is ErrorKeyword followed by DollarSign.
-    /// This pattern represents the Error$ function.
-    pub(super) fn at_error_dollar(&self) -> bool {
-        if self.at_token(VB6Token::ErrorKeyword) {
+    /// Check if the current token is a keyword or identifier followed by DollarSign.
+    /// This pattern represents functions like Error$, Mid$, Len$, UCase$, LCase$.
+    pub(super) fn at_keyword_dollar(&self) -> bool {
+        // Check for specific keywords that have $ variants
+        let is_dollar_keyword = matches!(
+            self.current_token(),
+            Some(
+                VB6Token::ErrorKeyword
+                    | VB6Token::LenKeyword
+                    | VB6Token::MidKeyword
+                    | VB6Token::StringKeyword
+            )
+        );
+
+        if is_dollar_keyword {
             if let Some(VB6Token::DollarSign) = self.peek_next_token() {
                 return true;
             }
         }
+
+        // Check for Identifier (like "UCase", "LCase", "Left", etc.) + DollarSign
+        if self.at_token(VB6Token::Identifier) {
+            if let Some(VB6Token::DollarSign) = self.peek_next_token() {
+                // Only merge if it's one of the known dollar functions
+                if let Some((text, _)) = self.tokens.get(self.pos) {
+                    let text_upper = text.to_uppercase();
+                    if matches!(
+                        text_upper.as_str(),
+                        | "CHR"
+                            | "CHRB"
+                            | "CHRW"
+                            | "COMMAND"
+                            | "CURDIR"
+                            | "DATE"
+                            | "ENVIRON"
+                            | "FORMAT"
+                            | "HEX"
+                            | "LCASE"
+                            | "LEFT"
+                            | "LEFTB"
+                            | "LTRIM"
+                            | "MIDB"
+                            | "OCT"
+                            | "RIGHT"
+                            | "RIGHTB"
+                            | "RTRIM"
+                            | "SPACE"
+                            | "STR"
+                            | "STRING"
+                            | "TIME"
+                            | "TRIM"
+                            | "UCASE"
+
+                    ) {
+                        return true;
+                    }
+                }
+            }
+        }
+
         false
     }
 
-    /// Consume ErrorKeyword + DollarSign as a merged Identifier token.
-    /// This merges the two tokens into a single "Error$" identifier.
-    pub(super) fn consume_error_dollar_as_identifier(&mut self) {
-        if self.at_error_dollar() {
+    /// Consume keyword/identifier + DollarSign as a merged Identifier token.
+    /// This merges tokens like Error + $, Len + $, Mid + $, etc. into single identifiers.
+    pub(super) fn consume_keyword_dollar_as_identifier(&mut self) {
+        if self.at_keyword_dollar() {
             // Get the text of both tokens
-            let error_text = self.tokens.get(self.pos).map(|(text, _)| *text).unwrap_or("");
-            let dollar_text = self.tokens.get(self.pos + 1).map(|(text, _)| *text).unwrap_or("");
-            
+            let first_text = self
+                .tokens
+                .get(self.pos)
+                .map(|(text, _)| *text)
+                .unwrap_or("");
+            let dollar_text = self
+                .tokens
+                .get(self.pos + 1)
+                .map(|(text, _)| *text)
+                .unwrap_or("");
+
             // Create a combined text for the identifier
-            let combined_text = format!("{}{}", error_text, dollar_text);
-            
+            let combined_text = format!("{}{}", first_text, dollar_text);
+
             // Add as a single Identifier token
-            self.builder.token(SyntaxKind::Identifier.to_raw(), &combined_text);
-            
+            self.builder
+                .token(SyntaxKind::Identifier.to_raw(), &combined_text);
+
             // Skip both tokens
             self.pos += 2;
         }
@@ -209,13 +270,15 @@ impl<'a> Parser<'a> {
 
     /// Consume the current token as an Identifier, regardless of whether it's actually a keyword.
     /// This is used when keywords appear in identifier positions (e.g., variable names, property names).
-    /// 
-    /// Special case: If the current token is ErrorKeyword followed by DollarSign, they are merged
-    /// into a single "Error$" identifier.
+    ///
+    /// Special cases:
+    /// - If the current token is ErrorKeyword followed by DollarSign, they are merged into "Error$"
+    /// - If the current token is an Identifier (like Len, Mid, UCase, LCase) followed by DollarSign,
+    ///   they are merged into a single identifier (e.g., "Len$", "Mid$", "UCase$", "LCase$")
     pub(super) fn consume_token_as_identifier(&mut self) {
-        // Check for Error$ special case
-        if self.at_error_dollar() {
-            self.consume_error_dollar_as_identifier();
+        // Check for keyword/identifier + $ special cases
+        if self.at_keyword_dollar() {
+            self.consume_keyword_dollar_as_identifier();
             return;
         }
 
@@ -244,15 +307,15 @@ impl<'a> Parser<'a> {
     /// The specified token is NOT consumed.
     ///
     /// Handles line continuations when consuming until a newline.
-    /// Special handling: ErrorKeyword followed by DollarSign is merged into a single Identifier.
+    /// Special handling: keyword/identifier followed by DollarSign is merged into a single Identifier.
     ///
     /// # Arguments
     /// * `target` - The token to stop at (will not be consumed)
     pub(super) fn consume_until(&mut self, target: VB6Token) {
         while !self.is_at_end() && !self.at_token(target) {
-            // Check for Error$ pattern and merge it
-            if self.at_error_dollar() {
-                self.consume_error_dollar_as_identifier();
+            // Check for keyword/identifier + $ pattern and merge it
+            if self.at_keyword_dollar() {
+                self.consume_keyword_dollar_as_identifier();
             } else {
                 self.consume_token();
             }
