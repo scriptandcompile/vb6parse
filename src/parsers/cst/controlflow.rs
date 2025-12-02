@@ -1,12 +1,12 @@
 //! Control flow statement parsing for VB6 CST.
 //!
 //! This module handles parsing of VB6 control flow statements:
-//! - Jump statements (GoTo, GoSub, Return, Resume, Exit, Label)
+//! - Jump statements (`GoTo`, `GoSub`, `Return`, `Resume`, `Exit`, `Label`)
 //!
-//! Note: If/Then/Else/ElseIf statements are in the if_statements module.
-//! Note: Select Case statements are in the select_statements module.
-//! Note: For/Next and For Each/Next statements are in the for_statements module.
-//! Note: Do/Loop statements are in the loop_statements module.
+//! Note: `If`/`Then`/`Else`/`ElseIf` statements are in the `if_statements` module.
+//! Note: `Select Case` statements are in the `select_statements` module.
+//! Note: `For`/`Next` and `For Each`/`Next` statements are in the `for_statements` module.
+//! Note: `Do`/`Loop` statements are in the `loop_statements` module.
 
 use crate::language::VB6Token;
 use crate::parsers::SyntaxKind;
@@ -14,24 +14,24 @@ use crate::parsers::SyntaxKind;
 use super::Parser;
 
 impl<'a> Parser<'a> {
-    /// Parse a GoSub statement.
+    /// Parse a `GoSub` statement.
     ///
-    /// VB6 GoSub statement syntax:
-    /// - GoSub label
+    /// VB6 `GoSub` statement syntax:
+    /// - `GoSub` label
     ///
     /// Branches to and returns from a subroutine within a procedure.
     ///
-    /// The GoSub...Return statement syntax has these parts:
+    /// The `GoSub`...`Return` statement syntax has these parts:
     ///
     /// | Part   | Description |
     /// |--------|-------------|
     /// | label  | Required. A line label or line number. |
     ///
     /// Remarks:
-    /// - You can use GoSub and Return anywhere in a procedure, but GoSub and the corresponding Return statement must be in the same procedure.
-    /// - A subroutine can contain more than one Return statement, but the first one encountered causes the flow of execution to branch back to the statement immediately following the most recently executed GoSub statement.
-    /// - You can't enter or exit Sub procedures with GoSub...Return.
-    /// - Using GoSub and Return is considered obsolete. Modern VB6 code should use Sub or Function procedures instead.
+    /// - You can use `GoSub` and `Return` anywhere in a procedure, but `GoSub` and the corresponding `Return` statement must be in the same procedure.
+    /// - A subroutine can contain more than one `Return` statement, but the first one encountered causes the flow of execution to branch back to the statement immediately following the most recently executed `GoSub` statement.
+    /// - You can't enter or exit `Sub` procedures with `GoSub`...`Return`.
+    /// - Using `GoSub` and `Return` is considered obsolete. Modern VB6 code should use `Sub` or `Function` procedures instead.
     ///
     /// Examples:
     /// ```vb
@@ -68,10 +68,10 @@ impl<'a> Parser<'a> {
     /// Returns from a subroutine within a procedure.
     ///
     /// Remarks:
-    /// - Return must be used with GoSub to return to the statement following the GoSub call.
-    /// - You can use GoSub and Return anywhere in a procedure, but GoSub and the corresponding Return statement must be in the same procedure.
-    /// - A subroutine can contain more than one Return statement, but the first one encountered causes the flow of execution to branch back to the statement immediately following the most recently executed GoSub statement.
-    /// - Using GoSub and Return is considered obsolete. Modern VB6 code should use Sub or Function procedures instead.
+    /// - `Return` must be used with `GoSub` to return to the statement following the `GoSub` call.
+    /// - You can use `GoSub` and `Return` anywhere in a procedure, but `GoSub` and the corresponding `Return` statement must be in the same procedure.
+    /// - A subroutine can contain more than one `Return` statement, but the first one encountered causes the flow of execution to branch back to the statement immediately following the most recently executed `GoSub` statement.
+    /// - Using `GoSub` and `Return` is considered obsolete. Modern VB6 code should use `Sub` or `Function` procedures instead.
     ///
     /// Examples:
     /// ```vb
@@ -103,19 +103,19 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // ReturnStatement
     }
 
-    /// Parse a GoTo statement.
+    /// Parse a `GoTo` statement.
     ///
     /// Syntax:
-    ///   GoTo label
+    ///   `GoTo` label
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/goto-statement)
     pub(super) fn parse_goto_statement(&mut self) {
-        // if we are now parsing a goto statement, we are no longer in the header.
+        // if we are now parsing a `GoTo` statement, we are no longer in the header.
         self.parsing_header = false;
 
         self.builder.start_node(SyntaxKind::GotoStatement.to_raw());
 
-        // Consume "GoTo" keyword
+        // Consume "`GoTo`" keyword
         self.consume_token();
 
         // Consume everything until newline (the label name)
@@ -127,30 +127,30 @@ impl<'a> Parser<'a> {
     /// Parse a Resume statement.
     ///
     /// VB6 Resume statement syntax:
-    /// - Resume
-    /// - Resume Next
-    /// - Resume label
+    /// - `Resume`
+    /// - `Resume Next`
+    /// - `Resume Label`
     ///
     /// Resumes execution after an error-handling routine is finished.
     ///
     /// # Syntax
     ///
-    /// The Resume statement has these forms:
+    /// The `Resume` statement has these forms:
     ///
     /// | Form | Description |
     /// |------|-------------|
-    /// | Resume | If the error occurred in the same procedure as the error handler, execution resumes with the statement that caused the error. If the error occurred in a called procedure, execution resumes at the statement that last called out of the procedure containing the error-handling routine. |
-    /// | Resume Next | If the error occurred in the same procedure as the error handler, execution resumes with the statement immediately following the statement that caused the error. If the error occurred in a called procedure, execution resumes with the statement immediately following the statement that last called out of the procedure containing the error-handling routine (or On Error Resume Next statement). |
-    /// | Resume label | Execution resumes at the line specified by the label argument. The label argument can be a line label or line number. |
+    /// | `Resume` | If the error occurred in the same procedure as the error handler, execution resumes with the statement that caused the error. If the error occurred in a called procedure, execution resumes at the statement that last called out of the procedure containing the error-handling routine. |
+    /// | `Resume Next` | If the error occurred in the same procedure as the error handler, execution resumes with the statement immediately following the statement that caused the error. If the error occurred in a called procedure, execution resumes with the statement immediately following the statement that last called out of the procedure containing the error-handling routine (or On Error Resume Next statement). |
+    /// | `Resume Label` | Execution resumes at the line specified by the label argument. The label argument can be a line label or line number. |
     ///
     /// # Remarks
     ///
-    /// - The Resume statement can be used only in an error-handling routine.
-    /// - Using Resume without specifying a label causes execution to resume at the statement that caused the error.
-    /// - Resume Next is useful when you want to continue execution despite an error.
-    /// - Resume label is useful when you want to continue execution at a specific location after handling an error.
-    /// - If you use a Resume statement anywhere except in an error-handling routine, an error occurs.
-    /// - Resume cannot be used in any procedure that contains an On Error Resume Next statement.
+    /// - The `Resume` statement can be used only in an error-handling routine.
+    /// - Using `Resume` without specifying a label causes execution to resume at the statement that caused the error.
+    /// - `Resume Next` is useful when you want to continue execution despite an error.
+    /// - `Resume Label` is useful when you want to continue execution at a specific location after handling an error.
+    /// - If you use a `Resume` statement anywhere except in an error-handling routine, an error occurs.
+    /// - `Resume` cannot be used in any procedure that contains an On Error `Resume Next` statement.
     ///
     /// # Examples
     ///
@@ -244,9 +244,9 @@ impl<'a> Parser<'a> {
     /// Parse a label statement.
     ///
     /// VB6 label syntax:
-    /// - LabelName:
+    /// - `LabelName:`
     ///
-    /// Labels are used as targets for GoTo and GoSub statements.
+    /// `Labels` are used as targets for `GoTo` and `GoSub` statements.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/goto-statement)
     pub(super) fn parse_label_statement(&mut self) {
@@ -293,31 +293,31 @@ impl<'a> Parser<'a> {
         self.is_identifier() || self.is_number()
     }
 
-    /// Parse an On Error statement.
+    /// Parse an `On Error` statement.
     ///
-    /// VB6 On Error statement syntax:
-    /// - On Error GoTo label
-    /// - On Error GoTo 0
-    /// - On Error Resume Next
+    /// VB6 `On Error` statement syntax:
+    /// - `On Error GoTo label`
+    /// - `On Error GoTo 0`
+    /// - `On Error Resume Next`
     ///
     /// Enables an error-handling routine and specifies the location of the routine within a procedure.
     ///
-    /// The On Error statement syntax has these forms:
+    /// The `On Error` statement syntax has these forms:
     ///
     /// | Form | Description |
     /// |------|-------------|
-    /// | On Error GoTo line | Enables the error-handling routine that starts at line. The line argument is any line label or line number. If a run-time error occurs, control branches to line, making the error handler active. |
-    /// | On Error Resume Next | Specifies that when a run-time error occurs, control goes to the statement immediately following the statement where the error occurred, and execution continues from that point. |
-    /// | On Error GoTo 0 | Disables any enabled error handler in the current procedure. |
+    /// | `On Error GoTo line` | Enables the error-handling routine that starts at line. The line argument is any line label or line number. If a run-time error occurs, control branches to line, making the error handler active. |
+    /// | `On Error Resume Next` | Specifies that when a run-time error occurs, control goes to the statement immediately following the statement where the error occurred, and execution continues from that point. |
+    /// | `On Error GoTo 0` | Disables any enabled error handler in the current procedure. |
     ///
     /// Remarks:
-    /// - If you don't use an On Error statement, any run-time error that occurs is fatal; that is, an error message is displayed and execution stops.
-    /// - An "enabled" error handler is one that is turned on by an On Error statement. An "active" error handler is an enabled handler that is in the process of handling an error.
-    /// - If an error occurs while an error handler is active (between the occurrence of the error and a Resume, Exit Sub, Exit Function, or Exit Property statement), the current procedure's error handler can't handle the error.
+    /// - If you don't use an `On Error` statement, any run-time error that occurs is fatal; that is, an error message is displayed and execution stops.
+    /// - An "enabled" error handler is one that is turned on by an `On Error` statement. An "active" error handler is an enabled handler that is in the process of handling an error.
+    /// - If an error occurs while an error handler is active (between the occurrence of the error and a `Resume`, `Exit Sub`, `Exit Function`, or `Exit Property` statement), the current procedure's error handler can't handle the error.
     /// - Control returns to the calling procedure. If the calling procedure has an enabled error handler, it is activated to handle the error.
     /// - If the calling procedure's error handler is also active, control passes back through previous calling procedures until an enabled, but inactive, error handler is found.
     /// - If no inactive, enabled error handler is found, the error is fatal at the point at which it actually occurred.
-    /// - Each time the error handler passes control back to a calling procedure, that procedure becomes the current procedure. Once an error is handled in any procedure, execution resumes in the current procedure at the point designated by the Resume statement.
+    /// - Each time the error handler passes control back to a calling procedure, that procedure becomes the current procedure. Once an error is handled in any procedure, execution resumes in the current procedure at the point designated by the `Resume` statement.
     ///
     /// Examples:
     /// ```vb
@@ -363,14 +363,14 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // OnErrorStatement
     }
 
-    /// Parse an On GoTo statement.
+    /// Parse an `On GoTo` statement.
     ///
-    /// VB6 On GoTo statement syntax:
-    /// - On expression GoTo label1[, label2, ...]
+    /// VB6 `On GoTo` statement syntax:
+    /// - `On expression GoTo label1[, label2, ...]`
     ///
     /// Branches to one of several specified labels, depending on the value of an expression.
     ///
-    /// The On...GoTo statement syntax has these parts:
+    /// The `On...GoTo` statement syntax has these parts:
     ///
     /// | Part | Description |
     /// |------|-------------|
@@ -379,11 +379,11 @@ impl<'a> Parser<'a> {
     ///
     /// Remarks:
     /// - The value of expression determines which line is branched to in the list of labels. If the value of expression is less than 1 or greater than the number of items in the list, one of the following results occurs:
-    ///   - If expression equals 0, execution continues with the statement following On...GoTo.
-    ///   - If expression is greater than the number of labels in the list, execution continues with the statement following On...GoTo.
+    ///   - If expression equals 0, execution continues with the statement following `On...GoTo`.
+    ///   - If expression is greater than the number of labels in the list, execution continues with the statement following `On...GoTo`.
     ///   - If expression is negative or greater than 255, an error occurs.
-    /// - The On...GoTo statement is useful for branching to one of several different labels based on a value.
-    /// - Using On...GoTo is considered obsolete. Modern VB6 code should use Select Case instead.
+    /// - The `On...GoTo` statement is useful for branching to one of several different labels based on a value.
+    /// - Using `On...GoTo` is considered obsolete. Modern VB6 code should use `Select Case` instead.
     ///
     /// Examples:
     /// ```vb
@@ -420,14 +420,14 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // OnGoToStatement
     }
 
-    /// Parse an On GoSub statement.
+    /// Parse an `On GoSub` statement.
     ///
-    /// VB6 On GoSub statement syntax:
-    /// - On expression GoSub label1[, label2, ...]
+    /// VB6 `On GoSub` statement syntax:
+    /// - `On expression GoSub label1[, label2, ...]`
     ///
     /// Branches to one of several specified subroutines, depending on the value of an expression.
     ///
-    /// The On...GoSub statement syntax has these parts:
+    /// The `On...GoSub` statement syntax has these parts:
     ///
     /// | Part | Description |
     /// |------|-------------|
@@ -436,12 +436,12 @@ impl<'a> Parser<'a> {
     ///
     /// Remarks:
     /// - The value of expression determines which subroutine is called in the list of labels. If the value of expression is less than 1 or greater than the number of items in the list, one of the following results occurs:
-    ///   - If expression equals 0, execution continues with the statement following On...GoSub.
-    ///   - If expression is greater than the number of labels in the list, execution continues with the statement following On...GoSub.
+    ///   - If expression equals 0, execution continues with the statement following `On...GoSub`.
+    ///   - If expression is greater than the number of labels in the list, execution continues with the statement following `On...GoSub`.
     ///   - If expression is negative or greater than 255, an error occurs.
-    /// - The On...GoSub statement is useful for branching to one of several different subroutines based on a value.
-    /// - Each subroutine must end with a Return statement to return to the statement following the On...GoSub.
-    /// - Using On...GoSub is considered obsolete. Modern VB6 code should use Select Case with Sub procedure calls instead.
+    /// - The `On...GoSub` statement is useful for branching to one of several different subroutines based on a value.
+    /// - Each subroutine must end with a Return statement to return to the statement following the `On...GoSub`.
+    /// - Using `On...GoSub` is considered obsolete. Modern VB6 code should use `Select Case` with Sub procedure calls instead.
     ///
     /// Examples:
     /// ```vb

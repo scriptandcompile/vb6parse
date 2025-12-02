@@ -90,7 +90,15 @@ mod write;
 
 impl<'a> Parser<'a> {
     /// Check if the current token is a library statement keyword.
+    /// 
+    /// Special handling: ErrorKeyword followed by DollarSign is NOT a statement (it's the Error$ function),
+    /// so we exclude that pattern.
     pub(super) fn is_library_statement_keyword(&self) -> bool {
+        // Special case: ErrorKeyword followed by DollarSign is Error$ function, not Error statement
+        if self.at_error_dollar() {
+            return false;
+        }
+        
         matches!(
             self.current_token(),
             Some(

@@ -44,15 +44,23 @@ impl<'a> Parser<'a> {
                 at_identifier_position = false;
                 last_was_period = false;
             } else {
-                // Check if this is a period
-                last_was_period = self.at_token(VB6Token::PeriodOperator);
-
-                // After whitespace, we're still in an identifier position
-                if !self.at_token(VB6Token::Whitespace) {
+                // Check for Error$ pattern (ErrorKeyword followed by DollarSign)
+                // This should be merged into a single Identifier token
+                if self.at_error_dollar() {
+                    self.consume_error_dollar_as_identifier();
                     at_identifier_position = false;
-                }
+                    last_was_period = false;
+                } else {
+                    // Check if this is a period
+                    last_was_period = self.at_token(VB6Token::PeriodOperator);
 
-                self.consume_token();
+                    // After whitespace, we're still in an identifier position
+                    if !self.at_token(VB6Token::Whitespace) {
+                        at_identifier_position = false;
+                    }
+
+                    self.consume_token();
+                }
             }
         }
 

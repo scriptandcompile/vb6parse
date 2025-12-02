@@ -177,9 +177,48 @@ impl<'a> Parser<'a> {
         }
     }
 
+    /// Check if the current token is ErrorKeyword followed by DollarSign.
+    /// This pattern represents the Error$ function.
+    pub(super) fn at_error_dollar(&self) -> bool {
+        if self.at_token(VB6Token::ErrorKeyword) {
+            if let Some(VB6Token::DollarSign) = self.peek_next_token() {
+                return true;
+            }
+        }
+        false
+    }
+
+    /// Consume ErrorKeyword + DollarSign as a merged Identifier token.
+    /// This merges the two tokens into a single "Error$" identifier.
+    pub(super) fn consume_error_dollar_as_identifier(&mut self) {
+        if self.at_error_dollar() {
+            // Get the text of both tokens
+            let error_text = self.tokens.get(self.pos).map(|(text, _)| *text).unwrap_or("");
+            let dollar_text = self.tokens.get(self.pos + 1).map(|(text, _)| *text).unwrap_or("");
+            
+            // Create a combined text for the identifier
+            let combined_text = format!("{}{}", error_text, dollar_text);
+            
+            // Add as a single Identifier token
+            self.builder.token(SyntaxKind::Identifier.to_raw(), &combined_text);
+            
+            // Skip both tokens
+            self.pos += 2;
+        }
+    }
+
     /// Consume the current token as an Identifier, regardless of whether it's actually a keyword.
     /// This is used when keywords appear in identifier positions (e.g., variable names, property names).
+    /// 
+    /// Special case: If the current token is ErrorKeyword followed by DollarSign, they are merged
+    /// into a single "Error$" identifier.
     pub(super) fn consume_token_as_identifier(&mut self) {
+        // Check for Error$ special case
+        if self.at_error_dollar() {
+            self.consume_error_dollar_as_identifier();
+            return;
+        }
+
         if let Some((text, _)) = self.tokens.get(self.pos) {
             self.builder.token(SyntaxKind::Identifier.to_raw(), text);
             self.pos += 1;
@@ -205,12 +244,18 @@ impl<'a> Parser<'a> {
     /// The specified token is NOT consumed.
     ///
     /// Handles line continuations when consuming until a newline.
+    /// Special handling: ErrorKeyword followed by DollarSign is merged into a single Identifier.
     ///
     /// # Arguments
     /// * `target` - The token to stop at (will not be consumed)
     pub(super) fn consume_until(&mut self, target: VB6Token) {
         while !self.is_at_end() && !self.at_token(target) {
-            self.consume_token();
+            // Check for Error$ pattern and merge it
+            if self.at_error_dollar() {
+                self.consume_error_dollar_as_identifier();
+            } else {
+                self.consume_token();
+            }
         }
 
         // If we're looking for a newline and we found one, check for line continuation
