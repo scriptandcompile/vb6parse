@@ -25,6 +25,7 @@
 //! - `Cos`: Returns the cosine of an angle in radians
 //! - `CreateObject`: Creates and returns a reference to an `ActiveX` object
 //! - `CurDir`: Returns the current path for the specified drive
+//! - `CurDir$`: Returns the current path for the specified drive
 //! - `CVErr`: Returns a Variant of subtype Error containing an error number
 //! - `Date`: Returns the current system date
 //! - `DateAdd`: Returns a date to which a specified time interval has been added
@@ -180,6 +181,7 @@ mod command_dollar;
 mod cos;
 mod createobject;
 mod curdir;
+mod curdir_dollar;
 mod cverr;
 mod date;
 mod dateadd;
