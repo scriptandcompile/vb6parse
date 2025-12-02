@@ -203,34 +203,30 @@ impl<'a> Parser<'a> {
                 // Only merge if it's one of the known dollar functions
                 if let Some((text, _)) = self.tokens.get(self.pos) {
                     let text_upper = text.to_uppercase();
-                    if matches!(
-                        text_upper.as_str(),
-                        | "CHR"
-                            | "CHRB"
-                            | "CHRW"
-                            | "COMMAND"
-                            | "CURDIR"
-                            | "DATE"
-                            | "ENVIRON"
-                            | "FORMAT"
-                            | "HEX"
-                            | "LCASE"
-                            | "LEFT"
-                            | "LEFTB"
-                            | "LTRIM"
-                            | "MIDB"
-                            | "OCT"
-                            | "RIGHT"
-                            | "RIGHTB"
-                            | "RTRIM"
-                            | "SPACE"
-                            | "STR"
-                            | "STRING"
-                            | "TIME"
-                            | "TRIM"
-                            | "UCASE"
-
-                    ) {
+                    if matches!(text_upper.as_str(), |"CHR"| "CHRB"
+                        | "CHRW"
+                        | "COMMAND"
+                        | "CURDIR"
+                        | "DATE"
+                        | "ENVIRON"
+                        | "FORMAT"
+                        | "HEX"
+                        | "LCASE"
+                        | "LEFT"
+                        | "LEFTB"
+                        | "LTRIM"
+                        | "MIDB"
+                        | "OCT"
+                        | "RIGHT"
+                        | "RIGHTB"
+                        | "RTRIM"
+                        | "SPACE"
+                        | "STR"
+                        | "STRING"
+                        | "TIME"
+                        | "TRIM"
+                        | "UCASE")
+                    {
                         return true;
                     }
                 }
