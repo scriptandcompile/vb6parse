@@ -49,7 +49,7 @@ impl SourceFile {
         // Read the file contents
         let bytes = fs::read(path).map_err(|io_err| ErrorDetails {
             kind: SourceFileErrorKind::MalformedSource {
-                message: format!("Failed to read file: {}", io_err),
+                message: format!("Failed to read file: {io_err}"),
             },
             error_offset: 0,
             source_content: Cow::Borrowed(""),
