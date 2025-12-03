@@ -474,7 +474,7 @@ fn take_numeric_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB
         if input
             .peek(1)
             .and_then(|s| s.chars().next())
-            .map_or(false, |c| c.is_ascii_digit())
+            .is_some_and(|c| c.is_ascii_digit())
         {
             input.take_ascii_digits(); // fractional part
             has_decimal = true;

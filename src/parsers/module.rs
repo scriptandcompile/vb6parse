@@ -68,6 +68,7 @@ impl<'a> VB6ModuleFile<'a> {
     /// assert_eq!(module_file.name, "Module1".as_bytes());
     /// assert_eq!(module_file.tokens.len(), 25);
     /// ```
+    #[must_use]
     pub fn parse(
         source_file: &'a SourceFile,
     ) -> ParseResult<'a, VB6ModuleFile<'a>, VB6ModuleErrorKind> {
@@ -86,7 +87,7 @@ impl<'a> VB6ModuleFile<'a> {
         {
             let error = input.generate_error(VB6ModuleErrorKind::AttributeKeywordMissing);
             failures.push(error);
-        };
+        }
 
         // Eat however many spaces sits between the attribute and the VB_Name keyword. It doesn't matter how many
         // whitespaces it has as long as we have at least one.
@@ -100,7 +101,7 @@ impl<'a> VB6ModuleFile<'a> {
         if input.take("VB_Name", Comparator::CaseInsensitive).is_none() {
             let error = input.generate_error(VB6ModuleErrorKind::VBNameAttributeMissing);
             failures.push(error);
-        };
+        }
 
         // Eat however many spaces starts the files. It doesn't matter how many
         // whitespaces it has, zero or many.
@@ -111,7 +112,7 @@ impl<'a> VB6ModuleFile<'a> {
         if input.take("=", Comparator::CaseInsensitive).is_none() {
             let error = input.generate_error(VB6ModuleErrorKind::EqualMissing);
             failures.push(error);
-        };
+        }
 
         // Eat however many spaces starts the files. It doesn't matter how many
         // whitespaces it has, zero or many.
@@ -122,7 +123,7 @@ impl<'a> VB6ModuleFile<'a> {
         if input.take("\"", Comparator::CaseInsensitive).is_none() {
             let error = input.generate_error(VB6ModuleErrorKind::VBNameAttributeValueUnquoted);
             failures.push(error);
-        };
+        }
 
         match input.take_until("\"", Comparator::CaseInsensitive) {
             None => {
@@ -160,21 +161,17 @@ impl<'a> VB6ModuleFile<'a> {
                 }
 
                 match parse_result.result {
-                    Some(tokens) => {
-                        return ParseResult {
-                            result: Some(VB6ModuleFile {
-                                name: vb_name_value.as_bytes(),
-                                tokens,
-                            }),
-                            failures,
-                        };
-                    }
-                    None => {
-                        return ParseResult {
-                            result: None,
-                            failures,
-                        };
-                    }
+                    Some(tokens) => ParseResult {
+                        result: Some(VB6ModuleFile {
+                            name: vb_name_value.as_bytes(),
+                            tokens,
+                        }),
+                        failures,
+                    },
+                    None => ParseResult {
+                        result: None,
+                        failures,
+                    },
                 }
             }
             Some((vb_name_value, _)) => {
@@ -196,21 +193,17 @@ impl<'a> VB6ModuleFile<'a> {
                 }
 
                 match parse_result.result {
-                    Some(tokens) => {
-                        return ParseResult {
-                            result: Some(VB6ModuleFile {
-                                name: vb_name_value.as_bytes(),
-                                tokens,
-                            }),
-                            failures,
-                        };
-                    }
-                    None => {
-                        return ParseResult {
-                            result: None,
-                            failures,
-                        };
-                    }
+                    Some(tokens) => ParseResult {
+                        result: Some(VB6ModuleFile {
+                            name: vb_name_value.as_bytes(),
+                            tokens,
+                        }),
+                        failures,
+                    },
+                    None => ParseResult {
+                        result: None,
+                        failures,
+                    },
                 }
             }
         }

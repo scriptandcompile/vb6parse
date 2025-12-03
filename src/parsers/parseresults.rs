@@ -12,7 +12,7 @@ pub struct ParseResult<'a, T, E> {
 impl<'a, T, E> ParseResult<'a, T, E> {
     #[inline]
     pub const fn has_result(&self) -> bool {
-        matches!(self.result, Some(_))
+        self.result.is_some()
     }
 
     #[inline]
@@ -49,7 +49,7 @@ where
 {
     fn from(parse_pair: (I, Vec<ErrorDetails<'a, E>>)) -> ParseResult<'a, Vec<T>, E> {
         let collection: Vec<T> = parse_pair.0.into_iter().collect();
-        if collection.len() == 0 {
+        if collection.is_empty() {
             return ParseResult {
                 result: None,
                 failures: parse_pair.1,
