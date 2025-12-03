@@ -15,7 +15,8 @@ pub struct TokenStream<'a> {
 }
 
 impl<'a> TokenStream<'a> {
-    /// Creates a new TokenStream with the given source file name and tokens
+    /// Creates a new `TokenStream` with the given source file name and tokens
+    #[must_use]
     pub fn new(source_file: String, tokens: Vec<(&'a str, VB6Token)>) -> Self {
         Self {
             source_file,
@@ -25,6 +26,7 @@ impl<'a> TokenStream<'a> {
     }
 
     /// Returns the current token without advancing the position
+    #[must_use]
     pub fn current(&self) -> Option<&(&'a str, VB6Token)> {
         self.tokens.get(self.offset)
     }
@@ -55,16 +57,19 @@ impl<'a> TokenStream<'a> {
     }
 
     /// Returns true if we've reached the end of the token stream
+    #[must_use]
     pub fn is_at_end(&self) -> bool {
         self.offset >= self.tokens.len()
     }
 
     /// Returns the number of tokens in the stream
+    #[must_use]
     pub fn len(&self) -> usize {
         self.tokens.len()
     }
 
     /// Returns true if the token stream is empty
+    #[must_use]
     pub fn is_empty(&self) -> bool {
         self.tokens.is_empty()
     }
