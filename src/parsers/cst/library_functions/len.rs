@@ -521,7 +521,7 @@
 //! | `UBound` | Get array upper bound | `Long` | Array size calculation |
 //! | `InStr` | Find substring | `Long` | Substring position |
 //! | `Left`/`Right`/`Mid` | Extract substring | `String` | Substring extraction |
-//! ## Len vs LenB
+//! ## `Len` vs `LenB`
 //!
 //! ```vb
 //! Dim text As String
@@ -562,8 +562,8 @@
 //!
 //! ## Limitations
 //!
-//! - Returns character count, not byte count (use LenB for bytes)
-//! - Cannot measure array size directly (use UBound - LBound + 1)
+//! - Returns character count, not byte count (use `LenB` for bytes)
+//! - Cannot measure array size directly (use ```UBound - LBound + 1```)
 //! - For objects, may return unpredictable values
 //! - For fixed-length strings, returns declared length, not trimmed length
 //! - Does not distinguish between different whitespace characters

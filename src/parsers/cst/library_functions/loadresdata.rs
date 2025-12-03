@@ -28,11 +28,11 @@
 //!
 //! ## Remarks
 //!
-//! The LoadResData function loads custom binary data from resources:
+//! The `LoadResData` function loads custom binary data from resources:
 //!
 //! - Loads custom data from compiled resource (.res) files
 //! - Resource file must be linked to project at compile time
-//! - Returns data as Byte array (Variant/Byte())
+//! - Returns data as Byte array (`Variant`/`Byte()`)
 //! - Used for custom binary resources (not bitmaps/icons/strings)
 //! - For images, use LoadResPicture instead
 //! - For strings, use LoadResString instead
