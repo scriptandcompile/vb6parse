@@ -15,7 +15,7 @@ use crate::{
     objectreference::VB6ObjectReference,
     parseresults::ParseResult,
     parsers::project::{
-        compilesettings::*,
+        compilesettings::CompilationType,
         properties::{CompileTargetType, VB6ProjectProperties},
     },
     sourcefile::SourceFile,
@@ -211,6 +211,7 @@ impl<'a> VB6Project<'a> {
     /// assert_eq!(project.properties.title, "Project1");
     /// assert_eq!(project.properties.exe_32_file_name, "Project1.exe");
     /// ```
+    #[must_use]
     pub fn parse(source_file: &'a SourceFile) -> ProjectResult<'a> {
         let mut failures = vec![];
 

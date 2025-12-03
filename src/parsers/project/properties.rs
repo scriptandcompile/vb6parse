@@ -83,7 +83,7 @@ pub enum ExistingBrowser {
     /// Do not use an existing browser instance.
     #[strum(message = "Do not use an existing browser instance")]
     DoNotUse = 0,
-    /// If Internet Explorer is already running, use the existing instance`.
+    /// If Internet Explorer is already running, use the existing instance.
     /// Otherwise, launch a new instance.
     #[default]
     #[strum(message = "Use an existing browser instance if available")]

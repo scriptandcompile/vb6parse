@@ -363,18 +363,17 @@ impl<'a> SourceStream<'a> {
             end_offset += current_char.len_utf8();
         }
 
-        match none_on_eos {
-            true => None,
-            false => {
-                let result = &self.contents[self.offset..end_offset];
-                self.offset = end_offset;
+        if none_on_eos {
+            None
+        } else {
+            let result = &self.contents[self.offset..end_offset];
+            self.offset = end_offset;
 
-                if result.is_empty() {
-                    return None;
-                }
-
-                Some(result)
+            if result.is_empty() {
+                return None;
             }
+
+            Some(result)
         }
     }
 
