@@ -37,4 +37,9 @@ impl CustomControlProperties {
     pub fn len(&self) -> usize {
         self.property_store.len()
     }
+
+    #[must_use]
+    pub fn is_empty(&self) -> bool {
+        self.property_store.is_empty()
+    }
 }
