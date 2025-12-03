@@ -1,4 +1,4 @@
-//! # QBColor Function
+//! # `QBColor` Function
 //!
 //! Returns a Long representing the RGB color code corresponding to the specified color number.
 //!
@@ -14,11 +14,11 @@
 //!
 //! ## Return Value
 //!
-//! Returns a `Long` representing the RGB color code that corresponds to the specified QBasic color number. The returned value can be used with Visual Basic's color properties.
+//! Returns a `Long` representing the RGB color code that corresponds to the specified `QBasic` color number. The returned value can be used with Visual Basic's color properties.
 //!
 //! ## Remarks
 //!
-//! The `QBColor` function provides backward compatibility with QBasic and QuickBASIC programs by converting the 16-color palette used in DOS applications to RGB values usable in Windows applications.
+//! The `QBColor` function provides backward compatibility with `QBasic` and `QuickBASIC` programs by converting the 16-color palette used in DOS applications to RGB values usable in Windows applications.
 //!
 //! The color argument must be an integer from 0 to 15. Each number corresponds to a specific color from the classic DOS/QBasic palette:
 //!
@@ -53,7 +53,7 @@
 //! 2. **Console-Style Interfaces**: Creating retro-style applications with classic color schemes
 //! 3. **Educational Programs**: Teaching programming with familiar DOS color palette
 //! 4. **Text Display**: Coloring text output in legacy-compatible ways
-//! 5. **Form Backgrounds**: Setting form or control colors using QBasic conventions
+//! 5. **Form Backgrounds**: Setting form or control colors using `QBasic` conventions
 //! 6. **Chart/Graph Colors**: Using classic palette for data visualization
 //! 7. **Terminal Emulation**: Emulating DOS/console applications
 //! 8. **Game Development**: Retro game development with classic color palette
@@ -93,7 +93,7 @@
 //!
 //! ## Common Patterns
 //!
-//! ### Pattern 1: ColorByNumber
+//! ### Pattern 1: `ColorByNumber`
 //! ```vb
 //! Function ColorByNumber(colorNum As Integer) As Long
 //!     ' Safely convert color number with bounds checking
@@ -103,7 +103,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 2: GetColorName
+//! ### Pattern 2: `GetColorName`
 //! ```vb
 //! Function GetColorName(colorNum As Integer) As String
 //!     ' Return descriptive name for QBasic color number
@@ -129,7 +129,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 3: ColorPalettePicker
+//! ### Pattern 3: `ColorPalettePicker`
 //! ```vb
 //! Sub ShowColorPalette()
 //!     Dim i As Integer
@@ -149,7 +149,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 4: ApplyColorScheme
+//! ### Pattern 4: `ApplyColorScheme`
 //! ```vb
 //! Sub ApplyColorScheme(bgColor As Integer, fgColor As Integer, _
 //!                      Optional ctrl As Control = Nothing)
@@ -164,7 +164,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 5: ValidateColorNumber
+//! ### Pattern 5: `ValidateColorNumber`
 //! ```vb
 //! Function ValidateColorNumber(colorNum As Integer) As Boolean
 //!     ' Check if color number is in valid range
@@ -172,7 +172,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 6: GetComplementaryColor
+//! ### Pattern 6: `GetComplementaryColor`
 //! ```vb
 //! Function GetComplementaryColor(colorNum As Integer) As Long
 //!     ' Get a contrasting color for readability
@@ -186,7 +186,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 7: ColorizeText
+//! ### Pattern 7: `ColorizeText`
 //! ```vb
 //! Sub ColorizeText(textBox As TextBox, colorCode As Integer)
 //!     ' Apply color with error handling
@@ -200,7 +200,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 8: CreateColorGradient
+//! ### Pattern 8: `CreateColorGradient`
 //! ```vb
 //! Sub CreateColorGradient(pic As PictureBox, startColor As Integer, _
 //!                        endColor As Integer, steps As Integer)
@@ -222,7 +222,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 9: HighlightControl
+//! ### Pattern 9: `HighlightControl`
 //! ```vb
 //! Sub HighlightControl(ctrl As Control, highlight As Boolean)
 //!     ' Toggle control highlighting using QBasic colors
@@ -236,7 +236,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 10: ColorCodeStatus
+//! ### Pattern 10: `ColorCodeStatus`
 //! ```vb
 //! Function GetStatusColor(status As String) As Long
 //!     ' Return color based on status string
@@ -691,26 +691,26 @@
 //! 4. **Test Accessibility**: Consider color-blind users when choosing colors
 //! 5. **Provide Contrast**: Ensure text is readable against background
 //! 6. **Use Complementary Colors**: Pair dark backgrounds with light foregrounds
-//! 7. **Consider Modern Alternatives**: For new code, consider RGB() function
-//! 8. **Legacy Compatibility**: Use QBColor when porting QBasic/DOS code
-//! 9. **Error Handling**: Wrap QBColor calls in error handlers for robustness
-//! 10. **Color Naming**: Use GetColorName pattern for better code readability
+//! 7. **Consider Modern Alternatives**: For new code, consider `RGB()` function
+//! 8. **Legacy Compatibility**: Use `QBColor` when porting QBasic/DOS code
+//! 9. **Error Handling**: Wrap `QBColor` calls in error handlers for robustness
+//! 10. **Color Naming**: Use `GetColorName` pattern for better code readability
 //!
 //! ## Comparison with Related Functions
 //!
 //! | Function | Purpose | Returns | Use Case |
 //! |----------|---------|---------|----------|
-//! | **QBColor** | QBasic color to RGB | Long (RGB value) | Legacy compatibility, retro interfaces |
+//! | **`QBColor`** | `QBasic` color to RGB | Long (RGB value) | Legacy compatibility, retro interfaces |
 //! | **RGB** | Create RGB color | Long (RGB value) | Custom colors, modern applications |
 //! | **vbRed, vbBlue, etc.** | Predefined constants | Long (RGB value) | Standard colors, quick coding |
-//! | **LoadPicture** | Load image with colors | Picture object | Complex graphics, photos |
+//! | **`LoadPicture`** | Load image with colors | Picture object | Complex graphics, photos |
 //!
 //! ## Platform and Version Notes
 //!
 //! - Available in VB6 and all versions of VBA
 //! - Behavior is consistent across all Windows platforms
 //! - Returns BGR byte order (Blue-Green-Red) as is standard for Windows
-//! - Color values are identical to QBasic and QuickBASIC
+//! - Color values are identical to `QBasic` and `QuickBASIC`
 //! - Not available in VB.NET (use System.Drawing.Color instead)
 //!
 //! ## Limitations

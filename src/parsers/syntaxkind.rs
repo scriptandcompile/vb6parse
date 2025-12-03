@@ -513,7 +513,7 @@ impl SyntaxKind {
         unsafe { std::mem::transmute::<u16, SyntaxKind>(raw.0) }
     }
 
-    /// Convert SyntaxKind to rowan's raw SyntaxKind (for internal use in builders)
+    /// Convert `SyntaxKind` to rowan's raw `SyntaxKind` (for internal use in builders)
     pub(crate) fn to_raw(self) -> rowan::SyntaxKind {
         rowan::SyntaxKind(self as u16)
     }

@@ -11,10 +11,10 @@
 //!
 //! ## Parameters
 //!
-//! - **values()** (Required) - Array of Double specifying cash flow values. The array must contain
+//! - **`values()`** (Required) - Array of Double specifying cash flow values. The array must contain
 //!   at least one negative value (payment) and one positive value (receipt).
-//! - **finance_rate** (Required) - Double specifying the interest rate paid as the cost of financing.
-//! - **reinvest_rate** (Required) - Double specifying the interest rate received on gains from cash
+//! - **`finance_rate`** (Required) - Double specifying the interest rate paid as the cost of financing.
+//! - **`reinvest_rate`** (Required) - Double specifying the interest rate received on gains from cash
 //!   reinvestment.
 //!
 //! ## Return Value
@@ -26,8 +26,8 @@
 //!
 //! The Modified Internal Rate of Return (MIRR) is a variation of the internal rate of return (IRR)
 //! that addresses some of IRR's limitations. Unlike IRR, MIRR assumes:
-//! - Negative cash flows (investments) are financed at the finance_rate
-//! - Positive cash flows (returns) are reinvested at the reinvest_rate
+//! - Negative cash flows (investments) are financed at the `finance_rate`
+//! - Positive cash flows (returns) are reinvested at the `reinvest_rate`
 //!
 //! This makes MIRR more realistic than IRR for most real-world investment scenarios where the
 //! cost of capital and reinvestment rate differ.
@@ -39,7 +39,7 @@
 //! - Values are assumed to occur at regular intervals (end of each period)
 //! - First value occurs at end of first period (not at time zero like NPV)
 //! - Error 5 (Invalid procedure call) if values array contains no positive or no negative values
-//! - Finance_rate and reinvest_rate should be expressed as decimals (e.g., 0.1 for 10%)
+//! - `Finance_rate` and `reinvest_rate` should be expressed as decimals (e.g., 0.1 for 10%)
 //!
 //! ### MIRR vs IRR:
 //! - **IRR** assumes all cash flows are reinvested at the IRR itself (often unrealistic)
@@ -707,7 +707,7 @@
 //! ## Platform Notes
 //!
 //! - Available in VBA (Excel, Access, etc.)
-//! - Not available in VBScript
+//! - Not available in `VBScript`
 //! - Part of VBA Financial functions library
 //! - Requires at least one positive and one negative value in the array
 //! - Arrays can be 0-based or 1-based (function handles both)
@@ -717,7 +717,7 @@
 //! - Requires at least one positive and one negative cash flow value
 //! - All cash flows must occur at regular intervals
 //! - Does not account for irregular timing between cash flows (see XIRR for that)
-//! - Result is sensitive to both finance_rate and reinvest_rate assumptions
+//! - Result is sensitive to both `finance_rate` and `reinvest_rate` assumptions
 //! - Cannot handle multiple sign changes as robustly as some other methods
 //! - First cash flow is assumed to occur at end of first period (not time zero)
 //!
@@ -734,7 +734,7 @@
 //!
 //! ## VB6 Parser Notes
 //!
-//! MIRR is parsed as a regular function call (CallExpression). This module exists primarily
+//! MIRR is parsed as a regular function call (`CallExpression`). This module exists primarily
 //! for documentation purposes to provide comprehensive reference material for VB6 developers
 //! working with financial calculations involving modified internal rate of return analysis.
 

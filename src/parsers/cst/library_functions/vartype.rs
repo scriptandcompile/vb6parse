@@ -38,7 +38,7 @@
 //! - For Empty, returns vbEmpty (0); for Null, returns vbNull (1).
 //! - For non-Variant variables, returns the corresponding type constant.
 //! - Useful for type checking, debugging, and generic code.
-//! - Use with TypeName for string representation.
+//! - Use with `TypeName` for string representation.
 //!
 //! ## Typical Uses
 //! 1. Type checking in generic code
@@ -52,25 +52,25 @@
 //!
 //! ## Basic Examples
 //!
-//! ### Example 1: Get VarType of Integer
+//! ### Example 1: Get `VarType` of Integer
 //! ```vb6
 //! Dim x As Integer
 //! Debug.Print VarType(x) ' 2 (vbInteger)
 //! ```
 //!
-//! ### Example 2: Get VarType of String
+//! ### Example 2: Get `VarType` of String
 //! ```vb6
 //! Dim s As String
 //! Debug.Print VarType(s) ' 8 (vbString)
 //! ```
 //!
-//! ### Example 3: Get VarType of Array
+//! ### Example 3: Get `VarType` of Array
 //! ```vb6
 //! Dim arr(1 To 5) As Double
 //! Debug.Print VarType(arr) ' 8205 (vbArray + vbDouble)
 //! ```
 //!
-//! ### Example 4: Get VarType of Variant
+//! ### Example 4: Get `VarType` of Variant
 //! ```vb6
 //! Dim v As Variant
 //! v = 123
@@ -201,12 +201,12 @@
 //! ## Best Practices
 //! 1. Use for debugging and logging.
 //! 2. Use bitwise AND with vbArray to detect arrays.
-//! 3. Use with TypeName for string representation.
+//! 3. Use with `TypeName` for string representation.
 //! 4. Handle vbNull, vbEmpty, and vbError cases.
 //! 5. Use for generic code and utilities.
 //! 6. Document expected type constants.
 //! 7. Use for runtime checks, not compile-time.
-//! 8. Combine with TypeName for more detail.
+//! 8. Combine with `TypeName` for more detail.
 //! 9. Use for Variant and object variables.
 //! 10. Avoid using as a substitute for type declarations.
 //!
@@ -220,7 +220,7 @@
 //! | `IsArray`  | Check if is array      | variable   | Boolean        |
 //!
 //! ## Platform Notes
-//! - Available in VB6, VBA, VBScript
+//! - Available in VB6, VBA, `VBScript`
 //! - Consistent across platforms
 //! - Returns type constants in English
 //!

@@ -1,4 +1,4 @@
-//! # NPer Function
+//! # `NPer` Function
 //!
 //! Returns a Double specifying the number of periods for an annuity based on periodic, fixed payments and a fixed interest rate.
 //!
@@ -22,7 +22,7 @@
 //!
 //! ## Remarks
 //!
-//! The NPer function calculates how many periods (usually months or years) it will take to pay off a loan or reach a savings goal, given a fixed payment amount and interest rate.
+//! The `NPer` function calculates how many periods (usually months or years) it will take to pay off a loan or reach a savings goal, given a fixed payment amount and interest rate.
 //!
 //! ### Key Characteristics:
 //! - Returns number of periods (can be fractional)
@@ -681,7 +681,7 @@
 //!
 //! ## Performance Considerations
 //!
-//! - NPer uses iterative calculation - reasonably fast
+//! - `NPer` uses iterative calculation - reasonably fast
 //! - More complex than simple arithmetic operations
 //! - For many calculations, consider caching results
 //! - Typically completes in microseconds
@@ -704,7 +704,7 @@
 //!
 //! | Function | Calculates | Given |
 //! |----------|-----------|-------|
-//! | **NPer** | Number of periods | Rate, payment, present value, future value |
+//! | **`NPer`** | Number of periods | Rate, payment, present value, future value |
 //! | **PMT** | Payment amount | Rate, periods, present value, future value |
 //! | **PV** | Present value | Rate, periods, payment, future value |
 //! | **FV** | Future value | Rate, periods, payment, present value |
@@ -714,7 +714,7 @@
 //!
 //! - Available in VBA (Excel, Access, Word, etc.)
 //! - Available in VB6
-//! - **Not available in VBScript**
+//! - **Not available in `VBScript`**
 //! - Uses iterative algorithm to solve
 //! - Consistent with Excel's NPER function
 //! - Part of VBA financial functions library
@@ -735,12 +735,12 @@
 //! - **PV** - Calculates present value of an investment
 //! - **FV** - Calculates future value of an investment
 //! - **Rate** - Calculates interest rate per period
-//! - **IPmt** - Calculates interest payment for a specific period
-//! - **PPmt** - Calculates principal payment for a specific period
+//! - **`IPmt`** - Calculates interest payment for a specific period
+//! - **`PPmt`** - Calculates principal payment for a specific period
 //!
 //! ## VB6 Parser Notes
 //!
-//! NPer is parsed as a regular function call (CallExpression). This module exists primarily
+//! `NPer` is parsed as a regular function call (`CallExpression`). This module exists primarily
 //! for documentation purposes to provide comprehensive reference material for VB6 developers
 //! working with financial calculations, loan analysis, investment planning, and time-value-of-money
 //! operations.

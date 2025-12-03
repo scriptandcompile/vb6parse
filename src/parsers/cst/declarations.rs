@@ -29,7 +29,7 @@ use crate::parsers::SyntaxKind;
 
 use super::Parser;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     /// Parse a Visual Basic 6 `Declare` statement with syntax:
     ///
     /// `\[ Public | Private \] Declare { Sub | Function } name Lib "libname" \[ Alias "aliasname" \] \[ ( arglist ) \] \[ As type \]`

@@ -157,7 +157,7 @@
 //! End Property
 //! ```
 //!
-//! ### Stop with DoEvents
+//! ### Stop with `DoEvents`
 //!
 //! ```vb
 //! For i = 1 To 1000
@@ -235,7 +235,7 @@
 use crate::parsers::cst::Parser;
 use crate::parsers::syntaxkind::SyntaxKind;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     /// Parses a Stop statement.
     pub(crate) fn parse_stop_statement(&mut self) {
         self.parse_simple_builtin_statement(SyntaxKind::StopStatement);

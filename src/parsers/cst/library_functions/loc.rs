@@ -12,7 +12,7 @@
 //!
 //! - `filenumber` (Required): Integer file number used in the Open statement
 //!   - Must be a valid file number from a currently open file
-//!   - File numbers typically obtained from FreeFile function
+//!   - File numbers typically obtained from `FreeFile` function
 //!
 //! ## Return Value
 //!
@@ -176,7 +176,7 @@
 //!
 //! ## Common Patterns
 //!
-//! ### Pattern 1: CalculateProgress
+//! ### Pattern 1: `CalculateProgress`
 //! ```vb
 //! Function CalculateProgress(ByVal fileNum As Integer) As Single
 //!     Dim currentPos As Long
@@ -193,7 +193,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 2: IsFilePositionChanged
+//! ### Pattern 2: `IsFilePositionChanged`
 //! ```vb
 //! Function IsFilePositionChanged(ByVal fileNum As Integer, _
 //!                                 ByVal lastPosition As Long) As Boolean
@@ -201,7 +201,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 3: GetCurrentRecord
+//! ### Pattern 3: `GetCurrentRecord`
 //! ```vb
 //! Function GetCurrentRecord(ByVal fileNum As Integer) As Long
 //!     ' For Random access files
@@ -209,7 +209,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 4: GetBytesProcessed
+//! ### Pattern 4: `GetBytesProcessed`
 //! ```vb
 //! Function GetBytesProcessed(ByVal fileNum As Integer) As Long
 //!     ' For Binary access files
@@ -217,7 +217,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 5: UpdateProgressBar
+//! ### Pattern 5: `UpdateProgressBar`
 //! ```vb
 //! Sub UpdateProgressBar(ByVal fileNum As Integer, _
 //!                       ByVal progressBar As ProgressBar)
@@ -231,7 +231,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 6: ReadFileWithProgress
+//! ### Pattern 6: `ReadFileWithProgress`
 //! ```vb
 //! Sub ReadFileWithProgress(ByVal filename As String)
 //!     Dim fileNum As Integer
@@ -257,7 +257,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 7: GetRecordPosition
+//! ### Pattern 7: `GetRecordPosition`
 //! ```vb
 //! Function GetRecordPosition(ByVal fileNum As Integer) As String
 //!     Dim current As Long
@@ -270,7 +270,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 8: SafeLoc
+//! ### Pattern 8: `SafeLoc`
 //! ```vb
 //! Function SafeLoc(ByVal fileNum As Integer) As Long
 //!     On Error Resume Next
@@ -282,7 +282,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 9: IsAtEndOfFile
+//! ### Pattern 9: `IsAtEndOfFile`
 //! ```vb
 //! Function IsAtEndOfFile(ByVal fileNum As Integer) As Boolean
 //!     ' For Binary mode
@@ -290,7 +290,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 10: LogFilePosition
+//! ### Pattern 10: `LogFilePosition`
 //! ```vb
 //! Sub LogFilePosition(ByVal fileNum As Integer, _
 //!                     ByVal operation As String)
@@ -533,7 +533,7 @@
 //! - **No I/O**: Does not perform actual file operations
 //! - **Frequent Calls**: Safe to call in tight loops
 //! - **Progress Updates**: Use modulo to update UI less frequently
-//! - **DoEvents**: Call DoEvents when updating UI to maintain responsiveness
+//! - **`DoEvents`**: Call `DoEvents` when updating UI to maintain responsiveness
 //!
 //! ## Best Practices
 //!
@@ -544,7 +544,7 @@
 //! 5. **Use for Binary/Random** files (Sequential returns approximation)
 //! 6. **Combine with EOF** for robust loop conditions
 //! 7. **Handle errors** for unopened files
-//! 8. **Use DoEvents** when updating UI in loops
+//! 8. **Use `DoEvents`** when updating UI in loops
 //! 9. **Consider mode** when interpreting return value
 //! 10. **Document units** (bytes, records, or approximation)
 //!

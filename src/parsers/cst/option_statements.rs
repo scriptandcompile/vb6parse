@@ -11,7 +11,7 @@ use crate::parsers::SyntaxKind;
 
 use super::Parser;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     /// Parse an Option statement: Option Explicit On/Off or Option Base 0/1
     pub(super) fn parse_option_statement(&mut self) {
         self.builder
@@ -93,8 +93,8 @@ impl<'a> Parser<'a> {
     /// Binary comparison is faster but case-sensitive. Text comparison is case-insensitive
     /// but may be slower. The comparison method affects:
     /// - String comparisons in If statements
-    /// - InStr function
-    /// - StrComp function (unless comparison argument is specified)
+    /// - `InStr` function
+    /// - `StrComp` function (unless comparison argument is specified)
     /// - Select Case with string expressions
     ///
     /// # Examples

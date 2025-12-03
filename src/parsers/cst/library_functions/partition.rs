@@ -104,7 +104,7 @@
 //!
 //! ## Common Patterns
 //!
-//! ### Pattern 1: BuildFrequencyTable
+//! ### Pattern 1: `BuildFrequencyTable`
 //! ```vb
 //! Function BuildFrequencyTable(values() As Integer, start As Long, _
 //!                              stop As Long, interval As Long) As Collection
@@ -137,7 +137,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 2: GenerateHistogram
+//! ### Pattern 2: `GenerateHistogram`
 //! ```vb
 //! Sub GenerateHistogram(values() As Integer, start As Long, _
 //!                       stop As Long, interval As Long)
@@ -167,7 +167,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 3: ClassifyValue
+//! ### Pattern 3: `ClassifyValue`
 //! ```vb
 //! Function ClassifyValue(value As Long, start As Long, _
 //!                        stop As Long, interval As Long) As String
@@ -184,7 +184,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 4: GetRangeBoundaries
+//! ### Pattern 4: `GetRangeBoundaries`
 //! ```vb
 //! Sub GetRangeBoundaries(partitionStr As String, _
 //!                        ByRef lower As Long, ByRef upper As Long)
@@ -201,7 +201,7 @@
 //! ' Usage: GetRangeBoundaries(" 20: 29", lower, upper)  ' lower=20, upper=29
 //! ```
 //!
-//! ### Pattern 5: AnalyzeDataDistribution
+//! ### Pattern 5: `AnalyzeDataDistribution`
 //! ```vb
 //! Function AnalyzeDataDistribution(data() As Variant) As String
 //!     Dim minVal As Long, maxVal As Long
@@ -236,7 +236,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 6: ValidatePartitionParameters
+//! ### Pattern 6: `ValidatePartitionParameters`
 //! ```vb
 //! Function ValidatePartitionParameters(start As Long, stop As Long, _
 //!                                      interval As Long) As Boolean
@@ -261,7 +261,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 7: CreateRangeLabels
+//! ### Pattern 7: `CreateRangeLabels`
 //! ```vb
 //! Function CreateRangeLabels(start As Long, stop As Long, _
 //!                            interval As Long) As String()
@@ -284,7 +284,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 8: CountInRange
+//! ### Pattern 8: `CountInRange`
 //! ```vb
 //! Function CountInRange(values() As Variant, targetRange As String, _
 //!                       start As Long, stop As Long, interval As Long) As Long
@@ -302,7 +302,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 9: GetRangeMidpoint
+//! ### Pattern 9: `GetRangeMidpoint`
 //! ```vb
 //! Function GetRangeMidpoint(partitionStr As String) As Double
 //!     Dim lower As Long, upper As Long
@@ -321,7 +321,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 10: GroupByRange
+//! ### Pattern 10: `GroupByRange`
 //! ```vb
 //! Function GroupByRange(values() As Variant, start As Long, _
 //!                       stop As Long, interval As Long) As Object
@@ -835,7 +835,7 @@
 //! | **Partition** | Create range labels | String (range description) | Frequency distributions, histograms |
 //! | **Switch** | Choose from value pairs | Variant (matched value) | Simple value mapping |
 //! | **Choose** | Pick from list by index | Variant (indexed item) | Select from fixed options |
-//! | **IIf** | Conditional expression | Variant (true/false result) | Simple binary choices |
+//! | **`IIf`** | Conditional expression | Variant (true/false result) | Simple binary choices |
 //! | **Select Case** | Multi-way branching | N/A (statement) | Complex conditional logic |
 //!
 //! ## Platform and Version Notes

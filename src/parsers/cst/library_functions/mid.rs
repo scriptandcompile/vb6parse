@@ -47,12 +47,12 @@
 //! - **Null propagation**: Returns Null if input is Null
 //! - **Common use**: Extract portions of strings, parse data, substring operations
 //! - **Related statement**: Mid statement assigns to substring (Mid(s, 1, 3) = "abc")
-//! - **Similar to**: Left (from start), Right (from end), InStr (find position)
+//! - **Similar to**: Left (from start), Right (from end), `InStr` (find position)
 //! - **Performance**: Fast operation, optimized in VB6
 //! - **String immutability**: Returns new string, does not modify original
 //! - **Unicode support**: Works with Unicode strings in VB6
 //! - **Type conversion**: Automatically converts numeric strings
-//! - **Available in**: All VB versions, VBA, VBScript
+//! - **Available in**: All VB versions, VBA, `VBScript`
 //!
 //! ## Typical Uses
 //!
@@ -209,7 +209,7 @@
 //!
 //! ## Common Patterns
 //!
-//! ### Pattern 1: SafeMid (handle Null)
+//! ### Pattern 1: `SafeMid` (handle Null)
 //! ```vb
 //! Function SafeMid(ByVal text As Variant, _
 //!                  ByVal start As Long, _
@@ -224,7 +224,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 2: GetChar (extract single character)
+//! ### Pattern 2: `GetChar` (extract single character)
 //! ```vb
 //! Function GetChar(ByVal text As String, ByVal position As Long) As String
 //!     If position >= 1 And position <= Len(text) Then
@@ -235,7 +235,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 3: SkipChars (remove prefix)
+//! ### Pattern 3: `SkipChars` (remove prefix)
 //! ```vb
 //! Function SkipChars(ByVal text As String, ByVal count As Long) As String
 //!     If count >= Len(text) Then
@@ -248,7 +248,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 4: ExtractBetween
+//! ### Pattern 4: `ExtractBetween`
 //! ```vb
 //! Function ExtractBetween(ByVal text As String, _
 //!                         ByVal startPos As Long, _
@@ -261,7 +261,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 5: MaskMiddle (hide sensitive data)
+//! ### Pattern 5: `MaskMiddle` (hide sensitive data)
 //! ```vb
 //! Function MaskMiddle(ByVal text As String, _
 //!                     ByVal visibleStart As Long, _
@@ -279,7 +279,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 6: ParseFixedField
+//! ### Pattern 6: `ParseFixedField`
 //! ```vb
 //! Function ParseFixedField(ByVal record As String, _
 //!                         ByVal startPos As Long, _
@@ -288,7 +288,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 7: GetSubstringAfter
+//! ### Pattern 7: `GetSubstringAfter`
 //! ```vb
 //! Function GetSubstringAfter(ByVal text As String, _
 //!                           ByVal delimiter As String) As String
@@ -303,7 +303,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 8: GetSubstringBefore
+//! ### Pattern 8: `GetSubstringBefore`
 //! ```vb
 //! Function GetSubstringBefore(ByVal text As String, _
 //!                            ByVal delimiter As String) As String
@@ -318,7 +318,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 9: ReplaceMiddle
+//! ### Pattern 9: `ReplaceMiddle`
 //! ```vb
 //! Function ReplaceMiddle(ByVal text As String, _
 //!                       ByVal start As Long, _
@@ -330,7 +330,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 10: ExtractWord
+//! ### Pattern 10: `ExtractWord`
 //! ```vb
 //! Function ExtractWord(ByVal text As String, ByVal wordNum As Long) As String
 //!     Dim words() As String
@@ -668,16 +668,16 @@
 //! - **Avoid in Tight Loops**: Cache result if using multiple times
 //! - **Better than**: Repeated Left/Right operations for complex parsing
 //! - **Consider Split**: For delimited data, Split may be faster
-//! - **String Builder**: For concatenating many Mid results, use StringBuilder pattern
+//! - **String Builder**: For concatenating many Mid results, use `StringBuilder` pattern
 //!
 //! ## Best Practices
 //!
 //! 1. **Remember 1-based indexing** - First character is position 1, not 0
 //! 2. **Validate inputs** - Check start and length before calling Mid
-//! 3. **Handle Null gracefully** - Use IsNull check for Variant inputs
+//! 3. **Handle Null gracefully** - Use `IsNull` check for Variant inputs
 //! 4. **Omit length when extracting to end** - More readable: Mid(s, 5) vs Mid(s, 5, Len(s)-4)
 //! 5. **Combine with Trim** - Clean whitespace from extracted fields
-//! 6. **Use with InStr** - Find position, then extract with Mid
+//! 6. **Use with `InStr`** - Find position, then extract with Mid
 //! 7. **Cache Len results** - If using Len(string) multiple times
 //! 8. **Document field positions** - For fixed-width parsing, use constants
 //! 9. **Test edge cases** - Empty strings, start past end, Null values
@@ -690,7 +690,7 @@
 //! | **Mid** | Any position | start, [length] | General substring extraction |
 //! | **Left** | Beginning | length | Get first N characters |
 //! | **Right** | End | length | Get last N characters |
-//! | **InStr** | N/A (finds) | [start,] string1, string2 | Find position of substring |
+//! | **`InStr`** | N/A (finds) | [start,] string1, string2 | Find position of substring |
 //!
 //! ## Mid vs Left vs Right
 //!
@@ -757,7 +757,7 @@
 //!
 //! - Available in all VB6 versions
 //! - Part of VBA core library
-//! - Available in VBScript
+//! - Available in `VBScript`
 //! - Works with ANSI and Unicode strings
 //! - **1-based indexing** (first character is 1)
 //! - Returns new string (original unchanged)
@@ -770,7 +770,7 @@
 //! - **1-based indexing**: Not 0-based like most modern languages
 //! - **Creates new string**: Cannot modify string in place (use Mid statement for that)
 //! - **No negative indices**: Cannot count from end like Python
-//! - **No regex support**: For pattern matching, use RegExp object
+//! - **No regex support**: For pattern matching, use `RegExp` object
 //! - **Error on invalid start**: start < 1 causes error 5
 //! - **Error on negative length**: length < 0 causes error 5
 //!

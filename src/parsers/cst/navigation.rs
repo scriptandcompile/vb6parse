@@ -9,7 +9,7 @@ use super::{ConcreteSyntaxTree, VB6Language};
 
 /// Represents a node in the Concrete Syntax Tree
 ///
-/// This can be either a structural node (like SubStatement) or a token (like Identifier).
+/// This can be either a structural node (like `SubStatement`) or a token (like Identifier).
 #[derive(Debug, Clone, PartialEq, Eq, serde::Serialize)]
 pub struct CstNode {
     /// The kind of syntax element this node represents
@@ -24,18 +24,21 @@ pub struct CstNode {
 
 impl ConcreteSyntaxTree {
     /// Get a textual representation of the tree structure (for debugging)
+    #[must_use]
     pub fn debug_tree(&self) -> String {
         let syntax_node = rowan::SyntaxNode::<VB6Language>::new_root(self.root.clone());
-        format!("{:#?}", syntax_node)
+        format!("{syntax_node:#?}")
     }
 
     /// Get the text content of the entire tree
+    #[must_use]
     pub fn text(&self) -> String {
         let syntax_node = rowan::SyntaxNode::<VB6Language>::new_root(self.root.clone());
         syntax_node.text().to_string()
     }
 
     /// Get the number of children of the root node
+    #[must_use]
     pub fn child_count(&self) -> usize {
         self.root.children().count()
     }
@@ -43,15 +46,16 @@ impl ConcreteSyntaxTree {
     /// Get the children of the root node
     ///
     /// Returns a vector of child nodes with their kind and text content.
+    #[must_use]
     pub fn children(&self) -> Vec<CstNode> {
         let syntax_node = rowan::SyntaxNode::<VB6Language>::new_root(self.root.clone());
         syntax_node
             .children_with_tokens()
-            .map(|child| Self::build_cst_node(child))
+            .map(Self::build_cst_node)
             .collect()
     }
 
-    /// Recursively build a CstNode from a rowan NodeOrToken
+    /// Recursively build a `CstNode` from a rowan `NodeOrToken`
     fn build_cst_node(
         node_or_token: rowan::NodeOrToken<
             rowan::SyntaxNode<VB6Language>,
@@ -62,7 +66,7 @@ impl ConcreteSyntaxTree {
             rowan::NodeOrToken::Node(node) => {
                 let children = node
                     .children_with_tokens()
-                    .map(|child| Self::build_cst_node(child))
+                    .map(Self::build_cst_node)
                     .collect();
 
                 CstNode {
@@ -85,11 +89,12 @@ impl ConcreteSyntaxTree {
     ///
     /// # Arguments
     ///
-    /// * `kind` - The SyntaxKind to search for
+    /// * `kind` - The `SyntaxKind` to search for
     ///
     /// # Returns
     ///
     /// A vector of all child nodes matching the specified kind
+    #[must_use]
     pub fn find_children_by_kind(&self, kind: SyntaxKind) -> Vec<CstNode> {
         self.children()
             .into_iter()
@@ -101,11 +106,12 @@ impl ConcreteSyntaxTree {
     ///
     /// # Arguments
     ///
-    /// * `kind` - The SyntaxKind to search for
+    /// * `kind` - The `SyntaxKind` to search for
     ///
     /// # Returns
     ///
     /// `true` if at least one node of the specified kind exists, `false` otherwise
+    #[must_use]
     pub fn contains_kind(&self, kind: SyntaxKind) -> bool {
         self.children().iter().any(|child| child.kind == kind)
     }
@@ -115,6 +121,7 @@ impl ConcreteSyntaxTree {
     /// # Returns
     ///
     /// The first child node if it exists, `None` otherwise
+    #[must_use]
     pub fn first_child(&self) -> Option<CstNode> {
         self.children().into_iter().next()
     }
@@ -124,6 +131,7 @@ impl ConcreteSyntaxTree {
     /// # Returns
     ///
     /// The last child node if it exists, `None` otherwise
+    #[must_use]
     pub fn last_child(&self) -> Option<CstNode> {
         self.children().into_iter().last()
     }
@@ -137,6 +145,7 @@ impl ConcreteSyntaxTree {
     /// # Returns
     ///
     /// The child at the specified index if it exists, `None` otherwise
+    #[must_use]
     pub fn child_at(&self, index: usize) -> Option<CstNode> {
         self.children().into_iter().nth(index)
     }

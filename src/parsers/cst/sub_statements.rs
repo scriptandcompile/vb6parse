@@ -15,7 +15,7 @@ use crate::parsers::SyntaxKind;
 
 use super::Parser;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     /// Parse a Visual Basic 6 subroutine with syntax:
     ///
     /// \[ Public | Private | Friend \] \[ Static \] Sub name \[ ( arglist ) \]
@@ -38,7 +38,7 @@ impl<'a> Parser<'a> {
     ///
     /// The arglist argument has the following syntax and parts:
     ///
-    /// \[ Optional \] \[ ByVal | ByRef \] \[ ParamArray \] varname \[ ( ) \] \[ As type \] \[ = defaultvalue \]
+    /// \[ Optional \] \[ `ByVal` | `ByRef` \] \[ `ParamArray` \] varname \[ ( ) \] \[ As type \] \[ = defaultvalue \]
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/sub-statement)
     pub(super) fn parse_sub_statement(&mut self) {

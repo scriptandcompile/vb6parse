@@ -120,7 +120,7 @@ use crate::parsers::SyntaxKind;
 
 use super::super::Parser;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     /// Parse a Width # statement.
     ///
     /// The Width # statement assigns an output line width to a file opened using the Open statement.

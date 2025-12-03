@@ -93,7 +93,7 @@
 //!
 //! ## Common Patterns
 //!
-//! ### Pattern 1: CalculateAPR
+//! ### Pattern 1: `CalculateAPR`
 //! ```vb
 //! Function CalculateAPR(loanAmount As Double, monthlyPayment As Double, _
 //!                       months As Integer) As Double
@@ -113,7 +113,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 2: CompareEffectiveRates
+//! ### Pattern 2: `CompareEffectiveRates`
 //! ```vb
 //! Function CompareEffectiveRates(loan1PV As Double, loan1PMT As Double, loan1Nper As Integer, _
 //!                                loan2PV As Double, loan2PMT As Double, loan2Nper As Integer) As String
@@ -140,7 +140,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 3: ValidateRateParameters
+//! ### Pattern 3: `ValidateRateParameters`
 //! ```vb
 //! Function ValidateRateParameters(nper As Integer, pmt As Double, pv As Double) As Boolean
 //!     ValidateRateParameters = False
@@ -170,7 +170,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 4: FindRateWithRetry
+//! ### Pattern 4: `FindRateWithRetry`
 //! ```vb
 //! Function FindRateWithRetry(nper As Integer, pmt As Double, pv As Double, _
 //!                            Optional fv As Double = 0) As Double
@@ -198,7 +198,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 5: CalculateEffectiveAPR
+//! ### Pattern 5: `CalculateEffectiveAPR`
 //! ```vb
 //! Function CalculateEffectiveAPR(loanAmount As Double, payment As Double, _
 //!                                years As Integer, fees As Double) As Double
@@ -215,7 +215,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 6: GetLeaseImplicitRate
+//! ### Pattern 6: `GetLeaseImplicitRate`
 //! ```vb
 //! Function GetLeaseImplicitRate(vehiclePrice As Double, monthlyPayment As Double, _
 //!                               leaseTerm As Integer, residualValue As Double) As Double
@@ -228,7 +228,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 7: CalculateRealRate
+//! ### Pattern 7: `CalculateRealRate`
 //! ```vb
 //! Function CalculateRealRate(nper As Integer, pmt As Double, pv As Double, _
 //!                            inflationRate As Double) As Double
@@ -245,7 +245,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 8: ConvertToAPY
+//! ### Pattern 8: `ConvertToAPY`
 //! ```vb
 //! Function ConvertToAPY(periodicRate As Double, periodsPerYear As Integer) As Double
 //!     ' Convert periodic rate to Annual Percentage Yield (with compounding)
@@ -253,7 +253,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 9: BackoutRate
+//! ### Pattern 9: `BackoutRate`
 //! ```vb
 //! Function BackoutRate(payment As Double, principal As Double, _
 //!                      years As Integer, paymentType As Integer) As Double
@@ -276,7 +276,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 10: IsRateReasonable
+//! ### Pattern 10: `IsRateReasonable`
 //! ```vb
 //! Function IsRateReasonable(calculatedRate As Double) As Boolean
 //!     ' Validate that calculated rate is within reasonable bounds
@@ -708,7 +708,7 @@
 //! | **Pmt** | Payment amount | Double (payment) | Calculate payment from rate |
 //! | **PV** | Present value | Double (current value) | Find loan amount from payment |
 //! | **FV** | Future value | Double (future value) | Find final value from payments |
-//! | **NPer** | Number of periods | Double (period count) | Find term from payment/rate |
+//! | **`NPer`** | Number of periods | Double (period count) | Find term from payment/rate |
 //! | **IRR** | Internal rate of return | Double (rate) | Find rate from irregular cash flows |
 //!
 //! ## Platform and Version Notes

@@ -51,7 +51,7 @@
 use crate::parsers::cst::Parser;
 use crate::parsers::syntaxkind::SyntaxKind;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     /// Parses a Name statement.
     pub(crate) fn parse_name_statement(&mut self) {
         self.parse_simple_builtin_statement(SyntaxKind::NameStatement);

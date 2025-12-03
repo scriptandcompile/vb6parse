@@ -28,7 +28,7 @@
 //! - Based on computer's system clock
 //! - No parameters required (parameterless function)
 //! - Commonly used for timestamps, logging, and timing operations
-//! - Can be separated into date-only or time-only using Date() or Time()
+//! - Can be separated into date-only or time-only using `Date()` or `Time()`
 //! - Precision to the second (does not include milliseconds)
 //! - Returns Variant (Date) type
 //! - Subject to system time zone settings
@@ -688,12 +688,12 @@
 //!
 //! 1. **Use for timestamps** - Ideal for logging and audit trails
 //! 2. **Store in Date variables** - Declare as Date type, not Variant when possible
-//! 3. **Format for display** - Use Format() function for user-friendly output
+//! 3. **Format for display** - Use `Format()` function for user-friendly output
 //! 4. **Consider time zones** - Now uses local system time, not UTC
 //! 5. **Use Timer for precision** - For sub-second timing, use Timer function
 //! 6. **Cache in loops** - Store Now once at loop start instead of calling repeatedly
 //! 7. **Document timezone** - Make it clear whether times are local or UTC
-//! 8. **Use DateDiff carefully** - Be aware of daylight saving time changes
+//! 8. **Use `DateDiff` carefully** - Be aware of daylight saving time changes
 //! 9. **Validate before math** - Check for valid dates before date arithmetic
 //! 10. **Consider Date vs Now** - Use Date if you only need the date portion
 //!
@@ -710,7 +710,7 @@
 //!
 //! - Available in VBA (Excel, Access, Word, etc.)
 //! - Available in VB6
-//! - Available in VBScript
+//! - Available in `VBScript`
 //! - Uses Windows system clock
 //! - Subject to system time zone settings
 //! - Affected by daylight saving time changes
@@ -732,13 +732,13 @@
 //! - **Date** - Returns current date (time = midnight)
 //! - **Time** - Returns current time (date = 12/30/1899)
 //! - **Timer** - Returns seconds since midnight (for precision timing)
-//! - **DateAdd** - Adds time intervals to dates
-//! - **DateDiff** - Calculates difference between dates
+//! - **`DateAdd`** - Adds time intervals to dates
+//! - **`DateDiff`** - Calculates difference between dates
 //! - **Format** - Formats date/time for display
 //!
 //! ## VB6 Parser Notes
 //!
-//! Now is a parameterless function that is parsed as a CallExpression. This module exists primarily
+//! Now is a parameterless function that is parsed as a `CallExpression`. This module exists primarily
 //! for documentation purposes to provide comprehensive reference material for VB6 developers working
 //! with date and time operations, timestamps, logging, and time-based calculations.
 

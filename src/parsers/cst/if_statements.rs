@@ -10,7 +10,7 @@ use crate::parsers::SyntaxKind;
 
 use super::Parser;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     /// Parse an `If` statement: `If` condition `Then` ... `End If`
     /// Handles both single-line and multi-line `If` statements
     ///

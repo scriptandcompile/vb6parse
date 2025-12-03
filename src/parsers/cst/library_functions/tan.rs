@@ -191,7 +191,7 @@
 //! | `Cos`    | Cosine | radians | Double |
 //!
 //! ## Platform Notes
-//! - Available in VB6, VBA, VBScript
+//! - Available in VB6, VBA, `VBScript`
 //! - Consistent across platforms
 //! - Returns Double
 //!

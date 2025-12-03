@@ -120,7 +120,7 @@
 //!
 //! ## Common Patterns
 //!
-//! ### Pattern 1: CreateGradient
+//! ### Pattern 1: `CreateGradient`
 //! ```vb
 //! Function CreateGradient(startColor As Long, endColor As Long, _
 //!                        steps As Integer, stepNum As Integer) As Long
@@ -152,7 +152,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 2: ExtractColorComponents
+//! ### Pattern 2: `ExtractColorComponents`
 //! ```vb
 //! Sub ExtractRGB(color As Long, red As Integer, green As Integer, blue As Integer)
 //!     ' Extract individual RGB components from a color value
@@ -162,7 +162,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 3: LightenColor
+//! ### Pattern 3: `LightenColor`
 //! ```vb
 //! Function LightenColor(color As Long, percent As Double) As Long
 //!     ' Lighten a color by a percentage (0-100)
@@ -181,7 +181,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 4: DarkenColor
+//! ### Pattern 4: `DarkenColor`
 //! ```vb
 //! Function DarkenColor(color As Long, percent As Double) As Long
 //!     ' Darken a color by a percentage (0-100)
@@ -200,7 +200,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 5: BlendColors
+//! ### Pattern 5: `BlendColors`
 //! ```vb
 //! Function BlendColors(color1 As Long, color2 As Long, _
 //!                     Optional ratio As Double = 0.5) As Long
@@ -227,7 +227,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 6: ColorFromHex
+//! ### Pattern 6: `ColorFromHex`
 //! ```vb
 //! Function ColorFromHex(hexColor As String) As Long
 //!     ' Convert hex string like "#FF0000" to RGB color
@@ -247,7 +247,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 7: ColorToHex
+//! ### Pattern 7: `ColorToHex`
 //! ```vb
 //! Function ColorToHex(color As Long) As String
 //!     ' Convert RGB color to hex string
@@ -264,7 +264,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 8: GetContrastColor
+//! ### Pattern 8: `GetContrastColor`
 //! ```vb
 //! Function GetContrastColor(bgColor As Long) As Long
 //!     ' Return black or white for best contrast
@@ -286,7 +286,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 9: TemperatureToColor
+//! ### Pattern 9: `TemperatureToColor`
 //! ```vb
 //! Function TemperatureToColor(temp As Double, minTemp As Double, _
 //!                            maxTemp As Double) As Long
@@ -315,7 +315,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 10: InvertColor
+//! ### Pattern 10: `InvertColor`
 //! ```vb
 //! Function InvertColor(color As Long) As Long
 //!     ' Invert a color (negative)
@@ -736,16 +736,16 @@
 //! 7. **Validate User Input**: When accepting color values from users
 //! 8. **Use Gradients Wisely**: Smooth gradients are more visually appealing
 //! 9. **Consider Color Blindness**: Test with color-blind-friendly palettes
-//! 10. **Avoid Magic Numbers**: Use RGB() rather than numeric color values
+//! 10. **Avoid Magic Numbers**: Use `RGB()` rather than numeric color values
 //!
 //! ## Comparison with Related Functions
 //!
 //! | Function | Purpose | Returns | Use Case |
 //! |----------|---------|---------|----------|
 //! | **RGB** | Create custom color | Long (RGB value) | Precise color control, custom colors |
-//! | **QBColor** | Get QBasic color | Long (RGB value) | Legacy compatibility, 16-color palette |
+//! | **`QBColor`** | Get `QBasic` color | Long (RGB value) | Legacy compatibility, 16-color palette |
 //! | **vbRed, vbBlue, etc.** | Predefined constants | Long (RGB value) | Quick standard colors |
-//! | **LoadPicture** | Load image | Picture object | Complex graphics, images |
+//! | **`LoadPicture`** | Load image | Picture object | Complex graphics, images |
 //!
 //! ## Platform and Version Notes
 //!
@@ -766,7 +766,7 @@
 //!
 //! ## Related Functions
 //!
-//! - `QBColor`: Returns RGB value for QBasic color number (0-15)
+//! - `QBColor`: Returns RGB value for `QBasic` color number (0-15)
 //! - Predefined color constants: `vbBlack`, `vbRed`, `vbGreen`, `vbBlue`, `vbWhite`, etc.
 //! - `LoadPicture`: Loads images with full color support
 //! - `Point`: Returns the RGB color of a specified point on a form or picture box

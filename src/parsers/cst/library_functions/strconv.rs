@@ -19,7 +19,7 @@
 //!   - `vbHiragana` (32): Converts Katakana characters to Hiragana characters (Japanese)
 //!   - `vbUnicode` (64): Converts the string to Unicode using the default code page
 //!   - `vbFromUnicode` (128): Converts the string from Unicode to the default code page
-//! - `LCID`: Optional. LocaleID value, if different from the system LocaleID value. Default is the system LocaleID.
+//! - `LCID`: Optional. `LocaleID` value, if different from the system `LocaleID` value. Default is the system `LocaleID`.
 //!
 //! ## Returns
 //! Returns a `Variant` (String) containing the converted string, or a `Variant` (Byte array) when converting to/from Unicode.
@@ -572,7 +572,7 @@
 //! ## Best Practices
 //! 1. **Use for normalization** before comparisons or storage
 //! 2. **Combine with Trim$** to remove leading/trailing spaces before conversion
-//! 3. **Handle proper case limitations** - doesn't handle special cases like "O'Brien" or "McDonald"
+//! 3. **Handle proper case limitations** - doesn't handle special cases like "O'Brien" or "`McDonald`"
 //! 4. **Cache conversion constants** in variables for clarity (e.g., `Const UPPER_CASE = vbUpperCase`)
 //! 5. **Use Unicode conversion** for binary file I/O or API calls requiring Unicode
 //! 6. **Test with locale-specific text** when using proper case or locale-dependent conversions
@@ -592,7 +592,7 @@
 //!
 //! ## Platform Notes
 //! - Available in VB6 and VBA
-//! - Not available in VBScript
+//! - Not available in `VBScript`
 //! - `vbWide`/`vbNarrow` primarily for Asian language environments
 //! - `vbKatakana`/`vbHiragana` only meaningful for Japanese text
 //! - Unicode conversion uses UTF-16LE (Windows default)
@@ -600,7 +600,7 @@
 //! - LCID parameter rarely used (defaults to system locale)
 //!
 //! ## Limitations
-//! - Proper case doesn't handle special cases (O'Brien, McDonald, etc.)
+//! - Proper case doesn't handle special cases (O'Brien, `McDonald`, etc.)
 //! - Cannot specify custom word delimiters for proper case
 //! - Unicode conversion always uses UTF-16LE (cannot specify encoding)
 //! - No direct support for other Unicode formats (UTF-8, UTF-32)

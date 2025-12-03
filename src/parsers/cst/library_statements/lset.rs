@@ -2,7 +2,7 @@ use crate::parsers::SyntaxKind;
 
 use super::Parser;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     // VB6 LSet statement syntax:
     // - LSet stringvar = string
     // - LSet varname1 = varname2 (for user-defined types)

@@ -3,7 +3,7 @@ use crate::parsers::SyntaxKind;
 
 use super::Parser;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     // VB6 Line Input statement syntax:
     // - Line Input #filenumber, varname
     //

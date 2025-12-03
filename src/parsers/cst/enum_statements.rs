@@ -20,7 +20,7 @@ use crate::parsers::SyntaxKind;
 
 use super::Parser;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     /// Parse a Visual Basic 6 Enum statement with syntax:
     ///
     /// \[ Public | Private \] Enum name

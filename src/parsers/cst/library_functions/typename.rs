@@ -33,7 +33,7 @@
 //! ## Remarks
 //! - Returns the type as a string, not the actual type.
 //! - For objects, returns the class name or interface name.
-//! - For arrays, returns the base type name with "()" appended (e.g., "Integer()", "String()").
+//! - For arrays, returns the base type name with "()" appended (e.g., "`Integer()`", "`String()`").
 //! - For objects not instantiated, returns "Nothing".
 //! - For Null, returns "Null"; for Empty, returns "Empty".
 //! - For user-defined types, returns the type name.
@@ -210,7 +210,7 @@
 //! 7. Use with arrays for type detection.
 //! 8. Avoid using as a substitute for type declarations.
 //! 9. Use for runtime checks, not compile-time.
-//! 10. Combine with VarType for more detail.
+//! 10. Combine with `VarType` for more detail.
 //!
 //! ## Comparison Table
 //!
@@ -222,7 +222,7 @@
 //! | `IsArray`  | Check if is array      | variable   | Boolean        |
 //!
 //! ## Platform Notes
-//! - Available in VB6, VBA, VBScript
+//! - Available in VB6, VBA, `VBScript`
 //! - Consistent across platforms
 //! - Returns type names in English
 //!

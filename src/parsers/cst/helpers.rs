@@ -8,7 +8,7 @@ use crate::language::VB6Token;
 use crate::parsers::SyntaxKind;
 use std::num::NonZeroUsize;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     /// Check if we've reached the end of the token stream.
     pub(super) fn is_at_end(&self) -> bool {
         self.pos >= self.tokens.len()
@@ -240,19 +240,11 @@ impl<'a> Parser<'a> {
     pub(super) fn consume_keyword_dollar_as_identifier(&mut self) {
         if self.at_keyword_dollar() {
             // Get the text of both tokens
-            let first_text = self
-                .tokens
-                .get(self.pos)
-                .map(|(text, _)| *text)
-                .unwrap_or("");
-            let dollar_text = self
-                .tokens
-                .get(self.pos + 1)
-                .map(|(text, _)| *text)
-                .unwrap_or("");
+            let first_text = self.tokens.get(self.pos).map_or("", |(text, _)| *text);
+            let dollar_text = self.tokens.get(self.pos + 1).map_or("", |(text, _)| *text);
 
             // Create a combined text for the identifier
-            let combined_text = format!("{}{}", first_text, dollar_text);
+            let combined_text = format!("{first_text}{dollar_text}");
 
             // Add as a single Identifier token
             self.builder

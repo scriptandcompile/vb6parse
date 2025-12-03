@@ -25,7 +25,7 @@
 //! - **Negative values**: Can use negative values to subtract time
 //! - **Calculation flexibility**: Can use expressions for any parameter
 //! - **Time arithmetic**: Ideal for adding/subtracting time intervals
-//! - **Companion to DateSerial**: TimeSerial for time, DateSerial for dates
+//! - **Companion to `DateSerial`**: `TimeSerial` for time, `DateSerial` for dates
 //! - **Type returned**: Returns Variant (Date), not a numeric type
 //!
 //! ### Normalization Examples
@@ -471,7 +471,7 @@
 //! 7. **Format for display** with Format$ function
 //! 8. **Document time assumptions** (e.g., time zone, 24-hour format)
 //! 9. **Validate inputs** if accepting user-provided values
-//! 10. **Use DateAdd** for more complex date/time arithmetic
+//! 10. **Use `DateAdd`** for more complex date/time arithmetic
 //!
 //! ## Comparison Table
 //!
@@ -484,7 +484,7 @@
 //! | `CDate` | Convert to date | expression | Date |
 //!
 //! ## Platform Notes
-//! - Available in VB6, VBA, and VBScript
+//! - Available in VB6, VBA, and `VBScript`
 //! - Consistent behavior across platforms
 //! - Automatic normalization of values
 //! - Date portion always zero (12/30/1899)
@@ -493,7 +493,7 @@
 //!
 //! ## Limitations
 //! - Returns only time portion (date is zero)
-//! - Cannot directly create date and time together (use DateSerial + TimeSerial)
+//! - Cannot directly create date and time together (use `DateSerial` + `TimeSerial`)
 //! - No timezone support
 //! - No daylight saving time handling
 //! - Limited to standard time resolution (seconds)

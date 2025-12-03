@@ -1,4 +1,4 @@
-//! # PPmt Function
+//! # `PPmt` Function
 //!
 //! Returns a Double specifying the principal payment for a given period of an annuity based on periodic, fixed payments and a fixed interest rate.
 //!
@@ -114,7 +114,7 @@
 //!
 //! ## Common Patterns
 //!
-//! ### Pattern 1: BuildAmortizationSchedule
+//! ### Pattern 1: `BuildAmortizationSchedule`
 //! ```vb
 //! Sub BuildAmortizationSchedule(principal As Double, _
 //!                               annualRate As Double, _
@@ -149,7 +149,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 2: CalculatePrincipalPaidRange
+//! ### Pattern 2: `CalculatePrincipalPaidRange`
 //! ```vb
 //! Function CalculatePrincipalPaidRange(rate As Double, _
 //!                                      startPeriod As Integer, _
@@ -169,7 +169,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 3: GetRemainingBalance
+//! ### Pattern 3: `GetRemainingBalance`
 //! ```vb
 //! Function GetRemainingBalance(principal As Double, _
 //!                              rate As Double, _
@@ -189,7 +189,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 4: ComparePrincipalPaydown
+//! ### Pattern 4: `ComparePrincipalPaydown`
 //! ```vb
 //! Sub ComparePrincipalPaydown(amount As Double)
 //!     Dim principal15 As Double
@@ -214,7 +214,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 5: ValidatePPmtParameters
+//! ### Pattern 5: `ValidatePPmtParameters`
 //! ```vb
 //! Function ValidatePPmtParameters(rate As Double, per As Integer, _
 //!                                 nper As Integer, pv As Double) As Boolean
@@ -239,7 +239,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 6: CalculateEquityGrowth
+//! ### Pattern 6: `CalculateEquityGrowth`
 //! ```vb
 //! Function CalculateEquityGrowth(homeValue As Double, _
 //!                                loanAmount As Double, _
@@ -257,7 +257,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 7: ExtraPrincipalImpact
+//! ### Pattern 7: `ExtraPrincipalImpact`
 //! ```vb
 //! Function CalculateExtraPrincipalImpact(principal As Double, _
 //!                                        rate As Double, _
@@ -287,7 +287,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 8: GetPrincipalPercent
+//! ### Pattern 8: `GetPrincipalPercent`
 //! ```vb
 //! Function GetPrincipalPercent(rate As Double, _
 //!                              period As Integer, _
@@ -306,7 +306,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 9: FindBreakEvenPeriod
+//! ### Pattern 9: `FindBreakEvenPeriod`
 //! ```vb
 //! Function FindBreakEvenPeriod(principal As Double, _
 //!                              rate As Double, _
@@ -330,7 +330,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 10: ProjectPrincipalPaydown
+//! ### Pattern 10: `ProjectPrincipalPaydown`
 //! ```vb
 //! Sub ProjectPrincipalPaydown(loanAmount As Double, _
 //!                             annualRate As Double, _
@@ -849,7 +849,7 @@
 //!
 //! - The `PPmt` function is fast for individual period calculations
 //! - For complete amortization schedules, calling `PPmt` for every period can be slow
-//! - Consider calculating balance iteratively: balance = balance - PPmt(...)
+//! - Consider calculating balance iteratively: balance = balance - `PPmt`(...)
 //! - Pre-calculate monthly rate and other constants outside loops
 //! - For large schedules (hundreds of periods), consider caching results
 //!
@@ -857,7 +857,7 @@
 //!
 //! 1. **Validate Period Range**: Always check that per is between 1 and nper
 //! 2. **Match Time Units**: Ensure rate and nper use the same time period
-//! 3. **Use with IPmt**: Combine PPmt and IPmt to verify they sum to total payment
+//! 3. **Use with `IPmt`**: Combine `PPmt` and `IPmt` to verify they sum to total payment
 //! 4. **Use Absolute Value**: Use `Abs()` when displaying to users
 //! 5. **Handle Sign Conventions**: Remember negative = outflow, positive = inflow
 //! 6. **Optimize Loops**: Pre-calculate constants before looping through periods
@@ -870,12 +870,12 @@
 //!
 //! | Function | Purpose | Returns | Use Case |
 //! |----------|---------|---------|----------|
-//! | **PPmt** | Principal portion of payment | Double (principal amount) | Amortization schedules, equity tracking |
-//! | **IPmt** | Interest portion of payment | Double (interest amount) | Tax deductions, interest expense tracking |
+//! | **`PPmt`** | Principal portion of payment | Double (principal amount) | Amortization schedules, equity tracking |
+//! | **`IPmt`** | Interest portion of payment | Double (interest amount) | Tax deductions, interest expense tracking |
 //! | **Pmt** | Total periodic payment | Double (payment amount) | Loan budgeting, payment calculation |
 //! | **PV** | Present value | Double (current value) | Valuation, reverse calculations |
 //! | **FV** | Future value | Double (future value) | Investment projections |
-//! | **NPer** | Number of periods | Double (period count) | Loan term calculation |
+//! | **`NPer`** | Number of periods | Double (period count) | Loan term calculation |
 //!
 //! ## Platform and Version Notes
 //!

@@ -1,4 +1,4 @@
-//! # SaveSetting Statement
+//! # `SaveSetting` Statement
 //!
 //! Saves or creates an application entry in the Windows registry or (on the Macintosh) information in the application's initialization file.
 //!
@@ -17,17 +17,17 @@
 //!
 //! ## Remarks
 //!
-//! - **Registry Location**: On Windows, SaveSetting writes to the registry under the path:
+//! - **Registry Location**: On Windows, `SaveSetting` writes to the registry under the path:
 //!   `HKEY_CURRENT_USER\Software\VB and VBA Program Settings\appname\section\key`
 //! - **String Values**: The setting argument is always stored as a string value in the registry.
-//! - **Creating Entries**: If the specified key setting doesn't exist, SaveSetting creates it.
-//! - **Creating Sections**: If the specified section doesn't exist, SaveSetting creates it.
+//! - **Creating Entries**: If the specified key setting doesn't exist, `SaveSetting` creates it.
+//! - **Creating Sections**: If the specified section doesn't exist, `SaveSetting` creates it.
 //! - **Application Name**: The appname is typically the name of your application. Multiple applications can use the same registry location by using the same appname.
 //! - **Section Organization**: Use sections to organize related settings. For example, you might have a "Startup" section and a "Display" section.
 //! - **Type Conversion**: Numeric values and other data types are automatically converted to strings when saved.
-//! - **Security**: Settings are stored per user (HKEY_CURRENT_USER), not per machine.
-//! - **GetSetting Function**: Use the GetSetting function to retrieve values saved with SaveSetting.
-//! - **DeleteSetting Statement**: Use DeleteSetting to remove registry entries created by SaveSetting.
+//! - **Security**: Settings are stored per user (`HKEY_CURRENT_USER`), not per machine.
+//! - **`GetSetting` Function**: Use the `GetSetting` function to retrieve values saved with `SaveSetting`.
+//! - **`DeleteSetting` Statement**: Use `DeleteSetting` to remove registry entries created by `SaveSetting`.
 //!
 //! ## Examples
 //!
@@ -107,9 +107,9 @@
 //! ## Important Notes
 //!
 //! - **Platform Differences**: On Windows, settings are stored in the registry. On other platforms, behavior may vary.
-//! - **String Storage**: All values are stored as strings, so you may need to convert them back when retrieving with GetSetting.
-//! - **Registry Cleanup**: Use DeleteSetting to remove settings when they're no longer needed.
-//! - **Error Handling**: SaveSetting can fail if the registry is locked or permissions are insufficient.
+//! - **String Storage**: All values are stored as strings, so you may need to convert them back when retrieving with `GetSetting`.
+//! - **Registry Cleanup**: Use `DeleteSetting` to remove settings when they're no longer needed.
+//! - **Error Handling**: `SaveSetting` can fail if the registry is locked or permissions are insufficient.
 //!
 //! ## See Also
 //!
@@ -124,8 +124,8 @@
 use crate::parsers::cst::Parser;
 use crate::parsers::syntaxkind::SyntaxKind;
 
-impl<'a> Parser<'a> {
-    /// Parses a SaveSetting statement.
+impl Parser<'_> {
+    /// Parses a `SaveSetting` statement.
     pub(crate) fn parse_savesetting_statement(&mut self) {
         self.parse_simple_builtin_statement(SyntaxKind::SaveSettingStatement);
     }

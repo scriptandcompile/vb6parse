@@ -23,7 +23,7 @@
 //! - **Preserves spaces**: Spaces are treated like any other character and reversed
 //! - **Case preserved**: Original case of characters is maintained
 //! - **Single pass**: Efficient single-pass algorithm
-//! - **VB6/VBA only**: Available in VB6 and VBA, not in VBScript
+//! - **VB6/VBA only**: Available in VB6 and VBA, not in `VBScript`
 //!
 //! ### Common Use Cases
 //! - Reversing strings for display or analysis
@@ -592,14 +592,14 @@
 //! - For very large strings (megabytes), consider memory constraints
 //!
 //! ## Best Practices
-//! 1. **Use StrReverse** instead of manual loops for reversing strings (faster and cleaner)
+//! 1. **Use `StrReverse`** instead of manual loops for reversing strings (faster and cleaner)
 //! 2. **Handle Null values** explicitly when working with Variant types
 //! 3. **Normalize before palindrome checks** (remove spaces, convert case)
-//! 4. **Don't use for security** - StrReverse is not encryption, only obfuscation
+//! 4. **Don't use for security** - `StrReverse` is not encryption, only obfuscation
 //! 5. **Cache reversed strings** if used multiple times in comparisons
 //! 6. **Combine with other functions** like `LCase$`, `Trim$` for text processing
 //! 7. **Test edge cases** like empty strings and single-character strings
-//! 8. **Document intent** when using StrReverse in non-obvious ways
+//! 8. **Document intent** when using `StrReverse` in non-obvious ways
 //! 9. **Consider alternatives** for word-level reversal (Split/Join approach)
 //! 10. **Use for validation** like palindrome checking or symmetry analysis
 //!
@@ -613,7 +613,7 @@
 //!
 //! ## Platform Notes
 //! - Available in VB6 and VBA
-//! - **Not available in VBScript** (must implement manually)
+//! - **Not available in `VBScript`** (must implement manually)
 //! - Works correctly with Unicode characters
 //! - Behavior consistent across VB6 and VBA
 //! - No locale-specific behavior
@@ -621,7 +621,7 @@
 //! ## Limitations
 //! - Cannot reverse only part of a string (use `Mid$` to extract first)
 //! - Cannot reverse words rather than characters (use Split/Join)
-//! - Not available in VBScript
+//! - Not available in `VBScript`
 //! - Returns `Null` for `Null` input (may be unexpected)
 //! - No option to reverse specific character ranges
 //! - Cannot specify custom reversal rules

@@ -124,7 +124,7 @@
 //!
 //! ## Common Patterns
 //!
-//! ### Pattern 1: RandomInteger
+//! ### Pattern 1: `RandomInteger`
 //! ```vb
 //! Function RandomInteger(minValue As Long, maxValue As Long) As Long
 //!     ' Generate random integer in range [minValue, maxValue]
@@ -132,7 +132,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 2: RandomDouble
+//! ### Pattern 2: `RandomDouble`
 //! ```vb
 //! Function RandomDouble(minValue As Double, maxValue As Double) As Double
 //!     ' Generate random double in range [minValue, maxValue)
@@ -140,7 +140,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 3: RandomBoolean
+//! ### Pattern 3: `RandomBoolean`
 //! ```vb
 //! Function RandomBoolean() As Boolean
 //!     ' Generate random True/False
@@ -148,7 +148,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 4: RandomChoice
+//! ### Pattern 4: `RandomChoice`
 //! ```vb
 //! Function RandomChoice(items As Variant) As Variant
 //!     ' Select random item from array
@@ -163,7 +163,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 5: ShuffleArray
+//! ### Pattern 5: `ShuffleArray`
 //! ```vb
 //! Sub ShuffleArray(arr As Variant)
 //!     ' Randomly shuffle array elements (Fisher-Yates algorithm)
@@ -181,7 +181,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 6: RandomString
+//! ### Pattern 6: `RandomString`
 //! ```vb
 //! Function RandomString(length As Integer, _
 //!                      Optional chars As String = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789") As String
@@ -201,7 +201,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 7: RandomColor
+//! ### Pattern 7: `RandomColor`
 //! ```vb
 //! Function RandomColor() As Long
 //!     ' Generate random RGB color
@@ -217,7 +217,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 8: RandomPercentage
+//! ### Pattern 8: `RandomPercentage`
 //! ```vb
 //! Function RandomPercentage(probability As Double) As Boolean
 //!     ' Return True with specified probability (0.0 to 1.0)
@@ -225,7 +225,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 9: RandomDate
+//! ### Pattern 9: `RandomDate`
 //! ```vb
 //! Function RandomDate(startDate As Date, endDate As Date) As Date
 //!     ' Generate random date between start and end dates
@@ -239,7 +239,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 10: WeightedRandom
+//! ### Pattern 10: `WeightedRandom`
 //! ```vb
 //! Function WeightedRandom(weights() As Double) As Integer
 //!     ' Select index based on weighted probabilities

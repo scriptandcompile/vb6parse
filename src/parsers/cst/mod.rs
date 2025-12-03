@@ -125,7 +125,7 @@ impl Language for VB6Language {
 
 /// A Concrete Syntax Tree for VB6 code.
 ///
-/// This structure wraps the rowan library's GreenNode internally but provides
+/// This structure wraps the rowan library's `GreenNode` internally but provides
 /// a public API that doesn't expose rowan types.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ConcreteSyntaxTree {
@@ -134,15 +134,12 @@ pub struct ConcreteSyntaxTree {
 }
 
 impl ConcreteSyntaxTree {
-    /// Create a new CST from a GreenNode (internal use only)
+    /// Create a new CST from a `GreenNode` (internal use only)
     fn new(root: GreenNode) -> Self {
         Self { root }
     }
 
-    pub fn from_source<'a, S>(
-        file_name: S,
-        contents: &'a str,
-    ) -> ParseResult<'a, Self, VB6CodeErrorKind>
+    pub fn from_source<S>(file_name: S, contents: &str) -> ParseResult<'_, Self, VB6CodeErrorKind>
     where
         S: Into<String>,
     {
@@ -163,6 +160,7 @@ impl ConcreteSyntaxTree {
     }
 
     /// Get the kind of the root node
+    #[must_use]
     pub fn root_kind(&self) -> SyntaxKind {
         SyntaxKind::from_raw(self.root.kind())
     }
@@ -184,6 +182,7 @@ impl ConcreteSyntaxTree {
     ///
     /// // Can now be used with insta::assert_yaml_snapshot!
     /// ```
+    #[must_use]
     pub fn to_serializable(&self) -> SerializableTree {
         SerializableTree {
             root: self.to_root_node(),
@@ -191,7 +190,7 @@ impl ConcreteSyntaxTree {
         }
     }
 
-    /// Convert the internal rowan tree to a root CstNode.
+    /// Convert the internal rowan tree to a root `CstNode`.
     fn to_root_node(&self) -> CstNode {
         CstNode {
             kind: SyntaxKind::Root,
@@ -202,9 +201,9 @@ impl ConcreteSyntaxTree {
     }
 }
 
-/// Parse a TokenStream into a Concrete Syntax Tree.
+/// Parse a `TokenStream` into a Concrete Syntax Tree.
 ///
-/// This function takes a TokenStream and constructs a CST that represents
+/// This function takes a `TokenStream` and constructs a CST that represents
 /// the structure of the VB6 code.
 ///
 /// # Arguments
@@ -224,6 +223,7 @@ impl ConcreteSyntaxTree {
 /// let tokens = TokenStream::new("example.bas".to_string(), vec![]);
 /// let cst = parse(tokens);
 /// ```
+#[must_use]
 pub fn parse(tokens: TokenStream) -> ConcreteSyntaxTree {
     let parser = Parser::new(tokens);
     parser.parse_module()
@@ -363,17 +363,17 @@ impl<'a> Parser<'a> {
                         [VB6Token::ImplementsKeyword, ..] => self.parse_implements_statement(), // Implements
                         // With Static: Public/Private/Friend Static Function, Sub, or Property
                         [VB6Token::StaticKeyword, VB6Token::FunctionKeyword] => {
-                            self.parse_function_statement()
+                            self.parse_function_statement();
                         }
                         [VB6Token::StaticKeyword, VB6Token::SubKeyword] => {
-                            self.parse_sub_statement()
+                            self.parse_sub_statement();
                         }
                         [VB6Token::StaticKeyword, VB6Token::PropertyKeyword] => {
-                            self.parse_property_statement()
+                            self.parse_property_statement();
                         }
                         // Anything else is a declaration
                         _ => self.parse_dim(),
-                    };
+                    }
                 }
                 // Whitespace and newlines - consume directly
                 Some(
@@ -497,8 +497,8 @@ impl<'a> Parser<'a> {
                         .peek_next_count_keywords(NonZeroUsize::new(20).unwrap())
                         .collect();
 
-                    let has_goto = keywords.iter().any(|t| *t == VB6Token::GotoKeyword);
-                    let has_gosub = keywords.iter().any(|t| *t == VB6Token::GoSubKeyword);
+                    let has_goto = keywords.contains(&VB6Token::GotoKeyword);
+                    let has_gosub = keywords.contains(&VB6Token::GoSubKeyword);
 
                     if has_goto {
                         self.parse_on_goto_statement();
@@ -539,7 +539,7 @@ impl<'a> Parser<'a> {
     ///
     /// This is a generic code block parser that can handle different termination conditions:
     /// - End Sub, End Function, End If, etc.
-    /// - ElseIf or Else (for If statements)
+    /// - `ElseIf` or Else (for If statements)
     ///
     /// # Arguments
     /// * `stop_conditions` - A closure that returns true when the block should stop parsing

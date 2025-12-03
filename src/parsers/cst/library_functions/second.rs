@@ -79,7 +79,7 @@
 //!
 //! ## Common Patterns
 //!
-//! ### Pattern 1: GetTimeSeconds
+//! ### Pattern 1: `GetTimeSeconds`
 //! ```vb
 //! Function GetTimeSeconds(timeValue As Variant) As Integer
 //!     ' Safely get seconds from time value
@@ -92,7 +92,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 2: FormatTimeWithSeconds
+//! ### Pattern 2: `FormatTimeWithSeconds`
 //! ```vb
 //! Function FormatTimeWithSeconds(timeValue As Date) As String
 //!     ' Format time as HH:MM:SS
@@ -108,7 +108,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 3: IsAtSecondInterval
+//! ### Pattern 3: `IsAtSecondInterval`
 //! ```vb
 //! Function IsAtSecondInterval(timeValue As Date, interval As Integer) As Boolean
 //!     ' Check if time is at a specific second interval
@@ -117,7 +117,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 4: GetElapsedSeconds
+//! ### Pattern 4: `GetElapsedSeconds`
 //! ```vb
 //! Function GetElapsedSeconds(startTime As Date, endTime As Date) As Long
 //!     ' Get total elapsed seconds between two times
@@ -125,7 +125,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 5: SetSeconds
+//! ### Pattern 5: `SetSeconds`
 //! ```vb
 //! Function SetSeconds(timeValue As Date, newSeconds As Integer) As Date
 //!     ' Set the seconds component of a time value
@@ -138,7 +138,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 6: RoundToNearestMinute
+//! ### Pattern 6: `RoundToNearestMinute`
 //! ```vb
 //! Function RoundToNearestMinute(timeValue As Date) As Date
 //!     ' Round time to nearest minute based on seconds
@@ -161,7 +161,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 7: CompareTimeToSecond
+//! ### Pattern 7: `CompareTimeToSecond`
 //! ```vb
 //! Function CompareTimeToSecond(time1 As Date, time2 As Date) As Boolean
 //!     ' Compare times to the second (ignore milliseconds)
@@ -175,7 +175,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 8: ValidateTimeSeconds
+//! ### Pattern 8: `ValidateTimeSeconds`
 //! ```vb
 //! Function ValidateTimeSeconds(timeValue As Variant) As Boolean
 //!     ' Validate that seconds are in valid range
@@ -192,7 +192,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 9: GetSecondsUntilMinute
+//! ### Pattern 9: `GetSecondsUntilMinute`
 //! ```vb
 //! Function GetSecondsUntilMinute(Optional timeValue As Date) As Integer
 //!     ' Get seconds remaining until next minute
@@ -208,7 +208,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 10: ParseTimeComponents
+//! ### Pattern 10: `ParseTimeComponents`
 //! ```vb
 //! Sub ParseTimeComponents(timeValue As Date, hours As Integer, _
 //!                        minutes As Integer, seconds As Integer)
@@ -584,7 +584,7 @@
 //! 7. **Use for Validation**: Validate time components are in expected ranges
 //! 8. **Cache Now Values**: If using Now multiple times, cache to avoid timing issues
 //! 9. **Test Edge Cases**: Test with midnight, end of minute, etc.
-//! 10. **Use TimeSerial**: Combine with TimeSerial to construct times
+//! 10. **Use `TimeSerial`**: Combine with `TimeSerial` to construct times
 //!
 //! ## Comparison with Related Functions
 //!
@@ -596,8 +596,8 @@
 //! | **Day** | Get day | Integer | 1-31 |
 //! | **Month** | Get month | Integer | 1-12 |
 //! | **Year** | Get year | Integer | 100-9999 |
-//! | **TimeSerial** | Create time | Date | Constructs time from H:M:S |
-//! | **DatePart** | Get date part | Variant | Flexible date/time extraction |
+//! | **`TimeSerial`** | Create time | Date | Constructs time from H:M:S |
+//! | **`DatePart`** | Get date part | Variant | Flexible date/time extraction |
 //!
 //! ## Platform and Version Notes
 //!
@@ -613,7 +613,7 @@
 //! - Cannot distinguish leap seconds
 //! - Range limited to 0-59 (no support for values outside this range)
 //! - Date portion of Date/Time value is ignored
-//! - Cannot be used as LValue (cannot assign to Second)
+//! - Cannot be used as `LValue` (cannot assign to Second)
 //!
 //! ## Related Functions
 //!

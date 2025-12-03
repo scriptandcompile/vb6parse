@@ -1,4 +1,4 @@
-//! # SendKeys Statement
+//! # `SendKeys` Statement
 //!
 //! Sends one or more keystrokes to the active window as if typed at the keyboard.
 //!
@@ -15,13 +15,13 @@
 //!
 //! ## Remarks
 //!
-//! - **Active Window**: SendKeys sends keystrokes to the currently active window. Your application must activate the target window before using SendKeys.
+//! - **Active Window**: `SendKeys` sends keystrokes to the currently active window. Your application must activate the target window before using `SendKeys`.
 //! - **Keystroke Representation**: Each key is represented by one or more characters. To specify a single keyboard character, use the character itself (e.g., "A" sends the letter A).
 //! - **Multiple Characters**: To send a string of characters, concatenate them (e.g., "Hello" sends H, e, l, l, o in sequence).
 //! - **Special Keys**: Some keys have special representations enclosed in braces (e.g., {ENTER}, {TAB}, {ESC}).
 //! - **Wait Parameter**: Setting wait to True ensures that keystrokes are processed before your code continues. This is useful when you need to wait for an application to respond.
-//! - **Focus Issues**: If the target application doesn't have focus when SendKeys executes, the keystrokes may be sent to the wrong application.
-//! - **AppActivate**: Use AppActivate to activate the target window before calling SendKeys.
+//! - **Focus Issues**: If the target application doesn't have focus when `SendKeys` executes, the keystrokes may be sent to the wrong application.
+//! - **`AppActivate`**: Use `AppActivate` to activate the target window before calling `SendKeys`.
 //!
 //! ## Special Key Codes
 //!
@@ -157,13 +157,13 @@
 //!
 //! ## Important Notes
 //!
-//! - **Timing**: SendKeys is not always reliable for complex automation. Consider using API calls or UI automation libraries for critical tasks.
+//! - **Timing**: `SendKeys` is not always reliable for complex automation. Consider using API calls or UI automation libraries for critical tasks.
 //! - **Focus Management**: Always ensure the target window has focus before sending keys.
 //! - **Wait Parameter**: Use True for the wait parameter when you need synchronous operation.
 //! - **Case Sensitivity**: To send uppercase letters, use the SHIFT modifier: `"+abc"` sends uppercase ABC.
 //! - **Reserved Characters**: To send +, ^, %, ~, or {}, enclose them in braces: `{+}`, `{^}`, `{%}`, `{~}`, `{{}`, `{}}`.
-//! - **Limitations**: SendKeys doesn't work with applications that directly process keyboard input at a low level.
-//! - **Error Handling**: If the target application is busy or unresponsive, SendKeys may fail silently or send keys to the wrong window.
+//! - **Limitations**: `SendKeys` doesn't work with applications that directly process keyboard input at a low level.
+//! - **Error Handling**: If the target application is busy or unresponsive, `SendKeys` may fail silently or send keys to the wrong window.
 //!
 //! ## Common Errors
 //!
@@ -173,10 +173,10 @@
 //!
 //! ## Best Practices
 //!
-//! - Always use AppActivate before SendKeys to ensure the correct window receives the keystrokes
+//! - Always use `AppActivate` before `SendKeys` to ensure the correct window receives the keystrokes
 //! - Use the wait parameter (True) when the next operation depends on the keystrokes being processed
-//! - Add delays (DoEvents or Sleep) between SendKeys calls for complex sequences
-//! - Test thoroughly as SendKeys behavior can vary across different applications and Windows versions
+//! - Add delays (`DoEvents` or Sleep) between `SendKeys` calls for complex sequences
+//! - Test thoroughly as `SendKeys` behavior can vary across different applications and Windows versions
 //! - Consider alternatives like Windows API or UI Automation for production applications
 //!
 //! ## See Also
@@ -192,8 +192,8 @@
 use crate::parsers::cst::Parser;
 use crate::parsers::syntaxkind::SyntaxKind;
 
-impl<'a> Parser<'a> {
-    /// Parses a SendKeys statement.
+impl Parser<'_> {
+    /// Parses a `SendKeys` statement.
     pub(crate) fn parse_sendkeys_statement(&mut self) {
         self.parse_simple_builtin_statement(SyntaxKind::SendKeysStatement);
     }

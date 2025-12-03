@@ -11,7 +11,7 @@
 //! - `date`: Required. Variant, numeric expression, string expression, or any combination that can represent a date. If `date` contains Null, Null is returned.
 //! - `firstdayofweek`: Optional. A constant that specifies the first day of the week. If not specified, vbSunday is assumed.
 //!
-//! ### FirstDayOfWeek Constants
+//! ### `FirstDayOfWeek` Constants
 //! - `vbUseSystem` (0): Use the system setting
 //! - `vbSunday` (1): Sunday (default)
 //! - `vbMonday` (2): Monday
@@ -37,7 +37,7 @@
 //! - **Zero-based alternative**: Use `(Weekday(date) - 1)` for 0-6 range if needed
 //! - **System setting**: vbUseSystem (0) uses Windows regional settings
 //! - **International support**: firstdayofweek allows cultural calendar preferences
-//! - **Combine with DateSerial**: Calculate specific weekdays
+//! - **Combine with `DateSerial`**: Calculate specific weekdays
 //!
 //! ### Understanding Return Values
 //! The return value changes based on `firstdayofweek`:
@@ -59,7 +59,7 @@
 //! 4. **Report Grouping**: Group data by day of week
 //! 5. **Calendar Display**: Format calendars with proper day alignment
 //! 6. **Work Week Calculations**: Calculate working days
-//! 7. **Day Name Display**: Get day name with WeekdayName function
+//! 7. **Day Name Display**: Get day name with `WeekdayName` function
 //! 8. **Date Validation**: Ensure dates fall on specific days
 //!
 //! ## Basic Examples
@@ -557,11 +557,11 @@
 //! 2. **Specify firstdayofweek** explicitly when week start matters (especially for ISO weeks)
 //! 3. **Cache results** when calling repeatedly with same date
 //! 4. **Validate date input** before calling Weekday to avoid errors
-//! 5. **Use WeekdayName** function to get localized day names
+//! 5. **Use `WeekdayName`** function to get localized day names
 //! 6. **Document assumptions** about which day starts the week in your code
 //! 7. **Consider time zones** when working with date/time values
 //! 8. **Test boundary cases** (month/year boundaries, leap years)
-//! 9. **Use with DateAdd** for complex date arithmetic
+//! 9. **Use with `DateAdd`** for complex date arithmetic
 //! 10. **Handle Null values** explicitly when working with Variant dates
 //!
 //! ## Comparison Table
@@ -574,19 +574,19 @@
 //! | `DatePart` | Get date part | Variant | More general, includes "w" for weekday |
 //!
 //! ## Platform Notes
-//! - Available in VB6, VBA, and VBScript
+//! - Available in VB6, VBA, and `VBScript`
 //! - Behavior consistent across platforms
 //! - Returns Integer (can be stored in Integer or Long)
 //! - System locale affects vbUseSystem behavior
 //! - Date range: January 1, 100 to December 31, 9999
 //!
 //! ## Limitations
-//! - Cannot directly return day name (use WeekdayName for that)
+//! - Cannot directly return day name (use `WeekdayName` for that)
 //! - Return value always 1-7 (no zero-based option)
 //! - Cannot specify custom week numbering systems
 //! - Does not account for holidays or business days
 //! - No built-in ISO 8601 week numbering (use DatePart("ww", ...) for that)
-//! - Cannot calculate week of year (use DatePart for that)
+//! - Cannot calculate week of year (use `DatePart` for that)
 
 #[cfg(test)]
 mod tests {

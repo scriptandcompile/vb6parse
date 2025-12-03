@@ -21,7 +21,7 @@
 //!   and its controls.
 //! - **Control Arrays**: When you unload a control created at run time with the `Load` statement,
 //!   the control is removed from the control array, and the array's upper bound is decremented by one.
-//! - **QueryUnload Event**: Before a form is unloaded, the `QueryUnload` event procedure is called.
+//! - **`QueryUnload` Event**: Before a form is unloaded, the `QueryUnload` event procedure is called.
 //!   Setting the `Cancel` argument to `True` in the `QueryUnload` event prevents the form from
 //!   being unloaded.
 //! - **Unload Event**: After the `QueryUnload` event, the `Unload` event procedure is called. You
@@ -148,7 +148,7 @@ use crate::parsers::SyntaxKind;
 
 use super::super::Parser;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     /// Parse a Visual Basic 6 Unload statement.
     ///
     /// Unload statement syntax:

@@ -36,7 +36,7 @@
 //! - Internal spaces between words are preserved
 //! - Most commonly used string trimming function
 //! - Equivalent to calling LTrim(RTrim(string))
-//! - More efficient than using LTrim and RTrim separately
+//! - More efficient than using `LTrim` and `RTrim` separately
 //! - Null input returns Null (propagates Null)
 //! - Empty string input returns empty string
 //! - String of only spaces returns empty string
@@ -49,7 +49,7 @@
 //! - Required for cleaning imported data
 //! - Part of the VB6 string manipulation library
 //! - Available in all VB versions
-//! - Related to LTrim (removes leading only) and RTrim (removes trailing only)
+//! - Related to `LTrim` (removes leading only) and `RTrim` (removes trailing only)
 //!
 //! ## Typical Uses
 //!
@@ -208,14 +208,14 @@
 //!
 //! ## Common Patterns
 //!
-//! ### Pattern 1: IsBlank
+//! ### Pattern 1: `IsBlank`
 //! ```vb
 //! Function IsBlank(ByVal text As String) As Boolean
 //!     IsBlank = (Trim(text) = "")
 //! End Function
 //! ```
 //!
-//! ### Pattern 2: SafeTrim (handle Null)
+//! ### Pattern 2: `SafeTrim` (handle Null)
 //! ```vb
 //! Function SafeTrim(ByVal text As Variant) As String
 //!     If IsNull(text) Then
@@ -226,14 +226,14 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 3: TrimAndUpper
+//! ### Pattern 3: `TrimAndUpper`
 //! ```vb
 //! Function TrimAndUpper(ByVal text As String) As String
 //!     TrimAndUpper = UCase(Trim(text))
 //! End Function
 //! ```
 //!
-//! ### Pattern 4: ValidateRequired
+//! ### Pattern 4: `ValidateRequired`
 //! ```vb
 //! Function ValidateRequired(ByVal value As String, _
 //!                          ByVal fieldName As String) As Boolean
@@ -246,7 +246,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 5: TrimArray
+//! ### Pattern 5: `TrimArray`
 //! ```vb
 //! Sub TrimArray(arr() As String)
 //!     Dim i As Integer
@@ -256,7 +256,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 6: CompareIgnoreSpaces
+//! ### Pattern 6: `CompareIgnoreSpaces`
 //! ```vb
 //! Function CompareIgnoreSpaces(ByVal str1 As String, _
 //!                             ByVal str2 As String) As Boolean
@@ -264,7 +264,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 7: TrimAllControls
+//! ### Pattern 7: `TrimAllControls`
 //! ```vb
 //! Sub TrimAllControls(ByVal frm As Form)
 //!     Dim ctrl As Control
@@ -279,7 +279,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 8: GetCleanValue
+//! ### Pattern 8: `GetCleanValue`
 //! ```vb
 //! Function GetCleanValue(ByVal ctrl As Control) As String
 //!     If TypeOf ctrl Is TextBox Or TypeOf ctrl Is ComboBox Then
@@ -290,7 +290,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 9: SplitAndTrim
+//! ### Pattern 9: `SplitAndTrim`
 //! ```vb
 //! Function SplitAndTrim(ByVal text As String, _
 //!                       ByVal delimiter As String) As String()
@@ -306,7 +306,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 10: DefaultIfBlank
+//! ### Pattern 10: `DefaultIfBlank`
 //! ```vb
 //! Function DefaultIfBlank(ByVal value As String, _
 //!                         ByVal defaultValue As String) As String
@@ -623,7 +623,7 @@
 //!
 //! - **Fast Operation**: String trimming is highly optimized
 //! - **Creates New String**: Does not modify original (immutable)
-//! - **More Efficient**: Using Trim() is faster than LTrim(RTrim())
+//! - **More Efficient**: Using `Trim()` is faster than LTrim(RTrim())
 //! - **Cache Results**: Don't call repeatedly in tight loops
 //!
 //! ## Best Practices
@@ -634,7 +634,7 @@
 //! 4. **Validate after trimming** - Check if empty after removing spaces
 //! 5. **Combine with other operations** - Trim then convert case, etc.
 //! 6. **Cache trimmed values** - Don't call repeatedly
-//! 7. **Handle Null gracefully** - Use SafeTrim for Variant types
+//! 7. **Handle Null gracefully** - Use `SafeTrim` for Variant types
 //! 8. **Document expectations** - Clarify if other whitespace should be removed
 //! 9. **Standardize input early** - Trim at entry point
 //! 10. **Test edge cases** - Empty strings, all spaces, Null values
@@ -644,10 +644,10 @@
 //! | Function | Removes Leading | Removes Trailing | Removes Both |
 //! |----------|----------------|------------------|--------------|
 //! | **Trim** | Yes | Yes | Yes |
-//! | **LTrim** | Yes | No | No |
-//! | **RTrim** | No | Yes | No |
+//! | **`LTrim`** | Yes | No | No |
+//! | **`RTrim`** | No | Yes | No |
 //!
-//! ## Trim vs LTrim vs RTrim
+//! ## Trim vs `LTrim` vs `RTrim`
 //!
 //! ```vb
 //! Dim text As String
@@ -698,7 +698,7 @@
 //! - Only removes ASCII space character (32)
 //! - Returns new string (original unchanged)
 //! - Handles Null by returning Null
-//! - Available in VBScript
+//! - Available in `VBScript`
 //! - Same behavior across all Windows versions
 //! - More efficient than LTrim(RTrim())
 //!

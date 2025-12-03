@@ -23,7 +23,7 @@
 //! - **Null handling**: Returns Null if input is Null
 //! - **Error handling**: Error 13 (Type mismatch) if string cannot be parsed as a time
 //! - **No milliseconds**: Only parses up to seconds
-//! - **Companion to DateValue**: Use DateValue for date-only parsing
+//! - **Companion to `DateValue`**: Use `DateValue` for date-only parsing
 //! - **Type returned**: Returns Variant (Date), not a string
 //!
 //! ### Accepted Time Formats
@@ -317,12 +317,12 @@
 //! 2. **Handle Null** explicitly when working with nullable fields
 //! 3. **Use Format$** for display after parsing
 //! 4. **Test with different locales** for internationalization
-//! 5. **Use TryParse pattern** for robust error handling
+//! 5. **Use `TryParse` pattern** for robust error handling
 //! 6. **Document expected formats** for maintainability
 //! 7. **Store as Date type** for calculations
-//! 8. **Use with TimeSerial** for arithmetic
+//! 8. **Use with `TimeSerial`** for arithmetic
 //! 9. **Test edge cases** (midnight, noon, invalid times)
-//! 10. **Combine with DateValue** for full date/time parsing
+//! 10. **Combine with `DateValue`** for full date/time parsing
 //!
 //! ## Comparison Table
 //!
@@ -335,7 +335,7 @@
 //! | `CDate` | Convert to date | expression | Date |
 //!
 //! ## Platform Notes
-//! - Available in VB6, VBA, and VBScript
+//! - Available in VB6, VBA, and `VBScript`
 //! - Consistent behavior across platforms
 //! - Locale-aware parsing
 //! - Date portion always zero (12/30/1899)
@@ -344,7 +344,7 @@
 //! ## Limitations
 //! - Only parses up to seconds (no milliseconds)
 //! - Locale-dependent parsing (may fail on some formats)
-//! - Cannot parse date and time together (use CDate for full datetime)
+//! - Cannot parse date and time together (use `CDate` for full datetime)
 //! - No timezone support
 //! - No daylight saving time handling
 //! - Returns only time portion (date is zero)

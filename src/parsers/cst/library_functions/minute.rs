@@ -37,10 +37,10 @@
 //! - **Various formats**: Accepts Date, String, or numeric time values
 //! - **24-hour time**: Works with both 12-hour and 24-hour formats
 //! - **Common use**: Extract minute for time calculations, formatting, validation
-//! - **Related functions**: Hour (hour component), Second (second component), TimeSerial (create time)
+//! - **Related functions**: Hour (hour component), Second (second component), `TimeSerial` (create time)
 //! - **Part of suite**: Day, Month, Year for dates; Hour, Minute, Second for times
 //! - **Performance**: Fast operation, optimized in VB6
-//! - **Available in**: All VB versions, VBA, VBScript
+//! - **Available in**: All VB versions, VBA, `VBScript`
 //!
 //! ## Typical Uses
 //!
@@ -210,7 +210,7 @@
 //!
 //! ## Common Patterns
 //!
-//! ### Pattern 1: SafeMinute (handle Null)
+//! ### Pattern 1: `SafeMinute` (handle Null)
 //! ```vb
 //! Function SafeMinute(ByVal timeValue As Variant) As Integer
 //!     If IsNull(timeValue) Then
@@ -223,21 +223,21 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 2: IsTopOfHour
+//! ### Pattern 2: `IsTopOfHour`
 //! ```vb
 //! Function IsTopOfHour(ByVal timeValue As Date) As Boolean
 //!     IsTopOfHour = (Minute(timeValue) = 0 And Second(timeValue) = 0)
 //! End Function
 //! ```
 //!
-//! ### Pattern 3: GetMinutesPastHour
+//! ### Pattern 3: `GetMinutesPastHour`
 //! ```vb
 //! Function GetMinutesPastHour(ByVal timeValue As Date) As Integer
 //!     GetMinutesPastHour = Minute(timeValue)
 //! End Function
 //! ```
 //!
-//! ### Pattern 4: GetMinutesUntilNextHour
+//! ### Pattern 4: `GetMinutesUntilNextHour`
 //! ```vb
 //! Function GetMinutesUntilNextHour(ByVal timeValue As Date) As Integer
 //!     Dim m As Integer
@@ -254,21 +254,21 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 5: FormatMinute
+//! ### Pattern 5: `FormatMinute`
 //! ```vb
 //! Function FormatMinute(ByVal timeValue As Date) As String
 //!     FormatMinute = Format(Minute(timeValue), "00")
 //! End Function
 //! ```
 //!
-//! ### Pattern 6: IsQuarterHour
+//! ### Pattern 6: `IsQuarterHour`
 //! ```vb
 //! Function IsQuarterHour(ByVal timeValue As Date) As Boolean
 //!     IsQuarterHour = (Minute(timeValue) Mod 15 = 0)
 //! End Function
 //! ```
 //!
-//! ### Pattern 7: GetQuarterHourIndex
+//! ### Pattern 7: `GetQuarterHourIndex`
 //! ```vb
 //! Function GetQuarterHourIndex(ByVal timeValue As Date) As Integer
 //!     ' Returns 0-3 for which quarter hour (0=:00, 1=:15, 2=:30, 3=:45)
@@ -276,21 +276,21 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 8: IsHalfHour
+//! ### Pattern 8: `IsHalfHour`
 //! ```vb
 //! Function IsHalfHour(ByVal timeValue As Date) As Boolean
 //!     IsHalfHour = (Minute(timeValue) = 0 Or Minute(timeValue) = 30)
 //! End Function
 //! ```
 //!
-//! ### Pattern 9: CompareMinutes
+//! ### Pattern 9: `CompareMinutes`
 //! ```vb
 //! Function CompareMinutes(ByVal time1 As Date, ByVal time2 As Date) As Integer
 //!     CompareMinutes = Minute(time1) - Minute(time2)
 //! End Function
 //! ```
 //!
-//! ### Pattern 10: MinutesSinceMidnight
+//! ### Pattern 10: `MinutesSinceMidnight`
 //! ```vb
 //! Function MinutesSinceMidnight(ByVal timeValue As Date) As Long
 //!     MinutesSinceMidnight = Hour(timeValue) * 60 + Minute(timeValue)
@@ -604,13 +604,13 @@
 //! ## Best Practices
 //!
 //! 1. **Use with Format** - Pad with leading zero: `Format(Minute(t), "00")`
-//! 2. **Validate input** - Check IsDate before calling Minute
-//! 3. **Handle Null gracefully** - Use IsNull check for Variant inputs
+//! 2. **Validate input** - Check `IsDate` before calling Minute
+//! 3. **Handle Null gracefully** - Use `IsNull` check for Variant inputs
 //! 4. **Combine with Hour/Second** - Extract all time components together
 //! 5. **Use for validation** - Check minute intervals for appointments
-//! 6. **Consider TimeSerial** - To reconstruct time from components
+//! 6. **Consider `TimeSerial`** - To reconstruct time from components
 //! 7. **Document assumptions** - Clarify if using 0-59 or 1-60 range
-//! 8. **Use constants** - Define meaningful minute values (TOP_OF_HOUR = 0)
+//! 8. **Use constants** - Define meaningful minute values (`TOP_OF_HOUR` = 0)
 //! 9. **Test edge cases** - Null values, invalid strings, midnight
 //! 10. **Remember range** - Always 0-59, never 60 or negative
 //!
@@ -621,7 +621,7 @@
 //! | **Minute** | Minute of hour | 0-59 | Extract minute component |
 //! | **Hour** | Hour of day | 0-23 | Extract hour component |
 //! | **Second** | Second of minute | 0-59 | Extract second component |
-//! | **TimeSerial** | Date/Time | N/A | Create time from components |
+//! | **`TimeSerial`** | Date/Time | N/A | Create time from components |
 //!
 //! ## Minute vs Hour vs Second
 //!
@@ -668,7 +668,7 @@
 //!
 //! - Available in all VB6 versions
 //! - Part of VBA core library
-//! - Available in VBScript
+//! - Available in `VBScript`
 //! - Returns Integer (not Long)
 //! - Range is always 0-59 (inclusive)
 //! - Handles Null by returning Null

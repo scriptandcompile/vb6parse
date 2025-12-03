@@ -1,7 +1,7 @@
 use crate::parsers::cst::Parser;
 use crate::parsers::syntaxkind::SyntaxKind;
 
-/// # RSet Statement
+/// # `RSet` Statement
 ///
 /// Right-aligns a string within a string variable or copies one user-defined variable to another.
 ///
@@ -21,20 +21,20 @@ use crate::parsers::syntaxkind::SyntaxKind;
 ///
 /// ## Remarks
 ///
-/// - **String Alignment**: When used with string variables, RSet right-aligns the string within
+/// - **String Alignment**: When used with string variables, `RSet` right-aligns the string within
 ///   the variable. If the string is shorter than the variable, spaces are added on the left to
 ///   achieve right alignment.
-/// - **Fixed-Length Strings**: RSet is particularly useful with fixed-length strings where you
+/// - **Fixed-Length Strings**: `RSet` is particularly useful with fixed-length strings where you
 ///   need to right-justify text within a specific width.
-/// - **User-Defined Types**: When used with user-defined types (UDTs), RSet copies data from one
+/// - **User-Defined Types**: When used with user-defined types (UDTs), `RSet` copies data from one
 ///   variable to another on a byte-by-byte basis. This can be useful for converting between
 ///   different UDT structures that have the same size.
 /// - **Shorter Strings**: If the source string is shorter than the target variable, spaces are
 ///   added on the left side to right-align the text.
 /// - **Longer Strings**: If the source string is longer than the target variable, the string is
 ///   truncated on the left side, keeping only the rightmost characters that fit.
-/// - **Comparison to LSet**: RSet is the opposite of LSet. While LSet left-aligns strings,
-///   RSet right-aligns them.
+/// - **Comparison to `LSet`**: `RSet` is the opposite of `LSet`. While `LSet` left-aligns strings,
+///   `RSet` right-aligns them.
 ///
 /// ## Example
 ///
@@ -73,7 +73,7 @@ use crate::parsers::syntaxkind::SyntaxKind;
 /// ## References
 ///
 /// - [RSet Statement (Visual Basic 6.0)](https://docs.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266258(v=vs.60))
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     pub(crate) fn parse_rset_statement(&mut self) {
         self.parse_simple_builtin_statement(SyntaxKind::RSetStatement);
     }

@@ -20,7 +20,7 @@ use crate::parsers::SyntaxKind;
 
 use super::Parser;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     /// Parse a Visual Basic 6 Type statement with syntax:
     ///
     /// \[Public | Private\] Type typename
@@ -184,7 +184,7 @@ impl<'a> Parser<'a> {
     /// - Type statements must appear at module level
     /// - In class modules, Type must be Private
     /// - Elements of a Type can be other user-defined types
-    /// - User-defined types are passed by value unless explicitly passed ByRef
+    /// - User-defined types are passed by value unless explicitly passed `ByRef`
     /// - Type members are accessed using the dot (.) operator
     ///
     /// ## See Also

@@ -23,9 +23,9 @@
 //! - **Locale-aware**: Conversion respects current locale settings for international characters
 //! - **Unicode support**: Handles Unicode characters according to locale
 //! - **Already uppercase**: Characters already uppercase are unchanged
-//! - **String variant**: UCase$ variant returns String instead of Variant
+//! - **String variant**: `UCase`$ variant returns String instead of Variant
 //!
-//! ### UCase vs UCase$
+//! ### `UCase` vs `UCase`$
 //! - `UCase`: Returns Variant (String) - can handle and return Null
 //! - `UCase$`: Returns String - generates error if argument is Null
 //! - Best practice: Use `UCase$` when you know the string is not Null for slightly better performance
@@ -132,7 +132,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 5: Case-Insensitive StartsWith
+//! ### Pattern 5: Case-Insensitive `StartsWith`
 //! ```vb6
 //! Function StartsWithIgnoreCase(str As String, prefix As String) As Boolean
 //!     StartsWithIgnoreCase = (UCase$(Left$(str, Len(prefix))) = UCase$(prefix))
@@ -458,11 +458,11 @@
 //! - For large-scale comparisons, convert once and cache
 //!
 //! ## Best Practices
-//! 1. **Use UCase$ when possible** for better performance and type safety
+//! 1. **Use `UCase`$ when possible** for better performance and type safety
 //! 2. **Cache conversions** when comparing the same string multiple times
 //! 3. **Combine with Trim$** when normalizing user input
-//! 4. **Handle Null explicitly** when using UCase (not UCase$)
-//! 5. **Use StrComp for locale-aware comparison** instead of manual UCase conversion
+//! 4. **Handle Null explicitly** when using `UCase` (not `UCase`$)
+//! 5. **Use `StrComp` for locale-aware comparison** instead of manual `UCase` conversion
 //! 6. **Consider Option Compare Text** for case-insensitive operations in entire module
 //! 7. **Document case-sensitivity** in function comments
 //! 8. **Normalize early** in data processing pipeline
@@ -480,7 +480,7 @@
 //! | `StrConv` | Various | Variant | Configurable |
 //!
 //! ## Platform Notes
-//! - Available in VB6, VBA, and VBScript
+//! - Available in VB6, VBA, and `VBScript`
 //! - Behavior consistent across platforms
 //! - Locale-aware conversion for international characters
 //! - Unicode support in VBA/VB6

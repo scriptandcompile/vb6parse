@@ -27,7 +27,7 @@ use crate::parsers::SyntaxKind;
 
 use super::Parser;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     /// Parse a Visual Basic 6 `DefType` statement with syntax:
     ///
     /// `DefType` letterrange \[, letterrange\] ...

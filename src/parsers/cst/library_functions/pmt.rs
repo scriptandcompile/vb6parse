@@ -86,7 +86,7 @@
 //!
 //! ## Common Patterns
 //!
-//! ### Pattern 1: CalculateLoanPayment
+//! ### Pattern 1: `CalculateLoanPayment`
 //! ```vb
 //! Function CalculateLoanPayment(loanAmount As Double, _
 //!                               annualRate As Double, _
@@ -102,7 +102,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 2: CalculateTotalInterest
+//! ### Pattern 2: `CalculateTotalInterest`
 //! ```vb
 //! Function CalculateTotalInterest(principal As Double, _
 //!                                 annualRate As Double, _
@@ -119,7 +119,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 3: CompareLoanOptions
+//! ### Pattern 3: `CompareLoanOptions`
 //! ```vb
 //! Sub CompareLoanOptions(amount As Double)
 //!     Dim payment15 As Double
@@ -140,7 +140,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 4: CalculateAffordableAmount
+//! ### Pattern 4: `CalculateAffordableAmount`
 //! ```vb
 //! Function CalculateAffordableAmount(monthlyPayment As Double, _
 //!                                    annualRate As Double, _
@@ -159,7 +159,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 5: SavingsCalculator
+//! ### Pattern 5: `SavingsCalculator`
 //! ```vb
 //! Function CalculateSavingsDeposit(targetAmount As Double, _
 //!                                  years As Integer, _
@@ -176,7 +176,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 6: ValidatePmtParameters
+//! ### Pattern 6: `ValidatePmtParameters`
 //! ```vb
 //! Function ValidatePmtParameters(rate As Double, nper As Integer, _
 //!                                pv As Double) As Boolean
@@ -201,7 +201,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 7: CalculateWithExtraPayment
+//! ### Pattern 7: `CalculateWithExtraPayment`
 //! ```vb
 //! Function CalculatePayoffWithExtra(principal As Double, _
 //!                                   annualRate As Double, _
@@ -231,7 +231,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 8: AmortizationSchedule
+//! ### Pattern 8: `AmortizationSchedule`
 //! ```vb
 //! Sub CreateAmortizationSchedule(principal As Double, _
 //!                                annualRate As Double, _
@@ -266,7 +266,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 9: BiweeklyPaymentCalculator
+//! ### Pattern 9: `BiweeklyPaymentCalculator`
 //! ```vb
 //! Function CalculateBiweeklyPayment(principal As Double, _
 //!                                   annualRate As Double, _
@@ -285,7 +285,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 10: RefinanceAnalysis
+//! ### Pattern 10: `RefinanceAnalysis`
 //! ```vb
 //! Function ShouldRefinance(currentBalance As Double, _
 //!                          currentRate As Double, _
@@ -796,11 +796,11 @@
 //! | Function | Purpose | Returns | Use Case |
 //! |----------|---------|---------|----------|
 //! | **Pmt** | Calculate periodic payment | Double (payment amount) | Loan payments, savings deposits |
-//! | **IPmt** | Interest portion of payment | Double (interest amount) | Amortization schedules, tax deductions |
-//! | **PPmt** | Principal portion of payment | Double (principal amount) | Tracking loan balance reduction |
+//! | **`IPmt`** | Interest portion of payment | Double (interest amount) | Amortization schedules, tax deductions |
+//! | **`PPmt`** | Principal portion of payment | Double (principal amount) | Tracking loan balance reduction |
 //! | **PV** | Present value | Double (current value) | Reverse calculation from payment |
 //! | **FV** | Future value | Double (future value) | Investment growth projections |
-//! | **NPer** | Number of periods | Double (period count) | How long to pay off debt |
+//! | **`NPer`** | Number of periods | Double (period count) | How long to pay off debt |
 //! | **Rate** | Interest rate | Double (rate per period) | Finding effective interest rate |
 //!
 //! ## Platform and Version Notes

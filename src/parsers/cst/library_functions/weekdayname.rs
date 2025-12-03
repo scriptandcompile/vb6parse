@@ -12,7 +12,7 @@
 //! - `abbreviate`: Optional. Boolean value that indicates if the weekday name is to be abbreviated. If omitted, the default is False (not abbreviated).
 //! - `firstdayofweek`: Optional. Numeric value indicating the first day of the week. See Settings section for values.
 //!
-//! ### FirstDayOfWeek Constants
+//! ### `FirstDayOfWeek` Constants
 //! - `vbUseSystemDayOfWeek` (0): Use National Language Support (NLS) API setting
 //! - `vbSunday` (1): Sunday (default)
 //! - `vbMonday` (2): Monday
@@ -139,7 +139,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 4: Populate ComboBox with Days
+//! ### Pattern 4: Populate `ComboBox` with Days
 //! ```vb6
 //! Sub PopulateDayCombo(combo As ComboBox)
 //!     Dim i As Integer
@@ -470,7 +470,7 @@
 //! 4. **Document expectations** about which day is first in week
 //! 5. **Use abbreviation** parameter for space-constrained displays
 //! 6. **Validate weekday range** (1-7) before calling
-//! 7. **Consider MonthName** for consistent date formatting patterns
+//! 7. **Consider `MonthName`** for consistent date formatting patterns
 //! 8. **Test with different locales** if application is internationalized
 //! 9. **Use named constants** (vbMonday, etc.) for clarity
 //! 10. **Combine with Format$** for custom date displays
@@ -485,7 +485,7 @@
 //! | `Format$` | Format date | String | Partially |
 //!
 //! ## Platform Notes
-//! - Available in VB6, VBA, and VBScript
+//! - Available in VB6, VBA, and `VBScript`
 //! - Behavior consistent across platforms
 //! - Output localized based on system regional settings
 //! - Abbreviation format varies by locale

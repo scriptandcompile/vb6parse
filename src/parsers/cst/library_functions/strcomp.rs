@@ -43,9 +43,9 @@
 //! ```
 //!
 //! ### Comparison with Operators
-//! - **StrComp vs = operator**: The `=` operator returns Boolean (True/False), while `StrComp` returns Integer (-1, 0, 1) providing ordering information.
-//! - **StrComp vs InStr**: `InStr` finds substring position, while `StrComp` compares entire strings.
-//! - **StrComp vs Like**: `Like` supports pattern matching with wildcards, while `StrComp` is exact comparison.
+//! - **`StrComp` vs = operator**: The `=` operator returns Boolean (True/False), while `StrComp` returns Integer (-1, 0, 1) providing ordering information.
+//! - **`StrComp` vs `InStr`**: `InStr` finds substring position, while `StrComp` compares entire strings.
+//! - **`StrComp` vs Like**: `Like` supports pattern matching with wildcards, while `StrComp` is exact comparison.
 //!
 //! ## Typical Uses
 //! 1. **Sorting Algorithms**: Implement custom sorting routines for string arrays
@@ -129,7 +129,7 @@
 //!
 //! ## Common Patterns
 //!
-//! ### Pattern 1: Bubble Sort with StrComp
+//! ### Pattern 1: Bubble Sort with `StrComp`
 //! ```vb6
 //! Sub SortStrings(arr() As String, caseInsensitive As Boolean)
 //!     Dim i As Integer
@@ -714,7 +714,7 @@
 //! | `Like` | Boolean | Per Option Compare | No | False if Null |
 //!
 //! ## Platform Notes
-//! - Available in VB6, VBA, and VBScript
+//! - Available in VB6, VBA, and `VBScript`
 //! - Behavior consistent across platforms
 //! - `vbDatabaseCompare` only meaningful in Microsoft Access
 //! - Unicode comparison works correctly with international characters

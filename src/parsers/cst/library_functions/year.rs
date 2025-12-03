@@ -24,7 +24,7 @@
 //! - **Date literals**: Accepts date literals (e.g., #12/25/2023#)
 //! - **Current year**: Use `Year(Date)` or `Year(Now)` to get current year
 //! - **Leap year calculation**: Can be used to determine leap years
-//! - **Year arithmetic**: Often combined with DateSerial for date calculations
+//! - **Year arithmetic**: Often combined with `DateSerial` for date calculations
 //! - **Four-digit years**: Always returns full four-digit year (not two-digit)
 //!
 //! ### Date Components Family
@@ -44,7 +44,7 @@
 //! End Function
 //! ```
 //!
-//! ### Combining with DateSerial
+//! ### Combining with `DateSerial`
 //! ```vb6
 //! ' Get first day of current year
 //! firstDay = DateSerial(Year(Date), 1, 1)
@@ -487,12 +487,12 @@
 //! ## Best Practices
 //! 1. **Validate input** before calling if date source is uncertain
 //! 2. **Handle Null** explicitly when working with nullable date fields
-//! 3. **Use DateSerial** with Year for date construction/manipulation
+//! 3. **Use `DateSerial`** with Year for date construction/manipulation
 //! 4. **Combine with Month/Day** for complete date component extraction
 //! 5. **Cache results** when using same date repeatedly
 //! 6. **Use fiscal year functions** for business date calculations
 //! 7. **Consider leap years** when performing year-based calculations
-//! 8. **Use DateDiff** for accurate year differences accounting for partial years
+//! 8. **Use `DateDiff`** for accurate year differences accounting for partial years
 //! 9. **Test edge cases** like end-of-year dates and leap year boundaries
 //! 10. **Document assumptions** about calendar systems and year ranges
 //!
@@ -507,7 +507,7 @@
 //! | `Format$` | String | N/A | Formatted date |
 //!
 //! ## Platform Notes
-//! - Available in VB6, VBA, and VBScript
+//! - Available in VB6, VBA, and `VBScript`
 //! - Consistent behavior across platforms
 //! - Always returns four-digit year (not affected by regional settings)
 //! - Date range: January 1, 100 to December 31, 9999
