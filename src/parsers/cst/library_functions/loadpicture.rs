@@ -1,6 +1,6 @@
-//! # LoadPicture Function
+//! # `LoadPicture` Function
 //!
-//! Returns a picture object (StdPicture) containing an image from a file or memory.
+//! Returns a picture object (`StdPicture`) containing an image from a file or memory.
 //!
 //! ## Syntax
 //!
@@ -10,34 +10,34 @@
 //!
 //! ## Parameters
 //!
-//! - `filename` (Optional): String expression specifying the name of the file to load
+//! - `filename` (Optional): `String` expression specifying the name of the file to load
 //!   - Can be bitmap (.bmp), icon (.ico), cursor (.cur), metafile (.wmf), or enhanced metafile (.emf)
 //!   - Can be empty string ("") to unload picture (returns Nothing)
 //!   - If omitted, returns empty picture object
-//! - `size` (Optional): Long specifying desired icon/cursor size (only for .ico and .cur files)
+//! - `size` (Optional): `Long` specifying desired icon/cursor size (only for .ico and .cur files)
 //!   - Specified in HIMETRIC units (1 HIMETRIC = 0.01 mm)
-//! - `colordepth` (Optional): Long specifying desired color depth
-//! - `x, y` (Optional): Long values specifying desired width and height
+//! - `colordepth` (Optional): `Long` specifying desired color depth
+//! - `x, y` (Optional): `Long` values specifying desired width and height
 //!
 //! ## Return Value
 //!
-//! Returns a StdPicture object:
-//! - For valid filename: Picture object containing the loaded image
+//! Returns a `StdPicture` object:
+//! - For valid filename: `Picture` object containing the loaded image
 //! - For empty string (""): Nothing (unloads picture)
 //! - For no parameters: Empty picture object
-//! - Object can be assigned to Picture properties of controls
-//! - Object implements IPicture interface
+//! - Object can be assigned to `Picture` properties of controls
+//! - Object implements `IPicture` interface
 //!
 //! ## Remarks
 //!
-//! The LoadPicture function loads graphics from files:
+//! The `LoadPicture` function loads graphics from files:
 //!
 //! - Primary method for loading images in VB6
 //! - Supports BMP, ICO, CUR, WMF, and EMF formats
 //! - Does NOT support JPG, GIF, or PNG natively
-//! - Returns StdPicture object implementing IPicture
-//! - LoadPicture("") explicitly unloads picture (returns Nothing)
-//! - LoadPicture() with no arguments returns empty picture
+//! - Returns `StdPicture` object implementing `IPicture`
+//! - ```LoadPicture("")``` explicitly unloads picture (returns `Nothing`)
+//! - ```LoadPicture()``` with no arguments returns empty picture
 //! - File must exist or runtime error 53 occurs
 //! - Invalid image format causes runtime error 481
 //! - Pictures are not cached (loaded each time)
@@ -45,40 +45,40 @@
 //! - Size and colordepth parameters select best match
 //! - Pictures consume memory until released
 //! - Set object = Nothing to release memory
-//! - Common in Form_Load for initial graphics
-//! - Used with Image, PictureBox, and Form.Picture
-//! - Can load from resource file with LoadResPicture instead
-//! - SavePicture is the inverse function (saves to file)
-//! - Picture objects are OLE objects
+//! - Common in `Form_Load` for initial graphics
+//! - Used with `Image`, `PictureBox`, and `Form.Picture`
+//! - Can load from resource file with `LoadResPicture` instead
+//! - `SavePicture` is the inverse function (saves to file)
+//! - `Picture` objects are `OLE` objects
 //!
 //! ## Typical Uses
 //!
-//! 1. **Load Image to PictureBox**
+//! 1. **Load `Image` to `PictureBox`**
 //!    ```vb
 //!    Picture1.Picture = LoadPicture("C:\Images\logo.bmp")
 //!    ```
 //!
-//! 2. **Load Image to Form Background**
+//! 2. **Load `Image` to `Form` Background**
 //!    ```vb
 //!    Me.Picture = LoadPicture(App.Path & "\background.bmp")
 //!    ```
 //!
-//! 3. **Load Icon to Image Control**
+//! 3. **Load `Icon` to `Image` Control**
 //!    ```vb
 //!    Image1.Picture = LoadPicture("C:\Icons\app.ico")
 //!    ```
 //!
-//! 4. **Clear/Unload Picture**
+//! 4. **Clear/Unload `Picture`**
 //!    ```vb
 //!    Picture1.Picture = LoadPicture("")
 //!    ```
 //!
-//! 5. **Dynamic Image Loading**
+//! 5. **Dynamic `Image` Loading**
 //!    ```vb
 //!    Picture1.Picture = LoadPicture(imageFiles(index))
 //!    ```
 //!
-//! 6. **Conditional Image Loading**
+//! 6. **Conditional `Image` Loading**
 //!    ```vb
 //!    If fileExists Then
 //!        imgStatus.Picture = LoadPicture("ok.bmp")
@@ -87,7 +87,7 @@
 //!    End If
 //!    ```
 //!
-//! 7. **Button Icons**
+//! 7. **Button `Icons`**
 //!    ```vb
 //!    cmdSave.Picture = LoadPicture("save.ico")
 //!    ```
@@ -150,7 +150,7 @@
 //!
 //! ## Common Patterns
 //!
-//! ### Pattern 1: SafeLoadPicture
+//! ### Pattern 1: `SafeLoadPicture`
 //! ```vb
 //! Function SafeLoadPicture(ByVal filename As String, _
 //!                          ByVal ctrl As Object) As Boolean
@@ -161,7 +161,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 2: ImageSwitcher
+//! ### Pattern 2: `ImageSwitcher`
 //! ```vb
 //! Sub SwitchImage(ByVal imageIndex As Long)
 //!     Dim imageFiles As Variant
@@ -173,7 +173,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 3: PreloadImages
+//! ### Pattern 3: `PreloadImages`
 //! ```vb
 //! Dim preloadedPics() As StdPicture
 //!
@@ -191,7 +191,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 4: TogglePicture
+//! ### Pattern 4: `TogglePicture`
 //! ```vb
 //! Dim currentState As Boolean
 //!
@@ -205,7 +205,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 5: LoadPictureWithDefault
+//! ### Pattern 5: `LoadPictureWithDefault`
 //! ```vb
 //! Function LoadPictureWithDefault(ByVal filename As String, _
 //!                                  ByVal defaultFile As String) As StdPicture
@@ -218,7 +218,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 6: ClearAllPictures
+//! ### Pattern 6: `ClearAllPictures`
 //! ```vb
 //! Sub ClearAllPictures(frm As Form)
 //!     Dim ctrl As Control
@@ -233,7 +233,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 7: LoadFromResourceOrFile
+//! ### Pattern 7: `LoadFromResourceOrFile`
 //! ```vb
 //! Function LoadFromResourceOrFile(ByVal resID As Long, _
 //!                                  ByVal filename As String) As StdPicture
@@ -250,7 +250,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 8: ButtonImageState
+//! ### Pattern 8: `ButtonImageState`
 //! ```vb
 //! Sub SetButtonState(btn As CommandButton, enabled As Boolean)
 //!     If enabled Then
@@ -263,7 +263,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 9: LoadPictureIfExists
+//! ### Pattern 9: `LoadPictureIfExists`
 //! ```vb
 //! Function LoadPictureIfExists(ByVal filename As String) As StdPicture
 //!     If Dir(filename) <> "" Then
@@ -274,7 +274,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 10: CachedPictureLoader
+//! ### Pattern 10: `CachedPictureLoader`
 //! ```vb
 //! Dim pictureCache As New Collection
 //!
@@ -295,7 +295,7 @@
 //!
 //! ## Advanced Examples
 //!
-//! ### Example 1: Picture Manager Class
+//! ### Example 1: `PictureManager` Class
 //! ```vb
 //! ' Class: PictureManager
 //! Private m_pictures As Collection
@@ -576,11 +576,11 @@
 //!
 //! ## Performance Considerations
 //!
-//! - **File I/O Overhead**: LoadPicture reads from disk (relatively slow)
+//! - **File I/O Overhead**: `LoadPicture` reads from disk (relatively slow)
 //! - **Memory Usage**: Large images consume significant memory
 //! - **No Caching**: Each call loads from disk (not cached automatically)
 //! - **Preloading**: For frequently used images, load once and cache
-//! - **Release Memory**: Set picture = Nothing when done
+//! - **Release Memory**: Set ```picture = Nothing``` when done
 //! - **Format Matters**: BMP files are larger but faster to load than compressed formats
 //! - **Network Paths**: Loading from network shares is much slower
 //!
@@ -588,12 +588,12 @@
 //!
 //! 1. **Always handle errors** when loading pictures (file may not exist)
 //! 2. **Check file existence** before loading (use Dir function)
-//! 3. **Use relative paths** (App.Path) for portability
-//! 4. **Release memory** by setting picture objects to Nothing when done
+//! 3. **Use relative paths** (`App.Path`) for portability
+//! 4. **Release memory** by setting picture objects to `Nothing` when done
 //! 5. **Preload frequently used images** for better performance
-//! 6. **Clear pictures** with LoadPicture("") not by setting to Nothing directly
+//! 6. **Clear pictures** with ```LoadPicture("")``` not by setting to `Nothing` directly
 //! 7. **Validate file extensions** before attempting to load
-//! 8. **Use resource files** (LoadResPicture) for embedded images
+//! 8. **Use resource files** (`LoadResPicture`) for embedded images
 //! 9. **Handle Out of Memory** errors for large images
 //! 10. **Consider image size** - large BMPs consume lots of memory
 //!
@@ -601,12 +601,12 @@
 //!
 //! | Function | Purpose | Return Type | Notes |
 //! |----------|---------|-------------|-------|
-//! | **LoadPicture** | Load from file | StdPicture | Supports BMP, ICO, CUR, WMF, EMF |
-//! | **LoadResPicture** | Load from resources | StdPicture | Embedded in compiled EXE |
-//! | **SavePicture** | Save to file | N/A (Sub) | Inverse of LoadPicture |
-//! | **Set statement** | Assign picture | N/A | Used to assign picture objects |
+//! | **`LoadPicture`** | Load from file | `StdPicture` | Supports BMP, ICO, CUR, WMF, EMF |
+//! | **`LoadResPicture`** | Load from resources | `StdPicture` | Embedded in compiled EXE |
+//! | **`SavePicture`** | Save to file | N/A (Sub) | Inverse of `LoadPicture` |
+//! | **`Set` statement** | Assign picture | N/A | Used to assign picture objects |
 //!
-//! ## LoadPicture vs LoadResPicture
+//! ## `LoadPicture` vs `LoadResPicture`
 //!
 //! ```vb
 //! ' LoadPicture - from file (requires external file)
@@ -617,18 +617,18 @@
 //! ```
 //!
 //! **When to use each:**
-//! - **LoadPicture**: Images that change, user-selected files, development
-//! - **LoadResPicture**: Static images, distribution (no external files), resources
+//! - **`LoadPicture`**: Images that change, user-selected files, development
+//! - **`LoadResPicture`**: Static images, distribution (no external files), resources
 //!
 //! ## Platform Notes
 //!
 //! - Available in all VB6 versions
 //! - Part of VBA core library
-//! - Returns StdPicture object (OLE automation object)
+//! - Returns `StdPicture` object (OLE automation object)
 //! - Implemented in MSVBVM60.DLL runtime
 //! - Supports Windows native image formats
 //! - No built-in support for JPG, GIF, PNG (requires third-party controls or APIs)
-//! - Icon/Cursor files can contain multiple sizes - LoadPicture selects best match
+//! - Icon/Cursor files can contain multiple sizes - `LoadPicture` selects best match
 //! - Metafiles (WMF/EMF) are vector formats (scalable)
 //! - Bitmaps (BMP) are raster formats (not scalable)
 //!

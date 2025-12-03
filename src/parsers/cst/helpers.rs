@@ -177,8 +177,8 @@ impl<'a> Parser<'a> {
         }
     }
 
-    /// Check if the current token is a keyword or identifier followed by DollarSign.
-    /// This pattern represents functions like Error$, Mid$, Len$, UCase$, LCase$.
+    /// Check if the current token is a keyword or identifier followed by `DollarSign`.
+    /// This pattern represents functions like `Error$`, `Mid$`, `Len$`, `UCase$`, `LCase$`.
     pub(super) fn at_keyword_dollar(&self) -> bool {
         // Check for specific keywords that have $ variants
         let is_dollar_keyword = matches!(
@@ -235,8 +235,8 @@ impl<'a> Parser<'a> {
         false
     }
 
-    /// Consume keyword/identifier + DollarSign as a merged Identifier token.
-    /// This merges tokens like Error + $, Len + $, Mid + $, etc. into single identifiers.
+    /// Consume keyword/identifier + `DollarSign` as a merged Identifier token.
+    /// This merges tokens like `Error` + `$`, `Len` + `$`, `Mid` + `$`, etc. into single identifiers.
     pub(super) fn consume_keyword_dollar_as_identifier(&mut self) {
         if self.at_keyword_dollar() {
             // Get the text of both tokens
@@ -267,9 +267,9 @@ impl<'a> Parser<'a> {
     /// This is used when keywords appear in identifier positions (e.g., variable names, property names).
     ///
     /// Special cases:
-    /// - If the current token is ErrorKeyword followed by DollarSign, they are merged into "Error$"
-    /// - If the current token is an Identifier (like Len, Mid, UCase, LCase) followed by DollarSign,
-    ///   they are merged into a single identifier (e.g., "Len$", "Mid$", "UCase$", "LCase$")
+    /// - If the current token is `ErrorKeyword` followed by `DollarSign`, they are merged into "Error$"
+    /// - If the current token is an Identifier (like `Len`, `Mid`, `UCase`, `LCase`) followed by `DollarSign`,
+    ///   they are merged into a single identifier (e.g., `Len$`, `Mid$`, `UCase$`, `LCase$`)
     pub(super) fn consume_token_as_identifier(&mut self) {
         // Check for keyword/identifier + $ special cases
         if self.at_keyword_dollar() {
@@ -302,7 +302,7 @@ impl<'a> Parser<'a> {
     /// The specified token is NOT consumed.
     ///
     /// Handles line continuations when consuming until a newline.
-    /// Special handling: keyword/identifier followed by DollarSign is merged into a single Identifier.
+    /// Special handling: keyword/identifier followed by `DollarSign` is merged into a single Identifier.
     ///
     /// # Arguments
     /// * `target` - The token to stop at (will not be consumed)
