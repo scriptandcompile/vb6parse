@@ -161,7 +161,7 @@ use crate::parsers::SyntaxKind;
 
 use super::super::Parser;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     /// Parse a Write # statement.
     ///
     /// The Write # statement writes data to a sequential file with automatic

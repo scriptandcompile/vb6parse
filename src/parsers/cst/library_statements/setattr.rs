@@ -1,4 +1,4 @@
-//! # SetAttr Statement
+//! # `SetAttr` Statement
 //!
 //! Sets attribute information for a file.
 //!
@@ -28,11 +28,11 @@
 //! - **Combining Attributes**: You can combine attributes by adding their values together (e.g., `vbReadOnly + vbHidden = 3`).
 //! - **File Must Exist**: A run-time error occurs if the file specified by pathname doesn't exist.
 //! - **Pathname Validation**: Pathname can be a fully qualified path or a relative path. Wildcard characters (* and ?) are not supported.
-//! - **Cannot Set Directory Attribute**: You cannot use SetAttr to set the directory (vbDirectory = 16) attribute. Use MkDir and RmDir instead.
-//! - **Volume Label**: You cannot use SetAttr to set the volume label (vbVolume = 8) attribute.
-//! - **Read-Only Directories**: SetAttr cannot change the read-only status of a directory; it only works with files.
+//! - **Cannot Set Directory Attribute**: You cannot use `SetAttr` to set the directory (vbDirectory = 16) attribute. Use `MkDir` and `RmDir` instead.
+//! - **Volume Label**: You cannot use `SetAttr` to set the volume label (vbVolume = 8) attribute.
+//! - **Read-Only Directories**: `SetAttr` cannot change the read-only status of a directory; it only works with files.
 //! - **Error Handling**: Use error handling to trap potential errors like file not found, permission denied, or invalid attributes.
-//! - **GetAttr Function**: Use GetAttr to retrieve current file attributes before modifying them with SetAttr.
+//! - **`GetAttr` Function**: Use `GetAttr` to retrieve current file attributes before modifying them with `SetAttr`.
 //! - **Clearing Attributes**: To clear an attribute, set the file to vbNormal (0) or use a combination that excludes the unwanted attribute.
 //!
 //! ## Examples
@@ -182,20 +182,20 @@
 //!
 //! ## Important Notes
 //!
-//! - **File Must Be Closed**: The file should not be open when you use SetAttr.
+//! - **File Must Be Closed**: The file should not be open when you use `SetAttr`.
 //! - **Permissions Required**: You must have appropriate permissions to change file attributes.
-//! - **Network Files**: SetAttr works with network files if you have appropriate permissions.
-//! - **UNC Paths**: SetAttr supports UNC (Universal Naming Convention) paths like "\\\\Server\\Share\\File.txt".
+//! - **Network Files**: `SetAttr` works with network files if you have appropriate permissions.
+//! - **UNC Paths**: `SetAttr` supports UNC (Universal Naming Convention) paths like "\\\\Server\\Share\\File.txt".
 //! - **Attribute Persistence**: File attributes persist after the application closes; they're stored in the file system.
 //! - **Read-Only Files**: To modify a read-only file, you must first remove the read-only attribute, make changes, then restore it.
-//! - **GetAttr Complement**: Always use GetAttr to retrieve current attributes before modifying them to avoid unintentionally removing existing attributes.
+//! - **`GetAttr` Complement**: Always use `GetAttr` to retrieve current attributes before modifying them to avoid unintentionally removing existing attributes.
 //!
 //! ## Best Practices
 //!
-//! - Use error handling when working with SetAttr as file operations can fail for many reasons
-//! - Use GetAttr before SetAttr to preserve existing attributes you don't want to change
+//! - Use error handling when working with `SetAttr` as file operations can fail for many reasons
+//! - Use `GetAttr` before `SetAttr` to preserve existing attributes you don't want to change
 //! - Use symbolic constants (vbReadOnly, etc.) instead of numeric values for better code readability
-//! - Check file existence using Dir() before calling SetAttr
+//! - Check file existence using `Dir()` before calling `SetAttr`
 //! - Be cautious when setting system attributes as they can affect system stability
 //! - Document why specific attributes are being set, especially for hidden or system files
 //! - Consider user permissions when setting attributes on shared or network files
@@ -215,8 +215,8 @@
 use crate::parsers::cst::Parser;
 use crate::parsers::syntaxkind::SyntaxKind;
 
-impl<'a> Parser<'a> {
-    /// Parses a SetAttr statement.
+impl Parser<'_> {
+    /// Parses a `SetAttr` statement.
     pub(crate) fn parse_setattr_statement(&mut self) {
         self.parse_simple_builtin_statement(SyntaxKind::SetAttrStatement);
     }

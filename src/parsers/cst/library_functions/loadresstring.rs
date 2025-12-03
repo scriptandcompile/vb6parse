@@ -1,4 +1,4 @@
-//! # LoadResString Function
+//! # `LoadResString` Function
 //!
 //! Returns a string from a resource (.res) file.
 //!
@@ -26,7 +26,7 @@
 //!
 //! ## Remarks
 //!
-//! The LoadResString function loads text from embedded resources:
+//! The `LoadResString` function loads text from embedded resources:
 //!
 //! - Loads strings from compiled resource (.res) files
 //! - Resource file must be linked to project at compile time
@@ -76,17 +76,17 @@
 //!    cmdOK.Caption = LoadResString(5001)
 //!    ```
 //!
-//! 6. **Load MessageBox Text**
+//! 6. **Load `MessageBox` Text**
 //!    ```vb
 //!    MsgBox LoadResString(6001), vbInformation
 //!    ```
 //!
-//! 7. **Load StatusBar Text**
+//! 7. **Load `StatusBar` Text**
 //!    ```vb
 //!    StatusBar1.SimpleText = LoadResString(7001)
 //!    ```
 //!
-//! 8. **Load ToolTip Text**
+//! 8. **Load `ToolTip` Text**
 //!    ```vb
 //!    cmdSave.ToolTipText = LoadResString(8001)
 //!    ```
@@ -140,7 +140,7 @@
 //!
 //! ## Common Patterns
 //!
-//! ### Pattern 1: SafeLoadResString
+//! ### Pattern 1: `SafeLoadResString`
 //! ```vb
 //! Function SafeLoadResString(ByVal resID As Integer, _
 //!                            Optional ByVal defaultText As String = "") As String
@@ -153,7 +153,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 2: LoadFormStrings
+//! ### Pattern 2: `LoadFormStrings`
 //! ```vb
 //! Sub LoadFormStrings(frm As Form, ByVal baseID As Integer)
 //!     Dim ctrl As Control
@@ -172,7 +172,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 3: FormatResString
+//! ### Pattern 3: `FormatResString`
 //! ```vb
 //! Function FormatResString(ByVal resID As Integer, _
 //!                          ParamArray args()) As String
@@ -189,7 +189,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 4: GetErrorMessage
+//! ### Pattern 4: `GetErrorMessage`
 //! ```vb
 //! Function GetErrorMessage(ByVal errorCode As Long) As String
 //!     Const BASE_ERROR_ID = 10000
@@ -203,7 +203,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 5: LoadMenuStrings
+//! ### Pattern 5: `LoadMenuStrings`
 //! ```vb
 //! Sub LoadMenuStrings()
 //!     Const MENU_BASE = 4000
@@ -216,7 +216,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 6: CachedResString
+//! ### Pattern 6: `CachedResString`
 //! ```vb
 //! Dim resStringCache As New Collection
 //!
@@ -235,7 +235,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 7: ResStringExists
+//! ### Pattern 7: `ResStringExists`
 //! ```vb
 //! Function ResStringExists(ByVal resID As Integer) As Boolean
 //!     On Error Resume Next
@@ -246,7 +246,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 8: LoadResStringArray
+//! ### Pattern 8: `LoadResStringArray`
 //! ```vb
 //! Function LoadResStringArray(ByVal startID As Integer, _
 //!                             ByVal count As Integer) As String()
@@ -268,7 +268,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 9: ShowResMessage
+//! ### Pattern 9: `ShowResMessage`
 //! ```vb
 //! Sub ShowResMessage(ByVal resID As Integer, _
 //!                    Optional ByVal icon As VbMsgBoxStyle = vbInformation)
@@ -285,7 +285,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 10: MultiLineResString
+//! ### Pattern 10: `MultiLineResString`
 //! ```vb
 //! Function MultiLineResString(ByVal resID As Integer) As String
 //!     Dim text As String
@@ -532,7 +532,7 @@
 //! - **No Caching**: Each call loads fresh copy (implement caching if needed)
 //! - **Memory Efficient**: Strings only loaded when accessed
 //! - **Cache Strategy**: For frequently used strings, cache in Collection or array
-//! - **Startup Time**: Loading many strings at startup may slow Form_Load
+//! - **Startup Time**: Loading many strings at startup may slow `Form_Load`
 //!
 //! ## Best Practices
 //!
@@ -551,12 +551,12 @@
 //!
 //! | Function | Purpose | Return Type | Data Type |
 //! |----------|---------|-------------|-----------|
-//! | **LoadResString** | Load string from resources | String | Text strings |
-//! | **LoadResPicture** | Load image from resources | StdPicture | Images |
-//! | **LoadResData** | Load binary data from resources | Byte array | Binary data |
-//! | **LoadString** (API) | Windows API alternative | String | Text strings |
+//! | **`LoadResString`** | Load string from resources | String | Text strings |
+//! | **`LoadResPicture`** | Load image from resources | `StdPicture` | Images |
+//! | **`LoadResData`** | Load binary data from resources | Byte array | Binary data |
+//! | **`LoadString`** (API) | Windows API alternative | String | Text strings |
 //!
-//! ## LoadResString vs Hardcoded Strings
+//! ## `LoadResString` vs Hardcoded Strings
 //!
 //! ```vb
 //! ' Hardcoded - difficult to localize
@@ -566,7 +566,7 @@
 //! MsgBox LoadResString(1001), vbCritical
 //! ```
 //!
-//! **Advantages of LoadResString:**
+//! **Advantages of `LoadResString`:**
 //! - Easy localization (just replace .res file)
 //! - Centralized string management
 //! - No code changes needed for translations

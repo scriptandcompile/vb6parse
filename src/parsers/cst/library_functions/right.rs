@@ -93,7 +93,7 @@
 //!
 //! ## Common Patterns
 //!
-//! ### Pattern 1: GetFileExtension
+//! ### Pattern 1: `GetFileExtension`
 //! ```vb
 //! Function GetFileExtension(filename As String) As String
 //!     ' Extract file extension including the dot
@@ -109,7 +109,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 2: GetLastNChars
+//! ### Pattern 2: `GetLastNChars`
 //! ```vb
 //! Function GetLastNChars(text As String, n As Long) As String
 //!     ' Safely get last N characters (won't error if string is too short)
@@ -123,7 +123,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 3: EndsWithString
+//! ### Pattern 3: `EndsWithString`
 //! ```vb
 //! Function EndsWithString(text As String, suffix As String, _
 //!                        Optional caseSensitive As Boolean = True) As Boolean
@@ -148,7 +148,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 4: RemovePrefix
+//! ### Pattern 4: `RemovePrefix`
 //! ```vb
 //! Function RemovePrefix(text As String, prefixLen As Long) As String
 //!     ' Remove prefix by keeping rightmost characters
@@ -160,7 +160,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 5: PadLeftToLength
+//! ### Pattern 5: `PadLeftToLength`
 //! ```vb
 //! Function PadLeftToLength(text As String, totalLength As Long, _
 //!                         Optional padChar As String = " ") As String
@@ -179,7 +179,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 6: GetFilenameFromPath
+//! ### Pattern 6: `GetFilenameFromPath`
 //! ```vb
 //! Function GetFilenameFromPath(fullPath As String) As String
 //!     ' Extract filename from full path
@@ -195,7 +195,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 7: TruncateLeft
+//! ### Pattern 7: `TruncateLeft`
 //! ```vb
 //! Function TruncateLeft(text As String, maxLength As Long, _
 //!                      Optional ellipsis As String = "...") As String
@@ -212,7 +212,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 8: FormatAccountNumber
+//! ### Pattern 8: `FormatAccountNumber`
 //! ```vb
 //! Function FormatAccountNumber(accountNum As String) As String
 //!     ' Format account number showing only last 4 digits
@@ -227,7 +227,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 9: ExtractDomainExtension
+//! ### Pattern 9: `ExtractDomainExtension`
 //! ```vb
 //! Function ExtractDomainExtension(url As String) As String
 //!     ' Extract domain extension (.com, .org, etc.)
@@ -244,7 +244,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 10: GetTrailingDigits
+//! ### Pattern 10: `GetTrailingDigits`
 //! ```vb
 //! Function GetTrailingDigits(text As String) As String
 //!     ' Extract trailing numeric characters
@@ -667,7 +667,7 @@
 //!
 //! 1. **Validate Length**: Check that length parameter is valid before calling
 //! 2. **Handle Null**: Check for Null strings if data source is uncertain
-//! 3. **Use with InStrRev**: Combine with InStrRev for finding from right
+//! 3. **Use with `InStrRev`**: Combine with `InStrRev` for finding from right
 //! 4. **Document Intent**: Make clear why extracting from right vs left
 //! 5. **Consider Edge Cases**: Handle empty strings, length = 0, length > string length
 //! 6. **Use for File Extensions**: Preferred method for extracting file extensions
@@ -683,16 +683,16 @@
 //! | **Right** | Extract from right | (string, length) | Get last N characters, file extensions |
 //! | **Left** | Extract from left | (string, length) | Get first N characters, prefixes |
 //! | **Mid** | Extract from middle | (string, start, [length]) | Get substring from any position |
-//! | **InStrRev** | Find from right | (string, substring) | Find position searching from right |
+//! | **`InStrRev`** | Find from right | (string, substring) | Find position searching from right |
 //! | **Len** | String length | (string) | Get total length |
-//! | **RTrim** | Remove right spaces | (string) | Remove trailing whitespace |
+//! | **`RTrim`** | Remove right spaces | (string) | Remove trailing whitespace |
 //!
 //! ## Platform and Version Notes
 //!
 //! - Available in all versions of VB6 and VBA
 //! - Behavior consistent across all platforms
 //! - In VB.NET, replaced by String.Substring or string slicing
-//! - RightB and RightB$ variants exist for byte data
+//! - `RightB` and `RightB`$ variants exist for byte data
 //! - Right$ returns String type, Right returns Variant
 //!
 //! ## Limitations

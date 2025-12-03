@@ -43,7 +43,7 @@
 use crate::parsers::cst::Parser;
 use crate::parsers::syntaxkind::SyntaxKind;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     /// Parses a Mid statement.
     pub(crate) fn parse_mid_statement(&mut self) {
         self.parse_simple_builtin_statement(SyntaxKind::MidStatement);

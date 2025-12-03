@@ -20,12 +20,12 @@
 //! - **Dimension parameter**: If omitted, defaults to 1 (first dimension)
 //! - **Multi-dimensional arrays**: Use `dimension` parameter to specify which dimension
 //! - **Zero-based arrays**: `UBound` returns the upper index regardless of lower bound
-//! - **Paired with LBound**: Use `LBound` to get the lower bound
+//! - **Paired with `LBound`**: Use `LBound` to get the lower bound
 //! - **Array size calculation**: Size = `UBound - LBound + 1`
-//! - **Dynamic arrays**: Returns current upper bound (changes with ReDim)
+//! - **Dynamic arrays**: Returns current upper bound (changes with `ReDim`)
 //! - **Fixed arrays**: Returns the declared upper bound
 //! - **Error on uninitialized**: Error 9 (Subscript out of range) if array not initialized
-//! - **ParamArray**: Works with ParamArray arguments to find number of elements
+//! - **`ParamArray`**: Works with `ParamArray` arguments to find number of elements
 //!
 //! ### Common Array Declarations
 //! ```vb6
@@ -53,8 +53,8 @@
 //! 1. **Loop Bounds**: Iterate through all array elements
 //! 2. **Array Size**: Calculate the number of elements in an array
 //! 3. **Validation**: Check if an index is within valid range
-//! 4. **Dynamic Resizing**: Determine current size before ReDim
-//! 5. **ParamArray**: Count variable number of arguments
+//! 4. **Dynamic Resizing**: Determine current size before `ReDim`
+//! 5. **`ParamArray`**: Count variable number of arguments
 //! 6. **Array Copying**: Determine target array size
 //! 7. **Search Operations**: Set loop limits for array searches
 //! 8. **Multi-dimensional**: Navigate complex array structures
@@ -97,7 +97,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Example 4: ParamArray with UBound
+//! ### Example 4: `ParamArray` with `UBound`
 //! ```vb6
 //! Function Sum(ParamArray values() As Variant) As Double
 //!     Dim i As Integer
@@ -155,7 +155,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 4: Count Elements in ParamArray
+//! ### Pattern 4: Count Elements in `ParamArray`
 //! ```vb6
 //! Function CountArgs(ParamArray args() As Variant) As Long
 //!     On Error Resume Next
@@ -551,14 +551,14 @@
 //! - No memory allocation or copying involved
 //!
 //! ## Best Practices
-//! 1. **Always use with LBound** for complete array bounds information
+//! 1. **Always use with `LBound`** for complete array bounds information
 //! 2. **Check for initialization** with On Error Resume Next for dynamic arrays
 //! 3. **Use in For loops** instead of hardcoding array sizes
 //! 4. **Specify dimension** explicitly for multi-dimensional arrays
 //! 5. **Cache in variables** if used multiple times in tight loops
 //! 6. **Validate dimension parameter** when working with multi-dimensional arrays
 //! 7. **Handle errors gracefully** for potentially uninitialized arrays
-//! 8. **Use for ParamArray** to handle variable arguments
+//! 8. **Use for `ParamArray`** to handle variable arguments
 //! 9. **Document array bounds** in function comments
 //! 10. **Prefer explicit bounds** in array declarations for clarity
 //!
@@ -572,7 +572,7 @@
 //! | `ReDim` | Resize array | N/A | Statement, not function |
 //!
 //! ## Platform Notes
-//! - Available in VB6, VBA, and VBScript
+//! - Available in VB6, VBA, and `VBScript`
 //! - Behavior consistent across platforms
 //! - Returns Long (32-bit signed integer)
 //! - Maximum array size limited by available memory

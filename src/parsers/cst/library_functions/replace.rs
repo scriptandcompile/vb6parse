@@ -95,14 +95,14 @@
 //!
 //! ## Common Patterns
 //!
-//! ### Pattern 1: RemoveAllSpaces
+//! ### Pattern 1: `RemoveAllSpaces`
 //! ```vb
 //! Function RemoveAllSpaces(text As String) As String
 //!     RemoveAllSpaces = Replace(text, " ", "")
 //! End Function
 //! ```
 //!
-//! ### Pattern 2: NormalizeWhitespace
+//! ### Pattern 2: `NormalizeWhitespace`
 //! ```vb
 //! Function NormalizeWhitespace(text As String) As String
 //!     Dim result As String
@@ -120,7 +120,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 3: EscapeSQLString
+//! ### Pattern 3: `EscapeSQLString`
 //! ```vb
 //! Function EscapeSQLString(text As String) As String
 //!     ' Escape single quotes for SQL
@@ -128,7 +128,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 4: ReplaceMultiple
+//! ### Pattern 4: `ReplaceMultiple`
 //! ```vb
 //! Function ReplaceMultiple(text As String, findList() As String, _
 //!                          replaceList() As String) As String
@@ -145,7 +145,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 5: ReplaceCaseInsensitive
+//! ### Pattern 5: `ReplaceCaseInsensitive`
 //! ```vb
 //! Function ReplaceCaseInsensitive(text As String, find As String, _
 //!                                replaceWith As String) As String
@@ -153,7 +153,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 6: ReplaceSpecialChars
+//! ### Pattern 6: `ReplaceSpecialChars`
 //! ```vb
 //! Function ReplaceSpecialChars(text As String, replacement As String) As String
 //!     Dim result As String
@@ -171,7 +171,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 7: SanitizeFilename
+//! ### Pattern 7: `SanitizeFilename`
 //! ```vb
 //! Function SanitizeFilename(filename As String) As String
 //!     Dim result As String
@@ -189,7 +189,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 8: ConvertLineEndings
+//! ### Pattern 8: `ConvertLineEndings`
 //! ```vb
 //! Function ConvertLineEndings(text As String, newEnding As String) As String
 //!     Dim result As String
@@ -209,7 +209,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 9: ReplaceWithCounter
+//! ### Pattern 9: `ReplaceWithCounter`
 //! ```vb
 //! Function CountReplacements(text As String, find As String) As Long
 //!     ' Count how many times find appears in text
@@ -228,7 +228,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 10: TemplateReplace
+//! ### Pattern 10: `TemplateReplace`
 //! ```vb
 //! Function ProcessTemplate(template As String, replacements As Collection) As String
 //!     ' Replace {key} placeholders with values from collection
@@ -616,7 +616,7 @@
 //! | Function | Purpose | Returns | Use Case |
 //! |----------|---------|---------|----------|
 //! | **Replace** | Replace substring | String (modified) | Simple string substitution |
-//! | **InStr** | Find substring position | Long (position) | Locate substring, check existence |
+//! | **`InStr`** | Find substring position | Long (position) | Locate substring, check existence |
 //! | **Mid** | Extract substring | String (portion) | Get part of string |
 //! | **Left/Right** | Extract from ends | String (portion) | Get start/end of string |
 //! | **Trim/LTrim/RTrim** | Remove whitespace | String (trimmed) | Clean string edges |

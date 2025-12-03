@@ -10,11 +10,11 @@ use crate::parsers::SyntaxKind;
 
 use super::Parser;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     /// Parse a parameter list: (param1 As Type, param2 As Type)
     ///
     /// VB6 parameter list syntax supports:
-    /// - [Optional] [ByVal | ByRef] [ParamArray] varname[()] [As type] [= defaultvalue]
+    /// - [Optional] [`ByVal` | `ByRef`] [`ParamArray`] varname[()] [As type] [= defaultvalue]
     ///
     /// This parser handles nested parentheses for array parameters and default values.
     pub(super) fn parse_parameter_list(&mut self) {

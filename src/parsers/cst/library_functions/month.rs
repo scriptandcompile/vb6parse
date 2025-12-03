@@ -628,23 +628,23 @@
 //!
 //! ## Performance Considerations
 //!
-//! - Month() is a fast operation - extracting a component from an internal date value
+//! - `Month()` is a fast operation - extracting a component from an internal date value
 //! - For repeated calls with the same date, consider caching the result
 //! - When filtering large recordsets by month, use database queries when possible
-//! - Month() can be called millions of times without significant performance impact
-//! - Combining with Year() and Day() is efficient for complete date decomposition
+//! - `Month()` can be called millions of times without significant performance impact
+//! - Combining with `Year()` and `Day()` is efficient for complete date decomposition
 //!
 //! ## Best Practices
 //!
-//! 1. **Validate input** - Use IsDate() to check if the value can be converted to a date before calling Month()
+//! 1. **Validate input** - Use `IsDate()` to check if the value can be converted to a date before calling `Month()`
 //! 2. **Handle Null** - Check for Null values when working with Variant date parameters
-//! 3. **Use with Format** - Combine Month() with Format() for display purposes (leading zeros, month names)
-//! 4. **Combine with Year** - When filtering or comparing, consider both Month() and Year() for accuracy
+//! 3. **Use with Format** - Combine `Month()` with `Format()` for display purposes (leading zeros, month names)
+//! 4. **Combine with Year** - When filtering or comparing, consider both `Month()` and `Year()` for accuracy
 //! 5. **Fiscal year awareness** - Remember that fiscal years may not align with calendar months
 //! 6. **Use constants** - Define constants for month numbers to improve code readability
 //! 7. **Document assumptions** - Clearly state whether code expects calendar or fiscal months
-//! 8. **Consider MonthName()** - Use MonthName() function for getting month names instead of arrays
-//! 9. **Date arithmetic** - Use DateSerial() with Month() for date calculations
+//! 8. **Consider `MonthName()`** - Use `MonthName()` function for getting month names instead of arrays
+//! 9. **Date arithmetic** - Use `DateSerial()` with `Month()` for date calculations
 //! 10. **Test edge cases** - Test with leap years, year boundaries, and Null values
 //!
 //! ## Comparison with Other Date Functions
@@ -655,14 +655,14 @@
 //! | **Day** | Day of month | 1-31 | Extract day component |
 //! | **Year** | Year | e.g., 2025 | Extract year component |
 //! | **Weekday** | Day of week | 1-7 | Determine day of week |
-//! | **DatePart** | Any date component | Varies | General date part extraction |
-//! | **MonthName** | Month name | String | Get month name (not number) |
+//! | **`DatePart`** | Any date component | Varies | General date part extraction |
+//! | **`MonthName`** | Month name | String | Get month name (not number) |
 //!
 //! ## Platform Notes
 //!
 //! - Available in VBA (Excel, Access, Word, etc.)
 //! - Available in VB6
-//! - Available in VBScript
+//! - Available in `VBScript`
 //! - Returns Integer type (not Long)
 //! - Consistent across all VB6/VBA platforms
 //! - Uses system's regional settings for date interpretation (when parsing strings)
@@ -673,7 +673,7 @@
 //! - Returns Null if input is Null (not an error)
 //! - Type mismatch error if input cannot be interpreted as a date
 //! - Always returns 1-12, no support for zero-based indexing
-//! - Does not provide month name (use MonthName() or Format() for that)
+//! - Does not provide month name (use `MonthName()` or `Format()` for that)
 //! - Time component is ignored (only date portion matters)
 //!
 //! ## Related Functions
@@ -684,14 +684,14 @@
 //! - **Hour** - Returns the hour component of a time (0-23)
 //! - **Minute** - Returns the minute component of a time (0-59)
 //! - **Second** - Returns the second component of a time (0-59)
-//! - **DatePart** - Returns a specified part of a date (flexible)
-//! - **DateSerial** - Creates a date from year, month, and day components
-//! - **MonthName** - Returns the name of the month as a string
+//! - **`DatePart`** - Returns a specified part of a date (flexible)
+//! - **`DateSerial`** - Creates a date from year, month, and day components
+//! - **`MonthName`** - Returns the name of the month as a string
 //! - **Format** - Formats a date with custom patterns including month
 //!
 //! ## VB6 Parser Notes
 //!
-//! Month is parsed as a regular function call (CallExpression). This module exists primarily
+//! Month is parsed as a regular function call (`CallExpression`). This module exists primarily
 //! for documentation purposes to provide comprehensive reference material for VB6 developers
 //! working with date calculations and month extraction operations.
 

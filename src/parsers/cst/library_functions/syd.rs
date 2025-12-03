@@ -645,7 +645,7 @@
 //!
 //! ## Platform Notes
 //! - Available in VB6 and VBA
-//! - Not available in VBScript
+//! - Not available in `VBScript`
 //! - Returns Double precision floating-point
 //! - Part of the Financial functions library
 //! - Requires all arguments to be positive (except salvage can be zero)

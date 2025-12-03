@@ -9,7 +9,7 @@ use crate::parsers::SyntaxKind;
 
 use super::Parser;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     /// Parse an Attribute statement: `Attribute VB_Name = "value"`
     pub(super) fn parse_attribute_statement(&mut self) {
         self.builder

@@ -2,7 +2,7 @@ use crate::parsers::SyntaxKind;
 
 use super::Parser;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     // VB6 Open statement syntax:
     // - Open pathname For mode [Access access] [lock] As [#]filenumber [Len=reclength]
     //

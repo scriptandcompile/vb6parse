@@ -11,7 +11,7 @@ use crate::parsers::SyntaxKind;
 
 use super::Parser;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     /// Parse a For...Next statement.
     ///
     /// VB6 For...Next loop syntax:

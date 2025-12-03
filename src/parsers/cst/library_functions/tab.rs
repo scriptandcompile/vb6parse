@@ -169,7 +169,7 @@
 //! | `Chr$(9)`| Tab character | n/a | String |
 //!
 //! ## Platform Notes
-//! - Available in VB6, VBA, VBScript
+//! - Available in VB6, VBA, `VBScript`
 //! - Consistent across platforms
 //! - Only for Print statements
 //!

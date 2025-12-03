@@ -67,7 +67,7 @@
 //! Time = newTime
 //! ```
 //!
-//! ### Set Time Using TimeValue Function
+//! ### Set Time Using `TimeValue` Function
 //!
 //! ```vb
 //! Time = TimeValue("3:30 PM")
@@ -124,7 +124,7 @@
 //! End If
 //! ```
 //!
-//! ### Set Time Using TimeSerial
+//! ### Set Time Using `TimeSerial`
 //!
 //! ```vb
 //! Time = TimeSerial(14, 30, 0)  ' 2:30 PM
@@ -222,8 +222,8 @@
 //! ## Best Practices
 //!
 //! - Always use error handling when setting system time
-//! - Validate time strings before assignment using IsDate()
-//! - Use TimeSerial or TimeValue for programmatic time construction
+//! - Validate time strings before assignment using `IsDate()`
+//! - Use `TimeSerial` or `TimeValue` for programmatic time construction
 //! - Consider using application-level time variables instead of changing system time
 //! - Document why system time is being changed in production code
 //! - Test time-setting code with various formats and edge cases
@@ -246,7 +246,7 @@
 use crate::parsers::cst::Parser;
 use crate::parsers::syntaxkind::SyntaxKind;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     /// Parses a Time statement.
     pub(crate) fn parse_time_statement(&mut self) {
         self.parse_simple_builtin_statement(SyntaxKind::TimeStatement);

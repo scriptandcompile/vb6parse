@@ -11,7 +11,7 @@
 //! ## Parameters
 //!
 //! - **rate** (Required) - Double specifying discount rate over the length of the period, expressed as a decimal. For example, use 0.10 for 10 percent.
-//! - **values()** (Required) - Array of Double specifying cash flow values. The array must contain at least one negative value (a payment) and one positive value (a receipt). The values must be equally spaced in time and occur at the end of each period.
+//! - **`values()`** (Required) - Array of Double specifying cash flow values. The array must contain at least one negative value (a payment) and one positive value (a receipt). The values must be equally spaced in time and occur at the end of each period.
 //!
 //! ## Return Value
 //!
@@ -774,10 +774,10 @@
 //!
 //! - Available in VBA (Excel, Access, Word, etc.)
 //! - Available in VB6
-//! - **Not available in VBScript**
+//! - **Not available in `VBScript`**
 //! - Equivalent to Excel's NPV function
 //! - Part of VBA financial functions library
-//! - Requires array parameter (not ParamArray)
+//! - Requires array parameter (not `ParamArray`)
 //!
 //! ## Limitations
 //!
@@ -800,7 +800,7 @@
 //!
 //! ## VB6 Parser Notes
 //!
-//! NPV is parsed as a regular function call (CallExpression). This module exists primarily
+//! NPV is parsed as a regular function call (`CallExpression`). This module exists primarily
 //! for documentation purposes to provide comprehensive reference material for VB6 developers
 //! working with financial analysis, investment evaluation, capital budgeting, and discounted
 //! cash flow calculations.

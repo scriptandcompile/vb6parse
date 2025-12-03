@@ -13,7 +13,7 @@ use crate::parsers::SyntaxKind;
 
 use super::Parser;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     /// Parse a `GoSub` statement.
     ///
     /// VB6 `GoSub` statement syntax:
@@ -279,7 +279,7 @@ impl<'a> Parser<'a> {
     pub(super) fn is_at_label(&self) -> bool {
         let next_token_is_colon = matches!(self.peek_next_token(), Some(VB6Token::ColonOperator));
 
-        if next_token_is_colon == false {
+        if !next_token_is_colon {
             return false;
         }
 

@@ -1,4 +1,4 @@
-//! # RTrim Function
+//! # `RTrim` Function
 //!
 //! Returns a String containing a copy of a specified string with trailing spaces removed.
 //!
@@ -28,7 +28,7 @@
 //!
 //! ## Remarks
 //!
-//! The RTrim function removes trailing spaces:
+//! The `RTrim` function removes trailing spaces:
 //!
 //! - Removes only space characters (ASCII 32) from the right side
 //! - Does not remove tabs (Chr(9)), line feeds (Chr(10)), or carriage returns (Chr(13))
@@ -36,7 +36,7 @@
 //! - Leading spaces are not affected
 //! - Internal spaces between words are preserved
 //! - Often used to clean up output formatting
-//! - Commonly paired with LTrim or used with Trim
+//! - Commonly paired with `LTrim` or used with Trim
 //! - Null input returns Null (propagates Null)
 //! - Empty string input returns empty string
 //! - String of only spaces returns empty string
@@ -47,7 +47,7 @@
 //! - Essential for cleaning exported data
 //! - Part of the VB6 string manipulation library
 //! - Available in all VB versions
-//! - Related to LTrim (removes leading spaces) and Trim (removes both)
+//! - Related to `LTrim` (removes leading spaces) and Trim (removes both)
 //!
 //! ## Typical Uses
 //!
@@ -190,7 +190,7 @@
 //!
 //! ## Common Patterns
 //!
-//! ### Pattern 1: FullTrim (combine with LTrim)
+//! ### Pattern 1: `FullTrim` (combine with `LTrim`)
 //! ```vb
 //! Function FullTrim(ByVal text As String) As String
 //!     FullTrim = LTrim(RTrim(text))
@@ -198,7 +198,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 2: SafeRTrim (handle Null)
+//! ### Pattern 2: `SafeRTrim` (handle Null)
 //! ```vb
 //! Function SafeRTrim(ByVal text As Variant) As String
 //!     If IsNull(text) Then
@@ -209,7 +209,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 3: CleanDatabaseField
+//! ### Pattern 3: `CleanDatabaseField`
 //! ```vb
 //! Function CleanDatabaseField(ByVal rs As Recordset, _
 //!                            ByVal fieldName As String) As String
@@ -221,7 +221,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 4: TrimTrailingSpaces
+//! ### Pattern 4: `TrimTrailingSpaces`
 //! ```vb
 //! Sub TrimTrailingSpaces(fields() As String)
 //!     Dim i As Integer
@@ -231,7 +231,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 5: CompareIgnoreTrailing
+//! ### Pattern 5: `CompareIgnoreTrailing`
 //! ```vb
 //! Function CompareIgnoreTrailing(ByVal str1 As String, _
 //!                                ByVal str2 As String) As Boolean
@@ -239,7 +239,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 6: FormatFixedWidth
+//! ### Pattern 6: `FormatFixedWidth`
 //! ```vb
 //! Function FormatFixedWidth(ByVal text As String, _
 //!                          ByVal width As Integer) As String
@@ -249,7 +249,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 7: CleanRecordsetField
+//! ### Pattern 7: `CleanRecordsetField`
 //! ```vb
 //! Function CleanRecordsetField(ByVal rs As Recordset, _
 //!                             ByVal fieldName As String, _
@@ -263,7 +263,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 8: ExportCleanLine
+//! ### Pattern 8: `ExportCleanLine`
 //! ```vb
 //! Sub ExportCleanLine(ByVal fileNum As Integer, _
 //!                     ByVal text As String)
@@ -271,14 +271,14 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 9: RemoveTrailingPadding
+//! ### Pattern 9: `RemoveTrailingPadding`
 //! ```vb
 //! Function RemoveTrailingPadding(ByVal paddedText As String) As String
 //!     RemoveTrailingPadding = RTrim(paddedText)
 //! End Function
 //! ```
 //!
-//! ### Pattern 10: CleanDisplayText
+//! ### Pattern 10: `CleanDisplayText`
 //! ```vb
 //! Sub CleanDisplayText(ByVal ctrl As Control)
 //!     If TypeOf ctrl Is Label Or TypeOf ctrl Is TextBox Then
@@ -553,30 +553,30 @@
 //! - **Fast Operation**: String trimming is highly optimized
 //! - **Creates New String**: Does not modify original (immutable)
 //! - **Avoid in Tight Loops**: Cache result if using multiple times
-//! - **Use Trim() for Both**: If removing both leading and trailing spaces
+//! - **Use `Trim()` for Both**: If removing both leading and trailing spaces
 //!
 //! ## Best Practices
 //!
 //! 1. **Use for database CHAR fields** - Remove padding from fixed-length fields
 //! 2. **Clean export data** - Remove trailing spaces before writing to files
-//! 3. **Combine with LTrim** - Use Trim() instead for both sides
+//! 3. **Combine with `LTrim`** - Use `Trim()` instead for both sides
 //! 4. **Validate before use** - Check for Null if using Variant
 //! 5. **Cache trimmed values** - Don't call repeatedly in loops
 //! 6. **Apply to report output** - Clean formatting in generated reports
 //! 7. **Use with fixed-width formats** - Essential for proper alignment
 //! 8. **Document expectations** - Clarify if tabs/newlines should be removed
 //! 9. **Test edge cases** - Empty strings, all spaces, Null values
-//! 10. **Consider Unicode** - RTrim only removes ASCII space (32)
+//! 10. **Consider Unicode** - `RTrim` only removes ASCII space (32)
 //!
 //! ## Comparison with Related Functions
 //!
 //! | Function | Removes Leading | Removes Trailing | Removes Both |
 //! |----------|----------------|------------------|--------------|
-//! | **RTrim** | No | Yes | No |
-//! | **LTrim** | Yes | No | No |
+//! | **`RTrim`** | No | Yes | No |
+//! | **`LTrim`** | Yes | No | No |
 //! | **Trim** | Yes | Yes | Yes |
 //!
-//! ## RTrim vs LTrim vs Trim
+//! ## `RTrim` vs `LTrim` vs Trim
 //!
 //! ```vb
 //! Dim text As String
@@ -632,7 +632,7 @@
 //! - Only removes ASCII space character (32)
 //! - Returns new string (original unchanged)
 //! - Handles Null by returning Null
-//! - Available in VBScript
+//! - Available in `VBScript`
 //! - Same behavior across all Windows versions
 //!
 //! ## Limitations

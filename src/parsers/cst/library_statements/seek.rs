@@ -165,7 +165,7 @@
 use crate::parsers::cst::Parser;
 use crate::parsers::syntaxkind::SyntaxKind;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     /// Parses a Seek statement.
     pub(crate) fn parse_seek_statement(&mut self) {
         self.parse_simple_builtin_statement(SyntaxKind::SeekStatement);

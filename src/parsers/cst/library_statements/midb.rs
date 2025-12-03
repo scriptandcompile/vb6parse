@@ -1,4 +1,4 @@
-//! # MidB Statement
+//! # `MidB` Statement
 //!
 //! Replaces a specified number of bytes in a Variant (String) variable with bytes from another string.
 //!
@@ -45,8 +45,8 @@
 use crate::parsers::cst::Parser;
 use crate::parsers::syntaxkind::SyntaxKind;
 
-impl<'a> Parser<'a> {
-    /// Parses a MidB statement.
+impl Parser<'_> {
+    /// Parses a `MidB` statement.
     pub(crate) fn parse_midb_statement(&mut self) {
         self.parse_simple_builtin_statement(SyntaxKind::MidBStatement);
     }

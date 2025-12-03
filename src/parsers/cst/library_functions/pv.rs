@@ -87,7 +87,7 @@
 //!
 //! ## Common Patterns
 //!
-//! ### Pattern 1: CalculateAffordableLoan
+//! ### Pattern 1: `CalculateAffordableLoan`
 //! ```vb
 //! Function CalculateAffordableLoan(monthlyPayment As Double, _
 //!                                  annualRate As Double, _
@@ -103,7 +103,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 2: ComparePaymentOptions
+//! ### Pattern 2: `ComparePaymentOptions`
 //! ```vb
 //! Function ComparePaymentOptions(payment1 As Double, years1 As Integer, _
 //!                                payment2 As Double, years2 As Integer, _
@@ -124,7 +124,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 3: CalculateLumpSumEquivalent
+//! ### Pattern 3: `CalculateLumpSumEquivalent`
 //! ```vb
 //! Function CalculateLumpSumEquivalent(monthlyPayment As Double, _
 //!                                     years As Integer, _
@@ -137,7 +137,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 4: ValidatePVParameters
+//! ### Pattern 4: `ValidatePVParameters`
 //! ```vb
 //! Function ValidatePVParameters(rate As Double, nper As Integer, _
 //!                               pmt As Double) As Boolean
@@ -157,7 +157,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 5: CalculateBreakEvenLoanAmount
+//! ### Pattern 5: `CalculateBreakEvenLoanAmount`
 //! ```vb
 //! Function CalculateBreakEvenLoanAmount(payment As Double, _
 //!                                       rate As Double, _
@@ -171,7 +171,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 6: PVOfMixedCashFlows
+//! ### Pattern 6: `PVOfMixedCashFlows`
 //! ```vb
 //! Function PVOfMixedCashFlows(regularPayment As Double, _
 //!                             rate As Double, _
@@ -182,7 +182,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 7: CalculateRequiredDownPayment
+//! ### Pattern 7: `CalculateRequiredDownPayment`
 //! ```vb
 //! Function CalculateRequiredDownPayment(homePrice As Double, _
 //!                                       monthlyPayment As Double, _
@@ -200,7 +200,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 8: CompareLumpSumVsAnnuity
+//! ### Pattern 8: `CompareLumpSumVsAnnuity`
 //! ```vb
 //! Function CompareLumpSumVsAnnuity(lumpSum As Double, _
 //!                                  annuityPayment As Double, _
@@ -222,7 +222,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 9: CalculateLeaseValue
+//! ### Pattern 9: `CalculateLeaseValue`
 //! ```vb
 //! Function CalculateLeaseValue(monthlyLease As Double, _
 //!                              leaseTermMonths As Integer, _
@@ -232,7 +232,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 10: FindAffordablePayment
+//! ### Pattern 10: `FindAffordablePayment`
 //! ```vb
 //! Function FindAffordablePayment(desiredLoan As Double, _
 //!                                rate As Double, _
@@ -634,7 +634,7 @@
 //! | **FV** | Future value of annuity | Double (future value) | Investment growth, savings goals |
 //! | **Pmt** | Periodic payment | Double (payment amount) | Loan payments, inverse of PV |
 //! | **NPV** | Net present value | Double (NPV) | Project evaluation with irregular cash flows |
-//! | **NPer** | Number of periods | Double (period count) | Time to goal calculation |
+//! | **`NPer`** | Number of periods | Double (period count) | Time to goal calculation |
 //! | **Rate** | Interest rate | Double (rate per period) | Finding effective rate |
 //!
 //! ## Platform and Version Notes

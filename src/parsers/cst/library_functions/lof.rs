@@ -12,7 +12,7 @@
 //!
 //! - `filenumber` (Required): Integer file number used in the Open statement
 //!   - Must be a valid file number from a currently open file
-//!   - File numbers typically obtained from FreeFile function
+//!   - File numbers typically obtained from `FreeFile` function
 //!   - Must be between 1 and 511
 //!
 //! ## Return Value
@@ -42,8 +42,8 @@
 //! - Error 68 "Device unavailable" if device unavailable
 //! - For Random files, divide by record length to get record count
 //! - Returns current size, even if file is being written to
-//! - More reliable than FileLen for open files
-//! - FileLen works on closed files, LOF works on open files
+//! - More reliable than `FileLen` for open files
+//! - `FileLen` works on closed files, LOF works on open files
 //! - Common in loops reading files to completion
 //! - Used to detect empty files (LOF returns 0)
 //! - Essential for progress bars and status indicators
@@ -178,7 +178,7 @@
 //!
 //! ## Common Patterns
 //!
-//! ### Pattern 1: GetFileSize
+//! ### Pattern 1: `GetFileSize`
 //! ```vb
 //! Function GetFileSize(ByVal fileNum As Integer) As Long
 //!     On Error Resume Next
@@ -190,7 +190,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 2: CalculateRecordCount
+//! ### Pattern 2: `CalculateRecordCount`
 //! ```vb
 //! Function CalculateRecordCount(ByVal fileNum As Integer, _
 //!                                ByVal recordLength As Long) As Long
@@ -205,7 +205,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 3: ReadEntireFile
+//! ### Pattern 3: `ReadEntireFile`
 //! ```vb
 //! Function ReadEntireFile(ByVal fileNum As Integer) As String
 //!     Dim fileSize As Long
@@ -222,7 +222,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 4: ReadEntireFileAsBytes
+//! ### Pattern 4: `ReadEntireFileAsBytes`
 //! ```vb
 //! Function ReadEntireFileAsBytes(ByVal fileNum As Integer) As Byte()
 //!     Dim fileSize As Long
@@ -237,7 +237,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 5: CalculateProgress
+//! ### Pattern 5: `CalculateProgress`
 //! ```vb
 //! Function CalculateProgress(ByVal fileNum As Integer) As Single
 //!     Dim currentPos As Long
@@ -254,21 +254,21 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 6: IsEmptyFile
+//! ### Pattern 6: `IsEmptyFile`
 //! ```vb
 //! Function IsEmptyFile(ByVal fileNum As Integer) As Boolean
 //!     IsEmptyFile = (LOF(fileNum) = 0)
 //! End Function
 //! ```
 //!
-//! ### Pattern 7: GetBytesRemaining
+//! ### Pattern 7: `GetBytesRemaining`
 //! ```vb
 //! Function GetBytesRemaining(ByVal fileNum As Integer) As Long
 //!     GetBytesRemaining = LOF(fileNum) - Loc(fileNum)
 //! End Function
 //! ```
 //!
-//! ### Pattern 8: FormatFileSize
+//! ### Pattern 8: `FormatFileSize`
 //! ```vb
 //! Function FormatFileSize(ByVal fileNum As Integer) As String
 //!     Dim bytes As Long
@@ -284,14 +284,14 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 9: IsAtEndOfFile
+//! ### Pattern 9: `IsAtEndOfFile`
 //! ```vb
 //! Function IsAtEndOfFile(ByVal fileNum As Integer) As Boolean
 //!     IsAtEndOfFile = (Loc(fileNum) >= LOF(fileNum))
 //! End Function
 //! ```
 //!
-//! ### Pattern 10: AllocateBuffer
+//! ### Pattern 10: `AllocateBuffer`
 //! ```vb
 //! Function AllocateBuffer(ByVal fileNum As Integer) As String
 //!     Dim size As Long
@@ -606,19 +606,19 @@
 //! 7. **Check 2GB limit** for very large files
 //! 8. **Refresh if writing** as file size may change
 //! 9. **Use with Random files** to calculate record count
-//! 10. **Prefer over FileLen** for open files
+//! 10. **Prefer over `FileLen`** for open files
 //!
 //! ## Comparison with Related Functions
 //!
 //! | Function | Purpose | File State | Return Value |
 //! |----------|---------|------------|--------------|
 //! | **LOF** | Get file size | Must be open | Size in bytes |
-//! | **FileLen** | Get file size | Must be closed | Size in bytes |
+//! | **`FileLen`** | Get file size | Must be closed | Size in bytes |
 //! | **Loc** | Get position | Must be open | Current position |
 //! | **Seek** | Get/set position | Must be open | Next position |
 //! | **EOF** | Check end | Must be open | Boolean |
 //!
-//! ## LOF vs FileLen
+//! ## LOF vs `FileLen`
 //!
 //! ```vb
 //! ' FileLen - for closed files

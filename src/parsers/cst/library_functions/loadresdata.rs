@@ -1,4 +1,4 @@
-//! # LoadResData Function
+//! # `LoadResData` Function
 //!
 //! Returns the data stored in a resource (.res) file.
 //!
@@ -10,12 +10,12 @@
 //!
 //! ## Parameters
 //!
-//! - `index` (Required): Integer or String identifying the resource
+//! - `index` (Required): `Integer` or `String` identifying the resource
 //!   - Can be a numeric ID or string name
 //!   - Must match the ID/name used when the resource was compiled
-//! - `format` (Required): Integer specifying the format of the resource data
+//! - `format` (Required): `Integer` specifying the format of the resource data
 //!   - Custom user-defined format number (1-32767)
-//!   - Cannot use predefined formats (use LoadResPicture/LoadResString instead)
+//!   - Cannot use predefined formats (use `LoadResPicture`/`LoadResString` instead)
 //!
 //! ## Return Value
 //!
@@ -34,8 +34,8 @@
 //! - Resource file must be linked to project at compile time
 //! - Returns data as Byte array (`Variant`/`Byte()`)
 //! - Used for custom binary resources (not bitmaps/icons/strings)
-//! - For images, use LoadResPicture instead
-//! - For strings, use LoadResString instead
+//! - For images, use `LoadResPicture` instead
+//! - For strings, use `LoadResString` instead
 //! - Resource files created with Resource Editor or RC.EXE
 //! - Index can be numeric ID or string name
 //! - Format must be custom type (not 1=Cursor, 2=Bitmap, 3=Icon, etc.)
@@ -156,7 +156,7 @@
 //!
 //! ## Common Patterns
 //!
-//! ### Pattern 1: SafeLoadResData
+//! ### Pattern 1: `SafeLoadResData`
 //! ```vb
 //! Function SafeLoadResData(ByVal resID As Variant, _
 //!                          ByVal resFormat As Integer, _
@@ -168,7 +168,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 2: LoadResDataToFile
+//! ### Pattern 2: `LoadResDataToFile`
 //! ```vb
 //! Sub LoadResDataToFile(ByVal resID As Variant, _
 //!                       ByVal resFormat As Integer, _
@@ -185,7 +185,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 3: GetResDataSize
+//! ### Pattern 3: `GetResDataSize`
 //! ```vb
 //! Function GetResDataSize(ByVal resID As Variant, _
 //!                         ByVal resFormat As Integer) As Long
@@ -201,7 +201,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 4: LoadResDataAsString
+//! ### Pattern 4: `LoadResDataAsString`
 //! ```vb
 //! Function LoadResDataAsString(ByVal resID As Variant, _
 //!                              ByVal resFormat As Integer) As String
@@ -211,7 +211,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 5: ResDataExists
+//! ### Pattern 5: `ResDataExists`
 //! ```vb
 //! Function ResDataExists(ByVal resID As Variant, _
 //!                        ByVal resFormat As Integer) As Boolean
@@ -223,7 +223,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 6: LoadMultipleResources
+//! ### Pattern 6: `LoadMultipleResources`
 //! ```vb
 //! Function LoadMultipleResources(startID As Integer, _
 //!                                endID As Integer, _
@@ -245,7 +245,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 7: CompareResData
+//! ### Pattern 7: `CompareResData`
 //! ```vb
 //! Function CompareResData(ByVal resID1 As Variant, _
 //!                         ByVal resID2 As Variant, _
@@ -272,7 +272,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 8: CopyResDataToArray
+//! ### Pattern 8: `CopyResDataToArray`
 //! ```vb
 //! Sub CopyResDataToArray(ByVal resID As Variant, _
 //!                        ByVal resFormat As Integer, _
@@ -289,7 +289,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 9: LoadResDataWithFallback
+//! ### Pattern 9: `LoadResDataWithFallback`
 //! ```vb
 //! Function LoadResDataWithFallback(ByVal primaryID As Variant, _
 //!                                  ByVal fallbackID As Variant, _
@@ -304,7 +304,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 10: CachedResDataLoader
+//! ### Pattern 10: `CachedResDataLoader`
 //! ```vb
 //! Dim resCache As New Collection
 //!
@@ -558,18 +558,18 @@
 //! 7. **Test resource loading** during development
 //! 8. **Validate data size** after loading if needed
 //! 9. **Consider memory usage** for large resources
-//! 10. **Use appropriate formats** - LoadResPicture for images, LoadResString for text
+//! 10. **Use appropriate formats** - `LoadResPicture` for images, `LoadResString` for text
 //!
 //! ## Comparison with Related Functions
 //!
 //! | Function | Purpose | Return Type | Data Type |
 //! |----------|---------|-------------|-----------|
-//! | **LoadResData** | Load custom binary data | Byte array | Any binary data |
-//! | **LoadResPicture** | Load image from resources | StdPicture | BMP, ICO, CUR |
-//! | **LoadResString** | Load string from resources | String | Text strings |
-//! | **LoadPicture** | Load image from file | StdPicture | External file |
+//! | **`LoadResData`** | Load custom binary data | Byte array | Any binary data |
+//! | **`LoadResPicture`** | Load image from resources | `StdPicture` | BMP, ICO, CUR |
+//! | **`LoadResString`** | Load string from resources | String | Text strings |
+//! | **`LoadPicture`** | Load image from file | `StdPicture` | External file |
 //!
-//! ## LoadResData vs LoadResPicture vs LoadResString
+//! ## `LoadResData` vs `LoadResPicture` vs `LoadResString`
 //!
 //! ```vb
 //! ' LoadResData - custom binary data
@@ -585,9 +585,9 @@
 //! ```
 //!
 //! **When to use each:**
-//! - **LoadResData**: Custom binary files, sound files, configuration data
-//! - **LoadResPicture**: Images (bitmaps, icons, cursors)
-//! - **LoadResString**: Localized text strings
+//! - **`LoadResData`**: Custom binary files, sound files, configuration data
+//! - **`LoadResPicture`**: Images (bitmaps, icons, cursors)
+//! - **`LoadResString`**: Localized text strings
 //!
 //! ## Platform Notes
 //!

@@ -27,7 +27,7 @@
 //! - **All values evaluated**: Unlike expressions, all values in the argument list may be evaluated (implementation-dependent)
 //! - **Type flexibility**: Can return different types for different cases (returns Variant)
 //! - **Compare with Select Case**: Switch is an expression (returns value), Select Case is a statement
-//! - **Compare with IIf**: Switch handles multiple conditions, IIf handles only two branches
+//! - **Compare with `IIf`**: Switch handles multiple conditions, `IIf` handles only two branches
 //!
 //! ### Evaluation Behavior
 //! - Expressions are evaluated left to right
@@ -38,8 +38,8 @@
 //! ### When to Use Switch vs Alternatives
 //! - **Use Switch** when you have multiple conditions to check and want to return a value
 //! - **Use Select Case** for complex branching logic or when executing statements rather than returning values
-//! - **Use IIf** for simple two-way decisions
-//! - **Use nested IIf** cautiously (Switch is clearer for 3+ conditions)
+//! - **Use `IIf`** for simple two-way decisions
+//! - **Use nested `IIf`** cautiously (Switch is clearer for 3+ conditions)
 //!
 //! ## Typical Uses
 //! 1. **Conditional Value Selection**: Return different values based on multiple conditions
@@ -441,7 +441,7 @@
 //!
 //! ## Performance Notes
 //! - Evaluates expressions left to right until True is found (short-circuit)
-//! - More efficient than nested IIf for multiple conditions
+//! - More efficient than nested `IIf` for multiple conditions
 //! - All value expressions may be evaluated regardless of condition (avoid side effects)
 //! - For large numbers of conditions (10+), Select Case may be more readable
 //! - Performance: O(n) where n is the number of condition/value pairs
@@ -450,7 +450,7 @@
 //! 1. **Always provide default case** using `True` as the last condition to avoid Null returns
 //! 2. **Order conditions properly** - most specific first, most general last
 //! 3. **Avoid side effects** in value expressions (they may all be evaluated)
-//! 4. **Use for readability** - Switch is clearer than nested IIf for 3+ conditions
+//! 4. **Use for readability** - Switch is clearer than nested `IIf` for 3+ conditions
 //! 5. **Check for Null** when using returned value if no default case provided
 //! 6. **Keep pairs aligned** for readability (use line continuation)
 //! 7. **Limit complexity** - if more than 7-8 pairs, consider Select Case
@@ -468,7 +468,7 @@
 //! | `If...Then...Else` | Statement | Multiple | No (use with function) | Yes |
 //!
 //! ## Platform Notes
-//! - Available in VB6, VBA, and VBScript
+//! - Available in VB6, VBA, and `VBScript`
 //! - Behavior consistent across platforms
 //! - Return type is always Variant
 //! - Arguments must come in pairs (expression, value)

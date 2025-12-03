@@ -174,7 +174,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 3: LogN (Logarithm with Any Base)
+//! ### Pattern 3: `LogN` (Logarithm with Any Base)
 //! ```vb
 //! Function LogN(ByVal x As Double, ByVal base As Double) As Double
 //!     If x > 0 And base > 0 And base <> 1 Then
@@ -185,7 +185,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 4: SafeLog
+//! ### Pattern 4: `SafeLog`
 //! ```vb
 //! Function SafeLog(ByVal x As Double, _
 //!                  Optional ByVal defaultValue As Double = 0) As Double
@@ -198,7 +198,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 5: CalculateEntropy
+//! ### Pattern 5: `CalculateEntropy`
 //! ```vb
 //! Function CalculateEntropy(probabilities() As Double) As Double
 //!     Dim i As Integer
@@ -217,7 +217,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 6: CalculateHalfLife
+//! ### Pattern 6: `CalculateHalfLife`
 //! ```vb
 //! Function CalculateHalfLife(ByVal decayConstant As Double) As Double
 //!     If decayConstant > 0 Then
@@ -228,7 +228,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 7: CalculateDoublingTime
+//! ### Pattern 7: `CalculateDoublingTime`
 //! ```vb
 //! Function CalculateDoublingTime(ByVal growthRate As Double) As Double
 //!     If growthRate > 0 Then
@@ -239,7 +239,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 8: SolveForTime (Exponential Growth)
+//! ### Pattern 8: `SolveForTime` (Exponential Growth)
 //! ```vb
 //! Function SolveForTime(ByVal initialValue As Double, _
 //!                       ByVal finalValue As Double, _
@@ -252,7 +252,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 9: CalculateDecibels
+//! ### Pattern 9: `CalculateDecibels`
 //! ```vb
 //! Function CalculateDecibels(ByVal power As Double, _
 //!                            ByVal referencePower As Double) As Double
@@ -264,7 +264,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 10: CalculatePH
+//! ### Pattern 10: `CalculatePH`
 //! ```vb
 //! Function CalculatePH(ByVal hydrogenIonConcentration As Double) As Double
 //!     If hydrogenIonConcentration > 0 Then

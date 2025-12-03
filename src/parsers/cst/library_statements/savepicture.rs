@@ -1,4 +1,4 @@
-//! # SavePicture Statement
+//! # `SavePicture` Statement
 //!
 //! Saves a graphical image from a control or form to a file.
 //!
@@ -11,28 +11,28 @@
 //! ## Parts
 //!
 //! - **picture**: Required. A property or graphic object from which to save the image. The image
-//!   can be from the `Picture` property of a Form, PictureBox, or Image control, or from the
-//!   `Image` property of a PictureBox or Form.
+//!   can be from the `Picture` property of a Form, `PictureBox`, or Image control, or from the
+//!   `Image` property of a `PictureBox` or Form.
 //! - **stringexpression**: Required. String expression specifying the name of the file to which
 //!   the graphic is saved. Can include a drive and path specification.
 //!
 //! ## Remarks
 //!
-//! - **File Format**: SavePicture saves graphics in bitmap (.bmp) format. The file created is
+//! - **File Format**: `SavePicture` saves graphics in bitmap (.bmp) format. The file created is
 //!   compatible with bitmap files created by other applications.
-//! - **Picture Property**: When used with the `Picture` property, SavePicture saves the persistent
+//! - **Picture Property**: When used with the `Picture` property, `SavePicture` saves the persistent
 //!   bitmap from the property. This is the image loaded at design time or assigned at run time via
 //!   `LoadPicture` or other means.
-//! - **Image Property**: When used with the `Image` property, SavePicture saves the current
+//! - **Image Property**: When used with the `Image` property, `SavePicture` saves the current
 //!   appearance of the form or picture box, including any graphics drawn with graphics methods.
 //!   This creates a snapshot of the visible content.
 //! - **File Path**: If no path is specified, the file is saved in the current directory.
 //! - **Overwriting**: If a file with the specified name already exists, it is overwritten without
 //!   warning.
 //! - **Relative Paths**: You can use relative path specifications (e.g., "..\Images\MyPic.bmp").
-//! - **Graphics Methods**: To save graphics created with graphics methods (Line, Circle, PSet,
+//! - **Graphics Methods**: To save graphics created with graphics methods (Line, Circle, `PSet`,
 //!   etc.), you must use the `Image` property, not the `Picture` property.
-//! - **Clipboard Graphics**: SavePicture can also be used with graphics from the Clipboard object.
+//! - **Clipboard Graphics**: `SavePicture` can also be used with graphics from the Clipboard object.
 //!
 //! ## Examples
 //!
@@ -50,7 +50,7 @@
 //! SavePicture Form1.Image, "C:\Images\FormSnapshot.bmp"
 //! ```
 //!
-//! ### Save PictureBox Image
+//! ### Save `PictureBox` Image
 //!
 //! ```vb
 //! ' Save the picture from a PictureBox control
@@ -103,8 +103,8 @@
 use crate::parsers::cst::Parser;
 use crate::parsers::syntaxkind::SyntaxKind;
 
-impl<'a> Parser<'a> {
-    /// Parses a SavePicture statement.
+impl Parser<'_> {
+    /// Parses a `SavePicture` statement.
     pub(crate) fn parse_savepicture_statement(&mut self) {
         self.parse_simple_builtin_statement(SyntaxKind::SavePictureStatement);
     }

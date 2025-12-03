@@ -1,6 +1,6 @@
-//! # LoadResPicture Function
+//! # `LoadResPicture` Function
 //!
-//! Returns a picture object (StdPicture) containing an image from a resource (.res) file.
+//! Returns a picture object (`StdPicture`) containing an image from a resource (.res) file.
 //!
 //! ## Syntax
 //!
@@ -20,23 +20,23 @@
 //!
 //! ## Return Value
 //!
-//! Returns a StdPicture object:
+//! Returns a `StdPicture` object:
 //! - Picture object containing the loaded image from resources
 //! - Object can be assigned to Picture properties of controls
-//! - Object implements IPicture interface
+//! - Object implements `IPicture` interface
 //! - Returns Nothing if resource not found (some VB versions)
 //! - May raise error 32813 if resource not found
 //!
 //! ## Remarks
 //!
-//! The LoadResPicture function loads images from embedded resources:
+//! The `LoadResPicture` function loads images from embedded resources:
 //!
 //! - Loads images from compiled resource (.res) files
 //! - Resource file must be linked to project at compile time
 //! - Supports BMP, ICO, and CUR formats only
 //! - Does NOT support JPG, GIF, or PNG
-//! - Returns StdPicture object implementing IPicture
-//! - Alternative to LoadPicture for embedded images
+//! - Returns `StdPicture` object implementing `IPicture`
+//! - Alternative to `LoadPicture` for embedded images
 //! - No external files needed at runtime
 //! - Faster than loading from disk
 //! - More secure (can't be modified by users)
@@ -50,13 +50,13 @@
 //! - Error 48: "Error loading from file" if resource file corrupt
 //! - Pictures are not cached (loaded each time)
 //! - Set object = Nothing to release memory
-//! - Common in Form_Load for initial graphics
-//! - Used with Image, PictureBox, and Form.Picture
+//! - Common in `Form_Load` for initial graphics
+//! - Used with Image, `PictureBox`, and Form.Picture
 //! - Preferred for distribution (no external image files)
 //!
 //! ## Typical Uses
 //!
-//! 1. **Load Bitmap to PictureBox**
+//! 1. **Load Bitmap to `PictureBox`**
 //!    ```vb
 //!    Picture1.Picture = LoadResPicture(101, vbResBitmap)
 //!    ```
@@ -152,7 +152,7 @@
 //!
 //! ## Common Patterns
 //!
-//! ### Pattern 1: SafeLoadResPicture
+//! ### Pattern 1: `SafeLoadResPicture`
 //! ```vb
 //! Function SafeLoadResPicture(ByVal resID As Variant, _
 //!                             ByVal resFormat As Integer, _
@@ -164,7 +164,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 2: PreloadResourcePictures
+//! ### Pattern 2: `PreloadResourcePictures`
 //! ```vb
 //! Dim preloadedPics() As StdPicture
 //!
@@ -184,7 +184,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 3: LoadResPictureWithDefault
+//! ### Pattern 3: `LoadResPictureWithDefault`
 //! ```vb
 //! Function LoadResPictureWithDefault(ByVal resID As Variant, _
 //!                                    ByVal resFormat As Integer, _
@@ -199,7 +199,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 4: LoadResByName
+//! ### Pattern 4: `LoadResByName`
 //! ```vb
 //! Function LoadResByName(ByVal resName As String, _
 //!                        ByVal resFormat As Integer) As StdPicture
@@ -214,7 +214,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 5: ToggleResPicture
+//! ### Pattern 5: `ToggleResPicture`
 //! ```vb
 //! Dim currentState As Boolean
 //!
@@ -228,7 +228,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 6: LoadThemeResources
+//! ### Pattern 6: `LoadThemeResources`
 //! ```vb
 //! Enum ThemeType
 //!     tmLight = 0
@@ -245,7 +245,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 7: ResExists
+//! ### Pattern 7: `ResExists`
 //! ```vb
 //! Function ResExists(ByVal resID As Variant, _
 //!                    ByVal resFormat As Integer) As Boolean
@@ -258,7 +258,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 8: LoadAllResourceIcons
+//! ### Pattern 8: `LoadAllResourceIcons`
 //! ```vb
 //! Function LoadAllResourceIcons(startID As Integer, _
 //!                               endID As Integer) As Collection
@@ -279,7 +279,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 9: SetButtonIcon
+//! ### Pattern 9: `SetButtonIcon`
 //! ```vb
 //! Sub SetButtonIcon(btn As CommandButton, _
 //!                   ByVal iconID As Integer, _
@@ -296,7 +296,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 10: LoadResourceArray
+//! ### Pattern 10: `LoadResourceArray`
 //! ```vb
 //! Sub LoadResourceArray(ByRef picArray() As StdPicture, _
 //!                       ByVal startID As Integer, _
@@ -617,12 +617,12 @@
 //!
 //! | Function | Purpose | Source | External Files |
 //! |----------|---------|--------|----------------|
-//! | **LoadResPicture** | Load from resources | Embedded .res | No |
-//! | **LoadPicture** | Load from file | External file | Yes |
-//! | **LoadResData** | Load binary data | Embedded .res | No |
-//! | **LoadResString** | Load string | Embedded .res | No |
+//! | **`LoadResPicture`** | Load from resources | Embedded .res | No |
+//! | **`LoadPicture`** | Load from file | External file | Yes |
+//! | **`LoadResData`** | Load binary data | Embedded .res | No |
+//! | **`LoadResString`** | Load string | Embedded .res | No |
 //!
-//! ## LoadResPicture vs LoadPicture
+//! ## `LoadResPicture` vs `LoadPicture`
 //!
 //! ```vb
 //! ' LoadResPicture - from embedded resources
@@ -633,8 +633,8 @@
 //! ```
 //!
 //! **When to use each:**
-//! - **LoadResPicture**: Distribution (no external files), static images, faster loading
-//! - **LoadPicture**: Dynamic images, user-selected files, easier updates
+//! - **`LoadResPicture`**: Distribution (no external files), static images, faster loading
+//! - **`LoadPicture`**: Dynamic images, user-selected files, easier updates
 //!
 //! ## Resource Format Constants
 //!
@@ -657,7 +657,7 @@
 //! - Resource file created with Resource Editor or RC.EXE
 //! - Only one resource file per project
 //! - Resources embedded in compiled EXE/DLL
-//! - Returns StdPicture object (OLE automation object)
+//! - Returns `StdPicture` object (OLE automation object)
 //! - Supports BMP, ICO, CUR formats only
 //! - No native support for JPG, GIF, PNG
 //! - Format parameter: 0=Bitmap, 1=Icon, 2=Cursor

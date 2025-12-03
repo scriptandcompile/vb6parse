@@ -2,15 +2,15 @@
 //!
 //! This module handles parsing of VB6 object manipulation statements:
 //! - Call - Call a procedure
-//! - RaiseEvent - Fire an event declared at module level
+//! - `RaiseEvent` - Fire an event declared at module level
 //! - Set - Assign object reference
 //! - With - Execute statements on object
 //!
-//! Note: Variable declarations (Dim, ReDim)
-//! are in the variable_declarations module.
-//! Note: Control flow statements (If, Do, For, Select Case, GoTo, Exit, Label)
+//! Note: Variable declarations (Dim, `ReDim`)
+//! are in the `variable_declarations` module.
+//! Note: Control flow statements (If, Do, For, Select Case, `GoTo`, Exit, Label)
 //! are in the controlflow module.
-//! Built-in system statements (AppActivate, Beep, ChDir, ChDrive) are in the
+//! Built-in system statements (`AppActivate`, Beep, `ChDir`, `ChDrive`) are in the
 //! library module.
 
 use crate::language::VB6Token;
@@ -18,7 +18,7 @@ use crate::parsers::SyntaxKind;
 
 use super::Parser;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     /// Parse a Call statement:
     ///
     /// \[ Call \] name \[ argumentlist \]
@@ -47,14 +47,14 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // CallStatement
     }
 
-    /// Parse a RaiseEvent statement.
+    /// Parse a `RaiseEvent` statement.
     ///
-    /// VB6 RaiseEvent statement syntax:
-    /// - RaiseEvent eventname [(argumentlist)]
+    /// VB6 `RaiseEvent` statement syntax:
+    /// - `RaiseEvent` eventname [(argumentlist)]
     ///
     /// Fires an event declared at module level within a class, form, or document.
     ///
-    /// The RaiseEvent statement syntax has these parts:
+    /// The `RaiseEvent` statement syntax has these parts:
     ///
     /// | Part         | Description |
     /// |--------------|-------------|
@@ -63,12 +63,12 @@ impl<'a> Parser<'a> {
     ///
     /// Remarks:
     /// - If the event has no arguments, don't include the parentheses.
-    /// - RaiseEvent can only be used to fire events declared in the same class or form module.
+    /// - `RaiseEvent` can only be used to fire events declared in the same class or form module.
     /// - Events can't be raised within a standard module.
     /// - When an event is raised, all procedures connected to that event are executed.
-    /// - Events can have ByVal and ByRef arguments like normal procedures.
+    /// - Events can have `ByVal` and `ByRef` arguments like normal procedures.
     /// - Events with arguments can be cancelled by the event handler if declared with a Cancel parameter.
-    /// - RaiseEvent can only fire events that are explicitly declared with the Event statement in the same module.
+    /// - `RaiseEvent` can only fire events that are explicitly declared with the Event statement in the same module.
     ///
     /// Examples:
     /// ```vb
@@ -168,7 +168,7 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // WithStatement
     }
 
-    /// Check if the current token is a statement keyword that parse_statement can handle.
+    /// Check if the current token is a statement keyword that `parse_statement` can handle.
     pub(super) fn is_statement_keyword(&self) -> bool {
         matches!(
             self.current_token(),

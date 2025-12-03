@@ -27,10 +27,10 @@
 //! - **No currency symbol**: Currency values converted without `$` or other symbols
 //!
 //! ### Comparison with Other Functions
-//! - **Str vs CStr**: `Str` adds leading space for positive numbers, `CStr` does not
+//! - **Str vs `CStr`**: `Str` adds leading space for positive numbers, `CStr` does not
 //! - **Str vs Format$**: `Str` has no formatting options, `Format$` provides extensive control
 //! - **Str vs Val**: `Str` converts number to string, `Val` converts string to number (inverse operations)
-//! - **Str vs LTrim$**: Often use `LTrim$(Str(number))` to remove leading space from positive numbers
+//! - **Str vs `LTrim`$**: Often use `LTrim$(Str(number))` to remove leading space from positive numbers
 //!
 //! ## Typical Uses
 //! 1. **Quick Number Display**: Convert numbers to strings for display without formatting
@@ -550,7 +550,7 @@
 //! | `LTrim$` | String | String | Removes | None |
 //!
 //! ## Platform Notes
-//! - Available in VB6, VBA, and VBScript
+//! - Available in VB6, VBA, and `VBScript`
 //! - Behavior consistent across all platforms
 //! - Uses period (`.`) as decimal separator regardless of locale
 //! - Scientific notation format is standard across platforms

@@ -41,7 +41,7 @@
 //! - Windows 95/98/ME: ~55 milliseconds
 //! - Windows NT/2000/XP and later: ~10-15 milliseconds
 //! - Not suitable for microsecond precision measurements
-//! - Use QueryPerformanceCounter API for higher precision
+//! - Use `QueryPerformanceCounter` API for higher precision
 //!
 //! ### Midnight Rollover Handling
 //! ```vb6
@@ -144,7 +144,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 3: Wait with DoEvents
+//! ### Pattern 3: Wait with `DoEvents`
 //! ```vb6
 //! Sub WaitSeconds(seconds As Single)
 //!     Dim endTime As Single
@@ -589,15 +589,15 @@
 //! - Precision varies by Windows version (10-55ms)
 //! - Not suitable for microsecond-level timing
 //! - For busy-wait loops, consider CPU usage impact
-//! - Use DoEvents in wait loops to prevent UI freeze
+//! - Use `DoEvents` in wait loops to prevent UI freeze
 //!
 //! ## Best Practices
 //! 1. **Handle midnight rollover** when measuring elapsed time
-//! 2. **Use DoEvents** in timing loops to prevent application freeze
+//! 2. **Use `DoEvents`** in timing loops to prevent application freeze
 //! 3. **Store as Single** type for consistency and precision
 //! 4. **Avoid long-running measurements** crossing midnight
 //! 5. **Use for relative timing** not absolute time-of-day
-//! 6. **Consider GetTickCount API** for measurements exceeding 24 hours
+//! 6. **Consider `GetTickCount` API** for measurements exceeding 24 hours
 //! 7. **Test across midnight** boundary for production code
 //! 8. **Use Time function** for actual clock time display
 //! 9. **Format appropriately** when displaying to users (ms, seconds, minutes)
@@ -613,7 +613,7 @@
 //! | `GetTickCount` | Long | 10-16ms | 0-49.7 days | Uptime timing |
 //!
 //! ## Platform Notes
-//! - Available in VB6, VBA, and VBScript
+//! - Available in VB6, VBA, and `VBScript`
 //! - Precision varies by Windows version
 //! - Windows 95/98/ME: ~55ms resolution
 //! - Windows NT/2000/XP+: ~10-15ms resolution
@@ -629,7 +629,7 @@
 //! - Cannot measure absolute time, only relative
 //! - Precision varies between systems
 //! - Not monotonic (can jump backwards at midnight)
-//! - No built-in high-resolution timer (use QueryPerformanceCounter API)
+//! - No built-in high-resolution timer (use `QueryPerformanceCounter` API)
 
 #[cfg(test)]
 mod tests {

@@ -81,7 +81,7 @@
 //!
 //! ## Common Patterns
 //!
-//! ### Pattern 1: ConvertFilePermission
+//! ### Pattern 1: `ConvertFilePermission`
 //! ```vb
 //! Function ConvertFilePermission(owner As Integer, group As Integer, other As Integer) As String
 //!     ' Each parameter is 0-7 (rwx bits)
@@ -92,7 +92,7 @@
 //! ' Usage: perms = ConvertFilePermission(7, 5, 5)  ' Returns "755"
 //! ```
 //!
-//! ### Pattern 2: DisplayInOctal
+//! ### Pattern 2: `DisplayInOctal`
 //! ```vb
 //! Function DisplayInOctal(value As Long) As String
 //!     ' Display with octal prefix for clarity
@@ -101,7 +101,7 @@
 //! ' Usage: Debug.Print DisplayInOctal(64)  ' Displays "&O100"
 //! ```
 //!
-//! ### Pattern 3: ParseOctalString
+//! ### Pattern 3: `ParseOctalString`
 //! ```vb
 //! Function ParseOctalString(octStr As String) As Long
 //!     ' Convert octal string back to decimal
@@ -112,7 +112,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 4: ValidateOctalDigits
+//! ### Pattern 4: `ValidateOctalDigits`
 //! ```vb
 //! Function ValidateOctalDigits(octStr As String) As Boolean
 //!     Dim i As Integer
@@ -126,7 +126,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 5: ConvertBetweenBases
+//! ### Pattern 5: `ConvertBetweenBases`
 //! ```vb
 //! Sub ShowAllBases(decimalValue As Long)
 //!     Debug.Print "Dec: " & decimalValue & _
@@ -135,7 +135,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 6: CheckOctalRange
+//! ### Pattern 6: `CheckOctalRange`
 //! ```vb
 //! Function IsValidOctalPermission(value As Integer) As Boolean
 //!     ' Check if value represents valid Unix permissions (0-777)
@@ -143,7 +143,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 7: FormatOctalWithPadding
+//! ### Pattern 7: `FormatOctalWithPadding`
 //! ```vb
 //! Function FormatOctal(value As Long, digits As Integer) As String
 //!     Dim octStr As String
@@ -153,7 +153,7 @@
 //! ' Usage: perms = FormatOctal(64, 4)  ' Returns "0100"
 //! ```
 //!
-//! ### Pattern 8: ExtractOctalDigits
+//! ### Pattern 8: `ExtractOctalDigits`
 //! ```vb
 //! Function GetOctalDigit(value As Long, position As Integer) As Integer
 //!     ' Get specific octal digit (0-based from right)
@@ -167,7 +167,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 9: CompareOctalValues
+//! ### Pattern 9: `CompareOctalValues`
 //! ```vb
 //! Function CompareAsOctal(val1 As Long, val2 As Long) As String
 //!     If val1 = val2 Then
@@ -180,7 +180,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 10: BuildOctalTable
+//! ### Pattern 10: `BuildOctalTable`
 //! ```vb
 //! Sub CreateOctalTable(maxValue As Integer)
 //!     Dim i As Integer
@@ -630,7 +630,7 @@
 //! | **Oct** | Decimal to octal | String (base-8) | Unix permissions, legacy systems |
 //! | **Hex** | Decimal to hexadecimal | String (base-16) | Memory addresses, colors, general bit patterns |
 //! | **Str** | Number to string | String (base-10) | Standard numeric display |
-//! | **CStr** | Convert to string | String (base-10) | Type conversion with formatting control |
+//! | **`CStr`** | Convert to string | String (base-10) | Type conversion with formatting control |
 //! | **Format** | Formatted string | String (custom format) | Complex number formatting with patterns |
 //!
 //! ## Platform and Version Notes

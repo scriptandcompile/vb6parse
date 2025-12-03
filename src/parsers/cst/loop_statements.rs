@@ -13,7 +13,7 @@ use crate::parsers::SyntaxKind;
 
 use super::Parser;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     /// Parse a Do...Loop statement.
     ///
     /// VB6 supports several forms of Do loops:

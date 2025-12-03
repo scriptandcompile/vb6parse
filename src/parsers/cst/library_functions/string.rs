@@ -560,7 +560,7 @@
 //!
 //! ## Platform Notes
 //! - Available in VB6 and VBA
-//! - Not available in VBScript (use custom function instead)
+//! - Not available in `VBScript` (use custom function instead)
 //! - `String$` variant returns String type directly (slightly faster)
 //! - Behavior consistent across all platforms
 //! - Character codes follow ANSI/ASCII standard (0-255)

@@ -1,4 +1,4 @@
-//! # MsgBox Function
+//! # `MsgBox` Function
 //!
 //! Displays a message in a dialog box, waits for the user to click a button, and returns an Integer indicating which button the user clicked.
 //!
@@ -29,7 +29,7 @@
 //!
 //! ## Remarks
 //!
-//! The MsgBox function is one of the most commonly used VB6 functions for user interaction and debugging.
+//! The `MsgBox` function is one of the most commonly used VB6 functions for user interaction and debugging.
 //! It provides a simple way to display messages, warnings, errors, and questions to the user.
 //!
 //! ### Button Constants (First Group - Buttons):
@@ -554,13 +554,13 @@
 //!
 //! ## Performance Considerations
 //!
-//! - MsgBox blocks execution - not suitable for background operations
+//! - `MsgBox` blocks execution - not suitable for background operations
 //! - For debugging, consider Debug.Print as faster alternative
-//! - Avoid MsgBox in loops - very slow and annoying to users
+//! - Avoid `MsgBox` in loops - very slow and annoying to users
 //! - For status updates, use status bar or progress form instead
 //! - System modal (vbSystemModal) blocks ALL applications - use sparingly
 //! - Long prompts may be truncated - keep messages concise
-//! - Each MsgBox call creates and destroys a window - has overhead
+//! - Each `MsgBox` call creates and destroys a window - has overhead
 //!
 //! ## Best Practices
 //!
@@ -568,7 +568,7 @@
 //! 2. **Use appropriate icons** - Help users understand message severity
 //! 3. **Provide clear actions** - Button choices should be obvious
 //! 4. **Use meaningful titles** - Don't just say "Error" or "Message"
-//! 5. **Avoid MsgBox in loops** - Queue messages or use alternative feedback
+//! 5. **Avoid `MsgBox` in loops** - Queue messages or use alternative feedback
 //! 6. **Handle all return values** - Check what button user clicked
 //! 7. **Use vbCrLf for readability** - Multi-line messages are easier to read
 //! 8. **Consider default button** - Make safe choice the default
@@ -579,16 +579,16 @@
 //!
 //! | Approach | Pros | Cons |
 //! |----------|------|------|
-//! | **MsgBox** | Simple, built-in, modal | Blocks execution, limited customization |
+//! | **`MsgBox`** | Simple, built-in, modal | Blocks execution, limited customization |
 //! | **Custom Form** | Full control, rich UI | More code, more complex |
 //! | **Debug.Print** | Non-blocking, fast | Not visible to end users |
 //! | **Status Bar** | Non-blocking, professional | Limited message length, less visible |
-//! | **InputBox** | Gets user input | Only single-line text input |
+//! | **`InputBox`** | Gets user input | Only single-line text input |
 //! | **Notification API** | Modern, non-blocking | Requires Windows 10+, more complex |
 //!
 //! ## Statement vs Function
 //!
-//! MsgBox can be used as both a statement (no parentheses, no return value) and a function (with parentheses, returns value):
+//! `MsgBox` can be used as both a statement (no parentheses, no return value) and a function (with parentheses, returns value):
 //!
 //! ```vb
 //! ' As a statement (no return value needed)
@@ -602,7 +602,7 @@
 //!
 //! - Available in VBA (Excel, Access, Word, etc.)
 //! - Available in VB6
-//! - Available in VBScript (limited - no named constants in VBScript)
+//! - Available in `VBScript` (limited - no named constants in `VBScript`)
 //! - Uses Windows common dialog
 //! - Appearance varies by Windows version
 //! - Icons and sounds defined by Windows theme
@@ -617,20 +617,20 @@
 //! - Cannot resize or reposition the dialog
 //! - No timeout capability (without API calls)
 //! - No checkboxes or radio buttons
-//! - Cannot validate input (use InputBox or custom form for that)
+//! - Cannot validate input (use `InputBox` or custom form for that)
 //!
 //! ## Related Functions
 //!
-//! - **InputBox** - Gets text input from user
+//! - **`InputBox`** - Gets text input from user
 //! - **Debug.Print** - Prints to Immediate window (development only)
 //! - **Shell** - Runs external programs
 //! - **Beep** - Plays system beep sound
-//! - **SendKeys** - Sends keystrokes to active window
+//! - **`SendKeys`** - Sends keystrokes to active window
 //!
 //! ## VB6 Parser Notes
 //!
-//! MsgBox can be used as both a statement and a function. When used as a function (with parentheses
-//! and capturing return value), it is parsed as a CallExpression. When used as a statement (without
+//! `MsgBox` can be used as both a statement and a function. When used as a function (with parentheses
+//! and capturing return value), it is parsed as a `CallExpression`. When used as a statement (without
 //! parentheses), it may be parsed differently. This module exists primarily for documentation purposes
 //! to provide comprehensive reference material for VB6 developers working with user interaction and
 //! message display operations.

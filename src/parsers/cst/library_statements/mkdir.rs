@@ -1,4 +1,4 @@
-//! # MkDir Statement
+//! # `MkDir` Statement
 //!
 //! Creates a new directory or folder.
 //!
@@ -9,7 +9,7 @@
 //! ```
 //!
 //! - `path`: Required. String expression that identifies the directory or folder to be created. May include drive.
-//!   If no drive is specified, MkDir creates the new directory or folder on the current drive.
+//!   If no drive is specified, `MkDir` creates the new directory or folder on the current drive.
 //!
 //! ## Remarks
 //!
@@ -48,8 +48,8 @@
 use crate::parsers::cst::Parser;
 use crate::parsers::syntaxkind::SyntaxKind;
 
-impl<'a> Parser<'a> {
-    /// Parses a MkDir statement.
+impl Parser<'_> {
+    /// Parses a `MkDir` statement.
     pub(crate) fn parse_mkdir_statement(&mut self) {
         self.parse_simple_builtin_statement(SyntaxKind::MkDirStatement);
     }

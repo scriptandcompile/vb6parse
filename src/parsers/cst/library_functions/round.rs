@@ -96,7 +96,7 @@
 //!
 //! ## Common Patterns
 //!
-//! ### Pattern 1: RoundCurrency
+//! ### Pattern 1: `RoundCurrency`
 //! ```vb
 //! Function RoundCurrency(amount As Double) As Double
 //!     ' Round to 2 decimal places for currency
@@ -104,7 +104,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 2: RoundPercentage
+//! ### Pattern 2: `RoundPercentage`
 //! ```vb
 //! Function RoundPercentage(percentage As Double, _
 //!                         Optional decimals As Integer = 1) As Double
@@ -113,7 +113,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 3: RoundToSignificantFigures
+//! ### Pattern 3: `RoundToSignificantFigures`
 //! ```vb
 //! Function RoundToSignificantFigures(value As Double, _
 //!                                   sigFigs As Integer) As Double
@@ -133,7 +133,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 4: RoundUpAlways
+//! ### Pattern 4: `RoundUpAlways`
 //! ```vb
 //! Function RoundUpAlways(value As Double, decimals As Integer) As Double
 //!     ' Always round up (ceiling behavior)
@@ -149,7 +149,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 5: RoundDownAlways
+//! ### Pattern 5: `RoundDownAlways`
 //! ```vb
 //! Function RoundDownAlways(value As Double, decimals As Integer) As Double
 //!     ' Always round down (floor behavior)
@@ -165,7 +165,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 6: RoundToNearest
+//! ### Pattern 6: `RoundToNearest`
 //! ```vb
 //! Function RoundToNearest(value As Double, nearest As Double) As Double
 //!     ' Round to nearest multiple of a number
@@ -174,7 +174,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 7: RoundArray
+//! ### Pattern 7: `RoundArray`
 //! ```vb
 //! Sub RoundArray(arr() As Double, decimals As Integer)
 //!     ' Round all elements in an array
@@ -186,7 +186,7 @@
 //! End Sub
 //! ```
 //!
-//! ### Pattern 8: RoundIfNeeded
+//! ### Pattern 8: `RoundIfNeeded`
 //! ```vb
 //! Function RoundIfNeeded(value As Double, decimals As Integer, _
 //!                       threshold As Double) As Double
@@ -203,7 +203,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 9: RoundForDisplay
+//! ### Pattern 9: `RoundForDisplay`
 //! ```vb
 //! Function RoundForDisplay(value As Double) As String
 //!     ' Round and format for display based on magnitude
@@ -219,7 +219,7 @@
 //! End Function
 //! ```
 //!
-//! ### Pattern 10: SymmetricRound
+//! ### Pattern 10: `SymmetricRound`
 //! ```vb
 //! Function SymmetricRound(value As Double, decimals As Integer) As Double
 //!     ' Traditional "round half up" instead of banker's rounding
@@ -649,8 +649,8 @@
 //! | **Round** | Round to decimals | Banker's rounding | General rounding, financial |
 //! | **Int** | Integer part | Truncate towards 0 | Get whole number part |
 //! | **Fix** | Integer part | Truncate towards 0 | Get whole number part |
-//! | **CInt** | Convert to integer | Round to nearest | Type conversion |
-//! | **CLng** | Convert to long | Round to nearest | Type conversion |
+//! | **`CInt`** | Convert to integer | Round to nearest | Type conversion |
+//! | **`CLng`** | Convert to long | Round to nearest | Type conversion |
 //! | **Format** | Format number | Can specify decimals | Display formatting |
 //!
 //! ## Platform and Version Notes
@@ -658,7 +658,7 @@
 //! - Available in VB6 and VBA (added in VB6/Office 2000)
 //! - Uses banker's rounding (IEEE 754 standard)
 //! - Not available in earlier VB versions (use Int or Fix instead)
-//! - In VB.NET, replaced by Math.Round with MidpointRounding enum
+//! - In VB.NET, replaced by Math.Round with `MidpointRounding` enum
 //! - Behavior differs from Excel's ROUND function (which uses "round half up")
 //!
 //! ## Limitations

@@ -2,11 +2,11 @@
 //!
 //! This module handles parsing of VB6 array statements and variable declarations:
 //! - Variable declarations (Dim, Private, Public, Const, Static)
-//! - Private and Public variables with WithEvents keyword for event-capable objects
-//! - ReDim - Reallocate storage space for dynamic array variables
+//! - Private and Public variables with `WithEvents` keyword for event-capable objects
+//! - `ReDim` - Reallocate storage space for dynamic array variables
 //! - Erase - Reinitialize the elements of fixed-size arrays and deallocate dynamic arrays
 //!
-//! # Variables with WithEvents
+//! # Variables with `WithEvents`
 //!
 //! The `WithEvents` keyword is used with `Private`, `Public`, or `Dim` to declare object variables
 //! that can respond to events raised by the object. This is commonly used in class modules
@@ -30,9 +30,9 @@
 //! ## Remarks
 //! - `WithEvents` can only be used with object variables
 //! - `WithEvents` variables must be declared as a specific class type, not As Object
-//! - Events are accessible through the object's event procedures (objectname_eventname)
-//! - Public WithEvents variables are accessible from other modules
-//! - Commonly used with form controls, ActiveX objects, and custom classes that raise events
+//! - Events are accessible through the object's event procedures (`objectname_eventname`)
+//! - Public `WithEvents` variables are accessible from other modules
+//! - Commonly used with form controls, `ActiveX` objects, and custom classes that raise events
 //!
 //! [WithEvents Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243352(v=vs.60))
 
@@ -41,11 +41,11 @@ use crate::parsers::SyntaxKind;
 
 use super::Parser;
 
-impl<'a> Parser<'a> {
-    /// Parse a ReDim statement.
+impl Parser<'_> {
+    /// Parse a `ReDim` statement.
     ///
-    /// VB6 ReDim statement syntax:
-    /// - ReDim [Preserve] varname(subscripts) [As type] [, varname(subscripts) [As type]] ...
+    /// VB6 `ReDim` statement syntax:
+    /// - `ReDim` [Preserve] varname(subscripts) [As type] [, varname(subscripts) [As type]] ...
     ///
     /// Used at procedure level to reallocate storage space for dynamic array variables.
     ///
@@ -70,9 +70,9 @@ impl<'a> Parser<'a> {
     /// VB6 variable declaration statement syntax:
     /// - Dim varname [As type]
     /// - Private varname [As type]
-    /// - Private WithEvents varname As objecttype
+    /// - Private `WithEvents` varname As objecttype
     /// - Public varname [As type]
-    /// - Public WithEvents varname As objecttype
+    /// - Public `WithEvents` varname As objecttype
     /// - Const constname = expression
     /// - Static varname [As type]
     ///

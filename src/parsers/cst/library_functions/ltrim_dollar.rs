@@ -132,7 +132,7 @@
 //! name = LTrim$(fixedRecord)  ' "Customer Name     "
 //! ```
 //!
-//! ### Combining with RTrim$ for Full Trim
+//! ### Combining with `RTrim`$ for Full Trim
 //! ```vb6
 //! Dim text As String
 //! text = "  Data  "
@@ -174,7 +174,7 @@
 //!
 //! ## Whitespace Handling
 //!
-//! | Character | ASCII | Removed by LTrim$ |
+//! | Character | ASCII | Removed by `LTrim`$ |
 //! |-----------|-------|-------------------|
 //! | Space | 32 | Yes (if leading) |
 //! | Tab | 9 | No |

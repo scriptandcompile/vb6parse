@@ -2,7 +2,7 @@ use crate::parsers::SyntaxKind;
 
 use super::Parser;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     // VB6 Get statement syntax:
     // - Get [#]filenumber, [recnumber], varname
     //

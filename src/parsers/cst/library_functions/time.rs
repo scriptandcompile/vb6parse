@@ -502,7 +502,7 @@
 //! 4. **Use Format$** to display time in specific format
 //! 5. **Consider time zones** for distributed applications
 //! 6. **Validate system time** is set correctly if critical
-//! 7. **Use TimeSerial** to create specific time values for comparison
+//! 7. **Use `TimeSerial`** to create specific time values for comparison
 //! 8. **Handle overnight periods** carefully (when start > end time)
 //! 9. **Store as Date type** not String for calculations
 //! 10. **Document time format** assumptions in code comments
@@ -518,7 +518,7 @@
 //! | `Time$` | String | No | Yes | 1 second |
 //!
 //! ## Platform Notes
-//! - Available in VB6, VBA, and VBScript
+//! - Available in VB6, VBA, and `VBScript`
 //! - Consistent behavior across platforms
 //! - Returns time based on system clock
 //! - Time format display depends on regional settings
@@ -531,7 +531,7 @@
 //! - No built-in UTC time support
 //! - Cannot specify which clock source to use
 //! - Display format depends on system locale settings
-//! - Cannot return time as numeric value directly (use CDbl or cast)
+//! - Cannot return time as numeric value directly (use `CDbl` or cast)
 //! - No built-in support for daylight saving time handling
 
 #[cfg(test)]

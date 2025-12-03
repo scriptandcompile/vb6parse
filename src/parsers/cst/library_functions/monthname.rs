@@ -1,4 +1,4 @@
-//! # MonthName Function
+//! # `MonthName` Function
 //!
 //! Returns a String indicating the specified month.
 //!
@@ -21,7 +21,7 @@
 //!
 //! ## Remarks
 //!
-//! The MonthName function returns the localized name of the month based on the system's regional settings.
+//! The `MonthName` function returns the localized name of the month based on the system's regional settings.
 //! It is commonly used for displaying month names in user interfaces, reports, and formatted output.
 //!
 //! ### Key Characteristics:
@@ -31,7 +31,7 @@
 //! - Abbreviate parameter is optional; defaults to False (full name)
 //! - Abbreviated names are typically 3 characters but may vary by locale
 //! - Much simpler than maintaining arrays of month names
-//! - Can be combined with Month() function for date formatting
+//! - Can be combined with `Month()` function for date formatting
 //! - Respects system locale for internationalization
 //!
 //! ### Common Use Cases:
@@ -528,7 +528,7 @@
 //!
 //! ## Performance Considerations
 //!
-//! - MonthName() is very fast - simple lookup operation
+//! - `MonthName()` is very fast - simple lookup operation
 //! - For repeated calls, consider caching month name arrays
 //! - No performance difference between full and abbreviated names
 //! - Locale lookup may add minimal overhead but is negligible
@@ -539,27 +539,27 @@
 //!
 //! 1. **Validate month numbers** - Always check that month is 1-12 before calling
 //! 2. **Use for localization** - Leverages system locale for international support
-//! 3. **Combine with Month()** - Extract month number from dates, then get name
+//! 3. **Combine with `Month()`** - Extract month number from dates, then get name
 //! 4. **Consider abbreviations** - Use abbreviated names for space-constrained displays
 //! 5. **Cache for UI** - Populate drop-downs once, not on every refresh
 //! 6. **Document format** - Clearly state whether full or abbreviated names are expected
 //! 7. **Test locales** - Test with different regional settings for international apps
 //! 8. **Handle errors** - Wrap in error handling for robust code
 //! 9. **Use constants** - Define month number constants for readability
-//! 10. **Prefer over arrays** - Use MonthName() instead of hardcoded name arrays
+//! 10. **Prefer over arrays** - Use `MonthName()` instead of hardcoded name arrays
 //!
 //! ## Comparison with Other Approaches
 //!
 //! | Approach | Pros | Cons |
 //! |----------|------|------|
-//! | **MonthName()** | Automatic localization, simple, no maintenance | Requires VBA/VB6, slightly slower than array |
+//! | **`MonthName()`** | Automatic localization, simple, no maintenance | Requires VBA/VB6, slightly slower than array |
 //! | **Hardcoded array** | Fast, full control | No localization, maintenance burden |
-//! | **Format()** | Flexible formatting | Returns different formats, not just name |
-//! | **DatePart()** | Returns number, not name | Need to convert to name separately |
+//! | **`Format()`** | Flexible formatting | Returns different formats, not just name |
+//! | **`DatePart()`** | Returns number, not name | Need to convert to name separately |
 //!
 //! ## Localization Notes
 //!
-//! The MonthName function returns month names based on the system's regional settings:
+//! The `MonthName` function returns month names based on the system's regional settings:
 //! - **English (US)**: "January", "February", etc. / "Jan", "Feb", etc.
 //! - **Spanish**: "enero", "febrero", etc. / "ene", "feb", etc.
 //! - **French**: "janvier", "février", etc. / "janv", "févr", etc.
@@ -571,7 +571,7 @@
 //!
 //! - Available in VBA (Excel, Access, Word, etc.)
 //! - Available in VB6
-//! - **Not available in VBScript** (VBScript lacks this function)
+//! - **Not available in `VBScript`** (`VBScript` lacks this function)
 //! - Returns String type
 //! - Consistent across all VBA platforms
 //! - Uses Control Panel regional settings
@@ -583,21 +583,21 @@
 //! - Error 5 if month is out of valid range
 //! - Returns names based on system locale only (cannot specify locale)
 //! - Abbreviated length varies by locale (usually 3 chars, but not always)
-//! - Not available in VBScript
+//! - Not available in `VBScript`
 //! - Cannot customize the returned names
 //!
 //! ## Related Functions
 //!
 //! - **Month** - Returns the month number (1-12) from a date
-//! - **WeekdayName** - Returns the name of the weekday (similar function for days)
+//! - **`WeekdayName`** - Returns the name of the weekday (similar function for days)
 //! - **Format** - Can format dates with month names using format strings
-//! - **DatePart** - Returns various parts of a date (including month number)
+//! - **`DatePart`** - Returns various parts of a date (including month number)
 //! - **Year** - Returns the year component of a date
 //! - **Day** - Returns the day component of a date
 //!
 //! ## VB6 Parser Notes
 //!
-//! MonthName is parsed as a regular function call (CallExpression). This module exists primarily
+//! `MonthName` is parsed as a regular function call (`CallExpression`). This module exists primarily
 //! for documentation purposes to provide comprehensive reference material for VB6 developers
 //! working with date formatting and display operations requiring localized month names.
 

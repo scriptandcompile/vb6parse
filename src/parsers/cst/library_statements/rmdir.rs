@@ -1,4 +1,4 @@
-//! # RmDir Statement
+//! # `RmDir` Statement
 //!
 //! Removes an empty directory or folder.
 //!
@@ -9,11 +9,11 @@
 //! ```
 //!
 //! - `path`: Required. String expression that identifies the directory or folder to be removed. May include drive.
-//!   If no drive is specified, RmDir removes the directory or folder on the current drive.
+//!   If no drive is specified, `RmDir` removes the directory or folder on the current drive.
 //!
 //! ## Remarks
 //!
-//! - An error occurs if you try to use RmDir on a directory containing files. Use the Kill statement to delete all files before attempting to remove a directory.
+//! - An error occurs if you try to use `RmDir` on a directory containing files. Use the Kill statement to delete all files before attempting to remove a directory.
 //! - An error also occurs if you try to remove a directory that doesn't exist.
 //! - The directory must be empty (contain no files or subdirectories) before it can be removed.
 //! - The `path` argument can include absolute or relative paths.
@@ -65,8 +65,8 @@
 use crate::parsers::cst::Parser;
 use crate::parsers::syntaxkind::SyntaxKind;
 
-impl<'a> Parser<'a> {
-    /// Parses an RmDir statement.
+impl Parser<'_> {
+    /// Parses an `RmDir` statement.
     pub(crate) fn parse_rmdir_statement(&mut self) {
         self.parse_simple_builtin_statement(SyntaxKind::RmDirStatement);
     }

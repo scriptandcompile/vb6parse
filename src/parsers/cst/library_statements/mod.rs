@@ -4,15 +4,15 @@
 //! each in their own sub-module.
 //!
 //! The built-in statements handled here are:
-//! - AppActivate: Activate an application window
+//! - `AppActivate`: Activate an application window
 //! - Beep: Sound a tone through the computer's speaker
-//! - ChDir: Change the current directory or folder
-//! - ChDrive: Change the current drive
+//! - `ChDir`: Change the current directory or folder
+//! - `ChDrive`: Change the current drive
 //! - Close: Close files opened with the Open statement
 //! - Date: Set the current system date
-//! - DeleteSetting: Delete a section or key setting from the Windows registry
+//! - `DeleteSetting`: Delete a section or key setting from the Windows registry
 //! - Error: Generate a run-time error
-//! - FileCopy: Copy a file
+//! - `FileCopy`: Copy a file
 //! - Get: Read data from an open disk file into a variable
 //! - Put: Write data from a variable to a disk file
 //! - Input: Read data from an open sequential file
@@ -22,21 +22,21 @@
 //! - Unload: Remove a form or control from memory
 //! - Lock: Control access to all or part of an open file
 //! - Unlock: Remove access restrictions from an open file
-//! - LSet: Left-align a string or copy a user-defined type
-//! - RSet: Right-align a string within a string variable
+//! - `LSet`: Left-align a string or copy a user-defined type
+//! - `RSet`: Right-align a string within a string variable
 //! - Mid: Replace characters in a string variable
-//! - MidB: Replace bytes in a string variable
-//! - MkDir: Create a new directory or folder
-//! - RmDir: Remove an empty directory or folder
+//! - `MidB`: Replace bytes in a string variable
+//! - `MkDir`: Create a new directory or folder
+//! - `RmDir`: Remove an empty directory or folder
 //! - Name: Rename a disk file, directory, or folder
 //! - Open: Open a file for input/output operations
 //! - Print: Write display-formatted data to a sequential file
 //! - Reset: Close all disk files opened using the Open statement
-//! - SavePicture: Save a graphical image to a file
-//! - SaveSetting: Save or create an application entry in the Windows registry
+//! - `SavePicture`: Save a graphical image to a file
+//! - `SaveSetting`: Save or create an application entry in the Windows registry
 //! - Seek: Set the position for the next read/write operation in a file
-//! - SendKeys: Send keystrokes to the active window
-//! - SetAttr: Set attribute information for a file
+//! - `SendKeys`: Send keystrokes to the active window
+//! - `SetAttr`: Set attribute information for a file
 //! - Stop: Suspend execution
 //! - Time: Set the current system time
 //! - Randomize: Initialize the random number generator
@@ -88,12 +88,12 @@ mod unlock;
 mod width;
 mod write;
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     /// Check if the current token is a library statement keyword.
     ///
     /// Special handling:
-    /// - ErrorKeyword followed by DollarSign is NOT a statement (it's the Error$ function)
-    /// - MidKeyword followed by DollarSign is NOT a statement (it's the Mid$ function)
+    /// - `ErrorKeyword` followed by `DollarSign` is NOT a statement (it's the Error$ function)
+    /// - `MidKeyword` followed by `DollarSign` is NOT a statement (it's the Mid$ function)
     /// So we exclude those patterns.
     pub(super) fn is_library_statement_keyword(&self) -> bool {
         // Special case: keyword/identifier + DollarSign is a function, not a statement
@@ -271,7 +271,7 @@ impl<'a> Parser<'a> {
     /// - Keyword [arguments]
     ///
     /// All built-in statements in this module share the same structure:
-    /// 1. Set parsing_header to false
+    /// 1. Set `parsing_header` to false
     /// 2. Start a syntax node of the given kind
     /// 3. Consume the keyword token
     /// 4. Consume everything until newline (arguments/parameters)
