@@ -246,6 +246,7 @@ pub enum CompilationType {
 }
 
 impl CompilationType {
+    #[must_use]
     pub fn update_optimization_type(&mut self, setting: OptimizationType) -> CompilationType {
         match self {
             CompilationType::PCode => CompilationType::NativeCode(NativeCodeSettings {
@@ -259,6 +260,7 @@ impl CompilationType {
         }
     }
 
+    #[must_use]
     pub fn update_favor_pentium_pro(&mut self, setting: FavorPentiumPro) -> CompilationType {
         match self {
             CompilationType::PCode => CompilationType::NativeCode(NativeCodeSettings {
@@ -272,6 +274,7 @@ impl CompilationType {
         }
     }
 
+    #[must_use]
     pub fn update_code_view_debug_info(&mut self, setting: CodeViewDebugInfo) -> CompilationType {
         match self {
             CompilationType::PCode => CompilationType::NativeCode(NativeCodeSettings {
@@ -285,6 +288,7 @@ impl CompilationType {
         }
     }
 
+    #[must_use]
     pub fn update_aliasing(&mut self, setting: Aliasing) -> CompilationType {
         match self {
             CompilationType::PCode => CompilationType::NativeCode(NativeCodeSettings {
@@ -298,6 +302,7 @@ impl CompilationType {
         }
     }
 
+    #[must_use]
     pub fn update_bounds_check(&mut self, setting: BoundsCheck) -> CompilationType {
         match self {
             CompilationType::PCode => CompilationType::NativeCode(NativeCodeSettings {
@@ -311,6 +316,7 @@ impl CompilationType {
         }
     }
 
+    #[must_use]
     pub fn update_overflow_check(&mut self, setting: OverflowCheck) -> CompilationType {
         match self {
             CompilationType::PCode => CompilationType::NativeCode(NativeCodeSettings {
@@ -324,6 +330,7 @@ impl CompilationType {
         }
     }
 
+    #[must_use]
     pub fn update_floating_point_check(
         &mut self,
         setting: FloatingPointErrorCheck,
@@ -354,6 +361,7 @@ impl CompilationType {
         }
     }
 
+    #[must_use]
     pub fn update_unrounded_floating_point(
         &mut self,
         setting: UnroundedFloatingPoint,
