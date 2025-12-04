@@ -1116,7 +1116,7 @@ where
     T: FromStr,
 {
     // This function is used to parse a value that is expected to be
-    // converted into an i16 value through TryFrom.
+    // converted into a value through TryFrom.
     // This kind of line starts with the line_type followed by '=', and a
     // value.
     let parameter_start = input.offset();
@@ -1140,8 +1140,10 @@ where
 
     let Ok(value) = parameter_value.parse::<T>() else {
         // We have a parameter value that is invalid, so we return an error.
-        let valid_value_message =
-            format!("Failed attempting to parse as i16. '{parameter_value}' is not a valid i16");
+        let valid_value_message = format!(
+            "Failed attempting to parse as {0}. '{parameter_value}' is not a valid {0}",
+            std::any::type_name::<T>()
+        );
 
         let fail = input.generate_error_at(
             parameter_start,
