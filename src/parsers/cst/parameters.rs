@@ -23,20 +23,85 @@ impl Parser<'_> {
         // Consume "("
         self.consume_token();
 
-        // Consume everything until ")"
-        let mut depth = 1;
-        while !self.is_at_end() && depth > 0 {
-            if self.at_token(VB6Token::LeftParenthesis) {
-                depth += 1;
-            } else if self.at_token(VB6Token::RightParenthesis) {
-                depth -= 1;
-            }
+        loop {
+            self.consume_whitespace();
 
-            self.consume_token();
-
-            if depth == 0 {
+            if self.at_token(VB6Token::RightParenthesis) || self.is_at_end() {
                 break;
             }
+
+            // Optional
+            if self.at_token(VB6Token::OptionalKeyword) {
+                self.consume_token();
+                self.consume_whitespace();
+            }
+
+            // ByVal / ByRef
+            if self.at_token(VB6Token::ByValKeyword) || self.at_token(VB6Token::ByRefKeyword) {
+                self.consume_token();
+                self.consume_whitespace();
+            }
+
+            // ParamArray
+            if self.at_token(VB6Token::ParamArrayKeyword) {
+                self.consume_token();
+                self.consume_whitespace();
+            }
+
+            // Variable name
+            if self.at_token(VB6Token::Identifier) {
+                self.consume_token();
+            } else {
+                // Error recovery
+                break;
+            }
+
+            self.consume_whitespace();
+
+            // Array parens ()
+            if self.at_token(VB6Token::LeftParenthesis) {
+                self.consume_token();
+                self.consume_whitespace();
+                if self.at_token(VB6Token::RightParenthesis) {
+                    self.consume_token();
+                }
+            }
+
+            self.consume_whitespace();
+
+            // As Type
+            if self.at_token(VB6Token::AsKeyword) {
+                self.consume_token();
+                self.consume_whitespace();
+                // Type name
+                self.consume_token();
+                while self.at_token(VB6Token::PeriodOperator) {
+                    self.consume_token();
+                    self.consume_token();
+                }
+            }
+
+            self.consume_whitespace();
+
+            // Default value
+            if self.at_token(VB6Token::EqualityOperator) {
+                self.consume_token();
+                self.consume_whitespace();
+                self.parse_expression();
+            }
+
+            self.consume_whitespace();
+
+            if self.at_token(VB6Token::Comma) {
+                self.consume_token();
+            } else {
+                break;
+            }
+        }
+
+        // Consume ")"
+        if self.at_token(VB6Token::RightParenthesis) {
+            self.consume_token();
         }
 
         self.builder.finish_node(); // ParameterList

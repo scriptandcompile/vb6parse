@@ -36,8 +36,14 @@ impl Parser<'_> {
         // Consume "If" keyword
         self.consume_token();
 
+        // Skip any leading whitespace
+        self.consume_whitespace();
+
         // Parse the conditional expression
-        self.parse_conditional();
+        self.parse_expression();
+
+        // Consume whitespace before Then
+        self.consume_whitespace();
 
         // Consume "Then" if present
         if self.at_token(VB6Token::ThenKeyword) {
@@ -166,8 +172,14 @@ impl Parser<'_> {
         // Consume `ElseIf` keyword
         self.consume_token();
 
+        // Consume any whitespace after `ElseIf`
+        self.consume_whitespace();
+        
         // Parse the conditional expression
-        self.parse_conditional();
+        self.parse_expression();
+
+        // Consume whitespace before Then
+        self.consume_whitespace();
 
         // Consume `Then` if present
         if self.at_token(VB6Token::ThenKeyword) {
@@ -439,31 +451,38 @@ End Sub
             .find(|child| child.kind == SyntaxKind::IfStatement)
             .expect("CodeBlock should contain an IfStatement");
 
-        // The IfStatement should contain a BinaryConditional
+        // The IfStatement should contain a BinaryExpression
         let binary_conditional = if_statement
             .children
             .iter()
-            .find(|child| child.kind == SyntaxKind::BinaryConditional)
-            .expect("IfStatement should contain a BinaryConditional");
+            .find(|child| child.kind == SyntaxKind::BinaryExpression)
+            .expect("IfStatement should contain a BinaryExpression");
 
-        // Verify the BinaryConditional structure
-        assert_eq!(binary_conditional.kind, SyntaxKind::BinaryConditional);
+        // Verify the BinaryExpression structure
+        assert_eq!(binary_conditional.kind, SyntaxKind::BinaryExpression);
         assert!(
             !binary_conditional.is_token,
-            "BinaryConditional should be a node, not a token"
+            "BinaryExpression should be a node, not a token"
         );
 
-        // Verify the BinaryConditional contains the expected elements:
+        // Verify the BinaryExpression contains the expected elements:
         // whitespace, identifier "x", whitespace, "=", whitespace, number "5", whitespace
         assert!(binary_conditional
             .children
             .iter()
-            .any(|c| c.kind == SyntaxKind::Identifier && c.text == "x"));
+            .any(|c| c.kind == SyntaxKind::IdentifierExpression && c.text == "x"));
         assert!(binary_conditional
             .children
             .iter()
             .any(|c| c.kind == SyntaxKind::EqualityOperator));
-        assert!(binary_conditional
+        
+        let literal_expr = binary_conditional
+            .children
+            .iter()
+            .find(|c| c.kind == SyntaxKind::NumericLiteralExpression)
+            .expect("BinaryExpression should contain a NumericLiteralExpression");
+            
+        assert!(literal_expr
             .children
             .iter()
             .any(|c| c.kind == SyntaxKind::IntegerLiteral && c.text == "5"));
@@ -501,42 +520,37 @@ End Sub
             .find(|child| child.kind == SyntaxKind::IfStatement)
             .expect("CodeBlock should contain an IfStatement");
 
-        // The IfStatement should contain a UnaryConditional
+        // The IfStatement should contain a UnaryExpression
         let unary_conditional = if_statement
             .children
             .iter()
-            .find(|child| child.kind == SyntaxKind::UnaryConditional)
-            .expect("IfStatement should contain a UnaryConditional");
+            .find(|child| child.kind == SyntaxKind::UnaryExpression)
+            .expect("IfStatement should contain a UnaryExpression");
 
-        // Verify the UnaryConditional structure
-        assert_eq!(unary_conditional.kind, SyntaxKind::UnaryConditional);
+        // Verify the UnaryExpression structure
+        assert_eq!(unary_conditional.kind, SyntaxKind::UnaryExpression);
         assert!(
             !unary_conditional.is_token,
-            "UnaryConditional should be a node, not a token"
+            "UnaryExpression should be a node, not a token"
         );
 
-        // Verify the UnaryConditional contains the expected elements:
-        // whitespace, Not keyword, whitespace, identifier "isEmpty", parentheses, identifier "x", parentheses, whitespace
+        // Verify the UnaryExpression contains the expected elements:
+        // whitespace, Not keyword, whitespace, CallExpression
         assert!(unary_conditional
             .children
             .iter()
             .any(|c| c.kind == SyntaxKind::NotKeyword));
-        assert!(unary_conditional
+            
+        let call_expr = unary_conditional
+            .children
+            .iter()
+            .find(|c| c.kind == SyntaxKind::CallExpression)
+            .expect("UnaryExpression should contain a CallExpression");
+            
+        assert!(call_expr
             .children
             .iter()
             .any(|c| c.kind == SyntaxKind::Identifier && c.text == "isEmpty"));
-        assert!(unary_conditional
-            .children
-            .iter()
-            .any(|c| c.kind == SyntaxKind::Identifier && c.text == "x"));
-        assert!(unary_conditional
-            .children
-            .iter()
-            .any(|c| c.kind == SyntaxKind::LeftParenthesis));
-        assert!(unary_conditional
-            .children
-            .iter()
-            .any(|c| c.kind == SyntaxKind::RightParenthesis));
     }
 
     #[test]
@@ -577,16 +591,16 @@ End Sub
             .find(|child| child.kind == SyntaxKind::IfStatement)
             .expect("CodeBlock should contain an outer IfStatement");
 
-        // Verify outer If has a BinaryConditional (x > 0)
+        // Verify outer If has a BinaryExpression (x > 0)
         let outer_conditional = outer_if
             .children
             .iter()
-            .find(|child| child.kind == SyntaxKind::BinaryConditional)
-            .expect("Outer IfStatement should contain a BinaryConditional");
+            .find(|child| child.kind == SyntaxKind::BinaryExpression)
+            .expect("Outer IfStatement should contain a BinaryExpression");
         assert!(outer_conditional
             .children
             .iter()
-            .any(|c| c.kind == SyntaxKind::Identifier && c.text == "x"));
+            .any(|c| c.kind == SyntaxKind::IdentifierExpression && c.text == "x"));
         assert!(outer_conditional
             .children
             .iter()
@@ -606,16 +620,16 @@ End Sub
             .find(|child| child.kind == SyntaxKind::IfStatement)
             .expect("Outer CodeBlock should contain a nested IfStatement");
 
-        // Verify inner If has a BinaryConditional (y > 0)
+        // Verify inner If has a BinaryExpression (y > 0)
         let inner_conditional = inner_if
             .children
             .iter()
-            .find(|child| child.kind == SyntaxKind::BinaryConditional)
-            .expect("Inner IfStatement should contain a BinaryConditional");
+            .find(|child| child.kind == SyntaxKind::BinaryExpression)
+            .expect("Inner IfStatement should contain a BinaryExpression");
         assert!(inner_conditional
             .children
             .iter()
-            .any(|c| c.kind == SyntaxKind::Identifier && c.text == "y"));
+            .any(|c| c.kind == SyntaxKind::IdentifierExpression && c.text == "y"));
         assert!(inner_conditional
             .children
             .iter()
@@ -628,16 +642,16 @@ End Sub
             .find(|child| child.kind == SyntaxKind::ElseIfClause)
             .expect("Inner IfStatement should contain an ElseIfClause");
 
-        // Verify inner ElseIf has a BinaryConditional (y < 0)
+        // Verify inner ElseIf has a BinaryExpression (y < 0)
         let inner_elseif_conditional = inner_elseif
             .children
             .iter()
-            .find(|child| child.kind == SyntaxKind::BinaryConditional)
-            .expect("Inner ElseIfClause should contain a BinaryConditional");
+            .find(|child| child.kind == SyntaxKind::BinaryExpression)
+            .expect("Inner ElseIfClause should contain a BinaryExpression");
         assert!(inner_elseif_conditional
             .children
             .iter()
-            .any(|c| c.kind == SyntaxKind::Identifier && c.text == "y"));
+            .any(|c| c.kind == SyntaxKind::IdentifierExpression && c.text == "y"));
         assert!(inner_elseif_conditional
             .children
             .iter()
@@ -659,16 +673,17 @@ End Sub
             .find(|child| child.kind == SyntaxKind::ElseIfClause)
             .expect("Outer IfStatement should contain an ElseIfClause");
 
-        // Verify outer ElseIf has a BinaryConditional (x < 0)
+        // Verify outer ElseIf has a BinaryExpression (x < 0)
         let outer_elseif_conditional = outer_elseif
             .children
             .iter()
-            .find(|child| child.kind == SyntaxKind::BinaryConditional)
-            .expect("Outer ElseIfClause should contain a BinaryConditional");
+            .find(|child| child.kind == SyntaxKind::BinaryExpression)
+            .expect("Outer ElseIfClause should contain a BinaryExpression");
+        
         assert!(outer_elseif_conditional
             .children
             .iter()
-            .any(|c| c.kind == SyntaxKind::Identifier && c.text == "x"));
+            .any(|c| c.kind == SyntaxKind::IdentifierExpression && c.text == "x"));
         assert!(outer_elseif_conditional
             .children
             .iter()

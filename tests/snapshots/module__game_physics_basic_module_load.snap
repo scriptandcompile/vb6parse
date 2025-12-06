@@ -2058,10 +2058,8 @@ tokens:
       - Identifier
     - - " "
       - Whitespace
-    - - "<"
-      - LessThanOperator
-    - - ">"
-      - GreaterThanOperator
+    - - "<>"
+      - InequalityOperator
     - - " "
       - Whitespace
     - - "0"
@@ -2126,10 +2124,8 @@ tokens:
       - Identifier
     - - " "
       - Whitespace
-    - - "<"
-      - LessThanOperator
-    - - "="
-      - EqualityOperator
+    - - "<="
+      - LessThanOrEqualOperator
     - - " "
       - Whitespace
     - - "0"
@@ -2190,10 +2186,8 @@ tokens:
       - Identifier
     - - " "
       - Whitespace
-    - - ">"
-      - GreaterThanOperator
-    - - "="
-      - EqualityOperator
+    - - ">="
+      - GreaterThanOrEqualOperator
     - - " "
       - Whitespace
     - - "0"
@@ -2492,10 +2486,8 @@ tokens:
       - Identifier
     - - " "
       - Whitespace
-    - - "<"
-      - LessThanOperator
-    - - ">"
-      - GreaterThanOperator
+    - - "<>"
+      - InequalityOperator
     - - " "
       - Whitespace
     - - "0"
@@ -2560,10 +2552,8 @@ tokens:
       - Identifier
     - - " "
       - Whitespace
-    - - "<"
-      - LessThanOperator
-    - - "="
-      - EqualityOperator
+    - - "<="
+      - LessThanOrEqualOperator
     - - " "
       - Whitespace
     - - "0"
@@ -2624,10 +2614,8 @@ tokens:
       - Identifier
     - - " "
       - Whitespace
-    - - ">"
-      - GreaterThanOperator
-    - - "="
-      - EqualityOperator
+    - - ">="
+      - GreaterThanOrEqualOperator
     - - " "
       - Whitespace
     - - "0"

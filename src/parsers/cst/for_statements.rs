@@ -27,33 +27,42 @@ impl Parser<'_> {
         // Consume "For" keyword
         self.consume_token();
 
-        // Consume everything until "To" or newline
-        // This includes: counter variable, "=", start value
-        while !self.is_at_end()
-            && !self.at_token(VB6Token::ToKeyword)
-            && !self.at_token(VB6Token::Newline)
-        {
+        // Parse counter variable (lvalue)
+        self.parse_lvalue();
+
+        self.consume_whitespace();
+
+        // Consume "="
+        if self.at_token(VB6Token::EqualityOperator) {
             self.consume_token();
         }
+
+        self.consume_whitespace();
+
+        // Parse start value
+        self.parse_expression();
+
+        self.consume_whitespace();
 
         // Consume "To" keyword if present
         if self.at_token(VB6Token::ToKeyword) {
             self.consume_token();
 
-            // Consume everything until "Step" or newline (the end value)
-            while !self.is_at_end()
-                && !self.at_token(VB6Token::StepKeyword)
-                && !self.at_token(VB6Token::Newline)
-            {
-                self.consume_token();
-            }
+            self.consume_whitespace();
+
+            // Parse end value
+            self.parse_expression();
+
+            self.consume_whitespace();
 
             // Consume "Step" keyword if present
             if self.at_token(VB6Token::StepKeyword) {
                 self.consume_token();
 
-                // Consume everything until newline (the step value)
-                self.consume_until(VB6Token::Newline);
+                self.consume_whitespace();
+
+                // Parse step value
+                self.parse_expression();
             }
         }
 

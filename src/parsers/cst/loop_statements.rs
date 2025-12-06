@@ -44,8 +44,11 @@ impl Parser<'_> {
             // Consume While or Until
             self.consume_token();
 
+            // Consume any whitespace after While or Until
+            self.consume_whitespace();
+
             // Parse condition - consume everything until newline
-            self.parse_conditional();
+            self.parse_expression();
         }
 
         // Consume newline after Do line
@@ -68,8 +71,11 @@ impl Parser<'_> {
                 // Consume While or Until
                 self.consume_token();
 
+                // Consume any whitespace after While or Until
+                self.consume_whitespace();
+
                 // Parse condition - consume everything until newline
-                self.parse_conditional();
+                self.parse_expression();
             }
 
             // Consume newline after Loop
@@ -149,7 +155,7 @@ impl Parser<'_> {
         self.consume_whitespace();
 
         // Parse condition - consume everything until newline
-        self.parse_conditional();
+        self.parse_expression();
 
         // Consume newline after While line
         if self.at_token(VB6Token::Newline) {
