@@ -1123,6 +1123,12 @@ pub enum VB6Token {
     LessThanOperator,
     /// Represents a greater than operator `>`.
     GreaterThanOperator,
+    /// Represents an inequality operator `<>`.
+    InequalityOperator,
+    /// Represents a less than or equal operator `<=`.
+    LessThanOrEqualOperator,
+    /// Represents a greater than or equal operator `>=`.
+    GreaterThanOrEqualOperator,
     /// Represents a multiplication operator `*`.
     MultiplicationOperator,
     /// Represents a subtraction operator `-`.
@@ -1203,6 +1209,7 @@ impl VB6Token {
                 | VB6Token::WidthKeyword
                 | VB6Token::WriteKeyword
                 | VB6Token::TimeKeyword
+                | VB6Token::DateKeyword
                 | VB6Token::SetAttrKeyword
                 | VB6Token::SetKeyword
                 | VB6Token::SendKeysKeyword

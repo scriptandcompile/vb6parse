@@ -58,6 +58,89 @@ impl Parser<'_> {
 
         // Consume "ReDim" keyword
         self.consume_token();
+        self.consume_whitespace();
+
+        // Optional Preserve
+        if self.at_token(VB6Token::PreserveKeyword) {
+            self.consume_token();
+            self.consume_whitespace();
+        }
+
+        loop {
+            self.consume_whitespace();
+
+            if self.at_token(VB6Token::Newline)
+                || self.at_token(VB6Token::ColonOperator)
+                || self.is_at_end()
+            {
+                break;
+            }
+
+            // Variable name
+            if self.at_token(VB6Token::Identifier) {
+                self.consume_token();
+            } else {
+                // Error recovery
+                while !self.is_at_end()
+                    && !self.at_token(VB6Token::Comma)
+                    && !self.at_token(VB6Token::Newline)
+                {
+                    self.consume_token();
+                }
+            }
+
+            self.consume_whitespace();
+
+            // Array bounds: (1 To 10)
+            if self.at_token(VB6Token::LeftParenthesis) {
+                self.consume_token();
+                // Parse bounds list
+                loop {
+                    self.consume_whitespace();
+                    if self.at_token(VB6Token::RightParenthesis) {
+                        break;
+                    }
+                    self.parse_expression(); // lower or upper
+                    self.consume_whitespace();
+                    if self.at_token(VB6Token::ToKeyword) {
+                        self.consume_token();
+                        self.consume_whitespace();
+                        self.parse_expression(); // upper
+                    }
+
+                    if self.at_token(VB6Token::Comma) {
+                        self.consume_token();
+                    } else {
+                        break;
+                    }
+                }
+                if self.at_token(VB6Token::RightParenthesis) {
+                    self.consume_token();
+                }
+            }
+
+            self.consume_whitespace();
+
+            // As Type
+            if self.at_token(VB6Token::AsKeyword) {
+                self.consume_token();
+                self.consume_whitespace();
+                // Type name
+                self.consume_token();
+                while self.at_token(VB6Token::PeriodOperator) {
+                    self.consume_token();
+                    self.consume_token();
+                }
+            }
+
+            self.consume_whitespace();
+
+            if self.at_token(VB6Token::Comma) {
+                self.consume_token();
+            } else {
+                break;
+            }
+        }
 
         // Consume everything until newline (Preserve, variable declarations, etc.)
         self.consume_until_after(VB6Token::Newline);
@@ -102,6 +185,102 @@ impl Parser<'_> {
 
         // Consume the keyword (Dim, Private, Public, Const, Static, etc.)
         self.consume_token();
+
+        loop {
+            self.consume_whitespace();
+
+            if self.at_token(VB6Token::Newline)
+                || self.at_token(VB6Token::ColonOperator)
+                || self.is_at_end()
+            {
+                break;
+            }
+
+            // WithEvents
+            if self.at_token(VB6Token::WithEventsKeyword) {
+                self.consume_token();
+                self.consume_whitespace();
+            }
+
+            // Variable name
+            if self.at_token(VB6Token::Identifier) {
+                self.consume_token();
+            } else {
+                // Error recovery: consume until comma or newline
+                while !self.is_at_end()
+                    && !self.at_token(VB6Token::Comma)
+                    && !self.at_token(VB6Token::Newline)
+                {
+                    self.consume_token();
+                }
+            }
+
+            self.consume_whitespace();
+
+            // Array bounds: (1 To 10)
+            if self.at_token(VB6Token::LeftParenthesis) {
+                self.consume_token();
+                // Parse bounds list
+                loop {
+                    self.consume_whitespace();
+                    if self.at_token(VB6Token::RightParenthesis) {
+                        break;
+                    }
+                    self.parse_expression(); // lower or upper
+                    self.consume_whitespace();
+                    if self.at_token(VB6Token::ToKeyword) {
+                        self.consume_token();
+                        self.consume_whitespace();
+                        self.parse_expression(); // upper
+                    }
+
+                    if self.at_token(VB6Token::Comma) {
+                        self.consume_token();
+                    } else {
+                        break;
+                    }
+                }
+                if self.at_token(VB6Token::RightParenthesis) {
+                    self.consume_token();
+                }
+            }
+
+            self.consume_whitespace();
+
+            // As Type
+            if self.at_token(VB6Token::AsKeyword) {
+                self.consume_token();
+                self.consume_whitespace();
+                if self.at_token(VB6Token::NewKeyword) {
+                    self.consume_token();
+                    self.consume_whitespace();
+                }
+                // Type name (identifier or keyword)
+                self.consume_token();
+                // Handle complex types like ADODB.Connection
+                while self.at_token(VB6Token::PeriodOperator) {
+                    self.consume_token();
+                    self.consume_token();
+                }
+            }
+
+            self.consume_whitespace();
+
+            // Initializer (for Const or optional initialization)
+            if self.at_token(VB6Token::EqualityOperator) {
+                self.consume_token();
+                self.consume_whitespace();
+                self.parse_expression();
+            }
+
+            self.consume_whitespace();
+
+            if self.at_token(VB6Token::Comma) {
+                self.consume_token();
+            } else {
+                break;
+            }
+        }
 
         // Consume everything until newline (preserving all tokens)
         self.consume_until_after(VB6Token::Newline);

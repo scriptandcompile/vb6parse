@@ -165,6 +165,9 @@ static KEYWORD_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, VB6Token> = phf_orde
 };
 
 static SYMBOL_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, VB6Token> = phf_ordered_map! {
+    "<>" => VB6Token::InequalityOperator,
+    "<=" => VB6Token::LessThanOrEqualOperator,
+    ">=" => VB6Token::GreaterThanOrEqualOperator,
     "=" => VB6Token::EqualityOperator,
     "$" => VB6Token::DollarSign,
     "_" => VB6Token::Underscore,

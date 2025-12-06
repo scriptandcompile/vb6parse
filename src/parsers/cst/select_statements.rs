@@ -42,7 +42,12 @@ impl Parser<'_> {
             self.consume_token();
         }
 
-        // Consume everything until newline (the expression)
+        self.consume_whitespace();
+
+        // Parse the test expression
+        self.parse_expression();
+
+        // Consume newline
         self.consume_until_after(VB6Token::Newline);
 
         // Parse Case clauses until "End Select"

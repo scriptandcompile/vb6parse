@@ -57,80 +57,6 @@ impl Parser<'_> {
         )
     }
 
-    /// Check if we're at the end of a logical line (newline that's NOT a line continuation)
-    /// In VB6, `_` followed by zero or more whitespaces and then a newline means "continue on next line"
-    ///
-    /// This function primarily looks forward without backtracking, except when positioned
-    /// directly at a newline (which requires checking backward for a preceding underscore):
-    /// - Scans forward through whitespace  
-    /// - If underscore found, checks forward for newline (no backtracking)
-    /// - If newline found directly, checks backward for underscore (minimal backtracking)
-    /// - Otherwise returns false (not at line end)
-    pub(super) fn is_at_logical_line_end(&self) -> bool {
-        let mut check_pos = self.pos;
-
-        // Skip forward over any whitespace
-        while let Some((_, token)) = self.tokens.get(check_pos) {
-            match token {
-                VB6Token::Whitespace => {
-                    check_pos += 1;
-                }
-                VB6Token::Underscore => {
-                    // Found underscore - check forward if it's followed by whitespace* + newline
-                    let mut after_underscore = check_pos + 1;
-
-                    // Skip whitespace after underscore
-                    while let Some((_, ws_token)) = self.tokens.get(after_underscore) {
-                        if *ws_token == VB6Token::Whitespace {
-                            after_underscore += 1;
-                        } else {
-                            break;
-                        }
-                    }
-
-                    // Check if we found a newline after the underscore (and optional whitespace)
-                    if let Some((_, next_token)) = self.tokens.get(after_underscore) {
-                        if *next_token == VB6Token::Newline {
-                            // This is a line continuation (underscore + whitespace* + newline)
-                            return false;
-                        }
-                    }
-
-                    // Underscore not followed by newline - not a line continuation
-                    return false;
-                }
-                VB6Token::Newline => {
-                    // Found newline directly - must check backward for preceding underscore
-                    // This is the only case requiring backtracking, when already positioned at/near newline
-                    let mut back_pos = self.pos;
-
-                    // Skip backward over whitespace
-                    while back_pos > 0 {
-                        back_pos -= 1;
-                        if let Some((_, back_token)) = self.tokens.get(back_pos) {
-                            match back_token {
-                                VB6Token::Whitespace => {}
-                                VB6Token::Underscore => return false, // Line continuation
-                                _ => return true,                     // Logical line end
-                            }
-                        }
-                    }
-
-                    // Newline at start of file
-                    return true;
-                }
-                _ => {
-                    // Hit a non-whitespace, non-underscore, non-newline token
-                    // Not at end of line
-                    return false;
-                }
-            }
-        }
-
-        // End of file
-        false
-    }
-
     /// Peek ahead and get the next `count` non-whitespace keywords from the current position.
     ///
     /// # Arguments
@@ -205,27 +131,34 @@ impl Parser<'_> {
                 // Only merge if it's one of the known dollar functions
                 if let Some((text, _)) = self.tokens.get(self.pos) {
                     let text_upper = text.to_uppercase();
-                    if matches!(text_upper.as_str(), |"CHR"| "CHRB"
-                        | "CHRW"
-                        | "COMMAND"
-                        | "CURDIR"
-                        | "ENVIRON"
-                        | "FORMAT"
-                        | "HEX"
-                        | "LCASE"
-                        | "LEFT"
-                        | "LEFTB"
-                        | "LTRIM"
-                        | "OCT"
-                        | "RIGHT"
-                        | "RIGHTB"
-                        | "RTRIM"
-                        | "SPACE"
-                        | "STR"
-                        | "TIME"
-                        | "TRIM"
-                        | "UCASE")
-                    {
+                    if matches!(
+                        text_upper.as_str(),
+                        "CHR"
+                            | "CHRB"
+                            | "CHRW"
+                            | "COMMAND"
+                            | "CURDIR"
+                            | "DATE"
+                            | "ENVIRON"
+                            | "ERROR"
+                            | "FORMAT"
+                            | "HEX"
+                            | "LCASE"
+                            | "LEFT"
+                            | "LEFTB"
+                            | "LTRIM"
+                            | "MID"
+                            | "MIDB"
+                            | "OCT"
+                            | "RIGHT"
+                            | "RIGHTB"
+                            | "RTRIM"
+                            | "SPACE"
+                            | "STR"
+                            | "TIME"
+                            | "TRIM"
+                            | "UCASE"
+                    ) {
                         return true;
                     }
                 }
@@ -276,9 +209,42 @@ impl Parser<'_> {
     }
 
     /// Consume all whitespace tokens at the current position.
+    /// Also consumes line continuations (underscore followed by newline).
     pub(super) fn consume_whitespace(&mut self) {
-        while self.at_token(VB6Token::Whitespace) {
-            self.consume_token();
+        loop {
+            if self.at_token(VB6Token::Whitespace) {
+                self.consume_token();
+            } else if self.at_token(VB6Token::Underscore) {
+                // Check for line continuation: Underscore [Whitespace] Newline
+                let mut lookahead = 1;
+                let mut is_continuation = false;
+
+                // Skip whitespace after underscore
+                while let Some((_, token)) = self.tokens.get(self.pos + lookahead) {
+                    if *token == VB6Token::Whitespace {
+                        lookahead += 1;
+                    } else if *token == VB6Token::Newline {
+                        is_continuation = true;
+                        break;
+                    } else {
+                        break;
+                    }
+                }
+
+                if is_continuation {
+                    // Consume Underscore
+                    self.consume_token();
+                    // Consume whitespace and Newline
+                    while !self.at_token(VB6Token::Newline) {
+                        self.consume_token();
+                    }
+                    self.consume_token(); // Consume Newline
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
         }
     }
 

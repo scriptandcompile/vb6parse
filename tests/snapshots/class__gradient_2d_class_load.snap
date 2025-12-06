@@ -1008,10 +1008,8 @@ tokens:
       - Identifier
     - - " "
       - Whitespace
-    - - "<"
-      - LessThanOperator
-    - - ">"
-      - GreaterThanOperator
+    - - "<>"
+      - InequalityOperator
     - - " "
       - Whitespace
     - - "0"
