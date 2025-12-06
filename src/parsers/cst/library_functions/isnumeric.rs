@@ -646,7 +646,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_isnumeric_basic() {
+    fn isnumeric_basic() {
         let source = r#"
 Sub Test()
     result = IsNumeric(myVariable)
@@ -659,7 +659,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnumeric_if_statement() {
+    fn isnumeric_if_statement() {
         let source = r#"
 Sub Test()
     If IsNumeric(value) Then
@@ -674,7 +674,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnumeric_not_condition() {
+    fn isnumeric_not_condition() {
         let source = r#"
 Sub Test()
     If Not IsNumeric(input) Then
@@ -689,7 +689,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnumeric_function_return() {
+    fn isnumeric_function_return() {
         let source = r#"
 Function IsValidNumber(v As Variant) As Boolean
     IsValidNumber = IsNumeric(v)
@@ -702,7 +702,7 @@ End Function
     }
 
     #[test]
-    fn test_isnumeric_boolean_and() {
+    fn isnumeric_boolean_and() {
         let source = r#"
 Sub Test()
     If IsNumeric(value1) And IsNumeric(value2) Then
@@ -717,7 +717,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnumeric_boolean_or() {
+    fn isnumeric_boolean_or() {
         let source = r#"
 Sub Test()
     If IsNumeric(field) Or IsDate(field) Then
@@ -732,7 +732,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnumeric_iif() {
+    fn isnumeric_iif() {
         let source = r#"
 Sub Test()
     displayValue = IIf(IsNumeric(value), CDbl(value), 0)
@@ -745,7 +745,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnumeric_debug_print() {
+    fn isnumeric_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print "Is numeric: " & IsNumeric(testVar)
@@ -758,7 +758,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnumeric_msgbox() {
+    fn isnumeric_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Numeric status: " & IsNumeric(userInput)
@@ -771,7 +771,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnumeric_do_while() {
+    fn isnumeric_do_while() {
         let source = r#"
 Sub Test()
     Do While Not IsNumeric(input)
@@ -786,7 +786,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnumeric_do_until() {
+    fn isnumeric_do_until() {
         let source = r#"
 Sub Test()
     Do Until IsNumeric(result)
@@ -801,7 +801,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnumeric_variable_assignment() {
+    fn isnumeric_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim isValid As Boolean
@@ -815,7 +815,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnumeric_property_assignment() {
+    fn isnumeric_property_assignment() {
         let source = r#"
 Sub Test()
     obj.IsNumericValue = IsNumeric(obj.Data)
@@ -828,7 +828,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnumeric_in_class() {
+    fn isnumeric_in_class() {
         let source = r#"
 Private Sub Class_Initialize()
     m_isNumeric = IsNumeric(m_value)
@@ -841,7 +841,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnumeric_with_statement() {
+    fn isnumeric_with_statement() {
         let source = r#"
 Sub Test()
     With validation
@@ -856,7 +856,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnumeric_function_argument() {
+    fn isnumeric_function_argument() {
         let source = r#"
 Sub Test()
     Call ValidateInput(IsNumeric(txtAmount.Text))
@@ -869,7 +869,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnumeric_select_case() {
+    fn isnumeric_select_case() {
         let source = r#"
 Sub Test()
     Select Case True
@@ -887,7 +887,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnumeric_for_loop() {
+    fn isnumeric_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Integer
@@ -905,7 +905,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnumeric_elseif() {
+    fn isnumeric_elseif() {
         let source = r#"
 Sub Test()
     If IsDate(data) Then
@@ -922,7 +922,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnumeric_concatenation() {
+    fn isnumeric_concatenation() {
         let source = r#"
 Sub Test()
     status = "Valid: " & IsNumeric(variable)
@@ -935,7 +935,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnumeric_parentheses() {
+    fn isnumeric_parentheses() {
         let source = r#"
 Sub Test()
     result = (IsNumeric(value))
@@ -948,7 +948,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnumeric_array_filter() {
+    fn isnumeric_array_filter() {
         let source = r#"
 Sub Test()
     checks(i) = IsNumeric(values(i))
@@ -961,7 +961,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnumeric_collection_add() {
+    fn isnumeric_collection_add() {
         let source = r#"
 Sub Test()
     numericFlags.Add IsNumeric(data(i))
@@ -974,7 +974,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnumeric_comparison() {
+    fn isnumeric_comparison() {
         let source = r#"
 Sub Test()
     If IsNumeric(var1) = IsNumeric(var2) Then
@@ -989,7 +989,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnumeric_nested_call() {
+    fn isnumeric_nested_call() {
         let source = r#"
 Sub Test()
     result = CStr(IsNumeric(myVar))
@@ -1002,7 +1002,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnumeric_while_wend() {
+    fn isnumeric_while_wend() {
         let source = r#"
 Sub Test()
     While Not IsNumeric(buffer)
@@ -1017,7 +1017,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnumeric_input_validation() {
+    fn isnumeric_input_validation() {
         let source = r#"
 Function GetNumber() As Double
     Dim input As String

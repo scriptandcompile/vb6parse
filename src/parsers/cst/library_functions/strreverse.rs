@@ -631,7 +631,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_strreverse_basic() {
+    fn strreverse_basic() {
         let source = r#"
 Sub Test()
     result = StrReverse("Hello")
@@ -644,7 +644,7 @@ End Sub
     }
 
     #[test]
-    fn test_strreverse_variable_assignment() {
+    fn strreverse_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim reversed As String
@@ -658,7 +658,7 @@ End Sub
     }
 
     #[test]
-    fn test_strreverse_palindrome_check() {
+    fn strreverse_palindrome_check() {
         let source = r#"
 Sub Test()
     If text = StrReverse(text) Then
@@ -672,7 +672,7 @@ End Sub
     }
 
     #[test]
-    fn test_strreverse_function_return() {
+    fn strreverse_function_return() {
         let source = r#"
 Function Reverse(s As String) As String
     Reverse = StrReverse(s)
@@ -684,7 +684,7 @@ End Function
     }
 
     #[test]
-    fn test_strreverse_concatenation() {
+    fn strreverse_concatenation() {
         let source = r#"
 Sub Test()
     result = text & " | " & StrReverse(text)
@@ -696,7 +696,7 @@ End Sub
     }
 
     #[test]
-    fn test_strreverse_with_lcase() {
+    fn strreverse_with_lcase() {
         let source = r#"
 Sub Test()
     If LCase$(text) = StrReverse(LCase$(text)) Then
@@ -710,7 +710,7 @@ End Sub
     }
 
     #[test]
-    fn test_strreverse_for_loop() {
+    fn strreverse_for_loop() {
         let source = r#"
 Sub Test()
     For i = LBound(arr) To UBound(arr)
@@ -724,7 +724,7 @@ End Sub
     }
 
     #[test]
-    fn test_strreverse_if_statement() {
+    fn strreverse_if_statement() {
         let source = r#"
 Sub Test()
     If StrReverse(str1) = str2 Then
@@ -738,7 +738,7 @@ End Sub
     }
 
     #[test]
-    fn test_strreverse_debug_print() {
+    fn strreverse_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print StrReverse(message)
@@ -750,7 +750,7 @@ End Sub
     }
 
     #[test]
-    fn test_strreverse_msgbox() {
+    fn strreverse_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox StrReverse("Hello World")
@@ -762,7 +762,7 @@ End Sub
     }
 
     #[test]
-    fn test_strreverse_array_assignment() {
+    fn strreverse_array_assignment() {
         let source = r#"
 Sub Test()
     reversed(i) = StrReverse(original(i))
@@ -774,7 +774,7 @@ End Sub
     }
 
     #[test]
-    fn test_strreverse_function_argument() {
+    fn strreverse_function_argument() {
         let source = r#"
 Sub Test()
     Call ProcessString(StrReverse(input))
@@ -786,7 +786,7 @@ End Sub
     }
 
     #[test]
-    fn test_strreverse_select_case() {
+    fn strreverse_select_case() {
         let source = r#"
 Sub Test()
     Select Case StrReverse(code)
@@ -801,7 +801,7 @@ End Sub
     }
 
     #[test]
-    fn test_strreverse_do_while() {
+    fn strreverse_do_while() {
         let source = r#"
 Sub Test()
     Do While StrReverse(current) <> target
@@ -815,7 +815,7 @@ End Sub
     }
 
     #[test]
-    fn test_strreverse_do_until() {
+    fn strreverse_do_until() {
         let source = r#"
 Sub Test()
     Do Until StrReverse(text) = original
@@ -829,7 +829,7 @@ End Sub
     }
 
     #[test]
-    fn test_strreverse_while_wend() {
+    fn strreverse_while_wend() {
         let source = r#"
 Sub Test()
     While Len(StrReverse(str)) > 10
@@ -843,7 +843,7 @@ End Sub
     }
 
     #[test]
-    fn test_strreverse_iif() {
+    fn strreverse_iif() {
         let source = r#"
 Sub Test()
     result = IIf(reverse, StrReverse(text), text)
@@ -855,7 +855,7 @@ End Sub
     }
 
     #[test]
-    fn test_strreverse_with_statement() {
+    fn strreverse_with_statement() {
         let source = r#"
 Sub Test()
     With obj
@@ -869,7 +869,7 @@ End Sub
     }
 
     #[test]
-    fn test_strreverse_parentheses() {
+    fn strreverse_parentheses() {
         let source = r#"
 Sub Test()
     result = (StrReverse(str1) & StrReverse(str2))
@@ -881,7 +881,7 @@ End Sub
     }
 
     #[test]
-    fn test_strreverse_error_handling() {
+    fn strreverse_error_handling() {
         let source = r#"
 Sub Test()
     On Error Resume Next
@@ -897,7 +897,7 @@ End Sub
     }
 
     #[test]
-    fn test_strreverse_property_assignment() {
+    fn strreverse_property_assignment() {
         let source = r#"
 Sub Test()
     obj.ReversedName = StrReverse(obj.Name)
@@ -909,7 +909,7 @@ End Sub
     }
 
     #[test]
-    fn test_strreverse_comparison() {
+    fn strreverse_comparison() {
         let source = r#"
 Sub Test()
     isReverse = (str1 = StrReverse(str2))
@@ -921,7 +921,7 @@ End Sub
     }
 
     #[test]
-    fn test_strreverse_nested() {
+    fn strreverse_nested() {
         let source = r#"
 Sub Test()
     result = StrReverse(StrReverse(text))
@@ -933,7 +933,7 @@ End Sub
     }
 
     #[test]
-    fn test_strreverse_with_trim() {
+    fn strreverse_with_trim() {
         let source = r#"
 Sub Test()
     result = StrReverse(Trim$(input))
@@ -945,7 +945,7 @@ End Sub
     }
 
     #[test]
-    fn test_strreverse_print_statement() {
+    fn strreverse_print_statement() {
         let source = r#"
 Sub Test()
     Print #1, StrReverse(data)
@@ -957,7 +957,7 @@ End Sub
     }
 
     #[test]
-    fn test_strreverse_class_usage() {
+    fn strreverse_class_usage() {
         let source = r#"
 Sub Test()
     Set processor = New StringProcessor
@@ -970,7 +970,7 @@ End Sub
     }
 
     #[test]
-    fn test_strreverse_elseif() {
+    fn strreverse_elseif() {
         let source = r#"
 Sub Test()
     If x = 1 Then

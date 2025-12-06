@@ -578,7 +578,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_formatdatetime_basic() {
+    fn formatdatetime_basic() {
         let source = r#"
 result = FormatDateTime(dt)
 "#;
@@ -589,7 +589,7 @@ result = FormatDateTime(dt)
     }
 
     #[test]
-    fn test_formatdatetime_general() {
+    fn formatdatetime_general() {
         let source = r#"
 formatted = FormatDateTime(dt, vbGeneralDate)
 "#;
@@ -600,7 +600,7 @@ formatted = FormatDateTime(dt, vbGeneralDate)
     }
 
     #[test]
-    fn test_formatdatetime_longdate() {
+    fn formatdatetime_longdate() {
         let source = r#"
 result = FormatDateTime(dt, vbLongDate)
 "#;
@@ -611,7 +611,7 @@ result = FormatDateTime(dt, vbLongDate)
     }
 
     #[test]
-    fn test_formatdatetime_shortdate() {
+    fn formatdatetime_shortdate() {
         let source = r#"
 result = FormatDateTime(dt, vbShortDate)
 "#;
@@ -622,7 +622,7 @@ result = FormatDateTime(dt, vbShortDate)
     }
 
     #[test]
-    fn test_formatdatetime_longtime() {
+    fn formatdatetime_longtime() {
         let source = r#"
 result = FormatDateTime(dt, vbLongTime)
 "#;
@@ -633,7 +633,7 @@ result = FormatDateTime(dt, vbLongTime)
     }
 
     #[test]
-    fn test_formatdatetime_shorttime() {
+    fn formatdatetime_shorttime() {
         let source = r#"
 result = FormatDateTime(dt, vbShortTime)
 "#;
@@ -644,7 +644,7 @@ result = FormatDateTime(dt, vbShortTime)
     }
 
     #[test]
-    fn test_formatdatetime_now() {
+    fn formatdatetime_now() {
         let source = r#"
 current = FormatDateTime(Now, vbShortDate)
 "#;
@@ -655,7 +655,7 @@ current = FormatDateTime(Now, vbShortDate)
     }
 
     #[test]
-    fn test_formatdatetime_date() {
+    fn formatdatetime_date() {
         let source = r#"
 today = FormatDateTime(Date, vbLongDate)
 "#;
@@ -666,7 +666,7 @@ today = FormatDateTime(Date, vbLongDate)
     }
 
     #[test]
-    fn test_formatdatetime_time() {
+    fn formatdatetime_time() {
         let source = r#"
 currentTime = FormatDateTime(Time, vbLongTime)
 "#;
@@ -677,7 +677,7 @@ currentTime = FormatDateTime(Time, vbLongTime)
     }
 
     #[test]
-    fn test_formatdatetime_debug_print() {
+    fn formatdatetime_debug_print() {
         let source = r#"
 Debug.Print FormatDateTime(Now, vbLongDate)
 "#;
@@ -688,7 +688,7 @@ Debug.Print FormatDateTime(Now, vbLongDate)
     }
 
     #[test]
-    fn test_formatdatetime_concatenation() {
+    fn formatdatetime_concatenation() {
         let source = r#"
 msg = "Today is " & FormatDateTime(Date, vbLongDate)
 "#;
@@ -699,7 +699,7 @@ msg = "Today is " & FormatDateTime(Date, vbLongDate)
     }
 
     #[test]
-    fn test_formatdatetime_label_caption() {
+    fn formatdatetime_label_caption() {
         let source = r#"
 lblCurrentDate.Caption = FormatDateTime(Date, vbLongDate)
 "#;
@@ -710,7 +710,7 @@ lblCurrentDate.Caption = FormatDateTime(Date, vbLongDate)
     }
 
     #[test]
-    fn test_formatdatetime_log_entry() {
+    fn formatdatetime_log_entry() {
         let source = r#"
 timestamp = FormatDateTime(Now, vbGeneralDate)
 logEntry = "[" & timestamp & "] " & message
@@ -722,7 +722,7 @@ logEntry = "[" & timestamp & "] " & message
     }
 
     #[test]
-    fn test_formatdatetime_filedatetime() {
+    fn formatdatetime_filedatetime() {
         let source = r#"
 fileDate = FileDateTime(filePath)
 formatted = FormatDateTime(fileDate, vbLongDate)
@@ -734,7 +734,7 @@ formatted = FormatDateTime(fileDate, vbLongDate)
     }
 
     #[test]
-    fn test_formatdatetime_listbox() {
+    fn formatdatetime_listbox() {
         let source = r#"
 lstDates.AddItem FormatDateTime(dates(i), vbShortDate)
 "#;
@@ -745,7 +745,7 @@ lstDates.AddItem FormatDateTime(dates(i), vbShortDate)
     }
 
     #[test]
-    fn test_formatdatetime_multiline() {
+    fn formatdatetime_multiline() {
         let source = r#"
 result = "Date: " & FormatDateTime(appointmentDate, vbLongDate) & vbCrLf & _
          "Time: " & FormatDateTime(appointmentDate, vbShortTime)
@@ -757,7 +757,7 @@ result = "Date: " & FormatDateTime(appointmentDate, vbLongDate) & vbCrLf & _
     }
 
     #[test]
-    fn test_formatdatetime_select_case() {
+    fn formatdatetime_select_case() {
         let source = r#"
 Select Case style
     Case "long"
@@ -773,7 +773,7 @@ End Select
     }
 
     #[test]
-    fn test_formatdatetime_if_statement() {
+    fn formatdatetime_if_statement() {
         let source = r#"
 If includeTime Then
     result = FormatDateTime(dt, vbGeneralDate)
@@ -788,7 +788,7 @@ End If
     }
 
     #[test]
-    fn test_formatdatetime_isnull_check() {
+    fn formatdatetime_isnull_check() {
         let source = r#"
 If Not IsNull(dateValue) Then
     formatted = FormatDateTime(dateValue, vbShortDate)
@@ -801,7 +801,7 @@ End If
     }
 
     #[test]
-    fn test_formatdatetime_range() {
+    fn formatdatetime_range() {
         let source = r#"
 range = FormatDateTime(startDate, vbShortDate) & " - " & FormatDateTime(endDate, vbShortDate)
 "#;
@@ -812,7 +812,7 @@ range = FormatDateTime(startDate, vbShortDate) & " - " & FormatDateTime(endDate,
     }
 
     #[test]
-    fn test_formatdatetime_grid() {
+    fn formatdatetime_grid() {
         let source = r#"
 grid.TextMatrix(i, 0) = FormatDateTime(trans.TransDate, vbShortDate)
 grid.TextMatrix(i, 1) = FormatDateTime(trans.TransDate, vbShortTime)
@@ -824,7 +824,7 @@ grid.TextMatrix(i, 1) = FormatDateTime(trans.TransDate, vbShortTime)
     }
 
     #[test]
-    fn test_formatdatetime_for_loop() {
+    fn formatdatetime_for_loop() {
         let source = r#"
 For i = LBound(dates) To UBound(dates)
     Debug.Print FormatDateTime(dates(i), vbShortDate)
@@ -837,7 +837,7 @@ Next i
     }
 
     #[test]
-    fn test_formatdatetime_error_handling() {
+    fn formatdatetime_error_handling() {
         let source = r#"
 On Error GoTo ErrorHandler
 formatted = FormatDateTime(CDate(value), style)
@@ -852,7 +852,7 @@ ErrorHandler:
     }
 
     #[test]
-    fn test_formatdatetime_isdate_check() {
+    fn formatdatetime_isdate_check() {
         let source = r#"
 If IsDate(value) Then
     result = FormatDateTime(CDate(value), vbShortDate)
@@ -865,7 +865,7 @@ End If
     }
 
     #[test]
-    fn test_formatdatetime_recordset() {
+    fn formatdatetime_recordset() {
         let source = r#"
 formatted = FormatDateTime(rs.Fields("OrderDate").Value, vbShortDate)
 "#;
@@ -876,7 +876,7 @@ formatted = FormatDateTime(rs.Fields("OrderDate").Value, vbShortDate)
     }
 
     #[test]
-    fn test_formatdatetime_function_return() {
+    fn formatdatetime_function_return() {
         let source = r#"
 Function FormatBirthday(birthDate As Date) As String
     FormatBirthday = FormatDateTime(birthDate, vbLongDate)

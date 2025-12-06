@@ -810,7 +810,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_npv_basic() {
+    fn npv_basic() {
         let source = r#"
 Dim result As Double
 result = NPV(0.1, cashFlows)
@@ -822,7 +822,7 @@ result = NPV(0.1, cashFlows)
     }
 
     #[test]
-    fn test_npv_with_initial_investment() {
+    fn npv_with_initial_investment() {
         let source = r#"
 Dim netValue As Double
 netValue = NPV(0.08, cashFlows) - initialInvestment
@@ -834,7 +834,7 @@ netValue = NPV(0.08, cashFlows) - initialInvestment
     }
 
     #[test]
-    fn test_npv_if_statement() {
+    fn npv_if_statement() {
         let source = r#"
 If NPV(rate, values) - cost > 0 Then
     MsgBox "Good investment"
@@ -847,7 +847,7 @@ End If
     }
 
     #[test]
-    fn test_npv_function_return() {
+    fn npv_function_return() {
         let source = r#"
 Function CalculateNPV(rate As Double, flows() As Double) As Double
     CalculateNPV = NPV(rate, flows)
@@ -860,7 +860,7 @@ End Function
     }
 
     #[test]
-    fn test_npv_variable_assignment() {
+    fn npv_variable_assignment() {
         let source = r#"
 Dim presentValue As Double
 presentValue = NPV(0.12, projectedCashFlows)
@@ -872,7 +872,7 @@ presentValue = NPV(0.12, projectedCashFlows)
     }
 
     #[test]
-    fn test_npv_msgbox() {
+    fn npv_msgbox() {
         let source = r#"
 MsgBox "NPV: $" & Format(NPV(discountRate, flows), "0.00")
 "#;
@@ -883,7 +883,7 @@ MsgBox "NPV: $" & Format(NPV(discountRate, flows), "0.00")
     }
 
     #[test]
-    fn test_npv_debug_print() {
+    fn npv_debug_print() {
         let source = r#"
 Debug.Print "Net Present Value: " & NPV(r, cf)
 "#;
@@ -894,7 +894,7 @@ Debug.Print "Net Present Value: " & NPV(r, cf)
     }
 
     #[test]
-    fn test_npv_select_case() {
+    fn npv_select_case() {
         let source = r#"
 Select Case NPV(rate, cashFlows) - investment
     Case Is > 10000
@@ -912,7 +912,7 @@ End Select
     }
 
     #[test]
-    fn test_npv_class_usage() {
+    fn npv_class_usage() {
         let source = r#"
 Private m_npv As Double
 
@@ -927,7 +927,7 @@ End Sub
     }
 
     #[test]
-    fn test_npv_with_statement() {
+    fn npv_with_statement() {
         let source = r#"
 With investment
     .NetPresentValue = NPV(.DiscountRate, .CashFlows) - .InitialCost
@@ -940,7 +940,7 @@ End With
     }
 
     #[test]
-    fn test_npv_elseif() {
+    fn npv_elseif() {
         let source = r#"
 If x > 0 Then
     y = 1
@@ -955,7 +955,7 @@ End If
     }
 
     #[test]
-    fn test_npv_for_loop() {
+    fn npv_for_loop() {
         let source = r#"
 For rate = 0.05 To 0.15 Step 0.01
     npvValue = NPV(rate, cashFlows) - initialCost
@@ -969,7 +969,7 @@ Next rate
     }
 
     #[test]
-    fn test_npv_do_while() {
+    fn npv_do_while() {
         let source = r#"
 Do While NPV(currentRate, flows) - cost > 0
     currentRate = currentRate + 0.01
@@ -982,7 +982,7 @@ Loop
     }
 
     #[test]
-    fn test_npv_do_until() {
+    fn npv_do_until() {
         let source = r#"
 Do Until NPV(r, values) - investment <= 0
     r = r + 0.001
@@ -995,7 +995,7 @@ Loop
     }
 
     #[test]
-    fn test_npv_while_wend() {
+    fn npv_while_wend() {
         let source = r#"
 While NPV(discountRate, projections) > minValue
     discountRate = discountRate + 0.005
@@ -1008,7 +1008,7 @@ Wend
     }
 
     #[test]
-    fn test_npv_parentheses() {
+    fn npv_parentheses() {
         let source = r#"
 Dim result As Double
 result = (NPV(rate, cashFlows))
@@ -1020,7 +1020,7 @@ result = (NPV(rate, cashFlows))
     }
 
     #[test]
-    fn test_npv_iif() {
+    fn npv_iif() {
         let source = r#"
 Dim decision As String
 decision = IIf(NPV(r, cf) - cost > 0, "Accept", "Reject")
@@ -1032,7 +1032,7 @@ decision = IIf(NPV(r, cf) - cost > 0, "Accept", "Reject")
     }
 
     #[test]
-    fn test_npv_comparison() {
+    fn npv_comparison() {
         let source = r#"
 If NPV(rate1, flows1) > NPV(rate2, flows2) Then
     MsgBox "Project 1 is better"
@@ -1045,7 +1045,7 @@ End If
     }
 
     #[test]
-    fn test_npv_array_assignment() {
+    fn npv_array_assignment() {
         let source = r#"
 Dim npvValues(10) As Double
 npvValues(i) = NPV(rates(i), cashFlows)
@@ -1057,7 +1057,7 @@ npvValues(i) = NPV(rates(i), cashFlows)
     }
 
     #[test]
-    fn test_npv_property_assignment() {
+    fn npv_property_assignment() {
         let source = r#"
 Set obj = New Investment
 obj.PresentValue = NPV(obj.Rate, obj.CashFlows)
@@ -1069,7 +1069,7 @@ obj.PresentValue = NPV(obj.Rate, obj.CashFlows)
     }
 
     #[test]
-    fn test_npv_function_argument() {
+    fn npv_function_argument() {
         let source = r#"
 Call DisplayInvestmentAnalysis(NPV(discountRate, projectedFlows))
 "#;
@@ -1080,7 +1080,7 @@ Call DisplayInvestmentAnalysis(NPV(discountRate, projectedFlows))
     }
 
     #[test]
-    fn test_npv_format() {
+    fn npv_format() {
         let source = r#"
 Dim formatted As String
 formatted = "NPV: " & Format(NPV(0.1, flows), "0.00")
@@ -1092,7 +1092,7 @@ formatted = "NPV: " & Format(NPV(0.1, flows), "0.00")
     }
 
     #[test]
-    fn test_npv_arithmetic() {
+    fn npv_arithmetic() {
         let source = r#"
 Dim profitabilityIndex As Double
 profitabilityIndex = NPV(rate, flows) / initialInvestment
@@ -1104,7 +1104,7 @@ profitabilityIndex = NPV(rate, flows) / initialInvestment
     }
 
     #[test]
-    fn test_npv_concatenation() {
+    fn npv_concatenation() {
         let source = r#"
 Dim msg As String
 msg = "Present Value: $" & NPV(r, cf) & " at " & r * 100 & "%"
@@ -1116,7 +1116,7 @@ msg = "Present Value: $" & NPV(r, cf) & " at " & r * 100 & "%"
     }
 
     #[test]
-    fn test_npv_abs_function() {
+    fn npv_abs_function() {
         let source = r#"
 Dim absValue As Double
 absValue = Abs(NPV(discountRate, cashFlows) - targetValue)
@@ -1128,7 +1128,7 @@ absValue = Abs(NPV(discountRate, cashFlows) - targetValue)
     }
 
     #[test]
-    fn test_npv_error_handling() {
+    fn npv_error_handling() {
         let source = r#"
 On Error Resume Next
 result = NPV(rate, cashFlows)
@@ -1144,7 +1144,7 @@ On Error GoTo 0
     }
 
     #[test]
-    fn test_npv_on_error_goto() {
+    fn npv_on_error_goto() {
         let source = r#"
 Sub CalculateProjectNPV()
     On Error GoTo ErrorHandler

@@ -834,7 +834,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_pmt_basic() {
+    fn pmt_basic() {
         let source = r#"
 Dim payment As Double
 payment = Pmt(0.06 / 12, 60, 20000)
@@ -846,7 +846,7 @@ payment = Pmt(0.06 / 12, 60, 20000)
     }
 
     #[test]
-    fn test_pmt_with_all_parameters() {
+    fn pmt_with_all_parameters() {
         let source = r#"
 Dim monthlyPayment As Double
 monthlyPayment = Pmt(0.045 / 12, 360, 200000, 0, 0)
@@ -858,7 +858,7 @@ monthlyPayment = Pmt(0.045 / 12, 360, 200000, 0, 0)
     }
 
     #[test]
-    fn test_pmt_if_statement() {
+    fn pmt_if_statement() {
         let source = r#"
 If Abs(Pmt(rate, nper, principal)) > maxPayment Then
     MsgBox "Payment too high"
@@ -871,7 +871,7 @@ End If
     }
 
     #[test]
-    fn test_pmt_function_return() {
+    fn pmt_function_return() {
         let source = r#"
 Function CalculatePayment(amount As Double, years As Integer) As Double
     CalculatePayment = Abs(Pmt(0.05 / 12, years * 12, amount))
@@ -884,7 +884,7 @@ End Function
     }
 
     #[test]
-    fn test_pmt_variable_assignment() {
+    fn pmt_variable_assignment() {
         let source = r#"
 Dim loanPayment As Double
 loanPayment = Pmt(interestRate, periods, loanAmount)
@@ -896,7 +896,7 @@ loanPayment = Pmt(interestRate, periods, loanAmount)
     }
 
     #[test]
-    fn test_pmt_msgbox() {
+    fn pmt_msgbox() {
         let source = r#"
 MsgBox "Monthly payment: $" & Format(Abs(Pmt(0.06 / 12, 60, 25000)), "0.00")
 "#;
@@ -907,7 +907,7 @@ MsgBox "Monthly payment: $" & Format(Abs(Pmt(0.06 / 12, 60, 25000)), "0.00")
     }
 
     #[test]
-    fn test_pmt_debug_print() {
+    fn pmt_debug_print() {
         let source = r#"
 Debug.Print "Payment: " & Pmt(monthlyRate, numPayments, principal)
 "#;
@@ -918,7 +918,7 @@ Debug.Print "Payment: " & Pmt(monthlyRate, numPayments, principal)
     }
 
     #[test]
-    fn test_pmt_select_case() {
+    fn pmt_select_case() {
         let source = r#"
 Dim payment As Double
 payment = Abs(Pmt(0.05 / 12, 360, loanAmount))
@@ -938,7 +938,7 @@ End Select
     }
 
     #[test]
-    fn test_pmt_class_usage() {
+    fn pmt_class_usage() {
         let source = r#"
 Private m_payment As Double
 
@@ -953,7 +953,7 @@ End Sub
     }
 
     #[test]
-    fn test_pmt_with_statement() {
+    fn pmt_with_statement() {
         let source = r#"
 With loanCalc
     .MonthlyPayment = Pmt(.Rate, .NumPayments, .Amount)
@@ -966,7 +966,7 @@ End With
     }
 
     #[test]
-    fn test_pmt_elseif() {
+    fn pmt_elseif() {
         let source = r#"
 If amount < 10000 Then
     rate = 0.05
@@ -981,7 +981,7 @@ End If
     }
 
     #[test]
-    fn test_pmt_for_loop() {
+    fn pmt_for_loop() {
         let source = r#"
 For years = 1 To 30
     payment = Abs(Pmt(0.05 / 12, years * 12, 100000))
@@ -995,7 +995,7 @@ Next years
     }
 
     #[test]
-    fn test_pmt_do_while() {
+    fn pmt_do_while() {
         let source = r#"
 Do While Abs(Pmt(rate, 360, amount)) > maxPayment
     amount = amount - 1000
@@ -1008,7 +1008,7 @@ Loop
     }
 
     #[test]
-    fn test_pmt_do_until() {
+    fn pmt_do_until() {
         let source = r#"
 Do Until Abs(Pmt(r / 12, n, principal)) <= affordablePayment
     n = n + 12
@@ -1021,7 +1021,7 @@ Loop
     }
 
     #[test]
-    fn test_pmt_while_wend() {
+    fn pmt_while_wend() {
         let source = r#"
 While Pmt(interestRate, periods, loanAmt) < -500
     periods = periods + 1
@@ -1034,7 +1034,7 @@ Wend
     }
 
     #[test]
-    fn test_pmt_parentheses() {
+    fn pmt_parentheses() {
         let source = r#"
 Dim result As Double
 result = (Pmt(rate, nper, pv))
@@ -1046,7 +1046,7 @@ result = (Pmt(rate, nper, pv))
     }
 
     #[test]
-    fn test_pmt_iif() {
+    fn pmt_iif() {
         let source = r#"
 Dim payment As Double
 payment = IIf(useBeginning, Pmt(r, n, pv, fv, 1), Pmt(r, n, pv, fv, 0))
@@ -1058,7 +1058,7 @@ payment = IIf(useBeginning, Pmt(r, n, pv, fv, 1), Pmt(r, n, pv, fv, 0))
     }
 
     #[test]
-    fn test_pmt_comparison() {
+    fn pmt_comparison() {
         let source = r#"
 If Abs(Pmt(rate1, term1, amt)) < Abs(Pmt(rate2, term2, amt)) Then
     MsgBox "Option 1 has lower payment"
@@ -1071,7 +1071,7 @@ End If
     }
 
     #[test]
-    fn test_pmt_array_assignment() {
+    fn pmt_array_assignment() {
         let source = r#"
 Dim payments(10) As Double
 payments(i) = Pmt(rates(i), periods, principal)
@@ -1083,7 +1083,7 @@ payments(i) = Pmt(rates(i), periods, principal)
     }
 
     #[test]
-    fn test_pmt_property_assignment() {
+    fn pmt_property_assignment() {
         let source = r#"
 Set obj = New Loan
 obj.Payment = Pmt(obj.Rate, obj.Term, obj.Principal)
@@ -1095,7 +1095,7 @@ obj.Payment = Pmt(obj.Rate, obj.Term, obj.Principal)
     }
 
     #[test]
-    fn test_pmt_function_argument() {
+    fn pmt_function_argument() {
         let source = r#"
 Call DisplayLoanInfo(loanAmount, Pmt(monthlyRate, months, loanAmount))
 "#;
@@ -1106,7 +1106,7 @@ Call DisplayLoanInfo(loanAmount, Pmt(monthlyRate, months, loanAmount))
     }
 
     #[test]
-    fn test_pmt_arithmetic() {
+    fn pmt_arithmetic() {
         let source = r#"
 Dim totalCost As Double
 totalCost = Abs(Pmt(rate, nper, principal)) * nper
@@ -1118,7 +1118,7 @@ totalCost = Abs(Pmt(rate, nper, principal)) * nper
     }
 
     #[test]
-    fn test_pmt_concatenation() {
+    fn pmt_concatenation() {
         let source = r#"
 Dim msg As String
 msg = "Your monthly payment is $" & Format(Abs(Pmt(r, n, amt)), "0.00")
@@ -1130,7 +1130,7 @@ msg = "Your monthly payment is $" & Format(Abs(Pmt(r, n, amt)), "0.00")
     }
 
     #[test]
-    fn test_pmt_abs_function() {
+    fn pmt_abs_function() {
         let source = r#"
 Dim displayPayment As Double
 displayPayment = Abs(Pmt(interestRate / 12, years * 12, loanAmount))
@@ -1142,7 +1142,7 @@ displayPayment = Abs(Pmt(interestRate / 12, years * 12, loanAmount))
     }
 
     #[test]
-    fn test_pmt_error_handling() {
+    fn pmt_error_handling() {
         let source = r#"
 On Error Resume Next
 payment = Pmt(rate, nper, pv, fv, type)
@@ -1158,7 +1158,7 @@ On Error GoTo 0
     }
 
     #[test]
-    fn test_pmt_on_error_goto() {
+    fn pmt_on_error_goto() {
         let source = r#"
 Sub CalculateMonthlyPayment()
     On Error GoTo ErrorHandler

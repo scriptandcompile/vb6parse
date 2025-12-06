@@ -581,7 +581,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_log_basic() {
+    fn log_basic() {
         let source = r#"
             Dim result As Double
             result = Log(10)
@@ -593,7 +593,7 @@ mod tests {
     }
 
     #[test]
-    fn test_log_variable() {
+    fn log_variable() {
         let source = r#"
             naturalLog = Log(x)
         "#;
@@ -604,7 +604,7 @@ mod tests {
     }
 
     #[test]
-    fn test_log_base_10() {
+    fn log_base_10() {
         let source = r#"
             log10 = Log(x) / Log(10)
         "#;
@@ -615,7 +615,7 @@ mod tests {
     }
 
     #[test]
-    fn test_log_if_statement() {
+    fn log_if_statement() {
         let source = r#"
             If Log(value) > 0 Then
                 MsgBox "Greater than 1"
@@ -628,7 +628,7 @@ mod tests {
     }
 
     #[test]
-    fn test_log_function_return() {
+    fn log_function_return() {
         let source = r#"
             Function NaturalLog(x As Double) As Double
                 NaturalLog = Log(x)
@@ -641,7 +641,7 @@ mod tests {
     }
 
     #[test]
-    fn test_log_error_handling() {
+    fn log_error_handling() {
         let source = r#"
             On Error Resume Next
             result = Log(x)
@@ -656,7 +656,7 @@ mod tests {
     }
 
     #[test]
-    fn test_log_exponential_growth() {
+    fn log_exponential_growth() {
         let source = r#"
             rate = Log(finalValue / initialValue) / time
         "#;
@@ -667,7 +667,7 @@ mod tests {
     }
 
     #[test]
-    fn test_log_debug_print() {
+    fn log_debug_print() {
         let source = r#"
             Debug.Print "Natural log: " & Log(100)
         "#;
@@ -678,7 +678,7 @@ mod tests {
     }
 
     #[test]
-    fn test_log_with_statement() {
+    fn log_with_statement() {
         let source = r#"
             With mathCalc
                 .Result = Log(value)
@@ -691,7 +691,7 @@ mod tests {
     }
 
     #[test]
-    fn test_log_select_case() {
+    fn log_select_case() {
         let source = r#"
             Select Case Log(x)
                 Case Is > 0
@@ -707,7 +707,7 @@ mod tests {
     }
 
     #[test]
-    fn test_log_elseif() {
+    fn log_elseif() {
         let source = r#"
             If x <= 0 Then
                 result = 0
@@ -724,7 +724,7 @@ mod tests {
     }
 
     #[test]
-    fn test_log_parentheses() {
+    fn log_parentheses() {
         let source = r#"
             result = (Log(x))
         "#;
@@ -735,7 +735,7 @@ mod tests {
     }
 
     #[test]
-    fn test_log_iif() {
+    fn log_iif() {
         let source = r#"
             result = IIf(x > 0, Log(x), 0)
         "#;
@@ -746,7 +746,7 @@ mod tests {
     }
 
     #[test]
-    fn test_log_in_class() {
+    fn log_in_class() {
         let source = r#"
             Private Sub Class_Method()
                 m_logValue = Log(m_value)
@@ -759,7 +759,7 @@ mod tests {
     }
 
     #[test]
-    fn test_log_function_argument() {
+    fn log_function_argument() {
         let source = r#"
             Call ProcessLog(Log(value))
         "#;
@@ -770,7 +770,7 @@ mod tests {
     }
 
     #[test]
-    fn test_log_property_assignment() {
+    fn log_property_assignment() {
         let source = r#"
             MyObject.LogValue = Log(x)
         "#;
@@ -781,7 +781,7 @@ mod tests {
     }
 
     #[test]
-    fn test_log_array_assignment() {
+    fn log_array_assignment() {
         let source = r#"
             logValues(i) = Log(values(i))
         "#;
@@ -792,7 +792,7 @@ mod tests {
     }
 
     #[test]
-    fn test_log_while_wend() {
+    fn log_while_wend() {
         let source = r#"
             While x > 1
                 x = Exp(Log(x) - 0.1)
@@ -805,7 +805,7 @@ mod tests {
     }
 
     #[test]
-    fn test_log_do_while() {
+    fn log_do_while() {
         let source = r#"
             Do While value > threshold
                 value = Log(value) + offset
@@ -818,7 +818,7 @@ mod tests {
     }
 
     #[test]
-    fn test_log_for_loop() {
+    fn log_for_loop() {
         let source = r#"
             For i = 1 To 10
                 results(i) = Log(i)
@@ -831,7 +831,7 @@ mod tests {
     }
 
     #[test]
-    fn test_log_msgbox() {
+    fn log_msgbox() {
         let source = r#"
             MsgBox "Log(100) = " & Log(100)
         "#;
@@ -842,7 +842,7 @@ mod tests {
     }
 
     #[test]
-    fn test_log_doubling_time() {
+    fn log_doubling_time() {
         let source = r#"
             doublingTime = Log(2) / Log(1 + growthRate)
         "#;
@@ -853,7 +853,7 @@ mod tests {
     }
 
     #[test]
-    fn test_log_solve_exponent() {
+    fn log_solve_exponent() {
         let source = r#"
             exponent = Log(result) / Log(base)
         "#;
@@ -864,7 +864,7 @@ mod tests {
     }
 
     #[test]
-    fn test_log_entropy() {
+    fn log_entropy() {
         let source = r#"
             entropy = entropy - p * (Log(p) / Log(2))
         "#;
@@ -875,7 +875,7 @@ mod tests {
     }
 
     #[test]
-    fn test_log_decibels() {
+    fn log_decibels() {
         let source = r#"
             decibels = 10 * (Log(power / reference) / Log(10))
         "#;
@@ -886,7 +886,7 @@ mod tests {
     }
 
     #[test]
-    fn test_log_ph_calculation() {
+    fn log_ph_calculation() {
         let source = r#"
             pH = -(Log(concentration) / Log(10))
         "#;
@@ -897,7 +897,7 @@ mod tests {
     }
 
     #[test]
-    fn test_log_do_until() {
+    fn log_do_until() {
         let source = r#"
             Do Until Abs(Log(x) - target) < tolerance
                 x = x + delta

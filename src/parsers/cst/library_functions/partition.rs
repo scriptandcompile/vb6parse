@@ -869,7 +869,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_partition_basic() {
+    fn partition_basic() {
         let source = r#"
 Dim range As String
 range = Partition(15, 0, 100, 10)
@@ -881,7 +881,7 @@ range = Partition(15, 0, 100, 10)
     }
 
     #[test]
-    fn test_partition_with_variables() {
+    fn partition_with_variables() {
         let source = r#"
 Dim value As Integer
 Dim rangeStr As String
@@ -895,7 +895,7 @@ rangeStr = Partition(value, 0, 100, 10)
     }
 
     #[test]
-    fn test_partition_if_statement() {
+    fn partition_if_statement() {
         let source = r#"
 If Partition(score, 0, 100, 10) = " 90: 99" Then
     MsgBox "Grade A"
@@ -908,7 +908,7 @@ End If
     }
 
     #[test]
-    fn test_partition_function_return() {
+    fn partition_function_return() {
         let source = r#"
 Function GetAgeRange(age As Integer) As String
     GetAgeRange = Partition(age, 0, 100, 10)
@@ -921,7 +921,7 @@ End Function
     }
 
     #[test]
-    fn test_partition_variable_assignment() {
+    fn partition_variable_assignment() {
         let source = r#"
 Dim bucket As String
 bucket = Partition(salesAmount, 0, 1000, 100)
@@ -933,7 +933,7 @@ bucket = Partition(salesAmount, 0, 1000, 100)
     }
 
     #[test]
-    fn test_partition_msgbox() {
+    fn partition_msgbox() {
         let source = r#"
 MsgBox "Value falls in range: " & Partition(num, 0, 50, 5)
 "#;
@@ -944,7 +944,7 @@ MsgBox "Value falls in range: " & Partition(num, 0, 50, 5)
     }
 
     #[test]
-    fn test_partition_debug_print() {
+    fn partition_debug_print() {
         let source = r#"
 Debug.Print "Range: " & Partition(value, min, max, interval)
 "#;
@@ -955,7 +955,7 @@ Debug.Print "Range: " & Partition(value, min, max, interval)
     }
 
     #[test]
-    fn test_partition_select_case() {
+    fn partition_select_case() {
         let source = r#"
 Select Case Partition(score, 0, 100, 20)
     Case "  0: 19"
@@ -973,7 +973,7 @@ End Select
     }
 
     #[test]
-    fn test_partition_class_usage() {
+    fn partition_class_usage() {
         let source = r#"
 Private m_range As String
 
@@ -988,7 +988,7 @@ End Sub
     }
 
     #[test]
-    fn test_partition_with_statement() {
+    fn partition_with_statement() {
         let source = r#"
 With analyzer
     .RangeLabel = Partition(.Value, .MinVal, .MaxVal, .Interval)
@@ -1001,7 +1001,7 @@ End With
     }
 
     #[test]
-    fn test_partition_elseif() {
+    fn partition_elseif() {
         let source = r#"
 If x < 0 Then
     y = 1
@@ -1016,7 +1016,7 @@ End If
     }
 
     #[test]
-    fn test_partition_for_loop() {
+    fn partition_for_loop() {
         let source = r#"
 For i = 0 To 100
     rangeStr = Partition(i, 0, 100, 10)
@@ -1030,7 +1030,7 @@ Next i
     }
 
     #[test]
-    fn test_partition_do_while() {
+    fn partition_do_while() {
         let source = r#"
 Do While Partition(counter, 0, 100, 10) <> "100:   "
     counter = counter + 1
@@ -1043,7 +1043,7 @@ Loop
     }
 
     #[test]
-    fn test_partition_do_until() {
+    fn partition_do_until() {
         let source = r#"
 Do Until Partition(val, 1, 50, 5) = " 46: 50"
     val = val + 1
@@ -1056,7 +1056,7 @@ Loop
     }
 
     #[test]
-    fn test_partition_while_wend() {
+    fn partition_while_wend() {
         let source = r#"
 While InStr(Partition(num, 0, 1000, 100), "500") = 0
     num = num + 10
@@ -1069,7 +1069,7 @@ Wend
     }
 
     #[test]
-    fn test_partition_parentheses() {
+    fn partition_parentheses() {
         let source = r#"
 Dim result As String
 result = (Partition(value, 0, 100, 25))
@@ -1081,7 +1081,7 @@ result = (Partition(value, 0, 100, 25))
     }
 
     #[test]
-    fn test_partition_iif() {
+    fn partition_iif() {
         let source = r#"
 Dim label As String
 label = IIf(usePartition, Partition(val, 0, 100, 10), CStr(val))
@@ -1093,7 +1093,7 @@ label = IIf(usePartition, Partition(val, 0, 100, 10), CStr(val))
     }
 
     #[test]
-    fn test_partition_comparison() {
+    fn partition_comparison() {
         let source = r#"
 If Partition(val1, 0, 100, 10) = Partition(val2, 0, 100, 10) Then
     MsgBox "Same range"
@@ -1106,7 +1106,7 @@ End If
     }
 
     #[test]
-    fn test_partition_array_assignment() {
+    fn partition_array_assignment() {
         let source = r#"
 Dim ranges(100) As String
 ranges(i) = Partition(values(i), 0, 1000, 50)
@@ -1118,7 +1118,7 @@ ranges(i) = Partition(values(i), 0, 1000, 50)
     }
 
     #[test]
-    fn test_partition_property_assignment() {
+    fn partition_property_assignment() {
         let source = r#"
 Set obj = New DataAnalyzer
 obj.RangeBucket = Partition(obj.DataValue, 0, 500, 50)
@@ -1130,7 +1130,7 @@ obj.RangeBucket = Partition(obj.DataValue, 0, 500, 50)
     }
 
     #[test]
-    fn test_partition_function_argument() {
+    fn partition_function_argument() {
         let source = r#"
 Call ProcessRange(Partition(score, 0, 100, 10), studentName)
 "#;
@@ -1141,7 +1141,7 @@ Call ProcessRange(Partition(score, 0, 100, 10), studentName)
     }
 
     #[test]
-    fn test_partition_arithmetic() {
+    fn partition_arithmetic() {
         let source = r#"
 Dim rangeCount As Integer
 rangeCount = Len(Partition(value, 0, 100, 10))
@@ -1153,7 +1153,7 @@ rangeCount = Len(Partition(value, 0, 100, 10))
     }
 
     #[test]
-    fn test_partition_concatenation() {
+    fn partition_concatenation() {
         let source = r#"
 Dim msg As String
 msg = "Value " & value & " is in range " & Partition(value, 0, 100, 10)
@@ -1165,7 +1165,7 @@ msg = "Value " & value & " is in range " & Partition(value, 0, 100, 10)
     }
 
     #[test]
-    fn test_partition_instr() {
+    fn partition_instr() {
         let source = r#"
 Dim pos As Integer
 pos = InStr(Partition(num, 0, 100, 10), ":")
@@ -1177,7 +1177,7 @@ pos = InStr(Partition(num, 0, 100, 10), ":")
     }
 
     #[test]
-    fn test_partition_trim() {
+    fn partition_trim() {
         let source = r#"
 Dim cleaned As String
 cleaned = Trim(Partition(value, 0, 1000, 100))
@@ -1189,7 +1189,7 @@ cleaned = Trim(Partition(value, 0, 1000, 100))
     }
 
     #[test]
-    fn test_partition_error_handling() {
+    fn partition_error_handling() {
         let source = r#"
 On Error Resume Next
 rangeLabel = Partition(userInput, startVal, stopVal, intervalVal)
@@ -1205,7 +1205,7 @@ On Error GoTo 0
     }
 
     #[test]
-    fn test_partition_on_error_goto() {
+    fn partition_on_error_goto() {
         let source = r#"
 Sub CategorizeData()
     On Error GoTo ErrorHandler

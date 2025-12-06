@@ -674,7 +674,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_sgn_basic() {
+    fn sgn_basic() {
         let source = r#"
 Sub Test()
     Dim result As Integer
@@ -688,7 +688,7 @@ End Sub
     }
 
     #[test]
-    fn test_sgn_negative() {
+    fn sgn_negative() {
         let source = r#"
 Sub Test()
     Dim sign As Integer
@@ -702,7 +702,7 @@ End Sub
     }
 
     #[test]
-    fn test_sgn_if_statement() {
+    fn sgn_if_statement() {
         let source = r#"
 Sub Test()
     If Sgn(value) = 1 Then
@@ -716,7 +716,7 @@ End Sub
     }
 
     #[test]
-    fn test_sgn_function_return() {
+    fn sgn_function_return() {
         let source = r#"
 Function GetSign(num As Double) As Integer
     GetSign = Sgn(num)
@@ -729,7 +729,7 @@ End Function
     }
 
     #[test]
-    fn test_sgn_variable_assignment() {
+    fn sgn_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim direction As Integer
@@ -743,7 +743,7 @@ End Sub
     }
 
     #[test]
-    fn test_sgn_msgbox() {
+    fn sgn_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Sign: " & Sgn(value)
@@ -756,7 +756,7 @@ End Sub
     }
 
     #[test]
-    fn test_sgn_debug_print() {
+    fn sgn_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print Sgn(number)
@@ -769,7 +769,7 @@ End Sub
     }
 
     #[test]
-    fn test_sgn_select_case() {
+    fn sgn_select_case() {
         let source = r#"
 Sub Test()
     Select Case Sgn(delta)
@@ -788,7 +788,7 @@ End Sub
     }
 
     #[test]
-    fn test_sgn_class_usage() {
+    fn sgn_class_usage() {
         let source = r#"
 Class Calculator
     Public Function GetDirection(value As Double) As Integer
@@ -803,7 +803,7 @@ End Class
     }
 
     #[test]
-    fn test_sgn_with_statement() {
+    fn sgn_with_statement() {
         let source = r#"
 Sub Test()
     With Calculator
@@ -819,7 +819,7 @@ End Sub
     }
 
     #[test]
-    fn test_sgn_elseif() {
+    fn sgn_elseif() {
         let source = r#"
 Sub Test()
     If Sgn(value) = 1 Then
@@ -837,7 +837,7 @@ End Sub
     }
 
     #[test]
-    fn test_sgn_for_loop() {
+    fn sgn_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Integer
@@ -852,7 +852,7 @@ End Sub
     }
 
     #[test]
-    fn test_sgn_do_while() {
+    fn sgn_do_while() {
         let source = r#"
 Sub Test()
     Do While Sgn(value) = 1
@@ -866,7 +866,7 @@ End Sub
     }
 
     #[test]
-    fn test_sgn_do_until() {
+    fn sgn_do_until() {
         let source = r#"
 Sub Test()
     Do Until Sgn(counter) = 0
@@ -880,7 +880,7 @@ End Sub
     }
 
     #[test]
-    fn test_sgn_while_wend() {
+    fn sgn_while_wend() {
         let source = r#"
 Sub Test()
     While Sgn(remaining) > 0
@@ -894,7 +894,7 @@ End Sub
     }
 
     #[test]
-    fn test_sgn_parentheses() {
+    fn sgn_parentheses() {
         let source = r#"
 Sub Test()
     Dim result As Integer
@@ -908,7 +908,7 @@ End Sub
     }
 
     #[test]
-    fn test_sgn_iif() {
+    fn sgn_iif() {
         let source = r#"
 Sub Test()
     Dim msg As String
@@ -922,7 +922,7 @@ End Sub
     }
 
     #[test]
-    fn test_sgn_array_assignment() {
+    fn sgn_array_assignment() {
         let source = r#"
 Sub Test()
     Dim signs(10) As Integer
@@ -936,7 +936,7 @@ End Sub
     }
 
     #[test]
-    fn test_sgn_property_assignment() {
+    fn sgn_property_assignment() {
         let source = r#"
 Class DataPoint
     Public Sign As Integer
@@ -953,7 +953,7 @@ End Sub
     }
 
     #[test]
-    fn test_sgn_function_argument() {
+    fn sgn_function_argument() {
         let source = r#"
 Sub ProcessSign(s As Integer)
 End Sub
@@ -969,7 +969,7 @@ End Sub
     }
 
     #[test]
-    fn test_sgn_concatenation() {
+    fn sgn_concatenation() {
         let source = r#"
 Sub Test()
     Dim msg As String
@@ -983,7 +983,7 @@ End Sub
     }
 
     #[test]
-    fn test_sgn_comparison() {
+    fn sgn_comparison() {
         let source = r#"
 Sub Test()
     Dim sameSign As Boolean
@@ -997,7 +997,7 @@ End Sub
     }
 
     #[test]
-    fn test_sgn_arithmetic() {
+    fn sgn_arithmetic() {
         let source = r#"
 Sub Test()
     Dim normalized As Double
@@ -1011,7 +1011,7 @@ End Sub
     }
 
     #[test]
-    fn test_sgn_subtraction() {
+    fn sgn_subtraction() {
         let source = r#"
 Sub Test()
     Dim trend As Integer
@@ -1025,7 +1025,7 @@ End Sub
     }
 
     #[test]
-    fn test_sgn_error_handling() {
+    fn sgn_error_handling() {
         let source = r#"
 Sub Test()
     On Error Resume Next
@@ -1043,7 +1043,7 @@ End Sub
     }
 
     #[test]
-    fn test_sgn_on_error_goto() {
+    fn sgn_on_error_goto() {
         let source = r#"
 Sub Test()
     On Error GoTo ErrorHandler
@@ -1061,7 +1061,7 @@ End Sub
     }
 
     #[test]
-    fn test_sgn_three_way_comparison() {
+    fn sgn_three_way_comparison() {
         let source = r#"
 Sub Test()
     Dim compareResult As Integer

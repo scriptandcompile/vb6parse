@@ -579,7 +579,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_string_basic() {
+    fn string_basic() {
         let source = r#"
 Sub Test()
     result = String(50, "-")
@@ -591,7 +591,7 @@ End Sub
     }
 
     #[test]
-    fn test_string_variable_assignment() {
+    fn string_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim separator As String
@@ -605,7 +605,7 @@ End Sub
     }
 
     #[test]
-    fn test_string_character_code() {
+    fn string_character_code() {
         let source = r#"
 Sub Test()
     result = String(10, 65)
@@ -617,7 +617,7 @@ End Sub
     }
 
     #[test]
-    fn test_string_asterisk() {
+    fn string_asterisk() {
         let source = r#"
 Sub Test()
     line = String(20, "*")
@@ -629,7 +629,7 @@ End Sub
     }
 
     #[test]
-    fn test_string_padding() {
+    fn string_padding() {
         let source = r#"
 Sub Test()
     padded = text & String(width - Len(text), " ")
@@ -641,7 +641,7 @@ End Sub
     }
 
     #[test]
-    fn test_string_concatenation() {
+    fn string_concatenation() {
         let source = r#"
 Sub Test()
     box = "+" & String(width - 2, "-") & "+"
@@ -653,7 +653,7 @@ End Sub
     }
 
     #[test]
-    fn test_string_if_statement() {
+    fn string_if_statement() {
         let source = r#"
 Sub Test()
     If Len(text) < width Then
@@ -667,7 +667,7 @@ End Sub
     }
 
     #[test]
-    fn test_string_for_loop() {
+    fn string_for_loop() {
         let source = r#"
 Sub Test()
     For i = 1 To 10
@@ -681,7 +681,7 @@ End Sub
     }
 
     #[test]
-    fn test_string_function_return() {
+    fn string_function_return() {
         let source = r#"
 Function CreateLine(width As Integer) As String
     CreateLine = String(width, "-")
@@ -693,7 +693,7 @@ End Function
     }
 
     #[test]
-    fn test_string_function_argument() {
+    fn string_function_argument() {
         let source = r#"
 Sub Test()
     Call DrawLine(String(50, "="))
@@ -705,7 +705,7 @@ End Sub
     }
 
     #[test]
-    fn test_string_array_assignment() {
+    fn string_array_assignment() {
         let source = r#"
 Sub Test()
     lines(i) = String(width, "-")
@@ -717,7 +717,7 @@ End Sub
     }
 
     #[test]
-    fn test_string_debug_print() {
+    fn string_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print String(40, "=")
@@ -729,7 +729,7 @@ End Sub
     }
 
     #[test]
-    fn test_string_msgbox() {
+    fn string_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox String(5, "*") & " Alert " & String(5, "*")
@@ -741,7 +741,7 @@ End Sub
     }
 
     #[test]
-    fn test_string_select_case() {
+    fn string_select_case() {
         let source = r#"
 Sub Test()
     Select Case lineType
@@ -758,7 +758,7 @@ End Sub
     }
 
     #[test]
-    fn test_string_do_while() {
+    fn string_do_while() {
         let source = r#"
 Sub Test()
     Do While Len(buffer) < targetSize
@@ -772,7 +772,7 @@ End Sub
     }
 
     #[test]
-    fn test_string_do_until() {
+    fn string_do_until() {
         let source = r#"
 Sub Test()
     Do Until Len(str) >= width
@@ -786,7 +786,7 @@ End Sub
     }
 
     #[test]
-    fn test_string_while_wend() {
+    fn string_while_wend() {
         let source = r#"
 Sub Test()
     While i < count
@@ -801,7 +801,7 @@ End Sub
     }
 
     #[test]
-    fn test_string_iif() {
+    fn string_iif() {
         let source = r#"
 Sub Test()
     line = IIf(style = 1, String(width, "-"), String(width, "="))
@@ -813,7 +813,7 @@ End Sub
     }
 
     #[test]
-    fn test_string_with_statement() {
+    fn string_with_statement() {
         let source = r#"
 Sub Test()
     With textBox
@@ -827,7 +827,7 @@ End Sub
     }
 
     #[test]
-    fn test_string_parentheses() {
+    fn string_parentheses() {
         let source = r#"
 Sub Test()
     result = (String(10, "*") & text & String(10, "*"))
@@ -839,7 +839,7 @@ End Sub
     }
 
     #[test]
-    fn test_string_error_handling() {
+    fn string_error_handling() {
         let source = r#"
 Sub Test()
     On Error Resume Next
@@ -855,7 +855,7 @@ End Sub
     }
 
     #[test]
-    fn test_string_property_assignment() {
+    fn string_property_assignment() {
         let source = r#"
 Sub Test()
     obj.Separator = String(100, "=")
@@ -867,7 +867,7 @@ End Sub
     }
 
     #[test]
-    fn test_string_progress_bar() {
+    fn string_progress_bar() {
         let source = r##"
 Sub Test()
     bar = "[" & String(filled, "#") & String(empty, " ") & "]"
@@ -879,7 +879,7 @@ End Sub
     }
 
     #[test]
-    fn test_string_zero_length() {
+    fn string_zero_length() {
         let source = r#"
 Sub Test()
     empty = String(0, "*")
@@ -891,7 +891,7 @@ End Sub
     }
 
     #[test]
-    fn test_string_expression_length() {
+    fn string_expression_length() {
         let source = r#"
 Sub Test()
     line = String(maxWidth - currentWidth, " ")
@@ -903,7 +903,7 @@ End Sub
     }
 
     #[test]
-    fn test_string_print_statement() {
+    fn string_print_statement() {
         let source = r#"
 Sub Test()
     Print #1, String(80, "-")
@@ -915,7 +915,7 @@ End Sub
     }
 
     #[test]
-    fn test_string_class_usage() {
+    fn string_class_usage() {
         let source = r#"
 Sub Test()
     Set formatter = New TextFormatter

@@ -696,7 +696,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_error_basic() {
+    fn error_basic() {
         let source = r#"
 msg = Error(53)
 "#;
@@ -707,7 +707,7 @@ msg = Error(53)
     }
 
     #[test]
-    fn test_error_no_argument() {
+    fn error_no_argument() {
         let source = r#"
 msg = Error()
 "#;
@@ -718,7 +718,7 @@ msg = Error()
     }
 
     #[test]
-    fn test_error_in_msgbox() {
+    fn error_in_msgbox() {
         let source = r#"
 MsgBox "Error: " & Error(Err.Number)
 "#;
@@ -729,7 +729,7 @@ MsgBox "Error: " & Error(Err.Number)
     }
 
     #[test]
-    fn test_error_debug_print() {
+    fn error_debug_print() {
         let source = r#"
 Debug.Print Error(11)
 "#;
@@ -740,7 +740,7 @@ Debug.Print Error(11)
     }
 
     #[test]
-    fn test_error_in_function() {
+    fn error_in_function() {
         let source = r#"
 Function GetErrorMessage(errNum As Long) As String
     GetErrorMessage = Error(errNum)
@@ -753,7 +753,7 @@ End Function
     }
 
     #[test]
-    fn test_error_with_variable() {
+    fn error_with_variable() {
         let source = r#"
 errorMsg = Error(errorNumber)
 "#;
@@ -764,7 +764,7 @@ errorMsg = Error(errorNumber)
     }
 
     #[test]
-    fn test_error_concatenation() {
+    fn error_concatenation() {
         let source = r#"
 msg = "Error " & Err.Number & ": " & Error(Err.Number)
 "#;
@@ -775,7 +775,7 @@ msg = "Error " & Err.Number & ": " & Error(Err.Number)
     }
 
     #[test]
-    fn test_error_select_case() {
+    fn error_select_case() {
         let source = r#"
 Select Case Error(errNum)
     Case "File not found"
@@ -791,7 +791,7 @@ End Select
     }
 
     #[test]
-    fn test_error_in_if() {
+    fn error_in_if() {
         let source = r#"
 If InStr(Error(errNum), "Application-defined") > 0 Then
     isCustomError = True
@@ -804,7 +804,7 @@ End If
     }
 
     #[test]
-    fn test_error_file_logging() {
+    fn error_file_logging() {
         let source = r#"
 Print #fileNum, "Error " & Err.Number & ": " & Error(Err.Number)
 "#;
@@ -815,7 +815,7 @@ Print #fileNum, "Error " & Err.Number & ": " & Error(Err.Number)
     }
 
     #[test]
-    fn test_error_with_format() {
+    fn error_with_format() {
         let source = r#"
 logEntry = Format(Now, "yyyy-mm-dd") & " | " & Error(Err.Number)
 "#;
@@ -826,7 +826,7 @@ logEntry = Format(Now, "yyyy-mm-dd") & " | " & Error(Err.Number)
     }
 
     #[test]
-    fn test_error_array_lookup() {
+    fn error_array_lookup() {
         let source = r#"
 For i = LBound(errorNumbers) To UBound(errorNumbers)
     Debug.Print errorNumbers(i) & ": " & Error(errorNumbers(i))
@@ -839,7 +839,7 @@ Next i
     }
 
     #[test]
-    fn test_error_collection_add() {
+    fn error_collection_add() {
         let source = r#"
 dict.Add Error(i), CStr(i)
 "#;
@@ -850,7 +850,7 @@ dict.Add Error(i), CStr(i)
     }
 
     #[test]
-    fn test_error_comparison() {
+    fn error_comparison() {
         let source = r#"
 msg = Error(53)
 If msg = "File not found" Then
@@ -864,7 +864,7 @@ End If
     }
 
     #[test]
-    fn test_error_udt_field() {
+    fn error_udt_field() {
         let source = r#"
 info.Message = Error(errorNumber)
 "#;
@@ -875,7 +875,7 @@ info.Message = Error(errorNumber)
     }
 
     #[test]
-    fn test_error_multiline_expression() {
+    fn error_multiline_expression() {
         let source = r#"
 msg = "An error occurred:" & vbCrLf & _
       "Error Number: " & Err.Number & vbCrLf & _
@@ -888,7 +888,7 @@ msg = "An error occurred:" & vbCrLf & _
     }
 
     #[test]
-    fn test_error_with_left() {
+    fn error_with_left() {
         let source = r#"
 shortMsg = Left(Error(errNum), 50)
 "#;
@@ -899,7 +899,7 @@ shortMsg = Left(Error(errNum), 50)
     }
 
     #[test]
-    fn test_error_nested_call() {
+    fn error_nested_call() {
         let source = r#"
 logEntry = Replace(Error(Err.Number), vbCrLf, " ")
 "#;
@@ -910,7 +910,7 @@ logEntry = Replace(Error(Err.Number), vbCrLf, " ")
     }
 
     #[test]
-    fn test_error_with_len() {
+    fn error_with_len() {
         let source = r#"
 If Len(Error(errNum)) > 0 Then
     ProcessError
@@ -923,7 +923,7 @@ End If
     }
 
     #[test]
-    fn test_error_type_assignment() {
+    fn error_type_assignment() {
         let source = r#"
 Dim errorInfo As ErrorInfo
 errorInfo.Message = Error(errorNumber)
@@ -936,7 +936,7 @@ errorInfo.Number = errorNumber
     }
 
     #[test]
-    fn test_error_loop_variable() {
+    fn error_loop_variable() {
         let source = r#"
 For i = 3 To 1000
     msg = Error(i)
@@ -952,7 +952,7 @@ Next i
     }
 
     #[test]
-    fn test_error_with_trim() {
+    fn error_with_trim() {
         let source = r#"
 cleanMsg = Trim(Error(errNum))
 "#;
@@ -963,7 +963,7 @@ cleanMsg = Trim(Error(errNum))
     }
 
     #[test]
-    fn test_error_case_statement() {
+    fn error_case_statement() {
         let source = r#"
 Select Case errNum
     Case 53
@@ -979,7 +979,7 @@ End Select
     }
 
     #[test]
-    fn test_error_with_ucase() {
+    fn error_with_ucase() {
         let source = r#"
 upperMsg = UCase(Error(errNum))
 "#;
@@ -990,7 +990,7 @@ upperMsg = UCase(Error(errNum))
     }
 
     #[test]
-    fn test_error_immediate_print() {
+    fn error_immediate_print() {
         let source = r#"
 Sub ShowError()
     Debug.Print Error
@@ -1003,7 +1003,7 @@ End Sub
     }
 
     #[test]
-    fn test_error_return_value() {
+    fn error_return_value() {
         let source = r#"
 Function GetMsg() As String
     GetMsg = Error()

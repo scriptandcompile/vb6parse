@@ -286,7 +286,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_iif_basic() {
+    fn iif_basic() {
         let source = r#"
 Sub Test()
     result = IIf(x > 0, "Positive", "Negative")
@@ -299,7 +299,7 @@ End Sub
     }
 
     #[test]
-    fn test_iif_in_function() {
+    fn iif_in_function() {
         let source = r#"
 Function GetStatus(value As Integer) As String
     GetStatus = IIf(value >= 0, "OK", "Error")
@@ -312,7 +312,7 @@ End Function
     }
 
     #[test]
-    fn test_iif_nested() {
+    fn iif_nested() {
         let source = r#"
 Sub Test()
     grade = IIf(score >= 90, "A", IIf(score >= 80, "B", "C"))
@@ -325,7 +325,7 @@ End Sub
     }
 
     #[test]
-    fn test_iif_numeric() {
+    fn iif_numeric() {
         let source = r#"
 Sub Test()
     value = IIf(a > b, a, b)
@@ -338,7 +338,7 @@ End Sub
     }
 
     #[test]
-    fn test_iif_with_function_calls() {
+    fn iif_with_function_calls() {
         let source = r#"
 Sub Test()
     msg = IIf(IsNull(value), "Empty", CStr(value))
@@ -351,7 +351,7 @@ End Sub
     }
 
     #[test]
-    fn test_iif_in_assignment() {
+    fn iif_in_assignment() {
         let source = r#"
 Sub Test()
     Dim status As String
@@ -365,7 +365,7 @@ End Sub
     }
 
     #[test]
-    fn test_iif_in_msgbox() {
+    fn iif_in_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox IIf(isValid, "Valid", "Invalid")
@@ -378,7 +378,7 @@ End Sub
     }
 
     #[test]
-    fn test_iif_with_concatenation() {
+    fn iif_with_concatenation() {
         let source = r#"
 Sub Test()
     text = "Count: " & IIf(n = 1, "one", "many")
@@ -391,7 +391,7 @@ End Sub
     }
 
     #[test]
-    fn test_iif_boolean_expression() {
+    fn iif_boolean_expression() {
         let source = r#"
 Sub Test()
     isEnabled = IIf(value > 0 And value < 100, True, False)
@@ -404,7 +404,7 @@ End Sub
     }
 
     #[test]
-    fn test_iif_in_if_statement() {
+    fn iif_in_if_statement() {
         let source = r#"
 Sub Test()
     If IIf(x > y, x, y) > 10 Then
@@ -419,7 +419,7 @@ End Sub
     }
 
     #[test]
-    fn test_iif_in_for_loop() {
+    fn iif_in_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Integer
@@ -435,7 +435,7 @@ End Sub
     }
 
     #[test]
-    fn test_iif_in_select_case() {
+    fn iif_in_select_case() {
         let source = r#"
 Sub Test()
     Select Case IIf(value < 0, "negative", "positive")
@@ -453,7 +453,7 @@ End Sub
     }
 
     #[test]
-    fn test_iif_in_do_loop() {
+    fn iif_in_do_loop() {
         let source = r#"
 Sub Test()
     Do While IIf(count > 0, True, False)
@@ -468,7 +468,7 @@ End Sub
     }
 
     #[test]
-    fn test_iif_array_assignment() {
+    fn iif_array_assignment() {
         let source = r#"
 Sub Test()
     arr(0) = IIf(flag, 1, 0)
@@ -481,7 +481,7 @@ End Sub
     }
 
     #[test]
-    fn test_iif_property_assignment() {
+    fn iif_property_assignment() {
         let source = r#"
 Sub Test()
     obj.Value = IIf(enabled, 100, 0)
@@ -494,7 +494,7 @@ End Sub
     }
 
     #[test]
-    fn test_iif_with_parentheses() {
+    fn iif_with_parentheses() {
         let source = r#"
 Sub Test()
     result = (IIf(x > 0, x, -x))
@@ -507,7 +507,7 @@ End Sub
     }
 
     #[test]
-    fn test_iif_debug_print() {
+    fn iif_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print IIf(success, "Success", "Failure")
@@ -520,7 +520,7 @@ End Sub
     }
 
     #[test]
-    fn test_iif_function_argument() {
+    fn iif_function_argument() {
         let source = r#"
 Sub Test()
     Call ProcessValue(IIf(isActive, currentValue, 0))
@@ -533,7 +533,7 @@ End Sub
     }
 
     #[test]
-    fn test_iif_return_value() {
+    fn iif_return_value() {
         let source = r#"
 Function GetMax(a As Integer, b As Integer) As Integer
     GetMax = IIf(a > b, a, b)
@@ -546,7 +546,7 @@ End Function
     }
 
     #[test]
-    fn test_iif_with_strings() {
+    fn iif_with_strings() {
         let source = r#"
 Sub Test()
     greeting = "Hello " & IIf(isMorning, "Good morning", "Good evening")
@@ -559,7 +559,7 @@ End Sub
     }
 
     #[test]
-    fn test_iif_multiple_in_expression() {
+    fn iif_multiple_in_expression() {
         let source = r#"
 Sub Test()
     total = IIf(a > 0, a, 0) + IIf(b > 0, b, 0)
@@ -572,7 +572,7 @@ End Sub
     }
 
     #[test]
-    fn test_iif_class_member() {
+    fn iif_class_member() {
         let source = r#"
 Private Sub Class_Initialize()
     m_value = IIf(IsNull(initialValue), 0, initialValue)
@@ -585,7 +585,7 @@ End Sub
     }
 
     #[test]
-    fn test_iif_with_not() {
+    fn iif_with_not() {
         let source = r#"
 Sub Test()
     result = IIf(Not isEmpty, data, "")
@@ -598,7 +598,7 @@ End Sub
     }
 
     #[test]
-    fn test_iif_collection_add() {
+    fn iif_collection_add() {
         let source = r#"
 Sub Test()
     col.Add IIf(useKey, item, Empty), IIf(useKey, key, "")
@@ -611,7 +611,7 @@ End Sub
     }
 
     #[test]
-    fn test_iif_with_comparison() {
+    fn iif_with_comparison() {
         let source = r#"
 Sub Test()
     isValid = (IIf(value <> 0, value, 1) > threshold)
@@ -624,7 +624,7 @@ End Sub
     }
 
     #[test]
-    fn test_iif_ternary_style() {
+    fn iif_ternary_style() {
         let source = r#"
 Function Sign(n As Double) As Integer
     Sign = IIf(n > 0, 1, IIf(n < 0, -1, 0))
@@ -637,7 +637,7 @@ End Function
     }
 
     #[test]
-    fn test_iif_with_error_handling() {
+    fn iif_with_error_handling() {
         let source = r#"
 Sub Test()
     On Error Resume Next

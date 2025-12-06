@@ -655,7 +655,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_exp_basic() {
+    fn exp_basic() {
         let source = r#"
 result = Exp(2)
 "#;
@@ -666,7 +666,7 @@ result = Exp(2)
     }
 
     #[test]
-    fn test_exp_zero() {
+    fn exp_zero() {
         let source = r#"
 result = Exp(0)
 "#;
@@ -677,7 +677,7 @@ result = Exp(0)
     }
 
     #[test]
-    fn test_exp_negative() {
+    fn exp_negative() {
         let source = r#"
 result = Exp(-1)
 "#;
@@ -688,7 +688,7 @@ result = Exp(-1)
     }
 
     #[test]
-    fn test_exp_variable() {
+    fn exp_variable() {
         let source = r#"
 y = Exp(x)
 "#;
@@ -699,7 +699,7 @@ y = Exp(x)
     }
 
     #[test]
-    fn test_exp_in_function() {
+    fn exp_in_function() {
         let source = r#"
 Function ExponentialGrowth(rate As Double, time As Double) As Double
     ExponentialGrowth = initial * Exp(rate * time)
@@ -712,7 +712,7 @@ End Function
     }
 
     #[test]
-    fn test_exp_multiplication() {
+    fn exp_multiplication() {
         let source = r#"
 result = principal * Exp(rate * time)
 "#;
@@ -723,7 +723,7 @@ result = principal * Exp(rate * time)
     }
 
     #[test]
-    fn test_exp_decay() {
+    fn exp_decay() {
         let source = r#"
 amount = Exp(-rate * t)
 "#;
@@ -734,7 +734,7 @@ amount = Exp(-rate * t)
     }
 
     #[test]
-    fn test_exp_sigmoid() {
+    fn exp_sigmoid() {
         let source = r#"
 result = 1 / (1 + Exp(-x))
 "#;
@@ -745,7 +745,7 @@ result = 1 / (1 + Exp(-x))
     }
 
     #[test]
-    fn test_exp_hyperbolic() {
+    fn exp_hyperbolic() {
         let source = r#"
 sinh = (Exp(x) - Exp(-x)) / 2
 "#;
@@ -756,7 +756,7 @@ sinh = (Exp(x) - Exp(-x)) / 2
     }
 
     #[test]
-    fn test_exp_cosh() {
+    fn exp_cosh() {
         let source = r#"
 cosh = (Exp(x) + Exp(-x)) / 2
 "#;
@@ -767,7 +767,7 @@ cosh = (Exp(x) + Exp(-x)) / 2
     }
 
     #[test]
-    fn test_exp_normal_distribution() {
+    fn exp_normal_distribution() {
         let source = r#"
 result = (1 / (stdDev * Sqr(2 * pi))) * Exp(exponent)
 "#;
@@ -778,7 +778,7 @@ result = (1 / (stdDev * Sqr(2 * pi))) * Exp(exponent)
     }
 
     #[test]
-    fn test_exp_with_log() {
+    fn exp_with_log() {
         let source = r#"
 power = Exp(exponent * Log(base))
 "#;
@@ -789,7 +789,7 @@ power = Exp(exponent * Log(base))
     }
 
     #[test]
-    fn test_exp_compound_interest() {
+    fn exp_compound_interest() {
         let source = r#"
 amount = principal * Exp(rate * time)
 interest = amount - principal
@@ -801,7 +801,7 @@ interest = amount - principal
     }
 
     #[test]
-    fn test_exp_debug_print() {
+    fn exp_debug_print() {
         let source = r#"
 Debug.Print Exp(1)
 "#;
@@ -812,7 +812,7 @@ Debug.Print Exp(1)
     }
 
     #[test]
-    fn test_exp_in_if() {
+    fn exp_in_if() {
         let source = r#"
 If Exp(x) > threshold Then
     ProcessValue
@@ -825,7 +825,7 @@ End If
     }
 
     #[test]
-    fn test_exp_in_loop() {
+    fn exp_in_loop() {
         let source = r#"
 For i = 0 To 10
     result = Exp(i * 0.1)
@@ -839,7 +839,7 @@ Next i
     }
 
     #[test]
-    fn test_exp_poisson() {
+    fn exp_poisson() {
         let source = r#"
 probability = (lambda ^ k * Exp(-lambda)) / factorial
 "#;
@@ -850,7 +850,7 @@ probability = (lambda ^ k * Exp(-lambda)) / factorial
     }
 
     #[test]
-    fn test_exp_cooling() {
+    fn exp_cooling() {
         let source = r#"
 temp = ambientTemp + (initialTemp - ambientTemp) * Exp(-coolingConstant * time)
 "#;
@@ -861,7 +861,7 @@ temp = ambientTemp + (initialTemp - ambientTemp) * Exp(-coolingConstant * time)
     }
 
     #[test]
-    fn test_exp_logistic_growth() {
+    fn exp_logistic_growth() {
         let source = r#"
 population = capacity / (1 + ratio * Exp(-growthRate * time))
 "#;
@@ -872,7 +872,7 @@ population = capacity / (1 + ratio * Exp(-growthRate * time))
     }
 
     #[test]
-    fn test_exp_error_handling() {
+    fn exp_error_handling() {
         let source = r#"
 On Error Resume Next
 result = Exp(x)
@@ -887,7 +887,7 @@ End If
     }
 
     #[test]
-    fn test_exp_taylor_series() {
+    fn exp_taylor_series() {
         let source = r#"
 term = term * x / i
 result = result + term
@@ -900,7 +900,7 @@ builtin = Exp(x)
     }
 
     #[test]
-    fn test_exp_black_scholes() {
+    fn exp_black_scholes() {
         let source = r#"
 callPrice = stockPrice * d1Value - strikePrice * Exp(-rate * time) * d2Value
 "#;
@@ -911,7 +911,7 @@ callPrice = stockPrice * d1Value - strikePrice * Exp(-rate * time) * d2Value
     }
 
     #[test]
-    fn test_exp_complex() {
+    fn exp_complex() {
         let source = r#"
 magnitude = Exp(z.Real)
 result.Real = magnitude * Cos(z.Imaginary)
@@ -923,7 +923,7 @@ result.Real = magnitude * Cos(z.Imaginary)
     }
 
     #[test]
-    fn test_exp_integration() {
+    fn exp_integration() {
         let source = r#"
 sum = sum + Exp(x)
 numerical = sum * h
@@ -936,7 +936,7 @@ analytical = Exp(b) - Exp(a)
     }
 
     #[test]
-    fn test_exp_nested() {
+    fn exp_nested() {
         let source = r#"
 result = Exp(Log(Exp(x)))
 "#;

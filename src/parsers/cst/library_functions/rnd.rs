@@ -691,7 +691,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_rnd_basic() {
+    fn rnd_basic() {
         let source = r#"
 Dim randomValue As Single
 randomValue = Rnd()
@@ -703,7 +703,7 @@ randomValue = Rnd()
     }
 
     #[test]
-    fn test_rnd_no_parens() {
+    fn rnd_no_parens() {
         let source = r#"
 Dim x As Single
 x = Rnd
@@ -715,7 +715,7 @@ x = Rnd
     }
 
     #[test]
-    fn test_rnd_with_argument() {
+    fn rnd_with_argument() {
         let source = r#"
 Dim result As Single
 result = Rnd(-1)
@@ -727,7 +727,7 @@ result = Rnd(-1)
     }
 
     #[test]
-    fn test_rnd_if_statement() {
+    fn rnd_if_statement() {
         let source = r#"
 If Rnd > 0.5 Then
     MsgBox "Heads"
@@ -742,7 +742,7 @@ End If
     }
 
     #[test]
-    fn test_rnd_function_return() {
+    fn rnd_function_return() {
         let source = r#"
 Function GetRandomValue() As Single
     GetRandomValue = Rnd
@@ -755,7 +755,7 @@ End Function
     }
 
     #[test]
-    fn test_rnd_variable_assignment() {
+    fn rnd_variable_assignment() {
         let source = r#"
 Dim randomNum As Single
 randomNum = Rnd
@@ -767,7 +767,7 @@ randomNum = Rnd
     }
 
     #[test]
-    fn test_rnd_msgbox() {
+    fn rnd_msgbox() {
         let source = r#"
 MsgBox "Random: " & Rnd
 "#;
@@ -778,7 +778,7 @@ MsgBox "Random: " & Rnd
     }
 
     #[test]
-    fn test_rnd_debug_print() {
+    fn rnd_debug_print() {
         let source = r#"
 Debug.Print Rnd()
 "#;
@@ -789,7 +789,7 @@ Debug.Print Rnd()
     }
 
     #[test]
-    fn test_rnd_select_case() {
+    fn rnd_select_case() {
         let source = r#"
 Dim value As Single
 value = Rnd
@@ -809,7 +809,7 @@ End Select
     }
 
     #[test]
-    fn test_rnd_class_usage() {
+    fn rnd_class_usage() {
         let source = r#"
 Private m_randomValue As Single
 
@@ -824,7 +824,7 @@ End Sub
     }
 
     #[test]
-    fn test_rnd_with_statement() {
+    fn rnd_with_statement() {
         let source = r#"
 With dataObject
     .RandomValue = Rnd
@@ -837,7 +837,7 @@ End With
     }
 
     #[test]
-    fn test_rnd_elseif() {
+    fn rnd_elseif() {
         let source = r#"
 Dim r As Single
 r = Rnd
@@ -854,7 +854,7 @@ End If
     }
 
     #[test]
-    fn test_rnd_for_loop() {
+    fn rnd_for_loop() {
         let source = r#"
 For i = 1 To 10
     randomNumbers(i) = Rnd
@@ -867,7 +867,7 @@ Next i
     }
 
     #[test]
-    fn test_rnd_do_while() {
+    fn rnd_do_while() {
         let source = r#"
 Do While Rnd < 0.95
     count = count + 1
@@ -880,7 +880,7 @@ Loop
     }
 
     #[test]
-    fn test_rnd_do_until() {
+    fn rnd_do_until() {
         let source = r#"
 Do Until Rnd > 0.9
     attempts = attempts + 1
@@ -893,7 +893,7 @@ Loop
     }
 
     #[test]
-    fn test_rnd_while_wend() {
+    fn rnd_while_wend() {
         let source = r#"
 While Rnd < 0.8
     iterations = iterations + 1
@@ -906,7 +906,7 @@ Wend
     }
 
     #[test]
-    fn test_rnd_parentheses() {
+    fn rnd_parentheses() {
         let source = r#"
 Dim val As Single
 val = (Rnd)
@@ -918,7 +918,7 @@ val = (Rnd)
     }
 
     #[test]
-    fn test_rnd_iif() {
+    fn rnd_iif() {
         let source = r#"
 Dim result As String
 result = IIf(Rnd > 0.5, "Win", "Lose")
@@ -930,7 +930,7 @@ result = IIf(Rnd > 0.5, "Win", "Lose")
     }
 
     #[test]
-    fn test_rnd_array_assignment() {
+    fn rnd_array_assignment() {
         let source = r#"
 Dim values(10) As Single
 values(i) = Rnd
@@ -942,7 +942,7 @@ values(i) = Rnd
     }
 
     #[test]
-    fn test_rnd_property_assignment() {
+    fn rnd_property_assignment() {
         let source = r#"
 Set obj = New RandomData
 obj.Value = Rnd
@@ -954,7 +954,7 @@ obj.Value = Rnd
     }
 
     #[test]
-    fn test_rnd_function_argument() {
+    fn rnd_function_argument() {
         let source = r#"
 Call ProcessValue(Rnd)
 "#;
@@ -965,7 +965,7 @@ Call ProcessValue(Rnd)
     }
 
     #[test]
-    fn test_rnd_concatenation() {
+    fn rnd_concatenation() {
         let source = r#"
 Dim msg As String
 msg = "Value: " & Rnd
@@ -977,7 +977,7 @@ msg = "Value: " & Rnd
     }
 
     #[test]
-    fn test_rnd_with_int() {
+    fn rnd_with_int() {
         let source = r#"
 Dim diceRoll As Integer
 diceRoll = Int(Rnd * 6) + 1
@@ -989,7 +989,7 @@ diceRoll = Int(Rnd * 6) + 1
     }
 
     #[test]
-    fn test_rnd_comparison() {
+    fn rnd_comparison() {
         let source = r#"
 If Rnd < 0.3 Then
     status = "Rare"
@@ -1002,7 +1002,7 @@ End If
     }
 
     #[test]
-    fn test_rnd_multiple_calls() {
+    fn rnd_multiple_calls() {
         let source = r#"
 Dim x As Single, y As Single
 x = Rnd
@@ -1015,7 +1015,7 @@ y = Rnd
     }
 
     #[test]
-    fn test_rnd_error_handling() {
+    fn rnd_error_handling() {
         let source = r#"
 On Error Resume Next
 Dim randomVal As Single
@@ -1031,7 +1031,7 @@ End If
     }
 
     #[test]
-    fn test_rnd_on_error_goto() {
+    fn rnd_on_error_goto() {
         let source = r#"
 Sub GenerateRandom()
     On Error GoTo ErrorHandler

@@ -527,7 +527,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_year_basic() {
+    fn year_basic() {
         let source = r#"
 Sub Test()
     currentYear = Year(Date)
@@ -539,7 +539,7 @@ End Sub
     }
 
     #[test]
-    fn test_year_variable_assignment() {
+    fn year_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim yr As Integer
@@ -553,7 +553,7 @@ End Sub
     }
 
     #[test]
-    fn test_year_function_return() {
+    fn year_function_return() {
         let source = r#"
 Function GetYear(dt As Date) As Integer
     GetYear = Year(dt)
@@ -565,7 +565,7 @@ End Function
     }
 
     #[test]
-    fn test_year_if_statement() {
+    fn year_if_statement() {
         let source = r#"
 Sub Test()
     If Year(dt) = 2023 Then
@@ -579,7 +579,7 @@ End Sub
     }
 
     #[test]
-    fn test_year_comparison() {
+    fn year_comparison() {
         let source = r#"
 Sub Test()
     If Year(date1) > Year(date2) Then
@@ -593,7 +593,7 @@ End Sub
     }
 
     #[test]
-    fn test_year_arithmetic() {
+    fn year_arithmetic() {
         let source = r#"
 Sub Test()
     age = Year(Date) - Year(birthDate)
@@ -605,7 +605,7 @@ End Sub
     }
 
     #[test]
-    fn test_year_msgbox() {
+    fn year_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Year: " & Year(Now)
@@ -617,7 +617,7 @@ End Sub
     }
 
     #[test]
-    fn test_year_debug_print() {
+    fn year_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print Year(targetDate)
@@ -629,7 +629,7 @@ End Sub
     }
 
     #[test]
-    fn test_year_for_loop() {
+    fn year_for_loop() {
         let source = r#"
 Sub Test()
     For i = Year(startDate) To Year(endDate)
@@ -643,7 +643,7 @@ End Sub
     }
 
     #[test]
-    fn test_year_select_case() {
+    fn year_select_case() {
         let source = r#"
 Sub Test()
     Select Case Year(dt)
@@ -660,7 +660,7 @@ End Sub
     }
 
     #[test]
-    fn test_year_function_argument() {
+    fn year_function_argument() {
         let source = r#"
 Sub Test()
     Call ProcessYear(Year(recordDate))
@@ -672,7 +672,7 @@ End Sub
     }
 
     #[test]
-    fn test_year_dateserial() {
+    fn year_dateserial() {
         let source = r#"
 Sub Test()
     firstDay = DateSerial(Year(dt), 1, 1)
@@ -684,7 +684,7 @@ End Sub
     }
 
     #[test]
-    fn test_year_property_assignment() {
+    fn year_property_assignment() {
         let source = r#"
 Sub Test()
     obj.Year = Year(obj.Date)
@@ -696,7 +696,7 @@ End Sub
     }
 
     #[test]
-    fn test_year_with_statement() {
+    fn year_with_statement() {
         let source = r#"
 Sub Test()
     With dateInfo
@@ -710,7 +710,7 @@ End Sub
     }
 
     #[test]
-    fn test_year_array_assignment() {
+    fn year_array_assignment() {
         let source = r#"
 Sub Test()
     years(i) = Year(dates(i))
@@ -722,7 +722,7 @@ End Sub
     }
 
     #[test]
-    fn test_year_concatenation() {
+    fn year_concatenation() {
         let source = r#"
 Sub Test()
     display = "Year " & Year(dt) & " Report"
@@ -734,7 +734,7 @@ End Sub
     }
 
     #[test]
-    fn test_year_parentheses() {
+    fn year_parentheses() {
         let source = r#"
 Sub Test()
     result = (Year(dt))
@@ -746,7 +746,7 @@ End Sub
     }
 
     #[test]
-    fn test_year_error_handling() {
+    fn year_error_handling() {
         let source = r#"
 Sub Test()
     On Error Resume Next
@@ -762,7 +762,7 @@ End Sub
     }
 
     #[test]
-    fn test_year_print_statement() {
+    fn year_print_statement() {
         let source = r#"
 Sub Test()
     Print #1, Year(recordDate)
@@ -774,7 +774,7 @@ End Sub
     }
 
     #[test]
-    fn test_year_class_usage() {
+    fn year_class_usage() {
         let source = r#"
 Sub Test()
     Set analyzer = New YearAnalyzer
@@ -787,7 +787,7 @@ End Sub
     }
 
     #[test]
-    fn test_year_elseif() {
+    fn year_elseif() {
         let source = r#"
 Sub Test()
     If x = 1 Then
@@ -803,7 +803,7 @@ End Sub
     }
 
     #[test]
-    fn test_year_do_while() {
+    fn year_do_while() {
         let source = r#"
 Sub Test()
     Do While Year(dt) < 2025
@@ -817,7 +817,7 @@ End Sub
     }
 
     #[test]
-    fn test_year_do_until() {
+    fn year_do_until() {
         let source = r#"
 Sub Test()
     Do Until Year(dt) >= targetYear
@@ -831,7 +831,7 @@ End Sub
     }
 
     #[test]
-    fn test_year_while_wend() {
+    fn year_while_wend() {
         let source = r#"
 Sub Test()
     While Year(dt) < 2030
@@ -846,7 +846,7 @@ End Sub
     }
 
     #[test]
-    fn test_year_iif() {
+    fn year_iif() {
         let source = r#"
 Sub Test()
     display = IIf(Year(dt) = Year(Date), "This year", "Other year")
@@ -858,7 +858,7 @@ End Sub
     }
 
     #[test]
-    fn test_year_mod_operation() {
+    fn year_mod_operation() {
         let source = r#"
 Sub Test()
     isLeap = (Year(dt) Mod 4 = 0)
@@ -870,7 +870,7 @@ End Sub
     }
 
     #[test]
-    fn test_year_format() {
+    fn year_format() {
         let source = r#"
 Sub Test()
     formatted = Format$(dt, "mmmm d, ") & Year(dt)
@@ -882,7 +882,7 @@ End Sub
     }
 
     #[test]
-    fn test_year_cstr() {
+    fn year_cstr() {
         let source = r#"
 Sub Test()
     yearString = CStr(Year(dt))

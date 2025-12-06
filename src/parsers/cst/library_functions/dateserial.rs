@@ -547,7 +547,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_dateserial_basic() {
+    fn dateserial_basic() {
         let source = r#"
 birthday = DateSerial(1990, 5, 15)
 "#;
@@ -558,7 +558,7 @@ birthday = DateSerial(1990, 5, 15)
     }
 
     #[test]
-    fn test_dateserial_with_variables() {
+    fn dateserial_with_variables() {
         let source = r#"
 result = DateSerial(y, m, d)
 "#;
@@ -569,7 +569,7 @@ result = DateSerial(y, m, d)
     }
 
     #[test]
-    fn test_dateserial_last_day_of_month() {
+    fn dateserial_last_day_of_month() {
         let source = r#"
 lastDay = DateSerial(2025, 2, 0)
 "#;
@@ -580,7 +580,7 @@ lastDay = DateSerial(2025, 2, 0)
     }
 
     #[test]
-    fn test_dateserial_with_year_function() {
+    fn dateserial_with_year_function() {
         let source = r#"
 newYear = DateSerial(Year(Date), 1, 1)
 "#;
@@ -591,7 +591,7 @@ newYear = DateSerial(Year(Date), 1, 1)
     }
 
     #[test]
-    fn test_dateserial_month_overflow() {
+    fn dateserial_month_overflow() {
         let source = r#"
 result = DateSerial(2025, 13, 1)
 "#;
@@ -602,7 +602,7 @@ result = DateSerial(2025, 13, 1)
     }
 
     #[test]
-    fn test_dateserial_day_overflow() {
+    fn dateserial_day_overflow() {
         let source = r#"
 result = DateSerial(2025, 1, 32)
 "#;
@@ -613,7 +613,7 @@ result = DateSerial(2025, 1, 32)
     }
 
     #[test]
-    fn test_dateserial_negative_month() {
+    fn dateserial_negative_month() {
         let source = r#"
 result = DateSerial(2025, -1, 1)
 "#;
@@ -624,7 +624,7 @@ result = DateSerial(2025, -1, 1)
     }
 
     #[test]
-    fn test_dateserial_in_function() {
+    fn dateserial_in_function() {
         let source = r#"
 Function GetLastDay(y As Integer, m As Integer) As Date
     GetLastDay = DateSerial(y, m + 1, 0)
@@ -637,7 +637,7 @@ End Function
     }
 
     #[test]
-    fn test_dateserial_with_expressions() {
+    fn dateserial_with_expressions() {
         let source = r#"
 result = DateSerial(Year(Date), Month(Date) + 1, 0)
 "#;
@@ -648,7 +648,7 @@ result = DateSerial(Year(Date), Month(Date) + 1, 0)
     }
 
     #[test]
-    fn test_dateserial_in_loop() {
+    fn dateserial_in_loop() {
         let source = r#"
 For i = 1 To 12
     dates(i) = DateSerial(2025, i, 1)
@@ -661,7 +661,7 @@ Next i
     }
 
     #[test]
-    fn test_dateserial_quarter_start() {
+    fn dateserial_quarter_start() {
         let source = r#"
 quarterStart = DateSerial(year, (quarter - 1) * 3 + 1, 1)
 "#;
@@ -672,7 +672,7 @@ quarterStart = DateSerial(year, (quarter - 1) * 3 + 1, 1)
     }
 
     #[test]
-    fn test_dateserial_with_day_function() {
+    fn dateserial_with_day_function() {
         let source = r#"
 result = DateSerial(y, m, Day(someDate))
 "#;
@@ -683,7 +683,7 @@ result = DateSerial(y, m, Day(someDate))
     }
 
     #[test]
-    fn test_dateserial_in_comparison() {
+    fn dateserial_in_comparison() {
         let source = r#"
 If Date > DateSerial(2025, 12, 31) Then
     MsgBox "Past deadline"
@@ -696,7 +696,7 @@ End If
     }
 
     #[test]
-    fn test_dateserial_arithmetic() {
+    fn dateserial_arithmetic() {
         let source = r#"
 offset = DateSerial(y, m, d) - Date
 "#;
@@ -707,7 +707,7 @@ offset = DateSerial(y, m, d) - Date
     }
 
     #[test]
-    fn test_dateserial_with_constants() {
+    fn dateserial_with_constants() {
         let source = r#"
 Const YEAR As Integer = 2025
 result = DateSerial(YEAR, 1, 1)
@@ -719,7 +719,7 @@ result = DateSerial(YEAR, 1, 1)
     }
 
     #[test]
-    fn test_dateserial_nested_in_format() {
+    fn dateserial_nested_in_format() {
         let source = r#"
 formatted = Format(DateSerial(2025, 12, 25), "yyyy-mm-dd")
 "#;
@@ -730,7 +730,7 @@ formatted = Format(DateSerial(2025, 12, 25), "yyyy-mm-dd")
     }
 
     #[test]
-    fn test_dateserial_in_select_case() {
+    fn dateserial_in_select_case() {
         let source = r#"
 Select Case Date
     Case DateSerial(2025, 1, 1)
@@ -744,7 +744,7 @@ End Select
     }
 
     #[test]
-    fn test_dateserial_multiple_calls() {
+    fn dateserial_multiple_calls() {
         let source = r#"
 startDate = DateSerial(2025, 1, 1)
 endDate = DateSerial(2025, 12, 31)
@@ -756,7 +756,7 @@ endDate = DateSerial(2025, 12, 31)
     }
 
     #[test]
-    fn test_dateserial_with_datepart() {
+    fn dateserial_with_datepart() {
         let source = r#"
 result = DateSerial(DatePart("yyyy", Date), 1, 1)
 "#;
@@ -767,7 +767,7 @@ result = DateSerial(DatePart("yyyy", Date), 1, 1)
     }
 
     #[test]
-    fn test_dateserial_in_array() {
+    fn dateserial_in_array() {
         let source = r#"
 dates(0) = DateSerial(2025, 1, 1)
 dates(1) = DateSerial(2025, 2, 1)
@@ -779,7 +779,7 @@ dates(1) = DateSerial(2025, 2, 1)
     }
 
     #[test]
-    fn test_dateserial_week_start() {
+    fn dateserial_week_start() {
         let source = r#"
 weekStart = DateSerial(Year(Date), Month(Date), Day(Date) - offset)
 "#;
@@ -790,7 +790,7 @@ weekStart = DateSerial(Year(Date), Month(Date), Day(Date) - offset)
     }
 
     #[test]
-    fn test_dateserial_with_addition() {
+    fn dateserial_with_addition() {
         let source = r#"
 anniversary = DateSerial(Year(original) + years, Month(original), Day(original))
 "#;
@@ -801,7 +801,7 @@ anniversary = DateSerial(Year(original) + years, Month(original), Day(original))
     }
 
     #[test]
-    fn test_dateserial_zero_day() {
+    fn dateserial_zero_day() {
         let source = r#"
 lastMonth = DateSerial(2025, 2, 0)
 "#;
@@ -812,7 +812,7 @@ lastMonth = DateSerial(2025, 2, 0)
     }
 
     #[test]
-    fn test_dateserial_in_msgbox() {
+    fn dateserial_in_msgbox() {
         let source = r#"
 MsgBox "Date: " & DateSerial(2025, 12, 25)
 "#;
@@ -823,7 +823,7 @@ MsgBox "Date: " & DateSerial(2025, 12, 25)
     }
 
     #[test]
-    fn test_dateserial_relative_calculation() {
+    fn dateserial_relative_calculation() {
         let source = r#"
 result = DateSerial(Year(base) + yOffset, Month(base) + mOffset, Day(base) + dOffset)
 "#;

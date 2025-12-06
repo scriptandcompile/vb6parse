@@ -772,7 +772,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_eof_basic() {
+    fn eof_basic() {
         let source = r#"
 Do Until EOF(1)
     Line Input #1, line
@@ -785,7 +785,7 @@ Loop
     }
 
     #[test]
-    fn test_eof_with_variable() {
+    fn eof_with_variable() {
         let source = r#"
 Do Until EOF(fileNum)
     Line Input #fileNum, line
@@ -798,7 +798,7 @@ Loop
     }
 
     #[test]
-    fn test_eof_in_if_statement() {
+    fn eof_in_if_statement() {
         let source = r#"
 If Not EOF(1) Then
     Line Input #1, line
@@ -811,7 +811,7 @@ End If
     }
 
     #[test]
-    fn test_eof_while_loop() {
+    fn eof_while_loop() {
         let source = r#"
 Do While Not EOF(fileNum)
     Get #fileNum, , record
@@ -824,7 +824,7 @@ Loop
     }
 
     #[test]
-    fn test_eof_in_function() {
+    fn eof_in_function() {
         let source = r#"
 Function ReadAllLines(path As String) As Variant
     Do Until EOF(fnum)
@@ -839,7 +839,7 @@ End Function
     }
 
     #[test]
-    fn test_eof_with_or_condition() {
+    fn eof_with_or_condition() {
         let source = r#"
 Do Until EOF(fileNum) Or count >= maxLines
     Line Input #fileNum, line
@@ -853,7 +853,7 @@ Loop
     }
 
     #[test]
-    fn test_eof_count_lines() {
+    fn eof_count_lines() {
         let source = r#"
 count = 0
 Do Until EOF(fileNum)
@@ -868,7 +868,7 @@ Loop
     }
 
     #[test]
-    fn test_eof_with_exit_do() {
+    fn eof_with_exit_do() {
         let source = r#"
 Do Until EOF(fileNum)
     Line Input #fileNum, line
@@ -882,7 +882,7 @@ Loop
     }
 
     #[test]
-    fn test_eof_multiple_files() {
+    fn eof_multiple_files() {
         let source = r#"
 Do Until EOF(inNum)
     Line Input #inNum, line
@@ -896,7 +896,7 @@ Loop
     }
 
     #[test]
-    fn test_eof_for_loop() {
+    fn eof_for_loop() {
         let source = r#"
 For i = 1 To headerLines
     If Not EOF(fileNum) Then
@@ -911,7 +911,7 @@ Next i
     }
 
     #[test]
-    fn test_eof_with_freefile() {
+    fn eof_with_freefile() {
         let source = r#"
 fileNum = FreeFile
 Open path For Input As #fileNum
@@ -927,7 +927,7 @@ Close #fileNum
     }
 
     #[test]
-    fn test_eof_search_file() {
+    fn eof_search_file() {
         let source = r#"
 found = False
 Do Until EOF(fileNum)
@@ -945,7 +945,7 @@ Loop
     }
 
     #[test]
-    fn test_eof_with_get() {
+    fn eof_with_get() {
         let source = r#"
 Do Until EOF(fileNum)
     Get #fileNum, , customer
@@ -959,7 +959,7 @@ Loop
     }
 
     #[test]
-    fn test_eof_csv_reader() {
+    fn eof_csv_reader() {
         let source = r#"
 Do Until EOF(fileNum)
     Line Input #fileNum, line
@@ -974,7 +974,7 @@ Loop
     }
 
     #[test]
-    fn test_eof_with_doevents() {
+    fn eof_with_doevents() {
         let source = r#"
 Do Until EOF(fileNum)
     Line Input #fileNum, line
@@ -989,7 +989,7 @@ Loop
     }
 
     #[test]
-    fn test_eof_error_handling() {
+    fn eof_error_handling() {
         let source = r#"
 On Error GoTo ErrorHandler
 Do Until EOF(fileNum)
@@ -1007,7 +1007,7 @@ If fileNum > 0 Then Close #fileNum
     }
 
     #[test]
-    fn test_eof_assignment() {
+    fn eof_assignment() {
         let source = r#"
 isAtEnd = EOF(fileNum)
 "#;
@@ -1018,7 +1018,7 @@ isAtEnd = EOF(fileNum)
     }
 
     #[test]
-    fn test_eof_nested_loop() {
+    fn eof_nested_loop() {
         let source = r#"
 fileName = Dir("*.txt")
 Do While fileName <> ""
@@ -1038,7 +1038,7 @@ Loop
     }
 
     #[test]
-    fn test_eof_with_trim() {
+    fn eof_with_trim() {
         let source = r#"
 Do Until EOF(fileNum)
     Line Input #fileNum, line
@@ -1053,7 +1053,7 @@ Loop
     }
 
     #[test]
-    fn test_eof_debug_print() {
+    fn eof_debug_print() {
         let source = r#"
 Do Until EOF(fileNum)
     Line Input #fileNum, line
@@ -1067,7 +1067,7 @@ Loop
     }
 
     #[test]
-    fn test_eof_with_array() {
+    fn eof_with_array() {
         let source = r#"
 count = 0
 Do Until EOF(fileNum)
@@ -1083,7 +1083,7 @@ Loop
     }
 
     #[test]
-    fn test_eof_progress_update() {
+    fn eof_progress_update() {
         let source = r#"
 Do Until EOF(fileNum)
     Line Input #fileNum, line
@@ -1100,7 +1100,7 @@ Loop
     }
 
     #[test]
-    fn test_eof_config_parser() {
+    fn eof_config_parser() {
         let source = r##"
 Do Until EOF(fileNum)
     Line Input #fileNum, line
@@ -1116,7 +1116,7 @@ Loop
     }
 
     #[test]
-    fn test_eof_chunk_reading() {
+    fn eof_chunk_reading() {
         let source = r#"
 Do Until EOF(fileNum)
     chunk = ReadFileChunk(fileNum, 1000)
@@ -1130,7 +1130,7 @@ Loop
     }
 
     #[test]
-    fn test_eof_with_seek() {
+    fn eof_with_seek() {
         let source = r#"
 Do Until EOF(fileNum)
     position = Seek(fileNum)

@@ -794,7 +794,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_getattr_basic() {
+    fn getattr_basic() {
         let source = r#"attr = GetAttr("C:\data.txt")"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -803,7 +803,7 @@ mod tests {
     }
 
     #[test]
-    fn test_getattr_with_variable() {
+    fn getattr_with_variable() {
         let source = r#"fileAttr = GetAttr(filename)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -812,7 +812,7 @@ mod tests {
     }
 
     #[test]
-    fn test_getattr_readonly_check() {
+    fn getattr_readonly_check() {
         let source = r#"If GetAttr("file.txt") And vbReadOnly Then MsgBox "Read-only""#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -821,7 +821,7 @@ mod tests {
     }
 
     #[test]
-    fn test_getattr_directory_check() {
+    fn getattr_directory_check() {
         let source = r#"If GetAttr(path) And vbDirectory Then isDir = True"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -830,7 +830,7 @@ mod tests {
     }
 
     #[test]
-    fn test_getattr_hidden_check() {
+    fn getattr_hidden_check() {
         let source = r#"If GetAttr(fullPath) And vbHidden Then Debug.Print "Hidden""#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -839,7 +839,7 @@ mod tests {
     }
 
     #[test]
-    fn test_getattr_in_function() {
+    fn getattr_in_function() {
         let source = r#"Function IsDirectory(path As String) As Boolean
     IsDirectory = (GetAttr(path) And vbDirectory) <> 0
 End Function"#;
@@ -850,7 +850,7 @@ End Function"#;
     }
 
     #[test]
-    fn test_getattr_assignment() {
+    fn getattr_assignment() {
         let source = r#"Dim attr As Integer
 attr = GetAttr(filename)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
@@ -860,7 +860,7 @@ attr = GetAttr(filename)"#;
     }
 
     #[test]
-    fn test_getattr_error_handling() {
+    fn getattr_error_handling() {
         let source = r#"On Error GoTo ErrorHandler
 attr = GetAttr(filename)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
@@ -870,7 +870,7 @@ attr = GetAttr(filename)"#;
     }
 
     #[test]
-    fn test_getattr_system_check() {
+    fn getattr_system_check() {
         let source = r#"If GetAttr(filename) And vbSystem Then Exit Sub"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -879,7 +879,7 @@ attr = GetAttr(filename)"#;
     }
 
     #[test]
-    fn test_getattr_archive_check() {
+    fn getattr_archive_check() {
         let source = r#"needsBackup = (GetAttr(filename) And vbArchive) <> 0"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -888,7 +888,7 @@ attr = GetAttr(filename)"#;
     }
 
     #[test]
-    fn test_getattr_multiple_checks() {
+    fn getattr_multiple_checks() {
         let source = r#"If GetAttr(file) And vbReadOnly Then description = "Read-Only""#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -897,7 +897,7 @@ attr = GetAttr(filename)"#;
     }
 
     #[test]
-    fn test_getattr_comparison() {
+    fn getattr_comparison() {
         let source = r#"If GetAttr(filename) = vbNormal Then MsgBox "Normal file""#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -906,7 +906,7 @@ attr = GetAttr(filename)"#;
     }
 
     #[test]
-    fn test_getattr_not_operator() {
+    fn getattr_not_operator() {
         let source = r#"canModify = Not (GetAttr(filename) And vbReadOnly)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -915,7 +915,7 @@ attr = GetAttr(filename)"#;
     }
 
     #[test]
-    fn test_getattr_select_case() {
+    fn getattr_select_case() {
         let source = r#"Select Case GetAttr(filename) And vbDirectory
     Case 0
         Debug.Print "File"
@@ -927,7 +927,7 @@ End Select"#;
     }
 
     #[test]
-    fn test_getattr_do_loop() {
+    fn getattr_do_loop() {
         let source = r#"Do While filename <> ""
     attr = GetAttr(fullPath)
 Loop"#;
@@ -938,7 +938,7 @@ Loop"#;
     }
 
     #[test]
-    fn test_getattr_setattr() {
+    fn getattr_setattr() {
         let source = r#"SetAttr filename, GetAttr(filename) And Not vbReadOnly"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -947,7 +947,7 @@ Loop"#;
     }
 
     #[test]
-    fn test_getattr_debug_print() {
+    fn getattr_debug_print() {
         let source = r#"Debug.Print "Attributes: " & GetAttr(filename)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -956,7 +956,7 @@ Loop"#;
     }
 
     #[test]
-    fn test_getattr_class_member() {
+    fn getattr_class_member() {
         let source = r#"m_Attributes = GetAttr(m_Filename)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -965,7 +965,7 @@ Loop"#;
     }
 
     #[test]
-    fn test_getattr_property() {
+    fn getattr_property() {
         let source = r#"IsReadOnly = (GetAttr(filename) And vbReadOnly) <> 0"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -974,7 +974,7 @@ Loop"#;
     }
 
     #[test]
-    fn test_getattr_type_field() {
+    fn getattr_type_field() {
         let source = r#"snapshot.Attributes = GetAttr(filename)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -983,7 +983,7 @@ Loop"#;
     }
 
     #[test]
-    fn test_getattr_or_operator() {
+    fn getattr_or_operator() {
         let source = r#"newAttr = GetAttr(filename) Or vbReadOnly"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -992,7 +992,7 @@ Loop"#;
     }
 
     #[test]
-    fn test_getattr_comparison_vars() {
+    fn getattr_comparison_vars() {
         let source = r#"If GetAttr(file1) <> GetAttr(file2) Then changed = True"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -1001,7 +1001,7 @@ Loop"#;
     }
 
     #[test]
-    fn test_getattr_for_loop() {
+    fn getattr_for_loop() {
         let source = r#"For i = LBound(files) To UBound(files)
     currentAttr = GetAttr(files(i))
 Next i"#;
@@ -1012,7 +1012,7 @@ Next i"#;
     }
 
     #[test]
-    fn test_getattr_msgbox() {
+    fn getattr_msgbox() {
         let source = r#"MsgBox "File attributes: " & GetAttr(filename)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -1021,7 +1021,7 @@ Next i"#;
     }
 
     #[test]
-    fn test_getattr_listbox() {
+    fn getattr_listbox() {
         let source = r#"lst.AddItem filename & " (" & GetAttr(fullPath) & ")""#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -1030,7 +1030,7 @@ Next i"#;
     }
 
     #[test]
-    fn test_getattr_iif() {
+    fn getattr_iif() {
         let source = r#"result = IIf(GetAttr(filename) And vbReadOnly, "RO", "RW")"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -1039,7 +1039,7 @@ Next i"#;
     }
 
     #[test]
-    fn test_getattr_on_error_resume() {
+    fn getattr_on_error_resume() {
         let source = r#"On Error Resume Next
 attr = GetAttr(fullPath)
 On Error GoTo 0"#;

@@ -747,7 +747,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_now_basic() {
+    fn now_basic() {
         let source = r#"
 Dim currentTime As Date
 currentTime = Now
@@ -759,7 +759,7 @@ currentTime = Now
     }
 
     #[test]
-    fn test_now_parentheses() {
+    fn now_parentheses() {
         let source = r#"
 Dim dt As Date
 dt = Now()
@@ -771,7 +771,7 @@ dt = Now()
     }
 
     #[test]
-    fn test_now_if_statement() {
+    fn now_if_statement() {
         let source = r#"
 If Now > deadline Then
     MsgBox "Overdue"
@@ -784,7 +784,7 @@ End If
     }
 
     #[test]
-    fn test_now_function_return() {
+    fn now_function_return() {
         let source = r#"
 Function GetCurrentTime() As Date
     GetCurrentTime = Now
@@ -797,7 +797,7 @@ End Function
     }
 
     #[test]
-    fn test_now_concatenation() {
+    fn now_concatenation() {
         let source = r#"
 Dim msg As String
 msg = "Current time: " & Now
@@ -809,7 +809,7 @@ msg = "Current time: " & Now
     }
 
     #[test]
-    fn test_now_debug_print() {
+    fn now_debug_print() {
         let source = r#"
 Debug.Print "Timestamp: " & Now
 "#;
@@ -820,7 +820,7 @@ Debug.Print "Timestamp: " & Now
     }
 
     #[test]
-    fn test_now_msgbox() {
+    fn now_msgbox() {
         let source = r#"
 MsgBox "Current time is: " & Now
 "#;
@@ -831,7 +831,7 @@ MsgBox "Current time is: " & Now
     }
 
     #[test]
-    fn test_now_format() {
+    fn now_format() {
         let source = r#"
 Dim formatted As String
 formatted = Format(Now, "yyyy-mm-dd hh:nn:ss")
@@ -843,7 +843,7 @@ formatted = Format(Now, "yyyy-mm-dd hh:nn:ss")
     }
 
     #[test]
-    fn test_now_datediff() {
+    fn now_datediff() {
         let source = r#"
 Dim elapsed As Long
 elapsed = DateDiff("s", startTime, Now)
@@ -855,7 +855,7 @@ elapsed = DateDiff("s", startTime, Now)
     }
 
     #[test]
-    fn test_now_class_usage() {
+    fn now_class_usage() {
         let source = r#"
 Private m_timestamp As Date
 
@@ -870,7 +870,7 @@ End Sub
     }
 
     #[test]
-    fn test_now_with_statement() {
+    fn now_with_statement() {
         let source = r#"
 With currentRecord
     .CreatedDate = Now
@@ -884,7 +884,7 @@ End With
     }
 
     #[test]
-    fn test_now_array_assignment() {
+    fn now_array_assignment() {
         let source = r#"
 Dim timestamps(10) As Date
 timestamps(i) = Now
@@ -896,7 +896,7 @@ timestamps(i) = Now
     }
 
     #[test]
-    fn test_now_property_assignment() {
+    fn now_property_assignment() {
         let source = r#"
 Set obj = New Logger
 obj.Timestamp = Now
@@ -908,7 +908,7 @@ obj.Timestamp = Now
     }
 
     #[test]
-    fn test_now_select_case() {
+    fn now_select_case() {
         let source = r#"
 Select Case Hour(Now)
     Case 0 To 11
@@ -926,7 +926,7 @@ End Select
     }
 
     #[test]
-    fn test_now_elseif() {
+    fn now_elseif() {
         let source = r#"
 If x > 0 Then
     y = 1
@@ -941,7 +941,7 @@ End If
     }
 
     #[test]
-    fn test_now_for_loop() {
+    fn now_for_loop() {
         let source = r#"
 Dim startTime As Date
 startTime = Now
@@ -957,7 +957,7 @@ MsgBox "Elapsed: " & DateDiff("s", startTime, Now)
     }
 
     #[test]
-    fn test_now_do_while() {
+    fn now_do_while() {
         let source = r#"
 Do While Now < endTime
     ProcessData
@@ -970,7 +970,7 @@ Loop
     }
 
     #[test]
-    fn test_now_do_until() {
+    fn now_do_until() {
         let source = r#"
 Do Until Now >= targetTime
     WaitForEvent
@@ -983,7 +983,7 @@ Loop
     }
 
     #[test]
-    fn test_now_while_wend() {
+    fn now_while_wend() {
         let source = r#"
 While Now < cutoffTime
     count = count + 1
@@ -996,7 +996,7 @@ Wend
     }
 
     #[test]
-    fn test_now_iif() {
+    fn now_iif() {
         let source = r#"
 Dim status As String
 status = IIf(Now > deadline, "Late", "On time")
@@ -1008,7 +1008,7 @@ status = IIf(Now > deadline, "Late", "On time")
     }
 
     #[test]
-    fn test_now_comparison() {
+    fn now_comparison() {
         let source = r#"
 If DateDiff("h", lastUpdate, Now) > 24 Then
     UpdateData
@@ -1021,7 +1021,7 @@ End If
     }
 
     #[test]
-    fn test_now_function_argument() {
+    fn now_function_argument() {
         let source = r#"
 Call LogEvent("User login", Now)
 "#;
@@ -1032,7 +1032,7 @@ Call LogEvent("User login", Now)
     }
 
     #[test]
-    fn test_now_sql_insert() {
+    fn now_sql_insert() {
         let source = r#"
 sql = "INSERT INTO Events (Timestamp) VALUES (" & Format(Now, "\#mm\/dd\/yyyy hh:nn:ss\#") & ")"
 "#;
@@ -1043,7 +1043,7 @@ sql = "INSERT INTO Events (Timestamp) VALUES (" & Format(Now, "\#mm\/dd\/yyyy hh
     }
 
     #[test]
-    fn test_now_year_function() {
+    fn now_year_function() {
         let source = r#"
 Dim currentYear As Integer
 currentYear = Year(Now)
@@ -1055,7 +1055,7 @@ currentYear = Year(Now)
     }
 
     #[test]
-    fn test_now_month_function() {
+    fn now_month_function() {
         let source = r#"
 Dim currentMonth As Integer
 currentMonth = Month(Now)
@@ -1067,7 +1067,7 @@ currentMonth = Month(Now)
     }
 
     #[test]
-    fn test_now_dateadd() {
+    fn now_dateadd() {
         let source = r#"
 Dim futureDate As Date
 futureDate = DateAdd("d", 7, Now)
@@ -1079,7 +1079,7 @@ futureDate = DateAdd("d", 7, Now)
     }
 
     #[test]
-    fn test_now_multiple_calls() {
+    fn now_multiple_calls() {
         let source = r#"
 Dim start As Date
 Dim finish As Date

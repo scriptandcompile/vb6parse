@@ -581,7 +581,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_sin_basic() {
+    fn sin_basic() {
         let source = r#"
 Sub Test()
     Dim result As Double
@@ -595,7 +595,7 @@ End Sub
     }
 
     #[test]
-    fn test_sin_with_pi() {
+    fn sin_with_pi() {
         let source = r#"
 Sub Test()
     Dim pi As Double
@@ -611,7 +611,7 @@ End Sub
     }
 
     #[test]
-    fn test_sin_if_statement() {
+    fn sin_if_statement() {
         let source = r#"
 Sub Test()
     If Sin(angle) > 0.5 Then
@@ -625,7 +625,7 @@ End Sub
     }
 
     #[test]
-    fn test_sin_function_return() {
+    fn sin_function_return() {
         let source = r#"
 Function CalculateSine(angle As Double) As Double
     CalculateSine = Sin(angle)
@@ -638,7 +638,7 @@ End Function
     }
 
     #[test]
-    fn test_sin_variable_assignment() {
+    fn sin_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim y As Double
@@ -652,7 +652,7 @@ End Sub
     }
 
     #[test]
-    fn test_sin_msgbox() {
+    fn sin_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Sine value: " & Sin(angle)
@@ -665,7 +665,7 @@ End Sub
     }
 
     #[test]
-    fn test_sin_debug_print() {
+    fn sin_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print Sin(1.0472)
@@ -678,7 +678,7 @@ End Sub
     }
 
     #[test]
-    fn test_sin_select_case() {
+    fn sin_select_case() {
         let source = r#"
 Sub Test()
     Select Case Sin(angle)
@@ -697,7 +697,7 @@ End Sub
     }
 
     #[test]
-    fn test_sin_class_usage() {
+    fn sin_class_usage() {
         let source = r#"
 Class TrigCalculator
     Public Function GetSine(angle As Double) As Double
@@ -712,7 +712,7 @@ End Class
     }
 
     #[test]
-    fn test_sin_with_statement() {
+    fn sin_with_statement() {
         let source = r#"
 Sub Test()
     With Calculator
@@ -728,7 +728,7 @@ End Sub
     }
 
     #[test]
-    fn test_sin_elseif() {
+    fn sin_elseif() {
         let source = r#"
 Sub Test()
     If Sin(a) > 0.9 Then
@@ -746,7 +746,7 @@ End Sub
     }
 
     #[test]
-    fn test_sin_for_loop() {
+    fn sin_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Integer
@@ -761,7 +761,7 @@ End Sub
     }
 
     #[test]
-    fn test_sin_do_while() {
+    fn sin_do_while() {
         let source = r#"
 Sub Test()
     Do While Sin(angle) < 1
@@ -775,7 +775,7 @@ End Sub
     }
 
     #[test]
-    fn test_sin_do_until() {
+    fn sin_do_until() {
         let source = r#"
 Sub Test()
     Do Until Sin(x) > threshold
@@ -789,7 +789,7 @@ End Sub
     }
 
     #[test]
-    fn test_sin_while_wend() {
+    fn sin_while_wend() {
         let source = r#"
 Sub Test()
     While Abs(Sin(angle)) > 0.01
@@ -803,7 +803,7 @@ End Sub
     }
 
     #[test]
-    fn test_sin_parentheses() {
+    fn sin_parentheses() {
         let source = r#"
 Sub Test()
     Dim value As Double
@@ -817,7 +817,7 @@ End Sub
     }
 
     #[test]
-    fn test_sin_iif() {
+    fn sin_iif() {
         let source = r#"
 Sub Test()
     Dim msg As String
@@ -831,7 +831,7 @@ End Sub
     }
 
     #[test]
-    fn test_sin_array_assignment() {
+    fn sin_array_assignment() {
         let source = r#"
 Sub Test()
     Dim waveform(100) As Double
@@ -845,7 +845,7 @@ End Sub
     }
 
     #[test]
-    fn test_sin_property_assignment() {
+    fn sin_property_assignment() {
         let source = r#"
 Class Point
     Public Y As Double
@@ -862,7 +862,7 @@ End Sub
     }
 
     #[test]
-    fn test_sin_function_argument() {
+    fn sin_function_argument() {
         let source = r#"
 Sub ProcessValue(v As Double)
 End Sub
@@ -878,7 +878,7 @@ End Sub
     }
 
     #[test]
-    fn test_sin_concatenation() {
+    fn sin_concatenation() {
         let source = r#"
 Sub Test()
     Dim output As String
@@ -892,7 +892,7 @@ End Sub
     }
 
     #[test]
-    fn test_sin_comparison() {
+    fn sin_comparison() {
         let source = r#"
 Sub Test()
     Dim isPositive As Boolean
@@ -906,7 +906,7 @@ End Sub
     }
 
     #[test]
-    fn test_sin_arithmetic() {
+    fn sin_arithmetic() {
         let source = r#"
 Sub Test()
     Dim amplitude As Double
@@ -921,7 +921,7 @@ End Sub
     }
 
     #[test]
-    fn test_sin_degrees_conversion() {
+    fn sin_degrees_conversion() {
         let source = r#"
 Sub Test()
     Const PI As Double = 3.14159265358979
@@ -940,7 +940,7 @@ End Sub
     }
 
     #[test]
-    fn test_sin_error_handling() {
+    fn sin_error_handling() {
         let source = r#"
 Sub Test()
     On Error Resume Next
@@ -958,7 +958,7 @@ End Sub
     }
 
     #[test]
-    fn test_sin_on_error_goto() {
+    fn sin_on_error_goto() {
         let source = r#"
 Sub Test()
     On Error GoTo ErrorHandler
@@ -976,7 +976,7 @@ End Sub
     }
 
     #[test]
-    fn test_sin_circular_motion() {
+    fn sin_circular_motion() {
         let source = r#"
 Sub Test()
     Dim y As Double

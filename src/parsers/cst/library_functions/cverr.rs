@@ -503,7 +503,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_cverr_basic() {
+    fn cverr_basic() {
         let source = r#"
 result = CVErr(2042)
 "#;
@@ -514,7 +514,7 @@ result = CVErr(2042)
     }
 
     #[test]
-    fn test_cverr_division_by_zero() {
+    fn cverr_division_by_zero() {
         let source = r#"
 error = CVErr(2007)
 "#;
@@ -525,7 +525,7 @@ error = CVErr(2007)
     }
 
     #[test]
-    fn test_cverr_in_function() {
+    fn cverr_in_function() {
         let source = r#"
 Function SafeDivide(a As Double, b As Double) As Variant
     If b = 0 Then
@@ -542,7 +542,7 @@ End Function
     }
 
     #[test]
-    fn test_cverr_with_constant() {
+    fn cverr_with_constant() {
         let source = r#"
 Const xlErrNA As Long = 2042
 result = CVErr(xlErrNA)
@@ -554,7 +554,7 @@ result = CVErr(xlErrNA)
     }
 
     #[test]
-    fn test_cverr_value_error() {
+    fn cverr_value_error() {
         let source = r#"
 err = CVErr(2015)
 "#;
@@ -565,7 +565,7 @@ err = CVErr(2015)
     }
 
     #[test]
-    fn test_cverr_with_iserror() {
+    fn cverr_with_iserror() {
         let source = r#"
 result = CVErr(2042)
 If IsError(result) Then
@@ -579,7 +579,7 @@ End If
     }
 
     #[test]
-    fn test_cverr_in_assignment() {
+    fn cverr_in_assignment() {
         let source = r#"
 Dim myError As Variant
 myError = CVErr(2036)
@@ -591,7 +591,7 @@ myError = CVErr(2036)
     }
 
     #[test]
-    fn test_cverr_custom_error() {
+    fn cverr_custom_error() {
         let source = r#"
 Const APP_ERR_INVALID As Long = 1000
 result = CVErr(APP_ERR_INVALID)
@@ -603,7 +603,7 @@ result = CVErr(APP_ERR_INVALID)
     }
 
     #[test]
-    fn test_cverr_ref_error() {
+    fn cverr_ref_error() {
         let source = r#"
 refError = CVErr(2023)
 "#;
@@ -614,7 +614,7 @@ refError = CVErr(2023)
     }
 
     #[test]
-    fn test_cverr_num_error() {
+    fn cverr_num_error() {
         let source = r#"
 numError = CVErr(2036)
 "#;
@@ -625,7 +625,7 @@ numError = CVErr(2036)
     }
 
     #[test]
-    fn test_cverr_in_select_case() {
+    fn cverr_in_select_case() {
         let source = r#"
 Select Case value
     Case Is < 0
@@ -641,7 +641,7 @@ End Select
     }
 
     #[test]
-    fn test_cverr_propagation() {
+    fn cverr_propagation() {
         let source = r#"
 If IsError(input) Then
     output = input
@@ -656,7 +656,7 @@ End If
     }
 
     #[test]
-    fn test_cverr_name_error() {
+    fn cverr_name_error() {
         let source = r#"
 nameErr = CVErr(2029)
 "#;
@@ -667,7 +667,7 @@ nameErr = CVErr(2029)
     }
 
     #[test]
-    fn test_cverr_null_error() {
+    fn cverr_null_error() {
         let source = r#"
 nullErr = CVErr(2000)
 "#;
@@ -678,7 +678,7 @@ nullErr = CVErr(2000)
     }
 
     #[test]
-    fn test_cverr_in_array() {
+    fn cverr_in_array() {
         let source = r#"
 results(i) = CVErr(2042)
 "#;
@@ -689,7 +689,7 @@ results(i) = CVErr(2042)
     }
 
     #[test]
-    fn test_cverr_with_variable() {
+    fn cverr_with_variable() {
         let source = r#"
 Dim errorNum As Long
 errorNum = 2042
@@ -702,7 +702,7 @@ result = CVErr(errorNum)
     }
 
     #[test]
-    fn test_cverr_in_if_condition() {
+    fn cverr_in_if_condition() {
         let source = r#"
 If value < 0 Then
     result = CVErr(2036)
@@ -715,7 +715,7 @@ End If
     }
 
     #[test]
-    fn test_cverr_multiple_errors() {
+    fn cverr_multiple_errors() {
         let source = r#"
 err1 = CVErr(2007)
 err2 = CVErr(2042)
@@ -728,7 +728,7 @@ err3 = CVErr(2015)
     }
 
     #[test]
-    fn test_cverr_in_loop() {
+    fn cverr_in_loop() {
         let source = r#"
 For i = 1 To 10
     If arr(i) < 0 Then
@@ -743,7 +743,7 @@ Next i
     }
 
     #[test]
-    fn test_cverr_return_value() {
+    fn cverr_return_value() {
         let source = r#"
 Function Validate(x As Variant) As Variant
     Validate = CVErr(2015)
@@ -756,7 +756,7 @@ End Function
     }
 
     #[test]
-    fn test_cverr_in_do_loop() {
+    fn cverr_in_do_loop() {
         let source = r#"
 Do While Not rs.EOF
     If IsNull(rs("Value")) Then
@@ -772,7 +772,7 @@ Loop
     }
 
     #[test]
-    fn test_cverr_with_expression() {
+    fn cverr_with_expression() {
         let source = r#"
 errCode = baseError + offset
 result = CVErr(errCode)
@@ -784,7 +784,7 @@ result = CVErr(errCode)
     }
 
     #[test]
-    fn test_cverr_in_collection() {
+    fn cverr_in_collection() {
         let source = r#"
 errors.Add CVErr(2042)
 "#;
@@ -795,7 +795,7 @@ errors.Add CVErr(2042)
     }
 
     #[test]
-    fn test_cverr_zero() {
+    fn cverr_zero() {
         let source = r#"
 err = CVErr(0)
 "#;
@@ -806,7 +806,7 @@ err = CVErr(0)
     }
 
     #[test]
-    fn test_cverr_with_whitespace() {
+    fn cverr_with_whitespace() {
         let source = r#"
 result = CVErr( 2042 )
 "#;

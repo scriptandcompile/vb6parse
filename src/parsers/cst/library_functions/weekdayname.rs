@@ -505,7 +505,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_weekdayname_basic() {
+    fn weekdayname_basic() {
         let source = r#"
 Sub Test()
     dayName = WeekdayName(1)
@@ -517,7 +517,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekdayname_variable_assignment() {
+    fn weekdayname_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim name As String
@@ -531,7 +531,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekdayname_with_abbreviate() {
+    fn weekdayname_with_abbreviate() {
         let source = r#"
 Sub Test()
     shortName = WeekdayName(3, True)
@@ -543,7 +543,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekdayname_all_parameters() {
+    fn weekdayname_all_parameters() {
         let source = r#"
 Sub Test()
     name = WeekdayName(2, False, vbMonday)
@@ -555,7 +555,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekdayname_with_weekday() {
+    fn weekdayname_with_weekday() {
         let source = r#"
 Sub Test()
     todayName = WeekdayName(Weekday(Date))
@@ -567,7 +567,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekdayname_for_loop() {
+    fn weekdayname_for_loop() {
         let source = r#"
 Sub Test()
     For i = 1 To 7
@@ -581,7 +581,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekdayname_msgbox() {
+    fn weekdayname_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Today is " & WeekdayName(Weekday(Date))
@@ -593,7 +593,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekdayname_function_return() {
+    fn weekdayname_function_return() {
         let source = r#"
 Function GetDayName(dayNum As Integer) As String
     GetDayName = WeekdayName(dayNum)
@@ -605,7 +605,7 @@ End Function
     }
 
     #[test]
-    fn test_weekdayname_array_assignment() {
+    fn weekdayname_array_assignment() {
         let source = r#"
 Sub Test()
     dayNames(i) = WeekdayName(i, True)
@@ -617,7 +617,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekdayname_concatenation() {
+    fn weekdayname_concatenation() {
         let source = r#"
 Sub Test()
     header = WeekdayName(1, True) & vbTab & WeekdayName(2, True)
@@ -629,7 +629,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekdayname_function_argument() {
+    fn weekdayname_function_argument() {
         let source = r#"
 Sub Test()
     Call DisplayDay(WeekdayName(dayNum))
@@ -641,7 +641,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekdayname_debug_print() {
+    fn weekdayname_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print WeekdayName(vbMonday)
@@ -653,7 +653,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekdayname_select_case() {
+    fn weekdayname_select_case() {
         let source = r#"
 Sub Test()
     Select Case WeekdayName(Weekday(dt))
@@ -670,7 +670,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekdayname_if_statement() {
+    fn weekdayname_if_statement() {
         let source = r#"
 Sub Test()
     If WeekdayName(Weekday(dt)) = "Saturday" Then
@@ -684,7 +684,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekdayname_comparison() {
+    fn weekdayname_comparison() {
         let source = r#"
 Sub Test()
     If WeekdayName(day1) = WeekdayName(day2) Then
@@ -698,7 +698,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekdayname_format() {
+    fn weekdayname_format() {
         let source = r#"
 Sub Test()
     formatted = WeekdayName(Weekday(dt)) & ", " & Format$(dt, "mmmm d, yyyy")
@@ -710,7 +710,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekdayname_property_assignment() {
+    fn weekdayname_property_assignment() {
         let source = r#"
 Sub Test()
     obj.DayName = WeekdayName(obj.DayNumber)
@@ -722,7 +722,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekdayname_with_statement() {
+    fn weekdayname_with_statement() {
         let source = r#"
 Sub Test()
     With dateInfo
@@ -736,7 +736,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekdayname_parentheses() {
+    fn weekdayname_parentheses() {
         let source = r#"
 Sub Test()
     result = (WeekdayName(dayNum))
@@ -748,7 +748,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekdayname_error_handling() {
+    fn weekdayname_error_handling() {
         let source = r#"
 Sub Test()
     On Error Resume Next
@@ -764,7 +764,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekdayname_print_statement() {
+    fn weekdayname_print_statement() {
         let source = r#"
 Sub Test()
     Print #1, WeekdayName(i, True)
@@ -776,7 +776,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekdayname_class_usage() {
+    fn weekdayname_class_usage() {
         let source = r#"
 Sub Test()
     Set formatter = New DateFormatter
@@ -789,7 +789,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekdayname_elseif() {
+    fn weekdayname_elseif() {
         let source = r#"
 Sub Test()
     If x = 1 Then
@@ -805,7 +805,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekdayname_do_while() {
+    fn weekdayname_do_while() {
         let source = r#"
 Sub Test()
     Do While WeekdayName(Weekday(dt), True) <> "Mon"
@@ -819,7 +819,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekdayname_left_function() {
+    fn weekdayname_left_function() {
         let source = r#"
 Sub Test()
     initial = Left$(WeekdayName(dayNum, True), 1)
@@ -831,7 +831,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekdayname_ucase() {
+    fn weekdayname_ucase() {
         let source = r#"
 Sub Test()
     upperName = UCase$(WeekdayName(dayNum))
@@ -843,7 +843,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekdayname_iif() {
+    fn weekdayname_iif() {
         let source = r#"
 Sub Test()
     display = IIf(abbreviated, WeekdayName(day, True), WeekdayName(day, False))
@@ -855,7 +855,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekdayname_collection_add() {
+    fn weekdayname_collection_add() {
         let source = r#"
 Sub Test()
     days.Add WeekdayName(i), CStr(i)

@@ -337,7 +337,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_fix_basic() {
+    fn fix_basic() {
         let source = r#"
 Sub Test()
     result = Fix(8.7)
@@ -350,7 +350,7 @@ End Sub
     }
 
     #[test]
-    fn test_fix_negative() {
+    fn fix_negative() {
         let source = r#"
 Sub Test()
     result = Fix(-8.7)
@@ -363,7 +363,7 @@ End Sub
     }
 
     #[test]
-    fn test_fix_currency() {
+    fn fix_currency() {
         let source = r#"
 Sub Test()
     dollars = Fix(price)
@@ -376,7 +376,7 @@ End Sub
     }
 
     #[test]
-    fn test_fix_if_statement() {
+    fn fix_if_statement() {
         let source = r#"
 Sub Test()
     If Fix(value) > 10 Then
@@ -391,7 +391,7 @@ End Sub
     }
 
     #[test]
-    fn test_fix_function_return() {
+    fn fix_function_return() {
         let source = r#"
 Function Truncate(value As Double) As Long
     Truncate = Fix(value)
@@ -404,7 +404,7 @@ End Function
     }
 
     #[test]
-    fn test_fix_comparison() {
+    fn fix_comparison() {
         let source = r#"
 Sub Test()
     If Fix(amount) = expectedAmount Then
@@ -419,7 +419,7 @@ End Sub
     }
 
     #[test]
-    fn test_fix_select_case() {
+    fn fix_select_case() {
         let source = r#"
 Sub Test()
     Select Case Fix(score)
@@ -437,7 +437,7 @@ End Sub
     }
 
     #[test]
-    fn test_fix_for_loop() {
+    fn fix_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Long
@@ -453,7 +453,7 @@ End Sub
     }
 
     #[test]
-    fn test_fix_debug_print() {
+    fn fix_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print "Whole part: " & Fix(value)
@@ -466,7 +466,7 @@ End Sub
     }
 
     #[test]
-    fn test_fix_array_assignment() {
+    fn fix_array_assignment() {
         let source = r#"
 Sub Test()
     wholeNumbers(i) = Fix(decimals(i))
@@ -479,7 +479,7 @@ End Sub
     }
 
     #[test]
-    fn test_fix_property_assignment() {
+    fn fix_property_assignment() {
         let source = r#"
 Sub Test()
     obj.WholePart = Fix(obj.DecimalValue)
@@ -492,7 +492,7 @@ End Sub
     }
 
     #[test]
-    fn test_fix_in_class() {
+    fn fix_in_class() {
         let source = r#"
 Private Sub Class_Initialize()
     m_wholePart = Fix(m_value)
@@ -505,7 +505,7 @@ End Sub
     }
 
     #[test]
-    fn test_fix_with_statement() {
+    fn fix_with_statement() {
         let source = r#"
 Sub Test()
     With splitter
@@ -520,7 +520,7 @@ End Sub
     }
 
     #[test]
-    fn test_fix_function_argument() {
+    fn fix_function_argument() {
         let source = r#"
 Sub Test()
     Call ProcessInteger(Fix(value))
@@ -533,7 +533,7 @@ End Sub
     }
 
     #[test]
-    fn test_fix_concatenation() {
+    fn fix_concatenation() {
         let source = r#"
 Sub Test()
     message = "Truncated: " & Fix(number)
@@ -546,7 +546,7 @@ End Sub
     }
 
     #[test]
-    fn test_fix_math_expression() {
+    fn fix_math_expression() {
         let source = r#"
 Sub Test()
     wholePart = Fix(value)
@@ -560,7 +560,7 @@ End Sub
     }
 
     #[test]
-    fn test_fix_iif() {
+    fn fix_iif() {
         let source = r#"
 Sub Test()
     result = IIf(Fix(value) > 0, "Positive", "Zero or Negative")
@@ -573,7 +573,7 @@ End Sub
     }
 
     #[test]
-    fn test_fix_msgbox() {
+    fn fix_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Whole value: " & Fix(amount)
@@ -586,7 +586,7 @@ End Sub
     }
 
     #[test]
-    fn test_fix_collection_add() {
+    fn fix_collection_add() {
         let source = r#"
 Sub Test()
     wholeNumbers.Add Fix(values(i))
@@ -599,7 +599,7 @@ End Sub
     }
 
     #[test]
-    fn test_fix_boolean_expression() {
+    fn fix_boolean_expression() {
         let source = r#"
 Sub Test()
     isValid = Fix(value) >= minValue And Fix(value) <= maxValue
@@ -612,7 +612,7 @@ End Sub
     }
 
     #[test]
-    fn test_fix_nested_call() {
+    fn fix_nested_call() {
         let source = r#"
 Sub Test()
     result = CStr(Fix(value))
@@ -625,7 +625,7 @@ End Sub
     }
 
     #[test]
-    fn test_fix_do_loop() {
+    fn fix_do_loop() {
         let source = r#"
 Sub Test()
     Do While Fix(counter) < limit
@@ -640,7 +640,7 @@ End Sub
     }
 
     #[test]
-    fn test_fix_abs() {
+    fn fix_abs() {
         let source = r#"
 Sub Test()
     cents = Fix(Abs((amount - dollars) * 100))
@@ -653,7 +653,7 @@ End Sub
     }
 
     #[test]
-    fn test_fix_currency_split() {
+    fn fix_currency_split() {
         let source = r#"
 Sub Test()
     dollars = Fix(amount)
@@ -667,7 +667,7 @@ End Sub
     }
 
     #[test]
-    fn test_fix_coordinate() {
+    fn fix_coordinate() {
         let source = r#"
 Sub Test()
     pixelX = Fix(coordinateX)
@@ -681,7 +681,7 @@ End Sub
     }
 
     #[test]
-    fn test_fix_array_index() {
+    fn fix_array_index() {
         let source = r#"
 Sub Test()
     index = Fix(ratio * arraySize)
@@ -695,7 +695,7 @@ End Sub
     }
 
     #[test]
-    fn test_fix_parentheses() {
+    fn fix_parentheses() {
         let source = r#"
 Sub Test()
     value = (Fix(number))

@@ -750,7 +750,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_nper_basic() {
+    fn nper_basic() {
         let source = r#"
 Dim months As Double
 months = NPer(0.08 / 12, -200, 10000)
@@ -762,7 +762,7 @@ months = NPer(0.08 / 12, -200, 10000)
     }
 
     #[test]
-    fn test_nper_with_fv() {
+    fn nper_with_fv() {
         let source = r#"
 Dim periods As Double
 periods = NPer(0.06 / 12, -300, 0, 50000)
@@ -774,7 +774,7 @@ periods = NPer(0.06 / 12, -300, 0, 50000)
     }
 
     #[test]
-    fn test_nper_with_type() {
+    fn nper_with_type() {
         let source = r#"
 Dim n As Double
 n = NPer(rate, pmt, pv, fv, 1)
@@ -786,7 +786,7 @@ n = NPer(rate, pmt, pv, fv, 1)
     }
 
     #[test]
-    fn test_nper_if_statement() {
+    fn nper_if_statement() {
         let source = r#"
 If NPer(apr / 12, -payment, balance) > 60 Then
     MsgBox "Payoff will take over 5 years"
@@ -799,7 +799,7 @@ End If
     }
 
     #[test]
-    fn test_nper_function_return() {
+    fn nper_function_return() {
         let source = r#"
 Function CalculatePayoffMonths(loan As Double, payment As Double, rate As Double) As Double
     CalculatePayoffMonths = NPer(rate / 12, -payment, loan)
@@ -812,7 +812,7 @@ End Function
     }
 
     #[test]
-    fn test_nper_variable_assignment() {
+    fn nper_variable_assignment() {
         let source = r#"
 Dim payoffYears As Double
 payoffYears = NPer(0.05 / 12, -1000, 200000) / 12
@@ -824,7 +824,7 @@ payoffYears = NPer(0.05 / 12, -1000, 200000) / 12
     }
 
     #[test]
-    fn test_nper_msgbox() {
+    fn nper_msgbox() {
         let source = r#"
 MsgBox "Months to payoff: " & Format(NPer(rate, pmt, pv), "0.0")
 "#;
@@ -835,7 +835,7 @@ MsgBox "Months to payoff: " & Format(NPer(rate, pmt, pv), "0.0")
     }
 
     #[test]
-    fn test_nper_debug_print() {
+    fn nper_debug_print() {
         let source = r#"
 Debug.Print "Periods: " & NPer(interestRate, monthlyPmt, principal)
 "#;
@@ -846,7 +846,7 @@ Debug.Print "Periods: " & NPer(interestRate, monthlyPmt, principal)
     }
 
     #[test]
-    fn test_nper_select_case() {
+    fn nper_select_case() {
         let source = r#"
 Select Case Int(NPer(0.08 / 12, -250, 5000) / 12)
     Case Is < 2
@@ -864,7 +864,7 @@ End Select
     }
 
     #[test]
-    fn test_nper_class_usage() {
+    fn nper_class_usage() {
         let source = r#"
 Private m_periods As Double
 
@@ -879,7 +879,7 @@ End Sub
     }
 
     #[test]
-    fn test_nper_with_statement() {
+    fn nper_with_statement() {
         let source = r#"
 With loanInfo
     .PayoffMonths = NPer(.Rate / 12, -.MonthlyPayment, .Principal)
@@ -892,7 +892,7 @@ End With
     }
 
     #[test]
-    fn test_nper_elseif() {
+    fn nper_elseif() {
         let source = r#"
 If x > 0 Then
     y = 1
@@ -907,7 +907,7 @@ End If
     }
 
     #[test]
-    fn test_nper_for_loop() {
+    fn nper_for_loop() {
         let source = r#"
 For payment = 100 To 500 Step 50
     months = NPer(0.1 / 12, -payment, 10000)
@@ -921,7 +921,7 @@ Next payment
     }
 
     #[test]
-    fn test_nper_do_while() {
+    fn nper_do_while() {
         let source = r#"
 Do While NPer(rate, -payment, balance) > targetMonths
     payment = payment + 10
@@ -934,7 +934,7 @@ Loop
     }
 
     #[test]
-    fn test_nper_do_until() {
+    fn nper_do_until() {
         let source = r#"
 Do Until NPer(apr / 12, -pmt, bal) <= 12
     pmt = pmt + 50
@@ -947,7 +947,7 @@ Loop
     }
 
     #[test]
-    fn test_nper_while_wend() {
+    fn nper_while_wend() {
         let source = r#"
 While NPer(0.05 / 12, -amount, 50000) > 120
     amount = amount + 25
@@ -960,7 +960,7 @@ Wend
     }
 
     #[test]
-    fn test_nper_parentheses() {
+    fn nper_parentheses() {
         let source = r#"
 Dim result As Double
 result = (NPer(rate, payment, principal))
@@ -972,7 +972,7 @@ result = (NPer(rate, payment, principal))
     }
 
     #[test]
-    fn test_nper_iif() {
+    fn nper_iif() {
         let source = r#"
 Dim term As String
 term = IIf(NPer(r, p, v) < 36, "Short", "Long")
@@ -984,7 +984,7 @@ term = IIf(NPer(r, p, v) < 36, "Short", "Long")
     }
 
     #[test]
-    fn test_nper_comparison() {
+    fn nper_comparison() {
         let source = r#"
 If NPer(rate1, pmt, bal) < NPer(rate2, pmt, bal) Then
     MsgBox "Rate 1 is faster"
@@ -997,7 +997,7 @@ End If
     }
 
     #[test]
-    fn test_nper_array_assignment() {
+    fn nper_array_assignment() {
         let source = r#"
 Dim payoffTimes(10) As Double
 payoffTimes(i) = NPer(rates(i) / 12, -payment, balance)
@@ -1009,7 +1009,7 @@ payoffTimes(i) = NPer(rates(i) / 12, -payment, balance)
     }
 
     #[test]
-    fn test_nper_property_assignment() {
+    fn nper_property_assignment() {
         let source = r#"
 Set obj = New LoanCalculator
 obj.PayoffPeriods = NPer(obj.Rate / 12, -obj.Payment, obj.Balance)
@@ -1021,7 +1021,7 @@ obj.PayoffPeriods = NPer(obj.Rate / 12, -obj.Payment, obj.Balance)
     }
 
     #[test]
-    fn test_nper_function_argument() {
+    fn nper_function_argument() {
         let source = r#"
 Call DisplayPayoffSchedule(NPer(apr / 12, -monthlyPmt, loanAmount))
 "#;
@@ -1032,7 +1032,7 @@ Call DisplayPayoffSchedule(NPer(apr / 12, -monthlyPmt, loanAmount))
     }
 
     #[test]
-    fn test_nper_format() {
+    fn nper_format() {
         let source = r#"
 Dim formatted As String
 formatted = Format(NPer(0.06 / 12, -500, 25000), "0.00")
@@ -1044,7 +1044,7 @@ formatted = Format(NPer(0.06 / 12, -500, 25000), "0.00")
     }
 
     #[test]
-    fn test_nper_arithmetic() {
+    fn nper_arithmetic() {
         let source = r#"
 Dim years As Double
 years = NPer(rate / 12, -payment, principal) / 12
@@ -1056,7 +1056,7 @@ years = NPer(rate / 12, -payment, principal) / 12
     }
 
     #[test]
-    fn test_nper_concatenation() {
+    fn nper_concatenation() {
         let source = r#"
 Dim msg As String
 msg = "Payoff time: " & NPer(r, p, v) & " months"
@@ -1068,7 +1068,7 @@ msg = "Payoff time: " & NPer(r, p, v) & " months"
     }
 
     #[test]
-    fn test_nper_int_conversion() {
+    fn nper_int_conversion() {
         let source = r#"
 Dim wholeMonths As Integer
 wholeMonths = Int(NPer(0.08 / 12, -300, 15000))
@@ -1080,7 +1080,7 @@ wholeMonths = Int(NPer(0.08 / 12, -300, 15000))
     }
 
     #[test]
-    fn test_nper_error_handling() {
+    fn nper_error_handling() {
         let source = r#"
 On Error Resume Next
 n = NPer(rate, payment, balance)

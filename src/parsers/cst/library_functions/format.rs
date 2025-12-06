@@ -607,7 +607,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_format_basic() {
+    fn format_basic() {
         let source = r#"
 result = Format(value, "0.00")
 "#;
@@ -618,7 +618,7 @@ result = Format(value, "0.00")
     }
 
     #[test]
-    fn test_format_named() {
+    fn format_named() {
         let source = r#"
 formatted = Format(amount, "Currency")
 "#;
@@ -629,7 +629,7 @@ formatted = Format(amount, "Currency")
     }
 
     #[test]
-    fn test_format_date() {
+    fn format_date() {
         let source = r#"
 dateStr = Format(Now, "yyyy-mm-dd")
 "#;
@@ -640,7 +640,7 @@ dateStr = Format(Now, "yyyy-mm-dd")
     }
 
     #[test]
-    fn test_format_percent() {
+    fn format_percent() {
         let source = r#"
 pct = Format(value, "0.00%")
 "#;
@@ -651,7 +651,7 @@ pct = Format(value, "0.00%")
     }
 
     #[test]
-    fn test_format_thousands() {
+    fn format_thousands() {
         let source = r##"
 formatted = Format(value, "#,##0.00")
 "##;
@@ -662,7 +662,7 @@ formatted = Format(value, "#,##0.00")
     }
 
     #[test]
-    fn test_format_zero_pad() {
+    fn format_zero_pad() {
         let source = r#"
 padded = Format(num, "000000")
 "#;
@@ -673,7 +673,7 @@ padded = Format(num, "000000")
     }
 
     #[test]
-    fn test_format_debug_print() {
+    fn format_debug_print() {
         let source = r#"
 Debug.Print Format(value, "General Number")
 "#;
@@ -684,7 +684,7 @@ Debug.Print Format(value, "General Number")
     }
 
     #[test]
-    fn test_format_concatenation() {
+    fn format_concatenation() {
         let source = r##"
 msg = "Amount: " & Format(total, "$#,##0.00")
 "##;
@@ -695,7 +695,7 @@ msg = "Amount: " & Format(total, "$#,##0.00")
     }
 
     #[test]
-    fn test_format_in_function() {
+    fn format_in_function() {
         let source = r##"
 Function FormatCurrency(amount As Double) As String
     FormatCurrency = Format(amount, "$#,##0.00")
@@ -708,7 +708,7 @@ End Function
     }
 
     #[test]
-    fn test_format_division() {
+    fn format_division() {
         let source = r#"
 sizeStr = Format(bytes / 1024, "0.00") & " KB"
 "#;
@@ -719,7 +719,7 @@ sizeStr = Format(bytes / 1024, "0.00") & " KB"
     }
 
     #[test]
-    fn test_format_datetime_fields() {
+    fn format_datetime_fields() {
         let source = r#"
 timeStr = Format(dt, "h:nn AM/PM")
 "#;
@@ -730,7 +730,7 @@ timeStr = Format(dt, "h:nn AM/PM")
     }
 
     #[test]
-    fn test_format_scientific() {
+    fn format_scientific() {
         let source = r#"
 sci = Format(value, "0.00E+00")
 "#;
@@ -741,7 +741,7 @@ sci = Format(value, "0.00E+00")
     }
 
     #[test]
-    fn test_format_if_statement() {
+    fn format_if_statement() {
         let source = r##"
 If value > 0 Then
     result = Format(value, "$#,##0.00")
@@ -756,7 +756,7 @@ End If
     }
 
     #[test]
-    fn test_format_select_case() {
+    fn format_select_case() {
         let source = r#"
 Select Case style
     Case "short"
@@ -772,7 +772,7 @@ End Select
     }
 
     #[test]
-    fn test_format_error_handling() {
+    fn format_error_handling() {
         let source = r#"
 On Error GoTo ErrorHandler
 formatted = Format(value, formatStr)
@@ -787,7 +787,7 @@ ErrorHandler:
     }
 
     #[test]
-    fn test_format_isnull_check() {
+    fn format_isnull_check() {
         let source = r#"
 If Not IsNull(value) Then
     formatted = Format(value, "0.00")
@@ -800,7 +800,7 @@ End If
     }
 
     #[test]
-    fn test_format_string_builder() {
+    fn format_string_builder() {
         let source = r#"
 formatStr = String(totalDigits, "0")
 result = Format(num, formatStr)
@@ -812,7 +812,7 @@ result = Format(num, formatStr)
     }
 
     #[test]
-    fn test_format_elapsed_time() {
+    fn format_elapsed_time() {
         let source = r#"
 result = Format(hours, "00") & ":" & Format(minutes, "00") & ":" & Format(secs, "00")
 "#;
@@ -823,7 +823,7 @@ result = Format(hours, "00") & ":" & Format(minutes, "00") & ":" & Format(secs, 
     }
 
     #[test]
-    fn test_format_uppercase() {
+    fn format_uppercase() {
         let source = r#"
 upper = Format(text, ">")
 "#;
@@ -834,7 +834,7 @@ upper = Format(text, ">")
     }
 
     #[test]
-    fn test_format_lowercase() {
+    fn format_lowercase() {
         let source = r#"
 lower = Format(text, "<")
 "#;
@@ -845,7 +845,7 @@ lower = Format(text, "<")
     }
 
     #[test]
-    fn test_format_invoice() {
+    fn format_invoice() {
         let source = r#"
 invoiceNum = prefix & "-" & Format(num, "000000")
 "#;
@@ -856,7 +856,7 @@ invoiceNum = prefix & "-" & Format(num, "000000")
     }
 
     #[test]
-    fn test_format_conditional() {
+    fn format_conditional() {
         let source = r##"
 result = Format(value, "$#,##0.00;($#,##0.00);-;N/A")
 "##;
@@ -867,7 +867,7 @@ result = Format(value, "$#,##0.00;($#,##0.00);-;N/A")
     }
 
     #[test]
-    fn test_format_for_loop() {
+    fn format_for_loop() {
         let source = r#"
 For i = 1 To 10
     Debug.Print Format(i, "00")
@@ -880,7 +880,7 @@ Next i
     }
 
     #[test]
-    fn test_format_assignment() {
+    fn format_assignment() {
         let source = r##"
 lstBox.AddItem Format(items(i), "$#,##0.00")
 "##;
@@ -891,7 +891,7 @@ lstBox.AddItem Format(items(i), "$#,##0.00")
     }
 
     #[test]
-    fn test_format_comparison() {
+    fn format_comparison() {
         let source = r#"
 If Format(dt, "yyyy-mm-dd") = targetDate Then
     found = True
@@ -904,7 +904,7 @@ End If
     }
 
     #[test]
-    fn test_format_multiline() {
+    fn format_multiline() {
         let source = r##"
 report = "Total: " & Format(total, "$#,##0.00") & vbCrLf & _
          "Tax: " & Format(tax, "$#,##0.00") & vbCrLf & _

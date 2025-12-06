@@ -597,7 +597,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_seek_basic() {
+    fn seek_basic() {
         let source = r#"
 Sub Test()
     Dim pos As Long
@@ -611,7 +611,7 @@ End Sub
     }
 
     #[test]
-    fn test_seek_with_variable() {
+    fn seek_with_variable() {
         let source = r#"
 Sub Test()
     Dim fileNum As Integer
@@ -627,7 +627,7 @@ End Sub
     }
 
     #[test]
-    fn test_seek_if_statement() {
+    fn seek_if_statement() {
         let source = r#"
 Sub Test()
     If Seek(1) > 100 Then
@@ -641,7 +641,7 @@ End Sub
     }
 
     #[test]
-    fn test_seek_function_return() {
+    fn seek_function_return() {
         let source = r#"
 Function GetPosition() As Long
     GetPosition = Seek(1)
@@ -654,7 +654,7 @@ End Function
     }
 
     #[test]
-    fn test_seek_variable_assignment() {
+    fn seek_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim currentPos As Long
@@ -668,7 +668,7 @@ End Sub
     }
 
     #[test]
-    fn test_seek_msgbox() {
+    fn seek_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Position: " & Seek(1)
@@ -681,7 +681,7 @@ End Sub
     }
 
     #[test]
-    fn test_seek_debug_print() {
+    fn seek_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print Seek(1)
@@ -694,7 +694,7 @@ End Sub
     }
 
     #[test]
-    fn test_seek_select_case() {
+    fn seek_select_case() {
         let source = r#"
 Sub Test()
     Select Case Seek(1)
@@ -711,7 +711,7 @@ End Sub
     }
 
     #[test]
-    fn test_seek_class_usage() {
+    fn seek_class_usage() {
         let source = r#"
 Class FileManager
     Public Function GetCurrentPosition(fileNum As Integer) As Long
@@ -726,7 +726,7 @@ End Class
     }
 
     #[test]
-    fn test_seek_with_statement() {
+    fn seek_with_statement() {
         let source = r#"
 Sub Test()
     With FileManager
@@ -742,7 +742,7 @@ End Sub
     }
 
     #[test]
-    fn test_seek_elseif() {
+    fn seek_elseif() {
         let source = r#"
 Sub Test()
     If Seek(1) = 1 Then
@@ -758,7 +758,7 @@ End Sub
     }
 
     #[test]
-    fn test_seek_for_loop() {
+    fn seek_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Long
@@ -773,7 +773,7 @@ End Sub
     }
 
     #[test]
-    fn test_seek_do_while() {
+    fn seek_do_while() {
         let source = r#"
 Sub Test()
     Do While Seek(1) < 1000
@@ -787,7 +787,7 @@ End Sub
     }
 
     #[test]
-    fn test_seek_do_until() {
+    fn seek_do_until() {
         let source = r#"
 Sub Test()
     Do Until Seek(1) > LOF(1)
@@ -801,7 +801,7 @@ End Sub
     }
 
     #[test]
-    fn test_seek_while_wend() {
+    fn seek_while_wend() {
         let source = r#"
 Sub Test()
     While Seek(1) < 1000
@@ -815,7 +815,7 @@ End Sub
     }
 
     #[test]
-    fn test_seek_parentheses() {
+    fn seek_parentheses() {
         let source = r#"
 Sub Test()
     Dim result As Long
@@ -829,7 +829,7 @@ End Sub
     }
 
     #[test]
-    fn test_seek_iif() {
+    fn seek_iif() {
         let source = r#"
 Sub Test()
     Dim msg As String
@@ -843,7 +843,7 @@ End Sub
     }
 
     #[test]
-    fn test_seek_array_assignment() {
+    fn seek_array_assignment() {
         let source = r#"
 Sub Test()
     Dim positions(10) As Long
@@ -857,7 +857,7 @@ End Sub
     }
 
     #[test]
-    fn test_seek_property_assignment() {
+    fn seek_property_assignment() {
         let source = r#"
 Class FileInfo
     Public Position As Long
@@ -874,7 +874,7 @@ End Sub
     }
 
     #[test]
-    fn test_seek_function_argument() {
+    fn seek_function_argument() {
         let source = r#"
 Sub ProcessPosition(pos As Long)
 End Sub
@@ -890,7 +890,7 @@ End Sub
     }
 
     #[test]
-    fn test_seek_concatenation() {
+    fn seek_concatenation() {
         let source = r#"
 Sub Test()
     Dim msg As String
@@ -904,7 +904,7 @@ End Sub
     }
 
     #[test]
-    fn test_seek_comparison() {
+    fn seek_comparison() {
         let source = r#"
 Sub Test()
     Dim atEnd As Boolean
@@ -918,7 +918,7 @@ End Sub
     }
 
     #[test]
-    fn test_seek_arithmetic() {
+    fn seek_arithmetic() {
         let source = r#"
 Sub Test()
     Dim remaining As Long
@@ -932,7 +932,7 @@ End Sub
     }
 
     #[test]
-    fn test_seek_with_lof() {
+    fn seek_with_lof() {
         let source = r#"
 Sub Test()
     Dim progress As Double
@@ -946,7 +946,7 @@ End Sub
     }
 
     #[test]
-    fn test_seek_freefile() {
+    fn seek_freefile() {
         let source = r#"
 Sub Test()
     Dim fileNum As Integer
@@ -962,7 +962,7 @@ End Sub
     }
 
     #[test]
-    fn test_seek_error_handling() {
+    fn seek_error_handling() {
         let source = r#"
 Sub Test()
     On Error Resume Next
@@ -980,7 +980,7 @@ End Sub
     }
 
     #[test]
-    fn test_seek_on_error_goto() {
+    fn seek_on_error_goto() {
         let source = r#"
 Sub Test()
     On Error GoTo ErrorHandler

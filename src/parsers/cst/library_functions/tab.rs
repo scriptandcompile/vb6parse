@@ -184,7 +184,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_tab_basic() {
+    fn tab_basic() {
         let source = r#"
 Sub Test()
     Print Tab(10); "Hello"
@@ -196,7 +196,7 @@ End Sub
     }
 
     #[test]
-    fn test_tab_print_to_file() {
+    fn tab_print_to_file() {
         let source = r#"
 Sub Test()
     Print #1, Tab(20); "World"
@@ -208,7 +208,7 @@ End Sub
     }
 
     #[test]
-    fn test_tab_omitted_column() {
+    fn tab_omitted_column() {
         let source = r#"
 Sub Test()
     Print Tab; "Next zone"
@@ -220,7 +220,7 @@ End Sub
     }
 
     #[test]
-    fn test_tab_multiple_columns() {
+    fn tab_multiple_columns() {
         let source = r#"
 Sub Test()
     Print Tab(5); "A"; Tab(15); "B"; Tab(25); "C"
@@ -232,7 +232,7 @@ End Sub
     }
 
     #[test]
-    fn test_tab_table_header() {
+    fn tab_table_header() {
         let source = r#"
 Sub Test()
     Print Tab(1); "ID"; Tab(10); "Name"; Tab(30); "Score"
@@ -244,7 +244,7 @@ End Sub
     }
 
     #[test]
-    fn test_tab_data_rows() {
+    fn tab_data_rows() {
         let source = r#"
 Sub Test()
     For i = 1 To 10
@@ -258,7 +258,7 @@ End Sub
     }
 
     #[test]
-    fn test_tab_with_spc() {
+    fn tab_with_spc() {
         let source = r#"
 Sub Test()
     Print Tab(10); Spc(5); "Data"
@@ -270,7 +270,7 @@ End Sub
     }
 
     #[test]
-    fn test_tab_debug_print() {
+    fn tab_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print Tab(15); "Debug info"
@@ -282,7 +282,7 @@ End Sub
     }
 
     #[test]
-    fn test_tab_print_to_file_2() {
+    fn tab_print_to_file_2() {
         let source = r#"
 Sub Test()
     Print #1, Tab(8); "File data"
@@ -294,7 +294,7 @@ End Sub
     }
 
     #[test]
-    fn test_tab_omitted_column_2() {
+    fn tab_omitted_column_2() {
         let source = r#"
 Sub Test()
     Print Tab; "Default zone"
@@ -306,7 +306,7 @@ End Sub
     }
 
     #[test]
-    fn test_tab_calculated_column() {
+    fn tab_calculated_column() {
         let source = r#"
 Sub Test()
     Print Tab(i * 5); "Value"
@@ -318,7 +318,7 @@ End Sub
     }
 
     #[test]
-    fn test_tab_with_variable() {
+    fn tab_with_variable() {
         let source = r#"
 Sub Test()
     col = 12
@@ -331,7 +331,7 @@ End Sub
     }
 
     #[test]
-    fn test_tab_multiple_tab_calls() {
+    fn tab_multiple_tab_calls() {
         let source = r#"
 Sub Test()
     Print Tab(5); "A"; Tab(15); "B"; Tab(25); "C"
@@ -343,7 +343,7 @@ End Sub
     }
 
     #[test]
-    fn test_tab_with_tab_and_spc() {
+    fn tab_with_tab_and_spc() {
         let source = r#"
 Sub Test()
     Print Tab(10); Spc(3); "Mix"
@@ -355,7 +355,7 @@ End Sub
     }
 
     #[test]
-    fn test_tab_formatted_report() {
+    fn tab_formatted_report() {
         let source = r#"
 Sub Test()
     Print Tab(1); "Header1"; Tab(20); "Header2"
@@ -370,7 +370,7 @@ End Sub
     }
 
     #[test]
-    fn test_tab_dynamic_columns() {
+    fn tab_dynamic_columns() {
         let source = r#"
 Sub Test()
     For i = 1 To 3
@@ -384,7 +384,7 @@ End Sub
     }
 
     #[test]
-    fn test_tab_omitted_column_loop() {
+    fn tab_omitted_column_loop() {
         let source = r#"
 Sub Test()
     For i = 1 To 3
@@ -398,7 +398,7 @@ End Sub
     }
 
     #[test]
-    fn test_tab_alignment() {
+    fn tab_alignment() {
         let source = r#"
 Sub Test()
     Print Tab(10); Spc(2); "Aligned"

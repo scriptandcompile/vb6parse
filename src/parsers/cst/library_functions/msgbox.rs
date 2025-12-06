@@ -640,7 +640,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_msgbox_basic() {
+    fn msgbox_basic() {
         let source = r#"
 Dim result As Integer
 result = MsgBox("Hello")
@@ -652,7 +652,7 @@ result = MsgBox("Hello")
     }
 
     #[test]
-    fn test_msgbox_with_buttons() {
+    fn msgbox_with_buttons() {
         let source = r#"
 Dim answer As Integer
 answer = MsgBox("Continue?", vbYesNo)
@@ -664,7 +664,7 @@ answer = MsgBox("Continue?", vbYesNo)
     }
 
     #[test]
-    fn test_msgbox_with_title() {
+    fn msgbox_with_title() {
         let source = r#"
 MsgBox "Error occurred", vbCritical, "Error"
 "#;
@@ -674,7 +674,7 @@ MsgBox "Error occurred", vbCritical, "Error"
     }
 
     #[test]
-    fn test_msgbox_if_statement() {
+    fn msgbox_if_statement() {
         let source = r#"
 If MsgBox("Save changes?", vbYesNo) = vbYes Then
     SaveFile
@@ -687,7 +687,7 @@ End If
     }
 
     #[test]
-    fn test_msgbox_select_case() {
+    fn msgbox_select_case() {
         let source = r#"
 Select Case MsgBox("Choose action", vbAbortRetryIgnore)
     Case vbAbort
@@ -705,7 +705,7 @@ End Select
     }
 
     #[test]
-    fn test_msgbox_concatenation() {
+    fn msgbox_concatenation() {
         let source = r#"
 MsgBox "Value: " & x & vbCrLf & "Status: " & status
 "#;
@@ -715,7 +715,7 @@ MsgBox "Value: " & x & vbCrLf & "Status: " & status
     }
 
     #[test]
-    fn test_msgbox_function_return() {
+    fn msgbox_function_return() {
         let source = r#"
 Function AskUser() As Integer
     AskUser = MsgBox("Proceed?", vbYesNo + vbQuestion)
@@ -728,7 +728,7 @@ End Function
     }
 
     #[test]
-    fn test_msgbox_class_usage() {
+    fn msgbox_class_usage() {
         let source = r#"
 Private Sub ShowMessage()
     Dim result As Integer
@@ -742,7 +742,7 @@ End Sub
     }
 
     #[test]
-    fn test_msgbox_elseif() {
+    fn msgbox_elseif() {
         let source = r#"
 If x > 0 Then
     y = 1
@@ -757,7 +757,7 @@ End If
     }
 
     #[test]
-    fn test_msgbox_do_while() {
+    fn msgbox_do_while() {
         let source = r#"
 Do While MsgBox("Continue loop?", vbYesNo) = vbYes
     ProcessItem
@@ -770,7 +770,7 @@ Loop
     }
 
     #[test]
-    fn test_msgbox_do_until() {
+    fn msgbox_do_until() {
         let source = r#"
 Do Until MsgBox("Stop?", vbYesNo) = vbYes
     ProcessData
@@ -783,7 +783,7 @@ Loop
     }
 
     #[test]
-    fn test_msgbox_with_statement() {
+    fn msgbox_with_statement() {
         let source = r#"
 With currentRecord
     MsgBox "Name: " & .Name & vbCrLf & "ID: " & .ID
@@ -795,7 +795,7 @@ End With
     }
 
     #[test]
-    fn test_msgbox_parentheses() {
+    fn msgbox_parentheses() {
         let source = r#"
 Dim result As Integer
 result = (MsgBox("Confirm?", vbOKCancel))
@@ -807,7 +807,7 @@ result = (MsgBox("Confirm?", vbOKCancel))
     }
 
     #[test]
-    fn test_msgbox_iif() {
+    fn msgbox_iif() {
         let source = r#"
 Dim msg As String
 msg = IIf(MsgBox("Yes or No?", vbYesNo) = vbYes, "Yes clicked", "No clicked")
@@ -819,7 +819,7 @@ msg = IIf(MsgBox("Yes or No?", vbYesNo) = vbYes, "Yes clicked", "No clicked")
     }
 
     #[test]
-    fn test_msgbox_array_context() {
+    fn msgbox_array_context() {
         let source = r#"
 Dim responses(5) As Integer
 responses(i) = MsgBox("Question " & i, vbYesNo)
@@ -831,7 +831,7 @@ responses(i) = MsgBox("Question " & i, vbYesNo)
     }
 
     #[test]
-    fn test_msgbox_comparison() {
+    fn msgbox_comparison() {
         let source = r#"
 If MsgBox("Delete?", vbYesNo) = vbYes And confirmed Then
     DeleteRecord
@@ -844,7 +844,7 @@ End If
     }
 
     #[test]
-    fn test_msgbox_error_handling() {
+    fn msgbox_error_handling() {
         let source = r#"
 On Error Resume Next
 MsgBox "Error: " & Err.Description, vbCritical
@@ -856,7 +856,7 @@ On Error GoTo 0
     }
 
     #[test]
-    fn test_msgbox_multiline() {
+    fn msgbox_multiline() {
         let source = r#"
 MsgBox "Line 1" & vbCrLf & "Line 2" & vbCrLf & "Line 3", vbInformation, "Multi-line"
 "#;
@@ -866,7 +866,7 @@ MsgBox "Line 1" & vbCrLf & "Line 2" & vbCrLf & "Line 3", vbInformation, "Multi-l
     }
 
     #[test]
-    fn test_msgbox_combined_flags() {
+    fn msgbox_combined_flags() {
         let source = r#"
 result = MsgBox("Warning!", vbYesNo + vbExclamation + vbDefaultButton2, "Confirm")
 "#;
@@ -877,7 +877,7 @@ result = MsgBox("Warning!", vbYesNo + vbExclamation + vbDefaultButton2, "Confirm
     }
 
     #[test]
-    fn test_msgbox_for_loop() {
+    fn msgbox_for_loop() {
         let source = r#"
 For i = 1 To 5
     If MsgBox("Continue?", vbYesNo) = vbNo Then Exit For
@@ -890,7 +890,7 @@ Next i
     }
 
     #[test]
-    fn test_msgbox_while_wend() {
+    fn msgbox_while_wend() {
         let source = r#"
 While MsgBox("Keep going?", vbYesNo) = vbYes
     count = count + 1
@@ -903,7 +903,7 @@ Wend
     }
 
     #[test]
-    fn test_msgbox_call_statement() {
+    fn msgbox_call_statement() {
         let source = r#"
 Call ProcessResponse(MsgBox("Accept?", vbYesNo))
 "#;
@@ -914,7 +914,7 @@ Call ProcessResponse(MsgBox("Accept?", vbYesNo))
     }
 
     #[test]
-    fn test_msgbox_property_assignment() {
+    fn msgbox_property_assignment() {
         let source = r#"
 Set obj = New Dialog
 obj.UserResponse = MsgBox("Confirm action?", vbOKCancel)
@@ -926,7 +926,7 @@ obj.UserResponse = MsgBox("Confirm action?", vbOKCancel)
     }
 
     #[test]
-    fn test_msgbox_debug_context() {
+    fn msgbox_debug_context() {
         let source = r#"
 #If DEBUG_MODE Then
     MsgBox "Debug: x = " & x
@@ -938,7 +938,7 @@ obj.UserResponse = MsgBox("Confirm action?", vbOKCancel)
     }
 
     #[test]
-    fn test_msgbox_variable_buttons() {
+    fn msgbox_variable_buttons() {
         let source = r#"
 Dim buttons As VbMsgBoxStyle
 buttons = vbYesNo + vbQuestion
@@ -951,7 +951,7 @@ result = MsgBox("Proceed?", buttons)
     }
 
     #[test]
-    fn test_msgbox_function_argument() {
+    fn msgbox_function_argument() {
         let source = r#"
 Call LogUserChoice(MsgBox("Save changes?", vbYesNoCancel))
 "#;
@@ -962,7 +962,7 @@ Call LogUserChoice(MsgBox("Save changes?", vbYesNoCancel))
     }
 
     #[test]
-    fn test_msgbox_or_operator() {
+    fn msgbox_or_operator() {
         let source = r#"
 result = MsgBox("Warning", vbYesNo Or vbExclamation, "Alert")
 "#;

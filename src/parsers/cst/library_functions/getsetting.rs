@@ -320,7 +320,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_getsetting_basic() {
+    fn getsetting_basic() {
         let source = r#"
 Sub Test()
     value = GetSetting("MyApp", "Section", "Key", "Default")
@@ -333,7 +333,7 @@ End Sub
     }
 
     #[test]
-    fn test_getsetting_three_params() {
+    fn getsetting_three_params() {
         let source = r#"
 Sub Test()
     value = GetSetting("MyApp", "Section", "Key")
@@ -346,7 +346,7 @@ End Sub
     }
 
     #[test]
-    fn test_getsetting_in_function() {
+    fn getsetting_in_function() {
         let source = r#"
 Function GetUserName() As String
     GetUserName = GetSetting("MyApp", "User", "Name", "Guest")
@@ -359,7 +359,7 @@ End Function
     }
 
     #[test]
-    fn test_getsetting_with_conversion() {
+    fn getsetting_with_conversion() {
         let source = r#"
 Sub Test()
     Dim x As Integer
@@ -373,7 +373,7 @@ End Sub
     }
 
     #[test]
-    fn test_getsetting_if_statement() {
+    fn getsetting_if_statement() {
         let source = r#"
 Sub Test()
     If GetSetting("MyApp", "Options", "AutoSave", "False") = "True" Then
@@ -388,7 +388,7 @@ End Sub
     }
 
     #[test]
-    fn test_getsetting_for_loop() {
+    fn getsetting_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Integer
@@ -404,7 +404,7 @@ End Sub
     }
 
     #[test]
-    fn test_getsetting_select_case() {
+    fn getsetting_select_case() {
         let source = r#"
 Sub Test()
     Select Case GetSetting("MyApp", "UI", "Theme", "Default")
@@ -422,7 +422,7 @@ End Sub
     }
 
     #[test]
-    fn test_getsetting_do_loop() {
+    fn getsetting_do_loop() {
         let source = r#"
 Sub Test()
     Do While GetSetting("MyApp", "Status", "Running", "True") = "True"
@@ -437,7 +437,7 @@ End Sub
     }
 
     #[test]
-    fn test_getsetting_class_member() {
+    fn getsetting_class_member() {
         let source = r#"
 Private Sub Class_Initialize()
     m_setting = GetSetting("MyApp", "Config", "Value", "")
@@ -450,7 +450,7 @@ End Sub
     }
 
     #[test]
-    fn test_getsetting_type_field() {
+    fn getsetting_type_field() {
         let source = r#"
 Sub Test()
     Dim cfg As ConfigType
@@ -464,7 +464,7 @@ End Sub
     }
 
     #[test]
-    fn test_getsetting_collection_add() {
+    fn getsetting_collection_add() {
         let source = r#"
 Sub Test()
     Dim col As New Collection
@@ -478,7 +478,7 @@ End Sub
     }
 
     #[test]
-    fn test_getsetting_with_statement() {
+    fn getsetting_with_statement() {
         let source = r#"
 Sub Test()
     With Form1
@@ -493,7 +493,7 @@ End Sub
     }
 
     #[test]
-    fn test_getsetting_debug_print() {
+    fn getsetting_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print GetSetting("MyApp", "Debug", "Level", "Info")
@@ -506,7 +506,7 @@ End Sub
     }
 
     #[test]
-    fn test_getsetting_msgbox() {
+    fn getsetting_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox GetSetting("MyApp", "Messages", "Welcome", "Hello!")
@@ -519,7 +519,7 @@ End Sub
     }
 
     #[test]
-    fn test_getsetting_property() {
+    fn getsetting_property() {
         let source = r#"
 Property Get AppName() As String
     AppName = GetSetting("MyApp", "Info", "Name", "MyApplication")
@@ -532,7 +532,7 @@ End Property
     }
 
     #[test]
-    fn test_getsetting_concatenation() {
+    fn getsetting_concatenation() {
         let source = r#"
 Sub Test()
     path = GetSetting("MyApp", "Paths", "Base", "C:\") & "Data"
@@ -545,7 +545,7 @@ End Sub
     }
 
     #[test]
-    fn test_getsetting_for_each() {
+    fn getsetting_for_each() {
         let source = r#"
 Sub Test()
     Dim ctrl As Control
@@ -561,7 +561,7 @@ End Sub
     }
 
     #[test]
-    fn test_getsetting_error_handling() {
+    fn getsetting_error_handling() {
         let source = r#"
 Sub Test()
     On Error Resume Next
@@ -577,7 +577,7 @@ End Sub
     }
 
     #[test]
-    fn test_getsetting_comparison() {
+    fn getsetting_comparison() {
         let source = r#"
 Sub Test()
     If Len(GetSetting("MyApp", "User", "Name", "")) = 0 Then
@@ -592,7 +592,7 @@ End Sub
     }
 
     #[test]
-    fn test_getsetting_array_assignment() {
+    fn getsetting_array_assignment() {
         let source = r#"
 Sub Test()
     Dim settings(1 To 5) As String
@@ -606,7 +606,7 @@ End Sub
     }
 
     #[test]
-    fn test_getsetting_function_argument() {
+    fn getsetting_function_argument() {
         let source = r#"
 Sub Test()
     ProcessConfig GetSetting("MyApp", "Config", "File", "default.cfg")
@@ -619,7 +619,7 @@ End Sub
     }
 
     #[test]
-    fn test_getsetting_nested_call() {
+    fn getsetting_nested_call() {
         let source = r#"
 Sub Test()
     value = UCase(GetSetting("MyApp", "Text", "Value", "default"))
@@ -632,7 +632,7 @@ End Sub
     }
 
     #[test]
-    fn test_getsetting_iif() {
+    fn getsetting_iif() {
         let source = r#"
 Sub Test()
     value = IIf(GetSetting("MyApp", "Options", "Mode", "") = "Advanced", 1, 0)
@@ -645,7 +645,7 @@ End Sub
     }
 
     #[test]
-    fn test_getsetting_form_load() {
+    fn getsetting_form_load() {
         let source = r#"
 Private Sub Form_Load()
     Me.Left = CLng(GetSetting("MyApp", "MainForm", "Left", "0"))
@@ -659,7 +659,7 @@ End Sub
     }
 
     #[test]
-    fn test_getsetting_multiple_assignments() {
+    fn getsetting_multiple_assignments() {
         let source = r#"
 Sub Test()
     server = GetSetting("MyApp", "Database", "Server", "localhost")
@@ -674,7 +674,7 @@ End Sub
     }
 
     #[test]
-    fn test_getsetting_parentheses() {
+    fn getsetting_parentheses() {
         let source = r#"
 Sub Test()
     value = (GetSetting("MyApp", "Config", "Value", "0"))
@@ -687,7 +687,7 @@ End Sub
     }
 
     #[test]
-    fn test_getsetting_string_builder() {
+    fn getsetting_string_builder() {
         let source = r#"
 Sub Test()
     msg = "Server: " & GetSetting("MyApp", "DB", "Server", "localhost") & vbCrLf

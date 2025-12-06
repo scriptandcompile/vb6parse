@@ -612,7 +612,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_lbound_basic() {
+    fn lbound_basic() {
         let source = r#"
 Sub Test()
     result = LBound(myArray)
@@ -625,7 +625,7 @@ End Sub
     }
 
     #[test]
-    fn test_lbound_with_dimension() {
+    fn lbound_with_dimension() {
         let source = r#"
 Sub Test()
     result = LBound(matrix, 2)
@@ -638,7 +638,7 @@ End Sub
     }
 
     #[test]
-    fn test_lbound_for_loop() {
+    fn lbound_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Long
@@ -654,7 +654,7 @@ End Sub
     }
 
     #[test]
-    fn test_lbound_function_return() {
+    fn lbound_function_return() {
         let source = r#"
 Function GetLowerBound(arr As Variant) As Long
     GetLowerBound = LBound(arr)
@@ -667,7 +667,7 @@ End Function
     }
 
     #[test]
-    fn test_lbound_if_statement() {
+    fn lbound_if_statement() {
         let source = r#"
 Sub Test()
     If LBound(data) = 0 Then
@@ -682,7 +682,7 @@ End Sub
     }
 
     #[test]
-    fn test_lbound_debug_print() {
+    fn lbound_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print "Lower bound: " & LBound(items)
@@ -695,7 +695,7 @@ End Sub
     }
 
     #[test]
-    fn test_lbound_msgbox() {
+    fn lbound_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Array starts at: " & LBound(values)
@@ -708,7 +708,7 @@ End Sub
     }
 
     #[test]
-    fn test_lbound_variable_assignment() {
+    fn lbound_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim lb As Long
@@ -722,7 +722,7 @@ End Sub
     }
 
     #[test]
-    fn test_lbound_property_assignment() {
+    fn lbound_property_assignment() {
         let source = r#"
 Sub Test()
     obj.LowerBound = LBound(obj.Data)
@@ -735,7 +735,7 @@ End Sub
     }
 
     #[test]
-    fn test_lbound_arithmetic() {
+    fn lbound_arithmetic() {
         let source = r#"
 Sub Test()
     size = UBound(arr) - LBound(arr) + 1
@@ -748,7 +748,7 @@ End Sub
     }
 
     #[test]
-    fn test_lbound_in_class() {
+    fn lbound_in_class() {
         let source = r#"
 Private Sub Class_Initialize()
     m_lowerBound = LBound(m_data)
@@ -761,7 +761,7 @@ End Sub
     }
 
     #[test]
-    fn test_lbound_with_statement() {
+    fn lbound_with_statement() {
         let source = r#"
 Sub Test()
     With container
@@ -776,7 +776,7 @@ End Sub
     }
 
     #[test]
-    fn test_lbound_function_argument() {
+    fn lbound_function_argument() {
         let source = r#"
 Sub Test()
     Call ProcessBound(LBound(data))
@@ -789,7 +789,7 @@ End Sub
     }
 
     #[test]
-    fn test_lbound_select_case() {
+    fn lbound_select_case() {
         let source = r#"
 Sub Test()
     Select Case LBound(arr)
@@ -807,7 +807,7 @@ End Sub
     }
 
     #[test]
-    fn test_lbound_elseif() {
+    fn lbound_elseif() {
         let source = r#"
 Sub Test()
     If LBound(arr) = 0 Then
@@ -824,7 +824,7 @@ End Sub
     }
 
     #[test]
-    fn test_lbound_concatenation() {
+    fn lbound_concatenation() {
         let source = r#"
 Sub Test()
     info = "Range: " & LBound(arr) & " to " & UBound(arr)
@@ -837,7 +837,7 @@ End Sub
     }
 
     #[test]
-    fn test_lbound_parentheses() {
+    fn lbound_parentheses() {
         let source = r#"
 Sub Test()
     result = (LBound(values))
@@ -850,7 +850,7 @@ End Sub
     }
 
     #[test]
-    fn test_lbound_array_assignment() {
+    fn lbound_array_assignment() {
         let source = r#"
 Sub Test()
     bounds(0) = LBound(data)
@@ -863,7 +863,7 @@ End Sub
     }
 
     #[test]
-    fn test_lbound_collection_add() {
+    fn lbound_collection_add() {
         let source = r#"
 Sub Test()
     bounds.Add LBound(arrays(i))
@@ -876,7 +876,7 @@ End Sub
     }
 
     #[test]
-    fn test_lbound_comparison() {
+    fn lbound_comparison() {
         let source = r#"
 Sub Test()
     If LBound(arr1) = LBound(arr2) Then
@@ -891,7 +891,7 @@ End Sub
     }
 
     #[test]
-    fn test_lbound_nested_call() {
+    fn lbound_nested_call() {
         let source = r#"
 Sub Test()
     result = CStr(LBound(data))
@@ -904,7 +904,7 @@ End Sub
     }
 
     #[test]
-    fn test_lbound_while_wend() {
+    fn lbound_while_wend() {
         let source = r#"
 Sub Test()
     i = LBound(arr)
@@ -920,7 +920,7 @@ End Sub
     }
 
     #[test]
-    fn test_lbound_do_while() {
+    fn lbound_do_while() {
         let source = r#"
 Sub Test()
     i = LBound(values)
@@ -936,7 +936,7 @@ End Sub
     }
 
     #[test]
-    fn test_lbound_do_until() {
+    fn lbound_do_until() {
         let source = r#"
 Sub Test()
     i = LBound(items)
@@ -952,7 +952,7 @@ End Sub
     }
 
     #[test]
-    fn test_lbound_redim() {
+    fn lbound_redim() {
         let source = r#"
 Sub Test()
     Dim lb As Long
@@ -967,7 +967,7 @@ End Sub
     }
 
     #[test]
-    fn test_lbound_multi_dimensional() {
+    fn lbound_multi_dimensional() {
         let source = r#"
 Sub Test()
     For i = LBound(grid, 1) To UBound(grid, 1)
@@ -984,7 +984,7 @@ End Sub
     }
 
     #[test]
-    fn test_lbound_iif() {
+    fn lbound_iif() {
         let source = r#"
 Sub Test()
     start = IIf(LBound(arr) = 0, "Zero-based", "One-based")

@@ -743,7 +743,7 @@ mod tests {
     use crate::parsers::cst::ConcreteSyntaxTree;
 
     #[test]
-    fn test_mirr_basic() {
+    fn mirr_basic() {
         let source = r#"
 Dim result As Double
 result = MIRR(cashFlows(), 0.08, 0.05)
@@ -755,7 +755,7 @@ result = MIRR(cashFlows(), 0.08, 0.05)
     }
 
     #[test]
-    fn test_mirr_variable_assignment() {
+    fn mirr_variable_assignment() {
         let source = r#"
 Dim investmentReturn As Double
 investmentReturn = MIRR(projectFlows(), financeRate, reinvestRate)
@@ -767,7 +767,7 @@ investmentReturn = MIRR(projectFlows(), financeRate, reinvestRate)
     }
 
     #[test]
-    fn test_mirr_literal_rates() {
+    fn mirr_literal_rates() {
         let source = r#"
 Dim rate As Double
 rate = MIRR(cashFlows(), 0.1, 0.06)
@@ -779,7 +779,7 @@ rate = MIRR(cashFlows(), 0.1, 0.06)
     }
 
     #[test]
-    fn test_mirr_if_statement() {
+    fn mirr_if_statement() {
         let source = r#"
 If MIRR(cashFlows(), 0.08, 0.05) > 0.1 Then
     MsgBox "Good investment"
@@ -791,7 +791,7 @@ End If
     }
 
     #[test]
-    fn test_mirr_function_return() {
+    fn mirr_function_return() {
         let source = r#"
 Function CalculateReturn() As Double
     CalculateReturn = MIRR(flows(), 0.08, 0.05)
@@ -804,7 +804,7 @@ End Function
     }
 
     #[test]
-    fn test_mirr_comparison() {
+    fn mirr_comparison() {
         let source = r#"
 Dim acceptable As Boolean
 acceptable = MIRR(cashFlows(), finRate, reinvRate) >= hurdle
@@ -816,7 +816,7 @@ acceptable = MIRR(cashFlows(), finRate, reinvRate) >= hurdle
     }
 
     #[test]
-    fn test_mirr_debug_print() {
+    fn mirr_debug_print() {
         let source = r#"
 Debug.Print MIRR(cashFlows(), 0.08, 0.05)
 "#;
@@ -827,7 +827,7 @@ Debug.Print MIRR(cashFlows(), 0.08, 0.05)
     }
 
     #[test]
-    fn test_mirr_with_statement() {
+    fn mirr_with_statement() {
         let source = r#"
 With investmentRecord
     .MIRR = MIRR(cashFlows(), .FinanceRate, .ReinvestRate)
@@ -840,7 +840,7 @@ End With
     }
 
     #[test]
-    fn test_mirr_select_case() {
+    fn mirr_select_case() {
         let source = r#"
 Select Case MIRR(cashFlows(), 0.08, 0.05)
     Case Is > 0.15
@@ -858,7 +858,7 @@ End Select
     }
 
     #[test]
-    fn test_mirr_elseif() {
+    fn mirr_elseif() {
         let source = r#"
 If x > 0 Then
     y = 1
@@ -873,7 +873,7 @@ End If
     }
 
     #[test]
-    fn test_mirr_parentheses() {
+    fn mirr_parentheses() {
         let source = r#"
 Dim result As Double
 result = (MIRR(cashFlows(), 0.08, 0.05))
@@ -885,7 +885,7 @@ result = (MIRR(cashFlows(), 0.08, 0.05))
     }
 
     #[test]
-    fn test_mirr_iif() {
+    fn mirr_iif() {
         let source = r#"
 Dim msg As String
 msg = IIf(MIRR(cashFlows(), 0.08, 0.05) > 0.1, "Good", "Bad")
@@ -897,7 +897,7 @@ msg = IIf(MIRR(cashFlows(), 0.08, 0.05) > 0.1, "Good", "Bad")
     }
 
     #[test]
-    fn test_mirr_class_usage() {
+    fn mirr_class_usage() {
         let source = r#"
 Private m_mirr As Double
 
@@ -912,7 +912,7 @@ End Sub
     }
 
     #[test]
-    fn test_mirr_function_argument() {
+    fn mirr_function_argument() {
         let source = r#"
 Call ProcessReturn(MIRR(cashFlows(), 0.08, 0.05))
 "#;
@@ -923,7 +923,7 @@ Call ProcessReturn(MIRR(cashFlows(), 0.08, 0.05))
     }
 
     #[test]
-    fn test_mirr_property_assignment() {
+    fn mirr_property_assignment() {
         let source = r#"
 Set obj = New Investment
 obj.ReturnRate = MIRR(cashFlows(), 0.08, 0.05)
@@ -935,7 +935,7 @@ obj.ReturnRate = MIRR(cashFlows(), 0.08, 0.05)
     }
 
     #[test]
-    fn test_mirr_array_assignment() {
+    fn mirr_array_assignment() {
         let source = r#"
 Dim returns(10) As Double
 Dim i As Integer
@@ -948,7 +948,7 @@ returns(i) = MIRR(cashFlows(), 0.08, 0.05)
     }
 
     #[test]
-    fn test_mirr_for_loop() {
+    fn mirr_for_loop() {
         let source = r#"
 Dim i As Integer
 For i = 0 To 10
@@ -962,7 +962,7 @@ Next i
     }
 
     #[test]
-    fn test_mirr_while_wend() {
+    fn mirr_while_wend() {
         let source = r#"
 While MIRR(cashFlows(), rate, reinvRate) < targetReturn
     rate = rate + 0.01
@@ -975,7 +975,7 @@ Wend
     }
 
     #[test]
-    fn test_mirr_do_while() {
+    fn mirr_do_while() {
         let source = r#"
 Do While MIRR(cashFlows(), rate, reinvRate) < 0.1
     rate = rate + 0.005
@@ -988,7 +988,7 @@ Loop
     }
 
     #[test]
-    fn test_mirr_do_until() {
+    fn mirr_do_until() {
         let source = r#"
 Do Until MIRR(cashFlows(), rate, reinvRate) >= 0.1
     rate = rate + 0.005
@@ -1001,7 +1001,7 @@ Loop
     }
 
     #[test]
-    fn test_mirr_msgbox() {
+    fn mirr_msgbox() {
         let source = r#"
 MsgBox "MIRR: " & MIRR(cashFlows(), 0.08, 0.05)
 "#;
@@ -1012,7 +1012,7 @@ MsgBox "MIRR: " & MIRR(cashFlows(), 0.08, 0.05)
     }
 
     #[test]
-    fn test_mirr_concatenation() {
+    fn mirr_concatenation() {
         let source = r#"
 Dim report As String
 report = "Return: " & Format(MIRR(cashFlows(), 0.08, 0.05) * 100, "0.00") & "%"
@@ -1024,7 +1024,7 @@ report = "Return: " & Format(MIRR(cashFlows(), 0.08, 0.05) * 100, "0.00") & "%"
     }
 
     #[test]
-    fn test_mirr_comparison_expression() {
+    fn mirr_comparison_expression() {
         let source = r#"
 If MIRR(projectA(), 0.08, 0.05) > MIRR(projectB(), 0.08, 0.05) Then
     MsgBox "Project A is better"
@@ -1037,7 +1037,7 @@ End If
     }
 
     #[test]
-    fn test_mirr_format() {
+    fn mirr_format() {
         let source = r#"
 Dim formatted As String
 formatted = Format(MIRR(cashFlows(), 0.08, 0.05), "0.00%")
@@ -1049,7 +1049,7 @@ formatted = Format(MIRR(cashFlows(), 0.08, 0.05), "0.00%")
     }
 
     #[test]
-    fn test_mirr_arithmetic() {
+    fn mirr_arithmetic() {
         let source = r#"
 Dim annualizedReturn As Double
 annualizedReturn = ((1 + MIRR(monthlyFlows(), monthlyFin, monthlyReinv)) ^ 12) - 1
@@ -1061,7 +1061,7 @@ annualizedReturn = ((1 + MIRR(monthlyFlows(), monthlyFin, monthlyReinv)) ^ 12) -
     }
 
     #[test]
-    fn test_mirr_label_caption() {
+    fn mirr_label_caption() {
         let source = r#"
 lblReturn.Caption = "MIRR: " & CStr(MIRR(cashFlows(), 0.08, 0.05))
 "#;
@@ -1072,7 +1072,7 @@ lblReturn.Caption = "MIRR: " & CStr(MIRR(cashFlows(), 0.08, 0.05))
     }
 
     #[test]
-    fn test_mirr_calculation() {
+    fn mirr_calculation() {
         let source = r#"
 Dim percentReturn As Double
 percentReturn = MIRR(cashFlows(), finRate, reinvRate) * 100

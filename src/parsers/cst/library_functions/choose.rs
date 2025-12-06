@@ -329,7 +329,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_choose_basic() {
+    fn choose_basic() {
         let source = r#"
 result = Choose(1, "First", "Second", "Third")
 "#;
@@ -340,7 +340,7 @@ result = Choose(1, "First", "Second", "Third")
     }
 
     #[test]
-    fn test_choose_with_variable_index() {
+    fn choose_with_variable_index() {
         let source = r#"
 result = Choose(index, "A", "B", "C", "D")
 "#;
@@ -351,7 +351,7 @@ result = Choose(index, "A", "B", "C", "D")
     }
 
     #[test]
-    fn test_choose_numeric_values() {
+    fn choose_numeric_values() {
         let source = r#"
 value = Choose(level, 1, 5, 10, 50, 100)
 "#;
@@ -362,7 +362,7 @@ value = Choose(level, 1, 5, 10, 50, 100)
     }
 
     #[test]
-    fn test_choose_with_expression_index() {
+    fn choose_with_expression_index() {
         let source = r#"
 result = Choose(x + 1, "Zero", "One", "Two")
 "#;
@@ -373,7 +373,7 @@ result = Choose(x + 1, "Zero", "One", "Two")
     }
 
     #[test]
-    fn test_choose_weekday() {
+    fn choose_weekday() {
         let source = r#"
 dayName = Choose(Weekday(Date), "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
 "#;
@@ -384,7 +384,7 @@ dayName = Choose(Weekday(Date), "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
     }
 
     #[test]
-    fn test_choose_with_line_continuation() {
+    fn choose_with_line_continuation() {
         let source = r#"
 result = Choose(index, _
     "First", _
@@ -398,7 +398,7 @@ result = Choose(index, _
     }
 
     #[test]
-    fn test_choose_month_names() {
+    fn choose_month_names() {
         let source = r#"
 monthName = Choose(month, "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 "#;
@@ -409,7 +409,7 @@ monthName = Choose(month, "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"
     }
 
     #[test]
-    fn test_choose_in_if_statement() {
+    fn choose_in_if_statement() {
         let source = r#"
 If Choose(status, "Pending", "Active", "Closed") = "Active" Then
     Process
@@ -422,7 +422,7 @@ End If
     }
 
     #[test]
-    fn test_choose_in_function_call() {
+    fn choose_in_function_call() {
         let source = r#"
 MsgBox Choose(errorLevel, "Info", "Warning", "Error")
 "#;
@@ -433,7 +433,7 @@ MsgBox Choose(errorLevel, "Info", "Warning", "Error")
     }
 
     #[test]
-    fn test_choose_with_null_check() {
+    fn choose_with_null_check() {
         let source = r#"
 result = Choose(index, "A", "B", "C")
 If IsNull(result) Then
@@ -447,7 +447,7 @@ End If
     }
 
     #[test]
-    fn test_choose_color_values() {
+    fn choose_color_values() {
         let source = r#"
 color = Choose(colorCode, vbRed, vbGreen, vbBlue, vbYellow)
 "#;
@@ -458,7 +458,7 @@ color = Choose(colorCode, vbRed, vbGreen, vbBlue, vbYellow)
     }
 
     #[test]
-    fn test_choose_boolean_values() {
+    fn choose_boolean_values() {
         let source = r#"
 isValid = Choose(dayOfWeek, False, True, True, True, True, True, False)
 "#;
@@ -469,7 +469,7 @@ isValid = Choose(dayOfWeek, False, True, True, True, True, True, False)
     }
 
     #[test]
-    fn test_choose_with_function_return() {
+    fn choose_with_function_return() {
         let source = r#"
 Function GetStatus(code As Integer) As String
     GetStatus = Choose(code, "Pending", "Approved", "Rejected")
@@ -482,7 +482,7 @@ End Function
     }
 
     #[test]
-    fn test_choose_nested() {
+    fn choose_nested() {
         let source = r#"
 result = Choose(x, Choose(y, "A", "B"), Choose(y, "C", "D"))
 "#;
@@ -493,7 +493,7 @@ result = Choose(x, Choose(y, "A", "B"), Choose(y, "C", "D"))
     }
 
     #[test]
-    fn test_choose_with_calculations() {
+    fn choose_with_calculations() {
         let source = r#"
 discount = amount * Choose(customerType, 0.05, 0.1, 0.15, 0.2)
 "#;
@@ -504,7 +504,7 @@ discount = amount * Choose(customerType, 0.05, 0.1, 0.15, 0.2)
     }
 
     #[test]
-    fn test_choose_in_select_case() {
+    fn choose_in_select_case() {
         let source = r#"
 Select Case Choose(index, 1, 2, 3)
     Case 1
@@ -520,7 +520,7 @@ End Select
     }
 
     #[test]
-    fn test_choose_with_dates() {
+    fn choose_with_dates() {
         let source = r#"
 dueDate = Choose(priority, #1/1/2000#, #1/15/2000#, #2/1/2000#)
 "#;
@@ -531,7 +531,7 @@ dueDate = Choose(priority, #1/1/2000#, #1/15/2000#, #2/1/2000#)
     }
 
     #[test]
-    fn test_choose_in_loop() {
+    fn choose_in_loop() {
         let source = r#"
 For i = 1 To 3
     Print Choose(i, "First", "Second", "Third")
@@ -544,7 +544,7 @@ Next i
     }
 
     #[test]
-    fn test_choose_mixed_types() {
+    fn choose_mixed_types() {
         let source = r#"
 result = Choose(selector, 100, "Text", #1/1/2000#, True, 3.14)
 "#;
@@ -555,7 +555,7 @@ result = Choose(selector, 100, "Text", #1/1/2000#, True, 3.14)
     }
 
     #[test]
-    fn test_choose_with_object_properties() {
+    fn choose_with_object_properties() {
         let source = r#"
 value = Choose(index, obj.Property1, obj.Property2, obj.Property3)
 "#;
@@ -566,7 +566,7 @@ value = Choose(index, obj.Property1, obj.Property2, obj.Property3)
     }
 
     #[test]
-    fn test_choose_with_array_elements() {
+    fn choose_with_array_elements() {
         let source = r#"
 result = Choose(index, arr(0), arr(1), arr(2))
 "#;
@@ -577,7 +577,7 @@ result = Choose(index, arr(0), arr(1), arr(2))
     }
 
     #[test]
-    fn test_choose_in_assignment() {
+    fn choose_in_assignment() {
         let source = r#"
 Dim msg As String
 msg = Choose(errorLevel, "Success", "Warning", "Error", "Critical")
@@ -589,7 +589,7 @@ msg = Choose(errorLevel, "Success", "Warning", "Error", "Critical")
     }
 
     #[test]
-    fn test_choose_with_method_calls() {
+    fn choose_with_method_calls() {
         let source = r#"
 result = Choose(index, obj.Method1(), obj.Method2(), obj.Method3())
 "#;
@@ -600,7 +600,7 @@ result = Choose(index, obj.Method1(), obj.Method2(), obj.Method3())
     }
 
     #[test]
-    fn test_choose_in_do_loop() {
+    fn choose_in_do_loop() {
         let source = r#"
 Do While counter < 10
     status = Choose(counter, "A", "B", "C")
@@ -614,7 +614,7 @@ Loop
     }
 
     #[test]
-    fn test_choose_with_whitespace() {
+    fn choose_with_whitespace() {
         let source = r#"
 result = Choose( index , "First" , "Second" , "Third" )
 "#;

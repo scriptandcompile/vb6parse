@@ -566,7 +566,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_day_basic() {
+    fn day_basic() {
         let source = r#"
 d = Day(#1/15/2025#)
 "#;
@@ -577,7 +577,7 @@ d = Day(#1/15/2025#)
     }
 
     #[test]
-    fn test_day_with_variable() {
+    fn day_with_variable() {
         let source = r#"
 dayNum = Day(birthday)
 "#;
@@ -588,7 +588,7 @@ dayNum = Day(birthday)
     }
 
     #[test]
-    fn test_day_current_date() {
+    fn day_current_date() {
         let source = r#"
 d = Day(Date)
 "#;
@@ -599,7 +599,7 @@ d = Day(Date)
     }
 
     #[test]
-    fn test_day_with_dateserial() {
+    fn day_with_dateserial() {
         let source = r#"
 dayNum = Day(DateSerial(2025, 12, 25))
 "#;
@@ -610,7 +610,7 @@ dayNum = Day(DateSerial(2025, 12, 25))
     }
 
     #[test]
-    fn test_day_in_function() {
+    fn day_in_function() {
         let source = r#"
 Function IsLastDayOfMonth(dt As Date) As Boolean
     IsLastDayOfMonth = (Day(dt + 1) = 1)
@@ -623,7 +623,7 @@ End Function
     }
 
     #[test]
-    fn test_day_days_in_month() {
+    fn day_days_in_month() {
         let source = r#"
 daysInMonth = Day(DateSerial(yr, mo + 1, 0))
 "#;
@@ -634,7 +634,7 @@ daysInMonth = Day(DateSerial(yr, mo + 1, 0))
     }
 
     #[test]
-    fn test_day_in_comparison() {
+    fn day_in_comparison() {
         let source = r#"
 If Day(someDate) <= 15 Then
     MsgBox "First half"
@@ -647,7 +647,7 @@ End If
     }
 
     #[test]
-    fn test_day_with_year_month() {
+    fn day_with_year_month() {
         let source = r#"
 yr = Year(dt)
 mo = Month(dt)
@@ -660,7 +660,7 @@ dy = Day(dt)
     }
 
     #[test]
-    fn test_day_equality_check() {
+    fn day_equality_check() {
         let source = r#"
 sameDay = (Day(date1) = Day(date2))
 "#;
@@ -671,7 +671,7 @@ sameDay = (Day(date1) = Day(date2))
     }
 
     #[test]
-    fn test_day_in_dateserial_reconstruction() {
+    fn day_in_dateserial_reconstruction() {
         let source = r#"
 newDate = DateSerial(Year(oldDate), Month(oldDate), Day(oldDate))
 "#;
@@ -682,7 +682,7 @@ newDate = DateSerial(Year(oldDate), Month(oldDate), Day(oldDate))
     }
 
     #[test]
-    fn test_day_in_loop() {
+    fn day_in_loop() {
         let source = r#"
 For i = 1 To dayCount
     Debug.Print "Day " & Day(dates(i))
@@ -695,7 +695,7 @@ Next i
     }
 
     #[test]
-    fn test_day_select_case() {
+    fn day_select_case() {
         let source = r#"
 Select Case Day(someDate)
     Case 1 To 10
@@ -713,7 +713,7 @@ End Select
     }
 
     #[test]
-    fn test_day_with_dateadd() {
+    fn day_with_dateadd() {
         let source = r#"
 dayNum = Day(DateAdd("d", 10, Date))
 "#;
@@ -724,7 +724,7 @@ dayNum = Day(DateAdd("d", 10, Date))
     }
 
     #[test]
-    fn test_day_birthday_check() {
+    fn day_birthday_check() {
         let source = r#"
 isToday = (Month(Date) = Month(birthday)) And (Day(Date) = Day(birthday))
 "#;
@@ -735,7 +735,7 @@ isToday = (Month(Date) = Month(birthday)) And (Day(Date) = Day(birthday))
     }
 
     #[test]
-    fn test_day_pay_period() {
+    fn day_pay_period() {
         let source = r#"
 If Day(payDate) <= 15 Then
     period = "First Half"
@@ -750,7 +750,7 @@ End If
     }
 
     #[test]
-    fn test_day_leap_year_check() {
+    fn day_leap_year_check() {
         let source = r#"
 isLeapDay = (Month(dt) = 2) And (Day(dt) = 29)
 "#;
@@ -761,7 +761,7 @@ isLeapDay = (Month(dt) = 2) And (Day(dt) = 29)
     }
 
     #[test]
-    fn test_day_with_arithmetic() {
+    fn day_with_arithmetic() {
         let source = r#"
 nextDay = Day(currentDate + 1)
 "#;
@@ -772,7 +772,7 @@ nextDay = Day(currentDate + 1)
     }
 
     #[test]
-    fn test_day_array_assignment() {
+    fn day_array_assignment() {
         let source = r#"
 days(i) = Day(dates(i))
 "#;
@@ -783,7 +783,7 @@ days(i) = Day(dates(i))
     }
 
     #[test]
-    fn test_day_msgbox() {
+    fn day_msgbox() {
         let source = r#"
 MsgBox "Day: " & Day(someDate)
 "#;
@@ -794,7 +794,7 @@ MsgBox "Day: " & Day(someDate)
     }
 
     #[test]
-    fn test_day_multiple_calls() {
+    fn day_multiple_calls() {
         let source = r#"
 d1 = Day(date1)
 d2 = Day(date2)
@@ -807,7 +807,7 @@ diff = d2 - d1
     }
 
     #[test]
-    fn test_day_with_format() {
+    fn day_with_format() {
         let source = r#"
 formatted = Format(DateSerial(2025, 1, Day(someDate)), "mm/dd/yyyy")
 "#;
@@ -818,7 +818,7 @@ formatted = Format(DateSerial(2025, 1, Day(someDate)), "mm/dd/yyyy")
     }
 
     #[test]
-    fn test_day_validation() {
+    fn day_validation() {
         let source = r#"
 If Day(startDate) > Day(endDate) Then
     MsgBox "Check dates"
@@ -831,7 +831,7 @@ End If
     }
 
     #[test]
-    fn test_day_database_filter() {
+    fn day_database_filter() {
         let source = r#"
 filter = "Day(DateField) = " & Day(targetDate)
 "#;
@@ -842,7 +842,7 @@ filter = "Day(DateField) = " & Day(targetDate)
     }
 
     #[test]
-    fn test_day_error_handling() {
+    fn day_error_handling() {
         let source = r#"
 On Error Resume Next
 result = Day(userInput)
@@ -857,7 +857,7 @@ End If
     }
 
     #[test]
-    fn test_day_calendar_generator() {
+    fn day_calendar_generator() {
         let source = r#"
 For i = 1 To daysInMonth
     Debug.Print Format(Day(currentDate), "00")

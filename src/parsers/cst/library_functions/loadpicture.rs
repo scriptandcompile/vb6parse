@@ -659,7 +659,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_loadpicture_basic() {
+    fn loadpicture_basic() {
         let source = r#"
             Set Picture1.Picture = LoadPicture(filename)
         "#;
@@ -670,7 +670,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadpicture_string_literal() {
+    fn loadpicture_string_literal() {
         let source = r#"
             Picture1.Picture = LoadPicture("C:\Images\logo.bmp")
         "#;
@@ -681,7 +681,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadpicture_if_statement() {
+    fn loadpicture_if_statement() {
         let source = r#"
             If fileExists Then
                 Picture1.Picture = LoadPicture(imagePath)
@@ -694,7 +694,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadpicture_concatenation() {
+    fn loadpicture_concatenation() {
         let source = r#"
             Picture1.Picture = LoadPicture(App.Path & "\logo.bmp")
         "#;
@@ -705,7 +705,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadpicture_empty_string() {
+    fn loadpicture_empty_string() {
         let source = r#"
             Picture1.Picture = LoadPicture("")
         "#;
@@ -716,7 +716,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadpicture_set_statement() {
+    fn loadpicture_set_statement() {
         let source = r#"
             Set myPic = LoadPicture("image.bmp")
         "#;
@@ -727,7 +727,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadpicture_form_load() {
+    fn loadpicture_form_load() {
         let source = r#"
             Private Sub Form_Load()
                 Me.Picture = LoadPicture(App.Path & "\bg.bmp")
@@ -740,7 +740,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadpicture_array_assignment() {
+    fn loadpicture_array_assignment() {
         let source = r#"
             Set images(i) = LoadPicture(files(i))
         "#;
@@ -751,7 +751,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadpicture_for_loop() {
+    fn loadpicture_for_loop() {
         let source = r#"
             For i = 1 To 10
                 Set frames(i) = LoadPicture("frame" & i & ".bmp")
@@ -764,7 +764,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadpicture_function_return() {
+    fn loadpicture_function_return() {
         let source = r#"
             Function GetPicture() As StdPicture
                 Set GetPicture = LoadPicture("default.bmp")
@@ -777,7 +777,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadpicture_error_handling() {
+    fn loadpicture_error_handling() {
         let source = r#"
             On Error Resume Next
             Picture1.Picture = LoadPicture(filename)
@@ -792,7 +792,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadpicture_with_statement() {
+    fn loadpicture_with_statement() {
         let source = r#"
             With Picture1
                 .Picture = LoadPicture("logo.bmp")
@@ -805,7 +805,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadpicture_select_case() {
+    fn loadpicture_select_case() {
         let source = r#"
             Select Case imageType
                 Case "logo"
@@ -821,7 +821,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadpicture_elseif() {
+    fn loadpicture_elseif() {
         let source = r#"
             If status = "ok" Then
                 imgStatus.Picture = LoadPicture("ok.ico")
@@ -836,7 +836,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadpicture_parentheses() {
+    fn loadpicture_parentheses() {
         let source = r#"
             Set pic = (LoadPicture(filename))
         "#;
@@ -847,7 +847,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadpicture_iif() {
+    fn loadpicture_iif() {
         let source = r#"
             Picture1.Picture = IIf(enabled, LoadPicture("on.bmp"), LoadPicture("off.bmp"))
         "#;
@@ -858,7 +858,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadpicture_in_class() {
+    fn loadpicture_in_class() {
         let source = r#"
             Private Sub Class_Initialize()
                 Set m_defaultPic = LoadPicture("default.bmp")
@@ -871,7 +871,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadpicture_function_argument() {
+    fn loadpicture_function_argument() {
         let source = r#"
             Call SetPicture(LoadPicture("image.bmp"))
         "#;
@@ -882,7 +882,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadpicture_property_assignment() {
+    fn loadpicture_property_assignment() {
         let source = r#"
             Set MyForm.Picture = LoadPicture("background.bmp")
         "#;
@@ -893,7 +893,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadpicture_is_nothing() {
+    fn loadpicture_is_nothing() {
         let source = r#"
             Set pic = LoadPicture(filename)
             If pic Is Nothing Then
@@ -907,7 +907,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadpicture_while_wend() {
+    fn loadpicture_while_wend() {
         let source = r#"
             While index < maxImages
                 Set images(index) = LoadPicture(files(index))
@@ -921,7 +921,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadpicture_do_while() {
+    fn loadpicture_do_while() {
         let source = r#"
             Do While hasMore
                 Set currentPic = LoadPicture(GetNextFile())
@@ -935,7 +935,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadpicture_do_until() {
+    fn loadpicture_do_until() {
         let source = r#"
             Do Until loaded
                 On Error Resume Next
@@ -950,7 +950,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadpicture_dir_check() {
+    fn loadpicture_dir_check() {
         let source = r#"
             If Dir(picPath) <> "" Then
                 Picture1.Picture = LoadPicture(picPath)
@@ -963,7 +963,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadpicture_no_arguments() {
+    fn loadpicture_no_arguments() {
         let source = r#"
             Set Picture1.Picture = LoadPicture()
         "#;
@@ -974,7 +974,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadpicture_icon_parameters() {
+    fn loadpicture_icon_parameters() {
         let source = r#"
             Set pic = LoadPicture("icon.ico", vbLPSmall, vbLPColor)
         "#;
@@ -985,7 +985,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadpicture_msgbox_concatenation() {
+    fn loadpicture_msgbox_concatenation() {
         let source = r#"
             MsgBox "Loading: " & filename
             Picture1.Picture = LoadPicture(filename)

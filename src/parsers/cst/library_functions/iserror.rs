@@ -584,7 +584,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_iserror_basic() {
+    fn iserror_basic() {
         let source = r#"
 Sub Test()
     result = IsError(myVariable)
@@ -597,7 +597,7 @@ End Sub
     }
 
     #[test]
-    fn test_iserror_if_statement() {
+    fn iserror_if_statement() {
         let source = r#"
 Sub Test()
     If IsError(value) Then
@@ -612,7 +612,7 @@ End Sub
     }
 
     #[test]
-    fn test_iserror_not_condition() {
+    fn iserror_not_condition() {
         let source = r#"
 Sub Test()
     If Not IsError(result) Then
@@ -627,7 +627,7 @@ End Sub
     }
 
     #[test]
-    fn test_iserror_function_return() {
+    fn iserror_function_return() {
         let source = r#"
 Function IsValid(v As Variant) As Boolean
     IsValid = Not IsError(v)
@@ -640,7 +640,7 @@ End Function
     }
 
     #[test]
-    fn test_iserror_boolean_and() {
+    fn iserror_boolean_and() {
         let source = r#"
 Sub Test()
     If IsError(value1) And IsError(value2) Then
@@ -655,7 +655,7 @@ End Sub
     }
 
     #[test]
-    fn test_iserror_boolean_or() {
+    fn iserror_boolean_or() {
         let source = r#"
 Sub Test()
     If IsError(field) Or IsNull(field) Then
@@ -670,7 +670,7 @@ End Sub
     }
 
     #[test]
-    fn test_iserror_iif() {
+    fn iserror_iif() {
         let source = r#"
 Sub Test()
     displayValue = IIf(IsError(value), "Error", value)
@@ -683,7 +683,7 @@ End Sub
     }
 
     #[test]
-    fn test_iserror_debug_print() {
+    fn iserror_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print "Is error: " & IsError(testVar)
@@ -696,7 +696,7 @@ End Sub
     }
 
     #[test]
-    fn test_iserror_msgbox() {
+    fn iserror_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Error status: " & IsError(myVar)
@@ -709,7 +709,7 @@ End Sub
     }
 
     #[test]
-    fn test_iserror_do_while() {
+    fn iserror_do_while() {
         let source = r#"
 Sub Test()
     Do While IsError(currentValue)
@@ -724,7 +724,7 @@ End Sub
     }
 
     #[test]
-    fn test_iserror_do_until() {
+    fn iserror_do_until() {
         let source = r#"
 Sub Test()
     Do Until Not IsError(result)
@@ -739,7 +739,7 @@ End Sub
     }
 
     #[test]
-    fn test_iserror_variable_assignment() {
+    fn iserror_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim hasError As Boolean
@@ -753,7 +753,7 @@ End Sub
     }
 
     #[test]
-    fn test_iserror_property_assignment() {
+    fn iserror_property_assignment() {
         let source = r#"
 Sub Test()
     obj.HasError = IsError(obj.Value)
@@ -766,7 +766,7 @@ End Sub
     }
 
     #[test]
-    fn test_iserror_in_class() {
+    fn iserror_in_class() {
         let source = r#"
 Private Sub Class_Initialize()
     m_hasError = IsError(m_data)
@@ -779,7 +779,7 @@ End Sub
     }
 
     #[test]
-    fn test_iserror_with_statement() {
+    fn iserror_with_statement() {
         let source = r#"
 Sub Test()
     With record
@@ -794,7 +794,7 @@ End Sub
     }
 
     #[test]
-    fn test_iserror_function_argument() {
+    fn iserror_function_argument() {
         let source = r#"
 Sub Test()
     Call LogError(IsError(calculation))
@@ -807,7 +807,7 @@ End Sub
     }
 
     #[test]
-    fn test_iserror_select_case() {
+    fn iserror_select_case() {
         let source = r#"
 Sub Test()
     Select Case True
@@ -825,7 +825,7 @@ End Sub
     }
 
     #[test]
-    fn test_iserror_for_loop() {
+    fn iserror_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Integer
@@ -843,7 +843,7 @@ End Sub
     }
 
     #[test]
-    fn test_iserror_elseif() {
+    fn iserror_elseif() {
         let source = r#"
 Sub Test()
     If IsNull(data) Then
@@ -860,7 +860,7 @@ End Sub
     }
 
     #[test]
-    fn test_iserror_concatenation() {
+    fn iserror_concatenation() {
         let source = r#"
 Sub Test()
     status = "Error: " & IsError(variable)
@@ -873,7 +873,7 @@ End Sub
     }
 
     #[test]
-    fn test_iserror_parentheses() {
+    fn iserror_parentheses() {
         let source = r#"
 Sub Test()
     result = (IsError(value))
@@ -886,7 +886,7 @@ End Sub
     }
 
     #[test]
-    fn test_iserror_array_check() {
+    fn iserror_array_check() {
         let source = r#"
 Sub Test()
     checks(i) = IsError(values(i))
@@ -899,7 +899,7 @@ End Sub
     }
 
     #[test]
-    fn test_iserror_collection_add() {
+    fn iserror_collection_add() {
         let source = r#"
 Sub Test()
     errorStates.Add IsError(data(i))
@@ -912,7 +912,7 @@ End Sub
     }
 
     #[test]
-    fn test_iserror_comparison() {
+    fn iserror_comparison() {
         let source = r#"
 Sub Test()
     If IsError(var1) = IsError(var2) Then
@@ -927,7 +927,7 @@ End Sub
     }
 
     #[test]
-    fn test_iserror_nested_call() {
+    fn iserror_nested_call() {
         let source = r#"
 Sub Test()
     result = CStr(IsError(myVar))
@@ -940,7 +940,7 @@ End Sub
     }
 
     #[test]
-    fn test_iserror_while_wend() {
+    fn iserror_while_wend() {
         let source = r#"
 Sub Test()
     While IsError(buffer)
@@ -955,7 +955,7 @@ End Sub
     }
 
     #[test]
-    fn test_iserror_error_propagation() {
+    fn iserror_error_propagation() {
         let source = r#"
 Function Calculate(a As Variant) As Variant
     If IsError(a) Then

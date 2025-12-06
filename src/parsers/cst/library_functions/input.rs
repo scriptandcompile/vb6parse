@@ -495,7 +495,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_input_basic() {
+    fn input_basic() {
         let source = r#"
 Sub Test()
     content = Input(100, #1)
@@ -508,7 +508,7 @@ End Sub
     }
 
     #[test]
-    fn test_input_without_hash() {
+    fn input_without_hash() {
         let source = r#"
 Sub Test()
     data = Input(50, fileNum)
@@ -521,7 +521,7 @@ End Sub
     }
 
     #[test]
-    fn test_input_entire_file() {
+    fn input_entire_file() {
         let source = r#"
 Sub Test()
     fileContent = Input(LOF(fileNum), #fileNum)
@@ -534,7 +534,7 @@ End Sub
     }
 
     #[test]
-    fn test_input_in_loop() {
+    fn input_in_loop() {
         let source = r#"
 Sub Test()
     Do While Not EOF(1)
@@ -549,7 +549,7 @@ End Sub
     }
 
     #[test]
-    fn test_input_single_character() {
+    fn input_single_character() {
         let source = r#"
 Sub Test()
     ch = Input(1, #fileNum)
@@ -562,7 +562,7 @@ End Sub
     }
 
     #[test]
-    fn test_input_in_function() {
+    fn input_in_function() {
         let source = r#"
 Function ReadFile() As String
     ReadFile = Input(LOF(1), #1)
@@ -575,7 +575,7 @@ End Function
     }
 
     #[test]
-    fn test_input_with_variable() {
+    fn input_with_variable() {
         let source = r#"
 Sub Test()
     Dim size As Long
@@ -591,7 +591,7 @@ End Sub
     }
 
     #[test]
-    fn test_input_concatenation() {
+    fn input_concatenation() {
         let source = r#"
 Sub Test()
     result = result & Input(100, #1)
@@ -604,7 +604,7 @@ End Sub
     }
 
     #[test]
-    fn test_input_if_statement() {
+    fn input_if_statement() {
         let source = r#"
 Sub Test()
     If Len(Input(10, #1)) > 0 Then
@@ -619,7 +619,7 @@ End Sub
     }
 
     #[test]
-    fn test_input_with_freefile() {
+    fn input_with_freefile() {
         let source = r#"
 Sub Test()
     fileNum = FreeFile
@@ -633,7 +633,7 @@ End Sub
     }
 
     #[test]
-    fn test_input_debug_print() {
+    fn input_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print Input(50, #1)
@@ -646,7 +646,7 @@ End Sub
     }
 
     #[test]
-    fn test_input_assignment_to_array() {
+    fn input_assignment_to_array() {
         let source = r#"
 Sub Test()
     chunks(i) = Input(1024, #fileNum)
@@ -659,7 +659,7 @@ End Sub
     }
 
     #[test]
-    fn test_input_with_parentheses() {
+    fn input_with_parentheses() {
         let source = r#"
 Sub Test()
     data = (Input(100, #1))
@@ -672,7 +672,7 @@ End Sub
     }
 
     #[test]
-    fn test_input_function_argument() {
+    fn input_function_argument() {
         let source = r#"
 Sub Test()
     Call ProcessData(Input(100, #1))
@@ -685,7 +685,7 @@ End Sub
     }
 
     #[test]
-    fn test_input_with_len() {
+    fn input_with_len() {
         let source = r#"
 Sub Test()
     size = Len(Input(100, #1))
@@ -698,7 +698,7 @@ End Sub
     }
 
     #[test]
-    fn test_input_select_case() {
+    fn input_select_case() {
         let source = r#"
 Sub Test()
     Select Case Input(1, #1)
@@ -714,7 +714,7 @@ End Sub
     }
 
     #[test]
-    fn test_input_with_expression() {
+    fn input_with_expression() {
         let source = r#"
 Sub Test()
     data = Input(size * 2, #fileNum)
@@ -727,7 +727,7 @@ End Sub
     }
 
     #[test]
-    fn test_input_in_class() {
+    fn input_in_class() {
         let source = r#"
 Private Sub Class_Initialize()
     m_data = Input(100, #m_fileNum)
@@ -740,7 +740,7 @@ End Sub
     }
 
     #[test]
-    fn test_input_with_error_handling() {
+    fn input_with_error_handling() {
         let source = r#"
 Sub Test()
     On Error Resume Next
@@ -756,7 +756,7 @@ End Sub
     }
 
     #[test]
-    fn test_input_in_with_statement() {
+    fn input_in_with_statement() {
         let source = r#"
 Sub Test()
     With fileReader
@@ -771,7 +771,7 @@ End Sub
     }
 
     #[test]
-    fn test_input_property_assignment() {
+    fn input_property_assignment() {
         let source = r#"
 Sub Test()
     obj.Content = Input(200, #1)
@@ -784,7 +784,7 @@ End Sub
     }
 
     #[test]
-    fn test_input_collection_add() {
+    fn input_collection_add() {
         let source = r#"
 Sub Test()
     col.Add Input(100, #fileNum)
@@ -797,7 +797,7 @@ End Sub
     }
 
     #[test]
-    fn test_input_comparison() {
+    fn input_comparison() {
         let source = r#"
 Sub Test()
     If Input(4, #1) = "TEST" Then
@@ -812,7 +812,7 @@ End Sub
     }
 
     #[test]
-    fn test_input_for_loop() {
+    fn input_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Integer
@@ -828,7 +828,7 @@ End Sub
     }
 
     #[test]
-    fn test_input_msgbox() {
+    fn input_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox Input(20, #1)
@@ -841,7 +841,7 @@ End Sub
     }
 
     #[test]
-    fn test_input_trim() {
+    fn input_trim() {
         let source = r#"
 Sub Test()
     cleaned = Trim$(Input(100, #1))
@@ -854,7 +854,7 @@ End Sub
     }
 
     #[test]
-    fn test_input_iif() {
+    fn input_iif() {
         let source = r#"
 Sub Test()
     result = IIf(EOF(1), "", Input(100, #1))

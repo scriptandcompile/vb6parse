@@ -836,7 +836,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_filelen_basic() {
+    fn filelen_basic() {
         let source = r#"
 fileSize = FileLen("C:\data.txt")
 "#;
@@ -847,7 +847,7 @@ fileSize = FileLen("C:\data.txt")
     }
 
     #[test]
-    fn test_filelen_variable() {
+    fn filelen_variable() {
         let source = r#"
 size = FileLen(filePath)
 "#;
@@ -858,7 +858,7 @@ size = FileLen(filePath)
     }
 
     #[test]
-    fn test_filelen_debug_print() {
+    fn filelen_debug_print() {
         let source = r#"
 Debug.Print FileLen("C:\temp.dat")
 "#;
@@ -869,7 +869,7 @@ Debug.Print FileLen("C:\temp.dat")
     }
 
     #[test]
-    fn test_filelen_format() {
+    fn filelen_format() {
         let source = r#"
 formatted = Format(FileLen(filePath) / 1024, "0.00") & " KB"
 "#;
@@ -880,7 +880,7 @@ formatted = Format(FileLen(filePath) / 1024, "0.00") & " KB"
     }
 
     #[test]
-    fn test_filelen_in_function() {
+    fn filelen_in_function() {
         let source = r#"
 Function GetFileSize(path As String) As Long
     GetFileSize = FileLen(path)
@@ -893,7 +893,7 @@ End Function
     }
 
     #[test]
-    fn test_filelen_addition() {
+    fn filelen_addition() {
         let source = r#"
 totalSize = totalSize + FileLen(fullPath)
 "#;
@@ -904,7 +904,7 @@ totalSize = totalSize + FileLen(fullPath)
     }
 
     #[test]
-    fn test_filelen_comparison() {
+    fn filelen_comparison() {
         let source = r#"
 isLarger = (FileLen(file1) > FileLen(file2))
 "#;
@@ -915,7 +915,7 @@ isLarger = (FileLen(file1) > FileLen(file2))
     }
 
     #[test]
-    fn test_filelen_if_statement() {
+    fn filelen_if_statement() {
         let source = r#"
 If FileLen(fullPath) > maxSize Then
     Debug.Print "File too large"
@@ -928,7 +928,7 @@ End If
     }
 
     #[test]
-    fn test_filelen_error_handling() {
+    fn filelen_error_handling() {
         let source = r#"
 On Error Resume Next
 size = FileLen(filePath)
@@ -943,7 +943,7 @@ End If
     }
 
     #[test]
-    fn test_filelen_loop() {
+    fn filelen_loop() {
         let source = r#"
 Do While fileName <> ""
     fileSize = FileLen(folderPath & fileName)
@@ -957,7 +957,7 @@ Loop
     }
 
     #[test]
-    fn test_filelen_concatenation() {
+    fn filelen_concatenation() {
         let source = r#"
 msg = "Size: " & FileLen(filePath) & " bytes"
 "#;
@@ -968,7 +968,7 @@ msg = "Size: " & FileLen(filePath) & " bytes"
     }
 
     #[test]
-    fn test_filelen_range_check() {
+    fn filelen_range_check() {
         let source = r#"
 If FileLen(fullPath) >= minSize And FileLen(fullPath) <= maxSize Then
     files.Add fullPath
@@ -981,7 +981,7 @@ End If
     }
 
     #[test]
-    fn test_filelen_equality() {
+    fn filelen_equality() {
         let source = r#"
 isValid = (FileLen(filePath) = expectedSize)
 "#;
@@ -992,7 +992,7 @@ isValid = (FileLen(filePath) = expectedSize)
     }
 
     #[test]
-    fn test_filelen_zero_check() {
+    fn filelen_zero_check() {
         let source = r#"
 If FileLen(fullPath) = 0 Then
     emptyFiles.Add fullPath
@@ -1005,7 +1005,7 @@ End If
     }
 
     #[test]
-    fn test_filelen_udt_field() {
+    fn filelen_udt_field() {
         let source = r#"
 stats.TotalSize = stats.TotalSize + FileLen(fullPath)
 "#;
@@ -1016,7 +1016,7 @@ stats.TotalSize = stats.TotalSize + FileLen(fullPath)
     }
 
     #[test]
-    fn test_filelen_max_comparison() {
+    fn filelen_max_comparison() {
         let source = r#"
 If FileLen(fullPath) > largestSize Then
     largestSize = FileLen(fullPath)
@@ -1030,7 +1030,7 @@ End If
     }
 
     #[test]
-    fn test_filelen_buffer_allocation() {
+    fn filelen_buffer_allocation() {
         let source = r#"
 fileSize = FileLen(filePath)
 ReDim buffer(0 To fileSize - 1)
@@ -1042,7 +1042,7 @@ ReDim buffer(0 To fileSize - 1)
     }
 
     #[test]
-    fn test_filelen_progress_calculation() {
+    fn filelen_progress_calculation() {
         let source = r#"
 ProgressBar.Value = (bytesRead / FileLen(sourceFile)) * 100
 "#;
@@ -1053,7 +1053,7 @@ ProgressBar.Value = (bytesRead / FileLen(sourceFile)) * 100
     }
 
     #[test]
-    fn test_filelen_array_assignment() {
+    fn filelen_array_assignment() {
         let source = r#"
 files(count).Size = FileLen(fullPath)
 "#;
@@ -1064,7 +1064,7 @@ files(count).Size = FileLen(fullPath)
     }
 
     #[test]
-    fn test_filelen_division() {
+    fn filelen_division() {
         let source = r#"
 averageSize = totalSize / fileCount
 sizeInMB = FileLen(filePath) / 1048576
@@ -1076,7 +1076,7 @@ sizeInMB = FileLen(filePath) / 1048576
     }
 
     #[test]
-    fn test_filelen_msgbox() {
+    fn filelen_msgbox() {
         let source = r#"
 MsgBox "File size: " & FormatFileSize(FileLen(filePath))
 "#;
@@ -1087,7 +1087,7 @@ MsgBox "File size: " & FormatFileSize(FileLen(filePath))
     }
 
     #[test]
-    fn test_filelen_select_case() {
+    fn filelen_select_case() {
         let source = r#"
 Select Case FileLen(filePath)
     Case Is < 1024
@@ -1105,7 +1105,7 @@ End Select
     }
 
     #[test]
-    fn test_filelen_print_statement() {
+    fn filelen_print_statement() {
         let source = r#"
 Print #reportNum, fileName, FileLen(fullPath)
 "#;
@@ -1116,7 +1116,7 @@ Print #reportNum, fileName, FileLen(fullPath)
     }
 
     #[test]
-    fn test_filelen_for_loop() {
+    fn filelen_for_loop() {
         let source = r#"
 For i = 0 To fileCount - 1
     totalSize = totalSize + FileLen(files(i))
@@ -1129,7 +1129,7 @@ Next i
     }
 
     #[test]
-    fn test_filelen_multiline() {
+    fn filelen_multiline() {
         let source = r#"
 info = "File: " & fileName & vbCrLf & _
        "Size: " & FileLen(fullPath) & " bytes" & vbCrLf & _
@@ -1142,7 +1142,7 @@ info = "File: " & fileName & vbCrLf & _
     }
 
     #[test]
-    fn test_filelen_category_check() {
+    fn filelen_category_check() {
         let source = r#"
 If FileLen(filePath) < 102400 Then
     category = "Small"

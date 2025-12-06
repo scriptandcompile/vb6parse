@@ -565,7 +565,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_datediff_basic() {
+    fn datediff_basic() {
         let source = r#"
 days = DateDiff("d", startDate, endDate)
 "#;
@@ -576,7 +576,7 @@ days = DateDiff("d", startDate, endDate)
     }
 
     #[test]
-    fn test_datediff_years() {
+    fn datediff_years() {
         let source = r#"
 years = DateDiff("yyyy", birthDate, Date)
 "#;
@@ -587,7 +587,7 @@ years = DateDiff("yyyy", birthDate, Date)
     }
 
     #[test]
-    fn test_datediff_months() {
+    fn datediff_months() {
         let source = r#"
 months = DateDiff("m", #1/1/2025#, #6/1/2025#)
 "#;
@@ -598,7 +598,7 @@ months = DateDiff("m", #1/1/2025#, #6/1/2025#)
     }
 
     #[test]
-    fn test_datediff_quarters() {
+    fn datediff_quarters() {
         let source = r#"
 quarters = DateDiff("q", startDate, endDate)
 "#;
@@ -609,7 +609,7 @@ quarters = DateDiff("q", startDate, endDate)
     }
 
     #[test]
-    fn test_datediff_weeks() {
+    fn datediff_weeks() {
         let source = r#"
 weeks = DateDiff("ww", lastMeeting, Date)
 "#;
@@ -620,7 +620,7 @@ weeks = DateDiff("ww", lastMeeting, Date)
     }
 
     #[test]
-    fn test_datediff_hours() {
+    fn datediff_hours() {
         let source = r#"
 hours = DateDiff("h", startTime, endTime)
 "#;
@@ -631,7 +631,7 @@ hours = DateDiff("h", startTime, endTime)
     }
 
     #[test]
-    fn test_datediff_minutes() {
+    fn datediff_minutes() {
         let source = r#"
 minutes = DateDiff("n", startTime, endTime)
 "#;
@@ -642,7 +642,7 @@ minutes = DateDiff("n", startTime, endTime)
     }
 
     #[test]
-    fn test_datediff_seconds() {
+    fn datediff_seconds() {
         let source = r#"
 seconds = DateDiff("s", startTime, Now)
 "#;
@@ -653,7 +653,7 @@ seconds = DateDiff("s", startTime, Now)
     }
 
     #[test]
-    fn test_datediff_in_function() {
+    fn datediff_in_function() {
         let source = r#"
 Function GetAge(birthDate As Date) As Integer
     GetAge = DateDiff("yyyy", birthDate, Date)
@@ -666,7 +666,7 @@ End Function
     }
 
     #[test]
-    fn test_datediff_with_firstdayofweek() {
+    fn datediff_with_firstdayofweek() {
         let source = r#"
 weeks = DateDiff("ww", startDate, endDate, vbMonday)
 "#;
@@ -677,7 +677,7 @@ weeks = DateDiff("ww", startDate, endDate, vbMonday)
     }
 
     #[test]
-    fn test_datediff_with_all_params() {
+    fn datediff_with_all_params() {
         let source = r#"
 weeks = DateDiff("ww", startDate, endDate, vbMonday, vbFirstFourDays)
 "#;
@@ -688,7 +688,7 @@ weeks = DateDiff("ww", startDate, endDate, vbMonday, vbFirstFourDays)
     }
 
     #[test]
-    fn test_datediff_in_if() {
+    fn datediff_in_if() {
         let source = r#"
 If DateDiff("d", dueDate, Date) > 0 Then
     MsgBox "Overdue"
@@ -701,7 +701,7 @@ End If
     }
 
     #[test]
-    fn test_datediff_negative_result() {
+    fn datediff_negative_result() {
         let source = r#"
 diff = DateDiff("d", endDate, startDate)
 "#;
@@ -712,7 +712,7 @@ diff = DateDiff("d", endDate, startDate)
     }
 
     #[test]
-    fn test_datediff_with_abs() {
+    fn datediff_with_abs() {
         let source = r#"
 diff = Abs(DateDiff("d", date1, date2))
 "#;
@@ -723,7 +723,7 @@ diff = Abs(DateDiff("d", date1, date2))
     }
 
     #[test]
-    fn test_datediff_in_select_case() {
+    fn datediff_in_select_case() {
         let source = r#"
 Select Case DateDiff("d", dueDate, Date)
     Case Is < 0
@@ -741,7 +741,7 @@ End Select
     }
 
     #[test]
-    fn test_datediff_day_of_year() {
+    fn datediff_day_of_year() {
         let source = r#"
 days = DateDiff("y", startDate, endDate)
 "#;
@@ -752,7 +752,7 @@ days = DateDiff("y", startDate, endDate)
     }
 
     #[test]
-    fn test_datediff_weekday() {
+    fn datediff_weekday() {
         let source = r#"
 days = DateDiff("w", startDate, endDate)
 "#;
@@ -763,7 +763,7 @@ days = DateDiff("w", startDate, endDate)
     }
 
     #[test]
-    fn test_datediff_in_loop() {
+    fn datediff_in_loop() {
         let source = r#"
 For i = 0 To count
     days(i) = DateDiff("d", startDate, dates(i))
@@ -776,7 +776,7 @@ Next i
     }
 
     #[test]
-    fn test_datediff_comparison() {
+    fn datediff_comparison() {
         let source = r#"
 If DateDiff("m", startDate, endDate) > 12 Then
     MsgBox "More than a year"
@@ -789,7 +789,7 @@ End If
     }
 
     #[test]
-    fn test_datediff_modulo() {
+    fn datediff_modulo() {
         let source = r#"
 minutes = DateDiff("n", startTime, endTime) Mod 60
 "#;
@@ -800,7 +800,7 @@ minutes = DateDiff("n", startTime, endTime) Mod 60
     }
 
     #[test]
-    fn test_datediff_in_msgbox() {
+    fn datediff_in_msgbox() {
         let source = r#"
 MsgBox "Days: " & DateDiff("d", startDate, endDate)
 "#;
@@ -811,7 +811,7 @@ MsgBox "Days: " & DateDiff("d", startDate, endDate)
     }
 
     #[test]
-    fn test_datediff_multiple_calls() {
+    fn datediff_multiple_calls() {
         let source = r#"
 hours = DateDiff("h", startTime, endTime)
 minutes = DateDiff("n", startTime, endTime) - (hours * 60)
@@ -823,7 +823,7 @@ minutes = DateDiff("n", startTime, endTime) - (hours * 60)
     }
 
     #[test]
-    fn test_datediff_with_now() {
+    fn datediff_with_now() {
         let source = r#"
 elapsed = DateDiff("s", startTime, Now)
 "#;
@@ -834,7 +834,7 @@ elapsed = DateDiff("s", startTime, Now)
     }
 
     #[test]
-    fn test_datediff_zero_result() {
+    fn datediff_zero_result() {
         let source = r#"
 diff = DateDiff("d", Date, Date)
 "#;
@@ -845,7 +845,7 @@ diff = DateDiff("d", Date, Date)
     }
 
     #[test]
-    fn test_datediff_in_calculation() {
+    fn datediff_in_calculation() {
         let source = r#"
 total = DateDiff("d", startDate, endDate) * rate
 "#;

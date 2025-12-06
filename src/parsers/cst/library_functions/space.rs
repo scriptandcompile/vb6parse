@@ -649,7 +649,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_space_basic() {
+    fn space_basic() {
         let source = r#"
 Sub Test()
     Dim spaces As String
@@ -663,7 +663,7 @@ End Sub
     }
 
     #[test]
-    fn test_space_with_variable() {
+    fn space_with_variable() {
         let source = r#"
 Sub Test()
     Dim count As Integer
@@ -679,7 +679,7 @@ End Sub
     }
 
     #[test]
-    fn test_space_if_statement() {
+    fn space_if_statement() {
         let source = r#"
 Sub Test()
     If Len(Space(10)) = 10 Then
@@ -693,7 +693,7 @@ End Sub
     }
 
     #[test]
-    fn test_space_function_return() {
+    fn space_function_return() {
         let source = r#"
 Function CreatePadding(n As Integer) As String
     CreatePadding = Space(n)
@@ -706,7 +706,7 @@ End Function
     }
 
     #[test]
-    fn test_space_variable_assignment() {
+    fn space_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim padding As String
@@ -720,7 +720,7 @@ End Sub
     }
 
     #[test]
-    fn test_space_msgbox() {
+    fn space_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Text" & Space(5) & "More"
@@ -733,7 +733,7 @@ End Sub
     }
 
     #[test]
-    fn test_space_debug_print() {
+    fn space_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print "Name:" & Space(10) & "Value"
@@ -746,7 +746,7 @@ End Sub
     }
 
     #[test]
-    fn test_space_select_case() {
+    fn space_select_case() {
         let source = r#"
 Sub Test()
     Select Case Len(Space(n))
@@ -763,7 +763,7 @@ End Sub
     }
 
     #[test]
-    fn test_space_class_usage() {
+    fn space_class_usage() {
         let source = r#"
 Class Formatter
     Public Function Pad(s As String, width As Integer) As String
@@ -778,7 +778,7 @@ End Class
     }
 
     #[test]
-    fn test_space_with_statement() {
+    fn space_with_statement() {
         let source = r#"
 Sub Test()
     With txtOutput
@@ -792,7 +792,7 @@ End Sub
     }
 
     #[test]
-    fn test_space_elseif() {
+    fn space_elseif() {
         let source = r#"
 Sub Test()
     Dim s As String
@@ -811,7 +811,7 @@ End Sub
     }
 
     #[test]
-    fn test_space_for_loop() {
+    fn space_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Integer
@@ -826,7 +826,7 @@ End Sub
     }
 
     #[test]
-    fn test_space_do_while() {
+    fn space_do_while() {
         let source = r#"
 Sub Test()
     Dim indent As String
@@ -843,7 +843,7 @@ End Sub
     }
 
     #[test]
-    fn test_space_do_until() {
+    fn space_do_until() {
         let source = r#"
 Sub Test()
     Do Until width >= 50
@@ -859,7 +859,7 @@ End Sub
     }
 
     #[test]
-    fn test_space_while_wend() {
+    fn space_while_wend() {
         let source = r#"
 Sub Test()
     While count < 100
@@ -874,7 +874,7 @@ End Sub
     }
 
     #[test]
-    fn test_space_parentheses() {
+    fn space_parentheses() {
         let source = r#"
 Sub Test()
     Dim formatted As String
@@ -888,7 +888,7 @@ End Sub
     }
 
     #[test]
-    fn test_space_iif() {
+    fn space_iif() {
         let source = r#"
 Sub Test()
     Dim padding As String
@@ -902,7 +902,7 @@ End Sub
     }
 
     #[test]
-    fn test_space_array_assignment() {
+    fn space_array_assignment() {
         let source = r#"
 Sub Test()
     Dim lines(10) As String
@@ -916,7 +916,7 @@ End Sub
     }
 
     #[test]
-    fn test_space_property_assignment() {
+    fn space_property_assignment() {
         let source = r#"
 Class TextFormatter
     Public Indent As String
@@ -933,7 +933,7 @@ End Sub
     }
 
     #[test]
-    fn test_space_function_argument() {
+    fn space_function_argument() {
         let source = r#"
 Sub ProcessText(s As String)
 End Sub
@@ -949,7 +949,7 @@ End Sub
     }
 
     #[test]
-    fn test_space_concatenation() {
+    fn space_concatenation() {
         let source = r#"
 Sub Test()
     Dim header As String
@@ -963,7 +963,7 @@ End Sub
     }
 
     #[test]
-    fn test_space_comparison() {
+    fn space_comparison() {
         let source = r#"
 Sub Test()
     Dim isCorrect As Boolean
@@ -977,7 +977,7 @@ End Sub
     }
 
     #[test]
-    fn test_space_arithmetic() {
+    fn space_arithmetic() {
         let source = r#"
 Sub Test()
     Dim padding As String
@@ -991,7 +991,7 @@ End Sub
     }
 
     #[test]
-    fn test_space_indentation() {
+    fn space_indentation() {
         let source = r#"
 Sub Test()
     Dim indentedText As String
@@ -1005,7 +1005,7 @@ End Sub
     }
 
     #[test]
-    fn test_space_error_handling() {
+    fn space_error_handling() {
         let source = r#"
 Sub Test()
     On Error Resume Next
@@ -1023,7 +1023,7 @@ End Sub
     }
 
     #[test]
-    fn test_space_on_error_goto() {
+    fn space_on_error_goto() {
         let source = r#"
 Sub Test()
     On Error GoTo ErrorHandler
@@ -1041,7 +1041,7 @@ End Sub
     }
 
     #[test]
-    fn test_space_column_alignment() {
+    fn space_column_alignment() {
         let source = r#"
 Sub Test()
     Dim name As String

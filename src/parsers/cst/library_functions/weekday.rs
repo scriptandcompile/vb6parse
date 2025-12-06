@@ -593,7 +593,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_weekday_basic() {
+    fn weekday_basic() {
         let source = r#"
 Sub Test()
     dayNum = Weekday(Date)
@@ -605,7 +605,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekday_variable_assignment() {
+    fn weekday_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim day As Integer
@@ -619,7 +619,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekday_with_firstdayofweek() {
+    fn weekday_with_firstdayofweek() {
         let source = r#"
 Sub Test()
     dayNum = Weekday(myDate, vbMonday)
@@ -631,7 +631,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekday_if_statement() {
+    fn weekday_if_statement() {
         let source = r#"
 Sub Test()
     If Weekday(Date) = vbSaturday Then
@@ -645,7 +645,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekday_select_case() {
+    fn weekday_select_case() {
         let source = r#"
 Sub Test()
     Select Case Weekday(checkDate)
@@ -662,7 +662,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekday_function_return() {
+    fn weekday_function_return() {
         let source = r#"
 Function IsWeekend(checkDate As Date) As Boolean
     IsWeekend = (Weekday(checkDate) = vbSaturday Or Weekday(checkDate) = vbSunday)
@@ -674,7 +674,7 @@ End Function
     }
 
     #[test]
-    fn test_weekday_for_loop() {
+    fn weekday_for_loop() {
         let source = r#"
 Sub Test()
     For i = 1 To 31
@@ -690,7 +690,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekday_comparison() {
+    fn weekday_comparison() {
         let source = r#"
 Sub Test()
     If Weekday(date1) = Weekday(date2) Then
@@ -704,7 +704,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekday_msgbox() {
+    fn weekday_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Day of week: " & Weekday(Date)
@@ -716,7 +716,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekday_function_argument() {
+    fn weekday_function_argument() {
         let source = r#"
 Sub Test()
     Call ProcessDay(Weekday(currentDate))
@@ -728,7 +728,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekday_debug_print() {
+    fn weekday_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print "Weekday: " & Weekday(Date)
@@ -740,7 +740,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekday_do_while() {
+    fn weekday_do_while() {
         let source = r#"
 Sub Test()
     Do While Weekday(currentDate) <> vbMonday
@@ -754,7 +754,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekday_do_until() {
+    fn weekday_do_until() {
         let source = r#"
 Sub Test()
     Do Until Weekday(testDate) = vbFriday
@@ -768,7 +768,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekday_while_wend() {
+    fn weekday_while_wend() {
         let source = r#"
 Sub Test()
     While Weekday(dt) >= vbMonday And Weekday(dt) <= vbFriday
@@ -782,7 +782,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekday_iif() {
+    fn weekday_iif() {
         let source = r#"
 Sub Test()
     category = IIf(Weekday(dt) = vbSaturday Or Weekday(dt) = vbSunday, "Weekend", "Weekday")
@@ -794,7 +794,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekday_with_statement() {
+    fn weekday_with_statement() {
         let source = r#"
 Sub Test()
     With dateInfo
@@ -808,7 +808,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekday_parentheses() {
+    fn weekday_parentheses() {
         let source = r#"
 Sub Test()
     result = (Weekday(myDate) - 1)
@@ -820,7 +820,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekday_error_handling() {
+    fn weekday_error_handling() {
         let source = r#"
 Sub Test()
     On Error Resume Next
@@ -836,7 +836,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekday_property_assignment() {
+    fn weekday_property_assignment() {
         let source = r#"
 Sub Test()
     obj.WeekdayNumber = Weekday(obj.EventDate)
@@ -848,7 +848,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekday_arithmetic() {
+    fn weekday_arithmetic() {
         let source = r#"
 Sub Test()
     daysUntilMonday = vbMonday - Weekday(currentDate)
@@ -860,7 +860,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekday_array_assignment() {
+    fn weekday_array_assignment() {
         let source = r#"
 Sub Test()
     weekdays(i) = Weekday(dates(i))
@@ -872,7 +872,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekday_print_statement() {
+    fn weekday_print_statement() {
         let source = r#"
 Sub Test()
     Print #1, Weekday(reportDate)
@@ -884,7 +884,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekday_class_usage() {
+    fn weekday_class_usage() {
         let source = r#"
 Sub Test()
     Set calendar = New CalendarControl
@@ -897,7 +897,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekday_elseif() {
+    fn weekday_elseif() {
         let source = r#"
 Sub Test()
     If x = 1 Then
@@ -913,7 +913,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekday_range_check() {
+    fn weekday_range_check() {
         let source = r#"
 Sub Test()
     If Weekday(dt) >= vbMonday And Weekday(dt) <= vbFriday Then
@@ -927,7 +927,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekday_or_condition() {
+    fn weekday_or_condition() {
         let source = r#"
 Sub Test()
     If Weekday(dt) = vbSaturday Or Weekday(dt) = vbSunday Then
@@ -941,7 +941,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekday_switch() {
+    fn weekday_switch() {
         let source = r#"
 Sub Test()
     category = Switch(Weekday(dt) = vbSunday, "Rest", Weekday(dt) = vbMonday, "Start", True, "Other")
@@ -953,7 +953,7 @@ End Sub
     }
 
     #[test]
-    fn test_weekday_dateadd() {
+    fn weekday_dateadd() {
         let source = r#"
 Sub Test()
     nextWeek = DateAdd("d", 7 - Weekday(dt, vbMonday), dt)

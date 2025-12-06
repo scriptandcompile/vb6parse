@@ -776,7 +776,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_rgb_basic() {
+    fn rgb_basic() {
         let source = r#"
 Dim color As Long
 color = RGB(255, 0, 0)
@@ -788,7 +788,7 @@ color = RGB(255, 0, 0)
     }
 
     #[test]
-    fn test_rgb_all_components() {
+    fn rgb_all_components() {
         let source = r#"
 Dim customColor As Long
 customColor = RGB(128, 64, 192)
@@ -800,7 +800,7 @@ customColor = RGB(128, 64, 192)
     }
 
     #[test]
-    fn test_rgb_if_statement() {
+    fn rgb_if_statement() {
         let source = r#"
 If value > 100 Then
     cellColor = RGB(255, 0, 0)
@@ -815,7 +815,7 @@ End If
     }
 
     #[test]
-    fn test_rgb_function_return() {
+    fn rgb_function_return() {
         let source = r#"
 Function GetRedColor() As Long
     GetRedColor = RGB(255, 0, 0)
@@ -828,7 +828,7 @@ End Function
     }
 
     #[test]
-    fn test_rgb_variable_assignment() {
+    fn rgb_variable_assignment() {
         let source = r#"
 Dim bgColor As Long
 bgColor = RGB(red, green, blue)
@@ -840,7 +840,7 @@ bgColor = RGB(red, green, blue)
     }
 
     #[test]
-    fn test_rgb_form_property() {
+    fn rgb_form_property() {
         let source = r#"
 Form1.BackColor = RGB(200, 200, 200)
 "#;
@@ -851,7 +851,7 @@ Form1.BackColor = RGB(200, 200, 200)
     }
 
     #[test]
-    fn test_rgb_debug_print() {
+    fn rgb_debug_print() {
         let source = r#"
 Debug.Print "Color: " & RGB(r, g, b)
 "#;
@@ -862,7 +862,7 @@ Debug.Print "Color: " & RGB(r, g, b)
     }
 
     #[test]
-    fn test_rgb_select_case() {
+    fn rgb_select_case() {
         let source = r#"
 Select Case status
     Case "Error"
@@ -880,7 +880,7 @@ End Select
     }
 
     #[test]
-    fn test_rgb_class_usage() {
+    fn rgb_class_usage() {
         let source = r#"
 Private m_backgroundColor As Long
 
@@ -895,7 +895,7 @@ End Sub
     }
 
     #[test]
-    fn test_rgb_with_statement() {
+    fn rgb_with_statement() {
         let source = r#"
 With Label1
     .BackColor = RGB(255, 255, 0)
@@ -909,7 +909,7 @@ End With
     }
 
     #[test]
-    fn test_rgb_elseif() {
+    fn rgb_elseif() {
         let source = r#"
 If temp < 0 Then
     color = RGB(0, 0, 255)
@@ -926,7 +926,7 @@ End If
     }
 
     #[test]
-    fn test_rgb_for_loop() {
+    fn rgb_for_loop() {
         let source = r#"
 For i = 0 To 255
     gradient(i) = RGB(i, i, i)
@@ -939,7 +939,7 @@ Next i
     }
 
     #[test]
-    fn test_rgb_do_while() {
+    fn rgb_do_while() {
         let source = r#"
 Do While r < 255
     colors(r) = RGB(r, 128, 64)
@@ -953,7 +953,7 @@ Loop
     }
 
     #[test]
-    fn test_rgb_do_until() {
+    fn rgb_do_until() {
         let source = r#"
 Do Until index > 10
     palette(index) = RGB(index * 25, 0, 0)
@@ -967,7 +967,7 @@ Loop
     }
 
     #[test]
-    fn test_rgb_while_wend() {
+    fn rgb_while_wend() {
         let source = r#"
 While count < 100
     shades(count) = RGB(count, count, count)
@@ -981,7 +981,7 @@ Wend
     }
 
     #[test]
-    fn test_rgb_parentheses() {
+    fn rgb_parentheses() {
         let source = r#"
 Dim result As Long
 result = (RGB(255, 128, 0))
@@ -993,7 +993,7 @@ result = (RGB(255, 128, 0))
     }
 
     #[test]
-    fn test_rgb_iif() {
+    fn rgb_iif() {
         let source = r#"
 Dim textColor As Long
 textColor = IIf(isActive, RGB(0, 0, 0), RGB(128, 128, 128))
@@ -1005,7 +1005,7 @@ textColor = IIf(isActive, RGB(0, 0, 0), RGB(128, 128, 128))
     }
 
     #[test]
-    fn test_rgb_array_assignment() {
+    fn rgb_array_assignment() {
         let source = r#"
 Dim colors(10) As Long
 colors(i) = RGB(red(i), green(i), blue(i))
@@ -1017,7 +1017,7 @@ colors(i) = RGB(red(i), green(i), blue(i))
     }
 
     #[test]
-    fn test_rgb_property_assignment() {
+    fn rgb_property_assignment() {
         let source = r#"
 Set obj = New ColorManager
 obj.PrimaryColor = RGB(255, 0, 0)
@@ -1029,7 +1029,7 @@ obj.PrimaryColor = RGB(255, 0, 0)
     }
 
     #[test]
-    fn test_rgb_function_argument() {
+    fn rgb_function_argument() {
         let source = r#"
 Call SetBackgroundColor(RGB(230, 230, 230))
 "#;
@@ -1040,7 +1040,7 @@ Call SetBackgroundColor(RGB(230, 230, 230))
     }
 
     #[test]
-    fn test_rgb_concatenation() {
+    fn rgb_concatenation() {
         let source = r#"
 Dim msg As String
 msg = "Color value: " & RGB(100, 150, 200)
@@ -1052,7 +1052,7 @@ msg = "Color value: " & RGB(100, 150, 200)
     }
 
     #[test]
-    fn test_rgb_gradient_calculation() {
+    fn rgb_gradient_calculation() {
         let source = r#"
 Dim gradientColor As Long
 gradientColor = RGB(startR + (ratio * deltaR), startG, startB)
@@ -1064,7 +1064,7 @@ gradientColor = RGB(startR + (ratio * deltaR), startG, startB)
     }
 
     #[test]
-    fn test_rgb_comparison() {
+    fn rgb_comparison() {
         let source = r#"
 If RGB(r1, g1, b1) = RGB(r2, g2, b2) Then
     MsgBox "Colors match"
@@ -1077,7 +1077,7 @@ End If
     }
 
     #[test]
-    fn test_rgb_line_method() {
+    fn rgb_line_method() {
         let source = r#"
 Picture1.Line (0, 0)-(100, 100), RGB(255, 0, 0), BF
 "#;
@@ -1088,7 +1088,7 @@ Picture1.Line (0, 0)-(100, 100), RGB(255, 0, 0), BF
     }
 
     #[test]
-    fn test_rgb_msgbox() {
+    fn rgb_msgbox() {
         let source = r#"
 MsgBox "Color: " & Hex(RGB(255, 128, 64))
 "#;
@@ -1099,7 +1099,7 @@ MsgBox "Color: " & Hex(RGB(255, 128, 64))
     }
 
     #[test]
-    fn test_rgb_nested_calculation() {
+    fn rgb_nested_calculation() {
         let source = r#"
 Dim blended As Long
 blended = RGB((r1 + r2) \ 2, (g1 + g2) \ 2, (b1 + b2) \ 2)
@@ -1111,7 +1111,7 @@ blended = RGB((r1 + r2) \ 2, (g1 + g2) \ 2, (b1 + b2) \ 2)
     }
 
     #[test]
-    fn test_rgb_on_error_goto() {
+    fn rgb_on_error_goto() {
         let source = r#"
 Sub SetColor()
     On Error GoTo ErrorHandler

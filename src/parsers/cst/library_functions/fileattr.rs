@@ -777,7 +777,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_fileattr_mode() {
+    fn fileattr_mode() {
         let source = r#"
 fileMode = FileAttr(fileNum, 1)
 "#;
@@ -788,7 +788,7 @@ fileMode = FileAttr(fileNum, 1)
     }
 
     #[test]
-    fn test_fileattr_handle() {
+    fn fileattr_handle() {
         let source = r#"
 fileHandle = FileAttr(fileNum, 2)
 "#;
@@ -799,7 +799,7 @@ fileHandle = FileAttr(fileNum, 2)
     }
 
     #[test]
-    fn test_fileattr_literal_file_number() {
+    fn fileattr_literal_file_number() {
         let source = r#"
 mode = FileAttr(1, 1)
 "#;
@@ -810,7 +810,7 @@ mode = FileAttr(1, 1)
     }
 
     #[test]
-    fn test_fileattr_select_case() {
+    fn fileattr_select_case() {
         let source = r#"
 Select Case FileAttr(fileNum, 1)
     Case 1
@@ -826,7 +826,7 @@ End Select
     }
 
     #[test]
-    fn test_fileattr_in_if() {
+    fn fileattr_in_if() {
         let source = r#"
 If FileAttr(fileNum, 1) = 1 Then
     Debug.Print "Input mode"
@@ -839,7 +839,7 @@ End If
     }
 
     #[test]
-    fn test_fileattr_in_function() {
+    fn fileattr_in_function() {
         let source = r#"
 Function GetFileMode(fnum As Integer) As Long
     GetFileMode = FileAttr(fnum, 1)
@@ -852,7 +852,7 @@ End Function
     }
 
     #[test]
-    fn test_fileattr_debug_print() {
+    fn fileattr_debug_print() {
         let source = r#"
 Debug.Print FileAttr(fileNum, 1)
 "#;
@@ -863,7 +863,7 @@ Debug.Print FileAttr(fileNum, 1)
     }
 
     #[test]
-    fn test_fileattr_comparison() {
+    fn fileattr_comparison() {
         let source = r#"
 canWrite = (FileAttr(fileNum, 1) = 2)
 "#;
@@ -874,7 +874,7 @@ canWrite = (FileAttr(fileNum, 1) = 2)
     }
 
     #[test]
-    fn test_fileattr_or_condition() {
+    fn fileattr_or_condition() {
         let source = r#"
 isWritable = (FileAttr(fileNum, 1) = 2 Or FileAttr(fileNum, 1) = 8)
 "#;
@@ -885,7 +885,7 @@ isWritable = (FileAttr(fileNum, 1) = 2 Or FileAttr(fileNum, 1) = 8)
     }
 
     #[test]
-    fn test_fileattr_error_handling() {
+    fn fileattr_error_handling() {
         let source = r#"
 On Error Resume Next
 mode = FileAttr(fileNum, 1)
@@ -900,7 +900,7 @@ End If
     }
 
     #[test]
-    fn test_fileattr_in_loop() {
+    fn fileattr_in_loop() {
         let source = r#"
 For i = 1 To 255
     mode = FileAttr(i, 1)
@@ -916,7 +916,7 @@ Next i
     }
 
     #[test]
-    fn test_fileattr_with_concatenation() {
+    fn fileattr_with_concatenation() {
         let source = r#"
 msg = "Mode: " & FileAttr(fileNum, 1)
 "#;
@@ -927,7 +927,7 @@ msg = "Mode: " & FileAttr(fileNum, 1)
     }
 
     #[test]
-    fn test_fileattr_udt_assignment() {
+    fn fileattr_udt_assignment() {
         let source = r#"
 info.Mode = FileAttr(fileNum, 1)
 info.Handle = FileAttr(fileNum, 2)
@@ -939,7 +939,7 @@ info.Handle = FileAttr(fileNum, 2)
     }
 
     #[test]
-    fn test_fileattr_validation() {
+    fn fileattr_validation() {
         let source = r#"
 valid = (FileAttr(fileNum, 1) >= 1 And FileAttr(fileNum, 1) <= 32)
 "#;
@@ -950,7 +950,7 @@ valid = (FileAttr(fileNum, 1) >= 1 And FileAttr(fileNum, 1) <= 32)
     }
 
     #[test]
-    fn test_fileattr_nested_if() {
+    fn fileattr_nested_if() {
         let source = r#"
 If FileAttr(fileNum, 1) = 1 Or FileAttr(fileNum, 1) = 4 Then
     canRead = True
@@ -963,7 +963,7 @@ End If
     }
 
     #[test]
-    fn test_fileattr_collection_add() {
+    fn fileattr_collection_add() {
         let source = r#"
 handles.Add FileAttr(i, 2), CStr(i)
 "#;
@@ -974,7 +974,7 @@ handles.Add FileAttr(i, 2), CStr(i)
     }
 
     #[test]
-    fn test_fileattr_msgbox() {
+    fn fileattr_msgbox() {
         let source = r#"
 MsgBox "File mode: " & FileAttr(fileNum, 1)
 "#;
@@ -985,7 +985,7 @@ MsgBox "File mode: " & FileAttr(fileNum, 1)
     }
 
     #[test]
-    fn test_fileattr_multiline() {
+    fn fileattr_multiline() {
         let source = r#"
 info = "File #" & fileNum & vbCrLf & _
        "Mode: " & FileAttr(fileNum, 1) & vbCrLf & _
@@ -998,7 +998,7 @@ info = "File #" & fileNum & vbCrLf & _
     }
 
     #[test]
-    fn test_fileattr_format() {
+    fn fileattr_format() {
         let source = r#"
 formatted = Format(FileAttr(fileNum, 1), "0")
 "#;
@@ -1009,7 +1009,7 @@ formatted = Format(FileAttr(fileNum, 1), "0")
     }
 
     #[test]
-    fn test_fileattr_file_logging() {
+    fn fileattr_file_logging() {
         let source = r#"
 Print #logNum, "Mode: " & FileAttr(fileNum, 1) & " | Handle: " & FileAttr(fileNum, 2)
 "#;
@@ -1020,7 +1020,7 @@ Print #logNum, "Mode: " & FileAttr(fileNum, 1) & " | Handle: " & FileAttr(fileNu
     }
 
     #[test]
-    fn test_fileattr_boolean_expression() {
+    fn fileattr_boolean_expression() {
         let source = r#"
 isOpen = (Err.Number = 0) And (FileAttr(fileNum, 1) > 0)
 "#;
@@ -1031,7 +1031,7 @@ isOpen = (Err.Number = 0) And (FileAttr(fileNum, 1) > 0)
     }
 
     #[test]
-    fn test_fileattr_with_constants() {
+    fn fileattr_with_constants() {
         let source = r#"
 Const FILE_ATTR_MODE = 1
 mode = FileAttr(fileNum, FILE_ATTR_MODE)
@@ -1043,7 +1043,7 @@ mode = FileAttr(fileNum, FILE_ATTR_MODE)
     }
 
     #[test]
-    fn test_fileattr_array_assignment() {
+    fn fileattr_array_assignment() {
         let source = r#"
 modes(i) = FileAttr(i, 1)
 handles(i) = FileAttr(i, 2)
@@ -1055,7 +1055,7 @@ handles(i) = FileAttr(i, 2)
     }
 
     #[test]
-    fn test_fileattr_in_with_block() {
+    fn fileattr_in_with_block() {
         let source = r#"
 With descriptor
     .Mode = FileAttr(fileNum, 1)
@@ -1069,7 +1069,7 @@ End With
     }
 
     #[test]
-    fn test_fileattr_immediate_window() {
+    fn fileattr_immediate_window() {
         let source = r#"
 ? FileAttr(1, 1)
 "#;

@@ -546,7 +546,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_isdate_basic() {
+    fn isdate_basic() {
         let source = r#"
 Sub Test()
     result = IsDate(myVariable)
@@ -559,7 +559,7 @@ End Sub
     }
 
     #[test]
-    fn test_isdate_if_statement() {
+    fn isdate_if_statement() {
         let source = r#"
 Sub Test()
     If IsDate(userInput) Then
@@ -574,7 +574,7 @@ End Sub
     }
 
     #[test]
-    fn test_isdate_not_condition() {
+    fn isdate_not_condition() {
         let source = r#"
 Sub Test()
     If Not IsDate(value) Then
@@ -589,7 +589,7 @@ End Sub
     }
 
     #[test]
-    fn test_isdate_function_return() {
+    fn isdate_function_return() {
         let source = r#"
 Function ValidateDate(v As Variant) As Boolean
     ValidateDate = IsDate(v)
@@ -602,7 +602,7 @@ End Function
     }
 
     #[test]
-    fn test_isdate_boolean_and() {
+    fn isdate_boolean_and() {
         let source = r#"
 Sub Test()
     If IsDate(startDate) And IsDate(endDate) Then
@@ -617,7 +617,7 @@ End Sub
     }
 
     #[test]
-    fn test_isdate_boolean_or() {
+    fn isdate_boolean_or() {
         let source = r#"
 Sub Test()
     If IsDate(field1) Or IsDate(field2) Then
@@ -632,7 +632,7 @@ End Sub
     }
 
     #[test]
-    fn test_isdate_iif() {
+    fn isdate_iif() {
         let source = r#"
 Sub Test()
     displayValue = IIf(IsDate(value), Format$(value, "Short Date"), "N/A")
@@ -645,7 +645,7 @@ End Sub
     }
 
     #[test]
-    fn test_isdate_debug_print() {
+    fn isdate_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print "Is valid date: " & IsDate(testValue)
@@ -658,7 +658,7 @@ End Sub
     }
 
     #[test]
-    fn test_isdate_msgbox() {
+    fn isdate_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Date validation: " & IsDate(inputValue)
@@ -671,7 +671,7 @@ End Sub
     }
 
     #[test]
-    fn test_isdate_do_while() {
+    fn isdate_do_while() {
         let source = r#"
 Sub Test()
     Do While Not IsDate(userInput)
@@ -686,7 +686,7 @@ End Sub
     }
 
     #[test]
-    fn test_isdate_do_until() {
+    fn isdate_do_until() {
         let source = r#"
 Sub Test()
     Do Until IsDate(currentValue)
@@ -701,7 +701,7 @@ End Sub
     }
 
     #[test]
-    fn test_isdate_variable_assignment() {
+    fn isdate_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim isValid As Boolean
@@ -715,7 +715,7 @@ End Sub
     }
 
     #[test]
-    fn test_isdate_property_assignment() {
+    fn isdate_property_assignment() {
         let source = r#"
 Sub Test()
     record.IsValidDate = IsDate(record.DateField)
@@ -728,7 +728,7 @@ End Sub
     }
 
     #[test]
-    fn test_isdate_in_class() {
+    fn isdate_in_class() {
         let source = r#"
 Private Sub Class_Initialize()
     m_isValidDate = IsDate(m_dateValue)
@@ -741,7 +741,7 @@ End Sub
     }
 
     #[test]
-    fn test_isdate_with_statement() {
+    fn isdate_with_statement() {
         let source = r#"
 Sub Test()
     With recordSet
@@ -756,7 +756,7 @@ End Sub
     }
 
     #[test]
-    fn test_isdate_function_argument() {
+    fn isdate_function_argument() {
         let source = r#"
 Sub Test()
     Call ProcessIfDate(IsDate(myValue))
@@ -769,7 +769,7 @@ End Sub
     }
 
     #[test]
-    fn test_isdate_select_case() {
+    fn isdate_select_case() {
         let source = r#"
 Sub Test()
     Select Case True
@@ -787,7 +787,7 @@ End Sub
     }
 
     #[test]
-    fn test_isdate_for_loop() {
+    fn isdate_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Integer
@@ -805,7 +805,7 @@ End Sub
     }
 
     #[test]
-    fn test_isdate_elseif() {
+    fn isdate_elseif() {
         let source = r#"
 Sub Test()
     If IsNumeric(data) Then
@@ -822,7 +822,7 @@ End Sub
     }
 
     #[test]
-    fn test_isdate_concatenation() {
+    fn isdate_concatenation() {
         let source = r#"
 Sub Test()
     message = "Valid: " & IsDate(inputText)
@@ -835,7 +835,7 @@ End Sub
     }
 
     #[test]
-    fn test_isdate_parentheses() {
+    fn isdate_parentheses() {
         let source = r#"
 Sub Test()
     result = (IsDate(value))
@@ -848,7 +848,7 @@ End Sub
     }
 
     #[test]
-    fn test_isdate_array_assignment() {
+    fn isdate_array_assignment() {
         let source = r#"
 Sub Test()
     validFlags(i) = IsDate(dateValues(i))
@@ -861,7 +861,7 @@ End Sub
     }
 
     #[test]
-    fn test_isdate_collection_add() {
+    fn isdate_collection_add() {
         let source = r#"
 Sub Test()
     validations.Add IsDate(fields(i))
@@ -874,7 +874,7 @@ End Sub
     }
 
     #[test]
-    fn test_isdate_comparison() {
+    fn isdate_comparison() {
         let source = r#"
 Sub Test()
     If IsDate(field1) = IsDate(field2) Then
@@ -889,7 +889,7 @@ End Sub
     }
 
     #[test]
-    fn test_isdate_nested_call() {
+    fn isdate_nested_call() {
         let source = r#"
 Sub Test()
     result = CStr(IsDate(myVar))
@@ -902,7 +902,7 @@ End Sub
     }
 
     #[test]
-    fn test_isdate_while_wend() {
+    fn isdate_while_wend() {
         let source = r#"
 Sub Test()
     While Not IsDate(input)
@@ -917,7 +917,7 @@ End Sub
     }
 
     #[test]
-    fn test_isdate_error_raise() {
+    fn isdate_error_raise() {
         let source = r#"
 Sub Test()
     If Not IsDate(param) Then

@@ -520,7 +520,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_isempty_basic() {
+    fn isempty_basic() {
         let source = r#"
 Sub Test()
     result = IsEmpty(myVariable)
@@ -533,7 +533,7 @@ End Sub
     }
 
     #[test]
-    fn test_isempty_if_statement() {
+    fn isempty_if_statement() {
         let source = r#"
 Sub Test()
     If IsEmpty(value) Then
@@ -548,7 +548,7 @@ End Sub
     }
 
     #[test]
-    fn test_isempty_not_condition() {
+    fn isempty_not_condition() {
         let source = r#"
 Sub Test()
     If Not IsEmpty(param) Then
@@ -563,7 +563,7 @@ End Sub
     }
 
     #[test]
-    fn test_isempty_function_return() {
+    fn isempty_function_return() {
         let source = r#"
 Function CheckInitialized(v As Variant) As Boolean
     CheckInitialized = Not IsEmpty(v)
@@ -576,7 +576,7 @@ End Function
     }
 
     #[test]
-    fn test_isempty_boolean_and() {
+    fn isempty_boolean_and() {
         let source = r#"
 Sub Test()
     If IsEmpty(value1) And IsEmpty(value2) Then
@@ -591,7 +591,7 @@ End Sub
     }
 
     #[test]
-    fn test_isempty_boolean_or() {
+    fn isempty_boolean_or() {
         let source = r#"
 Sub Test()
     If IsEmpty(field) Or IsNull(field) Then
@@ -606,7 +606,7 @@ End Sub
     }
 
     #[test]
-    fn test_isempty_iif() {
+    fn isempty_iif() {
         let source = r#"
 Sub Test()
     displayValue = IIf(IsEmpty(value), "Not Set", value)
@@ -619,7 +619,7 @@ End Sub
     }
 
     #[test]
-    fn test_isempty_debug_print() {
+    fn isempty_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print "Is empty: " & IsEmpty(testVar)
@@ -632,7 +632,7 @@ End Sub
     }
 
     #[test]
-    fn test_isempty_msgbox() {
+    fn isempty_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Variable status: " & IsEmpty(myVar)
@@ -645,7 +645,7 @@ End Sub
     }
 
     #[test]
-    fn test_isempty_do_while() {
+    fn isempty_do_while() {
         let source = r#"
 Sub Test()
     Do While IsEmpty(cachedValue)
@@ -660,7 +660,7 @@ End Sub
     }
 
     #[test]
-    fn test_isempty_do_until() {
+    fn isempty_do_until() {
         let source = r#"
 Sub Test()
     Do Until Not IsEmpty(result)
@@ -675,7 +675,7 @@ End Sub
     }
 
     #[test]
-    fn test_isempty_variable_assignment() {
+    fn isempty_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim isEmpty As Boolean
@@ -689,7 +689,7 @@ End Sub
     }
 
     #[test]
-    fn test_isempty_property_assignment() {
+    fn isempty_property_assignment() {
         let source = r#"
 Sub Test()
     obj.IsInitialized = Not IsEmpty(obj.Value)
@@ -702,7 +702,7 @@ End Sub
     }
 
     #[test]
-    fn test_isempty_in_class() {
+    fn isempty_in_class() {
         let source = r#"
 Private Sub Class_Initialize()
     m_isEmpty = IsEmpty(m_cachedData)
@@ -715,7 +715,7 @@ End Sub
     }
 
     #[test]
-    fn test_isempty_with_statement() {
+    fn isempty_with_statement() {
         let source = r#"
 Sub Test()
     With config
@@ -730,7 +730,7 @@ End Sub
     }
 
     #[test]
-    fn test_isempty_function_argument() {
+    fn isempty_function_argument() {
         let source = r#"
 Sub Test()
     Call ValidateParameter(IsEmpty(optionalParam))
@@ -743,7 +743,7 @@ End Sub
     }
 
     #[test]
-    fn test_isempty_select_case() {
+    fn isempty_select_case() {
         let source = r#"
 Sub Test()
     Select Case True
@@ -761,7 +761,7 @@ End Sub
     }
 
     #[test]
-    fn test_isempty_for_loop() {
+    fn isempty_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Integer
@@ -779,7 +779,7 @@ End Sub
     }
 
     #[test]
-    fn test_isempty_elseif() {
+    fn isempty_elseif() {
         let source = r#"
 Sub Test()
     If IsNull(data) Then
@@ -796,7 +796,7 @@ End Sub
     }
 
     #[test]
-    fn test_isempty_concatenation() {
+    fn isempty_concatenation() {
         let source = r#"
 Sub Test()
     status = "Empty: " & IsEmpty(variable)
@@ -809,7 +809,7 @@ End Sub
     }
 
     #[test]
-    fn test_isempty_parentheses() {
+    fn isempty_parentheses() {
         let source = r#"
 Sub Test()
     result = (IsEmpty(value))
@@ -822,7 +822,7 @@ End Sub
     }
 
     #[test]
-    fn test_isempty_array_check() {
+    fn isempty_array_check() {
         let source = r#"
 Sub Test()
     checks(i) = IsEmpty(values(i))
@@ -835,7 +835,7 @@ End Sub
     }
 
     #[test]
-    fn test_isempty_collection_add() {
+    fn isempty_collection_add() {
         let source = r#"
 Sub Test()
     states.Add IsEmpty(data(i))
@@ -848,7 +848,7 @@ End Sub
     }
 
     #[test]
-    fn test_isempty_comparison() {
+    fn isempty_comparison() {
         let source = r#"
 Sub Test()
     If IsEmpty(var1) = IsEmpty(var2) Then
@@ -863,7 +863,7 @@ End Sub
     }
 
     #[test]
-    fn test_isempty_nested_call() {
+    fn isempty_nested_call() {
         let source = r#"
 Sub Test()
     result = CStr(IsEmpty(myVar))
@@ -876,7 +876,7 @@ End Sub
     }
 
     #[test]
-    fn test_isempty_while_wend() {
+    fn isempty_while_wend() {
         let source = r#"
 Sub Test()
     While IsEmpty(buffer)
@@ -891,7 +891,7 @@ End Sub
     }
 
     #[test]
-    fn test_isempty_optional_param() {
+    fn isempty_optional_param() {
         let source = r#"
 Function Process(Optional param As Variant) As Boolean
     If IsEmpty(param) Then

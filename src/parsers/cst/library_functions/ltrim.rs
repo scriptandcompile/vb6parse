@@ -601,7 +601,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_ltrim_basic() {
+    fn ltrim_basic() {
         let source = r#"
             Dim result As String
             result = LTrim("   Hello")
@@ -613,7 +613,7 @@ mod tests {
     }
 
     #[test]
-    fn test_ltrim_variable() {
+    fn ltrim_variable() {
         let source = r#"
             cleaned = LTrim(userInput)
         "#;
@@ -624,7 +624,7 @@ mod tests {
     }
 
     #[test]
-    fn test_ltrim_textbox() {
+    fn ltrim_textbox() {
         let source = r#"
             txtUsername.Text = LTrim(txtUsername.Text)
         "#;
@@ -635,7 +635,7 @@ mod tests {
     }
 
     #[test]
-    fn test_ltrim_if_statement() {
+    fn ltrim_if_statement() {
         let source = r#"
             If LTrim(text) = "" Then
                 MsgBox "Empty"
@@ -648,7 +648,7 @@ mod tests {
     }
 
     #[test]
-    fn test_ltrim_function_return() {
+    fn ltrim_function_return() {
         let source = r#"
             Function CleanText(s As String) As String
                 CleanText = LTrim(s)
@@ -661,7 +661,7 @@ mod tests {
     }
 
     #[test]
-    fn test_ltrim_with_rtrim() {
+    fn ltrim_with_rtrim() {
         let source = r#"
             fullTrim = LTrim(RTrim(text))
         "#;
@@ -672,7 +672,7 @@ mod tests {
     }
 
     #[test]
-    fn test_ltrim_mid_extraction() {
+    fn ltrim_mid_extraction() {
         let source = r#"
             field = LTrim(Mid(line, 1, 20))
         "#;
@@ -683,7 +683,7 @@ mod tests {
     }
 
     #[test]
-    fn test_ltrim_debug_print() {
+    fn ltrim_debug_print() {
         let source = r#"
             Debug.Print LTrim(text)
         "#;
@@ -694,7 +694,7 @@ mod tests {
     }
 
     #[test]
-    fn test_ltrim_with_statement() {
+    fn ltrim_with_statement() {
         let source = r#"
             With record
                 .Name = LTrim(.Name)
@@ -707,7 +707,7 @@ mod tests {
     }
 
     #[test]
-    fn test_ltrim_select_case() {
+    fn ltrim_select_case() {
         let source = r#"
             Select Case LTrim(input)
                 Case ""
@@ -723,7 +723,7 @@ mod tests {
     }
 
     #[test]
-    fn test_ltrim_elseif() {
+    fn ltrim_elseif() {
         let source = r#"
             If text = "" Then
                 status = "Empty"
@@ -738,7 +738,7 @@ mod tests {
     }
 
     #[test]
-    fn test_ltrim_parentheses() {
+    fn ltrim_parentheses() {
         let source = r#"
             result = (LTrim(text))
         "#;
@@ -749,7 +749,7 @@ mod tests {
     }
 
     #[test]
-    fn test_ltrim_iif() {
+    fn ltrim_iif() {
         let source = r#"
             result = IIf(LTrim(text) = "", "Empty", "Has data")
         "#;
@@ -760,7 +760,7 @@ mod tests {
     }
 
     #[test]
-    fn test_ltrim_in_class() {
+    fn ltrim_in_class() {
         let source = r#"
             Private Sub Class_Method()
                 m_cleanValue = LTrim(m_rawValue)
@@ -773,7 +773,7 @@ mod tests {
     }
 
     #[test]
-    fn test_ltrim_function_argument() {
+    fn ltrim_function_argument() {
         let source = r#"
             Call ProcessText(LTrim(input))
         "#;
@@ -784,7 +784,7 @@ mod tests {
     }
 
     #[test]
-    fn test_ltrim_property_assignment() {
+    fn ltrim_property_assignment() {
         let source = r#"
             MyObject.CleanText = LTrim(dirtyText)
         "#;
@@ -795,7 +795,7 @@ mod tests {
     }
 
     #[test]
-    fn test_ltrim_array_assignment() {
+    fn ltrim_array_assignment() {
         let source = r#"
             cleanValues(i) = LTrim(rawValues(i))
         "#;
@@ -806,7 +806,7 @@ mod tests {
     }
 
     #[test]
-    fn test_ltrim_for_loop() {
+    fn ltrim_for_loop() {
         let source = r#"
             For i = 1 To 10
                 fields(i) = LTrim(fields(i))
@@ -819,7 +819,7 @@ mod tests {
     }
 
     #[test]
-    fn test_ltrim_while_wend() {
+    fn ltrim_while_wend() {
         let source = r#"
             While Not EOF(1)
                 Line Input #1, line
@@ -833,7 +833,7 @@ mod tests {
     }
 
     #[test]
-    fn test_ltrim_do_while() {
+    fn ltrim_do_while() {
         let source = r#"
             Do While i < count
                 text = LTrim(dataArray(i))
@@ -847,7 +847,7 @@ mod tests {
     }
 
     #[test]
-    fn test_ltrim_do_until() {
+    fn ltrim_do_until() {
         let source = r#"
             Do Until LTrim(input) <> ""
                 input = InputBox("Enter text")
@@ -860,7 +860,7 @@ mod tests {
     }
 
     #[test]
-    fn test_ltrim_msgbox() {
+    fn ltrim_msgbox() {
         let source = r#"
             MsgBox LTrim(message)
         "#;
@@ -871,7 +871,7 @@ mod tests {
     }
 
     #[test]
-    fn test_ltrim_concatenation() {
+    fn ltrim_concatenation() {
         let source = r#"
             fullName = LTrim(firstName) & " " & LTrim(lastName)
         "#;
@@ -882,7 +882,7 @@ mod tests {
     }
 
     #[test]
-    fn test_ltrim_comparison() {
+    fn ltrim_comparison() {
         let source = r#"
             If LTrim(txtInput.Text) <> "" Then
                 ProcessInput
@@ -895,7 +895,7 @@ mod tests {
     }
 
     #[test]
-    fn test_ltrim_label_caption() {
+    fn ltrim_label_caption() {
         let source = r#"
             lblName.Caption = LTrim(recordset("Name"))
         "#;
@@ -906,7 +906,7 @@ mod tests {
     }
 
     #[test]
-    fn test_ltrim_validation() {
+    fn ltrim_validation() {
         let source = r#"
             If LTrim(RTrim(txtUsername.Text)) = "" Then
                 MsgBox "Username required"
@@ -919,7 +919,7 @@ mod tests {
     }
 
     #[test]
-    fn test_ltrim_recordset_field() {
+    fn ltrim_recordset_field() {
         let source = r#"
             customerName = LTrim(rs.Fields("CustomerName").Value)
         "#;

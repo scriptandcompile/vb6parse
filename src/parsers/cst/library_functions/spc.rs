@@ -512,7 +512,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_spc_basic() {
+    fn spc_basic() {
         let source = r#"
 Sub Test()
     Debug.Print "A"; Spc(5); "B"
@@ -524,7 +524,7 @@ End Sub
     }
 
     #[test]
-    fn test_spc_with_variable() {
+    fn spc_with_variable() {
         let source = r#"
 Sub Test()
     Dim spaces As Integer
@@ -539,7 +539,7 @@ End Sub
     }
 
     #[test]
-    fn test_spc_file_output() {
+    fn spc_file_output() {
         let source = r#"
 Sub Test()
     Dim fileNum As Integer
@@ -555,7 +555,7 @@ End Sub
     }
 
     #[test]
-    fn test_spc_debug_print() {
+    fn spc_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print "Label:"; Spc(15); "Value"
@@ -568,7 +568,7 @@ End Sub
     }
 
     #[test]
-    fn test_spc_multiple_calls() {
+    fn spc_multiple_calls() {
         let source = r#"
 Sub Test()
     Print #1, "A"; Spc(3); "B"; Spc(5); "C"
@@ -580,7 +580,7 @@ End Sub
     }
 
     #[test]
-    fn test_spc_in_loop() {
+    fn spc_in_loop() {
         let source = r#"
 Sub Test()
     Dim i As Integer
@@ -595,7 +595,7 @@ End Sub
     }
 
     #[test]
-    fn test_spc_calculated_spacing() {
+    fn spc_calculated_spacing() {
         let source = r#"
 Sub Test()
     Dim name As String
@@ -609,7 +609,7 @@ End Sub
     }
 
     #[test]
-    fn test_spc_with_numbers() {
+    fn spc_with_numbers() {
         let source = r#"
 Sub Test()
     Debug.Print 100; Spc(10); 200; Spc(10); 300
@@ -621,7 +621,7 @@ End Sub
     }
 
     #[test]
-    fn test_spc_class_usage() {
+    fn spc_class_usage() {
         let source = r#"
 Class Reporter
     Public Sub WriteRow(f As Integer, a As String, b As String)
@@ -635,7 +635,7 @@ End Class
     }
 
     #[test]
-    fn test_spc_if_statement() {
+    fn spc_if_statement() {
         let source = r#"
 Sub Test()
     If condition Then
@@ -649,7 +649,7 @@ End Sub
     }
 
     #[test]
-    fn test_spc_elseif() {
+    fn spc_elseif() {
         let source = r#"
 Sub Test()
     If x = 1 Then
@@ -665,7 +665,7 @@ End Sub
     }
 
     #[test]
-    fn test_spc_select_case() {
+    fn spc_select_case() {
         let source = r#"
 Sub Test()
     Select Case value
@@ -682,7 +682,7 @@ End Sub
     }
 
     #[test]
-    fn test_spc_do_while() {
+    fn spc_do_while() {
         let source = r#"
 Sub Test()
     Do While i < 10
@@ -697,7 +697,7 @@ End Sub
     }
 
     #[test]
-    fn test_spc_do_until() {
+    fn spc_do_until() {
         let source = r#"
 Sub Test()
     Do Until i >= 10
@@ -712,7 +712,7 @@ End Sub
     }
 
     #[test]
-    fn test_spc_while_wend() {
+    fn spc_while_wend() {
         let source = r#"
 Sub Test()
     While count < 5
@@ -727,7 +727,7 @@ End Sub
     }
 
     #[test]
-    fn test_spc_with_statement() {
+    fn spc_with_statement() {
         let source = r#"
 Sub Test()
     With reporter
@@ -741,7 +741,7 @@ End Sub
     }
 
     #[test]
-    fn test_spc_format_function() {
+    fn spc_format_function() {
         let source = r#"
 Sub Test()
     Dim amount As Double
@@ -755,7 +755,7 @@ End Sub
     }
 
     #[test]
-    fn test_spc_zero_spaces() {
+    fn spc_zero_spaces() {
         let source = r#"
 Sub Test()
     Debug.Print "A"; Spc(0); "B"
@@ -767,7 +767,7 @@ End Sub
     }
 
     #[test]
-    fn test_spc_large_number() {
+    fn spc_large_number() {
         let source = r#"
 Sub Test()
     Print #1, "Start"; Spc(50); "End"
@@ -779,7 +779,7 @@ End Sub
     }
 
     #[test]
-    fn test_spc_function_call() {
+    fn spc_function_call() {
         let source = r#"
 Sub Test()
     Debug.Print GetLabel(); Spc(10); GetValue()
@@ -791,7 +791,7 @@ End Sub
     }
 
     #[test]
-    fn test_spc_header_row() {
+    fn spc_header_row() {
         let source = r#"
 Sub Test()
     Print #1, "Name"; Spc(15); "Age"; Spc(10); "City"
@@ -804,7 +804,7 @@ End Sub
     }
 
     #[test]
-    fn test_spc_nested_function() {
+    fn spc_nested_function() {
         let source = r#"
 Sub Test()
     Dim width As Integer
@@ -818,7 +818,7 @@ End Sub
     }
 
     #[test]
-    fn test_spc_error_handling() {
+    fn spc_error_handling() {
         let source = r#"
 Sub Test()
     On Error Resume Next
@@ -834,7 +834,7 @@ End Sub
     }
 
     #[test]
-    fn test_spc_on_error_goto() {
+    fn spc_on_error_goto() {
         let source = r#"
 Sub Test()
     On Error GoTo ErrorHandler
@@ -850,7 +850,7 @@ End Sub
     }
 
     #[test]
-    fn test_spc_indentation() {
+    fn spc_indentation() {
         let source = r#"
 Sub Test()
     Dim level As Integer
@@ -864,7 +864,7 @@ End Sub
     }
 
     #[test]
-    fn test_spc_report_formatting() {
+    fn spc_report_formatting() {
         let source = r#"
 Sub Test()
     Dim lineNum As Integer
@@ -880,7 +880,7 @@ End Sub
     }
 
     #[test]
-    fn test_spc_log_entry() {
+    fn spc_log_entry() {
         let source = r#"
 Sub Test()
     Dim timestamp As String

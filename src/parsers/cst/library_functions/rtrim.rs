@@ -659,7 +659,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_rtrim_basic() {
+    fn rtrim_basic() {
         let source = r#"
             Dim result As String
             result = RTrim("Hello   ")
@@ -671,7 +671,7 @@ mod tests {
     }
 
     #[test]
-    fn test_rtrim_variable() {
+    fn rtrim_variable() {
         let source = r#"
             cleaned = RTrim(userInput)
         "#;
@@ -682,7 +682,7 @@ mod tests {
     }
 
     #[test]
-    fn test_rtrim_database_field() {
+    fn rtrim_database_field() {
         let source = r#"
             customerName = RTrim(rs("CustomerName"))
         "#;
@@ -693,7 +693,7 @@ mod tests {
     }
 
     #[test]
-    fn test_rtrim_if_statement() {
+    fn rtrim_if_statement() {
         let source = r#"
             If RTrim(text) = "" Then
                 MsgBox "Empty"
@@ -706,7 +706,7 @@ mod tests {
     }
 
     #[test]
-    fn test_rtrim_function_return() {
+    fn rtrim_function_return() {
         let source = r#"
             Function CleanText(s As String) As String
                 CleanText = RTrim(s)
@@ -719,7 +719,7 @@ mod tests {
     }
 
     #[test]
-    fn test_rtrim_with_ltrim() {
+    fn rtrim_with_ltrim() {
         let source = r#"
             fullTrim = LTrim(RTrim(text))
         "#;
@@ -730,7 +730,7 @@ mod tests {
     }
 
     #[test]
-    fn test_rtrim_print_statement() {
+    fn rtrim_print_statement() {
         let source = r#"
             Print #1, RTrim(line)
         "#;
@@ -741,7 +741,7 @@ mod tests {
     }
 
     #[test]
-    fn test_rtrim_debug_print() {
+    fn rtrim_debug_print() {
         let source = r#"
             Debug.Print RTrim(text)
         "#;
@@ -752,7 +752,7 @@ mod tests {
     }
 
     #[test]
-    fn test_rtrim_with_statement() {
+    fn rtrim_with_statement() {
         let source = r#"
             With record
                 .Name = RTrim(.Name)
@@ -765,7 +765,7 @@ mod tests {
     }
 
     #[test]
-    fn test_rtrim_select_case() {
+    fn rtrim_select_case() {
         let source = r#"
             Select Case RTrim(input)
                 Case ""
@@ -781,7 +781,7 @@ mod tests {
     }
 
     #[test]
-    fn test_rtrim_elseif() {
+    fn rtrim_elseif() {
         let source = r#"
             If text = "" Then
                 status = "Empty"
@@ -796,7 +796,7 @@ mod tests {
     }
 
     #[test]
-    fn test_rtrim_parentheses() {
+    fn rtrim_parentheses() {
         let source = r#"
             result = (RTrim(text))
         "#;
@@ -807,7 +807,7 @@ mod tests {
     }
 
     #[test]
-    fn test_rtrim_iif() {
+    fn rtrim_iif() {
         let source = r#"
             result = IIf(RTrim(text) = "", "Empty", "Has data")
         "#;
@@ -818,7 +818,7 @@ mod tests {
     }
 
     #[test]
-    fn test_rtrim_in_class() {
+    fn rtrim_in_class() {
         let source = r#"
             Private Sub Class_Method()
                 m_cleanValue = RTrim(m_rawValue)
@@ -831,7 +831,7 @@ mod tests {
     }
 
     #[test]
-    fn test_rtrim_function_argument() {
+    fn rtrim_function_argument() {
         let source = r#"
             Call ProcessText(RTrim(input))
         "#;
@@ -842,7 +842,7 @@ mod tests {
     }
 
     #[test]
-    fn test_rtrim_property_assignment() {
+    fn rtrim_property_assignment() {
         let source = r#"
             MyObject.CleanText = RTrim(dirtyText)
         "#;
@@ -853,7 +853,7 @@ mod tests {
     }
 
     #[test]
-    fn test_rtrim_array_assignment() {
+    fn rtrim_array_assignment() {
         let source = r#"
             cleanValues(i) = RTrim(rawValues(i))
         "#;
@@ -864,7 +864,7 @@ mod tests {
     }
 
     #[test]
-    fn test_rtrim_for_loop() {
+    fn rtrim_for_loop() {
         let source = r#"
             For i = 1 To 10
                 fields(i) = RTrim(fields(i))
@@ -877,7 +877,7 @@ mod tests {
     }
 
     #[test]
-    fn test_rtrim_while_wend() {
+    fn rtrim_while_wend() {
         let source = r#"
             While Not EOF(1)
                 Line Input #1, line
@@ -891,7 +891,7 @@ mod tests {
     }
 
     #[test]
-    fn test_rtrim_do_while() {
+    fn rtrim_do_while() {
         let source = r#"
             Do While i < count
                 text = RTrim(dataArray(i))
@@ -905,7 +905,7 @@ mod tests {
     }
 
     #[test]
-    fn test_rtrim_do_until() {
+    fn rtrim_do_until() {
         let source = r#"
             Do Until RTrim(input) <> ""
                 input = InputBox("Enter text")
@@ -918,7 +918,7 @@ mod tests {
     }
 
     #[test]
-    fn test_rtrim_msgbox() {
+    fn rtrim_msgbox() {
         let source = r#"
             MsgBox RTrim(message)
         "#;
@@ -929,7 +929,7 @@ mod tests {
     }
 
     #[test]
-    fn test_rtrim_concatenation() {
+    fn rtrim_concatenation() {
         let source = r#"
             reportLine = RTrim(customerName) & " - " & orderID
         "#;
@@ -940,7 +940,7 @@ mod tests {
     }
 
     #[test]
-    fn test_rtrim_comparison() {
+    fn rtrim_comparison() {
         let source = r#"
             If RTrim(text1) = RTrim(text2) Then
                 MsgBox "Equal"
@@ -953,7 +953,7 @@ mod tests {
     }
 
     #[test]
-    fn test_rtrim_label_caption() {
+    fn rtrim_label_caption() {
         let source = r#"
             lblName.Caption = RTrim(recordset("Name"))
         "#;
@@ -964,7 +964,7 @@ mod tests {
     }
 
     #[test]
-    fn test_rtrim_fixed_width() {
+    fn rtrim_fixed_width() {
         let source = r#"
             outputLine = RTrim(Left(field & Space(20), 20))
         "#;
@@ -975,7 +975,7 @@ mod tests {
     }
 
     #[test]
-    fn test_rtrim_additem() {
+    fn rtrim_additem() {
         let source = r#"
             lstCustomers.AddItem RTrim(rs("CompanyName"))
         "#;

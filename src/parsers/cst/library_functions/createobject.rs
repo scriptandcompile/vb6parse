@@ -510,7 +510,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_createobject_basic() {
+    fn createobject_basic() {
         let source = r#"
 Set obj = CreateObject("Excel.Application")
 "#;
@@ -521,7 +521,7 @@ Set obj = CreateObject("Excel.Application")
     }
 
     #[test]
-    fn test_createobject_fso() {
+    fn createobject_fso() {
         let source = r#"
 Set fso = CreateObject("Scripting.FileSystemObject")
 "#;
@@ -532,7 +532,7 @@ Set fso = CreateObject("Scripting.FileSystemObject")
     }
 
     #[test]
-    fn test_createobject_dictionary() {
+    fn createobject_dictionary() {
         let source = r#"
 Set dict = CreateObject("Scripting.Dictionary")
 "#;
@@ -543,7 +543,7 @@ Set dict = CreateObject("Scripting.Dictionary")
     }
 
     #[test]
-    fn test_createobject_with_server() {
+    fn createobject_with_server() {
         let source = r#"
 Set obj = CreateObject("MyApp.MyClass", "\\ServerName")
 "#;
@@ -554,7 +554,7 @@ Set obj = CreateObject("MyApp.MyClass", "\\ServerName")
     }
 
     #[test]
-    fn test_createobject_adodb_connection() {
+    fn createobject_adodb_connection() {
         let source = r#"
 Set conn = CreateObject("ADODB.Connection")
 "#;
@@ -565,7 +565,7 @@ Set conn = CreateObject("ADODB.Connection")
     }
 
     #[test]
-    fn test_createobject_xml() {
+    fn createobject_xml() {
         let source = r#"
 Set xmlDoc = CreateObject("MSXML2.DOMDocument")
 "#;
@@ -576,7 +576,7 @@ Set xmlDoc = CreateObject("MSXML2.DOMDocument")
     }
 
     #[test]
-    fn test_createobject_shell() {
+    fn createobject_shell() {
         let source = r#"
 Set shell = CreateObject("WScript.Shell")
 "#;
@@ -587,7 +587,7 @@ Set shell = CreateObject("WScript.Shell")
     }
 
     #[test]
-    fn test_createobject_in_function() {
+    fn createobject_in_function() {
         let source = r#"
 Function GetFileSystem() As Object
     Set GetFileSystem = CreateObject("Scripting.FileSystemObject")
@@ -600,7 +600,7 @@ End Function
     }
 
     #[test]
-    fn test_createobject_with_error_handling() {
+    fn createobject_with_error_handling() {
         let source = r#"
 On Error Resume Next
 Set obj = CreateObject("Excel.Application")
@@ -615,7 +615,7 @@ End If
     }
 
     #[test]
-    fn test_createobject_word() {
+    fn createobject_word() {
         let source = r#"
 Set wordApp = CreateObject("Word.Application")
 "#;
@@ -626,7 +626,7 @@ Set wordApp = CreateObject("Word.Application")
     }
 
     #[test]
-    fn test_createobject_with_assignment() {
+    fn createobject_with_assignment() {
         let source = r#"
 Dim xlApp As Object
 Set xlApp = CreateObject("Excel.Application")
@@ -638,7 +638,7 @@ Set xlApp = CreateObject("Excel.Application")
     }
 
     #[test]
-    fn test_createobject_cdo_message() {
+    fn createobject_cdo_message() {
         let source = r#"
 Set msg = CreateObject("CDO.Message")
 "#;
@@ -649,7 +649,7 @@ Set msg = CreateObject("CDO.Message")
     }
 
     #[test]
-    fn test_createobject_http() {
+    fn createobject_http() {
         let source = r#"
 Set http = CreateObject("MSXML2.XMLHTTP")
 "#;
@@ -660,7 +660,7 @@ Set http = CreateObject("MSXML2.XMLHTTP")
     }
 
     #[test]
-    fn test_createobject_in_if() {
+    fn createobject_in_if() {
         let source = r#"
 If CreateObject("Excel.Application") Is Nothing Then
     MsgBox "Failed"
@@ -673,7 +673,7 @@ End If
     }
 
     #[test]
-    fn test_createobject_access() {
+    fn createobject_access() {
         let source = r#"
 Set accApp = CreateObject("Access.Application")
 "#;
@@ -684,7 +684,7 @@ Set accApp = CreateObject("Access.Application")
     }
 
     #[test]
-    fn test_createobject_outlook() {
+    fn createobject_outlook() {
         let source = r#"
 Set outlookApp = CreateObject("Outlook.Application")
 "#;
@@ -695,7 +695,7 @@ Set outlookApp = CreateObject("Outlook.Application")
     }
 
     #[test]
-    fn test_createobject_recordset() {
+    fn createobject_recordset() {
         let source = r#"
 Set rs = CreateObject("ADODB.Recordset")
 "#;
@@ -706,7 +706,7 @@ Set rs = CreateObject("ADODB.Recordset")
     }
 
     #[test]
-    fn test_createobject_with_version() {
+    fn createobject_with_version() {
         let source = r#"
 Set xlApp = CreateObject("Excel.Application.16")
 "#;
@@ -717,7 +717,7 @@ Set xlApp = CreateObject("Excel.Application.16")
     }
 
     #[test]
-    fn test_createobject_internet_explorer() {
+    fn createobject_internet_explorer() {
         let source = r#"
 Set ie = CreateObject("InternetExplorer.Application")
 "#;
@@ -728,7 +728,7 @@ Set ie = CreateObject("InternetExplorer.Application")
     }
 
     #[test]
-    fn test_createobject_in_sub() {
+    fn createobject_in_sub() {
         let source = r#"
 Sub Initialize()
     Set obj = CreateObject("Scripting.FileSystemObject")
@@ -741,7 +741,7 @@ End Sub
     }
 
     #[test]
-    fn test_createobject_shell_application() {
+    fn createobject_shell_application() {
         let source = r#"
 Set shell = CreateObject("Shell.Application")
 "#;
@@ -752,7 +752,7 @@ Set shell = CreateObject("Shell.Application")
     }
 
     #[test]
-    fn test_createobject_multiple_in_function() {
+    fn createobject_multiple_in_function() {
         let source = r#"
 Function SendEmail()
     Set msg = CreateObject("CDO.Message")
@@ -766,7 +766,7 @@ End Function
     }
 
     #[test]
-    fn test_createobject_in_select_case() {
+    fn createobject_in_select_case() {
         let source = r#"
 Select Case appType
     Case "Excel"
@@ -782,7 +782,7 @@ End Select
     }
 
     #[test]
-    fn test_createobject_with_immediate_use() {
+    fn createobject_with_immediate_use() {
         let source = r#"
 result = CreateObject("Scripting.FileSystemObject").FileExists(path)
 "#;
@@ -793,7 +793,7 @@ result = CreateObject("Scripting.FileSystemObject").FileExists(path)
     }
 
     #[test]
-    fn test_createobject_with_whitespace() {
+    fn createobject_with_whitespace() {
         let source = r#"
 Set obj = CreateObject( "Excel.Application" )
 "#;

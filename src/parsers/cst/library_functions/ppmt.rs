@@ -908,7 +908,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_ppmt_basic() {
+    fn ppmt_basic() {
         let source = r#"
 Dim principalPmt As Double
 principalPmt = PPmt(0.06 / 12, 12, 60, 20000)
@@ -920,7 +920,7 @@ principalPmt = PPmt(0.06 / 12, 12, 60, 20000)
     }
 
     #[test]
-    fn test_ppmt_with_all_parameters() {
+    fn ppmt_with_all_parameters() {
         let source = r#"
 Dim principal As Double
 principal = PPmt(0.045 / 12, 1, 360, 200000, 0, 0)
@@ -932,7 +932,7 @@ principal = PPmt(0.045 / 12, 1, 360, 200000, 0, 0)
     }
 
     #[test]
-    fn test_ppmt_if_statement() {
+    fn ppmt_if_statement() {
         let source = r#"
 If Abs(PPmt(rate, period, nper, principal)) > threshold Then
     MsgBox "High principal payment"
@@ -945,7 +945,7 @@ End If
     }
 
     #[test]
-    fn test_ppmt_function_return() {
+    fn ppmt_function_return() {
         let source = r#"
 Function GetPrincipalPayment(per As Integer) As Double
     GetPrincipalPayment = Abs(PPmt(0.05 / 12, per, 60, 15000))
@@ -958,7 +958,7 @@ End Function
     }
 
     #[test]
-    fn test_ppmt_variable_assignment() {
+    fn ppmt_variable_assignment() {
         let source = r#"
 Dim principalPortion As Double
 principalPortion = PPmt(monthlyRate, period, numPayments, loanAmount)
@@ -970,7 +970,7 @@ principalPortion = PPmt(monthlyRate, period, numPayments, loanAmount)
     }
 
     #[test]
-    fn test_ppmt_msgbox() {
+    fn ppmt_msgbox() {
         let source = r#"
 MsgBox "Principal: $" & Format(Abs(PPmt(0.06 / 12, 24, 60, 25000)), "0.00")
 "#;
@@ -981,7 +981,7 @@ MsgBox "Principal: $" & Format(Abs(PPmt(0.06 / 12, 24, 60, 25000)), "0.00")
     }
 
     #[test]
-    fn test_ppmt_debug_print() {
+    fn ppmt_debug_print() {
         let source = r#"
 Debug.Print "Period " & per & " Principal: " & PPmt(rate, per, nper, pv)
 "#;
@@ -992,7 +992,7 @@ Debug.Print "Period " & per & " Principal: " & PPmt(rate, per, nper, pv)
     }
 
     #[test]
-    fn test_ppmt_select_case() {
+    fn ppmt_select_case() {
         let source = r#"
 Dim principal As Double
 principal = Abs(PPmt(0.05 / 12, period, 360, loanAmount))
@@ -1012,7 +1012,7 @@ End Select
     }
 
     #[test]
-    fn test_ppmt_class_usage() {
+    fn ppmt_class_usage() {
         let source = r#"
 Private m_principalPayment As Double
 
@@ -1027,7 +1027,7 @@ End Sub
     }
 
     #[test]
-    fn test_ppmt_with_statement() {
+    fn ppmt_with_statement() {
         let source = r#"
 With amortization
     .PrincipalPmt = PPmt(.Rate, .Period, .NumPayments, .LoanAmount)
@@ -1040,7 +1040,7 @@ End With
     }
 
     #[test]
-    fn test_ppmt_elseif() {
+    fn ppmt_elseif() {
         let source = r#"
 If period < 1 Then
     principal = 0
@@ -1055,7 +1055,7 @@ End If
     }
 
     #[test]
-    fn test_ppmt_for_loop() {
+    fn ppmt_for_loop() {
         let source = r#"
 For period = 1 To 360
     principalPmt = Abs(PPmt(0.045 / 12, period, 360, 200000))
@@ -1069,7 +1069,7 @@ Next period
     }
 
     #[test]
-    fn test_ppmt_do_while() {
+    fn ppmt_do_while() {
         let source = r#"
 Do While Abs(PPmt(rate, period, nper, balance)) < targetPrincipal
     period = period + 1
@@ -1082,7 +1082,7 @@ Loop
     }
 
     #[test]
-    fn test_ppmt_do_until() {
+    fn ppmt_do_until() {
         let source = r#"
 Do Until Abs(PPmt(r / 12, p, n, principal)) > minPrincipal
     p = p + 1
@@ -1095,7 +1095,7 @@ Loop
     }
 
     #[test]
-    fn test_ppmt_while_wend() {
+    fn ppmt_while_wend() {
         let source = r#"
 While period <= numPeriods
     balance = balance - Abs(PPmt(interestRate, period, numPeriods, loanAmt))
@@ -1109,7 +1109,7 @@ Wend
     }
 
     #[test]
-    fn test_ppmt_parentheses() {
+    fn ppmt_parentheses() {
         let source = r#"
 Dim result As Double
 result = (PPmt(rate, per, nper, pv))
@@ -1121,7 +1121,7 @@ result = (PPmt(rate, per, nper, pv))
     }
 
     #[test]
-    fn test_ppmt_iif() {
+    fn ppmt_iif() {
         let source = r#"
 Dim principal As Double
 principal = IIf(useFV, PPmt(r, p, n, pv, fv), PPmt(r, p, n, pv))
@@ -1133,7 +1133,7 @@ principal = IIf(useFV, PPmt(r, p, n, pv, fv), PPmt(r, p, n, pv))
     }
 
     #[test]
-    fn test_ppmt_comparison() {
+    fn ppmt_comparison() {
         let source = r#"
 If Abs(PPmt(rate1, per, nper, amt)) > Abs(PPmt(rate2, per, nper, amt)) Then
     MsgBox "Loan 1 pays more principal"
@@ -1146,7 +1146,7 @@ End If
     }
 
     #[test]
-    fn test_ppmt_array_assignment() {
+    fn ppmt_array_assignment() {
         let source = r#"
 Dim principalPayments(360) As Double
 principalPayments(i) = PPmt(rate, i, numPayments, principal)
@@ -1158,7 +1158,7 @@ principalPayments(i) = PPmt(rate, i, numPayments, principal)
     }
 
     #[test]
-    fn test_ppmt_property_assignment() {
+    fn ppmt_property_assignment() {
         let source = r#"
 Set obj = New AmortizationSchedule
 obj.PrincipalPayment = PPmt(obj.Rate, obj.Period, obj.Term, obj.Amount)
@@ -1170,7 +1170,7 @@ obj.PrincipalPayment = PPmt(obj.Rate, obj.Period, obj.Term, obj.Amount)
     }
 
     #[test]
-    fn test_ppmt_function_argument() {
+    fn ppmt_function_argument() {
         let source = r#"
 Call UpdateBalance(currentBalance, PPmt(monthlyRate, month, totalMonths, loanPrincipal))
 "#;
@@ -1181,7 +1181,7 @@ Call UpdateBalance(currentBalance, PPmt(monthlyRate, month, totalMonths, loanPri
     }
 
     #[test]
-    fn test_ppmt_arithmetic() {
+    fn ppmt_arithmetic() {
         let source = r#"
 Dim newBalance As Double
 newBalance = oldBalance - Abs(PPmt(rate, period, nper, originalAmount))
@@ -1193,7 +1193,7 @@ newBalance = oldBalance - Abs(PPmt(rate, period, nper, originalAmount))
     }
 
     #[test]
-    fn test_ppmt_concatenation() {
+    fn ppmt_concatenation() {
         let source = r#"
 Dim msg As String
 msg = "Principal payment: $" & Format(Abs(PPmt(r, p, n, amt)), "0.00")
@@ -1205,7 +1205,7 @@ msg = "Principal payment: $" & Format(Abs(PPmt(r, p, n, amt)), "0.00")
     }
 
     #[test]
-    fn test_ppmt_abs_function() {
+    fn ppmt_abs_function() {
         let source = r#"
 Dim displayPrincipal As Double
 displayPrincipal = Abs(PPmt(interestRate / 12, period, years * 12, loanAmount))
@@ -1217,7 +1217,7 @@ displayPrincipal = Abs(PPmt(interestRate / 12, period, years * 12, loanAmount))
     }
 
     #[test]
-    fn test_ppmt_sum_with_ipmt() {
+    fn ppmt_sum_with_ipmt() {
         let source = r#"
 Dim totalPayment As Double
 totalPayment = PPmt(rate, per, nper, pv) + IPmt(rate, per, nper, pv)
@@ -1229,7 +1229,7 @@ totalPayment = PPmt(rate, per, nper, pv) + IPmt(rate, per, nper, pv)
     }
 
     #[test]
-    fn test_ppmt_error_handling() {
+    fn ppmt_error_handling() {
         let source = r#"
 On Error Resume Next
 principal = PPmt(rate, per, nper, pv, fv, type)
@@ -1245,7 +1245,7 @@ On Error GoTo 0
     }
 
     #[test]
-    fn test_ppmt_on_error_goto() {
+    fn ppmt_on_error_goto() {
         let source = r#"
 Sub CalculatePrincipal()
     On Error GoTo ErrorHandler

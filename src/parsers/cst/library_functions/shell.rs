@@ -761,7 +761,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_shell_basic() {
+    fn shell_basic() {
         let source = r#"
 Sub Test()
     Dim taskId As Double
@@ -775,7 +775,7 @@ End Sub
     }
 
     #[test]
-    fn test_shell_with_window_style() {
+    fn shell_with_window_style() {
         let source = r#"
 Sub Test()
     Dim result As Double
@@ -789,7 +789,7 @@ End Sub
     }
 
     #[test]
-    fn test_shell_if_statement() {
+    fn shell_if_statement() {
         let source = r#"
 Sub Test()
     If Shell("notepad.exe", vbNormalFocus) = 0 Then
@@ -803,7 +803,7 @@ End Sub
     }
 
     #[test]
-    fn test_shell_function_return() {
+    fn shell_function_return() {
         let source = r#"
 Function LaunchApp() As Double
     LaunchApp = Shell("notepad.exe", vbNormalFocus)
@@ -816,7 +816,7 @@ End Function
     }
 
     #[test]
-    fn test_shell_variable_assignment() {
+    fn shell_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim procId As Double
@@ -830,7 +830,7 @@ End Sub
     }
 
     #[test]
-    fn test_shell_msgbox() {
+    fn shell_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Task ID: " & Shell("calc.exe", vbNormalFocus)
@@ -843,7 +843,7 @@ End Sub
     }
 
     #[test]
-    fn test_shell_debug_print() {
+    fn shell_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print Shell("notepad.exe", vbHide)
@@ -856,7 +856,7 @@ End Sub
     }
 
     #[test]
-    fn test_shell_select_case() {
+    fn shell_select_case() {
         let source = r#"
 Sub Test()
     Select Case Shell(appPath, vbNormalFocus)
@@ -873,7 +873,7 @@ End Sub
     }
 
     #[test]
-    fn test_shell_class_usage() {
+    fn shell_class_usage() {
         let source = r#"
 Class AppLauncher
     Public Function Launch(path As String) As Double
@@ -888,7 +888,7 @@ End Class
     }
 
     #[test]
-    fn test_shell_with_statement() {
+    fn shell_with_statement() {
         let source = r#"
 Sub Test()
     With AppLauncher
@@ -904,7 +904,7 @@ End Sub
     }
 
     #[test]
-    fn test_shell_elseif() {
+    fn shell_elseif() {
         let source = r#"
 Sub Test()
     Dim t As Double
@@ -922,7 +922,7 @@ End Sub
     }
 
     #[test]
-    fn test_shell_for_loop() {
+    fn shell_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Integer
@@ -937,7 +937,7 @@ End Sub
     }
 
     #[test]
-    fn test_shell_do_while() {
+    fn shell_do_while() {
         let source = r#"
 Sub Test()
     Do While Shell(program, vbHide) <> 0
@@ -951,7 +951,7 @@ End Sub
     }
 
     #[test]
-    fn test_shell_do_until() {
+    fn shell_do_until() {
         let source = r#"
 Sub Test()
     Do Until Shell(cmd, vbNormalFocus) > 0
@@ -965,7 +965,7 @@ End Sub
     }
 
     #[test]
-    fn test_shell_while_wend() {
+    fn shell_while_wend() {
         let source = r#"
 Sub Test()
     While retries < 3
@@ -980,7 +980,7 @@ End Sub
     }
 
     #[test]
-    fn test_shell_parentheses() {
+    fn shell_parentheses() {
         let source = r#"
 Sub Test()
     Dim result As Double
@@ -994,7 +994,7 @@ End Sub
     }
 
     #[test]
-    fn test_shell_iif() {
+    fn shell_iif() {
         let source = r#"
 Sub Test()
     Dim msg As String
@@ -1008,7 +1008,7 @@ End Sub
     }
 
     #[test]
-    fn test_shell_array_assignment() {
+    fn shell_array_assignment() {
         let source = r#"
 Sub Test()
     Dim tasks(5) As Double
@@ -1022,7 +1022,7 @@ End Sub
     }
 
     #[test]
-    fn test_shell_property_assignment() {
+    fn shell_property_assignment() {
         let source = r#"
 Class Process
     Public TaskId As Double
@@ -1039,7 +1039,7 @@ End Sub
     }
 
     #[test]
-    fn test_shell_function_argument() {
+    fn shell_function_argument() {
         let source = r#"
 Sub ProcessTask(taskId As Double)
 End Sub
@@ -1055,7 +1055,7 @@ End Sub
     }
 
     #[test]
-    fn test_shell_concatenation() {
+    fn shell_concatenation() {
         let source = r#"
 Sub Test()
     Dim msg As String
@@ -1069,7 +1069,7 @@ End Sub
     }
 
     #[test]
-    fn test_shell_comparison() {
+    fn shell_comparison() {
         let source = r#"
 Sub Test()
     Dim success As Boolean
@@ -1083,7 +1083,7 @@ End Sub
     }
 
     #[test]
-    fn test_shell_with_arguments() {
+    fn shell_with_arguments() {
         let source = r#"
 Sub Test()
     Dim t As Double
@@ -1097,7 +1097,7 @@ End Sub
     }
 
     #[test]
-    fn test_shell_quoted_path() {
+    fn shell_quoted_path() {
         let source = r#"
 Sub Test()
     Dim id As Double
@@ -1111,7 +1111,7 @@ End Sub
     }
 
     #[test]
-    fn test_shell_error_handling() {
+    fn shell_error_handling() {
         let source = r#"
 Sub Test()
     On Error Resume Next
@@ -1129,7 +1129,7 @@ End Sub
     }
 
     #[test]
-    fn test_shell_on_error_goto() {
+    fn shell_on_error_goto() {
         let source = r#"
 Sub Test()
     On Error GoTo ErrorHandler
@@ -1147,7 +1147,7 @@ End Sub
     }
 
     #[test]
-    fn test_shell_cmd_exe() {
+    fn shell_cmd_exe() {
         let source = r#"
 Sub Test()
     Dim cmdTaskId As Double

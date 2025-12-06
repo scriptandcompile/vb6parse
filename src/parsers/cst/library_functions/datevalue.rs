@@ -599,7 +599,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_datevalue_basic() {
+    fn datevalue_basic() {
         let source = r#"
 result = DateValue("1/15/2025")
 "#;
@@ -610,7 +610,7 @@ result = DateValue("1/15/2025")
     }
 
     #[test]
-    fn test_datevalue_with_variable() {
+    fn datevalue_with_variable() {
         let source = r#"
 birthday = DateValue(userInput)
 "#;
@@ -621,7 +621,7 @@ birthday = DateValue(userInput)
     }
 
     #[test]
-    fn test_datevalue_month_name() {
+    fn datevalue_month_name() {
         let source = r#"
 holiday = DateValue("December 25, 2025")
 "#;
@@ -632,7 +632,7 @@ holiday = DateValue("December 25, 2025")
     }
 
     #[test]
-    fn test_datevalue_iso_format() {
+    fn datevalue_iso_format() {
         let source = r#"
 dt = DateValue("2025-01-15")
 "#;
@@ -643,7 +643,7 @@ dt = DateValue("2025-01-15")
     }
 
     #[test]
-    fn test_datevalue_in_function() {
+    fn datevalue_in_function() {
         let source = r#"
 Function ParseDate(input As String) As Date
     ParseDate = DateValue(input)
@@ -656,7 +656,7 @@ End Function
     }
 
     #[test]
-    fn test_datevalue_with_isdate() {
+    fn datevalue_with_isdate() {
         let source = r#"
 If IsDate(txtDate.Text) Then
     result = DateValue(txtDate.Text)
@@ -669,7 +669,7 @@ End If
     }
 
     #[test]
-    fn test_datevalue_in_comparison() {
+    fn datevalue_in_comparison() {
         let source = r#"
 If DateValue(startDate) > Date Then
     MsgBox "Future date"
@@ -682,7 +682,7 @@ End If
     }
 
     #[test]
-    fn test_datevalue_with_format() {
+    fn datevalue_with_format() {
         let source = r#"
 formatted = Format(DateValue(dateStr), "yyyy-mm-dd")
 "#;
@@ -693,7 +693,7 @@ formatted = Format(DateValue(dateStr), "yyyy-mm-dd")
     }
 
     #[test]
-    fn test_datevalue_error_handling() {
+    fn datevalue_error_handling() {
         let source = r#"
 On Error Resume Next
 result = DateValue(userInput)
@@ -708,7 +708,7 @@ End If
     }
 
     #[test]
-    fn test_datevalue_in_loop() {
+    fn datevalue_in_loop() {
         let source = r#"
 For i = 1 To count
     dates(i) = DateValue(dateStrings(i))
@@ -721,7 +721,7 @@ Next i
     }
 
     #[test]
-    fn test_datevalue_with_trim() {
+    fn datevalue_with_trim() {
         let source = r#"
 cleanDate = DateValue(Trim(input))
 "#;
@@ -732,7 +732,7 @@ cleanDate = DateValue(Trim(input))
     }
 
     #[test]
-    fn test_datevalue_in_select_case() {
+    fn datevalue_in_select_case() {
         let source = r#"
 Select Case DateValue(inputDate)
     Case Date
@@ -748,7 +748,7 @@ End Select
     }
 
     #[test]
-    fn test_datevalue_with_cstr() {
+    fn datevalue_with_cstr() {
         let source = r#"
 dateOnly = DateValue(CStr(dateTime))
 "#;
@@ -759,7 +759,7 @@ dateOnly = DateValue(CStr(dateTime))
     }
 
     #[test]
-    fn test_datevalue_range_validation() {
+    fn datevalue_range_validation() {
         let source = r#"
 startDate = DateValue(txtStart.Text)
 endDate = DateValue(txtEnd.Text)
@@ -774,7 +774,7 @@ End If
     }
 
     #[test]
-    fn test_datevalue_with_year() {
+    fn datevalue_with_year() {
         let source = r#"
 y = Year(DateValue(dateStr))
 "#;
@@ -785,7 +785,7 @@ y = Year(DateValue(dateStr))
     }
 
     #[test]
-    fn test_datevalue_in_array_assignment() {
+    fn datevalue_in_array_assignment() {
         let source = r#"
 dates(0) = DateValue("1/1/2025")
 dates(1) = DateValue("12/31/2025")
@@ -797,7 +797,7 @@ dates(1) = DateValue("12/31/2025")
     }
 
     #[test]
-    fn test_datevalue_database_field() {
+    fn datevalue_database_field() {
         let source = r#"
 rs("DateField") = DateValue(importedDate)
 "#;
@@ -808,7 +808,7 @@ rs("DateField") = DateValue(importedDate)
     }
 
     #[test]
-    fn test_datevalue_concatenation() {
+    fn datevalue_concatenation() {
         let source = r#"
 msg = "Date: " & DateValue(input)
 "#;
@@ -819,7 +819,7 @@ msg = "Date: " & DateValue(input)
     }
 
     #[test]
-    fn test_datevalue_with_datediff() {
+    fn datevalue_with_datediff() {
         let source = r#"
 days = DateDiff("d", DateValue(start), DateValue(finish))
 "#;
@@ -830,7 +830,7 @@ days = DateDiff("d", DateValue(start), DateValue(finish))
     }
 
     #[test]
-    fn test_datevalue_multiple_calls() {
+    fn datevalue_multiple_calls() {
         let source = r#"
 d1 = DateValue(str1)
 d2 = DateValue(str2)
@@ -843,7 +843,7 @@ diff = d2 - d1
     }
 
     #[test]
-    fn test_datevalue_in_msgbox() {
+    fn datevalue_in_msgbox() {
         let source = r#"
 MsgBox "Parsed: " & DateValue(userInput)
 "#;
@@ -854,7 +854,7 @@ MsgBox "Parsed: " & DateValue(userInput)
     }
 
     #[test]
-    fn test_datevalue_textbox_validation() {
+    fn datevalue_textbox_validation() {
         let source = r#"
 testDate = DateValue(txtDate.Text)
 "#;
@@ -865,7 +865,7 @@ testDate = DateValue(txtDate.Text)
     }
 
     #[test]
-    fn test_datevalue_with_isnull() {
+    fn datevalue_with_isnull() {
         let source = r#"
 result = DateValue(input)
 If Not IsNull(result) Then
@@ -879,7 +879,7 @@ End If
     }
 
     #[test]
-    fn test_datevalue_filter_building() {
+    fn datevalue_filter_building() {
         let source = r##"
 filter = "Date >= #" & DateValue(startStr) & "#"
 "##;
@@ -890,7 +890,7 @@ filter = "Date >= #" & DateValue(startStr) & "#"
     }
 
     #[test]
-    fn test_datevalue_abbreviated_month() {
+    fn datevalue_abbreviated_month() {
         let source = r#"
 dt = DateValue("Jan 15, 2025")
 "#;

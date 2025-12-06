@@ -510,7 +510,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_dateadd_basic() {
+    fn dateadd_basic() {
         let source = r#"
 result = DateAdd("d", 30, Date)
 "#;
@@ -521,7 +521,7 @@ result = DateAdd("d", 30, Date)
     }
 
     #[test]
-    fn test_dateadd_years() {
+    fn dateadd_years() {
         let source = r#"
 nextYear = DateAdd("yyyy", 1, Date)
 "#;
@@ -532,7 +532,7 @@ nextYear = DateAdd("yyyy", 1, Date)
     }
 
     #[test]
-    fn test_dateadd_months() {
+    fn dateadd_months() {
         let source = r#"
 nextMonth = DateAdd("m", 1, startDate)
 "#;
@@ -543,7 +543,7 @@ nextMonth = DateAdd("m", 1, startDate)
     }
 
     #[test]
-    fn test_dateadd_negative() {
+    fn dateadd_negative() {
         let source = r#"
 pastDate = DateAdd("d", -7, Date)
 "#;
@@ -554,7 +554,7 @@ pastDate = DateAdd("d", -7, Date)
     }
 
     #[test]
-    fn test_dateadd_hours() {
+    fn dateadd_hours() {
         let source = r#"
 later = DateAdd("h", 6, Now)
 "#;
@@ -565,7 +565,7 @@ later = DateAdd("h", 6, Now)
     }
 
     #[test]
-    fn test_dateadd_minutes() {
+    fn dateadd_minutes() {
         let source = r#"
 later = DateAdd("n", 90, Now)
 "#;
@@ -576,7 +576,7 @@ later = DateAdd("n", 90, Now)
     }
 
     #[test]
-    fn test_dateadd_seconds() {
+    fn dateadd_seconds() {
         let source = r#"
 later = DateAdd("s", 3600, Now)
 "#;
@@ -587,7 +587,7 @@ later = DateAdd("s", 3600, Now)
     }
 
     #[test]
-    fn test_dateadd_weeks() {
+    fn dateadd_weeks() {
         let source = r#"
 nextWeek = DateAdd("ww", 1, Date)
 "#;
@@ -598,7 +598,7 @@ nextWeek = DateAdd("ww", 1, Date)
     }
 
     #[test]
-    fn test_dateadd_quarters() {
+    fn dateadd_quarters() {
         let source = r#"
 nextQuarter = DateAdd("q", 1, Date)
 "#;
@@ -609,7 +609,7 @@ nextQuarter = DateAdd("q", 1, Date)
     }
 
     #[test]
-    fn test_dateadd_in_function() {
+    fn dateadd_in_function() {
         let source = r#"
 Function GetDueDate(invoice As Date) As Date
     GetDueDate = DateAdd("d", 30, invoice)
@@ -622,7 +622,7 @@ End Function
     }
 
     #[test]
-    fn test_dateadd_with_literal() {
+    fn dateadd_with_literal() {
         let source = r#"
 result = DateAdd("m", 6, #1/1/2025#)
 "#;
@@ -633,7 +633,7 @@ result = DateAdd("m", 6, #1/1/2025#)
     }
 
     #[test]
-    fn test_dateadd_nested() {
+    fn dateadd_nested() {
         let source = r#"
 result = DateAdd("d", -1, DateAdd("m", 3, startDate))
 "#;
@@ -644,7 +644,7 @@ result = DateAdd("d", -1, DateAdd("m", 3, startDate))
     }
 
     #[test]
-    fn test_dateadd_in_if() {
+    fn dateadd_in_if() {
         let source = r#"
 If DateAdd("d", 30, startDate) > endDate Then
     MsgBox "Too late"
@@ -657,7 +657,7 @@ End If
     }
 
     #[test]
-    fn test_dateadd_with_variable_interval() {
+    fn dateadd_with_variable_interval() {
         let source = r#"
 Dim interval As String
 interval = "m"
@@ -670,7 +670,7 @@ result = DateAdd(interval, 1, Date)
     }
 
     #[test]
-    fn test_dateadd_in_loop() {
+    fn dateadd_in_loop() {
         let source = r#"
 For i = 1 To 12
     dates(i) = DateAdd("m", i, startDate)
@@ -683,7 +683,7 @@ Next i
     }
 
     #[test]
-    fn test_dateadd_in_select_case() {
+    fn dateadd_in_select_case() {
         let source = r#"
 Select Case frequency
     Case "monthly"
@@ -699,7 +699,7 @@ End Select
     }
 
     #[test]
-    fn test_dateadd_with_format() {
+    fn dateadd_with_format() {
         let source = r#"
 formatted = Format(DateAdd("d", 7, Date), "yyyy-mm-dd")
 "#;
@@ -710,7 +710,7 @@ formatted = Format(DateAdd("d", 7, Date), "yyyy-mm-dd")
     }
 
     #[test]
-    fn test_dateadd_day_of_year() {
+    fn dateadd_day_of_year() {
         let source = r#"
 result = DateAdd("y", 1, Date)
 "#;
@@ -721,7 +721,7 @@ result = DateAdd("y", 1, Date)
     }
 
     #[test]
-    fn test_dateadd_weekday() {
+    fn dateadd_weekday() {
         let source = r#"
 result = DateAdd("w", 1, Date)
 "#;
@@ -732,7 +732,7 @@ result = DateAdd("w", 1, Date)
     }
 
     #[test]
-    fn test_dateadd_in_array() {
+    fn dateadd_in_array() {
         let source = r#"
 dates(0) = DateAdd("m", 0, startDate)
 dates(1) = DateAdd("m", 1, startDate)
@@ -744,7 +744,7 @@ dates(1) = DateAdd("m", 1, startDate)
     }
 
     #[test]
-    fn test_dateadd_multiple_calls() {
+    fn dateadd_multiple_calls() {
         let source = r#"
 start = DateAdd("m", -1, Date)
 finish = DateAdd("m", 1, Date)
@@ -756,7 +756,7 @@ finish = DateAdd("m", 1, Date)
     }
 
     #[test]
-    fn test_dateadd_in_msgbox() {
+    fn dateadd_in_msgbox() {
         let source = r#"
 MsgBox "Next week: " & DateAdd("ww", 1, Date)
 "#;
@@ -767,7 +767,7 @@ MsgBox "Next week: " & DateAdd("ww", 1, Date)
     }
 
     #[test]
-    fn test_dateadd_with_expression() {
+    fn dateadd_with_expression() {
         let source = r#"
 result = DateAdd("d", days * 2, startDate)
 "#;
@@ -778,7 +778,7 @@ result = DateAdd("d", days * 2, startDate)
     }
 
     #[test]
-    fn test_dateadd_zero_interval() {
+    fn dateadd_zero_interval() {
         let source = r#"
 result = DateAdd("d", 0, Date)
 "#;
@@ -789,7 +789,7 @@ result = DateAdd("d", 0, Date)
     }
 
     #[test]
-    fn test_dateadd_large_number() {
+    fn dateadd_large_number() {
         let source = r#"
 result = DateAdd("d", 365, Date)
 "#;
