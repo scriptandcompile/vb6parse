@@ -537,7 +537,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_command_basic() {
+    fn command_basic() {
         let source = r#"
 args = Command()
 "#;
@@ -548,7 +548,7 @@ args = Command()
     }
 
     #[test]
-    fn test_command_in_assignment() {
+    fn command_in_assignment() {
         let source = r#"
 Dim cmdLine As String
 cmdLine = Command()
@@ -560,7 +560,7 @@ cmdLine = Command()
     }
 
     #[test]
-    fn test_command_in_if_statement() {
+    fn command_in_if_statement() {
         let source = r#"
 If Command() <> "" Then
     ProcessArgs
@@ -573,7 +573,7 @@ End If
     }
 
     #[test]
-    fn test_command_with_trim() {
+    fn command_with_trim() {
         let source = r#"
 args = Trim(Command())
 "#;
@@ -584,7 +584,7 @@ args = Trim(Command())
     }
 
     #[test]
-    fn test_command_in_instr() {
+    fn command_in_instr() {
         let source = r#"
 If InStr(Command(), "/debug") > 0 Then
     DebugMode = True
@@ -597,7 +597,7 @@ End If
     }
 
     #[test]
-    fn test_command_in_sub_main() {
+    fn command_in_sub_main() {
         let source = r#"
 Sub Main()
     Dim args As String
@@ -611,7 +611,7 @@ End Sub
     }
 
     #[test]
-    fn test_command_in_msgbox() {
+    fn command_in_msgbox() {
         let source = r#"
 MsgBox "Args: " & Command()
 "#;
@@ -622,7 +622,7 @@ MsgBox "Args: " & Command()
     }
 
     #[test]
-    fn test_command_with_lcase() {
+    fn command_with_lcase() {
         let source = r#"
 cmdLine = LCase(Command())
 "#;
@@ -633,7 +633,7 @@ cmdLine = LCase(Command())
     }
 
     #[test]
-    fn test_command_in_function() {
+    fn command_in_function() {
         let source = r#"
 Function GetArgs() As String
     GetArgs = Command()
@@ -646,7 +646,7 @@ End Function
     }
 
     #[test]
-    fn test_command_in_select_case() {
+    fn command_in_select_case() {
         let source = r#"
 Select Case Command()
     Case "/help"
@@ -662,7 +662,7 @@ End Select
     }
 
     #[test]
-    fn test_command_empty_check() {
+    fn command_empty_check() {
         let source = r#"
 If Command() = "" Then
     MsgBox "No arguments"
@@ -675,7 +675,7 @@ End If
     }
 
     #[test]
-    fn test_command_with_split() {
+    fn command_with_split() {
         let source = r#"
 args = Split(Command(), " ")
 "#;
@@ -686,7 +686,7 @@ args = Split(Command(), " ")
     }
 
     #[test]
-    fn test_command_in_do_loop() {
+    fn command_in_do_loop() {
         let source = r#"
 Do While Command() <> ""
     Process
@@ -699,7 +699,7 @@ Loop
     }
 
     #[test]
-    fn test_command_with_left() {
+    fn command_with_left() {
         let source = r#"
 If Left(Command(), 1) = "/" Then
     ProcessSwitch
@@ -712,7 +712,7 @@ End If
     }
 
     #[test]
-    fn test_command_in_replace() {
+    fn command_in_replace() {
         let source = r#"
 args = Replace(Command(), "/", "-")
 "#;
@@ -723,7 +723,7 @@ args = Replace(Command(), "/", "-")
     }
 
     #[test]
-    fn test_command_len_check() {
+    fn command_len_check() {
         let source = r#"
 If Len(Command()) > 0 Then
     ParseArgs
@@ -736,7 +736,7 @@ End If
     }
 
     #[test]
-    fn test_command_in_concatenation() {
+    fn command_in_concatenation() {
         let source = r#"
 fullCmd = App.EXEName & " " & Command()
 "#;
@@ -747,7 +747,7 @@ fullCmd = App.EXEName & " " & Command()
     }
 
     #[test]
-    fn test_command_multiple_calls() {
+    fn command_multiple_calls() {
         let source = r#"
 cmd1 = Command()
 cmd2 = Command()
@@ -759,7 +759,7 @@ cmd2 = Command()
     }
 
     #[test]
-    fn test_command_in_for_loop() {
+    fn command_in_for_loop() {
         let source = r#"
 For i = 1 To Len(Command())
     ch = Mid(Command(), i, 1)
@@ -772,7 +772,7 @@ Next i
     }
 
     #[test]
-    fn test_command_with_ucase() {
+    fn command_with_ucase() {
         let source = r#"
 cmdUpper = UCase(Command())
 "#;
@@ -783,7 +783,7 @@ cmdUpper = UCase(Command())
     }
 
     #[test]
-    fn test_command_in_comparison() {
+    fn command_in_comparison() {
         let source = r#"
 result = (Command() = "/auto")
 "#;
@@ -794,7 +794,7 @@ result = (Command() = "/auto")
     }
 
     #[test]
-    fn test_command_with_right() {
+    fn command_with_right() {
         let source = r#"
 If Right(Command(), 4) = ".txt" Then
     ProcessTextFile
@@ -807,7 +807,7 @@ End If
     }
 
     #[test]
-    fn test_command_with_mid() {
+    fn command_with_mid() {
         let source = r#"
 part = Mid(Command(), 2, 5)
 "#;
@@ -818,7 +818,7 @@ part = Mid(Command(), 2, 5)
     }
 
     #[test]
-    fn test_command_with_whitespace() {
+    fn command_with_whitespace() {
         let source = r#"
 args = Command( )
 "#;
@@ -829,7 +829,7 @@ args = Command( )
     }
 
     #[test]
-    fn test_command_in_print() {
+    fn command_in_print() {
         let source = r#"
 Print "Command line: "; Command()
 "#;

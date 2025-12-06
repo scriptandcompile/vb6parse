@@ -534,7 +534,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_lcase_basic() {
+    fn lcase_basic() {
         let source = r#"
 Sub Test()
     result = LCase(myString)
@@ -547,7 +547,7 @@ End Sub
     }
 
     #[test]
-    fn test_lcase_string_literal() {
+    fn lcase_string_literal() {
         let source = r#"
 Sub Test()
     result = LCase("HELLO")
@@ -560,7 +560,7 @@ End Sub
     }
 
     #[test]
-    fn test_lcase_if_statement() {
+    fn lcase_if_statement() {
         let source = r#"
 Sub Test()
     If LCase(input) = "yes" Then
@@ -575,7 +575,7 @@ End Sub
     }
 
     #[test]
-    fn test_lcase_function_return() {
+    fn lcase_function_return() {
         let source = r#"
 Function Normalize(text As String) As String
     Normalize = LCase(text)
@@ -588,7 +588,7 @@ End Function
     }
 
     #[test]
-    fn test_lcase_comparison() {
+    fn lcase_comparison() {
         let source = r#"
 Sub Test()
     If LCase(str1) = LCase(str2) Then
@@ -603,7 +603,7 @@ End Sub
     }
 
     #[test]
-    fn test_lcase_debug_print() {
+    fn lcase_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print LCase("TEST")
@@ -616,7 +616,7 @@ End Sub
     }
 
     #[test]
-    fn test_lcase_msgbox() {
+    fn lcase_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox LCase(userName)
@@ -629,7 +629,7 @@ End Sub
     }
 
     #[test]
-    fn test_lcase_variable_assignment() {
+    fn lcase_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim lower As String
@@ -643,7 +643,7 @@ End Sub
     }
 
     #[test]
-    fn test_lcase_property_assignment() {
+    fn lcase_property_assignment() {
         let source = r#"
 Sub Test()
     obj.LowerText = LCase(obj.Text)
@@ -656,7 +656,7 @@ End Sub
     }
 
     #[test]
-    fn test_lcase_concatenation() {
+    fn lcase_concatenation() {
         let source = r#"
 Sub Test()
     result = "Value: " & LCase(data)
@@ -669,7 +669,7 @@ End Sub
     }
 
     #[test]
-    fn test_lcase_in_class() {
+    fn lcase_in_class() {
         let source = r#"
 Private Sub Class_Initialize()
     m_key = LCase(m_name)
@@ -682,7 +682,7 @@ End Sub
     }
 
     #[test]
-    fn test_lcase_with_statement() {
+    fn lcase_with_statement() {
         let source = r#"
 Sub Test()
     With record
@@ -697,7 +697,7 @@ End Sub
     }
 
     #[test]
-    fn test_lcase_function_argument() {
+    fn lcase_function_argument() {
         let source = r#"
 Sub Test()
     Call ProcessString(LCase(input))
@@ -710,7 +710,7 @@ End Sub
     }
 
     #[test]
-    fn test_lcase_select_case() {
+    fn lcase_select_case() {
         let source = r#"
 Sub Test()
     Select Case LCase(command)
@@ -728,7 +728,7 @@ End Sub
     }
 
     #[test]
-    fn test_lcase_for_loop() {
+    fn lcase_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Integer
@@ -744,7 +744,7 @@ End Sub
     }
 
     #[test]
-    fn test_lcase_elseif() {
+    fn lcase_elseif() {
         let source = r#"
 Sub Test()
     If LCase(value) = "a" Then
@@ -761,7 +761,7 @@ End Sub
     }
 
     #[test]
-    fn test_lcase_iif() {
+    fn lcase_iif() {
         let source = r#"
 Sub Test()
     result = IIf(LCase(status) = "active", 1, 0)
@@ -774,7 +774,7 @@ End Sub
     }
 
     #[test]
-    fn test_lcase_parentheses() {
+    fn lcase_parentheses() {
         let source = r#"
 Sub Test()
     result = (LCase(text))
@@ -787,7 +787,7 @@ End Sub
     }
 
     #[test]
-    fn test_lcase_array_assignment() {
+    fn lcase_array_assignment() {
         let source = r#"
 Sub Test()
     normalized(i) = LCase(original(i))
@@ -800,7 +800,7 @@ End Sub
     }
 
     #[test]
-    fn test_lcase_collection_add() {
+    fn lcase_collection_add() {
         let source = r#"
 Sub Test()
     keywords.Add LCase(word)
@@ -813,7 +813,7 @@ End Sub
     }
 
     #[test]
-    fn test_lcase_nested_call() {
+    fn lcase_nested_call() {
         let source = r#"
 Sub Test()
     result = Trim(LCase(input))
@@ -826,7 +826,7 @@ End Sub
     }
 
     #[test]
-    fn test_lcase_while_wend() {
+    fn lcase_while_wend() {
         let source = r#"
 Sub Test()
     While LCase(response) <> "quit"
@@ -841,7 +841,7 @@ End Sub
     }
 
     #[test]
-    fn test_lcase_do_while() {
+    fn lcase_do_while() {
         let source = r#"
 Sub Test()
     Do While LCase(line) <> "end"
@@ -856,7 +856,7 @@ End Sub
     }
 
     #[test]
-    fn test_lcase_do_until() {
+    fn lcase_do_until() {
         let source = r#"
 Sub Test()
     Do Until LCase(answer) = "yes"
@@ -871,7 +871,7 @@ End Sub
     }
 
     #[test]
-    fn test_lcase_instr() {
+    fn lcase_instr() {
         let source = r#"
 Sub Test()
     pos = InStr(1, LCase(text), LCase(search))
@@ -884,7 +884,7 @@ End Sub
     }
 
     #[test]
-    fn test_lcase_with_trim() {
+    fn lcase_with_trim() {
         let source = r#"
 Sub Test()
     normalized = LCase(Trim(userInput))
@@ -897,7 +897,7 @@ End Sub
     }
 
     #[test]
-    fn test_lcase_dictionary_key() {
+    fn lcase_dictionary_key() {
         let source = r#"
 Sub Test()
     dict.Add LCase(key), value

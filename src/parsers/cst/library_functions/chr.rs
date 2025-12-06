@@ -419,7 +419,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_chr_basic() {
+    fn chr_basic() {
         let source = r#"
 ch = Chr(65)
 "#;
@@ -430,7 +430,7 @@ ch = Chr(65)
     }
 
     #[test]
-    fn test_chr_with_variable() {
+    fn chr_with_variable() {
         let source = r#"
 result = Chr(code)
 "#;
@@ -441,7 +441,7 @@ result = Chr(code)
     }
 
     #[test]
-    fn test_chr_special_characters() {
+    fn chr_special_characters() {
         let source = r#"
 tab = Chr(9)
 lf = Chr(10)
@@ -455,7 +455,7 @@ space = Chr(32)
     }
 
     #[test]
-    fn test_chr_in_concatenation() {
+    fn chr_in_concatenation() {
         let source = r#"
 msg = "Line 1" & Chr(13) & Chr(10) & "Line 2"
 "#;
@@ -466,7 +466,7 @@ msg = "Line 1" & Chr(13) & Chr(10) & "Line 2"
     }
 
     #[test]
-    fn test_chr_in_loop() {
+    fn chr_in_loop() {
         let source = r#"
 For i = 65 To 90
     alphabet = alphabet & Chr(i)
@@ -479,7 +479,7 @@ Next i
     }
 
     #[test]
-    fn test_chr_quote_character() {
+    fn chr_quote_character() {
         let source = r#"
 quote = Chr(34)
 "#;
@@ -490,7 +490,7 @@ quote = Chr(34)
     }
 
     #[test]
-    fn test_chr_in_function() {
+    fn chr_in_function() {
         let source = r#"
 Function QuoteString(text As String) As String
     QuoteString = Chr(34) & text & Chr(34)
@@ -503,7 +503,7 @@ End Function
     }
 
     #[test]
-    fn test_chr_with_expression() {
+    fn chr_with_expression() {
         let source = r#"
 ch = Chr(65 + offset)
 "#;
@@ -514,7 +514,7 @@ ch = Chr(65 + offset)
     }
 
     #[test]
-    fn test_chr_in_if_statement() {
+    fn chr_in_if_statement() {
         let source = r#"
 If ch = Chr(13) Then
     ProcessNewline
@@ -527,7 +527,7 @@ End If
     }
 
     #[test]
-    fn test_chr_multiple_calls() {
+    fn chr_multiple_calls() {
         let source = r#"
 line = Chr(218) & Chr(196) & Chr(191)
 "#;
@@ -538,7 +538,7 @@ line = Chr(218) & Chr(196) & Chr(191)
     }
 
     #[test]
-    fn test_chr_in_assignment() {
+    fn chr_in_assignment() {
         let source = r#"
 Dim separator As String
 separator = Chr(9)
@@ -550,7 +550,7 @@ separator = Chr(9)
     }
 
     #[test]
-    fn test_chr_in_select_case() {
+    fn chr_in_select_case() {
         let source = r#"
 Select Case ch
     Case Chr(13)
@@ -566,7 +566,7 @@ End Select
     }
 
     #[test]
-    fn test_chr_with_asc() {
+    fn chr_with_asc() {
         let source = r#"
 original = Chr(Asc(text))
 "#;
@@ -577,7 +577,7 @@ original = Chr(Asc(text))
     }
 
     #[test]
-    fn test_chr_in_while_loop() {
+    fn chr_in_while_loop() {
         let source = r#"
 While i <= 90
     result = result & Chr(i)
@@ -591,7 +591,7 @@ Wend
     }
 
     #[test]
-    fn test_chr_in_do_loop() {
+    fn chr_in_do_loop() {
         let source = r#"
 Do While i < 256
     chars = chars & Chr(i)
@@ -605,7 +605,7 @@ Loop
     }
 
     #[test]
-    fn test_chr_null_character() {
+    fn chr_null_character() {
         let source = r#"
 nullChar = Chr(0)
 "#;
@@ -616,7 +616,7 @@ nullChar = Chr(0)
     }
 
     #[test]
-    fn test_chr_with_line_continuation() {
+    fn chr_with_line_continuation() {
         let source = r#"
 msg = "Text" & _
       Chr(13) & _
@@ -630,7 +630,7 @@ msg = "Text" & _
     }
 
     #[test]
-    fn test_chr_in_array() {
+    fn chr_in_array() {
         let source = r#"
 chars(i) = Chr(code)
 "#;
@@ -641,7 +641,7 @@ chars(i) = Chr(code)
     }
 
     #[test]
-    fn test_chr_in_msgbox() {
+    fn chr_in_msgbox() {
         let source = r#"
 MsgBox "Line 1" & Chr(13) & "Line 2"
 "#;
@@ -652,7 +652,7 @@ MsgBox "Line 1" & Chr(13) & "Line 2"
     }
 
     #[test]
-    fn test_chr_extended_ascii() {
+    fn chr_extended_ascii() {
         let source = r#"
 boxChar = Chr(196)
 "#;
@@ -663,7 +663,7 @@ boxChar = Chr(196)
     }
 
     #[test]
-    fn test_chr_in_replace() {
+    fn chr_in_replace() {
         let source = r#"
 result = Replace(text, Chr(13), "")
 "#;
@@ -674,7 +674,7 @@ result = Replace(text, Chr(13), "")
     }
 
     #[test]
-    fn test_chr_with_mod() {
+    fn chr_with_mod() {
         let source = r#"
 ch = Chr(value Mod 256)
 "#;
@@ -685,7 +685,7 @@ ch = Chr(value Mod 256)
     }
 
     #[test]
-    fn test_chr_in_split() {
+    fn chr_in_split() {
         let source = r#"
 parts = Split(data, Chr(9))
 "#;
@@ -696,7 +696,7 @@ parts = Split(data, Chr(9))
     }
 
     #[test]
-    fn test_chr_with_cint() {
+    fn chr_with_cint() {
         let source = r#"
 ch = Chr(CInt(value))
 "#;
@@ -707,7 +707,7 @@ ch = Chr(CInt(value))
     }
 
     #[test]
-    fn test_chr_with_whitespace() {
+    fn chr_with_whitespace() {
         let source = r#"
 result = Chr( 65 )
 "#;

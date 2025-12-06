@@ -663,7 +663,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_oct_basic() {
+    fn oct_basic() {
         let source = r#"
 Dim result As String
 result = Oct(64)
@@ -675,7 +675,7 @@ result = Oct(64)
     }
 
     #[test]
-    fn test_oct_with_variable() {
+    fn oct_with_variable() {
         let source = r#"
 Dim permissions As Integer
 permissions = 493
@@ -688,7 +688,7 @@ Debug.Print Oct(permissions)
     }
 
     #[test]
-    fn test_oct_if_statement() {
+    fn oct_if_statement() {
         let source = r#"
 If Oct(value) = "100" Then
     MsgBox "Value is 64 in decimal"
@@ -701,7 +701,7 @@ End If
     }
 
     #[test]
-    fn test_oct_function_return() {
+    fn oct_function_return() {
         let source = r#"
 Function GetOctalString(num As Long) As String
     GetOctalString = Oct(num)
@@ -714,7 +714,7 @@ End Function
     }
 
     #[test]
-    fn test_oct_variable_assignment() {
+    fn oct_variable_assignment() {
         let source = r#"
 Dim octStr As String
 octStr = Oct(511)
@@ -726,7 +726,7 @@ octStr = Oct(511)
     }
 
     #[test]
-    fn test_oct_msgbox() {
+    fn oct_msgbox() {
         let source = r#"
 MsgBox "Octal: " & Oct(value)
 "#;
@@ -737,7 +737,7 @@ MsgBox "Octal: " & Oct(value)
     }
 
     #[test]
-    fn test_oct_debug_print() {
+    fn oct_debug_print() {
         let source = r#"
 Debug.Print "Dec: " & num & " Oct: " & Oct(num)
 "#;
@@ -748,7 +748,7 @@ Debug.Print "Dec: " & num & " Oct: " & Oct(num)
     }
 
     #[test]
-    fn test_oct_select_case() {
+    fn oct_select_case() {
         let source = r#"
 Select Case Oct(filePerms)
     Case "755"
@@ -766,7 +766,7 @@ End Select
     }
 
     #[test]
-    fn test_oct_class_usage() {
+    fn oct_class_usage() {
         let source = r#"
 Private m_octal As String
 
@@ -781,7 +781,7 @@ End Sub
     }
 
     #[test]
-    fn test_oct_with_statement() {
+    fn oct_with_statement() {
         let source = r#"
 With converter
     .OctalValue = Oct(.DecimalValue)
@@ -794,7 +794,7 @@ End With
     }
 
     #[test]
-    fn test_oct_elseif() {
+    fn oct_elseif() {
         let source = r#"
 If x > 100 Then
     y = 1
@@ -809,7 +809,7 @@ End If
     }
 
     #[test]
-    fn test_oct_for_loop() {
+    fn oct_for_loop() {
         let source = r#"
 For i = 0 To 15
     Debug.Print i, Oct(i), Hex(i)
@@ -822,7 +822,7 @@ Next i
     }
 
     #[test]
-    fn test_oct_do_while() {
+    fn oct_do_while() {
         let source = r#"
 Do While Len(Oct(counter)) < 4
     counter = counter * 8
@@ -835,7 +835,7 @@ Loop
     }
 
     #[test]
-    fn test_oct_do_until() {
+    fn oct_do_until() {
         let source = r#"
 Do Until Oct(val) = targetOctal
     val = val + 1
@@ -848,7 +848,7 @@ Loop
     }
 
     #[test]
-    fn test_oct_while_wend() {
+    fn oct_while_wend() {
         let source = r#"
 While num <= 100
     octals = octals & Oct(num) & " "
@@ -862,7 +862,7 @@ Wend
     }
 
     #[test]
-    fn test_oct_parentheses() {
+    fn oct_parentheses() {
         let source = r#"
 Dim result As String
 result = (Oct(value))
@@ -874,7 +874,7 @@ result = (Oct(value))
     }
 
     #[test]
-    fn test_oct_iif() {
+    fn oct_iif() {
         let source = r#"
 Dim display As String
 display = IIf(showOctal, Oct(num), Hex(num))
@@ -886,7 +886,7 @@ display = IIf(showOctal, Oct(num), Hex(num))
     }
 
     #[test]
-    fn test_oct_comparison() {
+    fn oct_comparison() {
         let source = r#"
 If Oct(perms1) = Oct(perms2) Then
     MsgBox "Permissions match"
@@ -899,7 +899,7 @@ End If
     }
 
     #[test]
-    fn test_oct_array_assignment() {
+    fn oct_array_assignment() {
         let source = r#"
 Dim octValues(10) As String
 octValues(i) = Oct(numbers(i))
@@ -911,7 +911,7 @@ octValues(i) = Oct(numbers(i))
     }
 
     #[test]
-    fn test_oct_property_assignment() {
+    fn oct_property_assignment() {
         let source = r#"
 Set obj = New BaseConverter
 obj.OctalString = Oct(obj.DecimalValue)
@@ -923,7 +923,7 @@ obj.OctalString = Oct(obj.DecimalValue)
     }
 
     #[test]
-    fn test_oct_function_argument() {
+    fn oct_function_argument() {
         let source = r#"
 Call LogValue("Octal", Oct(deviceCode))
 "#;
@@ -934,7 +934,7 @@ Call LogValue("Octal", Oct(deviceCode))
     }
 
     #[test]
-    fn test_oct_arithmetic() {
+    fn oct_arithmetic() {
         let source = r#"
 Dim combined As Long
 combined = CLng("&O" & Oct(value1)) + CLng("&O" & Oct(value2))
@@ -946,7 +946,7 @@ combined = CLng("&O" & Oct(value1)) + CLng("&O" & Oct(value2))
     }
 
     #[test]
-    fn test_oct_concatenation() {
+    fn oct_concatenation() {
         let source = r#"
 Dim info As String
 info = "Dec: " & num & " Hex: " & Hex(num) & " Oct: " & Oct(num)
@@ -958,7 +958,7 @@ info = "Dec: " & num & " Hex: " & Hex(num) & " Oct: " & Oct(num)
     }
 
     #[test]
-    fn test_oct_with_prefix() {
+    fn oct_with_prefix() {
         let source = r#"
 Dim formatted As String
 formatted = "&O" & Oct(value)
@@ -970,7 +970,7 @@ formatted = "&O" & Oct(value)
     }
 
     #[test]
-    fn test_oct_len_function() {
+    fn oct_len_function() {
         let source = r#"
 Dim digitCount As Integer
 digitCount = Len(Oct(number))
@@ -982,7 +982,7 @@ digitCount = Len(Oct(number))
     }
 
     #[test]
-    fn test_oct_error_handling() {
+    fn oct_error_handling() {
         let source = r#"
 On Error Resume Next
 octStr = Oct(inputValue)
@@ -998,7 +998,7 @@ On Error GoTo 0
     }
 
     #[test]
-    fn test_oct_on_error_goto() {
+    fn oct_on_error_goto() {
         let source = r#"
 Sub ConvertToOctal()
     On Error GoTo ErrorHandler

@@ -795,7 +795,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_filter_basic() {
+    fn filter_basic() {
         let source = r#"
 filtered = Filter(fruits, "e")
 "#;
@@ -806,7 +806,7 @@ filtered = Filter(fruits, "e")
     }
 
     #[test]
-    fn test_filter_with_include() {
+    fn filter_with_include() {
         let source = r#"
 filtered = Filter(fruits, "e", False)
 "#;
@@ -817,7 +817,7 @@ filtered = Filter(fruits, "e", False)
     }
 
     #[test]
-    fn test_filter_with_compare() {
+    fn filter_with_compare() {
         let source = r#"
 filtered = Filter(fruits, "a", True, vbTextCompare)
 "#;
@@ -828,7 +828,7 @@ filtered = Filter(fruits, "a", True, vbTextCompare)
     }
 
     #[test]
-    fn test_filter_case_sensitive() {
+    fn filter_case_sensitive() {
         let source = r#"
 result = Filter(names, "J", True, vbBinaryCompare)
 "#;
@@ -839,7 +839,7 @@ result = Filter(names, "J", True, vbBinaryCompare)
     }
 
     #[test]
-    fn test_filter_exclude() {
+    fn filter_exclude() {
         let source = r#"
 textFiles = Filter(files, ".bak", False)
 "#;
@@ -850,7 +850,7 @@ textFiles = Filter(files, ".bak", False)
     }
 
     #[test]
-    fn test_filter_in_function() {
+    fn filter_in_function() {
         let source = r#"
 Function SearchList(items() As String, searchTerm As String) As String()
     SearchList = Filter(items, searchTerm, True, vbTextCompare)
@@ -863,7 +863,7 @@ End Function
     }
 
     #[test]
-    fn test_filter_ubound_check() {
+    fn filter_ubound_check() {
         let source = r#"
 matches = Filter(items, searchTerm, True, vbTextCompare)
 If UBound(matches) >= 0 Then
@@ -877,7 +877,7 @@ End If
     }
 
     #[test]
-    fn test_filter_sequential() {
+    fn filter_sequential() {
         let source = r#"
 temp = Filter(result, filters(i), True, vbTextCompare)
 result = temp
@@ -889,7 +889,7 @@ result = temp
     }
 
     #[test]
-    fn test_filter_in_loop() {
+    fn filter_in_loop() {
         let source = r#"
 filtered = Filter(sourceArray, "test")
 For i = 0 To UBound(filtered)
@@ -903,7 +903,7 @@ Next i
     }
 
     #[test]
-    fn test_filter_error_handling() {
+    fn filter_error_handling() {
         let source = r#"
 On Error GoTo ErrorHandler
 filtered = Filter(sourceArray, searchText, True, vbTextCompare)
@@ -918,7 +918,7 @@ ErrorHandler:
     }
 
     #[test]
-    fn test_filter_if_statement() {
+    fn filter_if_statement() {
         let source = r#"
 If Trim(searchTerm) = "" Then
     results = items
@@ -933,7 +933,7 @@ End If
     }
 
     #[test]
-    fn test_filter_extension() {
+    fn filter_extension() {
         let source = r#"
 txtFiles = Filter(allFiles, ".txt", True, vbTextCompare)
 "#;
@@ -944,7 +944,7 @@ txtFiles = Filter(allFiles, ".txt", True, vbTextCompare)
     }
 
     #[test]
-    fn test_filter_with_variables() {
+    fn filter_with_variables() {
         let source = r#"
 searchMode = vbTextCompare
 includeMatches = True
@@ -957,7 +957,7 @@ result = Filter(sourceData, pattern, includeMatches, searchMode)
     }
 
     #[test]
-    fn test_filter_concatenation() {
+    fn filter_concatenation() {
         let source = r#"
 levelTag = "[" & UCase(level) & "]"
 result = Filter(logEntries, levelTag, True, vbTextCompare)
@@ -969,7 +969,7 @@ result = Filter(logEntries, levelTag, True, vbTextCompare)
     }
 
     #[test]
-    fn test_filter_combine_operations() {
+    fn filter_combine_operations() {
         let source = r#"
 temp = Filter(items, includeText, True, vbTextCompare)
 temp = Filter(temp, excludeText, False, vbTextCompare)
@@ -981,7 +981,7 @@ temp = Filter(temp, excludeText, False, vbTextCompare)
     }
 
     #[test]
-    fn test_filter_debug_print() {
+    fn filter_debug_print() {
         let source = r#"
 Debug.Print "Found: " & UBound(Filter(items, searchTerm)) + 1
 "#;
@@ -992,7 +992,7 @@ Debug.Print "Found: " & UBound(Filter(items, searchTerm)) + 1
     }
 
     #[test]
-    fn test_filter_array_access() {
+    fn filter_array_access() {
         let source = r#"
 matchedNames = Filter(names, searchTerm, True, vbTextCompare)
 "#;
@@ -1003,7 +1003,7 @@ matchedNames = Filter(names, searchTerm, True, vbTextCompare)
     }
 
     #[test]
-    fn test_filter_instr_comparison() {
+    fn filter_instr_comparison() {
         let source = r#"
 If InStr(1, records(i).Name, searchTerm, vbTextCompare) > 0 Then
     matches = Filter(names, searchTerm, True, vbTextCompare)
@@ -1016,7 +1016,7 @@ End If
     }
 
     #[test]
-    fn test_filter_cache_update() {
+    fn filter_cache_update() {
         let source = r#"
 filtered = Filter(cachedResults, currentSearch, True, vbTextCompare)
 cachedResults = filtered
@@ -1028,7 +1028,7 @@ cachedResults = filtered
     }
 
     #[test]
-    fn test_filter_empty_check() {
+    fn filter_empty_check() {
         let source = r#"
 results = Filter(items, searchTerm, True, vbTextCompare)
 If UBound(results) < 0 Then
@@ -1042,7 +1042,7 @@ End If
     }
 
     #[test]
-    fn test_filter_smart_case() {
+    fn filter_smart_case() {
         let source = r#"
 If searchTerm <> LCase(searchTerm) Then
     compareMode = vbBinaryCompare
@@ -1058,7 +1058,7 @@ result = Filter(items, searchTerm, True, compareMode)
     }
 
     #[test]
-    fn test_filter_isnull_check() {
+    fn filter_isnull_check() {
         let source = r#"
 If Not IsNull(items) Then
     result = Filter(items, searchTerm, True, vbTextCompare)
@@ -1071,7 +1071,7 @@ End If
     }
 
     #[test]
-    fn test_filter_isarray_check() {
+    fn filter_isarray_check() {
         let source = r#"
 If IsArray(items) Then
     filtered = Filter(items, searchTerm, True, vbTextCompare)
@@ -1084,7 +1084,7 @@ End If
     }
 
     #[test]
-    fn test_filter_timer_tracking() {
+    fn filter_timer_tracking() {
         let source = r#"
 startTime = Timer
 results = Filter(items, searchTerm, True, vbTextCompare)
@@ -1097,7 +1097,7 @@ elapsedMs = (Timer - startTime) * 1000
     }
 
     #[test]
-    fn test_filter_for_each_prep() {
+    fn filter_for_each_prep() {
         let source = r#"
 Dim item As Variant
 matches = Filter(sourceArray, pattern, True, vbTextCompare)
@@ -1112,7 +1112,7 @@ Next item
     }
 
     #[test]
-    fn test_filter_select_case() {
+    fn filter_select_case() {
         let source = r#"
 Select Case filterType
     Case "include"

@@ -335,7 +335,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_hex_basic() {
+    fn hex_basic() {
         let source = r#"
 Sub Test()
     result = Hex(255)
@@ -348,7 +348,7 @@ End Sub
     }
 
     #[test]
-    fn test_hex_in_function() {
+    fn hex_in_function() {
         let source = r#"
 Function ToHexString(value As Long) As String
     ToHexString = Hex(value)
@@ -361,7 +361,7 @@ End Function
     }
 
     #[test]
-    fn test_hex_with_prefix() {
+    fn hex_with_prefix() {
         let source = r#"
 Sub Test()
     hexStr = "&H" & Hex(42)
@@ -374,7 +374,7 @@ End Sub
     }
 
     #[test]
-    fn test_hex_debug_print() {
+    fn hex_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print Hex(255)
@@ -387,7 +387,7 @@ End Sub
     }
 
     #[test]
-    fn test_hex_if_statement() {
+    fn hex_if_statement() {
         let source = r#"
 Sub Test()
     If Hex(value) = "FF" Then
@@ -402,7 +402,7 @@ End Sub
     }
 
     #[test]
-    fn test_hex_for_loop() {
+    fn hex_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Integer
@@ -418,7 +418,7 @@ End Sub
     }
 
     #[test]
-    fn test_hex_select_case() {
+    fn hex_select_case() {
         let source = r#"
 Sub Test()
     Select Case Hex(errorCode)
@@ -436,7 +436,7 @@ End Sub
     }
 
     #[test]
-    fn test_hex_do_loop() {
+    fn hex_do_loop() {
         let source = r#"
 Sub Test()
     Do While Len(Hex(counter)) < 8
@@ -451,7 +451,7 @@ End Sub
     }
 
     #[test]
-    fn test_hex_class_member() {
+    fn hex_class_member() {
         let source = r#"
 Private Sub Class_Initialize()
     m_hexValue = Hex(initialValue)
@@ -464,7 +464,7 @@ End Sub
     }
 
     #[test]
-    fn test_hex_type_field() {
+    fn hex_type_field() {
         let source = r#"
 Sub Test()
     Dim config As ConfigType
@@ -478,7 +478,7 @@ End Sub
     }
 
     #[test]
-    fn test_hex_collection_add() {
+    fn hex_collection_add() {
         let source = r#"
 Sub Test()
     Dim col As New Collection
@@ -492,7 +492,7 @@ End Sub
     }
 
     #[test]
-    fn test_hex_with_statement() {
+    fn hex_with_statement() {
         let source = r#"
 Sub Test()
     With myObject
@@ -507,7 +507,7 @@ End Sub
     }
 
     #[test]
-    fn test_hex_msgbox() {
+    fn hex_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Hex value: " & Hex(errorCode)
@@ -520,7 +520,7 @@ End Sub
     }
 
     #[test]
-    fn test_hex_property() {
+    fn hex_property() {
         let source = r#"
 Property Get HexValue() As String
     HexValue = Hex(m_value)
@@ -533,7 +533,7 @@ End Property
     }
 
     #[test]
-    fn test_hex_concatenation() {
+    fn hex_concatenation() {
         let source = r#"
 Sub Test()
     result = "0x" & Hex(address)
@@ -546,7 +546,7 @@ End Sub
     }
 
     #[test]
-    fn test_hex_for_each() {
+    fn hex_for_each() {
         let source = r#"
 Sub Test()
     Dim item As Variant
@@ -562,7 +562,7 @@ End Sub
     }
 
     #[test]
-    fn test_hex_error_handling() {
+    fn hex_error_handling() {
         let source = r#"
 Sub Test()
     On Error Resume Next
@@ -578,7 +578,7 @@ End Sub
     }
 
     #[test]
-    fn test_hex_right_function() {
+    fn hex_right_function() {
         let source = r#"
 Sub Test()
     padded = Right$("00" & Hex(value), 2)
@@ -591,7 +591,7 @@ End Sub
     }
 
     #[test]
-    fn test_hex_array_assignment() {
+    fn hex_array_assignment() {
         let source = r#"
 Sub Test()
     Dim hexArray(1 To 10) As String
@@ -605,7 +605,7 @@ End Sub
     }
 
     #[test]
-    fn test_hex_function_argument() {
+    fn hex_function_argument() {
         let source = r#"
 Sub Test()
     DisplayHexValue Hex(colorValue)
@@ -618,7 +618,7 @@ End Sub
     }
 
     #[test]
-    fn test_hex_nested_call() {
+    fn hex_nested_call() {
         let source = r#"
 Sub Test()
     length = Len(Hex(value))
@@ -631,7 +631,7 @@ End Sub
     }
 
     #[test]
-    fn test_hex_iif() {
+    fn hex_iif() {
         let source = r#"
 Sub Test()
     display = IIf(showHex, Hex(value), Str(value))
@@ -644,7 +644,7 @@ End Sub
     }
 
     #[test]
-    fn test_hex_color_conversion() {
+    fn hex_color_conversion() {
         let source = r#"
 Function RGBToHex(r As Integer, g As Integer, b As Integer) As String
     RGBToHex = Right$("0" & Hex(r), 2) & Right$("0" & Hex(g), 2) & Right$("0" & Hex(b), 2)
@@ -657,7 +657,7 @@ End Function
     }
 
     #[test]
-    fn test_hex_byte_array() {
+    fn hex_byte_array() {
         let source = r#"
 Sub Test()
     Dim bytes(0 To 15) As Byte
@@ -674,7 +674,7 @@ End Sub
     }
 
     #[test]
-    fn test_hex_parentheses() {
+    fn hex_parentheses() {
         let source = r#"
 Sub Test()
     value = (Hex(number))
@@ -687,7 +687,7 @@ End Sub
     }
 
     #[test]
-    fn test_hex_format_address() {
+    fn hex_format_address() {
         let source = r#"
 Function FormatAddress(addr As Long) As String
     FormatAddress = "0x" & Right$("00000000" & Hex(addr), 8)
@@ -700,7 +700,7 @@ End Function
     }
 
     #[test]
-    fn test_hex_negative_value() {
+    fn hex_negative_value() {
         let source = r#"
 Sub Test()
     Dim negHex As String

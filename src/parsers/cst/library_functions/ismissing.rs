@@ -590,7 +590,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_ismissing_basic() {
+    fn ismissing_basic() {
         let source = r#"
 Sub Test(Optional param As Variant)
     result = IsMissing(param)
@@ -603,7 +603,7 @@ End Sub
     }
 
     #[test]
-    fn test_ismissing_if_statement() {
+    fn ismissing_if_statement() {
         let source = r#"
 Function Greet(name As String, Optional title As Variant) As String
     If IsMissing(title) Then
@@ -620,7 +620,7 @@ End Function
     }
 
     #[test]
-    fn test_ismissing_not_condition() {
+    fn ismissing_not_condition() {
         let source = r#"
 Sub Test(Optional value As Variant)
     If Not IsMissing(value) Then
@@ -635,7 +635,7 @@ End Sub
     }
 
     #[test]
-    fn test_ismissing_function_return() {
+    fn ismissing_function_return() {
         let source = r#"
 Function IsProvided(Optional arg As Variant) As Boolean
     IsProvided = Not IsMissing(arg)
@@ -648,7 +648,7 @@ End Function
     }
 
     #[test]
-    fn test_ismissing_boolean_and() {
+    fn ismissing_boolean_and() {
         let source = r#"
 Sub Test(Optional arg1 As Variant, Optional arg2 As Variant)
     If IsMissing(arg1) And IsMissing(arg2) Then
@@ -663,7 +663,7 @@ End Sub
     }
 
     #[test]
-    fn test_ismissing_boolean_or() {
+    fn ismissing_boolean_or() {
         let source = r#"
 Sub Test(Optional param1 As Variant, Optional param2 As Variant)
     If IsMissing(param1) Or IsMissing(param2) Then
@@ -678,7 +678,7 @@ End Sub
     }
 
     #[test]
-    fn test_ismissing_iif() {
+    fn ismissing_iif() {
         let source = r#"
 Function GetValue(Optional value As Variant) As String
     GetValue = IIf(IsMissing(value), "Default", value)
@@ -691,7 +691,7 @@ End Function
     }
 
     #[test]
-    fn test_ismissing_debug_print() {
+    fn ismissing_debug_print() {
         let source = r#"
 Sub Test(Optional arg As Variant)
     Debug.Print "Missing: " & IsMissing(arg)
@@ -704,7 +704,7 @@ End Sub
     }
 
     #[test]
-    fn test_ismissing_msgbox() {
+    fn ismissing_msgbox() {
         let source = r#"
 Sub Test(Optional myParam As Variant)
     MsgBox "Parameter status: " & IsMissing(myParam)
@@ -717,7 +717,7 @@ End Sub
     }
 
     #[test]
-    fn test_ismissing_do_while() {
+    fn ismissing_do_while() {
         let source = r#"
 Sub Test(Optional config As Variant)
     Do While IsMissing(config)
@@ -732,7 +732,7 @@ End Sub
     }
 
     #[test]
-    fn test_ismissing_do_until() {
+    fn ismissing_do_until() {
         let source = r#"
 Sub Test(Optional setting As Variant)
     Do Until Not IsMissing(setting)
@@ -747,7 +747,7 @@ End Sub
     }
 
     #[test]
-    fn test_ismissing_variable_assignment() {
+    fn ismissing_variable_assignment() {
         let source = r#"
 Sub Test(Optional data As Variant)
     Dim isMissing As Boolean
@@ -761,7 +761,7 @@ End Sub
     }
 
     #[test]
-    fn test_ismissing_property_assignment() {
+    fn ismissing_property_assignment() {
         let source = r#"
 Sub Test(Optional opt As Variant)
     obj.WasProvided = Not IsMissing(opt)
@@ -774,7 +774,7 @@ End Sub
     }
 
     #[test]
-    fn test_ismissing_in_class() {
+    fn ismissing_in_class() {
         let source = r#"
 Public Sub Initialize(Optional settings As Variant)
     m_hasSettings = Not IsMissing(settings)
@@ -787,7 +787,7 @@ End Sub
     }
 
     #[test]
-    fn test_ismissing_with_statement() {
+    fn ismissing_with_statement() {
         let source = r#"
 Sub Configure(Optional options As Variant)
     With config
@@ -802,7 +802,7 @@ End Sub
     }
 
     #[test]
-    fn test_ismissing_function_argument() {
+    fn ismissing_function_argument() {
         let source = r#"
 Sub Test(Optional param As Variant)
     Call LogStatus(IsMissing(param))
@@ -815,7 +815,7 @@ End Sub
     }
 
     #[test]
-    fn test_ismissing_select_case() {
+    fn ismissing_select_case() {
         let source = r#"
 Sub Process(Optional mode As Variant)
     Select Case True
@@ -833,7 +833,7 @@ End Sub
     }
 
     #[test]
-    fn test_ismissing_for_loop() {
+    fn ismissing_for_loop() {
         let source = r#"
 Function CountProvided(Optional a As Variant, Optional b As Variant, Optional c As Variant) As Integer
     Dim count As Integer
@@ -851,7 +851,7 @@ End Function
     }
 
     #[test]
-    fn test_ismissing_elseif() {
+    fn ismissing_elseif() {
         let source = r#"
 Sub Handle(Optional param As Variant)
     If IsNull(param) Then
@@ -868,7 +868,7 @@ End Sub
     }
 
     #[test]
-    fn test_ismissing_concatenation() {
+    fn ismissing_concatenation() {
         let source = r#"
 Sub Report(Optional value As Variant)
     status = "Provided: " & Not IsMissing(value)
@@ -881,7 +881,7 @@ End Sub
     }
 
     #[test]
-    fn test_ismissing_parentheses() {
+    fn ismissing_parentheses() {
         let source = r#"
 Sub Test(Optional arg As Variant)
     result = (IsMissing(arg))
@@ -894,7 +894,7 @@ End Sub
     }
 
     #[test]
-    fn test_ismissing_multiple_params() {
+    fn ismissing_multiple_params() {
         let source = r#"
 Sub SaveFile(filename As String, Optional path As Variant, Optional backup As Variant)
     If IsMissing(path) Then
@@ -912,7 +912,7 @@ End Sub
     }
 
     #[test]
-    fn test_ismissing_collection_check() {
+    fn ismissing_collection_check() {
         let source = r#"
 Sub AddOptional(coll As Collection, Optional item As Variant)
     If Not IsMissing(item) Then
@@ -927,7 +927,7 @@ End Sub
     }
 
     #[test]
-    fn test_ismissing_comparison() {
+    fn ismissing_comparison() {
         let source = r#"
 Function Compare(Optional a As Variant, Optional b As Variant) As Boolean
     Compare = (IsMissing(a) = IsMissing(b))
@@ -940,7 +940,7 @@ End Function
     }
 
     #[test]
-    fn test_ismissing_nested_call() {
+    fn ismissing_nested_call() {
         let source = r#"
 Sub Test(Optional value As Variant)
     result = CStr(IsMissing(value))
@@ -953,7 +953,7 @@ End Sub
     }
 
     #[test]
-    fn test_ismissing_while_wend() {
+    fn ismissing_while_wend() {
         let source = r#"
 Sub Test(Optional input As Variant)
     While IsMissing(input)
@@ -968,7 +968,7 @@ End Sub
     }
 
     #[test]
-    fn test_ismissing_default_logic() {
+    fn ismissing_default_logic() {
         let source = r#"
 Function Calculate(x As Double, Optional multiplier As Variant) As Double
     If IsMissing(multiplier) Then

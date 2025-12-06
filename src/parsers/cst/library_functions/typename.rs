@@ -238,7 +238,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_typename_integer() {
+    fn typename_integer() {
         let source = r#"
 Sub Test()
     Dim x As Integer
@@ -251,7 +251,7 @@ End Sub
     }
 
     #[test]
-    fn test_typename_object() {
+    fn typename_object() {
         let source = r#"
 Sub Test()
     Dim c As Collection
@@ -265,7 +265,7 @@ End Sub
     }
 
     #[test]
-    fn test_typename_array() {
+    fn typename_array() {
         let source = r#"
 Sub Test()
     Dim arr(1 To 5) As String
@@ -278,7 +278,7 @@ End Sub
     }
 
     #[test]
-    fn test_typename_variant() {
+    fn typename_variant() {
         let source = r#"
 Sub Test()
     Dim v As Variant
@@ -292,7 +292,7 @@ End Sub
     }
 
     #[test]
-    fn test_typename_check_array() {
+    fn typename_check_array() {
         let source = r#"
 Sub Test()
     If Right$(TypeName(var), 2) = "()" Then
@@ -306,7 +306,7 @@ End Sub
     }
 
     #[test]
-    fn test_typename_check_object() {
+    fn typename_check_object() {
         let source = r#"
 Sub Test()
     If TypeName(obj) = "Nothing" Then
@@ -320,7 +320,7 @@ End Sub
     }
 
     #[test]
-    fn test_typename_handle_variant() {
+    fn typename_handle_variant() {
         let source = r#"
 Sub Test()
     If TypeName(v) = "String" Then
@@ -334,7 +334,7 @@ End Sub
     }
 
     #[test]
-    fn test_typename_log_type() {
+    fn typename_log_type() {
         let source = r#"
 Sub Test()
     Debug.Print "Type: " & TypeName(x)
@@ -346,7 +346,7 @@ End Sub
     }
 
     #[test]
-    fn test_typename_validate_argument() {
+    fn typename_validate_argument() {
         let source = r#"
 Sub Foo(arg As Variant)
     If TypeName(arg) <> "String" Then Err.Raise 5
@@ -358,7 +358,7 @@ End Sub
     }
 
     #[test]
-    fn test_typename_reflection() {
+    fn typename_reflection() {
         let source = r#"
 Sub Test()
     Dim t As String
@@ -374,7 +374,7 @@ End Sub
     }
 
     #[test]
-    fn test_typename_null_and_empty() {
+    fn typename_null_and_empty() {
         let source = r#"
 Sub Test()
     If TypeName(v) = "Null" Then
@@ -390,7 +390,7 @@ End Sub
     }
 
     #[test]
-    fn test_typename_array_type_detection() {
+    fn typename_array_type_detection() {
         let source = r#"
 Sub Test()
     If InStr(TypeName(arr), "()") > 0 Then
@@ -404,7 +404,7 @@ End Sub
     }
 
     #[test]
-    fn test_typename_user_defined_type() {
+    fn typename_user_defined_type() {
         let source = r#"
 Type MyType
     x As Integer
@@ -420,7 +420,7 @@ End Sub
     }
 
     #[test]
-    fn test_typename_class_type_detection() {
+    fn typename_class_type_detection() {
         let source = r#"
 Sub Test()
     If TypeName(obj) = "MyClass" Then
@@ -434,7 +434,7 @@ End Sub
     }
 
     #[test]
-    fn test_typename_isstring_function() {
+    fn typename_isstring_function() {
         let source = r#"
 Function IsString(val As Variant) As Boolean
     IsString = (TypeName(val) = "String")
@@ -446,7 +446,7 @@ End Function
     }
 
     #[test]
-    fn test_typename_logtypes_paramarray() {
+    fn typename_logtypes_paramarray() {
         let source = r#"
 Sub LogTypes(ParamArray args() As Variant)
     Dim i As Integer
@@ -461,7 +461,7 @@ End Sub
     }
 
     #[test]
-    fn test_typename_reflection_class_methods() {
+    fn typename_reflection_class_methods() {
         let source = r#"
 Sub Test()
     If TypeName(obj) = "MyClass" Then
@@ -475,7 +475,7 @@ End Sub
     }
 
     #[test]
-    fn test_typename_variant_array_detection() {
+    fn typename_variant_array_detection() {
         let source = r#"
 Sub Test()
     Dim v As Variant

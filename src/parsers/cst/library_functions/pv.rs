@@ -669,7 +669,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_pv_basic() {
+    fn pv_basic() {
         let source = r#"
 Dim loanAmount As Double
 loanAmount = PV(0.06 / 12, 60, -500)
@@ -681,7 +681,7 @@ loanAmount = PV(0.06 / 12, 60, -500)
     }
 
     #[test]
-    fn test_pv_with_all_parameters() {
+    fn pv_with_all_parameters() {
         let source = r#"
 Dim presentValue As Double
 presentValue = PV(0.05 / 12, 120, 1000, 0, 0)
@@ -693,7 +693,7 @@ presentValue = PV(0.05 / 12, 120, 1000, 0, 0)
     }
 
     #[test]
-    fn test_pv_if_statement() {
+    fn pv_if_statement() {
         let source = r#"
 If Abs(PV(rate, nper, payment)) > maxLoan Then
     MsgBox "Cannot afford this amount"
@@ -706,7 +706,7 @@ End If
     }
 
     #[test]
-    fn test_pv_function_return() {
+    fn pv_function_return() {
         let source = r#"
 Function CalculateLoanCapacity(payment As Double) As Double
     CalculateLoanCapacity = Abs(PV(0.05 / 12, 360, -payment))
@@ -719,7 +719,7 @@ End Function
     }
 
     #[test]
-    fn test_pv_variable_assignment() {
+    fn pv_variable_assignment() {
         let source = r#"
 Dim affordableAmount As Double
 affordableAmount = PV(monthlyRate, periods, monthlyPayment)
@@ -731,7 +731,7 @@ affordableAmount = PV(monthlyRate, periods, monthlyPayment)
     }
 
     #[test]
-    fn test_pv_msgbox() {
+    fn pv_msgbox() {
         let source = r#"
 MsgBox "You can borrow: $" & Format(Abs(PV(0.06 / 12, 60, -500)), "0.00")
 "#;
@@ -742,7 +742,7 @@ MsgBox "You can borrow: $" & Format(Abs(PV(0.06 / 12, 60, -500)), "0.00")
     }
 
     #[test]
-    fn test_pv_debug_print() {
+    fn pv_debug_print() {
         let source = r#"
 Debug.Print "Present Value: " & PV(rate, nper, pmt)
 "#;
@@ -753,7 +753,7 @@ Debug.Print "Present Value: " & PV(rate, nper, pmt)
     }
 
     #[test]
-    fn test_pv_select_case() {
+    fn pv_select_case() {
         let source = r#"
 Dim loanPV As Double
 loanPV = Abs(PV(0.05 / 12, 360, -payment))
@@ -773,7 +773,7 @@ End Select
     }
 
     #[test]
-    fn test_pv_class_usage() {
+    fn pv_class_usage() {
         let source = r#"
 Private m_presentValue As Double
 
@@ -788,7 +788,7 @@ End Sub
     }
 
     #[test]
-    fn test_pv_with_statement() {
+    fn pv_with_statement() {
         let source = r#"
 With loanCalc
     .LoanAmount = PV(.Rate, .Term, .Payment)
@@ -801,7 +801,7 @@ End With
     }
 
     #[test]
-    fn test_pv_elseif() {
+    fn pv_elseif() {
         let source = r#"
 If amount > 1000000 Then
     rate = 0.04
@@ -816,7 +816,7 @@ End If
     }
 
     #[test]
-    fn test_pv_for_loop() {
+    fn pv_for_loop() {
         let source = r#"
 For payment = 1000 To 3000 Step 100
     loanAmount = Abs(PV(0.05 / 12, 360, -payment))
@@ -830,7 +830,7 @@ Next payment
     }
 
     #[test]
-    fn test_pv_do_while() {
+    fn pv_do_while() {
         let source = r#"
 Do While Abs(PV(rate, nper, -payment)) < targetLoan
     payment = payment + 10
@@ -843,7 +843,7 @@ Loop
     }
 
     #[test]
-    fn test_pv_do_until() {
+    fn pv_do_until() {
         let source = r#"
 Do Until Abs(PV(r / 12, n, -pmt)) >= desiredAmount
     pmt = pmt + 50
@@ -856,7 +856,7 @@ Loop
     }
 
     #[test]
-    fn test_pv_while_wend() {
+    fn pv_while_wend() {
         let source = r#"
 While Abs(PV(interestRate, periods, -payment)) > 0
     payment = payment + 1
@@ -869,7 +869,7 @@ Wend
     }
 
     #[test]
-    fn test_pv_parentheses() {
+    fn pv_parentheses() {
         let source = r#"
 Dim result As Double
 result = (PV(rate, nper, pmt))
@@ -881,7 +881,7 @@ result = (PV(rate, nper, pmt))
     }
 
     #[test]
-    fn test_pv_iif() {
+    fn pv_iif() {
         let source = r#"
 Dim presentValue As Double
 presentValue = IIf(useFV, PV(r, n, p, fv), PV(r, n, p))
@@ -893,7 +893,7 @@ presentValue = IIf(useFV, PV(r, n, p, fv), PV(r, n, p))
     }
 
     #[test]
-    fn test_pv_comparison() {
+    fn pv_comparison() {
         let source = r#"
 If Abs(PV(rate1, term, -pmt)) > Abs(PV(rate2, term, -pmt)) Then
     MsgBox "Option 1 allows more borrowing"
@@ -906,7 +906,7 @@ End If
     }
 
     #[test]
-    fn test_pv_array_assignment() {
+    fn pv_array_assignment() {
         let source = r#"
 Dim loanAmounts(10) As Double
 loanAmounts(i) = PV(rates(i), periods, payment)
@@ -918,7 +918,7 @@ loanAmounts(i) = PV(rates(i), periods, payment)
     }
 
     #[test]
-    fn test_pv_property_assignment() {
+    fn pv_property_assignment() {
         let source = r#"
 Set obj = New LoanCalculator
 obj.MaxLoan = PV(obj.Rate, obj.Term, obj.Payment)
@@ -930,7 +930,7 @@ obj.MaxLoan = PV(obj.Rate, obj.Term, obj.Payment)
     }
 
     #[test]
-    fn test_pv_function_argument() {
+    fn pv_function_argument() {
         let source = r#"
 Call AnalyzeLoan(PV(monthlyRate, months, -payment), interestRate)
 "#;
@@ -941,7 +941,7 @@ Call AnalyzeLoan(PV(monthlyRate, months, -payment), interestRate)
     }
 
     #[test]
-    fn test_pv_arithmetic() {
+    fn pv_arithmetic() {
         let source = r#"
 Dim downPayment As Double
 downPayment = homePrice - Abs(PV(rate, nper, -payment))
@@ -953,7 +953,7 @@ downPayment = homePrice - Abs(PV(rate, nper, -payment))
     }
 
     #[test]
-    fn test_pv_concatenation() {
+    fn pv_concatenation() {
         let source = r#"
 Dim msg As String
 msg = "Maximum loan: $" & Format(Abs(PV(r, n, -pmt)), "0.00")
@@ -965,7 +965,7 @@ msg = "Maximum loan: $" & Format(Abs(PV(r, n, -pmt)), "0.00")
     }
 
     #[test]
-    fn test_pv_abs_function() {
+    fn pv_abs_function() {
         let source = r#"
 Dim displayValue As Double
 displayValue = Abs(PV(interestRate / 12, years * 12, -monthlyPayment))
@@ -977,7 +977,7 @@ displayValue = Abs(PV(interestRate / 12, years * 12, -monthlyPayment))
     }
 
     #[test]
-    fn test_pv_with_future_value() {
+    fn pv_with_future_value() {
         let source = r#"
 Dim lumpSumPV As Double
 lumpSumPV = Abs(PV(0.06, 10, 0, -50000))
@@ -989,7 +989,7 @@ lumpSumPV = Abs(PV(0.06, 10, 0, -50000))
     }
 
     #[test]
-    fn test_pv_error_handling() {
+    fn pv_error_handling() {
         let source = r#"
 On Error Resume Next
 presentValue = PV(rate, nper, pmt, fv, type)
@@ -1005,7 +1005,7 @@ On Error GoTo 0
     }
 
     #[test]
-    fn test_pv_on_error_goto() {
+    fn pv_on_error_goto() {
         let source = r#"
 Sub CalculatePresentValue()
     On Error GoTo ErrorHandler

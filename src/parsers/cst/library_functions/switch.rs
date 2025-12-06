@@ -488,7 +488,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_switch_basic() {
+    fn switch_basic() {
         let source = r#"
 Sub Test()
     result = Switch(x = 1, "One", x = 2, "Two", True, "Other")
@@ -500,7 +500,7 @@ End Sub
     }
 
     #[test]
-    fn test_switch_variable_assignment() {
+    fn switch_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim grade As String
@@ -514,7 +514,7 @@ End Sub
     }
 
     #[test]
-    fn test_switch_grade_calculation() {
+    fn switch_grade_calculation() {
         let source = r#"
 Sub Test()
     grade = Switch(score >= 90, "A", score >= 80, "B", score >= 70, "C", True, "F")
@@ -526,7 +526,7 @@ End Sub
     }
 
     #[test]
-    fn test_switch_function_return() {
+    fn switch_function_return() {
         let source = r#"
 Function GetStatus(code As Integer) As String
     GetStatus = Switch(code = 0, "OK", code = 1, "Warning", True, "Error")
@@ -538,7 +538,7 @@ End Function
     }
 
     #[test]
-    fn test_switch_if_statement() {
+    fn switch_if_statement() {
         let source = r#"
 Sub Test()
     If Switch(status = 1, True, status = 2, True, True, False) Then
@@ -552,7 +552,7 @@ End Sub
     }
 
     #[test]
-    fn test_switch_msgbox() {
+    fn switch_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox Switch(day = 1, "Monday", day = 2, "Tuesday", True, "Other")
@@ -564,7 +564,7 @@ End Sub
     }
 
     #[test]
-    fn test_switch_select_case() {
+    fn switch_select_case() {
         let source = r#"
 Sub Test()
     Select Case Switch(type = 1, "A", type = 2, "B", True, "C")
@@ -579,7 +579,7 @@ End Sub
     }
 
     #[test]
-    fn test_switch_for_loop() {
+    fn switch_for_loop() {
         let source = r#"
 Sub Test()
     For i = 1 To 10
@@ -593,7 +593,7 @@ End Sub
     }
 
     #[test]
-    fn test_switch_array_assignment() {
+    fn switch_array_assignment() {
         let source = r#"
 Sub Test()
     categories(i) = Switch(values(i) < 10, "Small", values(i) < 100, "Medium", True, "Large")
@@ -605,7 +605,7 @@ End Sub
     }
 
     #[test]
-    fn test_switch_function_argument() {
+    fn switch_function_argument() {
         let source = r#"
 Sub Test()
     Call DisplayMessage(Switch(level = 1, "Info", level = 2, "Warning", True, "Error"))
@@ -617,7 +617,7 @@ End Sub
     }
 
     #[test]
-    fn test_switch_comparison() {
+    fn switch_comparison() {
         let source = r#"
 Sub Test()
     If Switch(x > 10, True, y > 10, True, True, False) Then
@@ -631,7 +631,7 @@ End Sub
     }
 
     #[test]
-    fn test_switch_debug_print() {
+    fn switch_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print Switch(flag, "Enabled", True, "Disabled")
@@ -643,7 +643,7 @@ End Sub
     }
 
     #[test]
-    fn test_switch_do_while() {
+    fn switch_do_while() {
         let source = r#"
 Sub Test()
     Do While Switch(counter < 10, True, True, False)
@@ -657,7 +657,7 @@ End Sub
     }
 
     #[test]
-    fn test_switch_do_until() {
+    fn switch_do_until() {
         let source = r#"
 Sub Test()
     Do Until Switch(status = "Done", True, True, False)
@@ -671,7 +671,7 @@ End Sub
     }
 
     #[test]
-    fn test_switch_while_wend() {
+    fn switch_while_wend() {
         let source = r#"
 Sub Test()
     While Switch(i < max, True, True, False)
@@ -685,7 +685,7 @@ End Sub
     }
 
     #[test]
-    fn test_switch_iif() {
+    fn switch_iif() {
         let source = r#"
 Sub Test()
     result = IIf(flag, Switch(x = 1, "A", True, "B"), "Default")
@@ -697,7 +697,7 @@ End Sub
     }
 
     #[test]
-    fn test_switch_with_statement() {
+    fn switch_with_statement() {
         let source = r#"
 Sub Test()
     With obj
@@ -711,7 +711,7 @@ End Sub
     }
 
     #[test]
-    fn test_switch_parentheses() {
+    fn switch_parentheses() {
         let source = r#"
 Sub Test()
     result = (Switch(a > b, a, True, b))
@@ -723,7 +723,7 @@ End Sub
     }
 
     #[test]
-    fn test_switch_error_handling() {
+    fn switch_error_handling() {
         let source = r#"
 Sub Test()
     On Error Resume Next
@@ -739,7 +739,7 @@ End Sub
     }
 
     #[test]
-    fn test_switch_property_assignment() {
+    fn switch_property_assignment() {
         let source = r#"
 Sub Test()
     obj.Priority = Switch(urgent, "High", important, "Medium", True, "Low")
@@ -751,7 +751,7 @@ End Sub
     }
 
     #[test]
-    fn test_switch_concatenation() {
+    fn switch_concatenation() {
         let source = r#"
 Sub Test()
     message = "Status: " & Switch(code = 0, "OK", code = 1, "Error", True, "Unknown")
@@ -763,7 +763,7 @@ End Sub
     }
 
     #[test]
-    fn test_switch_numeric_result() {
+    fn switch_numeric_result() {
         let source = r#"
 Sub Test()
     discount = Switch(qty >= 100, 0.2, qty >= 50, 0.1, qty >= 10, 0.05, True, 0)
@@ -775,7 +775,7 @@ End Sub
     }
 
     #[test]
-    fn test_switch_print_statement() {
+    fn switch_print_statement() {
         let source = r#"
 Sub Test()
     Print #1, Switch(type = 1, "Type A", type = 2, "Type B", True, "Unknown")
@@ -787,7 +787,7 @@ End Sub
     }
 
     #[test]
-    fn test_switch_class_usage() {
+    fn switch_class_usage() {
         let source = r#"
 Sub Test()
     Set obj = New DataProcessor
@@ -800,7 +800,7 @@ End Sub
     }
 
     #[test]
-    fn test_switch_nested() {
+    fn switch_nested() {
         let source = r#"
 Sub Test()
     result = Switch(x > 0, Switch(x > 100, "Large", True, "Small"), True, "Negative")
@@ -812,7 +812,7 @@ End Sub
     }
 
     #[test]
-    fn test_switch_elseif() {
+    fn switch_elseif() {
         let source = r#"
 Sub Test()
     If x = 1 Then
@@ -828,7 +828,7 @@ End Sub
     }
 
     #[test]
-    fn test_switch_complex_conditions() {
+    fn switch_complex_conditions() {
         let source = r#"
 Sub Test()
     priority = Switch(urgent And important, "Critical", urgent, "High", important, "Medium", True, "Low")

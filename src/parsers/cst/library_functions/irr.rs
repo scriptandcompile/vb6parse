@@ -621,7 +621,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_irr_basic() {
+    fn irr_basic() {
         let source = r#"
 Sub Test()
     rate = IRR(cashFlows)
@@ -634,7 +634,7 @@ End Sub
     }
 
     #[test]
-    fn test_irr_with_guess() {
+    fn irr_with_guess() {
         let source = r#"
 Sub Test()
     rate = IRR(cashFlows, 0.1)
@@ -647,7 +647,7 @@ End Sub
     }
 
     #[test]
-    fn test_irr_array_literal() {
+    fn irr_array_literal() {
         let source = r#"
 Sub Test()
     Dim flows(0 To 4) As Double
@@ -661,7 +661,7 @@ End Sub
     }
 
     #[test]
-    fn test_irr_if_statement() {
+    fn irr_if_statement() {
         let source = r#"
 Sub Test()
     If IRR(cashFlows) > 0.15 Then
@@ -676,7 +676,7 @@ End Sub
     }
 
     #[test]
-    fn test_irr_function_return() {
+    fn irr_function_return() {
         let source = r#"
 Function CalculateReturn() As Double
     CalculateReturn = IRR(projectCashFlows)
@@ -689,7 +689,7 @@ End Function
     }
 
     #[test]
-    fn test_irr_comparison() {
+    fn irr_comparison() {
         let source = r#"
 Sub Test()
     If IRR(project1) > IRR(project2) Then
@@ -704,7 +704,7 @@ End Sub
     }
 
     #[test]
-    fn test_irr_format() {
+    fn irr_format() {
         let source = r#"
 Sub Test()
     formatted = Format$(IRR(cashFlows) * 100, "0.00") & "%"
@@ -717,7 +717,7 @@ End Sub
     }
 
     #[test]
-    fn test_irr_debug_print() {
+    fn irr_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print "IRR: " & Format$(IRR(cashFlows) * 100, "0.00") & "%"
@@ -730,7 +730,7 @@ End Sub
     }
 
     #[test]
-    fn test_irr_variable_assignment() {
+    fn irr_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim returnRate As Double
@@ -744,7 +744,7 @@ End Sub
     }
 
     #[test]
-    fn test_irr_property_assignment() {
+    fn irr_property_assignment() {
         let source = r#"
 Sub Test()
     investment.ReturnRate = IRR(investment.CashFlows)
@@ -757,7 +757,7 @@ End Sub
     }
 
     #[test]
-    fn test_irr_in_class() {
+    fn irr_in_class() {
         let source = r#"
 Private Sub Class_Initialize()
     m_irr = IRR(m_cashFlows)
@@ -770,7 +770,7 @@ End Sub
     }
 
     #[test]
-    fn test_irr_with_statement() {
+    fn irr_with_statement() {
         let source = r#"
 Sub Test()
     With project
@@ -785,7 +785,7 @@ End Sub
     }
 
     #[test]
-    fn test_irr_function_argument() {
+    fn irr_function_argument() {
         let source = r#"
 Sub Test()
     Call EvaluateInvestment(IRR(cashFlows))
@@ -798,7 +798,7 @@ End Sub
     }
 
     #[test]
-    fn test_irr_select_case() {
+    fn irr_select_case() {
         let source = r#"
 Sub Test()
     Select Case IRR(cashFlows)
@@ -816,7 +816,7 @@ End Sub
     }
 
     #[test]
-    fn test_irr_msgbox() {
+    fn irr_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Investment return: " & Format$(IRR(cashFlows) * 100, "0.00") & "%"
@@ -829,7 +829,7 @@ End Sub
     }
 
     #[test]
-    fn test_irr_collection_add() {
+    fn irr_collection_add() {
         let source = r#"
 Sub Test()
     results.Add IRR(projectFlows(i))
@@ -842,7 +842,7 @@ End Sub
     }
 
     #[test]
-    fn test_irr_math_expression() {
+    fn irr_math_expression() {
         let source = r#"
 Sub Test()
     spread = IRR(project1) - IRR(project2)
@@ -855,7 +855,7 @@ End Sub
     }
 
     #[test]
-    fn test_irr_iif() {
+    fn irr_iif() {
         let source = r#"
 Sub Test()
     decision = IIf(IRR(cashFlows) > hurdleRate, "Approve", "Reject")
@@ -868,7 +868,7 @@ End Sub
     }
 
     #[test]
-    fn test_irr_for_loop() {
+    fn irr_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Integer
@@ -884,7 +884,7 @@ End Sub
     }
 
     #[test]
-    fn test_irr_do_loop() {
+    fn irr_do_loop() {
         let source = r#"
 Sub Test()
     Do While IRR(currentFlows) < targetRate
@@ -899,7 +899,7 @@ End Sub
     }
 
     #[test]
-    fn test_irr_boolean_expression() {
+    fn irr_boolean_expression() {
         let source = r#"
 Sub Test()
     isAcceptable = IRR(cashFlows) > hurdleRate And totalCost < budget
@@ -912,7 +912,7 @@ End Sub
     }
 
     #[test]
-    fn test_irr_error_handling() {
+    fn irr_error_handling() {
         let source = r#"
 Sub Test()
     On Error Resume Next
@@ -929,7 +929,7 @@ End Sub
     }
 
     #[test]
-    fn test_irr_multiplication() {
+    fn irr_multiplication() {
         let source = r#"
 Sub Test()
     percentageRate = IRR(cashFlows) * 100
@@ -942,7 +942,7 @@ End Sub
     }
 
     #[test]
-    fn test_irr_parentheses() {
+    fn irr_parentheses() {
         let source = r#"
 Sub Test()
     value = (IRR(cashFlows))
@@ -955,7 +955,7 @@ End Sub
     }
 
     #[test]
-    fn test_irr_concatenation() {
+    fn irr_concatenation() {
         let source = r#"
 Sub Test()
     result = "IRR: " & IRR(cashFlows)
@@ -968,7 +968,7 @@ End Sub
     }
 
     #[test]
-    fn test_irr_array_access() {
+    fn irr_array_access() {
         let source = r#"
 Sub Test()
     projectRates(index) = IRR(projectCashFlows(index))
@@ -981,7 +981,7 @@ End Sub
     }
 
     #[test]
-    fn test_irr_nested_call() {
+    fn irr_nested_call() {
         let source = r#"
 Sub Test()
     percentage = CStr(IRR(cashFlows) * 100)

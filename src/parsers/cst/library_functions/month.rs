@@ -700,7 +700,7 @@ mod tests {
     use crate::parsers::cst::ConcreteSyntaxTree;
 
     #[test]
-    fn test_month_basic() {
+    fn month_basic() {
         let source = r#"
 Dim m As Integer
 m = Month(Now)
@@ -712,7 +712,7 @@ m = Month(Now)
     }
 
     #[test]
-    fn test_month_variable_assignment() {
+    fn month_variable_assignment() {
         let source = r#"
 Dim currentMonth As Integer
 currentMonth = Month(Date)
@@ -724,7 +724,7 @@ currentMonth = Month(Date)
     }
 
     #[test]
-    fn test_month_date_literal() {
+    fn month_date_literal() {
         let source = r#"
 Dim m As Integer
 m = Month(#3/15/2025#)
@@ -736,7 +736,7 @@ m = Month(#3/15/2025#)
     }
 
     #[test]
-    fn test_month_if_statement() {
+    fn month_if_statement() {
         let source = r#"
 If Month(orderDate) = 12 Then
     MsgBox "December order"
@@ -749,7 +749,7 @@ End If
     }
 
     #[test]
-    fn test_month_function_return() {
+    fn month_function_return() {
         let source = r#"
 Function GetCurrentMonth() As Integer
     GetCurrentMonth = Month(Date)
@@ -762,7 +762,7 @@ End Function
     }
 
     #[test]
-    fn test_month_select_case() {
+    fn month_select_case() {
         let source = r#"
 Select Case Month(transactionDate)
     Case 1, 2, 3
@@ -782,7 +782,7 @@ End Select
     }
 
     #[test]
-    fn test_month_debug_print() {
+    fn month_debug_print() {
         let source = r#"
 Debug.Print Month(Now)
 "#;
@@ -793,7 +793,7 @@ Debug.Print Month(Now)
     }
 
     #[test]
-    fn test_month_with_statement() {
+    fn month_with_statement() {
         let source = r#"
 With employeeRecord
     .HireMonth = Month(.HireDate)
@@ -806,7 +806,7 @@ End With
     }
 
     #[test]
-    fn test_month_elseif() {
+    fn month_elseif() {
         let source = r#"
 If x > 0 Then
     y = 1
@@ -821,7 +821,7 @@ End If
     }
 
     #[test]
-    fn test_month_parentheses() {
+    fn month_parentheses() {
         let source = r#"
 Dim m As Integer
 m = (Month(Date))
@@ -833,7 +833,7 @@ m = (Month(Date))
     }
 
     #[test]
-    fn test_month_iif() {
+    fn month_iif() {
         let source = r#"
 Dim result As String
 result = IIf(Month(Date) = 12, "December", "Other")
@@ -845,7 +845,7 @@ result = IIf(Month(Date) = 12, "December", "Other")
     }
 
     #[test]
-    fn test_month_class_usage() {
+    fn month_class_usage() {
         let source = r#"
 Private m_month As Integer
 
@@ -860,7 +860,7 @@ End Sub
     }
 
     #[test]
-    fn test_month_function_argument() {
+    fn month_function_argument() {
         let source = r#"
 Call ProcessMonth(Month(Date))
 "#;
@@ -871,7 +871,7 @@ Call ProcessMonth(Month(Date))
     }
 
     #[test]
-    fn test_month_property_assignment() {
+    fn month_property_assignment() {
         let source = r#"
 Set obj = New DateInfo
 obj.CurrentMonth = Month(Date)
@@ -883,7 +883,7 @@ obj.CurrentMonth = Month(Date)
     }
 
     #[test]
-    fn test_month_array_assignment() {
+    fn month_array_assignment() {
         let source = r#"
 Dim months(10) As Integer
 Dim i As Integer
@@ -896,7 +896,7 @@ months(i) = Month(Date)
     }
 
     #[test]
-    fn test_month_for_loop() {
+    fn month_for_loop() {
         let source = r#"
 Dim i As Integer
 For i = 0 To 10
@@ -910,7 +910,7 @@ Next i
     }
 
     #[test]
-    fn test_month_while_wend() {
+    fn month_while_wend() {
         let source = r#"
 While Month(currentDate) <= 6
     currentDate = DateAdd("m", 1, currentDate)
@@ -923,7 +923,7 @@ Wend
     }
 
     #[test]
-    fn test_month_do_while() {
+    fn month_do_while() {
         let source = r#"
 Do While Month(endDate) < 12
     endDate = DateAdd("m", 1, endDate)
@@ -936,7 +936,7 @@ Loop
     }
 
     #[test]
-    fn test_month_do_until() {
+    fn month_do_until() {
         let source = r#"
 Do Until Month(targetDate) = 1
     targetDate = DateAdd("m", 1, targetDate)
@@ -949,7 +949,7 @@ Loop
     }
 
     #[test]
-    fn test_month_msgbox() {
+    fn month_msgbox() {
         let source = r#"
 MsgBox "Current month: " & Month(Now)
 "#;
@@ -960,7 +960,7 @@ MsgBox "Current month: " & Month(Now)
     }
 
     #[test]
-    fn test_month_concatenation() {
+    fn month_concatenation() {
         let source = r#"
 Dim dateStr As String
 dateStr = Year(Date) & "/" & Month(Date) & "/" & Day(Date)
@@ -972,7 +972,7 @@ dateStr = Year(Date) & "/" & Month(Date) & "/" & Day(Date)
     }
 
     #[test]
-    fn test_month_comparison() {
+    fn month_comparison() {
         let source = r#"
 If Month(date1) = Month(date2) Then
     MsgBox "Same month"
@@ -985,7 +985,7 @@ End If
     }
 
     #[test]
-    fn test_month_format() {
+    fn month_format() {
         let source = r#"
 Dim formatted As String
 formatted = Format(Month(Date), "00")
@@ -997,7 +997,7 @@ formatted = Format(Month(Date), "00")
     }
 
     #[test]
-    fn test_month_arithmetic() {
+    fn month_arithmetic() {
         let source = r#"
 Dim quarter As Integer
 quarter = ((Month(Date) - 1) \ 3) + 1
@@ -1009,7 +1009,7 @@ quarter = ((Month(Date) - 1) \ 3) + 1
     }
 
     #[test]
-    fn test_month_label_caption() {
+    fn month_label_caption() {
         let source = r#"
 lblMonth.Caption = "Month: " & CStr(Month(Date))
 "#;
@@ -1020,7 +1020,7 @@ lblMonth.Caption = "Month: " & CStr(Month(Date))
     }
 
     #[test]
-    fn test_month_calculation() {
+    fn month_calculation() {
         let source = r#"
 Dim fiscalPeriod As Integer
 fiscalPeriod = Month(Date) - 9
@@ -1033,7 +1033,7 @@ If fiscalPeriod <= 0 Then fiscalPeriod = fiscalPeriod + 12
     }
 
     #[test]
-    fn test_month_mod_operator() {
+    fn month_mod_operator() {
         let source = r#"
 If Month(Date) Mod 3 = 0 Then
     MsgBox "Quarter end month"

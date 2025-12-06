@@ -400,7 +400,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_formatpercent_basic() {
+    fn formatpercent_basic() {
         let source = r#"result = FormatPercent(0.75)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -409,7 +409,7 @@ mod tests {
     }
 
     #[test]
-    fn test_formatpercent_with_decimals() {
+    fn formatpercent_with_decimals() {
         let source = r#"result = FormatPercent(0.3333, 2)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -418,7 +418,7 @@ mod tests {
     }
 
     #[test]
-    fn test_formatpercent_no_decimals() {
+    fn formatpercent_no_decimals() {
         let source = r#"result = FormatPercent(0.87, 0)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -427,7 +427,7 @@ mod tests {
     }
 
     #[test]
-    fn test_formatpercent_with_parentheses() {
+    fn formatpercent_with_parentheses() {
         let source = r#"result = FormatPercent(-0.05, 2, , vbTrue)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -436,7 +436,7 @@ mod tests {
     }
 
     #[test]
-    fn test_formatpercent_all_parameters() {
+    fn formatpercent_all_parameters() {
         let source = r#"result = FormatPercent(0.125, 1, vbTrue, vbFalse, vbTrue)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -445,7 +445,7 @@ mod tests {
     }
 
     #[test]
-    fn test_formatpercent_in_debug_print() {
+    fn formatpercent_in_debug_print() {
         let source = r#"Debug.Print FormatPercent(0.5, 0)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -454,7 +454,7 @@ mod tests {
     }
 
     #[test]
-    fn test_formatpercent_concatenation() {
+    fn formatpercent_concatenation() {
         let source = r#"MsgBox "Success Rate: " & FormatPercent(rate, 1)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -463,7 +463,7 @@ mod tests {
     }
 
     #[test]
-    fn test_formatpercent_in_function() {
+    fn formatpercent_in_function() {
         let source = r#"lblMargin.Caption = "Profit Margin: " & FormatPercent(margin, 2)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -472,7 +472,7 @@ mod tests {
     }
 
     #[test]
-    fn test_formatpercent_division() {
+    fn formatpercent_division() {
         let source = r#"txtResult.Text = FormatPercent(yesVotes / totalVotes, 1)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -481,7 +481,7 @@ mod tests {
     }
 
     #[test]
-    fn test_formatpercent_calculation() {
+    fn formatpercent_calculation() {
         let source = r#"MsgBox "Growth: " & FormatPercent((currentValue - previousValue) / previousValue, 1)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -490,7 +490,7 @@ mod tests {
     }
 
     #[test]
-    fn test_formatpercent_assignment() {
+    fn formatpercent_assignment() {
         let source = r#"lblGrade.Caption = "Score: " & FormatPercent(score / maxScore, 0)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -499,7 +499,7 @@ mod tests {
     }
 
     #[test]
-    fn test_formatpercent_listbox() {
+    fn formatpercent_listbox() {
         let source = r#"lstResults.AddItem FormatPercent(values(i) / total, 1)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -508,7 +508,7 @@ mod tests {
     }
 
     #[test]
-    fn test_formatpercent_multiline() {
+    fn formatpercent_multiline() {
         let source = r#"report = "Passed: " & FormatPercent(passed / total, 1) & vbCrLf & "Failed: " & FormatPercent(failed / total, 1)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -517,7 +517,7 @@ mod tests {
     }
 
     #[test]
-    fn test_formatpercent_in_if() {
+    fn formatpercent_in_if() {
         let source = r#"If value < 0.01 Then result = FormatPercent(value, 3)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -526,7 +526,7 @@ mod tests {
     }
 
     #[test]
-    fn test_formatpercent_null_check() {
+    fn formatpercent_null_check() {
         let source =
             r#"If IsNull(value) Then Exit Function Else result = FormatPercent(CDbl(value), 2)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
@@ -536,7 +536,7 @@ mod tests {
     }
 
     #[test]
-    fn test_formatpercent_numeric_check() {
+    fn formatpercent_numeric_check() {
         let source =
             r#"If Not IsNumeric(value) Then Exit Function Else result = FormatPercent(value, 2)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
@@ -546,7 +546,7 @@ mod tests {
     }
 
     #[test]
-    fn test_formatpercent_error_handling() {
+    fn formatpercent_error_handling() {
         let source = r#"On Error GoTo ErrorHandler
 result = FormatPercent(value, 2)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
@@ -556,7 +556,7 @@ result = FormatPercent(value, 2)"#;
     }
 
     #[test]
-    fn test_formatpercent_for_loop() {
+    fn formatpercent_for_loop() {
         let source = r#"For i = 1 To 10
     Debug.Print FormatPercent(data(i), 2)
 Next i"#;
@@ -567,7 +567,7 @@ Next i"#;
     }
 
     #[test]
-    fn test_formatpercent_select_case() {
+    fn formatpercent_select_case() {
         let source = r#"Select Case absValue
     Case Is < 0.01
         result = FormatPercent(value, 3)
@@ -579,7 +579,7 @@ End Select"#;
     }
 
     #[test]
-    fn test_formatpercent_comparison() {
+    fn formatpercent_comparison() {
         let source = r#"lblStatus.Caption = "Achievement: " & FormatPercent(actual / target, 1)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -588,7 +588,7 @@ End Select"#;
     }
 
     #[test]
-    fn test_formatpercent_vbfalse() {
+    fn formatpercent_vbfalse() {
         let source = r#"result = FormatPercent(0.005, 2, vbFalse)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -597,7 +597,7 @@ End Select"#;
     }
 
     #[test]
-    fn test_formatpercent_vbtrue() {
+    fn formatpercent_vbtrue() {
         let source = r#"result = FormatPercent(0.005, 2, vbTrue)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -606,7 +606,7 @@ End Select"#;
     }
 
     #[test]
-    fn test_formatpercent_recordset() {
+    fn formatpercent_recordset() {
         let source = r#"Debug.Print FormatPercent(rs("CompletionRate"), 0)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -615,7 +615,7 @@ End Select"#;
     }
 
     #[test]
-    fn test_formatpercent_iif() {
+    fn formatpercent_iif() {
         let source = r#"result = IIf(value > 1, FormatPercent(value, 0), FormatPercent(value, 2))"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -624,7 +624,7 @@ End Select"#;
     }
 
     #[test]
-    fn test_formatpercent_negative() {
+    fn formatpercent_negative() {
         let source = r#"result = FormatPercent(-0.15)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -633,7 +633,7 @@ End Select"#;
     }
 
     #[test]
-    fn test_formatpercent_large_value() {
+    fn formatpercent_large_value() {
         let source = r#"result = FormatPercent(1.25, 2)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();

@@ -398,7 +398,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_imestatus_basic() {
+    fn imestatus_basic() {
         let source = r#"
 Sub Test()
     status = IMEStatus()
@@ -411,7 +411,7 @@ End Sub
     }
 
     #[test]
-    fn test_imestatus_in_function() {
+    fn imestatus_in_function() {
         let source = r#"
 Function GetIMEMode() As Integer
     GetIMEMode = IMEStatus()
@@ -424,7 +424,7 @@ End Function
     }
 
     #[test]
-    fn test_imestatus_if_statement() {
+    fn imestatus_if_statement() {
         let source = r#"
 Sub Test()
     If IMEStatus() = vbIMEOn Then
@@ -439,7 +439,7 @@ End Sub
     }
 
     #[test]
-    fn test_imestatus_select_case() {
+    fn imestatus_select_case() {
         let source = r#"
 Sub Test()
     Select Case IMEStatus()
@@ -457,7 +457,7 @@ End Sub
     }
 
     #[test]
-    fn test_imestatus_comparison() {
+    fn imestatus_comparison() {
         let source = r#"
 Sub Test()
     If IMEStatus() <> vbIMENoOp Then
@@ -472,7 +472,7 @@ End Sub
     }
 
     #[test]
-    fn test_imestatus_debug_print() {
+    fn imestatus_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print IMEStatus()
@@ -485,7 +485,7 @@ End Sub
     }
 
     #[test]
-    fn test_imestatus_assignment() {
+    fn imestatus_assignment() {
         let source = r#"
 Sub Test()
     Dim mode As Integer
@@ -499,7 +499,7 @@ End Sub
     }
 
     #[test]
-    fn test_imestatus_msgbox() {
+    fn imestatus_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "IME Status: " & IMEStatus()
@@ -512,7 +512,7 @@ End Sub
     }
 
     #[test]
-    fn test_imestatus_concatenation() {
+    fn imestatus_concatenation() {
         let source = r#"
 Sub Test()
     msg = "Current mode: " & CStr(IMEStatus())
@@ -525,7 +525,7 @@ End Sub
     }
 
     #[test]
-    fn test_imestatus_with_parentheses() {
+    fn imestatus_with_parentheses() {
         let source = r#"
 Sub Test()
     value = (IMEStatus())
@@ -538,7 +538,7 @@ End Sub
     }
 
     #[test]
-    fn test_imestatus_in_do_loop() {
+    fn imestatus_in_do_loop() {
         let source = r#"
 Sub Test()
     Do While IMEStatus() = vbIMENoOp
@@ -553,7 +553,7 @@ End Sub
     }
 
     #[test]
-    fn test_imestatus_class_member() {
+    fn imestatus_class_member() {
         let source = r#"
 Private Sub Class_Initialize()
     m_imeMode = IMEStatus()
@@ -566,7 +566,7 @@ End Sub
     }
 
     #[test]
-    fn test_imestatus_multiple_comparison() {
+    fn imestatus_multiple_comparison() {
         let source = r#"
 Sub Test()
     If IMEStatus() = vbIMEHiragana Or IMEStatus() = vbIMEKatakanaFull Then
@@ -581,7 +581,7 @@ End Sub
     }
 
     #[test]
-    fn test_imestatus_function_argument() {
+    fn imestatus_function_argument() {
         let source = r#"
 Sub Test()
     Call ProcessMode(IMEStatus())
@@ -594,7 +594,7 @@ End Sub
     }
 
     #[test]
-    fn test_imestatus_property_assignment() {
+    fn imestatus_property_assignment() {
         let source = r#"
 Sub Test()
     obj.IMEMode = IMEStatus()
@@ -607,7 +607,7 @@ End Sub
     }
 
     #[test]
-    fn test_imestatus_array_assignment() {
+    fn imestatus_array_assignment() {
         let source = r#"
 Sub Test()
     modes(0) = IMEStatus()
@@ -620,7 +620,7 @@ End Sub
     }
 
     #[test]
-    fn test_imestatus_with_statement() {
+    fn imestatus_with_statement() {
         let source = r#"
 Sub Test()
     With statusInfo
@@ -635,7 +635,7 @@ End Sub
     }
 
     #[test]
-    fn test_imestatus_in_for_loop() {
+    fn imestatus_in_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Integer
@@ -651,7 +651,7 @@ End Sub
     }
 
     #[test]
-    fn test_imestatus_nested_call() {
+    fn imestatus_nested_call() {
         let source = r#"
 Sub Test()
     result = CStr(IMEStatus())
@@ -664,7 +664,7 @@ End Sub
     }
 
     #[test]
-    fn test_imestatus_iif() {
+    fn imestatus_iif() {
         let source = r#"
 Sub Test()
     msg = IIf(IMEStatus() = vbIMEOn, "On", "Off")
@@ -677,7 +677,7 @@ End Sub
     }
 
     #[test]
-    fn test_imestatus_range_check() {
+    fn imestatus_range_check() {
         let source = r#"
 Sub Test()
     Dim status As Integer
@@ -694,7 +694,7 @@ End Sub
     }
 
     #[test]
-    fn test_imestatus_collection_add() {
+    fn imestatus_collection_add() {
         let source = r#"
 Sub Test()
     col.Add IMEStatus()
@@ -707,7 +707,7 @@ End Sub
     }
 
     #[test]
-    fn test_imestatus_return_value() {
+    fn imestatus_return_value() {
         let source = r#"
 Function CheckIME() As Integer
     CheckIME = IMEStatus()
@@ -720,7 +720,7 @@ End Function
     }
 
     #[test]
-    fn test_imestatus_type_field() {
+    fn imestatus_type_field() {
         let source = r#"
 Sub Test()
     Dim info As SystemInfo
@@ -734,7 +734,7 @@ End Sub
     }
 
     #[test]
-    fn test_imestatus_boolean_expression() {
+    fn imestatus_boolean_expression() {
         let source = r#"
 Sub Test()
     isEnabled = (IMEStatus() <> vbIMENoOp)
@@ -747,7 +747,7 @@ End Sub
     }
 
     #[test]
-    fn test_imestatus_format() {
+    fn imestatus_format() {
         let source = r#"
 Sub Test()
     text = "Mode: " & Format$(IMEStatus(), "0")
@@ -760,7 +760,7 @@ End Sub
     }
 
     #[test]
-    fn test_imestatus_timer_event() {
+    fn imestatus_timer_event() {
         let source = r#"
 Private Sub Timer1_Timer()
     lblStatus.Caption = "IME: " & IMEStatus()

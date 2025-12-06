@@ -786,7 +786,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_getallsettings_basic() {
+    fn getallsettings_basic() {
         let source = r#"allSettings = GetAllSettings("MyApp", "Preferences")"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -795,7 +795,7 @@ mod tests {
     }
 
     #[test]
-    fn test_getallsettings_with_variable() {
+    fn getallsettings_with_variable() {
         let source = r#"settings = GetAllSettings(appName, sectionName)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -804,7 +804,7 @@ mod tests {
     }
 
     #[test]
-    fn test_getallsettings_app_title() {
+    fn getallsettings_app_title() {
         let source = r#"settings = GetAllSettings(App.Title, "WindowPos")"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -813,7 +813,7 @@ mod tests {
     }
 
     #[test]
-    fn test_getallsettings_if_check() {
+    fn getallsettings_if_check() {
         let source = r#"If IsEmpty(GetAllSettings("MyApp", "Config")) Then MsgBox "No settings""#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -822,7 +822,7 @@ mod tests {
     }
 
     #[test]
-    fn test_getallsettings_in_function() {
+    fn getallsettings_in_function() {
         let source = r#"Function LoadSettings() As Variant
     LoadSettings = GetAllSettings(App.Title, "General")
 End Function"#;
@@ -833,7 +833,7 @@ End Function"#;
     }
 
     #[test]
-    fn test_getallsettings_for_loop() {
+    fn getallsettings_for_loop() {
         let source = r#"For i = LBound(settings, 1) To UBound(settings, 1)
     Debug.Print settings(i, 0)
 Next i"#;
@@ -843,7 +843,7 @@ Next i"#;
     }
 
     #[test]
-    fn test_getallsettings_array_access() {
+    fn getallsettings_array_access() {
         let source = r#"value = allSettings(i, 0) & " = " & allSettings(i, 1)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -851,7 +851,7 @@ Next i"#;
     }
 
     #[test]
-    fn test_getallsettings_select_case() {
+    fn getallsettings_select_case() {
         let source = r#"Select Case allSettings(j, 0)
     Case "Theme"
         ApplyTheme allSettings(j, 1)
@@ -862,7 +862,7 @@ End Select"#;
     }
 
     #[test]
-    fn test_getallsettings_dim_statement() {
+    fn getallsettings_dim_statement() {
         let source = r#"Dim settings As Variant
 settings = GetAllSettings("MyApp", "Settings")"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
@@ -872,7 +872,7 @@ settings = GetAllSettings("MyApp", "Settings")"#;
     }
 
     #[test]
-    fn test_getallsettings_not_isempty() {
+    fn getallsettings_not_isempty() {
         let source = r#"If Not IsEmpty(GetAllSettings(appName, section)) Then ProcessSettings"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -881,7 +881,7 @@ settings = GetAllSettings("MyApp", "Settings")"#;
     }
 
     #[test]
-    fn test_getallsettings_debug_print() {
+    fn getallsettings_debug_print() {
         let source =
             r#"Debug.Print "Settings count: " & (UBound(GetAllSettings(appName, section), 1) + 1)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
@@ -891,7 +891,7 @@ settings = GetAllSettings("MyApp", "Settings")"#;
     }
 
     #[test]
-    fn test_getallsettings_msgbox() {
+    fn getallsettings_msgbox() {
         let source =
             r#"MsgBox "Found " & (UBound(GetAllSettings("App", "Section"), 1) + 1) & " settings""#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
@@ -901,7 +901,7 @@ settings = GetAllSettings("MyApp", "Settings")"#;
     }
 
     #[test]
-    fn test_getallsettings_error_handling() {
+    fn getallsettings_error_handling() {
         let source = r#"On Error GoTo ErrorHandler
 settings = GetAllSettings(appName, section)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
@@ -911,7 +911,7 @@ settings = GetAllSettings(appName, section)"#;
     }
 
     #[test]
-    fn test_getallsettings_listbox() {
+    fn getallsettings_listbox() {
         let source = r#"lst.AddItem allSettings(i, 0) & " = " & allSettings(i, 1)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -919,7 +919,7 @@ settings = GetAllSettings(appName, section)"#;
     }
 
     #[test]
-    fn test_getallsettings_collection_add() {
+    fn getallsettings_collection_add() {
         let source = r#"prefs.Add settings(i, 1), settings(i, 0)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -927,7 +927,7 @@ settings = GetAllSettings(appName, section)"#;
     }
 
     #[test]
-    fn test_getallsettings_file_export() {
+    fn getallsettings_file_export() {
         let source = r#"Print #fileNum, settings(i, 0) & "=" & settings(i, 1)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -935,7 +935,7 @@ settings = GetAllSettings(appName, section)"#;
     }
 
     #[test]
-    fn test_getallsettings_comparison() {
+    fn getallsettings_comparison() {
         let source = r#"If settings1(i, 0) <> settings2(i, 0) Then changed = True"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -943,7 +943,7 @@ settings = GetAllSettings(appName, section)"#;
     }
 
     #[test]
-    fn test_getallsettings_dictionary() {
+    fn getallsettings_dictionary() {
         let source = r#"dict.Add settings(i, 0), settings(i, 1)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -951,7 +951,7 @@ settings = GetAllSettings(appName, section)"#;
     }
 
     #[test]
-    fn test_getallsettings_inputbox() {
+    fn getallsettings_inputbox() {
         let source = r#"newValue = InputBox("Enter new value for: " & settings(i, 0), "Edit Setting", settings(i, 1))"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -959,7 +959,7 @@ settings = GetAllSettings(appName, section)"#;
     }
 
     #[test]
-    fn test_getallsettings_class_member() {
+    fn getallsettings_class_member() {
         let source = r#"m_Settings = GetAllSettings(m_AppName, m_Section)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -968,7 +968,7 @@ settings = GetAllSettings(appName, section)"#;
     }
 
     #[test]
-    fn test_getallsettings_type_field() {
+    fn getallsettings_type_field() {
         let source = r#"backup.Settings = GetAllSettings(appName, section)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -977,7 +977,7 @@ settings = GetAllSettings(appName, section)"#;
     }
 
     #[test]
-    fn test_getallsettings_do_loop() {
+    fn getallsettings_do_loop() {
         let source = r#"Do While i <= UBound(settings, 1)
     ProcessSetting settings(i, 0), settings(i, 1)
     i = i + 1
@@ -988,7 +988,7 @@ Loop"#;
     }
 
     #[test]
-    fn test_getallsettings_concatenation() {
+    fn getallsettings_concatenation() {
         let source = r#"msg = "Key: " & settings(i, 0) & " Value: " & settings(i, 1)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -996,7 +996,7 @@ Loop"#;
     }
 
     #[test]
-    fn test_getallsettings_redim() {
+    fn getallsettings_redim() {
         let source = r#"ReDim decrypted(LBound(settings, 1) To UBound(settings, 1), 0 To 1)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -1004,7 +1004,7 @@ Loop"#;
     }
 
     #[test]
-    fn test_getallsettings_savesetting() {
+    fn getallsettings_savesetting() {
         let source = r#"SaveSetting appName, section, settings(i, 0), settings(i, 1)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -1012,7 +1012,7 @@ Loop"#;
     }
 
     #[test]
-    fn test_getallsettings_property() {
+    fn getallsettings_property() {
         let source = r#"If IsEmpty(m_Settings) Then SettingCount = 0"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();

@@ -558,7 +558,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_left_basic() {
+    fn left_basic() {
         let source = r#"
 Sub Test()
     result = Left(myString, 5)
@@ -571,7 +571,7 @@ End Sub
     }
 
     #[test]
-    fn test_left_string_literal() {
+    fn left_string_literal() {
         let source = r#"
 Sub Test()
     result = Left("Hello World", 5)
@@ -584,7 +584,7 @@ End Sub
     }
 
     #[test]
-    fn test_left_if_statement() {
+    fn left_if_statement() {
         let source = r#"
 Sub Test()
     If Left(fileName, 3) = "C:\" Then
@@ -599,7 +599,7 @@ End Sub
     }
 
     #[test]
-    fn test_left_function_return() {
+    fn left_function_return() {
         let source = r#"
 Function GetPrefix(text As String) As String
     GetPrefix = Left(text, 3)
@@ -612,7 +612,7 @@ End Function
     }
 
     #[test]
-    fn test_left_debug_print() {
+    fn left_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print Left("Testing", 4)
@@ -625,7 +625,7 @@ End Sub
     }
 
     #[test]
-    fn test_left_msgbox() {
+    fn left_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox Left(message, 50)
@@ -638,7 +638,7 @@ End Sub
     }
 
     #[test]
-    fn test_left_variable_assignment() {
+    fn left_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim prefix As String
@@ -652,7 +652,7 @@ End Sub
     }
 
     #[test]
-    fn test_left_property_assignment() {
+    fn left_property_assignment() {
         let source = r#"
 Sub Test()
     obj.Prefix = Left(obj.FullText, 10)
@@ -665,7 +665,7 @@ End Sub
     }
 
     #[test]
-    fn test_left_concatenation() {
+    fn left_concatenation() {
         let source = r#"
 Sub Test()
     result = "Prefix: " & Left(data, 5)
@@ -678,7 +678,7 @@ End Sub
     }
 
     #[test]
-    fn test_left_in_class() {
+    fn left_in_class() {
         let source = r#"
 Private Sub Class_Initialize()
     m_code = Left(m_identifier, 3)
@@ -691,7 +691,7 @@ End Sub
     }
 
     #[test]
-    fn test_left_with_statement() {
+    fn left_with_statement() {
         let source = r#"
 Sub Test()
     With record
@@ -706,7 +706,7 @@ End Sub
     }
 
     #[test]
-    fn test_left_function_argument() {
+    fn left_function_argument() {
         let source = r#"
 Sub Test()
     Call ProcessPrefix(Left(identifier, 2))
@@ -719,7 +719,7 @@ End Sub
     }
 
     #[test]
-    fn test_left_select_case() {
+    fn left_select_case() {
         let source = r#"
 Sub Test()
     Select Case Left(command, 4)
@@ -737,7 +737,7 @@ End Sub
     }
 
     #[test]
-    fn test_left_for_loop() {
+    fn left_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Integer
@@ -753,7 +753,7 @@ End Sub
     }
 
     #[test]
-    fn test_left_elseif() {
+    fn left_elseif() {
         let source = r#"
 Sub Test()
     If Left(code, 2) = "AA" Then
@@ -770,7 +770,7 @@ End Sub
     }
 
     #[test]
-    fn test_left_iif() {
+    fn left_iif() {
         let source = r#"
 Sub Test()
     result = IIf(Left(name, 2) = "Mr", "Male", "Unknown")
@@ -783,7 +783,7 @@ End Sub
     }
 
     #[test]
-    fn test_left_parentheses() {
+    fn left_parentheses() {
         let source = r#"
 Sub Test()
     result = (Left(text, 10))
@@ -796,7 +796,7 @@ End Sub
     }
 
     #[test]
-    fn test_left_array_assignment() {
+    fn left_array_assignment() {
         let source = r#"
 Sub Test()
     codes(i) = Left(fullCodes(i), 4)
@@ -809,7 +809,7 @@ End Sub
     }
 
     #[test]
-    fn test_left_collection_add() {
+    fn left_collection_add() {
         let source = r#"
 Sub Test()
     prefixes.Add Left(names(i), 1)
@@ -822,7 +822,7 @@ End Sub
     }
 
     #[test]
-    fn test_left_nested_call() {
+    fn left_nested_call() {
         let source = r#"
 Sub Test()
     result = UCase(Left(name, 1))
@@ -835,7 +835,7 @@ End Sub
     }
 
     #[test]
-    fn test_left_while_wend() {
+    fn left_while_wend() {
         let source = r#"
 Sub Test()
     While Left(line, 1) = " "
@@ -850,7 +850,7 @@ End Sub
     }
 
     #[test]
-    fn test_left_do_while() {
+    fn left_do_while() {
         let source = r#"
 Sub Test()
     Do While Left(buffer, 2) <> "END"
@@ -865,7 +865,7 @@ End Sub
     }
 
     #[test]
-    fn test_left_do_until() {
+    fn left_do_until() {
         let source = r#"
 Sub Test()
     Do Until Left(input, 4) = "QUIT"
@@ -880,7 +880,7 @@ End Sub
     }
 
     #[test]
-    fn test_left_comparison() {
+    fn left_comparison() {
         let source = r#"
 Sub Test()
     If Left(str1, 3) = Left(str2, 3) Then
@@ -895,7 +895,7 @@ End Sub
     }
 
     #[test]
-    fn test_left_with_len() {
+    fn left_with_len() {
         let source = r#"
 Sub Test()
     initial = Left(name, Len(name) - 1)
@@ -908,7 +908,7 @@ End Sub
     }
 
     #[test]
-    fn test_left_truncate() {
+    fn left_truncate() {
         let source = r#"
 Function Truncate(text As String, maxLen As Long) As String
     If Len(text) > maxLen Then
@@ -925,7 +925,7 @@ End Function
     }
 
     #[test]
-    fn test_left_startswith() {
+    fn left_startswith() {
         let source = r#"
 Function StartsWith(text As String, prefix As String) As Boolean
     StartsWith = (Left(text, Len(prefix)) = prefix)

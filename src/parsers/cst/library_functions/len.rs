@@ -582,7 +582,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_len_basic() {
+    fn len_basic() {
         let source = r#"
 Sub Test()
     result = Len(myString)
@@ -595,7 +595,7 @@ End Sub
     }
 
     #[test]
-    fn test_len_string_literal() {
+    fn len_string_literal() {
         let source = r#"
 Sub Test()
     result = Len("Hello World")
@@ -608,7 +608,7 @@ End Sub
     }
 
     #[test]
-    fn test_len_if_statement() {
+    fn len_if_statement() {
         let source = r#"
 Sub Test()
     If Len(password) < 8 Then
@@ -623,7 +623,7 @@ End Sub
     }
 
     #[test]
-    fn test_len_function_return() {
+    fn len_function_return() {
         let source = r#"
 Function GetLength(text As String) As Long
     GetLength = Len(text)
@@ -636,7 +636,7 @@ End Function
     }
 
     #[test]
-    fn test_len_for_loop() {
+    fn len_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Long
@@ -652,7 +652,7 @@ End Sub
     }
 
     #[test]
-    fn test_len_debug_print() {
+    fn len_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print Len("Test")
@@ -665,7 +665,7 @@ End Sub
     }
 
     #[test]
-    fn test_len_msgbox() {
+    fn len_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Length: " & Len(text)
@@ -678,7 +678,7 @@ End Sub
     }
 
     #[test]
-    fn test_len_variable_assignment() {
+    fn len_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim length As Long
@@ -692,7 +692,7 @@ End Sub
     }
 
     #[test]
-    fn test_len_property_assignment() {
+    fn len_property_assignment() {
         let source = r#"
 Sub Test()
     obj.Length = Len(obj.Text)
@@ -705,7 +705,7 @@ End Sub
     }
 
     #[test]
-    fn test_len_comparison() {
+    fn len_comparison() {
         let source = r#"
 Sub Test()
     If Len(str1) = Len(str2) Then
@@ -720,7 +720,7 @@ End Sub
     }
 
     #[test]
-    fn test_len_arithmetic() {
+    fn len_arithmetic() {
         let source = r#"
 Sub Test()
     position = Len(text) - 5
@@ -733,7 +733,7 @@ End Sub
     }
 
     #[test]
-    fn test_len_in_class() {
+    fn len_in_class() {
         let source = r#"
 Private Sub Class_Initialize()
     m_length = Len(m_text)
@@ -746,7 +746,7 @@ End Sub
     }
 
     #[test]
-    fn test_len_with_statement() {
+    fn len_with_statement() {
         let source = r#"
 Sub Test()
     With record
@@ -761,7 +761,7 @@ End Sub
     }
 
     #[test]
-    fn test_len_function_argument() {
+    fn len_function_argument() {
         let source = r#"
 Sub Test()
     Call ValidateLength(Len(input))
@@ -774,7 +774,7 @@ End Sub
     }
 
     #[test]
-    fn test_len_select_case() {
+    fn len_select_case() {
         let source = r#"
 Sub Test()
     Select Case Len(code)
@@ -792,7 +792,7 @@ End Sub
     }
 
     #[test]
-    fn test_len_elseif() {
+    fn len_elseif() {
         let source = r#"
 Sub Test()
     If Len(text) = 0 Then
@@ -809,7 +809,7 @@ End Sub
     }
 
     #[test]
-    fn test_len_iif() {
+    fn len_iif() {
         let source = r#"
 Sub Test()
     result = IIf(Len(text) > 0, text, "Empty")
@@ -822,7 +822,7 @@ End Sub
     }
 
     #[test]
-    fn test_len_parentheses() {
+    fn len_parentheses() {
         let source = r#"
 Sub Test()
     result = (Len(text))
@@ -835,7 +835,7 @@ End Sub
     }
 
     #[test]
-    fn test_len_array_assignment() {
+    fn len_array_assignment() {
         let source = r#"
 Sub Test()
     lengths(i) = Len(strings(i))
@@ -848,7 +848,7 @@ End Sub
     }
 
     #[test]
-    fn test_len_collection_add() {
+    fn len_collection_add() {
         let source = r#"
 Sub Test()
     sizes.Add Len(values(i))
@@ -861,7 +861,7 @@ End Sub
     }
 
     #[test]
-    fn test_len_concatenation() {
+    fn len_concatenation() {
         let source = r#"
 Sub Test()
     info = "Length: " & Len(data) & " chars"
@@ -874,7 +874,7 @@ End Sub
     }
 
     #[test]
-    fn test_len_while_wend() {
+    fn len_while_wend() {
         let source = r#"
 Sub Test()
     While Len(buffer) < maxSize
@@ -889,7 +889,7 @@ End Sub
     }
 
     #[test]
-    fn test_len_do_while() {
+    fn len_do_while() {
         let source = r#"
 Sub Test()
     Do While Len(input) > 0
@@ -904,7 +904,7 @@ End Sub
     }
 
     #[test]
-    fn test_len_do_until() {
+    fn len_do_until() {
         let source = r#"
 Sub Test()
     Do Until Len(result) >= targetLen
@@ -919,7 +919,7 @@ End Sub
     }
 
     #[test]
-    fn test_len_with_left() {
+    fn len_with_left() {
         let source = r#"
 Sub Test()
     prefix = Left(text, Len(text) - 1)
@@ -932,7 +932,7 @@ End Sub
     }
 
     #[test]
-    fn test_len_validation() {
+    fn len_validation() {
         let source = r#"
 Function IsValidLength(text As String) As Boolean
     IsValidLength = (Len(text) >= 3 And Len(text) <= 50)
@@ -945,7 +945,7 @@ End Function
     }
 
     #[test]
-    fn test_len_empty_check() {
+    fn len_empty_check() {
         let source = r#"
 Sub Test()
     If Len(Trim(input)) = 0 Then

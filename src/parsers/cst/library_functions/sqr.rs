@@ -610,7 +610,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_sqr_basic() {
+    fn sqr_basic() {
         let source = r#"
 Sub Test()
     Dim result As Double
@@ -624,7 +624,7 @@ End Sub
     }
 
     #[test]
-    fn test_sqr_with_variable() {
+    fn sqr_with_variable() {
         let source = r#"
 Sub Test()
     Dim value As Double
@@ -640,7 +640,7 @@ End Sub
     }
 
     #[test]
-    fn test_sqr_if_statement() {
+    fn sqr_if_statement() {
         let source = r#"
 Sub Test()
     If Sqr(value) > 10 Then
@@ -654,7 +654,7 @@ End Sub
     }
 
     #[test]
-    fn test_sqr_function_return() {
+    fn sqr_function_return() {
         let source = r#"
 Function CalculateDistance(dx As Double, dy As Double) As Double
     CalculateDistance = Sqr(dx * dx + dy * dy)
@@ -667,7 +667,7 @@ End Function
     }
 
     #[test]
-    fn test_sqr_variable_assignment() {
+    fn sqr_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim hypotenuse As Double
@@ -681,7 +681,7 @@ End Sub
     }
 
     #[test]
-    fn test_sqr_msgbox() {
+    fn sqr_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Square root: " & Sqr(100)
@@ -694,7 +694,7 @@ End Sub
     }
 
     #[test]
-    fn test_sqr_debug_print() {
+    fn sqr_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print Sqr(144)
@@ -707,7 +707,7 @@ End Sub
     }
 
     #[test]
-    fn test_sqr_select_case() {
+    fn sqr_select_case() {
         let source = r#"
 Sub Test()
     Select Case Sqr(value)
@@ -726,7 +726,7 @@ End Sub
     }
 
     #[test]
-    fn test_sqr_class_usage() {
+    fn sqr_class_usage() {
         let source = r#"
 Class MathHelper
     Public Function GetSquareRoot(n As Double) As Double
@@ -741,7 +741,7 @@ End Class
     }
 
     #[test]
-    fn test_sqr_with_statement() {
+    fn sqr_with_statement() {
         let source = r#"
 Sub Test()
     With calculator
@@ -757,7 +757,7 @@ End Sub
     }
 
     #[test]
-    fn test_sqr_elseif() {
+    fn sqr_elseif() {
         let source = r#"
 Sub Test()
     Dim s As Double
@@ -776,7 +776,7 @@ End Sub
     }
 
     #[test]
-    fn test_sqr_for_loop() {
+    fn sqr_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Integer
@@ -791,7 +791,7 @@ End Sub
     }
 
     #[test]
-    fn test_sqr_do_while() {
+    fn sqr_do_while() {
         let source = r#"
 Sub Test()
     Do While value > 1
@@ -805,7 +805,7 @@ End Sub
     }
 
     #[test]
-    fn test_sqr_do_until() {
+    fn sqr_do_until() {
         let source = r#"
 Sub Test()
     Do Until Sqr(total) < threshold
@@ -819,7 +819,7 @@ End Sub
     }
 
     #[test]
-    fn test_sqr_while_wend() {
+    fn sqr_while_wend() {
         let source = r#"
 Sub Test()
     While x >= 0
@@ -834,7 +834,7 @@ End Sub
     }
 
     #[test]
-    fn test_sqr_parentheses() {
+    fn sqr_parentheses() {
         let source = r#"
 Sub Test()
     Dim distance As Double
@@ -848,7 +848,7 @@ End Sub
     }
 
     #[test]
-    fn test_sqr_iif() {
+    fn sqr_iif() {
         let source = r#"
 Sub Test()
     Dim safe As Double
@@ -862,7 +862,7 @@ End Sub
     }
 
     #[test]
-    fn test_sqr_array_assignment() {
+    fn sqr_array_assignment() {
         let source = r#"
 Sub Test()
     Dim roots(10) As Double
@@ -876,7 +876,7 @@ End Sub
     }
 
     #[test]
-    fn test_sqr_property_assignment() {
+    fn sqr_property_assignment() {
         let source = r#"
 Class Calculator
     Public SquareRoot As Double
@@ -893,7 +893,7 @@ End Sub
     }
 
     #[test]
-    fn test_sqr_function_argument() {
+    fn sqr_function_argument() {
         let source = r#"
 Sub ProcessValue(v As Double)
 End Sub
@@ -909,7 +909,7 @@ End Sub
     }
 
     #[test]
-    fn test_sqr_concatenation() {
+    fn sqr_concatenation() {
         let source = r#"
 Sub Test()
     Dim msg As String
@@ -923,7 +923,7 @@ End Sub
     }
 
     #[test]
-    fn test_sqr_comparison() {
+    fn sqr_comparison() {
         let source = r#"
 Sub Test()
     Dim isLarge As Boolean
@@ -937,7 +937,7 @@ End Sub
     }
 
     #[test]
-    fn test_sqr_arithmetic() {
+    fn sqr_arithmetic() {
         let source = r#"
 Sub Test()
     Dim magnitude As Double
@@ -951,7 +951,7 @@ End Sub
     }
 
     #[test]
-    fn test_sqr_quadratic_formula() {
+    fn sqr_quadratic_formula() {
         let source = r#"
 Sub Test()
     Dim discriminant As Double
@@ -967,7 +967,7 @@ End Sub
     }
 
     #[test]
-    fn test_sqr_error_handling() {
+    fn sqr_error_handling() {
         let source = r#"
 Sub Test()
     On Error Resume Next
@@ -985,7 +985,7 @@ End Sub
     }
 
     #[test]
-    fn test_sqr_on_error_goto() {
+    fn sqr_on_error_goto() {
         let source = r#"
 Sub Test()
     On Error GoTo ErrorHandler
@@ -1003,7 +1003,7 @@ End Sub
     }
 
     #[test]
-    fn test_sqr_standard_deviation() {
+    fn sqr_standard_deviation() {
         let source = r#"
 Sub Test()
     Dim variance As Double

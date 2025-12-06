@@ -726,7 +726,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_trim_basic() {
+    fn trim_basic() {
         let source = r#"
             Dim result As String
             result = Trim("   Hello   ")
@@ -738,7 +738,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trim_variable() {
+    fn trim_variable() {
         let source = r#"
             cleaned = Trim(userInput)
         "#;
@@ -749,7 +749,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trim_textbox() {
+    fn trim_textbox() {
         let source = r#"
             txtUsername.Text = Trim(txtUsername.Text)
         "#;
@@ -760,7 +760,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trim_if_statement() {
+    fn trim_if_statement() {
         let source = r#"
             If Trim(text) = "" Then
                 MsgBox "Empty"
@@ -773,7 +773,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trim_function_return() {
+    fn trim_function_return() {
         let source = r#"
             Function CleanText(s As String) As String
                 CleanText = Trim(s)
@@ -786,7 +786,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trim_validation() {
+    fn trim_validation() {
         let source = r#"
             If Len(Trim(txtPassword.Text)) < 8 Then
                 MsgBox "Too short"
@@ -799,7 +799,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trim_comparison() {
+    fn trim_comparison() {
         let source = r#"
             If Trim(input) = Trim(expected) Then
                 result = "Match"
@@ -812,7 +812,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trim_debug_print() {
+    fn trim_debug_print() {
         let source = r#"
             Debug.Print Trim(text)
         "#;
@@ -823,7 +823,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trim_with_statement() {
+    fn trim_with_statement() {
         let source = r#"
             With record
                 .Name = Trim(.Name)
@@ -836,7 +836,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trim_select_case() {
+    fn trim_select_case() {
         let source = r#"
             Select Case Trim(input)
                 Case ""
@@ -852,7 +852,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trim_elseif() {
+    fn trim_elseif() {
         let source = r#"
             If text = "" Then
                 status = "Empty"
@@ -867,7 +867,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trim_parentheses() {
+    fn trim_parentheses() {
         let source = r#"
             result = (Trim(text))
         "#;
@@ -878,7 +878,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trim_iif() {
+    fn trim_iif() {
         let source = r#"
             result = IIf(Trim(text) = "", "Empty", "Has data")
         "#;
@@ -889,7 +889,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trim_in_class() {
+    fn trim_in_class() {
         let source = r#"
             Private Sub Class_Method()
                 m_cleanValue = Trim(m_rawValue)
@@ -902,7 +902,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trim_function_argument() {
+    fn trim_function_argument() {
         let source = r#"
             Call ProcessText(Trim(input))
         "#;
@@ -913,7 +913,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trim_property_assignment() {
+    fn trim_property_assignment() {
         let source = r#"
             MyObject.CleanText = Trim(dirtyText)
         "#;
@@ -924,7 +924,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trim_array_assignment() {
+    fn trim_array_assignment() {
         let source = r#"
             cleanValues(i) = Trim(rawValues(i))
         "#;
@@ -935,7 +935,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trim_for_loop() {
+    fn trim_for_loop() {
         let source = r#"
             For i = 0 To UBound(items)
                 items(i) = Trim(items(i))
@@ -948,7 +948,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trim_while_wend() {
+    fn trim_while_wend() {
         let source = r#"
             While Not EOF(1)
                 Line Input #1, line
@@ -962,7 +962,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trim_do_while() {
+    fn trim_do_while() {
         let source = r#"
             Do While i < count
                 text = Trim(dataArray(i))
@@ -976,7 +976,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trim_do_until() {
+    fn trim_do_until() {
         let source = r#"
             Do Until Trim(input) <> ""
                 input = InputBox("Enter text")
@@ -989,7 +989,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trim_msgbox() {
+    fn trim_msgbox() {
         let source = r#"
             MsgBox Trim(message)
         "#;
@@ -1000,7 +1000,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trim_split() {
+    fn trim_split() {
         let source = r#"
             parts = Split(Trim(line), ",")
         "#;
@@ -1011,7 +1011,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trim_database_field() {
+    fn trim_database_field() {
         let source = r#"
             customerName = Trim(rs("CustomerName"))
         "#;
@@ -1022,7 +1022,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trim_ucase() {
+    fn trim_ucase() {
         let source = r#"
             upperText = UCase(Trim(text))
         "#;
@@ -1033,7 +1033,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trim_concatenation() {
+    fn trim_concatenation() {
         let source = r#"
             fullName = Trim(firstName) & " " & Trim(lastName)
         "#;
@@ -1044,7 +1044,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trim_label_caption() {
+    fn trim_label_caption() {
         let source = r#"
             lblName.Caption = Trim(rs.Fields("Name").Value)
         "#;

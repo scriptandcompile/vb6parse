@@ -433,7 +433,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_hour_basic() {
+    fn hour_basic() {
         let source = r#"
 Sub Test()
     h = Hour(Now)
@@ -446,7 +446,7 @@ End Sub
     }
 
     #[test]
-    fn test_hour_in_function() {
+    fn hour_in_function() {
         let source = r#"
 Function GetCurrentHour() As Integer
     GetCurrentHour = Hour(Now)
@@ -459,7 +459,7 @@ End Function
     }
 
     #[test]
-    fn test_hour_if_statement() {
+    fn hour_if_statement() {
         let source = r#"
 Sub Test()
     If Hour(Now) >= 9 And Hour(Now) < 17 Then
@@ -474,7 +474,7 @@ End Sub
     }
 
     #[test]
-    fn test_hour_debug_print() {
+    fn hour_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print Hour(Time)
@@ -487,7 +487,7 @@ End Sub
     }
 
     #[test]
-    fn test_hour_select_case() {
+    fn hour_select_case() {
         let source = r#"
 Sub Test()
     Select Case Hour(Now)
@@ -507,7 +507,7 @@ End Sub
     }
 
     #[test]
-    fn test_hour_for_loop() {
+    fn hour_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Integer
@@ -523,7 +523,7 @@ End Sub
     }
 
     #[test]
-    fn test_hour_do_loop() {
+    fn hour_do_loop() {
         let source = r#"
 Sub Test()
     Do While Hour(Now) < 17
@@ -538,7 +538,7 @@ End Sub
     }
 
     #[test]
-    fn test_hour_class_member() {
+    fn hour_class_member() {
         let source = r#"
 Private Sub Class_Initialize()
     m_hour = Hour(Now)
@@ -551,7 +551,7 @@ End Sub
     }
 
     #[test]
-    fn test_hour_type_field() {
+    fn hour_type_field() {
         let source = r#"
 Sub Test()
     Dim timeInfo As TimeType
@@ -565,7 +565,7 @@ End Sub
     }
 
     #[test]
-    fn test_hour_collection_add() {
+    fn hour_collection_add() {
         let source = r#"
 Sub Test()
     Dim col As New Collection
@@ -579,7 +579,7 @@ End Sub
     }
 
     #[test]
-    fn test_hour_with_statement() {
+    fn hour_with_statement() {
         let source = r#"
 Sub Test()
     With timeObject
@@ -594,7 +594,7 @@ End Sub
     }
 
     #[test]
-    fn test_hour_msgbox() {
+    fn hour_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Current hour: " & Hour(Now)
@@ -607,7 +607,7 @@ End Sub
     }
 
     #[test]
-    fn test_hour_property() {
+    fn hour_property() {
         let source = r#"
 Property Get CurrentHour() As Integer
     CurrentHour = Hour(Now)
@@ -620,7 +620,7 @@ End Property
     }
 
     #[test]
-    fn test_hour_concatenation() {
+    fn hour_concatenation() {
         let source = r#"
 Sub Test()
     msg = "The hour is " & Hour(Now)
@@ -633,7 +633,7 @@ End Sub
     }
 
     #[test]
-    fn test_hour_for_each() {
+    fn hour_for_each() {
         let source = r#"
 Sub Test()
     Dim dt As Variant
@@ -649,7 +649,7 @@ End Sub
     }
 
     #[test]
-    fn test_hour_error_handling() {
+    fn hour_error_handling() {
         let source = r#"
 Sub Test()
     On Error Resume Next
@@ -665,7 +665,7 @@ End Sub
     }
 
     #[test]
-    fn test_hour_comparison() {
+    fn hour_comparison() {
         let source = r#"
 Sub Test()
     If Hour(startTime) < Hour(endTime) Then
@@ -680,7 +680,7 @@ End Sub
     }
 
     #[test]
-    fn test_hour_array_assignment() {
+    fn hour_array_assignment() {
         let source = r#"
 Sub Test()
     Dim hours(1 To 10) As Integer
@@ -694,7 +694,7 @@ End Sub
     }
 
     #[test]
-    fn test_hour_function_argument() {
+    fn hour_function_argument() {
         let source = r#"
 Sub Test()
     ProcessHour Hour(Now)
@@ -707,7 +707,7 @@ End Sub
     }
 
     #[test]
-    fn test_hour_nested_call() {
+    fn hour_nested_call() {
         let source = r#"
 Sub Test()
     result = CStr(Hour(Now))
@@ -720,7 +720,7 @@ End Sub
     }
 
     #[test]
-    fn test_hour_iif() {
+    fn hour_iif() {
         let source = r#"
 Sub Test()
     period = IIf(Hour(Now) < 12, "AM", "PM")
@@ -733,7 +733,7 @@ End Sub
     }
 
     #[test]
-    fn test_hour_time_literal() {
+    fn hour_time_literal() {
         let source = r#"
 Sub Test()
     h = Hour(#3:45:00 PM#)
@@ -746,7 +746,7 @@ End Sub
     }
 
     #[test]
-    fn test_hour_variable() {
+    fn hour_variable() {
         let source = r#"
 Sub Test()
     Dim myTime As Date
@@ -761,7 +761,7 @@ End Sub
     }
 
     #[test]
-    fn test_hour_parentheses() {
+    fn hour_parentheses() {
         let source = r#"
 Sub Test()
     value = (Hour(Now))
@@ -774,7 +774,7 @@ End Sub
     }
 
     #[test]
-    fn test_hour_business_logic() {
+    fn hour_business_logic() {
         let source = r#"
 Function IsBusinessHours() As Boolean
     Dim h As Integer
@@ -789,7 +789,7 @@ End Function
     }
 
     #[test]
-    fn test_hour_time_range() {
+    fn hour_time_range() {
         let source = r#"
 Sub Test()
     Dim h As Integer
@@ -806,7 +806,7 @@ End Sub
     }
 
     #[test]
-    fn test_hour_math_operation() {
+    fn hour_math_operation() {
         let source = r#"
 Sub Test()
     hoursUntilMidnight = 24 - Hour(Now)

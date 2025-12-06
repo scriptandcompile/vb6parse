@@ -734,7 +734,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_strcomp_basic() {
+    fn strcomp_basic() {
         let source = r#"
 Sub Test()
     result = StrComp("ABC", "abc", vbBinaryCompare)
@@ -747,7 +747,7 @@ End Sub
     }
 
     #[test]
-    fn test_strcomp_variable_assignment() {
+    fn strcomp_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim result As Integer
@@ -761,7 +761,7 @@ End Sub
     }
 
     #[test]
-    fn test_strcomp_text_compare() {
+    fn strcomp_text_compare() {
         let source = r#"
 Sub Test()
     result = StrComp(name1, name2, vbTextCompare)
@@ -774,7 +774,7 @@ End Sub
     }
 
     #[test]
-    fn test_strcomp_if_statement() {
+    fn strcomp_if_statement() {
         let source = r#"
 Sub Test()
     If StrComp(str1, str2, vbTextCompare) = 0 Then
@@ -788,7 +788,7 @@ End Sub
     }
 
     #[test]
-    fn test_strcomp_select_case() {
+    fn strcomp_select_case() {
         let source = r#"
 Sub Test()
     Select Case StrComp(str1, str2)
@@ -807,7 +807,7 @@ End Sub
     }
 
     #[test]
-    fn test_strcomp_for_loop() {
+    fn strcomp_for_loop() {
         let source = r#"
 Sub Test()
     For i = LBound(arr) To UBound(arr)
@@ -823,7 +823,7 @@ End Sub
     }
 
     #[test]
-    fn test_strcomp_function_return() {
+    fn strcomp_function_return() {
         let source = r#"
 Function Compare(s1 As String, s2 As String) As Integer
     Compare = StrComp(s1, s2, vbTextCompare)
@@ -835,7 +835,7 @@ End Function
     }
 
     #[test]
-    fn test_strcomp_do_while() {
+    fn strcomp_do_while() {
         let source = r#"
 Sub Test()
     Do While StrComp(current, target, vbTextCompare) <> 0
@@ -849,7 +849,7 @@ End Sub
     }
 
     #[test]
-    fn test_strcomp_sorting() {
+    fn strcomp_sorting() {
         let source = r#"
 Sub Test()
     If StrComp(arr(i), arr(j), vbTextCompare) > 0 Then
@@ -865,7 +865,7 @@ End Sub
     }
 
     #[test]
-    fn test_strcomp_comparison() {
+    fn strcomp_comparison() {
         let source = r#"
 Sub Test()
     Dim isLess As Boolean
@@ -878,7 +878,7 @@ End Sub
     }
 
     #[test]
-    fn test_strcomp_function_argument() {
+    fn strcomp_function_argument() {
         let source = r#"
 Sub Test()
     Call ProcessResult(StrComp(a, b, vbTextCompare))
@@ -890,7 +890,7 @@ End Sub
     }
 
     #[test]
-    fn test_strcomp_iif() {
+    fn strcomp_iif() {
         let source = r#"
 Sub Test()
     result = IIf(StrComp(str1, str2, vbTextCompare) = 0, "Same", "Different")
@@ -902,7 +902,7 @@ End Sub
     }
 
     #[test]
-    fn test_strcomp_array_search() {
+    fn strcomp_array_search() {
         let source = r#"
 Sub Test()
     For Each item In collection
@@ -918,7 +918,7 @@ End Sub
     }
 
     #[test]
-    fn test_strcomp_binary_compare() {
+    fn strcomp_binary_compare() {
         let source = r#"
 Sub Test()
     result = StrComp("Test", "test", vbBinaryCompare)
@@ -931,7 +931,7 @@ End Sub
     }
 
     #[test]
-    fn test_strcomp_while_wend() {
+    fn strcomp_while_wend() {
         let source = r#"
 Sub Test()
     While StrComp(str1, str2, vbTextCompare) <> 0
@@ -945,7 +945,7 @@ End Sub
     }
 
     #[test]
-    fn test_strcomp_do_until() {
+    fn strcomp_do_until() {
         let source = r#"
 Sub Test()
     Do Until StrComp(input, expected, vbTextCompare) = 0
@@ -959,7 +959,7 @@ End Sub
     }
 
     #[test]
-    fn test_strcomp_with_statement() {
+    fn strcomp_with_statement() {
         let source = r#"
 Sub Test()
     With obj
@@ -975,7 +975,7 @@ End Sub
     }
 
     #[test]
-    fn test_strcomp_parentheses() {
+    fn strcomp_parentheses() {
         let source = r#"
 Sub Test()
     result = (StrComp(str1, str2, vbTextCompare) = 0)
@@ -987,7 +987,7 @@ End Sub
     }
 
     #[test]
-    fn test_strcomp_error_handling() {
+    fn strcomp_error_handling() {
         let source = r#"
 Sub Test()
     On Error Resume Next
@@ -1003,7 +1003,7 @@ End Sub
     }
 
     #[test]
-    fn test_strcomp_property_access() {
+    fn strcomp_property_access() {
         let source = r#"
 Sub Test()
     If StrComp(obj.Name, "Test", vbTextCompare) = 0 Then
@@ -1017,7 +1017,7 @@ End Sub
     }
 
     #[test]
-    fn test_strcomp_msgbox() {
+    fn strcomp_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Result: " & StrComp(str1, str2, vbTextCompare)
@@ -1029,7 +1029,7 @@ End Sub
     }
 
     #[test]
-    fn test_strcomp_debug_print() {
+    fn strcomp_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print StrComp(value1, value2)
@@ -1041,7 +1041,7 @@ End Sub
     }
 
     #[test]
-    fn test_strcomp_elseif() {
+    fn strcomp_elseif() {
         let source = r#"
 Sub Test()
     If StrComp(str1, str2, vbTextCompare) < 0 Then
@@ -1059,7 +1059,7 @@ End Sub
     }
 
     #[test]
-    fn test_strcomp_class_method() {
+    fn strcomp_class_method() {
         let source = r#"
 Sub Test()
     Set obj = New StringComparer
@@ -1072,7 +1072,7 @@ End Sub
     }
 
     #[test]
-    fn test_strcomp_binary_search() {
+    fn strcomp_binary_search() {
         let source = r#"
 Function BinarySearch() As Integer
     compareResult = StrComp(arr(mid), searchValue, vbTextCompare)
@@ -1087,7 +1087,7 @@ End Function
     }
 
     #[test]
-    fn test_strcomp_case_insensitive_equals() {
+    fn strcomp_case_insensitive_equals() {
         let source = r#"
 Function EqualsIgnoreCase(s1 As String, s2 As String) As Boolean
     EqualsIgnoreCase = (StrComp(s1, s2, vbTextCompare) = 0)
@@ -1099,7 +1099,7 @@ End Function
     }
 
     #[test]
-    fn test_strcomp_numeric_constant() {
+    fn strcomp_numeric_constant() {
         let source = r#"
 Sub Test()
     result = StrComp(str1, str2, 1)

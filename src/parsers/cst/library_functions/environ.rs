@@ -623,7 +623,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_environ_basic_string() {
+    fn environ_basic_string() {
         let source = r#"
 userName = Environ("USERNAME")
 "#;
@@ -634,7 +634,7 @@ userName = Environ("USERNAME")
     }
 
     #[test]
-    fn test_environ_with_number() {
+    fn environ_with_number() {
         let source = r#"
 firstVar = Environ(1)
 "#;
@@ -645,7 +645,7 @@ firstVar = Environ(1)
     }
 
     #[test]
-    fn test_environ_temp_dir() {
+    fn environ_temp_dir() {
         let source = r#"
 tempDir = Environ("TEMP")
 "#;
@@ -656,7 +656,7 @@ tempDir = Environ("TEMP")
     }
 
     #[test]
-    fn test_environ_in_function() {
+    fn environ_in_function() {
         let source = r#"
 Function GetUserProfile() As String
     GetUserProfile = Environ("USERPROFILE")
@@ -669,7 +669,7 @@ End Function
     }
 
     #[test]
-    fn test_environ_existence_check() {
+    fn environ_existence_check() {
         let source = r#"
 If Len(Environ("JAVA_HOME")) > 0 Then
     MsgBox "Java configured"
@@ -682,7 +682,7 @@ End If
     }
 
     #[test]
-    fn test_environ_path_construction() {
+    fn environ_path_construction() {
         let source = r#"
 appDataPath = Environ("APPDATA") & "\MyApp"
 "#;
@@ -693,7 +693,7 @@ appDataPath = Environ("APPDATA") & "\MyApp"
     }
 
     #[test]
-    fn test_environ_loop_enumeration() {
+    fn environ_loop_enumeration() {
         let source = r#"
 i = 1
 Do
@@ -710,7 +710,7 @@ Loop
     }
 
     #[test]
-    fn test_environ_with_variable() {
+    fn environ_with_variable() {
         let source = r#"
 varName = "PATH"
 pathValue = Environ(varName)
@@ -722,7 +722,7 @@ pathValue = Environ(varName)
     }
 
     #[test]
-    fn test_environ_comparison() {
+    fn environ_comparison() {
         let source = r#"
 If Environ("OS") = "Windows_NT" Then
     MsgBox "Windows NT"
@@ -735,7 +735,7 @@ End If
     }
 
     #[test]
-    fn test_environ_msgbox() {
+    fn environ_msgbox() {
         let source = r#"
 MsgBox "Computer: " & Environ("COMPUTERNAME")
 "#;
@@ -746,7 +746,7 @@ MsgBox "Computer: " & Environ("COMPUTERNAME")
     }
 
     #[test]
-    fn test_environ_select_case() {
+    fn environ_select_case() {
         let source = r#"
 Select Case UCase(Environ("OS"))
     Case "WINDOWS_NT"
@@ -762,7 +762,7 @@ End Select
     }
 
     #[test]
-    fn test_environ_error_handling() {
+    fn environ_error_handling() {
         let source = r#"
 On Error Resume Next
 value = Environ("CUSTOM_VAR")
@@ -777,7 +777,7 @@ End If
     }
 
     #[test]
-    fn test_environ_multiple_calls() {
+    fn environ_multiple_calls() {
         let source = r#"
 user = Environ("USERNAME")
 comp = Environ("COMPUTERNAME")
@@ -790,7 +790,7 @@ temp = Environ("TEMP")
     }
 
     #[test]
-    fn test_environ_in_split() {
+    fn environ_in_split() {
         let source = r#"
 paths = Split(Environ("PATH"), ";")
 "#;
@@ -801,7 +801,7 @@ paths = Split(Environ("PATH"), ";")
     }
 
     #[test]
-    fn test_environ_file_path() {
+    fn environ_file_path() {
         let source = r#"
 logFile = Environ("TEMP") & "\app.log"
 "#;
@@ -812,7 +812,7 @@ logFile = Environ("TEMP") & "\app.log"
     }
 
     #[test]
-    fn test_environ_with_right() {
+    fn environ_with_right() {
         let source = r#"
 If Right(Environ("TEMP"), 1) <> "\" Then
     tempDir = Environ("TEMP") & "\"
@@ -825,7 +825,7 @@ End If
     }
 
     #[test]
-    fn test_environ_isnumeric() {
+    fn environ_isnumeric() {
         let source = r#"
 procCount = Environ("NUMBER_OF_PROCESSORS")
 If IsNumeric(procCount) Then
@@ -839,7 +839,7 @@ End If
     }
 
     #[test]
-    fn test_environ_for_loop() {
+    fn environ_for_loop() {
         let source = r#"
 For i = 1 To 100
     envVar = Environ(i)
@@ -854,7 +854,7 @@ Next i
     }
 
     #[test]
-    fn test_environ_instr() {
+    fn environ_instr() {
         let source = r#"
 If InStr(Environ("PATH"), "Java") > 0 Then
     MsgBox "Java in PATH"
@@ -867,7 +867,7 @@ End If
     }
 
     #[test]
-    fn test_environ_with_dir() {
+    fn environ_with_dir() {
         let source = r#"
 configDir = Environ("APPDATA") & "\MyApp"
 If Dir(configDir, vbDirectory) = "" Then
@@ -881,7 +881,7 @@ End If
     }
 
     #[test]
-    fn test_environ_default_value() {
+    fn environ_default_value() {
         let source = r#"
 value = Environ("CUSTOM_VAR")
 If value = "" Then value = "default_value"
@@ -893,7 +893,7 @@ If value = "" Then value = "default_value"
     }
 
     #[test]
-    fn test_environ_debug_print() {
+    fn environ_debug_print() {
         let source = r#"
 Debug.Print "User: " & Environ("USERNAME")
 "#;
@@ -904,7 +904,7 @@ Debug.Print "User: " & Environ("USERNAME")
     }
 
     #[test]
-    fn test_environ_file_output() {
+    fn environ_file_output() {
         let source = r#"
 Open Environ("TEMP") & "\output.txt" For Output As #1
 Print #1, Environ("USERNAME")
@@ -917,7 +917,7 @@ Close #1
     }
 
     #[test]
-    fn test_environ_ucase() {
+    fn environ_ucase() {
         let source = r#"
 osName = UCase(Environ("OS"))
 "#;
@@ -928,7 +928,7 @@ osName = UCase(Environ("OS"))
     }
 
     #[test]
-    fn test_environ_collection() {
+    fn environ_collection() {
         let source = r#"
 envDict.Add Environ("USERNAME"), "User"
 "#;

@@ -236,7 +236,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_vartype_integer() {
+    fn vartype_integer() {
         let source = r#"
 Sub Test()
     Dim x As Integer
@@ -249,7 +249,7 @@ End Sub
     }
 
     #[test]
-    fn test_vartype_string() {
+    fn vartype_string() {
         let source = r#"
 Sub Test()
     Dim s As String
@@ -262,7 +262,7 @@ End Sub
     }
 
     #[test]
-    fn test_vartype_array() {
+    fn vartype_array() {
         let source = r#"
 Sub Test()
     Dim arr(1 To 5) As Double
@@ -275,7 +275,7 @@ End Sub
     }
 
     #[test]
-    fn test_vartype_variant() {
+    fn vartype_variant() {
         let source = r#"
 Sub Test()
     Dim v As Variant
@@ -289,7 +289,7 @@ End Sub
     }
 
     #[test]
-    fn test_vartype_check_array() {
+    fn vartype_check_array() {
         let source = r#"
 Sub Test()
     If VarType(var) And vbArray Then
@@ -303,7 +303,7 @@ End Sub
     }
 
     #[test]
-    fn test_vartype_check_string() {
+    fn vartype_check_string() {
         let source = r#"
 Sub Test()
     If VarType(x) = vbString Then
@@ -317,7 +317,7 @@ End Sub
     }
 
     #[test]
-    fn test_vartype_handle_variant() {
+    fn vartype_handle_variant() {
         let source = r#"
 Sub Test()
     If VarType(v) = vbInteger Then
@@ -331,7 +331,7 @@ End Sub
     }
 
     #[test]
-    fn test_vartype_log_type() {
+    fn vartype_log_type() {
         let source = r#"
 Sub Test()
     Debug.Print "VarType: " & VarType(x)
@@ -343,7 +343,7 @@ End Sub
     }
 
     #[test]
-    fn test_vartype_validate_argument() {
+    fn vartype_validate_argument() {
         let source = r#"
 Sub Foo(arg As Variant)
     If VarType(arg) <> vbString Then Err.Raise 5
@@ -355,7 +355,7 @@ End Sub
     }
 
     #[test]
-    fn test_vartype_reflection() {
+    fn vartype_reflection() {
         let source = r#"
 Sub Test()
     Dim t As Integer
@@ -371,7 +371,7 @@ End Sub
     }
 
     #[test]
-    fn test_vartype_null_and_empty() {
+    fn vartype_null_and_empty() {
         let source = r#"
 Sub Test()
     If VarType(v) = vbNull Then
@@ -387,7 +387,7 @@ End Sub
     }
 
     #[test]
-    fn test_vartype_array_type_detection() {
+    fn vartype_array_type_detection() {
         let source = r#"
 Sub Test()
     If (VarType(arr) And vbArray) Then
@@ -401,7 +401,7 @@ End Sub
     }
 
     #[test]
-    fn test_vartype_user_defined_type() {
+    fn vartype_user_defined_type() {
         let source = r#"
 Type MyType
     x As Integer
@@ -417,7 +417,7 @@ End Sub
     }
 
     #[test]
-    fn test_vartype_class_type_detection() {
+    fn vartype_class_type_detection() {
         let source = r#"
 Sub Test()
     If VarType(obj) = vbObject Then
@@ -431,7 +431,7 @@ End Sub
     }
 
     #[test]
-    fn test_vartype_isstring_function() {
+    fn vartype_isstring_function() {
         let source = r#"
 Function IsString(val As Variant) As Boolean
     IsString = (VarType(val) = vbString)
@@ -443,7 +443,7 @@ End Function
     }
 
     #[test]
-    fn test_vartype_logtypes_paramarray() {
+    fn vartype_logtypes_paramarray() {
         let source = r#"
 Sub LogTypes(ParamArray args() As Variant)
     Dim i As Integer
@@ -458,7 +458,7 @@ End Sub
     }
 
     #[test]
-    fn test_vartype_reflection_class_methods() {
+    fn vartype_reflection_class_methods() {
         let source = r#"
 Sub Test()
     If VarType(obj) = vbObject Then
@@ -472,7 +472,7 @@ End Sub
     }
 
     #[test]
-    fn test_vartype_variant_array_detection() {
+    fn vartype_variant_array_detection() {
         let source = r#"
 Sub Test()
     Dim v As Variant

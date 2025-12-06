@@ -526,7 +526,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_instrrev_basic() {
+    fn instrrev_basic() {
         let source = r#"
 Sub Test()
     pos = InStrRev("C:\Projects\file.txt", "\")
@@ -539,7 +539,7 @@ End Sub
     }
 
     #[test]
-    fn test_instrrev_with_start() {
+    fn instrrev_with_start() {
         let source = r#"
 Sub Test()
     pos = InStrRev(fileName, ".", 10)
@@ -552,7 +552,7 @@ End Sub
     }
 
     #[test]
-    fn test_instrrev_with_compare() {
+    fn instrrev_with_compare() {
         let source = r#"
 Sub Test()
     pos = InStrRev(text, "SEARCH", -1, vbTextCompare)
@@ -565,7 +565,7 @@ End Sub
     }
 
     #[test]
-    fn test_instrrev_file_extension() {
+    fn instrrev_file_extension() {
         let source = r#"
 Sub Test()
     dotPos = InStrRev(fileName, ".")
@@ -581,7 +581,7 @@ End Sub
     }
 
     #[test]
-    fn test_instrrev_if_statement() {
+    fn instrrev_if_statement() {
         let source = r#"
 Sub Test()
     If InStrRev(fullPath, "\") > 0 Then
@@ -596,7 +596,7 @@ End Sub
     }
 
     #[test]
-    fn test_instrrev_function_return() {
+    fn instrrev_function_return() {
         let source = r#"
 Function GetLastSlashPos(path As String) As Long
     GetLastSlashPos = InStrRev(path, "\")
@@ -609,7 +609,7 @@ End Function
     }
 
     #[test]
-    fn test_instrrev_with_mid() {
+    fn instrrev_with_mid() {
         let source = r#"
 Sub Test()
     pos = InStrRev(fullPath, "\")
@@ -623,7 +623,7 @@ End Sub
     }
 
     #[test]
-    fn test_instrrev_with_left() {
+    fn instrrev_with_left() {
         let source = r#"
 Sub Test()
     pos = InStrRev(fileName, ".")
@@ -637,7 +637,7 @@ End Sub
     }
 
     #[test]
-    fn test_instrrev_comparison() {
+    fn instrrev_comparison() {
         let source = r#"
 Sub Test()
     If InStrRev(url, "/") = 0 Then
@@ -652,7 +652,7 @@ End Sub
     }
 
     #[test]
-    fn test_instrrev_select_case() {
+    fn instrrev_select_case() {
         let source = r#"
 Sub Test()
     Select Case InStrRev(fileName, ".")
@@ -670,7 +670,7 @@ End Sub
     }
 
     #[test]
-    fn test_instrrev_debug_print() {
+    fn instrrev_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print "Last position: " & InStrRev(text, delimiter)
@@ -683,7 +683,7 @@ End Sub
     }
 
     #[test]
-    fn test_instrrev_array_assignment() {
+    fn instrrev_array_assignment() {
         let source = r#"
 Sub Test()
     positions(i) = InStrRev(lines(i), ",")
@@ -696,7 +696,7 @@ End Sub
     }
 
     #[test]
-    fn test_instrrev_property_assignment() {
+    fn instrrev_property_assignment() {
         let source = r#"
 Sub Test()
     obj.LastDelimiterPos = InStrRev(obj.Text, obj.Delimiter)
@@ -709,7 +709,7 @@ End Sub
     }
 
     #[test]
-    fn test_instrrev_in_class() {
+    fn instrrev_in_class() {
         let source = r#"
 Private Sub Class_Initialize()
     m_lastDotPos = InStrRev(m_fileName, ".")
@@ -722,7 +722,7 @@ End Sub
     }
 
     #[test]
-    fn test_instrrev_with_statement() {
+    fn instrrev_with_statement() {
         let source = r#"
 Sub Test()
     With pathInfo
@@ -737,7 +737,7 @@ End Sub
     }
 
     #[test]
-    fn test_instrrev_function_argument() {
+    fn instrrev_function_argument() {
         let source = r#"
 Sub Test()
     Call ProcessLastPosition(InStrRev(data, marker))
@@ -750,7 +750,7 @@ End Sub
     }
 
     #[test]
-    fn test_instrrev_concatenation() {
+    fn instrrev_concatenation() {
         let source = r#"
 Sub Test()
     result = "Last at: " & InStrRev(text, searchTerm)
@@ -763,7 +763,7 @@ End Sub
     }
 
     #[test]
-    fn test_instrrev_math_expression() {
+    fn instrrev_math_expression() {
         let source = r#"
 Sub Test()
     beforeExtension = InStrRev(fileName, ".") - 1
@@ -776,7 +776,7 @@ End Sub
     }
 
     #[test]
-    fn test_instrrev_iif() {
+    fn instrrev_iif() {
         let source = r#"
 Sub Test()
     extension = IIf(InStrRev(fileName, ".") > 0, Mid$(fileName, InStrRev(fileName, ".") + 1), "")
@@ -789,7 +789,7 @@ End Sub
     }
 
     #[test]
-    fn test_instrrev_msgbox() {
+    fn instrrev_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Position: " & InStrRev(path, "\")
@@ -802,7 +802,7 @@ End Sub
     }
 
     #[test]
-    fn test_instrrev_collection_add() {
+    fn instrrev_collection_add() {
         let source = r#"
 Sub Test()
     positions.Add InStrRev(files(i), ".")
@@ -815,7 +815,7 @@ End Sub
     }
 
     #[test]
-    fn test_instrrev_boolean_expression() {
+    fn instrrev_boolean_expression() {
         let source = r#"
 Sub Test()
     hasExtension = InStrRev(fileName, ".") > 0 And InStrRev(fileName, "\") = 0
@@ -828,7 +828,7 @@ End Sub
     }
 
     #[test]
-    fn test_instrrev_nested_call() {
+    fn instrrev_nested_call() {
         let source = r#"
 Sub Test()
     extension = UCase$(Mid$(fileName, InStrRev(fileName, ".") + 1))
@@ -841,7 +841,7 @@ End Sub
     }
 
     #[test]
-    fn test_instrrev_for_loop() {
+    fn instrrev_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Long
@@ -857,7 +857,7 @@ End Sub
     }
 
     #[test]
-    fn test_instrrev_do_loop() {
+    fn instrrev_do_loop() {
         let source = r#"
 Sub Test()
     Do While InStrRev(path, "\") > 0
@@ -872,7 +872,7 @@ End Sub
     }
 
     #[test]
-    fn test_instrrev_right_function() {
+    fn instrrev_right_function() {
         let source = r#"
 Sub Test()
     extension = Right$(fileName, Len(fileName) - InStrRev(fileName, "."))
@@ -885,7 +885,7 @@ End Sub
     }
 
     #[test]
-    fn test_instrrev_parentheses() {
+    fn instrrev_parentheses() {
         let source = r#"
 Sub Test()
     pos = (InStrRev(text, searchText))

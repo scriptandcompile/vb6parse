@@ -654,7 +654,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_replace_basic() {
+    fn replace_basic() {
         let source = r#"
 Dim result As String
 result = Replace("Hello World", "World", "VB6")
@@ -666,7 +666,7 @@ result = Replace("Hello World", "World", "VB6")
     }
 
     #[test]
-    fn test_replace_with_all_parameters() {
+    fn replace_with_all_parameters() {
         let source = r#"
 Dim result As String
 result = Replace("one, two, three", ", ", " | ", 1, 2, vbBinaryCompare)
@@ -678,7 +678,7 @@ result = Replace("one, two, three", ", ", " | ", 1, 2, vbBinaryCompare)
     }
 
     #[test]
-    fn test_replace_if_statement() {
+    fn replace_if_statement() {
         let source = r#"
 If InStr(Replace(text, "old", "new"), "new") > 0 Then
     MsgBox "Replacement successful"
@@ -691,7 +691,7 @@ End If
     }
 
     #[test]
-    fn test_replace_function_return() {
+    fn replace_function_return() {
         let source = r#"
 Function RemoveSpaces(text As String) As String
     RemoveSpaces = Replace(text, " ", "")
@@ -706,7 +706,7 @@ End Function
     }
 
     #[test]
-    fn test_replace_variable_assignment() {
+    fn replace_variable_assignment() {
         let source = r#"
 Dim cleaned As String
 cleaned = Replace(dirtyText, badChar, goodChar)
@@ -718,7 +718,7 @@ cleaned = Replace(dirtyText, badChar, goodChar)
     }
 
     #[test]
-    fn test_replace_msgbox() {
+    fn replace_msgbox() {
         let source = r#"
 MsgBox Replace("Error: {code}", "{code}", "404")
 "#;
@@ -729,7 +729,7 @@ MsgBox Replace("Error: {code}", "{code}", "404")
     }
 
     #[test]
-    fn test_replace_debug_print() {
+    fn replace_debug_print() {
         let source = r#"
 Debug.Print Replace(filePath, "\", "/")
 "#;
@@ -740,7 +740,7 @@ Debug.Print Replace(filePath, "\", "/")
     }
 
     #[test]
-    fn test_replace_select_case() {
+    fn replace_select_case() {
         let source = r#"
 Dim sanitized As String
 sanitized = Replace(input, invalidChar, "_")
@@ -758,7 +758,7 @@ End Select
     }
 
     #[test]
-    fn test_replace_class_usage() {
+    fn replace_class_usage() {
         let source = r#"
 Private m_text As String
 
@@ -773,7 +773,7 @@ End Sub
     }
 
     #[test]
-    fn test_replace_with_statement() {
+    fn replace_with_statement() {
         let source = r#"
 With document
     .Content = Replace(.Content, oldText, newText)
@@ -786,7 +786,7 @@ End With
     }
 
     #[test]
-    fn test_replace_elseif() {
+    fn replace_elseif() {
         let source = r#"
 If mode = 1 Then
     result = Replace(text, "A", "B")
@@ -801,7 +801,7 @@ End If
     }
 
     #[test]
-    fn test_replace_for_loop() {
+    fn replace_for_loop() {
         let source = r#"
 For i = 0 To 9
     text = Replace(text, CStr(i), "*")
@@ -814,7 +814,7 @@ Next i
     }
 
     #[test]
-    fn test_replace_do_while() {
+    fn replace_do_while() {
         let source = r#"
 Do While InStr(text, "  ") > 0
     text = Replace(text, "  ", " ")
@@ -827,7 +827,7 @@ Loop
     }
 
     #[test]
-    fn test_replace_do_until() {
+    fn replace_do_until() {
         let source = r#"
 Do Until Replace(data, delimiter, "") = data
     data = Replace(data, delimiter, ",")
@@ -840,7 +840,7 @@ Loop
     }
 
     #[test]
-    fn test_replace_while_wend() {
+    fn replace_while_wend() {
         let source = r#"
 While Len(Replace(str, target, "")) < Len(str)
     str = Replace(str, target, replacement)
@@ -853,7 +853,7 @@ Wend
     }
 
     #[test]
-    fn test_replace_parentheses() {
+    fn replace_parentheses() {
         let source = r#"
 Dim result As String
 result = (Replace(text, "a", "b"))
@@ -865,7 +865,7 @@ result = (Replace(text, "a", "b"))
     }
 
     #[test]
-    fn test_replace_iif() {
+    fn replace_iif() {
         let source = r#"
 Dim output As String
 output = IIf(caseSensitive, Replace(s, f, r), Replace(s, f, r, 1, -1, vbTextCompare))
@@ -877,7 +877,7 @@ output = IIf(caseSensitive, Replace(s, f, r), Replace(s, f, r, 1, -1, vbTextComp
     }
 
     #[test]
-    fn test_replace_nested() {
+    fn replace_nested() {
         let source = r#"
 Dim result As String
 result = Replace(Replace(text, "A", "B"), "B", "C")
@@ -889,7 +889,7 @@ result = Replace(Replace(text, "A", "B"), "B", "C")
     }
 
     #[test]
-    fn test_replace_array_assignment() {
+    fn replace_array_assignment() {
         let source = r#"
 Dim lines(10) As String
 lines(i) = Replace(lines(i), vbTab, "    ")
@@ -901,7 +901,7 @@ lines(i) = Replace(lines(i), vbTab, "    ")
     }
 
     #[test]
-    fn test_replace_property_assignment() {
+    fn replace_property_assignment() {
         let source = r#"
 Set obj = New TextProcessor
 obj.ProcessedText = Replace(obj.RawText, Chr(0), "")
@@ -913,7 +913,7 @@ obj.ProcessedText = Replace(obj.RawText, Chr(0), "")
     }
 
     #[test]
-    fn test_replace_function_argument() {
+    fn replace_function_argument() {
         let source = r#"
 Call ProcessData(Replace(rawData, vbCrLf, vbLf), delimiter)
 "#;
@@ -924,7 +924,7 @@ Call ProcessData(Replace(rawData, vbCrLf, vbLf), delimiter)
     }
 
     #[test]
-    fn test_replace_concatenation() {
+    fn replace_concatenation() {
         let source = r#"
 Dim msg As String
 msg = "Result: " & Replace(input, bad, good)
@@ -936,7 +936,7 @@ msg = "Result: " & Replace(input, bad, good)
     }
 
     #[test]
-    fn test_replace_case_insensitive() {
+    fn replace_case_insensitive() {
         let source = r#"
 Dim result As String
 result = Replace("Hello WORLD", "world", "VB6", 1, -1, vbTextCompare)
@@ -948,7 +948,7 @@ result = Replace("Hello WORLD", "world", "VB6", 1, -1, vbTextCompare)
     }
 
     #[test]
-    fn test_replace_remove_substring() {
+    fn replace_remove_substring() {
         let source = r#"
 Dim cleaned As String
 cleaned = Replace(text, unwanted, "")
@@ -960,7 +960,7 @@ cleaned = Replace(text, unwanted, "")
     }
 
     #[test]
-    fn test_replace_trim_combination() {
+    fn replace_trim_combination() {
         let source = r#"
 Dim result As String
 result = Trim(Replace(input, vbTab, " "))
@@ -972,7 +972,7 @@ result = Trim(Replace(input, vbTab, " "))
     }
 
     #[test]
-    fn test_replace_error_handling() {
+    fn replace_error_handling() {
         let source = r#"
 On Error Resume Next
 result = Replace(source, find, replaceWith)
@@ -988,7 +988,7 @@ On Error GoTo 0
     }
 
     #[test]
-    fn test_replace_on_error_goto() {
+    fn replace_on_error_goto() {
         let source = r#"
 Sub ProcessText()
     On Error GoTo ErrorHandler

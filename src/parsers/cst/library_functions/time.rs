@@ -539,7 +539,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_time_basic() {
+    fn time_basic() {
         let source = r#"
 Sub Test()
     currentTime = Time
@@ -551,7 +551,7 @@ End Sub
     }
 
     #[test]
-    fn test_time_with_parentheses() {
+    fn time_with_parentheses() {
         let source = r#"
 Sub Test()
     currentTime = Time()
@@ -563,7 +563,7 @@ End Sub
     }
 
     #[test]
-    fn test_time_variable_assignment() {
+    fn time_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim t As Date
@@ -576,7 +576,7 @@ End Sub
     }
 
     #[test]
-    fn test_time_msgbox() {
+    fn time_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Current time: " & Time
@@ -588,7 +588,7 @@ End Sub
     }
 
     #[test]
-    fn test_time_debug_print() {
+    fn time_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print Time
@@ -600,7 +600,7 @@ End Sub
     }
 
     #[test]
-    fn test_time_function_return() {
+    fn time_function_return() {
         let source = r#"
 Function GetCurrentTime() As Date
     GetCurrentTime = Time
@@ -612,7 +612,7 @@ End Function
     }
 
     #[test]
-    fn test_time_with_hour() {
+    fn time_with_hour() {
         let source = r#"
 Sub Test()
     currentHour = Hour(Time)
@@ -624,7 +624,7 @@ End Sub
     }
 
     #[test]
-    fn test_time_comparison() {
+    fn time_comparison() {
         let source = r#"
 Sub Test()
     If Time > startTime Then
@@ -638,7 +638,7 @@ End Sub
     }
 
     #[test]
-    fn test_time_format() {
+    fn time_format() {
         let source = r#"
 Sub Test()
     formatted = Format$(Time, "hh:mm:ss")
@@ -650,7 +650,7 @@ End Sub
     }
 
     #[test]
-    fn test_time_dateadd() {
+    fn time_dateadd() {
         let source = r#"
 Sub Test()
     futureTime = DateAdd("n", 30, Time)
@@ -662,7 +662,7 @@ End Sub
     }
 
     #[test]
-    fn test_time_datediff() {
+    fn time_datediff() {
         let source = r#"
 Sub Test()
     elapsed = DateDiff("n", startTime, Time)
@@ -674,7 +674,7 @@ End Sub
     }
 
     #[test]
-    fn test_time_if_statement() {
+    fn time_if_statement() {
         let source = r#"
 Sub Test()
     If Hour(Time) >= 9 And Hour(Time) < 17 Then
@@ -688,7 +688,7 @@ End Sub
     }
 
     #[test]
-    fn test_time_select_case() {
+    fn time_select_case() {
         let source = r#"
 Sub Test()
     Select Case Hour(Time)
@@ -707,7 +707,7 @@ End Sub
     }
 
     #[test]
-    fn test_time_function_argument() {
+    fn time_function_argument() {
         let source = r#"
 Sub Test()
     Call LogTime(Time)
@@ -719,7 +719,7 @@ End Sub
     }
 
     #[test]
-    fn test_time_property_assignment() {
+    fn time_property_assignment() {
         let source = r#"
 Sub Test()
     obj.CurrentTime = Time
@@ -731,7 +731,7 @@ End Sub
     }
 
     #[test]
-    fn test_time_with_statement() {
+    fn time_with_statement() {
         let source = r#"
 Sub Test()
     With tracker
@@ -745,7 +745,7 @@ End Sub
     }
 
     #[test]
-    fn test_time_concatenation() {
+    fn time_concatenation() {
         let source = r#"
 Sub Test()
     logEntry = Time & " - Event occurred"
@@ -757,7 +757,7 @@ End Sub
     }
 
     #[test]
-    fn test_time_array_assignment() {
+    fn time_array_assignment() {
         let source = r#"
 Sub Test()
     timestamps(i) = Time
@@ -769,7 +769,7 @@ End Sub
     }
 
     #[test]
-    fn test_time_print_statement() {
+    fn time_print_statement() {
         let source = r#"
 Sub Test()
     Print #1, Time
@@ -781,7 +781,7 @@ End Sub
     }
 
     #[test]
-    fn test_time_elseif() {
+    fn time_elseif() {
         let source = r#"
 Sub Test()
     If x = 1 Then
@@ -797,7 +797,7 @@ End Sub
     }
 
     #[test]
-    fn test_time_do_while() {
+    fn time_do_while() {
         let source = r#"
 Sub Test()
     Do While Time < endTime
@@ -811,7 +811,7 @@ End Sub
     }
 
     #[test]
-    fn test_time_do_until() {
+    fn time_do_until() {
         let source = r#"
 Sub Test()
     Do Until Time >= targetTime
@@ -825,7 +825,7 @@ End Sub
     }
 
     #[test]
-    fn test_time_while_wend() {
+    fn time_while_wend() {
         let source = r#"
 Sub Test()
     While Time < stopTime
@@ -839,7 +839,7 @@ End Sub
     }
 
     #[test]
-    fn test_time_iif() {
+    fn time_iif() {
         let source = r#"
 Sub Test()
     message = IIf(Time > noon, "PM", "AM")
@@ -851,7 +851,7 @@ End Sub
     }
 
     #[test]
-    fn test_time_arithmetic() {
+    fn time_arithmetic() {
         let source = r#"
 Sub Test()
     futureTime = Time + TimeSerial(1, 0, 0)
@@ -863,7 +863,7 @@ End Sub
     }
 
     #[test]
-    fn test_time_cdate() {
+    fn time_cdate() {
         let source = r#"
 Sub Test()
     timeValue = CDate(Time)
@@ -875,7 +875,7 @@ End Sub
     }
 
     #[test]
-    fn test_time_class_usage() {
+    fn time_class_usage() {
         let source = r#"
 Sub Test()
     Set logger = New TimeLogger
@@ -888,7 +888,7 @@ End Sub
     }
 
     #[test]
-    fn test_time_minute() {
+    fn time_minute() {
         let source = r#"
 Sub Test()
     currentMinute = Minute(Time)

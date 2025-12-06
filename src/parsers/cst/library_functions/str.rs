@@ -571,7 +571,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_str_basic() {
+    fn str_basic() {
         let source = r#"
 Sub Test()
     result = Str(123)
@@ -584,7 +584,7 @@ End Sub
     }
 
     #[test]
-    fn test_str_variable_assignment() {
+    fn str_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim s As String
@@ -598,7 +598,7 @@ End Sub
     }
 
     #[test]
-    fn test_str_negative_number() {
+    fn str_negative_number() {
         let source = r#"
 Sub Test()
     result = Str(-456)
@@ -610,7 +610,7 @@ End Sub
     }
 
     #[test]
-    fn test_str_decimal() {
+    fn str_decimal() {
         let source = r#"
 Sub Test()
     result = Str(3.14159)
@@ -622,7 +622,7 @@ End Sub
     }
 
     #[test]
-    fn test_str_with_ltrim() {
+    fn str_with_ltrim() {
         let source = r#"
 Sub Test()
     result = LTrim$(Str(value))
@@ -635,7 +635,7 @@ End Sub
     }
 
     #[test]
-    fn test_str_concatenation() {
+    fn str_concatenation() {
         let source = r#"
 Sub Test()
     message = "Count:" & Str(count)
@@ -648,7 +648,7 @@ End Sub
     }
 
     #[test]
-    fn test_str_in_print() {
+    fn str_in_print() {
         let source = r#"
 Sub Test()
     Print #1, Str(value)
@@ -660,7 +660,7 @@ End Sub
     }
 
     #[test]
-    fn test_str_debug_print() {
+    fn str_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print Str(x)
@@ -672,7 +672,7 @@ End Sub
     }
 
     #[test]
-    fn test_str_if_statement() {
+    fn str_if_statement() {
         let source = r#"
 Sub Test()
     If Str(value) = " 0" Then
@@ -686,7 +686,7 @@ End Sub
     }
 
     #[test]
-    fn test_str_for_loop() {
+    fn str_for_loop() {
         let source = r#"
 Sub Test()
     For i = 1 To 10
@@ -700,7 +700,7 @@ End Sub
     }
 
     #[test]
-    fn test_str_array_assignment() {
+    fn str_array_assignment() {
         let source = r#"
 Sub Test()
     arr(i) = Str(values(i))
@@ -712,7 +712,7 @@ End Sub
     }
 
     #[test]
-    fn test_str_function_argument() {
+    fn str_function_argument() {
         let source = r#"
 Sub Test()
     Call ProcessString(Str(number))
@@ -724,7 +724,7 @@ End Sub
     }
 
     #[test]
-    fn test_str_function_return() {
+    fn str_function_return() {
         let source = r#"
 Function GetNumberString() As String
     GetNumberString = Str(value)
@@ -736,7 +736,7 @@ End Function
     }
 
     #[test]
-    fn test_str_comparison() {
+    fn str_comparison() {
         let source = r#"
 Sub Test()
     If Len(Str(num)) > 5 Then
@@ -750,7 +750,7 @@ End Sub
     }
 
     #[test]
-    fn test_str_select_case() {
+    fn str_select_case() {
         let source = r#"
 Sub Test()
     Select Case Str(value)
@@ -767,7 +767,7 @@ End Sub
     }
 
     #[test]
-    fn test_str_with_statement() {
+    fn str_with_statement() {
         let source = r#"
 Sub Test()
     With obj
@@ -781,7 +781,7 @@ End Sub
     }
 
     #[test]
-    fn test_str_do_while() {
+    fn str_do_while() {
         let source = r#"
 Sub Test()
     Do While Len(Str(counter)) < 10
@@ -795,7 +795,7 @@ End Sub
     }
 
     #[test]
-    fn test_str_do_until() {
+    fn str_do_until() {
         let source = r#"
 Sub Test()
     Do Until Str(value) = " 100"
@@ -809,7 +809,7 @@ End Sub
     }
 
     #[test]
-    fn test_str_while_wend() {
+    fn str_while_wend() {
         let source = r#"
 Sub Test()
     While i < 10
@@ -824,7 +824,7 @@ End Sub
     }
 
     #[test]
-    fn test_str_iif() {
+    fn str_iif() {
         let source = r#"
 Sub Test()
     result = IIf(flag, Str(value1), Str(value2))
@@ -836,7 +836,7 @@ End Sub
     }
 
     #[test]
-    fn test_str_parentheses() {
+    fn str_parentheses() {
         let source = r#"
 Sub Test()
     result = Str((x + y) * z)
@@ -848,7 +848,7 @@ End Sub
     }
 
     #[test]
-    fn test_str_msgbox() {
+    fn str_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Value: " & Str(total)
@@ -860,7 +860,7 @@ End Sub
     }
 
     #[test]
-    fn test_str_property_assignment() {
+    fn str_property_assignment() {
         let source = r#"
 Sub Test()
     obj.Caption = Str(count)
@@ -872,7 +872,7 @@ End Sub
     }
 
     #[test]
-    fn test_str_error_handling() {
+    fn str_error_handling() {
         let source = r#"
 Sub Test()
     On Error Resume Next
@@ -888,7 +888,7 @@ End Sub
     }
 
     #[test]
-    fn test_str_class_usage() {
+    fn str_class_usage() {
         let source = r#"
 Sub Test()
     Set obj = New MyClass
@@ -901,7 +901,7 @@ End Sub
     }
 
     #[test]
-    fn test_str_currency_conversion() {
+    fn str_currency_conversion() {
         let source = r#"
 Sub Test()
     Dim amount As Currency
@@ -915,7 +915,7 @@ End Sub
     }
 
     #[test]
-    fn test_str_csv_building() {
+    fn str_csv_building() {
         let source = r#"
 Sub Test()
     csvLine = LTrim$(Str(id)) & "," & LTrim$(Str(qty)) & "," & LTrim$(Str(price))

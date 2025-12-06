@@ -698,7 +698,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_sln_basic() {
+    fn sln_basic() {
         let source = r#"
 Sub Test()
     Dim depreciation As Double
@@ -712,7 +712,7 @@ End Sub
     }
 
     #[test]
-    fn test_sln_with_variables() {
+    fn sln_with_variables() {
         let source = r#"
 Sub Test()
     Dim cost As Double
@@ -729,7 +729,7 @@ End Sub
     }
 
     #[test]
-    fn test_sln_if_statement() {
+    fn sln_if_statement() {
         let source = r#"
 Sub Test()
     If SLN(cost, salvage, life) > 1000 Then
@@ -743,7 +743,7 @@ End Sub
     }
 
     #[test]
-    fn test_sln_function_return() {
+    fn sln_function_return() {
         let source = r#"
 Function CalculateDepreciation(c As Double, s As Double, l As Double) As Double
     CalculateDepreciation = SLN(c, s, l)
@@ -756,7 +756,7 @@ End Function
     }
 
     #[test]
-    fn test_sln_variable_assignment() {
+    fn sln_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim annualDepreciation As Double
@@ -770,7 +770,7 @@ End Sub
     }
 
     #[test]
-    fn test_sln_msgbox() {
+    fn sln_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Annual depreciation: " & SLN(cost, salvage, life)
@@ -783,7 +783,7 @@ End Sub
     }
 
     #[test]
-    fn test_sln_debug_print() {
+    fn sln_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print SLN(30000, 3000, 5)
@@ -796,7 +796,7 @@ End Sub
     }
 
     #[test]
-    fn test_sln_select_case() {
+    fn sln_select_case() {
         let source = r#"
 Sub Test()
     Select Case SLN(cost, salvage, life)
@@ -815,7 +815,7 @@ End Sub
     }
 
     #[test]
-    fn test_sln_class_usage() {
+    fn sln_class_usage() {
         let source = r#"
 Class AssetManager
     Public Function GetDepreciation(c As Double, s As Double, l As Double) As Double
@@ -830,7 +830,7 @@ End Class
     }
 
     #[test]
-    fn test_sln_with_statement() {
+    fn sln_with_statement() {
         let source = r#"
 Sub Test()
     With Asset
@@ -846,7 +846,7 @@ End Sub
     }
 
     #[test]
-    fn test_sln_elseif() {
+    fn sln_elseif() {
         let source = r#"
 Sub Test()
     Dim d As Double
@@ -866,7 +866,7 @@ End Sub
     }
 
     #[test]
-    fn test_sln_for_loop() {
+    fn sln_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Integer
@@ -883,7 +883,7 @@ End Sub
     }
 
     #[test]
-    fn test_sln_do_while() {
+    fn sln_do_while() {
         let source = r#"
 Sub Test()
     Do While bookValue > salvage
@@ -897,7 +897,7 @@ End Sub
     }
 
     #[test]
-    fn test_sln_do_until() {
+    fn sln_do_until() {
         let source = r#"
 Sub Test()
     Do Until accumulated >= totalDepreciable
@@ -911,7 +911,7 @@ End Sub
     }
 
     #[test]
-    fn test_sln_while_wend() {
+    fn sln_while_wend() {
         let source = r#"
 Sub Test()
     While year <= life
@@ -926,7 +926,7 @@ End Sub
     }
 
     #[test]
-    fn test_sln_parentheses() {
+    fn sln_parentheses() {
         let source = r#"
 Sub Test()
     Dim total As Double
@@ -940,7 +940,7 @@ End Sub
     }
 
     #[test]
-    fn test_sln_iif() {
+    fn sln_iif() {
         let source = r#"
 Sub Test()
     Dim msg As String
@@ -954,7 +954,7 @@ End Sub
     }
 
     #[test]
-    fn test_sln_array_assignment() {
+    fn sln_array_assignment() {
         let source = r#"
 Sub Test()
     Dim schedule(10) As Double
@@ -968,7 +968,7 @@ End Sub
     }
 
     #[test]
-    fn test_sln_property_assignment() {
+    fn sln_property_assignment() {
         let source = r#"
 Class Asset
     Public AnnualDepreciation As Double
@@ -985,7 +985,7 @@ End Sub
     }
 
     #[test]
-    fn test_sln_function_argument() {
+    fn sln_function_argument() {
         let source = r#"
 Sub ProcessDepreciation(value As Double)
 End Sub
@@ -1001,7 +1001,7 @@ End Sub
     }
 
     #[test]
-    fn test_sln_concatenation() {
+    fn sln_concatenation() {
         let source = r#"
 Sub Test()
     Dim report As String
@@ -1015,7 +1015,7 @@ End Sub
     }
 
     #[test]
-    fn test_sln_comparison() {
+    fn sln_comparison() {
         let source = r#"
 Sub Test()
     Dim needsAttention As Boolean
@@ -1029,7 +1029,7 @@ End Sub
     }
 
     #[test]
-    fn test_sln_arithmetic() {
+    fn sln_arithmetic() {
         let source = r#"
 Sub Test()
     Dim bookValue As Double
@@ -1043,7 +1043,7 @@ End Sub
     }
 
     #[test]
-    fn test_sln_monthly_calculation() {
+    fn sln_monthly_calculation() {
         let source = r#"
 Sub Test()
     Dim monthlyDep As Double
@@ -1057,7 +1057,7 @@ End Sub
     }
 
     #[test]
-    fn test_sln_error_handling() {
+    fn sln_error_handling() {
         let source = r#"
 Sub Test()
     On Error Resume Next
@@ -1075,7 +1075,7 @@ End Sub
     }
 
     #[test]
-    fn test_sln_on_error_goto() {
+    fn sln_on_error_goto() {
         let source = r#"
 Sub Test()
     On Error GoTo ErrorHandler
@@ -1093,7 +1093,7 @@ End Sub
     }
 
     #[test]
-    fn test_sln_schedule_generation() {
+    fn sln_schedule_generation() {
         let source = r#"
 Sub Test()
     Dim i As Integer

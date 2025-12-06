@@ -704,7 +704,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_dir_basic() {
+    fn dir_basic() {
         let source = r#"
 fileName = Dir("*.txt")
 "#;
@@ -715,7 +715,7 @@ fileName = Dir("*.txt")
     }
 
     #[test]
-    fn test_dir_with_path() {
+    fn dir_with_path() {
         let source = r#"
 fileName = Dir("C:\Data\*.txt")
 "#;
@@ -726,7 +726,7 @@ fileName = Dir("C:\Data\*.txt")
     }
 
     #[test]
-    fn test_dir_with_attributes() {
+    fn dir_with_attributes() {
         let source = r#"
 fileName = Dir("*.*", vbDirectory)
 "#;
@@ -737,7 +737,7 @@ fileName = Dir("*.*", vbDirectory)
     }
 
     #[test]
-    fn test_dir_no_arguments() {
+    fn dir_no_arguments() {
         let source = r#"
 fileName = Dir
 "#;
@@ -748,7 +748,7 @@ fileName = Dir
     }
 
     #[test]
-    fn test_dir_in_loop() {
+    fn dir_in_loop() {
         let source = r#"
 fileName = Dir("*.txt")
 Do While fileName <> ""
@@ -763,7 +763,7 @@ Loop
     }
 
     #[test]
-    fn test_dir_file_exists() {
+    fn dir_file_exists() {
         let source = r#"
 If Len(Dir("C:\file.txt")) > 0 Then
     MsgBox "File exists"
@@ -776,7 +776,7 @@ End If
     }
 
     #[test]
-    fn test_dir_volume_label() {
+    fn dir_volume_label() {
         let source = r#"
 volumeLabel = Dir("C:\", vbVolume)
 "#;
@@ -787,7 +787,7 @@ volumeLabel = Dir("C:\", vbVolume)
     }
 
     #[test]
-    fn test_dir_in_function() {
+    fn dir_in_function() {
         let source = r#"
 Function FileExists(filePath As String) As Boolean
     FileExists = (Len(Dir(filePath)) > 0)
@@ -800,7 +800,7 @@ End Function
     }
 
     #[test]
-    fn test_dir_hidden_files() {
+    fn dir_hidden_files() {
         let source = r#"
 fileName = Dir("*.*", vbHidden)
 "#;
@@ -811,7 +811,7 @@ fileName = Dir("*.*", vbHidden)
     }
 
     #[test]
-    fn test_dir_multiple_attributes() {
+    fn dir_multiple_attributes() {
         let source = r#"
 fileName = Dir("*.*", vbHidden + vbSystem)
 "#;
@@ -822,7 +822,7 @@ fileName = Dir("*.*", vbHidden + vbSystem)
     }
 
     #[test]
-    fn test_dir_with_variable() {
+    fn dir_with_variable() {
         let source = r#"
 pattern = "*.doc"
 fileName = Dir(pattern)
@@ -834,7 +834,7 @@ fileName = Dir(pattern)
     }
 
     #[test]
-    fn test_dir_concatenated_path() {
+    fn dir_concatenated_path() {
         let source = r#"
 fileName = Dir(folderPath & "\*.txt")
 "#;
@@ -845,7 +845,7 @@ fileName = Dir(folderPath & "\*.txt")
     }
 
     #[test]
-    fn test_dir_count_files() {
+    fn dir_count_files() {
         let source = r#"
 count = 0
 fileName = Dir("*.txt")
@@ -861,7 +861,7 @@ Loop
     }
 
     #[test]
-    fn test_dir_array_population() {
+    fn dir_array_population() {
         let source = r#"
 fileName = Dir("*.txt")
 Do While fileName <> ""
@@ -876,7 +876,7 @@ Loop
     }
 
     #[test]
-    fn test_dir_with_kill() {
+    fn dir_with_kill() {
         let source = r#"
 fileName = Dir("*.tmp")
 Do While fileName <> ""
@@ -891,7 +891,7 @@ Loop
     }
 
     #[test]
-    fn test_dir_with_filelen() {
+    fn dir_with_filelen() {
         let source = r#"
 fileName = Dir("*.*")
 Do While fileName <> ""
@@ -906,7 +906,7 @@ Loop
     }
 
     #[test]
-    fn test_dir_error_handling() {
+    fn dir_error_handling() {
         let source = r#"
 On Error Resume Next
 fileName = Dir("C:\NonExistent\*.*")
@@ -921,7 +921,7 @@ End If
     }
 
     #[test]
-    fn test_dir_select_case() {
+    fn dir_select_case() {
         let source = r#"
 Select Case UCase(Right(Dir("*.*"), 3))
     Case "TXT"
@@ -937,7 +937,7 @@ End Select
     }
 
     #[test]
-    fn test_dir_with_getattr() {
+    fn dir_with_getattr() {
         let source = r#"
 fileName = Dir("*.*", vbDirectory)
 Do While fileName <> ""
@@ -954,7 +954,7 @@ Loop
     }
 
     #[test]
-    fn test_dir_msgbox() {
+    fn dir_msgbox() {
         let source = r#"
 MsgBox "First file: " & Dir("*.txt")
 "#;
@@ -965,7 +965,7 @@ MsgBox "First file: " & Dir("*.txt")
     }
 
     #[test]
-    fn test_dir_parentheses_optional() {
+    fn dir_parentheses_optional() {
         let source = r#"
 fileName = Dir()
 "#;
@@ -976,7 +976,7 @@ fileName = Dir()
     }
 
     #[test]
-    fn test_dir_nested_paths() {
+    fn dir_nested_paths() {
         let source = r#"
 fileName = Dir("C:\Users\Documents\Reports\*.pdf")
 "#;
@@ -987,7 +987,7 @@ fileName = Dir("C:\Users\Documents\Reports\*.pdf")
     }
 
     #[test]
-    fn test_dir_wildcard_question() {
+    fn dir_wildcard_question() {
         let source = r#"
 fileName = Dir("test?.txt")
 "#;
@@ -998,7 +998,7 @@ fileName = Dir("test?.txt")
     }
 
     #[test]
-    fn test_dir_all_files() {
+    fn dir_all_files() {
         let source = r#"
 fileName = Dir("*.*")
 "#;
@@ -1009,7 +1009,7 @@ fileName = Dir("*.*")
     }
 
     #[test]
-    fn test_dir_with_filedatetime() {
+    fn dir_with_filedatetime() {
         let source = r#"
 fileName = Dir("*.*")
 Do While fileName <> ""

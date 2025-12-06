@@ -572,7 +572,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_isobject_basic() {
+    fn isobject_basic() {
         let source = r#"
 Sub Test()
     result = IsObject(myVariable)
@@ -585,7 +585,7 @@ End Sub
     }
 
     #[test]
-    fn test_isobject_if_statement() {
+    fn isobject_if_statement() {
         let source = r#"
 Sub Test()
     If IsObject(value) Then
@@ -602,7 +602,7 @@ End Sub
     }
 
     #[test]
-    fn test_isobject_not_condition() {
+    fn isobject_not_condition() {
         let source = r#"
 Sub Test()
     If Not IsObject(param) Then
@@ -617,7 +617,7 @@ End Sub
     }
 
     #[test]
-    fn test_isobject_function_return() {
+    fn isobject_function_return() {
         let source = r#"
 Function IsAnObject(v As Variant) As Boolean
     IsAnObject = IsObject(v)
@@ -630,7 +630,7 @@ End Function
     }
 
     #[test]
-    fn test_isobject_boolean_and() {
+    fn isobject_boolean_and() {
         let source = r#"
 Sub Test()
     If IsObject(obj) And Not obj Is Nothing Then
@@ -645,7 +645,7 @@ End Sub
     }
 
     #[test]
-    fn test_isobject_boolean_or() {
+    fn isobject_boolean_or() {
         let source = r#"
 Sub Test()
     If IsObject(field) Or IsNull(field) Then
@@ -660,7 +660,7 @@ End Sub
     }
 
     #[test]
-    fn test_isobject_iif() {
+    fn isobject_iif() {
         let source = r#"
 Sub Test()
     result = IIf(IsObject(value), "Object", "Value")
@@ -673,7 +673,7 @@ End Sub
     }
 
     #[test]
-    fn test_isobject_debug_print() {
+    fn isobject_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print "Is object: " & IsObject(testVar)
@@ -686,7 +686,7 @@ End Sub
     }
 
     #[test]
-    fn test_isobject_msgbox() {
+    fn isobject_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Object status: " & IsObject(myObj)
@@ -699,7 +699,7 @@ End Sub
     }
 
     #[test]
-    fn test_isobject_do_while() {
+    fn isobject_do_while() {
         let source = r#"
 Sub Test()
     Do While IsObject(currentItem)
@@ -714,7 +714,7 @@ End Sub
     }
 
     #[test]
-    fn test_isobject_do_until() {
+    fn isobject_do_until() {
         let source = r#"
 Sub Test()
     Do Until Not IsObject(result)
@@ -729,7 +729,7 @@ End Sub
     }
 
     #[test]
-    fn test_isobject_variable_assignment() {
+    fn isobject_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim isObj As Boolean
@@ -743,7 +743,7 @@ End Sub
     }
 
     #[test]
-    fn test_isobject_property_assignment() {
+    fn isobject_property_assignment() {
         let source = r#"
 Sub Test()
     obj.IsObjectType = IsObject(obj.Value)
@@ -756,7 +756,7 @@ End Sub
     }
 
     #[test]
-    fn test_isobject_in_class() {
+    fn isobject_in_class() {
         let source = r#"
 Private Sub Class_Initialize()
     m_isObject = IsObject(m_data)
@@ -769,7 +769,7 @@ End Sub
     }
 
     #[test]
-    fn test_isobject_with_statement() {
+    fn isobject_with_statement() {
         let source = r#"
 Sub Test()
     With container
@@ -784,7 +784,7 @@ End Sub
     }
 
     #[test]
-    fn test_isobject_function_argument() {
+    fn isobject_function_argument() {
         let source = r#"
 Sub Test()
     Call ValidateType(IsObject(myVar))
@@ -797,7 +797,7 @@ End Sub
     }
 
     #[test]
-    fn test_isobject_select_case() {
+    fn isobject_select_case() {
         let source = r#"
 Sub Test()
     Select Case True
@@ -815,7 +815,7 @@ End Sub
     }
 
     #[test]
-    fn test_isobject_for_loop() {
+    fn isobject_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Integer
@@ -833,7 +833,7 @@ End Sub
     }
 
     #[test]
-    fn test_isobject_elseif() {
+    fn isobject_elseif() {
         let source = r#"
 Sub Test()
     If IsNumeric(data) Then
@@ -850,7 +850,7 @@ End Sub
     }
 
     #[test]
-    fn test_isobject_concatenation() {
+    fn isobject_concatenation() {
         let source = r#"
 Sub Test()
     status = "Type: " & IsObject(variable)
@@ -863,7 +863,7 @@ End Sub
     }
 
     #[test]
-    fn test_isobject_parentheses() {
+    fn isobject_parentheses() {
         let source = r#"
 Sub Test()
     result = (IsObject(value))
@@ -876,7 +876,7 @@ End Sub
     }
 
     #[test]
-    fn test_isobject_array_check() {
+    fn isobject_array_check() {
         let source = r#"
 Sub Test()
     checks(i) = IsObject(values(i))
@@ -889,7 +889,7 @@ End Sub
     }
 
     #[test]
-    fn test_isobject_collection_add() {
+    fn isobject_collection_add() {
         let source = r#"
 Sub Test()
     objectFlags.Add IsObject(items(i))
@@ -902,7 +902,7 @@ End Sub
     }
 
     #[test]
-    fn test_isobject_comparison() {
+    fn isobject_comparison() {
         let source = r#"
 Sub Test()
     If IsObject(var1) = IsObject(var2) Then
@@ -917,7 +917,7 @@ End Sub
     }
 
     #[test]
-    fn test_isobject_nested_call() {
+    fn isobject_nested_call() {
         let source = r#"
 Sub Test()
     result = CStr(IsObject(myVar))
@@ -930,7 +930,7 @@ End Sub
     }
 
     #[test]
-    fn test_isobject_while_wend() {
+    fn isobject_while_wend() {
         let source = r#"
 Sub Test()
     While IsObject(current)
@@ -945,7 +945,7 @@ End Sub
     }
 
     #[test]
-    fn test_isobject_cleanup() {
+    fn isobject_cleanup() {
         let source = r#"
 Sub Cleanup(ByRef obj As Variant)
     If IsObject(obj) Then

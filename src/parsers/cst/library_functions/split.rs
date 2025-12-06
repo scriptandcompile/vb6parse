@@ -709,7 +709,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_split_basic() {
+    fn split_basic() {
         let source = r#"
 Sub Test()
     Dim parts() As String
@@ -723,7 +723,7 @@ End Sub
     }
 
     #[test]
-    fn test_split_with_variable() {
+    fn split_with_variable() {
         let source = r#"
 Sub Test()
     Dim text As String
@@ -741,7 +741,7 @@ End Sub
     }
 
     #[test]
-    fn test_split_default_delimiter() {
+    fn split_default_delimiter() {
         let source = r#"
 Sub Test()
     Dim words() As String
@@ -755,7 +755,7 @@ End Sub
     }
 
     #[test]
-    fn test_split_with_limit() {
+    fn split_with_limit() {
         let source = r#"
 Sub Test()
     Dim items() As String
@@ -769,7 +769,7 @@ End Sub
     }
 
     #[test]
-    fn test_split_if_statement() {
+    fn split_if_statement() {
         let source = r#"
 Sub Test()
     If UBound(Split(text, ",")) > 0 Then
@@ -783,7 +783,7 @@ End Sub
     }
 
     #[test]
-    fn test_split_function_return() {
+    fn split_function_return() {
         let source = r#"
 Function ParseCSV(line As String) As String()
     ParseCSV = Split(line, ",")
@@ -796,7 +796,7 @@ End Function
     }
 
     #[test]
-    fn test_split_variable_assignment() {
+    fn split_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim fields() As String
@@ -810,7 +810,7 @@ End Sub
     }
 
     #[test]
-    fn test_split_array_access() {
+    fn split_array_access() {
         let source = r#"
 Sub Test()
     Dim parts() As String
@@ -825,7 +825,7 @@ End Sub
     }
 
     #[test]
-    fn test_split_in_loop() {
+    fn split_in_loop() {
         let source = r#"
 Sub Test()
     Dim parts() As String
@@ -842,7 +842,7 @@ End Sub
     }
 
     #[test]
-    fn test_split_class_usage() {
+    fn split_class_usage() {
         let source = r#"
 Class Parser
     Public Function GetFields(line As String) As String()
@@ -857,7 +857,7 @@ End Class
     }
 
     #[test]
-    fn test_split_with_statement() {
+    fn split_with_statement() {
         let source = r#"
 Sub Test()
     With parser
@@ -872,7 +872,7 @@ End Sub
     }
 
     #[test]
-    fn test_split_elseif() {
+    fn split_elseif() {
         let source = r#"
 Sub Test()
     Dim arr() As String
@@ -889,7 +889,7 @@ End Sub
     }
 
     #[test]
-    fn test_split_select_case() {
+    fn split_select_case() {
         let source = r#"
 Sub Test()
     Dim parts() As String
@@ -907,7 +907,7 @@ End Sub
     }
 
     #[test]
-    fn test_split_do_while() {
+    fn split_do_while() {
         let source = r#"
 Sub Test()
     Do While lineNum <= 10
@@ -923,7 +923,7 @@ End Sub
     }
 
     #[test]
-    fn test_split_do_until() {
+    fn split_do_until() {
         let source = r#"
 Sub Test()
     Do Until EOF(1)
@@ -939,7 +939,7 @@ End Sub
     }
 
     #[test]
-    fn test_split_while_wend() {
+    fn split_while_wend() {
         let source = r#"
 Sub Test()
     While i < count
@@ -955,7 +955,7 @@ End Sub
     }
 
     #[test]
-    fn test_split_ubound_check() {
+    fn split_ubound_check() {
         let source = r#"
 Sub Test()
     Dim arr() As String
@@ -971,7 +971,7 @@ End Sub
     }
 
     #[test]
-    fn test_split_lbound_ubound() {
+    fn split_lbound_ubound() {
         let source = r#"
 Sub Test()
     Dim parts() As String
@@ -988,7 +988,7 @@ End Sub
     }
 
     #[test]
-    fn test_split_vbcrlf() {
+    fn split_vbcrlf() {
         let source = r#"
 Sub Test()
     Dim lines() As String
@@ -1002,7 +1002,7 @@ End Sub
     }
 
     #[test]
-    fn test_split_nested_function() {
+    fn split_nested_function() {
         let source = r#"
 Sub Test()
     Dim count As Integer
@@ -1016,7 +1016,7 @@ End Sub
     }
 
     #[test]
-    fn test_split_join_combination() {
+    fn split_join_combination() {
         let source = r#"
 Sub Test()
     Dim parts() As String
@@ -1031,7 +1031,7 @@ End Sub
     }
 
     #[test]
-    fn test_split_trim_combination() {
+    fn split_trim_combination() {
         let source = r#"
 Sub Test()
     Dim values() As String
@@ -1048,7 +1048,7 @@ End Sub
     }
 
     #[test]
-    fn test_split_error_handling() {
+    fn split_error_handling() {
         let source = r#"
 Sub Test()
     On Error Resume Next
@@ -1065,7 +1065,7 @@ End Sub
     }
 
     #[test]
-    fn test_split_on_error_goto() {
+    fn split_on_error_goto() {
         let source = r#"
 Sub Test()
     On Error GoTo ErrorHandler
@@ -1082,7 +1082,7 @@ End Sub
     }
 
     #[test]
-    fn test_split_file_path() {
+    fn split_file_path() {
         let source = r#"
 Sub Test()
     Dim pathParts() As String
@@ -1097,7 +1097,7 @@ End Sub
     }
 
     #[test]
-    fn test_split_compare_parameter() {
+    fn split_compare_parameter() {
         let source = r#"
 Sub Test()
     Dim items() As String
@@ -1111,7 +1111,7 @@ End Sub
     }
 
     #[test]
-    fn test_split_key_value_parsing() {
+    fn split_key_value_parsing() {
         let source = r#"
 Sub Test()
     Dim kvPair As String

@@ -628,7 +628,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_loadresstring_basic() {
+    fn loadresstring_basic() {
         let source = r#"
             Dim msg As String
             msg = LoadResString(1001)
@@ -640,7 +640,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresstring_msgbox() {
+    fn loadresstring_msgbox() {
         let source = r#"
             MsgBox LoadResString(2001), vbCritical
         "#;
@@ -651,7 +651,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresstring_if_statement() {
+    fn loadresstring_if_statement() {
         let source = r#"
             If Not fileExists Then
                 MsgBox LoadResString(3001), vbCritical
@@ -664,7 +664,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresstring_caption() {
+    fn loadresstring_caption() {
         let source = r#"
             Me.Caption = LoadResString(4001)
         "#;
@@ -675,7 +675,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresstring_form_load() {
+    fn loadresstring_form_load() {
         let source = r#"
             Private Sub Form_Load()
                 lblWelcome.Caption = LoadResString(5001)
@@ -688,7 +688,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresstring_for_loop() {
+    fn loadresstring_for_loop() {
         let source = r#"
             For i = 1 To 5
                 labels(i).Caption = LoadResString(6000 + i)
@@ -701,7 +701,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresstring_function_return() {
+    fn loadresstring_function_return() {
         let source = r#"
             Function GetErrorMessage() As String
                 GetErrorMessage = LoadResString(7001)
@@ -714,7 +714,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresstring_error_handling() {
+    fn loadresstring_error_handling() {
         let source = r#"
             On Error Resume Next
             msg = LoadResString(9999)
@@ -729,7 +729,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresstring_with_statement() {
+    fn loadresstring_with_statement() {
         let source = r#"
             With lblStatus
                 .Caption = LoadResString(8001)
@@ -742,7 +742,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresstring_select_case() {
+    fn loadresstring_select_case() {
         let source = r#"
             Select Case errorType
                 Case 1
@@ -758,7 +758,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresstring_elseif() {
+    fn loadresstring_elseif() {
         let source = r#"
             If lang = "en" Then
                 msg = LoadResString(10001)
@@ -773,7 +773,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresstring_concatenation() {
+    fn loadresstring_concatenation() {
         let source = r#"
             Dim fullMsg As String
             fullMsg = LoadResString(12001) & vbCrLf & details
@@ -785,7 +785,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresstring_parentheses() {
+    fn loadresstring_parentheses() {
         let source = r#"
             msg = (LoadResString(13001))
         "#;
@@ -796,7 +796,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresstring_iif() {
+    fn loadresstring_iif() {
         let source = r#"
             msg = IIf(success, LoadResString(14001), LoadResString(14002))
         "#;
@@ -807,7 +807,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresstring_in_class() {
+    fn loadresstring_in_class() {
         let source = r#"
             Private Sub Class_Initialize()
                 m_errorMsg = LoadResString(15001)
@@ -820,7 +820,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresstring_function_argument() {
+    fn loadresstring_function_argument() {
         let source = r#"
             Call ShowMessage(LoadResString(16001))
         "#;
@@ -831,7 +831,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresstring_property_assignment() {
+    fn loadresstring_property_assignment() {
         let source = r#"
             MyObject.Message = LoadResString(17001)
         "#;
@@ -842,7 +842,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresstring_array_assignment() {
+    fn loadresstring_array_assignment() {
         let source = r#"
             messages(i) = LoadResString(18000 + i)
         "#;
@@ -853,7 +853,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresstring_while_wend() {
+    fn loadresstring_while_wend() {
         let source = r#"
             While index < maxStrings
                 text = LoadResString(19000 + index)
@@ -867,7 +867,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresstring_do_while() {
+    fn loadresstring_do_while() {
         let source = r#"
             Do While hasMore
                 currentMsg = LoadResString(GetNextID())
@@ -880,7 +880,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresstring_do_until() {
+    fn loadresstring_do_until() {
         let source = r#"
             Do Until loaded
                 On Error Resume Next
@@ -895,7 +895,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresstring_constants() {
+    fn loadresstring_constants() {
         let source = r#"
             Const MSG_ERROR = 20001
             MsgBox LoadResString(MSG_ERROR), vbCritical
@@ -907,7 +907,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresstring_addition() {
+    fn loadresstring_addition() {
         let source = r#"
             Dim baseID As Integer
             baseID = 21000
@@ -920,7 +920,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresstring_replace() {
+    fn loadresstring_replace() {
         let source = r#"
             Dim template As String
             template = LoadResString(22001)
@@ -933,7 +933,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresstring_collection_add() {
+    fn loadresstring_collection_add() {
         let source = r#"
             messages.Add LoadResString(23001), "WelcomeMsg"
         "#;
@@ -944,7 +944,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresstring_debug_print() {
+    fn loadresstring_debug_print() {
         let source = r#"
             Debug.Print LoadResString(24001)
         "#;
@@ -955,7 +955,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresstring_tooltip() {
+    fn loadresstring_tooltip() {
         let source = r#"
             cmdSave.ToolTipText = LoadResString(25001)
         "#;

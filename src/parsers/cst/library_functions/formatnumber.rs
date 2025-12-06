@@ -579,7 +579,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_formatnumber_basic() {
+    fn formatnumber_basic() {
         let source = r#"
 result = FormatNumber(value)
 "#;
@@ -590,7 +590,7 @@ result = FormatNumber(value)
     }
 
     #[test]
-    fn test_formatnumber_decimals() {
+    fn formatnumber_decimals() {
         let source = r#"
 formatted = FormatNumber(value, 2)
 "#;
@@ -601,7 +601,7 @@ formatted = FormatNumber(value, 2)
     }
 
     #[test]
-    fn test_formatnumber_no_decimals() {
+    fn formatnumber_no_decimals() {
         let source = r#"
 formatted = FormatNumber(value, 0)
 "#;
@@ -612,7 +612,7 @@ formatted = FormatNumber(value, 0)
     }
 
     #[test]
-    fn test_formatnumber_parens() {
+    fn formatnumber_parens() {
         let source = r#"
 result = FormatNumber(negative, 2, , vbTrue)
 "#;
@@ -623,7 +623,7 @@ result = FormatNumber(negative, 2, , vbTrue)
     }
 
     #[test]
-    fn test_formatnumber_all_params() {
+    fn formatnumber_all_params() {
         let source = r#"
 formatted = FormatNumber(value, 2, vbTrue, vbTrue, vbTrue)
 "#;
@@ -634,7 +634,7 @@ formatted = FormatNumber(value, 2, vbTrue, vbTrue, vbTrue)
     }
 
     #[test]
-    fn test_formatnumber_debug_print() {
+    fn formatnumber_debug_print() {
         let source = r#"
 Debug.Print FormatNumber(total, 2)
 "#;
@@ -645,7 +645,7 @@ Debug.Print FormatNumber(total, 2)
     }
 
     #[test]
-    fn test_formatnumber_concatenation() {
+    fn formatnumber_concatenation() {
         let source = r#"
 msg = "Total: " & FormatNumber(total, 2)
 "#;
@@ -656,7 +656,7 @@ msg = "Total: " & FormatNumber(total, 2)
     }
 
     #[test]
-    fn test_formatnumber_in_function() {
+    fn formatnumber_in_function() {
         let source = r#"
 Function FormatPopulation(population As Long) As String
     FormatPopulation = FormatNumber(population, 0, , , vbTrue)
@@ -669,7 +669,7 @@ End Function
     }
 
     #[test]
-    fn test_formatnumber_grid() {
+    fn formatnumber_grid() {
         let source = r#"
 grid.TextMatrix(i + 1, 0) = FormatNumber(i, 0)
 grid.TextMatrix(i + 1, 1) = FormatNumber(values(i), 2)
@@ -681,7 +681,7 @@ grid.TextMatrix(i + 1, 1) = FormatNumber(values(i), 2)
     }
 
     #[test]
-    fn test_formatnumber_multiplication() {
+    fn formatnumber_multiplication() {
         let source = r#"
 result = FormatNumber(value * 100, 2)
 "#;
@@ -692,7 +692,7 @@ result = FormatNumber(value * 100, 2)
     }
 
     #[test]
-    fn test_formatnumber_division() {
+    fn formatnumber_division() {
         let source = r#"
 formatted = FormatNumber(value / Billion, 2) & "B"
 "#;
@@ -703,7 +703,7 @@ formatted = FormatNumber(value / Billion, 2) & "B"
     }
 
     #[test]
-    fn test_formatnumber_listbox() {
+    fn formatnumber_listbox() {
         let source = r#"
 lst.AddItem FormatNumber(values(i), decimals)
 "#;
@@ -714,7 +714,7 @@ lst.AddItem FormatNumber(values(i), decimals)
     }
 
     #[test]
-    fn test_formatnumber_multiline() {
+    fn formatnumber_multiline() {
         let source = r#"
 summary = "Actual: " & FormatNumber(actual, 2) & vbCrLf & _
           "Expected: " & FormatNumber(expected, 2) & vbCrLf & _
@@ -727,7 +727,7 @@ summary = "Actual: " & FormatNumber(actual, 2) & vbCrLf & _
     }
 
     #[test]
-    fn test_formatnumber_if_statement() {
+    fn formatnumber_if_statement() {
         let source = r#"
 If Abs(value) >= 1000 Then
     result = FormatNumber(value, 0)
@@ -742,7 +742,7 @@ End If
     }
 
     #[test]
-    fn test_formatnumber_isnull_check() {
+    fn formatnumber_isnull_check() {
         let source = r#"
 If Not IsNull(value) Then
     formatted = FormatNumber(value, 2)
@@ -755,7 +755,7 @@ End If
     }
 
     #[test]
-    fn test_formatnumber_isnumeric_check() {
+    fn formatnumber_isnumeric_check() {
         let source = r#"
 If IsNumeric(value) Then
     result = FormatNumber(CDbl(value), decimals)
@@ -768,7 +768,7 @@ End If
     }
 
     #[test]
-    fn test_formatnumber_error_handling() {
+    fn formatnumber_error_handling() {
         let source = r#"
 On Error GoTo ErrorHandler
 formatted = FormatNumber(CDbl(value), decimals)
@@ -783,7 +783,7 @@ ErrorHandler:
     }
 
     #[test]
-    fn test_formatnumber_for_loop() {
+    fn formatnumber_for_loop() {
         let source = r#"
 For i = LBound(values) To UBound(values)
     Debug.Print FormatNumber(values(i), 2)
@@ -796,7 +796,7 @@ Next i
     }
 
     #[test]
-    fn test_formatnumber_select_case() {
+    fn formatnumber_select_case() {
         let source = r#"
 Select Case Abs(value)
     Case Is >= 1000
@@ -812,7 +812,7 @@ End Select
     }
 
     #[test]
-    fn test_formatnumber_comparison() {
+    fn formatnumber_comparison() {
         let source = r#"
 comparison = FormatNumber(value1, 2) & " vs " & FormatNumber(value2, 2)
 "#;
@@ -823,7 +823,7 @@ comparison = FormatNumber(value1, 2) & " vs " & FormatNumber(value2, 2)
     }
 
     #[test]
-    fn test_formatnumber_vbfalse() {
+    fn formatnumber_vbfalse() {
         let source = r#"
 result = FormatNumber(fraction, 2, vbFalse)
 "#;
@@ -834,7 +834,7 @@ result = FormatNumber(fraction, 2, vbFalse)
     }
 
     #[test]
-    fn test_formatnumber_grouping() {
+    fn formatnumber_grouping() {
         let source = r#"
 formatted = FormatNumber(largeNumber, 2, , , vbTrue)
 "#;
@@ -845,7 +845,7 @@ formatted = FormatNumber(largeNumber, 2, , , vbTrue)
     }
 
     #[test]
-    fn test_formatnumber_recordset() {
+    fn formatnumber_recordset() {
         let source = r#"
 formatted = FormatNumber(rs.Fields(fieldName).Value, decimals)
 "#;
@@ -856,7 +856,7 @@ formatted = FormatNumber(rs.Fields(fieldName).Value, decimals)
     }
 
     #[test]
-    fn test_formatnumber_iif() {
+    fn formatnumber_iif() {
         let source = r#"
 parens = IIf(useParens, vbTrue, vbFalse)
 result = FormatNumber(value, decimals, vbTrue, parens, vbTrue)
@@ -868,7 +868,7 @@ result = FormatNumber(value, decimals, vbTrue, parens, vbTrue)
     }
 
     #[test]
-    fn test_formatnumber_with_space() {
+    fn formatnumber_with_space() {
         let source = r#"
 result = FormatNumber(value, decimals) & " " & unit
 "#;
@@ -879,7 +879,7 @@ result = FormatNumber(value, decimals) & " " & unit
     }
 
     #[test]
-    fn test_formatnumber_subtraction() {
+    fn formatnumber_subtraction() {
         let source = r#"
 difference = FormatNumber(actual - expected, 2, , vbTrue)
 "#;

@@ -664,7 +664,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_syd_basic() {
+    fn syd_basic() {
         let source = r#"
 Sub Test()
     depreciation = SYD(10000, 1000, 5, 1)
@@ -676,7 +676,7 @@ End Sub
     }
 
     #[test]
-    fn test_syd_variable_assignment() {
+    fn syd_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim yearlyDep As Double
@@ -690,7 +690,7 @@ End Sub
     }
 
     #[test]
-    fn test_syd_for_loop() {
+    fn syd_for_loop() {
         let source = r#"
 Sub Test()
     For year = 1 To life
@@ -705,7 +705,7 @@ End Sub
     }
 
     #[test]
-    fn test_syd_function_return() {
+    fn syd_function_return() {
         let source = r#"
 Function GetDepreciation(cost As Double, salvage As Double, life As Integer, period As Integer) As Double
     GetDepreciation = SYD(cost, salvage, life, period)
@@ -717,7 +717,7 @@ End Function
     }
 
     #[test]
-    fn test_syd_if_statement() {
+    fn syd_if_statement() {
         let source = r#"
 Sub Test()
     If SYD(cost, salvage, life, year) > threshold Then
@@ -731,7 +731,7 @@ End Sub
     }
 
     #[test]
-    fn test_syd_msgbox() {
+    fn syd_msgbox() {
         let source = r##"
 Sub Test()
     MsgBox "Depreciation: $" & Format$(SYD(cost, salvage, life, year), "#,##0.00")
@@ -743,7 +743,7 @@ End Sub
     }
 
     #[test]
-    fn test_syd_select_case() {
+    fn syd_select_case() {
         let source = r#"
 Sub Test()
     Select Case SYD(cost, salvage, life, period)
@@ -760,7 +760,7 @@ End Sub
     }
 
     #[test]
-    fn test_syd_array_assignment() {
+    fn syd_array_assignment() {
         let source = r#"
 Sub Test()
     schedule(i) = SYD(cost, salvage, life, i)
@@ -772,7 +772,7 @@ End Sub
     }
 
     #[test]
-    fn test_syd_function_argument() {
+    fn syd_function_argument() {
         let source = r#"
 Sub Test()
     Call ProcessDepreciation(SYD(cost, salvage, life, year))
@@ -784,7 +784,7 @@ End Sub
     }
 
     #[test]
-    fn test_syd_comparison() {
+    fn syd_comparison() {
         let source = r#"
 Sub Test()
     If SYD(cost, salvage, life, 1) > SLN(cost, salvage, life) Then
@@ -798,7 +798,7 @@ End Sub
     }
 
     #[test]
-    fn test_syd_debug_print() {
+    fn syd_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print "Year " & year & ": " & SYD(cost, salvage, life, year)
@@ -810,7 +810,7 @@ End Sub
     }
 
     #[test]
-    fn test_syd_do_while() {
+    fn syd_do_while() {
         let source = r#"
 Sub Test()
     Do While year <= life
@@ -825,7 +825,7 @@ End Sub
     }
 
     #[test]
-    fn test_syd_do_until() {
+    fn syd_do_until() {
         let source = r#"
 Sub Test()
     Do Until year > life
@@ -840,7 +840,7 @@ End Sub
     }
 
     #[test]
-    fn test_syd_while_wend() {
+    fn syd_while_wend() {
         let source = r#"
 Sub Test()
     While period <= life
@@ -855,7 +855,7 @@ End Sub
     }
 
     #[test]
-    fn test_syd_iif() {
+    fn syd_iif() {
         let source = r#"
 Sub Test()
     method = IIf(useAccelerated, SYD(cost, salvage, life, year), SLN(cost, salvage, life))
@@ -867,7 +867,7 @@ End Sub
     }
 
     #[test]
-    fn test_syd_with_statement() {
+    fn syd_with_statement() {
         let source = r#"
 Sub Test()
     With assetInfo
@@ -881,7 +881,7 @@ End Sub
     }
 
     #[test]
-    fn test_syd_parentheses() {
+    fn syd_parentheses() {
         let source = r#"
 Sub Test()
     result = (SYD(cost, salvage, life, year) * taxRate)
@@ -893,7 +893,7 @@ End Sub
     }
 
     #[test]
-    fn test_syd_error_handling() {
+    fn syd_error_handling() {
         let source = r#"
 Sub Test()
     On Error Resume Next
@@ -909,7 +909,7 @@ End Sub
     }
 
     #[test]
-    fn test_syd_property_assignment() {
+    fn syd_property_assignment() {
         let source = r#"
 Sub Test()
     obj.AnnualDepreciation = SYD(obj.Cost, obj.Salvage, obj.Life, currentYear)
@@ -921,7 +921,7 @@ End Sub
     }
 
     #[test]
-    fn test_syd_concatenation() {
+    fn syd_concatenation() {
         let source = r#"
 Sub Test()
     report = "Depreciation: " & SYD(cost, salvage, life, year)
@@ -933,7 +933,7 @@ End Sub
     }
 
     #[test]
-    fn test_syd_arithmetic() {
+    fn syd_arithmetic() {
         let source = r#"
 Sub Test()
     bookValue = cost - SYD(cost, salvage, life, 1) - SYD(cost, salvage, life, 2)
@@ -945,7 +945,7 @@ End Sub
     }
 
     #[test]
-    fn test_syd_print_statement() {
+    fn syd_print_statement() {
         let source = r#"
 Sub Test()
     Print #1, SYD(cost, salvage, life, period)
@@ -957,7 +957,7 @@ End Sub
     }
 
     #[test]
-    fn test_syd_class_usage() {
+    fn syd_class_usage() {
         let source = r#"
 Sub Test()
     Set asset = New DepreciationCalculator
@@ -970,7 +970,7 @@ End Sub
     }
 
     #[test]
-    fn test_syd_accumulation() {
+    fn syd_accumulation() {
         let source = r#"
 Sub Test()
     accumulated = accumulated + SYD(cost, salvage, life, period)
@@ -982,7 +982,7 @@ End Sub
     }
 
     #[test]
-    fn test_syd_elseif() {
+    fn syd_elseif() {
         let source = r#"
 Sub Test()
     If method = "DDB" Then
@@ -998,7 +998,7 @@ End Sub
     }
 
     #[test]
-    fn test_syd_multiple_assets() {
+    fn syd_multiple_assets() {
         let source = r#"
 Sub Test()
     totalDep = SYD(cost1, salvage1, life1, year) + SYD(cost2, salvage2, life2, year)
@@ -1010,7 +1010,7 @@ End Sub
     }
 
     #[test]
-    fn test_syd_format_output() {
+    fn syd_format_output() {
         let source = r##"
 Sub Test()
     formatted = Format$(SYD(cost, salvage, life, year), "$#,##0.00")

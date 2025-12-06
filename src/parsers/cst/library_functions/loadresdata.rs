@@ -627,7 +627,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_loadresdata_basic() {
+    fn loadresdata_basic() {
         let source = r#"
             Dim data() As Byte
             data = LoadResData(101, 256)
@@ -639,7 +639,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresdata_string_id() {
+    fn loadresdata_string_id() {
         let source = r#"
             data = LoadResData("SOUND", 257)
         "#;
@@ -650,7 +650,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresdata_if_statement() {
+    fn loadresdata_if_statement() {
         let source = r#"
             If hasResource Then
                 data = LoadResData(resID, resFormat)
@@ -663,7 +663,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresdata_function_return() {
+    fn loadresdata_function_return() {
         let source = r#"
             Function GetResourceData() As Byte()
                 GetResourceData = LoadResData(101, 256)
@@ -676,7 +676,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresdata_for_loop() {
+    fn loadresdata_for_loop() {
         let source = r#"
             For i = 1 To 10
                 resData = LoadResData(i, 256)
@@ -689,7 +689,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresdata_error_handling() {
+    fn loadresdata_error_handling() {
         let source = r#"
             On Error Resume Next
             data = LoadResData(999, 256)
@@ -704,7 +704,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresdata_with_statement() {
+    fn loadresdata_with_statement() {
         let source = r#"
             With resourceManager
                 .data = LoadResData(101, 256)
@@ -717,7 +717,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresdata_array_assignment() {
+    fn loadresdata_array_assignment() {
         let source = r#"
             Dim resources(1 To 5) As Variant
             resources(i) = LoadResData(i, 256)
@@ -729,7 +729,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresdata_select_case() {
+    fn loadresdata_select_case() {
         let source = r#"
             Select Case resourceType
                 Case 1
@@ -745,7 +745,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresdata_elseif() {
+    fn loadresdata_elseif() {
         let source = r#"
             If mode = 1 Then
                 data = LoadResData(101, 256)
@@ -760,7 +760,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresdata_strconv() {
+    fn loadresdata_strconv() {
         let source = r#"
             Dim textData As String
             textData = StrConv(LoadResData("TEXT", 300), vbUnicode)
@@ -772,7 +772,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresdata_parentheses() {
+    fn loadresdata_parentheses() {
         let source = r#"
             data = (LoadResData(101, 256))
         "#;
@@ -783,7 +783,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresdata_iif() {
+    fn loadresdata_iif() {
         let source = r#"
             data = IIf(useCustom, LoadResData(101, 256), LoadResData(1, 256))
         "#;
@@ -794,7 +794,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresdata_in_class() {
+    fn loadresdata_in_class() {
         let source = r#"
             Private Sub Class_Initialize()
                 m_data = LoadResData("DEFAULT", 256)
@@ -807,7 +807,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresdata_function_argument() {
+    fn loadresdata_function_argument() {
         let source = r#"
             Call ProcessData(LoadResData(101, 256))
         "#;
@@ -818,7 +818,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresdata_property_assignment() {
+    fn loadresdata_property_assignment() {
         let source = r#"
             MyObject.ResourceData = LoadResData(101, 256)
         "#;
@@ -829,7 +829,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresdata_ubound() {
+    fn loadresdata_ubound() {
         let source = r#"
             Dim size As Long
             size = UBound(LoadResData(101, 256)) + 1
@@ -841,7 +841,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresdata_while_wend() {
+    fn loadresdata_while_wend() {
         let source = r#"
             While index < maxResources
                 data = LoadResData(index, 256)
@@ -855,7 +855,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresdata_do_while() {
+    fn loadresdata_do_while() {
         let source = r#"
             Do While hasMore
                 currentData = LoadResData(GetNextID(), format)
@@ -868,7 +868,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresdata_do_until() {
+    fn loadresdata_do_until() {
         let source = r#"
             Do Until loaded
                 On Error Resume Next
@@ -883,7 +883,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresdata_constants() {
+    fn loadresdata_constants() {
         let source = r#"
             Const RES_FORMAT_WAVE = 257
             data = LoadResData(101, RES_FORMAT_WAVE)
@@ -895,7 +895,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresdata_file_write() {
+    fn loadresdata_file_write() {
         let source = r#"
             Dim fileNum As Integer
             fileNum = FreeFile
@@ -908,7 +908,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresdata_concatenation() {
+    fn loadresdata_concatenation() {
         let source = r#"
             Dim id As String
             id = "RES_" & resNum
@@ -921,7 +921,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresdata_collection_add() {
+    fn loadresdata_collection_add() {
         let source = r#"
             resources.Add LoadResData(i, 256), "Resource" & i
         "#;
@@ -932,7 +932,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresdata_debug_print() {
+    fn loadresdata_debug_print() {
         let source = r#"
             Debug.Print "Size: " & UBound(LoadResData(101, 256)) + 1
         "#;
@@ -943,7 +943,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresdata_comparison() {
+    fn loadresdata_comparison() {
         let source = r#"
             If LoadResData(101, 256)(0) = &H4D Then
                 MsgBox "Valid header"
@@ -956,7 +956,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loadresdata_msgbox() {
+    fn loadresdata_msgbox() {
         let source = r#"
             MsgBox "Loaded " & UBound(LoadResData(101, 256)) + 1 & " bytes"
         "#;

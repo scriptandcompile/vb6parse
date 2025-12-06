@@ -703,7 +703,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_minute_basic() {
+    fn minute_basic() {
         let source = r#"
             currentMinute = Minute(Now)
         "#;
@@ -714,7 +714,7 @@ mod tests {
     }
 
     #[test]
-    fn test_minute_variable() {
+    fn minute_variable() {
         let source = r#"
             m = Minute(timeValue)
         "#;
@@ -725,7 +725,7 @@ mod tests {
     }
 
     #[test]
-    fn test_minute_time_literal() {
+    fn minute_time_literal() {
         let source = r#"
             m = Minute(#2:45:30 PM#)
         "#;
@@ -736,7 +736,7 @@ mod tests {
     }
 
     #[test]
-    fn test_minute_if_statement() {
+    fn minute_if_statement() {
         let source = r#"
             If Minute(appointmentTime) < 30 Then
                 MsgBox "First half"
@@ -749,7 +749,7 @@ mod tests {
     }
 
     #[test]
-    fn test_minute_function_return() {
+    fn minute_function_return() {
         let source = r#"
             Function GetMinute() As Integer
                 GetMinute = Minute(Time)
@@ -762,7 +762,7 @@ mod tests {
     }
 
     #[test]
-    fn test_minute_mod_validation() {
+    fn minute_mod_validation() {
         let source = r#"
             If Minute(startTime) Mod 15 <> 0 Then
                 MsgBox "Invalid"
@@ -775,7 +775,7 @@ mod tests {
     }
 
     #[test]
-    fn test_minute_debug_print() {
+    fn minute_debug_print() {
         let source = r#"
             Debug.Print Minute(Now)
         "#;
@@ -786,7 +786,7 @@ mod tests {
     }
 
     #[test]
-    fn test_minute_with_statement() {
+    fn minute_with_statement() {
         let source = r#"
             With appointmentRecord
                 .StartMinute = Minute(.StartTime)
@@ -799,7 +799,7 @@ mod tests {
     }
 
     #[test]
-    fn test_minute_select_case() {
+    fn minute_select_case() {
         let source = r#"
             Select Case Minute(currentTime)
                 Case 0
@@ -815,7 +815,7 @@ mod tests {
     }
 
     #[test]
-    fn test_minute_elseif() {
+    fn minute_elseif() {
         let source = r#"
             If m = 0 Then
                 status = "Top"
@@ -830,7 +830,7 @@ mod tests {
     }
 
     #[test]
-    fn test_minute_parentheses() {
+    fn minute_parentheses() {
         let source = r#"
             result = (Minute(timeValue))
         "#;
@@ -841,7 +841,7 @@ mod tests {
     }
 
     #[test]
-    fn test_minute_iif() {
+    fn minute_iif() {
         let source = r#"
             result = IIf(Minute(t) >= 30, "Late", "Early")
         "#;
@@ -852,7 +852,7 @@ mod tests {
     }
 
     #[test]
-    fn test_minute_in_class() {
+    fn minute_in_class() {
         let source = r#"
             Private Sub ExtractTime()
                 m_minute = Minute(m_timeValue)
@@ -865,7 +865,7 @@ mod tests {
     }
 
     #[test]
-    fn test_minute_function_argument() {
+    fn minute_function_argument() {
         let source = r#"
             Call ProcessMinute(Minute(Now))
         "#;
@@ -876,7 +876,7 @@ mod tests {
     }
 
     #[test]
-    fn test_minute_property_assignment() {
+    fn minute_property_assignment() {
         let source = r#"
             MyObject.CurrentMinute = Minute(Time)
         "#;
@@ -887,7 +887,7 @@ mod tests {
     }
 
     #[test]
-    fn test_minute_array_assignment() {
+    fn minute_array_assignment() {
         let source = r#"
             minutes(i) = Minute(times(i))
         "#;
@@ -898,7 +898,7 @@ mod tests {
     }
 
     #[test]
-    fn test_minute_for_loop() {
+    fn minute_for_loop() {
         let source = r#"
             For i = 1 To count
                 m = Minute(appointments(i))
@@ -911,7 +911,7 @@ mod tests {
     }
 
     #[test]
-    fn test_minute_while_wend() {
+    fn minute_while_wend() {
         let source = r#"
             While Minute(currentTime) < 30
                 DoWork
@@ -924,7 +924,7 @@ mod tests {
     }
 
     #[test]
-    fn test_minute_do_while() {
+    fn minute_do_while() {
         let source = r#"
             Do While i < recordCount
                 minuteValue = Minute(records(i).Time)
@@ -938,7 +938,7 @@ mod tests {
     }
 
     #[test]
-    fn test_minute_do_until() {
+    fn minute_do_until() {
         let source = r#"
             Do Until Minute(Now) = 0
                 Wait 1000
@@ -951,7 +951,7 @@ mod tests {
     }
 
     #[test]
-    fn test_minute_msgbox() {
+    fn minute_msgbox() {
         let source = r#"
             MsgBox "Minute: " & Minute(Now)
         "#;
@@ -962,7 +962,7 @@ mod tests {
     }
 
     #[test]
-    fn test_minute_concatenation() {
+    fn minute_concatenation() {
         let source = r#"
             timeStr = Hour(t) & ":" & Format(Minute(t), "00")
         "#;
@@ -973,7 +973,7 @@ mod tests {
     }
 
     #[test]
-    fn test_minute_comparison() {
+    fn minute_comparison() {
         let source = r#"
             If Minute(time1) = Minute(time2) Then
                 MsgBox "Same"
@@ -986,7 +986,7 @@ mod tests {
     }
 
     #[test]
-    fn test_minute_with_format() {
+    fn minute_with_format() {
         let source = r#"
             formatted = Format(Minute(Now), "00")
         "#;
@@ -997,7 +997,7 @@ mod tests {
     }
 
     #[test]
-    fn test_minute_arithmetic() {
+    fn minute_arithmetic() {
         let source = r#"
             minutesPast = Minute(currentTime)
             minutesLeft = 60 - Minute(currentTime)
@@ -1009,7 +1009,7 @@ mod tests {
     }
 
     #[test]
-    fn test_minute_label_caption() {
+    fn minute_label_caption() {
         let source = r#"
             lblMinute.Caption = CStr(Minute(Time))
         "#;
@@ -1020,7 +1020,7 @@ mod tests {
     }
 
     #[test]
-    fn test_minute_calculation() {
+    fn minute_calculation() {
         let source = r#"
             totalMinutes = Hour(t) * 60 + Minute(t)
         "#;

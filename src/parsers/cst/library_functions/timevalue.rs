@@ -355,7 +355,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_timevalue_basic() {
+    fn timevalue_basic() {
         let source = r#"
 Sub Test()
     t = TimeValue("14:30:00")
@@ -367,7 +367,7 @@ End Sub
     }
 
     #[test]
-    fn test_timevalue_12_hour() {
+    fn timevalue_12_hour() {
         let source = r#"
 Sub Test()
     noon = TimeValue("12:00 PM")
@@ -379,7 +379,7 @@ End Sub
     }
 
     #[test]
-    fn test_timevalue_variable_assignment() {
+    fn timevalue_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim myTime As Date
@@ -392,7 +392,7 @@ End Sub
     }
 
     #[test]
-    fn test_timevalue_function_return() {
+    fn timevalue_function_return() {
         let source = r#"
 Function ParseTime(s As String) As Date
     ParseTime = TimeValue(s)
@@ -404,7 +404,7 @@ End Function
     }
 
     #[test]
-    fn test_timevalue_add_minutes() {
+    fn timevalue_add_minutes() {
         let source = r#"
 Sub Test()
     newTime = TimeValue("10:00") + TimeSerial(0, 30, 0)
@@ -416,7 +416,7 @@ End Sub
     }
 
     #[test]
-    fn test_timevalue_comparison() {
+    fn timevalue_comparison() {
         let source = r#"
 Sub Test()
     If TimeValue("15:00") > TimeValue("12:00") Then
@@ -430,7 +430,7 @@ End Sub
     }
 
     #[test]
-    fn test_timevalue_msgbox() {
+    fn timevalue_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Parsed: " & TimeValue("7:45 AM")
@@ -442,7 +442,7 @@ End Sub
     }
 
     #[test]
-    fn test_timevalue_debug_print() {
+    fn timevalue_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print TimeValue("23:59:59")
@@ -454,7 +454,7 @@ End Sub
     }
 
     #[test]
-    fn test_timevalue_format() {
+    fn timevalue_format() {
         let source = r#"
 Sub Test()
     formatted = Format$(TimeValue("18:30"), "hh:mm AM/PM")
@@ -466,7 +466,7 @@ End Sub
     }
 
     #[test]
-    fn test_timevalue_if_statement() {
+    fn timevalue_if_statement() {
         let source = r#"
 Sub Test()
     If TimeValue("6:00 PM") > TimeValue("12:00 PM") Then
@@ -480,7 +480,7 @@ End Sub
     }
 
     #[test]
-    fn test_timevalue_select_case() {
+    fn timevalue_select_case() {
         let source = r#"
 Sub Test()
     Select Case TimeValue("8:00")
@@ -497,7 +497,7 @@ End Sub
     }
 
     #[test]
-    fn test_timevalue_function_argument() {
+    fn timevalue_function_argument() {
         let source = r#"
 Sub Test()
     Call SetStartTime(obj, "9:00 AM")
@@ -510,7 +510,7 @@ End Sub
     }
 
     #[test]
-    fn test_timevalue_property_assignment() {
+    fn timevalue_property_assignment() {
         let source = r#"
 Sub Test()
     obj.Time = TimeValue("13:45")
@@ -522,7 +522,7 @@ End Sub
     }
 
     #[test]
-    fn test_timevalue_with_statement() {
+    fn timevalue_with_statement() {
         let source = r#"
 Sub Test()
     With schedule
@@ -537,7 +537,7 @@ End Sub
     }
 
     #[test]
-    fn test_timevalue_array_assignment() {
+    fn timevalue_array_assignment() {
         let source = r#"
 Sub Test()
     times(i) = TimeValue(timeStrings(i))
@@ -549,7 +549,7 @@ End Sub
     }
 
     #[test]
-    fn test_timevalue_print_statement() {
+    fn timevalue_print_statement() {
         let source = r#"
 Sub Test()
     Print #1, TimeValue("10:15:30")
@@ -561,7 +561,7 @@ End Sub
     }
 
     #[test]
-    fn test_timevalue_elseif() {
+    fn timevalue_elseif() {
         let source = r#"
 Sub Test()
     If x = 1 Then
@@ -577,7 +577,7 @@ End Sub
     }
 
     #[test]
-    fn test_timevalue_do_while() {
+    fn timevalue_do_while() {
         let source = r#"
 Sub Test()
     Do While TimeValue("15:00") > TimeValue("12:00")
@@ -591,7 +591,7 @@ End Sub
     }
 
     #[test]
-    fn test_timevalue_do_until() {
+    fn timevalue_do_until() {
         let source = r#"
 Sub Test()
     Do Until TimeValue("8:00") >= TimeValue("17:00")
@@ -605,7 +605,7 @@ End Sub
     }
 
     #[test]
-    fn test_timevalue_while_wend() {
+    fn timevalue_while_wend() {
         let source = r#"
 Sub Test()
     While TimeValue("9:00") < TimeValue("17:00")
@@ -619,7 +619,7 @@ End Sub
     }
 
     #[test]
-    fn test_timevalue_iif() {
+    fn timevalue_iif() {
         let source = r#"
 Sub Test()
     greeting = IIf(TimeValue("8:00") < TimeValue("12:00"), "Morning", "Afternoon")
@@ -631,7 +631,7 @@ End Sub
     }
 
     #[test]
-    fn test_timevalue_parentheses() {
+    fn timevalue_parentheses() {
         let source = r#"
 Sub Test()
     result = (TimeValue("12:00"))
@@ -643,7 +643,7 @@ End Sub
     }
 
     #[test]
-    fn test_timevalue_class_usage() {
+    fn timevalue_class_usage() {
         let source = r#"
 Sub Test()
     Set parser = New TimeParser
@@ -657,7 +657,7 @@ End Sub
     }
 
     #[test]
-    fn test_timevalue_numeric_input() {
+    fn timevalue_numeric_input() {
         let source = r#"
 Sub Test()
     t = TimeValue(0.5)

@@ -591,7 +591,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_ubound_basic() {
+    fn ubound_basic() {
         let source = r#"
 Sub Test()
     upper = UBound(myArray)
@@ -603,7 +603,7 @@ End Sub
     }
 
     #[test]
-    fn test_ubound_variable_assignment() {
+    fn ubound_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim maxIndex As Long
@@ -617,7 +617,7 @@ End Sub
     }
 
     #[test]
-    fn test_ubound_with_dimension() {
+    fn ubound_with_dimension() {
         let source = r#"
 Sub Test()
     rows = UBound(matrix, 1)
@@ -630,7 +630,7 @@ End Sub
     }
 
     #[test]
-    fn test_ubound_for_loop() {
+    fn ubound_for_loop() {
         let source = r#"
 Sub Test()
     For i = LBound(arr) To UBound(arr)
@@ -644,7 +644,7 @@ End Sub
     }
 
     #[test]
-    fn test_ubound_function_return() {
+    fn ubound_function_return() {
         let source = r#"
 Function GetArraySize(arr() As Variant) As Long
     GetArraySize = UBound(arr) - LBound(arr) + 1
@@ -656,7 +656,7 @@ End Function
     }
 
     #[test]
-    fn test_ubound_if_statement() {
+    fn ubound_if_statement() {
         let source = r#"
 Sub Test()
     If index > UBound(data) Then
@@ -670,7 +670,7 @@ End Sub
     }
 
     #[test]
-    fn test_ubound_msgbox() {
+    fn ubound_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Array size: " & (UBound(arr) - LBound(arr) + 1)
@@ -682,7 +682,7 @@ End Sub
     }
 
     #[test]
-    fn test_ubound_select_case() {
+    fn ubound_select_case() {
         let source = r#"
 Sub Test()
     Select Case UBound(items)
@@ -699,7 +699,7 @@ End Sub
     }
 
     #[test]
-    fn test_ubound_redim() {
+    fn ubound_redim() {
         let source = r#"
 Sub Test()
     ReDim Preserve arr(LBound(arr) To UBound(arr) + 1)
@@ -711,7 +711,7 @@ End Sub
     }
 
     #[test]
-    fn test_ubound_function_argument() {
+    fn ubound_function_argument() {
         let source = r#"
 Sub Test()
     Call ProcessArray(data, UBound(data))
@@ -723,7 +723,7 @@ End Sub
     }
 
     #[test]
-    fn test_ubound_comparison() {
+    fn ubound_comparison() {
         let source = r#"
 Sub Test()
     If UBound(arr1) > UBound(arr2) Then
@@ -737,7 +737,7 @@ End Sub
     }
 
     #[test]
-    fn test_ubound_debug_print() {
+    fn ubound_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print "Upper bound: " & UBound(values)
@@ -749,7 +749,7 @@ End Sub
     }
 
     #[test]
-    fn test_ubound_do_while() {
+    fn ubound_do_while() {
         let source = r#"
 Sub Test()
     Do While i <= UBound(items)
@@ -764,7 +764,7 @@ End Sub
     }
 
     #[test]
-    fn test_ubound_do_until() {
+    fn ubound_do_until() {
         let source = r#"
 Sub Test()
     Do Until i > UBound(data)
@@ -778,7 +778,7 @@ End Sub
     }
 
     #[test]
-    fn test_ubound_while_wend() {
+    fn ubound_while_wend() {
         let source = r#"
 Sub Test()
     While idx <= UBound(arr)
@@ -792,7 +792,7 @@ End Sub
     }
 
     #[test]
-    fn test_ubound_iif() {
+    fn ubound_iif() {
         let source = r#"
 Sub Test()
     size = IIf(UBound(arr) > 10, "Large", "Small")
@@ -804,7 +804,7 @@ End Sub
     }
 
     #[test]
-    fn test_ubound_with_statement() {
+    fn ubound_with_statement() {
         let source = r#"
 Sub Test()
     With arrayManager
@@ -818,7 +818,7 @@ End Sub
     }
 
     #[test]
-    fn test_ubound_parentheses() {
+    fn ubound_parentheses() {
         let source = r#"
 Sub Test()
     result = (UBound(arr) + 1) * 2
@@ -830,7 +830,7 @@ End Sub
     }
 
     #[test]
-    fn test_ubound_error_handling() {
+    fn ubound_error_handling() {
         let source = r#"
 Sub Test()
     On Error Resume Next
@@ -846,7 +846,7 @@ End Sub
     }
 
     #[test]
-    fn test_ubound_property_assignment() {
+    fn ubound_property_assignment() {
         let source = r#"
 Sub Test()
     obj.UpperBound = UBound(obj.Items)
@@ -858,7 +858,7 @@ End Sub
     }
 
     #[test]
-    fn test_ubound_concatenation() {
+    fn ubound_concatenation() {
         let source = r#"
 Sub Test()
     message = "Array has " & UBound(arr) + 1 & " elements"
@@ -870,7 +870,7 @@ End Sub
     }
 
     #[test]
-    fn test_ubound_arithmetic() {
+    fn ubound_arithmetic() {
         let source = r#"
 Sub Test()
     lastIndex = UBound(values) - 1
@@ -882,7 +882,7 @@ End Sub
     }
 
     #[test]
-    fn test_ubound_print_statement() {
+    fn ubound_print_statement() {
         let source = r#"
 Sub Test()
     Print #1, UBound(data)
@@ -894,7 +894,7 @@ End Sub
     }
 
     #[test]
-    fn test_ubound_class_usage() {
+    fn ubound_class_usage() {
         let source = r#"
 Sub Test()
     Set manager = New ArrayManager
@@ -907,7 +907,7 @@ End Sub
     }
 
     #[test]
-    fn test_ubound_array_bounds() {
+    fn ubound_array_bounds() {
         let source = r#"
 Sub Test()
     lastElement = arr(UBound(arr))
@@ -919,7 +919,7 @@ End Sub
     }
 
     #[test]
-    fn test_ubound_elseif() {
+    fn ubound_elseif() {
         let source = r#"
 Sub Test()
     If UBound(arr) = 0 Then
@@ -935,7 +935,7 @@ End Sub
     }
 
     #[test]
-    fn test_ubound_nested_arrays() {
+    fn ubound_nested_arrays() {
         let source = r#"
 Sub Test()
     For i = LBound(matrix, 1) To UBound(matrix, 1)
@@ -951,7 +951,7 @@ End Sub
     }
 
     #[test]
-    fn test_ubound_paramarray() {
+    fn ubound_paramarray() {
         let source = r#"
 Function Sum(ParamArray values() As Variant) As Double
     For i = LBound(values) To UBound(values)

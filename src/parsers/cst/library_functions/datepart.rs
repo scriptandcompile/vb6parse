@@ -578,7 +578,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_datepart_basic() {
+    fn datepart_basic() {
         let source = r#"
 year = DatePart("yyyy", Date)
 "#;
@@ -589,7 +589,7 @@ year = DatePart("yyyy", Date)
     }
 
     #[test]
-    fn test_datepart_quarter() {
+    fn datepart_quarter() {
         let source = r#"
 quarter = DatePart("q", currentDate)
 "#;
@@ -600,7 +600,7 @@ quarter = DatePart("q", currentDate)
     }
 
     #[test]
-    fn test_datepart_month() {
+    fn datepart_month() {
         let source = r#"
 month = DatePart("m", #3/15/2025#)
 "#;
@@ -611,7 +611,7 @@ month = DatePart("m", #3/15/2025#)
     }
 
     #[test]
-    fn test_datepart_day() {
+    fn datepart_day() {
         let source = r#"
 day = DatePart("d", Date)
 "#;
@@ -622,7 +622,7 @@ day = DatePart("d", Date)
     }
 
     #[test]
-    fn test_datepart_day_of_year() {
+    fn datepart_day_of_year() {
         let source = r#"
 dayOfYear = DatePart("y", Date)
 "#;
@@ -633,7 +633,7 @@ dayOfYear = DatePart("y", Date)
     }
 
     #[test]
-    fn test_datepart_weekday() {
+    fn datepart_weekday() {
         let source = r#"
 weekday = DatePart("w", Date)
 "#;
@@ -644,7 +644,7 @@ weekday = DatePart("w", Date)
     }
 
     #[test]
-    fn test_datepart_week() {
+    fn datepart_week() {
         let source = r#"
 week = DatePart("ww", Date)
 "#;
@@ -655,7 +655,7 @@ week = DatePart("ww", Date)
     }
 
     #[test]
-    fn test_datepart_hour() {
+    fn datepart_hour() {
         let source = r#"
 hour = DatePart("h", Now)
 "#;
@@ -666,7 +666,7 @@ hour = DatePart("h", Now)
     }
 
     #[test]
-    fn test_datepart_minute() {
+    fn datepart_minute() {
         let source = r#"
 minute = DatePart("n", timestamp)
 "#;
@@ -677,7 +677,7 @@ minute = DatePart("n", timestamp)
     }
 
     #[test]
-    fn test_datepart_second() {
+    fn datepart_second() {
         let source = r#"
 second = DatePart("s", Now)
 "#;
@@ -688,7 +688,7 @@ second = DatePart("s", Now)
     }
 
     #[test]
-    fn test_datepart_with_firstdayofweek() {
+    fn datepart_with_firstdayofweek() {
         let source = r#"
 weekday = DatePart("w", Date, vbMonday)
 "#;
@@ -699,7 +699,7 @@ weekday = DatePart("w", Date, vbMonday)
     }
 
     #[test]
-    fn test_datepart_with_all_params() {
+    fn datepart_with_all_params() {
         let source = r#"
 week = DatePart("ww", Date, vbMonday, vbFirstFourDays)
 "#;
@@ -710,7 +710,7 @@ week = DatePart("ww", Date, vbMonday, vbFirstFourDays)
     }
 
     #[test]
-    fn test_datepart_in_function() {
+    fn datepart_in_function() {
         let source = r#"
 Function GetQuarter(d As Date) As Integer
     GetQuarter = DatePart("q", d)
@@ -723,7 +723,7 @@ End Function
     }
 
     #[test]
-    fn test_datepart_in_select_case() {
+    fn datepart_in_select_case() {
         let source = r#"
 Select Case DatePart("q", Date)
     Case 1
@@ -739,7 +739,7 @@ End Select
     }
 
     #[test]
-    fn test_datepart_in_if() {
+    fn datepart_in_if() {
         let source = r#"
 If DatePart("h", Now) >= 17 Then
     MsgBox "After hours"
@@ -752,7 +752,7 @@ End If
     }
 
     #[test]
-    fn test_datepart_concatenation() {
+    fn datepart_concatenation() {
         let source = r#"
 key = DatePart("yyyy", Date) & "-" & DatePart("m", Date)
 "#;
@@ -763,7 +763,7 @@ key = DatePart("yyyy", Date) & "-" & DatePart("m", Date)
     }
 
     #[test]
-    fn test_datepart_in_calculation() {
+    fn datepart_in_calculation() {
         let source = r#"
 endMonth = DatePart("q", Date) * 3
 "#;
@@ -774,7 +774,7 @@ endMonth = DatePart("q", Date) * 3
     }
 
     #[test]
-    fn test_datepart_in_loop() {
+    fn datepart_in_loop() {
         let source = r#"
 For i = 1 To count
     months(i) = DatePart("m", dates(i))
@@ -787,7 +787,7 @@ Next i
     }
 
     #[test]
-    fn test_datepart_comparison() {
+    fn datepart_comparison() {
         let source = r#"
 If DatePart("w", Date) = vbSaturday Then
     MsgBox "Weekend"
@@ -800,7 +800,7 @@ End If
     }
 
     #[test]
-    fn test_datepart_multiple_calls() {
+    fn datepart_multiple_calls() {
         let source = r#"
 y = DatePart("yyyy", Date)
 m = DatePart("m", Date)
@@ -813,7 +813,7 @@ d = DatePart("d", Date)
     }
 
     #[test]
-    fn test_datepart_in_msgbox() {
+    fn datepart_in_msgbox() {
         let source = r#"
 MsgBox "Quarter: " & DatePart("q", Date)
 "#;
@@ -824,7 +824,7 @@ MsgBox "Quarter: " & DatePart("q", Date)
     }
 
     #[test]
-    fn test_datepart_with_format() {
+    fn datepart_with_format() {
         let source = r#"
 formatted = Format(DatePart("m", Date), "00")
 "#;
@@ -835,7 +835,7 @@ formatted = Format(DatePart("m", Date), "00")
     }
 
     #[test]
-    fn test_datepart_nested_in_dateserial() {
+    fn datepart_nested_in_dateserial() {
         let source = r#"
 quarterEnd = DateSerial(DatePart("yyyy", Date), DatePart("q", Date) * 3 + 1, 0)
 "#;
@@ -846,7 +846,7 @@ quarterEnd = DateSerial(DatePart("yyyy", Date), DatePart("q", Date) * 3 + 1, 0)
     }
 
     #[test]
-    fn test_datepart_with_variable_interval() {
+    fn datepart_with_variable_interval() {
         let source = r#"
 Dim interval As String
 interval = "q"
@@ -859,7 +859,7 @@ result = DatePart(interval, Date)
     }
 
     #[test]
-    fn test_datepart_range_check() {
+    fn datepart_range_check() {
         let source = r#"
 If DatePart("h", Now) >= 9 And DatePart("h", Now) < 17 Then
     MsgBox "Business hours"

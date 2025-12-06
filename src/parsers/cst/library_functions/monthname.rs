@@ -606,7 +606,7 @@ mod tests {
     use crate::parsers::cst::ConcreteSyntaxTree;
 
     #[test]
-    fn test_monthname_basic() {
+    fn monthname_basic() {
         let source = r#"
 Dim name As String
 name = MonthName(3)
@@ -618,7 +618,7 @@ name = MonthName(3)
     }
 
     #[test]
-    fn test_monthname_variable_assignment() {
+    fn monthname_variable_assignment() {
         let source = r#"
 Dim monthName As String
 monthName = MonthName(Month(Date))
@@ -630,7 +630,7 @@ monthName = MonthName(Month(Date))
     }
 
     #[test]
-    fn test_monthname_abbreviated() {
+    fn monthname_abbreviated() {
         let source = r#"
 Dim shortName As String
 shortName = MonthName(11, True)
@@ -642,7 +642,7 @@ shortName = MonthName(11, True)
     }
 
     #[test]
-    fn test_monthname_if_statement() {
+    fn monthname_if_statement() {
         let source = r#"
 If MonthName(Month(Date)) = "November" Then
     MsgBox "It's November"
@@ -655,7 +655,7 @@ End If
     }
 
     #[test]
-    fn test_monthname_function_return() {
+    fn monthname_function_return() {
         let source = r#"
 Function GetCurrentMonthName() As String
     GetCurrentMonthName = MonthName(Month(Date))
@@ -668,7 +668,7 @@ End Function
     }
 
     #[test]
-    fn test_monthname_concatenation() {
+    fn monthname_concatenation() {
         let source = r#"
 Dim dateStr As String
 dateStr = MonthName(Month(Date)) & " " & Day(Date) & ", " & Year(Date)
@@ -680,7 +680,7 @@ dateStr = MonthName(Month(Date)) & " " & Day(Date) & ", " & Year(Date)
     }
 
     #[test]
-    fn test_monthname_debug_print() {
+    fn monthname_debug_print() {
         let source = r#"
 Debug.Print MonthName(5)
 "#;
@@ -691,7 +691,7 @@ Debug.Print MonthName(5)
     }
 
     #[test]
-    fn test_monthname_with_statement() {
+    fn monthname_with_statement() {
         let source = r#"
 With reportData
     .MonthDisplay = MonthName(Month(.ReportDate), True)
@@ -704,7 +704,7 @@ End With
     }
 
     #[test]
-    fn test_monthname_select_case() {
+    fn monthname_select_case() {
         let source = r#"
 Select Case MonthName(Month(Date), True)
     Case "Jan", "Feb", "Mar"
@@ -720,7 +720,7 @@ End Select
     }
 
     #[test]
-    fn test_monthname_elseif() {
+    fn monthname_elseif() {
         let source = r#"
 If x > 0 Then
     y = 1
@@ -735,7 +735,7 @@ End If
     }
 
     #[test]
-    fn test_monthname_parentheses() {
+    fn monthname_parentheses() {
         let source = r#"
 Dim name As String
 name = (MonthName(6, False))
@@ -747,7 +747,7 @@ name = (MonthName(6, False))
     }
 
     #[test]
-    fn test_monthname_iif() {
+    fn monthname_iif() {
         let source = r#"
 Dim display As String
 display = IIf(useShort, MonthName(m, True), MonthName(m, False))
@@ -759,7 +759,7 @@ display = IIf(useShort, MonthName(m, True), MonthName(m, False))
     }
 
     #[test]
-    fn test_monthname_class_usage() {
+    fn monthname_class_usage() {
         let source = r#"
 Private m_monthName As String
 
@@ -774,7 +774,7 @@ End Sub
     }
 
     #[test]
-    fn test_monthname_function_argument() {
+    fn monthname_function_argument() {
         let source = r#"
 Call DisplayMonth(MonthName(m, True))
 "#;
@@ -785,7 +785,7 @@ Call DisplayMonth(MonthName(m, True))
     }
 
     #[test]
-    fn test_monthname_property_assignment() {
+    fn monthname_property_assignment() {
         let source = r#"
 Set obj = New Calendar
 obj.CurrentMonth = MonthName(Month(Date))
@@ -797,7 +797,7 @@ obj.CurrentMonth = MonthName(Month(Date))
     }
 
     #[test]
-    fn test_monthname_array_assignment() {
+    fn monthname_array_assignment() {
         let source = r#"
 Dim monthNames(12) As String
 Dim i As Integer
@@ -810,7 +810,7 @@ monthNames(i) = MonthName(i, True)
     }
 
     #[test]
-    fn test_monthname_for_loop() {
+    fn monthname_for_loop() {
         let source = r#"
 Dim i As Integer
 For i = 1 To 12
@@ -824,7 +824,7 @@ Next i
     }
 
     #[test]
-    fn test_monthname_while_wend() {
+    fn monthname_while_wend() {
         let source = r#"
 While m <= 12
     Debug.Print MonthName(m)
@@ -838,7 +838,7 @@ Wend
     }
 
     #[test]
-    fn test_monthname_do_while() {
+    fn monthname_do_while() {
         let source = r#"
 Do While i < 12
     months(i) = MonthName(i)
@@ -852,7 +852,7 @@ Loop
     }
 
     #[test]
-    fn test_monthname_do_until() {
+    fn monthname_do_until() {
         let source = r#"
 Do Until i > 12
     list.AddItem MonthName(i, True)
@@ -866,7 +866,7 @@ Loop
     }
 
     #[test]
-    fn test_monthname_msgbox() {
+    fn monthname_msgbox() {
         let source = r#"
 MsgBox "Current month: " & MonthName(Month(Now))
 "#;
@@ -877,7 +877,7 @@ MsgBox "Current month: " & MonthName(Month(Now))
     }
 
     #[test]
-    fn test_monthname_comparison() {
+    fn monthname_comparison() {
         let source = r#"
 If MonthName(m1) = MonthName(m2) Then
     MsgBox "Same month name"
@@ -890,7 +890,7 @@ End If
     }
 
     #[test]
-    fn test_monthname_ucase() {
+    fn monthname_ucase() {
         let source = r#"
 Dim upper As String
 upper = UCase(MonthName(3, True))
@@ -902,7 +902,7 @@ upper = UCase(MonthName(3, True))
     }
 
     #[test]
-    fn test_monthname_label_caption() {
+    fn monthname_label_caption() {
         let source = r#"
 lblMonth.Caption = MonthName(Month(Date))
 "#;
@@ -913,7 +913,7 @@ lblMonth.Caption = MonthName(Month(Date))
     }
 
     #[test]
-    fn test_monthname_combo_additem() {
+    fn monthname_combo_additem() {
         let source = r#"
 cboMonths.AddItem MonthName(i, False)
 "#;
@@ -924,7 +924,7 @@ cboMonths.AddItem MonthName(i, False)
     }
 
     #[test]
-    fn test_monthname_format_string() {
+    fn monthname_format_string() {
         let source = r#"
 Dim formatted As String
 formatted = MonthName(Month(d)) & " " & Format(Day(d), "00") & ", " & Year(d)
@@ -936,7 +936,7 @@ formatted = MonthName(Month(d)) & " " & Format(Day(d), "00") & ", " & Year(d)
     }
 
     #[test]
-    fn test_monthname_left_function() {
+    fn monthname_left_function() {
         let source = r#"
 Dim firstLetter As String
 firstLetter = Left(MonthName(m), 1)

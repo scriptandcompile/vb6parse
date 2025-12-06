@@ -717,7 +717,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_right_basic() {
+    fn right_basic() {
         let source = r#"
 Dim result As String
 result = Right("Hello World", 5)
@@ -729,7 +729,7 @@ result = Right("Hello World", 5)
     }
 
     #[test]
-    fn test_right_file_extension() {
+    fn right_file_extension() {
         let source = r#"
 Dim extension As String
 extension = Right(filename, 4)
@@ -741,7 +741,7 @@ extension = Right(filename, 4)
     }
 
     #[test]
-    fn test_right_if_statement() {
+    fn right_if_statement() {
         let source = r#"
 If Right(filename, 4) = ".txt" Then
     MsgBox "Text file"
@@ -754,7 +754,7 @@ End If
     }
 
     #[test]
-    fn test_right_function_return() {
+    fn right_function_return() {
         let source = r#"
 Function GetLastFour(s As String) As String
     GetLastFour = Right(s, 4)
@@ -767,7 +767,7 @@ End Function
     }
 
     #[test]
-    fn test_right_variable_assignment() {
+    fn right_variable_assignment() {
         let source = r#"
 Dim lastChars As String
 lastChars = Right(inputText, charCount)
@@ -779,7 +779,7 @@ lastChars = Right(inputText, charCount)
     }
 
     #[test]
-    fn test_right_msgbox() {
+    fn right_msgbox() {
         let source = r#"
 MsgBox "Last 3 chars: " & Right(text, 3)
 "#;
@@ -790,7 +790,7 @@ MsgBox "Last 3 chars: " & Right(text, 3)
     }
 
     #[test]
-    fn test_right_debug_print() {
+    fn right_debug_print() {
         let source = r#"
 Debug.Print Right("Testing", 4)
 "#;
@@ -801,7 +801,7 @@ Debug.Print Right("Testing", 4)
     }
 
     #[test]
-    fn test_right_select_case() {
+    fn right_select_case() {
         let source = r#"
 Select Case Right(filename, 4)
     Case ".txt"
@@ -817,7 +817,7 @@ End Select
     }
 
     #[test]
-    fn test_right_class_usage() {
+    fn right_class_usage() {
         let source = r#"
 Private m_suffix As String
 
@@ -832,7 +832,7 @@ End Sub
     }
 
     #[test]
-    fn test_right_with_statement() {
+    fn right_with_statement() {
         let source = r#"
 With TextBox1
     .Text = Right(.Text, 20)
@@ -845,7 +845,7 @@ End With
     }
 
     #[test]
-    fn test_right_elseif() {
+    fn right_elseif() {
         let source = r#"
 If Right(s, 4) = ".exe" Then
     fileType = "Executable"
@@ -860,7 +860,7 @@ End If
     }
 
     #[test]
-    fn test_right_for_loop() {
+    fn right_for_loop() {
         let source = r#"
 For i = 1 To 10
     parts(i) = Right(lines(i), 5)
@@ -873,7 +873,7 @@ Next i
     }
 
     #[test]
-    fn test_right_do_while() {
+    fn right_do_while() {
         let source = r#"
 Do While Right(buffer, 2) <> vbCrLf
     buffer = buffer & ReadChar()
@@ -886,7 +886,7 @@ Loop
     }
 
     #[test]
-    fn test_right_do_until() {
+    fn right_do_until() {
         let source = r#"
 Do Until Right(data, 1) = ";"
     data = data & GetNextByte()
@@ -899,7 +899,7 @@ Loop
     }
 
     #[test]
-    fn test_right_while_wend() {
+    fn right_while_wend() {
         let source = r#"
 While Right(line, 1) = " "
     line = Left(line, Len(line) - 1)
@@ -912,7 +912,7 @@ Wend
     }
 
     #[test]
-    fn test_right_parentheses() {
+    fn right_parentheses() {
         let source = r#"
 Dim val As String
 val = (Right(input, 10))
@@ -924,7 +924,7 @@ val = (Right(input, 10))
     }
 
     #[test]
-    fn test_right_iif() {
+    fn right_iif() {
         let source = r#"
 Dim ext As String
 ext = IIf(hasExtension, Right(name, 4), ".txt")
@@ -936,7 +936,7 @@ ext = IIf(hasExtension, Right(name, 4), ".txt")
     }
 
     #[test]
-    fn test_right_nested() {
+    fn right_nested() {
         let source = r#"
 Dim result As String
 result = Right(Right(fullPath, 20), 10)
@@ -948,7 +948,7 @@ result = Right(Right(fullPath, 20), 10)
     }
 
     #[test]
-    fn test_right_array_assignment() {
+    fn right_array_assignment() {
         let source = r#"
 Dim suffixes(10) As String
 suffixes(i) = Right(words(i), 3)
@@ -960,7 +960,7 @@ suffixes(i) = Right(words(i), 3)
     }
 
     #[test]
-    fn test_right_property_assignment() {
+    fn right_property_assignment() {
         let source = r#"
 Set obj = New StringHelper
 obj.Suffix = Right(fullString, 15)
@@ -972,7 +972,7 @@ obj.Suffix = Right(fullString, 15)
     }
 
     #[test]
-    fn test_right_function_argument() {
+    fn right_function_argument() {
         let source = r#"
 Call ProcessExtension(Right(filename, 4))
 "#;
@@ -983,7 +983,7 @@ Call ProcessExtension(Right(filename, 4))
     }
 
     #[test]
-    fn test_right_concatenation() {
+    fn right_concatenation() {
         let source = r#"
 Dim msg As String
 msg = "Extension: " & Right(file, 3)
@@ -995,7 +995,7 @@ msg = "Extension: " & Right(file, 3)
     }
 
     #[test]
-    fn test_right_comparison() {
+    fn right_comparison() {
         let source = r#"
 If Right(url, 4) = ".com" Or Right(url, 4) = ".net" Then
     ValidDomain = True
@@ -1008,7 +1008,7 @@ End If
     }
 
     #[test]
-    fn test_right_with_len() {
+    fn right_with_len() {
         let source = r#"
 Dim remaining As String
 remaining = Right(text, Len(text) - 5)
@@ -1020,7 +1020,7 @@ remaining = Right(text, Len(text) - 5)
     }
 
     #[test]
-    fn test_right_trim_combination() {
+    fn right_trim_combination() {
         let source = r#"
 Dim cleaned As String
 cleaned = Right(Trim(input), 10)
@@ -1032,7 +1032,7 @@ cleaned = Right(Trim(input), 10)
     }
 
     #[test]
-    fn test_right_error_handling() {
+    fn right_error_handling() {
         let source = r#"
 On Error Resume Next
 result = Right(userInput, count)
@@ -1047,7 +1047,7 @@ End If
     }
 
     #[test]
-    fn test_right_on_error_goto() {
+    fn right_on_error_goto() {
         let source = r#"
 Sub ExtractSuffix()
     On Error GoTo ErrorHandler

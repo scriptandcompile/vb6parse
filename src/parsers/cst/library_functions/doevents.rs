@@ -659,7 +659,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_doevents_basic() {
+    fn doevents_basic() {
         let source = r#"
 DoEvents
 "#;
@@ -670,7 +670,7 @@ DoEvents
     }
 
     #[test]
-    fn test_doevents_with_parentheses() {
+    fn doevents_with_parentheses() {
         let source = r#"
 DoEvents()
 "#;
@@ -681,7 +681,7 @@ DoEvents()
     }
 
     #[test]
-    fn test_doevents_in_loop() {
+    fn doevents_in_loop() {
         let source = r#"
 For i = 1 To 10000
     ProcessItem i
@@ -695,7 +695,7 @@ Next i
     }
 
     #[test]
-    fn test_doevents_with_assignment() {
+    fn doevents_with_assignment() {
         let source = r#"
 formCount = DoEvents()
 "#;
@@ -706,7 +706,7 @@ formCount = DoEvents()
     }
 
     #[test]
-    fn test_doevents_in_do_loop() {
+    fn doevents_in_do_loop() {
         let source = r#"
 Do Until EOF(1)
     ProcessLine line
@@ -720,7 +720,7 @@ Loop
     }
 
     #[test]
-    fn test_doevents_cancellable_operation() {
+    fn doevents_cancellable_operation() {
         let source = r#"
 For i = 1 To 100000
     If cancelOperation Then Exit For
@@ -735,7 +735,7 @@ Next i
     }
 
     #[test]
-    fn test_doevents_with_status_update() {
+    fn doevents_with_status_update() {
         let source = r#"
 lblStatus.Caption = "Processing..."
 DoEvents
@@ -748,7 +748,7 @@ ProcessData
     }
 
     #[test]
-    fn test_doevents_progress_bar() {
+    fn doevents_progress_bar() {
         let source = r#"
 ProgressBar1.Value = i
 DoEvents
@@ -760,7 +760,7 @@ DoEvents
     }
 
     #[test]
-    fn test_doevents_while_loop() {
+    fn doevents_while_loop() {
         let source = r#"
 Do While fileName <> ""
     ProcessFile fileName
@@ -775,7 +775,7 @@ Loop
     }
 
     #[test]
-    fn test_doevents_batch_update() {
+    fn doevents_batch_update() {
         let source = r#"
 Do Until rs.EOF
     rs.Update
@@ -790,7 +790,7 @@ Loop
     }
 
     #[test]
-    fn test_doevents_multi_step() {
+    fn doevents_multi_step() {
         let source = r#"
 lblStatus.Caption = "Step 1"
 DoEvents
@@ -806,7 +806,7 @@ ProcessData
     }
 
     #[test]
-    fn test_doevents_in_function() {
+    fn doevents_in_function() {
         let source = r#"
 Function ProcessData() As Boolean
     Dim i As Long
@@ -824,7 +824,7 @@ End Function
     }
 
     #[test]
-    fn test_doevents_with_error_handling() {
+    fn doevents_with_error_handling() {
         let source = r#"
 On Error Resume Next
 For i = 1 To 10000
@@ -839,7 +839,7 @@ Next i
     }
 
     #[test]
-    fn test_doevents_reentrancy_guard() {
+    fn doevents_reentrancy_guard() {
         let source = r#"
 If isProcessing Then Exit Sub
 isProcessing = True
@@ -855,7 +855,7 @@ isProcessing = False
     }
 
     #[test]
-    fn test_doevents_file_processing() {
+    fn doevents_file_processing() {
         let source = r#"
 Do Until EOF(fileNum)
     Line Input #fileNum, line
@@ -871,7 +871,7 @@ Loop
     }
 
     #[test]
-    fn test_doevents_conditional() {
+    fn doevents_conditional() {
         let source = r#"
 If Timer - lastUpdate > 0.1 Then
     DoEvents
@@ -885,7 +885,7 @@ End If
     }
 
     #[test]
-    fn test_doevents_select_case() {
+    fn doevents_select_case() {
         let source = r#"
 Select Case step
     Case 1
@@ -903,7 +903,7 @@ End Select
     }
 
     #[test]
-    fn test_doevents_nested_loop() {
+    fn doevents_nested_loop() {
         let source = r#"
 For i = 1 To 100
     For j = 1 To 100
@@ -919,7 +919,7 @@ Next i
     }
 
     #[test]
-    fn test_doevents_with_sleep() {
+    fn doevents_with_sleep() {
         let source = r#"
 Do Until processingComplete
     DoEvents
@@ -933,7 +933,7 @@ Loop
     }
 
     #[test]
-    fn test_doevents_search_operation() {
+    fn doevents_search_operation() {
         let source = r#"
 fileName = Dir("*.*")
 Do While fileName <> ""
@@ -951,7 +951,7 @@ Loop
     }
 
     #[test]
-    fn test_doevents_animation() {
+    fn doevents_animation() {
         let source = r#"
 For i = 1 To 100
     shpIndicator.Left = i * 50
@@ -965,7 +965,7 @@ Next i
     }
 
     #[test]
-    fn test_doevents_inline_if() {
+    fn doevents_inline_if() {
         let source = r#"
 If i Mod 100 = 0 Then DoEvents Else ProcessFast
 "#;
@@ -976,7 +976,7 @@ If i Mod 100 = 0 Then DoEvents Else ProcessFast
     }
 
     #[test]
-    fn test_doevents_record_processing() {
+    fn doevents_record_processing() {
         let source = r#"
 For Each item In collection
     ProcessItem item
@@ -990,7 +990,7 @@ Next item
     }
 
     #[test]
-    fn test_doevents_export() {
+    fn doevents_export() {
         let source = r#"
 For i = 1 To recordCount
     ExportRecord i
@@ -1007,7 +1007,7 @@ Next i
     }
 
     #[test]
-    fn test_doevents_with_call() {
+    fn doevents_with_call() {
         let source = r#"
 Call DoEvents
 "#;

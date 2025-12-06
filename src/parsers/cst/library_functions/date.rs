@@ -476,7 +476,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_date_basic() {
+    fn date_basic() {
         let source = r#"
 today = Date
 "#;
@@ -487,7 +487,7 @@ today = Date
     }
 
     #[test]
-    fn test_date_in_assignment() {
+    fn date_in_assignment() {
         let source = r#"
 Dim currentDate As Date
 currentDate = Date
@@ -499,7 +499,7 @@ currentDate = Date
     }
 
     #[test]
-    fn test_date_in_msgbox() {
+    fn date_in_msgbox() {
         let source = r#"
 MsgBox "Today is: " & Date
 "#;
@@ -510,7 +510,7 @@ MsgBox "Today is: " & Date
     }
 
     #[test]
-    fn test_date_comparison() {
+    fn date_comparison() {
         let source = r#"
 If Date > deadline Then
     MsgBox "Expired"
@@ -523,7 +523,7 @@ End If
     }
 
     #[test]
-    fn test_date_arithmetic() {
+    fn date_arithmetic() {
         let source = r#"
 futureDate = Date + 30
 "#;
@@ -534,7 +534,7 @@ futureDate = Date + 30
     }
 
     #[test]
-    fn test_date_subtraction() {
+    fn date_subtraction() {
         let source = r#"
 daysPassed = Date - startDate
 "#;
@@ -545,7 +545,7 @@ daysPassed = Date - startDate
     }
 
     #[test]
-    fn test_date_with_year_function() {
+    fn date_with_year_function() {
         let source = r#"
 currentYear = Year(Date)
 "#;
@@ -556,7 +556,7 @@ currentYear = Year(Date)
     }
 
     #[test]
-    fn test_date_with_month_function() {
+    fn date_with_month_function() {
         let source = r#"
 currentMonth = Month(Date)
 "#;
@@ -567,7 +567,7 @@ currentMonth = Month(Date)
     }
 
     #[test]
-    fn test_date_with_day_function() {
+    fn date_with_day_function() {
         let source = r#"
 currentDay = Day(Date)
 "#;
@@ -578,7 +578,7 @@ currentDay = Day(Date)
     }
 
     #[test]
-    fn test_date_with_format() {
+    fn date_with_format() {
         let source = r#"
 formatted = Format(Date, "yyyy-mm-dd")
 "#;
@@ -589,7 +589,7 @@ formatted = Format(Date, "yyyy-mm-dd")
     }
 
     #[test]
-    fn test_date_in_function() {
+    fn date_in_function() {
         let source = r#"
 Function GetToday() As Date
     GetToday = Date
@@ -602,7 +602,7 @@ End Function
     }
 
     #[test]
-    fn test_date_with_dateserial() {
+    fn date_with_dateserial() {
         let source = r#"
 lastDay = DateSerial(Year(Date), Month(Date) + 1, 0)
 "#;
@@ -613,7 +613,7 @@ lastDay = DateSerial(Year(Date), Month(Date) + 1, 0)
     }
 
     #[test]
-    fn test_date_in_select_case() {
+    fn date_in_select_case() {
         let source = r#"
 Select Case Day(Date)
     Case 1 To 10
@@ -629,7 +629,7 @@ End Select
     }
 
     #[test]
-    fn test_date_in_loop() {
+    fn date_in_loop() {
         let source = r#"
 For i = 1 To 10
     If records(i).ExpiryDate < Date Then
@@ -644,7 +644,7 @@ Next i
     }
 
     #[test]
-    fn test_date_concatenation() {
+    fn date_concatenation() {
         let source = r#"
 fileName = "Report_" & Date & ".txt"
 "#;
@@ -655,7 +655,7 @@ fileName = "Report_" & Date & ".txt"
     }
 
     #[test]
-    fn test_date_equality() {
+    fn date_equality() {
         let source = r#"
 If Date() = #1/1/2025# Then
     MsgBox "New Year"
@@ -667,7 +667,7 @@ End If
     }
 
     #[test]
-    fn test_date_with_weekday() {
+    fn date_with_weekday() {
         let source = r#"
 dayOfWeek = Weekday(Date)
 "#;
@@ -678,7 +678,7 @@ dayOfWeek = Weekday(Date)
     }
 
     #[test]
-    fn test_date_database_usage() {
+    fn date_database_usage() {
         let source = r#"
 rs("OrderDate") = Date
 rs.Update
@@ -690,7 +690,7 @@ rs.Update
     }
 
     #[test]
-    fn test_date_in_if_statement() {
+    fn date_in_if_statement() {
         let source = r#"
 If Date() > #12/31/2024# Then
     MsgBox "Past deadline"
@@ -702,7 +702,7 @@ End If
     }
 
     #[test]
-    fn test_date_cache_pattern() {
+    fn date_cache_pattern() {
         let source = r#"
 today = Date
 For i = 1 To 1000
@@ -718,7 +718,7 @@ Next i
     }
 
     #[test]
-    fn test_date_multiple_references() {
+    fn date_multiple_references() {
         let source = r#"
 startDate = Date
 endDate = Date + 30
@@ -731,7 +731,7 @@ range = endDate - startDate
     }
 
     #[test]
-    fn test_date_with_cdate() {
+    fn date_with_cdate() {
         let source = r#"
 today = CDate(Date)
 "#;
@@ -742,7 +742,7 @@ today = CDate(Date)
     }
 
     #[test]
-    fn test_date_in_print() {
+    fn date_in_print() {
         let source = r#"
 Print #1, Date() & " - Log entry"
 "#;
@@ -752,7 +752,7 @@ Print #1, Date() & " - Log entry"
     }
 
     #[test]
-    fn test_date_variant_storage() {
+    fn date_variant_storage() {
         let source = r#"
 Dim value As Variant
 value = Date
@@ -764,7 +764,7 @@ value = Date
     }
 
     #[test]
-    fn test_date_in_expression() {
+    fn date_in_expression() {
         let source = r#"
 result = DateSerial(Year(Date), 12, 31) - Date
 "#;

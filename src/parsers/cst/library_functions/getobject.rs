@@ -814,7 +814,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_getobject_basic() {
+    fn getobject_basic() {
         let source = r#"Set xlApp = GetObject("C:\Reports\Sales.xls")"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -823,7 +823,7 @@ mod tests {
     }
 
     #[test]
-    fn test_getobject_with_class() {
+    fn getobject_with_class() {
         let source = r#"Set app = GetObject(, "Excel.Application")"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -832,7 +832,7 @@ mod tests {
     }
 
     #[test]
-    fn test_getobject_both_params() {
+    fn getobject_both_params() {
         let source = r#"Set doc = GetObject(filePath, className)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -841,7 +841,7 @@ mod tests {
     }
 
     #[test]
-    fn test_getobject_in_function() {
+    fn getobject_in_function() {
         let source = r#"Function GetExcelInstance() As Object
     Set GetExcelInstance = GetObject(, "Excel.Application")
 End Function"#;
@@ -852,7 +852,7 @@ End Function"#;
     }
 
     #[test]
-    fn test_getobject_error_handling() {
+    fn getobject_error_handling() {
         let source = r#"On Error Resume Next
 Set obj = GetObject("C:\data.xls")
 On Error GoTo 0"#;
@@ -863,7 +863,7 @@ On Error GoTo 0"#;
     }
 
     #[test]
-    fn test_getobject_if_statement() {
+    fn getobject_if_statement() {
         let source = r#"If Not GetObject(, "Excel.Application") Is Nothing Then
     MsgBox "Excel is running"
 End If"#;
@@ -874,7 +874,7 @@ End If"#;
     }
 
     #[test]
-    fn test_getobject_range_notation() {
+    fn getobject_range_notation() {
         let source = r#"Set xlRange = GetObject("C:\Data\Report.xls!Sheet1!R1C1:R10C5")"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -883,7 +883,7 @@ End If"#;
     }
 
     #[test]
-    fn test_getobject_word_document() {
+    fn getobject_word_document() {
         let source = r#"Set wordDoc = GetObject("C:\Documents\Letter.doc")"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -892,7 +892,7 @@ End If"#;
     }
 
     #[test]
-    fn test_getobject_for_loop() {
+    fn getobject_for_loop() {
         let source = r#"For i = 1 To fileCount
     Set doc = GetObject(files(i))
 Next i"#;
@@ -903,7 +903,7 @@ Next i"#;
     }
 
     #[test]
-    fn test_getobject_is_nothing_check() {
+    fn getobject_is_nothing_check() {
         let source = r#"If GetObject(, progID) Is Nothing Then Exit Sub"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -912,7 +912,7 @@ Next i"#;
     }
 
     #[test]
-    fn test_getobject_with_application() {
+    fn getobject_with_application() {
         let source = r#"Set xlApp = GetObject(filePath).Application"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -921,7 +921,7 @@ Next i"#;
     }
 
     #[test]
-    fn test_getobject_select_case() {
+    fn getobject_select_case() {
         let source = r#"Select Case TypeName(GetObject(filePath))
     Case "Workbook"
         Debug.Print "Excel file"
@@ -933,7 +933,7 @@ End Select"#;
     }
 
     #[test]
-    fn test_getobject_do_loop() {
+    fn getobject_do_loop() {
         let source = r#"Do Until Not GetObject(, "Excel.Application") Is Nothing
     DoEvents
 Loop"#;
@@ -944,7 +944,7 @@ Loop"#;
     }
 
     #[test]
-    fn test_getobject_class_member() {
+    fn getobject_class_member() {
         let source = r#"Set m_Document = GetObject(m_FilePath)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -953,7 +953,7 @@ Loop"#;
     }
 
     #[test]
-    fn test_getobject_type_field() {
+    fn getobject_type_field() {
         let source = r#"Set cached.Document = GetObject(filePath)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -962,7 +962,7 @@ Loop"#;
     }
 
     #[test]
-    fn test_getobject_collection_add() {
+    fn getobject_collection_add() {
         let source = r#"m_Instances.Add GetObject(, "Excel.Application"), "Excel""#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -971,7 +971,7 @@ Loop"#;
     }
 
     #[test]
-    fn test_getobject_with_statement() {
+    fn getobject_with_statement() {
         let source = r#"With GetObject("C:\data.xls")
     .Application.Visible = True
 End With"#;
@@ -982,7 +982,7 @@ End With"#;
     }
 
     #[test]
-    fn test_getobject_debug_print() {
+    fn getobject_debug_print() {
         let source = r#"Debug.Print "Count: " & GetObject(, "Excel.Application").Workbooks.Count"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -991,7 +991,7 @@ End With"#;
     }
 
     #[test]
-    fn test_getobject_msgbox() {
+    fn getobject_msgbox() {
         let source = r#"MsgBox TypeName(GetObject(filePath))"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -1000,7 +1000,7 @@ End With"#;
     }
 
     #[test]
-    fn test_getobject_property() {
+    fn getobject_property() {
         let source = r#"Property Get CurrentDocument() As Object
     Set CurrentDocument = GetObject(m_FilePath)
 End Property"#;
@@ -1011,7 +1011,7 @@ End Property"#;
     }
 
     #[test]
-    fn test_getobject_concatenation() {
+    fn getobject_concatenation() {
         let source = r#"filePath = "C:\Data\" & fileName & ".xls"
 Set doc = GetObject(filePath)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
@@ -1021,7 +1021,7 @@ Set doc = GetObject(filePath)"#;
     }
 
     #[test]
-    fn test_getobject_for_each() {
+    fn getobject_for_each() {
         let source = r#"For Each file In files
     Set doc = GetObject(CStr(file))
 Next file"#;
@@ -1032,7 +1032,7 @@ Next file"#;
     }
 
     #[test]
-    fn test_getobject_call_by_name() {
+    fn getobject_call_by_name() {
         let source = r#"result = CallByName(GetObject(filePath), "Save", VbMethod)"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -1041,7 +1041,7 @@ Next file"#;
     }
 
     #[test]
-    fn test_getobject_method_call() {
+    fn getobject_method_call() {
         let source = r#"GetObject(filePath).Save"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -1050,7 +1050,7 @@ Next file"#;
     }
 
     #[test]
-    fn test_getobject_nested_property() {
+    fn getobject_nested_property() {
         let source = r#"value = GetObject(filePath).Worksheets(1).Range("A1").Value"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -1059,7 +1059,7 @@ Next file"#;
     }
 
     #[test]
-    fn test_getobject_parentheses() {
+    fn getobject_parentheses() {
         let source = r#"Set app = (GetObject(, "Excel.Application"))"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -1068,7 +1068,7 @@ Next file"#;
     }
 
     #[test]
-    fn test_getobject_iif() {
+    fn getobject_iif() {
         let source = r#"Set obj = IIf(condition, GetObject(file1), GetObject(file2))"#;
         let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
         let debug = tree.debug_tree();

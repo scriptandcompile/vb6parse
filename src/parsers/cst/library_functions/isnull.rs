@@ -600,7 +600,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_isnull_basic() {
+    fn isnull_basic() {
         let source = r#"
 Sub Test()
     result = IsNull(myVariable)
@@ -613,7 +613,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnull_if_statement() {
+    fn isnull_if_statement() {
         let source = r#"
 Sub Test()
     If IsNull(value) Then
@@ -628,7 +628,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnull_not_condition() {
+    fn isnull_not_condition() {
         let source = r#"
 Sub Test()
     If Not IsNull(field) Then
@@ -643,7 +643,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnull_function_return() {
+    fn isnull_function_return() {
         let source = r#"
 Function IsValid(v As Variant) As Boolean
     IsValid = Not IsNull(v)
@@ -656,7 +656,7 @@ End Function
     }
 
     #[test]
-    fn test_isnull_boolean_and() {
+    fn isnull_boolean_and() {
         let source = r#"
 Sub Test()
     If IsNull(field1) And IsNull(field2) Then
@@ -671,7 +671,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnull_boolean_or() {
+    fn isnull_boolean_or() {
         let source = r#"
 Sub Test()
     If IsNull(value) Or IsEmpty(value) Then
@@ -686,7 +686,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnull_iif() {
+    fn isnull_iif() {
         let source = r#"
 Sub Test()
     displayValue = IIf(IsNull(value), "N/A", value)
@@ -699,7 +699,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnull_debug_print() {
+    fn isnull_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print "Is null: " & IsNull(testVar)
@@ -712,7 +712,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnull_msgbox() {
+    fn isnull_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Field status: " & IsNull(dbField)
@@ -725,7 +725,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnull_do_while() {
+    fn isnull_do_while() {
         let source = r#"
 Sub Test()
     Do While IsNull(currentValue)
@@ -740,7 +740,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnull_do_until() {
+    fn isnull_do_until() {
         let source = r#"
 Sub Test()
     Do Until Not IsNull(result)
@@ -755,7 +755,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnull_variable_assignment() {
+    fn isnull_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim isNull As Boolean
@@ -769,7 +769,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnull_property_assignment() {
+    fn isnull_property_assignment() {
         let source = r#"
 Sub Test()
     obj.IsNullValue = IsNull(obj.Data)
@@ -782,7 +782,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnull_in_class() {
+    fn isnull_in_class() {
         let source = r#"
 Private Sub Class_Initialize()
     m_isNull = IsNull(m_value)
@@ -795,7 +795,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnull_with_statement() {
+    fn isnull_with_statement() {
         let source = r#"
 Sub Test()
     With recordset
@@ -810,7 +810,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnull_function_argument() {
+    fn isnull_function_argument() {
         let source = r#"
 Sub Test()
     Call ValidateField(IsNull(rs!Name))
@@ -823,7 +823,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnull_select_case() {
+    fn isnull_select_case() {
         let source = r#"
 Sub Test()
     Select Case True
@@ -841,7 +841,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnull_for_loop() {
+    fn isnull_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Integer
@@ -859,7 +859,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnull_elseif() {
+    fn isnull_elseif() {
         let source = r#"
 Sub Test()
     If IsEmpty(data) Then
@@ -876,7 +876,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnull_concatenation() {
+    fn isnull_concatenation() {
         let source = r#"
 Sub Test()
     status = "Null: " & IsNull(variable)
@@ -889,7 +889,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnull_parentheses() {
+    fn isnull_parentheses() {
         let source = r#"
 Sub Test()
     result = (IsNull(value))
@@ -902,7 +902,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnull_array_check() {
+    fn isnull_array_check() {
         let source = r#"
 Sub Test()
     checks(i) = IsNull(values(i))
@@ -915,7 +915,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnull_collection_add() {
+    fn isnull_collection_add() {
         let source = r#"
 Sub Test()
     nullStates.Add IsNull(data(i))
@@ -928,7 +928,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnull_comparison() {
+    fn isnull_comparison() {
         let source = r#"
 Sub Test()
     If IsNull(var1) = IsNull(var2) Then
@@ -943,7 +943,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnull_nested_call() {
+    fn isnull_nested_call() {
         let source = r#"
 Sub Test()
     result = CStr(IsNull(myVar))
@@ -956,7 +956,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnull_while_wend() {
+    fn isnull_while_wend() {
         let source = r#"
 Sub Test()
     While IsNull(buffer)
@@ -971,7 +971,7 @@ End Sub
     }
 
     #[test]
-    fn test_isnull_database_field() {
+    fn isnull_database_field() {
         let source = r#"
 Sub ProcessRecord(rs As Recordset)
     If IsNull(rs!Email) Then

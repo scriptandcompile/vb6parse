@@ -631,7 +631,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_loc_basic() {
+    fn loc_basic() {
         let source = r#"
             Dim pos As Long
             pos = Loc(1)
@@ -643,7 +643,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loc_file_variable() {
+    fn loc_file_variable() {
         let source = r#"
             currentPos = Loc(fileNum)
         "#;
@@ -654,7 +654,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loc_if_statement() {
+    fn loc_if_statement() {
         let source = r#"
             If Loc(fileNum) > 0 Then
                 MsgBox "Data written"
@@ -667,7 +667,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loc_progress_calculation() {
+    fn loc_progress_calculation() {
         let source = r#"
             percentComplete = (Loc(1) / LOF(1)) * 100
         "#;
@@ -678,7 +678,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loc_do_while() {
+    fn loc_do_while() {
         let source = r#"
             Do While Loc(1) < LOF(1)
                 Get #1, , data
@@ -691,7 +691,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loc_function_return() {
+    fn loc_function_return() {
         let source = r#"
             Function GetPosition() As Long
                 GetPosition = Loc(fileNum)
@@ -704,7 +704,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loc_debug_print() {
+    fn loc_debug_print() {
         let source = r#"
             Debug.Print "Position: " & Loc(fileNum)
         "#;
@@ -715,7 +715,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loc_error_handling() {
+    fn loc_error_handling() {
         let source = r#"
             On Error Resume Next
             pos = Loc(fileNum)
@@ -730,7 +730,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loc_comparison() {
+    fn loc_comparison() {
         let source = r#"
             If Loc(fileNum) >= LOF(fileNum) Then
                 MsgBox "At end of file"
@@ -743,7 +743,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loc_label_assignment() {
+    fn loc_label_assignment() {
         let source = r#"
             lblPosition.Caption = "Record: " & Loc(1)
         "#;
@@ -754,7 +754,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loc_with_statement() {
+    fn loc_with_statement() {
         let source = r#"
             With fileInfo
                 .Position = Loc(fileNum)
@@ -767,7 +767,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loc_select_case() {
+    fn loc_select_case() {
         let source = r#"
             Select Case Loc(fileNum)
                 Case 0
@@ -783,7 +783,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loc_elseif() {
+    fn loc_elseif() {
         let source = r#"
             If Loc(fileNum) = 0 Then
                 status = "Start"
@@ -798,7 +798,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loc_parentheses() {
+    fn loc_parentheses() {
         let source = r#"
             pos = (Loc(fileNum))
         "#;
@@ -809,7 +809,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loc_iif() {
+    fn loc_iif() {
         let source = r#"
             msg = IIf(Loc(fileNum) > 0, "Data exists", "Empty")
         "#;
@@ -820,7 +820,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loc_in_class() {
+    fn loc_in_class() {
         let source = r#"
             Private Sub Class_Method()
                 m_position = Loc(m_fileNum)
@@ -833,7 +833,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loc_function_argument() {
+    fn loc_function_argument() {
         let source = r#"
             Call UpdateProgress(Loc(fileNum))
         "#;
@@ -844,7 +844,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loc_property_assignment() {
+    fn loc_property_assignment() {
         let source = r#"
             MyObject.Position = Loc(fileNum)
         "#;
@@ -855,7 +855,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loc_array_assignment() {
+    fn loc_array_assignment() {
         let source = r#"
             positions(i) = Loc(fileNum)
         "#;
@@ -866,7 +866,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loc_while_wend() {
+    fn loc_while_wend() {
         let source = r#"
             While Loc(fileNum) < totalRecords
                 Get #fileNum, , record
@@ -879,7 +879,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loc_do_until() {
+    fn loc_do_until() {
         let source = r#"
             Do Until Loc(fileNum) >= targetPosition
                 Get #fileNum, , buffer
@@ -892,7 +892,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loc_for_loop() {
+    fn loc_for_loop() {
         let source = r#"
             For i = 1 To Loc(fileNum)
                 ProcessRecord i
@@ -905,7 +905,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loc_modulo() {
+    fn loc_modulo() {
         let source = r#"
             If Loc(fileNum) Mod 1024 = 0 Then
                 UpdateProgress
@@ -918,7 +918,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loc_progressbar() {
+    fn loc_progressbar() {
         let source = r#"
             ProgressBar1.Value = (Loc(1) / LOF(1)) * 100
         "#;
@@ -929,7 +929,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loc_msgbox() {
+    fn loc_msgbox() {
         let source = r#"
             MsgBox "Current position: " & Loc(fileNum)
         "#;
@@ -940,7 +940,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loc_format() {
+    fn loc_format() {
         let source = r#"
             lblStatus.Caption = Format(Loc(fileNum), "0,000")
         "#;
@@ -951,7 +951,7 @@ mod tests {
     }
 
     #[test]
-    fn test_loc_arithmetic() {
+    fn loc_arithmetic() {
         let source = r#"
             bytesRemaining = LOF(fileNum) - Loc(fileNum)
         "#;

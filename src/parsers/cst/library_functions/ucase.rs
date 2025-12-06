@@ -499,7 +499,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_ucase_basic() {
+    fn ucase_basic() {
         let source = r#"
 Sub Test()
     result = UCase("hello")
@@ -511,7 +511,7 @@ End Sub
     }
 
     #[test]
-    fn test_ucase_variable_assignment() {
+    fn ucase_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim upper As String
@@ -525,7 +525,7 @@ End Sub
     }
 
     #[test]
-    fn test_ucase_dollar_sign() {
+    fn ucase_dollar_sign() {
         let source = r#"
 Sub Test()
     result = UCase$(input)
@@ -537,7 +537,7 @@ End Sub
     }
 
     #[test]
-    fn test_ucase_function_return() {
+    fn ucase_function_return() {
         let source = r#"
 Function NormalizeString(text As String) As String
     NormalizeString = UCase$(text)
@@ -549,7 +549,7 @@ End Function
     }
 
     #[test]
-    fn test_ucase_comparison() {
+    fn ucase_comparison() {
         let source = r#"
 Sub Test()
     If UCase$(str1) = UCase$(str2) Then
@@ -563,7 +563,7 @@ End Sub
     }
 
     #[test]
-    fn test_ucase_select_case() {
+    fn ucase_select_case() {
         let source = r#"
 Sub Test()
     Select Case UCase$(command)
@@ -580,7 +580,7 @@ End Sub
     }
 
     #[test]
-    fn test_ucase_for_loop() {
+    fn ucase_for_loop() {
         let source = r#"
 Sub Test()
     For i = 1 To 10
@@ -594,7 +594,7 @@ End Sub
     }
 
     #[test]
-    fn test_ucase_msgbox() {
+    fn ucase_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox UCase("hello world")
@@ -606,7 +606,7 @@ End Sub
     }
 
     #[test]
-    fn test_ucase_concatenation() {
+    fn ucase_concatenation() {
         let source = r#"
 Sub Test()
     message = "Name: " & UCase$(name)
@@ -618,7 +618,7 @@ End Sub
     }
 
     #[test]
-    fn test_ucase_function_argument() {
+    fn ucase_function_argument() {
         let source = r#"
 Sub Test()
     Call ProcessText(UCase$(input))
@@ -630,7 +630,7 @@ End Sub
     }
 
     #[test]
-    fn test_ucase_array_assignment() {
+    fn ucase_array_assignment() {
         let source = r#"
 Sub Test()
     normalized(i) = UCase$(original(i))
@@ -642,7 +642,7 @@ End Sub
     }
 
     #[test]
-    fn test_ucase_debug_print() {
+    fn ucase_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print UCase$("testing")
@@ -654,7 +654,7 @@ End Sub
     }
 
     #[test]
-    fn test_ucase_with_trim() {
+    fn ucase_with_trim() {
         let source = r#"
 Sub Test()
     cleaned = UCase$(Trim$(rawInput))
@@ -666,7 +666,7 @@ End Sub
     }
 
     #[test]
-    fn test_ucase_do_while() {
+    fn ucase_do_while() {
         let source = r#"
 Sub Test()
     Do While UCase$(response) <> "QUIT"
@@ -680,7 +680,7 @@ End Sub
     }
 
     #[test]
-    fn test_ucase_do_until() {
+    fn ucase_do_until() {
         let source = r#"
 Sub Test()
     Do Until UCase$(answer) = "YES"
@@ -694,7 +694,7 @@ End Sub
     }
 
     #[test]
-    fn test_ucase_while_wend() {
+    fn ucase_while_wend() {
         let source = r#"
 Sub Test()
     While UCase$(status) = "ACTIVE"
@@ -708,7 +708,7 @@ End Sub
     }
 
     #[test]
-    fn test_ucase_iif() {
+    fn ucase_iif() {
         let source = r#"
 Sub Test()
     category = IIf(UCase$(type) = "ADMIN", "Administrator", "User")
@@ -720,7 +720,7 @@ End Sub
     }
 
     #[test]
-    fn test_ucase_with_statement() {
+    fn ucase_with_statement() {
         let source = r#"
 Sub Test()
     With user
@@ -734,7 +734,7 @@ End Sub
     }
 
     #[test]
-    fn test_ucase_parentheses() {
+    fn ucase_parentheses() {
         let source = r#"
 Sub Test()
     result = (UCase$(text))
@@ -746,7 +746,7 @@ End Sub
     }
 
     #[test]
-    fn test_ucase_error_handling() {
+    fn ucase_error_handling() {
         let source = r#"
 Sub Test()
     On Error Resume Next
@@ -762,7 +762,7 @@ End Sub
     }
 
     #[test]
-    fn test_ucase_property_assignment() {
+    fn ucase_property_assignment() {
         let source = r#"
 Sub Test()
     obj.DisplayName = UCase$(obj.Name)
@@ -774,7 +774,7 @@ End Sub
     }
 
     #[test]
-    fn test_ucase_instr() {
+    fn ucase_instr() {
         let source = r#"
 Sub Test()
     pos = InStr(UCase$(text), UCase$(search))
@@ -786,7 +786,7 @@ End Sub
     }
 
     #[test]
-    fn test_ucase_print_statement() {
+    fn ucase_print_statement() {
         let source = r#"
 Sub Test()
     Print #1, UCase$(data)
@@ -798,7 +798,7 @@ End Sub
     }
 
     #[test]
-    fn test_ucase_class_usage() {
+    fn ucase_class_usage() {
         let source = r#"
 Sub Test()
     Set formatter = New TextFormatter
@@ -811,7 +811,7 @@ End Sub
     }
 
     #[test]
-    fn test_ucase_elseif() {
+    fn ucase_elseif() {
         let source = r#"
 Sub Test()
     If mode = 1 Then
@@ -827,7 +827,7 @@ End Sub
     }
 
     #[test]
-    fn test_ucase_left_function() {
+    fn ucase_left_function() {
         let source = r#"
 Sub Test()
     initial = UCase$(Left$(name, 1))
@@ -839,7 +839,7 @@ End Sub
     }
 
     #[test]
-    fn test_ucase_right_function() {
+    fn ucase_right_function() {
         let source = r#"
 Sub Test()
     extension = UCase$(Right$(fileName, 4))
@@ -851,7 +851,7 @@ End Sub
     }
 
     #[test]
-    fn test_ucase_switch() {
+    fn ucase_switch() {
         let source = r#"
 Sub Test()
     result = Switch(UCase$(type) = "A", 1, UCase$(type) = "B", 2, True, 0)

@@ -743,7 +743,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_rate_basic() {
+    fn rate_basic() {
         let source = r#"
 Dim interestRate As Double
 interestRate = Rate(60, -200, 10000)
@@ -755,7 +755,7 @@ interestRate = Rate(60, -200, 10000)
     }
 
     #[test]
-    fn test_rate_with_all_parameters() {
+    fn rate_with_all_parameters() {
         let source = r#"
 Dim rate As Double
 rate = Rate(48, -250, 10000, 0, 0, 0.08)
@@ -767,7 +767,7 @@ rate = Rate(48, -250, 10000, 0, 0, 0.08)
     }
 
     #[test]
-    fn test_rate_if_statement() {
+    fn rate_if_statement() {
         let source = r#"
 If Rate(nper, pmt, pv) > 0.06 Then
     MsgBox "Rate is above 6%"
@@ -780,7 +780,7 @@ End If
     }
 
     #[test]
-    fn test_rate_function_return() {
+    fn rate_function_return() {
         let source = r#"
 Function CalculateAPR(loan As Double, payment As Double) As Double
     Dim monthlyRate As Double
@@ -795,7 +795,7 @@ End Function
     }
 
     #[test]
-    fn test_rate_variable_assignment() {
+    fn rate_variable_assignment() {
         let source = r#"
 Dim monthlyRate As Double
 monthlyRate = Rate(months, payment, principal)
@@ -807,7 +807,7 @@ monthlyRate = Rate(months, payment, principal)
     }
 
     #[test]
-    fn test_rate_msgbox() {
+    fn rate_msgbox() {
         let source = r#"
 MsgBox "APR: " & Format(Rate(60, -500, 20000) * 12 * 100, "0.00") & "%"
 "#;
@@ -818,7 +818,7 @@ MsgBox "APR: " & Format(Rate(60, -500, 20000) * 12 * 100, "0.00") & "%"
     }
 
     #[test]
-    fn test_rate_debug_print() {
+    fn rate_debug_print() {
         let source = r#"
 Debug.Print "Monthly Rate: " & Rate(n, p, pv)
 "#;
@@ -829,7 +829,7 @@ Debug.Print "Monthly Rate: " & Rate(n, p, pv)
     }
 
     #[test]
-    fn test_rate_select_case() {
+    fn rate_select_case() {
         let source = r#"
 Dim apr As Double
 apr = Rate(months, -payment, loan) * 12
@@ -849,7 +849,7 @@ End Select
     }
 
     #[test]
-    fn test_rate_class_usage() {
+    fn rate_class_usage() {
         let source = r#"
 Private m_rate As Double
 
@@ -864,7 +864,7 @@ End Sub
     }
 
     #[test]
-    fn test_rate_with_statement() {
+    fn rate_with_statement() {
         let source = r#"
 With loanCalc
     .InterestRate = Rate(.NumPayments, .Payment, .Principal)
@@ -877,7 +877,7 @@ End With
     }
 
     #[test]
-    fn test_rate_elseif() {
+    fn rate_elseif() {
         let source = r#"
 If amount > 100000 Then
     r = 0.05
@@ -892,7 +892,7 @@ End If
     }
 
     #[test]
-    fn test_rate_for_loop() {
+    fn rate_for_loop() {
         let source = r#"
 For payment = 100 To 500 Step 50
     r = Rate(60, -payment, 10000)
@@ -906,7 +906,7 @@ Next payment
     }
 
     #[test]
-    fn test_rate_do_while() {
+    fn rate_do_while() {
         let source = r#"
 Do While Rate(nper, -pmt, pv) < targetRate
     pmt = pmt + 10
@@ -919,7 +919,7 @@ Loop
     }
 
     #[test]
-    fn test_rate_do_until() {
+    fn rate_do_until() {
         let source = r#"
 Do Until Rate(n, -p, amount) >= minRate
     amount = amount - 100
@@ -932,7 +932,7 @@ Loop
     }
 
     #[test]
-    fn test_rate_while_wend() {
+    fn rate_while_wend() {
         let source = r#"
 While Rate(periods, payment, principal) > 0
     principal = principal + 1000
@@ -945,7 +945,7 @@ Wend
     }
 
     #[test]
-    fn test_rate_parentheses() {
+    fn rate_parentheses() {
         let source = r#"
 Dim result As Double
 result = (Rate(nper, pmt, pv))
@@ -957,7 +957,7 @@ result = (Rate(nper, pmt, pv))
     }
 
     #[test]
-    fn test_rate_iif() {
+    fn rate_iif() {
         let source = r#"
 Dim annualRate As Double
 annualRate = IIf(useGuess, Rate(n, p, pv, fv, t, g), Rate(n, p, pv))
@@ -969,7 +969,7 @@ annualRate = IIf(useGuess, Rate(n, p, pv, fv, t, g), Rate(n, p, pv))
     }
 
     #[test]
-    fn test_rate_comparison() {
+    fn rate_comparison() {
         let source = r#"
 If Rate(60, -200, 10000) > Rate(48, -250, 10000) Then
     MsgBox "First loan has higher rate"
@@ -982,7 +982,7 @@ End If
     }
 
     #[test]
-    fn test_rate_array_assignment() {
+    fn rate_array_assignment() {
         let source = r#"
 Dim rates(10) As Double
 rates(i) = Rate(periods(i), payments(i), principals(i))
@@ -994,7 +994,7 @@ rates(i) = Rate(periods(i), payments(i), principals(i))
     }
 
     #[test]
-    fn test_rate_property_assignment() {
+    fn rate_property_assignment() {
         let source = r#"
 Set obj = New LoanAnalyzer
 obj.InterestRate = Rate(obj.Term, obj.Payment, obj.Principal)
@@ -1006,7 +1006,7 @@ obj.InterestRate = Rate(obj.Term, obj.Payment, obj.Principal)
     }
 
     #[test]
-    fn test_rate_function_argument() {
+    fn rate_function_argument() {
         let source = r#"
 Call AnalyzeLoan(Rate(60, -payment, principal) * 12, loanAmount)
 "#;
@@ -1017,7 +1017,7 @@ Call AnalyzeLoan(Rate(60, -payment, principal) * 12, loanAmount)
     }
 
     #[test]
-    fn test_rate_arithmetic() {
+    fn rate_arithmetic() {
         let source = r#"
 Dim apr As Double
 apr = Rate(months, -pmt, pv) * 12 * 100
@@ -1029,7 +1029,7 @@ apr = Rate(months, -pmt, pv) * 12 * 100
     }
 
     #[test]
-    fn test_rate_concatenation() {
+    fn rate_concatenation() {
         let source = r#"
 Dim msg As String
 msg = "APR is: " & Format(Rate(n, p, pv) * 12, "0.00%")
@@ -1041,7 +1041,7 @@ msg = "APR is: " & Format(Rate(n, p, pv) * 12, "0.00%")
     }
 
     #[test]
-    fn test_rate_format_function() {
+    fn rate_format_function() {
         let source = r#"
 Dim display As String
 display = Format(Rate(60, -500, 20000) * 12 * 100, "0.00")
@@ -1053,7 +1053,7 @@ display = Format(Rate(60, -500, 20000) * 12 * 100, "0.00")
     }
 
     #[test]
-    fn test_rate_error_handling() {
+    fn rate_error_handling() {
         let source = r#"
 On Error Resume Next
 interestRate = Rate(nper, pmt, pv, fv, type, guess)
@@ -1069,7 +1069,7 @@ On Error GoTo 0
     }
 
     #[test]
-    fn test_rate_on_error_goto() {
+    fn rate_on_error_goto() {
         let source = r#"
 Sub CalculateRate()
     On Error GoTo ErrorHandler

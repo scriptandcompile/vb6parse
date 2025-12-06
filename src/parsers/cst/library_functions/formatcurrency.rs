@@ -591,7 +591,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_formatcurrency_basic() {
+    fn formatcurrency_basic() {
         let source = r#"
 result = FormatCurrency(amount)
 "#;
@@ -602,7 +602,7 @@ result = FormatCurrency(amount)
     }
 
     #[test]
-    fn test_formatcurrency_decimals() {
+    fn formatcurrency_decimals() {
         let source = r#"
 formatted = FormatCurrency(value, 2)
 "#;
@@ -613,7 +613,7 @@ formatted = FormatCurrency(value, 2)
     }
 
     #[test]
-    fn test_formatcurrency_no_decimals() {
+    fn formatcurrency_no_decimals() {
         let source = r#"
 formatted = FormatCurrency(amount, 0)
 "#;
@@ -624,7 +624,7 @@ formatted = FormatCurrency(amount, 0)
     }
 
     #[test]
-    fn test_formatcurrency_parens() {
+    fn formatcurrency_parens() {
         let source = r#"
 result = FormatCurrency(balance, 2, , vbTrue)
 "#;
@@ -635,7 +635,7 @@ result = FormatCurrency(balance, 2, , vbTrue)
     }
 
     #[test]
-    fn test_formatcurrency_all_params() {
+    fn formatcurrency_all_params() {
         let source = r#"
 formatted = FormatCurrency(amount, 2, vbTrue, vbTrue, vbTrue)
 "#;
@@ -646,7 +646,7 @@ formatted = FormatCurrency(amount, 2, vbTrue, vbTrue, vbTrue)
     }
 
     #[test]
-    fn test_formatcurrency_debug_print() {
+    fn formatcurrency_debug_print() {
         let source = r#"
 Debug.Print FormatCurrency(price)
 "#;
@@ -657,7 +657,7 @@ Debug.Print FormatCurrency(price)
     }
 
     #[test]
-    fn test_formatcurrency_concatenation() {
+    fn formatcurrency_concatenation() {
         let source = r#"
 msg = "Total: " & FormatCurrency(total)
 "#;
@@ -668,7 +668,7 @@ msg = "Total: " & FormatCurrency(total)
     }
 
     #[test]
-    fn test_formatcurrency_in_function() {
+    fn formatcurrency_in_function() {
         let source = r#"
 Function FormatAccountBalance(balance As Double) As String
     FormatAccountBalance = FormatCurrency(balance, 2, vbTrue, vbTrue, vbTrue)
@@ -681,7 +681,7 @@ End Function
     }
 
     #[test]
-    fn test_formatcurrency_if_statement() {
+    fn formatcurrency_if_statement() {
         let source = r#"
 If showCents Then
     result = FormatCurrency(price, 2)
@@ -696,7 +696,7 @@ End If
     }
 
     #[test]
-    fn test_formatcurrency_listbox() {
+    fn formatcurrency_listbox() {
         let source = r#"
 lstPrices.AddItem FormatCurrency(prices(i))
 "#;
@@ -707,7 +707,7 @@ lstPrices.AddItem FormatCurrency(prices(i))
     }
 
     #[test]
-    fn test_formatcurrency_multiline() {
+    fn formatcurrency_multiline() {
         let source = r#"
 summary = "Subtotal: " & FormatCurrency(subtotal) & vbCrLf & _
           "Tax: " & FormatCurrency(tax) & vbCrLf & _
@@ -720,7 +720,7 @@ summary = "Subtotal: " & FormatCurrency(subtotal) & vbCrLf & _
     }
 
     #[test]
-    fn test_formatcurrency_calculation() {
+    fn formatcurrency_calculation() {
         let source = r#"
 result = FormatCurrency(price * quantity)
 "#;
@@ -731,7 +731,7 @@ result = FormatCurrency(price * quantity)
     }
 
     #[test]
-    fn test_formatcurrency_isnull_check() {
+    fn formatcurrency_isnull_check() {
         let source = r#"
 If Not IsNull(amount) Then
     formatted = FormatCurrency(amount)
@@ -744,7 +744,7 @@ End If
     }
 
     #[test]
-    fn test_formatcurrency_comparison() {
+    fn formatcurrency_comparison() {
         let source = r#"
 comparison = FormatCurrency(price1) & " vs " & FormatCurrency(price2)
 "#;
@@ -755,7 +755,7 @@ comparison = FormatCurrency(price1) & " vs " & FormatCurrency(price2)
     }
 
     #[test]
-    fn test_formatcurrency_error_handling() {
+    fn formatcurrency_error_handling() {
         let source = r#"
 On Error GoTo ErrorHandler
 formatted = FormatCurrency(value, decimals)
@@ -770,7 +770,7 @@ ErrorHandler:
     }
 
     #[test]
-    fn test_formatcurrency_for_loop() {
+    fn formatcurrency_for_loop() {
         let source = r#"
 For i = 1 To itemCount
     Debug.Print FormatCurrency(amounts(i))
@@ -783,7 +783,7 @@ Next i
     }
 
     #[test]
-    fn test_formatcurrency_select_case() {
+    fn formatcurrency_select_case() {
         let source = r#"
 Select Case amount
     Case Is > 1000
@@ -799,7 +799,7 @@ End Select
     }
 
     #[test]
-    fn test_formatcurrency_msgbox() {
+    fn formatcurrency_msgbox() {
         let source = r#"
 MsgBox "Total: " & FormatCurrency(total)
 "#;
@@ -810,7 +810,7 @@ MsgBox "Total: " & FormatCurrency(total)
     }
 
     #[test]
-    fn test_formatcurrency_label_caption() {
+    fn formatcurrency_label_caption() {
         let source = r#"
 lblPrice.Caption = FormatCurrency(price)
 "#;
@@ -821,7 +821,7 @@ lblPrice.Caption = FormatCurrency(price)
     }
 
     #[test]
-    fn test_formatcurrency_recordset() {
+    fn formatcurrency_recordset() {
         let source = r#"
 formatted = FormatCurrency(rs.Fields("Amount").Value)
 "#;
@@ -832,7 +832,7 @@ formatted = FormatCurrency(rs.Fields("Amount").Value)
     }
 
     #[test]
-    fn test_formatcurrency_vbfalse() {
+    fn formatcurrency_vbfalse() {
         let source = r#"
 result = FormatCurrency(fraction, 2, vbFalse)
 "#;
@@ -843,7 +843,7 @@ result = FormatCurrency(fraction, 2, vbFalse)
     }
 
     #[test]
-    fn test_formatcurrency_negative() {
+    fn formatcurrency_negative() {
         let source = r#"
 formatted = FormatCurrency(balance, 2, , vbFalse)
 "#;
@@ -854,7 +854,7 @@ formatted = FormatCurrency(balance, 2, , vbFalse)
     }
 
     #[test]
-    fn test_formatcurrency_subtraction() {
+    fn formatcurrency_subtraction() {
         let source = r#"
 difference = FormatCurrency(price1 - price2, 2, , vbTrue)
 "#;
@@ -865,7 +865,7 @@ difference = FormatCurrency(price1 - price2, 2, , vbTrue)
     }
 
     #[test]
-    fn test_formatcurrency_addition() {
+    fn formatcurrency_addition() {
         let source = r#"
 total = FormatCurrency(subtotal + tax + shipping)
 "#;
@@ -876,7 +876,7 @@ total = FormatCurrency(subtotal + tax + shipping)
     }
 
     #[test]
-    fn test_formatcurrency_with_cdbl() {
+    fn formatcurrency_with_cdbl() {
         let source = r#"
 result = FormatCurrency(CDbl(value), decimals)
 "#;
@@ -887,7 +887,7 @@ result = FormatCurrency(CDbl(value), decimals)
     }
 
     #[test]
-    fn test_formatcurrency_iif() {
+    fn formatcurrency_iif() {
         let source = r#"
 parens = IIf(useParens, vbTrue, vbFalse)
 result = FormatCurrency(amount, 2, vbTrue, parens, vbTrue)

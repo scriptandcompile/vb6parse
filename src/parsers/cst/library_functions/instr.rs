@@ -513,7 +513,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_instr_basic() {
+    fn instr_basic() {
         let source = r#"
 Sub Test()
     pos = InStr("Hello World", "World")
@@ -526,7 +526,7 @@ End Sub
     }
 
     #[test]
-    fn test_instr_with_start() {
+    fn instr_with_start() {
         let source = r#"
 Sub Test()
     pos = InStr(5, text, "search")
@@ -539,7 +539,7 @@ End Sub
     }
 
     #[test]
-    fn test_instr_with_compare() {
+    fn instr_with_compare() {
         let source = r#"
 Sub Test()
     pos = InStr(1, "Hello", "hello", vbTextCompare)
@@ -552,7 +552,7 @@ End Sub
     }
 
     #[test]
-    fn test_instr_if_statement() {
+    fn instr_if_statement() {
         let source = r#"
 Sub Test()
     If InStr(email, "@") > 0 Then
@@ -567,7 +567,7 @@ End Sub
     }
 
     #[test]
-    fn test_instr_in_loop() {
+    fn instr_in_loop() {
         let source = r#"
 Sub Test()
     Do While InStr(text, delimiter) > 0
@@ -582,7 +582,7 @@ End Sub
     }
 
     #[test]
-    fn test_instr_function_return() {
+    fn instr_function_return() {
         let source = r#"
 Function FindPosition(text As String) As Long
     FindPosition = InStr(text, "target")
@@ -595,7 +595,7 @@ End Function
     }
 
     #[test]
-    fn test_instr_with_mid() {
+    fn instr_with_mid() {
         let source = r#"
 Sub Test()
     pos = InStr(data, ",")
@@ -611,7 +611,7 @@ End Sub
     }
 
     #[test]
-    fn test_instr_comparison() {
+    fn instr_comparison() {
         let source = r#"
 Sub Test()
     If InStr(fileName, ".txt") = 0 Then
@@ -626,7 +626,7 @@ End Sub
     }
 
     #[test]
-    fn test_instr_select_case() {
+    fn instr_select_case() {
         let source = r#"
 Sub Test()
     Select Case InStr(url, "http")
@@ -644,7 +644,7 @@ End Sub
     }
 
     #[test]
-    fn test_instr_for_loop() {
+    fn instr_for_loop() {
         let source = r#"
 Sub Test()
     Dim i As Long
@@ -660,7 +660,7 @@ End Sub
     }
 
     #[test]
-    fn test_instr_debug_print() {
+    fn instr_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print "Position: " & InStr(text, "find")
@@ -673,7 +673,7 @@ End Sub
     }
 
     #[test]
-    fn test_instr_array_assignment() {
+    fn instr_array_assignment() {
         let source = r#"
 Sub Test()
     positions(i) = InStr(text, delimiter)
@@ -686,7 +686,7 @@ End Sub
     }
 
     #[test]
-    fn test_instr_property_assignment() {
+    fn instr_property_assignment() {
         let source = r#"
 Sub Test()
     obj.Position = InStr(data, marker)
@@ -699,7 +699,7 @@ End Sub
     }
 
     #[test]
-    fn test_instr_in_class() {
+    fn instr_in_class() {
         let source = r#"
 Private Sub Class_Initialize()
     m_delimiterPos = InStr(m_text, m_delimiter)
@@ -712,7 +712,7 @@ End Sub
     }
 
     #[test]
-    fn test_instr_with_statement() {
+    fn instr_with_statement() {
         let source = r#"
 Sub Test()
     With parser
@@ -727,7 +727,7 @@ End Sub
     }
 
     #[test]
-    fn test_instr_function_argument() {
+    fn instr_function_argument() {
         let source = r#"
 Sub Test()
     Call ProcessPosition(InStr(text, "marker"))
@@ -740,7 +740,7 @@ End Sub
     }
 
     #[test]
-    fn test_instr_concatenation() {
+    fn instr_concatenation() {
         let source = r#"
 Sub Test()
     result = "Found at: " & InStr(text, searchTerm)
@@ -753,7 +753,7 @@ End Sub
     }
 
     #[test]
-    fn test_instr_math_expression() {
+    fn instr_math_expression() {
         let source = r#"
 Sub Test()
     length = InStr(text, delimiter) - 1
@@ -766,7 +766,7 @@ End Sub
     }
 
     #[test]
-    fn test_instr_iif() {
+    fn instr_iif() {
         let source = r#"
 Sub Test()
     result = IIf(InStr(email, "@") > 0, "Valid", "Invalid")
@@ -779,7 +779,7 @@ End Sub
     }
 
     #[test]
-    fn test_instr_multiple_calls() {
+    fn instr_multiple_calls() {
         let source = r#"
 Sub Test()
     atPos = InStr(email, "@")
@@ -793,7 +793,7 @@ End Sub
     }
 
     #[test]
-    fn test_instr_msgbox() {
+    fn instr_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Position: " & InStr(text, "search")
@@ -806,7 +806,7 @@ End Sub
     }
 
     #[test]
-    fn test_instr_collection_add() {
+    fn instr_collection_add() {
         let source = r#"
 Sub Test()
     positions.Add InStr(lines(i), delimiter)
@@ -819,7 +819,7 @@ End Sub
     }
 
     #[test]
-    fn test_instr_boolean_expression() {
+    fn instr_boolean_expression() {
         let source = r#"
 Sub Test()
     isValid = InStr(text, "required") > 0 And InStr(text, "approved") > 0
@@ -832,7 +832,7 @@ End Sub
     }
 
     #[test]
-    fn test_instr_nested_call() {
+    fn instr_nested_call() {
         let source = r#"
 Sub Test()
     part = Mid$(text, InStr(text, ":") + 1)
@@ -845,7 +845,7 @@ End Sub
     }
 
     #[test]
-    fn test_instr_do_until() {
+    fn instr_do_until() {
         let source = r#"
 Sub Test()
     Do Until InStr(startPos, text, delimiter) = 0
@@ -861,7 +861,7 @@ End Sub
     }
 
     #[test]
-    fn test_instr_left_function() {
+    fn instr_left_function() {
         let source = r#"
 Sub Test()
     prefix = Left$(text, InStr(text, " ") - 1)
@@ -874,7 +874,7 @@ End Sub
     }
 
     #[test]
-    fn test_instr_parentheses() {
+    fn instr_parentheses() {
         let source = r#"
 Sub Test()
     pos = (InStr(text, searchText))

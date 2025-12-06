@@ -398,7 +398,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_cos_basic() {
+    fn cos_basic() {
         let source = r#"
 result = Cos(angle)
 "#;
@@ -409,7 +409,7 @@ result = Cos(angle)
     }
 
     #[test]
-    fn test_cos_with_zero() {
+    fn cos_with_zero() {
         let source = r#"
 value = Cos(0)
 "#;
@@ -420,7 +420,7 @@ value = Cos(0)
     }
 
     #[test]
-    fn test_cos_with_pi() {
+    fn cos_with_pi() {
         let source = r#"
 Const Pi As Double = 3.14159265358979
 result = Cos(Pi)
@@ -432,7 +432,7 @@ result = Cos(Pi)
     }
 
     #[test]
-    fn test_cos_degrees_to_radians() {
+    fn cos_degrees_to_radians() {
         let source = r#"
 Const Pi As Double = 3.14159265358979
 radians = degrees * (Pi / 180)
@@ -445,7 +445,7 @@ result = Cos(radians)
     }
 
     #[test]
-    fn test_cos_in_function() {
+    fn cos_in_function() {
         let source = r#"
 Function CosDegrees(degrees As Double) As Double
     Const Pi As Double = 3.14159265358979
@@ -459,7 +459,7 @@ End Function
     }
 
     #[test]
-    fn test_cos_circle_calculation() {
+    fn cos_circle_calculation() {
         let source = r#"
 x = centerX + radius * Cos(angle)
 "#;
@@ -470,7 +470,7 @@ x = centerX + radius * Cos(angle)
     }
 
     #[test]
-    fn test_cos_rotation() {
+    fn cos_rotation() {
         let source = r#"
 newX = x * Cos(angle) - y * Sin(angle)
 "#;
@@ -481,7 +481,7 @@ newX = x * Cos(angle) - y * Sin(angle)
     }
 
     #[test]
-    fn test_cos_wave_generation() {
+    fn cos_wave_generation() {
         let source = r#"
 For i = 0 To samples - 1
     wave(i) = amplitude * Cos(angle)
@@ -494,7 +494,7 @@ Next i
     }
 
     #[test]
-    fn test_cos_harmonic_motion() {
+    fn cos_harmonic_motion() {
         let source = r#"
 Const Pi As Double = 3.14159265358979
 position = amplitude * Cos(2 * Pi * frequency * time)
@@ -506,7 +506,7 @@ position = amplitude * Cos(2 * Pi * frequency * time)
     }
 
     #[test]
-    fn test_cos_in_assignment() {
+    fn cos_in_assignment() {
         let source = r#"
 Dim result As Double
 result = Cos(1.5708)
@@ -518,7 +518,7 @@ result = Cos(1.5708)
     }
 
     #[test]
-    fn test_cos_polar_to_cartesian() {
+    fn cos_polar_to_cartesian() {
         let source = r#"
 x = radius * Cos(angle)
 y = radius * Sin(angle)
@@ -530,7 +530,7 @@ y = radius * Sin(angle)
     }
 
     #[test]
-    fn test_cos_with_expression() {
+    fn cos_with_expression() {
         let source = r#"
 result = Cos(Pi / 4)
 "#;
@@ -541,7 +541,7 @@ result = Cos(Pi / 4)
     }
 
     #[test]
-    fn test_cos_multiple_operations() {
+    fn cos_multiple_operations() {
         let source = r#"
 value = amplitude * Cos(2 * Pi * frequency * time + phase)
 "#;
@@ -552,7 +552,7 @@ value = amplitude * Cos(2 * Pi * frequency * time + phase)
     }
 
     #[test]
-    fn test_cos_in_if_statement() {
+    fn cos_in_if_statement() {
         let source = r#"
 If Cos(angle) > 0 Then
     ProcessPositive
@@ -565,7 +565,7 @@ End If
     }
 
     #[test]
-    fn test_cos_pythagorean_identity() {
+    fn cos_pythagorean_identity() {
         let source = r#"
 sum = Cos(angle) ^ 2 + Sin(angle) ^ 2
 "#;
@@ -576,7 +576,7 @@ sum = Cos(angle) ^ 2 + Sin(angle) ^ 2
     }
 
     #[test]
-    fn test_cos_in_array() {
+    fn cos_in_array() {
         let source = r#"
 values(i) = Cos(angles(i))
 "#;
@@ -587,7 +587,7 @@ values(i) = Cos(angles(i))
     }
 
     #[test]
-    fn test_cos_ellipse() {
+    fn cos_ellipse() {
         let source = r#"
 ptX = centerX + radiusX * Cos(angle)
 ptY = centerY + radiusY * Sin(angle)
@@ -599,7 +599,7 @@ ptY = centerY + radiusY * Sin(angle)
     }
 
     #[test]
-    fn test_cos_3d_rotation() {
+    fn cos_3d_rotation() {
         let source = r#"
 newX = x * Cos(angle) - z * Sin(angle)
 newZ = x * Sin(angle) + z * Cos(angle)
@@ -611,7 +611,7 @@ newZ = x * Sin(angle) + z * Cos(angle)
     }
 
     #[test]
-    fn test_cos_in_select_case() {
+    fn cos_in_select_case() {
         let source = r#"
 Select Case Cos(angle)
     Case Is > 0.5
@@ -627,7 +627,7 @@ End Select
     }
 
     #[test]
-    fn test_cos_nested_call() {
+    fn cos_nested_call() {
         let source = r#"
 result = Cos(Cos(x))
 "#;
@@ -638,7 +638,7 @@ result = Cos(Cos(x))
     }
 
     #[test]
-    fn test_cos_in_do_loop() {
+    fn cos_in_do_loop() {
         let source = r#"
 Do While Cos(angle) > threshold
     angle = angle + step
@@ -651,7 +651,7 @@ Loop
     }
 
     #[test]
-    fn test_cos_angle_addition() {
+    fn cos_angle_addition() {
         let source = r#"
 result = Cos(a) * Cos(b) - Sin(a) * Sin(b)
 "#;
@@ -662,7 +662,7 @@ result = Cos(a) * Cos(b) - Sin(a) * Sin(b)
     }
 
     #[test]
-    fn test_cos_with_abs() {
+    fn cos_with_abs() {
         let source = r#"
 magnitude = Abs(Cos(angle))
 "#;
@@ -673,7 +673,7 @@ magnitude = Abs(Cos(angle))
     }
 
     #[test]
-    fn test_cos_in_print() {
+    fn cos_in_print() {
         let source = r#"
 Print "Cosine: "; Cos(angle)
 "#;
@@ -684,7 +684,7 @@ Print "Cosine: "; Cos(angle)
     }
 
     #[test]
-    fn test_cos_with_whitespace() {
+    fn cos_with_whitespace() {
         let source = r#"
 result = Cos( angle )
 "#;

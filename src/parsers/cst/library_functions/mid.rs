@@ -791,7 +791,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_mid_basic() {
+    fn mid_basic() {
         let source = r#"
             result = Mid("Hello World", 7, 5)
         "#;
@@ -802,7 +802,7 @@ mod tests {
     }
 
     #[test]
-    fn test_mid_two_arguments() {
+    fn mid_two_arguments() {
         let source = r#"
             result = Mid(text, 5)
         "#;
@@ -813,7 +813,7 @@ mod tests {
     }
 
     #[test]
-    fn test_mid_variable() {
+    fn mid_variable() {
         let source = r#"
             substring = Mid(fullText, startPos, length)
         "#;
@@ -824,7 +824,7 @@ mod tests {
     }
 
     #[test]
-    fn test_mid_if_statement() {
+    fn mid_if_statement() {
         let source = r#"
             If Mid(text, 1, 5) = "Hello" Then
                 MsgBox "Match"
@@ -836,7 +836,7 @@ mod tests {
     }
 
     #[test]
-    fn test_mid_function_return() {
+    fn mid_function_return() {
         let source = r#"
             Function GetSubstring() As String
                 GetSubstring = Mid(data, 10, 20)
@@ -849,7 +849,7 @@ mod tests {
     }
 
     #[test]
-    fn test_mid_with_instr() {
+    fn mid_with_instr() {
         let source = r#"
             pos = InStr(text, ",")
             field = Mid(text, 1, pos - 1)
@@ -861,7 +861,7 @@ mod tests {
     }
 
     #[test]
-    fn test_mid_debug_print() {
+    fn mid_debug_print() {
         let source = r#"
             Debug.Print Mid(message, 5, 10)
         "#;
@@ -872,7 +872,7 @@ mod tests {
     }
 
     #[test]
-    fn test_mid_with_statement() {
+    fn mid_with_statement() {
         let source = r#"
             With record
                 .ID = Mid(.FullData, 1, 10)
@@ -885,7 +885,7 @@ mod tests {
     }
 
     #[test]
-    fn test_mid_select_case() {
+    fn mid_select_case() {
         let source = r#"
             Select Case Mid(code, 1, 2)
                 Case "AA"
@@ -899,7 +899,7 @@ mod tests {
     }
 
     #[test]
-    fn test_mid_elseif() {
+    fn mid_elseif() {
         let source = r#"
             If code = "" Then
                 status = "Empty"
@@ -914,7 +914,7 @@ mod tests {
     }
 
     #[test]
-    fn test_mid_parentheses() {
+    fn mid_parentheses() {
         let source = r#"
             result = (Mid(text, 3, 5))
         "#;
@@ -925,7 +925,7 @@ mod tests {
     }
 
     #[test]
-    fn test_mid_iif() {
+    fn mid_iif() {
         let source = r#"
             result = IIf(Mid(text, 1, 1) = "A", "Yes", "No")
         "#;
@@ -936,7 +936,7 @@ mod tests {
     }
 
     #[test]
-    fn test_mid_in_class() {
+    fn mid_in_class() {
         let source = r#"
             Private Sub ExtractData()
                 m_code = Mid(m_rawData, 1, 5)
@@ -949,7 +949,7 @@ mod tests {
     }
 
     #[test]
-    fn test_mid_function_argument() {
+    fn mid_function_argument() {
         let source = r#"
             Call ProcessText(Mid(input, 10, 50))
         "#;
@@ -960,7 +960,7 @@ mod tests {
     }
 
     #[test]
-    fn test_mid_property_assignment() {
+    fn mid_property_assignment() {
         let source = r#"
             MyObject.Substring = Mid(fullString, 5, 10)
         "#;
@@ -971,7 +971,7 @@ mod tests {
     }
 
     #[test]
-    fn test_mid_array_assignment() {
+    fn mid_array_assignment() {
         let source = r#"
             fields(i) = Mid(record, pos, fieldWidth)
         "#;
@@ -982,7 +982,7 @@ mod tests {
     }
 
     #[test]
-    fn test_mid_for_loop() {
+    fn mid_for_loop() {
         let source = r#"
             For i = 1 To Len(text)
                 char = Mid(text, i, 1)
@@ -995,7 +995,7 @@ mod tests {
     }
 
     #[test]
-    fn test_mid_while_wend() {
+    fn mid_while_wend() {
         let source = r#"
             While pos <= Len(data)
                 field = Mid(data, pos, 10)
@@ -1009,7 +1009,7 @@ mod tests {
     }
 
     #[test]
-    fn test_mid_do_while() {
+    fn mid_do_while() {
         let source = r#"
             Do While i <= recordCount
                 customerID = Mid(records(i), 1, 10)
@@ -1023,7 +1023,7 @@ mod tests {
     }
 
     #[test]
-    fn test_mid_do_until() {
+    fn mid_do_until() {
         let source = r#"
             Do Until pos > Len(text)
                 token = Mid(text, pos, delimPos - pos)
@@ -1037,7 +1037,7 @@ mod tests {
     }
 
     #[test]
-    fn test_mid_msgbox() {
+    fn mid_msgbox() {
         let source = r#"
             MsgBox Mid(errorMessage, 1, 50)
         "#;
@@ -1048,7 +1048,7 @@ mod tests {
     }
 
     #[test]
-    fn test_mid_concatenation() {
+    fn mid_concatenation() {
         let source = r#"
             fullName = Mid(firstName, 1, 1) & ". " & lastName
         "#;
@@ -1059,7 +1059,7 @@ mod tests {
     }
 
     #[test]
-    fn test_mid_comparison() {
+    fn mid_comparison() {
         let source = r#"
             If Mid(text1, 1, 5) = Mid(text2, 1, 5) Then
                 MsgBox "Match"
@@ -1072,7 +1072,7 @@ mod tests {
     }
 
     #[test]
-    fn test_mid_with_trim() {
+    fn mid_with_trim() {
         let source = r#"
             cleanField = Trim(Mid(record, 10, 30))
         "#;
@@ -1083,7 +1083,7 @@ mod tests {
     }
 
     #[test]
-    fn test_mid_fixed_width() {
+    fn mid_fixed_width() {
         let source = r#"
             customerID = Mid(record, 1, 10)
             customerName = Mid(record, 11, 30)
@@ -1095,7 +1095,7 @@ mod tests {
     }
 
     #[test]
-    fn test_mid_nested() {
+    fn mid_nested() {
         let source = r#"
             result = Mid(Mid(text, 5, 20), 3, 10)
         "#;
@@ -1106,7 +1106,7 @@ mod tests {
     }
 
     #[test]
-    fn test_mid_single_char() {
+    fn mid_single_char() {
         let source = r#"
             char = Mid(text, position, 1)
         "#;

@@ -636,7 +636,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_timer_basic() {
+    fn timer_basic() {
         let source = r#"
 Sub Test()
     elapsed = Timer
@@ -648,7 +648,7 @@ End Sub
     }
 
     #[test]
-    fn test_timer_with_parentheses() {
+    fn timer_with_parentheses() {
         let source = r#"
 Sub Test()
     elapsed = Timer()
@@ -660,7 +660,7 @@ End Sub
     }
 
     #[test]
-    fn test_timer_variable_assignment() {
+    fn timer_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim startTime As Single
@@ -673,7 +673,7 @@ End Sub
     }
 
     #[test]
-    fn test_timer_elapsed_time() {
+    fn timer_elapsed_time() {
         let source = r#"
 Sub Test()
     elapsed = Timer - startTime
@@ -685,7 +685,7 @@ End Sub
     }
 
     #[test]
-    fn test_timer_function_return() {
+    fn timer_function_return() {
         let source = r#"
 Function GetStartTime() As Single
     GetStartTime = Timer
@@ -697,7 +697,7 @@ End Function
     }
 
     #[test]
-    fn test_timer_debug_print() {
+    fn timer_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print Timer
@@ -709,7 +709,7 @@ End Sub
     }
 
     #[test]
-    fn test_timer_msgbox() {
+    fn timer_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Elapsed: " & (Timer - startTime)
@@ -721,7 +721,7 @@ End Sub
     }
 
     #[test]
-    fn test_timer_if_statement() {
+    fn timer_if_statement() {
         let source = r#"
 Sub Test()
     If Timer - startTime > 10 Then
@@ -735,7 +735,7 @@ End Sub
     }
 
     #[test]
-    fn test_timer_comparison() {
+    fn timer_comparison() {
         let source = r#"
 Sub Test()
     If Timer < endTime Then
@@ -749,7 +749,7 @@ End Sub
     }
 
     #[test]
-    fn test_timer_do_while() {
+    fn timer_do_while() {
         let source = r#"
 Sub Test()
     Do While Timer - startTime < 5
@@ -763,7 +763,7 @@ End Sub
     }
 
     #[test]
-    fn test_timer_do_until() {
+    fn timer_do_until() {
         let source = r#"
 Sub Test()
     Do Until Timer - startTime >= timeout
@@ -777,7 +777,7 @@ End Sub
     }
 
     #[test]
-    fn test_timer_while_wend() {
+    fn timer_while_wend() {
         let source = r#"
 Sub Test()
     While Timer < targetTime
@@ -791,7 +791,7 @@ End Sub
     }
 
     #[test]
-    fn test_timer_function_argument() {
+    fn timer_function_argument() {
         let source = r#"
 Sub Test()
     Call LogTime(Timer)
@@ -803,7 +803,7 @@ End Sub
     }
 
     #[test]
-    fn test_timer_property_assignment() {
+    fn timer_property_assignment() {
         let source = r#"
 Sub Test()
     obj.StartTime = Timer
@@ -815,7 +815,7 @@ End Sub
     }
 
     #[test]
-    fn test_timer_with_statement() {
+    fn timer_with_statement() {
         let source = r#"
 Sub Test()
     With profiler
@@ -829,7 +829,7 @@ End Sub
     }
 
     #[test]
-    fn test_timer_array_assignment() {
+    fn timer_array_assignment() {
         let source = r#"
 Sub Test()
     timestamps(i) = Timer
@@ -841,7 +841,7 @@ End Sub
     }
 
     #[test]
-    fn test_timer_print_statement() {
+    fn timer_print_statement() {
         let source = r#"
 Sub Test()
     Print #1, Timer
@@ -853,7 +853,7 @@ End Sub
     }
 
     #[test]
-    fn test_timer_format() {
+    fn timer_format() {
         let source = r#"
 Sub Test()
     formatted = Format$(Timer - startTime, "0.000")
@@ -865,7 +865,7 @@ End Sub
     }
 
     #[test]
-    fn test_timer_addition() {
+    fn timer_addition() {
         let source = r#"
 Sub Test()
     targetTime = Timer + 10
@@ -877,7 +877,7 @@ End Sub
     }
 
     #[test]
-    fn test_timer_elseif() {
+    fn timer_elseif() {
         let source = r#"
 Sub Test()
     If x = 1 Then
@@ -893,7 +893,7 @@ End Sub
     }
 
     #[test]
-    fn test_timer_select_case() {
+    fn timer_select_case() {
         let source = r#"
 Sub Test()
     Select Case Int(Timer - startTime)
@@ -912,7 +912,7 @@ End Sub
     }
 
     #[test]
-    fn test_timer_iif() {
+    fn timer_iif() {
         let source = r#"
 Sub Test()
     status = IIf(Timer - startTime > timeout, "Timeout", "OK")
@@ -924,7 +924,7 @@ End Sub
     }
 
     #[test]
-    fn test_timer_midnight_handling() {
+    fn timer_midnight_handling() {
         let source = r#"
 Sub Test()
     elapsed = Timer - startTime
@@ -937,7 +937,7 @@ End Sub
     }
 
     #[test]
-    fn test_timer_class_usage() {
+    fn timer_class_usage() {
         let source = r#"
 Sub Test()
     Set profiler = New PerformanceProfiler
@@ -950,7 +950,7 @@ End Sub
     }
 
     #[test]
-    fn test_timer_csng() {
+    fn timer_csng() {
         let source = r#"
 Sub Test()
     timerValue = CSng(Timer)
@@ -962,7 +962,7 @@ End Sub
     }
 
     #[test]
-    fn test_timer_parentheses_expression() {
+    fn timer_parentheses_expression() {
         let source = r#"
 Sub Test()
     result = (Timer - startTime) * 1000
@@ -974,7 +974,7 @@ End Sub
     }
 
     #[test]
-    fn test_timer_concatenation() {
+    fn timer_concatenation() {
         let source = r#"
 Sub Test()
     logEntry = "Time: " & Timer
@@ -986,7 +986,7 @@ End Sub
     }
 
     #[test]
-    fn test_timer_multiple_usage() {
+    fn timer_multiple_usage() {
         let source = r#"
 Sub Test()
     start1 = Timer

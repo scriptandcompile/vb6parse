@@ -505,7 +505,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_timeserial_basic() {
+    fn timeserial_basic() {
         let source = r#"
 Sub Test()
     t = TimeSerial(12, 30, 0)
@@ -517,7 +517,7 @@ End Sub
     }
 
     #[test]
-    fn test_timeserial_variable_assignment() {
+    fn timeserial_variable_assignment() {
         let source = r#"
 Sub Test()
     Dim myTime As Date
@@ -530,7 +530,7 @@ End Sub
     }
 
     #[test]
-    fn test_timeserial_all_parameters() {
+    fn timeserial_all_parameters() {
         let source = r#"
 Sub Test()
     result = TimeSerial(14, 45, 30)
@@ -542,7 +542,7 @@ End Sub
     }
 
     #[test]
-    fn test_timeserial_function_return() {
+    fn timeserial_function_return() {
         let source = r#"
 Function GetNoon() As Date
     GetNoon = TimeSerial(12, 0, 0)
@@ -554,7 +554,7 @@ End Function
     }
 
     #[test]
-    fn test_timeserial_addition() {
+    fn timeserial_addition() {
         let source = r#"
 Sub Test()
     newTime = Time + TimeSerial(2, 0, 0)
@@ -566,7 +566,7 @@ End Sub
     }
 
     #[test]
-    fn test_timeserial_subtraction() {
+    fn timeserial_subtraction() {
         let source = r#"
 Sub Test()
     earlierTime = Time + TimeSerial(-1, 0, 0)
@@ -578,7 +578,7 @@ End Sub
     }
 
     #[test]
-    fn test_timeserial_comparison() {
+    fn timeserial_comparison() {
         let source = r#"
 Sub Test()
     If Time > TimeSerial(17, 0, 0) Then
@@ -592,7 +592,7 @@ End Sub
     }
 
     #[test]
-    fn test_timeserial_msgbox() {
+    fn timeserial_msgbox() {
         let source = r#"
 Sub Test()
     MsgBox "Opening time: " & TimeSerial(9, 0, 0)
@@ -604,7 +604,7 @@ End Sub
     }
 
     #[test]
-    fn test_timeserial_debug_print() {
+    fn timeserial_debug_print() {
         let source = r#"
 Sub Test()
     Debug.Print TimeSerial(currentHour, currentMinute, currentSecond)
@@ -616,7 +616,7 @@ End Sub
     }
 
     #[test]
-    fn test_timeserial_format() {
+    fn timeserial_format() {
         let source = r#"
 Sub Test()
     formatted = Format$(TimeSerial(15, 30, 0), "hh:mm AM/PM")
@@ -628,7 +628,7 @@ End Sub
     }
 
     #[test]
-    fn test_timeserial_if_statement() {
+    fn timeserial_if_statement() {
         let source = r#"
 Sub Test()
     If currentTime >= TimeSerial(9, 0, 0) And currentTime < TimeSerial(17, 0, 0) Then
@@ -642,7 +642,7 @@ End Sub
     }
 
     #[test]
-    fn test_timeserial_select_case() {
+    fn timeserial_select_case() {
         let source = r#"
 Sub Test()
     Select Case Time
@@ -659,7 +659,7 @@ End Sub
     }
 
     #[test]
-    fn test_timeserial_function_argument() {
+    fn timeserial_function_argument() {
         let source = r#"
 Sub Test()
     Call ProcessTime(TimeSerial(12, 0, 0))
@@ -671,7 +671,7 @@ End Sub
     }
 
     #[test]
-    fn test_timeserial_property_assignment() {
+    fn timeserial_property_assignment() {
         let source = r#"
 Sub Test()
     obj.StartTime = TimeSerial(8, 30, 0)
@@ -683,7 +683,7 @@ End Sub
     }
 
     #[test]
-    fn test_timeserial_with_statement() {
+    fn timeserial_with_statement() {
         let source = r#"
 Sub Test()
     With schedule
@@ -698,7 +698,7 @@ End Sub
     }
 
     #[test]
-    fn test_timeserial_array_assignment() {
+    fn timeserial_array_assignment() {
         let source = r#"
 Sub Test()
     times(i) = TimeSerial(hours(i), minutes(i), 0)
@@ -710,7 +710,7 @@ End Sub
     }
 
     #[test]
-    fn test_timeserial_print_statement() {
+    fn timeserial_print_statement() {
         let source = r#"
 Sub Test()
     Print #1, TimeSerial(10, 15, 30)
@@ -722,7 +722,7 @@ End Sub
     }
 
     #[test]
-    fn test_timeserial_elseif() {
+    fn timeserial_elseif() {
         let source = r#"
 Sub Test()
     If x = 1 Then
@@ -738,7 +738,7 @@ End Sub
     }
 
     #[test]
-    fn test_timeserial_do_while() {
+    fn timeserial_do_while() {
         let source = r#"
 Sub Test()
     Do While Time < TimeSerial(17, 0, 0)
@@ -752,7 +752,7 @@ End Sub
     }
 
     #[test]
-    fn test_timeserial_do_until() {
+    fn timeserial_do_until() {
         let source = r#"
 Sub Test()
     Do Until Time >= TimeSerial(9, 0, 0)
@@ -766,7 +766,7 @@ End Sub
     }
 
     #[test]
-    fn test_timeserial_while_wend() {
+    fn timeserial_while_wend() {
         let source = r#"
 Sub Test()
     While Time < TimeSerial(12, 0, 0)
@@ -780,7 +780,7 @@ End Sub
     }
 
     #[test]
-    fn test_timeserial_iif() {
+    fn timeserial_iif() {
         let source = r#"
 Sub Test()
     greeting = IIf(Time < TimeSerial(12, 0, 0), "Morning", "Afternoon")
@@ -792,7 +792,7 @@ End Sub
     }
 
     #[test]
-    fn test_timeserial_parentheses() {
+    fn timeserial_parentheses() {
         let source = r#"
 Sub Test()
     result = (TimeSerial(12, 0, 0))
@@ -804,7 +804,7 @@ End Sub
     }
 
     #[test]
-    fn test_timeserial_class_usage() {
+    fn timeserial_class_usage() {
         let source = r#"
 Sub Test()
     Set calculator = New TimeCalculator
@@ -817,7 +817,7 @@ End Sub
     }
 
     #[test]
-    fn test_timeserial_negative_values() {
+    fn timeserial_negative_values() {
         let source = r#"
 Sub Test()
     earlier = Time + TimeSerial(0, -30, 0)
@@ -829,7 +829,7 @@ End Sub
     }
 
     #[test]
-    fn test_timeserial_hour_minute_second() {
+    fn timeserial_hour_minute_second() {
         let source = r#"
 Sub Test()
     myTime = TimeSerial(Hour(dt), Minute(dt), Second(dt))
@@ -841,7 +841,7 @@ End Sub
     }
 
     #[test]
-    fn test_timeserial_concatenation() {
+    fn timeserial_concatenation() {
         let source = r#"
 Sub Test()
     display = "Time: " & TimeSerial(14, 30, 0)
@@ -853,7 +853,7 @@ End Sub
     }
 
     #[test]
-    fn test_timeserial_multiple_calls() {
+    fn timeserial_multiple_calls() {
         let source = r#"
 Sub Test()
     startTime = TimeSerial(9, 0, 0)

@@ -683,7 +683,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_round_basic() {
+    fn round_basic() {
         let source = r#"
 Dim result As Double
 result = Round(3.7)
@@ -695,7 +695,7 @@ result = Round(3.7)
     }
 
     #[test]
-    fn test_round_with_decimals() {
+    fn round_with_decimals() {
         let source = r#"
 Dim rounded As Double
 rounded = Round(12.3456, 2)
@@ -707,7 +707,7 @@ rounded = Round(12.3456, 2)
     }
 
     #[test]
-    fn test_round_if_statement() {
+    fn round_if_statement() {
         let source = r#"
 If Round(price, 2) > 100 Then
     MsgBox "Expensive"
@@ -720,7 +720,7 @@ End If
     }
 
     #[test]
-    fn test_round_function_return() {
+    fn round_function_return() {
         let source = r#"
 Function RoundCurrency(amount As Double) As Double
     RoundCurrency = Round(amount, 2)
@@ -733,7 +733,7 @@ End Function
     }
 
     #[test]
-    fn test_round_variable_assignment() {
+    fn round_variable_assignment() {
         let source = r#"
 Dim value As Double
 value = Round(inputValue, decimalPlaces)
@@ -745,7 +745,7 @@ value = Round(inputValue, decimalPlaces)
     }
 
     #[test]
-    fn test_round_msgbox() {
+    fn round_msgbox() {
         let source = r#"
 MsgBox "Rounded: " & Round(pi, 3)
 "#;
@@ -756,7 +756,7 @@ MsgBox "Rounded: " & Round(pi, 3)
     }
 
     #[test]
-    fn test_round_debug_print() {
+    fn round_debug_print() {
         let source = r#"
 Debug.Print Round(value, 4)
 "#;
@@ -767,7 +767,7 @@ Debug.Print Round(value, 4)
     }
 
     #[test]
-    fn test_round_select_case() {
+    fn round_select_case() {
         let source = r#"
 Select Case Round(score)
     Case 90 To 100
@@ -783,7 +783,7 @@ End Select
     }
 
     #[test]
-    fn test_round_class_usage() {
+    fn round_class_usage() {
         let source = r#"
 Private m_roundedValue As Double
 
@@ -798,7 +798,7 @@ End Sub
     }
 
     #[test]
-    fn test_round_with_statement() {
+    fn round_with_statement() {
         let source = r#"
 With calculation
     .Result = Round(.RawValue, .Precision)
@@ -811,7 +811,7 @@ End With
     }
 
     #[test]
-    fn test_round_elseif() {
+    fn round_elseif() {
         let source = r#"
 If Round(temp) < 0 Then
     status = "Freezing"
@@ -826,7 +826,7 @@ End If
     }
 
     #[test]
-    fn test_round_for_loop() {
+    fn round_for_loop() {
         let source = r#"
 For i = 1 To 10
     rounded(i) = Round(values(i), 2)
@@ -839,7 +839,7 @@ Next i
     }
 
     #[test]
-    fn test_round_do_while() {
+    fn round_do_while() {
         let source = r#"
 Do While Round(balance, 2) > 0
     balance = balance - payment
@@ -852,7 +852,7 @@ Loop
     }
 
     #[test]
-    fn test_round_do_until() {
+    fn round_do_until() {
         let source = r#"
 Do Until Round(distance) >= target
     distance = distance + step
@@ -865,7 +865,7 @@ Loop
     }
 
     #[test]
-    fn test_round_while_wend() {
+    fn round_while_wend() {
         let source = r#"
 While Round(counter, 1) < 100.5
     counter = counter + increment
@@ -878,7 +878,7 @@ Wend
     }
 
     #[test]
-    fn test_round_parentheses() {
+    fn round_parentheses() {
         let source = r#"
 Dim val As Double
 val = (Round(input, 3))
@@ -890,7 +890,7 @@ val = (Round(input, 3))
     }
 
     #[test]
-    fn test_round_iif() {
+    fn round_iif() {
         let source = r#"
 Dim display As String
 display = IIf(Round(value) > 10, "High", "Low")
@@ -902,7 +902,7 @@ display = IIf(Round(value) > 10, "High", "Low")
     }
 
     #[test]
-    fn test_round_nested() {
+    fn round_nested() {
         let source = r#"
 Dim result As Double
 result = Round(Round(value, 3) * 100, 1)
@@ -914,7 +914,7 @@ result = Round(Round(value, 3) * 100, 1)
     }
 
     #[test]
-    fn test_round_array_assignment() {
+    fn round_array_assignment() {
         let source = r#"
 Dim prices(10) As Double
 prices(i) = Round(rawPrices(i), 2)
@@ -926,7 +926,7 @@ prices(i) = Round(rawPrices(i), 2)
     }
 
     #[test]
-    fn test_round_property_assignment() {
+    fn round_property_assignment() {
         let source = r#"
 Set obj = New Calculator
 obj.RoundedValue = Round(obj.RawValue, 4)
@@ -938,7 +938,7 @@ obj.RoundedValue = Round(obj.RawValue, 4)
     }
 
     #[test]
-    fn test_round_function_argument() {
+    fn round_function_argument() {
         let source = r#"
 Call ProcessValue(Round(measurement, 2))
 "#;
@@ -949,7 +949,7 @@ Call ProcessValue(Round(measurement, 2))
     }
 
     #[test]
-    fn test_round_concatenation() {
+    fn round_concatenation() {
         let source = r#"
 Dim msg As String
 msg = "Price: $" & Round(price, 2)
@@ -961,7 +961,7 @@ msg = "Price: $" & Round(price, 2)
     }
 
     #[test]
-    fn test_round_comparison() {
+    fn round_comparison() {
         let source = r#"
 If Round(amount1, 2) = Round(amount2, 2) Then
     MsgBox "Equal"
@@ -974,7 +974,7 @@ End If
     }
 
     #[test]
-    fn test_round_negative_decimals() {
+    fn round_negative_decimals() {
         let source = r#"
 Dim roundedToTens As Long
 roundedToTens = Round(2748, -1)
@@ -986,7 +986,7 @@ roundedToTens = Round(2748, -1)
     }
 
     #[test]
-    fn test_round_bankers_rounding() {
+    fn round_bankers_rounding() {
         let source = r#"
 Dim r1 As Integer, r2 As Integer
 r1 = Round(2.5)
@@ -999,7 +999,7 @@ r2 = Round(3.5)
     }
 
     #[test]
-    fn test_round_error_handling() {
+    fn round_error_handling() {
         let source = r#"
 On Error Resume Next
 Dim result As Double
@@ -1015,7 +1015,7 @@ End If
     }
 
     #[test]
-    fn test_round_on_error_goto() {
+    fn round_on_error_goto() {
         let source = r#"
 Sub RoundValue()
     On Error GoTo ErrorHandler

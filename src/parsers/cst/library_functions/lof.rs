@@ -692,7 +692,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_lof_basic() {
+    fn lof_basic() {
         let source = r#"
             Dim size As Long
             size = LOF(1)
@@ -704,7 +704,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lof_file_variable() {
+    fn lof_file_variable() {
         let source = r#"
             fileSize = LOF(fileNum)
         "#;
@@ -715,7 +715,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lof_if_statement() {
+    fn lof_if_statement() {
         let source = r#"
             If LOF(fileNum) = 0 Then
                 MsgBox "File is empty"
@@ -728,7 +728,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lof_record_count() {
+    fn lof_record_count() {
         let source = r#"
             totalRecords = LOF(fileNum) / Len(record)
         "#;
@@ -739,7 +739,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lof_do_while() {
+    fn lof_do_while() {
         let source = r#"
             Do While Loc(1) < LOF(1)
                 Get #1, , data
@@ -752,7 +752,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lof_function_return() {
+    fn lof_function_return() {
         let source = r#"
             Function GetFileSize() As Long
                 GetFileSize = LOF(fileNum)
@@ -765,7 +765,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lof_string_allocation() {
+    fn lof_string_allocation() {
         let source = r#"
             buffer = String(LOF(fileNum), 0)
         "#;
@@ -776,7 +776,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lof_error_handling() {
+    fn lof_error_handling() {
         let source = r#"
             On Error Resume Next
             size = LOF(fileNum)
@@ -791,7 +791,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lof_progress_calculation() {
+    fn lof_progress_calculation() {
         let source = r#"
             percent = (Loc(fileNum) / LOF(fileNum)) * 100
         "#;
@@ -802,7 +802,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lof_label_assignment() {
+    fn lof_label_assignment() {
         let source = r#"
             lblSize.Caption = "Size: " & LOF(fileNum) & " bytes"
         "#;
@@ -813,7 +813,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lof_with_statement() {
+    fn lof_with_statement() {
         let source = r#"
             With fileInfo
                 .Size = LOF(fileNum)
@@ -826,7 +826,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lof_select_case() {
+    fn lof_select_case() {
         let source = r#"
             Select Case LOF(fileNum)
                 Case 0
@@ -842,7 +842,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lof_elseif() {
+    fn lof_elseif() {
         let source = r#"
             If LOF(fileNum) = 0 Then
                 status = "Empty"
@@ -857,7 +857,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lof_parentheses() {
+    fn lof_parentheses() {
         let source = r#"
             size = (LOF(fileNum))
         "#;
@@ -868,7 +868,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lof_iif() {
+    fn lof_iif() {
         let source = r#"
             msg = IIf(LOF(fileNum) > 0, "Has data", "Empty")
         "#;
@@ -879,7 +879,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lof_in_class() {
+    fn lof_in_class() {
         let source = r#"
             Private Sub Class_Method()
                 m_fileSize = LOF(m_fileNum)
@@ -892,7 +892,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lof_function_argument() {
+    fn lof_function_argument() {
         let source = r#"
             Call ProcessFileSize(LOF(fileNum))
         "#;
@@ -903,7 +903,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lof_property_assignment() {
+    fn lof_property_assignment() {
         let source = r#"
             MyObject.FileSize = LOF(fileNum)
         "#;
@@ -914,7 +914,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lof_array_assignment() {
+    fn lof_array_assignment() {
         let source = r#"
             fileSizes(i) = LOF(fileNum)
         "#;
@@ -925,7 +925,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lof_while_wend() {
+    fn lof_while_wend() {
         let source = r#"
             While Loc(fileNum) < LOF(fileNum)
                 Get #fileNum, , record
@@ -938,7 +938,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lof_do_until() {
+    fn lof_do_until() {
         let source = r#"
             Do Until Loc(fileNum) >= LOF(fileNum)
                 Get #fileNum, , buffer
@@ -951,7 +951,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lof_redim() {
+    fn lof_redim() {
         let source = r#"
             ReDim fileData(1 To LOF(fileNum)) As Byte
         "#;
@@ -962,7 +962,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lof_integer_division() {
+    fn lof_integer_division() {
         let source = r#"
             recordCount = LOF(fileNum) \ recordSize
         "#;
@@ -973,7 +973,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lof_msgbox() {
+    fn lof_msgbox() {
         let source = r#"
             MsgBox "File size: " & LOF(fileNum)
         "#;
@@ -984,7 +984,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lof_debug_print() {
+    fn lof_debug_print() {
         let source = r#"
             Debug.Print "Size: " & LOF(fileNum)
         "#;
@@ -995,7 +995,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lof_progressbar() {
+    fn lof_progressbar() {
         let source = r#"
             ProgressBar1.Max = LOF(fileNum)
         "#;
@@ -1006,7 +1006,7 @@ mod tests {
     }
 
     #[test]
-    fn test_lof_comparison() {
+    fn lof_comparison() {
         let source = r#"
             If LOF(fileNum) > 1048576 Then
                 MsgBox "File larger than 1MB"

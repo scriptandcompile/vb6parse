@@ -473,7 +473,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_curdir_basic() {
+    fn curdir_basic() {
         let source = r#"
 currentDir = CurDir()
 "#;
@@ -484,7 +484,7 @@ currentDir = CurDir()
     }
 
     #[test]
-    fn test_curdir_with_drive() {
+    fn curdir_with_drive() {
         let source = r#"
 path = CurDir("C")
 "#;
@@ -495,7 +495,7 @@ path = CurDir("C")
     }
 
     #[test]
-    fn test_curdir_with_drive_colon() {
+    fn curdir_with_drive_colon() {
         let source = r#"
 path = CurDir("C:")
 "#;
@@ -506,7 +506,7 @@ path = CurDir("C:")
     }
 
     #[test]
-    fn test_curdir_in_assignment() {
+    fn curdir_in_assignment() {
         let source = r#"
 Dim savedDir As String
 savedDir = CurDir()
@@ -518,7 +518,7 @@ savedDir = CurDir()
     }
 
     #[test]
-    fn test_curdir_save_restore() {
+    fn curdir_save_restore() {
         let source = r#"
 savedDir = CurDir()
 ChDir "C:\Temp"
@@ -531,7 +531,7 @@ ChDir savedDir
     }
 
     #[test]
-    fn test_curdir_in_function() {
+    fn curdir_in_function() {
         let source = r#"
 Function GetCurrentPath() As String
     GetCurrentPath = CurDir()
@@ -544,7 +544,7 @@ End Function
     }
 
     #[test]
-    fn test_curdir_with_concatenation() {
+    fn curdir_with_concatenation() {
         let source = r#"
 fullPath = CurDir() & "\data.txt"
 "#;
@@ -555,7 +555,7 @@ fullPath = CurDir() & "\data.txt"
     }
 
     #[test]
-    fn test_curdir_in_if_statement() {
+    fn curdir_in_if_statement() {
         let source = r#"
 If Right(CurDir(), 1) = "\" Then
     ProcessRoot
@@ -568,7 +568,7 @@ End If
     }
 
     #[test]
-    fn test_curdir_with_right() {
+    fn curdir_with_right() {
         let source = r#"
 If Right(CurDir(), 1) <> "\" Then
     path = CurDir() & "\"
@@ -581,7 +581,7 @@ End If
     }
 
     #[test]
-    fn test_curdir_with_left() {
+    fn curdir_with_left() {
         let source = r#"
 drive = Left(CurDir(), 1)
 "#;
@@ -592,7 +592,7 @@ drive = Left(CurDir(), 1)
     }
 
     #[test]
-    fn test_curdir_multiple_drives() {
+    fn curdir_multiple_drives() {
         let source = r#"
 cPath = CurDir("C")
 dPath = CurDir("D")
@@ -604,7 +604,7 @@ dPath = CurDir("D")
     }
 
     #[test]
-    fn test_curdir_with_error_handling() {
+    fn curdir_with_error_handling() {
         let source = r#"
 On Error Resume Next
 path = CurDir("X")
@@ -619,7 +619,7 @@ End If
     }
 
     #[test]
-    fn test_curdir_in_msgbox() {
+    fn curdir_in_msgbox() {
         let source = r#"
 MsgBox "Current directory: " & CurDir()
 "#;
@@ -630,7 +630,7 @@ MsgBox "Current directory: " & CurDir()
     }
 
     #[test]
-    fn test_curdir_with_variable() {
+    fn curdir_with_variable() {
         let source = r#"
 Dim drv As String
 drv = "C"
@@ -643,7 +643,7 @@ path = CurDir(drv)
     }
 
     #[test]
-    fn test_curdir_in_select_case() {
+    fn curdir_in_select_case() {
         let source = r#"
 Select Case CurDir()
     Case "C:\"
@@ -659,7 +659,7 @@ End Select
     }
 
     #[test]
-    fn test_curdir_with_len() {
+    fn curdir_with_len() {
         let source = r#"
 If Len(CurDir()) = 3 Then
     isRoot = True
@@ -672,7 +672,7 @@ End If
     }
 
     #[test]
-    fn test_curdir_in_loop() {
+    fn curdir_in_loop() {
         let source = r#"
 For i = 1 To 5
     path = CurDir() & "\file" & i & ".txt"
@@ -685,7 +685,7 @@ Next i
     }
 
     #[test]
-    fn test_curdir_with_instr() {
+    fn curdir_with_instr() {
         let source = r#"
 If InStr(CurDir(), "Windows") > 0 Then
     ProcessWindowsDir
@@ -698,7 +698,7 @@ End If
     }
 
     #[test]
-    fn test_curdir_empty_string() {
+    fn curdir_empty_string() {
         let source = r#"
 currentPath = CurDir("")
 "#;
@@ -709,7 +709,7 @@ currentPath = CurDir("")
     }
 
     #[test]
-    fn test_curdir_in_print() {
+    fn curdir_in_print() {
         let source = r#"
 Print "Current directory: "; CurDir()
 "#;
@@ -720,7 +720,7 @@ Print "Current directory: "; CurDir()
     }
 
     #[test]
-    fn test_curdir_comparison() {
+    fn curdir_comparison() {
         let source = r#"
 If CurDir() = "C:\Windows" Then
     ProcessWindows
@@ -733,7 +733,7 @@ End If
     }
 
     #[test]
-    fn test_curdir_in_do_loop() {
+    fn curdir_in_do_loop() {
         let source = r#"
 Do While CurDir() <> "C:\"
     ChDir ".."
@@ -746,7 +746,7 @@ Loop
     }
 
     #[test]
-    fn test_curdir_with_mid() {
+    fn curdir_with_mid() {
         let source = r#"
 pathPart = Mid(CurDir(), 4)
 "#;
@@ -757,7 +757,7 @@ pathPart = Mid(CurDir(), 4)
     }
 
     #[test]
-    fn test_curdir_in_sub() {
+    fn curdir_in_sub() {
         let source = r#"
 Sub SaveCurrentDir()
     savedPath = CurDir()
@@ -770,7 +770,7 @@ End Sub
     }
 
     #[test]
-    fn test_curdir_with_whitespace() {
+    fn curdir_with_whitespace() {
         let source = r#"
 path = CurDir( )
 "#;

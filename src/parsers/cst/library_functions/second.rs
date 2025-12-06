@@ -630,7 +630,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_second_basic() {
+    fn second_basic() {
         let source = r#"
 Dim sec As Integer
 sec = Second(Now)
@@ -642,7 +642,7 @@ sec = Second(Now)
     }
 
     #[test]
-    fn test_second_time_string() {
+    fn second_time_string() {
         let source = r#"
 Dim seconds As Integer
 seconds = Second("3:45:30 PM")
@@ -654,7 +654,7 @@ seconds = Second("3:45:30 PM")
     }
 
     #[test]
-    fn test_second_if_statement() {
+    fn second_if_statement() {
         let source = r#"
 If Second(Now) = 0 Then
     MsgBox "New minute!"
@@ -667,7 +667,7 @@ End If
     }
 
     #[test]
-    fn test_second_function_return() {
+    fn second_function_return() {
         let source = r#"
 Function GetSeconds(timeValue As Date) As Integer
     GetSeconds = Second(timeValue)
@@ -680,7 +680,7 @@ End Function
     }
 
     #[test]
-    fn test_second_variable_assignment() {
+    fn second_variable_assignment() {
         let source = r#"
 Dim s As Integer
 s = Second(currentTime)
@@ -692,7 +692,7 @@ s = Second(currentTime)
     }
 
     #[test]
-    fn test_second_msgbox() {
+    fn second_msgbox() {
         let source = r#"
 MsgBox "Second: " & Second(Time)
 "#;
@@ -703,7 +703,7 @@ MsgBox "Second: " & Second(Time)
     }
 
     #[test]
-    fn test_second_debug_print() {
+    fn second_debug_print() {
         let source = r#"
 Debug.Print Second(Now)
 "#;
@@ -714,7 +714,7 @@ Debug.Print Second(Now)
     }
 
     #[test]
-    fn test_second_select_case() {
+    fn second_select_case() {
         let source = r#"
 Select Case Second(Now)
     Case 0 To 15
@@ -730,7 +730,7 @@ End Select
     }
 
     #[test]
-    fn test_second_class_usage() {
+    fn second_class_usage() {
         let source = r#"
 Private m_seconds As Integer
 
@@ -745,7 +745,7 @@ End Sub
     }
 
     #[test]
-    fn test_second_with_statement() {
+    fn second_with_statement() {
         let source = r#"
 With timeData
     .Seconds = Second(.TimeValue)
@@ -758,7 +758,7 @@ End With
     }
 
     #[test]
-    fn test_second_elseif() {
+    fn second_elseif() {
         let source = r#"
 If Second(t) < 30 Then
     half = "First"
@@ -773,7 +773,7 @@ End If
     }
 
     #[test]
-    fn test_second_for_loop() {
+    fn second_for_loop() {
         let source = r#"
 For i = 1 To 10
     timestamps(i) = Second(times(i))
@@ -786,7 +786,7 @@ Next i
     }
 
     #[test]
-    fn test_second_do_while() {
+    fn second_do_while() {
         let source = r#"
 Do While Second(Now) < 30
     DoSomething
@@ -799,7 +799,7 @@ Loop
     }
 
     #[test]
-    fn test_second_do_until() {
+    fn second_do_until() {
         let source = r#"
 Do Until Second(currentTime) = 0
     currentTime = Now
@@ -812,7 +812,7 @@ Loop
     }
 
     #[test]
-    fn test_second_while_wend() {
+    fn second_while_wend() {
         let source = r#"
 While Second(Now) > 45
     Wait
@@ -825,7 +825,7 @@ Wend
     }
 
     #[test]
-    fn test_second_parentheses() {
+    fn second_parentheses() {
         let source = r#"
 Dim val As Integer
 val = (Second(Now))
@@ -837,7 +837,7 @@ val = (Second(Now))
     }
 
     #[test]
-    fn test_second_iif() {
+    fn second_iif() {
         let source = r#"
 Dim display As String
 display = IIf(Second(Now) < 10, "0" & Second(Now), Second(Now))
@@ -849,7 +849,7 @@ display = IIf(Second(Now) < 10, "0" & Second(Now), Second(Now))
     }
 
     #[test]
-    fn test_second_array_assignment() {
+    fn second_array_assignment() {
         let source = r#"
 Dim seconds(10) As Integer
 seconds(i) = Second(timeArray(i))
@@ -861,7 +861,7 @@ seconds(i) = Second(timeArray(i))
     }
 
     #[test]
-    fn test_second_property_assignment() {
+    fn second_property_assignment() {
         let source = r#"
 Set obj = New TimeData
 obj.SecondValue = Second(Now)
@@ -873,7 +873,7 @@ obj.SecondValue = Second(Now)
     }
 
     #[test]
-    fn test_second_function_argument() {
+    fn second_function_argument() {
         let source = r#"
 Call LogTime(Second(Now))
 "#;
@@ -884,7 +884,7 @@ Call LogTime(Second(Now))
     }
 
     #[test]
-    fn test_second_concatenation() {
+    fn second_concatenation() {
         let source = r#"
 Dim msg As String
 msg = "Seconds: " & Second(Time)
@@ -896,7 +896,7 @@ msg = "Seconds: " & Second(Time)
     }
 
     #[test]
-    fn test_second_comparison() {
+    fn second_comparison() {
         let source = r#"
 If Second(time1) = Second(time2) Then
     MsgBox "Same second"
@@ -909,7 +909,7 @@ End If
     }
 
     #[test]
-    fn test_second_modulo() {
+    fn second_modulo() {
         let source = r#"
 If Second(Now) Mod 15 = 0 Then
     UpdateDisplay
@@ -922,7 +922,7 @@ End If
     }
 
     #[test]
-    fn test_second_with_format() {
+    fn second_with_format() {
         let source = r#"
 Dim formatted As String
 formatted = Format(Second(Now), "00")
@@ -934,7 +934,7 @@ formatted = Format(Second(Now), "00")
     }
 
     #[test]
-    fn test_second_date_literal() {
+    fn second_date_literal() {
         let source = r#"
 Dim s As Integer
 s = Second(#1/15/2000 10:30:45 AM#)
@@ -946,7 +946,7 @@ s = Second(#1/15/2000 10:30:45 AM#)
     }
 
     #[test]
-    fn test_second_error_handling() {
+    fn second_error_handling() {
         let source = r#"
 On Error Resume Next
 Dim sec As Integer
@@ -962,7 +962,7 @@ End If
     }
 
     #[test]
-    fn test_second_on_error_goto() {
+    fn second_on_error_goto() {
         let source = r#"
 Sub GetTimeSecond()
     On Error GoTo ErrorHandler

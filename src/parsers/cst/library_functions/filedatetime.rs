@@ -846,7 +846,7 @@ mod tests {
     use crate::*;
 
     #[test]
-    fn test_filedatetime_basic() {
+    fn filedatetime_basic() {
         let source = r#"
 fileDate = FileDateTime("C:\data.txt")
 "#;
@@ -857,7 +857,7 @@ fileDate = FileDateTime("C:\data.txt")
     }
 
     #[test]
-    fn test_filedatetime_variable() {
+    fn filedatetime_variable() {
         let source = r#"
 fileDate = FileDateTime(filePath)
 "#;
@@ -868,7 +868,7 @@ fileDate = FileDateTime(filePath)
     }
 
     #[test]
-    fn test_filedatetime_comparison() {
+    fn filedatetime_comparison() {
         let source = r#"
 isNewer = (FileDateTime(file1) > FileDateTime(file2))
 "#;
@@ -879,7 +879,7 @@ isNewer = (FileDateTime(file1) > FileDateTime(file2))
     }
 
     #[test]
-    fn test_filedatetime_debug_print() {
+    fn filedatetime_debug_print() {
         let source = r#"
 Debug.Print FileDateTime("C:\temp.dat")
 "#;
@@ -890,7 +890,7 @@ Debug.Print FileDateTime("C:\temp.dat")
     }
 
     #[test]
-    fn test_filedatetime_in_function() {
+    fn filedatetime_in_function() {
         let source = r#"
 Function GetFileAge(path As String) As Long
     GetFileAge = DateDiff("d", FileDateTime(path), Now)
@@ -903,7 +903,7 @@ End Function
     }
 
     #[test]
-    fn test_filedatetime_format() {
+    fn filedatetime_format() {
         let source = r#"
 formatted = Format(FileDateTime(filePath), "yyyy-mm-dd hh:nn:ss")
 "#;
@@ -914,7 +914,7 @@ formatted = Format(FileDateTime(filePath), "yyyy-mm-dd hh:nn:ss")
     }
 
     #[test]
-    fn test_filedatetime_if_statement() {
+    fn filedatetime_if_statement() {
         let source = r#"
 If FileDateTime(sourceFile) > FileDateTime(backupFile) Then
     needsBackup = True
@@ -927,7 +927,7 @@ End If
     }
 
     #[test]
-    fn test_filedatetime_datediff() {
+    fn filedatetime_datediff() {
         let source = r#"
 ageInDays = DateDiff("d", FileDateTime(filePath), Now)
 "#;
@@ -938,7 +938,7 @@ ageInDays = DateDiff("d", FileDateTime(filePath), Now)
     }
 
     #[test]
-    fn test_filedatetime_concatenation() {
+    fn filedatetime_concatenation() {
         let source = r#"
 msg = "File modified: " & FileDateTime(filePath)
 "#;
@@ -949,7 +949,7 @@ msg = "File modified: " & FileDateTime(filePath)
     }
 
     #[test]
-    fn test_filedatetime_error_handling() {
+    fn filedatetime_error_handling() {
         let source = r#"
 On Error Resume Next
 dt = FileDateTime(filePath)
@@ -964,7 +964,7 @@ End If
     }
 
     #[test]
-    fn test_filedatetime_loop() {
+    fn filedatetime_loop() {
         let source = r#"
 Do While fileName <> ""
     currentDate = FileDateTime(folderPath & fileName)
@@ -978,7 +978,7 @@ Loop
     }
 
     #[test]
-    fn test_filedatetime_udt_field() {
+    fn filedatetime_udt_field() {
         let source = r#"
 info.ModifiedDate = FileDateTime(filePath)
 "#;
@@ -989,7 +989,7 @@ info.ModifiedDate = FileDateTime(filePath)
     }
 
     #[test]
-    fn test_filedatetime_array() {
+    fn filedatetime_array() {
         let source = r#"
 dates(i) = FileDateTime(files(i))
 "#;
@@ -1000,7 +1000,7 @@ dates(i) = FileDateTime(files(i))
     }
 
     #[test]
-    fn test_filedatetime_select_case() {
+    fn filedatetime_select_case() {
         let source = r#"
 Select Case DateDiff("d", FileDateTime(filePath), Now)
     Case Is > 30
@@ -1016,7 +1016,7 @@ End Select
     }
 
     #[test]
-    fn test_filedatetime_msgbox() {
+    fn filedatetime_msgbox() {
         let source = r#"
 MsgBox "Last modified: " & FileDateTime(filePath)
 "#;
@@ -1027,7 +1027,7 @@ MsgBox "Last modified: " & FileDateTime(filePath)
     }
 
     #[test]
-    fn test_filedatetime_max_comparison() {
+    fn filedatetime_max_comparison() {
         let source = r#"
 If FileDateTime(fullPath) > newestDate Then
     newestDate = FileDateTime(fullPath)
@@ -1041,7 +1041,7 @@ End If
     }
 
     #[test]
-    fn test_filedatetime_date_range() {
+    fn filedatetime_date_range() {
         let source = r#"
 If FileDateTime(fullPath) >= startDate And FileDateTime(fullPath) <= endDate Then
     files.Add fullPath
@@ -1054,7 +1054,7 @@ End If
     }
 
     #[test]
-    fn test_filedatetime_print_statement() {
+    fn filedatetime_print_statement() {
         let source = r#"
 Print #reportNum, fileName, FileDateTime(fullPath)
 "#;
@@ -1065,7 +1065,7 @@ Print #reportNum, fileName, FileDateTime(fullPath)
     }
 
     #[test]
-    fn test_filedatetime_with_app_path() {
+    fn filedatetime_with_app_path() {
         let source = r#"
 configDate = FileDateTime(App.Path & "\config.ini")
 "#;
@@ -1076,7 +1076,7 @@ configDate = FileDateTime(App.Path & "\config.ini")
     }
 
     #[test]
-    fn test_filedatetime_int_function() {
+    fn filedatetime_int_function() {
         let source = r#"
 isToday = (Int(FileDateTime(filePath)) = Int(Date))
 "#;
@@ -1087,7 +1087,7 @@ isToday = (Int(FileDateTime(filePath)) = Int(Date))
     }
 
     #[test]
-    fn test_filedatetime_sort_comparison() {
+    fn filedatetime_sort_comparison() {
         let source = r#"
 If files(j).ModifiedDate > files(i).ModifiedDate Then
     temp = files(i)
@@ -1100,7 +1100,7 @@ End If
     }
 
     #[test]
-    fn test_filedatetime_for_loop() {
+    fn filedatetime_for_loop() {
         let source = r#"
 For i = 0 To fileCount - 1
     dt = FileDateTime(fileList(i))
@@ -1114,7 +1114,7 @@ Next i
     }
 
     #[test]
-    fn test_filedatetime_multiline() {
+    fn filedatetime_multiline() {
         let source = r#"
 info = "File: " & filePath & vbCrLf & _
        "Modified: " & FileDateTime(filePath) & vbCrLf & _
@@ -1127,7 +1127,7 @@ info = "File: " & filePath & vbCrLf & _
     }
 
     #[test]
-    fn test_filedatetime_cache_check() {
+    fn filedatetime_cache_check() {
         let source = r#"
 If cache(i).CachedDate = FileDateTime(filePath) Then
     isValid = True
@@ -1140,7 +1140,7 @@ End If
     }
 
     #[test]
-    fn test_filedatetime_backup_check() {
+    fn filedatetime_backup_check() {
         let source = r#"
 needsCopy = (FileDateTime(sourceFile) > FileDateTime(destFile))
 "#;
