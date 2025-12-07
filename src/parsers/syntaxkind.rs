@@ -91,6 +91,13 @@ pub enum SyntaxKind {
     AttributeStatement,
     OptionStatement,
 
+    // Class/Form Header nodes
+    VersionStatement,
+    PropertiesBlock,
+    Property,
+    PropertyKey,
+    PropertyValue,
+
     // Expression nodes
     BinaryExpression,
     UnaryExpression,
