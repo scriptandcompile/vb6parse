@@ -70,6 +70,7 @@ use rowan::{GreenNode, GreenNodeBuilder, Language};
 // Submodules for organized CST parsing
 mod assignment;
 mod attribute_statements;
+mod class;
 mod controlflow;
 mod declarations;
 mod deftype_statements;
@@ -226,7 +227,7 @@ impl ConcreteSyntaxTree {
 #[must_use]
 pub fn parse(tokens: TokenStream) -> ConcreteSyntaxTree {
     let parser = Parser::new(tokens);
-    parser.parse_module()
+    parser.parse_root()
 }
 
 /// Internal parser state for building the CST
@@ -247,14 +248,32 @@ impl<'a> Parser<'a> {
         }
     }
 
-    /// Parse a complete module (the top-level structure)
+    /// Parse a complete module/class/form (the top-level structure)
     ///
     /// This function loops through all tokens and identifies what kind of
     /// VB6 construct to parse based on the current token. As more VB6 syntax
     /// is supported, additional branches can be added to this loop.
-    fn parse_module(mut self) -> ConcreteSyntaxTree {
+    fn parse_root(mut self) -> ConcreteSyntaxTree {
         self.builder.start_node(SyntaxKind::Root.to_raw());
 
+        // Parse VERSION statement (if present)
+        if self.at_token(VB6Token::VersionKeyword) {
+            self.parse_version_statement();
+        }
+
+        // Parse BEGIN ... END block (if present)
+        if self.at_token(VB6Token::BeginKeyword) {
+            self.parse_properties_block();
+        }
+
+        self.parse_module_body();
+        self.builder.finish_node(); // Root
+
+        let root = self.builder.finish();
+        ConcreteSyntaxTree::new(root)
+    }
+
+    fn parse_module_body(&mut self) {
         while !self.is_at_end() {
             // For a CST, we need to consume ALL tokens, including whitespace and comments
             // We look ahead to determine structure, but still consume everything
@@ -420,11 +439,6 @@ impl<'a> Parser<'a> {
                 }
             }
         }
-
-        self.builder.finish_node(); // Root
-
-        let root = self.builder.finish();
-        ConcreteSyntaxTree::new(root)
     }
 
     /// Check if the current token is a control flow keyword.
