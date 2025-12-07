@@ -94,6 +94,8 @@ pub enum SyntaxKind {
     // Class/Form Header nodes
     VersionStatement,
     PropertiesBlock,
+    PropertiesType,
+    PropertiesName,
     Property,
     PropertyKey,
     PropertyValue,
