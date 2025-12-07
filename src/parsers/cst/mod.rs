@@ -70,7 +70,6 @@ use rowan::{GreenNode, GreenNodeBuilder, Language};
 // Submodules for organized CST parsing
 mod assignment;
 mod attribute_statements;
-mod class;
 mod controlflow;
 mod declarations;
 mod deftype_statements;
@@ -87,6 +86,7 @@ mod navigation;
 mod object_statements;
 mod option_statements;
 mod parameters;
+mod properties;
 mod property_statements;
 mod select_statements;
 mod sub_statements;
