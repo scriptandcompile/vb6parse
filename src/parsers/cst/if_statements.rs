@@ -174,7 +174,7 @@ impl Parser<'_> {
 
         // Consume any whitespace after `ElseIf`
         self.consume_whitespace();
-        
+
         // Parse the conditional expression
         self.parse_expression();
 
@@ -475,13 +475,13 @@ End Sub
             .children
             .iter()
             .any(|c| c.kind == SyntaxKind::EqualityOperator));
-        
+
         let literal_expr = binary_conditional
             .children
             .iter()
             .find(|c| c.kind == SyntaxKind::NumericLiteralExpression)
             .expect("BinaryExpression should contain a NumericLiteralExpression");
-            
+
         assert!(literal_expr
             .children
             .iter()
@@ -540,13 +540,13 @@ End Sub
             .children
             .iter()
             .any(|c| c.kind == SyntaxKind::NotKeyword));
-            
+
         let call_expr = unary_conditional
             .children
             .iter()
             .find(|c| c.kind == SyntaxKind::CallExpression)
             .expect("UnaryExpression should contain a CallExpression");
-            
+
         assert!(call_expr
             .children
             .iter()
@@ -679,7 +679,7 @@ End Sub
             .iter()
             .find(|child| child.kind == SyntaxKind::BinaryExpression)
             .expect("Outer ElseIfClause should contain a BinaryExpression");
-        
+
         assert!(outer_elseif_conditional
             .children
             .iter()
