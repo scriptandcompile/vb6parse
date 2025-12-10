@@ -1,54 +1,56 @@
 use crate::language::VB6Token;
-use crate::parsers::SyntaxKind;
 use crate::parsers::cst::Parser;
+use crate::parsers::SyntaxKind;
 
 impl Parser<'_> {
     pub(super) fn parse_version_statement(&mut self) {
-        self.builder.start_node(SyntaxKind::VersionStatement.to_raw());
-        
+        self.builder
+            .start_node(SyntaxKind::VersionStatement.to_raw());
+
         // VERSION
-        self.consume_token(); 
+        self.consume_token();
         self.consume_whitespace();
-        
+
         // Major.Minor
         // Consume until CLASS or Newline
-        while !self.is_at_end() 
-            && !self.at_token(VB6Token::ClassKeyword) 
-            && !self.at_token(VB6Token::Newline) 
+        while !self.is_at_end()
+            && !self.at_token(VB6Token::ClassKeyword)
+            && !self.at_token(VB6Token::Newline)
             && !self.at_token(VB6Token::ColonOperator)
         {
             self.consume_token();
         }
-        
+
         // CLASS
         if self.at_token(VB6Token::ClassKeyword) {
             self.consume_token();
         }
-        
+
         self.consume_whitespace();
         self.consume_newline_or_colon();
-        
+
         self.builder.finish_node();
     }
 
     pub(super) fn parse_properties_block(&mut self) {
-        self.builder.start_node(SyntaxKind::PropertiesBlock.to_raw());
-        
+        self.builder
+            .start_node(SyntaxKind::PropertiesBlock.to_raw());
+
         // BEGIN
         self.consume_token();
         self.consume_whitespace();
-        
+
         // Parse optional Type and Name (e.g. VB.Form Form1)
         // We check if we are at a newline or colon, if not, we assume there is a type/name
         if !self.at_token(VB6Token::Newline) && !self.at_token(VB6Token::ColonOperator) {
             // Type (e.g. VB.Form)
             self.builder.start_node(SyntaxKind::PropertiesType.to_raw());
-            
+
             // Consume first part
             if self.is_identifier() || self.at_keyword() {
                 self.consume_token_as_identifier();
             }
-            
+
             // Consume dot parts
             while self.at_token(VB6Token::PeriodOperator) {
                 self.consume_token(); // .
@@ -57,9 +59,9 @@ impl Parser<'_> {
                 }
             }
             self.builder.finish_node();
-            
+
             self.consume_whitespace();
-            
+
             // Name (e.g. Form1)
             if !self.at_token(VB6Token::Newline) && !self.at_token(VB6Token::ColonOperator) {
                 self.builder.start_node(SyntaxKind::PropertiesName.to_raw());
@@ -69,14 +71,14 @@ impl Parser<'_> {
         }
 
         self.consume_newline_or_colon();
-        
+
         while !self.is_at_end() && !self.at_token(VB6Token::EndKeyword) {
             self.consume_whitespace();
-            
+
             if self.at_token(VB6Token::EndKeyword) {
                 break;
             }
-            
+
             if self.at_token(VB6Token::BeginKeyword) {
                 // Nested block
                 self.parse_properties_block();
@@ -87,35 +89,35 @@ impl Parser<'_> {
                 self.consume_token();
             }
         }
-        
+
         // END
         if self.at_token(VB6Token::EndKeyword) {
             self.consume_token();
         }
-        
+
         self.consume_whitespace();
         self.consume_newline_or_colon();
-        
+
         self.builder.finish_node();
     }
 
     fn parse_property(&mut self) {
         self.builder.start_node(SyntaxKind::Property.to_raw());
-        
+
         // Key
         self.builder.start_node(SyntaxKind::PropertyKey.to_raw());
         self.consume_token(); // Identifier or Keyword
         self.builder.finish_node();
-        
+
         self.consume_whitespace();
-        
+
         // =
         if self.at_token(VB6Token::EqualityOperator) {
             self.consume_token();
         }
-        
+
         self.consume_whitespace();
-        
+
         // Value
         self.builder.start_node(SyntaxKind::PropertyValue.to_raw());
         // Consume until newline
@@ -123,9 +125,9 @@ impl Parser<'_> {
             self.consume_token();
         }
         self.builder.finish_node();
-        
+
         self.consume_newline_or_colon();
-        
+
         self.builder.finish_node();
     }
 
@@ -169,24 +171,36 @@ End Sub
         let mut source_stream = SourceStream::new("Class1.cls", input);
         let result = tokenize(&mut source_stream);
         let token_stream = result.result.expect("Tokenization failed");
-        
+
         let cst = parse(token_stream);
-        
+
         // Check structure
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        
+
         // Check for VersionStatement
-        assert!(cst.contains_kind(SyntaxKind::VersionStatement), "Should contain VersionStatement");
-        
+        assert!(
+            cst.contains_kind(SyntaxKind::VersionStatement),
+            "Should contain VersionStatement"
+        );
+
         // Check for PropertiesBlock
-        assert!(cst.contains_kind(SyntaxKind::PropertiesBlock), "Should contain PropertiesBlock");
-        
+        assert!(
+            cst.contains_kind(SyntaxKind::PropertiesBlock),
+            "Should contain PropertiesBlock"
+        );
+
         // Check for AttributeStatement
-        assert!(cst.contains_kind(SyntaxKind::AttributeStatement), "Should contain AttributeStatement");
-        
+        assert!(
+            cst.contains_kind(SyntaxKind::AttributeStatement),
+            "Should contain AttributeStatement"
+        );
+
         // Check for SubStatement
-        assert!(cst.contains_kind(SyntaxKind::SubStatement), "Should contain SubStatement");
-        
+        assert!(
+            cst.contains_kind(SyntaxKind::SubStatement),
+            "Should contain SubStatement"
+        );
+
         // Check text preservation
         assert_eq!(cst.text(), input);
     }
@@ -216,24 +230,36 @@ End Sub
         let mut source_stream = SourceStream::new("Form1.frm", input);
         let result = tokenize(&mut source_stream);
         let token_stream = result.result.expect("Tokenization failed");
-        
+
         let cst = parse(token_stream);
-        
+
         // Check structure
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        
+
         // Check for VersionStatement
-        assert!(cst.contains_kind(SyntaxKind::VersionStatement), "Should contain VersionStatement");
-        
+        assert!(
+            cst.contains_kind(SyntaxKind::VersionStatement),
+            "Should contain VersionStatement"
+        );
+
         // Check for PropertiesBlock
-        assert!(cst.contains_kind(SyntaxKind::PropertiesBlock), "Should contain PropertiesBlock");
-        
+        assert!(
+            cst.contains_kind(SyntaxKind::PropertiesBlock),
+            "Should contain PropertiesBlock"
+        );
+
         // Check for AttributeStatement
-        assert!(cst.contains_kind(SyntaxKind::AttributeStatement), "Should contain AttributeStatement");
-        
+        assert!(
+            cst.contains_kind(SyntaxKind::AttributeStatement),
+            "Should contain AttributeStatement"
+        );
+
         // Check for SubStatement
-        assert!(cst.contains_kind(SyntaxKind::SubStatement), "Should contain SubStatement");
-        
+        assert!(
+            cst.contains_kind(SyntaxKind::SubStatement),
+            "Should contain SubStatement"
+        );
+
         // Check text preservation
         assert_eq!(cst.text(), input);
     }
