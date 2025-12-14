@@ -39,7 +39,9 @@ pub struct PropertyGroup {
     pub properties: HashMap<String, Either<String, PropertyGroup>>,
 }
 
+/// Serialize implementation for `PropertyGroup`.
 impl Serialize for PropertyGroup {
+    /// Serializes the `PropertyGroup` into a structured format.
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -65,6 +67,8 @@ impl Serialize for PropertyGroup {
 /// A collection of key-value properties typically found in VB6 project files.
 /// The keys and values are stored as strings, but utility methods are provided
 /// to retrieve values in various types such as `bool`, `i32`, `Color`, and enums.
+///
+/// This is a thin wrapper around a `HashMap<String, String>` with added convenience methods.
 ///
 /// # Examples
 ///
@@ -111,6 +115,20 @@ pub struct PropertiesIter<'a> {
 /// }
 /// ```
 impl Properties {
+    /// Returns an iterator over the key-value pairs in the `Properties` collection.
+    ///
+    /// # Examples
+    ///
+    /// ```rust
+    /// use vb6parse::parsers::properties::Properties;
+    /// let mut props = Properties::new();
+    /// props.insert("Key1", "Value1");
+    /// props.insert("Key2", "Value2");
+    /// let mut iter = props.iter();
+    /// while let Some((key, value)) = iter.next() {
+    ///    println!("{}: {}", key, value);
+    /// }
+    /// ```
     #[must_use]
     pub fn iter(&self) -> PropertiesIter<'_> {
         PropertiesIter {
@@ -136,23 +154,38 @@ impl Properties {
 impl<'a> Iterator for PropertiesIter<'a> {
     type Item = (&'a String, &'a String);
 
+    /// Returns the next key-value pair in the iterator.
+    ///
+    /// # Examples
+    ///
+    /// ```rust
+    /// use vb6parse::parsers::properties::Properties;
+    /// let mut props = Properties::new();
+    /// props.insert("Key1", "Value1");
+    /// let mut iter = props.iter();
+    /// if let Some((key, value)) = iter.next() {
+    ///    assert_eq!(key, "Key1");
+    ///    assert_eq!(value, "Value1");
+    /// }
+    /// ```
     fn next(&mut self) -> Option<Self::Item> {
         self.iter.next()
     }
 }
 
 /// Clone implementation for `Properties`.
-///
-/// # Examples
-///
-/// ```rust
-/// use vb6parse::parsers::properties::Properties;
-/// let mut props = Properties::new();
-/// props.insert("Key1", "Value1");
-/// let props_clone = props.clone();
-/// assert_eq!(props.len(), props_clone.len());
-/// ```
 impl Clone for Properties {
+    /// Clone implementation for `Properties`.
+    ///
+    /// # Examples
+    ///
+    /// ```rust
+    /// use vb6parse::parsers::properties::Properties;
+    /// let mut props = Properties::new();
+    /// props.insert("Key1", "Value1");
+    /// let props_clone = props.clone();
+    /// assert_eq!(props.len(), props_clone.len());
+    /// ```
     fn clone(&self) -> Self {
         Properties {
             key_value_store: self.key_value_store.clone(),
@@ -161,15 +194,16 @@ impl Clone for Properties {
 }
 
 /// Default implementation for `Properties`.
-///
-/// # Examples
-///
-/// ```rust
-/// use vb6parse::parsers::properties::Properties;
-/// let props = Properties::default();
-/// assert!(props.is_empty());
-/// ```
 impl Default for Properties {
+    /// Default implementation for `Properties`.
+    ///
+    /// # Examples
+    ///
+    /// ```rust
+    /// use vb6parse::parsers::properties::Properties;
+    /// let props = Properties::default();
+    /// assert!(props.is_empty());
+    /// ```
     fn default() -> Self {
         Properties::new()
     }
