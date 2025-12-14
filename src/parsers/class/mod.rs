@@ -12,8 +12,8 @@ use crate::{
         header::{extract_version, Creatable, Exposed, FileAttributes, NameSpace, PreDeclaredID},
         SyntaxKind,
     },
-    tokenize::{take_matching_text, tokenize},
-    ConcreteSyntaxTree, ParseResult, SourceFile, SourceStream,
+    tokenize::tokenize,
+    ConcreteSyntaxTree, ParseResult, SourceFile,
 };
 
 /// Represents a VB6 class file.
@@ -417,253 +417,9 @@ fn extract_properties(cst: &crate::parsers::ConcreteSyntaxTree) -> ClassProperti
     }
 }
 
-/// Parses a VB6 class file properties from the header, including the
-/// BEGIN and END lines.
-/// The properties are the key/value pairs found between the BEGIN and END lines
-/// in the header.
-/// The properties contain the multi use, persistability, data binding behavior,
-/// data source behavior, and MTS transaction mode.
-/// The properties are not normally visible in the code editor region.
-/// They are only visible in the file property explorer.
-///
-/// # Arguments
-///
-/// * `input` The stream to parse.
-///
-/// # Returns
-///
-/// A result containing the parsed VB6 class file properties or an error.
-fn properties_parse<'a>(
-    input: &mut SourceStream<'a>,
-) -> ParseResult<'a, ClassProperties, ClassErrorKind<'a>> {
-    let mut failures = vec![];
-
-    let class_properties = ClassProperties::default();
-
-    // eat any whitespaces before the 'BEGIN' keyword.
-    let _ = input.take_ascii_whitespaces();
-
-    let begin_start_offset = input.offset();
-    let Some(begin_keyword) = take_matching_text(input, "BEGIN") else {
-        let error = input.generate_error(ClassErrorKind::BeginKeywordMissing);
-        failures.push(error);
-
-        return ParseResult {
-            result: None,
-            failures,
-        };
-    };
-
-    // Not really an error, more of a warning issue, but not correctly using
-    // full upper case on 'BEGIN' could mean the file won't be compatible
-    // with Microsoft VB6 IDE.
-    if begin_keyword != "BEGIN" {
-        let error = input.generate_error_at(
-            begin_start_offset,
-            ClassErrorKind::BeginKeywordNotFullyUppercase {
-                begin_text: begin_keyword,
-            },
-        );
-        failures.push(error);
-    }
-
-    // eat any whitespace after the 'BEGIN'
-    let _ = input.take_ascii_whitespaces();
-
-    let possible_comment = input.peek(1);
-
-    // We want to eat to the end of the line any comments and move to the next line.
-    // if it's a carriage return or newline, we skip over it.
-    if possible_comment.is_some_and(|single_character| {
-        single_character == "'" || single_character == "\r" || single_character == "\n"
-    }) {
-        let _ = input.take_until_newline();
-    } else {
-        let error = input.generate_error(ClassErrorKind::BeginKeywordShouldBeStandAlone);
-        failures.push(error);
-
-        return ParseResult {
-            result: None,
-            failures,
-        };
-    }
-
-    ParseResult {
-        result: Some(class_properties),
-        failures,
-    }
-}
-
-/// Parses a VB6 class file from the header.
-/// The header contains the version, multi use, persistable, data binding behavior,
-/// data source behavior, and MTS transaction mode.
-/// The header also contains the attributes of the class file.
-/// The header is not normally visible in the code editor region.
-/// It is only visible in the file property explorer.
-///
-/// # Arguments
-///
-/// * `input` The stream to parse.
-///
-/// # Returns
-///
-/// A result containing the parsed VB6 class file header or an error.
-///
-/// # Errors
-///
-/// An error will be returned if the input is not a valid VB6 class file header.
-///
-// fn class_header_parse<'a>(input: &mut SourceStream<'a>) -> ParseResult<VB6ClassHeader<'a>> {
-//     // VERSION #.# CLASS
-//     // BEGIN
-//     //  key = value  'comment
-//     //  ...
-//     // END
-
-//     let version = version_parse(HeaderKind::Class).parse_next(input)?;
-
-//     let properties = properties_parse.parse_next(input)?;
-
-//     let attributes = attributes_parse.parse_next(input)?;
-
-//     Ok(VB6ClassHeader {
-//         version,
-//         properties,
-//         attributes,
-//     })
-// }
-
-// fn begin_line_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
-//     let (_, begin, _) = (space0, keyword_parse("BEGIN"), space0).parse_next(input)?;
-
-//     alt(((line_comment_parse, line_ending), (space0, line_ending))).parse_next(input)?;
-
-//     Ok(begin)
-// }
-
-// fn end_line_parse<'a>(input: &mut VB6Stream<'a>) -> VB6Result<&'a BStr> {
-//     let (_, keyword, _) = (space0, keyword_parse("END"), space0).parse_next(input)?;
-
-//     alt(((line_comment_parse, line_ending), (space0, line_ending))).parse_next(input)?;
-
-//     Ok(keyword)
-// }
-
-/// Parses a VB6 class file properties from the header.
-/// The properties are the key/value pairs found between the BEGIN and END lines in the header.
-/// The properties contain the multi use, persistable, data binding behavior,
-/// data source behavior, and MTS transaction mode.
-/// The properties are not normally visible in the code editor region.
-/// They are only visible in the file property explorer.
-///
-/// # Arguments
-///
-/// * `input` The stream to parse.
-///
-/// # Returns
-///
-/// A result containing the parsed VB6 class file properties or an error.
-// fn properties_parse(input: &mut VB6Stream<'_>) -> VB6Result<VB6ClassProperties> {
-//     begin_line_parse.parse_next(input)?;
-
-//     let mut multi_use = FileUsage::MultiUse;
-//     let mut persistable = Persistence::NotPersistable;
-//     let mut data_binding_behavior = DataBindingBehavior::None;
-//     let mut data_source_behavior = DataSourceBehavior::None;
-//     let mut mts_transaction_mode = MtsStatus::NotAnMTSObject;
-
-//     let (collection, _): (Vec<(&BStr, &BStr)>, _) =
-//         repeat_till(0.., key_value_line_parse("="), end_line_parse).parse_next(input)?;
-
-//     for pair in &collection {
-//         let (key, value) = *pair;
-
-//         match key.as_bytes() {
-//             b"Persistable" => {
-//                 // -1 is 'true' and 0 is 'false' in VB6
-//                 if value == "-1" {
-//                     persistable = Persistence::Persistable;
-//                 } else if value == "0" {
-//                     persistable = Persistence::NotPersistable;
-//                 } else {
-//                     return Err(ErrMode::Cut(VB6ErrorKind::Property(
-//                         PropertyError::InvalidPropertyValueZeroNegOne,
-//                     )));
-//                 }
-//             }
-//             b"MultiUse" => {
-//                 // -1 is 'true' and 0 is 'false' in VB6
-//                 if value == "-1" {
-//                     multi_use = FileUsage::MultiUse;
-//                 } else if value == "0" {
-//                     multi_use = FileUsage::SingleUse;
-//                 } else {
-//                     return Err(ErrMode::Cut(VB6ErrorKind::Property(
-//                         PropertyError::InvalidPropertyValueZeroNegOne,
-//                     )));
-//                 }
-//             }
-//             b"DataBindingBehavior" => {
-//                 if value == "0" {
-//                     data_binding_behavior = DataBindingBehavior::None;
-//                 } else if value == "1" {
-//                     data_binding_behavior = DataBindingBehavior::Simple;
-//                 } else if value == "2" {
-//                     data_binding_behavior = DataBindingBehavior::Complex;
-//                 } else {
-//                     return Err(ErrMode::Cut(VB6ErrorKind::Property(
-//                         PropertyError::InvalidPropertyValueZeroNegOne,
-//                     )));
-//                 }
-//             }
-//             b"DataSourceBehavior" => {
-//                 if value == "0" {
-//                     data_source_behavior = DataSourceBehavior::None;
-//                 } else if value == "1" {
-//                     data_source_behavior = DataSourceBehavior::DataSource;
-//                 } else {
-//                     return Err(ErrMode::Cut(VB6ErrorKind::Property(
-//                         PropertyError::InvalidPropertyValueZeroNegOne,
-//                     )));
-//                 }
-//             }
-//             b"MTSTransactionMode" => {
-//                 if value == "0" {
-//                     mts_transaction_mode = MtsStatus::NotAnMTSObject;
-//                 } else if value == "1" {
-//                     mts_transaction_mode = MtsStatus::NoTransactions;
-//                 } else if value == "2" {
-//                     mts_transaction_mode = MtsStatus::RequiresTransaction;
-//                 } else if value == "3" {
-//                     mts_transaction_mode = MtsStatus::UsesTransaction;
-//                 } else if value == "4" {
-//                     mts_transaction_mode = MtsStatus::RequiresNewTransaction;
-//                 } else {
-//                     return Err(ErrMode::Cut(VB6ErrorKind::Property(
-//                         PropertyError::InvalidPropertyValueZeroNegOne,
-//                     )));
-//                 }
-//             }
-//             _ => {
-//                 return Err(ErrMode::Cut(VB6ErrorKind::Property(
-//                     PropertyError::UnknownProperty,
-//                 )));
-//             }
-//         }
-//     }
-
-//     Ok(VB6ClassProperties {
-//         multi_use,
-//         persistable,
-//         data_binding_behavior,
-//         data_source_behavior,
-//         mts_transaction_mode,
-//     })
-// }
-
 #[cfg(test)]
 mod tests {
-    //use super::HeaderKind;
+    use crate::sourcefile;
     use super::*;
 
     #[test]
@@ -740,69 +496,28 @@ Option Explicit
         assert!(result.has_failures());
     }
 
-    //     #[test]
-    //     fn class_header_valid() {
-    //         let input = b"VERSION 1.0 CLASS\r
-    // BEGIN\r
-    //     MultiUse = -1  'True\r
-    //     Persistable = 0  'NotPersistable\r
-    //     DataBindingBehavior = 0  'vbNone\r
-    //     DataSourceBehavior = 0  'vbNone\r
-    //     MTSTransactionMode = 0  'NotAnMTSObject\r
-    // END\r
-    // Attribute VB_Name = \"Something\"\r
-    // Attribute VB_GlobalNameSpace = False\r
-    // Attribute VB_Creatable = True\r
-    // Attribute VB_PredeclaredId = False\r
-    // Attribute VB_Exposed = False";
+        #[test]
+        fn class_header_valid() {
+            let input = b"VERSION 1.0 CLASS\r
+    BEGIN\r
+        MultiUse = -1  'True\r
+        Persistable = 0  'NotPersistable\r
+        DataBindingBehavior = 0  'vbNone\r
+        DataSourceBehavior = 0  'vbNone\r
+        MTSTransactionMode = 0  'NotAnMTSObject\r
+    END\r
+    Attribute VB_Name = \"Something\"\r
+    Attribute VB_GlobalNameSpace = False\r
+    Attribute VB_Creatable = True\r
+    Attribute VB_PredeclaredId = False\r
+    Attribute VB_Exposed = False";
 
-    //         assert!(result.is_ok());
-    //     }
+            let sourcefile = sourcefile::SourceFile::decode_with_replacement("test.cls", input).unwrap();
 
-    //     #[test]
-    //     fn class_header_invalid() {
-    //         let input = b"MultiUse = -1  'True\r
-    //     Persistable = 0  'NotPersistable\r
-    //     DataBindingBehavior = 0  'vbNone\r
-    //     DataSourceBehavior = 0  'vbNone\r
-    //     MTSTransactionMode = 0  'NotAnMTSObject\r
-    //     ";
+            let result = ClassFile::parse(&sourcefile);
 
-    //         let mut stream = VB6Stream::new("", &mut input.as_slice());
-    //         let result = class_header_parse(&mut stream);
-
-    //         assert!(result.is_err());
-    //     }
-
-    //     #[test]
-    //     fn attributes_valid() {
-    //         let input = b"Attribute VB_Name = \"Something\"\r
-    //     Attribute VB_GlobalNameSpace = False\r
-    //     Attribute VB_Creatable = True\r
-    //     Attribute VB_PredeclaredId = False\r
-    //     Attribute VB_Exposed = False\r
-    //     ";
-
-    //         let mut stream = VB6Stream::new("", &mut input.as_slice());
-    //         let result = attributes_parse(&mut stream);
-
-    //         assert!(result.is_ok());
-    //     }
-
-    //     #[test]
-    //     fn attributes_invalid() {
-    //         let input = b"Attribut VB_Name = \"Something\"\r
-    //     Attrbute VB_GlobalNameSpace = False\r
-    //     Attribut VB_Creatable = True\r
-    //     Attriute VB_PredeclaredId = False\r
-    //     Atribute VB_Exposed = False\r
-    //     ";
-
-    //         let mut stream = VB6Stream::new("", &mut input.as_slice());
-    //         let result = attributes_parse(&mut stream);
-
-    //         assert!(result.is_err());
-    //     }
+            assert!(result.has_result());
+        }
 
     #[test]
     fn version_valid() {
