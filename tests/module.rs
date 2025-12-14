@@ -1,5 +1,5 @@
 use image::EncodableLayout;
-use vb6parse::parsers::VB6ModuleFile;
+use vb6parse::parsers::ModuleFile;
 use vb6parse::SourceFile;
 
 #[test]
@@ -16,7 +16,7 @@ fn artificial_life_module_load() {
             }
         };
 
-    let result = VB6ModuleFile::parse(&module_source_file);
+    let result = ModuleFile::parse(&module_source_file);
 
     let module_file = match result.result {
         Some(module_file) => module_file,
@@ -49,7 +49,7 @@ fn game_physics_basic_module_load() {
             }
         };
 
-    let result = VB6ModuleFile::parse(&module_source_file);
+    let result = ModuleFile::parse(&module_source_file);
 
     let module_file = match result.result {
         Some(module_file) => module_file,
@@ -81,7 +81,7 @@ fn histograms_advanced_module_load() {
             }
         };
 
-    let result = VB6ModuleFile::parse(&module_source_file);
+    let result = ModuleFile::parse(&module_source_file);
 
     let module_file = match result.result {
         Some(module_file) => module_file,
@@ -113,7 +113,7 @@ fn histograms_basic_module_load() {
             }
         };
 
-    let result = VB6ModuleFile::parse(&module_source_file);
+    let result = ModuleFile::parse(&module_source_file);
 
     let module_file = match result.result {
         Some(module_file) => module_file,
@@ -145,7 +145,7 @@ fn levels_effect_module_load() {
             }
         };
 
-    let result = VB6ModuleFile::parse(&module_source_file);
+    let result = ModuleFile::parse(&module_source_file);
 
     let module_file = match result.result {
         Some(module_file) => module_file,
@@ -180,7 +180,7 @@ fn map_editor_2d_module_load() {
         }
     };
 
-    let subs_result = VB6ModuleFile::parse(&subs_module_source_file);
+    let subs_result = ModuleFile::parse(&subs_module_source_file);
 
     let subs_module_file = match subs_result.result {
         Some(module_file) => module_file,
@@ -210,7 +210,7 @@ fn map_editor_2d_module_load() {
         }
     };
 
-    let declaration_result = VB6ModuleFile::parse(&declaration_module_source_file);
+    let declaration_result = ModuleFile::parse(&declaration_module_source_file);
 
     let declaration_module_file = match declaration_result.result {
         Some(module_file) => module_file,

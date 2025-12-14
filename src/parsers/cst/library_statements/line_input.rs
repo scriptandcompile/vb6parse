@@ -1,4 +1,4 @@
-use crate::language::VB6Token;
+use crate::language::Token;
 use crate::parsers::SyntaxKind;
 
 use super::Parser;
@@ -45,18 +45,18 @@ impl Parser<'_> {
         self.consume_token();
 
         // Consume "Input" keyword (should be next)
-        if self.at_token(VB6Token::InputKeyword) {
+        if self.at_token(Token::InputKeyword) {
             self.consume_token();
         }
 
         // Consume everything until newline
         // This includes: "#", filenumber, ",", varname
-        while !self.is_at_end() && !self.at_token(VB6Token::Newline) {
+        while !self.is_at_end() && !self.at_token(Token::Newline) {
             self.consume_token();
         }
 
         // Consume the newline
-        if self.at_token(VB6Token::Newline) {
+        if self.at_token(Token::Newline) {
             self.consume_token();
         }
 

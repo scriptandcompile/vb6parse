@@ -25,18 +25,18 @@
 //! # Example Usage
 //!
 //! ```rust
-//! use vb6parse::language::VB6Token;
+//! use vb6parse::language::Token;
 //! use vb6parse::parsers::cst::parse;
 //! use vb6parse::tokenstream::TokenStream;
 //!
 //! // Create a token stream
 //! let tokens = vec![
-//!     ("Sub", VB6Token::SubKeyword),
-//!     (" ", VB6Token::Whitespace),
-//!     ("Main", VB6Token::Identifier),
-//!     ("(", VB6Token::LeftParenthesis),
-//!     (")", VB6Token::RightParenthesis),
-//!     ("\n", VB6Token::Newline),
+//!     ("Sub", Token::SubKeyword),
+//!     (" ", Token::Whitespace),
+//!     ("Main", Token::Identifier),
+//!     ("(", Token::LeftParenthesis),
+//!     (")", Token::RightParenthesis),
+//!     ("\n", Token::Newline),
 //! ];
 //!
 //! let token_stream = TokenStream::new("test.bas".to_string(), tokens);
@@ -58,14 +58,16 @@
 
 use std::num::NonZeroUsize;
 
-use crate::language::VB6Token;
+use crate::language::Token;
 use crate::parsers::SyntaxKind;
 use crate::tokenize::tokenize;
 use crate::tokenstream::TokenStream;
+use crate::CodeErrorKind;
 use crate::ParseResult;
 use crate::SourceStream;
-use crate::VB6CodeErrorKind;
+
 use rowan::{GreenNode, GreenNodeBuilder, Language};
+use serde::Serialize;
 
 // Submodules for organized CST parsing
 mod assignment;
@@ -104,8 +106,14 @@ pub use navigation::CstNode;
 pub struct SerializableTree {
     /// The root node of the tree
     pub root: CstNode,
-    /// The complete text content
-    pub text: String,
+}
+
+/// Helper function to serialize ConcreteSyntaxTree as SerializableTree
+pub(crate) fn serialize_cst<S>(cst: &ConcreteSyntaxTree, serializer: S) -> Result<S::Ok, S::Error>
+where
+    S: serde::Serializer,
+{
+    cst.to_serializable().serialize(serializer)
 }
 
 /// The language type for VB6 syntax trees.
@@ -140,7 +148,7 @@ impl ConcreteSyntaxTree {
         Self { root }
     }
 
-    pub fn from_source<S>(file_name: S, contents: &str) -> ParseResult<'_, Self, VB6CodeErrorKind>
+    pub fn from_source<S>(file_name: S, contents: &str) -> ParseResult<'_, Self, CodeErrorKind>
     where
         S: Into<String>,
     {
@@ -154,8 +162,10 @@ impl ConcreteSyntaxTree {
             };
         }
 
+        let cst = parse(token_stream.result.unwrap());
+
         ParseResult {
-            result: Some(parse(token_stream.result.unwrap())),
+            result: Some(cst),
             failures: token_stream.failures,
         }
     }
@@ -187,7 +197,6 @@ impl ConcreteSyntaxTree {
     pub fn to_serializable(&self) -> SerializableTree {
         SerializableTree {
             root: self.to_root_node(),
-            text: self.text(),
         }
     }
 
@@ -198,6 +207,83 @@ impl ConcreteSyntaxTree {
             text: self.text(),
             is_token: false,
             children: self.children(),
+        }
+    }
+
+    /// Create a new CST with specified node kinds removed from the root level.
+    ///
+    /// This method filters out direct children of the root node that match any of the
+    /// specified kinds. This is useful for removing nodes that have already been parsed
+    /// into structured data (like version statements, attributes, etc.) to avoid duplication.
+    ///
+    /// # Arguments
+    ///
+    /// * `kinds_to_remove` - A slice of `SyntaxKind` values to filter out
+    ///
+    /// # Returns
+    ///
+    /// A new `ConcreteSyntaxTree` with the specified kinds removed from the root level.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use vb6parse::ConcreteSyntaxTree;
+    /// use vb6parse::parsers::SyntaxKind;
+    ///
+    /// let source = "VERSION 5.00\nSub Test()\nEnd Sub\n";
+    /// let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+    ///
+    /// // Remove version statement since it's already parsed
+    /// let filtered = cst.without_kinds(&[SyntaxKind::VersionStatement]);
+    /// ```
+    #[must_use]
+    pub fn without_kinds(&self, kinds_to_remove: &[SyntaxKind]) -> Self {
+        let syntax_node = rowan::SyntaxNode::<VB6Language>::new_root(self.root.clone());
+        let mut builder = GreenNodeBuilder::new();
+
+        builder.start_node(SyntaxKind::Root.to_raw());
+
+        // Iterate through children and only add those not in the filter list
+        for child in syntax_node.children_with_tokens() {
+            let child_kind = match &child {
+                rowan::NodeOrToken::Node(node) => node.kind(),
+                rowan::NodeOrToken::Token(token) => token.kind(),
+            };
+
+            // Skip if this kind should be removed
+            if kinds_to_remove.contains(&child_kind) {
+                continue;
+            }
+
+            // Add the child to the new tree
+            Self::clone_node_or_token(&mut builder, child);
+        }
+
+        builder.finish_node();
+        let new_root = builder.finish();
+
+        Self::new(new_root)
+    }
+
+    /// Recursively clone a node or token into a builder
+    fn clone_node_or_token(
+        builder: &mut GreenNodeBuilder<'static>,
+        node_or_token: rowan::NodeOrToken<
+            rowan::SyntaxNode<VB6Language>,
+            rowan::SyntaxToken<VB6Language>,
+        >,
+    ) {
+        match node_or_token {
+            rowan::NodeOrToken::Node(node) => {
+                builder.start_node(node.kind().to_raw());
+                for child in node.children_with_tokens() {
+                    Self::clone_node_or_token(builder, child);
+                }
+                builder.finish_node();
+            }
+            rowan::NodeOrToken::Token(token) => {
+                builder.token(token.kind().to_raw(), token.text());
+            }
         }
     }
 }
@@ -232,7 +318,7 @@ pub fn parse(tokens: TokenStream) -> ConcreteSyntaxTree {
 
 /// Internal parser state for building the CST
 struct Parser<'a> {
-    tokens: Vec<(&'a str, VB6Token)>,
+    tokens: Vec<(&'a str, Token)>,
     pos: usize,
     builder: GreenNodeBuilder<'static>,
     parsing_header: bool,
@@ -257,13 +343,19 @@ impl<'a> Parser<'a> {
         self.builder.start_node(SyntaxKind::Root.to_raw());
 
         // Parse VERSION statement (if present)
-        if self.at_token(VB6Token::VersionKeyword) {
+        if self.at_token(Token::VersionKeyword) {
             self.parse_version_statement();
         }
 
         // Parse BEGIN ... END block (if present)
-        if self.at_token(VB6Token::BeginKeyword) {
+        if self.at_token(Token::BeginKeyword) {
             self.parse_properties_block();
+        }
+
+        // Parse Attribute statements (if present)
+        // These come after the PropertiesBlock in forms/classes
+        while self.at_token(Token::AttributeKeyword) {
+            self.parse_attribute_statement();
         }
 
         self.parse_module_body();
@@ -280,17 +372,27 @@ impl<'a> Parser<'a> {
 
             // Check what kind of statement or declaration we're looking at
             match self.current_token() {
+                // BEGIN ... END block (for forms/classes with properties)
+                // This can appear after Object statements in form files
+                Some(Token::BeginKeyword) => {
+                    self.parse_properties_block();
+                }
+                // Object statement: Object = "{UUID}#version#flags"; "filename"
+                // Only parse as ObjectStatement if it matches the proper format
+                Some(Token::ObjectKeyword) if self.is_object_statement() => {
+                    self.parse_object_statement();
+                }
                 // Attribute statement: Attribute VB_Name = "..."
-                Some(VB6Token::AttributeKeyword) => {
+                Some(Token::AttributeKeyword) => {
                     self.parse_attribute_statement();
                 }
-                Some(VB6Token::OptionKeyword) => {
+                Some(Token::OptionKeyword) => {
                     // Peek ahead to check if this is Option Base, Option Compare, or Option Private
-                    if let Some(VB6Token::BaseKeyword) = self.peek_next_keyword() {
+                    if let Some(Token::BaseKeyword) = self.peek_next_keyword() {
                         self.parse_option_base_statement();
-                    } else if let Some(VB6Token::CompareKeyword) = self.peek_next_keyword() {
+                    } else if let Some(Token::CompareKeyword) = self.peek_next_keyword() {
                         self.parse_option_compare_statement();
-                    } else if let Some(VB6Token::PrivateKeyword) = self.peek_next_keyword() {
+                    } else if let Some(Token::PrivateKeyword) = self.peek_next_keyword() {
                         self.parse_option_private_statement();
                     } else {
                         self.parse_option_statement();
@@ -298,71 +400,71 @@ impl<'a> Parser<'a> {
                 }
                 // DefType statements: DefInt, DefLng, DefStr, etc.
                 Some(
-                    VB6Token::DefBoolKeyword
-                    | VB6Token::DefByteKeyword
-                    | VB6Token::DefIntKeyword
-                    | VB6Token::DefLngKeyword
-                    | VB6Token::DefCurKeyword
-                    | VB6Token::DefSngKeyword
-                    | VB6Token::DefDblKeyword
-                    | VB6Token::DefDecKeyword
-                    | VB6Token::DefDateKeyword
-                    | VB6Token::DefStrKeyword
-                    | VB6Token::DefObjKeyword
-                    | VB6Token::DefVarKeyword,
+                    Token::DefBoolKeyword
+                    | Token::DefByteKeyword
+                    | Token::DefIntKeyword
+                    | Token::DefLngKeyword
+                    | Token::DefCurKeyword
+                    | Token::DefSngKeyword
+                    | Token::DefDblKeyword
+                    | Token::DefDecKeyword
+                    | Token::DefDateKeyword
+                    | Token::DefStrKeyword
+                    | Token::DefObjKeyword
+                    | Token::DefVarKeyword,
                 ) => {
                     self.parse_deftype_statement();
                 }
                 // Declare statement: Declare Sub/Function Name Lib "..."
-                Some(VB6Token::DeclareKeyword) => {
+                Some(Token::DeclareKeyword) => {
                     self.parse_declare_statement();
                 }
                 // Event statement: Event Name(...)
-                Some(VB6Token::EventKeyword) => {
+                Some(Token::EventKeyword) => {
                     self.parse_event_statement();
                 }
                 // Implements statement: Implements InterfaceName
-                Some(VB6Token::ImplementsKeyword) => {
+                Some(Token::ImplementsKeyword) => {
                     self.parse_implements_statement();
                 }
                 // Enum statement: Enum Name ... End Enum
-                Some(VB6Token::EnumKeyword) => {
+                Some(Token::EnumKeyword) => {
                     self.parse_enum_statement();
                 }
                 // Type statement: Type Name ... End Type
-                Some(VB6Token::TypeKeyword) => {
+                Some(Token::TypeKeyword) => {
                     self.parse_type_statement();
                 }
                 // Sub procedure: Sub Name(...)
-                Some(VB6Token::SubKeyword) => {
+                Some(Token::SubKeyword) => {
                     self.parse_sub_statement();
                 }
                 // Function Procedure Syntax:
                 //
                 // [Public | Private | Friend] [ Static ] Function name [ ( arglist ) ] [ As type ]
                 //
-                Some(VB6Token::FunctionKeyword) => {
+                Some(Token::FunctionKeyword) => {
                     self.parse_function_statement();
                 }
                 // Property Procedure Syntax:
                 //
                 // [Public | Private | Friend] [ Static ] Property Get|Let|Set name [ ( arglist ) ] [ As type ]
                 //
-                Some(VB6Token::PropertyKeyword) => {
+                Some(Token::PropertyKeyword) => {
                     self.parse_property_statement();
                 }
                 // Variable declarations: Dim/Const
                 // For Public/Private/Friend/Static, we need to look ahead to see if it's a
                 // function/sub declaration or a variable declaration
-                Some(VB6Token::DimKeyword | VB6Token::ConstKeyword) => {
+                Some(Token::DimKeyword | Token::ConstKeyword) => {
                     self.parse_dim();
                 }
                 // Public/Private/Friend/Static - could be function/sub/property or declaration
                 Some(
-                    VB6Token::PrivateKeyword
-                    | VB6Token::PublicKeyword
-                    | VB6Token::FriendKeyword
-                    | VB6Token::StaticKeyword,
+                    Token::PrivateKeyword
+                    | Token::PublicKeyword
+                    | Token::FriendKeyword
+                    | Token::StaticKeyword,
                 ) => {
                     // Look ahead to see if this is a function/sub/property/enum declaration
                     // Peek at the next 2 keywords to handle cases like "Public Static Function"
@@ -372,22 +474,22 @@ impl<'a> Parser<'a> {
 
                     match next_keywords.as_slice() {
                         // Direct: Public/Private/Friend Function, Sub, Property, Enum, Type, Declare, or Event
-                        [VB6Token::FunctionKeyword, ..] => self.parse_function_statement(), // Function
-                        [VB6Token::SubKeyword, ..] => self.parse_sub_statement(),           // Sub
-                        [VB6Token::PropertyKeyword, ..] => self.parse_property_statement(), // Property
-                        [VB6Token::DeclareKeyword, ..] => self.parse_declare_statement(), // Declare
-                        [VB6Token::EnumKeyword, ..] => self.parse_enum_statement(),       // Enum
-                        [VB6Token::TypeKeyword, ..] => self.parse_type_statement(),       // Type
-                        [VB6Token::EventKeyword, ..] => self.parse_event_statement(),     // Event
-                        [VB6Token::ImplementsKeyword, ..] => self.parse_implements_statement(), // Implements
+                        [Token::FunctionKeyword, ..] => self.parse_function_statement(), // Function
+                        [Token::SubKeyword, ..] => self.parse_sub_statement(),           // Sub
+                        [Token::PropertyKeyword, ..] => self.parse_property_statement(), // Property
+                        [Token::DeclareKeyword, ..] => self.parse_declare_statement(),   // Declare
+                        [Token::EnumKeyword, ..] => self.parse_enum_statement(),         // Enum
+                        [Token::TypeKeyword, ..] => self.parse_type_statement(),         // Type
+                        [Token::EventKeyword, ..] => self.parse_event_statement(),       // Event
+                        [Token::ImplementsKeyword, ..] => self.parse_implements_statement(), // Implements
                         // With Static: Public/Private/Friend Static Function, Sub, or Property
-                        [VB6Token::StaticKeyword, VB6Token::FunctionKeyword] => {
+                        [Token::StaticKeyword, Token::FunctionKeyword] => {
                             self.parse_function_statement();
                         }
-                        [VB6Token::StaticKeyword, VB6Token::SubKeyword] => {
+                        [Token::StaticKeyword, Token::SubKeyword] => {
                             self.parse_sub_statement();
                         }
-                        [VB6Token::StaticKeyword, VB6Token::PropertyKeyword] => {
+                        [Token::StaticKeyword, Token::PropertyKeyword] => {
                             self.parse_property_statement();
                         }
                         // Anything else is a declaration
@@ -396,10 +498,10 @@ impl<'a> Parser<'a> {
                 }
                 // Whitespace and newlines - consume directly
                 Some(
-                    VB6Token::Whitespace
-                    | VB6Token::Newline
-                    | VB6Token::EndOfLineComment
-                    | VB6Token::RemComment,
+                    Token::Whitespace
+                    | Token::Newline
+                    | Token::EndOfLineComment
+                    | Token::RemComment,
                 ) => {
                     self.consume_token();
                 }
@@ -421,11 +523,15 @@ impl<'a> Parser<'a> {
                     } else if self.is_at_label() {
                         self.parse_label_statement();
                     // Check for Let statement (optional assignment keyword)
-                    } else if self.at_token(VB6Token::LetKeyword) {
+                    } else if self.at_token(Token::LetKeyword) {
                         self.parse_let_statement();
                     // Check if this looks like an assignment statement (identifier = expression)
+                    // This must come BEFORE at_keyword() check to handle keywords used as variables
                     } else if self.is_at_assignment() {
                         self.parse_assignment_statement();
+                    // Check if this looks like a procedure call (identifier without assignment)
+                    } else if self.is_at_procedure_call() {
+                        self.parse_procedure_call();
                     } else if self.is_identifier() {
                         self.consume_token();
                     } else if self.at_keyword() {
@@ -446,17 +552,17 @@ impl<'a> Parser<'a> {
         matches!(
             self.current_token(),
             Some(
-                VB6Token::IfKeyword
-                    | VB6Token::SelectKeyword
-                    | VB6Token::ForKeyword
-                    | VB6Token::DoKeyword
-                    | VB6Token::WhileKeyword
-                    | VB6Token::GotoKeyword
-                    | VB6Token::GoSubKeyword
-                    | VB6Token::ReturnKeyword
-                    | VB6Token::ResumeKeyword
-                    | VB6Token::ExitKeyword
-                    | VB6Token::OnKeyword
+                Token::IfKeyword
+                    | Token::SelectKeyword
+                    | Token::ForKeyword
+                    | Token::DoKeyword
+                    | Token::WhileKeyword
+                    | Token::GotoKeyword
+                    | Token::GoSubKeyword
+                    | Token::ReturnKeyword
+                    | Token::ResumeKeyword
+                    | Token::ExitKeyword
+                    | Token::OnKeyword
             )
         )
     }
@@ -464,55 +570,55 @@ impl<'a> Parser<'a> {
     /// Dispatch control flow statement parsing to the appropriate parser.
     fn parse_control_flow_statement(&mut self) {
         match self.current_token() {
-            Some(VB6Token::IfKeyword) => {
+            Some(Token::IfKeyword) => {
                 self.parse_if_statement();
             }
-            Some(VB6Token::SelectKeyword) => {
+            Some(Token::SelectKeyword) => {
                 self.parse_select_case_statement();
             }
-            Some(VB6Token::ForKeyword) => {
+            Some(Token::ForKeyword) => {
                 // Peek ahead to see if next keyword is "Each"
-                if let Some(VB6Token::EachKeyword) = self.peek_next_keyword() {
+                if let Some(Token::EachKeyword) = self.peek_next_keyword() {
                     self.parse_for_each_statement();
                 } else {
                     self.parse_for_statement();
                 }
             }
-            Some(VB6Token::DoKeyword) => {
+            Some(Token::DoKeyword) => {
                 self.parse_do_statement();
             }
-            Some(VB6Token::WhileKeyword) => {
+            Some(Token::WhileKeyword) => {
                 self.parse_while_statement();
             }
-            Some(VB6Token::GotoKeyword) => {
+            Some(Token::GotoKeyword) => {
                 self.parse_goto_statement();
             }
-            Some(VB6Token::GoSubKeyword) => {
+            Some(Token::GoSubKeyword) => {
                 self.parse_gosub_statement();
             }
-            Some(VB6Token::ReturnKeyword) => {
+            Some(Token::ReturnKeyword) => {
                 self.parse_return_statement();
             }
-            Some(VB6Token::ResumeKeyword) => {
+            Some(Token::ResumeKeyword) => {
                 self.parse_resume_statement();
             }
-            Some(VB6Token::ExitKeyword) => {
+            Some(Token::ExitKeyword) => {
                 self.parse_exit_statement();
             }
-            Some(VB6Token::OnKeyword) => {
+            Some(Token::OnKeyword) => {
                 // Look ahead to distinguish between On Error, On GoTo, and On GoSub
-                if let Some(VB6Token::ErrorKeyword) = self.peek_next_keyword() {
+                if let Some(Token::ErrorKeyword) = self.peek_next_keyword() {
                     self.parse_on_error_statement();
                 } else {
                     // Need to scan ahead to find GoTo or GoSub keyword
                     // to distinguish between On GoTo and On GoSub
                     use std::num::NonZeroUsize;
-                    let keywords: Vec<VB6Token> = self
+                    let keywords: Vec<Token> = self
                         .peek_next_count_keywords(NonZeroUsize::new(20).unwrap())
                         .collect();
 
-                    let has_goto = keywords.contains(&VB6Token::GotoKeyword);
-                    let has_gosub = keywords.contains(&VB6Token::GoSubKeyword);
+                    let has_goto = keywords.contains(&Token::GotoKeyword);
+                    let has_gosub = keywords.contains(&Token::GoSubKeyword);
 
                     if has_goto {
                         self.parse_on_goto_statement();
@@ -532,17 +638,61 @@ impl<'a> Parser<'a> {
     fn is_variable_declaration_keyword(&self) -> bool {
         matches!(
             self.current_token(),
-            Some(VB6Token::ReDimKeyword | VB6Token::EraseKeyword)
+            Some(Token::ReDimKeyword | Token::EraseKeyword)
         )
+    }
+
+    /// Check if we're at an Object statement with proper format.
+    ///
+    /// Object statements in VB6 forms have the format:
+    /// `Object = "{GUID}#version#flags"; "filename"`
+    /// or
+    /// `Object = *\G{GUID}#version#flags; "filename"`
+    ///
+    /// This checks if the pattern matches before committing to parse as ObjectStatement.
+    fn is_object_statement(&self) -> bool {
+        // Must start with Object keyword
+        if !self.at_token(Token::ObjectKeyword) {
+            return false;
+        }
+
+        // Look ahead to verify it matches Object statement pattern
+        // Skip whitespace, should find =, then whitespace, then string or *\G pattern
+        let mut found_equals = false;
+        for (_text, token) in self.tokens.iter().skip(self.pos + 1) {
+            match token {
+                Token::Whitespace => continue,
+                Token::EqualityOperator if !found_equals => {
+                    found_equals = true;
+                }
+                // After =, we expect either a quoted string starting with { or * for type library refs
+                Token::StringLiteral if found_equals => {
+                    // Valid Object statement - string literal after =
+                    return true;
+                }
+                Token::MultiplicationOperator if found_equals => {
+                    // Could be *\G{ pattern for type libraries
+                    return true;
+                }
+                // If we hit anything else after =, not an Object statement
+                _ if found_equals => return false,
+                // If we hit a newline before =, not an Object statement
+                Token::Newline | Token::EndOfLineComment | Token::RemComment => {
+                    return false;
+                }
+                _ => return false,
+            }
+        }
+        false
     }
 
     /// Dispatch array statement parsing to the appropriate parser.
     fn parse_array_statement(&mut self) {
         match self.current_token() {
-            Some(VB6Token::ReDimKeyword) => {
+            Some(Token::ReDimKeyword) => {
                 self.parse_redim_statement();
             }
-            Some(VB6Token::EraseKeyword) => {
+            Some(Token::EraseKeyword) => {
                 self.parse_erase_statement();
             }
             _ => {}
@@ -599,34 +749,37 @@ impl<'a> Parser<'a> {
             match self.current_token() {
                 // Variable declarations: Dim/Private/Public/Const/Static
                 Some(
-                    VB6Token::DimKeyword
-                    | VB6Token::PrivateKeyword
-                    | VB6Token::PublicKeyword
-                    | VB6Token::ConstKeyword
-                    | VB6Token::StaticKeyword,
+                    Token::DimKeyword
+                    | Token::PrivateKeyword
+                    | Token::PublicKeyword
+                    | Token::ConstKeyword
+                    | Token::StaticKeyword,
                 ) => {
                     self.parse_dim();
                 }
                 // Whitespace and newlines - consume directly
                 Some(
-                    VB6Token::Whitespace
-                    | VB6Token::Newline
-                    | VB6Token::EndOfLineComment
-                    | VB6Token::RemComment,
+                    Token::Whitespace
+                    | Token::Newline
+                    | Token::EndOfLineComment
+                    | Token::RemComment,
                 ) => {
                     self.consume_token();
                 }
-                // Anything else - check if it's a label, assignment, or unknown
+                // Anything else - check if it's a label, assignment, procedure call, or unknown
                 _ => {
                     // Check if this is a label (identifier followed by colon)
                     if self.is_at_label() {
                         self.parse_label_statement();
                     // Check for Let statement (optional assignment keyword)
-                    } else if self.at_token(VB6Token::LetKeyword) {
+                    } else if self.at_token(Token::LetKeyword) {
                         self.parse_let_statement();
                     // Check if this looks like an assignment statement (identifier = expression)
                     } else if self.is_at_assignment() {
                         self.parse_assignment_statement();
+                    // Check if this looks like a procedure call (identifier without assignment)
+                    } else if self.is_at_procedure_call() {
+                        self.parse_procedure_call();
                     } else {
                         self.consume_token_as_unknown();
                     }
@@ -667,52 +820,49 @@ mod test {
 
     #[test]
     fn syntax_kind_conversions() {
-        use crate::language::VB6Token;
+        use crate::language::Token;
 
         // Test keyword conversions
         assert_eq!(
-            SyntaxKind::from(VB6Token::FunctionKeyword),
+            SyntaxKind::from(Token::FunctionKeyword),
             SyntaxKind::FunctionKeyword
         );
-        assert_eq!(SyntaxKind::from(VB6Token::IfKeyword), SyntaxKind::IfKeyword);
-        assert_eq!(
-            SyntaxKind::from(VB6Token::ForKeyword),
-            SyntaxKind::ForKeyword
-        );
+        assert_eq!(SyntaxKind::from(Token::IfKeyword), SyntaxKind::IfKeyword);
+        assert_eq!(SyntaxKind::from(Token::ForKeyword), SyntaxKind::ForKeyword);
 
         // Test operators
         assert_eq!(
-            SyntaxKind::from(VB6Token::AdditionOperator),
+            SyntaxKind::from(Token::AdditionOperator),
             SyntaxKind::AdditionOperator
         );
         assert_eq!(
-            SyntaxKind::from(VB6Token::EqualityOperator),
+            SyntaxKind::from(Token::EqualityOperator),
             SyntaxKind::EqualityOperator
         );
 
         // Test literals
         assert_eq!(
-            SyntaxKind::from(VB6Token::StringLiteral),
+            SyntaxKind::from(Token::StringLiteral),
             SyntaxKind::StringLiteral
         );
         assert_eq!(
-            SyntaxKind::from(VB6Token::IntegerLiteral),
+            SyntaxKind::from(Token::IntegerLiteral),
             SyntaxKind::IntegerLiteral
         );
         assert_eq!(
-            SyntaxKind::from(VB6Token::LongLiteral),
+            SyntaxKind::from(Token::LongLiteral),
             SyntaxKind::LongLiteral
         );
         assert_eq!(
-            SyntaxKind::from(VB6Token::SingleLiteral),
+            SyntaxKind::from(Token::SingleLiteral),
             SyntaxKind::SingleLiteral
         );
         assert_eq!(
-            SyntaxKind::from(VB6Token::DoubleLiteral),
+            SyntaxKind::from(Token::DoubleLiteral),
             SyntaxKind::DoubleLiteral
         );
         assert_eq!(
-            SyntaxKind::from(VB6Token::DateLiteral),
+            SyntaxKind::from(Token::DateLiteral),
             SyntaxKind::DateLiteral
         );
     }
@@ -785,7 +935,6 @@ mod test {
         let serializable = cst.to_serializable();
 
         // Verify structure
-        assert_eq!(serializable.text, source);
         assert_eq!(serializable.root.kind, SyntaxKind::Root);
         assert!(!serializable.root.is_token);
         assert_eq!(serializable.root.children.len(), 1);

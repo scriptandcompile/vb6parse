@@ -3,73 +3,19 @@ source: tests/form.rs
 expression: form_file
 ---
 form:
-  name:
-    - 102
-    - 114
-    - 109
-    - 70
-    - 105
-    - 108
-    - 108
-  tag: []
-  index: 0
+  name: frmFill
+  tag: ""
+  index: -1
   kind:
     Form:
       properties:
-        appearance: Flat
-        auto_redraw: Automatic
+        appearance: ThreeD
+        auto_redraw: Manual
         back_color:
           System:
             index: 5
         border_style: Sizable
-        caption:
-          - 70
-          - 105
-          - 108
-          - 108
-          - 32
-          - 73
-          - 109
-          - 97
-          - 103
-          - 101
-          - 32
-          - 82
-          - 101
-          - 103
-          - 105
-          - 111
-          - 110
-          - 115
-          - 32
-          - 68
-          - 101
-          - 109
-          - 111
-          - 32
-          - 45
-          - 32
-          - 119
-          - 119
-          - 119
-          - 46
-          - 116
-          - 97
-          - 110
-          - 110
-          - 101
-          - 114
-          - 104
-          - 101
-          - 108
-          - 108
-          - 97
-          - 110
-          - 100
-          - 46
-          - 99
-          - 111
-          - 109
+        caption: Fill Image Regions Demo - www.tannerhelland.com
         client_height: 6615
         client_left: 60
         client_top: 345
@@ -83,7 +29,7 @@ form:
         fill_color:
           System:
             index: 0
-        fill_style: Solid
+        fill_style: Transparent
         font_transparent: Transparent
         fore_color:
           RGB:
@@ -97,12 +43,7 @@ form:
         key_preview: false
         left: 0
         link_mode: None
-        link_topic:
-          - 70
-          - 111
-          - 114
-          - 109
-          - 49
+        link_topic: Form1
         max_button: Included
         mdi_child: false
         min_button: Included
@@ -117,7 +58,7 @@ form:
         right_to_left: LeftToRight
         scale_height: 441
         scale_left: 0
-        scale_mode: Pixel
+        scale_mode: Twip
         scale_top: 0
         scale_width: 523
         show_in_taskbar: Show
@@ -129,21 +70,14 @@ form:
         width: 240
         window_state: Normal
       controls:
-        - name:
-            - 112
-            - 105
-            - 99
-            - 68
-            - 101
-            - 109
-            - 111
-          tag: []
-          index: 0
+        - name: picDemo
+          tag: ""
+          index: -1
           kind:
             PictureBox:
               properties:
                 align: None
-                appearance: Flat
+                appearance: ThreeD
                 auto_redraw: Manual
                 auto_size: Fixed
                 back_color:
@@ -152,10 +86,10 @@ form:
                 border_style: FixedSingle
                 causes_validation: "Yes"
                 clip_controls: Clipped
-                data_field: []
-                data_format: []
-                data_member: []
-                data_source: []
+                data_field: ""
+                data_format: ""
+                data_member: ""
+                data_source: ""
                 drag_icon: ~
                 drag_mode: Manual
                 draw_mode: CopyPen
@@ -165,7 +99,7 @@ form:
                 fill_color:
                   System:
                     index: 0
-                fill_style: Solid
+                fill_style: Transparent
                 font_transparent: Transparent
                 fore_color:
                   System:
@@ -174,10 +108,10 @@ form:
                 height: 6015
                 help_context_id: 0
                 left: 120
-                link_item: []
+                link_item: ""
                 link_mode: None
                 link_timeout: 50
-                link_topic: []
+                link_topic: ""
                 mouse_icon: ~
                 mouse_pointer: Default
                 negotiate: false
@@ -187,140 +121,35 @@ form:
                 right_to_left: LeftToRight
                 scale_height: 399
                 scale_left: 0
-                scale_mode: Pixel
+                scale_mode: Twip
                 scale_top: 0
                 scale_width: 503
                 tab_index: 1
                 tab_stop: Included
-                tool_tip_text: []
+                tool_tip_text: ""
                 top: 480
                 visible: Visible
                 whats_this_help_id: 0
                 width: 7575
-        - name:
-            - 108
-            - 98
-            - 108
-            - 73
-            - 110
-            - 115
-            - 116
-            - 114
-            - 117
-            - 99
-            - 116
-            - 105
-            - 111
-            - 110
-            - 115
-          tag: []
-          index: 0
+        - name: lblInstructions
+          tag: ""
+          index: -1
           kind:
             Label:
               properties:
                 alignment: LeftJustify
-                appearance: Flat
+                appearance: ThreeD
                 auto_size: Fixed
                 back_color:
                   System:
                     index: 5
-                back_style: Transparent
+                back_style: Opaque
                 border_style: None
-                caption:
-                  - 85
-                  - 115
-                  - 101
-                  - 32
-                  - 116
-                  - 104
-                  - 101
-                  - 32
-                  - 108
-                  - 101
-                  - 102
-                  - 116
-                  - 32
-                  - 109
-                  - 111
-                  - 117
-                  - 115
-                  - 101
-                  - 32
-                  - 98
-                  - 117
-                  - 116
-                  - 116
-                  - 111
-                  - 110
-                  - 32
-                  - 116
-                  - 111
-                  - 32
-                  - 100
-                  - 114
-                  - 97
-                  - 119
-                  - 32
-                  - 108
-                  - 105
-                  - 110
-                  - 101
-                  - 115
-                  - 44
-                  - 32
-                  - 97
-                  - 110
-                  - 100
-                  - 32
-                  - 116
-                  - 104
-                  - 101
-                  - 32
-                  - 114
-                  - 105
-                  - 103
-                  - 104
-                  - 116
-                  - 32
-                  - 98
-                  - 117
-                  - 116
-                  - 116
-                  - 111
-                  - 110
-                  - 32
-                  - 116
-                  - 111
-                  - 32
-                  - 102
-                  - 105
-                  - 108
-                  - 108
-                  - 32
-                  - 97
-                  - 32
-                  - 114
-                  - 101
-                  - 103
-                  - 105
-                  - 111
-                  - 110
-                  - 32
-                  - 119
-                  - 105
-                  - 116
-                  - 104
-                  - 32
-                  - 99
-                  - 111
-                  - 108
-                  - 111
-                  - 114
-                  - 46
-                data_field: []
-                data_format: []
-                data_member: []
-                data_source: []
+                caption: "Use the left mouse button to draw lines, and the right button to fill a region with color."
+                data_field: ""
+                data_format: ""
+                data_member: ""
+                data_source: ""
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: Enabled
@@ -329,16 +158,16 @@ form:
                     index: 8
                 height: 255
                 left: 120
-                link_item: []
+                link_item: ""
                 link_mode: None
                 link_timeout: 50
-                link_topic: []
+                link_topic: ""
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
                 right_to_left: LeftToRight
                 tab_index: 0
-                tool_tip_text: []
+                tool_tip_text: ""
                 top: 120
                 use_mnemonic: true
                 visible: Visible
@@ -351,985 +180,2232 @@ format_version:
   major: 5
   minor: 0
 attributes:
-  name:
-    - 102
-    - 114
-    - 109
-    - 70
-    - 105
-    - 108
-    - 108
+  name: frmFill
   global_name_space: Local
   creatable: "False"
   pre_declared_id: "True"
   exposed: "False"
   description: ~
   ext_key: {}
-tokens:
-  source_file: "./tests/data/vb6-code/Fill-image-region/frmFill.frm"
-  tokens:
-    - - "'***************************************************************************"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'Copyright 2018 by Tanner Helland"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "' www.tannerhelland.com"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'The source code in this project is licensed under a Simplified BSD license."
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'***************************************************************************"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-    - - Private
-      - PrivateKeyword
-    - - " "
-      - Whitespace
-    - - Declare
-      - DeclareKeyword
-    - - " "
-      - Whitespace
-    - - Function
-      - FunctionKeyword
-    - - " "
-      - Whitespace
-    - - ExtFloodFill
-      - Identifier
-    - - " "
-      - Whitespace
-    - - Lib
-      - LibKeyword
-    - - " "
-      - Whitespace
-    - - "\"gdi32\""
-      - StringLiteral
-    - - " "
-      - Whitespace
-    - - (
-      - LeftParenthesis
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - hDC
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - x
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - y
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - crColor
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - wFillType
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - )
-      - RightParenthesis
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-    - - "'Location variables necessary for drawing connected lines"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - Dim
-      - DimKeyword
-    - - " "
-      - Whitespace
-    - - xStart
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - yStart
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-    - - "'This variable remembers whether or not the left mouse button has been pressed (see below)"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - Dim
-      - DimKeyword
-    - - " "
-      - Whitespace
-    - - toDraw
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Boolean
-      - BooleanKeyword
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-    - - "'When the left mouse button is pressed..."
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - Private
-      - PrivateKeyword
-    - - " "
-      - Whitespace
-    - - Sub
-      - SubKeyword
-    - - " "
-      - Whitespace
-    - - picDemo_MouseDown
-      - Identifier
-    - - (
-      - LeftParenthesis
-    - - Button
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Integer
-      - IntegerKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - Shift
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Integer
-      - IntegerKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - x
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Single
-      - SingleKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - y
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Single
-      - SingleKeyword
-    - - )
-      - RightParenthesis
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - "'Check the mouse button"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - "' If the left button is pressed..."
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - If
-      - IfKeyword
-    - - " "
-      - Whitespace
-    - - Button
-      - Identifier
-    - - " "
-      - Whitespace
-    - - "="
-      - EqualityOperator
-    - - " "
-      - Whitespace
-    - - vbLeftButton
-      - Identifier
-    - - " "
-      - Whitespace
-    - - Then
-      - ThenKeyword
-    - - "\r\n"
-      - Newline
-    - - "        "
-      - Whitespace
-    - - "\r\n"
-      - Newline
-    - - "        "
-      - Whitespace
-    - - "'Remember that the left-hand button is down"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "        "
-      - Whitespace
-    - - toDraw
-      - Identifier
-    - - " "
-      - Whitespace
-    - - "="
-      - EqualityOperator
-    - - " "
-      - Whitespace
-    - - "True"
-      - TrueKeyword
-    - - "\r\n"
-      - Newline
-    - - "        "
-      - Whitespace
-    - - "\r\n"
-      - Newline
-    - - "        "
-      - Whitespace
-    - - "'Remember the current mouse location"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "        "
-      - Whitespace
-    - - xStart
-      - Identifier
-    - - " "
-      - Whitespace
-    - - "="
-      - EqualityOperator
-    - - " "
-      - Whitespace
-    - - x
-      - Identifier
-    - - "\r\n"
-      - Newline
-    - - "        "
-      - Whitespace
-    - - yStart
-      - Identifier
-    - - " "
-      - Whitespace
-    - - "="
-      - EqualityOperator
-    - - " "
-      - Whitespace
-    - - y
-      - Identifier
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - "' If the right button..."
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - ElseIf
-      - ElseIfKeyword
-    - - " "
-      - Whitespace
-    - - Button
-      - Identifier
-    - - " "
-      - Whitespace
-    - - "="
-      - EqualityOperator
-    - - " "
-      - Whitespace
-    - - vbRightButton
-      - Identifier
-    - - " "
-      - Whitespace
-    - - Then
-      - ThenKeyword
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - "\r\n"
-      - Newline
-    - - "        "
-      - Whitespace
-    - - "'Seed VB's random number generator"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "        "
-      - Whitespace
-    - - Randomize
-      - RandomizeKeyword
-    - - " "
-      - Whitespace
-    - - Timer
-      - Identifier
-    - - "\r\n"
-      - Newline
-    - - "        "
-      - Whitespace
-    - - "\r\n"
-      - Newline
-    - - "        "
-      - Whitespace
-    - - "'Set the picture box's .FillColor property to a random number"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "        "
-      - Whitespace
-    - - picDemo
-      - Identifier
-    - - "."
-      - PeriodOperator
-    - - FillColor
-      - Identifier
-    - - " "
-      - Whitespace
-    - - "="
-      - EqualityOperator
-    - - " "
-      - Whitespace
-    - - RGB
-      - Identifier
-    - - (
-      - LeftParenthesis
-    - - Int
-      - Identifier
-    - - (
-      - LeftParenthesis
-    - - Rnd
-      - Identifier
-    - - " "
-      - Whitespace
-    - - "*"
-      - MultiplicationOperator
-    - - " "
-      - Whitespace
-    - - "255"
-      - IntegerLiteral
-    - - )
-      - RightParenthesis
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - Int
-      - Identifier
-    - - (
-      - LeftParenthesis
-    - - Rnd
-      - Identifier
-    - - " "
-      - Whitespace
-    - - "*"
-      - MultiplicationOperator
-    - - " "
-      - Whitespace
-    - - "255"
-      - IntegerLiteral
-    - - )
-      - RightParenthesis
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - Int
-      - Identifier
-    - - (
-      - LeftParenthesis
-    - - Rnd
-      - Identifier
-    - - " "
-      - Whitespace
-    - - "*"
-      - MultiplicationOperator
-    - - " "
-      - Whitespace
-    - - "255"
-      - IntegerLiteral
-    - - )
-      - RightParenthesis
-    - - )
-      - RightParenthesis
-    - - "\r\n"
-      - Newline
-    - - "        "
-      - Whitespace
-    - - "\r\n"
-      - Newline
-    - - "        "
-      - Whitespace
-    - - "'Use the API to fill this region"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "        "
-      - Whitespace
-    - - "'Parameters: (picture box), (x coordinate), (y coordinate), (color being replaced), (fill method - always 1)"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "        "
-      - Whitespace
-    - - ExtFloodFill
-      - Identifier
-    - - " "
-      - Whitespace
-    - - picDemo
-      - Identifier
-    - - "."
-      - PeriodOperator
-    - - hDC
-      - Identifier
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - x
-      - Identifier
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - y
-      - Identifier
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - picDemo
-      - Identifier
-    - - "."
-      - PeriodOperator
-    - - Point
-      - Identifier
-    - - (
-      - LeftParenthesis
-    - - x
-      - Identifier
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - y
-      - Identifier
-    - - )
-      - RightParenthesis
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - "1"
-      - IntegerLiteral
-    - - "\r\n"
-      - Newline
-    - - "        "
-      - Whitespace
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - End
-      - EndKeyword
-    - - " "
-      - Whitespace
-    - - If
-      - IfKeyword
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - "\r\n"
-      - Newline
-    - - End
-      - EndKeyword
-    - - " "
-      - Whitespace
-    - - Sub
-      - SubKeyword
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-    - - "'When the mouse is moved..."
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - Private
-      - PrivateKeyword
-    - - " "
-      - Whitespace
-    - - Sub
-      - SubKeyword
-    - - " "
-      - Whitespace
-    - - picDemo_MouseMove
-      - Identifier
-    - - (
-      - LeftParenthesis
-    - - Button
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Integer
-      - IntegerKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - Shift
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Integer
-      - IntegerKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - x
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Single
-      - SingleKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - y
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Single
-      - SingleKeyword
-    - - )
-      - RightParenthesis
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - "'If drawing is enabled (meaning the left mouse button has previously been pressed),"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - "' draw a line between the old x coordinate and the current one"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - If
-      - IfKeyword
-    - - " "
-      - Whitespace
-    - - toDraw
-      - Identifier
-    - - " "
-      - Whitespace
-    - - Then
-      - ThenKeyword
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - "\r\n"
-      - Newline
-    - - "        "
-      - Whitespace
-    - - "'Use VB's line function to draw the line"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "        "
-      - Whitespace
-    - - picDemo
-      - Identifier
-    - - "."
-      - PeriodOperator
-    - - Line
-      - LineKeyword
-    - - " "
-      - Whitespace
-    - - (
-      - LeftParenthesis
-    - - xStart
-      - Identifier
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - yStart
-      - Identifier
-    - - )
-      - RightParenthesis
-    - - "-"
-      - SubtractionOperator
-    - - (
-      - LeftParenthesis
-    - - x
-      - Identifier
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - y
-      - Identifier
-    - - )
-      - RightParenthesis
-    - - "\r\n"
-      - Newline
-    - - "        "
-      - Whitespace
-    - - "\r\n"
-      - Newline
-    - - "        "
-      - Whitespace
-    - - "'Replace the old xStart and yStart variables with the current location of the mouse"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "        "
-      - Whitespace
-    - - xStart
-      - Identifier
-    - - " "
-      - Whitespace
-    - - "="
-      - EqualityOperator
-    - - " "
-      - Whitespace
-    - - x
-      - Identifier
-    - - "\r\n"
-      - Newline
-    - - "        "
-      - Whitespace
-    - - yStart
-      - Identifier
-    - - " "
-      - Whitespace
-    - - "="
-      - EqualityOperator
-    - - " "
-      - Whitespace
-    - - y
-      - Identifier
-    - - "\r\n"
-      - Newline
-    - - "        "
-      - Whitespace
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - End
-      - EndKeyword
-    - - " "
-      - Whitespace
-    - - If
-      - IfKeyword
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - "\r\n"
-      - Newline
-    - - End
-      - EndKeyword
-    - - " "
-      - Whitespace
-    - - Sub
-      - SubKeyword
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-    - - "'When a mouse button is released..."
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - Private
-      - PrivateKeyword
-    - - " "
-      - Whitespace
-    - - Sub
-      - SubKeyword
-    - - " "
-      - Whitespace
-    - - picDemo_MouseUp
-      - Identifier
-    - - (
-      - LeftParenthesis
-    - - Button
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Integer
-      - IntegerKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - Shift
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Integer
-      - IntegerKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - x
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Single
-      - SingleKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - y
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Single
-      - SingleKeyword
-    - - )
-      - RightParenthesis
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - "'Disable drawing"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - toDraw
-      - Identifier
-    - - " "
-      - Whitespace
-    - - "="
-      - EqualityOperator
-    - - " "
-      - Whitespace
-    - - "False"
-      - FalseKeyword
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - "\r\n"
-      - Newline
-    - - End
-      - EndKeyword
-    - - " "
-      - Whitespace
-    - - Sub
-      - SubKeyword
-    - - "\r\n"
-      - Newline
-  offset: 0
+cst:
+  root:
+    kind: Root
+    text: "'***************************************************************************\r\n'Copyright 2018 by Tanner Helland\r\n' www.tannerhelland.com\r\n'\r\n'Documentation for this project can be found at https://tannerhelland.com/code/\r\n'\r\n'The source code in this project is licensed under a Simplified BSD license.\r\n' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/\r\n'\r\n'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland\r\n'\r\n'***************************************************************************\r\n\r\nPrivate Declare Function ExtFloodFill Lib \"gdi32\" (ByVal hDC As Long, ByVal x As Long, ByVal y As Long, ByVal crColor As Long, ByVal wFillType As Long) As Long\r\n\r\n'Location variables necessary for drawing connected lines\r\nDim xStart As Long, yStart As Long\r\n\r\n'This variable remembers whether or not the left mouse button has been pressed (see below)\r\nDim toDraw As Boolean\r\n\r\n'When the left mouse button is pressed...\r\nPrivate Sub picDemo_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)\r\n\r\n    'Check the mouse button\r\n    ' If the left button is pressed...\r\n    If Button = vbLeftButton Then\r\n        \r\n        'Remember that the left-hand button is down\r\n        toDraw = True\r\n        \r\n        'Remember the current mouse location\r\n        xStart = x\r\n        yStart = y\r\n    \r\n    ' If the right button...\r\n    ElseIf Button = vbRightButton Then\r\n    \r\n        'Seed VB's random number generator\r\n        Randomize Timer\r\n        \r\n        'Set the picture box's .FillColor property to a random number\r\n        picDemo.FillColor = RGB(Int(Rnd * 255), Int(Rnd * 255), Int(Rnd * 255))\r\n        \r\n        'Use the API to fill this region\r\n        'Parameters: (picture box), (x coordinate), (y coordinate), (color being replaced), (fill method - always 1)\r\n        ExtFloodFill picDemo.hDC, x, y, picDemo.Point(x, y), 1\r\n        \r\n    End If\r\n    \r\nEnd Sub\r\n\r\n'When the mouse is moved...\r\nPrivate Sub picDemo_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)\r\n\r\n    'If drawing is enabled (meaning the left mouse button has previously been pressed),\r\n    ' draw a line between the old x coordinate and the current one\r\n    If toDraw Then\r\n    \r\n        'Use VB's line function to draw the line\r\n        picDemo.Line (xStart, yStart)-(x, y)\r\n        \r\n        'Replace the old xStart and yStart variables with the current location of the mouse\r\n        xStart = x\r\n        yStart = y\r\n        \r\n    End If\r\n    \r\nEnd Sub\r\n\r\n'When a mouse button is released...\r\nPrivate Sub picDemo_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)\r\n    \r\n    'Disable drawing\r\n    toDraw = False\r\n    \r\nEnd Sub\r\n"
+    is_token: false
+    children:
+      - kind: EndOfLineComment
+        text: "'***************************************************************************"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'Copyright 2018 by Tanner Helland"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "' www.tannerhelland.com"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'Documentation for this project can be found at https://tannerhelland.com/code/"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'The source code in this project is licensed under a Simplified BSD license."
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'***************************************************************************"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: DeclareStatement
+        text: "Private Declare Function ExtFloodFill Lib \"gdi32\" (ByVal hDC As Long, ByVal x As Long, ByVal y As Long, ByVal crColor As Long, ByVal wFillType As Long) As Long\r\n"
+        is_token: false
+        children:
+          - kind: PrivateKeyword
+            text: Private
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: DeclareKeyword
+            text: Declare
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: FunctionKeyword
+            text: Function
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: ExtFloodFill
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: LibKeyword
+            text: Lib
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: StringLiteral
+            text: "\"gdi32\""
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: ParameterList
+            text: "(ByVal hDC As Long, ByVal x As Long, ByVal y As Long, ByVal crColor As Long, ByVal wFillType As Long)"
+            is_token: false
+            children:
+              - kind: LeftParenthesis
+                text: (
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: hDC
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: x
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: y
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: crColor
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: wFillType
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: RightParenthesis
+                text: )
+                is_token: true
+                children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: AsKeyword
+            text: As
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: LongKeyword
+            text: Long
+            is_token: true
+            children: []
+          - kind: Newline
+            text: "\r\n"
+            is_token: true
+            children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'Location variables necessary for drawing connected lines"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: DimStatement
+        text: "Dim xStart As Long, yStart As Long\r\n"
+        is_token: false
+        children:
+          - kind: DimKeyword
+            text: Dim
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: xStart
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: AsKeyword
+            text: As
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: LongKeyword
+            text: Long
+            is_token: true
+            children: []
+          - kind: Comma
+            text: ","
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: yStart
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: AsKeyword
+            text: As
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: LongKeyword
+            text: Long
+            is_token: true
+            children: []
+          - kind: Newline
+            text: "\r\n"
+            is_token: true
+            children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'This variable remembers whether or not the left mouse button has been pressed (see below)"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: DimStatement
+        text: "Dim toDraw As Boolean\r\n"
+        is_token: false
+        children:
+          - kind: DimKeyword
+            text: Dim
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: toDraw
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: AsKeyword
+            text: As
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: BooleanKeyword
+            text: Boolean
+            is_token: true
+            children: []
+          - kind: Newline
+            text: "\r\n"
+            is_token: true
+            children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'When the left mouse button is pressed..."
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: SubStatement
+        text: "Private Sub picDemo_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)\r\n\r\n    'Check the mouse button\r\n    ' If the left button is pressed...\r\n    If Button = vbLeftButton Then\r\n        \r\n        'Remember that the left-hand button is down\r\n        toDraw = True\r\n        \r\n        'Remember the current mouse location\r\n        xStart = x\r\n        yStart = y\r\n    \r\n    ' If the right button...\r\n    ElseIf Button = vbRightButton Then\r\n    \r\n        'Seed VB's random number generator\r\n        Randomize Timer\r\n        \r\n        'Set the picture box's .FillColor property to a random number\r\n        picDemo.FillColor = RGB(Int(Rnd * 255), Int(Rnd * 255), Int(Rnd * 255))\r\n        \r\n        'Use the API to fill this region\r\n        'Parameters: (picture box), (x coordinate), (y coordinate), (color being replaced), (fill method - always 1)\r\n        ExtFloodFill picDemo.hDC, x, y, picDemo.Point(x, y), 1\r\n        \r\n    End If\r\n    \r\nEnd Sub\r\n"
+        is_token: false
+        children:
+          - kind: PrivateKeyword
+            text: Private
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: SubKeyword
+            text: Sub
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: picDemo_MouseDown
+            is_token: true
+            children: []
+          - kind: ParameterList
+            text: "(Button As Integer, Shift As Integer, x As Single, y As Single)"
+            is_token: false
+            children:
+              - kind: LeftParenthesis
+                text: (
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: Button
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: IntegerKeyword
+                text: Integer
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: Shift
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: IntegerKeyword
+                text: Integer
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: x
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: SingleKeyword
+                text: Single
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: y
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: SingleKeyword
+                text: Single
+                is_token: true
+                children: []
+              - kind: RightParenthesis
+                text: )
+                is_token: true
+                children: []
+          - kind: Newline
+            text: "\r\n"
+            is_token: true
+            children: []
+          - kind: CodeBlock
+            text: "\r\n    'Check the mouse button\r\n    ' If the left button is pressed...\r\n    If Button = vbLeftButton Then\r\n        \r\n        'Remember that the left-hand button is down\r\n        toDraw = True\r\n        \r\n        'Remember the current mouse location\r\n        xStart = x\r\n        yStart = y\r\n    \r\n    ' If the right button...\r\n    ElseIf Button = vbRightButton Then\r\n    \r\n        'Seed VB's random number generator\r\n        Randomize Timer\r\n        \r\n        'Set the picture box's .FillColor property to a random number\r\n        picDemo.FillColor = RGB(Int(Rnd * 255), Int(Rnd * 255), Int(Rnd * 255))\r\n        \r\n        'Use the API to fill this region\r\n        'Parameters: (picture box), (x coordinate), (y coordinate), (color being replaced), (fill method - always 1)\r\n        ExtFloodFill picDemo.hDC, x, y, picDemo.Point(x, y), 1\r\n        \r\n    End If\r\n    \r\n"
+            is_token: false
+            children:
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: EndOfLineComment
+                text: "'Check the mouse button"
+                is_token: true
+                children: []
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: EndOfLineComment
+                text: "' If the left button is pressed..."
+                is_token: true
+                children: []
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: IfStatement
+                text: "If Button = vbLeftButton Then\r\n        \r\n        'Remember that the left-hand button is down\r\n        toDraw = True\r\n        \r\n        'Remember the current mouse location\r\n        xStart = x\r\n        yStart = y\r\n    \r\n    ' If the right button...\r\n    ElseIf Button = vbRightButton Then\r\n    \r\n        'Seed VB's random number generator\r\n        Randomize Timer\r\n        \r\n        'Set the picture box's .FillColor property to a random number\r\n        picDemo.FillColor = RGB(Int(Rnd * 255), Int(Rnd * 255), Int(Rnd * 255))\r\n        \r\n        'Use the API to fill this region\r\n        'Parameters: (picture box), (x coordinate), (y coordinate), (color being replaced), (fill method - always 1)\r\n        ExtFloodFill picDemo.hDC, x, y, picDemo.Point(x, y), 1\r\n        \r\n    End If\r\n"
+                is_token: false
+                children:
+                  - kind: IfKeyword
+                    text: If
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: BinaryExpression
+                    text: Button = vbLeftButton
+                    is_token: false
+                    children:
+                      - kind: IdentifierExpression
+                        text: Button
+                        is_token: false
+                        children:
+                          - kind: Identifier
+                            text: Button
+                            is_token: true
+                            children: []
+                      - kind: Whitespace
+                        text: " "
+                        is_token: true
+                        children: []
+                      - kind: EqualityOperator
+                        text: "="
+                        is_token: true
+                        children: []
+                      - kind: Whitespace
+                        text: " "
+                        is_token: true
+                        children: []
+                      - kind: IdentifierExpression
+                        text: vbLeftButton
+                        is_token: false
+                        children:
+                          - kind: Identifier
+                            text: vbLeftButton
+                            is_token: true
+                            children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: ThenKeyword
+                    text: Then
+                    is_token: true
+                    children: []
+                  - kind: Newline
+                    text: "\r\n"
+                    is_token: true
+                    children: []
+                  - kind: CodeBlock
+                    text: "        \r\n        'Remember that the left-hand button is down\r\n        toDraw = True\r\n        \r\n        'Remember the current mouse location\r\n        xStart = x\r\n        yStart = y\r\n    \r\n    ' If the right button...\r\n    "
+                    is_token: false
+                    children:
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
+                      - kind: Newline
+                        text: "\r\n"
+                        is_token: true
+                        children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
+                      - kind: EndOfLineComment
+                        text: "'Remember that the left-hand button is down"
+                        is_token: true
+                        children: []
+                      - kind: Newline
+                        text: "\r\n"
+                        is_token: true
+                        children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
+                      - kind: AssignmentStatement
+                        text: "toDraw = True\r\n"
+                        is_token: false
+                        children:
+                          - kind: IdentifierExpression
+                            text: toDraw
+                            is_token: false
+                            children:
+                              - kind: Identifier
+                                text: toDraw
+                                is_token: true
+                                children: []
+                          - kind: Whitespace
+                            text: " "
+                            is_token: true
+                            children: []
+                          - kind: EqualityOperator
+                            text: "="
+                            is_token: true
+                            children: []
+                          - kind: Whitespace
+                            text: " "
+                            is_token: true
+                            children: []
+                          - kind: BooleanLiteralExpression
+                            text: "True"
+                            is_token: false
+                            children:
+                              - kind: TrueKeyword
+                                text: "True"
+                                is_token: true
+                                children: []
+                          - kind: Newline
+                            text: "\r\n"
+                            is_token: true
+                            children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
+                      - kind: Newline
+                        text: "\r\n"
+                        is_token: true
+                        children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
+                      - kind: EndOfLineComment
+                        text: "'Remember the current mouse location"
+                        is_token: true
+                        children: []
+                      - kind: Newline
+                        text: "\r\n"
+                        is_token: true
+                        children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
+                      - kind: AssignmentStatement
+                        text: "xStart = x\r\n"
+                        is_token: false
+                        children:
+                          - kind: IdentifierExpression
+                            text: xStart
+                            is_token: false
+                            children:
+                              - kind: Identifier
+                                text: xStart
+                                is_token: true
+                                children: []
+                          - kind: Whitespace
+                            text: " "
+                            is_token: true
+                            children: []
+                          - kind: EqualityOperator
+                            text: "="
+                            is_token: true
+                            children: []
+                          - kind: Whitespace
+                            text: " "
+                            is_token: true
+                            children: []
+                          - kind: IdentifierExpression
+                            text: x
+                            is_token: false
+                            children:
+                              - kind: Identifier
+                                text: x
+                                is_token: true
+                                children: []
+                          - kind: Newline
+                            text: "\r\n"
+                            is_token: true
+                            children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
+                      - kind: AssignmentStatement
+                        text: "yStart = y\r\n"
+                        is_token: false
+                        children:
+                          - kind: IdentifierExpression
+                            text: yStart
+                            is_token: false
+                            children:
+                              - kind: Identifier
+                                text: yStart
+                                is_token: true
+                                children: []
+                          - kind: Whitespace
+                            text: " "
+                            is_token: true
+                            children: []
+                          - kind: EqualityOperator
+                            text: "="
+                            is_token: true
+                            children: []
+                          - kind: Whitespace
+                            text: " "
+                            is_token: true
+                            children: []
+                          - kind: IdentifierExpression
+                            text: y
+                            is_token: false
+                            children:
+                              - kind: Identifier
+                                text: y
+                                is_token: true
+                                children: []
+                          - kind: Newline
+                            text: "\r\n"
+                            is_token: true
+                            children: []
+                      - kind: Whitespace
+                        text: "    "
+                        is_token: true
+                        children: []
+                      - kind: Newline
+                        text: "\r\n"
+                        is_token: true
+                        children: []
+                      - kind: Whitespace
+                        text: "    "
+                        is_token: true
+                        children: []
+                      - kind: EndOfLineComment
+                        text: "' If the right button..."
+                        is_token: true
+                        children: []
+                      - kind: Newline
+                        text: "\r\n"
+                        is_token: true
+                        children: []
+                      - kind: Whitespace
+                        text: "    "
+                        is_token: true
+                        children: []
+                  - kind: ElseIfClause
+                    text: "ElseIf Button = vbRightButton Then\r\n    \r\n        'Seed VB's random number generator\r\n        Randomize Timer\r\n        \r\n        'Set the picture box's .FillColor property to a random number\r\n        picDemo.FillColor = RGB(Int(Rnd * 255), Int(Rnd * 255), Int(Rnd * 255))\r\n        \r\n        'Use the API to fill this region\r\n        'Parameters: (picture box), (x coordinate), (y coordinate), (color being replaced), (fill method - always 1)\r\n        ExtFloodFill picDemo.hDC, x, y, picDemo.Point(x, y), 1\r\n        \r\n    "
+                    is_token: false
+                    children:
+                      - kind: ElseIfKeyword
+                        text: ElseIf
+                        is_token: true
+                        children: []
+                      - kind: Whitespace
+                        text: " "
+                        is_token: true
+                        children: []
+                      - kind: BinaryExpression
+                        text: Button = vbRightButton
+                        is_token: false
+                        children:
+                          - kind: IdentifierExpression
+                            text: Button
+                            is_token: false
+                            children:
+                              - kind: Identifier
+                                text: Button
+                                is_token: true
+                                children: []
+                          - kind: Whitespace
+                            text: " "
+                            is_token: true
+                            children: []
+                          - kind: EqualityOperator
+                            text: "="
+                            is_token: true
+                            children: []
+                          - kind: Whitespace
+                            text: " "
+                            is_token: true
+                            children: []
+                          - kind: IdentifierExpression
+                            text: vbRightButton
+                            is_token: false
+                            children:
+                              - kind: Identifier
+                                text: vbRightButton
+                                is_token: true
+                                children: []
+                      - kind: Whitespace
+                        text: " "
+                        is_token: true
+                        children: []
+                      - kind: ThenKeyword
+                        text: Then
+                        is_token: true
+                        children: []
+                      - kind: Newline
+                        text: "\r\n"
+                        is_token: true
+                        children: []
+                      - kind: CodeBlock
+                        text: "    \r\n        'Seed VB's random number generator\r\n        Randomize Timer\r\n        \r\n        'Set the picture box's .FillColor property to a random number\r\n        picDemo.FillColor = RGB(Int(Rnd * 255), Int(Rnd * 255), Int(Rnd * 255))\r\n        \r\n        'Use the API to fill this region\r\n        'Parameters: (picture box), (x coordinate), (y coordinate), (color being replaced), (fill method - always 1)\r\n        ExtFloodFill picDemo.hDC, x, y, picDemo.Point(x, y), 1\r\n        \r\n    "
+                        is_token: false
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                            is_token: true
+                            children: []
+                          - kind: Newline
+                            text: "\r\n"
+                            is_token: true
+                            children: []
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
+                          - kind: EndOfLineComment
+                            text: "'Seed VB's random number generator"
+                            is_token: true
+                            children: []
+                          - kind: Newline
+                            text: "\r\n"
+                            is_token: true
+                            children: []
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
+                          - kind: RandomizeStatement
+                            text: "Randomize Timer\r\n"
+                            is_token: false
+                            children:
+                              - kind: RandomizeKeyword
+                                text: Randomize
+                                is_token: true
+                                children: []
+                              - kind: Whitespace
+                                text: " "
+                                is_token: true
+                                children: []
+                              - kind: Identifier
+                                text: Timer
+                                is_token: true
+                                children: []
+                              - kind: Newline
+                                text: "\r\n"
+                                is_token: true
+                                children: []
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
+                          - kind: Newline
+                            text: "\r\n"
+                            is_token: true
+                            children: []
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
+                          - kind: EndOfLineComment
+                            text: "'Set the picture box's .FillColor property to a random number"
+                            is_token: true
+                            children: []
+                          - kind: Newline
+                            text: "\r\n"
+                            is_token: true
+                            children: []
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
+                          - kind: AssignmentStatement
+                            text: "picDemo.FillColor = RGB(Int(Rnd * 255), Int(Rnd * 255), Int(Rnd * 255))\r\n"
+                            is_token: false
+                            children:
+                              - kind: MemberAccessExpression
+                                text: picDemo.FillColor
+                                is_token: false
+                                children:
+                                  - kind: Identifier
+                                    text: picDemo
+                                    is_token: true
+                                    children: []
+                                  - kind: PeriodOperator
+                                    text: "."
+                                    is_token: true
+                                    children: []
+                                  - kind: Identifier
+                                    text: FillColor
+                                    is_token: true
+                                    children: []
+                              - kind: Whitespace
+                                text: " "
+                                is_token: true
+                                children: []
+                              - kind: EqualityOperator
+                                text: "="
+                                is_token: true
+                                children: []
+                              - kind: Whitespace
+                                text: " "
+                                is_token: true
+                                children: []
+                              - kind: CallExpression
+                                text: "RGB(Int(Rnd * 255), Int(Rnd * 255), Int(Rnd * 255))"
+                                is_token: false
+                                children:
+                                  - kind: Identifier
+                                    text: RGB
+                                    is_token: true
+                                    children: []
+                                  - kind: LeftParenthesis
+                                    text: (
+                                    is_token: true
+                                    children: []
+                                  - kind: ArgumentList
+                                    text: "Int(Rnd * 255), Int(Rnd * 255), Int(Rnd * 255)"
+                                    is_token: false
+                                    children:
+                                      - kind: Argument
+                                        text: Int(Rnd * 255)
+                                        is_token: false
+                                        children:
+                                          - kind: CallExpression
+                                            text: Int(Rnd * 255)
+                                            is_token: false
+                                            children:
+                                              - kind: Identifier
+                                                text: Int
+                                                is_token: true
+                                                children: []
+                                              - kind: LeftParenthesis
+                                                text: (
+                                                is_token: true
+                                                children: []
+                                              - kind: ArgumentList
+                                                text: Rnd * 255
+                                                is_token: false
+                                                children:
+                                                  - kind: Argument
+                                                    text: Rnd * 255
+                                                    is_token: false
+                                                    children:
+                                                      - kind: BinaryExpression
+                                                        text: Rnd * 255
+                                                        is_token: false
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            text: Rnd
+                                                            is_token: false
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: Rnd
+                                                                is_token: true
+                                                                children: []
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                            is_token: true
+                                                            children: []
+                                                          - kind: MultiplicationOperator
+                                                            text: "*"
+                                                            is_token: true
+                                                            children: []
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                            is_token: true
+                                                            children: []
+                                                          - kind: NumericLiteralExpression
+                                                            text: "255"
+                                                            is_token: false
+                                                            children:
+                                                              - kind: IntegerLiteral
+                                                                text: "255"
+                                                                is_token: true
+                                                                children: []
+                                              - kind: RightParenthesis
+                                                text: )
+                                                is_token: true
+                                                children: []
+                                      - kind: Comma
+                                        text: ","
+                                        is_token: true
+                                        children: []
+                                      - kind: Whitespace
+                                        text: " "
+                                        is_token: true
+                                        children: []
+                                      - kind: Argument
+                                        text: Int(Rnd * 255)
+                                        is_token: false
+                                        children:
+                                          - kind: CallExpression
+                                            text: Int(Rnd * 255)
+                                            is_token: false
+                                            children:
+                                              - kind: Identifier
+                                                text: Int
+                                                is_token: true
+                                                children: []
+                                              - kind: LeftParenthesis
+                                                text: (
+                                                is_token: true
+                                                children: []
+                                              - kind: ArgumentList
+                                                text: Rnd * 255
+                                                is_token: false
+                                                children:
+                                                  - kind: Argument
+                                                    text: Rnd * 255
+                                                    is_token: false
+                                                    children:
+                                                      - kind: BinaryExpression
+                                                        text: Rnd * 255
+                                                        is_token: false
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            text: Rnd
+                                                            is_token: false
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: Rnd
+                                                                is_token: true
+                                                                children: []
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                            is_token: true
+                                                            children: []
+                                                          - kind: MultiplicationOperator
+                                                            text: "*"
+                                                            is_token: true
+                                                            children: []
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                            is_token: true
+                                                            children: []
+                                                          - kind: NumericLiteralExpression
+                                                            text: "255"
+                                                            is_token: false
+                                                            children:
+                                                              - kind: IntegerLiteral
+                                                                text: "255"
+                                                                is_token: true
+                                                                children: []
+                                              - kind: RightParenthesis
+                                                text: )
+                                                is_token: true
+                                                children: []
+                                      - kind: Comma
+                                        text: ","
+                                        is_token: true
+                                        children: []
+                                      - kind: Whitespace
+                                        text: " "
+                                        is_token: true
+                                        children: []
+                                      - kind: Argument
+                                        text: Int(Rnd * 255)
+                                        is_token: false
+                                        children:
+                                          - kind: CallExpression
+                                            text: Int(Rnd * 255)
+                                            is_token: false
+                                            children:
+                                              - kind: Identifier
+                                                text: Int
+                                                is_token: true
+                                                children: []
+                                              - kind: LeftParenthesis
+                                                text: (
+                                                is_token: true
+                                                children: []
+                                              - kind: ArgumentList
+                                                text: Rnd * 255
+                                                is_token: false
+                                                children:
+                                                  - kind: Argument
+                                                    text: Rnd * 255
+                                                    is_token: false
+                                                    children:
+                                                      - kind: BinaryExpression
+                                                        text: Rnd * 255
+                                                        is_token: false
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            text: Rnd
+                                                            is_token: false
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: Rnd
+                                                                is_token: true
+                                                                children: []
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                            is_token: true
+                                                            children: []
+                                                          - kind: MultiplicationOperator
+                                                            text: "*"
+                                                            is_token: true
+                                                            children: []
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                            is_token: true
+                                                            children: []
+                                                          - kind: NumericLiteralExpression
+                                                            text: "255"
+                                                            is_token: false
+                                                            children:
+                                                              - kind: IntegerLiteral
+                                                                text: "255"
+                                                                is_token: true
+                                                                children: []
+                                              - kind: RightParenthesis
+                                                text: )
+                                                is_token: true
+                                                children: []
+                                  - kind: RightParenthesis
+                                    text: )
+                                    is_token: true
+                                    children: []
+                              - kind: Newline
+                                text: "\r\n"
+                                is_token: true
+                                children: []
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
+                          - kind: Newline
+                            text: "\r\n"
+                            is_token: true
+                            children: []
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
+                          - kind: EndOfLineComment
+                            text: "'Use the API to fill this region"
+                            is_token: true
+                            children: []
+                          - kind: Newline
+                            text: "\r\n"
+                            is_token: true
+                            children: []
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
+                          - kind: EndOfLineComment
+                            text: "'Parameters: (picture box), (x coordinate), (y coordinate), (color being replaced), (fill method - always 1)"
+                            is_token: true
+                            children: []
+                          - kind: Newline
+                            text: "\r\n"
+                            is_token: true
+                            children: []
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
+                          - kind: CallStatement
+                            text: "ExtFloodFill picDemo.hDC, x, y, picDemo.Point(x, y), 1\r\n"
+                            is_token: false
+                            children:
+                              - kind: Identifier
+                                text: ExtFloodFill
+                                is_token: true
+                                children: []
+                              - kind: Whitespace
+                                text: " "
+                                is_token: true
+                                children: []
+                              - kind: Identifier
+                                text: picDemo
+                                is_token: true
+                                children: []
+                              - kind: PeriodOperator
+                                text: "."
+                                is_token: true
+                                children: []
+                              - kind: Identifier
+                                text: hDC
+                                is_token: true
+                                children: []
+                              - kind: Comma
+                                text: ","
+                                is_token: true
+                                children: []
+                              - kind: Whitespace
+                                text: " "
+                                is_token: true
+                                children: []
+                              - kind: Identifier
+                                text: x
+                                is_token: true
+                                children: []
+                              - kind: Comma
+                                text: ","
+                                is_token: true
+                                children: []
+                              - kind: Whitespace
+                                text: " "
+                                is_token: true
+                                children: []
+                              - kind: Identifier
+                                text: y
+                                is_token: true
+                                children: []
+                              - kind: Comma
+                                text: ","
+                                is_token: true
+                                children: []
+                              - kind: Whitespace
+                                text: " "
+                                is_token: true
+                                children: []
+                              - kind: Identifier
+                                text: picDemo
+                                is_token: true
+                                children: []
+                              - kind: PeriodOperator
+                                text: "."
+                                is_token: true
+                                children: []
+                              - kind: Identifier
+                                text: Point
+                                is_token: true
+                                children: []
+                              - kind: LeftParenthesis
+                                text: (
+                                is_token: true
+                                children: []
+                              - kind: Identifier
+                                text: x
+                                is_token: true
+                                children: []
+                              - kind: Comma
+                                text: ","
+                                is_token: true
+                                children: []
+                              - kind: Whitespace
+                                text: " "
+                                is_token: true
+                                children: []
+                              - kind: Identifier
+                                text: y
+                                is_token: true
+                                children: []
+                              - kind: RightParenthesis
+                                text: )
+                                is_token: true
+                                children: []
+                              - kind: Comma
+                                text: ","
+                                is_token: true
+                                children: []
+                              - kind: Whitespace
+                                text: " "
+                                is_token: true
+                                children: []
+                              - kind: IntegerLiteral
+                                text: "1"
+                                is_token: true
+                                children: []
+                              - kind: Newline
+                                text: "\r\n"
+                                is_token: true
+                                children: []
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
+                          - kind: Newline
+                            text: "\r\n"
+                            is_token: true
+                            children: []
+                          - kind: Whitespace
+                            text: "    "
+                            is_token: true
+                            children: []
+                  - kind: EndKeyword
+                    text: End
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: IfKeyword
+                    text: If
+                    is_token: true
+                    children: []
+                  - kind: Newline
+                    text: "\r\n"
+                    is_token: true
+                    children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+          - kind: EndKeyword
+            text: End
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: SubKeyword
+            text: Sub
+            is_token: true
+            children: []
+          - kind: Newline
+            text: "\r\n"
+            is_token: true
+            children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'When the mouse is moved..."
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: SubStatement
+        text: "Private Sub picDemo_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)\r\n\r\n    'If drawing is enabled (meaning the left mouse button has previously been pressed),\r\n    ' draw a line between the old x coordinate and the current one\r\n    If toDraw Then\r\n    \r\n        'Use VB's line function to draw the line\r\n        picDemo.Line (xStart, yStart)-(x, y)\r\n        \r\n        'Replace the old xStart and yStart variables with the current location of the mouse\r\n        xStart = x\r\n        yStart = y\r\n        \r\n    End If\r\n    \r\nEnd Sub\r\n"
+        is_token: false
+        children:
+          - kind: PrivateKeyword
+            text: Private
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: SubKeyword
+            text: Sub
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: picDemo_MouseMove
+            is_token: true
+            children: []
+          - kind: ParameterList
+            text: "(Button As Integer, Shift As Integer, x As Single, y As Single)"
+            is_token: false
+            children:
+              - kind: LeftParenthesis
+                text: (
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: Button
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: IntegerKeyword
+                text: Integer
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: Shift
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: IntegerKeyword
+                text: Integer
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: x
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: SingleKeyword
+                text: Single
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: y
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: SingleKeyword
+                text: Single
+                is_token: true
+                children: []
+              - kind: RightParenthesis
+                text: )
+                is_token: true
+                children: []
+          - kind: Newline
+            text: "\r\n"
+            is_token: true
+            children: []
+          - kind: CodeBlock
+            text: "\r\n    'If drawing is enabled (meaning the left mouse button has previously been pressed),\r\n    ' draw a line between the old x coordinate and the current one\r\n    If toDraw Then\r\n    \r\n        'Use VB's line function to draw the line\r\n        picDemo.Line (xStart, yStart)-(x, y)\r\n        \r\n        'Replace the old xStart and yStart variables with the current location of the mouse\r\n        xStart = x\r\n        yStart = y\r\n        \r\n    End If\r\n    \r\n"
+            is_token: false
+            children:
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: EndOfLineComment
+                text: "'If drawing is enabled (meaning the left mouse button has previously been pressed),"
+                is_token: true
+                children: []
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: EndOfLineComment
+                text: "' draw a line between the old x coordinate and the current one"
+                is_token: true
+                children: []
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: IfStatement
+                text: "If toDraw Then\r\n    \r\n        'Use VB's line function to draw the line\r\n        picDemo.Line (xStart, yStart)-(x, y)\r\n        \r\n        'Replace the old xStart and yStart variables with the current location of the mouse\r\n        xStart = x\r\n        yStart = y\r\n        \r\n    End If\r\n"
+                is_token: false
+                children:
+                  - kind: IfKeyword
+                    text: If
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: IdentifierExpression
+                    text: toDraw
+                    is_token: false
+                    children:
+                      - kind: Identifier
+                        text: toDraw
+                        is_token: true
+                        children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: ThenKeyword
+                    text: Then
+                    is_token: true
+                    children: []
+                  - kind: Newline
+                    text: "\r\n"
+                    is_token: true
+                    children: []
+                  - kind: CodeBlock
+                    text: "    \r\n        'Use VB's line function to draw the line\r\n        picDemo.Line (xStart, yStart)-(x, y)\r\n        \r\n        'Replace the old xStart and yStart variables with the current location of the mouse\r\n        xStart = x\r\n        yStart = y\r\n        \r\n    "
+                    is_token: false
+                    children:
+                      - kind: Whitespace
+                        text: "    "
+                        is_token: true
+                        children: []
+                      - kind: Newline
+                        text: "\r\n"
+                        is_token: true
+                        children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
+                      - kind: EndOfLineComment
+                        text: "'Use VB's line function to draw the line"
+                        is_token: true
+                        children: []
+                      - kind: Newline
+                        text: "\r\n"
+                        is_token: true
+                        children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
+                      - kind: CallStatement
+                        text: "picDemo.Line (xStart, yStart)-(x, y)\r\n"
+                        is_token: false
+                        children:
+                          - kind: Identifier
+                            text: picDemo
+                            is_token: true
+                            children: []
+                          - kind: PeriodOperator
+                            text: "."
+                            is_token: true
+                            children: []
+                          - kind: LineKeyword
+                            text: Line
+                            is_token: true
+                            children: []
+                          - kind: Whitespace
+                            text: " "
+                            is_token: true
+                            children: []
+                          - kind: LeftParenthesis
+                            text: (
+                            is_token: true
+                            children: []
+                          - kind: Identifier
+                            text: xStart
+                            is_token: true
+                            children: []
+                          - kind: Comma
+                            text: ","
+                            is_token: true
+                            children: []
+                          - kind: Whitespace
+                            text: " "
+                            is_token: true
+                            children: []
+                          - kind: Identifier
+                            text: yStart
+                            is_token: true
+                            children: []
+                          - kind: RightParenthesis
+                            text: )
+                            is_token: true
+                            children: []
+                          - kind: SubtractionOperator
+                            text: "-"
+                            is_token: true
+                            children: []
+                          - kind: LeftParenthesis
+                            text: (
+                            is_token: true
+                            children: []
+                          - kind: Identifier
+                            text: x
+                            is_token: true
+                            children: []
+                          - kind: Comma
+                            text: ","
+                            is_token: true
+                            children: []
+                          - kind: Whitespace
+                            text: " "
+                            is_token: true
+                            children: []
+                          - kind: Identifier
+                            text: y
+                            is_token: true
+                            children: []
+                          - kind: RightParenthesis
+                            text: )
+                            is_token: true
+                            children: []
+                          - kind: Newline
+                            text: "\r\n"
+                            is_token: true
+                            children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
+                      - kind: Newline
+                        text: "\r\n"
+                        is_token: true
+                        children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
+                      - kind: EndOfLineComment
+                        text: "'Replace the old xStart and yStart variables with the current location of the mouse"
+                        is_token: true
+                        children: []
+                      - kind: Newline
+                        text: "\r\n"
+                        is_token: true
+                        children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
+                      - kind: AssignmentStatement
+                        text: "xStart = x\r\n"
+                        is_token: false
+                        children:
+                          - kind: IdentifierExpression
+                            text: xStart
+                            is_token: false
+                            children:
+                              - kind: Identifier
+                                text: xStart
+                                is_token: true
+                                children: []
+                          - kind: Whitespace
+                            text: " "
+                            is_token: true
+                            children: []
+                          - kind: EqualityOperator
+                            text: "="
+                            is_token: true
+                            children: []
+                          - kind: Whitespace
+                            text: " "
+                            is_token: true
+                            children: []
+                          - kind: IdentifierExpression
+                            text: x
+                            is_token: false
+                            children:
+                              - kind: Identifier
+                                text: x
+                                is_token: true
+                                children: []
+                          - kind: Newline
+                            text: "\r\n"
+                            is_token: true
+                            children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
+                      - kind: AssignmentStatement
+                        text: "yStart = y\r\n"
+                        is_token: false
+                        children:
+                          - kind: IdentifierExpression
+                            text: yStart
+                            is_token: false
+                            children:
+                              - kind: Identifier
+                                text: yStart
+                                is_token: true
+                                children: []
+                          - kind: Whitespace
+                            text: " "
+                            is_token: true
+                            children: []
+                          - kind: EqualityOperator
+                            text: "="
+                            is_token: true
+                            children: []
+                          - kind: Whitespace
+                            text: " "
+                            is_token: true
+                            children: []
+                          - kind: IdentifierExpression
+                            text: y
+                            is_token: false
+                            children:
+                              - kind: Identifier
+                                text: y
+                                is_token: true
+                                children: []
+                          - kind: Newline
+                            text: "\r\n"
+                            is_token: true
+                            children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
+                      - kind: Newline
+                        text: "\r\n"
+                        is_token: true
+                        children: []
+                      - kind: Whitespace
+                        text: "    "
+                        is_token: true
+                        children: []
+                  - kind: EndKeyword
+                    text: End
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: IfKeyword
+                    text: If
+                    is_token: true
+                    children: []
+                  - kind: Newline
+                    text: "\r\n"
+                    is_token: true
+                    children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+          - kind: EndKeyword
+            text: End
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: SubKeyword
+            text: Sub
+            is_token: true
+            children: []
+          - kind: Newline
+            text: "\r\n"
+            is_token: true
+            children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'When a mouse button is released..."
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: SubStatement
+        text: "Private Sub picDemo_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)\r\n    \r\n    'Disable drawing\r\n    toDraw = False\r\n    \r\nEnd Sub\r\n"
+        is_token: false
+        children:
+          - kind: PrivateKeyword
+            text: Private
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: SubKeyword
+            text: Sub
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: picDemo_MouseUp
+            is_token: true
+            children: []
+          - kind: ParameterList
+            text: "(Button As Integer, Shift As Integer, x As Single, y As Single)"
+            is_token: false
+            children:
+              - kind: LeftParenthesis
+                text: (
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: Button
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: IntegerKeyword
+                text: Integer
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: Shift
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: IntegerKeyword
+                text: Integer
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: x
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: SingleKeyword
+                text: Single
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: y
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: SingleKeyword
+                text: Single
+                is_token: true
+                children: []
+              - kind: RightParenthesis
+                text: )
+                is_token: true
+                children: []
+          - kind: Newline
+            text: "\r\n"
+            is_token: true
+            children: []
+          - kind: CodeBlock
+            text: "    \r\n    'Disable drawing\r\n    toDraw = False\r\n    \r\n"
+            is_token: false
+            children:
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: EndOfLineComment
+                text: "'Disable drawing"
+                is_token: true
+                children: []
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: AssignmentStatement
+                text: "toDraw = False\r\n"
+                is_token: false
+                children:
+                  - kind: IdentifierExpression
+                    text: toDraw
+                    is_token: false
+                    children:
+                      - kind: Identifier
+                        text: toDraw
+                        is_token: true
+                        children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: EqualityOperator
+                    text: "="
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: BooleanLiteralExpression
+                    text: "False"
+                    is_token: false
+                    children:
+                      - kind: FalseKeyword
+                        text: "False"
+                        is_token: true
+                        children: []
+                  - kind: Newline
+                    text: "\r\n"
+                    is_token: true
+                    children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+          - kind: EndKeyword
+            text: End
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: SubKeyword
+            text: Sub
+            is_token: true
+            children: []
+          - kind: Newline
+            text: "\r\n"
+            is_token: true
+            children: []

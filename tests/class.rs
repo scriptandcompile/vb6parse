@@ -12,7 +12,7 @@ fn artificial_life_organism_class_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = VB6ClassFile::parse(&source_file);
+    let result = ClassFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -39,7 +39,7 @@ fn blacklight_effect_class_load() {
         Err(e) => panic!("Failed to decode source file '{file_path1}': {e:?}"),
     };
 
-    let result1 = VB6ClassFile::parse(&source_file1);
+    let result1 = ClassFile::parse(&source_file1);
 
     if result1.has_failures() {
         for failure in result1.failures {
@@ -63,7 +63,7 @@ fn blacklight_effect_class_load() {
         Err(e) => panic!("Failed to decode source file '{file_path2}': {e:?}"),
     };
 
-    let result2 = VB6ClassFile::parse(&source_file2);
+    let result2 = ClassFile::parse(&source_file2);
 
     if result2.has_failures() {
         for failure in result2.failures {
@@ -90,7 +90,7 @@ fn gradient_2d_class_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = VB6ClassFile::parse(&source_file);
+    let result = ClassFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -117,7 +117,7 @@ fn hidden_markov_model_class_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = VB6ClassFile::parse(&source_file);
+    let result = ClassFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {

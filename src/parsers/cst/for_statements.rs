@@ -6,7 +6,7 @@
 //! - Step clauses
 //! - Nested loops
 
-use crate::language::VB6Token;
+use crate::language::Token;
 use crate::parsers::SyntaxKind;
 
 use super::Parser;
@@ -33,7 +33,7 @@ impl Parser<'_> {
         self.consume_whitespace();
 
         // Consume "="
-        if self.at_token(VB6Token::EqualityOperator) {
+        if self.at_token(Token::EqualityOperator) {
             self.consume_token();
         }
 
@@ -45,7 +45,7 @@ impl Parser<'_> {
         self.consume_whitespace();
 
         // Consume "To" keyword if present
-        if self.at_token(VB6Token::ToKeyword) {
+        if self.at_token(Token::ToKeyword) {
             self.consume_token();
 
             self.consume_whitespace();
@@ -56,7 +56,7 @@ impl Parser<'_> {
             self.consume_whitespace();
 
             // Consume "Step" keyword if present
-            if self.at_token(VB6Token::StepKeyword) {
+            if self.at_token(Token::StepKeyword) {
                 self.consume_token();
 
                 self.consume_whitespace();
@@ -67,17 +67,17 @@ impl Parser<'_> {
         }
 
         // Consume newline after For line
-        self.consume_until_after(VB6Token::Newline);
+        self.consume_until_after(Token::Newline);
 
         // Parse the loop body until "Next"
-        self.parse_code_block(|parser| parser.at_token(VB6Token::NextKeyword));
+        self.parse_code_block(|parser| parser.at_token(Token::NextKeyword));
 
         // Consume "Next" keyword
-        if self.at_token(VB6Token::NextKeyword) {
+        if self.at_token(Token::NextKeyword) {
             self.consume_token();
 
             // Consume everything until newline (optional counter variable)
-            self.consume_until_after(VB6Token::Newline);
+            self.consume_until_after(Token::Newline);
         }
 
         self.builder.finish_node(); // ForStatement
@@ -103,39 +103,39 @@ impl Parser<'_> {
         self.consume_whitespace();
 
         // Consume "Each" keyword
-        if self.at_token(VB6Token::EachKeyword) {
+        if self.at_token(Token::EachKeyword) {
             self.consume_token();
         }
 
         // Consume everything until "In" or newline
         // This includes: element variable name and whitespace
         while !self.is_at_end()
-            && !self.at_token(VB6Token::InKeyword)
-            && !self.at_token(VB6Token::Newline)
+            && !self.at_token(Token::InKeyword)
+            && !self.at_token(Token::Newline)
         {
             self.consume_token();
         }
 
         // Consume "In" keyword if present
-        if self.at_token(VB6Token::InKeyword) {
+        if self.at_token(Token::InKeyword) {
             self.consume_token();
 
             // Consume everything until newline (the collection)
-            self.consume_until(VB6Token::Newline);
+            self.consume_until(Token::Newline);
         }
 
         // Consume newline after For Each line
-        self.consume_until_after(VB6Token::Newline);
+        self.consume_until_after(Token::Newline);
 
         // Parse the loop body until "Next"
-        self.parse_code_block(|parser| parser.at_token(VB6Token::NextKeyword));
+        self.parse_code_block(|parser| parser.at_token(Token::NextKeyword));
 
         // Consume "Next" keyword
-        if self.at_token(VB6Token::NextKeyword) {
+        if self.at_token(Token::NextKeyword) {
             self.consume_token();
 
             // Consume everything until newline (optional element variable)
-            self.consume_until_after(VB6Token::Newline);
+            self.consume_until_after(Token::Newline);
         }
 
         self.builder.finish_node(); // ForEachStatement

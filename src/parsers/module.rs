@@ -1,21 +1,25 @@
 use crate::{
-    errors::VB6ModuleErrorKind, parsers::ParseResult, sourcefile::SourceFile,
-    sourcestream::Comparator, tokenize::tokenize, tokenstream::TokenStream,
+    errors::ModuleErrorKind,
+    parsers::{cst::serialize_cst, cst::ConcreteSyntaxTree, ParseResult},
+    sourcefile::SourceFile,
+    sourcestream::Comparator,
+    tokenize::tokenize,
 };
 
 use serde::Serialize;
 
 /// Represents a VB6 module file.
-/// A VB6 module files contain a header and a list of tokens.
+/// A VB6 module file contains a header and a concrete syntax tree.
 ///
-/// The tokens contain the token stream of the code of the class file.
+/// The CST contains the parsed structure of the module code.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
-pub struct VB6ModuleFile<'a> {
-    pub name: &'a [u8], // Attribute VB_Name = "Module1"
-    pub tokens: TokenStream<'a>,
+pub struct ModuleFile {
+    pub name: String, // Attribute VB_Name = "Module1"
+    #[serde(serialize_with = "serialize_cst")]
+    pub cst: ConcreteSyntaxTree,
 }
 
-impl<'a> VB6ModuleFile<'a> {
+impl ModuleFile {
     /// Parses a VB6 module file from a byte slice.
     ///
     /// # Arguments
@@ -54,7 +58,7 @@ impl<'a> VB6ModuleFile<'a> {
     ///     }
     /// };
     ///
-    /// let result = VB6ModuleFile::parse(&source_file);
+    /// let result = ModuleFile::parse(&source_file);
     ///
     /// if result.has_failures() {
     ///     for failure in result.failures {
@@ -65,13 +69,11 @@ impl<'a> VB6ModuleFile<'a> {
     ///
     /// let module_file = result.unwrap();
     ///
-    /// assert_eq!(module_file.name, "Module1".as_bytes());
-    /// assert_eq!(module_file.tokens.len(), 25);
+    /// assert_eq!(module_file.name, "Module1");
+    /// assert!(module_file.cst.child_count() > 0);
     /// ```
     #[must_use]
-    pub fn parse(
-        source_file: &'a SourceFile,
-    ) -> ParseResult<'a, VB6ModuleFile<'a>, VB6ModuleErrorKind> {
+    pub fn parse(source_file: &SourceFile) -> ParseResult<'_, ModuleFile, ModuleErrorKind> {
         let mut failures = vec![];
         let mut input = source_file.get_source_stream();
 
@@ -85,21 +87,21 @@ impl<'a> VB6ModuleFile<'a> {
             .take("Attribute", Comparator::CaseInsensitive)
             .is_none()
         {
-            let error = input.generate_error(VB6ModuleErrorKind::AttributeKeywordMissing);
+            let error = input.generate_error(ModuleErrorKind::AttributeKeywordMissing);
             failures.push(error);
         }
 
         // Eat however many spaces sits between the attribute and the VB_Name keyword. It doesn't matter how many
         // whitespaces it has as long as we have at least one.
         if input.take_ascii_whitespaces().is_none() {
-            let error = input.generate_error(VB6ModuleErrorKind::MissingWhitespaceInHeader);
+            let error = input.generate_error(ModuleErrorKind::MissingWhitespaceInHeader);
             failures.push(error);
         }
 
         // Grab the attribute VB_Name keyword. If we don't find it, we should output an error
         // but keep trying to read on.
         if input.take("VB_Name", Comparator::CaseInsensitive).is_none() {
-            let error = input.generate_error(VB6ModuleErrorKind::VBNameAttributeMissing);
+            let error = input.generate_error(ModuleErrorKind::VBNameAttributeMissing);
             failures.push(error);
         }
 
@@ -110,7 +112,7 @@ impl<'a> VB6ModuleFile<'a> {
         // Grab the equality symbol. If we don't find it, we should output an error
         // but keep trying to read on.
         if input.take("=", Comparator::CaseInsensitive).is_none() {
-            let error = input.generate_error(VB6ModuleErrorKind::EqualMissing);
+            let error = input.generate_error(ModuleErrorKind::EqualMissing);
             failures.push(error);
         }
 
@@ -121,7 +123,7 @@ impl<'a> VB6ModuleFile<'a> {
         // Grab the quote symbol. If we don't find it, we should output an error
         // but keep trying to read on.
         if input.take("\"", Comparator::CaseInsensitive).is_none() {
-            let error = input.generate_error(VB6ModuleErrorKind::VBNameAttributeValueUnquoted);
+            let error = input.generate_error(ModuleErrorKind::VBNameAttributeValueUnquoted);
             failures.push(error);
         }
 
@@ -129,18 +131,8 @@ impl<'a> VB6ModuleFile<'a> {
             None => {
                 // Well, it looks like we don't have a quoted value even if it might have a single quote at the start.
                 let Some((vb_name_value, _)) = input.take_until_newline() else {
-                    let error =
-                        input.generate_error(VB6ModuleErrorKind::VBNameAttributeValueUnquoted);
+                    let error = input.generate_error(ModuleErrorKind::VBNameAttributeValueUnquoted);
                     failures.push(error);
-
-                    let parse_result = tokenize(&mut input);
-
-                    if parse_result.has_failures() {
-                        for failure in parse_result.failures {
-                            failures.push(failure.into());
-                        }
-                    }
-                    input.take_newline();
 
                     return ParseResult {
                         result: None,
@@ -148,26 +140,27 @@ impl<'a> VB6ModuleFile<'a> {
                     };
                 };
 
-                // Move back to the start of the source file to re-tokenize the entire content.
-                // We want to include the attribute line in the token stream.
-                input.reset_to_start();
+                // Parse the entire source file as CST
+                let mut stream = source_file.get_source_stream();
+                let token_result = tokenize(&mut stream);
 
-                let parse_result = tokenize(&mut input);
-
-                if parse_result.has_failures() {
-                    for failure in parse_result.failures {
+                if token_result.has_failures() {
+                    for failure in token_result.failures {
                         failures.push(failure.into());
                     }
                 }
 
-                match parse_result.result {
-                    Some(tokens) => ParseResult {
-                        result: Some(VB6ModuleFile {
-                            name: vb_name_value.as_bytes(),
-                            tokens,
-                        }),
-                        failures,
-                    },
+                match token_result.result {
+                    Some(tokens) => {
+                        let cst = crate::parsers::cst::parse(tokens);
+                        ParseResult {
+                            result: Some(ModuleFile {
+                                name: vb_name_value.to_string(),
+                                cst,
+                            }),
+                            failures,
+                        }
+                    }
                     None => ParseResult {
                         result: None,
                         failures,
@@ -183,23 +176,26 @@ impl<'a> VB6ModuleFile<'a> {
                 let _ = input.take_newline();
 
                 // Looks like we have a fully quoted value.
+                // Parse the remaining source file as CST
+                let token_result = tokenize(&mut input);
 
-                let parse_result = tokenize(&mut input);
-
-                if parse_result.has_failures() {
-                    for failure in parse_result.failures {
+                if token_result.has_failures() {
+                    for failure in token_result.failures {
                         failures.push(failure.into());
                     }
                 }
 
-                match parse_result.result {
-                    Some(tokens) => ParseResult {
-                        result: Some(VB6ModuleFile {
-                            name: vb_name_value.as_bytes(),
-                            tokens,
-                        }),
-                        failures,
-                    },
+                match token_result.result {
+                    Some(tokens) => {
+                        let cst = crate::parsers::cst::parse(tokens);
+                        ParseResult {
+                            result: Some(ModuleFile {
+                                name: vb_name_value.to_string(),
+                                cst,
+                            }),
+                            failures,
+                        }
+                    }
                     None => ParseResult {
                         result: None,
                         failures,

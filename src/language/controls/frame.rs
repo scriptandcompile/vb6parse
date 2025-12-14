@@ -1,45 +1,44 @@
 use crate::{
     language::{
-        color::VB6Color,
+        color::Color,
         controls::{
             Activation, Appearance, BorderStyle, ClipControls, DragMode, MousePointer, OLEDropMode,
-            TextDirection, Visibility,
+            ReferenceOrValue, TextDirection, Visibility,
         },
         VB_BUTTON_FACE, VB_BUTTON_TEXT,
     },
     parsers::Properties,
 };
 
-use bstr::BString;
 use image::DynamicImage;
 use serde::Serialize;
 
 /// Properties for a `Frame` control.
 ///
 /// This is used as an enum variant of
-/// [`VB6ControlKind::Frame`](crate::language::controls::VB6ControlKind::Frame).
+/// [`ControlKind::Frame`](crate::language::controls::ControlKind::Frame).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
+/// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct FrameProperties {
     pub appearance: Appearance,
-    pub back_color: VB6Color,
+    pub back_color: Color,
     pub border_style: BorderStyle,
-    pub caption: BString,
+    pub caption: String,
     pub clip_controls: ClipControls,
-    pub drag_icon: Option<DynamicImage>,
+    pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
     pub drag_mode: DragMode,
     pub enabled: Activation,
-    pub fore_color: VB6Color,
+    pub fore_color: Color,
     pub height: i32,
     pub help_context_id: i32,
     pub left: i32,
-    pub mouse_icon: Option<DynamicImage>,
+    pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
     pub mouse_pointer: MousePointer,
     pub ole_drop_mode: OLEDropMode,
     pub right_to_left: TextDirection,
     pub tab_index: i32,
-    pub tool_tip_text: BString,
+    pub tool_tip_text: String,
     pub top: i32,
     pub visible: Visibility,
     pub whats_this_help_id: i32,
@@ -52,7 +51,7 @@ impl Default for FrameProperties {
             appearance: Appearance::ThreeD,
             back_color: VB_BUTTON_FACE,
             border_style: BorderStyle::FixedSingle,
-            caption: BString::from("Frame1"),
+            caption: String::from("Frame1"),
             clip_controls: ClipControls::Clipped,
             drag_icon: None,
             drag_mode: DragMode::Manual,
@@ -66,7 +65,7 @@ impl Default for FrameProperties {
             ole_drop_mode: OLEDropMode::default(),
             right_to_left: TextDirection::LeftToRight,
             tab_index: 0,
-            tool_tip_text: BString::from(""),
+            tool_tip_text: String::from(""),
             top: 30,
             visible: Visibility::Visible,
             whats_this_help_id: 0,
@@ -117,48 +116,43 @@ impl Serialize for FrameProperties {
     }
 }
 
-impl<'a> From<Properties<'a>> for FrameProperties {
-    fn from(prop: Properties<'a>) -> Self {
+impl From<Properties> for FrameProperties {
+    fn from(prop: Properties) -> Self {
         let mut frame_prop = FrameProperties::default();
 
-        frame_prop.appearance = prop.get_property(b"Appearance".into(), frame_prop.appearance);
-        frame_prop.back_color = prop.get_color(b"BackColor".into(), frame_prop.back_color);
-        frame_prop.border_style = prop.get_property(b"BorderStyle".into(), frame_prop.border_style);
-        frame_prop.caption = match prop.get(b"Caption".into()) {
+        frame_prop.appearance = prop.get_property("Appearance", frame_prop.appearance);
+        frame_prop.back_color = prop.get_color("BackColor", frame_prop.back_color);
+        frame_prop.border_style = prop.get_property("BorderStyle", frame_prop.border_style);
+        frame_prop.caption = match prop.get("Caption") {
             Some(caption) => caption.into(),
             None => frame_prop.caption,
         };
-        frame_prop.clip_controls =
-            prop.get_property(b"ClipControls".into(), frame_prop.clip_controls);
+        frame_prop.clip_controls = prop.get_property("ClipControls", frame_prop.clip_controls);
 
         // drag_icon
 
-        frame_prop.drag_mode = prop.get_property(b"DragMode".into(), frame_prop.drag_mode);
-        frame_prop.enabled = prop.get_property(b"Enabled".into(), frame_prop.enabled);
-        frame_prop.fore_color = prop.get_color(b"ForeColor".into(), frame_prop.fore_color);
-        frame_prop.height = prop.get_i32(b"Height".into(), frame_prop.height);
-        frame_prop.help_context_id =
-            prop.get_i32(b"HelpContextID".into(), frame_prop.help_context_id);
-        frame_prop.left = prop.get_i32(b"Left".into(), frame_prop.left);
+        frame_prop.drag_mode = prop.get_property("DragMode", frame_prop.drag_mode);
+        frame_prop.enabled = prop.get_property("Enabled", frame_prop.enabled);
+        frame_prop.fore_color = prop.get_color("ForeColor", frame_prop.fore_color);
+        frame_prop.height = prop.get_i32("Height", frame_prop.height);
+        frame_prop.help_context_id = prop.get_i32("HelpContextID", frame_prop.help_context_id);
+        frame_prop.left = prop.get_i32("Left", frame_prop.left);
 
         // Implement mouse_icon
 
-        frame_prop.mouse_pointer =
-            prop.get_property(b"MousePointer".into(), frame_prop.mouse_pointer);
-        frame_prop.ole_drop_mode =
-            prop.get_property(b"OLEDropMode".into(), frame_prop.ole_drop_mode);
-        frame_prop.right_to_left =
-            prop.get_property(b"RightToLeft".into(), frame_prop.right_to_left);
-        frame_prop.tab_index = prop.get_i32(b"TabIndex".into(), frame_prop.tab_index);
+        frame_prop.mouse_pointer = prop.get_property("MousePointer", frame_prop.mouse_pointer);
+        frame_prop.ole_drop_mode = prop.get_property("OLEDropMode", frame_prop.ole_drop_mode);
+        frame_prop.right_to_left = prop.get_property("RightToLeft", frame_prop.right_to_left);
+        frame_prop.tab_index = prop.get_i32("TabIndex", frame_prop.tab_index);
         frame_prop.tool_tip_text = match prop.get("ToolTipText".into()) {
             Some(tool_tip_text) => tool_tip_text.into(),
             None => frame_prop.tool_tip_text,
         };
-        frame_prop.top = prop.get_i32(b"Top".into(), frame_prop.top);
-        frame_prop.visible = prop.get_property(b"Visible".into(), frame_prop.visible);
+        frame_prop.top = prop.get_i32("Top", frame_prop.top);
+        frame_prop.visible = prop.get_property("Visible", frame_prop.visible);
         frame_prop.whats_this_help_id =
-            prop.get_i32(b"WhatsThisHelp".into(), frame_prop.whats_this_help_id);
-        frame_prop.width = prop.get_i32(b"Width".into(), frame_prop.width);
+            prop.get_i32("WhatsThisHelp", frame_prop.whats_this_help_id);
+        frame_prop.width = prop.get_i32("Width", frame_prop.width);
 
         frame_prop
     }

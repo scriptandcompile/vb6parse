@@ -1,38 +1,37 @@
 use crate::language::controls::{
-    Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDropMode, TabStop,
-    Visibility,
+    Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDropMode,
+    ReferenceOrValue, TabStop, Visibility,
 };
 use crate::parsers::Properties;
-use crate::VB6Color;
+use crate::Color;
 
-use bstr::BString;
 use image::DynamicImage;
 use serde::Serialize;
 
 /// Properties for a `DriveListBox` control.
 ///
 /// This is used as an enum variant of
-/// [`VB6ControlKind::DriveListBox`](crate::language::controls::VB6ControlKind::DriveListBox).
+/// [`ControlKind::DriveListBox`](crate::language::controls::ControlKind::DriveListBox).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
+/// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct DriveListBoxProperties {
     pub appearance: Appearance,
-    pub back_color: VB6Color,
+    pub back_color: Color,
     pub causes_validation: CausesValidation,
-    pub drag_icon: Option<DynamicImage>,
+    pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
     pub drag_mode: DragMode,
     pub enabled: Activation,
-    pub fore_color: VB6Color,
+    pub fore_color: Color,
     pub height: i32,
     pub help_context_id: i32,
     pub left: i32,
-    pub mouse_icon: Option<DynamicImage>,
+    pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
     pub mouse_pointer: MousePointer,
     pub ole_drop_mode: OLEDropMode,
     pub tab_index: i32,
     pub tab_stop: TabStop,
-    pub tool_tip_text: BString,
+    pub tool_tip_text: String,
     pub top: i32,
     pub visible: Visibility,
     pub whats_this_help_id: i32,
@@ -43,12 +42,12 @@ impl Default for DriveListBoxProperties {
     fn default() -> Self {
         DriveListBoxProperties {
             appearance: Appearance::ThreeD,
-            back_color: VB6Color::System { index: 5 },
+            back_color: Color::System { index: 5 },
             causes_validation: CausesValidation::Yes,
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
-            fore_color: VB6Color::System { index: 8 },
+            fore_color: Color::System { index: 8 },
             height: 319,
             help_context_id: 0,
             left: 480,
@@ -105,51 +104,43 @@ impl Serialize for DriveListBoxProperties {
     }
 }
 
-impl<'a> From<Properties<'a>> for DriveListBoxProperties {
-    fn from(prop: Properties<'a>) -> Self {
+impl From<Properties> for DriveListBoxProperties {
+    fn from(prop: Properties) -> Self {
         let mut drive_list_box_prop = DriveListBoxProperties::default();
 
         drive_list_box_prop.appearance =
-            prop.get_property(b"Appearance".into(), drive_list_box_prop.appearance);
+            prop.get_property("Appearance", drive_list_box_prop.appearance);
         drive_list_box_prop.back_color =
-            prop.get_color(b"BackColor".into(), drive_list_box_prop.back_color);
-        drive_list_box_prop.causes_validation = prop.get_property(
-            b"CausesValidation".into(),
-            drive_list_box_prop.causes_validation,
-        );
+            prop.get_color("BackColor", drive_list_box_prop.back_color);
+        drive_list_box_prop.causes_validation =
+            prop.get_property("CausesValidation", drive_list_box_prop.causes_validation);
 
         // DragIcon
 
         drive_list_box_prop.drag_mode =
-            prop.get_property(b"DragMode".into(), drive_list_box_prop.drag_mode);
-        drive_list_box_prop.enabled =
-            prop.get_property(b"Enabled".into(), drive_list_box_prop.enabled);
+            prop.get_property("DragMode", drive_list_box_prop.drag_mode);
+        drive_list_box_prop.enabled = prop.get_property("Enabled", drive_list_box_prop.enabled);
         drive_list_box_prop.fore_color =
-            prop.get_color(b"ForeColor".into(), drive_list_box_prop.fore_color);
-        drive_list_box_prop.height = prop.get_i32(b"Height".into(), drive_list_box_prop.height);
+            prop.get_color("ForeColor", drive_list_box_prop.fore_color);
+        drive_list_box_prop.height = prop.get_i32("Height", drive_list_box_prop.height);
         drive_list_box_prop.help_context_id =
-            prop.get_i32(b"HelpContextID".into(), drive_list_box_prop.help_context_id);
-        drive_list_box_prop.left = prop.get_i32(b"Left".into(), drive_list_box_prop.left);
+            prop.get_i32("HelpContextID", drive_list_box_prop.help_context_id);
+        drive_list_box_prop.left = prop.get_i32("Left", drive_list_box_prop.left);
         drive_list_box_prop.mouse_pointer =
-            prop.get_property(b"MousePointer".into(), drive_list_box_prop.mouse_pointer);
+            prop.get_property("MousePointer", drive_list_box_prop.mouse_pointer);
         drive_list_box_prop.ole_drop_mode =
-            prop.get_property(b"OLEDropMode".into(), drive_list_box_prop.ole_drop_mode);
-        drive_list_box_prop.tab_index =
-            prop.get_i32(b"TabIndex".into(), drive_list_box_prop.tab_index);
-        drive_list_box_prop.tab_stop =
-            prop.get_property(b"TabStop".into(), drive_list_box_prop.tab_stop);
+            prop.get_property("OLEDropMode", drive_list_box_prop.ole_drop_mode);
+        drive_list_box_prop.tab_index = prop.get_i32("TabIndex", drive_list_box_prop.tab_index);
+        drive_list_box_prop.tab_stop = prop.get_property("TabStop", drive_list_box_prop.tab_stop);
         drive_list_box_prop.tool_tip_text = match prop.get("ToolTipText".into()) {
             Some(tool_tip_text) => tool_tip_text.into(),
             None => drive_list_box_prop.tool_tip_text,
         };
-        drive_list_box_prop.top = prop.get_i32(b"Top".into(), drive_list_box_prop.top);
-        drive_list_box_prop.visible =
-            prop.get_property(b"Visible".into(), drive_list_box_prop.visible);
-        drive_list_box_prop.whats_this_help_id = prop.get_i32(
-            b"WhatsThisHelpID".into(),
-            drive_list_box_prop.whats_this_help_id,
-        );
-        drive_list_box_prop.width = prop.get_i32(b"Width".into(), drive_list_box_prop.width);
+        drive_list_box_prop.top = prop.get_i32("Top", drive_list_box_prop.top);
+        drive_list_box_prop.visible = prop.get_property("Visible", drive_list_box_prop.visible);
+        drive_list_box_prop.whats_this_help_id =
+            prop.get_i32("WhatsThisHelpID", drive_list_box_prop.whats_this_help_id);
+        drive_list_box_prop.width = prop.get_i32("Width", drive_list_box_prop.width);
 
         drive_list_box_prop
     }

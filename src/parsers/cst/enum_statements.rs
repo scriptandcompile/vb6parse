@@ -15,7 +15,7 @@
 //!
 //! [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/enum-statement)
 
-use crate::language::VB6Token;
+use crate::language::Token;
 use crate::parsers::SyntaxKind;
 
 use super::Parser;
@@ -64,7 +64,7 @@ impl Parser<'_> {
         self.builder.start_node(SyntaxKind::EnumStatement.to_raw());
 
         // Consume optional Public/Private keyword
-        if self.at_token(VB6Token::PublicKeyword) || self.at_token(VB6Token::PrivateKeyword) {
+        if self.at_token(Token::PublicKeyword) || self.at_token(Token::PrivateKeyword) {
             self.consume_token();
 
             // Consume any whitespace after visibility modifier
@@ -78,20 +78,20 @@ impl Parser<'_> {
         self.consume_whitespace();
 
         // Consume enum name (keywords can be used as enum names in VB6)
-        if self.at_token(VB6Token::Identifier) {
+        if self.at_token(Token::Identifier) {
             self.consume_token();
         } else if self.at_keyword() {
             self.consume_token_as_identifier();
         }
 
         // Consume everything until newline (preserving all tokens)
-        self.consume_until_after(VB6Token::Newline);
+        self.consume_until_after(Token::Newline);
 
         // Parse enum members until "End Enum"
         while !self.is_at_end() {
             // Check if we've reached "End Enum"
-            if self.at_token(VB6Token::EndKeyword)
-                && self.peek_next_keyword() == Some(VB6Token::EnumKeyword)
+            if self.at_token(Token::EndKeyword)
+                && self.peek_next_keyword() == Some(Token::EnumKeyword)
             {
                 break;
             }
@@ -100,24 +100,24 @@ impl Parser<'_> {
             // This includes whitespace, comments, identifiers, operators, and newlines
             match self.current_token() {
                 Some(
-                    VB6Token::Whitespace
-                    | VB6Token::Newline
-                    | VB6Token::EndOfLineComment
-                    | VB6Token::RemComment
-                    | VB6Token::Identifier
-                    | VB6Token::EqualityOperator
-                    | VB6Token::IntegerLiteral
-                    | VB6Token::LongLiteral
-                    | VB6Token::SingleLiteral
-                    | VB6Token::DoubleLiteral
-                    | VB6Token::SubtractionOperator
-                    | VB6Token::AdditionOperator
-                    | VB6Token::MultiplicationOperator
-                    | VB6Token::DivisionOperator
-                    | VB6Token::LeftParenthesis
-                    | VB6Token::RightParenthesis
-                    | VB6Token::Ampersand
-                    | VB6Token::Comma,
+                    Token::Whitespace
+                    | Token::Newline
+                    | Token::EndOfLineComment
+                    | Token::RemComment
+                    | Token::Identifier
+                    | Token::EqualityOperator
+                    | Token::IntegerLiteral
+                    | Token::LongLiteral
+                    | Token::SingleLiteral
+                    | Token::DoubleLiteral
+                    | Token::SubtractionOperator
+                    | Token::AdditionOperator
+                    | Token::MultiplicationOperator
+                    | Token::DivisionOperator
+                    | Token::LeftParenthesis
+                    | Token::RightParenthesis
+                    | Token::Ampersand
+                    | Token::Comma,
                 ) => {
                     self.consume_token();
                 }
@@ -129,7 +129,7 @@ impl Parser<'_> {
         }
 
         // Consume "End Enum" and trailing tokens
-        if self.at_token(VB6Token::EndKeyword) {
+        if self.at_token(Token::EndKeyword) {
             // Consume "End"
             self.consume_token();
 
@@ -140,7 +140,7 @@ impl Parser<'_> {
             self.consume_token();
 
             // Consume until newline (including it)
-            self.consume_until_after(VB6Token::Newline);
+            self.consume_until_after(Token::Newline);
         }
 
         self.builder.finish_node(); // EnumStatement

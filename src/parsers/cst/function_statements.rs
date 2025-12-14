@@ -12,7 +12,7 @@
 //!
 //! [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/function-statement)
 
-use crate::language::VB6Token;
+use crate::language::Token;
 use crate::parsers::SyntaxKind;
 
 use super::Parser;
@@ -55,9 +55,9 @@ impl Parser<'_> {
             .start_node(SyntaxKind::FunctionStatement.to_raw());
 
         // Consume optional Public/Private/Friend keyword
-        if self.at_token(VB6Token::PublicKeyword)
-            || self.at_token(VB6Token::PrivateKeyword)
-            || self.at_token(VB6Token::FriendKeyword)
+        if self.at_token(Token::PublicKeyword)
+            || self.at_token(Token::PrivateKeyword)
+            || self.at_token(Token::FriendKeyword)
         {
             self.consume_token();
 
@@ -66,7 +66,7 @@ impl Parser<'_> {
         }
 
         // Consume optional Static keyword
-        if self.at_token(VB6Token::StaticKeyword) {
+        if self.at_token(Token::StaticKeyword) {
             self.consume_token();
 
             // Consume any whitespace after Static
@@ -80,7 +80,7 @@ impl Parser<'_> {
         self.consume_whitespace();
 
         // Consume function name (keywords can be used as function names in VB6)
-        if self.at_token(VB6Token::Identifier) {
+        if self.at_token(Token::Identifier) {
             self.consume_token();
         } else if self.at_keyword() {
             self.consume_token_as_identifier();
@@ -90,21 +90,21 @@ impl Parser<'_> {
         self.consume_whitespace();
 
         // Parse parameter list if present
-        if self.at_token(VB6Token::LeftParenthesis) {
+        if self.at_token(Token::LeftParenthesis) {
             self.parse_parameter_list();
         }
 
         // Consume everything until newline (preserving all tokens)
-        self.consume_until_after(VB6Token::Newline);
+        self.consume_until_after(Token::Newline);
 
         // Parse body until "End Function"
         self.parse_code_block(|parser| {
-            parser.at_token(VB6Token::EndKeyword)
-                && parser.peek_next_keyword() == Some(VB6Token::FunctionKeyword)
+            parser.at_token(Token::EndKeyword)
+                && parser.peek_next_keyword() == Some(Token::FunctionKeyword)
         });
 
         // Consume "End Function" and trailing tokens
-        if self.at_token(VB6Token::EndKeyword) {
+        if self.at_token(Token::EndKeyword) {
             // Consume "End"
             self.consume_token();
 
@@ -115,7 +115,7 @@ impl Parser<'_> {
             self.consume_token();
 
             // Consume until newline (including it)
-            self.consume_until_after(VB6Token::Newline);
+            self.consume_until_after(Token::Newline);
         }
 
         self.builder.finish_node(); // FunctionStatement

@@ -5,34 +5,33 @@ use std::collections::HashMap;
 use serde::Serialize;
 
 use crate::{
-    errors::VB6ClassErrorKind,
+    errors::ClassErrorKind,
     parsers::{
-        class::properties::{VB6ClassHeader, VB6ClassProperties},
-        header::{
-            Creatable, Exposed, HeaderKind, NameSpace, PreDeclaredID, VB6FileAttributes,
-            VB6FileFormatVersion,
-        },
+        class::properties::{ClassHeader, ClassProperties},
+        cst::{parse, serialize_cst},
+        header::{extract_version, Creatable, Exposed, FileAttributes, NameSpace, PreDeclaredID},
+        SyntaxKind,
     },
     tokenize::{take_matching_text, tokenize},
-    tokenstream::TokenStream,
-    ParseResult, SourceFile, SourceStream,
+    ConcreteSyntaxTree, ParseResult, SourceFile, SourceStream,
 };
 
 /// Represents a VB6 class file.
-/// A VB6 class file contains a header and a list of tokens.
+/// A VB6 class file contains a header and a concrete syntax tree.
 ///
 /// The header contains the version, multi use, persistable, data binding behavior,
 /// data source behavior, and MTS transaction mode.
 /// The header also contains the attributes of the class file.
 ///
-/// The tokens contain the token stream of the code of the class file.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
-pub struct VB6ClassFile<'a> {
-    pub header: VB6ClassHeader<'a>,
-    pub tokens: TokenStream<'a>,
+/// The cst contains the concrete syntax tree of the code of the class file.
+#[derive(Debug, PartialEq, Clone, Serialize)]
+pub struct ClassFile {
+    pub header: ClassHeader,
+    #[serde(serialize_with = "serialize_cst")]
+    pub cst: ConcreteSyntaxTree,
 }
 
-impl<'a> VB6ClassFile<'a> {
+impl ClassFile {
     /// Parses a VB6 class file from a byte slice.
     ///
     /// # Arguments
@@ -50,7 +49,7 @@ impl<'a> VB6ClassFile<'a> {
     /// # Example
     ///
     /// ```rust
-    /// use vb6parse::parsers::VB6ClassFile;
+    /// use vb6parse::parsers::ClassFile;
     /// use vb6parse::SourceFile;
     ///
     /// let input = b"VERSION 1.0 CLASS
@@ -77,266 +76,344 @@ impl<'a> VB6ClassFile<'a> {
     /// };
     ///
     ///
-    /// let result = VB6ClassFile::parse(&source_file);
+    /// let result = ClassFile::parse(&source_file);
     ///
     /// assert!(result.has_result());
     /// ```
     #[must_use]
-    pub fn parse(source_file: &'a SourceFile) -> ParseResult<'a, Self, VB6ClassErrorKind<'a>> {
+    pub fn parse(source_file: &SourceFile) -> ParseResult<'_, Self, ClassErrorKind<'_>> {
         let mut input = source_file.get_source_stream();
 
         let mut failures = vec![];
 
-        let version_result = version_header_parse(&mut input, &HeaderKind::Class);
+        // Parse tokens and create CST
+        let token_stream_result = tokenize(&mut input);
 
-        let Some(version) = version_result.result else {
-            for failure in version_result.failures {
-                failures.push(failure);
-            }
-
-            return ParseResult {
-                result: None,
-                failures,
-            };
-        };
-
-        let properties_result = properties_parse(&mut input);
-
-        let Some(properties) = properties_result.result else {
-            for failure in properties_result.failures {
-                failures.push(failure);
-            }
-
-            return ParseResult {
-                result: None,
-                failures,
-            };
-        };
-
-        let header = VB6ClassHeader {
-            version,
-            attributes: VB6FileAttributes {
-                name: b" ".into(),
-                global_name_space: NameSpace::default(),
-                creatable: Creatable::default(),
-                pre_declared_id: PreDeclaredID::default(),
-                exposed: Exposed::default(),
-                description: None,
-                ext_key: HashMap::new(),
-            },
-            properties,
-        };
-
-        let code_parse_result = tokenize(&mut input);
-
-        if code_parse_result.has_failures() {
-            for failure in code_parse_result.failures {
+        if token_stream_result.has_failures() {
+            for failure in token_stream_result.failures {
                 failures.push(failure.into());
             }
         }
 
-        let Some(tokens) = code_parse_result.result else {
+        let Some(token_stream) = token_stream_result.result else {
             return ParseResult {
                 result: None,
                 failures,
             };
         };
 
+        // Parse CST
+        let cst = parse(token_stream);
+
+        // Extract version from CST
+        let Some(version) = extract_version(&cst) else {
+            let error = source_file
+                .get_source_stream()
+                .generate_error(ClassErrorKind::VersionKeywordMissing);
+            failures.push(error);
+
+            return ParseResult {
+                result: None,
+                failures,
+            };
+        };
+
+        // Extract properties from CST
+        let properties = extract_properties(&cst);
+
+        // Extract attributes from CST
+        let attributes = extract_attributes(&cst);
+
+        let header = ClassHeader {
+            version,
+            attributes,
+            properties,
+        };
+
+        // Filter out nodes that are already extracted to avoid duplication
+        // For class files, we remove:
+        // - VersionStatement (already in header.version)
+        // - PropertiesBlock (BEGIN...END - already in header.properties)
+        // - AttributeStatement nodes (already in header.attributes)
+        let filtered_cst = cst.without_kinds(&[
+            SyntaxKind::VersionStatement,
+            SyntaxKind::PropertiesBlock,
+            SyntaxKind::AttributeStatement,
+        ]);
+
         ParseResult {
-            result: Some(VB6ClassFile { header, tokens }),
+            result: Some(ClassFile {
+                header,
+                cst: filtered_cst,
+            }),
             failures,
         }
     }
 }
 
-fn version_header_parse<'a>(
-    input: &mut SourceStream<'a>,
-    header_kind: &HeaderKind,
-) -> ParseResult<'a, VB6FileFormatVersion, VB6ClassErrorKind<'a>> {
-    let mut failures = vec![];
+/// Extract VB6FileAttributes from AttributeStatement nodes in the CST
+fn extract_attributes(cst: &crate::parsers::ConcreteSyntaxTree) -> FileAttributes {
+    let mut name = String::new();
+    let mut global_name_space = NameSpace::Local;
+    let mut creatable = Creatable::True;
+    let mut pre_declared_id = PreDeclaredID::False;
+    let mut exposed = Exposed::False;
+    let mut description: Option<String> = None;
+    let mut ext_key: HashMap<String, String> = HashMap::new();
 
-    // eat any whitespaces before the version keyword.
-    let _ = input.take_ascii_whitespaces();
+    // Find all AttributeStatement nodes
+    let attr_statements: Vec<_> = cst
+        .children()
+        .into_iter()
+        .filter(|c| c.kind == SyntaxKind::AttributeStatement)
+        .collect();
 
-    let version_start_offset = input.offset();
-    let Some(version_keyword) = take_matching_text(input, "VERSION") else {
-        let error = input.generate_error(VB6ClassErrorKind::VersionKeywordMissing);
-        failures.push(error);
+    for attr_stmt in attr_statements {
+        // Navigate through the child tokens of the AttributeStatement
+        // Expected structure: AttributeKeyword, Whitespace, Identifier, Whitespace, EqualityOperator, Whitespace, Value, Newline
 
-        return ParseResult {
-            result: None,
-            failures,
-        };
-    };
+        let mut key = String::new();
+        let mut value = String::new();
+        let mut found_equals = false;
 
-    // Not really an error, more of a warning issue, but not correctly using
-    // full upper case on 'VERSION' could mean the file won't be compatible
-    // with Microsoft VB6 IDE.
-    if version_keyword != "VERSION" {
-        let error = input.generate_error_at(
-            version_start_offset,
-            VB6ClassErrorKind::VersionKeywordNotFullyUppercase {
-                version_text: version_keyword,
-            },
-        );
-        failures.push(error);
-    }
+        for child in &attr_stmt.children {
+            if !child.is_token {
+                continue; // Skip non-token children
+            }
 
-    // eat any whitespaces after the version keyword.
-    // If there isn't a space between 'VERSION' and the major version it should
-    // be a warning since we can continue reasonably well even if it will not be
-    // fully compatible with Microsoft's VB6 IDE.
-    if input.take_ascii_whitespaces().is_none() {
-        let error = input.generate_error(
-            VB6ClassErrorKind::WhitespaceMissingBetweenVersionAndMajorVersionNumber,
-        );
-        failures.push(error);
-    }
-
-    let major_digit_offset = input.offset();
-    // sadly, we can't really continue if we can't get the version numbers since
-    // we can't be sure this is even a VB6 class file.
-    let Some(major_version_digits) = input.take_ascii_digits() else {
-        let error = input.generate_error(VB6ClassErrorKind::UnableToParseMajorVersionNumber);
-        failures.push(error);
-
-        return ParseResult {
-            result: None,
-            failures,
-        };
-    };
-
-    // If we can't convert the major digits text into a number we have some weird
-    // issue and need to bail out at this point. This *should* always work as far
-    // as I can tell, but this covers our bases.
-    let Ok(major) = major_version_digits.parse::<u8>() else {
-        let error = input.generate_error_at(
-            major_digit_offset,
-            VB6ClassErrorKind::UnableToConvertMajorVersionNumber,
-        );
-        failures.push(error);
-
-        return ParseResult {
-            result: None,
-            failures,
-        };
-    };
-
-    // Technically, the major/minor versions are supposed to be
-    // separated by a period (1.0 for example). But we want to be as liberal
-    // in acceptance as possible so we also support whitespaces between the
-    // digits.
-    if input
-        .take(".", crate::Comparator::CaseInsensitive)
-        .is_none()
-    {
-        let error = input
-            .generate_error(VB6ClassErrorKind::MissingPeriodDividerBetweenMajorAndMinorVersion);
-        failures.push(error);
-
-        let whitespace_divider_offset = input.offset();
-        if input.take_ascii_whitespaces().is_some() {
-            let error = input.generate_error_at(
-                whitespace_divider_offset,
-                VB6ClassErrorKind::WhitespaceDividerBetweenMajorAndMinorVersionNumbers,
-            );
-            failures.push(error);
+            match child.kind {
+                SyntaxKind::AttributeKeyword => {
+                    // Skip the "Attribute" keyword
+                    continue;
+                }
+                SyntaxKind::Identifier => {
+                    if !found_equals {
+                        // This is the attribute key (e.g., "VB_Name")
+                        key = child.text.trim().to_string();
+                    }
+                }
+                SyntaxKind::EqualityOperator => {
+                    found_equals = true;
+                }
+                SyntaxKind::StringLiteral => {
+                    if found_equals {
+                        // This is the string value - remove surrounding quotes
+                        value = child.text.trim().trim_matches('"').to_string();
+                    }
+                }
+                SyntaxKind::TrueKeyword => {
+                    if found_equals {
+                        value = "True".to_string();
+                    }
+                }
+                SyntaxKind::FalseKeyword => {
+                    if found_equals {
+                        value = "False".to_string();
+                    }
+                }
+                SyntaxKind::IntegerLiteral | SyntaxKind::LongLiteral => {
+                    if found_equals {
+                        value = child.text.trim().to_string();
+                    }
+                }
+                SyntaxKind::SubtractionOperator => {
+                    if found_equals && value.is_empty() {
+                        value.push('-');
+                    }
+                }
+                _ => {}
+            }
         }
-    }
 
-    let minor_digit_offset = input.offset();
-    // sadly, we can't really continue if we can't get the version numbers since
-    // we can't be sure this is even a VB6 class file.
-    let Some(minor_version_digits) = input.take_ascii_digits() else {
-        let error = input.generate_error(VB6ClassErrorKind::UnableToParseMinorVersionNumber);
-        failures.push(error);
-
-        return ParseResult {
-            result: None,
-            failures,
-        };
-    };
-
-    // If we can't convert the minor digits text into a number we have some weird
-    // issue and need to bail out at this point. This *should* always work as far
-    // as I can tell, but this covers our bases.
-    let Ok(minor) = minor_version_digits.parse::<u8>() else {
-        let error = input.generate_error_at(
-            minor_digit_offset,
-            VB6ClassErrorKind::UnableToConvertMinorVersionNumber,
-        );
-        failures.push(error);
-
-        return ParseResult {
-            result: None,
-            failures,
-        };
-    };
-
-    let whitespace_offset = input.offset();
-    match input.take_ascii_whitespaces() {
-        None => {
-            let error = input.generate_error(VB6ClassErrorKind::MissingWhitespaceAfterMinorVersion);
-            failures.push(error);
-        }
-        Some(whitespace) => {
-            if whitespace != " " {
-                let error = input.generate_error_at(
-                    whitespace_offset,
-                    VB6ClassErrorKind::IncorrectWhitespaceAfterMinorVersion,
-                );
-                failures.push(error);
+        // Process the extracted key-value pair
+        if !key.is_empty() {
+            match key.as_str() {
+                "VB_Name" => {
+                    name = value;
+                }
+                "VB_GlobalNameSpace" => {
+                    global_name_space = if value == "True" || value == "-1" {
+                        NameSpace::Global
+                    } else {
+                        NameSpace::Local
+                    };
+                }
+                "VB_Creatable" => {
+                    creatable = if value == "True" || value == "-1" {
+                        Creatable::True
+                    } else {
+                        Creatable::False
+                    };
+                }
+                "VB_PredeclaredId" => {
+                    pre_declared_id = if value == "True" || value == "-1" {
+                        PreDeclaredID::True
+                    } else {
+                        PreDeclaredID::False
+                    };
+                }
+                "VB_Exposed" => {
+                    exposed = if value == "True" || value == "-1" {
+                        Exposed::True
+                    } else {
+                        Exposed::False
+                    };
+                }
+                "VB_Description" => {
+                    description = Some(value);
+                }
+                "VB_Ext_KEY" => {
+                    // VB_Ext_KEY attributes have comma-separated values
+                    // Format: VB_Ext_KEY = "key" ,"value"
+                    // We need to parse the comma-separated string values
+                    // For now, store the raw value
+                    ext_key.insert(key.clone(), value);
+                }
+                _ => {
+                    // Unknown attribute, could add to ext_key or ignore
+                }
             }
         }
     }
 
-    let match_text = match header_kind {
-        HeaderKind::Class => "CLASS",
-        HeaderKind::Form => "FORM",
+    FileAttributes {
+        name,
+        global_name_space,
+        creatable,
+        pre_declared_id,
+        exposed,
+        description,
+        ext_key,
+    }
+}
+
+/// Extract VB6ClassProperties from PropertiesBlock nodes in the CST
+fn extract_properties(cst: &crate::parsers::ConcreteSyntaxTree) -> ClassProperties {
+    use crate::parsers::class::properties::{
+        DataBindingBehavior, DataSourceBehavior, FileUsage, MtsStatus, Persistence,
     };
 
-    let match_text_start_offset = input.offset();
-    let Some(match_text_keyword) = take_matching_text(input, match_text) else {
-        let error = match header_kind {
-            HeaderKind::Class => input.generate_error(VB6ClassErrorKind::ClassKeywordMissing),
-            HeaderKind::Form => input.generate_error(VB6ClassErrorKind::FormKeywordMissing),
-        };
-        failures.push(error);
+    let mut multi_use = FileUsage::MultiUse;
+    let mut persistable = Persistence::NotPersistable;
+    let mut data_binding_behavior = DataBindingBehavior::None;
+    let mut data_source_behavior = DataSourceBehavior::None;
+    let mut mts_transaction_mode = MtsStatus::NotAnMTSObject;
 
-        return ParseResult {
-            result: None,
-            failures,
-        };
-    };
+    // Find the PropertiesBlock node
+    let properties_blocks: Vec<_> = cst
+        .children()
+        .into_iter()
+        .filter(|c| c.kind == SyntaxKind::PropertiesBlock)
+        .collect();
 
-    // Not really an error, more of a warning issue, but not correctly using
-    // full upper case on 'CLASS' or 'FORM' could mean the file won't be compatible
-    // with Microsoft VB6 IDE.
-    if match_text_keyword != match_text {
-        let error = match header_kind {
-            HeaderKind::Class => input.generate_error_at(
-                match_text_start_offset,
-                VB6ClassErrorKind::ClassKeywordNotFullyUppercase {
-                    class_text: match_text_keyword,
-                },
-            ),
-            HeaderKind::Form => input.generate_error_at(
-                match_text_start_offset,
-                VB6ClassErrorKind::FormKeywordNotFullyUppercase {
-                    form_text: match_text_keyword,
-                },
-            ),
-        };
-        failures.push(error);
+    if properties_blocks.is_empty() {
+        return ClassProperties::default();
     }
 
-    let _ = input.take_ascii_whitespaces();
+    let properties_block = &properties_blocks[0];
 
-    let _ = input.take_newline();
+    // Find all Property nodes within the PropertiesBlock
+    let property_nodes: Vec<_> = properties_block
+        .children
+        .iter()
+        .filter(|c| c.kind == SyntaxKind::Property)
+        .collect();
 
-    ParseResult {
-        result: Some(VB6FileFormatVersion { major, minor }),
-        failures,
+    for prop_node in property_nodes {
+        let mut key = String::new();
+        let mut value = String::new();
+        let mut found_equals = false;
+
+        for child in &prop_node.children {
+            if !child.is_token {
+                continue;
+            }
+
+            match child.kind {
+                SyntaxKind::PropertyKey => {
+                    // This is a nested node, get its text
+                    if let Some(first_child) = child.children.first() {
+                        key = first_child.text.trim().to_string();
+                    }
+                }
+                SyntaxKind::EqualityOperator => {
+                    found_equals = true;
+                }
+                SyntaxKind::PropertyValue => {
+                    // This is a nested node, get all its text
+                    if found_equals {
+                        for val_child in &child.children {
+                            if val_child.is_token {
+                                match val_child.kind {
+                                    SyntaxKind::IntegerLiteral | SyntaxKind::LongLiteral => {
+                                        value.push_str(val_child.text.trim());
+                                    }
+                                    SyntaxKind::SubtractionOperator => {
+                                        value.push('-');
+                                    }
+                                    _ => {}
+                                }
+                            }
+                        }
+                    }
+                }
+                _ => {}
+            }
+        }
+
+        // Process the extracted key-value pair
+        if !key.is_empty() && !value.is_empty() {
+            match key.as_str() {
+                "MultiUse" => {
+                    multi_use = if value == "-1" {
+                        FileUsage::MultiUse
+                    } else {
+                        FileUsage::SingleUse
+                    };
+                }
+                "Persistable" => {
+                    persistable = if value == "-1" {
+                        Persistence::Persistable
+                    } else {
+                        Persistence::NotPersistable
+                    };
+                }
+                "DataBindingBehavior" => {
+                    data_binding_behavior = match value.as_str() {
+                        "0" => DataBindingBehavior::None,
+                        "1" => DataBindingBehavior::Simple,
+                        "2" => DataBindingBehavior::Complex,
+                        _ => DataBindingBehavior::None,
+                    };
+                }
+                "DataSourceBehavior" => {
+                    data_source_behavior = match value.as_str() {
+                        "0" => DataSourceBehavior::None,
+                        "1" => DataSourceBehavior::DataSource,
+                        _ => DataSourceBehavior::None,
+                    };
+                }
+                "MTSTransactionMode" => {
+                    mts_transaction_mode = match value.as_str() {
+                        "0" => MtsStatus::NotAnMTSObject,
+                        "1" => MtsStatus::NoTransactions,
+                        "2" => MtsStatus::RequiresTransaction,
+                        "3" => MtsStatus::UsesTransaction,
+                        "4" => MtsStatus::RequiresNewTransaction,
+                        _ => MtsStatus::NotAnMTSObject,
+                    };
+                }
+                _ => {}
+            }
+        }
+    }
+
+    ClassProperties {
+        multi_use,
+        persistable,
+        data_binding_behavior,
+        data_source_behavior,
+        mts_transaction_mode,
     }
 }
 
@@ -358,17 +435,17 @@ fn version_header_parse<'a>(
 /// A result containing the parsed VB6 class file properties or an error.
 fn properties_parse<'a>(
     input: &mut SourceStream<'a>,
-) -> ParseResult<'a, VB6ClassProperties, VB6ClassErrorKind<'a>> {
+) -> ParseResult<'a, ClassProperties, ClassErrorKind<'a>> {
     let mut failures = vec![];
 
-    let class_properties = VB6ClassProperties::default();
+    let class_properties = ClassProperties::default();
 
     // eat any whitespaces before the 'BEGIN' keyword.
     let _ = input.take_ascii_whitespaces();
 
     let begin_start_offset = input.offset();
     let Some(begin_keyword) = take_matching_text(input, "BEGIN") else {
-        let error = input.generate_error(VB6ClassErrorKind::BeginKeywordMissing);
+        let error = input.generate_error(ClassErrorKind::BeginKeywordMissing);
         failures.push(error);
 
         return ParseResult {
@@ -383,7 +460,7 @@ fn properties_parse<'a>(
     if begin_keyword != "BEGIN" {
         let error = input.generate_error_at(
             begin_start_offset,
-            VB6ClassErrorKind::BeginKeywordNotFullyUppercase {
+            ClassErrorKind::BeginKeywordNotFullyUppercase {
                 begin_text: begin_keyword,
             },
         );
@@ -402,7 +479,7 @@ fn properties_parse<'a>(
     }) {
         let _ = input.take_until_newline();
     } else {
-        let error = input.generate_error(VB6ClassErrorKind::BeginKeywordShouldBeStandAlone);
+        let error = input.generate_error(ClassErrorKind::BeginKeywordShouldBeStandAlone);
         failures.push(error);
 
         return ParseResult {
@@ -617,7 +694,7 @@ Option Explicit
             Err(e) => panic!("Failed to decode source file 'test.cls': {e:?}"),
         };
 
-        let result = VB6ClassFile::parse(&source_file);
+        let result = ClassFile::parse(&source_file);
 
         if result.has_failures() {
             for failure in result.failures {
@@ -658,7 +735,7 @@ Option Explicit
             Err(e) => panic!("Failed to decode source file 'test.cls': {e:?}"),
         };
 
-        let result = VB6ClassFile::parse(&source_file);
+        let result = ClassFile::parse(&source_file);
 
         assert!(result.has_failures());
     }
@@ -739,16 +816,20 @@ Option Explicit
         };
 
         let mut source_stream = source_file.get_source_stream();
+        let token_stream = tokenize(&mut source_stream).unwrap();
+        let cst = parse(token_stream);
 
-        let result = version_header_parse(&mut source_stream, &HeaderKind::Class);
+        let version = extract_version(&cst);
 
-        assert!(result.has_result());
-        assert!(!result.has_failures());
+        assert!(version.is_some());
+        let version = version.unwrap();
+        assert_eq!(version.major, 1);
+        assert_eq!(version.minor, 0);
     }
 
     #[test]
     fn version_invalid() {
-        // 'VERSION' isn't correct
+        // 'VERSION' isn't correct - this will fail to tokenize properly
         let class_bytes = b"VERION 1.0 CLASS";
 
         let result = SourceFile::decode_with_replacement("test.cls", class_bytes);
@@ -759,10 +840,12 @@ Option Explicit
         };
 
         let mut source_stream = source_file.get_source_stream();
+        let token_stream = tokenize(&mut source_stream).unwrap();
+        let cst = parse(token_stream);
 
-        let result = version_header_parse(&mut source_stream, &HeaderKind::Class);
+        let version = extract_version(&cst);
 
-        assert!(!result.has_result());
-        assert!(result.has_failures());
+        // Should be None because there's no VERSION keyword
+        assert!(version.is_none());
     }
 }

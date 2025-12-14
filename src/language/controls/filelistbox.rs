@@ -1,11 +1,10 @@
-use crate::language::color::VB6Color;
+use crate::language::color::Color;
 use crate::language::controls::{
     Activation, Appearance, CausesValidation, DragMode, MousePointer, MultiSelect, OLEDragMode,
-    OLEDropMode, TabStop, Visibility,
+    OLEDropMode, ReferenceOrValue, TabStop, Visibility,
 };
 use crate::parsers::Properties;
 
-use bstr::BString;
 use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
@@ -87,35 +86,35 @@ pub enum NormalAttribute {
 /// Properties for a `FileListBox` control.
 ///
 /// This is used as an enum variant of
-/// [`VB6ControlKind::FileListBox`](crate::language::controls::VB6ControlKind::FileListBox).
+/// [`ControlKind::FileListBox`](crate::language::controls::ControlKind::FileListBox).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
+/// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct FileListBoxProperties {
     pub appearance: Appearance,
     pub archive: ArchiveAttribute,
-    pub back_color: VB6Color,
+    pub back_color: Color,
     pub causes_validation: CausesValidation,
-    pub drag_icon: Option<DynamicImage>,
+    pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
     pub drag_mode: DragMode,
     pub enabled: Activation,
-    pub fore_color: VB6Color,
+    pub fore_color: Color,
     pub height: i32,
     pub help_context_id: i32,
     pub hidden: HiddenAttribute,
     pub left: i32,
-    pub mouse_icon: Option<DynamicImage>,
+    pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
     pub mouse_pointer: MousePointer,
     pub multi_select: MultiSelect,
     pub normal: NormalAttribute,
     pub ole_drag_mode: OLEDragMode,
     pub ole_drop_mode: OLEDropMode,
-    pub pattern: BString,
+    pub pattern: String,
     pub read_only: ReadOnlyAttribute,
     pub system: SystemAttribute,
     pub tab_index: i32,
     pub tab_stop: TabStop,
-    pub tool_tip_text: BString,
+    pub tool_tip_text: String,
     pub top: i32,
     pub visible: Visibility,
     pub whats_this_help_id: i32,
@@ -127,12 +126,12 @@ impl Default for FileListBoxProperties {
         FileListBoxProperties {
             appearance: Appearance::ThreeD,
             archive: ArchiveAttribute::Include,
-            back_color: VB6Color::System { index: 5 },
+            back_color: Color::System { index: 5 },
             causes_validation: CausesValidation::Yes,
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
-            fore_color: VB6Color::System { index: 8 },
+            fore_color: Color::System { index: 8 },
             height: 1260,
             help_context_id: 0,
             hidden: HiddenAttribute::Exclude,
@@ -204,63 +203,50 @@ impl Serialize for FileListBoxProperties {
     }
 }
 
-impl<'a> From<Properties<'a>> for FileListBoxProperties {
-    fn from(prop: Properties<'a>) -> Self {
+impl From<Properties> for FileListBoxProperties {
+    fn from(prop: Properties) -> Self {
         let mut file_list_box_prop = FileListBoxProperties::default();
 
         file_list_box_prop.appearance =
-            prop.get_property(b"Appearance".into(), file_list_box_prop.appearance);
-        file_list_box_prop.archive =
-            prop.get_property(b"Archive".into(), file_list_box_prop.archive);
-        file_list_box_prop.back_color =
-            prop.get_color(b"BackColor".into(), file_list_box_prop.back_color);
-        file_list_box_prop.causes_validation = prop.get_property(
-            b"CausesValidation".into(),
-            file_list_box_prop.causes_validation,
-        );
-        file_list_box_prop.drag_mode =
-            prop.get_property(b"DragMode".into(), file_list_box_prop.drag_mode);
-        file_list_box_prop.enabled =
-            prop.get_property(b"Enabled".into(), file_list_box_prop.enabled);
-        file_list_box_prop.fore_color =
-            prop.get_color(b"ForeColor".into(), file_list_box_prop.fore_color);
-        file_list_box_prop.height = prop.get_i32(b"Height".into(), file_list_box_prop.height);
+            prop.get_property("Appearance", file_list_box_prop.appearance);
+        file_list_box_prop.archive = prop.get_property("Archive", file_list_box_prop.archive);
+        file_list_box_prop.back_color = prop.get_color("BackColor", file_list_box_prop.back_color);
+        file_list_box_prop.causes_validation =
+            prop.get_property("CausesValidation", file_list_box_prop.causes_validation);
+        file_list_box_prop.drag_mode = prop.get_property("DragMode", file_list_box_prop.drag_mode);
+        file_list_box_prop.enabled = prop.get_property("Enabled", file_list_box_prop.enabled);
+        file_list_box_prop.fore_color = prop.get_color("ForeColor", file_list_box_prop.fore_color);
+        file_list_box_prop.height = prop.get_i32("Height", file_list_box_prop.height);
         file_list_box_prop.help_context_id =
-            prop.get_i32(b"HelpContextID".into(), file_list_box_prop.help_context_id);
-        file_list_box_prop.hidden = prop.get_property(b"Hidden".into(), file_list_box_prop.hidden);
-        file_list_box_prop.left = prop.get_i32(b"Left".into(), file_list_box_prop.left);
+            prop.get_i32("HelpContextID", file_list_box_prop.help_context_id);
+        file_list_box_prop.hidden = prop.get_property("Hidden", file_list_box_prop.hidden);
+        file_list_box_prop.left = prop.get_i32("Left", file_list_box_prop.left);
         file_list_box_prop.mouse_pointer =
-            prop.get_property(b"MousePointer".into(), file_list_box_prop.mouse_pointer);
+            prop.get_property("MousePointer", file_list_box_prop.mouse_pointer);
         file_list_box_prop.multi_select =
-            prop.get_property(b"MultiSelect".into(), file_list_box_prop.multi_select);
-        file_list_box_prop.normal = prop.get_property(b"Normal".into(), file_list_box_prop.normal);
+            prop.get_property("MultiSelect", file_list_box_prop.multi_select);
+        file_list_box_prop.normal = prop.get_property("Normal", file_list_box_prop.normal);
         file_list_box_prop.ole_drag_mode =
-            prop.get_property(b"OLEDragMode".into(), file_list_box_prop.ole_drag_mode);
+            prop.get_property("OLEDragMode", file_list_box_prop.ole_drag_mode);
         file_list_box_prop.ole_drop_mode =
-            prop.get_property(b"OLEDropMode".into(), file_list_box_prop.ole_drop_mode);
-        file_list_box_prop.pattern = match prop.get(b"Pattern".into()) {
+            prop.get_property("OLEDropMode", file_list_box_prop.ole_drop_mode);
+        file_list_box_prop.pattern = match prop.get("Pattern") {
             Some(pattern) => pattern.into(),
             None => file_list_box_prop.pattern,
         };
-        file_list_box_prop.read_only =
-            prop.get_property(b"ReadOnly".into(), file_list_box_prop.read_only);
-        file_list_box_prop.system = prop.get_property(b"System".into(), file_list_box_prop.system);
-        file_list_box_prop.tab_index =
-            prop.get_i32(b"TabIndex".into(), file_list_box_prop.tab_index);
-        file_list_box_prop.tab_stop =
-            prop.get_property(b"TabStop".into(), file_list_box_prop.tab_stop);
+        file_list_box_prop.read_only = prop.get_property("ReadOnly", file_list_box_prop.read_only);
+        file_list_box_prop.system = prop.get_property("System", file_list_box_prop.system);
+        file_list_box_prop.tab_index = prop.get_i32("TabIndex", file_list_box_prop.tab_index);
+        file_list_box_prop.tab_stop = prop.get_property("TabStop", file_list_box_prop.tab_stop);
         file_list_box_prop.tool_tip_text = match prop.get("ToolTipText".into()) {
             Some(tool_tip_text) => tool_tip_text.into(),
             None => file_list_box_prop.tool_tip_text,
         };
-        file_list_box_prop.top = prop.get_i32(b"Top".into(), file_list_box_prop.top);
-        file_list_box_prop.visible =
-            prop.get_property(b"Visible".into(), file_list_box_prop.visible);
-        file_list_box_prop.whats_this_help_id = prop.get_i32(
-            b"WhatsThisHelpID".into(),
-            file_list_box_prop.whats_this_help_id,
-        );
-        file_list_box_prop.width = prop.get_i32(b"Width".into(), file_list_box_prop.width);
+        file_list_box_prop.top = prop.get_i32("Top", file_list_box_prop.top);
+        file_list_box_prop.visible = prop.get_property("Visible", file_list_box_prop.visible);
+        file_list_box_prop.whats_this_help_id =
+            prop.get_i32("WhatsThisHelpID", file_list_box_prop.whats_this_help_id);
+        file_list_box_prop.width = prop.get_i32("Width", file_list_box_prop.width);
 
         file_list_box_prop
     }

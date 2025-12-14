@@ -5,7 +5,7 @@
 //! - Case Else clauses
 //! - Case expressions (values, ranges, Is comparisons)
 
-use crate::language::VB6Token;
+use crate::language::Token;
 use crate::parsers::SyntaxKind;
 
 use super::Parser;
@@ -38,7 +38,7 @@ impl Parser<'_> {
         self.consume_whitespace();
 
         // Consume "Case" keyword
-        if self.at_token(VB6Token::CaseKeyword) {
+        if self.at_token(Token::CaseKeyword) {
             self.consume_token();
         }
 
@@ -48,21 +48,21 @@ impl Parser<'_> {
         self.parse_expression();
 
         // Consume newline
-        self.consume_until_after(VB6Token::Newline);
+        self.consume_until_after(Token::Newline);
 
         // Parse Case clauses until "End Select"
         while !self.is_at_end() {
             // Check for "End Select"
-            if self.at_token(VB6Token::EndKeyword)
-                && self.peek_next_keyword() == Some(VB6Token::SelectKeyword)
+            if self.at_token(Token::EndKeyword)
+                && self.peek_next_keyword() == Some(Token::SelectKeyword)
             {
                 break;
             }
 
             // Check for "Case" keyword
-            if self.at_token(VB6Token::CaseKeyword) {
+            if self.at_token(Token::CaseKeyword) {
                 // Check if this is "Case Else"
-                let is_case_else = self.peek_next_keyword() == Some(VB6Token::ElseKeyword);
+                let is_case_else = self.peek_next_keyword() == Some(Token::ElseKeyword);
 
                 if is_case_else {
                     // Parse Case Else clause
@@ -75,18 +75,18 @@ impl Parser<'_> {
                     self.consume_whitespace();
 
                     // Consume "Else"
-                    if self.at_token(VB6Token::ElseKeyword) {
+                    if self.at_token(Token::ElseKeyword) {
                         self.consume_token();
                     }
 
                     // Consume until newline
-                    self.consume_until_after(VB6Token::Newline);
+                    self.consume_until_after(Token::Newline);
 
                     // Parse statements in Case Else until next Case or End Select
                     self.parse_code_block(|parser| {
-                        (parser.at_token(VB6Token::CaseKeyword))
-                            || (parser.at_token(VB6Token::EndKeyword)
-                                && parser.peek_next_keyword() == Some(VB6Token::SelectKeyword))
+                        (parser.at_token(Token::CaseKeyword))
+                            || (parser.at_token(Token::EndKeyword)
+                                && parser.peek_next_keyword() == Some(Token::SelectKeyword))
                     });
 
                     self.builder.finish_node(); // CaseElseClause
@@ -98,13 +98,13 @@ impl Parser<'_> {
                     self.consume_token();
 
                     // Consume the case expression(s) until newline
-                    self.consume_until_after(VB6Token::Newline);
+                    self.consume_until_after(Token::Newline);
 
                     // Parse statements in Case until next Case or End Select
                     self.parse_code_block(|parser| {
-                        (parser.at_token(VB6Token::CaseKeyword))
-                            || (parser.at_token(VB6Token::EndKeyword)
-                                && parser.peek_next_keyword() == Some(VB6Token::SelectKeyword))
+                        (parser.at_token(Token::CaseKeyword))
+                            || (parser.at_token(Token::EndKeyword)
+                                && parser.peek_next_keyword() == Some(Token::SelectKeyword))
                     });
 
                     self.builder.finish_node(); // CaseClause
@@ -116,7 +116,7 @@ impl Parser<'_> {
         }
 
         // Consume "End Select" and trailing tokens
-        if self.at_token(VB6Token::EndKeyword) {
+        if self.at_token(Token::EndKeyword) {
             // Consume "End"
             self.consume_token();
 
@@ -127,7 +127,7 @@ impl Parser<'_> {
             self.consume_token();
 
             // Consume until newline (including it)
-            self.consume_until_after(VB6Token::Newline);
+            self.consume_until_after(Token::Newline);
         }
 
         self.builder.finish_node(); // SelectCaseStatement

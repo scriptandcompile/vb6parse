@@ -22,11 +22,10 @@ pub mod shape;
 pub mod textbox;
 pub mod timer;
 
-use bstr::BString;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
-use crate::parsers::form::VB6PropertyGroup;
+use crate::PropertyGroup;
 
 use crate::language::controls::{
     checkbox::CheckBoxProperties,
@@ -44,7 +43,7 @@ use crate::language::controls::{
     line::LineProperties,
     listbox::ListBoxProperties,
     mdiform::MDIFormProperties,
-    menus::{MenuProperties, VB6MenuControl},
+    menus::{MenuControl, MenuProperties},
     ole::OLEProperties,
     optionbutton::OptionButtonProperties,
     picturebox::PictureBoxProperties,
@@ -370,20 +369,36 @@ pub enum StartUpPosition {
     WindowsDefault,
 }
 
-/// Represents a VB6 control.
+/// Represents either a reference to an external resource within a *.frx file or an embedded value.
+///
+/// This is used to represent properties that can either be stored directly within the VB6 form file
+/// or as a reference to an external resource stored in the associated *.frx file.
+///
+/// The `Reference` variant contains the filename and offset within the *.frx file where the resource can be found.
+/// The `Value` variant contains the actual value of type `T`.
+///
+/// This is useful for handling properties such as images, icons, or other binary data that may be
+/// stored externally to keep the form file size manageable.
 #[derive(Debug, PartialEq, Clone, Serialize)]
-pub struct VB6Control {
-    pub name: BString,
-    pub tag: BString,
-    pub index: i32,
-    pub kind: VB6ControlKind,
+pub enum ReferenceOrValue<T> {
+    Reference { filename: String, offset: u32 },
+    Value(T),
 }
 
-/// The `VB6ControlKind` determines the specific kind of control that the `VB6Control` represents.
+/// Represents a VB6 control.
+#[derive(Debug, PartialEq, Clone, Serialize)]
+pub struct Control {
+    pub name: String,
+    pub tag: String,
+    pub index: i32,
+    pub kind: ControlKind,
+}
+
+/// The `ControlKind` determines the specific kind of control that the `Control` represents.
 ///
 /// Each variant contains the properties that are specific to that kind of control.
 #[derive(Debug, PartialEq, Clone, Serialize)]
-pub enum VB6ControlKind {
+pub enum ControlKind {
     CommandButton {
         properties: CommandButtonProperties,
     },
@@ -413,7 +428,7 @@ pub enum VB6ControlKind {
     },
     Frame {
         properties: FrameProperties,
-        controls: Vec<VB6Control>,
+        controls: Vec<Control>,
     },
     PictureBox {
         properties: PictureBoxProperties,
@@ -447,28 +462,28 @@ pub enum VB6ControlKind {
     },
     Menu {
         properties: MenuProperties,
-        sub_menus: Vec<VB6MenuControl>,
+        sub_menus: Vec<MenuControl>,
     },
     Form {
         properties: FormProperties,
-        controls: Vec<VB6Control>,
-        menus: Vec<VB6MenuControl>,
+        controls: Vec<Control>,
+        menus: Vec<MenuControl>,
     },
     MDIForm {
         properties: MDIFormProperties,
-        controls: Vec<VB6Control>,
-        menus: Vec<VB6MenuControl>,
+        controls: Vec<Control>,
+        menus: Vec<MenuControl>,
     },
     Custom {
         properties: CustomControlProperties,
-        property_groups: Vec<VB6PropertyGroup>,
+        property_groups: Vec<PropertyGroup>,
     },
 }
 
-impl VB6ControlKind {
+impl ControlKind {
     #[must_use]
     pub fn is_menu(&self) -> bool {
-        matches!(self, VB6ControlKind::Menu { .. })
+        matches!(self, ControlKind::Menu { .. })
     }
 }
 

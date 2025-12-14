@@ -1,11 +1,10 @@
 use crate::language::controls::{
     Activation, Appearance, CausesValidation, DragMode, JustifyAlignment, MousePointer,
-    OLEDropMode, Style, TabStop, TextDirection, UseMaskColor, Visibility,
+    OLEDropMode, ReferenceOrValue, Style, TabStop, TextDirection, UseMaskColor, Visibility,
 };
-use crate::language::{VB6Color, VB_3D_FACE, VB_BUTTON_TEXT};
+use crate::language::{Color, VB_3D_FACE, VB_BUTTON_TEXT};
 use crate::parsers::Properties;
 
-use bstr::BString;
 use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
@@ -21,35 +20,35 @@ pub enum OptionButtonValue {
 /// Properties for a `OptionButton` control.
 ///
 /// This is used as an enum variant of
-/// [`VB6ControlKind::OptionButton`](crate::language::controls::VB6ControlKind::OptionButton).
+/// [`ControlKind::OptionButton`](crate::language::controls::ControlKind::OptionButton).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
+/// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct OptionButtonProperties {
     pub alignment: JustifyAlignment,
     pub appearance: Appearance,
-    pub back_color: VB6Color,
-    pub caption: BString,
+    pub back_color: Color,
+    pub caption: String,
     pub causes_validation: CausesValidation,
-    pub disabled_picture: Option<DynamicImage>,
-    pub down_picture: Option<DynamicImage>,
-    pub drag_icon: Option<DynamicImage>,
+    pub disabled_picture: Option<ReferenceOrValue<DynamicImage>>,
+    pub down_picture: Option<ReferenceOrValue<DynamicImage>>,
+    pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
     pub drag_mode: DragMode,
     pub enabled: Activation,
-    pub fore_color: VB6Color,
+    pub fore_color: Color,
     pub height: i32,
     pub help_context_id: i32,
     pub left: i32,
-    pub mask_color: VB6Color,
-    pub mouse_icon: Option<DynamicImage>,
+    pub mask_color: Color,
+    pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
     pub mouse_pointer: MousePointer,
     pub ole_drop_mode: OLEDropMode,
-    pub picture: Option<DynamicImage>,
+    pub picture: Option<ReferenceOrValue<DynamicImage>>,
     pub right_to_left: TextDirection,
     pub style: Style,
     pub tab_index: i32,
     pub tab_stop: TabStop,
-    pub tool_tip_text: BString,
+    pub tool_tip_text: String,
     pub top: i32,
     pub use_mask_color: UseMaskColor,
     pub value: OptionButtonValue,
@@ -75,7 +74,7 @@ impl Default for OptionButtonProperties {
             height: 30,
             help_context_id: 0,
             left: 30,
-            mask_color: VB6Color::new(0xC0, 0xC0, 0xC0),
+            mask_color: Color::new(0xC0, 0xC0, 0xC0),
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
             ole_drop_mode: OLEDropMode::default(),
@@ -153,73 +152,60 @@ impl Serialize for OptionButtonProperties {
     }
 }
 
-impl<'a> From<Properties<'a>> for OptionButtonProperties {
-    fn from(prop: Properties<'a>) -> Self {
+impl From<Properties> for OptionButtonProperties {
+    fn from(prop: Properties) -> Self {
         let mut option_button_prop = OptionButtonProperties::default();
 
-        option_button_prop.alignment =
-            prop.get_property(b"Alignment".into(), option_button_prop.alignment);
+        option_button_prop.alignment = prop.get_property("Alignment", option_button_prop.alignment);
         option_button_prop.appearance =
-            prop.get_property(b"Appearance".into(), option_button_prop.appearance);
-        option_button_prop.back_color =
-            prop.get_color(b"BackColor".into(), option_button_prop.back_color);
-        option_button_prop.caption = match prop.get(b"Caption".into()) {
+            prop.get_property("Appearance", option_button_prop.appearance);
+        option_button_prop.back_color = prop.get_color("BackColor", option_button_prop.back_color);
+        option_button_prop.caption = match prop.get("Caption") {
             Some(caption) => caption.into(),
             None => option_button_prop.caption,
         };
-        option_button_prop.causes_validation = prop.get_property(
-            b"CausesValidation".into(),
-            option_button_prop.causes_validation,
-        );
+        option_button_prop.causes_validation =
+            prop.get_property("CausesValidation", option_button_prop.causes_validation);
 
         // DisabledPicture
         // DownPicture
         // DragIcon
 
-        option_button_prop.drag_mode =
-            prop.get_property(b"DragMode".into(), option_button_prop.drag_mode);
-        option_button_prop.enabled =
-            prop.get_property(b"Enabled".into(), option_button_prop.enabled);
-        option_button_prop.fore_color =
-            prop.get_color(b"ForeColor".into(), option_button_prop.fore_color);
-        option_button_prop.height = prop.get_i32(b"Height".into(), option_button_prop.height);
+        option_button_prop.drag_mode = prop.get_property("DragMode", option_button_prop.drag_mode);
+        option_button_prop.enabled = prop.get_property("Enabled", option_button_prop.enabled);
+        option_button_prop.fore_color = prop.get_color("ForeColor", option_button_prop.fore_color);
+        option_button_prop.height = prop.get_i32("Height", option_button_prop.height);
         option_button_prop.help_context_id =
-            prop.get_i32(b"HelpContextID".into(), option_button_prop.help_context_id);
-        option_button_prop.left = prop.get_i32(b"Left".into(), option_button_prop.left);
-        option_button_prop.mask_color =
-            prop.get_color(b"MaskColor".into(), option_button_prop.mask_color);
+            prop.get_i32("HelpContextID", option_button_prop.help_context_id);
+        option_button_prop.left = prop.get_i32("Left", option_button_prop.left);
+        option_button_prop.mask_color = prop.get_color("MaskColor", option_button_prop.mask_color);
 
         // MouseIcon
 
         option_button_prop.mouse_pointer =
-            prop.get_property(b"MousePointer".into(), option_button_prop.mouse_pointer);
+            prop.get_property("MousePointer", option_button_prop.mouse_pointer);
         option_button_prop.ole_drop_mode =
-            prop.get_property(b"OLEDropMode".into(), option_button_prop.ole_drop_mode);
+            prop.get_property("OLEDropMode", option_button_prop.ole_drop_mode);
 
         // Picture
 
         option_button_prop.right_to_left =
-            prop.get_property(b"RightToLeft".into(), option_button_prop.right_to_left);
-        option_button_prop.style = prop.get_property(b"Style".into(), option_button_prop.style);
-        option_button_prop.tab_index =
-            prop.get_i32(b"TabIndex".into(), option_button_prop.tab_index);
-        option_button_prop.tab_stop =
-            prop.get_property(b"TabStop".into(), option_button_prop.tab_stop);
-        option_button_prop.tool_tip_text = match prop.get(b"ToolTipText".into()) {
+            prop.get_property("RightToLeft", option_button_prop.right_to_left);
+        option_button_prop.style = prop.get_property("Style", option_button_prop.style);
+        option_button_prop.tab_index = prop.get_i32("TabIndex", option_button_prop.tab_index);
+        option_button_prop.tab_stop = prop.get_property("TabStop", option_button_prop.tab_stop);
+        option_button_prop.tool_tip_text = match prop.get("ToolTipText") {
             Some(tool_tip_text) => tool_tip_text.into(),
             None => option_button_prop.tool_tip_text,
         };
-        option_button_prop.top = prop.get_i32(b"Top".into(), option_button_prop.top);
+        option_button_prop.top = prop.get_i32("Top", option_button_prop.top);
         option_button_prop.use_mask_color =
-            prop.get_property(b"UseMaskColor".into(), option_button_prop.use_mask_color);
-        option_button_prop.value = prop.get_property(b"Value".into(), option_button_prop.value);
-        option_button_prop.visible =
-            prop.get_property(b"Visible".into(), option_button_prop.visible);
-        option_button_prop.whats_this_help_id = prop.get_i32(
-            b"WhatsThisHelpID".into(),
-            option_button_prop.whats_this_help_id,
-        );
-        option_button_prop.width = prop.get_i32(b"Width".into(), option_button_prop.width);
+            prop.get_property("UseMaskColor", option_button_prop.use_mask_color);
+        option_button_prop.value = prop.get_property("Value", option_button_prop.value);
+        option_button_prop.visible = prop.get_property("Visible", option_button_prop.visible);
+        option_button_prop.whats_this_help_id =
+            prop.get_i32("WhatsThisHelpID", option_button_prop.whats_this_help_id);
+        option_button_prop.width = prop.get_i32("Width", option_button_prop.width);
 
         option_button_prop
     }

@@ -1,197 +1,197 @@
 use phf::{phf_ordered_map, OrderedMap};
 
 use crate::{
-    language::VB6Token,
+    language::Token,
     parsers::{Comparator, ParseResult, SourceStream},
     tokenstream::TokenStream,
-    VB6CodeErrorKind,
+    CodeErrorKind,
 };
 
-static KEYWORD_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, VB6Token> = phf_ordered_map! {
-    "AdressOf" => VB6Token::AddressOfKeyword,
-    "Access" => VB6Token::AccessKeyword,
-    "Alias" => VB6Token::AliasKeyword,
-    "And" => VB6Token::AndKeyword,
-    "AppActivate" => VB6Token::AppActivateKeyword,
-    "Append" => VB6Token::AppendKeyword,
-    "Attribute" => VB6Token::AttributeKeyword,
-    "As" => VB6Token::AsKeyword,
-    "Base" => VB6Token::BaseKeyword,
-    "Beep" => VB6Token::BeepKeyword,
-    "Begin" => VB6Token::BeginKeyword,
-    "Binary" => VB6Token::BinaryKeyword,
-    "Boolean" => VB6Token::BooleanKeyword,
-    "ByRef" => VB6Token::ByRefKeyword,
-    "Byte" => VB6Token::ByteKeyword,
-    "ByVal" => VB6Token::ByValKeyword,
-    "Call" => VB6Token::CallKeyword,
-    "Case" => VB6Token::CaseKeyword,
-    "ChDir" => VB6Token::ChDirKeyword,
-    "ChDrive" => VB6Token::ChDriveKeyword,
-    "Class" => VB6Token::ClassKeyword,
-    "Close" => VB6Token::CloseKeyword,
-    "Compare" => VB6Token::CompareKeyword,
-    "Const" => VB6Token::ConstKeyword,
-    "Currency" => VB6Token::CurrencyKeyword,
-    "Date" => VB6Token::DateKeyword,
-    "Decimal" => VB6Token::DecimalKeyword,
-    "Declare" => VB6Token::DeclareKeyword,
-    "DefBool" => VB6Token::DefBoolKeyword,
-    "DefByte" => VB6Token::DefByteKeyword,
-    "DefCur" => VB6Token::DefCurKeyword,
-    "DefDate" => VB6Token::DefDateKeyword,
-    "DefDbl" => VB6Token::DefDblKeyword,
-    "DefDec" => VB6Token::DefDecKeyword,
-    "DefInt" => VB6Token::DefIntKeyword,
-    "DefLng" => VB6Token::DefLngKeyword,
-    "DefObj" => VB6Token::DefObjKeyword,
-    "DefSng" => VB6Token::DefSngKeyword,
-    "DefStr" => VB6Token::DefStrKeyword,
-    "DefVar" => VB6Token::DefVarKeyword,
-    "DeleteSetting" => VB6Token::DeleteSettingKeyword,
-    "Dim" => VB6Token::DimKeyword,
+static KEYWORD_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, Token> = phf_ordered_map! {
+    "AdressOf" => Token::AddressOfKeyword,
+    "Access" => Token::AccessKeyword,
+    "Alias" => Token::AliasKeyword,
+    "And" => Token::AndKeyword,
+    "AppActivate" => Token::AppActivateKeyword,
+    "Append" => Token::AppendKeyword,
+    "Attribute" => Token::AttributeKeyword,
+    "As" => Token::AsKeyword,
+    "Base" => Token::BaseKeyword,
+    "Beep" => Token::BeepKeyword,
+    "Begin" => Token::BeginKeyword,
+    "Binary" => Token::BinaryKeyword,
+    "Boolean" => Token::BooleanKeyword,
+    "ByRef" => Token::ByRefKeyword,
+    "Byte" => Token::ByteKeyword,
+    "ByVal" => Token::ByValKeyword,
+    "Call" => Token::CallKeyword,
+    "Case" => Token::CaseKeyword,
+    "ChDir" => Token::ChDirKeyword,
+    "ChDrive" => Token::ChDriveKeyword,
+    "Class" => Token::ClassKeyword,
+    "Close" => Token::CloseKeyword,
+    "Compare" => Token::CompareKeyword,
+    "Const" => Token::ConstKeyword,
+    "Currency" => Token::CurrencyKeyword,
+    "Date" => Token::DateKeyword,
+    "Decimal" => Token::DecimalKeyword,
+    "Declare" => Token::DeclareKeyword,
+    "DefBool" => Token::DefBoolKeyword,
+    "DefByte" => Token::DefByteKeyword,
+    "DefCur" => Token::DefCurKeyword,
+    "DefDate" => Token::DefDateKeyword,
+    "DefDbl" => Token::DefDblKeyword,
+    "DefDec" => Token::DefDecKeyword,
+    "DefInt" => Token::DefIntKeyword,
+    "DefLng" => Token::DefLngKeyword,
+    "DefObj" => Token::DefObjKeyword,
+    "DefSng" => Token::DefSngKeyword,
+    "DefStr" => Token::DefStrKeyword,
+    "DefVar" => Token::DefVarKeyword,
+    "DeleteSetting" => Token::DeleteSettingKeyword,
+    "Dim" => Token::DimKeyword,
     // switched so that `Do` isn't selected for `Double`.
-    "Double" => VB6Token::DoubleKeyword,
-    "Do" => VB6Token::DoKeyword,
-    "Each" => VB6Token::EachKeyword,
+    "Double" => Token::DoubleKeyword,
+    "Do" => Token::DoKeyword,
+    "Each" => Token::EachKeyword,
     // switched so that `Else` isn't selected for `ElseIf`.
-    "ElseIf" => VB6Token::ElseIfKeyword,
-    "Else" => VB6Token::ElseKeyword,
-    "Empty" => VB6Token::EmptyKeyword,
-    "End" => VB6Token::EndKeyword,
-    "Enum" => VB6Token::EnumKeyword,
-    "Eqv" => VB6Token::EqvKeyword,
-    "Erase" => VB6Token::EraseKeyword,
-    "Error" => VB6Token::ErrorKeyword,
-    "Event" => VB6Token::EventKeyword,
-    "Exit" => VB6Token::ExitKeyword,
-    "Explicit" => VB6Token::ExplicitKeyword,
-    "False" => VB6Token::FalseKeyword,
-    "FileCopy" => VB6Token::FileCopyKeyword,
-    "For" => VB6Token::ForKeyword,
-    "Friend" => VB6Token::FriendKeyword,
-    "Function" => VB6Token::FunctionKeyword,
-    "Get" => VB6Token::GetKeyword,
-    "GoSub" => VB6Token::GoSubKeyword,
-    "Goto" => VB6Token::GotoKeyword,
-    "If" => VB6Token::IfKeyword,
+    "ElseIf" => Token::ElseIfKeyword,
+    "Else" => Token::ElseKeyword,
+    "Empty" => Token::EmptyKeyword,
+    "End" => Token::EndKeyword,
+    "Enum" => Token::EnumKeyword,
+    "Eqv" => Token::EqvKeyword,
+    "Erase" => Token::EraseKeyword,
+    "Error" => Token::ErrorKeyword,
+    "Event" => Token::EventKeyword,
+    "Exit" => Token::ExitKeyword,
+    "Explicit" => Token::ExplicitKeyword,
+    "False" => Token::FalseKeyword,
+    "FileCopy" => Token::FileCopyKeyword,
+    "For" => Token::ForKeyword,
+    "Friend" => Token::FriendKeyword,
+    "Function" => Token::FunctionKeyword,
+    "Get" => Token::GetKeyword,
+    "GoSub" => Token::GoSubKeyword,
+    "Goto" => Token::GotoKeyword,
+    "If" => Token::IfKeyword,
     // switched so that `Imp` isn't selected for `Implements`.
-    "Implements" => VB6Token::ImplementsKeyword,
-    "Imp" => VB6Token::ImpKeyword,
-    "In" => VB6Token::InKeyword,
-    "Input" => VB6Token::InputKeyword,
-    "Integer" => VB6Token::IntegerKeyword,
-    "Is" => VB6Token::IsKeyword,
-    "Kill" => VB6Token::KillKeyword,
-    "Len" => VB6Token::LenKeyword,
-    "Let" => VB6Token::LetKeyword,
-    "Lib" => VB6Token::LibKeyword,
-    "Line" => VB6Token::LineKeyword,
-    "Lock" => VB6Token::LockKeyword,
-    "Load" => VB6Token::LoadKeyword,
-    "Unload" => VB6Token::UnloadKeyword,
-    "Long" => VB6Token::LongKeyword,
-    "Loop" => VB6Token::LoopKeyword,
-    "LSet" => VB6Token::LSetKeyword,
-    "Me" => VB6Token::MeKeyword,
-    "Mid" => VB6Token::MidKeyword,
-    "MidB" => VB6Token::MidBKeyword,
-    "MkDir" => VB6Token::MkDirKeyword,
-    "Module" => VB6Token::ModuleKeyword,
-    "Mod" => VB6Token::ModKeyword,
-    "Name" => VB6Token::NameKeyword,
-    "New" => VB6Token::NewKeyword,
-    "Next" => VB6Token::NextKeyword,
-    "Not" => VB6Token::NotKeyword,
-    "Output" => VB6Token::OutputKeyword,
-    "Null" => VB6Token::NullKeyword,
-    "Object" => VB6Token::ObjectKeyword,
-    "On" => VB6Token::OnKeyword,
-    "Open" => VB6Token::OpenKeyword,
+    "Implements" => Token::ImplementsKeyword,
+    "Imp" => Token::ImpKeyword,
+    "In" => Token::InKeyword,
+    "Input" => Token::InputKeyword,
+    "Integer" => Token::IntegerKeyword,
+    "Is" => Token::IsKeyword,
+    "Kill" => Token::KillKeyword,
+    "Len" => Token::LenKeyword,
+    "Let" => Token::LetKeyword,
+    "Lib" => Token::LibKeyword,
+    "Line" => Token::LineKeyword,
+    "Lock" => Token::LockKeyword,
+    "Load" => Token::LoadKeyword,
+    "Unload" => Token::UnloadKeyword,
+    "Long" => Token::LongKeyword,
+    "Loop" => Token::LoopKeyword,
+    "LSet" => Token::LSetKeyword,
+    "Me" => Token::MeKeyword,
+    "Mid" => Token::MidKeyword,
+    "MidB" => Token::MidBKeyword,
+    "MkDir" => Token::MkDirKeyword,
+    "Module" => Token::ModuleKeyword,
+    "Mod" => Token::ModKeyword,
+    "Name" => Token::NameKeyword,
+    "New" => Token::NewKeyword,
+    "Next" => Token::NextKeyword,
+    "Not" => Token::NotKeyword,
+    "Output" => Token::OutputKeyword,
+    "Null" => Token::NullKeyword,
+    "Object" => Token::ObjectKeyword,
+    "On" => Token::OnKeyword,
+    "Open" => Token::OpenKeyword,
     // Switched so that `Option` isn't selected for `Optional`.
-    "Optional" => VB6Token::OptionalKeyword,
-    "Option" => VB6Token::OptionKeyword,
-    "Or" => VB6Token::OrKeyword,
-    "ParamArray" => VB6Token::ParamArrayKeyword,
-    "Preserve" => VB6Token::PreserveKeyword,
-    "Print" => VB6Token::PrintKeyword,
-    "Private" => VB6Token::PrivateKeyword,
-    "Property" => VB6Token::PropertyKeyword,
-    "Public" => VB6Token::PublicKeyword,
-    "Put" => VB6Token::PutKeyword,
-    "RaiseEvent" => VB6Token::RaiseEventKeyword,
-    "Random" => VB6Token::RandomKeyword,
-    "Randomize" => VB6Token::RandomizeKeyword,
-    "Read" => VB6Token::ReadKeyword,
-    "ReDim" => VB6Token::ReDimKeyword,
-    "Reset" => VB6Token::ResetKeyword,
-    "Resume" => VB6Token::ResumeKeyword,
-    "Return" => VB6Token::ReturnKeyword,
-    "RmDir" => VB6Token::RmDirKeyword,
-    "RSet" => VB6Token::RSetKeyword,
-    "SavePicture" => VB6Token::SavePictureKeyword,
-    "SaveSetting" => VB6Token::SaveSettingKeyword,
-    "Seek" => VB6Token::SeekKeyword,
-    "Select" => VB6Token::SelectKeyword,
-    "SendKeys" => VB6Token::SendKeysKeyword,
+    "Optional" => Token::OptionalKeyword,
+    "Option" => Token::OptionKeyword,
+    "Or" => Token::OrKeyword,
+    "ParamArray" => Token::ParamArrayKeyword,
+    "Preserve" => Token::PreserveKeyword,
+    "Print" => Token::PrintKeyword,
+    "Private" => Token::PrivateKeyword,
+    "Property" => Token::PropertyKeyword,
+    "Public" => Token::PublicKeyword,
+    "Put" => Token::PutKeyword,
+    "RaiseEvent" => Token::RaiseEventKeyword,
+    "Random" => Token::RandomKeyword,
+    "Randomize" => Token::RandomizeKeyword,
+    "Read" => Token::ReadKeyword,
+    "ReDim" => Token::ReDimKeyword,
+    "Reset" => Token::ResetKeyword,
+    "Resume" => Token::ResumeKeyword,
+    "Return" => Token::ReturnKeyword,
+    "RmDir" => Token::RmDirKeyword,
+    "RSet" => Token::RSetKeyword,
+    "SavePicture" => Token::SavePictureKeyword,
+    "SaveSetting" => Token::SaveSettingKeyword,
+    "Seek" => Token::SeekKeyword,
+    "Select" => Token::SelectKeyword,
+    "SendKeys" => Token::SendKeysKeyword,
     // Switched so that `Set` isn't selected for `SetAttr`.
-    "SetAttr" => VB6Token::SetAttrKeyword,
-    "Set" => VB6Token::SetKeyword,
-    "Single" => VB6Token::SingleKeyword,
-    "Static" => VB6Token::StaticKeyword,
-    "Step" => VB6Token::StepKeyword,
-    "Stop" => VB6Token::StopKeyword,
-    "String" => VB6Token::StringKeyword,
-    "Sub" => VB6Token::SubKeyword,
-    "Text" => VB6Token::TextKeyword,
-    "Database" => VB6Token::DatabaseKeyword,
-    "Then" => VB6Token::ThenKeyword,
-    "Time" => VB6Token::TimeKeyword,
-    "To" => VB6Token::ToKeyword,
-    "True" => VB6Token::TrueKeyword,
-    "Type" => VB6Token::TypeKeyword,
-    "Unlock" => VB6Token::UnlockKeyword,
-    "Until" => VB6Token::UntilKeyword,
-    "Variant" => VB6Token::VariantKeyword,
-    "Version" => VB6Token::VersionKeyword,
-    "Wend" => VB6Token::WendKeyword,
-    "While" => VB6Token::WhileKeyword,
-    "Width" => VB6Token::WidthKeyword,
+    "SetAttr" => Token::SetAttrKeyword,
+    "Set" => Token::SetKeyword,
+    "Single" => Token::SingleKeyword,
+    "Static" => Token::StaticKeyword,
+    "Step" => Token::StepKeyword,
+    "Stop" => Token::StopKeyword,
+    "String" => Token::StringKeyword,
+    "Sub" => Token::SubKeyword,
+    "Text" => Token::TextKeyword,
+    "Database" => Token::DatabaseKeyword,
+    "Then" => Token::ThenKeyword,
+    "Time" => Token::TimeKeyword,
+    "To" => Token::ToKeyword,
+    "True" => Token::TrueKeyword,
+    "Type" => Token::TypeKeyword,
+    "Unlock" => Token::UnlockKeyword,
+    "Until" => Token::UntilKeyword,
+    "Variant" => Token::VariantKeyword,
+    "Version" => Token::VersionKeyword,
+    "Wend" => Token::WendKeyword,
+    "While" => Token::WhileKeyword,
+    "Width" => Token::WidthKeyword,
     // Switched so that `With` isn't selected for `WithEvents`.
-    "WithEvents" => VB6Token::WithEventsKeyword,
-    "With" => VB6Token::WithKeyword,
-    "Write" => VB6Token::WriteKeyword,
-    "Xor" => VB6Token::XorKeyword,
+    "WithEvents" => Token::WithEventsKeyword,
+    "With" => Token::WithKeyword,
+    "Write" => Token::WriteKeyword,
+    "Xor" => Token::XorKeyword,
 };
 
-static SYMBOL_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, VB6Token> = phf_ordered_map! {
-    "<>" => VB6Token::InequalityOperator,
-    "<=" => VB6Token::LessThanOrEqualOperator,
-    ">=" => VB6Token::GreaterThanOrEqualOperator,
-    "=" => VB6Token::EqualityOperator,
-    "$" => VB6Token::DollarSign,
-    "_" => VB6Token::Underscore,
-    "&" => VB6Token::Ampersand,
-    "%" => VB6Token::Percent,
-    "#" => VB6Token::Octothorpe,
-    "<" => VB6Token::LessThanOperator,
-    ">" => VB6Token::GreaterThanOperator,
-    "(" => VB6Token::LeftParenthesis,
-    ")" => VB6Token::RightParenthesis,
-    "," => VB6Token::Comma,
-    "+" => VB6Token::AdditionOperator,
-    "-" => VB6Token::SubtractionOperator,
-    "*" => VB6Token::MultiplicationOperator,
-    "\\" => VB6Token::BackwardSlashOperator,
-    "/" => VB6Token::DivisionOperator,
-    "." => VB6Token::PeriodOperator,
-    ":" => VB6Token::ColonOperator,
-    "^" => VB6Token::ExponentiationOperator,
-    "!" => VB6Token::ExclamationMark,
-    "[" => VB6Token::LeftSquareBracket,
-    "]" => VB6Token::RightSquareBracket,
-    ";" => VB6Token::Semicolon,
-    "@" => VB6Token::AtSign,
+static SYMBOL_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, Token> = phf_ordered_map! {
+    "<>" => Token::InequalityOperator,
+    "<=" => Token::LessThanOrEqualOperator,
+    ">=" => Token::GreaterThanOrEqualOperator,
+    "=" => Token::EqualityOperator,
+    "$" => Token::DollarSign,
+    "_" => Token::Underscore,
+    "&" => Token::Ampersand,
+    "%" => Token::Percent,
+    "#" => Token::Octothorpe,
+    "<" => Token::LessThanOperator,
+    ">" => Token::GreaterThanOperator,
+    "(" => Token::LeftParenthesis,
+    ")" => Token::RightParenthesis,
+    "," => Token::Comma,
+    "+" => Token::AdditionOperator,
+    "-" => Token::SubtractionOperator,
+    "*" => Token::MultiplicationOperator,
+    "\\" => Token::BackwardSlashOperator,
+    "/" => Token::DivisionOperator,
+    "." => Token::PeriodOperator,
+    ":" => Token::ColonOperator,
+    "^" => Token::ExponentiationOperator,
+    "!" => Token::ExclamationMark,
+    "[" => Token::LeftSquareBracket,
+    "]" => Token::RightSquareBracket,
+    ";" => Token::Semicolon,
+    "@" => Token::AtSign,
 };
 
 /// Parses VB6 code into a token stream.
@@ -212,7 +212,7 @@ static SYMBOL_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, VB6Token> = phf_order
 /// # Example
 ///
 /// ```rust
-/// use vb6parse::language::VB6Token;
+/// use vb6parse::language::Token;
 /// use vb6parse::tokenize::tokenize;
 /// use vb6parse::SourceStream;
 ///
@@ -230,17 +230,17 @@ static SYMBOL_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, VB6Token> = phf_order
 /// let tokens = result.unwrap();
 ///
 /// assert_eq!(tokens.len(), 7);
-/// assert_eq!(tokens[0], ("Dim", VB6Token::DimKeyword));
-/// assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
-/// assert_eq!(tokens[2], ("x", VB6Token::Identifier));
-/// assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
-/// assert_eq!(tokens[4], ("As", VB6Token::AsKeyword));
-/// assert_eq!(tokens[5], (" ", VB6Token::Whitespace));
-/// assert_eq!(tokens[6], ("Integer", VB6Token::IntegerKeyword));
+/// assert_eq!(tokens[0], ("Dim", Token::DimKeyword));
+/// assert_eq!(tokens[1], (" ", Token::Whitespace));
+/// assert_eq!(tokens[2], ("x", Token::Identifier));
+/// assert_eq!(tokens[3], (" ", Token::Whitespace));
+/// assert_eq!(tokens[4], ("As", Token::AsKeyword));
+/// assert_eq!(tokens[5], (" ", Token::Whitespace));
+/// assert_eq!(tokens[6], ("Integer", Token::IntegerKeyword));
 /// ```
 pub fn tokenize<'a>(
     input: &mut SourceStream<'a>,
-) -> ParseResult<'a, TokenStream<'a>, VB6CodeErrorKind> {
+) -> ParseResult<'a, TokenStream<'a>, CodeErrorKind> {
     let mut failures = vec![];
     let mut tokens = Vec::new();
 
@@ -256,7 +256,7 @@ pub fn tokenize<'a>(
         }
 
         if let Some(token) = input.take_newline() {
-            tokens.push((token, VB6Token::Newline));
+            tokens.push((token, Token::Newline));
             continue;
         }
 
@@ -311,12 +311,12 @@ pub fn tokenize<'a>(
         }
 
         if let Some(whitespace_text) = input.take_ascii_whitespaces() {
-            tokens.push((whitespace_text, VB6Token::Whitespace));
+            tokens.push((whitespace_text, Token::Whitespace));
             continue;
         }
 
         if let Some(token_text) = input.take_count(1) {
-            let error = input.generate_error(VB6CodeErrorKind::UnknownToken {
+            let error = input.generate_error(CodeErrorKind::UnknownToken {
                 token: token_text.into(),
             });
 
@@ -346,7 +346,7 @@ pub fn tokenize<'a>(
 /// If the tokenizer encounters any errors, they will be included in the returned `ParseResult`.
 pub fn tokenize_without_whitespaces<'a>(
     input: &mut SourceStream<'a>,
-) -> ParseResult<'a, TokenStream<'a>, VB6CodeErrorKind> {
+) -> ParseResult<'a, TokenStream<'a>, CodeErrorKind> {
     let parse_result = tokenize(input);
 
     if parse_result.has_failures() {
@@ -354,10 +354,10 @@ pub fn tokenize_without_whitespaces<'a>(
     }
 
     let token_stream = parse_result.result.unwrap();
-    let tokens_without_whitespaces: Vec<(&str, VB6Token)> = token_stream
+    let tokens_without_whitespaces: Vec<(&str, Token)> = token_stream
         .tokens
         .into_iter()
-        .filter(|(_, token)| !matches!(token, VB6Token::Whitespace))
+        .filter(|(_, token)| !matches!(token, Token::Whitespace))
         .collect();
 
     let filtered_stream = TokenStream::new(token_stream.source_file, tokens_without_whitespaces);
@@ -390,17 +390,17 @@ pub fn tokenize_without_whitespaces<'a>(
 /// None if there is no line comment at the current position in the stream.
 fn take_line_comment<'a>(
     input: &mut SourceStream<'a>,
-) -> Option<((&'a str, VB6Token), Option<(&'a str, VB6Token)>)> {
+) -> Option<((&'a str, Token), Option<(&'a str, Token)>)> {
     input.peek_text("'", super::Comparator::CaseInsensitive)?;
 
     match input.take_until_newline() {
         None => None,
         Some((comment, newline_optional)) => {
-            let comment_tuple = (comment, VB6Token::EndOfLineComment);
+            let comment_tuple = (comment, Token::EndOfLineComment);
 
             match newline_optional {
                 None => Some((comment_tuple, None)),
-                Some(newline) => Some((comment_tuple, Some((newline, VB6Token::Newline)))),
+                Some(newline) => Some((comment_tuple, Some((newline, Token::Newline)))),
             }
         }
     }
@@ -428,17 +428,17 @@ fn take_line_comment<'a>(
 /// None if there is no REM comment at the current position in the stream.
 fn take_rem_comment<'a>(
     input: &mut SourceStream<'a>,
-) -> Option<((&'a str, VB6Token), Option<(&'a str, VB6Token)>)> {
+) -> Option<((&'a str, Token), Option<(&'a str, Token)>)> {
     input.peek_text("REM", super::Comparator::CaseInsensitive)?;
 
     match input.take_until_newline() {
         None => None,
         Some((comment, newline_optional)) => {
-            let comment_tuple = (comment, VB6Token::RemComment);
+            let comment_tuple = (comment, Token::RemComment);
 
             match newline_optional {
                 None => Some((comment_tuple, None)),
-                Some(newline) => Some((comment_tuple, Some((newline, VB6Token::Newline)))),
+                Some(newline) => Some((comment_tuple, Some((newline, Token::Newline)))),
             }
         }
     }
@@ -461,7 +461,7 @@ fn take_rem_comment<'a>(
 ///
 /// `Some()` with a tuple containing the matched numeric literal text and its corresponding VB6 token
 /// if a numeric literal is found at the current position in the stream; otherwise, `None`.
-fn take_numeric_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB6Token)> {
+fn take_numeric_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, Token)> {
     let start_offset = input.offset;
 
     // Parse the numeric part (digits, optional decimal point, optional exponent)
@@ -501,25 +501,25 @@ fn take_numeric_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB
     // Check for type suffix
     let token_type = if input.peek_text("%", Comparator::CaseInsensitive).is_some() {
         let _ = input.take_count(1);
-        VB6Token::IntegerLiteral
+        Token::IntegerLiteral
     } else if input.peek_text("&", Comparator::CaseInsensitive).is_some() {
         let _ = input.take_count(1);
-        VB6Token::LongLiteral
+        Token::LongLiteral
     } else if input.peek_text("!", Comparator::CaseInsensitive).is_some() {
         let _ = input.take_count(1);
-        VB6Token::SingleLiteral
+        Token::SingleLiteral
     } else if input.peek_text("#", Comparator::CaseInsensitive).is_some() {
         let _ = input.take_count(1);
-        VB6Token::DoubleLiteral
+        Token::DoubleLiteral
     } else if input.peek_text("@", Comparator::CaseInsensitive).is_some() {
         let _ = input.take_count(1);
-        VB6Token::DecimalLiteral
+        Token::DecimalLiteral
     } else if has_decimal || has_exponent {
         // No explicit suffix, but has decimal point or exponent -> Single (VB6 default)
-        VB6Token::SingleLiteral
+        Token::SingleLiteral
     } else {
         // No suffix, no decimal, no exponent -> Integer
-        VB6Token::IntegerLiteral
+        Token::IntegerLiteral
     };
 
     let end_offset = input.offset;
@@ -540,7 +540,7 @@ fn take_numeric_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB
 ///
 /// `Some()` with a tuple containing the matched date literal text and its corresponding VB6 token
 /// if a date literal is found at the current position in the stream; otherwise, `None`.
-fn take_date_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB6Token)> {
+fn take_date_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, Token)> {
     let start_offset = input.offset;
 
     // Must start with #
@@ -575,7 +575,7 @@ fn take_date_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB6To
     let end_offset = input.offset;
     let date_text = &input.contents[start_offset..end_offset];
 
-    Some((date_text, VB6Token::DateLiteral))
+    Some((date_text, Token::DateLiteral))
 }
 
 /// Parses a VB6 string literal from the input stream.
@@ -588,7 +588,7 @@ fn take_date_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB6To
 ///
 /// `Some()` with a tuple containing the matched string literal text and its corresponding VB6 token
 /// if a string literal is found at the current position in the stream; otherwise, `None`.
-fn take_string_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB6Token)> {
+fn take_string_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, Token)> {
     input.peek_text("\"", super::Comparator::CaseInsensitive)?;
 
     // TODO: Need to handle error reporting of incorrect escape sequences as well
@@ -617,7 +617,7 @@ fn take_string_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB6
 
     input
         .take_until_lambda(take_string, false)
-        .map(|text| (text, VB6Token::StringLiteral))
+        .map(|text| (text, Token::StringLiteral))
 }
 
 /// Parses a VB6 keyword from the input stream.
@@ -630,7 +630,7 @@ fn take_string_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB6
 ///
 /// `Some()` with a tuple containing the matched keyword text and its corresponding VB6 token
 /// if a keyword is found at the current position in the stream; otherwise, `None`.
-fn take_keyword<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB6Token)> {
+fn take_keyword<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, Token)> {
     for entry in KEYWORD_TOKEN_LOOKUP_TABLE.entries() {
         if let Some(matching_text) = take_matching_text(input, *entry.0) {
             return Some((matching_text, *entry.1));
@@ -650,7 +650,7 @@ fn take_keyword<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB6Token)>
 ///
 /// `Some()` with a tuple containing the matched symbol text and its corresponding VB6 token
 /// if a symbol is found at the current position in the stream; otherwise, `None`.
-fn take_symbol<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB6Token)> {
+fn take_symbol<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, Token)> {
     for entry in SYMBOL_TOKEN_LOOKUP_TABLE.entries() {
         if let Some(matching_text) = input.take(*entry.0, Comparator::CaseSensitive) {
             return Some((matching_text, *entry.1));
@@ -732,11 +732,11 @@ pub fn take_matching_text<'a>(
 ///
 /// `Some()` with a tuple containing the matched identifier text and its corresponding VB6 token
 /// if an identifier is found at the current position in the stream; otherwise, `None`.
-fn take_variable_name<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, VB6Token)> {
+fn take_variable_name<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, Token)> {
     if input.peek(1)?.chars().next()?.is_ascii_alphabetic() {
         let variable_text = input.take_ascii_underscore_alphanumerics()?;
 
-        return Some((variable_text, VB6Token::Identifier));
+        return Some((variable_text, Token::Identifier));
     }
 
     None
@@ -760,13 +760,13 @@ mod test {
 
         let tokens = result.result.unwrap();
 
-        assert_eq!(tokens[0], ("Dim", VB6Token::DimKeyword));
-        assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[2], ("x", VB6Token::Identifier));
-        assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[4], ("As", VB6Token::AsKeyword));
-        assert_eq!(tokens[5], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[6], ("Integer", VB6Token::IntegerKeyword));
+        assert_eq!(tokens[0], ("Dim", Token::DimKeyword));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("x", Token::Identifier));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("As", Token::AsKeyword));
+        assert_eq!(tokens[5], (" ", Token::Whitespace));
+        assert_eq!(tokens[6], ("Integer", Token::IntegerKeyword));
         assert_eq!(tokens.len(), 7);
     }
 
@@ -785,11 +785,11 @@ mod test {
         let tokens = result.result.unwrap();
 
         assert_eq!(tokens.len(), 5);
-        assert_eq!(tokens[0], ("x", VB6Token::Identifier));
-        assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[2], ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[4], ("\"Test\"", VB6Token::StringLiteral));
+        assert_eq!(tokens[0], ("x", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("\"Test\"", Token::StringLiteral));
     }
 
     #[test]
@@ -807,7 +807,7 @@ mod test {
         let tokens = result.result.unwrap();
 
         assert_eq!(tokens.len(), 1);
-        assert_eq!(tokens[0], ("\"Text\"", VB6Token::StringLiteral));
+        assert_eq!(tokens[0], ("\"Text\"", Token::StringLiteral));
     }
 
     #[test]
@@ -825,16 +825,13 @@ mod test {
         let tokens = result.result.unwrap();
 
         assert_eq!(tokens.len(), 7);
-        assert_eq!(tokens[0], ("x", VB6Token::Identifier));
-        assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[2], ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[4], ("\"Test\"", VB6Token::StringLiteral));
-        assert_eq!(tokens[5], (" ", VB6Token::Whitespace));
-        assert_eq!(
-            tokens[6],
-            ("'This is a comment.", VB6Token::EndOfLineComment)
-        );
+        assert_eq!(tokens[0], ("x", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("\"Test\"", Token::StringLiteral));
+        assert_eq!(tokens[5], (" ", Token::Whitespace));
+        assert_eq!(tokens[6], ("'This is a comment.", Token::EndOfLineComment));
     }
 
     #[test]
@@ -867,159 +864,141 @@ Attribute VB_Exposed = False
         let mut tokens = result.result.unwrap().into_iter();
 
         assert_eq!(tokens.len(), 96);
+        assert_eq!(tokens.next().unwrap(), ("VERSION", Token::VersionKeyword));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("1.0", Token::SingleLiteral));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("CLASS", Token::ClassKeyword));
+        assert_eq!(tokens.next().unwrap(), ("\n", Token::Newline));
+        assert_eq!(tokens.next().unwrap(), ("BEGIN", Token::BeginKeyword));
+        assert_eq!(tokens.next().unwrap(), ("\n", Token::Newline));
+        assert_eq!(tokens.next().unwrap(), ("    ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("MultiUse", Token::Identifier));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("=", Token::EqualityOperator));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("-", Token::SubtractionOperator));
+        assert_eq!(tokens.next().unwrap(), ("1", Token::IntegerLiteral));
+        assert_eq!(tokens.next().unwrap(), ("  ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("'True", Token::EndOfLineComment));
+        assert_eq!(tokens.next().unwrap(), ("\n", Token::Newline));
+        assert_eq!(tokens.next().unwrap(), ("    ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("Persistable", Token::Identifier));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("=", Token::EqualityOperator));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("0", Token::IntegerLiteral));
+        assert_eq!(tokens.next().unwrap(), ("  ", Token::Whitespace));
         assert_eq!(
             tokens.next().unwrap(),
-            ("VERSION", VB6Token::VersionKeyword)
+            ("'NotPersistable", Token::EndOfLineComment)
         );
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("1.0", VB6Token::SingleLiteral));
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("CLASS", VB6Token::ClassKeyword));
-        assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(tokens.next().unwrap(), ("BEGIN", VB6Token::BeginKeyword));
-        assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(tokens.next().unwrap(), ("    ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("MultiUse", VB6Token::Identifier));
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("-", VB6Token::SubtractionOperator));
-        assert_eq!(tokens.next().unwrap(), ("1", VB6Token::IntegerLiteral));
-        assert_eq!(tokens.next().unwrap(), ("  ", VB6Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("\n", Token::Newline));
+        assert_eq!(tokens.next().unwrap(), ("    ", Token::Whitespace));
         assert_eq!(
             tokens.next().unwrap(),
-            ("'True", VB6Token::EndOfLineComment)
+            ("DataBindingBehavior", Token::Identifier)
         );
-        assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(tokens.next().unwrap(), ("    ", VB6Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("=", Token::EqualityOperator));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("0", Token::IntegerLiteral));
+        assert_eq!(tokens.next().unwrap(), ("  ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("'vbNone", Token::EndOfLineComment));
+        assert_eq!(tokens.next().unwrap(), ("\n", Token::Newline));
+        assert_eq!(tokens.next().unwrap(), ("    ", Token::Whitespace));
         assert_eq!(
             tokens.next().unwrap(),
-            ("Persistable", VB6Token::Identifier)
+            ("DataSourceBehavior", Token::Identifier)
         );
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("0", VB6Token::IntegerLiteral));
-        assert_eq!(tokens.next().unwrap(), ("  ", VB6Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("=", Token::EqualityOperator));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("0", Token::IntegerLiteral));
+        assert_eq!(tokens.next().unwrap(), ("  ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("'vbNone", Token::EndOfLineComment));
+        assert_eq!(tokens.next().unwrap(), ("\n", Token::Newline));
+        assert_eq!(tokens.next().unwrap(), ("    ", Token::Whitespace));
         assert_eq!(
             tokens.next().unwrap(),
-            ("'NotPersistable", VB6Token::EndOfLineComment)
+            ("MTSTransactionMode", Token::Identifier)
         );
-        assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(tokens.next().unwrap(), ("    ", VB6Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("=", Token::EqualityOperator));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("0", Token::IntegerLiteral));
+        assert_eq!(tokens.next().unwrap(), ("  ", Token::Whitespace));
         assert_eq!(
             tokens.next().unwrap(),
-            ("DataBindingBehavior", VB6Token::Identifier)
+            ("'NotAnMTSObject", Token::EndOfLineComment)
         );
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("0", VB6Token::IntegerLiteral));
-        assert_eq!(tokens.next().unwrap(), ("  ", VB6Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("\n", Token::Newline));
+        assert_eq!(tokens.next().unwrap(), ("END", Token::EndKeyword));
+        assert_eq!(tokens.next().unwrap(), ("\n", Token::Newline));
         assert_eq!(
             tokens.next().unwrap(),
-            ("'vbNone", VB6Token::EndOfLineComment)
+            ("Attribute", Token::AttributeKeyword)
         );
-        assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(tokens.next().unwrap(), ("    ", VB6Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("VB_Name", Token::Identifier));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("=", Token::EqualityOperator));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
         assert_eq!(
             tokens.next().unwrap(),
-            ("DataSourceBehavior", VB6Token::Identifier)
+            ("\"Something\"", Token::StringLiteral)
         );
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("0", VB6Token::IntegerLiteral));
-        assert_eq!(tokens.next().unwrap(), ("  ", VB6Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("\n", Token::Newline));
         assert_eq!(
             tokens.next().unwrap(),
-            ("'vbNone", VB6Token::EndOfLineComment)
+            ("Attribute", Token::AttributeKeyword)
         );
-        assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(tokens.next().unwrap(), ("    ", VB6Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
         assert_eq!(
             tokens.next().unwrap(),
-            ("MTSTransactionMode", VB6Token::Identifier)
+            ("VB_GlobalNameSpace", Token::Identifier)
         );
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("0", VB6Token::IntegerLiteral));
-        assert_eq!(tokens.next().unwrap(), ("  ", VB6Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("=", Token::EqualityOperator));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("False", Token::FalseKeyword));
+        assert_eq!(tokens.next().unwrap(), ("\n", Token::Newline));
         assert_eq!(
             tokens.next().unwrap(),
-            ("'NotAnMTSObject", VB6Token::EndOfLineComment)
+            ("Attribute", Token::AttributeKeyword)
         );
-        assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(tokens.next().unwrap(), ("END", VB6Token::EndKeyword));
-        assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("VB_Creatable", Token::Identifier));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("=", Token::EqualityOperator));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("True", Token::TrueKeyword));
+        assert_eq!(tokens.next().unwrap(), ("\n", Token::Newline));
         assert_eq!(
             tokens.next().unwrap(),
-            ("Attribute", VB6Token::AttributeKeyword)
+            ("Attribute", Token::AttributeKeyword)
         );
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("VB_Name", VB6Token::Identifier));
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
         assert_eq!(
             tokens.next().unwrap(),
-            ("\"Something\"", VB6Token::StringLiteral)
+            ("VB_PredeclaredId", Token::Identifier)
         );
-        assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("=", Token::EqualityOperator));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("False", Token::FalseKeyword));
+        assert_eq!(tokens.next().unwrap(), ("\n", Token::Newline));
         assert_eq!(
             tokens.next().unwrap(),
-            ("Attribute", VB6Token::AttributeKeyword)
+            ("Attribute", Token::AttributeKeyword)
         );
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(
-            tokens.next().unwrap(),
-            ("VB_GlobalNameSpace", VB6Token::Identifier)
-        );
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("False", VB6Token::FalseKeyword));
-        assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(
-            tokens.next().unwrap(),
-            ("Attribute", VB6Token::AttributeKeyword)
-        );
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(
-            tokens.next().unwrap(),
-            ("VB_Creatable", VB6Token::Identifier)
-        );
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("True", VB6Token::TrueKeyword));
-        assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(
-            tokens.next().unwrap(),
-            ("Attribute", VB6Token::AttributeKeyword)
-        );
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(
-            tokens.next().unwrap(),
-            ("VB_PredeclaredId", VB6Token::Identifier)
-        );
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("False", VB6Token::FalseKeyword));
-        assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(
-            tokens.next().unwrap(),
-            ("Attribute", VB6Token::AttributeKeyword)
-        );
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("VB_Exposed", VB6Token::Identifier));
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens.next().unwrap(), (" ", VB6Token::Whitespace));
-        assert_eq!(tokens.next().unwrap(), ("False", VB6Token::FalseKeyword));
-        assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("VB_Exposed", Token::Identifier));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("=", Token::EqualityOperator));
+        assert_eq!(tokens.next().unwrap(), (" ", Token::Whitespace));
+        assert_eq!(tokens.next().unwrap(), ("False", Token::FalseKeyword));
+        assert_eq!(tokens.next().unwrap(), ("\n", Token::Newline));
         assert!(tokens.next().is_none());
     }
 
@@ -1053,122 +1032,104 @@ Attribute VB_Exposed = False
         let mut tokens = result.result.unwrap().into_iter();
 
         assert_eq!(tokens.len(), 59);
+        assert_eq!(tokens.next().unwrap(), ("VERSION", Token::VersionKeyword));
+        assert_eq!(tokens.next().unwrap(), ("1.0", Token::SingleLiteral));
+        assert_eq!(tokens.next().unwrap(), ("CLASS", Token::ClassKeyword));
+        assert_eq!(tokens.next().unwrap(), ("\n", Token::Newline));
+        assert_eq!(tokens.next().unwrap(), ("BEGIN", Token::BeginKeyword));
+        assert_eq!(tokens.next().unwrap(), ("\n", Token::Newline));
+        assert_eq!(tokens.next().unwrap(), ("MultiUse", Token::Identifier));
+        assert_eq!(tokens.next().unwrap(), ("=", Token::EqualityOperator));
+        assert_eq!(tokens.next().unwrap(), ("-", Token::SubtractionOperator));
+        assert_eq!(tokens.next().unwrap(), ("1", Token::IntegerLiteral));
+        assert_eq!(tokens.next().unwrap(), ("'True", Token::EndOfLineComment));
+        assert_eq!(tokens.next().unwrap(), ("\n", Token::Newline));
+        assert_eq!(tokens.next().unwrap(), ("Persistable", Token::Identifier));
+        assert_eq!(tokens.next().unwrap(), ("=", Token::EqualityOperator));
+        assert_eq!(tokens.next().unwrap(), ("0", Token::IntegerLiteral));
         assert_eq!(
             tokens.next().unwrap(),
-            ("VERSION", VB6Token::VersionKeyword)
+            ("'NotPersistable", Token::EndOfLineComment)
         );
-        assert_eq!(tokens.next().unwrap(), ("1.0", VB6Token::SingleLiteral));
-        assert_eq!(tokens.next().unwrap(), ("CLASS", VB6Token::ClassKeyword));
-        assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(tokens.next().unwrap(), ("BEGIN", VB6Token::BeginKeyword));
-        assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(tokens.next().unwrap(), ("MultiUse", VB6Token::Identifier));
-        assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens.next().unwrap(), ("-", VB6Token::SubtractionOperator));
-        assert_eq!(tokens.next().unwrap(), ("1", VB6Token::IntegerLiteral));
+        assert_eq!(tokens.next().unwrap(), ("\n", Token::Newline));
         assert_eq!(
             tokens.next().unwrap(),
-            ("'True", VB6Token::EndOfLineComment)
+            ("DataBindingBehavior", Token::Identifier)
         );
-        assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
+        assert_eq!(tokens.next().unwrap(), ("=", Token::EqualityOperator));
+        assert_eq!(tokens.next().unwrap(), ("0", Token::IntegerLiteral));
+        assert_eq!(tokens.next().unwrap(), ("'vbNone", Token::EndOfLineComment));
+        assert_eq!(tokens.next().unwrap(), ("\n", Token::Newline));
         assert_eq!(
             tokens.next().unwrap(),
-            ("Persistable", VB6Token::Identifier)
+            ("DataSourceBehavior", Token::Identifier)
         );
-        assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens.next().unwrap(), ("0", VB6Token::IntegerLiteral));
+        assert_eq!(tokens.next().unwrap(), ("=", Token::EqualityOperator));
+        assert_eq!(tokens.next().unwrap(), ("0", Token::IntegerLiteral));
+        assert_eq!(tokens.next().unwrap(), ("'vbNone", Token::EndOfLineComment));
+        assert_eq!(tokens.next().unwrap(), ("\n", Token::Newline));
         assert_eq!(
             tokens.next().unwrap(),
-            ("'NotPersistable", VB6Token::EndOfLineComment)
+            ("MTSTransactionMode", Token::Identifier)
         );
-        assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
+        assert_eq!(tokens.next().unwrap(), ("=", Token::EqualityOperator));
+        assert_eq!(tokens.next().unwrap(), ("0", Token::IntegerLiteral));
         assert_eq!(
             tokens.next().unwrap(),
-            ("DataBindingBehavior", VB6Token::Identifier)
+            ("'NotAnMTSObject", Token::EndOfLineComment)
         );
-        assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens.next().unwrap(), ("0", VB6Token::IntegerLiteral));
+        assert_eq!(tokens.next().unwrap(), ("\n", Token::Newline));
+        assert_eq!(tokens.next().unwrap(), ("END", Token::EndKeyword));
+        assert_eq!(tokens.next().unwrap(), ("\n", Token::Newline));
         assert_eq!(
             tokens.next().unwrap(),
-            ("'vbNone", VB6Token::EndOfLineComment)
+            ("Attribute", Token::AttributeKeyword)
         );
-        assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
+        assert_eq!(tokens.next().unwrap(), ("VB_Name", Token::Identifier));
+        assert_eq!(tokens.next().unwrap(), ("=", Token::EqualityOperator));
         assert_eq!(
             tokens.next().unwrap(),
-            ("DataSourceBehavior", VB6Token::Identifier)
+            ("\"Something\"", Token::StringLiteral)
         );
-        assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens.next().unwrap(), ("0", VB6Token::IntegerLiteral));
+        assert_eq!(tokens.next().unwrap(), ("\n", Token::Newline));
         assert_eq!(
             tokens.next().unwrap(),
-            ("'vbNone", VB6Token::EndOfLineComment)
-        );
-        assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(
-            tokens.next().unwrap(),
-            ("MTSTransactionMode", VB6Token::Identifier)
-        );
-        assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens.next().unwrap(), ("0", VB6Token::IntegerLiteral));
-        assert_eq!(
-            tokens.next().unwrap(),
-            ("'NotAnMTSObject", VB6Token::EndOfLineComment)
-        );
-        assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(tokens.next().unwrap(), ("END", VB6Token::EndKeyword));
-        assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(
-            tokens.next().unwrap(),
-            ("Attribute", VB6Token::AttributeKeyword)
-        );
-        assert_eq!(tokens.next().unwrap(), ("VB_Name", VB6Token::Identifier));
-        assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
-        assert_eq!(
-            tokens.next().unwrap(),
-            ("\"Something\"", VB6Token::StringLiteral)
-        );
-        assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(
-            tokens.next().unwrap(),
-            ("Attribute", VB6Token::AttributeKeyword)
+            ("Attribute", Token::AttributeKeyword)
         );
         assert_eq!(
             tokens.next().unwrap(),
-            ("VB_GlobalNameSpace", VB6Token::Identifier)
+            ("VB_GlobalNameSpace", Token::Identifier)
         );
-        assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens.next().unwrap(), ("False", VB6Token::FalseKeyword));
-        assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
+        assert_eq!(tokens.next().unwrap(), ("=", Token::EqualityOperator));
+        assert_eq!(tokens.next().unwrap(), ("False", Token::FalseKeyword));
+        assert_eq!(tokens.next().unwrap(), ("\n", Token::Newline));
         assert_eq!(
             tokens.next().unwrap(),
-            ("Attribute", VB6Token::AttributeKeyword)
+            ("Attribute", Token::AttributeKeyword)
         );
+        assert_eq!(tokens.next().unwrap(), ("VB_Creatable", Token::Identifier));
+        assert_eq!(tokens.next().unwrap(), ("=", Token::EqualityOperator));
+        assert_eq!(tokens.next().unwrap(), ("True", Token::TrueKeyword));
+        assert_eq!(tokens.next().unwrap(), ("\n", Token::Newline));
         assert_eq!(
             tokens.next().unwrap(),
-            ("VB_Creatable", VB6Token::Identifier)
-        );
-        assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens.next().unwrap(), ("True", VB6Token::TrueKeyword));
-        assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
-        assert_eq!(
-            tokens.next().unwrap(),
-            ("Attribute", VB6Token::AttributeKeyword)
+            ("Attribute", Token::AttributeKeyword)
         );
         assert_eq!(
             tokens.next().unwrap(),
-            ("VB_PredeclaredId", VB6Token::Identifier)
+            ("VB_PredeclaredId", Token::Identifier)
         );
-        assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens.next().unwrap(), ("False", VB6Token::FalseKeyword));
-        assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
+        assert_eq!(tokens.next().unwrap(), ("=", Token::EqualityOperator));
+        assert_eq!(tokens.next().unwrap(), ("False", Token::FalseKeyword));
+        assert_eq!(tokens.next().unwrap(), ("\n", Token::Newline));
         assert_eq!(
             tokens.next().unwrap(),
-            ("Attribute", VB6Token::AttributeKeyword)
+            ("Attribute", Token::AttributeKeyword)
         );
-        assert_eq!(tokens.next().unwrap(), ("VB_Exposed", VB6Token::Identifier));
-        assert_eq!(tokens.next().unwrap(), ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens.next().unwrap(), ("False", VB6Token::FalseKeyword));
-        assert_eq!(tokens.next().unwrap(), ("\n", VB6Token::Newline));
+        assert_eq!(tokens.next().unwrap(), ("VB_Exposed", Token::Identifier));
+        assert_eq!(tokens.next().unwrap(), ("=", Token::EqualityOperator));
+        assert_eq!(tokens.next().unwrap(), ("False", Token::FalseKeyword));
+        assert_eq!(tokens.next().unwrap(), ("\n", Token::Newline));
         assert!(tokens.next().is_none());
     }
 
@@ -1183,11 +1144,11 @@ Attribute VB_Exposed = False
         assert!(!result.has_failures());
         let tokens = result.result.unwrap();
 
-        assert_eq!(tokens[0], ("x", VB6Token::Identifier));
-        assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[2], ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[4], ("42%", VB6Token::IntegerLiteral));
+        assert_eq!(tokens[0], ("x", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("42%", Token::IntegerLiteral));
         assert_eq!(tokens.len(), 5);
     }
 
@@ -1202,11 +1163,11 @@ Attribute VB_Exposed = False
         assert!(!result.has_failures());
         let tokens = result.result.unwrap();
 
-        assert_eq!(tokens[0], ("x", VB6Token::Identifier));
-        assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[2], ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[4], ("123456&", VB6Token::LongLiteral));
+        assert_eq!(tokens[0], ("x", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("123456&", Token::LongLiteral));
         assert_eq!(tokens.len(), 5);
     }
 
@@ -1221,11 +1182,11 @@ Attribute VB_Exposed = False
         assert!(!result.has_failures());
         let tokens = result.result.unwrap();
 
-        assert_eq!(tokens[0], ("x", VB6Token::Identifier));
-        assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[2], ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[4], ("3.14!", VB6Token::SingleLiteral));
+        assert_eq!(tokens[0], ("x", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("3.14!", Token::SingleLiteral));
         assert_eq!(tokens.len(), 5);
     }
 
@@ -1240,11 +1201,11 @@ Attribute VB_Exposed = False
         assert!(!result.has_failures());
         let tokens = result.result.unwrap();
 
-        assert_eq!(tokens[0], ("x", VB6Token::Identifier));
-        assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[2], ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[4], ("3.14159265#", VB6Token::DoubleLiteral));
+        assert_eq!(tokens[0], ("x", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("3.14159265#", Token::DoubleLiteral));
         assert_eq!(tokens.len(), 5);
     }
 
@@ -1259,11 +1220,11 @@ Attribute VB_Exposed = False
         assert!(!result.has_failures());
         let tokens = result.result.unwrap();
 
-        assert_eq!(tokens[0], ("price", VB6Token::Identifier));
-        assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[2], ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[4], ("12.50@", VB6Token::DecimalLiteral));
+        assert_eq!(tokens[0], ("price", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("12.50@", Token::DecimalLiteral));
         assert_eq!(tokens.len(), 5);
     }
 
@@ -1278,11 +1239,11 @@ Attribute VB_Exposed = False
         assert!(!result.has_failures());
         let tokens = result.result.unwrap();
 
-        assert_eq!(tokens[0], ("d", VB6Token::Identifier));
-        assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[2], ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[4], ("#1/1/2000#", VB6Token::DateLiteral));
+        assert_eq!(tokens[0], ("d", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("#1/1/2000#", Token::DateLiteral));
         assert_eq!(tokens.len(), 5);
     }
 
@@ -1297,14 +1258,11 @@ Attribute VB_Exposed = False
         assert!(!result.has_failures());
         let tokens = result.result.unwrap();
 
-        assert_eq!(tokens[0], ("d", VB6Token::Identifier));
-        assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[2], ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
-        assert_eq!(
-            tokens[4],
-            ("#12/31/1999 11:59:59 PM#", VB6Token::DateLiteral)
-        );
+        assert_eq!(tokens[0], ("d", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("#12/31/1999 11:59:59 PM#", Token::DateLiteral));
         assert_eq!(tokens.len(), 5);
     }
 
@@ -1319,11 +1277,11 @@ Attribute VB_Exposed = False
         assert!(!result.has_failures());
         let tokens = result.result.unwrap();
 
-        assert_eq!(tokens[0], ("x", VB6Token::Identifier));
-        assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[2], ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[4], ("42", VB6Token::IntegerLiteral));
+        assert_eq!(tokens[0], ("x", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("42", Token::IntegerLiteral));
         assert_eq!(tokens.len(), 5);
     }
 
@@ -1338,11 +1296,11 @@ Attribute VB_Exposed = False
         assert!(!result.has_failures());
         let tokens = result.result.unwrap();
 
-        assert_eq!(tokens[0], ("x", VB6Token::Identifier));
-        assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[2], ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[4], ("3.14", VB6Token::SingleLiteral));
+        assert_eq!(tokens[0], ("x", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("3.14", Token::SingleLiteral));
         assert_eq!(tokens.len(), 5);
     }
 
@@ -1357,11 +1315,11 @@ Attribute VB_Exposed = False
         assert!(!result.has_failures());
         let tokens = result.result.unwrap();
 
-        assert_eq!(tokens[0], ("x", VB6Token::Identifier));
-        assert_eq!(tokens[1], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[2], ("=", VB6Token::EqualityOperator));
-        assert_eq!(tokens[3], (" ", VB6Token::Whitespace));
-        assert_eq!(tokens[4], ("1.5E+10", VB6Token::SingleLiteral));
+        assert_eq!(tokens[0], ("x", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("1.5E+10", Token::SingleLiteral));
         assert_eq!(tokens.len(), 5);
     }
 }

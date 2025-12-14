@@ -1,13 +1,12 @@
 use crate::{
     language::controls::{
         Activation, Alignment, Appearance, AutoSize, BackStyle, BorderStyle, DragMode, LinkMode,
-        MousePointer, OLEDropMode, TextDirection, Visibility,
+        MousePointer, OLEDropMode, ReferenceOrValue, TextDirection, Visibility,
     },
     parsers::Properties,
-    VB6Color, VB_BUTTON_FACE, VB_BUTTON_TEXT,
+    Color, VB_BUTTON_FACE, VB_BUTTON_TEXT,
 };
 
-use bstr::BString;
 use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
@@ -28,38 +27,38 @@ pub enum WordWrap {
 /// Properties for a `Label` control.
 ///
 /// This is used as an enum variant of
-/// [`VB6ControlKind::Label`](crate::language::controls::VB6ControlKind::Label).
+/// [`ControlKind::Label`](crate::language::controls::ControlKind::Label).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
+/// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct LabelProperties {
     pub alignment: Alignment,
     pub appearance: Appearance,
     pub auto_size: AutoSize,
-    pub back_color: VB6Color,
+    pub back_color: Color,
     pub back_style: BackStyle,
     pub border_style: BorderStyle,
-    pub caption: BString,
-    pub data_field: BString,
-    pub data_format: BString,
-    pub data_member: BString,
-    pub data_source: BString,
-    pub drag_icon: Option<DynamicImage>,
+    pub caption: String,
+    pub data_field: String,
+    pub data_format: String,
+    pub data_member: String,
+    pub data_source: String,
+    pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
     pub drag_mode: DragMode,
     pub enabled: Activation,
-    pub fore_color: VB6Color,
+    pub fore_color: Color,
     pub height: i32,
     pub left: i32,
-    pub link_item: BString,
+    pub link_item: String,
     pub link_mode: LinkMode,
     pub link_timeout: i32,
-    pub link_topic: BString,
-    pub mouse_icon: Option<DynamicImage>,
+    pub link_topic: String,
+    pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
     pub mouse_pointer: MousePointer,
     pub ole_drop_mode: OLEDropMode,
     pub right_to_left: TextDirection,
     pub tab_index: i32,
-    pub tool_tip_text: BString,
+    pub tool_tip_text: String,
     pub top: i32,
     pub use_mnemonic: bool,
     pub visible: Visibility,
@@ -160,75 +159,72 @@ impl Serialize for LabelProperties {
     }
 }
 
-impl<'a> From<Properties<'a>> for LabelProperties {
-    fn from(prop: Properties<'a>) -> Self {
+impl From<Properties> for LabelProperties {
+    fn from(prop: Properties) -> Self {
         let mut label_prop = LabelProperties::default();
 
-        label_prop.alignment = prop.get_property(b"Alignment".into(), label_prop.alignment);
-        label_prop.appearance = prop.get_property(b"Appearance".into(), label_prop.appearance);
-        label_prop.auto_size = prop.get_property(b"AutoSize".into(), label_prop.auto_size);
-        label_prop.back_color = prop.get_color(b"BackColor".into(), label_prop.back_color);
-        label_prop.back_style = prop.get_property(b"BackStyle".into(), label_prop.back_style);
-        label_prop.border_style = prop.get_property(b"BorderStyle".into(), label_prop.border_style);
-        label_prop.caption = match prop.get(b"Caption".into()) {
+        label_prop.alignment = prop.get_property("Alignment", label_prop.alignment);
+        label_prop.appearance = prop.get_property("Appearance", label_prop.appearance);
+        label_prop.auto_size = prop.get_property("AutoSize", label_prop.auto_size);
+        label_prop.back_color = prop.get_color("BackColor", label_prop.back_color);
+        label_prop.back_style = prop.get_property("BackStyle", label_prop.back_style);
+        label_prop.border_style = prop.get_property("BorderStyle", label_prop.border_style);
+        label_prop.caption = match prop.get("Caption") {
             Some(caption) => caption.into(),
             None => "".into(),
         };
-        label_prop.data_field = match prop.get(b"DataField".into()) {
+        label_prop.data_field = match prop.get("DataField") {
             Some(data_field) => data_field.into(),
             None => "".into(),
         };
-        label_prop.data_format = match prop.get(b"DataFormat".into()) {
+        label_prop.data_format = match prop.get("DataFormat") {
             Some(data_format) => data_format.into(),
             None => "".into(),
         };
-        label_prop.data_member = match prop.get(b"DataMember".into()) {
+        label_prop.data_member = match prop.get("DataMember") {
             Some(data_member) => data_member.into(),
             None => "".into(),
         };
-        label_prop.data_source = match prop.get(b"DataSource".into()) {
+        label_prop.data_source = match prop.get("DataSource") {
             Some(data_source) => data_source.into(),
             None => "".into(),
         };
 
         // DragIcon
 
-        label_prop.drag_mode = prop.get_property(b"DragMode".into(), label_prop.drag_mode);
-        label_prop.enabled = prop.get_property(b"Enabled".into(), label_prop.enabled);
-        label_prop.fore_color = prop.get_color(b"ForeColor".into(), label_prop.fore_color);
-        label_prop.height = prop.get_i32(b"Height".into(), label_prop.height);
-        label_prop.left = prop.get_i32(b"Left".into(), label_prop.left);
-        label_prop.link_item = match prop.get(b"LinkItem".into()) {
+        label_prop.drag_mode = prop.get_property("DragMode", label_prop.drag_mode);
+        label_prop.enabled = prop.get_property("Enabled", label_prop.enabled);
+        label_prop.fore_color = prop.get_color("ForeColor", label_prop.fore_color);
+        label_prop.height = prop.get_i32("Height", label_prop.height);
+        label_prop.left = prop.get_i32("Left", label_prop.left);
+        label_prop.link_item = match prop.get("LinkItem") {
             Some(link_item) => link_item.into(),
             None => "".into(),
         };
-        label_prop.link_mode = prop.get_property(b"LinkMode".into(), label_prop.link_mode);
-        label_prop.link_timeout = prop.get_i32(b"LinkTimeout".into(), label_prop.link_timeout);
-        label_prop.link_topic = match prop.get(b"LinkTopic".into()) {
+        label_prop.link_mode = prop.get_property("LinkMode", label_prop.link_mode);
+        label_prop.link_timeout = prop.get_i32("LinkTimeout", label_prop.link_timeout);
+        label_prop.link_topic = match prop.get("LinkTopic") {
             Some(link_topic) => link_topic.into(),
             None => "".into(),
         };
 
         // MouseIcon
 
-        label_prop.mouse_pointer =
-            prop.get_property(b"MousePointer".into(), label_prop.mouse_pointer);
-        label_prop.ole_drop_mode =
-            prop.get_property(b"OLEDropMode".into(), label_prop.ole_drop_mode);
-        label_prop.right_to_left =
-            prop.get_property(b"RightToLeft".into(), label_prop.right_to_left);
-        label_prop.tab_index = prop.get_i32(b"TabIndex".into(), label_prop.tab_index);
+        label_prop.mouse_pointer = prop.get_property("MousePointer", label_prop.mouse_pointer);
+        label_prop.ole_drop_mode = prop.get_property("OLEDropMode", label_prop.ole_drop_mode);
+        label_prop.right_to_left = prop.get_property("RightToLeft", label_prop.right_to_left);
+        label_prop.tab_index = prop.get_i32("TabIndex", label_prop.tab_index);
         label_prop.tool_tip_text = match prop.get("ToolTipText".into()) {
             Some(tool_tip_text) => tool_tip_text.into(),
             None => "".into(),
         };
-        label_prop.top = prop.get_i32(b"Top".into(), label_prop.top);
-        label_prop.use_mnemonic = prop.get_bool(b"UseMnemonic".into(), label_prop.use_mnemonic);
-        label_prop.visible = prop.get_property(b"Visible".into(), label_prop.visible);
+        label_prop.top = prop.get_i32("Top", label_prop.top);
+        label_prop.use_mnemonic = prop.get_bool("UseMnemonic", label_prop.use_mnemonic);
+        label_prop.visible = prop.get_property("Visible", label_prop.visible);
         label_prop.whats_this_help_id =
-            prop.get_i32(b"WhatsThisHelpID".into(), label_prop.whats_this_help_id);
-        label_prop.width = prop.get_i32(b"Width".into(), label_prop.width);
-        label_prop.word_wrap = prop.get_property(b"WordWrap".into(), label_prop.word_wrap);
+            prop.get_i32("WhatsThisHelpID", label_prop.whats_this_help_id);
+        label_prop.width = prop.get_i32("Width", label_prop.width);
+        label_prop.word_wrap = prop.get_property("WordWrap", label_prop.word_wrap);
 
         label_prop
     }

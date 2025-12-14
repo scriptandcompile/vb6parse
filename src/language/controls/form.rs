@@ -2,15 +2,15 @@ use crate::{
     language::{
         controls::{
             Activation, Appearance, AutoRedraw, ClipControls, DrawMode, DrawStyle, FillStyle,
-            FontTransparency, HasDeviceContext, MousePointer, Movability, OLEDropMode, ScaleMode,
-            StartUpPosition, TextDirection, Visibility, WhatsThisHelp, WindowState,
+            FontTransparency, HasDeviceContext, MousePointer, Movability, OLEDropMode,
+            ReferenceOrValue, ScaleMode, StartUpPosition, TextDirection, Visibility, WhatsThisHelp,
+            WindowState,
         },
-        FormLinkMode, VB6Color, VB_BUTTON_FACE, VB_BUTTON_TEXT, VB_SCROLL_BARS,
+        Color, FormLinkMode, VB_BUTTON_FACE, VB_BUTTON_TEXT, VB_SCROLL_BARS,
     },
     parsers::Properties,
 };
 
-use bstr::BString;
 use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
@@ -163,16 +163,16 @@ pub enum ShowInTaskbar {
 /// Properties for a `Form` control.
 ///
 /// This is used as an enum variant of
-/// [`VB6ControlKind::Form`](crate::language::controls::VB6ControlKind::Form).
+/// [`ControlKind::Form`](crate::language::controls::ControlKind::Form).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
+/// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct FormProperties {
     pub appearance: Appearance,
     pub auto_redraw: AutoRedraw,
-    pub back_color: VB6Color,
+    pub back_color: Color,
     pub border_style: FormBorderStyle,
-    pub caption: BString,
+    pub caption: String,
     pub client_height: i32,
     pub client_left: i32,
     pub client_top: i32,
@@ -183,29 +183,29 @@ pub struct FormProperties {
     pub draw_style: DrawStyle,
     pub draw_width: i32,
     pub enabled: Activation,
-    pub fill_color: VB6Color,
+    pub fill_color: Color,
     pub fill_style: FillStyle,
     pub font_transparent: FontTransparency,
-    pub fore_color: VB6Color,
+    pub fore_color: Color,
     pub has_dc: HasDeviceContext,
     pub height: i32,
     pub help_context_id: i32,
-    pub icon: Option<DynamicImage>,
+    pub icon: Option<ReferenceOrValue<DynamicImage>>,
     pub key_preview: bool,
     pub left: i32,
     pub link_mode: FormLinkMode,
-    pub link_topic: BString,
+    pub link_topic: String,
     pub max_button: MaxButton,
     pub mdi_child: bool,
     pub min_button: MinButton,
-    pub mouse_icon: Option<DynamicImage>,
+    pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
     pub mouse_pointer: MousePointer,
     pub moveable: Movability,
     pub negotiate_menus: bool,
     pub ole_drop_mode: OLEDropMode,
-    pub palette: Option<DynamicImage>,
+    pub palette: Option<ReferenceOrValue<DynamicImage>>,
     pub palette_mode: PaletteMode,
-    pub picture: Option<DynamicImage>,
+    pub picture: Option<ReferenceOrValue<DynamicImage>>,
     pub right_to_left: TextDirection,
     pub scale_height: i32,
     pub scale_left: i32,
@@ -359,93 +359,87 @@ impl Default for FormProperties {
     }
 }
 
-impl From<Properties<'_>> for FormProperties {
+impl From<Properties> for FormProperties {
     fn from(prop: Properties) -> Self {
         let mut form_prop = FormProperties::default();
 
-        form_prop.appearance = prop.get_property(b"Appearance".into(), form_prop.appearance);
-        form_prop.auto_redraw = prop.get_property(b"AutoRedraw".into(), form_prop.auto_redraw);
-        form_prop.back_color = prop.get_color(b"BackColor".into(), form_prop.back_color);
-        form_prop.border_style = prop.get_property(b"BorderStyle".into(), form_prop.border_style);
-        form_prop.caption = match prop.get(b"Caption".into()) {
-            Some(caption) => caption.into(),
+        form_prop.appearance = prop.get_property("Appearance", form_prop.appearance);
+        form_prop.auto_redraw = prop.get_property("AutoRedraw", form_prop.auto_redraw);
+        form_prop.back_color = prop.get_color("BackColor", form_prop.back_color);
+        form_prop.border_style = prop.get_property("BorderStyle", form_prop.border_style);
+        form_prop.caption = match prop.get("Caption") {
+            Some(caption) => caption.clone(),
             None => form_prop.caption,
         };
 
-        form_prop.client_height = prop.get_i32(b"ClientHeight".into(), form_prop.client_height);
-        form_prop.client_left = prop.get_i32(b"ClientLeft".into(), form_prop.client_left);
-        form_prop.client_top = prop.get_i32(b"ClientTop".into(), form_prop.client_top);
-        form_prop.client_width = prop.get_i32(b"ClientWidth".into(), form_prop.client_width);
+        form_prop.client_height = prop.get_i32("ClientHeight", form_prop.client_height);
+        form_prop.client_left = prop.get_i32("ClientLeft", form_prop.client_left);
+        form_prop.client_top = prop.get_i32("ClientTop", form_prop.client_top);
+        form_prop.client_width = prop.get_i32("ClientWidth", form_prop.client_width);
 
-        form_prop.clip_controls =
-            prop.get_property(b"ClipControls".into(), form_prop.clip_controls);
-        form_prop.control_box = prop.get_property(b"ControlBox".into(), form_prop.control_box);
+        form_prop.clip_controls = prop.get_property("ClipControls", form_prop.clip_controls);
+        form_prop.control_box = prop.get_property("ControlBox", form_prop.control_box);
 
-        form_prop.draw_mode = prop.get_property(b"DrawMode".into(), form_prop.draw_mode);
-        form_prop.draw_style = prop.get_property(b"DrawStyle".into(), form_prop.draw_style);
-        form_prop.draw_width = prop.get_i32(b"DrawWidth".into(), form_prop.draw_width);
+        form_prop.draw_mode = prop.get_property("DrawMode", form_prop.draw_mode);
+        form_prop.draw_style = prop.get_property("DrawStyle", form_prop.draw_style);
+        form_prop.draw_width = prop.get_i32("DrawWidth", form_prop.draw_width);
 
-        form_prop.enabled = prop.get_property(b"Enabled".into(), form_prop.enabled);
+        form_prop.enabled = prop.get_property("Enabled", form_prop.enabled);
 
-        form_prop.fill_color = prop.get_color(b"FillColor".into(), form_prop.fill_color);
-        form_prop.fill_style = prop.get_property(b"FillStyle".into(), form_prop.fill_style);
+        form_prop.fill_color = prop.get_color("FillColor", form_prop.fill_color);
+        form_prop.fill_style = prop.get_property("FillStyle", form_prop.fill_style);
 
         // Font - group
 
         form_prop.font_transparent =
-            prop.get_property(b"FontTransparent".into(), form_prop.font_transparent);
-        form_prop.fore_color = prop.get_color(b"ForeColor".into(), form_prop.fore_color);
-        form_prop.has_dc = prop.get_property(b"HasDC".into(), form_prop.has_dc);
-        form_prop.height = prop.get_i32(b"Height".into(), form_prop.height);
-        form_prop.help_context_id =
-            prop.get_i32(b"HelpContextID".into(), form_prop.help_context_id);
+            prop.get_property("FontTransparent", form_prop.font_transparent);
+        form_prop.fore_color = prop.get_color("ForeColor", form_prop.fore_color);
+        form_prop.has_dc = prop.get_property("HasDC", form_prop.has_dc);
+        form_prop.height = prop.get_i32("Height", form_prop.height);
+        form_prop.help_context_id = prop.get_i32("HelpContextID", form_prop.help_context_id);
 
         // Icon
 
-        form_prop.key_preview = prop.get_bool(b"KeyPreview".into(), form_prop.key_preview);
-        form_prop.left = prop.get_i32(b"Left".into(), form_prop.left);
-        form_prop.link_mode = prop.get_property(b"LinkMode".into(), form_prop.link_mode);
-        form_prop.link_topic = match prop.get(b"LinkTopic".into()) {
-            Some(link_topic) => link_topic.into(),
+        form_prop.key_preview = prop.get_bool("KeyPreview", form_prop.key_preview);
+        form_prop.left = prop.get_i32("Left", form_prop.left);
+        form_prop.link_mode = prop.get_property("LinkMode", form_prop.link_mode);
+        form_prop.link_topic = match prop.get("LinkTopic") {
+            Some(link_topic) => link_topic.clone(),
             None => form_prop.link_topic,
         };
-        form_prop.max_button = prop.get_property(b"MaxButton".into(), form_prop.max_button);
-        form_prop.mdi_child = prop.get_bool(b"MDIChild".into(), form_prop.mdi_child);
-        form_prop.min_button = prop.get_property(b"MinButton".into(), form_prop.min_button);
+        form_prop.max_button = prop.get_property("MaxButton", form_prop.max_button);
+        form_prop.mdi_child = prop.get_bool("MDIChild", form_prop.mdi_child);
+        form_prop.min_button = prop.get_property("MinButton", form_prop.min_button);
 
         // MouseIcon
 
-        form_prop.mouse_pointer =
-            prop.get_property(b"MousePointer".into(), form_prop.mouse_pointer);
-        form_prop.moveable = prop.get_property(b"Moveable".into(), form_prop.moveable);
-        form_prop.negotiate_menus =
-            prop.get_bool(b"NegotiateMenus".into(), form_prop.negotiate_menus);
-        form_prop.ole_drop_mode = prop.get_property(b"OLEDropMode".into(), form_prop.ole_drop_mode);
+        form_prop.mouse_pointer = prop.get_property("MousePointer", form_prop.mouse_pointer);
+        form_prop.moveable = prop.get_property("Moveable", form_prop.moveable);
+        form_prop.negotiate_menus = prop.get_bool("NegotiateMenus", form_prop.negotiate_menus);
+        form_prop.ole_drop_mode = prop.get_property("OLEDropMode", form_prop.ole_drop_mode);
 
         // Palette
 
-        form_prop.palette_mode = prop.get_property(b"PaletteMode".into(), form_prop.palette_mode);
+        form_prop.palette_mode = prop.get_property("PaletteMode", form_prop.palette_mode);
 
         // Picture
 
-        form_prop.right_to_left = prop.get_property(b"RightToLeft".into(), form_prop.right_to_left);
-        form_prop.scale_height = prop.get_i32(b"ScaleHeight".into(), form_prop.scale_height);
-        form_prop.scale_left = prop.get_i32(b"ScaleLeft".into(), form_prop.scale_left);
-        form_prop.scale_mode = prop.get_property(b"ScaleMode".into(), form_prop.scale_mode);
-        form_prop.scale_top = prop.get_i32(b"ScaleTop".into(), form_prop.scale_top);
-        form_prop.scale_width = prop.get_i32(b"ScaleWidth".into(), form_prop.scale_width);
-        form_prop.show_in_taskbar =
-            prop.get_property(b"ShowInTaskbar".into(), form_prop.show_in_taskbar);
+        form_prop.right_to_left = prop.get_property("RightToLeft", form_prop.right_to_left);
+        form_prop.scale_height = prop.get_i32("ScaleHeight", form_prop.scale_height);
+        form_prop.scale_left = prop.get_i32("ScaleLeft", form_prop.scale_left);
+        form_prop.scale_mode = prop.get_property("ScaleMode", form_prop.scale_mode);
+        form_prop.scale_top = prop.get_i32("ScaleTop", form_prop.scale_top);
+        form_prop.scale_width = prop.get_i32("ScaleWidth", form_prop.scale_width);
+        form_prop.show_in_taskbar = prop.get_property("ShowInTaskbar", form_prop.show_in_taskbar);
         form_prop.start_up_position =
-            prop.get_startup_position(b"StartUpPosition".into(), form_prop.start_up_position);
-        form_prop.top = prop.get_i32(b"Top".into(), form_prop.top);
-        form_prop.visible = prop.get_property(b"Visible".into(), form_prop.visible);
+            prop.get_startup_position("StartUpPosition", form_prop.start_up_position);
+        form_prop.top = prop.get_i32("Top", form_prop.top);
+        form_prop.visible = prop.get_property("Visible", form_prop.visible);
         form_prop.whats_this_button =
-            prop.get_property(b"WhatsThisButton".into(), form_prop.whats_this_button);
-        form_prop.whats_this_help =
-            prop.get_property(b"WhatsThisHelp".into(), form_prop.whats_this_help);
-        form_prop.width = prop.get_i32(b"Width".into(), form_prop.width);
-        form_prop.window_state = prop.get_property(b"WindowState".into(), form_prop.window_state);
+            prop.get_property("WhatsThisButton", form_prop.whats_this_button);
+        form_prop.whats_this_help = prop.get_property("WhatsThisHelp", form_prop.whats_this_help);
+        form_prop.width = prop.get_i32("Width", form_prop.width);
+        form_prop.window_state = prop.get_property("WindowState", form_prop.window_state);
 
         form_prop
     }

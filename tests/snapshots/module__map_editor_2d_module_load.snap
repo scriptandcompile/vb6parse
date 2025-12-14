@@ -2,604 +2,1214 @@
 source: tests/module.rs
 expression: subs_module_file
 ---
-name:
-  - 68
-  - 101
-  - 99
-  - 108
-  - 97
-  - 114
-  - 97
-  - 116
-  - 105
-  - 111
-  - 110
-  - 95
-  - 77
-  - 111
-  - 100
-  - 117
-  - 108
-  - 101
-tokens:
-  source_file: "./tests/data/vb6-code/Map-editor-2D/Subs.bas"
-  tokens:
-    - - Attribute
-      - AttributeKeyword
-    - - " "
-      - Whitespace
-    - - VB_Name
-      - Identifier
-    - - " "
-      - Whitespace
-    - - "="
-      - EqualityOperator
-    - - " "
-      - Whitespace
-    - - "\"Declaration_Module\""
-      - StringLiteral
-    - - "\r\n"
-      - Newline
-    - - "'***************************************************************************"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'Copyright 2018 by Tanner Helland"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "' www.tannerhelland.com"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'The source code in this project is licensed under a Simplified BSD license."
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'***************************************************************************"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-    - - "'The StretchBlt declaration (the GDI32 alternative to VB's PaintPicture)"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - Public
-      - PublicKeyword
-    - - " "
-      - Whitespace
-    - - Declare
-      - DeclareKeyword
-    - - " "
-      - Whitespace
-    - - Function
-      - FunctionKeyword
-    - - " "
-      - Whitespace
-    - - StretchBlt
-      - Identifier
-    - - " "
-      - Whitespace
-    - - Lib
-      - LibKeyword
-    - - " "
-      - Whitespace
-    - - "\"GDI32\""
-      - StringLiteral
-    - - " "
-      - Whitespace
-    - - (
-      - LeftParenthesis
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - hDestDC
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - x
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - Y
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - nWidth
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - nHeight
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - hSrcDC
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - xSrc
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - ySrc
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - ClipX
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - ClipY
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - RasterOp
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - )
-      - RightParenthesis
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-    - - "'An array, which we'll use to track our map tile values"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - Public
-      - PublicKeyword
-    - - " "
-      - Whitespace
-    - - MapArray
-      - Identifier
-    - - (
-      - LeftParenthesis
-    - - )
-      - RightParenthesis
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Byte
-      - ByteKeyword
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-    - - "'Loop variables"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - Public
-      - PublicKeyword
-    - - " "
-      - Whitespace
-    - - x
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - Y
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-    - - "'The currently selected position"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - Public
-      - PublicKeyword
-    - - " "
-      - Whitespace
-    - - CurX
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - CurY
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-    - - "'The viewport position"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - Public
-      - PublicKeyword
-    - - " "
-      - Whitespace
-    - - ViewX
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - ViewY
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-    - - "'The size of the map"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - Public
-      - PublicKeyword
-    - - " "
-      - Whitespace
-    - - SizeX
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Integer
-      - IntegerKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - SizeY
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Integer
-      - IntegerKeyword
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-    - - "'Whether a mouse button is up or down"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - Public
-      - PublicKeyword
-    - - " "
-      - Whitespace
-    - - MouseState
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Boolean
-      - BooleanKeyword
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-    - - "'The currently selected picture"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - Public
-      - PublicKeyword
-    - - " "
-      - Whitespace
-    - - CurPicIndex
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - CurPicIndex2
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-    - - "'The zoom value"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - Public
-      - PublicKeyword
-    - - " "
-      - Whitespace
-    - - Zoom
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Integer
-      - IntegerKeyword
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-    - - "'Whether or not to use StretchBlt in place of PaintPicture"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - Public
-      - PublicKeyword
-    - - " "
-      - Whitespace
-    - - UseStretchBlt
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Boolean
-      - BooleanKeyword
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-  offset: 0
+name: Declaration_Module
+cst:
+  root:
+    kind: Root
+    text: "Attribute VB_Name = \"Declaration_Module\"\r\n'***************************************************************************\r\n'Copyright 2018 by Tanner Helland\r\n' www.tannerhelland.com\r\n'\r\n'Documentation for this project can be found at https://tannerhelland.com/code/\r\n'\r\n'The source code in this project is licensed under a Simplified BSD license.\r\n' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/\r\n'\r\n'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland\r\n'\r\n'***************************************************************************\r\n\r\n\r\n'The StretchBlt declaration (the GDI32 alternative to VB's PaintPicture)\r\nPublic Declare Function StretchBlt Lib \"GDI32\" (ByVal hDestDC As Long, ByVal x As Long, ByVal Y As Long, ByVal nWidth As Long, ByVal nHeight As Long, ByVal hSrcDC As Long, ByVal xSrc As Long, ByVal ySrc As Long, ByVal ClipX As Long, ByVal ClipY As Long, ByVal RasterOp As Long) As Long\r\n\r\n'An array, which we'll use to track our map tile values\r\nPublic MapArray() As Byte\r\n\r\n'Loop variables\r\nPublic x As Long, Y As Long\r\n\r\n'The currently selected position\r\nPublic CurX As Long, CurY As Long\r\n\r\n'The viewport position\r\nPublic ViewX As Long, ViewY As Long\r\n\r\n'The size of the map\r\nPublic SizeX As Integer, SizeY As Integer\r\n\r\n'Whether a mouse button is up or down\r\nPublic MouseState As Boolean\r\n\r\n'The currently selected picture\r\nPublic CurPicIndex As Long, CurPicIndex2 As Long\r\n\r\n'The zoom value\r\nPublic Zoom As Integer\r\n\r\n'Whether or not to use StretchBlt in place of PaintPicture\r\nPublic UseStretchBlt As Boolean\r\n\r\n"
+    is_token: false
+    children:
+      - kind: AttributeStatement
+        text: "Attribute VB_Name = \"Declaration_Module\"\r\n"
+        is_token: false
+        children:
+          - kind: AttributeKeyword
+            text: Attribute
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: VB_Name
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: EqualityOperator
+            text: "="
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: StringLiteral
+            text: "\"Declaration_Module\""
+            is_token: true
+            children: []
+          - kind: Newline
+            text: "\r\n"
+            is_token: true
+            children: []
+      - kind: EndOfLineComment
+        text: "'***************************************************************************"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'Copyright 2018 by Tanner Helland"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "' www.tannerhelland.com"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'Documentation for this project can be found at https://tannerhelland.com/code/"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'The source code in this project is licensed under a Simplified BSD license."
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'***************************************************************************"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'The StretchBlt declaration (the GDI32 alternative to VB's PaintPicture)"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: DeclareStatement
+        text: "Public Declare Function StretchBlt Lib \"GDI32\" (ByVal hDestDC As Long, ByVal x As Long, ByVal Y As Long, ByVal nWidth As Long, ByVal nHeight As Long, ByVal hSrcDC As Long, ByVal xSrc As Long, ByVal ySrc As Long, ByVal ClipX As Long, ByVal ClipY As Long, ByVal RasterOp As Long) As Long\r\n"
+        is_token: false
+        children:
+          - kind: PublicKeyword
+            text: Public
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: DeclareKeyword
+            text: Declare
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: FunctionKeyword
+            text: Function
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: StretchBlt
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: LibKeyword
+            text: Lib
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: StringLiteral
+            text: "\"GDI32\""
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: ParameterList
+            text: "(ByVal hDestDC As Long, ByVal x As Long, ByVal Y As Long, ByVal nWidth As Long, ByVal nHeight As Long, ByVal hSrcDC As Long, ByVal xSrc As Long, ByVal ySrc As Long, ByVal ClipX As Long, ByVal ClipY As Long, ByVal RasterOp As Long)"
+            is_token: false
+            children:
+              - kind: LeftParenthesis
+                text: (
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: hDestDC
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: x
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: Y
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: nWidth
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: nHeight
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: hSrcDC
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: xSrc
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: ySrc
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: ClipX
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: ClipY
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: RasterOp
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: RightParenthesis
+                text: )
+                is_token: true
+                children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: AsKeyword
+            text: As
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: LongKeyword
+            text: Long
+            is_token: true
+            children: []
+          - kind: Newline
+            text: "\r\n"
+            is_token: true
+            children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'An array, which we'll use to track our map tile values"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: DimStatement
+        text: "Public MapArray() As Byte\r\n"
+        is_token: false
+        children:
+          - kind: PublicKeyword
+            text: Public
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: MapArray
+            is_token: true
+            children: []
+          - kind: LeftParenthesis
+            text: (
+            is_token: true
+            children: []
+          - kind: RightParenthesis
+            text: )
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: AsKeyword
+            text: As
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: ByteKeyword
+            text: Byte
+            is_token: true
+            children: []
+          - kind: Newline
+            text: "\r\n"
+            is_token: true
+            children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'Loop variables"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: DimStatement
+        text: "Public x As Long, Y As Long\r\n"
+        is_token: false
+        children:
+          - kind: PublicKeyword
+            text: Public
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: x
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: AsKeyword
+            text: As
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: LongKeyword
+            text: Long
+            is_token: true
+            children: []
+          - kind: Comma
+            text: ","
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: Y
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: AsKeyword
+            text: As
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: LongKeyword
+            text: Long
+            is_token: true
+            children: []
+          - kind: Newline
+            text: "\r\n"
+            is_token: true
+            children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'The currently selected position"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: DimStatement
+        text: "Public CurX As Long, CurY As Long\r\n"
+        is_token: false
+        children:
+          - kind: PublicKeyword
+            text: Public
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: CurX
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: AsKeyword
+            text: As
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: LongKeyword
+            text: Long
+            is_token: true
+            children: []
+          - kind: Comma
+            text: ","
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: CurY
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: AsKeyword
+            text: As
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: LongKeyword
+            text: Long
+            is_token: true
+            children: []
+          - kind: Newline
+            text: "\r\n"
+            is_token: true
+            children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'The viewport position"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: DimStatement
+        text: "Public ViewX As Long, ViewY As Long\r\n"
+        is_token: false
+        children:
+          - kind: PublicKeyword
+            text: Public
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: ViewX
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: AsKeyword
+            text: As
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: LongKeyword
+            text: Long
+            is_token: true
+            children: []
+          - kind: Comma
+            text: ","
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: ViewY
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: AsKeyword
+            text: As
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: LongKeyword
+            text: Long
+            is_token: true
+            children: []
+          - kind: Newline
+            text: "\r\n"
+            is_token: true
+            children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'The size of the map"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: DimStatement
+        text: "Public SizeX As Integer, SizeY As Integer\r\n"
+        is_token: false
+        children:
+          - kind: PublicKeyword
+            text: Public
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: SizeX
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: AsKeyword
+            text: As
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: IntegerKeyword
+            text: Integer
+            is_token: true
+            children: []
+          - kind: Comma
+            text: ","
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: SizeY
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: AsKeyword
+            text: As
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: IntegerKeyword
+            text: Integer
+            is_token: true
+            children: []
+          - kind: Newline
+            text: "\r\n"
+            is_token: true
+            children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'Whether a mouse button is up or down"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: DimStatement
+        text: "Public MouseState As Boolean\r\n"
+        is_token: false
+        children:
+          - kind: PublicKeyword
+            text: Public
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: MouseState
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: AsKeyword
+            text: As
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: BooleanKeyword
+            text: Boolean
+            is_token: true
+            children: []
+          - kind: Newline
+            text: "\r\n"
+            is_token: true
+            children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'The currently selected picture"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: DimStatement
+        text: "Public CurPicIndex As Long, CurPicIndex2 As Long\r\n"
+        is_token: false
+        children:
+          - kind: PublicKeyword
+            text: Public
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: CurPicIndex
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: AsKeyword
+            text: As
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: LongKeyword
+            text: Long
+            is_token: true
+            children: []
+          - kind: Comma
+            text: ","
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: CurPicIndex2
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: AsKeyword
+            text: As
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: LongKeyword
+            text: Long
+            is_token: true
+            children: []
+          - kind: Newline
+            text: "\r\n"
+            is_token: true
+            children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'The zoom value"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: DimStatement
+        text: "Public Zoom As Integer\r\n"
+        is_token: false
+        children:
+          - kind: PublicKeyword
+            text: Public
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: Zoom
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: AsKeyword
+            text: As
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: IntegerKeyword
+            text: Integer
+            is_token: true
+            children: []
+          - kind: Newline
+            text: "\r\n"
+            is_token: true
+            children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'Whether or not to use StretchBlt in place of PaintPicture"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: DimStatement
+        text: "Public UseStretchBlt As Boolean\r\n"
+        is_token: false
+        children:
+          - kind: PublicKeyword
+            text: Public
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: UseStretchBlt
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: AsKeyword
+            text: As
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: BooleanKeyword
+            text: Boolean
+            is_token: true
+            children: []
+          - kind: Newline
+            text: "\r\n"
+            is_token: true
+            children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []

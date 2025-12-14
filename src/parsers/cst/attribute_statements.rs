@@ -4,7 +4,7 @@
 //! - `Attribute VB_Name = "modTest"`
 //! - `Attribute VB_GlobalNameSpace = False`
 
-use crate::language::VB6Token;
+use crate::language::Token;
 use crate::parsers::SyntaxKind;
 
 use super::Parser;
@@ -19,7 +19,7 @@ impl Parser<'_> {
         self.consume_token();
 
         // Consume everything until newline (preserving all tokens)
-        self.consume_until_after(VB6Token::Newline);
+        self.consume_until_after(Token::Newline);
 
         self.builder.finish_node(); // AttributeStatement
     }

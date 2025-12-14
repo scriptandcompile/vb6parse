@@ -4,7 +4,7 @@
 //! including token peeking, consumption, and logical line detection.
 
 use super::Parser;
-use crate::language::VB6Token;
+use crate::language::Token;
 use crate::parsers::SyntaxKind;
 use std::num::NonZeroUsize;
 
@@ -15,24 +15,24 @@ impl Parser<'_> {
     }
 
     /// Get the current token without advancing the position.
-    pub(super) fn current_token(&self) -> Option<&VB6Token> {
+    pub(super) fn current_token(&self) -> Option<&Token> {
         self.tokens.get(self.pos).map(|(_, token)| token)
     }
 
     /// Check if the current token matches the given token type.
-    pub(super) fn at_token(&self, token: VB6Token) -> bool {
+    pub(super) fn at_token(&self, token: Token) -> bool {
         self.current_token() == Some(&token)
     }
 
     /// Peek ahead to get the next keyword (non-whitespace token).
-    pub(super) fn peek_next_keyword(&self) -> Option<VB6Token> {
+    pub(super) fn peek_next_keyword(&self) -> Option<Token> {
         self.peek_next_count_keywords(NonZeroUsize::new(1).unwrap())
             .next()
     }
 
     /// Check if the current token is an identifier.
     pub(super) fn is_identifier(&self) -> bool {
-        matches!(self.current_token(), Some(VB6Token::Identifier))
+        matches!(self.current_token(), Some(Token::Identifier))
     }
 
     /// Check if the current token is a keyword.
@@ -48,11 +48,11 @@ impl Parser<'_> {
         matches!(
             self.current_token(),
             Some(
-                VB6Token::IntegerLiteral
-                    | VB6Token::LongLiteral
-                    | VB6Token::SingleLiteral
-                    | VB6Token::DoubleLiteral
-                    | VB6Token::DecimalLiteral
+                Token::IntegerLiteral
+                    | Token::LongLiteral
+                    | Token::SingleLiteral
+                    | Token::DoubleLiteral
+                    | Token::DecimalLiteral
             )
         )
     }
@@ -67,11 +67,11 @@ impl Parser<'_> {
     pub(super) fn peek_next_count_keywords(
         &self,
         count: NonZeroUsize,
-    ) -> impl Iterator<Item = VB6Token> + '_ {
+    ) -> impl Iterator<Item = Token> + '_ {
         self.tokens
             .iter()
             .skip(self.pos + 1)
-            .filter(|(_, token)| *token != VB6Token::Whitespace)
+            .filter(|(_, token)| *token != Token::Whitespace)
             .take(count.get())
             .map(|(_, token)| *token)
     }
@@ -80,7 +80,7 @@ impl Parser<'_> {
     pub(super) fn peek_next_count_tokens(
         &self,
         count: NonZeroUsize,
-    ) -> impl Iterator<Item = VB6Token> + '_ {
+    ) -> impl Iterator<Item = Token> + '_ {
         self.tokens
             .iter()
             .skip(self.pos + 1)
@@ -89,7 +89,7 @@ impl Parser<'_> {
     }
 
     /// Peek ahead to get the next token (including whitespace).
-    pub(super) fn peek_next_token(&self) -> Option<VB6Token> {
+    pub(super) fn peek_next_token(&self) -> Option<Token> {
         self.peek_next_count_tokens(NonZeroUsize::new(1).unwrap())
             .next()
     }
@@ -110,24 +110,24 @@ impl Parser<'_> {
         let is_dollar_keyword = matches!(
             self.current_token(),
             Some(
-                VB6Token::ErrorKeyword
-                    | VB6Token::LenKeyword
-                    | VB6Token::MidKeyword
-                    | VB6Token::MidBKeyword
-                    | VB6Token::DateKeyword
-                    | VB6Token::StringKeyword
+                Token::ErrorKeyword
+                    | Token::LenKeyword
+                    | Token::MidKeyword
+                    | Token::MidBKeyword
+                    | Token::DateKeyword
+                    | Token::StringKeyword
             )
         );
 
         if is_dollar_keyword {
-            if let Some(VB6Token::DollarSign) = self.peek_next_token() {
+            if let Some(Token::DollarSign) = self.peek_next_token() {
                 return true;
             }
         }
 
         // Check for Identifier (like "UCase", "LCase", "Left", etc.) + DollarSign
-        if self.at_token(VB6Token::Identifier) {
-            if let Some(VB6Token::DollarSign) = self.peek_next_token() {
+        if self.at_token(Token::Identifier) {
+            if let Some(Token::DollarSign) = self.peek_next_token() {
                 // Only merge if it's one of the known dollar functions
                 if let Some((text, _)) = self.tokens.get(self.pos) {
                     let text_upper = text.to_uppercase();
@@ -212,18 +212,18 @@ impl Parser<'_> {
     /// Also consumes line continuations (underscore followed by newline).
     pub(super) fn consume_whitespace(&mut self) {
         loop {
-            if self.at_token(VB6Token::Whitespace) {
+            if self.at_token(Token::Whitespace) {
                 self.consume_token();
-            } else if self.at_token(VB6Token::Underscore) {
+            } else if self.at_token(Token::Underscore) {
                 // Check for line continuation: Underscore [Whitespace] Newline
                 let mut lookahead = 1;
                 let mut is_continuation = false;
 
                 // Skip whitespace after underscore
                 while let Some((_, token)) = self.tokens.get(self.pos + lookahead) {
-                    if *token == VB6Token::Whitespace {
+                    if *token == Token::Whitespace {
                         lookahead += 1;
-                    } else if *token == VB6Token::Newline {
+                    } else if *token == Token::Newline {
                         is_continuation = true;
                         break;
                     } else {
@@ -235,7 +235,7 @@ impl Parser<'_> {
                     // Consume Underscore
                     self.consume_token();
                     // Consume whitespace and Newline
-                    while !self.at_token(VB6Token::Newline) {
+                    while !self.at_token(Token::Newline) {
                         self.consume_token();
                     }
                     self.consume_token(); // Consume Newline
@@ -264,7 +264,7 @@ impl Parser<'_> {
     ///
     /// # Arguments
     /// * `target` - The token to stop at (will not be consumed)
-    pub(super) fn consume_until(&mut self, target: VB6Token) {
+    pub(super) fn consume_until(&mut self, target: Token) {
         while !self.is_at_end() && !self.at_token(target) {
             // Check for keyword/identifier + $ pattern and merge it
             if self.at_keyword_dollar() {
@@ -276,7 +276,7 @@ impl Parser<'_> {
 
         // If we're looking for a newline and we found one, check for line continuation
         // In VB6, underscore followed by whitespace and newline means "continue on next line"
-        if target == VB6Token::Newline && self.at_token(VB6Token::Newline) {
+        if target == Token::Newline && self.at_token(Token::Newline) {
             // Look back to see if there was an underscore before this newline
             // We need to check if the last non-whitespace token was an underscore
             let mut check_pos = self.pos;
@@ -284,8 +284,8 @@ impl Parser<'_> {
                 check_pos -= 1;
                 if let Some((_, token)) = self.tokens.get(check_pos) {
                     match token {
-                        VB6Token::Whitespace => continue, // Skip whitespace
-                        VB6Token::Underscore => {
+                        Token::Whitespace => continue, // Skip whitespace
+                        Token::Underscore => {
                             // Found line continuation! Consume the newline and keep going
                             self.consume_token(); // Consume the newline
                                                   // Continue consuming until we find a newline without continuation
@@ -307,7 +307,7 @@ impl Parser<'_> {
     ///
     /// # Arguments
     /// * `target` - The token to stop at and consume
-    pub(super) fn consume_until_after(&mut self, target: VB6Token) {
+    pub(super) fn consume_until_after(&mut self, target: Token) {
         self.consume_until(target);
         if self.at_token(target) {
             self.consume_token();

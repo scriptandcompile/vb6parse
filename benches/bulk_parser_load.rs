@@ -89,7 +89,7 @@ fn project_benchmark(criterion: &mut Criterion) {
         criterion.bench_function("load multiple projects", |bench| {
             bench.iter(|| {
                 black_box({
-                    let _proj = VB6Project::parse(&project_source_file);
+                    let _proj = Project::parse(&project_source_file);
                 });
             })
         });
@@ -130,7 +130,7 @@ fn class_benchmark(criterion: &mut Criterion) {
         criterion.bench_function("load multiple classes", |bench| {
             bench.iter(|| {
                 black_box({
-                    let _class = VB6ClassFile::parse(&module_source_file);
+                    let _class = ClassFile::parse(&module_source_file);
                 });
             })
         });
@@ -175,7 +175,7 @@ fn bas_module_benchmark(c: &mut Criterion) {
         c.bench_function("load multiple bas modules", |b| {
             b.iter(|| {
                 black_box({
-                    let _module = VB6ModuleFile::parse(&module_source_file);
+                    let _module = ModuleFile::parse(&module_source_file);
                 });
             })
         });
@@ -266,8 +266,18 @@ fn form_benchmark(criterion: &mut Criterion) {
     criterion.bench_function("load multiple forms", |bench| {
         bench.iter(|| {
             for form_pair in &forms_pairs {
+                let sourcefile = match SourceFile::decode_with_replacement(
+                    form_pair.0,
+                    form_pair.1.as_slice(),
+                ) {
+                    Ok(source_file) => source_file,
+                    Err(e) => {
+                        e.print();
+                        panic!("failed to decode form source code.");
+                    }
+                };
                 black_box({
-                    let _class = VB6FormFile::parse(form_pair.0, &mut form_pair.1.as_slice());
+                    let _class = FormFile::parse(&sourcefile);
                 });
             }
         })
