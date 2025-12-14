@@ -1,48 +1,47 @@
 use crate::{
     language::controls::{
-        Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDropMode, Style,
-        TabStop, TextDirection, UseMaskColor,
+        Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDropMode,
+        ReferenceOrValue, Style, TabStop, TextDirection, UseMaskColor,
     },
     parsers::Properties,
-    VB6Color, VB_BUTTON_FACE,
+    Color, VB_BUTTON_FACE,
 };
 
-use bstr::BString;
 use image::DynamicImage;
 use serde::Serialize;
 
 /// Properties for a `CommandButton` control.
 ///
 /// This is used as an enum variant of
-/// [`VB6ControlKind::CommandButton`](crate::language::controls::VB6ControlKind::CommandButton).
+/// [`ControlKind::CommandButton`](crate::language::controls::ControlKind::CommandButton).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
+/// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct CommandButtonProperties {
     pub appearance: Appearance,
-    pub back_color: VB6Color,
+    pub back_color: Color,
     pub cancel: bool,
-    pub caption: BString,
+    pub caption: String,
     pub causes_validation: CausesValidation,
     pub default: bool,
-    pub disabled_picture: Option<DynamicImage>,
-    pub down_picture: Option<DynamicImage>,
-    pub drag_icon: Option<DynamicImage>,
+    pub disabled_picture: Option<ReferenceOrValue<DynamicImage>>,
+    pub down_picture: Option<ReferenceOrValue<DynamicImage>>,
+    pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
     pub drag_mode: DragMode,
     pub enabled: Activation,
     pub height: i32,
     pub help_context_id: i32,
     pub left: i32,
-    pub mask_color: VB6Color,
-    pub mouse_icon: Option<DynamicImage>,
+    pub mask_color: Color,
+    pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
     pub mouse_pointer: MousePointer,
     pub ole_drop_mode: OLEDropMode,
-    pub picture: Option<DynamicImage>,
+    pub picture: Option<ReferenceOrValue<DynamicImage>>,
     pub right_to_left: TextDirection,
     pub style: Style,
     pub tab_index: i32,
     pub tab_stop: TabStop,
-    pub tool_tip_text: BString,
+    pub tool_tip_text: String,
     pub top: i32,
     pub use_mask_color: UseMaskColor,
     pub whats_this_help_id: i32,
@@ -66,7 +65,7 @@ impl Default for CommandButtonProperties {
             height: 30,
             help_context_id: 0,
             left: 30,
-            mask_color: VB6Color::new(0xC0, 0xC0, 0xC0),
+            mask_color: Color::new(0xC0, 0xC0, 0xC0),
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
             ole_drop_mode: OLEDropMode::default(),
@@ -140,69 +139,62 @@ impl Serialize for CommandButtonProperties {
     }
 }
 
-impl<'a> From<Properties<'a>> for CommandButtonProperties {
-    fn from(prop: Properties<'a>) -> Self {
+impl From<Properties> for CommandButtonProperties {
+    fn from(prop: Properties) -> Self {
         let mut command_button_prop = CommandButtonProperties::default();
 
         command_button_prop.appearance =
-            prop.get_property(b"Appearance".into(), command_button_prop.appearance);
+            prop.get_property("Appearance", command_button_prop.appearance);
         command_button_prop.back_color =
-            prop.get_color(b"BackColor".into(), command_button_prop.back_color);
-        command_button_prop.cancel = prop.get_bool(b"Cancel".into(), command_button_prop.cancel);
+            prop.get_color("BackColor", command_button_prop.back_color);
+        command_button_prop.cancel = prop.get_bool("Cancel", command_button_prop.cancel);
 
         command_button_prop.caption = match prop.get("Caption".into()) {
             Some(caption) => caption.into(),
             None => command_button_prop.caption,
         };
-        command_button_prop.causes_validation = prop.get_property(
-            b"CausesValidation".into(),
-            command_button_prop.causes_validation,
-        );
-        command_button_prop.default = prop.get_bool(b"Default".into(), command_button_prop.default);
+        command_button_prop.causes_validation =
+            prop.get_property("CausesValidation", command_button_prop.causes_validation);
+        command_button_prop.default = prop.get_bool("Default", command_button_prop.default);
 
         // disabled_picture
         // down_picture
         // drag_icon
 
         command_button_prop.drag_mode =
-            prop.get_property(b"DragMode".into(), command_button_prop.drag_mode);
-        command_button_prop.enabled =
-            prop.get_property(b"Enabled".into(), command_button_prop.enabled);
-        command_button_prop.height = prop.get_i32(b"Height".into(), command_button_prop.height);
+            prop.get_property("DragMode", command_button_prop.drag_mode);
+        command_button_prop.enabled = prop.get_property("Enabled", command_button_prop.enabled);
+        command_button_prop.height = prop.get_i32("Height", command_button_prop.height);
         command_button_prop.help_context_id =
-            prop.get_i32(b"HelpContextID".into(), command_button_prop.help_context_id);
-        command_button_prop.left = prop.get_i32(b"Left".into(), command_button_prop.left);
+            prop.get_i32("HelpContextID", command_button_prop.help_context_id);
+        command_button_prop.left = prop.get_i32("Left", command_button_prop.left);
         command_button_prop.mask_color =
-            prop.get_color(b"MaskColor".into(), command_button_prop.mask_color);
+            prop.get_color("MaskColor", command_button_prop.mask_color);
 
         // mouse_icon
 
         command_button_prop.mouse_pointer =
-            prop.get_property(b"MousePointer".into(), command_button_prop.mouse_pointer);
+            prop.get_property("MousePointer", command_button_prop.mouse_pointer);
         command_button_prop.ole_drop_mode =
-            prop.get_property(b"OLEDropMode".into(), command_button_prop.ole_drop_mode);
+            prop.get_property("OLEDropMode", command_button_prop.ole_drop_mode);
 
         // picture
 
         command_button_prop.right_to_left =
-            prop.get_property(b"RightToLeft".into(), command_button_prop.right_to_left);
-        command_button_prop.style = prop.get_property(b"Style".into(), command_button_prop.style);
-        command_button_prop.tab_index =
-            prop.get_i32(b"TabIndex".into(), command_button_prop.tab_index);
-        command_button_prop.tab_stop =
-            prop.get_property(b"TabStop".into(), command_button_prop.tab_stop);
+            prop.get_property("RightToLeft", command_button_prop.right_to_left);
+        command_button_prop.style = prop.get_property("Style", command_button_prop.style);
+        command_button_prop.tab_index = prop.get_i32("TabIndex", command_button_prop.tab_index);
+        command_button_prop.tab_stop = prop.get_property("TabStop", command_button_prop.tab_stop);
         command_button_prop.tool_tip_text = match prop.get("ToolTipText".into()) {
             Some(tool_tip_text) => tool_tip_text.into(),
             None => "".into(),
         };
-        command_button_prop.top = prop.get_i32(b"Top".into(), command_button_prop.top);
+        command_button_prop.top = prop.get_i32("Top", command_button_prop.top);
         command_button_prop.use_mask_color =
-            prop.get_property(b"UseMaskColor".into(), command_button_prop.use_mask_color);
-        command_button_prop.whats_this_help_id = prop.get_i32(
-            b"WhatsThisHelp".into(),
-            command_button_prop.whats_this_help_id,
-        );
-        command_button_prop.width = prop.get_i32(b"Width".into(), command_button_prop.width);
+            prop.get_property("UseMaskColor", command_button_prop.use_mask_color);
+        command_button_prop.whats_this_help_id =
+            prop.get_i32("WhatsThisHelp", command_button_prop.whats_this_help_id);
+        command_button_prop.width = prop.get_i32("Width", command_button_prop.width);
 
         command_button_prop
     }

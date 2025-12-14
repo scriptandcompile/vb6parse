@@ -1,15 +1,14 @@
 use crate::{
     language::{
-        color::{VB6Color, VB_BUTTON_FACE, VB_BUTTON_TEXT},
+        color::{Color, VB_BUTTON_FACE, VB_BUTTON_TEXT},
         controls::{
             Activation, Appearance, CausesValidation, DragMode, MousePointer, MultiSelect,
-            OLEDragMode, OLEDropMode, TabStop, TextDirection, Visibility,
+            OLEDragMode, OLEDropMode, ReferenceOrValue, TabStop, TextDirection, Visibility,
         },
     },
     parsers::Properties,
 };
 
-use bstr::BString;
 use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
@@ -36,30 +35,30 @@ pub enum ListBoxStyle {
 /// Properties for a `ListBox` control.
 ///
 /// This is used as an enum variant of
-/// [`VB6ControlKind::ListBox`](crate::language::controls::VB6ControlKind::ListBox).
+/// [`ControlKind::ListBox`](crate::language::controls::ControlKind::ListBox).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
+/// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct ListBoxProperties {
     pub appearance: Appearance,
-    pub back_color: VB6Color,
+    pub back_color: Color,
     pub causes_validation: CausesValidation,
     pub columns: i32,
-    pub data_field: BString,
-    pub data_format: BString,
-    pub data_member: BString,
-    pub data_source: BString,
-    pub drag_icon: Option<DynamicImage>,
+    pub data_field: String,
+    pub data_format: String,
+    pub data_member: String,
+    pub data_source: String,
+    pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
     pub drag_mode: DragMode,
     pub enabled: Activation,
-    pub fore_color: VB6Color,
+    pub fore_color: Color,
     pub height: i32,
     pub help_context_id: i32,
     pub integral_height: bool,
-    // pub item_data: Vec<BString>,
+    // pub item_data: Vec<String>,
     pub left: i32,
-    // pub list: Vec<BString>,
-    pub mouse_icon: Option<DynamicImage>,
+    // pub list: Vec<String>,
+    pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
     pub mouse_pointer: MousePointer,
     pub multi_select: MultiSelect,
     pub ole_drag_mode: OLEDragMode,
@@ -69,7 +68,7 @@ pub struct ListBoxProperties {
     pub style: ListBoxStyle,
     pub tab_index: i32,
     pub tab_stop: TabStop,
-    pub tool_tip_text: BString,
+    pub tool_tip_text: String,
     pub top: i32,
     pub visible: Visibility,
     pub whats_this_help_id: i32,
@@ -164,70 +163,65 @@ impl Serialize for ListBoxProperties {
     }
 }
 
-impl<'a> From<Properties<'a>> for ListBoxProperties {
-    fn from(prop: Properties<'a>) -> Self {
+impl From<Properties> for ListBoxProperties {
+    fn from(prop: Properties) -> Self {
         let mut list_box_prop = ListBoxProperties::default();
 
-        list_box_prop.appearance =
-            prop.get_property(b"Appearance".into(), list_box_prop.appearance);
-        list_box_prop.back_color = prop.get_color(b"BackColor".into(), list_box_prop.back_color);
+        list_box_prop.appearance = prop.get_property("Appearance", list_box_prop.appearance);
+        list_box_prop.back_color = prop.get_color("BackColor", list_box_prop.back_color);
         list_box_prop.causes_validation =
-            prop.get_property(b"CausesValidation".into(), list_box_prop.causes_validation);
-        list_box_prop.columns = prop.get_i32(b"Columns".into(), list_box_prop.columns);
-        list_box_prop.data_field = match prop.get(b"DataField".into()) {
+            prop.get_property("CausesValidation", list_box_prop.causes_validation);
+        list_box_prop.columns = prop.get_i32("Columns", list_box_prop.columns);
+        list_box_prop.data_field = match prop.get("DataField") {
             Some(data_field) => data_field.into(),
             None => list_box_prop.data_field,
         };
-        list_box_prop.data_format = match prop.get(b"DataFormat".into()) {
+        list_box_prop.data_format = match prop.get("DataFormat") {
             Some(data_format) => data_format.into(),
             None => list_box_prop.data_format,
         };
-        list_box_prop.data_member = match prop.get(b"DataMember".into()) {
+        list_box_prop.data_member = match prop.get("DataMember") {
             Some(data_member) => data_member.into(),
             None => list_box_prop.data_member,
         };
-        list_box_prop.data_source = match prop.get(b"DataSource".into()) {
+        list_box_prop.data_source = match prop.get("DataSource") {
             Some(data_source) => data_source.into(),
             None => list_box_prop.data_source,
         };
 
         // DragIcon
 
-        list_box_prop.drag_mode = prop.get_property(b"DragMode".into(), list_box_prop.drag_mode);
-        list_box_prop.enabled = prop.get_property(b"Enabled".into(), list_box_prop.enabled);
-        list_box_prop.fore_color = prop.get_color(b"ForeColor".into(), list_box_prop.fore_color);
-        list_box_prop.height = prop.get_i32(b"Height".into(), list_box_prop.height);
+        list_box_prop.drag_mode = prop.get_property("DragMode", list_box_prop.drag_mode);
+        list_box_prop.enabled = prop.get_property("Enabled", list_box_prop.enabled);
+        list_box_prop.fore_color = prop.get_color("ForeColor", list_box_prop.fore_color);
+        list_box_prop.height = prop.get_i32("Height", list_box_prop.height);
         list_box_prop.help_context_id =
-            prop.get_i32(b"HelpContextID".into(), list_box_prop.help_context_id);
+            prop.get_i32("HelpContextID", list_box_prop.help_context_id);
         list_box_prop.integral_height =
-            prop.get_bool(b"IntegralHeight".into(), list_box_prop.integral_height);
-        list_box_prop.left = prop.get_i32(b"Left".into(), list_box_prop.left);
+            prop.get_bool("IntegralHeight", list_box_prop.integral_height);
+        list_box_prop.left = prop.get_i32("Left", list_box_prop.left);
 
         // MouseIcon
 
         list_box_prop.mouse_pointer =
-            prop.get_property(b"MousePointer".into(), list_box_prop.mouse_pointer);
-        list_box_prop.multi_select =
-            prop.get_property(b"MultiSelect".into(), list_box_prop.multi_select);
-        list_box_prop.ole_drag_mode =
-            prop.get_property(b"OLEDragMode".into(), list_box_prop.ole_drag_mode);
-        list_box_prop.ole_drop_mode =
-            prop.get_property(b"OLEDropMode".into(), list_box_prop.ole_drop_mode);
-        list_box_prop.right_to_left =
-            prop.get_property(b"RightToLeft".into(), list_box_prop.right_to_left);
-        list_box_prop.sorted = prop.get_bool(b"Sorted".into(), list_box_prop.sorted);
-        list_box_prop.style = prop.get_property(b"Style".into(), list_box_prop.style);
-        list_box_prop.tab_index = prop.get_i32(b"TabIndex".into(), list_box_prop.tab_index);
-        list_box_prop.tab_stop = prop.get_property(b"TabStop".into(), list_box_prop.tab_stop);
-        list_box_prop.tool_tip_text = match prop.get(b"ToolTipText".into()) {
+            prop.get_property("MousePointer", list_box_prop.mouse_pointer);
+        list_box_prop.multi_select = prop.get_property("MultiSelect", list_box_prop.multi_select);
+        list_box_prop.ole_drag_mode = prop.get_property("OLEDragMode", list_box_prop.ole_drag_mode);
+        list_box_prop.ole_drop_mode = prop.get_property("OLEDropMode", list_box_prop.ole_drop_mode);
+        list_box_prop.right_to_left = prop.get_property("RightToLeft", list_box_prop.right_to_left);
+        list_box_prop.sorted = prop.get_bool("Sorted", list_box_prop.sorted);
+        list_box_prop.style = prop.get_property("Style", list_box_prop.style);
+        list_box_prop.tab_index = prop.get_i32("TabIndex", list_box_prop.tab_index);
+        list_box_prop.tab_stop = prop.get_property("TabStop", list_box_prop.tab_stop);
+        list_box_prop.tool_tip_text = match prop.get("ToolTipText") {
             Some(tool_tip_text) => tool_tip_text.into(),
             None => list_box_prop.tool_tip_text,
         };
-        list_box_prop.top = prop.get_i32(b"Top".into(), list_box_prop.top);
-        list_box_prop.visible = prop.get_property(b"Visible".into(), list_box_prop.visible);
+        list_box_prop.top = prop.get_i32("Top", list_box_prop.top);
+        list_box_prop.visible = prop.get_property("Visible", list_box_prop.visible);
         list_box_prop.whats_this_help_id =
-            prop.get_i32(b"WhatsThisHelpID".into(), list_box_prop.whats_this_help_id);
-        list_box_prop.width = prop.get_i32(b"Width".into(), list_box_prop.width);
+            prop.get_i32("WhatsThisHelpID", list_box_prop.whats_this_help_id);
+        list_box_prop.width = prop.get_i32("Width", list_box_prop.width);
 
         list_box_prop
     }

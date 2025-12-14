@@ -8,7 +8,7 @@
 //! - Do...Loop (infinite loop)
 //! - While...Wend
 
-use crate::language::VB6Token;
+use crate::language::Token;
 use crate::parsers::SyntaxKind;
 
 use super::Parser;
@@ -38,7 +38,7 @@ impl Parser<'_> {
 
         // Check if we have While or Until after Do
         let has_top_condition =
-            self.at_token(VB6Token::WhileKeyword) || self.at_token(VB6Token::UntilKeyword);
+            self.at_token(Token::WhileKeyword) || self.at_token(Token::UntilKeyword);
 
         if has_top_condition {
             // Consume While or Until
@@ -52,22 +52,22 @@ impl Parser<'_> {
         }
 
         // Consume newline after Do line
-        if self.at_token(VB6Token::Newline) {
+        if self.at_token(Token::Newline) {
             self.consume_token();
         }
 
         // Parse the loop body until "Loop"
-        self.parse_code_block(|parser| parser.at_token(VB6Token::LoopKeyword));
+        self.parse_code_block(|parser| parser.at_token(Token::LoopKeyword));
 
         // Consume "Loop" keyword
-        if self.at_token(VB6Token::LoopKeyword) {
+        if self.at_token(Token::LoopKeyword) {
             self.consume_token();
 
             // Consume whitespace after Loop
             self.consume_whitespace();
 
             // Check if we have While or Until after Loop
-            if self.at_token(VB6Token::WhileKeyword) || self.at_token(VB6Token::UntilKeyword) {
+            if self.at_token(Token::WhileKeyword) || self.at_token(Token::UntilKeyword) {
                 // Consume While or Until
                 self.consume_token();
 
@@ -79,7 +79,7 @@ impl Parser<'_> {
             }
 
             // Consume newline after Loop
-            if self.at_token(VB6Token::Newline) {
+            if self.at_token(Token::Newline) {
                 self.consume_token();
             }
         }
@@ -158,19 +158,19 @@ impl Parser<'_> {
         self.parse_expression();
 
         // Consume newline after While line
-        if self.at_token(VB6Token::Newline) {
+        if self.at_token(Token::Newline) {
             self.consume_token();
         }
 
         // Parse the loop body until "Wend"
-        self.parse_code_block(|parser| parser.at_token(VB6Token::WendKeyword));
+        self.parse_code_block(|parser| parser.at_token(Token::WendKeyword));
 
         // Consume "Wend" keyword
-        if self.at_token(VB6Token::WendKeyword) {
+        if self.at_token(Token::WendKeyword) {
             self.consume_token();
 
             // Consume newline after Wend
-            if self.at_token(VB6Token::Newline) {
+            if self.at_token(Token::Newline) {
                 self.consume_token();
             }
         }

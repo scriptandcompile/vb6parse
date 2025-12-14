@@ -1,40 +1,39 @@
 use crate::language::controls::{
     Activation, Appearance, BorderStyle, DragMode, MousePointer, OLEDragMode, OLEDropMode,
-    Visibility,
+    ReferenceOrValue, Visibility,
 };
 
 use crate::parsers::Properties;
 
-use bstr::BString;
 use image::DynamicImage;
 use serde::Serialize;
 
 /// Properties for a `Image` control.
 ///
 /// This is used as an enum variant of
-/// [`VB6ControlKind::Image`](crate::language::controls::VB6ControlKind::Image).
+/// [`ControlKind::Image`](crate::language::controls::ControlKind::Image).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
+/// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct ImageProperties {
     pub appearance: Appearance,
     pub border_style: BorderStyle,
-    pub data_field: BString,
-    pub data_format: BString,
-    pub data_member: BString,
-    pub data_source: BString,
-    pub drag_icon: Option<DynamicImage>,
+    pub data_field: String,
+    pub data_format: String,
+    pub data_member: String,
+    pub data_source: String,
+    pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
     pub drag_mode: DragMode,
     pub enabled: Activation,
     pub height: i32,
     pub left: i32,
-    pub mouse_icon: Option<DynamicImage>,
+    pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
     pub mouse_pointer: MousePointer,
     pub ole_drag_mode: OLEDragMode,
     pub ole_drop_mode: OLEDropMode,
-    pub picture: Option<DynamicImage>,
+    pub picture: Option<ReferenceOrValue<DynamicImage>>,
     pub stretch: bool,
-    pub tool_tip_text: BString,
+    pub tool_tip_text: String,
     pub top: i32,
     pub visible: Visibility,
     pub whats_this_help_id: i32,
@@ -114,57 +113,54 @@ impl Serialize for ImageProperties {
     }
 }
 
-impl<'a> From<Properties<'a>> for ImageProperties {
-    fn from(prop: Properties<'a>) -> Self {
+impl From<Properties> for ImageProperties {
+    fn from(prop: Properties) -> Self {
         let mut image_prop = ImageProperties::default();
 
-        image_prop.appearance = prop.get_property(b"Appearance".into(), image_prop.appearance);
-        image_prop.border_style = prop.get_property(b"BorderStyle".into(), image_prop.border_style);
-        image_prop.data_field = match prop.get(b"DataField".into()) {
+        image_prop.appearance = prop.get_property("Appearance", image_prop.appearance);
+        image_prop.border_style = prop.get_property("BorderStyle", image_prop.border_style);
+        image_prop.data_field = match prop.get("DataField") {
             Some(data_field) => data_field.into(),
             None => image_prop.data_field,
         };
-        image_prop.data_format = match prop.get(b"DataFormat".into()) {
+        image_prop.data_format = match prop.get("DataFormat") {
             Some(data_format) => data_format.into(),
             None => image_prop.data_format,
         };
-        image_prop.data_member = match prop.get(b"DataMember".into()) {
+        image_prop.data_member = match prop.get("DataMember") {
             Some(data_member) => data_member.into(),
             None => image_prop.data_member,
         };
-        image_prop.data_source = match prop.get(b"DataSource".into()) {
+        image_prop.data_source = match prop.get("DataSource") {
             Some(data_source) => data_source.into(),
             None => image_prop.data_source,
         };
 
         // DragIcon
 
-        image_prop.drag_mode = prop.get_property(b"DragMode".into(), image_prop.drag_mode);
-        image_prop.enabled = prop.get_property(b"Enabled".into(), image_prop.enabled);
-        image_prop.height = prop.get_i32(b"Height".into(), image_prop.height);
-        image_prop.left = prop.get_i32(b"Left".into(), image_prop.left);
+        image_prop.drag_mode = prop.get_property("DragMode", image_prop.drag_mode);
+        image_prop.enabled = prop.get_property("Enabled", image_prop.enabled);
+        image_prop.height = prop.get_i32("Height", image_prop.height);
+        image_prop.left = prop.get_i32("Left", image_prop.left);
 
         // MouseIcon
 
-        image_prop.mouse_pointer =
-            prop.get_property(b"MousePointer".into(), image_prop.mouse_pointer);
-        image_prop.ole_drag_mode =
-            prop.get_property(b"OLEDragMode".into(), image_prop.ole_drag_mode);
-        image_prop.ole_drop_mode =
-            prop.get_property(b"OLEDropMode".into(), image_prop.ole_drop_mode);
+        image_prop.mouse_pointer = prop.get_property("MousePointer", image_prop.mouse_pointer);
+        image_prop.ole_drag_mode = prop.get_property("OLEDragMode", image_prop.ole_drag_mode);
+        image_prop.ole_drop_mode = prop.get_property("OLEDropMode", image_prop.ole_drop_mode);
 
         // Picture
 
-        image_prop.stretch = prop.get_bool(b"Stretch".into(), image_prop.stretch);
+        image_prop.stretch = prop.get_bool("Stretch", image_prop.stretch);
         image_prop.tool_tip_text = match prop.get("ToolTipText".into()) {
             Some(tool_tip_text) => tool_tip_text.into(),
             None => "".into(),
         };
-        image_prop.top = prop.get_i32(b"Top".into(), image_prop.top);
-        image_prop.visible = prop.get_property(b"Visible".into(), image_prop.visible);
+        image_prop.top = prop.get_i32("Top", image_prop.top);
+        image_prop.visible = prop.get_property("Visible", image_prop.visible);
         image_prop.whats_this_help_id =
-            prop.get_i32(b"WhatsThisHelpID".into(), image_prop.whats_this_help_id);
-        image_prop.width = prop.get_i32(b"Width".into(), image_prop.width);
+            prop.get_i32("WhatsThisHelpID", image_prop.whats_this_help_id);
+        image_prop.width = prop.get_i32("Width", image_prop.width);
 
         image_prop
     }

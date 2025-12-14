@@ -13,7 +13,7 @@
 //! Built-in system statements (`AppActivate`, Beep, `ChDir`, `ChDrive`) are in the
 //! library module.
 
-use crate::language::VB6Token;
+use crate::language::Token;
 use crate::parsers::SyntaxKind;
 
 use super::Parser;
@@ -42,9 +42,111 @@ impl Parser<'_> {
         self.consume_token();
 
         // Consume everything until newline (preserving all tokens)
-        self.consume_until_after(VB6Token::Newline);
+        self.consume_until_after(Token::Newline);
 
         self.builder.finish_node(); // CallStatement
+    }
+
+    /// Parse a procedure call without the Call keyword.
+    /// In VB6, you can call a Sub procedure without using the Call keyword:
+    /// - `MySub arg1, arg2` instead of `Call MySub(arg1, arg2)`
+    /// - `MySub` (no arguments)
+    pub(super) fn parse_procedure_call(&mut self) {
+        // if we are now parsing a procedure call, we are no longer in the header.
+        self.parsing_header = false;
+
+        self.builder.start_node(SyntaxKind::CallStatement.to_raw());
+
+        // Consume everything until newline (procedure name and arguments)
+        self.consume_until_after(Token::Newline);
+
+        self.builder.finish_node(); // CallStatement
+    }
+
+    /// Check if the current position is at a procedure call (without Call keyword).
+    /// This is true if we have an identifier that's not followed by an assignment operator.
+    /// In VB6, procedure calls can appear as:
+    /// - `MySub` (no arguments)
+    /// - `MySub arg1, arg2` (arguments without parentheses)
+    /// - `MySub(arg1, arg2)` (arguments with parentheses)
+    pub(super) fn is_at_procedure_call(&self) -> bool {
+        // Must start with an identifier or keyword used as identifier
+        // BUT exclude keywords that have structural meaning and can't be procedure names
+        if self.at_token(Token::Identifier) {
+            // Identifiers are OK
+        } else if self.at_keyword() {
+            // Some keywords should never be treated as procedure calls
+            // These are structural keywords that have special parsing rules
+            match self.current_token() {
+                Some(
+                    Token::EndKeyword
+                    | Token::ExitKeyword
+                    | Token::LoopKeyword
+                    | Token::NextKeyword
+                    | Token::WendKeyword
+                    | Token::ElseKeyword
+                    | Token::ElseIfKeyword
+                    | Token::CaseKeyword
+                    | Token::IfKeyword
+                    | Token::ThenKeyword
+                    | Token::SelectKeyword
+                    | Token::DoKeyword
+                    | Token::WhileKeyword
+                    | Token::UntilKeyword
+                    | Token::ForKeyword
+                    | Token::ToKeyword
+                    | Token::StepKeyword
+                    | Token::SubKeyword
+                    | Token::FunctionKeyword
+                    | Token::PropertyKeyword
+                    | Token::WithKeyword
+                    | Token::ReturnKeyword
+                    | Token::ResumeKeyword,
+                ) => return false,
+                _ => {}
+            }
+        } else {
+            return false;
+        }
+
+        // Look ahead to see if there's an assignment operator
+        // If there's an =, it's an assignment, not a procedure call
+        for (_text, token) in self.tokens.iter().skip(self.pos) {
+            match token {
+                Token::Newline | Token::EndOfLineComment | Token::RemComment => {
+                    // Reached end of line without finding assignment - this is a procedure call
+                    return true;
+                }
+                Token::EqualityOperator => {
+                    // Found = operator - this is an assignment, not a procedure call
+                    return false;
+                }
+                Token::Whitespace => {
+                    // Skip whitespace
+                }
+                // Procedure calls can have various tokens before newline
+                Token::Identifier
+                | Token::LeftParenthesis
+                | Token::RightParenthesis
+                | Token::Comma
+                | Token::PeriodOperator
+                | Token::StringLiteral
+                | Token::IntegerLiteral
+                | Token::LongLiteral
+                | Token::SingleLiteral
+                | Token::DoubleLiteral => {
+                    // These can all appear in procedure calls, continue looking
+                }
+                // If it's a keyword, it could be an argument
+                _ if token.is_keyword() => {
+                    // Keywords can be used as arguments (e.g., True, False, Nothing)
+                }
+                // Anything else could indicate it's not a simple procedure call
+                _ => {}
+            }
+        }
+
+        false
     }
 
     /// Parse a `RaiseEvent` statement.
@@ -96,7 +198,7 @@ impl Parser<'_> {
         self.consume_token();
 
         // Consume everything until newline (event name and arguments)
-        self.consume_until_after(VB6Token::Newline);
+        self.consume_until_after(Token::Newline);
 
         self.builder.finish_node(); // RaiseEventStatement
     }
@@ -118,7 +220,7 @@ impl Parser<'_> {
 
         // Consume everything until newline
         // This includes: variable, "=", [New], object expression
-        self.consume_until_after(VB6Token::Newline);
+        self.consume_until_after(Token::Newline);
 
         self.builder.finish_node(); // SetStatement
     }
@@ -142,16 +244,16 @@ impl Parser<'_> {
         self.consume_token();
 
         // Consume everything until newline (the object expression)
-        self.consume_until_after(VB6Token::Newline);
+        self.consume_until_after(Token::Newline);
 
         // Parse the body until "End With"
         self.parse_code_block(|parser| {
-            parser.at_token(VB6Token::EndKeyword)
-                && parser.peek_next_keyword() == Some(VB6Token::WithKeyword)
+            parser.at_token(Token::EndKeyword)
+                && parser.peek_next_keyword() == Some(Token::WithKeyword)
         });
 
         // Consume "End With" and trailing tokens
-        if self.at_token(VB6Token::EndKeyword) {
+        if self.at_token(Token::EndKeyword) {
             // Consume "End"
             self.consume_token();
 
@@ -162,7 +264,7 @@ impl Parser<'_> {
             self.consume_token();
 
             // Consume until newline (including it)
-            self.consume_until_after(VB6Token::Newline);
+            self.consume_until_after(Token::Newline);
         }
 
         self.builder.finish_node(); // WithStatement
@@ -173,10 +275,10 @@ impl Parser<'_> {
         matches!(
             self.current_token(),
             Some(
-                VB6Token::CallKeyword
-                    | VB6Token::RaiseEventKeyword
-                    | VB6Token::SetKeyword
-                    | VB6Token::WithKeyword
+                Token::CallKeyword
+                    | Token::RaiseEventKeyword
+                    | Token::SetKeyword
+                    | Token::WithKeyword
             )
         )
     }
@@ -185,16 +287,16 @@ impl Parser<'_> {
     /// defined in this module (object manipulation statements).
     pub(super) fn parse_statement(&mut self) {
         match self.current_token() {
-            Some(VB6Token::CallKeyword) => {
+            Some(Token::CallKeyword) => {
                 self.parse_call_statement();
             }
-            Some(VB6Token::RaiseEventKeyword) => {
+            Some(Token::RaiseEventKeyword) => {
                 self.parse_raiseevent_statement();
             }
-            Some(VB6Token::SetKeyword) => {
+            Some(Token::SetKeyword) => {
                 self.parse_set_statement();
             }
-            Some(VB6Token::WithKeyword) => {
+            Some(Token::WithKeyword) => {
                 self.parse_with_statement();
             }
             _ => {}
@@ -318,6 +420,117 @@ mod test {
 
         assert!(cst.text().contains("x + y"));
         assert!(cst.text().contains("z * 2"));
+    }
+
+    // Procedure call tests (without Call keyword)
+    #[test]
+    fn procedure_call_no_arguments() {
+        let source = "InitializeRandomDNA\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.child_count(), 1);
+
+        if let Some(child) = cst.child_at(0) {
+            assert_eq!(child.kind, SyntaxKind::CallStatement);
+        }
+
+        assert_eq!(cst.text(), source);
+    }
+
+    #[test]
+    fn procedure_call_with_parentheses() {
+        let source = "DoSomething()\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.child_count(), 1);
+
+        if let Some(child) = cst.child_at(0) {
+            assert_eq!(child.kind, SyntaxKind::CallStatement);
+        }
+
+        assert_eq!(cst.text(), source);
+    }
+
+    #[test]
+    fn procedure_call_with_arguments_no_parentheses() {
+        let source = "MsgBox \"Hello\", vbInformation, \"Title\"\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.child_count(), 1);
+
+        if let Some(child) = cst.child_at(0) {
+            assert_eq!(child.kind, SyntaxKind::CallStatement);
+        }
+
+        assert!(cst.text().contains("MsgBox"));
+    }
+
+    #[test]
+    fn procedure_call_with_arguments_with_parentheses() {
+        let source = "ProcessData(x, y, z)\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.child_count(), 1);
+
+        if let Some(child) = cst.child_at(0) {
+            assert_eq!(child.kind, SyntaxKind::CallStatement);
+        }
+
+        assert!(cst.text().contains("ProcessData"));
+    }
+
+    #[test]
+    fn multiple_procedure_calls_in_sub() {
+        let source = "Sub Test()\nInitializeRandomDNA\nGetInitialSize\nGetInitialSpeed\nEnd Sub\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.child_count(), 1);
+
+        if let Some(sub_statement) = cst.child_at(0) {
+            assert_eq!(sub_statement.kind, SyntaxKind::SubStatement);
+
+            // Check that the debug tree contains CallStatements
+            let debug = cst.debug_tree();
+            assert!(debug.contains("CallStatement"));
+
+            // Count CallStatements - there should be at least 3
+            let call_count = debug
+                .lines()
+                .filter(|line| line.contains("CallStatement@"))
+                .count();
+            assert!(
+                call_count >= 3,
+                "Expected at least 3 CallStatements, found {}",
+                call_count
+            );
+        }
+    }
+
+    #[test]
+    fn procedure_call_preserves_whitespace() {
+        let source = "MySub  arg1 ,  arg2\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.child_count(), 1);
+
+        if let Some(child) = cst.child_at(0) {
+            assert_eq!(child.kind, SyntaxKind::CallStatement);
+        }
+
+        assert_eq!(cst.text(), source);
+    }
+
+    #[test]
+    fn procedure_call_vs_assignment() {
+        // This should be an assignment, not a procedure call
+        let source = "x = 5\n";
+        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+
+        assert_eq!(cst.child_count(), 1);
+
+        if let Some(child) = cst.child_at(0) {
+            assert_eq!(child.kind, SyntaxKind::AssignmentStatement);
+        }
     }
 
     // Set statement tests

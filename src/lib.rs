@@ -98,7 +98,7 @@
 //!     }
 //! };
 //!
-//! let result = VB6Project::parse(&project_source_file);
+//! let result = Project::parse(&project_source_file);
 //!
 //! if result.has_failures() {
 //!     for failure in result.failures {
@@ -151,7 +151,7 @@
 //! a mock resource resolver.
 //!
 //! ```rust
-//! use vb6parse::parsers::VB6FormFile;
+//! use vb6parse::parsers::FormFile;
 //! use vb6parse::parsers::resource_file_resolver;
 //!
 //! let input = b"VERSION 5.00\r
@@ -186,10 +186,11 @@
 //! Attribute VB_Name = \"frmExampleForm\"\r
 //! ";
 //!
-//! let result = VB6FormFile::parse_with_resolver("form_parse.frm", &mut input.as_ref(), resource_file_resolver);
+//! let source = vb6parse::SourceFile::decode("frmExampleForm.frm", input).unwrap();
+//! let result = FormFile::parse(&source);
 //!
-//! assert!(result.is_ok());
-//! assert_eq!(result.unwrap().form.name, "frmExampleForm");
+//! assert!(result.has_result());
+//! assert_eq!(result.result.unwrap().attributes.name, "frmExampleForm");
 //! ```
 
 pub mod errors;

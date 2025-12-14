@@ -5,7 +5,7 @@
 //! - Sub parameter lists
 //! - Property parameter lists
 
-use crate::language::VB6Token;
+use crate::language::Token;
 use crate::parsers::SyntaxKind;
 
 use super::Parser;
@@ -26,30 +26,30 @@ impl Parser<'_> {
         loop {
             self.consume_whitespace();
 
-            if self.at_token(VB6Token::RightParenthesis) || self.is_at_end() {
+            if self.at_token(Token::RightParenthesis) || self.is_at_end() {
                 break;
             }
 
             // Optional
-            if self.at_token(VB6Token::OptionalKeyword) {
+            if self.at_token(Token::OptionalKeyword) {
                 self.consume_token();
                 self.consume_whitespace();
             }
 
             // ByVal / ByRef
-            if self.at_token(VB6Token::ByValKeyword) || self.at_token(VB6Token::ByRefKeyword) {
+            if self.at_token(Token::ByValKeyword) || self.at_token(Token::ByRefKeyword) {
                 self.consume_token();
                 self.consume_whitespace();
             }
 
             // ParamArray
-            if self.at_token(VB6Token::ParamArrayKeyword) {
+            if self.at_token(Token::ParamArrayKeyword) {
                 self.consume_token();
                 self.consume_whitespace();
             }
 
             // Variable name
-            if self.at_token(VB6Token::Identifier) {
+            if self.at_token(Token::Identifier) {
                 self.consume_token();
             } else {
                 // Error recovery
@@ -59,10 +59,10 @@ impl Parser<'_> {
             self.consume_whitespace();
 
             // Array parens ()
-            if self.at_token(VB6Token::LeftParenthesis) {
+            if self.at_token(Token::LeftParenthesis) {
                 self.consume_token();
                 self.consume_whitespace();
-                if self.at_token(VB6Token::RightParenthesis) {
+                if self.at_token(Token::RightParenthesis) {
                     self.consume_token();
                 }
             }
@@ -70,12 +70,12 @@ impl Parser<'_> {
             self.consume_whitespace();
 
             // As Type
-            if self.at_token(VB6Token::AsKeyword) {
+            if self.at_token(Token::AsKeyword) {
                 self.consume_token();
                 self.consume_whitespace();
                 // Type name
                 self.consume_token();
-                while self.at_token(VB6Token::PeriodOperator) {
+                while self.at_token(Token::PeriodOperator) {
                     self.consume_token();
                     self.consume_token();
                 }
@@ -84,7 +84,7 @@ impl Parser<'_> {
             self.consume_whitespace();
 
             // Default value
-            if self.at_token(VB6Token::EqualityOperator) {
+            if self.at_token(Token::EqualityOperator) {
                 self.consume_token();
                 self.consume_whitespace();
                 self.parse_expression();
@@ -92,7 +92,7 @@ impl Parser<'_> {
 
             self.consume_whitespace();
 
-            if self.at_token(VB6Token::Comma) {
+            if self.at_token(Token::Comma) {
                 self.consume_token();
             } else {
                 break;
@@ -100,7 +100,7 @@ impl Parser<'_> {
         }
 
         // Consume ")"
-        if self.at_token(VB6Token::RightParenthesis) {
+        if self.at_token(Token::RightParenthesis) {
             self.consume_token();
         }
 

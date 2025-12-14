@@ -20,7 +20,6 @@
 //!
 
 mod header;
-mod vb6stream;
 
 pub mod class;
 pub mod cst;
@@ -30,19 +29,20 @@ pub mod objectreference;
 pub mod parseresults;
 pub mod project;
 pub mod properties;
+pub mod resource;
 pub mod syntaxkind;
-pub mod vb6;
 
 pub use class::*;
-pub use form::{resource_file_resolver, VB6FormFile};
-pub use header::{VB6FileAttributes, VB6FileFormatVersion};
-pub use module::VB6ModuleFile;
-pub use objectreference::VB6ObjectReference;
+pub use form::FormFile;
+pub use header::{FileAttributes, FileFormatVersion};
+pub use module::ModuleFile;
+pub use objectreference::ObjectReference;
 pub use properties::Properties;
+pub use resource::{list_resolver, resource_file_resolver};
 
 pub use project::{
-    compilesettings::*, properties::*, VB6Project, VB6ProjectClass, VB6ProjectModule,
-    VB6ProjectReference,
+    compilesettings::*, properties::*, Project, ProjectClassReference, ProjectModuleReference,
+    ProjectReference,
 };
 
 pub use crate::parsers::cst::{parse, ConcreteSyntaxTree, CstNode, SerializableTree};
@@ -51,7 +51,3 @@ pub use crate::sourcestream::*;
 pub use crate::SourceFile;
 pub use parseresults::ParseResult;
 pub use uuid::Uuid;
-
-pub use vb6::{is_english_code, vb6_parse};
-
-pub use vb6stream::VB6Stream;

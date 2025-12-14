@@ -7,17 +7,9 @@ use core::convert::From;
 
 use std::borrow::Cow;
 use std::error::Error;
-use std::fmt::{Debug, Display, Formatter};
-use std::path::Path;
-
-use winnow::{
-    error::{ContextError, ParseError, ParserError},
-    stream::Stream,
-};
+use std::fmt::Debug;
 
 use ariadne::{Label, Report, ReportKind, Source};
-
-use crate::parsers::VB6Stream;
 
 #[derive(Debug, Clone)]
 pub struct ErrorDetails<'a, T> {
@@ -126,7 +118,7 @@ pub enum SourceFileErrorKind {
 }
 
 #[derive(thiserror::Error, Debug, Clone)]
-pub enum VB6CodeErrorKind {
+pub enum CodeErrorKind {
     #[error("Variable names in VB6 have a maximum length of 255 characters.")]
     VariableNameTooLong,
 
@@ -138,7 +130,7 @@ pub enum VB6CodeErrorKind {
 }
 
 #[derive(thiserror::Error, Debug, Clone)]
-pub enum VB6ClassErrorKind<'a> {
+pub enum ClassErrorKind<'a> {
     #[error("The 'VERSION' keyword is missing from the class file header.")]
     VersionKeywordMissing,
 
@@ -204,18 +196,21 @@ pub enum VB6ClassErrorKind<'a> {
     WhitespaceDividerBetweenMajorAndMinorVersionNumbers,
 
     #[error("There was an error parsing the VB6 tokens.")]
-    VB6ClassTokenError { code_error: VB6CodeErrorKind },
+    ClassTokenError { code_error: CodeErrorKind },
+
+    #[error("CST parsing error: {0}")]
+    CSTError(String),
 }
 
-impl<'a> From<ErrorDetails<'a, VB6CodeErrorKind>> for ErrorDetails<'a, VB6ClassErrorKind<'a>> {
-    fn from(value: ErrorDetails<'a, VB6CodeErrorKind>) -> Self {
+impl<'a> From<ErrorDetails<'a, CodeErrorKind>> for ErrorDetails<'a, ClassErrorKind<'a>> {
+    fn from(value: ErrorDetails<'a, CodeErrorKind>) -> Self {
         ErrorDetails {
             source_content: value.source_content,
             source_name: value.source_name,
             error_offset: value.error_offset,
             line_start: value.line_start,
             line_end: value.line_end,
-            kind: VB6ClassErrorKind::VB6ClassTokenError {
+            kind: ClassErrorKind::ClassTokenError {
                 code_error: value.kind,
             },
         }
@@ -223,7 +218,7 @@ impl<'a> From<ErrorDetails<'a, VB6CodeErrorKind>> for ErrorDetails<'a, VB6ClassE
 }
 
 #[derive(thiserror::Error, Debug, Clone)]
-pub enum VB6ModuleErrorKind {
+pub enum ModuleErrorKind {
     #[error("The 'Attribute' keyword is missing from the module file header.")]
     AttributeKeywordMissing,
 
@@ -240,18 +235,18 @@ pub enum VB6ModuleErrorKind {
     VBNameAttributeValueUnquoted,
 
     #[error("There was an error parsing the VB6 tokens.")]
-    VB6ModuleTokenError { code_error: VB6CodeErrorKind },
+    ModuleTokenError { code_error: CodeErrorKind },
 }
 
-impl<'a> From<ErrorDetails<'a, VB6CodeErrorKind>> for ErrorDetails<'a, VB6ModuleErrorKind> {
-    fn from(value: ErrorDetails<'a, VB6CodeErrorKind>) -> Self {
+impl<'a> From<ErrorDetails<'a, CodeErrorKind>> for ErrorDetails<'a, ModuleErrorKind> {
+    fn from(value: ErrorDetails<'a, CodeErrorKind>) -> Self {
         ErrorDetails {
             source_content: value.source_content,
             source_name: value.source_name,
             error_offset: value.error_offset,
             line_start: value.line_start,
             line_end: value.line_end,
-            kind: VB6ModuleErrorKind::VB6ModuleTokenError {
+            kind: ModuleErrorKind::ModuleTokenError {
                 code_error: value.kind,
             },
         }
@@ -259,7 +254,7 @@ impl<'a> From<ErrorDetails<'a, VB6CodeErrorKind>> for ErrorDetails<'a, VB6Module
 }
 
 #[derive(thiserror::Error, Debug, Clone)]
-pub enum VB6ProjectErrorKind<'a> {
+pub enum ProjectErrorKind<'a> {
     #[error("A section header was expected but was not terminated with a ']' character.")]
     UnterminatedSectionHeader,
 
@@ -422,7 +417,19 @@ pub enum PropertyError {
 }
 
 #[derive(thiserror::Error, Debug)]
-pub enum VB6ErrorKind {
+pub enum FormErrorKind {
+    #[error("The 'VERSION' keyword is missing from the form file header.")]
+    VersionKeywordMissing,
+
+    #[error("The 'Begin' keyword is missing from the form file header.")]
+    BeginKeywordMissing,
+
+    #[error("The Form is missing from the form file header.")]
+    FormMissing,
+
+    #[error("There was an error parsing the VB6 tokens.")]
+    TokenError { code_error: CodeErrorKind },
+
     #[error("Property parsing error")]
     Property(#[from] PropertyError),
 
@@ -706,128 +713,4 @@ pub enum VB6ErrorKind {
 
     #[error("Internal Parser Error - please report this issue to the developers.")]
     InternalParseError,
-}
-
-#[derive(Debug, thiserror::Error)]
-pub struct VB6Error {
-    pub file_name: String,
-
-    pub source_code: String,
-
-    pub source_offset: usize,
-
-    pub column: usize,
-
-    pub line_number: usize,
-
-    pub kind: VB6ErrorKind,
-}
-
-impl VB6Error {
-    #[must_use]
-    pub fn new(input: &VB6Stream, kind: VB6ErrorKind) -> Self {
-        // Get the file name from the file path in the input stream.
-
-        // If the file path is empty, use "unknown" as a placeholder.
-        // This is useful for errors that occur in the input stream
-        // that do not have a file path associated with them.
-        let file_name = Path::new(&input.file_path).file_name().map_or_else(
-            || "unknown".to_string(),
-            |name| name.to_string_lossy().to_string(),
-        );
-
-        let source_code = input.stream.to_string();
-        let source_offset = input.index;
-        let column = input.column;
-        let line_number = input.line_number;
-
-        Self {
-            file_name,
-            source_code,
-            source_offset,
-            column,
-            line_number,
-            kind,
-        }
-    }
-
-    #[must_use]
-    pub fn new_without_stream(kind: VB6ErrorKind) -> Self {
-        VB6Error {
-            file_name: "unknown".to_string(),
-            source_code: String::new(),
-            source_offset: 0,
-            column: 0,
-            line_number: 0,
-            kind,
-        }
-    }
-}
-
-impl Display for VB6Error {
-    fn fmt(&self, _: &mut Formatter) -> Result<(), std::fmt::Error> {
-        let error_range = self.source_offset..=self.source_offset;
-
-        let _ = Report::build(
-            ReportKind::Error,
-            (self.file_name.clone(), error_range.clone()),
-        )
-        .with_message("Parsing error")
-        .with_label(
-            Label::new((self.file_name.clone(), error_range.clone()))
-                .with_message(self.kind.to_string()),
-        )
-        .finish()
-        .print((
-            self.file_name.clone(),
-            Source::from(self.source_code.clone()),
-        ));
-
-        Ok(())
-    }
-}
-
-impl<'a> ParserError<VB6Stream<'a>> for VB6Error {
-    type Inner = VB6ErrorKind;
-
-    fn from_input(input: &VB6Stream<'a>) -> Self {
-        VB6Error::new(input, VB6ErrorKind::InternalParseError)
-    }
-
-    fn into_inner(self) -> winnow::Result<Self::Inner, Self> {
-        Ok(self.kind)
-    }
-
-    fn append(self, _: &VB6Stream, _: &<VB6Stream as Stream>::Checkpoint) -> Self {
-        self
-    }
-}
-
-impl<'a> From<ParseError<VB6Stream<'a>, ContextError>> for VB6Error {
-    fn from(err: ParseError<VB6Stream<'a>, ContextError>) -> Self {
-        let input = err.input();
-        VB6Error::new(input, VB6ErrorKind::InternalParseError)
-    }
-}
-
-impl ParserError<VB6Stream<'_>> for VB6ErrorKind {
-    type Inner = VB6ErrorKind;
-
-    fn into_inner(self) -> winnow::Result<Self::Inner, Self> {
-        Ok(self)
-    }
-
-    fn from_input(_: &VB6Stream) -> Self {
-        VB6ErrorKind::InternalParseError
-    }
-
-    fn append(self, _: &VB6Stream, _: &<VB6Stream as Stream>::Checkpoint) -> Self {
-        self
-    }
-}
-
-impl<'a> From<ParseError<VB6Stream<'a>, ContextError>> for VB6ErrorKind {
-    fn from(_: ParseError<VB6Stream<'a>, ContextError>) -> Self {
-        VB6ErrorKind::InternalParseError
-    }
 }

@@ -8,7 +8,7 @@
 //! Note: `For`/`Next` and `For Each`/`Next` statements are in the `for_statements` module.
 //! Note: `Do`/`Loop` statements are in the `loop_statements` module.
 
-use crate::language::VB6Token;
+use crate::language::Token;
 use crate::parsers::SyntaxKind;
 
 use super::Parser;
@@ -55,7 +55,7 @@ impl Parser<'_> {
         self.consume_token();
 
         // Consume everything until newline (the label name)
-        self.consume_until_after(VB6Token::Newline);
+        self.consume_until_after(Token::Newline);
 
         self.builder.finish_node(); // GoSubStatement
     }
@@ -96,7 +96,7 @@ impl Parser<'_> {
         self.consume_token();
 
         // Consume the newline
-        if self.at_token(VB6Token::Newline) {
+        if self.at_token(Token::Newline) {
             self.consume_token();
         }
 
@@ -119,7 +119,7 @@ impl Parser<'_> {
         self.consume_token();
 
         // Consume everything until newline (the label name)
-        self.consume_until_after(VB6Token::Newline);
+        self.consume_until_after(Token::Newline);
 
         self.builder.finish_node(); // GotoStatement
     }
@@ -196,7 +196,7 @@ impl Parser<'_> {
         self.consume_token();
 
         // Consume everything until newline (Next keyword or label)
-        self.consume_until_after(VB6Token::Newline);
+        self.consume_until_after(Token::Newline);
 
         self.builder.finish_node(); // ResumeStatement
     }
@@ -224,17 +224,17 @@ impl Parser<'_> {
         self.consume_whitespace();
 
         // Consume the exit type (Do, For, Function, Property, Sub)
-        if self.at_token(VB6Token::DoKeyword)
-            || self.at_token(VB6Token::ForKeyword)
-            || self.at_token(VB6Token::FunctionKeyword)
-            || self.at_token(VB6Token::PropertyKeyword)
-            || self.at_token(VB6Token::SubKeyword)
+        if self.at_token(Token::DoKeyword)
+            || self.at_token(Token::ForKeyword)
+            || self.at_token(Token::FunctionKeyword)
+            || self.at_token(Token::PropertyKeyword)
+            || self.at_token(Token::SubKeyword)
         {
             self.consume_token();
         }
 
         // Consume the newline
-        if self.at_token(VB6Token::Newline) {
+        if self.at_token(Token::Newline) {
             self.consume_token();
         }
 
@@ -262,12 +262,12 @@ impl Parser<'_> {
         self.consume_whitespace();
 
         // Consume the colon
-        if self.at_token(VB6Token::ColonOperator) {
+        if self.at_token(Token::ColonOperator) {
             self.consume_token();
         }
 
         // Consume the newline if present
-        if self.at_token(VB6Token::Newline) {
+        if self.at_token(Token::Newline) {
             self.consume_token();
         }
 
@@ -277,7 +277,7 @@ impl Parser<'_> {
     /// Check if the current position is at a label.
     /// A label is an identifier or number followed by a colon.
     pub(super) fn is_at_label(&self) -> bool {
-        let next_token_is_colon = matches!(self.peek_next_token(), Some(VB6Token::ColonOperator));
+        let next_token_is_colon = matches!(self.peek_next_token(), Some(Token::ColonOperator));
 
         if !next_token_is_colon {
             return false;
@@ -286,7 +286,7 @@ impl Parser<'_> {
         // If we are not parsing the header, then some keywords are valid identifiers (like "Begin")
         // TODO: Consider adding a list of keywords that can be used as labels.
         // TODO: Also consider modifying tokenizer to recognize when inside header to more easily identify Identifiers vs header only keywords.
-        if !self.parsing_header && matches!(self.current_token(), Some(VB6Token::BeginKeyword)) {
+        if !self.parsing_header && matches!(self.current_token(), Some(Token::BeginKeyword)) {
             return true;
         }
 
@@ -353,12 +353,12 @@ impl Parser<'_> {
         self.consume_token();
 
         // Consume "Error" keyword
-        if self.at_token(VB6Token::ErrorKeyword) {
+        if self.at_token(Token::ErrorKeyword) {
             self.consume_token();
         }
 
         // Consume everything until newline (GoTo label, Resume Next, GoTo 0, etc.)
-        self.consume_until_after(VB6Token::Newline);
+        self.consume_until_after(Token::Newline);
 
         self.builder.finish_node(); // OnErrorStatement
     }
@@ -415,7 +415,7 @@ impl Parser<'_> {
         self.consume_token();
 
         // Consume everything until newline (expression GoTo labels)
-        self.consume_until_after(VB6Token::Newline);
+        self.consume_until_after(Token::Newline);
 
         self.builder.finish_node(); // OnGoToStatement
     }
@@ -474,7 +474,7 @@ impl Parser<'_> {
         self.consume_token();
 
         // Consume everything until newline (expression GoSub labels)
-        self.consume_until_after(VB6Token::Newline);
+        self.consume_until_after(Token::Newline);
 
         self.builder.finish_node(); // OnGoSubStatement
     }

@@ -1,5 +1,4 @@
-use bstr::ByteSlice;
-use vb6parse::parsers::form::list_resolver;
+use vb6parse::parsers::resource::list_resolver;
 
 #[test]
 fn audiostation_about_frx_load() {
@@ -2811,7 +2810,7 @@ fn audiostation_track_properties_frx_load() {
     );
 
     assert_eq!(
-        track_properties_text_properties_text.to_str_lossy(),
-        "Textbox_Properties\r\n"
+        track_properties_text_properties_text,
+        b"Textbox_Properties\r\n"
     );
 }

@@ -6,7 +6,7 @@ fn ppdm_project_load() {
 
     let source_file = SourceFile::decode_with_replacement("ppdm.vbp", project_file_bytes).unwrap();
 
-    let result = VB6Project::parse(&source_file);
+    let result = Project::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {

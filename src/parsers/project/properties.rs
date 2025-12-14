@@ -5,7 +5,7 @@ use strum_macros::{EnumIter, EnumMessage};
 use crate::parsers::project::compilesettings::CompilationType;
 
 #[derive(Debug, PartialEq, Eq, Copy, Clone, Serialize, Default)]
-pub struct VB6ProjectProperties<'a> {
+pub struct ProjectProperties<'a> {
     pub unused_control_info: UnusedControlInfo,
     pub upgrade_controls: UpgradeControls,
     pub res_file_32_path: &'a str,

@@ -1,17 +1,21 @@
 use serde::Serialize;
 
-use crate::parsers::header::{VB6FileAttributes, VB6FileFormatVersion};
+use crate::parsers::header::{FileAttributes, FileFormatVersion};
 
 /// Represents the COM usage of a class file.
+/// Only available when the class is part of an `ActiveX` DLL project that is both
+/// public and creatable.
+///
+/// Determines whether the class can be used by multiple clients or a single client.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
 pub enum FileUsage {
+    /// In a `COM` object a `SingleUse` class object will be created for each client.
+    /// This value is stored as 0 (false) in the file.
+    SingleUse = 0, // 0 (false)
     /// In a `COM` object a `MultiUse` class object will be created for all clients.
     /// This value is stored as -1 (true) in the file.
     #[default]
     MultiUse = -1,
-    /// In a `COM` object a `SingleUse` class object will be created for each client.
-    /// This value is stored as 0 (false) in the file.
-    SingleUse = 0, // 0 (false)
 }
 
 /// Represents the persistability of a file.
@@ -79,6 +83,12 @@ pub enum DataSourceBehavior {
 }
 
 /// Determines the default VB6 `DataBinding` behavior.
+///
+/// Only available when the class is part of an `ActiveX` DLL project that is both
+/// public and creatable.
+///
+/// Used to specify whether the class supports `DataBinding` and the level of
+/// `DataBinding` support.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
 pub enum DataBindingBehavior {
     /// The class does not support `DataBinding`.
@@ -95,33 +105,21 @@ pub enum DataBindingBehavior {
 
 /// The properties of a VB6 class file is the list of key/value pairs
 /// found between the `BEGIN` and `END` lines in the header.
+///
+/// None of these values are normally visible in the code editor region.
+/// They are only visible in the file property explorer.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
-pub struct VB6ClassProperties {
+pub struct ClassProperties {
+    /// The COM usage of the class file.
     pub multi_use: FileUsage,
+    /// The persistability of the class file.
     pub persistable: Persistence,
+    /// The data binding behavior of the class file.
     pub data_binding_behavior: DataBindingBehavior,
+    /// The data source behavior of the class file.
     pub data_source_behavior: DataSourceBehavior,
+    /// The MTS transaction mode of the class file.
     pub mts_transaction_mode: MtsStatus,
-}
-
-/// Represents the version of a VB6 class file.
-/// The class version contains a major and minor version number.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
-pub struct VB6ClassVersion {
-    pub major: u8,
-    pub minor: u8,
-}
-
-impl Default for VB6ClassVersion {
-    /// Technically, these could be just about any value and it looks to be a legacy
-    /// file format version number system that Microsoft planned for in order to be
-    /// able to upgrade from format to format without breaking anything.
-    ///
-    /// In practice, this appears to be the only valid version that Microsoft
-    /// implemented.
-    fn default() -> Self {
-        VB6ClassVersion { major: 1, minor: 0 }
-    }
 }
 
 /// Represents the header of a VB6 class file.
@@ -133,8 +131,11 @@ impl Default for VB6ClassVersion {
 /// None of these values are normally visible in the code editor region.
 /// They are only visible in the file property explorer.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
-pub struct VB6ClassHeader<'a> {
-    pub version: VB6FileFormatVersion,
-    pub properties: VB6ClassProperties,
-    pub attributes: VB6FileAttributes<'a>,
+pub struct ClassHeader {
+    /// The version of the VB6 file format.
+    pub version: FileFormatVersion,
+    /// The properties of the class file.
+    pub properties: ClassProperties,
+    /// The attributes of the class file.
+    pub attributes: FileAttributes,
 }

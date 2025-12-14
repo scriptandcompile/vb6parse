@@ -11,24 +11,24 @@ use strum::{EnumMessage, IntoEnumIterator};
 use uuid::Uuid;
 
 use crate::{
-    errors::{ErrorDetails, VB6ProjectErrorKind},
-    objectreference::VB6ObjectReference,
+    errors::{ErrorDetails, ProjectErrorKind},
+    objectreference::ObjectReference,
     parseresults::ParseResult,
     parsers::project::{
         compilesettings::CompilationType,
-        properties::{CompileTargetType, VB6ProjectProperties},
+        properties::{CompileTargetType, ProjectProperties},
     },
     sourcefile::SourceFile,
     sourcestream::{Comparator, SourceStream},
 };
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
-pub struct VB6Project<'a> {
+pub struct Project<'a> {
     pub project_type: CompileTargetType,
-    pub references: Vec<VB6ProjectReference<'a>>,
-    pub objects: Vec<VB6ObjectReference<'a>>,
-    pub modules: Vec<VB6ProjectModule<'a>>,
-    pub classes: Vec<VB6ProjectClass<'a>>,
+    pub references: Vec<ProjectReference<'a>>,
+    pub objects: Vec<ObjectReference>,
+    pub modules: Vec<ProjectModuleReference<'a>>,
+    pub classes: Vec<ProjectClassReference<'a>>,
     pub related_documents: Vec<&'a str>,
     pub property_pages: Vec<&'a str>,
     pub designers: Vec<&'a str>,
@@ -36,11 +36,11 @@ pub struct VB6Project<'a> {
     pub user_controls: Vec<&'a str>,
     pub user_documents: Vec<&'a str>,
     pub other_properties: HashMap<&'a str, HashMap<&'a str, &'a str>>,
-    pub properties: VB6ProjectProperties<'a>,
+    pub properties: ProjectProperties<'a>,
 }
 
 #[derive(Debug, PartialEq, Eq, Copy, Clone)]
-pub enum VB6ProjectReference<'a> {
+pub enum ProjectReference<'a> {
     Compiled {
         uuid: Uuid,
         unknown1: &'a str,
@@ -53,7 +53,7 @@ pub enum VB6ProjectReference<'a> {
     },
 }
 
-impl Serialize for VB6ProjectReference<'_> {
+impl Serialize for ProjectReference<'_> {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -61,7 +61,7 @@ impl Serialize for VB6ProjectReference<'_> {
         use serde::ser::SerializeStruct;
 
         match self {
-            VB6ProjectReference::Compiled {
+            ProjectReference::Compiled {
                 uuid,
                 unknown1,
                 unknown2,
@@ -78,7 +78,7 @@ impl Serialize for VB6ProjectReference<'_> {
 
                 state.end()
             }
-            VB6ProjectReference::SubProject { path } => {
+            ProjectReference::SubProject { path } => {
                 let mut state = serializer.serialize_struct("SubProjectReference", 1)?;
 
                 state.serialize_field("path", path)?;
@@ -90,20 +90,20 @@ impl Serialize for VB6ProjectReference<'_> {
 }
 
 #[derive(Debug, PartialEq, Eq, Copy, Clone, Serialize)]
-pub struct VB6ProjectModule<'a> {
+pub struct ProjectModuleReference<'a> {
     pub name: &'a str,
     pub path: &'a str,
 }
 
 #[derive(Debug, PartialEq, Eq, Copy, Clone, Serialize)]
-pub struct VB6ProjectClass<'a> {
+pub struct ProjectClassReference<'a> {
     pub name: &'a str,
     pub path: &'a str,
 }
 
-pub type ProjectResult<'a> = ParseResult<'a, VB6Project<'a>, VB6ProjectErrorKind<'a>>;
+pub type ProjectResult<'a> = ParseResult<'a, Project<'a>, ProjectErrorKind<'a>>;
 
-impl<'a> VB6Project<'a> {
+impl<'a> Project<'a> {
     /// Parses a VB6 project file.
     ///
     /// # Arguments
@@ -187,13 +187,13 @@ impl<'a> VB6Project<'a> {
     ///     }
     /// };
     ///
-    /// let result = VB6Project::parse(&project_source_file);
+    /// let result = Project::parse(&project_source_file);
     ///
     /// if result.has_failures() {
     ///     for failure in result.failures {
     ///         failure.print();
     ///     }
-    ///     panic!("VB6Project parse produced warnings/errors");
+    ///     panic!("Project parse produced warnings/errors");
     /// }
     ///
     /// let project = result.unwrap();
@@ -215,7 +215,7 @@ impl<'a> VB6Project<'a> {
     pub fn parse(source_file: &'a SourceFile) -> ProjectResult<'a> {
         let mut failures = vec![];
 
-        let mut project = VB6Project {
+        let mut project = Project {
             project_type: CompileTargetType::Exe,
             references: vec![],
             objects: vec![],
@@ -228,7 +228,7 @@ impl<'a> VB6Project<'a> {
             related_documents: vec![],
             property_pages: vec![],
             other_properties: HashMap::new(),
-            properties: VB6ProjectProperties {
+            properties: ProjectProperties {
                 // We default to using NativeCode because all the possible options
                 // sit on this branch of the enum, while the other branch (PCode)
                 // has no other options.
@@ -661,7 +661,7 @@ impl<'a> VB6Project<'a> {
 
                     let e = input.generate_error_at(
                         line_start,
-                        VB6ProjectErrorKind::ParameterLineUnknown {
+                        ProjectErrorKind::ParameterLineUnknown {
                             parameter_line_name: property_name,
                         },
                     );
@@ -677,25 +677,25 @@ impl<'a> VB6Project<'a> {
     }
 
     #[must_use]
-    pub fn with_subproject_references_mut(&mut self) -> Vec<&VB6ProjectReference<'a>> {
+    pub fn with_subproject_references_mut(&mut self) -> Vec<&ProjectReference<'a>> {
         self.references
             .iter()
-            .filter(|reference| matches!(reference, VB6ProjectReference::SubProject { .. }))
+            .filter(|reference| matches!(reference, ProjectReference::SubProject { .. }))
             .collect::<Vec<_>>()
     }
 
     #[must_use]
-    pub fn get_compiled_references(&self) -> Vec<&VB6ProjectReference<'a>> {
+    pub fn get_compiled_references(&self) -> Vec<&ProjectReference<'a>> {
         self.references
             .iter()
-            .filter(|reference| matches!(reference, VB6ProjectReference::Compiled { .. }))
+            .filter(|reference| matches!(reference, ProjectReference::Compiled { .. }))
             .collect::<Vec<_>>()
     }
 }
 
 fn parse_section_header_line<'a>(
     input: &mut SourceStream<'a>,
-) -> Result<Option<&'a str>, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
+) -> Result<Option<&'a str>, ErrorDetails<'a, ProjectErrorKind<'a>>> {
     // We want to grab any section header lines like '[MS Transaction Server]'.
     // Which we will use in parsing 'other properties.'
     let header_start = input.take("[", Comparator::CaseSensitive);
@@ -708,7 +708,7 @@ fn parse_section_header_line<'a>(
     // We have a section header line.
     let Some((other_property, _)) = input.take_until("]", Comparator::CaseSensitive) else {
         // We have a section header line but it is not terminated properly.
-        let fail = input.generate_error(VB6ProjectErrorKind::UnterminatedSectionHeader);
+        let fail = input.generate_error(ProjectErrorKind::UnterminatedSectionHeader);
         input.forward_to_next_line();
 
         return Err(fail);
@@ -722,7 +722,7 @@ fn parse_section_header_line<'a>(
 
 fn parse_property_name<'a>(
     input: &mut SourceStream<'a>,
-) -> Result<&'a str, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
+) -> Result<&'a str, ErrorDetails<'a, ProjectErrorKind<'a>>> {
     let line_start = input.start_of_line();
 
     // We want to grab the property name.
@@ -732,8 +732,7 @@ fn parse_property_name<'a>(
         None => {
             // No property name found, so we can't parse this line.
             // Go to the next line and return the error.
-            let fail =
-                input.generate_error_at(line_start, VB6ProjectErrorKind::PropertyNameNotFound);
+            let fail = input.generate_error_at(line_start, ProjectErrorKind::PropertyNameNotFound);
             input.forward_to_next_line();
 
             Err(fail)
@@ -751,7 +750,7 @@ fn parse_property_name<'a>(
 fn parse_property_value<'a>(
     input: &mut SourceStream<'a>,
     line_type: &'a str,
-) -> Result<&'a str, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
+) -> Result<&'a str, ErrorDetails<'a, ProjectErrorKind<'a>>> {
     // An line starts with the line_type followed by '=', and a value.
     //
     // By this point in the parse the line_type and "=" component should be
@@ -762,7 +761,7 @@ fn parse_property_value<'a>(
         // No parameter value found, so we can't parse this line.
         let fail = input.generate_error_at(
             parameter_start,
-            VB6ProjectErrorKind::ParameterValueNotFound {
+            ProjectErrorKind::ParameterValueNotFound {
                 parameter_line_name: line_type,
             },
         );
@@ -773,7 +772,7 @@ fn parse_property_value<'a>(
         // No parameter value found, so we can't parse this line.
         let fail = input.generate_error_at(
             parameter_start,
-            VB6ProjectErrorKind::ParameterValueNotFound {
+            ProjectErrorKind::ParameterValueNotFound {
                 parameter_line_name: line_type,
             },
         );
@@ -786,7 +785,7 @@ fn parse_property_value<'a>(
 fn parse_quoted_value<'a>(
     input: &mut SourceStream<'a>,
     line_type: &'a str,
-) -> Result<&'a str, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
+) -> Result<&'a str, ErrorDetails<'a, ProjectErrorKind<'a>>> {
     // An line starts with the line_type followed by '=', and a quoted value.
     //
     // By this point in the parse the line_type and "=" component should be
@@ -797,7 +796,7 @@ fn parse_quoted_value<'a>(
         // No parameter value found, so we can't parse this line.
         let fail = input.generate_error_at(
             parameter_start,
-            VB6ProjectErrorKind::ParameterValueNotFound {
+            ProjectErrorKind::ParameterValueNotFound {
                 parameter_line_name: line_type,
             },
         );
@@ -808,7 +807,7 @@ fn parse_quoted_value<'a>(
         // No startup value found, so we can't parse this line.
         let fail = input.generate_error_at(
             parameter_start,
-            VB6ProjectErrorKind::ParameterValueNotFound {
+            ProjectErrorKind::ParameterValueNotFound {
                 parameter_line_name: line_type,
             },
         );
@@ -823,7 +822,7 @@ fn parse_quoted_value<'a>(
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start,
-            VB6ProjectErrorKind::ParameterValueMissingOpeningQuote {
+            ProjectErrorKind::ParameterValueMissingOpeningQuote {
                 parameter_line_name: line_type,
             },
         );
@@ -841,7 +840,7 @@ fn parse_quoted_value<'a>(
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start + parameter_value.len(),
-            VB6ProjectErrorKind::ParameterValueMissingMatchingQuote {
+            ProjectErrorKind::ParameterValueMissingMatchingQuote {
                 parameter_line_name: line_type,
             },
         );
@@ -853,7 +852,7 @@ fn parse_quoted_value<'a>(
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start,
-            VB6ProjectErrorKind::ParameterValueMissingQuotes {
+            ProjectErrorKind::ParameterValueMissingQuotes {
                 parameter_line_name: line_type,
             },
         );
@@ -868,7 +867,7 @@ fn parse_quoted_value<'a>(
 fn parse_optional_quoted_value<'a>(
     input: &mut SourceStream<'a>,
     line_type: &'a str,
-) -> Result<&'a str, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
+) -> Result<&'a str, ErrorDetails<'a, ProjectErrorKind<'a>>> {
     // An optional line starts with 'Startup=' (or another such option starting line)
     // and is followed by the quoted value, "!None!", or "(None)", or "!(None)!" to indicate the
     // parameter value is 'None'.
@@ -881,7 +880,7 @@ fn parse_optional_quoted_value<'a>(
         // No parameter value found, so we can't parse this line.
         let fail = input.generate_error_at(
             parameter_start,
-            VB6ProjectErrorKind::ParameterValueNotFound {
+            ProjectErrorKind::ParameterValueNotFound {
                 parameter_line_name: line_type,
             },
         );
@@ -892,7 +891,7 @@ fn parse_optional_quoted_value<'a>(
         // No parameter value found, so we can't parse this line.
         let fail = input.generate_error_at(
             parameter_start,
-            VB6ProjectErrorKind::ParameterValueNotFound {
+            ProjectErrorKind::ParameterValueNotFound {
                 parameter_line_name: line_type,
             },
         );
@@ -918,7 +917,7 @@ fn parse_optional_quoted_value<'a>(
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start,
-            VB6ProjectErrorKind::ParameterValueMissingOpeningQuote {
+            ProjectErrorKind::ParameterValueMissingOpeningQuote {
                 parameter_line_name: line_type,
             },
         );
@@ -936,7 +935,7 @@ fn parse_optional_quoted_value<'a>(
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start + parameter_value.len(),
-            VB6ProjectErrorKind::ParameterValueMissingMatchingQuote {
+            ProjectErrorKind::ParameterValueMissingMatchingQuote {
                 parameter_line_name: line_type,
             },
         );
@@ -948,7 +947,7 @@ fn parse_optional_quoted_value<'a>(
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start,
-            VB6ProjectErrorKind::ParameterValueMissingQuotes {
+            ProjectErrorKind::ParameterValueMissingQuotes {
                 parameter_line_name: line_type,
             },
         );
@@ -962,7 +961,7 @@ fn parse_optional_quoted_value<'a>(
 fn parse_quoted_converted_value<'a, T>(
     input: &mut SourceStream<'a>,
     line_type: &'a str,
-) -> Result<T, ErrorDetails<'a, VB6ProjectErrorKind<'a>>>
+) -> Result<T, ErrorDetails<'a, ProjectErrorKind<'a>>>
 where
     T: TryFrom<&'a str, Error = String> + 'a + IntoEnumIterator + EnumMessage + Debug,
 {
@@ -980,7 +979,7 @@ where
             // Go to the next line and return the error.
             let fail = input.generate_error_at(
                 parameter_start,
-                VB6ProjectErrorKind::ParameterValueMissingOpeningQuote {
+                ProjectErrorKind::ParameterValueMissingOpeningQuote {
                     parameter_line_name: line_type,
                 },
             );
@@ -997,7 +996,7 @@ where
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start,
-            VB6ProjectErrorKind::ParameterValueMissingOpeningQuote {
+            ProjectErrorKind::ParameterValueMissingOpeningQuote {
                 parameter_line_name: line_type,
             },
         );
@@ -1013,7 +1012,7 @@ where
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start + parameter_value.len(),
-            VB6ProjectErrorKind::ParameterValueMissingMatchingQuote {
+            ProjectErrorKind::ParameterValueMissingMatchingQuote {
                 parameter_line_name: line_type,
             },
         );
@@ -1025,7 +1024,7 @@ where
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
             parameter_start,
-            VB6ProjectErrorKind::ParameterValueMissingQuotes {
+            ProjectErrorKind::ParameterValueMissingQuotes {
                 parameter_line_name: line_type,
             },
         );
@@ -1044,7 +1043,7 @@ where
 
         let fail = input.generate_error_at(
             parameter_start,
-            VB6ProjectErrorKind::ParameterValueInvalid {
+            ProjectErrorKind::ParameterValueInvalid {
                 parameter_line_name: line_type,
                 invalid_value: parameter_value,
                 valid_value_message,
@@ -1059,7 +1058,7 @@ where
 fn parse_converted_value<'a, T>(
     input: &mut SourceStream<'a>,
     line_type: &'a str,
-) -> Result<T, ErrorDetails<'a, VB6ProjectErrorKind<'a>>>
+) -> Result<T, ErrorDetails<'a, ProjectErrorKind<'a>>>
 where
     T: TryFrom<&'a str, Error = String> + IntoEnumIterator + EnumMessage + Debug,
 {
@@ -1077,7 +1076,7 @@ where
             // Go to the next line and return the error.
             let fail = input.generate_error_at(
                 parameter_start,
-                VB6ProjectErrorKind::ParameterValueMissingOpeningQuote {
+                ProjectErrorKind::ParameterValueMissingOpeningQuote {
                     parameter_line_name: line_type,
                 },
             );
@@ -1096,7 +1095,7 @@ where
 
         let fail = input.generate_error_at(
             parameter_start,
-            VB6ProjectErrorKind::ParameterValueInvalid {
+            ProjectErrorKind::ParameterValueInvalid {
                 parameter_line_name: line_type,
                 invalid_value: parameter_value,
                 valid_value_message,
@@ -1111,7 +1110,7 @@ where
 fn parse_numeric<'a, T>(
     input: &mut SourceStream<'a>,
     line_type: &'a str,
-) -> Result<T, ErrorDetails<'a, VB6ProjectErrorKind<'a>>>
+) -> Result<T, ErrorDetails<'a, ProjectErrorKind<'a>>>
 where
     T: FromStr,
 {
@@ -1129,7 +1128,7 @@ where
             // Go to the next line and return the error.
             let fail = input.generate_error_at(
                 parameter_start,
-                VB6ProjectErrorKind::ParameterValueMissingOpeningQuote {
+                ProjectErrorKind::ParameterValueMissingOpeningQuote {
                     parameter_line_name: line_type,
                 },
             );
@@ -1147,7 +1146,7 @@ where
 
         let fail = input.generate_error_at(
             parameter_start,
-            VB6ProjectErrorKind::ParameterValueInvalid {
+            ProjectErrorKind::ParameterValueInvalid {
                 parameter_line_name: line_type,
                 invalid_value: parameter_value,
                 valid_value_message,
@@ -1161,7 +1160,7 @@ where
 
 fn parse_reference<'a>(
     input: &mut SourceStream<'a>,
-) -> Result<VB6ProjectReference<'a>, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
+) -> Result<ProjectReference<'a>, ErrorDetails<'a, ProjectErrorKind<'a>>> {
     // A Reference line starts with a 'Reference=' and is followed by either a
     // project reference or a compiled reference.
     //
@@ -1182,7 +1181,7 @@ fn parse_reference<'a>(
         // No path found, so we can't parse this line.
         let fail = input.generate_error_at(
             reference_start,
-            VB6ProjectErrorKind::ReferenceProjectPathNotFound,
+            ProjectErrorKind::ReferenceProjectPathNotFound,
         );
         return Err(fail);
     };
@@ -1191,7 +1190,7 @@ fn parse_reference<'a>(
         // No path found, so we can't parse this line.
         let fail = input.generate_error_at(
             reference_start,
-            VB6ProjectErrorKind::ReferenceProjectPathNotFound,
+            ProjectErrorKind::ReferenceProjectPathNotFound,
         );
         return Err(fail);
     }
@@ -1200,19 +1199,19 @@ fn parse_reference<'a>(
         // The path does not start with "*\A", which is not allowed.
         let fail = input.generate_error_at(
             reference_start,
-            VB6ProjectErrorKind::ReferenceProjectPathInvalid { value: path },
+            ProjectErrorKind::ReferenceProjectPathInvalid { value: path },
         );
         return Err(fail);
     }
 
     let path = &path[3..]; // Strip off the "*\A" prefix
 
-    Ok(VB6ProjectReference::SubProject { path })
+    Ok(ProjectReference::SubProject { path })
 }
 
 fn parse_compiled_reference<'a>(
     input: &mut SourceStream<'a>,
-) -> Result<VB6ProjectReference<'a>, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
+) -> Result<ProjectReference<'a>, ErrorDetails<'a, ProjectErrorKind<'a>>> {
     // A compiled reference starts with "*\\G{" and is followed by a UUID.
     // We have already checked that the input starts with "*\\G{".
     // By this point in the parse the "*\\G{" component should be stripped off.
@@ -1223,7 +1222,7 @@ fn parse_compiled_reference<'a>(
         // No UUID found, so we can't parse this line.
         let fail = input.generate_error_at(
             uuid_start,
-            VB6ProjectErrorKind::ReferenceCompiledUuidMissingMatchingBrace,
+            ProjectErrorKind::ReferenceCompiledUuidMissingMatchingBrace,
         );
         input.forward_to_next_line();
 
@@ -1234,10 +1233,8 @@ fn parse_compiled_reference<'a>(
         uuid
     } else {
         // The UUID is not a valid UUID, so we can't parse this line.
-        let fail = input.generate_error_at(
-            uuid_start,
-            VB6ProjectErrorKind::ReferenceCompiledUuidInvalid,
-        );
+        let fail =
+            input.generate_error_at(uuid_start, ProjectErrorKind::ReferenceCompiledUuidInvalid);
         input.forward_to_next_line();
 
         return Err(fail);
@@ -1250,7 +1247,7 @@ fn parse_compiled_reference<'a>(
         // No unknown1 found, so we can't parse this line.
         let fail = input.generate_error_at(
             unknown1_start,
-            VB6ProjectErrorKind::ReferenceCompiledUnknown1Missing,
+            ProjectErrorKind::ReferenceCompiledUnknown1Missing,
         );
         input.forward_to_next_line();
 
@@ -1264,7 +1261,7 @@ fn parse_compiled_reference<'a>(
         // No unknown2 found, so we can't parse this line.
         let fail = input.generate_error_at(
             unknown2_start,
-            VB6ProjectErrorKind::ReferenceCompiledUnknown2Missing,
+            ProjectErrorKind::ReferenceCompiledUnknown2Missing,
         );
         input.forward_to_next_line();
 
@@ -1276,10 +1273,8 @@ fn parse_compiled_reference<'a>(
 
     let Some((path, _)) = input.take_until("#", Comparator::CaseSensitive) else {
         // No path found, so we can't parse this line.
-        let fail = input.generate_error_at(
-            path_start,
-            VB6ProjectErrorKind::ReferenceCompiledPathNotFound,
-        );
+        let fail =
+            input.generate_error_at(path_start, ProjectErrorKind::ReferenceCompiledPathNotFound);
         input.forward_to_next_line();
 
         return Err(fail);
@@ -1292,7 +1287,7 @@ fn parse_compiled_reference<'a>(
         // No description found, so we can't parse this line.
         let fail = input.generate_error_at(
             description_start,
-            VB6ProjectErrorKind::ReferenceCompiledDescriptionNotFound,
+            ProjectErrorKind::ReferenceCompiledDescriptionNotFound,
         );
         return Err(fail);
     };
@@ -1301,13 +1296,13 @@ fn parse_compiled_reference<'a>(
         // The description contains a '#', which is not allowed.
         let fail = input.generate_error_at(
             description_start,
-            VB6ProjectErrorKind::ReferenceCompiledDescriptionInvalid,
+            ProjectErrorKind::ReferenceCompiledDescriptionInvalid,
         );
         return Err(fail);
     }
 
     // We have a compiled reference.
-    let reference = VB6ProjectReference::Compiled {
+    let reference = ProjectReference::Compiled {
         uuid,
         unknown1,
         unknown2,
@@ -1320,7 +1315,7 @@ fn parse_compiled_reference<'a>(
 
 fn parse_object<'a>(
     input: &mut SourceStream<'a>,
-) -> Result<VB6ObjectReference<'a>, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
+) -> Result<ObjectReference, ErrorDetails<'a, ProjectErrorKind<'a>>> {
     // An Object line starts with an 'Object=' and is followed by either a
     // compiled object or a project object.
     //
@@ -1341,7 +1336,7 @@ fn parse_object<'a>(
             // No path found, so we can't parse this line.
             let fail = input.generate_error_at(
                 object_path_start,
-                VB6ProjectErrorKind::ObjectProjectPathNotFound,
+                ProjectErrorKind::ObjectProjectPathNotFound,
             );
             input.forward_to_next_line();
 
@@ -1349,7 +1344,7 @@ fn parse_object<'a>(
         };
         input.forward_to_next_line();
 
-        return Ok(VB6ObjectReference::Project { path: path.into() });
+        return Ok(ObjectReference::Project { path: path.into() });
     }
 
     // It looks like we have a compiled object line instead. Hopefully.
@@ -1357,7 +1352,7 @@ fn parse_object<'a>(
         // We do not have a compiled object line, so we can't parse this line.
         let fail = input.generate_error_at(
             object_start,
-            VB6ProjectErrorKind::ObjectCompiledMissingOpeningBrace,
+            ProjectErrorKind::ObjectCompiledMissingOpeningBrace,
         );
         input.forward_to_next_line();
 
@@ -1369,7 +1364,7 @@ fn parse_object<'a>(
         // No UUID found, so we can't parse this line.
         let fail = input.generate_error_at(
             object_start,
-            VB6ProjectErrorKind::ObjectCompiledUuidMissingMatchingBrace,
+            ProjectErrorKind::ObjectCompiledUuidMissingMatchingBrace,
         );
         input.forward_to_next_line();
 
@@ -1383,7 +1378,7 @@ fn parse_object<'a>(
     } else {
         // The UUID is not a valid UUID, so we can't parse this line.
         let fail =
-            input.generate_error_at(object_start, VB6ProjectErrorKind::ObjectCompiledUuidInvalid);
+            input.generate_error_at(object_start, ProjectErrorKind::ObjectCompiledUuidInvalid);
         input.forward_to_next_line();
 
         return Err(fail);
@@ -1398,7 +1393,7 @@ fn parse_object<'a>(
         // No version found, so we can't parse this line.
         let fail = input.generate_error_at(
             version_start,
-            VB6ProjectErrorKind::ObjectCompiledVersionMissing,
+            ProjectErrorKind::ObjectCompiledVersionMissing,
         );
         input.forward_to_next_line();
 
@@ -1409,7 +1404,7 @@ fn parse_object<'a>(
         // The version contains an invalid character, so we can't parse this line.
         let fail = input.generate_error_at(
             version_start + version.len(),
-            VB6ProjectErrorKind::ObjectCompiledVersionInvalid,
+            ProjectErrorKind::ObjectCompiledVersionInvalid,
         );
         input.forward_to_next_line();
 
@@ -1422,7 +1417,7 @@ fn parse_object<'a>(
         // No unknown1 found, so we can't parse this line.
         let fail = input.generate_error_at(
             unknown1_start,
-            VB6ProjectErrorKind::ObjectCompiledUnknown1Missing,
+            ProjectErrorKind::ObjectCompiledUnknown1Missing,
         );
         input.forward_to_next_line();
 
@@ -1437,7 +1432,7 @@ fn parse_object<'a>(
             // No file name found, so we can't parse this line.
             let fail = input.generate_error_at(
                 file_name_start,
-                VB6ProjectErrorKind::ObjectCompiledFileNameNotFound,
+                ProjectErrorKind::ObjectCompiledFileNameNotFound,
             );
             Err(fail)
         }
@@ -1446,12 +1441,12 @@ fn parse_object<'a>(
                 // No file name found, so we can't parse this line.
                 let fail = input.generate_error_at(
                     file_name_start,
-                    VB6ProjectErrorKind::ObjectCompiledFileNameNotFound,
+                    ProjectErrorKind::ObjectCompiledFileNameNotFound,
                 );
                 return Err(fail);
             }
 
-            Ok(VB6ObjectReference::Compiled {
+            Ok(ObjectReference::Compiled {
                 uuid,
                 version: version.into(),
                 unknown1: unknown1.into(),
@@ -1463,7 +1458,7 @@ fn parse_object<'a>(
 
 fn parse_module<'a>(
     input: &mut SourceStream<'a>,
-) -> Result<VB6ProjectModule<'a>, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
+) -> Result<ProjectModuleReference<'a>, ErrorDetails<'a, ProjectErrorKind<'a>>> {
     // A Module line starts with a 'Module=' and is followed by a name and a path.
     //
     // By this point in the parse the "Module=" component should be stripped off
@@ -1472,7 +1467,7 @@ fn parse_module<'a>(
 
     let Some((module_name, _)) = input.take_until("; ", Comparator::CaseSensitive) else {
         // No name found, so we can't parse this line.
-        let fail = input.generate_error_at(module_start, VB6ProjectErrorKind::ModuleNameNotFound);
+        let fail = input.generate_error_at(module_start, ProjectErrorKind::ModuleNameNotFound);
         input.forward_to_next_line();
 
         return Err(fail);
@@ -1482,23 +1477,19 @@ fn parse_module<'a>(
 
     let Some((module_path, _)) = input.take_until_newline() else {
         // No path found, so we can't parse this line.
-        let fail = input.generate_error_at(
-            module_path_start,
-            VB6ProjectErrorKind::ModuleFileNameNotFound,
-        );
+        let fail =
+            input.generate_error_at(module_path_start, ProjectErrorKind::ModuleFileNameNotFound);
         return Err(fail);
     };
 
     if module_path.is_empty() {
         // No path found, so we can't parse this line.
-        let fail = input.generate_error_at(
-            module_path_start,
-            VB6ProjectErrorKind::ModuleFileNameNotFound,
-        );
+        let fail =
+            input.generate_error_at(module_path_start, ProjectErrorKind::ModuleFileNameNotFound);
         return Err(fail);
     }
 
-    let module = VB6ProjectModule {
+    let module = ProjectModuleReference {
         name: module_name,
         path: module_path,
     };
@@ -1507,7 +1498,7 @@ fn parse_module<'a>(
 
 fn parse_class<'a>(
     input: &mut SourceStream<'a>,
-) -> Result<VB6ProjectClass<'a>, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
+) -> Result<ProjectClassReference<'a>, ErrorDetails<'a, ProjectErrorKind<'a>>> {
     // A Class line starts with a 'Class=' and is followed by a name and a path.
     //
     // By this point in the parse the "Class=" component should be stripped off
@@ -1516,7 +1507,7 @@ fn parse_class<'a>(
 
     let Some((class_name, _)) = input.take_until("; ", Comparator::CaseSensitive) else {
         // No name found, so we can't parse this line.
-        let fail = input.generate_error_at(class_start, VB6ProjectErrorKind::ClassNameNotFound);
+        let fail = input.generate_error_at(class_start, ProjectErrorKind::ClassNameNotFound);
         input.forward_to_next_line();
 
         return Err(fail);
@@ -1528,19 +1519,19 @@ fn parse_class<'a>(
     let Some((class_path, _)) = input.take_until_newline() else {
         // No path found, so we can't parse this line.
         let fail =
-            input.generate_error_at(class_path_start, VB6ProjectErrorKind::ClassFileNameNotFound);
+            input.generate_error_at(class_path_start, ProjectErrorKind::ClassFileNameNotFound);
         return Err(fail);
     };
 
     if class_path.is_empty() {
         // No path found, so we can't parse this line.
         let fail =
-            input.generate_error_at(class_path_start, VB6ProjectErrorKind::ClassFileNameNotFound);
+            input.generate_error_at(class_path_start, ProjectErrorKind::ClassFileNameNotFound);
 
         return Err(fail);
     }
 
-    let class = VB6ProjectClass {
+    let class = ProjectClassReference {
         name: class_name,
         path: class_path,
     };
@@ -1551,7 +1542,7 @@ fn parse_class<'a>(
 fn parse_path_line<'a>(
     input: &mut SourceStream<'a>,
     parameter_line_name: &'a str,
-) -> Result<&'a str, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
+) -> Result<&'a str, ErrorDetails<'a, ProjectErrorKind<'a>>> {
     // A single element line starts with a 'Form=', 'Designer=', or 'RelatedDoc='
     // and is followed by a path to the corresponding file.
     //
@@ -1567,7 +1558,7 @@ fn parse_path_line<'a>(
             // Go to the next line and return the error.
             let fail = input.generate_error_at(
                 path_start,
-                VB6ProjectErrorKind::PathValueNotFound {
+                ProjectErrorKind::PathValueNotFound {
                     parameter_line_name,
                 },
             );
@@ -1579,7 +1570,7 @@ fn parse_path_line<'a>(
                 // Go to the next line and return the error.
                 let fail = input.generate_error_at(
                     path_start,
-                    VB6ProjectErrorKind::PathValueNotFound {
+                    ProjectErrorKind::PathValueNotFound {
                         parameter_line_name,
                     },
                 );
@@ -1593,7 +1584,7 @@ fn parse_path_line<'a>(
 
 fn parse_dll_base_address<'a>(
     input: &mut SourceStream<'a>,
-) -> Result<u32, ErrorDetails<'a, VB6ProjectErrorKind<'a>>> {
+) -> Result<u32, ErrorDetails<'a, ProjectErrorKind<'a>>> {
     // A DllBaseAddress line starts with a 'DllBaseAddress=' and is followed by a
     // hexadecimal value.
     //
@@ -1605,7 +1596,7 @@ fn parse_dll_base_address<'a>(
         // No base address found, so we can't parse this line.
         let fail = input.generate_error_at(
             dll_base_address_start,
-            VB6ProjectErrorKind::DllBaseAddressNotFound,
+            ProjectErrorKind::DllBaseAddressNotFound,
         );
         return Err(fail);
     };
@@ -1614,7 +1605,7 @@ fn parse_dll_base_address<'a>(
         // The base address is empty, so we can't parse this line.
         let fail = input.generate_error_at(
             dll_base_address_start,
-            VB6ProjectErrorKind::DllBaseAddressUnparsableEmpty,
+            ProjectErrorKind::DllBaseAddressUnparsableEmpty,
         );
         return Err(fail);
     }
@@ -1623,7 +1614,7 @@ fn parse_dll_base_address<'a>(
         // The base address does not start with "&H", so we can't parse this line.
         let fail = input.generate_error_at(
             dll_base_address_start,
-            VB6ProjectErrorKind::DllBaseAddressMissingHexPrefix,
+            ProjectErrorKind::DllBaseAddressMissingHexPrefix,
         );
         return Err(fail);
     }
@@ -1636,7 +1627,7 @@ fn parse_dll_base_address<'a>(
         // The base address is not a valid hexadecimal value, so we can't parse this line.
         let fail = input.generate_error_at(
             dll_base_address_start,
-            VB6ProjectErrorKind::DllBaseAddressUnparsable {
+            ProjectErrorKind::DllBaseAddressUnparsable {
                 hex_value: trimmed_base_address_hex_text,
             },
         );
@@ -1661,12 +1652,12 @@ mod tests {
             .unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompatibilityMode, ErrorDetails<VB6ProjectErrorKind>> =
+        let result: Result<CompatibilityMode, ErrorDetails<ProjectErrorKind>> =
             parse_quoted_converted_value(&mut input, &parameter_name);
 
         assert!(matches!(
             result.err().unwrap().kind,
-            VB6ProjectErrorKind::ParameterValueInvalid { .. }
+            ProjectErrorKind::ParameterValueInvalid { .. }
         ));
     }
 
@@ -1681,7 +1672,7 @@ mod tests {
             .unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompatibilityMode, ErrorDetails<VB6ProjectErrorKind>> =
+        let result: Result<CompatibilityMode, ErrorDetails<ProjectErrorKind>> =
             parse_quoted_converted_value(&mut input, &parameter_name);
 
         assert_eq!(result.unwrap(), CompatibilityMode::NoCompatibility);
@@ -1698,7 +1689,7 @@ mod tests {
             .unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompatibilityMode, ErrorDetails<VB6ProjectErrorKind>> =
+        let result: Result<CompatibilityMode, ErrorDetails<ProjectErrorKind>> =
             parse_quoted_converted_value(&mut input, &parameter_name);
 
         assert_eq!(result.unwrap(), CompatibilityMode::Project);
@@ -1715,7 +1706,7 @@ mod tests {
             .unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompatibilityMode, ErrorDetails<VB6ProjectErrorKind>> =
+        let result: Result<CompatibilityMode, ErrorDetails<ProjectErrorKind>> =
             parse_quoted_converted_value(&mut input, &parameter_name);
 
         assert_eq!(result.unwrap(), CompatibilityMode::CompatibleExe);
@@ -1730,7 +1721,7 @@ mod tests {
         let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompileTargetType, ErrorDetails<VB6ProjectErrorKind>> =
+        let result: Result<CompileTargetType, ErrorDetails<ProjectErrorKind>> =
             parse_converted_value(&mut input, &parameter_name);
 
         assert_eq!(result.unwrap(), CompileTargetType::Exe);
@@ -1745,7 +1736,7 @@ mod tests {
         let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompileTargetType, ErrorDetails<VB6ProjectErrorKind>> =
+        let result: Result<CompileTargetType, ErrorDetails<ProjectErrorKind>> =
             parse_converted_value(&mut input, &parameter_name);
 
         assert_eq!(result.unwrap(), CompileTargetType::OleDll);
@@ -1760,7 +1751,7 @@ mod tests {
         let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompileTargetType, ErrorDetails<VB6ProjectErrorKind>> =
+        let result: Result<CompileTargetType, ErrorDetails<ProjectErrorKind>> =
             parse_converted_value(&mut input, &parameter_name);
 
         assert_eq!(result.unwrap(), CompileTargetType::Control);
@@ -1775,7 +1766,7 @@ mod tests {
         let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompileTargetType, ErrorDetails<VB6ProjectErrorKind>> =
+        let result: Result<CompileTargetType, ErrorDetails<ProjectErrorKind>> =
             parse_converted_value(&mut input, &parameter_name);
 
         assert_eq!(result.unwrap(), CompileTargetType::OleExe);
@@ -1790,7 +1781,7 @@ mod tests {
         let parameter_name = input.take("Type", Comparator::CaseSensitive).unwrap();
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
-        let result: Result<CompileTargetType, ErrorDetails<VB6ProjectErrorKind>> =
+        let result: Result<CompileTargetType, ErrorDetails<ProjectErrorKind>> =
             parse_converted_value(&mut input, &parameter_name);
 
         assert!(result.is_err());
@@ -1798,10 +1789,7 @@ mod tests {
         let error = result.err().unwrap();
 
         assert_eq!(
-            matches!(
-                error.kind,
-                VB6ProjectErrorKind::ParameterValueInvalid { .. }
-            ),
+            matches!(error.kind, ProjectErrorKind::ParameterValueInvalid { .. }),
             true
         );
     }
@@ -1821,10 +1809,10 @@ mod tests {
 
         assert_eq!(input.is_empty(), true);
         let result = result.unwrap();
-        assert_eq!(matches!(result, VB6ProjectReference::Compiled { .. }), true);
+        assert_eq!(matches!(result, ProjectReference::Compiled { .. }), true);
 
         match result {
-            VB6ProjectReference::Compiled {
+            ProjectReference::Compiled {
                 uuid,
                 unknown1,
                 unknown2,
@@ -1862,7 +1850,7 @@ mod tests {
         assert_eq!(input.is_empty(), true);
         assert_eq!(
             result.unwrap(),
-            VB6ProjectReference::SubProject { path: "test.vbp" }
+            ProjectReference::SubProject { path: "test.vbp" }
         );
     }
 
@@ -1926,7 +1914,7 @@ mod tests {
 
         assert_eq!(input.is_empty(), true);
         match object {
-            VB6ObjectReference::Compiled {
+            ObjectReference::Compiled {
                 uuid,
                 version,
                 unknown1,
@@ -2001,7 +1989,7 @@ mod tests {
 
         let project_source_file = SourceFile::decode("project1.vbp", input.as_bytes()).unwrap();
 
-        let result = VB6Project::parse(&project_source_file);
+        let result = Project::parse(&project_source_file);
 
         if result.has_failures() {
             for failure in result.failures {
@@ -2100,7 +2088,7 @@ mod tests {
         let _ = input.take_ascii_whitespaces();
 
         let line_type = parse_property_name(&mut input).unwrap();
-        let type_result: Result<CompileTargetType, ErrorDetails<VB6ProjectErrorKind>> =
+        let type_result: Result<CompileTargetType, ErrorDetails<ProjectErrorKind>> =
             parse_converted_value(&mut input, line_type);
 
         assert!(type_result.is_ok());
@@ -2115,7 +2103,7 @@ mod tests {
         let reference = reference_result.unwrap();
         assert_eq!(
             reference,
-            VB6ProjectReference::Compiled {
+            ProjectReference::Compiled {
                 uuid: Uuid::parse_str("00020430-0000-0000-C000-000000000046").unwrap(),
                 unknown1: "2.0",
                 unknown2: "0",
@@ -2188,7 +2176,7 @@ mod tests {
             }
         };
 
-        let result = VB6Project::parse(&project_source_file);
+        let result = Project::parse(&project_source_file);
 
         if result.has_failures() {
             for failure in result.failures {
@@ -2348,7 +2336,7 @@ mod tests {
                 }
             };
 
-        let result = VB6Project::parse(&project_source_file);
+        let result = Project::parse(&project_source_file);
 
         if result.has_failures() {
             for failure in result.failures {

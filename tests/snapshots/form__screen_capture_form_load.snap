@@ -3,81 +3,21 @@ source: tests/form.rs
 expression: form_file
 ---
 form:
-  name:
-    - 70
-    - 111
-    - 114
-    - 109
-    - 83
-    - 99
-    - 114
-    - 101
-    - 101
-    - 110
-    - 67
-    - 97
-    - 112
-    - 116
-    - 117
-    - 114
-    - 101
-  tag: []
-  index: 0
+  name: FormScreenCapture
+  tag: ""
+  index: -1
   kind:
     Form:
       properties:
         appearance: ThreeD
-        auto_redraw: Automatic
+        auto_redraw: Manual
         back_color:
           RGB:
             red: 192
             green: 192
             blue: 192
         border_style: Sizable
-        caption:
-          - 83
-          - 99
-          - 114
-          - 101
-          - 101
-          - 110
-          - 32
-          - 67
-          - 97
-          - 112
-          - 116
-          - 117
-          - 114
-          - 101
-          - 32
-          - 68
-          - 101
-          - 109
-          - 111
-          - 32
-          - 45
-          - 32
-          - 119
-          - 119
-          - 119
-          - 46
-          - 116
-          - 97
-          - 110
-          - 110
-          - 101
-          - 114
-          - 104
-          - 101
-          - 108
-          - 108
-          - 97
-          - 110
-          - 100
-          - 46
-          - 99
-          - 111
-          - 109
+        caption: Screen Capture Demo - www.tannerhelland.com
         client_height: 3600
         client_left: 60
         client_top: 345
@@ -100,15 +40,10 @@ form:
         height: 240
         help_context_id: 0
         icon: ~
-        key_preview: true
+        key_preview: false
         left: 0
         link_mode: None
-        link_topic:
-          - 70
-          - 111
-          - 114
-          - 109
-          - 49
+        link_topic: Form1
         max_button: Included
         mdi_child: false
         min_button: Included
@@ -123,11 +58,11 @@ form:
         right_to_left: LeftToRight
         scale_height: 240
         scale_left: 0
-        scale_mode: Pixel
+        scale_mode: Twip
         scale_top: 0
         scale_width: 445
         show_in_taskbar: Show
-        start_up_position: CenterScreen
+        start_up_position: WindowsDefault
         top: 0
         visible: Visible
         whats_this_button: Excluded
@@ -135,75 +70,25 @@ form:
         width: 240
         window_state: Normal
       controls:
-        - name:
-            - 76
-            - 97
-            - 98
-            - 101
-            - 108
-            - 50
-          tag: []
-          index: 0
+        - name: Label2
+          tag: ""
+          index: -1
           kind:
             Label:
               properties:
                 alignment: LeftJustify
                 appearance: ThreeD
-                auto_size: Resize
+                auto_size: Fixed
                 back_color:
                   System:
                     index: 15
-                back_style: Transparent
+                back_style: Opaque
                 border_style: None
-                caption:
-                  - 83
-                  - 99
-                  - 114
-                  - 101
-                  - 101
-                  - 110
-                  - 32
-                  - 67
-                  - 97
-                  - 112
-                  - 116
-                  - 117
-                  - 114
-                  - 101
-                  - 32
-                  - 68
-                  - 101
-                  - 109
-                  - 111
-                  - 32
-                  - 45
-                  - 45
-                  - 32
-                  - 119
-                  - 119
-                  - 119
-                  - 46
-                  - 116
-                  - 97
-                  - 110
-                  - 110
-                  - 101
-                  - 114
-                  - 104
-                  - 101
-                  - 108
-                  - 108
-                  - 97
-                  - 110
-                  - 100
-                  - 46
-                  - 99
-                  - 111
-                  - 109
-                data_field: []
-                data_format: []
-                data_member: []
-                data_source: []
+                caption: Screen Capture Demo -- www.tannerhelland.com
+                data_field: ""
+                data_format: ""
+                data_member: ""
+                data_source: ""
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: Enabled
@@ -214,91 +99,41 @@ form:
                     blue: 255
                 height: 210
                 left: 120
-                link_item: []
+                link_item: ""
                 link_mode: None
                 link_timeout: 50
-                link_topic: []
+                link_topic: ""
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
                 right_to_left: LeftToRight
                 tab_index: 1
-                tool_tip_text: []
+                tool_tip_text: ""
                 top: 240
                 use_mnemonic: true
                 visible: Visible
                 whats_this_help_id: 0
                 width: 3615
                 word_wrap: NonWrapping
-        - name:
-            - 76
-            - 97
-            - 98
-            - 101
-            - 108
-            - 49
-          tag: []
-          index: 0
+        - name: Label1
+          tag: ""
+          index: -1
           kind:
             Label:
               properties:
                 alignment: LeftJustify
                 appearance: ThreeD
-                auto_size: Resize
+                auto_size: Fixed
                 back_color:
                   System:
                     index: 15
-                back_style: Transparent
+                back_style: Opaque
                 border_style: None
-                caption:
-                  - 83
-                  - 99
-                  - 114
-                  - 101
-                  - 101
-                  - 110
-                  - 32
-                  - 67
-                  - 97
-                  - 112
-                  - 116
-                  - 117
-                  - 114
-                  - 101
-                  - 32
-                  - 68
-                  - 101
-                  - 109
-                  - 111
-                  - 32
-                  - 45
-                  - 45
-                  - 32
-                  - 119
-                  - 119
-                  - 119
-                  - 46
-                  - 116
-                  - 97
-                  - 110
-                  - 110
-                  - 101
-                  - 114
-                  - 104
-                  - 101
-                  - 108
-                  - 108
-                  - 97
-                  - 110
-                  - 100
-                  - 46
-                  - 99
-                  - 111
-                  - 109
-                data_field: []
-                data_format: []
-                data_member: []
-                data_source: []
+                caption: Screen Capture Demo -- www.tannerhelland.com
+                data_field: ""
+                data_format: ""
+                data_member: ""
+                data_source: ""
                 drag_icon: ~
                 drag_mode: Manual
                 enabled: Enabled
@@ -307,16 +142,16 @@ form:
                     index: 18
                 height: 210
                 left: 135
-                link_item: []
+                link_item: ""
                 link_mode: None
                 link_timeout: 50
-                link_topic: []
+                link_topic: ""
                 mouse_icon: ~
                 mouse_pointer: Default
                 ole_drop_mode: None
                 right_to_left: LeftToRight
                 tab_index: 0
-                tool_tip_text: []
+                tool_tip_text: ""
                 top: 255
                 use_mnemonic: true
                 visible: Visible
@@ -329,865 +164,1860 @@ format_version:
   major: 5
   minor: 0
 attributes:
-  name:
-    - 70
-    - 111
-    - 114
-    - 109
-    - 83
-    - 99
-    - 114
-    - 101
-    - 101
-    - 110
-    - 67
-    - 97
-    - 112
-    - 116
-    - 117
-    - 114
-    - 101
+  name: FormScreenCapture
   global_name_space: Local
   creatable: "False"
   pre_declared_id: "True"
   exposed: "False"
   description: ~
   ext_key: {}
-tokens:
-  source_file: FormScreenCapture.frm
-  tokens:
-    - - "'***************************************************************************"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'Copyright 2018 by Tanner Helland"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "' www.tannerhelland.com"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'Documentation for this project can be found at https://tannerhelland.com/code/"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'The source code in this project is licensed under a Simplified BSD license."
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "'***************************************************************************"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-    - - "'This gives us the hWnd (window handle) of the screen"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - Private
-      - PrivateKeyword
-    - - " "
-      - Whitespace
-    - - Declare
-      - DeclareKeyword
-    - - " "
-      - Whitespace
-    - - Function
-      - FunctionKeyword
-    - - " "
-      - Whitespace
-    - - GetDesktopWindow
-      - Identifier
-    - - " "
-      - Whitespace
-    - - Lib
-      - LibKeyword
-    - - " "
-      - Whitespace
-    - - "\"user32\""
-      - StringLiteral
-    - - " "
-      - Whitespace
-    - - (
-      - LeftParenthesis
-    - - )
-      - RightParenthesis
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-    - - "'This assigns an hDC (device context handle) from an hWnd"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - Private
-      - PrivateKeyword
-    - - " "
-      - Whitespace
-    - - Declare
-      - DeclareKeyword
-    - - " "
-      - Whitespace
-    - - Function
-      - FunctionKeyword
-    - - " "
-      - Whitespace
-    - - GetDC
-      - Identifier
-    - - " "
-      - Whitespace
-    - - Lib
-      - LibKeyword
-    - - " "
-      - Whitespace
-    - - "\"user32\""
-      - StringLiteral
-    - - " "
-      - Whitespace
-    - - (
-      - LeftParenthesis
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - hWnd
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - )
-      - RightParenthesis
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-    - - "'BitBlt lets us draw an image from a hDC to another hDC (in our case, from an hDC of the screen capture to the hDC of a VB picture box)"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - Private
-      - PrivateKeyword
-    - - " "
-      - Whitespace
-    - - Declare
-      - DeclareKeyword
-    - - " "
-      - Whitespace
-    - - Function
-      - FunctionKeyword
-    - - " "
-      - Whitespace
-    - - BitBlt
-      - Identifier
-    - - " "
-      - Whitespace
-    - - Lib
-      - LibKeyword
-    - - " "
-      - Whitespace
-    - - "\"gdi32\""
-      - StringLiteral
-    - - " "
-      - Whitespace
-    - - (
-      - LeftParenthesis
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - hDC
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - x
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - y
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - nWidth
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - nHeight
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - hSrcDC
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - xSrc
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - ySrc
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - opCode
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - )
-      - RightParenthesis
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-    - - "'ReleaseDC is used to free the hDC we generate for the screen capture."
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - Private
-      - PrivateKeyword
-    - - " "
-      - Whitespace
-    - - Declare
-      - DeclareKeyword
-    - - " "
-      - Whitespace
-    - - Function
-      - FunctionKeyword
-    - - " "
-      - Whitespace
-    - - ReleaseDC
-      - Identifier
-    - - " "
-      - Whitespace
-    - - Lib
-      - LibKeyword
-    - - " "
-      - Whitespace
-    - - "\"user32\""
-      - StringLiteral
-    - - " "
-      - Whitespace
-    - - (
-      - LeftParenthesis
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - hWnd
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - ByVal
-      - ByValKeyword
-    - - " "
-      - Whitespace
-    - - hDC
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - )
-      - RightParenthesis
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-    - - "'This sample project copies the screen when the form loads; you could also place this code in a command button (or any other input)"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - Private
-      - PrivateKeyword
-    - - " "
-      - Whitespace
-    - - Sub
-      - SubKeyword
-    - - " "
-      - Whitespace
-    - - Form_Load
-      - Identifier
-    - - (
-      - LeftParenthesis
-    - - )
-      - RightParenthesis
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - "'First, minimize this window"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - Me
-      - MeKeyword
-    - - "."
-      - PeriodOperator
-    - - WindowState
-      - Identifier
-    - - " "
-      - Whitespace
-    - - "="
-      - EqualityOperator
-    - - " "
-      - Whitespace
-    - - vbMinimized
-      - Identifier
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - "'Get the hWnd of the screen"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - Dim
-      - DimKeyword
-    - - " "
-      - Whitespace
-    - - scrHwnd
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - scrHwnd
-      - Identifier
-    - - " "
-      - Whitespace
-    - - "="
-      - EqualityOperator
-    - - " "
-      - Whitespace
-    - - GetDesktopWindow
-      - Identifier
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - "'Now, assign an hDC to the hWnd we generated"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - Dim
-      - DimKeyword
-    - - " "
-      - Whitespace
-    - - shDC
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - shDC
-      - Identifier
-    - - " "
-      - Whitespace
-    - - "="
-      - EqualityOperator
-    - - " "
-      - Whitespace
-    - - GetDC
-      - Identifier
-    - - (
-      - LeftParenthesis
-    - - scrHwnd
-      - Identifier
-    - - )
-      - RightParenthesis
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - "'Determine the size of the screen"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - Dim
-      - DimKeyword
-    - - " "
-      - Whitespace
-    - - screenWidth
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - screenHeight
-      - Identifier
-    - - " "
-      - Whitespace
-    - - As
-      - AsKeyword
-    - - " "
-      - Whitespace
-    - - Long
-      - LongKeyword
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - screenWidth
-      - Identifier
-    - - " "
-      - Whitespace
-    - - "="
-      - EqualityOperator
-    - - " "
-      - Whitespace
-    - - Screen
-      - Identifier
-    - - "."
-      - PeriodOperator
-    - - Width
-      - WidthKeyword
-    - - " "
-      - Whitespace
-    - - "\\"
-      - BackwardSlashOperator
-    - - " "
-      - Whitespace
-    - - Screen
-      - Identifier
-    - - "."
-      - PeriodOperator
-    - - TwipsPerPixelX
-      - Identifier
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - screenHeight
-      - Identifier
-    - - " "
-      - Whitespace
-    - - "="
-      - EqualityOperator
-    - - " "
-      - Whitespace
-    - - Screen
-      - Identifier
-    - - "."
-      - PeriodOperator
-    - - Height
-      - Identifier
-    - - " "
-      - Whitespace
-    - - "\\"
-      - BackwardSlashOperator
-    - - " "
-      - Whitespace
-    - - Screen
-      - Identifier
-    - - "."
-      - PeriodOperator
-    - - TwipsPerPixelY
-      - Identifier
-    - - "\r\n"
-      - Newline
-    - - "        "
-      - Whitespace
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - "'Copy the pixel data from the screen into our form"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - BitBlt
-      - Identifier
-    - - " "
-      - Whitespace
-    - - Me
-      - MeKeyword
-    - - "."
-      - PeriodOperator
-    - - hDC
-      - Identifier
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - "0"
-      - IntegerLiteral
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - "0"
-      - IntegerLiteral
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - screenWidth
-      - Identifier
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - screenHeight
-      - Identifier
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - shDC
-      - Identifier
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - "0"
-      - IntegerLiteral
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - "0"
-      - IntegerLiteral
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - vbSrcCopy
-      - Identifier
-    - - "\r\n"
-      - Newline
-    - - "        "
-      - Whitespace
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - "'Release our hold on the screen DC"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - ReleaseDC
-      - Identifier
-    - - " "
-      - Whitespace
-    - - scrHwnd
-      - Identifier
-    - - ","
-      - Comma
-    - - " "
-      - Whitespace
-    - - shDC
-      - Identifier
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - Me
-      - MeKeyword
-    - - "."
-      - PeriodOperator
-    - - Picture
-      - Identifier
-    - - " "
-      - Whitespace
-    - - "="
-      - EqualityOperator
-    - - " "
-      - Whitespace
-    - - Me
-      - MeKeyword
-    - - "."
-      - PeriodOperator
-    - - Image
-      - Identifier
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - "'Restore the window"
-      - EndOfLineComment
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - Me
-      - MeKeyword
-    - - "."
-      - PeriodOperator
-    - - WindowState
-      - Identifier
-    - - " "
-      - Whitespace
-    - - "="
-      - EqualityOperator
-    - - " "
-      - Whitespace
-    - - vbNormal
-      - Identifier
-    - - "\r\n"
-      - Newline
-    - - "    "
-      - Whitespace
-    - - "\r\n"
-      - Newline
-    - - End
-      - EndKeyword
-    - - " "
-      - Whitespace
-    - - Sub
-      - SubKeyword
-    - - "\r\n"
-      - Newline
-    - - "\r\n"
-      - Newline
-  offset: 0
+cst:
+  root:
+    kind: Root
+    text: "'***************************************************************************\r\n'Copyright 2018 by Tanner Helland\r\n' www.tannerhelland.com\r\n'\r\n'Documentation for this project can be found at https://tannerhelland.com/code/\r\n'\r\n'The source code in this project is licensed under a Simplified BSD license.\r\n' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/\r\n'\r\n'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland\r\n'\r\n'***************************************************************************\r\n\r\n'This gives us the hWnd (window handle) of the screen\r\nPrivate Declare Function GetDesktopWindow Lib \"user32\" () As Long\r\n\r\n'This assigns an hDC (device context handle) from an hWnd\r\nPrivate Declare Function GetDC Lib \"user32\" (ByVal hWnd As Long) As Long\r\n\r\n'BitBlt lets us draw an image from a hDC to another hDC (in our case, from an hDC of the screen capture to the hDC of a VB picture box)\r\nPrivate Declare Function BitBlt Lib \"gdi32\" (ByVal hDC As Long, ByVal x As Long, ByVal y As Long, ByVal nWidth As Long, ByVal nHeight As Long, ByVal hSrcDC As Long, ByVal xSrc As Long, ByVal ySrc As Long, ByVal opCode As Long) As Long\r\n\r\n'ReleaseDC is used to free the hDC we generate for the screen capture.\r\nPrivate Declare Function ReleaseDC Lib \"user32\" (ByVal hWnd As Long, ByVal hDC As Long) As Long\r\n\r\n'This sample project copies the screen when the form loads; you could also place this code in a command button (or any other input)\r\nPrivate Sub Form_Load()\r\n\r\n    'First, minimize this window\r\n    Me.WindowState = vbMinimized\r\n    \r\n    'Get the hWnd of the screen\r\n    Dim scrHwnd As Long\r\n    scrHwnd = GetDesktopWindow\r\n    \r\n    'Now, assign an hDC to the hWnd we generated\r\n    Dim shDC As Long\r\n    shDC = GetDC(scrHwnd)\r\n    \r\n    'Determine the size of the screen\r\n    Dim screenWidth As Long, screenHeight As Long\r\n    screenWidth = Screen.Width \\ Screen.TwipsPerPixelX\r\n    screenHeight = Screen.Height \\ Screen.TwipsPerPixelY\r\n        \r\n    'Copy the pixel data from the screen into our form\r\n    BitBlt Me.hDC, 0, 0, screenWidth, screenHeight, shDC, 0, 0, vbSrcCopy\r\n        \r\n    'Release our hold on the screen DC\r\n    ReleaseDC scrHwnd, shDC\r\n    \r\n    Me.Picture = Me.Image\r\n    \r\n    'Restore the window\r\n    Me.WindowState = vbNormal\r\n    \r\nEnd Sub\r\n\r\n"
+    is_token: false
+    children:
+      - kind: EndOfLineComment
+        text: "'***************************************************************************"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'Copyright 2018 by Tanner Helland"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "' www.tannerhelland.com"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'Documentation for this project can be found at https://tannerhelland.com/code/"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'The source code in this project is licensed under a Simplified BSD license."
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'***************************************************************************"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'This gives us the hWnd (window handle) of the screen"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: DeclareStatement
+        text: "Private Declare Function GetDesktopWindow Lib \"user32\" () As Long\r\n"
+        is_token: false
+        children:
+          - kind: PrivateKeyword
+            text: Private
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: DeclareKeyword
+            text: Declare
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: FunctionKeyword
+            text: Function
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: GetDesktopWindow
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: LibKeyword
+            text: Lib
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: StringLiteral
+            text: "\"user32\""
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: ParameterList
+            text: ()
+            is_token: false
+            children:
+              - kind: LeftParenthesis
+                text: (
+                is_token: true
+                children: []
+              - kind: RightParenthesis
+                text: )
+                is_token: true
+                children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: AsKeyword
+            text: As
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: LongKeyword
+            text: Long
+            is_token: true
+            children: []
+          - kind: Newline
+            text: "\r\n"
+            is_token: true
+            children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'This assigns an hDC (device context handle) from an hWnd"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: DeclareStatement
+        text: "Private Declare Function GetDC Lib \"user32\" (ByVal hWnd As Long) As Long\r\n"
+        is_token: false
+        children:
+          - kind: PrivateKeyword
+            text: Private
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: DeclareKeyword
+            text: Declare
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: FunctionKeyword
+            text: Function
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: GetDC
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: LibKeyword
+            text: Lib
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: StringLiteral
+            text: "\"user32\""
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: ParameterList
+            text: (ByVal hWnd As Long)
+            is_token: false
+            children:
+              - kind: LeftParenthesis
+                text: (
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: hWnd
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: RightParenthesis
+                text: )
+                is_token: true
+                children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: AsKeyword
+            text: As
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: LongKeyword
+            text: Long
+            is_token: true
+            children: []
+          - kind: Newline
+            text: "\r\n"
+            is_token: true
+            children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'BitBlt lets us draw an image from a hDC to another hDC (in our case, from an hDC of the screen capture to the hDC of a VB picture box)"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: DeclareStatement
+        text: "Private Declare Function BitBlt Lib \"gdi32\" (ByVal hDC As Long, ByVal x As Long, ByVal y As Long, ByVal nWidth As Long, ByVal nHeight As Long, ByVal hSrcDC As Long, ByVal xSrc As Long, ByVal ySrc As Long, ByVal opCode As Long) As Long\r\n"
+        is_token: false
+        children:
+          - kind: PrivateKeyword
+            text: Private
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: DeclareKeyword
+            text: Declare
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: FunctionKeyword
+            text: Function
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: BitBlt
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: LibKeyword
+            text: Lib
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: StringLiteral
+            text: "\"gdi32\""
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: ParameterList
+            text: "(ByVal hDC As Long, ByVal x As Long, ByVal y As Long, ByVal nWidth As Long, ByVal nHeight As Long, ByVal hSrcDC As Long, ByVal xSrc As Long, ByVal ySrc As Long, ByVal opCode As Long)"
+            is_token: false
+            children:
+              - kind: LeftParenthesis
+                text: (
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: hDC
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: x
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: y
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: nWidth
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: nHeight
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: hSrcDC
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: xSrc
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: ySrc
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: opCode
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: RightParenthesis
+                text: )
+                is_token: true
+                children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: AsKeyword
+            text: As
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: LongKeyword
+            text: Long
+            is_token: true
+            children: []
+          - kind: Newline
+            text: "\r\n"
+            is_token: true
+            children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'ReleaseDC is used to free the hDC we generate for the screen capture."
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: DeclareStatement
+        text: "Private Declare Function ReleaseDC Lib \"user32\" (ByVal hWnd As Long, ByVal hDC As Long) As Long\r\n"
+        is_token: false
+        children:
+          - kind: PrivateKeyword
+            text: Private
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: DeclareKeyword
+            text: Declare
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: FunctionKeyword
+            text: Function
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: ReleaseDC
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: LibKeyword
+            text: Lib
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: StringLiteral
+            text: "\"user32\""
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: ParameterList
+            text: "(ByVal hWnd As Long, ByVal hDC As Long)"
+            is_token: false
+            children:
+              - kind: LeftParenthesis
+                text: (
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: hWnd
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: Comma
+                text: ","
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: ByValKeyword
+                text: ByVal
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Identifier
+                text: hDC
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: AsKeyword
+                text: As
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: LongKeyword
+                text: Long
+                is_token: true
+                children: []
+              - kind: RightParenthesis
+                text: )
+                is_token: true
+                children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: AsKeyword
+            text: As
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: LongKeyword
+            text: Long
+            is_token: true
+            children: []
+          - kind: Newline
+            text: "\r\n"
+            is_token: true
+            children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: EndOfLineComment
+        text: "'This sample project copies the screen when the form loads; you could also place this code in a command button (or any other input)"
+        is_token: true
+        children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []
+      - kind: SubStatement
+        text: "Private Sub Form_Load()\r\n\r\n    'First, minimize this window\r\n    Me.WindowState = vbMinimized\r\n    \r\n    'Get the hWnd of the screen\r\n    Dim scrHwnd As Long\r\n    scrHwnd = GetDesktopWindow\r\n    \r\n    'Now, assign an hDC to the hWnd we generated\r\n    Dim shDC As Long\r\n    shDC = GetDC(scrHwnd)\r\n    \r\n    'Determine the size of the screen\r\n    Dim screenWidth As Long, screenHeight As Long\r\n    screenWidth = Screen.Width \\ Screen.TwipsPerPixelX\r\n    screenHeight = Screen.Height \\ Screen.TwipsPerPixelY\r\n        \r\n    'Copy the pixel data from the screen into our form\r\n    BitBlt Me.hDC, 0, 0, screenWidth, screenHeight, shDC, 0, 0, vbSrcCopy\r\n        \r\n    'Release our hold on the screen DC\r\n    ReleaseDC scrHwnd, shDC\r\n    \r\n    Me.Picture = Me.Image\r\n    \r\n    'Restore the window\r\n    Me.WindowState = vbNormal\r\n    \r\nEnd Sub\r\n"
+        is_token: false
+        children:
+          - kind: PrivateKeyword
+            text: Private
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: SubKeyword
+            text: Sub
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: Identifier
+            text: Form_Load
+            is_token: true
+            children: []
+          - kind: ParameterList
+            text: ()
+            is_token: false
+            children:
+              - kind: LeftParenthesis
+                text: (
+                is_token: true
+                children: []
+              - kind: RightParenthesis
+                text: )
+                is_token: true
+                children: []
+          - kind: Newline
+            text: "\r\n"
+            is_token: true
+            children: []
+          - kind: CodeBlock
+            text: "\r\n    'First, minimize this window\r\n    Me.WindowState = vbMinimized\r\n    \r\n    'Get the hWnd of the screen\r\n    Dim scrHwnd As Long\r\n    scrHwnd = GetDesktopWindow\r\n    \r\n    'Now, assign an hDC to the hWnd we generated\r\n    Dim shDC As Long\r\n    shDC = GetDC(scrHwnd)\r\n    \r\n    'Determine the size of the screen\r\n    Dim screenWidth As Long, screenHeight As Long\r\n    screenWidth = Screen.Width \\ Screen.TwipsPerPixelX\r\n    screenHeight = Screen.Height \\ Screen.TwipsPerPixelY\r\n        \r\n    'Copy the pixel data from the screen into our form\r\n    BitBlt Me.hDC, 0, 0, screenWidth, screenHeight, shDC, 0, 0, vbSrcCopy\r\n        \r\n    'Release our hold on the screen DC\r\n    ReleaseDC scrHwnd, shDC\r\n    \r\n    Me.Picture = Me.Image\r\n    \r\n    'Restore the window\r\n    Me.WindowState = vbNormal\r\n    \r\n"
+            is_token: false
+            children:
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: EndOfLineComment
+                text: "'First, minimize this window"
+                is_token: true
+                children: []
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: AssignmentStatement
+                text: "Me.WindowState = vbMinimized\r\n"
+                is_token: false
+                children:
+                  - kind: MemberAccessExpression
+                    text: Me.WindowState
+                    is_token: false
+                    children:
+                      - kind: MeKeyword
+                        text: Me
+                        is_token: true
+                        children: []
+                      - kind: PeriodOperator
+                        text: "."
+                        is_token: true
+                        children: []
+                      - kind: Identifier
+                        text: WindowState
+                        is_token: true
+                        children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: EqualityOperator
+                    text: "="
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: IdentifierExpression
+                    text: vbMinimized
+                    is_token: false
+                    children:
+                      - kind: Identifier
+                        text: vbMinimized
+                        is_token: true
+                        children: []
+                  - kind: Newline
+                    text: "\r\n"
+                    is_token: true
+                    children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: EndOfLineComment
+                text: "'Get the hWnd of the screen"
+                is_token: true
+                children: []
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: DimStatement
+                text: "Dim scrHwnd As Long\r\n"
+                is_token: false
+                children:
+                  - kind: DimKeyword
+                    text: Dim
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: Identifier
+                    text: scrHwnd
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: AsKeyword
+                    text: As
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: LongKeyword
+                    text: Long
+                    is_token: true
+                    children: []
+                  - kind: Newline
+                    text: "\r\n"
+                    is_token: true
+                    children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: AssignmentStatement
+                text: "scrHwnd = GetDesktopWindow\r\n"
+                is_token: false
+                children:
+                  - kind: IdentifierExpression
+                    text: scrHwnd
+                    is_token: false
+                    children:
+                      - kind: Identifier
+                        text: scrHwnd
+                        is_token: true
+                        children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: EqualityOperator
+                    text: "="
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: IdentifierExpression
+                    text: GetDesktopWindow
+                    is_token: false
+                    children:
+                      - kind: Identifier
+                        text: GetDesktopWindow
+                        is_token: true
+                        children: []
+                  - kind: Newline
+                    text: "\r\n"
+                    is_token: true
+                    children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: EndOfLineComment
+                text: "'Now, assign an hDC to the hWnd we generated"
+                is_token: true
+                children: []
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: DimStatement
+                text: "Dim shDC As Long\r\n"
+                is_token: false
+                children:
+                  - kind: DimKeyword
+                    text: Dim
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: Identifier
+                    text: shDC
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: AsKeyword
+                    text: As
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: LongKeyword
+                    text: Long
+                    is_token: true
+                    children: []
+                  - kind: Newline
+                    text: "\r\n"
+                    is_token: true
+                    children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: AssignmentStatement
+                text: "shDC = GetDC(scrHwnd)\r\n"
+                is_token: false
+                children:
+                  - kind: IdentifierExpression
+                    text: shDC
+                    is_token: false
+                    children:
+                      - kind: Identifier
+                        text: shDC
+                        is_token: true
+                        children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: EqualityOperator
+                    text: "="
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: CallExpression
+                    text: GetDC(scrHwnd)
+                    is_token: false
+                    children:
+                      - kind: Identifier
+                        text: GetDC
+                        is_token: true
+                        children: []
+                      - kind: LeftParenthesis
+                        text: (
+                        is_token: true
+                        children: []
+                      - kind: ArgumentList
+                        text: scrHwnd
+                        is_token: false
+                        children:
+                          - kind: Argument
+                            text: scrHwnd
+                            is_token: false
+                            children:
+                              - kind: IdentifierExpression
+                                text: scrHwnd
+                                is_token: false
+                                children:
+                                  - kind: Identifier
+                                    text: scrHwnd
+                                    is_token: true
+                                    children: []
+                      - kind: RightParenthesis
+                        text: )
+                        is_token: true
+                        children: []
+                  - kind: Newline
+                    text: "\r\n"
+                    is_token: true
+                    children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: EndOfLineComment
+                text: "'Determine the size of the screen"
+                is_token: true
+                children: []
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: DimStatement
+                text: "Dim screenWidth As Long, screenHeight As Long\r\n"
+                is_token: false
+                children:
+                  - kind: DimKeyword
+                    text: Dim
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: Identifier
+                    text: screenWidth
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: AsKeyword
+                    text: As
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: LongKeyword
+                    text: Long
+                    is_token: true
+                    children: []
+                  - kind: Comma
+                    text: ","
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: Identifier
+                    text: screenHeight
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: AsKeyword
+                    text: As
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: LongKeyword
+                    text: Long
+                    is_token: true
+                    children: []
+                  - kind: Newline
+                    text: "\r\n"
+                    is_token: true
+                    children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: AssignmentStatement
+                text: "screenWidth = Screen.Width \\ Screen.TwipsPerPixelX\r\n"
+                is_token: false
+                children:
+                  - kind: IdentifierExpression
+                    text: screenWidth
+                    is_token: false
+                    children:
+                      - kind: Identifier
+                        text: screenWidth
+                        is_token: true
+                        children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: EqualityOperator
+                    text: "="
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: BinaryExpression
+                    text: "Screen.Width \\ Screen.TwipsPerPixelX"
+                    is_token: false
+                    children:
+                      - kind: MemberAccessExpression
+                        text: Screen.Width
+                        is_token: false
+                        children:
+                          - kind: Identifier
+                            text: Screen
+                            is_token: true
+                            children: []
+                          - kind: PeriodOperator
+                            text: "."
+                            is_token: true
+                            children: []
+                          - kind: WidthKeyword
+                            text: Width
+                            is_token: true
+                            children: []
+                      - kind: Whitespace
+                        text: " "
+                        is_token: true
+                        children: []
+                      - kind: BackwardSlashOperator
+                        text: "\\"
+                        is_token: true
+                        children: []
+                      - kind: Whitespace
+                        text: " "
+                        is_token: true
+                        children: []
+                      - kind: MemberAccessExpression
+                        text: Screen.TwipsPerPixelX
+                        is_token: false
+                        children:
+                          - kind: Identifier
+                            text: Screen
+                            is_token: true
+                            children: []
+                          - kind: PeriodOperator
+                            text: "."
+                            is_token: true
+                            children: []
+                          - kind: Identifier
+                            text: TwipsPerPixelX
+                            is_token: true
+                            children: []
+                  - kind: Newline
+                    text: "\r\n"
+                    is_token: true
+                    children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: AssignmentStatement
+                text: "screenHeight = Screen.Height \\ Screen.TwipsPerPixelY\r\n"
+                is_token: false
+                children:
+                  - kind: IdentifierExpression
+                    text: screenHeight
+                    is_token: false
+                    children:
+                      - kind: Identifier
+                        text: screenHeight
+                        is_token: true
+                        children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: EqualityOperator
+                    text: "="
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: BinaryExpression
+                    text: "Screen.Height \\ Screen.TwipsPerPixelY"
+                    is_token: false
+                    children:
+                      - kind: MemberAccessExpression
+                        text: Screen.Height
+                        is_token: false
+                        children:
+                          - kind: Identifier
+                            text: Screen
+                            is_token: true
+                            children: []
+                          - kind: PeriodOperator
+                            text: "."
+                            is_token: true
+                            children: []
+                          - kind: Identifier
+                            text: Height
+                            is_token: true
+                            children: []
+                      - kind: Whitespace
+                        text: " "
+                        is_token: true
+                        children: []
+                      - kind: BackwardSlashOperator
+                        text: "\\"
+                        is_token: true
+                        children: []
+                      - kind: Whitespace
+                        text: " "
+                        is_token: true
+                        children: []
+                      - kind: MemberAccessExpression
+                        text: Screen.TwipsPerPixelY
+                        is_token: false
+                        children:
+                          - kind: Identifier
+                            text: Screen
+                            is_token: true
+                            children: []
+                          - kind: PeriodOperator
+                            text: "."
+                            is_token: true
+                            children: []
+                          - kind: Identifier
+                            text: TwipsPerPixelY
+                            is_token: true
+                            children: []
+                  - kind: Newline
+                    text: "\r\n"
+                    is_token: true
+                    children: []
+              - kind: Whitespace
+                text: "        "
+                is_token: true
+                children: []
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: EndOfLineComment
+                text: "'Copy the pixel data from the screen into our form"
+                is_token: true
+                children: []
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: CallStatement
+                text: "BitBlt Me.hDC, 0, 0, screenWidth, screenHeight, shDC, 0, 0, vbSrcCopy\r\n"
+                is_token: false
+                children:
+                  - kind: Identifier
+                    text: BitBlt
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: MeKeyword
+                    text: Me
+                    is_token: true
+                    children: []
+                  - kind: PeriodOperator
+                    text: "."
+                    is_token: true
+                    children: []
+                  - kind: Identifier
+                    text: hDC
+                    is_token: true
+                    children: []
+                  - kind: Comma
+                    text: ","
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: IntegerLiteral
+                    text: "0"
+                    is_token: true
+                    children: []
+                  - kind: Comma
+                    text: ","
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: IntegerLiteral
+                    text: "0"
+                    is_token: true
+                    children: []
+                  - kind: Comma
+                    text: ","
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: Identifier
+                    text: screenWidth
+                    is_token: true
+                    children: []
+                  - kind: Comma
+                    text: ","
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: Identifier
+                    text: screenHeight
+                    is_token: true
+                    children: []
+                  - kind: Comma
+                    text: ","
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: Identifier
+                    text: shDC
+                    is_token: true
+                    children: []
+                  - kind: Comma
+                    text: ","
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: IntegerLiteral
+                    text: "0"
+                    is_token: true
+                    children: []
+                  - kind: Comma
+                    text: ","
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: IntegerLiteral
+                    text: "0"
+                    is_token: true
+                    children: []
+                  - kind: Comma
+                    text: ","
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: Identifier
+                    text: vbSrcCopy
+                    is_token: true
+                    children: []
+                  - kind: Newline
+                    text: "\r\n"
+                    is_token: true
+                    children: []
+              - kind: Whitespace
+                text: "        "
+                is_token: true
+                children: []
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: EndOfLineComment
+                text: "'Release our hold on the screen DC"
+                is_token: true
+                children: []
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: CallStatement
+                text: "ReleaseDC scrHwnd, shDC\r\n"
+                is_token: false
+                children:
+                  - kind: Identifier
+                    text: ReleaseDC
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: Identifier
+                    text: scrHwnd
+                    is_token: true
+                    children: []
+                  - kind: Comma
+                    text: ","
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: Identifier
+                    text: shDC
+                    is_token: true
+                    children: []
+                  - kind: Newline
+                    text: "\r\n"
+                    is_token: true
+                    children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: AssignmentStatement
+                text: "Me.Picture = Me.Image\r\n"
+                is_token: false
+                children:
+                  - kind: MemberAccessExpression
+                    text: Me.Picture
+                    is_token: false
+                    children:
+                      - kind: MeKeyword
+                        text: Me
+                        is_token: true
+                        children: []
+                      - kind: PeriodOperator
+                        text: "."
+                        is_token: true
+                        children: []
+                      - kind: Identifier
+                        text: Picture
+                        is_token: true
+                        children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: EqualityOperator
+                    text: "="
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: MemberAccessExpression
+                    text: Me.Image
+                    is_token: false
+                    children:
+                      - kind: MeKeyword
+                        text: Me
+                        is_token: true
+                        children: []
+                      - kind: PeriodOperator
+                        text: "."
+                        is_token: true
+                        children: []
+                      - kind: Identifier
+                        text: Image
+                        is_token: true
+                        children: []
+                  - kind: Newline
+                    text: "\r\n"
+                    is_token: true
+                    children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: EndOfLineComment
+                text: "'Restore the window"
+                is_token: true
+                children: []
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: AssignmentStatement
+                text: "Me.WindowState = vbNormal\r\n"
+                is_token: false
+                children:
+                  - kind: MemberAccessExpression
+                    text: Me.WindowState
+                    is_token: false
+                    children:
+                      - kind: MeKeyword
+                        text: Me
+                        is_token: true
+                        children: []
+                      - kind: PeriodOperator
+                        text: "."
+                        is_token: true
+                        children: []
+                      - kind: Identifier
+                        text: WindowState
+                        is_token: true
+                        children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: EqualityOperator
+                    text: "="
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: IdentifierExpression
+                    text: vbNormal
+                    is_token: false
+                    children:
+                      - kind: Identifier
+                        text: vbNormal
+                        is_token: true
+                        children: []
+                  - kind: Newline
+                    text: "\r\n"
+                    is_token: true
+                    children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: Newline
+                text: "\r\n"
+                is_token: true
+                children: []
+          - kind: EndKeyword
+            text: End
+            is_token: true
+            children: []
+          - kind: Whitespace
+            text: " "
+            is_token: true
+            children: []
+          - kind: SubKeyword
+            text: Sub
+            is_token: true
+            children: []
+          - kind: Newline
+            text: "\r\n"
+            is_token: true
+            children: []
+      - kind: Newline
+        text: "\r\n"
+        is_token: true
+        children: []

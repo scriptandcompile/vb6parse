@@ -1,4 +1,4 @@
-use crate::language::color::{VB6Color, VB_WINDOW_TEXT};
+use crate::language::color::{Color, VB_WINDOW_TEXT};
 use crate::language::controls::{DrawMode, DrawStyle, Visibility};
 use crate::parsers::Properties;
 
@@ -7,12 +7,12 @@ use serde::Serialize;
 /// Properties for a `Line` control.
 ///
 /// This is used as an enum variant of
-/// [`VB6ControlKind::Line`](crate::language::controls::VB6ControlKind::Line).
+/// [`ControlKind::Line`](crate::language::controls::ControlKind::Line).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
+/// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct LineProperties {
-    pub border_color: VB6Color,
+    pub border_color: Color,
     pub border_style: DrawStyle,
     pub border_width: i32,
     pub draw_mode: DrawMode,
@@ -39,19 +39,19 @@ impl Default for LineProperties {
     }
 }
 
-impl<'a> From<Properties<'a>> for LineProperties {
-    fn from(prop: Properties<'a>) -> Self {
+impl From<Properties> for LineProperties {
+    fn from(prop: Properties) -> Self {
         let mut line_prop = LineProperties::default();
 
-        line_prop.border_color = prop.get_color(b"BorderColor".into(), line_prop.border_color);
-        line_prop.border_style = prop.get_property(b"BorderStyle".into(), line_prop.border_style);
-        line_prop.border_width = prop.get_i32(b"BorderWidth".into(), line_prop.border_width);
-        line_prop.draw_mode = prop.get_property(b"DrawMode".into(), line_prop.draw_mode);
-        line_prop.visible = prop.get_property(b"Visible".into(), line_prop.visible);
-        line_prop.x1 = prop.get_i32(b"X1".into(), line_prop.x1);
-        line_prop.y1 = prop.get_i32(b"Y1".into(), line_prop.y1);
-        line_prop.x2 = prop.get_i32(b"X2".into(), line_prop.x2);
-        line_prop.y2 = prop.get_i32(b"Y2".into(), line_prop.y2);
+        line_prop.border_color = prop.get_color("BorderColor", line_prop.border_color);
+        line_prop.border_style = prop.get_property("BorderStyle", line_prop.border_style);
+        line_prop.border_width = prop.get_i32("BorderWidth", line_prop.border_width);
+        line_prop.draw_mode = prop.get_property("DrawMode", line_prop.draw_mode);
+        line_prop.visible = prop.get_property("Visible", line_prop.visible);
+        line_prop.x1 = prop.get_i32("X1", line_prop.x1);
+        line_prop.y1 = prop.get_i32("Y1", line_prop.y1);
+        line_prop.x2 = prop.get_i32("X2", line_prop.x2);
+        line_prop.y2 = prop.get_i32("Y2", line_prop.y2);
 
         line_prop
     }

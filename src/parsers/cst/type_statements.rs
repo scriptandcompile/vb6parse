@@ -15,7 +15,7 @@
 //!
 //! [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/type-statement)
 
-use crate::language::VB6Token;
+use crate::language::Token;
 use crate::parsers::SyntaxKind;
 
 use super::Parser;
@@ -204,7 +204,7 @@ impl Parser<'_> {
         self.builder.start_node(SyntaxKind::TypeStatement.to_raw());
 
         // Consume optional Public/Private keyword
-        if self.at_token(VB6Token::PublicKeyword) || self.at_token(VB6Token::PrivateKeyword) {
+        if self.at_token(Token::PublicKeyword) || self.at_token(Token::PrivateKeyword) {
             self.consume_token();
 
             // Consume any whitespace after visibility modifier
@@ -218,20 +218,20 @@ impl Parser<'_> {
         self.consume_whitespace();
 
         // Consume type name (keywords can be used as type names in VB6)
-        if self.at_token(VB6Token::Identifier) {
+        if self.at_token(Token::Identifier) {
             self.consume_token();
         } else if self.at_keyword() {
             self.consume_token_as_identifier();
         }
 
         // Consume everything until newline (preserving all tokens)
-        self.consume_until_after(VB6Token::Newline);
+        self.consume_until_after(Token::Newline);
 
         // Parse type members until "End Type"
         while !self.is_at_end() {
             // Check if we've reached "End Type"
-            if self.at_token(VB6Token::EndKeyword)
-                && self.peek_next_keyword() == Some(VB6Token::TypeKeyword)
+            if self.at_token(Token::EndKeyword)
+                && self.peek_next_keyword() == Some(Token::TypeKeyword)
             {
                 break;
             }
@@ -239,32 +239,32 @@ impl Parser<'_> {
             // Consume type member lines (elementname [(subscripts)] As type)
             // This includes whitespace, comments, identifiers, operators, and newlines
             match self.current_token() {
-                Some(VB6Token::Whitespace
-                | VB6Token::Newline
-                | VB6Token::EndOfLineComment
-                | VB6Token::RemComment
-                | VB6Token::Identifier
-                | VB6Token::AsKeyword
-                | VB6Token::LeftParenthesis
-                | VB6Token::RightParenthesis
-                | VB6Token::ToKeyword
-                | VB6Token::IntegerLiteral
-                | VB6Token::LongLiteral
-                | VB6Token::Comma
-                | VB6Token::MultiplicationOperator // For String * length
-                | VB6Token::SubtractionOperator   // For negative array bounds
+                Some(Token::Whitespace
+                | Token::Newline
+                | Token::EndOfLineComment
+                | Token::RemComment
+                | Token::Identifier
+                | Token::AsKeyword
+                | Token::LeftParenthesis
+                | Token::RightParenthesis
+                | Token::ToKeyword
+                | Token::IntegerLiteral
+                | Token::LongLiteral
+                | Token::Comma
+                | Token::MultiplicationOperator // For String * length
+                | Token::SubtractionOperator   // For negative array bounds
                 // Data type keywords that can appear in Type members
-                | VB6Token::ByteKeyword
-                | VB6Token::BooleanKeyword
-                | VB6Token::IntegerKeyword
-                | VB6Token::LongKeyword
-                | VB6Token::CurrencyKeyword
-                | VB6Token::SingleKeyword
-                | VB6Token::DoubleKeyword
-                | VB6Token::DateKeyword
-                | VB6Token::StringKeyword
-                | VB6Token::ObjectKeyword
-                | VB6Token::VariantKeyword) => {
+                | Token::ByteKeyword
+                | Token::BooleanKeyword
+                | Token::IntegerKeyword
+                | Token::LongKeyword
+                | Token::CurrencyKeyword
+                | Token::SingleKeyword
+                | Token::DoubleKeyword
+                | Token::DateKeyword
+                | Token::StringKeyword
+                | Token::ObjectKeyword
+                | Token::VariantKeyword) => {
                     self.consume_token();
                 }
                 _ => {
@@ -280,7 +280,7 @@ impl Parser<'_> {
         }
 
         // Consume "End Type" and trailing tokens
-        if self.at_token(VB6Token::EndKeyword) {
+        if self.at_token(Token::EndKeyword) {
             // Consume "End"
             self.consume_token();
 
@@ -291,7 +291,7 @@ impl Parser<'_> {
             self.consume_token();
 
             // Consume until newline (including it)
-            self.consume_until_after(VB6Token::Newline);
+            self.consume_until_after(Token::Newline);
         }
 
         self.builder.finish_node(); // TypeStatement

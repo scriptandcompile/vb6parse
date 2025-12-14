@@ -44,7 +44,7 @@
 //! - Write: Write data to a sequential file
 //!
 
-use crate::language::VB6Token;
+use crate::language::Token;
 use crate::parsers::SyntaxKind;
 
 use super::Parser;
@@ -104,44 +104,44 @@ impl Parser<'_> {
         matches!(
             self.current_token(),
             Some(
-                VB6Token::AppActivateKeyword
-                    | VB6Token::BeepKeyword
-                    | VB6Token::ChDirKeyword
-                    | VB6Token::ChDriveKeyword
-                    | VB6Token::CloseKeyword
-                    | VB6Token::DateKeyword
-                    | VB6Token::DeleteSettingKeyword
-                    | VB6Token::ErrorKeyword
-                    | VB6Token::FileCopyKeyword
-                    | VB6Token::GetKeyword
-                    | VB6Token::PutKeyword
-                    | VB6Token::InputKeyword
-                    | VB6Token::KillKeyword
-                    | VB6Token::LineKeyword
-                    | VB6Token::LoadKeyword
-                    | VB6Token::UnloadKeyword
-                    | VB6Token::LockKeyword
-                    | VB6Token::UnlockKeyword
-                    | VB6Token::LSetKeyword
-                    | VB6Token::MidKeyword
-                    | VB6Token::MidBKeyword
-                    | VB6Token::MkDirKeyword
-                    | VB6Token::NameKeyword
-                    | VB6Token::OpenKeyword
-                    | VB6Token::PrintKeyword
-                    | VB6Token::RandomizeKeyword
-                    | VB6Token::ResetKeyword
-                    | VB6Token::RmDirKeyword
-                    | VB6Token::RSetKeyword
-                    | VB6Token::SavePictureKeyword
-                    | VB6Token::SaveSettingKeyword
-                    | VB6Token::SeekKeyword
-                    | VB6Token::SendKeysKeyword
-                    | VB6Token::SetAttrKeyword
-                    | VB6Token::StopKeyword
-                    | VB6Token::TimeKeyword
-                    | VB6Token::WidthKeyword
-                    | VB6Token::WriteKeyword
+                Token::AppActivateKeyword
+                    | Token::BeepKeyword
+                    | Token::ChDirKeyword
+                    | Token::ChDriveKeyword
+                    | Token::CloseKeyword
+                    | Token::DateKeyword
+                    | Token::DeleteSettingKeyword
+                    | Token::ErrorKeyword
+                    | Token::FileCopyKeyword
+                    | Token::GetKeyword
+                    | Token::PutKeyword
+                    | Token::InputKeyword
+                    | Token::KillKeyword
+                    | Token::LineKeyword
+                    | Token::LoadKeyword
+                    | Token::UnloadKeyword
+                    | Token::LockKeyword
+                    | Token::UnlockKeyword
+                    | Token::LSetKeyword
+                    | Token::MidKeyword
+                    | Token::MidBKeyword
+                    | Token::MkDirKeyword
+                    | Token::NameKeyword
+                    | Token::OpenKeyword
+                    | Token::PrintKeyword
+                    | Token::RandomizeKeyword
+                    | Token::ResetKeyword
+                    | Token::RmDirKeyword
+                    | Token::RSetKeyword
+                    | Token::SavePictureKeyword
+                    | Token::SaveSettingKeyword
+                    | Token::SeekKeyword
+                    | Token::SendKeysKeyword
+                    | Token::SetAttrKeyword
+                    | Token::StopKeyword
+                    | Token::TimeKeyword
+                    | Token::WidthKeyword
+                    | Token::WriteKeyword
             )
         )
     }
@@ -149,118 +149,118 @@ impl Parser<'_> {
     /// Dispatch library statement parsing to the appropriate parser.
     pub(super) fn parse_library_statement(&mut self) {
         match self.current_token() {
-            Some(VB6Token::AppActivateKeyword) => {
+            Some(Token::AppActivateKeyword) => {
                 self.parse_app_activate_statement();
             }
-            Some(VB6Token::BeepKeyword) => {
+            Some(Token::BeepKeyword) => {
                 self.parse_beep_statement();
             }
-            Some(VB6Token::ChDirKeyword) => {
+            Some(Token::ChDirKeyword) => {
                 self.parse_ch_dir_statement();
             }
-            Some(VB6Token::ChDriveKeyword) => {
+            Some(Token::ChDriveKeyword) => {
                 self.parse_ch_drive_statement();
             }
-            Some(VB6Token::CloseKeyword) => {
+            Some(Token::CloseKeyword) => {
                 self.parse_close_statement();
             }
-            Some(VB6Token::DateKeyword) => {
+            Some(Token::DateKeyword) => {
                 self.parse_date_statement();
             }
-            Some(VB6Token::DeleteSettingKeyword) => {
+            Some(Token::DeleteSettingKeyword) => {
                 self.parse_delete_setting_statement();
             }
-            Some(VB6Token::ErrorKeyword) => {
+            Some(Token::ErrorKeyword) => {
                 self.parse_error_statement();
             }
-            Some(VB6Token::FileCopyKeyword) => {
+            Some(Token::FileCopyKeyword) => {
                 self.parse_file_copy_statement();
             }
-            Some(VB6Token::GetKeyword) => {
+            Some(Token::GetKeyword) => {
                 self.parse_get_statement();
             }
-            Some(VB6Token::PutKeyword) => {
+            Some(Token::PutKeyword) => {
                 self.parse_put_statement();
             }
-            Some(VB6Token::InputKeyword) => {
+            Some(Token::InputKeyword) => {
                 self.parse_input_statement();
             }
-            Some(VB6Token::KillKeyword) => {
+            Some(Token::KillKeyword) => {
                 self.parse_kill_statement();
             }
-            Some(VB6Token::LineKeyword) => {
+            Some(Token::LineKeyword) => {
                 self.parse_line_input_statement();
             }
-            Some(VB6Token::LoadKeyword) => {
+            Some(Token::LoadKeyword) => {
                 self.parse_load_statement();
             }
-            Some(VB6Token::UnloadKeyword) => {
+            Some(Token::UnloadKeyword) => {
                 self.parse_unload_statement();
             }
-            Some(VB6Token::LockKeyword) => {
+            Some(Token::LockKeyword) => {
                 self.parse_lock_statement();
             }
-            Some(VB6Token::UnlockKeyword) => {
+            Some(Token::UnlockKeyword) => {
                 self.parse_unlock_statement();
             }
-            Some(VB6Token::LSetKeyword) => {
+            Some(Token::LSetKeyword) => {
                 self.parse_lset_statement();
             }
-            Some(VB6Token::MidKeyword) => {
+            Some(Token::MidKeyword) => {
                 self.parse_mid_statement();
             }
-            Some(VB6Token::MidBKeyword) => {
+            Some(Token::MidBKeyword) => {
                 self.parse_midb_statement();
             }
-            Some(VB6Token::MkDirKeyword) => {
+            Some(Token::MkDirKeyword) => {
                 self.parse_mkdir_statement();
             }
-            Some(VB6Token::NameKeyword) => {
+            Some(Token::NameKeyword) => {
                 self.parse_name_statement();
             }
-            Some(VB6Token::OpenKeyword) => {
+            Some(Token::OpenKeyword) => {
                 self.parse_open_statement();
             }
-            Some(VB6Token::PrintKeyword) => {
+            Some(Token::PrintKeyword) => {
                 self.parse_print_statement();
             }
-            Some(VB6Token::RandomizeKeyword) => {
+            Some(Token::RandomizeKeyword) => {
                 self.parse_randomize_statement();
             }
-            Some(VB6Token::ResetKeyword) => {
+            Some(Token::ResetKeyword) => {
                 self.parse_reset_statement();
             }
-            Some(VB6Token::RmDirKeyword) => {
+            Some(Token::RmDirKeyword) => {
                 self.parse_rmdir_statement();
             }
-            Some(VB6Token::RSetKeyword) => {
+            Some(Token::RSetKeyword) => {
                 self.parse_rset_statement();
             }
-            Some(VB6Token::SavePictureKeyword) => {
+            Some(Token::SavePictureKeyword) => {
                 self.parse_savepicture_statement();
             }
-            Some(VB6Token::SaveSettingKeyword) => {
+            Some(Token::SaveSettingKeyword) => {
                 self.parse_savesetting_statement();
             }
-            Some(VB6Token::SeekKeyword) => {
+            Some(Token::SeekKeyword) => {
                 self.parse_seek_statement();
             }
-            Some(VB6Token::SendKeysKeyword) => {
+            Some(Token::SendKeysKeyword) => {
                 self.parse_sendkeys_statement();
             }
-            Some(VB6Token::SetAttrKeyword) => {
+            Some(Token::SetAttrKeyword) => {
                 self.parse_setattr_statement();
             }
-            Some(VB6Token::StopKeyword) => {
+            Some(Token::StopKeyword) => {
                 self.parse_stop_statement();
             }
-            Some(VB6Token::TimeKeyword) => {
+            Some(Token::TimeKeyword) => {
                 self.parse_time_statement();
             }
-            Some(VB6Token::WidthKeyword) => {
+            Some(Token::WidthKeyword) => {
                 self.parse_width_statement();
             }
-            Some(VB6Token::WriteKeyword) => {
+            Some(Token::WriteKeyword) => {
                 self.parse_write_statement();
             }
             _ => {}
@@ -287,7 +287,7 @@ impl Parser<'_> {
         self.consume_token();
 
         // Consume everything until newline (arguments/parameters)
-        self.consume_until_after(VB6Token::Newline);
+        self.consume_until_after(Token::Newline);
 
         self.builder.finish_node();
     }

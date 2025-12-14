@@ -1,6 +1,5 @@
 use crate::parsers::Properties;
 
-use bstr::BString;
 use std::collections::HashMap;
 
 /// Properties for a `Custom` control.
@@ -10,22 +9,22 @@ use std::collections::HashMap;
 /// controls.
 ///
 /// This is used as an enum variant of
-/// [`VB6ControlKind::CustomControl`](crate::language::controls::VB6ControlKind::Custom).
+/// [`ControlKind::CustomControl`](crate::language::controls::ControlKind::Custom).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
+/// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone, Default, serde::Serialize)]
 pub struct CustomControlProperties {
-    property_store: HashMap<BString, Vec<u8>>,
+    property_store: HashMap<String, String>,
 }
 
-impl<'a> From<Properties<'a>> for CustomControlProperties {
-    fn from(prop: Properties<'a>) -> Self {
+impl From<Properties> for CustomControlProperties {
+    fn from(prop: Properties) -> Self {
         let mut custom_prop = CustomControlProperties::default();
 
         for (key, value) in prop.iter() {
             custom_prop
                 .property_store
-                .insert(key.to_owned(), value.to_owned());
+                .insert(key.clone(), value.clone());
         }
 
         custom_prop

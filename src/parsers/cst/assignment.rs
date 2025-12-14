@@ -6,7 +6,7 @@
 //! - Property assignment: `obj.property = value`
 //! - Array assignment: `arr(index) = value`
 
-use crate::language::VB6Token;
+use crate::language::Token;
 use crate::parsers::SyntaxKind;
 
 use super::Parser;
@@ -32,7 +32,7 @@ impl Parser<'_> {
         self.consume_whitespace();
 
         // Consume the equals sign
-        if self.at_token(VB6Token::EqualityOperator) {
+        if self.at_token(Token::EqualityOperator) {
             self.consume_token();
         }
 
@@ -43,7 +43,7 @@ impl Parser<'_> {
         self.parse_expression();
 
         // Consume the newline if present (but not colon - that's handled by caller)
-        if self.at_token(VB6Token::Newline) {
+        if self.at_token(Token::Newline) {
             self.consume_token();
         }
 
@@ -74,7 +74,7 @@ impl Parser<'_> {
         self.consume_whitespace();
 
         // Consume "="
-        if self.at_token(VB6Token::EqualityOperator) {
+        if self.at_token(Token::EqualityOperator) {
             self.consume_token();
         }
 
@@ -85,7 +85,7 @@ impl Parser<'_> {
         self.parse_expression();
 
         // Consume the newline if present (but not colon - that's handled by caller)
-        if self.at_token(VB6Token::Newline) {
+        if self.at_token(Token::Newline) {
             self.consume_token();
         }
 
@@ -97,7 +97,7 @@ impl Parser<'_> {
     /// Note: Let statements are handled separately and should be checked first.
     pub(super) fn is_at_assignment(&self) -> bool {
         // Let statements are handled separately
-        if self.at_token(VB6Token::LetKeyword) {
+        if self.at_token(Token::LetKeyword) {
             return false;
         }
 
@@ -110,28 +110,28 @@ impl Parser<'_> {
 
         for (_text, token) in self.tokens.iter().skip(self.pos) {
             match token {
-                VB6Token::Newline | VB6Token::EndOfLineComment | VB6Token::RemComment => {
+                Token::Newline | Token::EndOfLineComment | Token::RemComment => {
                     // Reached end of line without finding assignment
                     return false;
                 }
-                VB6Token::EqualityOperator => {
+                Token::EqualityOperator => {
                     // Found an = operator - this is likely an assignment
                     return true;
                 }
-                VB6Token::PeriodOperator => {
+                Token::PeriodOperator => {
                     last_was_period = true;
                     at_start = false;
                 }
                 // Skip tokens that could appear in the left-hand side of an assignment
-                VB6Token::Whitespace => {}
-                VB6Token::Identifier
-                | VB6Token::LeftParenthesis
-                | VB6Token::RightParenthesis
-                | VB6Token::IntegerLiteral
-                | VB6Token::LongLiteral
-                | VB6Token::SingleLiteral
-                | VB6Token::DoubleLiteral
-                | VB6Token::Comma => {
+                Token::Whitespace => {}
+                Token::Identifier
+                | Token::LeftParenthesis
+                | Token::RightParenthesis
+                | Token::IntegerLiteral
+                | Token::LongLiteral
+                | Token::SingleLiteral
+                | Token::DoubleLiteral
+                | Token::Comma => {
                     last_was_period = false;
                     at_start = false;
                 }

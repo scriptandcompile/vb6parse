@@ -1,30 +1,29 @@
-use crate::errors::VB6ErrorKind;
+use crate::errors::FormErrorKind;
 use crate::language::controls::{Activation, Visibility};
 use crate::parsers::Properties;
 
-use bstr::BString;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
 /// Represents a VB6 menu control.
 /// This should only be used as a child of a Form.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
-pub struct VB6MenuControl {
-    pub name: BString,
-    pub tag: BString,
+pub struct MenuControl {
+    pub name: String,
+    pub tag: String,
     pub index: i32,
     pub properties: MenuProperties,
-    pub sub_menus: Vec<VB6MenuControl>,
+    pub sub_menus: Vec<MenuControl>,
 }
 
 /// Properties for a `Menu` control.
 ///
 /// This is used as an enum variant of
-/// [`VB6ControlKind::Menu`](crate::language::controls::VB6ControlKind::Menu).
+/// [`ControlKind::Menu`](crate::language::controls::ControlKind::Menu).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
+/// of the parent [`Control`](crate::language::controls::Control) struct.
 /// This is represented within the parsing code independently of
-/// [`VB6MenuControl`](crate::language::controls::VB6MenuControl)'s.
+/// [`MenuControl`](crate::language::controls::MenuControl)'s.
 ///
 /// This is currently redundant, but is included for the future where the correct
 /// behavior of a menu control only being a child of a form is enforced.
@@ -32,7 +31,7 @@ pub struct VB6MenuControl {
 /// As is, the parser will not enforce this, but the VB6 IDE will.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct MenuProperties {
-    pub caption: BString,
+    pub caption: String,
     pub checked: bool,
     pub enabled: Activation,
     pub help_context_id: i32,
@@ -45,7 +44,7 @@ pub struct MenuProperties {
 impl Default for MenuProperties {
     fn default() -> Self {
         MenuProperties {
-            caption: BString::from(""),
+            caption: String::from(""),
             checked: false,
             enabled: Activation::Enabled,
             help_context_id: 0,
@@ -57,23 +56,22 @@ impl Default for MenuProperties {
     }
 }
 
-impl<'a> From<Properties<'a>> for MenuProperties {
-    fn from(prop: Properties<'a>) -> Self {
+impl From<Properties> for MenuProperties {
+    fn from(prop: Properties) -> Self {
         let mut menu_prop = MenuProperties::default();
 
-        menu_prop.caption = match prop.get(b"Caption".into()) {
+        menu_prop.caption = match prop.get("Caption") {
             Some(caption) => caption.into(),
             None => menu_prop.caption,
         };
-        menu_prop.checked = prop.get_bool(b"Checked".into(), menu_prop.checked);
-        menu_prop.enabled = prop.get_property(b"Enabled".into(), menu_prop.enabled);
-        menu_prop.help_context_id =
-            prop.get_i32(b"HelpContextID".into(), menu_prop.help_context_id);
+        menu_prop.checked = prop.get_bool("Checked", menu_prop.checked);
+        menu_prop.enabled = prop.get_property("Enabled", menu_prop.enabled);
+        menu_prop.help_context_id = prop.get_i32("HelpContextID", menu_prop.help_context_id);
         menu_prop.negotiate_position =
-            prop.get_property(b"NegotiationPosition".into(), menu_prop.negotiate_position);
-        menu_prop.shortcut = prop.get_option(b"Shortcut".into(), menu_prop.shortcut);
-        menu_prop.visible = prop.get_property(b"Visible".into(), menu_prop.visible);
-        menu_prop.window_list = prop.get_bool(b"WindowList".into(), menu_prop.window_list);
+            prop.get_property("NegotiationPosition", menu_prop.negotiate_position);
+        menu_prop.shortcut = prop.get_option("Shortcut", menu_prop.shortcut);
+        menu_prop.visible = prop.get_property("Visible", menu_prop.visible);
+        menu_prop.window_list = prop.get_bool("WindowList", menu_prop.window_list);
 
         menu_prop
     }
@@ -423,9 +421,9 @@ pub enum ShortCut {
 }
 
 impl TryFrom<&str> for ShortCut {
-    type Error = VB6ErrorKind;
+    type Error = FormErrorKind;
 
-    fn try_from(s: &str) -> Result<Self, VB6ErrorKind> {
+    fn try_from(s: &str) -> Result<Self, FormErrorKind> {
         match s {
             "^A" => Ok(ShortCut::CtrlA),
             "^B" => Ok(ShortCut::CtrlB),
@@ -502,7 +500,7 @@ impl TryFrom<&str> for ShortCut {
             "{DEL}" => Ok(ShortCut::Del),
             "+{DEL}" => Ok(ShortCut::ShiftDel),
             "%{BKSP}" => Ok(ShortCut::AltBKsp),
-            _ => Err(VB6ErrorKind::ShortCutUnparsable),
+            _ => Err(FormErrorKind::ShortCutUnparsable),
         }
     }
 }

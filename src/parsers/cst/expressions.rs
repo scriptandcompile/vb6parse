@@ -72,7 +72,7 @@
 //! result = (a + b) * c - d / e Mod f
 //! ```
 
-use crate::language::VB6Token;
+use crate::language::Token;
 use crate::parsers::SyntaxKind;
 
 use super::Parser;
@@ -229,17 +229,17 @@ impl Parser<'_> {
             let saved_pos = self.pos;
             loop {
                 match self.current_token() {
-                    Some(VB6Token::Whitespace) => {
+                    Some(Token::Whitespace) => {
                         self.pos += 1;
                     }
-                    Some(VB6Token::Underscore) => {
+                    Some(Token::Underscore) => {
                         // Check for line continuation
                         let mut lookahead = 1;
                         let mut is_continuation = false;
                         while let Some((_, token)) = self.tokens.get(self.pos + lookahead) {
-                            if *token == VB6Token::Whitespace {
+                            if *token == Token::Whitespace {
                                 lookahead += 1;
-                            } else if *token == VB6Token::Newline {
+                            } else if *token == Token::Newline {
                                 is_continuation = true;
                                 break;
                             } else {
@@ -328,49 +328,49 @@ impl Parser<'_> {
 
         match self.current_token() {
             // Unary minus
-            Some(VB6Token::SubtractionOperator) => {
+            Some(Token::SubtractionOperator) => {
                 self.parse_unary_expression(BindingPower::UNARY);
             }
             // Logical NOT
-            Some(VB6Token::NotKeyword) => {
+            Some(Token::NotKeyword) => {
                 self.parse_unary_expression(BindingPower::NOT);
             }
             // AddressOf operator
-            Some(VB6Token::AddressOfKeyword) => {
+            Some(Token::AddressOfKeyword) => {
                 self.parse_addressof_expression();
             }
             // TypeOf operator
             // TypeOf is handled as a regular keyword that can be an identifier
             // The actual TypeOf expression is parsed when we see the pattern
             // New operator
-            Some(VB6Token::NewKeyword) => {
+            Some(Token::NewKeyword) => {
                 self.parse_new_expression();
             }
             // Parenthesized expression
-            Some(VB6Token::LeftParenthesis) => {
+            Some(Token::LeftParenthesis) => {
                 self.parse_parenthesized_expression();
             }
             // Numeric literals
             Some(
-                VB6Token::IntegerLiteral
-                | VB6Token::LongLiteral
-                | VB6Token::SingleLiteral
-                | VB6Token::DoubleLiteral
-                | VB6Token::DecimalLiteral,
+                Token::IntegerLiteral
+                | Token::LongLiteral
+                | Token::SingleLiteral
+                | Token::DoubleLiteral
+                | Token::DecimalLiteral,
             ) => {
                 self.parse_numeric_literal();
             }
-            Some(VB6Token::StringLiteral) => {
+            Some(Token::StringLiteral) => {
                 self.parse_string_literal();
             }
-            Some(VB6Token::TrueKeyword | VB6Token::FalseKeyword) => {
+            Some(Token::TrueKeyword | Token::FalseKeyword) => {
                 self.parse_boolean_literal();
             }
-            Some(VB6Token::NullKeyword | VB6Token::EmptyKeyword) => {
+            Some(Token::NullKeyword | Token::EmptyKeyword) => {
                 self.parse_special_literal();
             }
             // Date literal
-            Some(VB6Token::DateLiteral) => {
+            Some(Token::DateLiteral) => {
                 self.parse_date_literal();
             }
             // Identifiers (including keywords that can be identifiers in expression context)
@@ -410,12 +410,12 @@ impl Parser<'_> {
                 if matches!(
                     self.current_token(),
                     Some(
-                        VB6Token::DollarSign
-                            | VB6Token::Percent
-                            | VB6Token::Ampersand
-                            | VB6Token::ExclamationMark
-                            | VB6Token::Octothorpe
-                            | VB6Token::AtSign
+                        Token::DollarSign
+                            | Token::Percent
+                            | Token::Ampersand
+                            | Token::ExclamationMark
+                            | Token::Octothorpe
+                            | Token::AtSign
                     )
                 ) {
                     self.consume_token();
@@ -519,7 +519,7 @@ impl Parser<'_> {
         self.consume_whitespace();
 
         // Consume ")"
-        if self.at_token(VB6Token::RightParenthesis) {
+        if self.at_token(Token::RightParenthesis) {
             self.consume_token();
         }
 
@@ -608,17 +608,17 @@ impl Parser<'_> {
             let saved_pos = self.pos;
             loop {
                 match self.current_token() {
-                    Some(VB6Token::Whitespace) => {
+                    Some(Token::Whitespace) => {
                         self.pos += 1;
                     }
-                    Some(VB6Token::Underscore) => {
+                    Some(Token::Underscore) => {
                         // Check for line continuation
                         let mut lookahead = 1;
                         let mut is_continuation = false;
                         while let Some((_, token)) = self.tokens.get(self.pos + lookahead) {
-                            if *token == VB6Token::Whitespace {
+                            if *token == Token::Whitespace {
                                 lookahead += 1;
-                            } else if *token == VB6Token::Newline {
+                            } else if *token == Token::Newline {
                                 is_continuation = true;
                                 break;
                             } else {
@@ -639,11 +639,7 @@ impl Parser<'_> {
 
             let found_postfix = matches!(
                 self.current_token(),
-                Some(
-                    VB6Token::PeriodOperator
-                        | VB6Token::LeftParenthesis
-                        | VB6Token::ExclamationMark
-                )
+                Some(Token::PeriodOperator | Token::LeftParenthesis | Token::ExclamationMark)
             );
 
             // Restore position
@@ -659,7 +655,7 @@ impl Parser<'_> {
 
             match self.current_token() {
                 // Member access: .property or .method
-                Some(VB6Token::PeriodOperator) => {
+                Some(Token::PeriodOperator) => {
                     // Wrap everything parsed so far in a MemberAccessExpression
                     self.builder.start_node_at(
                         current_checkpoint,
@@ -674,7 +670,7 @@ impl Parser<'_> {
                     // This allows subsequent postfix operators to wrap the MemberAccessExpression
                 }
                 // Function call or array indexing: (...)
-                Some(VB6Token::LeftParenthesis) => {
+                Some(Token::LeftParenthesis) => {
                     // Wrap everything parsed so far in a CallExpression
                     self.builder
                         .start_node_at(current_checkpoint, SyntaxKind::CallExpression.to_raw());
@@ -686,7 +682,7 @@ impl Parser<'_> {
                     // DON'T update checkpoint - keep it at the original position
                 }
                 // Exclamation mark for dictionary access: collection!key
-                Some(VB6Token::ExclamationMark) => {
+                Some(Token::ExclamationMark) => {
                     // Wrap everything parsed so far in a MemberAccessExpression
                     self.builder.start_node_at(
                         current_checkpoint,
@@ -724,12 +720,12 @@ impl Parser<'_> {
             if matches!(
                 self.current_token(),
                 Some(
-                    VB6Token::DollarSign
-                        | VB6Token::Percent
-                        | VB6Token::Ampersand
-                        | VB6Token::ExclamationMark
-                        | VB6Token::Octothorpe
-                        | VB6Token::AtSign
+                    Token::DollarSign
+                        | Token::Percent
+                        | Token::Ampersand
+                        | Token::ExclamationMark
+                        | Token::Octothorpe
+                        | Token::AtSign
                 )
             ) {
                 self.consume_token();
@@ -746,7 +742,7 @@ impl Parser<'_> {
         self.parse_argument_list_in_parens();
 
         // Consume closing parenthesis
-        if self.at_token(VB6Token::RightParenthesis) {
+        if self.at_token(Token::RightParenthesis) {
             self.consume_token();
         }
     }
@@ -760,7 +756,7 @@ impl Parser<'_> {
         self.consume_whitespace();
 
         // Parse the key (identifier or string)
-        if self.is_identifier() || self.at_keyword() || self.at_token(VB6Token::StringLiteral) {
+        if self.is_identifier() || self.at_keyword() || self.at_token(Token::StringLiteral) {
             self.consume_token();
         }
     }
@@ -775,7 +771,7 @@ impl Parser<'_> {
         self.consume_whitespace();
 
         // Parse arguments until we hit closing paren
-        while !self.is_at_end() && !self.at_token(VB6Token::RightParenthesis) {
+        while !self.is_at_end() && !self.at_token(Token::RightParenthesis) {
             // Parse each argument as an expression
             self.builder.start_node(SyntaxKind::Argument.to_raw());
             self.parse_expression();
@@ -785,7 +781,7 @@ impl Parser<'_> {
             self.consume_whitespace();
 
             // If there's a comma, consume it and continue
-            if self.at_token(VB6Token::Comma) {
+            if self.at_token(Token::Comma) {
                 self.consume_token();
                 self.consume_whitespace();
             } else {
@@ -810,79 +806,79 @@ impl Parser<'_> {
 
         let (left_bp, right_bp) = match token {
             // Exponentiation (right-associative)
-            VB6Token::ExponentiationOperator => {
+            Token::ExponentiationOperator => {
                 (BindingPower::EXPONENTIATION, BindingPower::EXPONENTIATION)
             }
 
             // Multiplication and division
-            VB6Token::MultiplicationOperator | VB6Token::DivisionOperator => {
+            Token::MultiplicationOperator | Token::DivisionOperator => {
                 let bp = BindingPower::MULTIPLICATION;
                 (bp, BindingPower(bp.0 + 1))
             }
 
             // Integer division
-            VB6Token::BackwardSlashOperator => {
+            Token::BackwardSlashOperator => {
                 let bp = BindingPower::INT_DIVISION;
                 (bp, BindingPower(bp.0 + 1))
             }
 
             // Modulo
-            VB6Token::ModKeyword => {
+            Token::ModKeyword => {
                 let bp = BindingPower::MODULO;
                 (bp, BindingPower(bp.0 + 1))
             }
 
             // Addition and subtraction
-            VB6Token::AdditionOperator | VB6Token::SubtractionOperator => {
+            Token::AdditionOperator | Token::SubtractionOperator => {
                 let bp = BindingPower::ADDITION;
                 (bp, BindingPower(bp.0 + 1))
             }
 
             // String concatenation
-            VB6Token::Ampersand => {
+            Token::Ampersand => {
                 let bp = BindingPower::CONCATENATION;
                 (bp, BindingPower(bp.0 + 1))
             }
 
             // Comparison operators
-            VB6Token::EqualityOperator
-            | VB6Token::InequalityOperator
-            | VB6Token::LessThanOrEqualOperator
-            | VB6Token::GreaterThanOrEqualOperator
-            | VB6Token::LessThanOperator
-            | VB6Token::GreaterThanOperator
-            | VB6Token::LikeKeyword
-            | VB6Token::IsKeyword => {
+            Token::EqualityOperator
+            | Token::InequalityOperator
+            | Token::LessThanOrEqualOperator
+            | Token::GreaterThanOrEqualOperator
+            | Token::LessThanOperator
+            | Token::GreaterThanOperator
+            | Token::LikeKeyword
+            | Token::IsKeyword => {
                 let bp = BindingPower::COMPARISON;
                 (bp, BindingPower(bp.0 + 1))
             }
 
             // Logical AND
-            VB6Token::AndKeyword => {
+            Token::AndKeyword => {
                 let bp = BindingPower::AND;
                 (bp, BindingPower(bp.0 + 1))
             }
 
             // Logical OR
-            VB6Token::OrKeyword => {
+            Token::OrKeyword => {
                 let bp = BindingPower::OR;
                 (bp, BindingPower(bp.0 + 1))
             }
 
             // Logical XOR
-            VB6Token::XorKeyword => {
+            Token::XorKeyword => {
                 let bp = BindingPower::XOR;
                 (bp, BindingPower(bp.0 + 1))
             }
 
             // Logical EQV
-            VB6Token::EqvKeyword => {
+            Token::EqvKeyword => {
                 let bp = BindingPower::EQV;
                 (bp, BindingPower(bp.0 + 1))
             }
 
             // Logical IMP
-            VB6Token::ImpKeyword => {
+            Token::ImpKeyword => {
                 let bp = BindingPower::IMP;
                 (bp, BindingPower(bp.0 + 1))
             }
@@ -907,15 +903,15 @@ impl Parser<'_> {
         matches!(
             self.current_token(),
             Some(
-                VB6Token::Newline
-                    | VB6Token::ThenKeyword
-                    | VB6Token::ToKeyword
-                    | VB6Token::StepKeyword
-                    | VB6Token::ColonOperator
-                    | VB6Token::EndOfLineComment
-                    | VB6Token::RemComment
-                    | VB6Token::Comma
-                    | VB6Token::RightParenthesis
+                Token::Newline
+                    | Token::ThenKeyword
+                    | Token::ToKeyword
+                    | Token::StepKeyword
+                    | Token::ColonOperator
+                    | Token::EndOfLineComment
+                    | Token::RemComment
+                    | Token::Comma
+                    | Token::RightParenthesis
             )
         )
     }

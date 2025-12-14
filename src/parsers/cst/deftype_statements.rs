@@ -22,7 +22,7 @@
 //!
 //! [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa263421(v=vs.60))
 
-use crate::language::VB6Token;
+use crate::language::Token;
 use crate::parsers::SyntaxKind;
 
 use super::Parser;
@@ -73,19 +73,19 @@ impl Parser<'_> {
         // - Multiple ranges separated by commas: A, M-Z
         loop {
             // Check if we've reached the end of the line
-            if self.at_token(VB6Token::Newline) || self.is_at_end() {
+            if self.at_token(Token::Newline) || self.is_at_end() {
                 break;
             }
 
             // Consume the letter or range
             // This includes identifiers (for letters) and minus signs (for ranges)
-            if self.at_token(VB6Token::Identifier) {
+            if self.at_token(Token::Identifier) {
                 self.consume_token();
-            } else if self.at_token(VB6Token::SubtractionOperator) {
+            } else if self.at_token(Token::SubtractionOperator) {
                 self.consume_token();
-            } else if self.at_token(VB6Token::Comma) {
+            } else if self.at_token(Token::Comma) {
                 self.consume_token();
-            } else if self.at_token(VB6Token::Whitespace) {
+            } else if self.at_token(Token::Whitespace) {
                 self.consume_token();
             } else {
                 // Unknown token, consume it and continue
@@ -94,7 +94,7 @@ impl Parser<'_> {
         }
 
         // Consume the newline
-        if self.at_token(VB6Token::Newline) {
+        if self.at_token(Token::Newline) {
             self.consume_token();
         }
 

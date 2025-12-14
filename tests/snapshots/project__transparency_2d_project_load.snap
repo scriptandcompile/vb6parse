@@ -11,25 +11,9 @@ references:
     description: OLE Automation
 objects:
   - uuid: f9043c88-f6f2-101a-a3c9-08002b2f49fb
-    version:
-      - 49
-      - 46
-      - 50
-    unknown1:
-      - 48
-    file_name:
-      - 67
-      - 79
-      - 77
-      - 68
-      - 76
-      - 71
-      - 51
-      - 50
-      - 46
-      - 79
-      - 67
-      - 88
+    version: "1.2"
+    unknown1: "0"
+    file_name: COMDLG32.OCX
 modules: []
 classes:
   - name: FastDrawing

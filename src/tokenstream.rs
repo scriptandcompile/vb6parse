@@ -1,4 +1,4 @@
-use crate::language::VB6Token;
+use crate::language::Token;
 
 /// A stream of tokens with positional tracking.
 ///
@@ -9,7 +9,7 @@ pub struct TokenStream<'a> {
     /// The name of the source file these tokens came from
     pub source_file: String,
     /// The vector of tokens with their text content
-    pub tokens: Vec<(&'a str, VB6Token)>,
+    pub tokens: Vec<(&'a str, Token)>,
     /// Current position/offset in the token stream
     pub offset: usize,
 }
@@ -17,7 +17,7 @@ pub struct TokenStream<'a> {
 impl<'a> TokenStream<'a> {
     /// Creates a new `TokenStream` with the given source file name and tokens
     #[must_use]
-    pub fn new(source_file: String, tokens: Vec<(&'a str, VB6Token)>) -> Self {
+    pub fn new(source_file: String, tokens: Vec<(&'a str, Token)>) -> Self {
         Self {
             source_file,
             tokens,
@@ -27,12 +27,12 @@ impl<'a> TokenStream<'a> {
 
     /// Returns the current token without advancing the position
     #[must_use]
-    pub fn current(&self) -> Option<&(&'a str, VB6Token)> {
+    pub fn current(&self) -> Option<&(&'a str, Token)> {
         self.tokens.get(self.offset)
     }
 
     /// Returns the current token and advances the position
-    pub fn next(&mut self) -> Option<(&'a str, VB6Token)> {
+    pub fn next(&mut self) -> Option<(&'a str, Token)> {
         if self.offset < self.tokens.len() {
             let token = self.tokens[self.offset];
             self.offset += 1;
@@ -81,7 +81,7 @@ impl<'a> TokenStream<'a> {
 }
 
 impl<'a> std::ops::Index<usize> for TokenStream<'a> {
-    type Output = (&'a str, VB6Token);
+    type Output = (&'a str, Token);
 
     fn index(&self, index: usize) -> &Self::Output {
         &self.tokens[index]
@@ -89,8 +89,8 @@ impl<'a> std::ops::Index<usize> for TokenStream<'a> {
 }
 
 impl<'a> IntoIterator for TokenStream<'a> {
-    type Item = (&'a str, VB6Token);
-    type IntoIter = std::vec::IntoIter<(&'a str, VB6Token)>;
+    type Item = (&'a str, Token);
+    type IntoIter = std::vec::IntoIter<(&'a str, Token)>;
 
     fn into_iter(self) -> Self::IntoIter {
         self.tokens.into_iter()

@@ -1,13 +1,13 @@
 use crate::{
     language::controls::{
         Activation, Alignment, Appearance, BorderStyle, CausesValidation, DragMode, LinkMode,
-        MousePointer, OLEDragMode, OLEDropMode, TabStop, TextDirection, Visibility,
+        MousePointer, OLEDragMode, OLEDropMode, ReferenceOrValue, TabStop, TextDirection,
+        Visibility,
     },
     parsers::Properties,
-    VB6Color, VB_WINDOW_BACKGROUND, VB_WINDOW_TEXT,
+    Color, VB_WINDOW_BACKGROUND, VB_WINDOW_TEXT,
 };
 
-use bstr::BString;
 use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
@@ -48,35 +48,35 @@ pub enum MultiLine {
 /// Properties for a `TextBox` control.
 ///
 /// This is used as an enum variant of
-/// [`VB6ControlKind::TextBox`](crate::language::controls::VB6ControlKind::TextBox).
+/// [`ControlKind::TextBox`](crate::language::controls::ControlKind::TextBox).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
+/// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct TextBoxProperties {
     pub alignment: Alignment,
     pub appearance: Appearance,
-    pub back_color: VB6Color,
+    pub back_color: Color,
     pub border_style: BorderStyle,
     pub causes_validation: CausesValidation,
-    pub data_field: BString,
-    pub data_format: BString,
-    pub data_member: BString,
-    pub data_source: BString,
-    pub drag_icon: Option<DynamicImage>,
+    pub data_field: String,
+    pub data_format: String,
+    pub data_member: String,
+    pub data_source: String,
+    pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
     pub drag_mode: DragMode,
     pub enabled: Activation,
-    pub fore_color: VB6Color,
+    pub fore_color: Color,
     pub height: i32,
     pub help_context_id: i32,
     pub hide_selection: bool,
     pub left: i32,
-    pub link_item: BString,
+    pub link_item: String,
     pub link_mode: LinkMode,
     pub link_timeout: i32,
-    pub link_topic: BString,
+    pub link_topic: String,
     pub locked: bool,
     pub max_length: i32,
-    pub mouse_icon: Option<DynamicImage>,
+    pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
     pub mouse_pointer: MousePointer,
     pub multi_line: MultiLine,
     pub ole_drag_mode: OLEDragMode,
@@ -86,8 +86,8 @@ pub struct TextBoxProperties {
     pub scroll_bars: ScrollBars,
     pub tab_index: i32,
     pub tab_stop: TabStop,
-    pub text: BString,
-    pub tool_tip_text: BString,
+    pub text: String,
+    pub tool_tip_text: String,
     pub top: i32,
     pub visible: Visibility,
     pub whats_this_help_id: i32,
@@ -198,110 +198,102 @@ impl Serialize for TextBoxProperties {
     }
 }
 
-impl<'a> From<Properties<'a>> for TextBoxProperties {
-    fn from(prop: Properties<'a>) -> Self {
+impl From<Properties> for TextBoxProperties {
+    fn from(prop: Properties) -> Self {
         let mut text_box_prop = TextBoxProperties::default();
 
-        text_box_prop.alignment = prop.get_property(b"Alignment".into(), text_box_prop.alignment);
-        text_box_prop.appearance =
-            prop.get_property(b"Appearance".into(), text_box_prop.appearance);
-        text_box_prop.back_color = prop.get_color(b"BackColor".into(), text_box_prop.back_color);
-        text_box_prop.border_style =
-            prop.get_property(b"BorderStyle".into(), text_box_prop.border_style);
+        text_box_prop.alignment = prop.get_property("Alignment", text_box_prop.alignment);
+        text_box_prop.appearance = prop.get_property("Appearance", text_box_prop.appearance);
+        text_box_prop.back_color = prop.get_color("BackColor", text_box_prop.back_color);
+        text_box_prop.border_style = prop.get_property("BorderStyle", text_box_prop.border_style);
         text_box_prop.causes_validation =
-            prop.get_property(b"CausesValidation".into(), text_box_prop.causes_validation);
-        text_box_prop.data_field = match prop.get(b"DataField".into()) {
+            prop.get_property("CausesValidation", text_box_prop.causes_validation);
+        text_box_prop.data_field = match prop.get("DataField") {
             Some(data_field) => data_field.into(),
             None => text_box_prop.data_field,
         };
-        text_box_prop.data_format = match prop.get(b"DataFormat".into()) {
+        text_box_prop.data_format = match prop.get("DataFormat") {
             Some(data_format) => data_format.into(),
             None => text_box_prop.data_format,
         };
-        text_box_prop.data_member = match prop.get(b"DataMember".into()) {
+        text_box_prop.data_member = match prop.get("DataMember") {
             Some(data_member) => data_member.into(),
             None => text_box_prop.data_member,
         };
-        text_box_prop.data_source = match prop.get(b"DataSource".into()) {
+        text_box_prop.data_source = match prop.get("DataSource") {
             Some(data_source) => data_source.into(),
             None => text_box_prop.data_source,
         };
 
         // drag_icon: Option<DynamicImage>,
 
-        text_box_prop.drag_mode = prop.get_property(b"DragMode".into(), text_box_prop.drag_mode);
-        text_box_prop.enabled = prop.get_property(b"Enabled".into(), text_box_prop.enabled);
-        text_box_prop.fore_color = prop.get_color(b"ForeColor".into(), text_box_prop.fore_color);
-        text_box_prop.height = prop.get_i32(b"Height".into(), text_box_prop.height);
+        text_box_prop.drag_mode = prop.get_property("DragMode", text_box_prop.drag_mode);
+        text_box_prop.enabled = prop.get_property("Enabled", text_box_prop.enabled);
+        text_box_prop.fore_color = prop.get_color("ForeColor", text_box_prop.fore_color);
+        text_box_prop.height = prop.get_i32("Height", text_box_prop.height);
         text_box_prop.help_context_id =
-            prop.get_i32(b"HelpContextID".into(), text_box_prop.help_context_id);
-        text_box_prop.hide_selection =
-            prop.get_bool(b"HideSelection".into(), text_box_prop.hide_selection);
-        text_box_prop.left = prop.get_i32(b"Left".into(), text_box_prop.left);
-        text_box_prop.link_item = match prop.get(b"LinkItem".into()) {
+            prop.get_i32("HelpContextID", text_box_prop.help_context_id);
+        text_box_prop.hide_selection = prop.get_bool("HideSelection", text_box_prop.hide_selection);
+        text_box_prop.left = prop.get_i32("Left", text_box_prop.left);
+        text_box_prop.link_item = match prop.get("LinkItem") {
             Some(link_item) => link_item.into(),
             None => text_box_prop.link_item,
         };
-        text_box_prop.link_mode = prop.get_property(b"LinkMode".into(), text_box_prop.link_mode);
-        text_box_prop.link_timeout =
-            prop.get_i32(b"LinkTimeout".into(), text_box_prop.link_timeout);
-        text_box_prop.link_topic = match prop.get(b"LinkTopic".into()) {
+        text_box_prop.link_mode = prop.get_property("LinkMode", text_box_prop.link_mode);
+        text_box_prop.link_timeout = prop.get_i32("LinkTimeout", text_box_prop.link_timeout);
+        text_box_prop.link_topic = match prop.get("LinkTopic") {
             Some(link_topic) => link_topic.into(),
             None => text_box_prop.link_topic,
         };
-        text_box_prop.locked = prop.get_bool(b"Locked".into(), text_box_prop.locked);
-        text_box_prop.max_length = prop.get_i32(b"MaxLength".into(), text_box_prop.max_length);
+        text_box_prop.locked = prop.get_bool("Locked", text_box_prop.locked);
+        text_box_prop.max_length = prop.get_i32("MaxLength", text_box_prop.max_length);
 
         // mouse_icon: Option<DynamicImage>,
 
         text_box_prop.mouse_pointer =
-            prop.get_property(b"MousePointer".into(), text_box_prop.mouse_pointer);
+            prop.get_property("MousePointer", text_box_prop.mouse_pointer);
 
-        text_box_prop.multi_line = prop.get_property(b"MultiLine".into(), text_box_prop.multi_line);
+        text_box_prop.multi_line = prop.get_property("MultiLine", text_box_prop.multi_line);
 
-        text_box_prop.ole_drag_mode =
-            prop.get_property(b"OLEDragMode".into(), text_box_prop.ole_drag_mode);
+        text_box_prop.ole_drag_mode = prop.get_property("OLEDragMode", text_box_prop.ole_drag_mode);
 
-        text_box_prop.ole_drop_mode =
-            prop.get_property(b"OLEDropMode".into(), text_box_prop.ole_drop_mode);
+        text_box_prop.ole_drop_mode = prop.get_property("OLEDropMode", text_box_prop.ole_drop_mode);
 
-        text_box_prop.password_char = match prop.get(b"PasswordChar".into()) {
+        text_box_prop.password_char = match prop.get("PasswordChar") {
             Some(password_char) => {
                 if password_char.is_empty() {
                     None
                 } else {
-                    Some(password_char[0] as char)
+                    password_char.chars().next()
                 }
             }
             None => text_box_prop.password_char,
         };
 
-        text_box_prop.right_to_left =
-            prop.get_property(b"RightToLeft".into(), text_box_prop.right_to_left);
+        text_box_prop.right_to_left = prop.get_property("RightToLeft", text_box_prop.right_to_left);
 
-        text_box_prop.scroll_bars =
-            prop.get_property(b"ScrollBars".into(), text_box_prop.scroll_bars);
+        text_box_prop.scroll_bars = prop.get_property("ScrollBars", text_box_prop.scroll_bars);
 
-        text_box_prop.tab_index = prop.get_i32(b"TabIndex".into(), text_box_prop.tab_index);
+        text_box_prop.tab_index = prop.get_i32("TabIndex", text_box_prop.tab_index);
 
-        text_box_prop.tab_stop = prop.get_property(b"TabStop".into(), text_box_prop.tab_stop);
+        text_box_prop.tab_stop = prop.get_property("TabStop", text_box_prop.tab_stop);
 
         text_box_prop.text = match prop.get("Text".into()) {
             Some(text) => text.into(),
             None => "".into(),
         };
-        text_box_prop.tool_tip_text = match prop.get(b"ToolTipText".into()) {
+        text_box_prop.tool_tip_text = match prop.get("ToolTipText") {
             Some(tool_tip_text) => tool_tip_text.into(),
             None => "".into(),
         };
-        text_box_prop.top = prop.get_i32(b"Top".into(), text_box_prop.top);
+        text_box_prop.top = prop.get_i32("Top", text_box_prop.top);
 
-        text_box_prop.visible = prop.get_property(b"Visible".into(), text_box_prop.visible);
+        text_box_prop.visible = prop.get_property("Visible", text_box_prop.visible);
 
         text_box_prop.whats_this_help_id =
-            prop.get_i32(b"WhatsThisHelpID".into(), text_box_prop.whats_this_help_id);
+            prop.get_i32("WhatsThisHelpID", text_box_prop.whats_this_help_id);
 
-        text_box_prop.width = prop.get_i32(b"Width".into(), text_box_prop.width);
+        text_box_prop.width = prop.get_i32("Width", text_box_prop.width);
 
         text_box_prop
     }
