@@ -30,11 +30,10 @@ pub enum Color {
 }
 
 impl Color {
-
     /// Converts the `Color` to a VB6 formatted string.
-    /// 
+    ///
     /// # Returns
-    /// 
+    ///
     /// A string formatted as '&H00BBGGRR&' for RGB colors
     /// or '&H800000II&' for system colors.
     #[must_use]
