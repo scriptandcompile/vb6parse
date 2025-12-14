@@ -419,8 +419,8 @@ fn extract_properties(cst: &crate::parsers::ConcreteSyntaxTree) -> ClassProperti
 
 #[cfg(test)]
 mod tests {
-    use crate::sourcefile;
     use super::*;
+    use crate::sourcefile;
 
     #[test]
     fn class_file_valid() {
@@ -496,9 +496,9 @@ Option Explicit
         assert!(result.has_failures());
     }
 
-        #[test]
-        fn class_header_valid() {
-            let input = b"VERSION 1.0 CLASS\r
+    #[test]
+    fn class_header_valid() {
+        let input = b"VERSION 1.0 CLASS\r
     BEGIN\r
         MultiUse = -1  'True\r
         Persistable = 0  'NotPersistable\r
@@ -512,12 +512,13 @@ Option Explicit
     Attribute VB_PredeclaredId = False\r
     Attribute VB_Exposed = False";
 
-            let sourcefile = sourcefile::SourceFile::decode_with_replacement("test.cls", input).unwrap();
+        let sourcefile =
+            sourcefile::SourceFile::decode_with_replacement("test.cls", input).unwrap();
 
-            let result = ClassFile::parse(&sourcefile);
+        let result = ClassFile::parse(&sourcefile);
 
-            assert!(result.has_result());
-        }
+        assert!(result.has_result());
+    }
 
     #[test]
     fn version_valid() {
