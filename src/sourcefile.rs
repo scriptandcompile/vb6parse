@@ -7,6 +7,10 @@ use crate::parsers::SourceStream;
 
 use encoding_rs::{mem::utf8_latin1_up_to, CoderResult, WINDOWS_1252};
 
+/// Represents a VB6 source file with its content and filename.
+/// This struct provides methods to read and decode source files
+/// using Windows-1252 encoding.
+#[derive(Debug, Clone)]
 pub struct SourceFile {
     file_content: String,
     pub file_name: String,
@@ -76,6 +80,18 @@ impl SourceFile {
         })
     }
 
+    /// Decodes the source code using Windows-1252 encoding with replacement for invalid characters.
+    ///
+    /// # Arguments
+    ///
+    /// * `file_name` - The name of the source file
+    /// * `source_code` - The byte slice containing the source code to decode
+    ///
+    /// # Returns
+    ///
+    /// Returns a `Result` containing either:
+    /// - `Ok(SourceFile)` - Successfully decoded source file
+    /// - `Err(ErrorDetails)` - Error decoding the source code
     pub fn decode_with_replacement(
         file_name: impl Into<String>,
         source_code: &[u8],
@@ -161,6 +177,18 @@ Currently, only latin-1 source code is supported."
         Ok(source_file)
     }
 
+    /// Decodes the source code using Windows-1252 encoding without allowing replacement for invalid characters.
+    ///
+    /// # Arguments
+    ///
+    /// * `file_name` - The name of the source file
+    /// * `source_code` - The byte slice containing the source code to decode
+    ///
+    /// # Returns
+    ///
+    /// Returns a `Result` containing either:
+    /// - `Ok(SourceFile)` - Successfully decoded source file
+    /// - `Err(ErrorDetails)` - Error decoding the source code
     pub fn decode(
         file_name: impl Into<String>,
         source_code: &[u8],
@@ -168,6 +196,14 @@ Currently, only latin-1 source code is supported."
         Self::decode_internal(file_name, source_code, false)
     }
 
+    /// Creates a `SourceStream` from the `SourceFile`.
+    ///
+    /// This method initializes a `SourceStream` using the file name and content
+    /// of the `SourceFile`.
+    ///
+    /// # Returns
+    ///
+    /// Returns a `SourceStream` instance.
     #[must_use]
     pub fn get_source_stream(&'_ self) -> SourceStream<'_> {
         let source_stream = SourceStream::new(self.file_name.clone(), self.file_content.as_str());
