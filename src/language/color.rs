@@ -29,6 +29,27 @@ pub enum Color {
     },
 }
 
+impl Color {
+
+    /// Converts the `Color` to a VB6 formatted string.
+    /// 
+    /// # Returns
+    /// 
+    /// A string formatted as '&H00BBGGRR&' for RGB colors
+    /// or '&H800000II&' for system colors.
+    #[must_use]
+    pub fn to_vb_string(&self) -> String {
+        match self {
+            Color::RGB { red, green, blue } => {
+                format!("&H00{:02X}{:02X}{:02X}&", blue, green, red)
+            }
+            Color::System { index } => {
+                format!("&H80{:06X}&", index)
+            }
+        }
+    }
+}
+
 /// A `Color` with red, green, and blue values of 0x00.
 /// This is the same as calling `Color::new(0x00, 0x00, 0x00)`.
 /// This corresponds to the VB6 color constant `vbBlack`.
