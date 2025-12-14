@@ -10,6 +10,28 @@ use uuid::Uuid;
 use crate::language::Color;
 use crate::language::StartUpPosition;
 
+/// A group of properties, which may contain nested property groups.
+///
+/// # Examples
+///
+/// ```rust
+/// use vb6parse::parsers::properties::PropertyGroup;
+/// use vb6parse::language::Color;
+/// use vb6parse::VB_RED;
+/// use std::collections::HashMap;
+/// use either::Either;
+/// use uuid::Uuid;
+/// let mut properties = HashMap::new();
+/// properties.insert("BackColor".to_string(), Either::Left(VB_RED.to_vb_string()));
+/// let group = PropertyGroup {
+///     name: "FormProperties".to_string(),
+///     guid: Some(Uuid::parse_str("123e4567-e89b-12d3-a456-426614174000").unwrap()),
+///     properties,
+/// };
+/// assert_eq!(group.name, "FormProperties");
+/// assert_eq!(group.guid.unwrap().to_string(), "123e4567-e89b-12d3-a456-426614174000");
+/// assert_eq!(group.properties.get("BackColor").unwrap(), &Either::Left(VB_RED.to_vb_string()));
+/// ```
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct PropertyGroup {
     pub name: String,
