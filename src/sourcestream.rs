@@ -21,11 +21,6 @@ pub enum Comparator {
     CaseInsensitive,
 }
 
-pub enum SourceStreamError {
-    EmptyContents,
-    MalformedContents,
-}
-
 impl<'a> SourceStream<'a> {
     /// Creates a new `SourceStream` with the given file name and contents.
     ///
@@ -39,11 +34,19 @@ impl<'a> SourceStream<'a> {
         }
     }
 
+    /// Resets the offset to the start of the stream.
     pub fn reset_to_start(&mut self) {
         self.offset = 0;
     }
 
     /// Moves the offset forward by `count` characters in the stream.
+    ///
+    /// If the `count` exceeds the length of the contents, the offset
+    /// is set to the end of the contents.
+    ///
+    /// Note:
+    /// This method moves the offset by characters, not bytes. It respects
+    /// UTF-8 character boundaries.
     pub fn forward(&mut self, count: usize) {
         let end_offset = self.offset + count;
 
@@ -54,6 +57,10 @@ impl<'a> SourceStream<'a> {
         }
     }
 
+    /// Moves the offset forward to the next line in the stream.
+    ///
+    /// This method consumes characters until a newline character
+    /// is encountered, and then consumes the newline character itself.
     pub fn forward_to_next_line(&mut self) {
         let _ = self.take_until_newline();
         self.take_newline();
@@ -71,11 +78,17 @@ impl<'a> SourceStream<'a> {
         self.offset
     }
 
+    /// Returns the start offset of the current line in the stream.
     #[must_use]
     pub fn start_of_line(&self) -> usize {
         self.start_of_line_from(self.offset)
     }
 
+    /// Returns the start offset of the line containing the given `offset`.
+    ///
+    /// This method searches backwards from the given `offset` to find the
+    /// last newline character and returns the position after it. If no newline
+    /// is found, it returns `0`, indicating the start of the stream.
     #[must_use]
     pub fn start_of_line_from(&self, offset: usize) -> usize {
         // Find the last newline character before the current offset
@@ -86,11 +99,18 @@ impl<'a> SourceStream<'a> {
         }
     }
 
+    /// Returns the end offset of the current line in the stream.
     #[must_use]
     pub fn end_of_line(&self) -> usize {
         self.end_of_line_from(self.offset)
     }
 
+    /// Returns the end offset of the line containing the given `offset`.
+    ///
+    /// This method searches forwards from the given `offset` to find the
+    /// next newline character and returns its position. If no newline
+    /// is found, it returns the length of the contents, indicating the
+    /// end of the stream.
     #[must_use]
     pub fn end_of_line_from(&self, offset: usize) -> usize {
         // Find the next newline character after the current offset
@@ -214,6 +234,10 @@ impl<'a> SourceStream<'a> {
         Some(result)
     }
 
+    /// Takes a specific number of characters from the stream.
+    ///
+    /// If the requested number of characters exceeds the remaining characters
+    /// in the stream, it returns `None`.
     #[must_use]
     pub fn take_count(&mut self, count: usize) -> Option<&'a str> {
         let end_offset = self.offset + count;
@@ -229,7 +253,7 @@ impl<'a> SourceStream<'a> {
     /// Takes characters from the stream until a character that matches the
     /// compare `str` is encountered or the end of the stream is reached.
     ///
-    /// If a match is found, it returns a tuple containing an `str` for the
+    /// If a match is found, it returns a tuple containing a `str` for the
     /// characters taken from the stream until the match was found,
     /// and the matched characters.
     ///
@@ -276,6 +300,13 @@ impl<'a> SourceStream<'a> {
         None
     }
 
+    /// Takes characters from the stream until a character that does not match
+    /// any of the `compare_set` strings is encountered or the end of the stream
+    /// is reached.
+    ///
+    /// If a non-matching character is found, it returns a tuple containing a `str`
+    /// for the characters taken from the stream until the non-matching character
+    /// was found, and the non-matching character.
     pub fn take_until_not(
         &mut self,
         compare_set: &[&str],
@@ -571,6 +602,8 @@ impl<'a> SourceStream<'a> {
         None
     }
 
+    /// Generates an `ErrorDetails` struct for the current offset in the stream
+    /// with the provided `error_kind`.
     #[must_use]
     pub fn generate_error<T: ToString>(&self, error_kind: T) -> ErrorDetails<'a, T> {
         ErrorDetails {
@@ -583,6 +616,8 @@ impl<'a> SourceStream<'a> {
         }
     }
 
+    /// Generates an `ErrorDetails` struct for the specified `offset` in the stream
+    /// with the provided `error_kind`.
     #[must_use]
     pub fn generate_error_at<T: ToString>(
         &self,
@@ -599,6 +634,12 @@ impl<'a> SourceStream<'a> {
         }
     }
 
+    /// Generates an `ErrorDetails` struct for the specified line start, offset,
+    /// and line end in the stream with the provided `error_kind`.
+    ///
+    /// The method ensures that the provided offsets are in the correct order
+    /// and adjusts them if necessary. If the `line_end` exceeds the length of
+    /// the contents, it is set to the length of the contents.
     #[must_use]
     pub fn generate_bounded_error_at<T: ToString>(
         &self,
