@@ -329,7 +329,7 @@ fn extract_properties_block(block: &CstNode) -> Option<Control> {
     // First pass: determine type of each child block
     let mut child_controls: Vec<Control> = Vec::new();
     let mut menu_blocks: Vec<&CstNode> = Vec::new();
-    
+
     for child_block in child_blocks {
         // Check if this is a menu by looking at its PropertiesType
         let mut is_menu = false;
@@ -342,7 +342,7 @@ fn extract_properties_block(block: &CstNode) -> Option<Control> {
                 }
             }
         }
-        
+
         if is_menu {
             menu_blocks.push(child_block);
         } else {
@@ -351,7 +351,7 @@ fn extract_properties_block(block: &CstNode) -> Option<Control> {
             }
         }
     }
-    
+
     // Extract menus
     let mut menus: Vec<MenuControl> = Vec::new();
     for menu_block in menu_blocks {
@@ -460,7 +460,7 @@ fn extract_menu_control(block: &CstNode) -> Option<MenuControl> {
     let mut menu_name = String::new();
     let mut properties = Properties::new();
     let mut child_menu_blocks: Vec<&CstNode> = Vec::new();
-    
+
     for child in &block.children {
         match child.kind {
             SyntaxKind::PropertiesName => {
@@ -488,7 +488,7 @@ fn extract_menu_control(block: &CstNode) -> Option<MenuControl> {
             _ => {}
         }
     }
-    
+
     // Recursively extract sub-menus
     let mut sub_menus: Vec<MenuControl> = Vec::new();
     for child_menu_block in child_menu_blocks {
@@ -496,13 +496,13 @@ fn extract_menu_control(block: &CstNode) -> Option<MenuControl> {
             sub_menus.push(sub_menu);
         }
     }
-    
+
     let tag = properties.get("Tag").cloned().unwrap_or_default();
     let index = properties
         .get("Index")
         .and_then(|s| s.parse().ok())
         .unwrap_or(0);
-    
+
     Some(MenuControl {
         name: menu_name,
         tag,

@@ -1,7 +1,7 @@
 //! Tokenization module for VB6 source code.
-//! 
+//!
 //! Provides functionality to tokenize VB6 source code into a stream of tokens.
-//! 
+//!
 //! # Example
 //! ```rust
 //! use vb6parse::language::Token;
@@ -25,25 +25,25 @@
 //! assert_eq!(tokens[5], (" ", Token::Whitespace));
 //! assert_eq!(tokens[6], ("Integer", Token::IntegerKeyword));
 //! ```
-//! 
+//!
 //! # Overview
-//! 
+//!
 //! The `tokenize` module provides functionality to parse VB6 source code into a stream of tokens.
 //! This is a crucial step in the parsing process, as it breaks down the source code into manageable pieces
 //! that can be further analyzed and processed.
-//! 
+//!
 //! The main function in this module is `tokenize`, which takes a `SourceStream` as input
 //! and returns a `ParseResult` containing a `TokenStream` and/or a list of errors.
-//! 
+//!
 //! The module uses lookup tables to efficiently identify keywords and symbols in the VB6 language.
 //! These tables map strings to their corresponding `Token` enum variants, allowing for quick
 //! identification during the tokenization process.
-//! 
+//!
 //! The tokenization process handles various types of tokens, including keywords, symbols,
 //! identifiers, literals (string, numeric, date), comments, and whitespace.
-//! 
+//!
 //! # See Also
-//! 
+//!
 //! - [`SourceStream`]: Low-level character stream with offset tracking and line/column info
 //! - [`TokenStream`]: Tokenized stream of VB6 tokens
 //! - [`ParseResult`]: Result type for parsing operations, including errors

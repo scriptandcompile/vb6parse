@@ -123,17 +123,17 @@ pub enum Exposed {
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct FileAttributes {
     /// The name of the file.
-    pub name: String,                     // Attribute VB_Name = "Organism"
+    pub name: String, // Attribute VB_Name = "Organism"
     /// The status of the global name space of the file.
-    pub global_name_space: NameSpace,     // (True/False) Attribute VB_GlobalNameSpace = False
+    pub global_name_space: NameSpace, // (True/False) Attribute VB_GlobalNameSpace = False
     /// The creatable status of the file.
-    pub creatable: Creatable,             // (True/False) Attribute VB_Creatable = True
+    pub creatable: Creatable, // (True/False) Attribute VB_Creatable = True
     /// The pre-declared ID status of the file.
-    pub pre_declared_id: PreDeclaredID,   // (True/False) Attribute VB_PredeclaredId = False
+    pub pre_declared_id: PreDeclaredID, // (True/False) Attribute VB_PredeclaredId = False
     /// The exposed status of the file.
-    pub exposed: Exposed,                 // (True/False) Attribute VB_Exposed = False
+    pub exposed: Exposed, // (True/False) Attribute VB_Exposed = False
     /// The description of the file.
-    pub description: Option<String>,      // Attribute VB_Description = "Description"
+    pub description: Option<String>, // Attribute VB_Description = "Description"
     /// Additional attributes of the file.
     pub ext_key: HashMap<String, String>, // Additional attributes
 }

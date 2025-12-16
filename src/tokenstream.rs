@@ -1,19 +1,19 @@
 //! Module defining the `TokenStream` structure for managing a stream of tokens
 //! with positional tracking.
-//! 
+//!
 //! This module provides the `TokenStream` struct which holds a vector of tokens
 //! along with the source file name and current position within the token stream.
 //! It includes methods for navigating through the tokens, such as advancing,
 //! backtracking, and checking the current token.
-//! 
+//!
 //! # Example
 //! ```rust
 //! use vb6parse::language::Token;
 //! use vb6parse::tokenstream::TokenStream;
-//! 
+//!
 //! let tokens = vec![("Dim", Token::DimKeyword), (" ", Token::Whitespace), ("x", Token::Identifier)];
 //! let mut stream = TokenStream::new("test.bas".to_string(), tokens);
-//! 
+//!
 //! assert_eq!(stream.current(), Some(&("Dim", Token::DimKeyword)));
 //! stream.advance();
 //! assert_eq!(stream.current(), Some(&(" ", Token::Whitespace)));
