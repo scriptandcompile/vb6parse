@@ -1,3 +1,22 @@
+//! Provides a character stream abstraction for parsing source files.
+//! It includes functionality for tracking the current position in the stream,
+//! as well as methods for peeking and consuming characters based on various criteria.
+//! 
+//! This module is essential for building tokenizers that need to read and analyze
+//! source code character by character.
+//! 
+//! # Example
+//! ```rust
+//! use vb6parse::SourceStream;
+//! 
+//! let source_stream = SourceStream::new("example.bas", "Dim x As Integer");
+//! assert_eq!(source_stream.peek(3), Some("Dim"));
+//! ```
+//! 
+//! # See Also
+//! - [`SourceFile`]: for reading and decoding source files
+//! - [`ErrorDetails`]: for error handling details
+
 use std::borrow::Cow;
 
 use crate::errors::ErrorDetails;
@@ -7,8 +26,11 @@ use crate::errors::ErrorDetails;
 /// indicating the current position in the stream.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct SourceStream<'a> {
+    /// The name of the source file.
     pub file_name: String,
+    /// The contents of the source file.
     pub contents: &'a str,
+    /// The current offset in the stream.
     pub offset: usize,
 }
 
@@ -17,7 +39,9 @@ pub struct SourceStream<'a> {
 /// It can be either case-sensitive or case-insensitive.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Comparator {
+    /// A case-sensitive comparison.
     CaseSensitive,
+    /// A case-insensitive comparison.
     CaseInsensitive,
 }
 
