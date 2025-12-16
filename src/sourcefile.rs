@@ -8,7 +8,7 @@
 //! source code before further processing.
 //! 
 //! # Example
-//! ```rust
+//! ```no_run
 //! use vb6parse::SourceFile;
 //! 
 //! let source_file = SourceFile::from_file("path/to/module.bas").unwrap();
