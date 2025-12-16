@@ -1,3 +1,33 @@
+//! This module provides the `SourceFile` struct, which represents a VB6
+//! source file along with its content and filename. It includes methods to
+//! read a source file from disk and decode its content using Windows-1252
+//! encoding, with options for handling invalid characters.
+//! 
+//! The `SourceFile` struct is essential for parsing VB6 source files,
+//! as it provides the necessary functionality to read and decode the
+//! source code before further processing.
+//! 
+//! # Example
+//! ```rust
+//! use vb6parse::SourceFile;
+//! 
+//! let source_file = SourceFile::from_file("path/to/module.bas").unwrap();
+//! ```
+//! 
+//! # Errors
+//! The methods in this module return `ErrorDetails` when errors occur
+//! during file reading or decoding
+//! 
+//! # Encoding
+//! The library assumes that VB6 source files are encoded in Windows-1252.
+//! If the source file contains invalid characters, the library can either
+//! replace them with a placeholder or return an error, depending on the
+//! method used.
+//! 
+//! # See Also
+//! - [`SourceStream`](crate::parsers::SourceStream) for low-level character stream
+//! - [`ErrorDetails`](crate::errors::ErrorDetails) for error handling details
+
 use std::borrow::Cow;
 use std::fs;
 use std::path::Path;
@@ -12,7 +42,9 @@ use encoding_rs::{mem::utf8_latin1_up_to, CoderResult, WINDOWS_1252};
 /// using Windows-1252 encoding.
 #[derive(Debug, Clone)]
 pub struct SourceFile {
+    /// The content of the source file as a `String`.
     file_content: String,
+    /// The name of the source file.
     pub file_name: String,
 }
 
