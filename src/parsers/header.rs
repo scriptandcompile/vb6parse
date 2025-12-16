@@ -25,7 +25,9 @@ pub struct FileFormatVersion {
 /// `VB_GlobalNameSpace` of 'True' means the class is in the global name space.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
 pub enum NameSpace {
+    /// The class is in the global name space.
     Global,
+    /// The class is in the local name space.
     #[default]
     Local,
 }
@@ -36,7 +38,9 @@ pub enum NameSpace {
 /// If False, the class can only be created from within the class itself.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
 pub enum Creatable {
+    /// The class cannot be created from outside the class itself.
     False,
+    /// The class can be created from anywhere.
     #[default]
     True,
 }
@@ -53,8 +57,10 @@ pub enum Creatable {
 /// access semantics with the VB6 intrinsic classes.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
 pub enum PreDeclaredID {
+    /// The class does not have a pre-declared ID.
     #[default]
     False,
+    /// The class has a pre-declared ID.
     True,
 }
 
@@ -102,8 +108,10 @@ pub enum PreDeclaredID {
 /// Any module that can access the class can create instances of it.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
 pub enum Exposed {
+    /// The class is not exposed.
     #[default]
     False,
+    /// The class is exposed.
     True,
 }
 
@@ -114,12 +122,19 @@ pub enum Exposed {
 /// They are only visible in the file property explorer.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct FileAttributes {
+    /// The name of the file.
     pub name: String,                     // Attribute VB_Name = "Organism"
+    /// The status of the global name space of the file.
     pub global_name_space: NameSpace,     // (True/False) Attribute VB_GlobalNameSpace = False
+    /// The creatable status of the file.
     pub creatable: Creatable,             // (True/False) Attribute VB_Creatable = True
+    /// The pre-declared ID status of the file.
     pub pre_declared_id: PreDeclaredID,   // (True/False) Attribute VB_PredeclaredId = False
+    /// The exposed status of the file.
     pub exposed: Exposed,                 // (True/False) Attribute VB_Exposed = False
+    /// The description of the file.
     pub description: Option<String>,      // Attribute VB_Description = "Description"
+    /// Additional attributes of the file.
     pub ext_key: HashMap<String, String>, // Additional attributes
 }
 
