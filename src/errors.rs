@@ -11,6 +11,29 @@ use std::fmt::Debug;
 
 use ariadne::{Label, Report, ReportKind, Source};
 
+/// Represents detailed information about an error that occurred during parsing.
+/// This struct contains the source name, source content, error offset,
+/// line start and end positions, and the kind of error.
+///
+/// Generic parameter `T` represents the type of error kind.
+/// It must implement the `ToString` trait to allow for error message formatting.
+///
+/// Example usage:
+/// ```rust
+/// use vb6parse::errors::ErrorDetails;
+/// use vb6parse::errors::CodeErrorKind;
+/// use std::borrow::Cow;
+///
+/// let error_details = ErrorDetails {
+///     source_name: "example.cls".to_string(),
+///     source_content: Cow::Borrowed("Some VB6 code here..."),
+///     error_offset: 10,
+///     line_start: 1,
+///     line_end: 1,
+///     kind: CodeErrorKind::UnknownToken { token: "???".to_string() },
+/// };
+/// error_details.print();
+/// ```
 #[derive(Debug, Clone)]
 pub struct ErrorDetails<'a, T> {
     pub source_name: String,
@@ -25,6 +48,24 @@ impl<T> ErrorDetails<'_, T>
 where
     T: ToString,
 {
+    /// Print the `ErrorDetails` using ariadne for formatting
+    ///
+    /// Example usage:
+    /// ```rust
+    /// use vb6parse::errors::ErrorDetails;
+    /// use vb6parse::errors::CodeErrorKind;
+    /// use std::borrow::Cow;
+    ///
+    /// let error_details = ErrorDetails {
+    /// source_name: "example.cls".to_string(),
+    ///   source_content: Cow::Borrowed("Some VB6 code here..."),
+    ///   error_offset: 10,
+    ///   line_start: 1,
+    ///   line_end: 1,
+    ///   kind: CodeErrorKind::UnknownToken { token: "???".to_string() },
+    /// };
+    /// error_details.print();
+    /// ```
     pub fn print(&self) {
         let cache = (
             self.source_name.clone(),
@@ -51,6 +92,25 @@ where
         }
     }
 
+    /// Eprint the `ErrorDetails` using ariadne for formatting
+    ///
+    /// Example usage:
+    /// ```rust
+    /// use vb6parse::errors::ErrorDetails;
+    /// use vb6parse::errors::CodeErrorKind;
+    /// use std::borrow::Cow;
+    /// let error_details = ErrorDetails {
+    ///     source_name: "example.cls".to_string(),
+    ///     source_content: Cow::Borrowed("Some VB6 code here..."),
+    ///     error_offset: 10,
+    ///     line_start: 1,
+    ///     line_end: 1,
+    ///     kind: CodeErrorKind::UnknownToken {
+    ///         token: "???".to_string(),
+    ///     },
+    /// };
+    /// error_details.eprint();
+    /// ```
     pub fn eprint(&self) {
         let cache = (
             self.source_name.clone(),
@@ -111,12 +171,20 @@ where
     }
 }
 
+/// Represents errors related to source file parsing.
+/// This enum defines various kinds of source file errors
+/// that can occur during the parsing process.
+/// Each variant includes a descriptive error message.
 #[derive(thiserror::Error, Debug, Clone)]
 pub enum SourceFileErrorKind {
     #[error("Unable to parse source file: {message}")]
     MalformedSource { message: String },
 }
 
+/// Represents errors related to code parsing.
+/// This enum defines various kinds of code errors
+/// that can occur during the parsing process.
+/// Each variant includes a descriptive error message.
 #[derive(thiserror::Error, Debug, Clone)]
 pub enum CodeErrorKind {
     #[error("Variable names in VB6 have a maximum length of 255 characters.")]
@@ -217,6 +285,10 @@ impl<'a> From<ErrorDetails<'a, CodeErrorKind>> for ErrorDetails<'a, ClassErrorKi
     }
 }
 
+/// Represents errors related to module parsing.
+/// This enum defines various kinds of module errors
+/// that can occur during the parsing process.
+/// Each variant includes a descriptive error message.
 #[derive(thiserror::Error, Debug, Clone)]
 pub enum ModuleErrorKind {
     #[error("The 'Attribute' keyword is missing from the module file header.")]
@@ -253,6 +325,10 @@ impl<'a> From<ErrorDetails<'a, CodeErrorKind>> for ErrorDetails<'a, ModuleErrorK
     }
 }
 
+/// Represents errors related to project parsing.
+/// This enum defines various kinds of project errors
+/// that can occur during the parsing process.
+/// Each variant includes a descriptive error message.
 #[derive(thiserror::Error, Debug, Clone)]
 pub enum ProjectErrorKind<'a> {
     #[error("A section header was expected but was not terminated with a ']' character.")]
@@ -416,6 +492,9 @@ pub enum PropertyError {
     InvalidPropertyValueTrueFalse,
 }
 
+/// Represents errors related to form parsing.
+/// This enum defines various kinds of form errors
+/// that can occur during the parsing process.
 #[derive(thiserror::Error, Debug)]
 pub enum FormErrorKind {
     #[error("The 'VERSION' keyword is missing from the form file header.")]
