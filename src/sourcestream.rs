@@ -14,7 +14,7 @@
 //! ```
 //! 
 //! # See Also
-//! - [`SourceFile`]: for reading and decoding source files
+//! - [`SourceFile`](crate::sourcefile::SourceFile): for reading and decoding source files
 //! - [`ErrorDetails`]: for error handling details
 
 use std::borrow::Cow;

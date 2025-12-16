@@ -48,7 +48,7 @@
 //! - [`TokenStream`]: Tokenized stream of VB6 tokens
 //! - [`ParseResult`]: Result type for parsing operations, including errors
 //! - [`Token`]: Enum representing VB6 tokens
-//! - [`ErrorDetail`]: Detailed error information for parsing operations
+//! - [`ErrorDetails`](crate::errors::ErrorDetails): Detailed error information for parsing operations
 //!
 
 use phf::{phf_ordered_map, OrderedMap};
