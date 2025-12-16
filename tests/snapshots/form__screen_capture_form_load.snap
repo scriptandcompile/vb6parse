@@ -5,7 +5,7 @@ expression: form_file
 form:
   name: FormScreenCapture
   tag: ""
-  index: -1
+  index: 0
   kind:
     Form:
       properties:
@@ -72,7 +72,7 @@ form:
       controls:
         - name: Label2
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -117,7 +117,7 @@ form:
                 word_wrap: NonWrapping
         - name: Label1
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:

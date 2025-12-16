@@ -5,7 +5,7 @@ expression: form_file
 form:
   name: frmColorize
   tag: ""
-  index: -1
+  index: 0
   kind:
     Form:
       properties:
@@ -70,7 +70,7 @@ form:
       controls:
         - name: hScrollSaturation
           tag: ""
-          index: -1
+          index: 0
           kind:
             HScrollBar:
               properties:
@@ -97,7 +97,7 @@ form:
                 width: 2175
         - name: optKeepSaturation
           tag: ""
-          index: -1
+          index: 0
           kind:
             OptionButton:
               properties:
@@ -141,7 +141,7 @@ form:
                 width: 2895
         - name: hScrollHue
           tag: ""
-          index: -1
+          index: 0
           kind:
             HScrollBar:
               properties:
@@ -168,7 +168,7 @@ form:
                 width: 7455
         - name: picHueDemo
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -229,7 +229,7 @@ form:
                 width: 6990
         - name: cmdReset
           tag: ""
-          index: -1
+          index: 0
           kind:
             CommandButton:
               properties:
@@ -269,7 +269,7 @@ form:
                 width: 2535
         - name: picMain
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -330,7 +330,7 @@ form:
                 width: 1335
         - name: picBack
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -391,7 +391,7 @@ form:
                 width: 10830
         - name: optForceSaturation
           tag: ""
-          index: -1
+          index: 0
           kind:
             OptionButton:
               properties:
@@ -435,7 +435,7 @@ form:
                 width: 2175
         - name: lblSaturation
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -478,7 +478,7 @@ form:
                 word_wrap: NonWrapping
         - name: Label2
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -519,16 +519,33 @@ form:
                 whats_this_help_id: 0
                 width: 735
                 word_wrap: NonWrapping
+      menus:
         - name: mnuFile
           tag: ""
-          index: -1
-          kind:
-            Custom:
+          index: 0
+          properties:
+            caption: "&File"
+            checked: false
+            enabled: Enabled
+            help_context_id: 0
+            negotiate_position: None
+            shortcut: ~
+            visible: Visible
+            window_list: false
+          sub_menus:
+            - name: mnuOpenImage
+              tag: ""
+              index: 0
               properties:
-                property_store:
-                  Caption: "&File"
-              property_groups: []
-      menus: []
+                caption: "&Open image"
+                checked: false
+                enabled: Enabled
+                help_context_id: 0
+                negotiate_position: None
+                shortcut: ~
+                visible: Visible
+                window_list: false
+              sub_menus: []
 objects: []
 format_version:
   major: 5

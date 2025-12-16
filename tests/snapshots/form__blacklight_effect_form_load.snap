@@ -5,7 +5,7 @@ expression: form_file
 form:
   name: frmBlacklight
   tag: ""
-  index: -1
+  index: 0
   kind:
     Form:
       properties:
@@ -70,7 +70,7 @@ form:
       controls:
         - name: chkEnable
           tag: ""
-          index: -1
+          index: 0
           kind:
             CheckBox:
               properties:
@@ -118,7 +118,7 @@ form:
                 width: 2295
         - name: hScroll
           tag: ""
-          index: -1
+          index: 0
           kind:
             HScrollBar:
               properties:
@@ -145,7 +145,7 @@ form:
                 width: 5175
         - name: picMain
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -206,7 +206,7 @@ form:
                 width: 6030
         - name: picBack
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -267,7 +267,7 @@ form:
                 width: 6030
         - name: Label1
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -308,16 +308,33 @@ form:
                 whats_this_help_id: 0
                 width: 750
                 word_wrap: NonWrapping
+      menus:
         - name: mnuFile
           tag: ""
-          index: -1
-          kind:
-            Custom:
+          index: 0
+          properties:
+            caption: "&File"
+            checked: false
+            enabled: Enabled
+            help_context_id: 0
+            negotiate_position: None
+            shortcut: ~
+            visible: Visible
+            window_list: false
+          sub_menus:
+            - name: mnuOpenImage
+              tag: ""
+              index: 0
               properties:
-                property_store:
-                  Caption: "&File"
-              property_groups: []
-      menus: []
+                caption: "&Open image"
+                checked: false
+                enabled: Enabled
+                help_context_id: 0
+                negotiate_position: None
+                shortcut: ~
+                visible: Visible
+                window_list: false
+              sub_menus: []
 objects: []
 format_version:
   major: 5

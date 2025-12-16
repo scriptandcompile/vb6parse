@@ -5,7 +5,7 @@ expression: form_file
 form:
   name: Main
   tag: ""
-  index: -1
+  index: 0
   kind:
     Form:
       properties:
@@ -72,7 +72,7 @@ form:
       controls:
         - name: cmbDrawMethod
           tag: ""
-          index: -1
+          index: 0
           kind:
             ComboBox:
               properties:
@@ -113,7 +113,7 @@ form:
                 width: 1455
         - name: HSMain
           tag: ""
-          index: -1
+          index: 0
           kind:
             HScrollBar:
               properties:
@@ -140,7 +140,7 @@ form:
                 width: 12135
         - name: VSMain
           tag: ""
-          index: -1
+          index: 0
           kind:
             VScrollBar:
               properties:
@@ -167,7 +167,7 @@ form:
                 width: 255
         - name: HSTileBar
           tag: ""
-          index: -1
+          index: 0
           kind:
             HScrollBar:
               properties:
@@ -194,7 +194,7 @@ form:
                 width: 12495
         - name: PicTiles
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -257,7 +257,7 @@ form:
                 width: 12540
         - name: PicTilesBuffer
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -318,7 +318,7 @@ form:
                 width: 15390
         - name: Pic1
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -379,7 +379,7 @@ form:
                 width: 990
         - name: MainPic
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -440,34 +440,163 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 12135
+      menus:
         - name: MnuFile
           tag: ""
-          index: -1
-          kind:
-            Custom:
+          index: 0
+          properties:
+            caption: "&File"
+            checked: false
+            enabled: Enabled
+            help_context_id: 0
+            negotiate_position: None
+            shortcut: ~
+            visible: Visible
+            window_list: false
+          sub_menus:
+            - name: MnuNew
+              tag: ""
+              index: 0
               properties:
-                property_store:
-                  Caption: "&File"
-              property_groups: []
+                caption: "&New Map"
+                checked: false
+                enabled: Enabled
+                help_context_id: 0
+                negotiate_position: None
+                shortcut: CtrlN
+                visible: Visible
+                window_list: false
+              sub_menus: []
+            - name: MnuOpen
+              tag: ""
+              index: 0
+              properties:
+                caption: "&Open Map"
+                checked: false
+                enabled: Enabled
+                help_context_id: 0
+                negotiate_position: None
+                shortcut: CtrlO
+                visible: Visible
+                window_list: false
+              sub_menus: []
+            - name: MnuSave
+              tag: ""
+              index: 0
+              properties:
+                caption: "&Save Current Map"
+                checked: false
+                enabled: Enabled
+                help_context_id: 0
+                negotiate_position: None
+                shortcut: CtrlS
+                visible: Visible
+                window_list: false
+              sub_menus: []
+            - name: MnuSepBar1
+              tag: ""
+              index: 0
+              properties:
+                caption: "-"
+                checked: false
+                enabled: Enabled
+                help_context_id: 0
+                negotiate_position: None
+                shortcut: ~
+                visible: Visible
+                window_list: false
+              sub_menus: []
+            - name: MnuExit
+              tag: ""
+              index: 0
+              properties:
+                caption: E&xit
+                checked: false
+                enabled: Enabled
+                help_context_id: 0
+                negotiate_position: None
+                shortcut: CtrlX
+                visible: Visible
+                window_list: false
+              sub_menus: []
         - name: MnuOptions
           tag: ""
-          index: -1
-          kind:
-            Custom:
+          index: 0
+          properties:
+            caption: "&Options"
+            checked: false
+            enabled: Enabled
+            help_context_id: 0
+            negotiate_position: None
+            shortcut: ~
+            visible: Visible
+            window_list: false
+          sub_menus:
+            - name: MnuResize
+              tag: ""
+              index: 0
               properties:
-                property_store:
-                  Caption: "&Options"
-              property_groups: []
+                caption: Resize the Map
+                checked: false
+                enabled: Enabled
+                help_context_id: 0
+                negotiate_position: None
+                shortcut: ~
+                visible: Visible
+                window_list: false
+              sub_menus: []
         - name: MnuView
           tag: ""
-          index: -1
-          kind:
-            Custom:
+          index: 0
+          properties:
+            caption: "&View"
+            checked: false
+            enabled: Enabled
+            help_context_id: 0
+            negotiate_position: None
+            shortcut: ~
+            visible: Visible
+            window_list: false
+          sub_menus:
+            - name: MnuRefresh
+              tag: ""
+              index: 0
               properties:
-                property_store:
-                  Caption: "&View"
-              property_groups: []
-      menus: []
+                caption: "&Refresh Screen"
+                checked: false
+                enabled: Enabled
+                help_context_id: 0
+                negotiate_position: None
+                shortcut: CtrlR
+                visible: Visible
+                window_list: false
+              sub_menus: []
+            - name: MnuSepBar2
+              tag: ""
+              index: 0
+              properties:
+                caption: "-"
+                checked: false
+                enabled: Enabled
+                help_context_id: 0
+                negotiate_position: None
+                shortcut: ~
+                visible: Visible
+                window_list: false
+              sub_menus: []
+            - name: mnuZoom
+              tag: ""
+              index: 0
+              properties:
+                caption: Change &Zoom
+                checked: false
+                enabled: Enabled
+                help_context_id: 0
+                negotiate_position: None
+                shortcut: CtrlZ
+                visible: Visible
+                window_list: false
+              sub_menus: []
 objects: []
 format_version:
   major: 5

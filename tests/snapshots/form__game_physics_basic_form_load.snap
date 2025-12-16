@@ -5,7 +5,7 @@ expression: form_file
 form:
   name: frmMain
   tag: ""
-  index: -1
+  index: 0
   kind:
     Form:
       properties:
@@ -70,7 +70,7 @@ form:
       controls:
         - name: chkFramerate
           tag: ""
-          index: -1
+          index: 0
           kind:
             CheckBox:
               properties:
@@ -118,7 +118,7 @@ form:
                 width: 2175
         - name: cmdExit
           tag: ""
-          index: -1
+          index: 0
           kind:
             CommandButton:
               properties:
@@ -158,7 +158,7 @@ form:
                 width: 855
         - name: PicMain
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -221,7 +221,7 @@ form:
                 width: 12060
         - name: PicBulletM
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -282,7 +282,7 @@ form:
                 width: 90
         - name: PicBullet
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -343,7 +343,7 @@ form:
                 width: 90
         - name: PicTM
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -404,7 +404,7 @@ form:
                 width: 990
         - name: PicT
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -465,7 +465,7 @@ form:
                 width: 990
         - name: PicRM
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -526,7 +526,7 @@ form:
                 width: 990
         - name: PicR
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -587,7 +587,7 @@ form:
                 width: 990
         - name: PicLM
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -648,7 +648,7 @@ form:
                 width: 990
         - name: PicL
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -709,7 +709,7 @@ form:
                 width: 990
         - name: picShipMask
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -770,7 +770,7 @@ form:
                 width: 990
         - name: picShip
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -831,7 +831,7 @@ form:
                 width: 990
         - name: PicScreenBuffer
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -894,7 +894,7 @@ form:
                 width: 12060
         - name: Label3
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -939,7 +939,7 @@ form:
                 word_wrap: NonWrapping
         - name: Label2
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -984,7 +984,7 @@ form:
                 word_wrap: NonWrapping
         - name: LblVel
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -1029,7 +1029,7 @@ form:
                 word_wrap: NonWrapping
         - name: Label1
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:

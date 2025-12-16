@@ -5,7 +5,7 @@ expression: form_file
 form:
   name: frmTransparency
   tag: ""
-  index: -1
+  index: 0
   kind:
     Form:
       properties:
@@ -72,7 +72,7 @@ form:
       controls:
         - name: hScroll1
           tag: ""
-          index: -1
+          index: 0
           kind:
             HScrollBar:
               properties:
@@ -99,7 +99,7 @@ form:
                 width: 6015
         - name: Picture3
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -160,7 +160,7 @@ form:
                 width: 6030
         - name: Picture2
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -221,7 +221,7 @@ form:
                 width: 6030
         - name: Picture1
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -282,7 +282,7 @@ form:
                 width: 6030
         - name: Label2
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:

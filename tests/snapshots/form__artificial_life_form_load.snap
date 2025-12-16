@@ -5,7 +5,7 @@ expression: form_file
 form:
   name: frmMain
   tag: ""
-  index: -1
+  index: 0
   kind:
     Form:
       properties:
@@ -70,7 +70,7 @@ form:
       controls:
         - name: picFront
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -137,7 +137,7 @@ form:
                 width: 7530
         - name: cmdSaveData
           tag: ""
-          index: -1
+          index: 0
           kind:
             CommandButton:
               properties:
@@ -177,7 +177,7 @@ form:
                 width: 2775
         - name: chkDisplayDead
           tag: ""
-          index: -1
+          index: 0
           kind:
             CheckBox:
               properties:
@@ -225,7 +225,7 @@ form:
                 width: 2175
         - name: frmStartSettings
           tag: ""
-          index: -1
+          index: 0
           kind:
             Frame:
               properties:
@@ -258,7 +258,7 @@ form:
               controls:
                 - name: txtMutations
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     TextBox:
                       properties:
@@ -307,7 +307,7 @@ form:
                         width: 1695
                 - name: txtMutateTurns
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     TextBox:
                       properties:
@@ -356,7 +356,7 @@ form:
                         width: 2055
                 - name: chkMultiply
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     CheckBox:
                       properties:
@@ -404,7 +404,7 @@ form:
                         width: 3975
                 - name: txtFoodWorth
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     TextBox:
                       properties:
@@ -453,7 +453,7 @@ form:
                         width: 1455
                 - name: txtFoodGen
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     TextBox:
                       properties:
@@ -502,7 +502,7 @@ form:
                         width: 1695
                 - name: txtFoodRegen
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     TextBox:
                       properties:
@@ -551,7 +551,7 @@ form:
                         width: 1335
                 - name: txtInitialEnergy
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     TextBox:
                       properties:
@@ -600,7 +600,7 @@ form:
                         width: 2655
                 - name: txtInitialFood
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     TextBox:
                       properties:
@@ -649,7 +649,7 @@ form:
                         width: 2295
                 - name: txtOrganisms
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     TextBox:
                       properties:
@@ -698,7 +698,7 @@ form:
                         width: 2655
                 - name: Label8
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -741,7 +741,7 @@ form:
                         word_wrap: NonWrapping
                 - name: Label7
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -784,7 +784,7 @@ form:
                         word_wrap: NonWrapping
                 - name: Line2
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Line:
                       properties:
@@ -801,7 +801,7 @@ form:
                         y2: 2880
                 - name: Label6
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -844,7 +844,7 @@ form:
                         word_wrap: NonWrapping
                 - name: Label5
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -887,7 +887,7 @@ form:
                         word_wrap: NonWrapping
                 - name: Label4
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -930,7 +930,7 @@ form:
                         word_wrap: NonWrapping
                 - name: Label3
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -973,7 +973,7 @@ form:
                         word_wrap: NonWrapping
                 - name: Label2
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -1016,7 +1016,7 @@ form:
                         word_wrap: NonWrapping
                 - name: Line1
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Line:
                       properties:
@@ -1033,7 +1033,7 @@ form:
                         y2: 1200
                 - name: Label1
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -1076,7 +1076,7 @@ form:
                         word_wrap: NonWrapping
         - name: frmOrganisms
           tag: ""
-          index: -1
+          index: 0
           kind:
             Frame:
               properties:
@@ -1109,7 +1109,7 @@ form:
               controls:
                 - name: txtInfo
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     TextBox:
                       properties:
@@ -1158,7 +1158,7 @@ form:
                         width: 3975
                 - name: cmbOrganisms
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     ComboBox:
                       properties:
@@ -1199,7 +1199,7 @@ form:
                         width: 3975
         - name: cmdStop
           tag: ""
-          index: -1
+          index: 0
           kind:
             CommandButton:
               properties:
@@ -1239,7 +1239,7 @@ form:
                 width: 2055
         - name: cmdStart
           tag: ""
-          index: -1
+          index: 0
           kind:
             CommandButton:
               properties:
@@ -1279,7 +1279,7 @@ form:
                 width: 2055
         - name: picMap
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -1346,7 +1346,7 @@ form:
                 width: 7530
         - name: picFood
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -1413,7 +1413,7 @@ form:
                 width: 7530
         - name: lblTitle
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:

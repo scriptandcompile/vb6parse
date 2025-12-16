@@ -5,7 +5,7 @@ expression: form_file
 form:
   name: frmBrightness
   tag: ""
-  index: -1
+  index: 0
   kind:
     Form:
       properties:
@@ -72,7 +72,7 @@ form:
       controls:
         - name: hScrollBrightness
           tag: ""
-          index: -1
+          index: 0
           kind:
             HScrollBar:
               properties:
@@ -99,7 +99,7 @@ form:
                 width: 3495
         - name: ChkMethod
           tag: ""
-          index: -1
+          index: 0
           kind:
             CheckBox:
               properties:
@@ -149,7 +149,7 @@ form:
                 width: 2295
         - name: Picture2
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -210,7 +210,7 @@ form:
                 width: 6030
         - name: Picture1
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -271,7 +271,7 @@ form:
                 width: 6030
         - name: Label1
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:

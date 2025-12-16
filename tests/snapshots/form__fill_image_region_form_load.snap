@@ -5,7 +5,7 @@ expression: form_file
 form:
   name: frmFill
   tag: ""
-  index: -1
+  index: 0
   kind:
     Form:
       properties:
@@ -72,7 +72,7 @@ form:
       controls:
         - name: picDemo
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -133,7 +133,7 @@ form:
                 width: 7575
         - name: lblInstructions
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:

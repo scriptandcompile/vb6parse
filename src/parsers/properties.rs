@@ -79,6 +79,7 @@ impl Serialize for PropertyGroup {
 /// let width = props.get_i32("ClientWidth", 600);
 /// assert_eq!(width, 800);
 /// ```
+#[derive(Debug)]
 pub struct Properties {
     key_value_store: HashMap<String, String>,
 }

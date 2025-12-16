@@ -5,7 +5,7 @@ expression: form_file
 form:
   name: frmFire
   tag: ""
-  index: -1
+  index: 0
   kind:
     Form:
       properties:
@@ -70,7 +70,7 @@ form:
       controls:
         - name: hsBlue
           tag: ""
-          index: -1
+          index: 0
           kind:
             HScrollBar:
               properties:
@@ -97,7 +97,7 @@ form:
                 width: 6975
         - name: hsGreen
           tag: ""
-          index: -1
+          index: 0
           kind:
             HScrollBar:
               properties:
@@ -124,7 +124,7 @@ form:
                 width: 6975
         - name: hsRed
           tag: ""
-          index: -1
+          index: 0
           kind:
             HScrollBar:
               properties:
@@ -151,7 +151,7 @@ form:
                 width: 6975
         - name: scrUniformity
           tag: ""
-          index: -1
+          index: 0
           kind:
             HScrollBar:
               properties:
@@ -178,7 +178,7 @@ form:
                 width: 1695
         - name: txtHeight
           tag: ""
-          index: -1
+          index: 0
           kind:
             TextBox:
               properties:
@@ -227,7 +227,7 @@ form:
                 width: 495
         - name: txtWidth
           tag: ""
-          index: -1
+          index: 0
           kind:
             TextBox:
               properties:
@@ -276,7 +276,7 @@ form:
                 width: 495
         - name: cmdStop
           tag: ""
-          index: -1
+          index: 0
           kind:
             CommandButton:
               properties:
@@ -316,7 +316,7 @@ form:
                 width: 1575
         - name: cmdStart
           tag: ""
-          index: -1
+          index: 0
           kind:
             CommandButton:
               properties:
@@ -356,7 +356,7 @@ form:
                 width: 1575
         - name: picDest
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -419,7 +419,7 @@ form:
                 width: 7710
         - name: Label6
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -462,7 +462,7 @@ form:
                 word_wrap: NonWrapping
         - name: Label4
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -505,7 +505,7 @@ form:
                 word_wrap: NonWrapping
         - name: Label2
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -548,7 +548,7 @@ form:
                 word_wrap: NonWrapping
         - name: Label7
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -593,7 +593,7 @@ form:
                 word_wrap: NonWrapping
         - name: lblFrameRate
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -636,7 +636,7 @@ form:
                 word_wrap: NonWrapping
         - name: Label1
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -679,7 +679,7 @@ form:
                 word_wrap: NonWrapping
         - name: Label3
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -722,7 +722,7 @@ form:
                 word_wrap: NonWrapping
         - name: Label5
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:

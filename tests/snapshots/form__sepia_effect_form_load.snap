@@ -5,7 +5,7 @@ expression: form_file
 form:
   name: frmSepia
   tag: ""
-  index: -1
+  index: 0
   kind:
     Form:
       properties:
@@ -70,7 +70,7 @@ form:
       controls:
         - name: cmdReset
           tag: ""
-          index: -1
+          index: 0
           kind:
             CommandButton:
               properties:
@@ -110,7 +110,7 @@ form:
                 width: 2775
         - name: cmdSepia
           tag: ""
-          index: -1
+          index: 0
           kind:
             CommandButton:
               properties:
@@ -150,7 +150,7 @@ form:
                 width: 2655
         - name: picMain
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -211,7 +211,7 @@ form:
                 width: 6030
         - name: picBack
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -270,16 +270,33 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 6030
+      menus:
         - name: mnuFile
           tag: ""
-          index: -1
-          kind:
-            Custom:
+          index: 0
+          properties:
+            caption: "&File"
+            checked: false
+            enabled: Enabled
+            help_context_id: 0
+            negotiate_position: None
+            shortcut: ~
+            visible: Visible
+            window_list: false
+          sub_menus:
+            - name: mnuOpenImage
+              tag: ""
+              index: 0
               properties:
-                property_store:
-                  Caption: "&File"
-              property_groups: []
-      menus: []
+                caption: "&Open image"
+                checked: false
+                enabled: Enabled
+                help_context_id: 0
+                negotiate_position: None
+                shortcut: ~
+                visible: Visible
+                window_list: false
+              sub_menus: []
 objects: []
 format_version:
   major: 5

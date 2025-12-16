@@ -5,7 +5,7 @@ expression: form_file
 form:
   name: frmBrightness
   tag: ""
-  index: -1
+  index: 0
   kind:
     Form:
       properties:
@@ -72,7 +72,7 @@ form:
       controls:
         - name: CmdBrightnessBB
           tag: ""
-          index: -1
+          index: 0
           kind:
             CommandButton:
               properties:
@@ -112,7 +112,7 @@ form:
                 width: 2895
         - name: ChkAutoRedraw
           tag: ""
-          index: -1
+          index: 0
           kind:
             CheckBox:
               properties:
@@ -162,7 +162,7 @@ form:
                 width: 2295
         - name: TxtBrightness
           tag: ""
-          index: -1
+          index: 0
           kind:
             TextBox:
               properties:
@@ -211,7 +211,7 @@ form:
                 width: 495
         - name: CmdBrightness
           tag: ""
-          index: -1
+          index: 0
           kind:
             CommandButton:
               properties:
@@ -251,7 +251,7 @@ form:
                 width: 2895
         - name: Picture1
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -312,7 +312,7 @@ form:
                 width: 6030
         - name: Label1
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:

@@ -5,7 +5,7 @@ expression: form_file
 form:
   name: frmDiffuse
   tag: ""
-  index: -1
+  index: 0
   kind:
     Form:
       properties:
@@ -70,7 +70,7 @@ form:
       controls:
         - name: cmdDrawExplosion
           tag: ""
-          index: -1
+          index: 0
           kind:
             CommandButton:
               properties:
@@ -110,7 +110,7 @@ form:
                 width: 2535
         - name: chkWrap
           tag: ""
-          index: -1
+          index: 0
           kind:
             CheckBox:
               properties:
@@ -158,7 +158,7 @@ form:
                 width: 3855
         - name: hScrollY
           tag: ""
-          index: -1
+          index: 0
           kind:
             HScrollBar:
               properties:
@@ -185,7 +185,7 @@ form:
                 width: 6855
         - name: hScrollX
           tag: ""
-          index: -1
+          index: 0
           kind:
             HScrollBar:
               properties:
@@ -212,7 +212,7 @@ form:
                 width: 6855
         - name: cmdReset
           tag: ""
-          index: -1
+          index: 0
           kind:
             CommandButton:
               properties:
@@ -252,7 +252,7 @@ form:
                 width: 2535
         - name: picMain
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -313,7 +313,7 @@ form:
                 width: 1335
         - name: picBack
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -374,7 +374,7 @@ form:
                 width: 12030
         - name: lblY
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -417,7 +417,7 @@ form:
                 word_wrap: NonWrapping
         - name: lblX
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -460,7 +460,7 @@ form:
                 word_wrap: NonWrapping
         - name: Label1
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -503,7 +503,7 @@ form:
                 word_wrap: NonWrapping
         - name: Label2
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -544,16 +544,33 @@ form:
                 whats_this_help_id: 0
                 width: 1650
                 word_wrap: NonWrapping
+      menus:
         - name: mnuFile
           tag: ""
-          index: -1
-          kind:
-            Custom:
+          index: 0
+          properties:
+            caption: "&File"
+            checked: false
+            enabled: Enabled
+            help_context_id: 0
+            negotiate_position: None
+            shortcut: ~
+            visible: Visible
+            window_list: false
+          sub_menus:
+            - name: mnuOpenImage
+              tag: ""
+              index: 0
               properties:
-                property_store:
-                  Caption: "&File"
-              property_groups: []
-      menus: []
+                caption: "&Open image"
+                checked: false
+                enabled: Enabled
+                help_context_id: 0
+                negotiate_position: None
+                shortcut: ~
+                visible: Visible
+                window_list: false
+              sub_menus: []
 objects: []
 format_version:
   major: 5

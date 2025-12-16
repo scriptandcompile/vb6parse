@@ -5,7 +5,7 @@ expression: form_file
 form:
   name: frmMain
   tag: ""
-  index: -1
+  index: 0
   kind:
     Form:
       properties:
@@ -70,7 +70,7 @@ form:
       controls:
         - name: cmdDispHistogram
           tag: ""
-          index: -1
+          index: 0
           kind:
             CommandButton:
               properties:
@@ -110,7 +110,7 @@ form:
                 width: 6015
         - name: frmLevels
           tag: ""
-          index: -1
+          index: 0
           kind:
             Frame:
               properties:
@@ -143,7 +143,7 @@ form:
               controls:
                 - name: cmdReset
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     CommandButton:
                       properties:
@@ -183,7 +183,7 @@ form:
                         width: 1335
                 - name: hsInM
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     HScrollBar:
                       properties:
@@ -210,7 +210,7 @@ form:
                         width: 3855
                 - name: hsInL
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     HScrollBar:
                       properties:
@@ -237,7 +237,7 @@ form:
                         width: 3855
                 - name: hsInR
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     HScrollBar:
                       properties:
@@ -264,7 +264,7 @@ form:
                         width: 3855
                 - name: hsOutR
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     HScrollBar:
                       properties:
@@ -291,7 +291,7 @@ form:
                         width: 3855
                 - name: hsOutL
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     HScrollBar:
                       properties:
@@ -318,7 +318,7 @@ form:
                         width: 3855
                 - name: lblRightL
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -361,7 +361,7 @@ form:
                         word_wrap: NonWrapping
                 - name: lblMiddleL
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -404,7 +404,7 @@ form:
                         word_wrap: NonWrapping
                 - name: Label10
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -447,7 +447,7 @@ form:
                         word_wrap: NonWrapping
                 - name: lblMiddleR
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -490,7 +490,7 @@ form:
                         word_wrap: NonWrapping
                 - name: Label8
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -533,7 +533,7 @@ form:
                         word_wrap: NonWrapping
                 - name: lblLeftR
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -576,7 +576,7 @@ form:
                         word_wrap: NonWrapping
                 - name: Label6
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -619,7 +619,7 @@ form:
                         word_wrap: NonWrapping
                 - name: Label5
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -662,7 +662,7 @@ form:
                         word_wrap: NonWrapping
                 - name: Label4
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -705,7 +705,7 @@ form:
                         word_wrap: NonWrapping
                 - name: Label3
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -748,7 +748,7 @@ form:
                         word_wrap: NonWrapping
                 - name: Label2
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -791,7 +791,7 @@ form:
                         word_wrap: NonWrapping
                 - name: Label1
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -834,7 +834,7 @@ form:
                         word_wrap: NonWrapping
                 - name: lblOutputL
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -877,7 +877,7 @@ form:
                         word_wrap: NonWrapping
                 - name: lblOutputLevels
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -920,7 +920,7 @@ form:
                         word_wrap: NonWrapping
         - name: picMain
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -981,7 +981,7 @@ form:
                 width: 6030
         - name: picBack
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -1040,16 +1040,33 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 6030
+      menus:
         - name: mnuFile
           tag: ""
-          index: -1
-          kind:
-            Custom:
+          index: 0
+          properties:
+            caption: "&File"
+            checked: false
+            enabled: Enabled
+            help_context_id: 0
+            negotiate_position: None
+            shortcut: ~
+            visible: Visible
+            window_list: false
+          sub_menus:
+            - name: mnuOpenImage
+              tag: ""
+              index: 0
               properties:
-                property_store:
-                  Caption: "&File"
-              property_groups: []
-      menus: []
+                caption: "&Open Image"
+                checked: false
+                enabled: Enabled
+                help_context_id: 0
+                negotiate_position: None
+                shortcut: ~
+                visible: Visible
+                window_list: false
+              sub_menus: []
 objects: []
 format_version:
   major: 5
