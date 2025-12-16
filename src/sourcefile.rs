@@ -25,8 +25,8 @@
 //! method used.
 //! 
 //! # See Also
-//! - [`SourceStream`](crate::parsers::SourceStream) for low-level character stream
-//! - [`ErrorDetails`](crate::errors::ErrorDetails) for error handling details
+//! - [`SourceStream`]: for low-level character stream
+//! - [`ErrorDetails`]: for error handling details
 
 use std::borrow::Cow;
 use std::fs;
