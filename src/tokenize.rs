@@ -1,3 +1,56 @@
+//! Tokenization module for VB6 source code.
+//! 
+//! Provides functionality to tokenize VB6 source code into a stream of tokens.
+//! 
+//! # Example
+//! ```rust
+//! use vb6parse::language::Token;
+//! use vb6parse::tokenize::tokenize;
+//! use vb6parse::SourceStream;
+//! let mut input = SourceStream::new("test.bas", "Dim x As Integer");
+//! let result = tokenize(&mut input);
+//! if result.has_failures() {
+//!    for failure in result.failures {
+//!       failure.print();
+//!   }
+//!   panic!("Failed to parse vb6 code.");
+//! }
+//! let tokens = result.unwrap();
+//! assert_eq!(tokens.len(), 7);
+//! assert_eq!(tokens[0], ("Dim", Token::DimKeyword));
+//! assert_eq!(tokens[1], (" ", Token::Whitespace));
+//! assert_eq!(tokens[2], ("x", Token::Identifier));
+//! assert_eq!(tokens[3], (" ", Token::Whitespace));
+//! assert_eq!(tokens[4], ("As", Token::AsKeyword));
+//! assert_eq!(tokens[5], (" ", Token::Whitespace));
+//! assert_eq!(tokens[6], ("Integer", Token::IntegerKeyword));
+//! ```
+//! 
+//! # Overview
+//! 
+//! The `tokenize` module provides functionality to parse VB6 source code into a stream of tokens.
+//! This is a crucial step in the parsing process, as it breaks down the source code into manageable pieces
+//! that can be further analyzed and processed.
+//! 
+//! The main function in this module is `tokenize`, which takes a `SourceStream` as input
+//! and returns a `ParseResult` containing a `TokenStream` and/or a list of errors.
+//! 
+//! The module uses lookup tables to efficiently identify keywords and symbols in the VB6 language.
+//! These tables map strings to their corresponding `Token` enum variants, allowing for quick
+//! identification during the tokenization process.
+//! 
+//! The tokenization process handles various types of tokens, including keywords, symbols,
+//! identifiers, literals (string, numeric, date), comments, and whitespace.
+//! 
+//! # See Also
+//! 
+//! - [`SourceStream`]: Low-level character stream with offset tracking and line/column info
+//! - [`TokenStream`]: Tokenized stream of VB6 tokens
+//! - [`ParseResult`]: Result type for parsing operations, including errors
+//! - [`Token`]: Enum representing VB6 tokens
+//! - [`ErrorDetail`]: Detailed error information for parsing operations
+//!
+
 use phf::{phf_ordered_map, OrderedMap};
 
 use crate::{
@@ -7,6 +60,9 @@ use crate::{
     CodeErrorKind,
 };
 
+/// Lookup table for VB6 keywords to their corresponding tokens.
+/// This table is used during the tokenization process to quickly identify
+/// keywords in the source code.
 static KEYWORD_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, Token> = phf_ordered_map! {
     "AdressOf" => Token::AddressOfKeyword,
     "Access" => Token::AccessKeyword,
@@ -164,6 +220,9 @@ static KEYWORD_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, Token> = phf_ordered
     "Xor" => Token::XorKeyword,
 };
 
+/// Lookup table for VB6 symbols to their corresponding tokens.
+/// This table is used during the tokenization process to quickly identify
+/// symbols in the source code.
 static SYMBOL_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, Token> = phf_ordered_map! {
     "<>" => Token::InequalityOperator,
     "<=" => Token::LessThanOrEqualOperator,
