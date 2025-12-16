@@ -1,18 +1,18 @@
 //! Provides a character stream abstraction for parsing source files.
 //! It includes functionality for tracking the current position in the stream,
 //! as well as methods for peeking and consuming characters based on various criteria.
-//! 
+//!
 //! This module is essential for building tokenizers that need to read and analyze
 //! source code character by character.
-//! 
+//!
 //! # Example
 //! ```rust
 //! use vb6parse::SourceStream;
-//! 
+//!
 //! let source_stream = SourceStream::new("example.bas", "Dim x As Integer");
 //! assert_eq!(source_stream.peek(3), Some("Dim"));
 //! ```
-//! 
+//!
 //! # See Also
 //! - [`SourceFile`](crate::sourcefile::SourceFile): for reading and decoding source files
 //! - [`ErrorDetails`]: for error handling details

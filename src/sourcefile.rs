@@ -2,28 +2,28 @@
 //! source file along with its content and filename. It includes methods to
 //! read a source file from disk and decode its content using Windows-1252
 //! encoding, with options for handling invalid characters.
-//! 
+//!
 //! The `SourceFile` struct is essential for parsing VB6 source files,
 //! as it provides the necessary functionality to read and decode the
 //! source code before further processing.
-//! 
+//!
 //! # Example
 //! ```no_run
 //! use vb6parse::SourceFile;
-//! 
+//!
 //! let source_file = SourceFile::from_file("path/to/module.bas").unwrap();
 //! ```
-//! 
+//!
 //! # Errors
 //! The methods in this module return `ErrorDetails` when errors occur
 //! during file reading or decoding
-//! 
+//!
 //! # Encoding
 //! The library assumes that VB6 source files are encoded in Windows-1252.
 //! If the source file contains invalid characters, the library can either
 //! replace them with a placeholder or return an error, depending on the
 //! method used.
-//! 
+//!
 //! # See Also
 //! - [`SourceStream`]: for low-level character stream
 //! - [`ErrorDetails`]: for error handling details
