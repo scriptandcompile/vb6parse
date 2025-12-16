@@ -5,7 +5,7 @@ expression: form_file
 form:
   name: frmGrayscale
   tag: ""
-  index: -1
+  index: 0
   kind:
     Form:
       properties:
@@ -70,7 +70,7 @@ form:
       controls:
         - name: frameShades
           tag: ""
-          index: -1
+          index: 0
           kind:
             Frame:
               properties:
@@ -103,7 +103,7 @@ form:
               controls:
                 - name: hscrShades
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     HScrollBar:
                       properties:
@@ -130,7 +130,7 @@ form:
                         width: 2535
                 - name: lblShades
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -173,7 +173,7 @@ form:
                         word_wrap: NonWrapping
         - name: frameDecompose
           tag: ""
-          index: -1
+          index: 0
           kind:
             Frame:
               properties:
@@ -294,7 +294,7 @@ form:
                         width: 2535
         - name: frameChannel
           tag: ""
-          index: -1
+          index: 0
           kind:
             Frame:
               properties:
@@ -459,7 +459,7 @@ form:
                         width: 2535
         - name: lstFilters
           tag: ""
-          index: -1
+          index: 0
           kind:
             ListBox:
               properties:
@@ -500,7 +500,7 @@ form:
                 width: 2775
         - name: cmdReset
           tag: ""
-          index: -1
+          index: 0
           kind:
             CommandButton:
               properties:
@@ -540,7 +540,7 @@ form:
                 width: 2535
         - name: picMain
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -601,7 +601,7 @@ form:
                 width: 1335
         - name: picBack
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -662,7 +662,7 @@ form:
                 width: 12030
         - name: Label2
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -703,16 +703,33 @@ form:
                 whats_this_help_id: 0
                 width: 1755
                 word_wrap: NonWrapping
+      menus:
         - name: mnuFile
           tag: ""
-          index: -1
-          kind:
-            Custom:
+          index: 0
+          properties:
+            caption: "&File"
+            checked: false
+            enabled: Enabled
+            help_context_id: 0
+            negotiate_position: None
+            shortcut: ~
+            visible: Visible
+            window_list: false
+          sub_menus:
+            - name: mnuOpenImage
+              tag: ""
+              index: 0
               properties:
-                property_store:
-                  Caption: "&File"
-              property_groups: []
-      menus: []
+                caption: "&Open image"
+                checked: false
+                enabled: Enabled
+                help_context_id: 0
+                negotiate_position: None
+                shortcut: ~
+                visible: Visible
+                window_list: false
+              sub_menus: []
 objects: []
 format_version:
   major: 5

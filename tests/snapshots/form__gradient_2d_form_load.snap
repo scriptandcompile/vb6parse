@@ -5,7 +5,7 @@ expression: form_file
 form:
   name: frmGradient
   tag: ""
-  index: -1
+  index: 0
   kind:
     Form:
       properties:
@@ -70,7 +70,7 @@ form:
       controls:
         - name: cmbStyle
           tag: ""
-          index: -1
+          index: 0
           kind:
             ComboBox:
               properties:
@@ -111,7 +111,7 @@ form:
                 width: 1695
         - name: picColor2
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -174,7 +174,7 @@ form:
                 width: 735
         - name: picColor1
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -237,7 +237,7 @@ form:
                 width: 735
         - name: lblExplanation
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:

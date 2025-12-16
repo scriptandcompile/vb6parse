@@ -5,7 +5,7 @@ expression: form_file
 form:
   name: frmFractal
   tag: ""
-  index: -1
+  index: 0
   kind:
     Form:
       properties:
@@ -70,7 +70,7 @@ form:
       controls:
         - name: CmdReset
           tag: ""
-          index: -1
+          index: 0
           kind:
             CommandButton:
               properties:
@@ -110,7 +110,7 @@ form:
                 width: 855
         - name: scrAccuracy
           tag: ""
-          index: -1
+          index: 0
           kind:
             HScrollBar:
               properties:
@@ -137,7 +137,7 @@ form:
                 width: 6255
         - name: CmdRedraw
           tag: ""
-          index: -1
+          index: 0
           kind:
             CommandButton:
               properties:
@@ -177,7 +177,7 @@ form:
                 width: 2055
         - name: TxtYMax
           tag: ""
-          index: -1
+          index: 0
           kind:
             TextBox:
               properties:
@@ -226,7 +226,7 @@ form:
                 width: 1365
         - name: TxtYMin
           tag: ""
-          index: -1
+          index: 0
           kind:
             TextBox:
               properties:
@@ -275,7 +275,7 @@ form:
                 width: 1365
         - name: TxtXMax
           tag: ""
-          index: -1
+          index: 0
           kind:
             TextBox:
               properties:
@@ -324,7 +324,7 @@ form:
                 width: 1365
         - name: TxtXMin
           tag: ""
-          index: -1
+          index: 0
           kind:
             TextBox:
               properties:
@@ -373,7 +373,7 @@ form:
                 width: 1365
         - name: PicDraw
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -434,7 +434,7 @@ form:
                 width: 9015
         - name: Label7
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -477,7 +477,7 @@ form:
                 word_wrap: NonWrapping
         - name: Label6
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -520,7 +520,7 @@ form:
                 word_wrap: NonWrapping
         - name: Label5
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -563,7 +563,7 @@ form:
                 word_wrap: NonWrapping
         - name: Label4
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -606,7 +606,7 @@ form:
                 word_wrap: NonWrapping
         - name: Label3
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -649,7 +649,7 @@ form:
                 word_wrap: NonWrapping
         - name: Label2
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -692,7 +692,7 @@ form:
                 word_wrap: NonWrapping
         - name: Label1
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:

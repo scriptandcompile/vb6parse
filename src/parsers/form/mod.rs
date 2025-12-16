@@ -9,7 +9,7 @@ use uuid::Uuid;
 use crate::{
     cst::{parse, ConcreteSyntaxTree},
     errors::FormErrorKind,
-    language::{Control, ControlKind, PropertyGroup},
+    language::{Control, ControlKind, MenuControl, PropertyGroup},
     parsers::{
         header::{extract_version, FileAttributes, FileFormatVersion},
         CstNode, ObjectReference, ParseResult, SyntaxKind,
@@ -325,11 +325,38 @@ fn extract_properties_block(block: &CstNode) -> Option<Control> {
         }
     }
 
-    // Parse child controls recursively
+    // Parse child controls and menus recursively
+    // First pass: determine type of each child block
     let mut child_controls: Vec<Control> = Vec::new();
+    let mut menu_blocks: Vec<&CstNode> = Vec::new();
+    
     for child_block in child_blocks {
-        if let Some(child_control) = extract_properties_block(child_block) {
-            child_controls.push(child_control);
+        // Check if this is a menu by looking at its PropertiesType
+        let mut is_menu = false;
+        for child in &child_block.children {
+            if child.kind == SyntaxKind::PropertiesType {
+                let block_type = child.text.trim();
+                if block_type == "VB.Menu" {
+                    is_menu = true;
+                    break;
+                }
+            }
+        }
+        
+        if is_menu {
+            menu_blocks.push(child_block);
+        } else {
+            if let Some(child_control) = extract_properties_block(child_block) {
+                child_controls.push(child_control);
+            }
+        }
+    }
+    
+    // Extract menus
+    let mut menus: Vec<MenuControl> = Vec::new();
+    for menu_block in menu_blocks {
+        if let Some(menu) = extract_menu_control(menu_block) {
+            menus.push(menu);
         }
     }
 
@@ -337,14 +364,14 @@ fn extract_properties_block(block: &CstNode) -> Option<Control> {
     let index = properties
         .get("Index")
         .and_then(|s| s.parse().ok())
-        .unwrap_or(-1);
+        .unwrap_or(0);
 
     // Determine the control kind based on the type
     let kind = match control_type.as_str() {
         "VB.Form" => ControlKind::Form {
             properties: properties.into(),
             controls: child_controls,
-            menus: Vec::new(),
+            menus,
         },
         "VB.CommandButton" => ControlKind::CommandButton {
             properties: properties.into(),
@@ -408,6 +435,7 @@ fn extract_properties_block(block: &CstNode) -> Option<Control> {
             properties: properties.into(),
         },
         _ => {
+            eprintln!("{properties:?}");
             // Unknown or custom control
             ControlKind::Custom {
                 properties: properties.into(),
@@ -421,6 +449,66 @@ fn extract_properties_block(block: &CstNode) -> Option<Control> {
         tag: tag,
         index: index,
         kind,
+    })
+}
+
+/// Extracts a MenuControl from a PropertiesBlock CST node.
+///
+/// Recursively processes nested PropertiesBlock nodes for sub-menus.
+fn extract_menu_control(block: &CstNode) -> Option<MenuControl> {
+    // Extract the name and properties from the menu block
+    let mut menu_name = String::new();
+    let mut properties = Properties::new();
+    let mut child_menu_blocks: Vec<&CstNode> = Vec::new();
+    
+    for child in &block.children {
+        match child.kind {
+            SyntaxKind::PropertiesName => {
+                // Extract the menu name
+                menu_name = child.text.trim().to_string();
+            }
+            SyntaxKind::Property => {
+                // Extract key-value properties
+                if let Some((key, value)) = extract_property(child) {
+                    properties.insert(key, value);
+                }
+            }
+            SyntaxKind::PropertiesBlock => {
+                // Check if this is a nested menu
+                for sub_child in &child.children {
+                    if sub_child.kind == SyntaxKind::PropertiesType {
+                        let block_type = sub_child.text.trim();
+                        if block_type == "VB.Menu" {
+                            child_menu_blocks.push(child);
+                            break;
+                        }
+                    }
+                }
+            }
+            _ => {}
+        }
+    }
+    
+    // Recursively extract sub-menus
+    let mut sub_menus: Vec<MenuControl> = Vec::new();
+    for child_menu_block in child_menu_blocks {
+        if let Some(sub_menu) = extract_menu_control(child_menu_block) {
+            sub_menus.push(sub_menu);
+        }
+    }
+    
+    let tag = properties.get("Tag").cloned().unwrap_or_default();
+    let index = properties
+        .get("Index")
+        .and_then(|s| s.parse().ok())
+        .unwrap_or(0);
+    
+    Some(MenuControl {
+        name: menu_name,
+        tag,
+        index,
+        properties: properties.into(),
+        sub_menus,
     })
 }
 
@@ -543,7 +631,7 @@ impl FormFile {
             Control {
                 name: String::new(),
                 tag: String::new(),
-                index: -1,
+                index: 0,
                 kind: ControlKind::Form {
                     properties: FormProperties::default(),
                     controls: Vec::new(),
@@ -803,7 +891,6 @@ End
     }
 
     #[test]
-    #[ignore = "TODO: CST parser needs Begin VB.Menu support. Requires: 1) Parser logic to distinguish Menu controls from other controls, 2) Recursive parsing of nested menu items, 3) Extraction logic to convert Menu PropertiesBlock nodes to VB6MenuControl structs with sub_menus"]
     fn parse_indented_menu_valid() {
         use crate::language::VB_WINDOW_BACKGROUND;
         use crate::language::{MenuControl, MenuProperties};

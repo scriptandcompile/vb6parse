@@ -5,7 +5,7 @@ expression: form_file
 form:
   name: frmLineEffect
   tag: ""
-  index: -1
+  index: 0
   kind:
     Form:
       properties:
@@ -70,7 +70,7 @@ form:
       controls:
         - name: cmdDrawTriangles
           tag: ""
-          index: -1
+          index: 0
           kind:
             CommandButton:
               properties:
@@ -110,7 +110,7 @@ form:
                 width: 1695
         - name: cmdReset
           tag: ""
-          index: -1
+          index: 0
           kind:
             CommandButton:
               properties:
@@ -150,7 +150,7 @@ form:
                 width: 735
         - name: txtLength
           tag: ""
-          index: -1
+          index: 0
           kind:
             TextBox:
               properties:
@@ -199,7 +199,7 @@ form:
                 width: 1095
         - name: txtIterations
           tag: ""
-          index: -1
+          index: 0
           kind:
             TextBox:
               properties:
@@ -248,7 +248,7 @@ form:
                 width: 1095
         - name: cmdDrawLines
           tag: ""
-          index: -1
+          index: 0
           kind:
             CommandButton:
               properties:
@@ -288,7 +288,7 @@ form:
                 width: 1695
         - name: picMain
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -349,7 +349,7 @@ form:
                 width: 9570
         - name: picBack
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -410,7 +410,7 @@ form:
                 width: 9570
         - name: Label4
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -453,7 +453,7 @@ form:
                 word_wrap: NonWrapping
         - name: Label3
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -494,16 +494,33 @@ form:
                 whats_this_help_id: 0
                 width: 885
                 word_wrap: NonWrapping
+      menus:
         - name: mnuFile
           tag: ""
-          index: -1
-          kind:
-            Custom:
+          index: 0
+          properties:
+            caption: "&File"
+            checked: false
+            enabled: Enabled
+            help_context_id: 0
+            negotiate_position: None
+            shortcut: ~
+            visible: Visible
+            window_list: false
+          sub_menus:
+            - name: mnuOpenImage
+              tag: ""
+              index: 0
               properties:
-                property_store:
-                  Caption: "&File"
-              property_groups: []
-      menus: []
+                caption: "&Open image"
+                checked: false
+                enabled: Enabled
+                help_context_id: 0
+                negotiate_position: None
+                shortcut: ~
+                visible: Visible
+                window_list: false
+              sub_menus: []
 objects: []
 format_version:
   major: 5

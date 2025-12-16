@@ -5,7 +5,7 @@ expression: form_file
 form:
   name: frmMain
   tag: ""
-  index: -1
+  index: 0
   kind:
     Form:
       properties:
@@ -72,7 +72,7 @@ form:
       controls:
         - name: frm4
           tag: ""
-          index: -1
+          index: 0
           kind:
             Frame:
               properties:
@@ -107,7 +107,7 @@ form:
               controls:
                 - name: picOE
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     PictureBox:
                       properties:
@@ -168,7 +168,7 @@ form:
                         width: 13335
                 - name: picResults
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     PictureBox:
                       properties:
@@ -229,7 +229,7 @@ form:
                         width: 13335
                 - name: txtWindowSize
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     TextBox:
                       properties:
@@ -278,7 +278,7 @@ form:
                         width: 855
                 - name: cmdWindow
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     CommandButton:
                       properties:
@@ -318,7 +318,7 @@ form:
                         width: 3015
                 - name: lblRecommendation
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -361,7 +361,7 @@ form:
                         word_wrap: NonWrapping
                 - name: lblPercent
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -404,7 +404,7 @@ form:
                         word_wrap: NonWrapping
                 - name: lblCGHeader
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -447,7 +447,7 @@ form:
                         word_wrap: NonWrapping
                 - name: Label15
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -490,7 +490,7 @@ form:
                         word_wrap: NonWrapping
         - name: frm3
           tag: ""
-          index: -1
+          index: 0
           kind:
             Frame:
               properties:
@@ -525,7 +525,7 @@ form:
               controls:
                 - name: cmdHMM
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     CommandButton:
                       properties:
@@ -565,7 +565,7 @@ form:
                         width: 3015
                 - name: lblStep3Results
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -608,7 +608,7 @@ form:
                         word_wrap: NonWrapping
         - name: frm2
           tag: ""
-          index: -1
+          index: 0
           kind:
             Frame:
               properties:
@@ -643,7 +643,7 @@ form:
               controls:
                 - name: cmdEstimate
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     CommandButton:
                       properties:
@@ -683,7 +683,7 @@ form:
                         width: 2055
                 - name: frmInitial
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Frame:
                       properties:
@@ -816,7 +816,7 @@ form:
                                 width: 615
                         - name: Label14
                           tag: ""
-                          index: -1
+                          index: 0
                           kind:
                             Label:
                               properties:
@@ -859,7 +859,7 @@ form:
                                 word_wrap: NonWrapping
                         - name: Label13
                           tag: ""
-                          index: -1
+                          index: 0
                           kind:
                             Label:
                               properties:
@@ -902,7 +902,7 @@ form:
                                 word_wrap: NonWrapping
                 - name: frmState
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Frame:
                       properties:
@@ -1329,7 +1329,7 @@ form:
                                 width: 615
                         - name: Label12
                           tag: ""
-                          index: -1
+                          index: 0
                           kind:
                             Label:
                               properties:
@@ -1372,7 +1372,7 @@ form:
                                 word_wrap: NonWrapping
                         - name: Label11
                           tag: ""
-                          index: -1
+                          index: 0
                           kind:
                             Label:
                               properties:
@@ -1415,7 +1415,7 @@ form:
                                 word_wrap: NonWrapping
                         - name: Label10
                           tag: ""
-                          index: -1
+                          index: 0
                           kind:
                             Label:
                               properties:
@@ -1458,7 +1458,7 @@ form:
                                 word_wrap: NonWrapping
                         - name: Label9
                           tag: ""
-                          index: -1
+                          index: 0
                           kind:
                             Label:
                               properties:
@@ -1501,7 +1501,7 @@ form:
                                 word_wrap: NonWrapping
                         - name: Label8
                           tag: ""
-                          index: -1
+                          index: 0
                           kind:
                             Label:
                               properties:
@@ -1544,7 +1544,7 @@ form:
                                 word_wrap: NonWrapping
                         - name: Label7
                           tag: ""
-                          index: -1
+                          index: 0
                           kind:
                             Label:
                               properties:
@@ -1587,7 +1587,7 @@ form:
                                 word_wrap: NonWrapping
                         - name: Label6
                           tag: ""
-                          index: -1
+                          index: 0
                           kind:
                             Label:
                               properties:
@@ -1630,7 +1630,7 @@ form:
                                 word_wrap: NonWrapping
                         - name: Label5
                           tag: ""
-                          index: -1
+                          index: 0
                           kind:
                             Label:
                               properties:
@@ -1673,7 +1673,7 @@ form:
                                 word_wrap: NonWrapping
                 - name: frmIslandOrNot
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Frame:
                       properties:
@@ -1904,7 +1904,7 @@ form:
                                 width: 615
                         - name: Label4
                           tag: ""
-                          index: -1
+                          index: 0
                           kind:
                             Label:
                               properties:
@@ -1947,7 +1947,7 @@ form:
                                 word_wrap: NonWrapping
                         - name: Label3
                           tag: ""
-                          index: -1
+                          index: 0
                           kind:
                             Label:
                               properties:
@@ -1990,7 +1990,7 @@ form:
                                 word_wrap: NonWrapping
                         - name: Label2
                           tag: ""
-                          index: -1
+                          index: 0
                           kind:
                             Label:
                               properties:
@@ -2033,7 +2033,7 @@ form:
                                 word_wrap: NonWrapping
                         - name: Label1
                           tag: ""
-                          index: -1
+                          index: 0
                           kind:
                             Label:
                               properties:
@@ -2076,7 +2076,7 @@ form:
                                 word_wrap: NonWrapping
         - name: txtTest
           tag: ""
-          index: -1
+          index: 0
           kind:
             TextBox:
               properties:
@@ -2125,7 +2125,7 @@ form:
                 width: 6015
         - name: frm1
           tag: ""
-          index: -1
+          index: 0
           kind:
             Frame:
               properties:
@@ -2160,7 +2160,7 @@ form:
               controls:
                 - name: cmdOpenFASTA
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     CommandButton:
                       properties:
@@ -2200,7 +2200,7 @@ form:
                         width: 3015
                 - name: lblFile
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -2245,7 +2245,7 @@ form:
                         word_wrap: NonWrapping
         - name: lblMessage
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:

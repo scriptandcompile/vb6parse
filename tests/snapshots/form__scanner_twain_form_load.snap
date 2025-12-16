@@ -5,7 +5,7 @@ expression: form_file
 form:
   name: frmScanner
   tag: ""
-  index: -1
+  index: 0
   kind:
     Form:
       properties:
@@ -70,7 +70,7 @@ form:
       controls:
         - name: frameScanOptions
           tag: ""
-          index: -1
+          index: 0
           kind:
             Frame:
               properties:
@@ -191,7 +191,7 @@ form:
                         width: 2655
         - name: picBuffer
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -252,7 +252,7 @@ form:
                 width: 615
         - name: picScan
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -313,7 +313,7 @@ form:
                 width: 6975
         - name: cmdScanImage
           tag: ""
-          index: -1
+          index: 0
           kind:
             CommandButton:
               properties:
@@ -353,7 +353,7 @@ form:
                 width: 2895
         - name: cmdSelectScanner
           tag: ""
-          index: -1
+          index: 0
           kind:
             CommandButton:
               properties:
@@ -393,7 +393,7 @@ form:
                 width: 2895
         - name: Label1
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -438,7 +438,7 @@ form:
                 word_wrap: NonWrapping
         - name: lblSuccess
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:

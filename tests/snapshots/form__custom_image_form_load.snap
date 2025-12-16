@@ -5,7 +5,7 @@ expression: form_file
 form:
   name: frmCustomFilters
   tag: ""
-  index: -1
+  index: 0
   kind:
     Form:
       properties:
@@ -70,7 +70,7 @@ form:
       controls:
         - name: cmbFilter
           tag: ""
-          index: -1
+          index: 0
           kind:
             ComboBox:
               properties:
@@ -1336,7 +1336,7 @@ form:
                 width: 375
         - name: TxtWeight
           tag: ""
-          index: -1
+          index: 0
           kind:
             TextBox:
               properties:
@@ -1385,7 +1385,7 @@ form:
                 width: 495
         - name: cmdApply
           tag: ""
-          index: -1
+          index: 0
           kind:
             CommandButton:
               properties:
@@ -1425,7 +1425,7 @@ form:
                 width: 2805
         - name: TxtBias
           tag: ""
-          index: -1
+          index: 0
           kind:
             TextBox:
               properties:
@@ -1474,7 +1474,7 @@ form:
                 width: 495
         - name: cmdReset
           tag: ""
-          index: -1
+          index: 0
           kind:
             CommandButton:
               properties:
@@ -1514,7 +1514,7 @@ form:
                 width: 2775
         - name: picMain
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -1575,7 +1575,7 @@ form:
                 width: 6030
         - name: picBack
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -1636,7 +1636,7 @@ form:
                 width: 6030
         - name: lblCommon
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -1679,7 +1679,7 @@ form:
                 word_wrap: NonWrapping
         - name: lblScale
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -1722,7 +1722,7 @@ form:
                 word_wrap: NonWrapping
         - name: lblBias
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -1763,16 +1763,33 @@ form:
                 whats_this_help_id: 0
                 width: 360
                 word_wrap: NonWrapping
+      menus:
         - name: mnuFile
           tag: ""
-          index: -1
-          kind:
-            Custom:
+          index: 0
+          properties:
+            caption: "&File"
+            checked: false
+            enabled: Enabled
+            help_context_id: 0
+            negotiate_position: None
+            shortcut: ~
+            visible: Visible
+            window_list: false
+          sub_menus:
+            - name: mnuOpenImage
+              tag: ""
+              index: 0
               properties:
-                property_store:
-                  Caption: "&File"
-              property_groups: []
-      menus: []
+                caption: "&Open image"
+                checked: false
+                enabled: Enabled
+                help_context_id: 0
+                negotiate_position: None
+                shortcut: ~
+                visible: Visible
+                window_list: false
+              sub_menus: []
 objects: []
 format_version:
   major: 5

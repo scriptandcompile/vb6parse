@@ -5,7 +5,7 @@ expression: form_file
 form:
   name: frmHistogram
   tag: ""
-  index: -1
+  index: 0
   kind:
     Form:
       properties:
@@ -72,7 +72,7 @@ form:
       controls:
         - name: Frame1
           tag: ""
-          index: -1
+          index: 0
           kind:
             Frame:
               properties:
@@ -107,7 +107,7 @@ form:
               controls:
                 - name: lblMaxCount
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -150,7 +150,7 @@ form:
                         word_wrap: NonWrapping
                 - name: Label5
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -193,7 +193,7 @@ form:
                         word_wrap: NonWrapping
                 - name: lblCount
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -236,7 +236,7 @@ form:
                         word_wrap: NonWrapping
                 - name: Label4
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -279,7 +279,7 @@ form:
                         word_wrap: NonWrapping
                 - name: lblLevel
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -322,7 +322,7 @@ form:
                         word_wrap: NonWrapping
                 - name: Line1
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Line:
                       properties:
@@ -339,7 +339,7 @@ form:
                         y2: 530
                 - name: Label3
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -382,7 +382,7 @@ form:
                         word_wrap: NonWrapping
                 - name: lblTotalPixels
                   tag: ""
-                  index: -1
+                  index: 0
                   kind:
                     Label:
                       properties:
@@ -425,7 +425,7 @@ form:
                         word_wrap: NonWrapping
         - name: picGradient
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -486,7 +486,7 @@ form:
                 width: 3870
         - name: cmbHistSource
           tag: ""
-          index: -1
+          index: 0
           kind:
             ComboBox:
               properties:
@@ -527,7 +527,7 @@ form:
                 width: 2415
         - name: cmbHistMethod
           tag: ""
-          index: -1
+          index: 0
           kind:
             ComboBox:
               properties:
@@ -568,7 +568,7 @@ form:
                 width: 2415
         - name: picH
           tag: ""
-          index: -1
+          index: 0
           kind:
             PictureBox:
               properties:
@@ -629,7 +629,7 @@ form:
                 width: 3870
         - name: Label2
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
@@ -672,7 +672,7 @@ form:
                 word_wrap: NonWrapping
         - name: Label1
           tag: ""
-          index: -1
+          index: 0
           kind:
             Label:
               properties:
