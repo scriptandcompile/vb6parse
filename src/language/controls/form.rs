@@ -1,3 +1,11 @@
+//! Properties for a `Form` control.
+//!
+//! This is used as an enum variant of
+//! [`ControlKind::Form`](crate::language::controls::ControlKind::Form).
+//! tag, name, and index are not included in this struct, but instead are part
+//! of the parent [`Control`](crate::language::controls::Control) struct.
+//!
+
 use crate::{
     language::{
         controls::{
@@ -168,57 +176,109 @@ pub enum ShowInTaskbar {
 /// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct FormProperties {
+    /// The appearance of the form.
     pub appearance: Appearance,
+    /// Whether the form automatically redraws itself.
     pub auto_redraw: AutoRedraw,
+    /// The background color of the form.
     pub back_color: Color,
+    /// The border style of the form.
     pub border_style: FormBorderStyle,
+    /// The caption of the form.
     pub caption: String,
+    /// The height of the form's client area.
     pub client_height: i32,
+    /// The left position of the form's client area.
     pub client_left: i32,
+    /// The top position of the form's client area.
     pub client_top: i32,
+    /// The width of the form's client area.
     pub client_width: i32,
+    /// Whether controls are clipped to the form's boundaries.
     pub clip_controls: ClipControls,
+    /// The control box setting of the form.
     pub control_box: ControlBox,
+    /// The drawing mode of the form.
     pub draw_mode: DrawMode,
+    /// The drawing style of the form.
     pub draw_style: DrawStyle,
+    /// The drawing width of the form.
     pub draw_width: i32,
+    /// Whether the form is enabled.
     pub enabled: Activation,
+    /// The fill color of the form.
     pub fill_color: Color,
+    /// The fill style of the form.
     pub fill_style: FillStyle,
+    /// The font transparency of the form.
     pub font_transparent: FontTransparency,
+    /// The foreground color of the form.
     pub fore_color: Color,
+    /// Whether the form has a device context.
     pub has_dc: HasDeviceContext,
+    /// The height of the form.
     pub height: i32,
+    /// The help context ID of the form.
     pub help_context_id: i32,
+    /// The icon of the form.
     pub icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// Whether the form previews key events.
     pub key_preview: bool,
+    /// The left position of the form.
     pub left: i32,
+    /// The link mode of the form.
     pub link_mode: FormLinkMode,
+    /// The link topic of the form.
     pub link_topic: String,
+    /// The maximize button setting of the form.
     pub max_button: MaxButton,
+    /// Whether the form is an MDI child.
     pub mdi_child: bool,
+    /// The minimize button setting of the form.
     pub min_button: MinButton,
+    /// The mouse icon of the form.
     pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// The mouse pointer of the form.
     pub mouse_pointer: MousePointer,
+    /// The movability of the form.
     pub moveable: Movability,
+    /// Whether the form negotiates menus.
     pub negotiate_menus: bool,
+    /// The OLE drop mode of the form.
     pub ole_drop_mode: OLEDropMode,
+    /// The palette of the form.
     pub palette: Option<ReferenceOrValue<DynamicImage>>,
+    /// The palette mode of the form.
     pub palette_mode: PaletteMode,
+    /// The picture of the form.
     pub picture: Option<ReferenceOrValue<DynamicImage>>,
+    /// The text direction of the form.
     pub right_to_left: TextDirection,
+    /// The scale height of the form.
     pub scale_height: i32,
+    /// The scale left of the form.
     pub scale_left: i32,
+    /// The scale mode of the form.
     pub scale_mode: ScaleMode,
+    /// The scale top of the form.
     pub scale_top: i32,
+    /// The scale width of the form.
     pub scale_width: i32,
+    /// The show in taskbar setting of the form.
     pub show_in_taskbar: ShowInTaskbar,
+    /// The start up position of the form.
     pub start_up_position: StartUpPosition,
+    /// The top position of the form.
     pub top: i32,
+    /// The visibility of the form.
     pub visible: Visibility,
+    /// The "What's This?" button of the form.
     pub whats_this_button: WhatsThisButton,
+    /// The "What's This?" help of the form.
     pub whats_this_help: WhatsThisHelp,
+    /// The width of the form.
     pub width: i32,
+    /// The window state of the form.
     pub window_state: WindowState,
 }
 
@@ -389,6 +449,7 @@ impl From<Properties> for FormProperties {
         form_prop.fill_color = prop.get_color("FillColor", form_prop.fill_color);
         form_prop.fill_style = prop.get_property("FillStyle", form_prop.fill_style);
 
+        // TODO: Font parsing
         // Font - group
 
         form_prop.font_transparent =
@@ -398,6 +459,7 @@ impl From<Properties> for FormProperties {
         form_prop.height = prop.get_i32("Height", form_prop.height);
         form_prop.help_context_id = prop.get_i32("HelpContextID", form_prop.help_context_id);
 
+        // TODO: Icon parsing
         // Icon
 
         form_prop.key_preview = prop.get_bool("KeyPreview", form_prop.key_preview);
@@ -411,6 +473,7 @@ impl From<Properties> for FormProperties {
         form_prop.mdi_child = prop.get_bool("MDIChild", form_prop.mdi_child);
         form_prop.min_button = prop.get_property("MinButton", form_prop.min_button);
 
+        // TODO: MouseIcon parsing
         // MouseIcon
 
         form_prop.mouse_pointer = prop.get_property("MousePointer", form_prop.mouse_pointer);
@@ -418,10 +481,12 @@ impl From<Properties> for FormProperties {
         form_prop.negotiate_menus = prop.get_bool("NegotiateMenus", form_prop.negotiate_menus);
         form_prop.ole_drop_mode = prop.get_property("OLEDropMode", form_prop.ole_drop_mode);
 
+        // TODO: Palette parsing
         // Palette
 
         form_prop.palette_mode = prop.get_property("PaletteMode", form_prop.palette_mode);
 
+        // TODO: Picture parsing
         // Picture
 
         form_prop.right_to_left = prop.get_property("RightToLeft", form_prop.right_to_left);
