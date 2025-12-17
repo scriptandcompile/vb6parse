@@ -1,3 +1,23 @@
+//! Properties for a CommandButton control.
+//!
+//! This module defines the `CommandButtonProperties` struct, which encapsulates
+//! the various properties associated with a CommandButton control in a GUI
+//! application. It includes default values, serialization logic, and conversion
+//! from a generic `Properties` struct.
+//!
+//! The properties covered include appearance, colors, captions, validation behavior,
+//! images, dimensions, and other control-specific settings.
+//!
+//! This struct is intended to be used as part of a larger control framework,
+//! specifically as a variant of the `ControlKind::CommandButton` enum.
+//!
+//! See [`ControlKind::CommandButton`](crate::language::controls::ControlKind::CommandButton)
+//! for usage.
+//!
+//! # References
+//! - [Microsoft Docs: CommandButton Control](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa240834(v=vs.60))
+//!
+
 use crate::{
     language::controls::{
         Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDropMode,
@@ -18,33 +38,61 @@ use serde::Serialize;
 /// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct CommandButtonProperties {
+    /// The appearance of the command button.
     pub appearance: Appearance,
+    /// The background color of the command button.
     pub back_color: Color,
+    /// Indicates if the button is a cancel button.
     pub cancel: bool,
+    /// The caption text of the command button.
     pub caption: String,
+    /// Indicates if the button causes validation.
     pub causes_validation: CausesValidation,
+    /// Indicates if the button is the default button.
     pub default: bool,
+    /// The picture displayed when the button is disabled.
     pub disabled_picture: Option<ReferenceOrValue<DynamicImage>>,
+    /// The picture displayed when the button is pressed down.
     pub down_picture: Option<ReferenceOrValue<DynamicImage>>,
+    /// The icon used during drag operations.
     pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// The drag mode of the command button.
     pub drag_mode: DragMode,
+    /// Indicates if the button is enabled.
     pub enabled: Activation,
+    /// The height of the command button.
     pub height: i32,
+    /// The help context ID of the command button.
     pub help_context_id: i32,
+    /// The left position of the command button.
     pub left: i32,
+    /// The mask color of the command button.
     pub mask_color: Color,
+    /// The mouse icon of the command button.
     pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// The mouse pointer type of the command button.
     pub mouse_pointer: MousePointer,
+    /// The OLE drop mode of the command button.
     pub ole_drop_mode: OLEDropMode,
+    /// The picture displayed on the command button.
     pub picture: Option<ReferenceOrValue<DynamicImage>>,
+    /// The text direction of the command button.
     pub right_to_left: TextDirection,
+    /// The style of the command button.
     pub style: Style,
+    /// The tab index of the command button.
     pub tab_index: i32,
+    /// The tab stop behavior of the command button.
     pub tab_stop: TabStop,
+    /// The tool tip text of the command button.
     pub tool_tip_text: String,
+    /// The top position of the command button.
     pub top: i32,
+    /// Indicates if the mask color is used.
     pub use_mask_color: UseMaskColor,
+    /// The "What's This?" help ID of the command button.
     pub whats_this_help_id: i32,
+    /// The width of the command button.
     pub width: i32,
 }
 
