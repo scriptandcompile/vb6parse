@@ -1,4 +1,4 @@
-//! Module defining the `TokenStream` structure for managing a stream of tokens
+//! Module defines the `TokenStream` structure for managing a stream of tokens
 //! with positional tracking.
 //!
 //! This module provides the `TokenStream` struct which holds a vector of tokens
