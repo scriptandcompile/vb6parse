@@ -2,6 +2,17 @@
 //!
 //! A ComboBox is a drop-down list that allows the user to select an item
 //! from a list or enter a new value.
+//! 
+//! This module defines the `ComboBoxProperties` struct which holds all
+//! configurable properties of the ComboBox control in a GUI application.
+//! It includes default values, serialization logic, and conversion
+//! from a generic `Properties` struct.
+//! 
+//! The properties covered include appearance, colors, captions, data binding,
+//! validation behavior, images, dimensions, and other control-specific settings.
+//! 
+//! This struct is intended to be used as part of a larger control framework,
+//! specifically as a variant of the `ControlKind::ComboBox` enum.
 //!
 //! See [`ControlKind::ComboBox`](crate::language::controls::ControlKind::ComboBox)
 //! for usage.
