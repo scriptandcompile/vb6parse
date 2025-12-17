@@ -1,3 +1,11 @@
+//! Properties for a `Label` control.
+//!
+//! This is used as an enum variant of
+//! [`ControlKind::Label`](crate::language::controls::ControlKind::Label).
+//! tag, name, and index are not included in this struct, but instead are part
+//! of the parent [`Control`](crate::language::controls::Control) struct.
+//!
+
 use crate::{
     language::controls::{
         Activation, Alignment, Appearance, AutoSize, BackStyle, BorderStyle, DragMode, LinkMode,
@@ -32,38 +40,71 @@ pub enum WordWrap {
 /// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct LabelProperties {
+    /// Alignment of the label.
     pub alignment: Alignment,
+    /// Appearance of the label.
     pub appearance: Appearance,
+    /// Auto size setting of the label.
     pub auto_size: AutoSize,
+    /// Background color of the label.
     pub back_color: Color,
+    /// Back style of the label.
     pub back_style: BackStyle,
+    /// Border style of the label.
     pub border_style: BorderStyle,
+    /// Caption of the label.
     pub caption: String,
+    /// Data field of the label.
     pub data_field: String,
+    /// Data format of the label.
     pub data_format: String,
+    /// Data member of the label.
     pub data_member: String,
+    /// Data source of the label.
     pub data_source: String,
+    /// Drag icon of the label.
     pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// Drag mode of the label.
     pub drag_mode: DragMode,
+    /// Enabled state of the label.
     pub enabled: Activation,
+    /// Foreground color of the label.
     pub fore_color: Color,
+    /// Height of the label.
     pub height: i32,
+    /// Left position of the label.
     pub left: i32,
+    /// Link item of the label.
     pub link_item: String,
+    /// Link mode of the label.
     pub link_mode: LinkMode,
+    /// Link timeout of the label.
     pub link_timeout: i32,
+    /// Link topic of the label.
     pub link_topic: String,
+    /// Mouse icon of the label.
     pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// Mouse pointer of the label.
     pub mouse_pointer: MousePointer,
+    /// OLE drop mode of the label.
     pub ole_drop_mode: OLEDropMode,
+    /// Right to left setting of the label.
     pub right_to_left: TextDirection,
+    /// Tab index of the label.
     pub tab_index: i32,
+    /// Tool tip text of the label.
     pub tool_tip_text: String,
+    /// Top position of the label.
     pub top: i32,
+    /// Use mnemonic of the label.
     pub use_mnemonic: bool,
+    /// Visibility of the label.
     pub visible: Visibility,
+    /// What's this help ID of the label.
     pub whats_this_help_id: i32,
+    /// Width of the label. ]
     pub width: i32,
+    /// Word wrap setting of the label.
     pub word_wrap: WordWrap,
 }
 
@@ -190,6 +231,7 @@ impl From<Properties> for LabelProperties {
             None => "".into(),
         };
 
+        // TODO: process drag_icon
         // DragIcon
 
         label_prop.drag_mode = prop.get_property("DragMode", label_prop.drag_mode);
@@ -208,6 +250,7 @@ impl From<Properties> for LabelProperties {
             None => "".into(),
         };
 
+        // TODO: process mouse_icon
         // MouseIcon
 
         label_prop.mouse_pointer = prop.get_property("MousePointer", label_prop.mouse_pointer);
