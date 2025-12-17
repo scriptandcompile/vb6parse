@@ -1,42 +1,117 @@
+//! Defines the ProjectProperties struct and related enums for VB6 project properties.
+//! Contains settings such as startup mode, threading model, version information, and more.
+//!
+
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
 use strum_macros::{EnumIter, EnumMessage};
 
 use crate::parsers::project::compilesettings::CompilationType;
 
+/// Represents the properties of a VB6 project.
+///
+/// # Examples
+/// ```rust
+/// use vb6parse::parsers::project::properties::{ProjectProperties, StartMode, InteractionMode};
+/// let project_props = ProjectProperties {
+///     unused_control_info: Default::default(),
+///     upgrade_controls: Default::default(),
+///     res_file_32_path: "path/to/resource.res",
+///     icon_form: "Form1",
+///     startup: "Sub Main",
+///     help_file_path: "helpfile.chm",
+///     title: "My VB6 Project",
+///     exe_32_file_name: "MyApp.exe",
+///     exe_32_compatible: "Yes",
+///     dll_base_address: 4194304,
+///     path_32: "C:\\MyProject",
+///     command_line_arguments: "",
+///     name: "MyProject",
+///     description: "A sample VB6 project",
+///     debug_startup_component: "Component1",
+///     help_context_id: "1000",
+///     compatibility_mode: Default::default(),
+///     version_32_compatibility: "Yes",
+///     version_info: Default::default(),
+///     server_support_files: Default::default(),
+///     conditional_compile: "",
+///     compilation_type: Default::default(),
+///     start_mode: StartMode::StandAlone,
+///     unattended: InteractionMode::Interactive,
+///     retained: Default::default(),
+///     thread_per_object: 1,
+///     threading_model: Default::default(),
+///     max_number_of_threads: 1,
+///     debug_startup_option: Default::default(),
+///     use_existing_browser: Default::default(),
+/// };
+///
+/// assert_eq!(project_props.name, "MyProject");
+/// assert_eq!(project_props.start_mode, StartMode::StandAlone);
+/// ```
 #[derive(Debug, PartialEq, Eq, Copy, Clone, Serialize, Default)]
 pub struct ProjectProperties<'a> {
+    /// Determines whether to retain or remove licensing information for unused `ActiveX` Controls.
     pub unused_control_info: UnusedControlInfo,
+    /// Determines if `ActiveX` controls should be upgraded in the project.
     pub upgrade_controls: UpgradeControls,
+    /// Path to the 32-bit resource file.
     pub res_file_32_path: &'a str,
+    /// The form used for the project icon.
     pub icon_form: &'a str,
+    /// The startup procedure or object of the project.
     pub startup: &'a str,
+    /// The help file path for the project.
     pub help_file_path: &'a str,
+    /// The title of the project.
     pub title: &'a str,
+    /// The name of the executable file for 32-bit projects.
     pub exe_32_file_name: &'a str,
+    /// Indicates if the executable is compatible with 32-bit systems.
     pub exe_32_compatible: &'a str,
+    /// The base address for the DLL in 32-bit projects.
     pub dll_base_address: u32,
+    /// The path for 32-bit projects.
     pub path_32: &'a str,
+    /// Command line arguments for the project.
     pub command_line_arguments: &'a str,
+    /// The name of the project.
     pub name: &'a str,
+    /// The description of the project.
     pub description: &'a str,
+    /// The startup component for debugging.
     pub debug_startup_component: &'a str,
-    // May need to be switched to a u32. Not sure yet.
+    /// The help context ID for the project.
+    ///
+    /// Note: This may need to be changed to a u32 in the future.
     pub help_context_id: &'a str,
+    /// The compatibility mode of the project.
     pub compatibility_mode: CompatibilityMode,
+    /// Indicates if the project is compatible with 32-bit systems.
     pub version_32_compatibility: &'a str,
+    /// The version information of the project.
     pub version_info: VersionInformation<'a>,
+    /// Indicates if the project will produce server support files.
     pub server_support_files: ServerSupportFiles,
+    /// The conditional compile settings for the project.
     pub conditional_compile: &'a str,
+    /// The compilation type settings for the project.
     pub compilation_type: CompilationType,
-
+    /// The start mode of the project.
     pub start_mode: StartMode,
+    /// The interaction mode of the project.
     pub unattended: InteractionMode,
+    /// The retained mode of the project.
     pub retained: Retained,
+    /// The number of threads per object.
     pub thread_per_object: u16,
+    /// The threading model of the project.
     pub threading_model: ThreadingModel,
+    /// The maximum number of threads for the project.
     pub max_number_of_threads: u16,
+    /// The debug startup option for the project.
     pub debug_startup_option: DebugStartupOption,
+    /// Indicates whether to use an existing browser instance.
     pub use_existing_browser: ExistingBrowser,
 }
 
