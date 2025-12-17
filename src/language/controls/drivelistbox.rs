@@ -1,3 +1,12 @@
+//! Properties for a `DriveListBox` control.
+//!
+//! This is used as an enum variant of
+//! [`ControlKind::DriveListBox`](crate::language::controls::ControlKind::Drive
+//! ListBox).
+//! tag, name, and index are not included in this struct, but instead are part
+//! of the parent [`Control`](crate::language::controls::Control) struct.
+//!
+
 use crate::language::controls::{
     Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDropMode,
     ReferenceOrValue, TabStop, Visibility,
@@ -16,25 +25,45 @@ use serde::Serialize;
 /// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct DriveListBoxProperties {
+    /// The appearance of the DriveListBox.
     pub appearance: Appearance,
+    /// The background color of the DriveListBox.
     pub back_color: Color,
+    /// Whether the DriveListBox causes validation.
     pub causes_validation: CausesValidation,
+    /// The drag icon of the DriveListBox.
     pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// The drag mode of the DriveListBox.
     pub drag_mode: DragMode,
+    /// Whether the DriveListBox is enabled.
     pub enabled: Activation,
+    /// The foreground color of the DriveListBox.
     pub fore_color: Color,
+    /// The height of the DriveListBox.
     pub height: i32,
+    /// The help context ID of the DriveListBox.
     pub help_context_id: i32,
+    /// The left position of the DriveListBox.
     pub left: i32,
+    /// The mouse icon of the DriveListBox.
     pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// The mouse pointer of the DriveListBox.
     pub mouse_pointer: MousePointer,
+    /// The OLE drop mode of the DriveListBox.
     pub ole_drop_mode: OLEDropMode,
+    /// The tab index of the DriveListBox.
     pub tab_index: i32,
+    /// The tab stop of the DriveListBox.
     pub tab_stop: TabStop,
+    /// The tool tip text of the DriveListBox.
     pub tool_tip_text: String,
+    /// The top position of the DriveListBox.
     pub top: i32,
+    /// The visibility of the DriveListBox.
     pub visible: Visibility,
+    /// The What's This Help ID of the DriveListBox.
     pub whats_this_help_id: i32,
+    /// The width of the DriveListBox.
     pub width: i32,
 }
 
@@ -115,6 +144,7 @@ impl From<Properties> for DriveListBoxProperties {
         drive_list_box_prop.causes_validation =
             prop.get_property("CausesValidation", drive_list_box_prop.causes_validation);
 
+        // TODO: Implement DragIcon parsing
         // DragIcon
 
         drive_list_box_prop.drag_mode =
