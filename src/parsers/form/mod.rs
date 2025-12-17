@@ -1,3 +1,6 @@
+//! Defines the FormFile struct and related parsing functions for VB6 Form files.
+//! Handles extraction of version, objects, attributes, and controls from the CST.
+//!
 use std::collections::HashMap;
 use std::fmt::Debug;
 use std::vec::Vec;
@@ -28,10 +31,16 @@ where
 /// Represents a VB6 Form file.
 #[derive(Debug, PartialEq, Clone, Serialize)]
 pub struct FormFile {
+    /// The form control and its hierarchy.
     pub form: Control,
+    /// The list of object references in the form file.
     pub objects: Vec<ObjectReference>,
+    /// The VB6 file format version.
     pub format_version: FileFormatVersion,
+    /// The file attributes extracted from the form file.
     pub attributes: FileAttributes,
+    /// The concrete syntax tree of the form file.
+    /// Note: This CST excludes nodes that are already extracted into other fields
     #[serde(serialize_with = "serialize_cst")]
     pub cst: ConcreteSyntaxTree,
 }
@@ -609,6 +618,15 @@ fn extract_property(property_node: &CstNode) -> Option<(String, String)> {
 }
 
 impl FormFile {
+    /// Parses a VB6 Form file from a SourceFile.
+    ///
+    /// # Arguments
+    ///
+    /// * `source_file` - The source file containing the VB6 Form code.
+    ///
+    /// # Returns
+    /// * `ParseResult<FormFile, FormErrorKind>` - The result of parsing, containing either the FormFile or parsing errors.
+    ///
     #[must_use]
     pub fn parse(source_file: &SourceFile) -> ParseResult<'_, Self, FormErrorKind> {
         let mut source_stream = source_file.get_source_stream();
