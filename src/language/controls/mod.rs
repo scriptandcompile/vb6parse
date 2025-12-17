@@ -1,3 +1,21 @@
+//! VB6 Control definitions and properties.
+//!
+//! This module contains the definitions for various VB6 controls,
+//! including their properties and enumerations used to represent
+//! different settings for these controls.
+//! Each control is represented as a struct with associated properties,
+//! and enumerations are used to define specific options for properties
+//! such as alignment, visibility, and behavior.
+//! This module is essential for parsing and representing VB6 forms
+//! and their controls in a structured manner.
+//!
+//! References to official Microsoft documentation are provided for
+//! each property and enumeration to ensure accuracy and completeness.
+//!
+//! Modules for individual controls are also included, each defining
+//! the properties specific to that control type.
+//!
+
 pub mod checkbox;
 pub mod combobox;
 pub mod commandbutton;
@@ -388,9 +406,13 @@ pub enum ReferenceOrValue<T> {
 /// Represents a VB6 control.
 #[derive(Debug, PartialEq, Clone, Serialize)]
 pub struct Control {
+    /// The name of the control.
     pub name: String,
+    /// The tag of the control.
     pub tag: String,
+    /// The index of the control.
     pub index: i32,
+    /// The kind of control.
     pub kind: ControlKind,
 }
 
@@ -399,88 +421,145 @@ pub struct Control {
 /// Each variant contains the properties that are specific to that kind of control.
 #[derive(Debug, PartialEq, Clone, Serialize)]
 pub enum ControlKind {
+    /// A command button control.
     CommandButton {
+        /// The properties of the command button control.
         properties: CommandButtonProperties,
     },
+    /// A data control.
     Data {
+        /// The properties of the data control.
         properties: DataProperties,
     },
+    /// A text box control.
     TextBox {
+        /// The properties of the text box control.
         properties: TextBoxProperties,
     },
+    /// A check box control.
     CheckBox {
+        /// The properties of the check box control.
         properties: CheckBoxProperties,
     },
+    /// A line control.
     Line {
+        /// The properties of the line control.
         properties: LineProperties,
     },
+    /// A shape control.
     Shape {
+        /// The properties of the shape control.
         properties: ShapeProperties,
     },
+    /// A list box control.
     ListBox {
+        /// The properties of the list box control.
         properties: ListBoxProperties,
     },
+    /// A timer control.
     Timer {
+        /// The properties of the timer control.
         properties: TimerProperties,
     },
+    /// A label control.
     Label {
+        /// The properties of the label control.
         properties: LabelProperties,
     },
+    /// A frame control.
     Frame {
+        /// The properties of the frame control.
         properties: FrameProperties,
+        /// The child controls of the frame control.
         controls: Vec<Control>,
     },
+    /// A picture box control.
     PictureBox {
+        /// The properties of the picture box control.
         properties: PictureBoxProperties,
     },
+    /// A file list box control.
     FileListBox {
+        /// The properties of the file list box control.
         properties: FileListBoxProperties,
     },
+    /// A drive list box control.
     DriveListBox {
+        /// The properties of the drive list box control.
         properties: DriveListBoxProperties,
     },
+    /// A directory list box control.
     DirListBox {
+        /// The properties of the directory list box control.
         properties: DirListBoxProperties,
     },
+    /// An OLE control.
     Ole {
+        /// The properties of the OLE control.
         properties: OLEProperties,
     },
+    /// An option button control.
     OptionButton {
+        /// The properties of the option button control.
         properties: OptionButtonProperties,
     },
+    /// An image control.
     Image {
+        /// The properties of the image control.
         properties: ImageProperties,
     },
+    /// A combo box control.
     ComboBox {
+        /// The properties of the combo box control.
         properties: ComboBoxProperties,
     },
+    /// A horizontal scroll bar control.
     HScrollBar {
+        /// The properties of the horizontal scroll bar control.
         properties: ScrollBarProperties,
     },
+    /// A vertical scroll bar control.
     VScrollBar {
+        /// The properties of the vertical scroll bar control.
         properties: ScrollBarProperties,
     },
+    /// A menu control.
     Menu {
+        /// The properties of the menu control.
         properties: MenuProperties,
+        /// The sub-menus of the menu control.
         sub_menus: Vec<MenuControl>,
     },
+    /// A form control.
     Form {
+        /// The properties of the form control.
         properties: FormProperties,
+        /// The child controls of the form control.
         controls: Vec<Control>,
+        /// The menus of the form control.
         menus: Vec<MenuControl>,
     },
+    /// An MDI form control.
     MDIForm {
+        /// The properties of the MDI form control.
         properties: MDIFormProperties,
+        /// The child controls of the MDI form control.
         controls: Vec<Control>,
+        /// The menus of the MDI form control.
         menus: Vec<MenuControl>,
     },
+    /// A custom control.
     Custom {
+        /// The properties of the custom control.
         properties: CustomControlProperties,
+        /// The property groups of the custom control.
         property_groups: Vec<PropertyGroup>,
     },
 }
 
+/// Helper methods for `ControlKind`.
 impl ControlKind {
+    /// Returns `true` if the control kind is a `Menu`.
     #[must_use]
     pub fn is_menu(&self) -> bool {
         matches!(self, ControlKind::Menu { .. })
@@ -741,7 +820,7 @@ pub enum MousePointer {
     /// "Not" symbol (circle with a diagonal line) on top of the object being dragged.
     /// Indicates an invalid drop target.
     NoDrop = 12,
-    // Arrow with an hourglass.
+    /// Arrow with an hourglass.
     ArrowHourglass = 13,
     /// Arrow with a question mark.
     ArrowQuestion = 14,
@@ -837,45 +916,109 @@ pub enum FillStyle {
     DiagonalCross = 7,
 }
 
+/// Determines the link mode of a control for DDE conversations.
+/// This is used with the `Form` control.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa235154(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
 #[repr(i32)]
 pub enum LinkMode {
+    /// No DDE interaction. No destination application can initiate a conversation
+    /// with the source control as the topic, and no application can poke data to
+    /// the control.
     #[default]
     None = 0,
+    /// Allows any `Label`, `PictureBox`, or `TextBox` control on a form to supply
+    /// data to any destination application that establishes a DDE conversation
+    /// with the control. If such a link exists, Visual Basic automatically
+    /// notifies the destination whenever the contents of a control are changed.
+    /// In addition, a destination application can poke data to any `Label`,
+    /// `PictureBox`, or `TextBox` control on the form.
     Automatic = 1,
+    /// Allows any `Label`, `PictureBox`, or `TextBox` control on a form to supply
+    /// data to any destination application that establishes a DDE conversation
+    /// with the control. However, Visual Basic does not automatically notify
+    /// the destination whenever the contents of a control are changed. In
+    /// addition, a destination application can poke data to any `Label`,
+    /// `PictureBox`, or `TextBox` control on the form.
     Manual = 2,
+    /// Allows any `Label`, `PictureBox`, or `TextBox` control on a form to supply
+    /// data to any destination application that establishes a DDE conversation
+    /// with the control. Visual Basic automatically notifies the destination
+    /// whenever the contents of a control are changed. However, a destination
+    /// application cannot poke data to any `Label`, `PictureBox`, or `TextBox`
+    /// control on the form.
     Notify = 3,
 }
 
+/// Determines the multi-select behavior of a `ListBox` control.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa235198(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum MultiSelect {
+    /// The user cannot select more than one item in the list box.
     #[default]
     None = 0,
+    /// The user can select multiple items in the list box by holding down the
+    /// `SHIFT` key while clicking items.
     Simple = 1,
+    /// The user can select multiple items in the list box by holding down the
+    /// `CTRL` key while clicking items.
     Extended = 2,
 }
 
+/// Determines the scale mode of the control for sizing and positioning.
+/// This is used with the `Form` and `PictureBox` controls.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445668(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum ScaleMode {
+    /// Indicates that one or more of the ScaleHeight, ScaleWidth, ScaleLeft, and ScaleTop properties are set to custom values.
     User = 0,
+    /// The control uses twips as the unit of measurement. (1440 twips per logical inch; 567 twips per logical centimeter).
     #[default]
     Twip = 1,
+    /// The control uses Points as the unit of measurement. (72 points per logical inch).
     Point = 2,
+    /// The control uses Pixels as the unit of measurement. (The number of pixels per logical inch depends on the system's display settings).
     Pixel = 3,
+    /// The control uses Characters as the unit of measurement. Character (horizontal = 120 twips per unit; vertical = 240 twips per unit).
     Character = 4,
+    /// The control uses Inches as the unit of measurement.
     Inches = 5,
+    /// The control uses Millimeters as the unit of measurement.
     Millimeter = 6,
+    /// The control uses Centimeters as the unit of measurement.
     Centimeter = 7,
+    /// The control uses HiMetrics as the unit of measurement.
+    HiMetric = 8,
+    /// The control uses the Units used by the control's container to determine the control's position.
+    ContainerPosition = 9,
+    /// The control uses the Units used by the control's container to determine the control's size.
+    ContainerSize = 10,
 }
 
+/// Determines how the control sizes the picture within its bounds.
+/// This is used with the `Image` and `PictureBox` controls.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445695(v=vs.60))
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum SizeMode {
+    /// The picture is displayed in its original size. If the picture is larger than
+    /// the control, the picture is clipped to fit within the control's bounds.
+    ///
+    /// If the picture is smaller than the control, the picture is displayed in the
+    /// top-left corner of the control, and the remaining area of the control is
+    /// left blank.
     #[default]
     Clip = 0,
+    /// The picture is stretched or shrunk to fit the control's bounds.
     Stretch = 1,
+    /// The control is automatically resized to fit the picture.
     AutoSize = 2,
+    /// The picture is stretched or shrunk to fit the control's bounds while maintaining its aspect ratio.
     Zoom = 3,
 }
