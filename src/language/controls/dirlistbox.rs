@@ -1,3 +1,10 @@
+//! Properties for a `DirListBox` control.
+//!
+//! This is used as an enum variant of
+//! [`ControlKind::DirListBox`](crate::language::controls::ControlKind::DirListBox).
+//! tag, name, and index are not included in this struct, but instead are part
+//! of the parent [`Control`](crate::language::controls::Control) struct.
+//!
 use crate::language::controls::{
     Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDragMode, OLEDropMode,
     ReferenceOrValue, TabStop, Visibility,
@@ -16,26 +23,47 @@ use serde::Serialize;
 /// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct DirListBoxProperties {
+    /// The appearance of the DirListBox.
     pub appearance: Appearance,
+    /// The background color of the DirListBox.
     pub back_color: Color,
+    /// Whether the DirListBox causes validation.
     pub causes_validation: CausesValidation,
+    /// The drag icon of the DirListBox.
     pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// The drag mode of the DirListBox.
     pub drag_mode: DragMode,
+    /// Whether the DirListBox is enabled.
     pub enabled: Activation,
+    /// The foreground color of the DirListBox.
     pub fore_color: Color,
+    /// The height of the DirListBox.
     pub height: i32,
+    /// The help context ID of the DirListBox.
     pub help_context_id: i32,
+    /// The left position of the DirListBox.
     pub left: i32,
+    /// The mouse icon of the DirListBox.
     pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// The mouse pointer of the DirListBox.
     pub mouse_pointer: MousePointer,
+    /// The OLE drag mode of the DirListBox.
     pub ole_drag_mode: OLEDragMode,
+    /// The OLE drop mode of the DirListBox.
     pub ole_drop_mode: OLEDropMode,
+    /// The tab index of the DirListBox.
     pub tab_index: i32,
+    /// The tab stop of the DirListBox.
     pub tab_stop: TabStop,
+    /// The tool tip text of the DirListBox.
     pub tool_tip_text: String,
+    /// The top position of the DirListBox.
     pub top: i32,
+    /// Whether the DirListBox is visible.
     pub visible: Visibility,
+    /// The "What's This" help ID of the DirListBox.
     pub whats_this_help_id: i32,
+    /// The width of the DirListBox.
     pub width: i32,
 }
 
@@ -117,6 +145,7 @@ impl From<Properties> for DirListBoxProperties {
         dir_list_box_prop.causes_validation =
             prop.get_property("CausesValidation", dir_list_box_prop.causes_validation);
 
+        // TODO: Implement DragIcon parsing
         // DragIcon
 
         dir_list_box_prop.drag_mode = prop.get_property("DragMode", dir_list_box_prop.drag_mode);
