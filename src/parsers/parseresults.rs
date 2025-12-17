@@ -44,14 +44,20 @@ use crate::tokenstream::TokenStream;
 /// assert!(!failure_result.has_result());
 /// ```
 #[derive(Debug, Clone)]
-pub struct ParseResult<'a, T, E> {
+pub struct ParseResult<'a, T, E>
+where
+    E: ToString + std::fmt::Debug,
+{
     /// The successful parse result, if any.
     pub result: Option<T>,
     /// A list of failures encountered during parsing.
     pub failures: Vec<ErrorDetails<'a, E>>,
 }
 
-impl<'a, T, E> ParseResult<'a, T, E> {
+impl<'a, T, E> ParseResult<'a, T, E>
+where
+    E: ToString + std::fmt::Debug,
+{
     /// Checks if the parse result contains a successful result.
     ///
     /// # Returns
@@ -215,9 +221,93 @@ impl<'a, T, E> ParseResult<'a, T, E> {
         self.result
             .expect("Attempted to unwrap a ParseResult that did not have a result.")
     }
+
+    /// Unwraps the parse result, returning the successful result if it exists.
+    /// If there are any failures, it prints them and panics.
+    ///
+    /// # Panics
+    /// Panics if there are any failures in the parse result.
+    ///
+    /// # Returns
+    /// * The successful parse result of type `T`.
+    ///
+    /// # Examples
+    /// ```rust
+    /// use vb6parse::parsers::parseresults::ParseResult;
+    /// use vb6parse::errors::CodeErrorKind;
+    ///
+    /// let parse_result: ParseResult<&str, &CodeErrorKind> = ParseResult {
+    ///     result: Some("Parsed Successfully"),
+    ///     failures: vec![],
+    /// };
+    /// let result = parse_result.unwrap_or_fail();
+    /// assert_eq!(result, "Parsed Successfully");
+    /// ```
+    #[inline]
+    pub fn unwrap_or_fail(self) -> T {
+        if self.has_failures() {
+            for failure in &self.failures {
+                failure.eprint();
+            }
+            panic!(
+                "Parsing had {} failure(s). See errors above.",
+                self.failures.len()
+            );
+        }
+        self.result
+            .expect("Attempted to unwrap a ParseResult that did not have a result.")
+    }
+
+    /// Converts the parse result into a standard `Result` type.
+    ///
+    /// If there are any failures, it returns them as an `Err`. If there is a successful result
+    /// and no failures, it returns the result as `Ok`.
+    ///
+    /// # Returns
+    /// * `Ok(T)` if there is a successful result and no failures.
+    /// * `Err(Vec<ErrorDetails<'a, E>>)` if there are any failures.
+    ///
+    /// # Examples
+    /// ```rust
+    /// use std::borrow::Cow;
+    ///
+    /// use vb6parse::parsers::parseresults::ParseResult;
+    /// use vb6parse::errors::{ErrorDetails, CodeErrorKind};
+    ///
+    /// let failure = ErrorDetails {
+    ///     source_name: "test.bas".to_string(),
+    ///     source_content: Cow::Borrowed("Some source code"),
+    ///     error_offset: 5,
+    ///     line_start: 0,
+    ///     line_end: 10,
+    ///     kind: CodeErrorKind::UnknownToken { token: "???".to_string() },
+    /// };
+    /// let parse_result: ParseResult<'_, &str, CodeErrorKind> = ParseResult {
+    ///     result: Some("Parsed Successfully"),
+    ///     failures: vec![failure],
+    /// };
+    /// match parse_result.ok_or_errors() {
+    ///     Ok(result) => println!("Parsed result: {}", result),
+    ///     Err(errors) => {
+    ///         for error in errors {
+    ///             error.print();
+    ///         }
+    ///     }
+    /// }
+    /// ```
+    pub fn ok_or_errors(self) -> Result<T, Vec<ErrorDetails<'a, E>>> {
+        if self.has_failures() || self.result.is_none() {
+            Err(self.failures)
+        } else {
+            Ok(self.result.unwrap()) // Safe because we checked is_none above
+        }
+    }
 }
 
-impl<'a, T, E> From<(T, ErrorDetails<'a, E>)> for ParseResult<'a, T, E> {
+impl<'a, T, E> From<(T, ErrorDetails<'a, E>)> for ParseResult<'a, T, E>
+where
+    E: ToString + std::fmt::Debug,
+{
     /// Converts a tuple of a successful parse result and a single failure into a `ParseResult`.
     ///
     /// # Arguments
@@ -259,6 +349,7 @@ impl<'a, T, E> From<(T, ErrorDetails<'a, E>)> for ParseResult<'a, T, E> {
 impl<'a, I, T, E> From<(I, Vec<ErrorDetails<'a, E>>)> for ParseResult<'a, Vec<T>, E>
 where
     I: IntoIterator<Item = T>,
+    E: ToString + std::fmt::Debug,
 {
     /// Converts a tuple of an iterable collection and a vector of failures into a `ParseResult`.
     ///
@@ -319,6 +410,8 @@ where
 
 impl<'a, E> From<(TokenStream<'a>, Vec<ErrorDetails<'a, E>>)>
     for ParseResult<'a, TokenStream<'a>, E>
+where
+    E: ToString + std::fmt::Debug,
 {
     /// Converts a tuple of a `TokenStream` and a vector of failures into a `ParseResult`.
     ///
