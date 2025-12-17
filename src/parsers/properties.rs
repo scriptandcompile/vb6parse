@@ -1,3 +1,31 @@
+//! Module for parsing and handling VB6 property groups and key-value properties.
+//!
+//! This module defines structures and methods to represent and manipulate
+//! property groups and key-value properties typically found in VB6 project files.
+//!
+//! It includes functionality for serialization, type conversion, and iteration over properties.
+//!
+//! # Examples
+//! ```rust
+//! use vb6parse::parsers::properties::{PropertyGroup, Properties};
+//! use vb6parse::language::Color;
+//! use vb6parse::VB_RED;
+//! use std::collections::HashMap;
+//! use either::Either;
+//! use uuid::Uuid;
+//! let mut properties = HashMap::new();
+//! properties.insert("BackColor".to_string(), Either::Left(VB_RED.to_vb_string()));
+//! let group = PropertyGroup {
+//!     name: "FormProperties".to_string(),
+//!     guid: Some(Uuid::parse_str("123e4567-e89b-12d3-a456-426614174000").unwrap()),
+//!     properties,
+//! };
+//! assert_eq!(group.name, "FormProperties");
+//! assert_eq!(group.guid.unwrap().to_string(), "123e4567-e89b-12d3-a456-426614174000");
+//! assert_eq!(group.properties.get("BackColor").unwrap(), &Either::Left(VB_RED.to_vb_string()));
+//! ```
+//!
+
 use std::collections::HashMap;
 use std::convert::TryFrom;
 use std::iter::Iterator;
@@ -34,8 +62,11 @@ use crate::language::StartUpPosition;
 /// ```
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct PropertyGroup {
+    /// The name of the property group.
     pub name: String,
+    /// An optional GUID associated with the property group.
     pub guid: Option<Uuid>,
+    /// A map of property names to their values or nested property groups.
     pub properties: HashMap<String, Either<String, PropertyGroup>>,
 }
 
