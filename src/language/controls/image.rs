@@ -1,3 +1,11 @@
+//! Properties for a `Image` control.
+//!
+//! This is used as an enum variant of
+//! [`ControlKind::Image`](crate::language::controls::ControlKind::Image).
+//! tag, name, and index are not included in this struct, but instead are part
+//! of the parent [`Control`](crate::language::controls::Control) struct.
+//!
+
 use crate::language::controls::{
     Activation, Appearance, BorderStyle, DragMode, MousePointer, OLEDragMode, OLEDropMode,
     ReferenceOrValue, Visibility,
@@ -16,27 +24,49 @@ use serde::Serialize;
 /// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct ImageProperties {
+    /// Appearance of the image control.
     pub appearance: Appearance,
+    /// Border style of the image control.
     pub border_style: BorderStyle,
+    /// Data field of the image control.
     pub data_field: String,
+    /// Data format of the image control.
     pub data_format: String,
+    /// Data member of the image control.
     pub data_member: String,
+    /// Data source of the image control.
     pub data_source: String,
+    /// Drag icon of the image control.
     pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// Drag mode of the image control.
     pub drag_mode: DragMode,
+    /// Enabled state of the image control.
     pub enabled: Activation,
+    /// Height of the image control.
     pub height: i32,
+    /// Left position of the image control.
     pub left: i32,
+    /// Mouse icon of the image control.
     pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// Mouse pointer of the image control.
     pub mouse_pointer: MousePointer,
+    /// OLE drag mode of the image control.
     pub ole_drag_mode: OLEDragMode,
+    /// OLE drop mode of the image control.
     pub ole_drop_mode: OLEDropMode,
+    /// Picture of the image control.
     pub picture: Option<ReferenceOrValue<DynamicImage>>,
+    /// Stretch setting of the image control.
     pub stretch: bool,
+    /// Tool tip text of the image control.
     pub tool_tip_text: String,
+    /// Top position of the image control.
     pub top: i32,
+    /// Visibility of the image control.
     pub visible: Visibility,
+    /// What's This help ID of the image control.
     pub whats_this_help_id: i32,
+    /// Width of the image control.
     pub width: i32,
 }
 
