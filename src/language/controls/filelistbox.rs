@@ -1,3 +1,11 @@
+//! Properties for a `FileListBox` control.
+//!
+//! This is used as an enum variant of
+//! [`ControlKind::FileListBox`](crate::language::controls::ControlKind::FileListBox).
+//! tag, name, and index are not included in this struct, but instead are part
+//! of the parent [`Control`](crate::language::controls::Control) struct.
+//!
+
 use crate::language::color::Color;
 use crate::language::controls::{
     Activation, Appearance, CausesValidation, DragMode, MousePointer, MultiSelect, OLEDragMode,
@@ -91,33 +99,61 @@ pub enum NormalAttribute {
 /// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct FileListBoxProperties {
+    /// The appearance of the FileListBox.
     pub appearance: Appearance,
+    /// The archive attribute of the FileListBox.
     pub archive: ArchiveAttribute,
+    /// The background color of the FileListBox.
     pub back_color: Color,
+    /// Whether the FileListBox causes validation.
     pub causes_validation: CausesValidation,
+    /// The drag icon of the FileListBox.
     pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// The drag mode of the FileListBox.
     pub drag_mode: DragMode,
+    /// Whether the FileListBox is enabled.
     pub enabled: Activation,
+    /// The foreground color of the FileListBox.
     pub fore_color: Color,
+    /// The height of the FileListBox.
     pub height: i32,
+    /// The help context ID of the FileListBox.
     pub help_context_id: i32,
+    /// The hidden attribute of the FileListBox.
     pub hidden: HiddenAttribute,
+    /// The left position of the FileListBox.
     pub left: i32,
+    /// The mouse icon of the FileListBox.
     pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// The mouse pointer of the FileListBox.
     pub mouse_pointer: MousePointer,
+    /// The multi-select mode of the FileListBox.
     pub multi_select: MultiSelect,
+    /// The normal attribute of the FileListBox.
     pub normal: NormalAttribute,
+    /// The OLE drag mode of the FileListBox.
     pub ole_drag_mode: OLEDragMode,
+    /// The OLE drop mode of the FileListBox.
     pub ole_drop_mode: OLEDropMode,
+    /// The file pattern filter of the FileListBox.
     pub pattern: String,
+    /// The read-only attribute of the FileListBox.
     pub read_only: ReadOnlyAttribute,
+    /// The system attribute of the FileListBox.
     pub system: SystemAttribute,
+    /// The tab index of the FileListBox.
     pub tab_index: i32,
+    /// The tab stop of the FileListBox.
     pub tab_stop: TabStop,
+    /// The tool tip text of the FileListBox.
     pub tool_tip_text: String,
+    /// The top position of the FileListBox.
     pub top: i32,
+    /// The visibility of the FileListBox.
     pub visible: Visibility,
+    /// The "What's This?" help ID of the FileListBox.
     pub whats_this_help_id: i32,
+    /// The width of the FileListBox.
     pub width: i32,
 }
 
