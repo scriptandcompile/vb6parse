@@ -3,6 +3,18 @@
 //! properties of the CheckBox, as well as the `CheckBoxValue` enum which
 //! represents the state of the CheckBox (Unchecked, Checked, Grayed).
 //! These are used in the context of parsing and representing VB6 form controls.
+//! 
+//! The properties covered include appearance, colors, captions, data binding,
+//! validation behavior, images, dimensions, and other control-specific settings.
+//! 
+//! This struct is intended to be used as part of a larger control framework,
+//! specifically as a variant of the `ControlKind::CheckBox` enum.
+//! 
+//! See [`ControlKind::CheckBox`](crate::language::controls::ControlKind::CheckBox) 
+//! for usage.
+//! 
+//! # References
+//! - [VB6 CheckBox Control Documentation](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa240800(v=vs.60))
 
 use crate::{
     language::{
