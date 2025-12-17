@@ -1,3 +1,11 @@
+//! Properties for a `Line` control.
+//!
+//! This is used as an enum variant of
+//! [`ControlKind::Line`](crate::language::controls::ControlKind::Line).
+//! tag, name, and index are not included in this struct, but instead are part
+//! of the parent [`Control`](crate::language::controls::Control) struct.
+//!
+
 use crate::language::color::{Color, VB_WINDOW_TEXT};
 use crate::language::controls::{DrawMode, DrawStyle, Visibility};
 use crate::parsers::Properties;
@@ -12,14 +20,23 @@ use serde::Serialize;
 /// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct LineProperties {
+    /// Border color of the line.
     pub border_color: Color,
+    /// Border style of the line.
     pub border_style: DrawStyle,
+    /// Border width of the line.
     pub border_width: i32,
+    /// Draw mode of the line.
     pub draw_mode: DrawMode,
+    /// Visibility of the line.
     pub visible: Visibility,
+    /// Starting X coordinate of the line.
     pub x1: i32,
+    /// Starting Y coordinate of the line.
     pub y1: i32,
+    /// Ending X coordinate of the line.
     pub x2: i32,
+    /// Ending Y coordinate of the line.
     pub y2: i32,
 }
 
