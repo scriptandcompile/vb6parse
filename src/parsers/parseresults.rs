@@ -1,3 +1,11 @@
+//! Module for parsing results and error handling in the VB6 parser.
+//! This module defines the `ParseResult` structure, which encapsulates the outcome of parsing operations,
+//! including successful results and any errors encountered during parsing.
+//!
+//! The `ParseResult` structure is generic over the type of the successful result and the type of error details,
+//! allowing it to be used flexibly across different parsing scenarios within the VB6 parser.
+//!
+
 use core::convert::From;
 use std::iter::IntoIterator;
 
