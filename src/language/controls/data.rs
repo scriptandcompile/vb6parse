@@ -1,3 +1,11 @@
+//! Properties for a `Data` control.
+//!
+//! This is used as an enum variant of
+//! [`ControlKind::Data`](crate::language::controls::ControlKind::Data).
+//! tag, name, and index are not included in this struct, but instead are part
+//! of the parent [`Control`](crate::language::controls::Control) struct.
+//!
+
 use crate::errors::FormErrorKind;
 use crate::language::controls::{
     Activation, Align, Appearance, DragMode, MousePointer, OLEDropMode, TextDirection, Visibility,
@@ -17,36 +25,67 @@ use serde::Serialize;
 /// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct DataProperties {
+    /// A store for the properties of the Data control.
     pub align: Align,
+    /// Appearance of the Data control.
     pub appearance: Appearance,
+    /// Background color of the Data control.
     pub back_color: Color,
+    /// Action to take when the BOF (Beginning of File) is reached.
     pub bof_action: BOFAction,
+    /// Caption of the Data control.
     pub caption: String,
+    /// Type of connection to the database.
     pub connection: Connection,
+    /// Name of the database to connect to.
     pub database_name: String,
+    /// Default cursor type for the Data control.
     pub default_cursor_type: DefaultCursorType,
+    /// Default type of data source for the Data control.
     pub default_type: DefaultType,
+    /// Drag icon for the Data control.
     pub drag_icon: Option<DynamicImage>,
+    /// Drag mode for the Data control.
     pub drag_mode: DragMode,
+    /// Whether the Data control is enabled.
     pub enabled: Activation,
+    /// Action to take when the EOF (End of File) is reached.
     pub eof_action: EOFAction,
+    /// Whether the Data control is exclusive.
     pub exclusive: bool,
+    /// Foreground color of the Data control.
     pub fore_color: Color,
+    /// Height of the Data control.
     pub height: i32,
+    /// Left position of the Data control.
     pub left: i32,
+    /// Mouse icon for the Data control.
     pub mouse_icon: Option<DynamicImage>,
+    /// Mouse pointer type for the Data control.
     pub mouse_pointer: MousePointer,
+    /// Whether to negotiate the connection.
     pub negotiate: bool,
+    /// OLE drop mode for the Data control.
     pub ole_drop_mode: OLEDropMode,
+    /// Options for the Data control.
     pub options: i32,
+    /// Whether the Data control is read-only.
     pub read_only: bool,
+    /// Type of record set for the Data control.
     pub record_set_type: RecordSetType,
+    /// Record source for the Data control.
     pub record_source: String,
+    /// Text direction for the Data control.
     pub right_to_left: TextDirection,
+    /// Tool tip text for the Data control.
     pub tool_tip_text: String,
+    /// Top position of the Data control.
     pub top: i32,
+    /// Visibility of the Data control.
     pub visible: Visibility,
+    /// What's This Help ID for the Data control.
     pub whats_this_help_id: i32,
+    /// Width of the Data control.
     pub width: i32,
 }
 
@@ -162,6 +201,7 @@ impl From<Properties> for DataProperties {
             prop.get_property("DefaultCursorType", data_prop.default_cursor_type);
         data_prop.default_type = prop.get_property("DefaultType", data_prop.default_type);
 
+        // TODO: Implement DragIcon parsing
         // DragIcon
 
         data_prop.drag_mode = prop.get_property("DragMode", data_prop.drag_mode);
