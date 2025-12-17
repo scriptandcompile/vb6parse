@@ -1,3 +1,11 @@
+//! Properties for a `Frame` control.
+//!
+//! This is used as an enum variant of
+//! [`ControlKind::Frame`](crate::language::controls::ControlKind::Frame).
+//! tag, name, and index are not included in this struct, but instead are part
+//! of the parent [`Control`](crate::language::controls::Control) struct.
+//!
+
 use crate::{
     language::{
         color::Color,
@@ -21,27 +29,49 @@ use serde::Serialize;
 /// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct FrameProperties {
+    /// Appearance of the frame.
     pub appearance: Appearance,
+    /// Background color of the frame.
     pub back_color: Color,
+    /// Border style of the frame.
     pub border_style: BorderStyle,
+    /// Caption of the frame.
     pub caption: String,
+    /// Clip controls setting of the frame.
     pub clip_controls: ClipControls,
+    /// Drag icon of the frame.
     pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// Drag mode of the frame.
     pub drag_mode: DragMode,
+    /// Enabled state of the frame.
     pub enabled: Activation,
+    /// Foreground color of the frame.
     pub fore_color: Color,
+    /// Height of the frame.
     pub height: i32,
+    /// Help context ID of the frame.
     pub help_context_id: i32,
+    /// Left position of the frame.
     pub left: i32,
+    /// Mouse icon of the frame.
     pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// Mouse pointer of the frame.
     pub mouse_pointer: MousePointer,
+    /// OLE drop mode of the frame.
     pub ole_drop_mode: OLEDropMode,
+    /// Text direction of the frame.
     pub right_to_left: TextDirection,
+    /// Tab index of the frame.
     pub tab_index: i32,
+    /// Tool tip text of the frame.
     pub tool_tip_text: String,
+    /// Top position of the frame.
     pub top: i32,
+    /// Visibility of the frame.
     pub visible: Visibility,
+    /// "What's This?" help ID of the frame.
     pub whats_this_help_id: i32,
+    /// Width of the frame.
     pub width: i32,
 }
 
@@ -129,6 +159,7 @@ impl From<Properties> for FrameProperties {
         };
         frame_prop.clip_controls = prop.get_property("ClipControls", frame_prop.clip_controls);
 
+        // TODO: process drag_icon
         // drag_icon
 
         frame_prop.drag_mode = prop.get_property("DragMode", frame_prop.drag_mode);
@@ -138,6 +169,7 @@ impl From<Properties> for FrameProperties {
         frame_prop.help_context_id = prop.get_i32("HelpContextID", frame_prop.help_context_id);
         frame_prop.left = prop.get_i32("Left", frame_prop.left);
 
+        // TODO: process mouse_icon
         // Implement mouse_icon
 
         frame_prop.mouse_pointer = prop.get_property("MousePointer", frame_prop.mouse_pointer);
