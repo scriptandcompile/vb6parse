@@ -1,3 +1,12 @@
+//! Module for resolving resource files in VB6 projects.
+//!
+//! VB6 resource files (FRX files) contain binary data for controls, forms, and other UI elements.
+//! This module provides functions to read and extract resource data from these files.
+//!
+
+// TODO: Add the ResourceFile struct to represent a parsed resource file.
+// TODO: Implement additional parsing functions for specific resource types (e.g., images, icons, etc.).
+
 /// Resolves a resource file from the given file path and offset.
 ///
 /// # Arguments
@@ -325,6 +334,7 @@ pub fn resource_file_resolver(file_path: &str, offset: usize) -> Result<Vec<u8>,
     Ok(record_data.to_vec())
 }
 
+/// Resolves a list of strings from the given buffer.
 #[must_use]
 pub fn list_resolver(buffer: &[u8]) -> Vec<String> {
     let mut list_items = vec![];
