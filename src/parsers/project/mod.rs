@@ -1,3 +1,8 @@
+//! Defines the ProjectFile struct and related parsing functions for VB6 Project files.
+//!
+//! Handles extraction of project type, references, objects, modules, classes, forms,
+//! user controls, user documents, properties, and other related information from the Project file.
+//!
 pub mod compilesettings;
 pub mod properties;
 
@@ -22,33 +27,59 @@ use crate::{
     sourcestream::{Comparator, SourceStream},
 };
 
+/// Represents a VB6 Project file.
+///
+/// Contains information about the project's type, references, objects, modules, classes, forms,
+/// user controls, user documents, properties, and other related information.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
 pub struct ProjectFile<'a> {
+    /// The type of the project (e.g., Exe, Dll, etc.).
     pub project_type: CompileTargetType,
+    /// The list of references in the project.
     pub references: Vec<ProjectReference<'a>>,
+    /// The list of object references in the project.
     pub objects: Vec<ObjectReference>,
+    /// The list of module references in the project.
     pub modules: Vec<ProjectModuleReference<'a>>,
+    /// The list of class references in the project.
     pub classes: Vec<ProjectClassReference<'a>>,
+    /// The list of related documents in the project.
     pub related_documents: Vec<&'a str>,
+    /// The list of property pages in the project.
     pub property_pages: Vec<&'a str>,
+    /// The list of designers in the project.
     pub designers: Vec<&'a str>,
+    /// The list of forms in the project.
     pub forms: Vec<&'a str>,
+    /// The list of user controls in the project.
     pub user_controls: Vec<&'a str>,
+    /// The list of user documents in the project.
     pub user_documents: Vec<&'a str>,
+    /// Other properties grouped by section headers.
     pub other_properties: HashMap<&'a str, HashMap<&'a str, &'a str>>,
+    /// The project properties.
     pub properties: ProjectProperties<'a>,
 }
 
+/// Represents a reference to either a compiled object or a sub-project.
 #[derive(Debug, PartialEq, Eq, Copy, Clone)]
 pub enum ProjectReference<'a> {
+    /// A reference to a compiled object.
     Compiled {
+        /// The UUID of the compiled object.
         uuid: Uuid,
+        /// An unknown string field.
         unknown1: &'a str,
+        /// Another unknown string field.
         unknown2: &'a str,
+        /// The path to the compiled object.
         path: &'a str,
+        /// The description of the compiled object.
         description: &'a str,
     },
+    /// A reference to a sub-project.
     SubProject {
+        /// The path to the sub-project file.
         path: &'a str,
     },
 }
@@ -89,18 +120,29 @@ impl Serialize for ProjectReference<'_> {
     }
 }
 
+/// Represents a reference to a module in a VB6 project.
 #[derive(Debug, PartialEq, Eq, Copy, Clone, Serialize)]
 pub struct ProjectModuleReference<'a> {
+    /// The name of the module.
     pub name: &'a str,
+    /// The path to the module file.
     pub path: &'a str,
 }
 
+/// Represents a reference to a class in a VB6 project.
 #[derive(Debug, PartialEq, Eq, Copy, Clone, Serialize)]
 pub struct ProjectClassReference<'a> {
+    /// The name of the class.
     pub name: &'a str,
+    /// The path to the class file.
     pub path: &'a str,
 }
 
+/// The result type for parsing a VB6 project file.
+///
+/// Contains the parsed `ProjectFile` and any `ProjectErrorKind` errors encountered during parsing.
+///
+/// This is a type alias for `ParseResult<'a, ProjectFile<'a>, ProjectErrorKind<'a>>`.
 pub type ProjectResult<'a> = ParseResult<'a, ProjectFile<'a>, ProjectErrorKind<'a>>;
 
 impl<'a> ProjectFile<'a> {
@@ -676,6 +718,12 @@ impl<'a> ProjectFile<'a> {
         }
     }
 
+    /// Gets a collection of mutable references to all sub-project references in the project.
+    ///
+    /// # Returns
+    ///
+    /// A vector of mutable references to all sub-project references.
+    ///
     #[must_use]
     pub fn with_subproject_references_mut(&mut self) -> Vec<&ProjectReference<'a>> {
         self.references
@@ -684,6 +732,12 @@ impl<'a> ProjectFile<'a> {
             .collect::<Vec<_>>()
     }
 
+    /// Gets a collection of references to all compiled references in the project.
+    ///
+    /// # Returns
+    ///
+    /// A vector of references to all compiled references.
+    ///
     #[must_use]
     pub fn get_compiled_references(&self) -> Vec<&ProjectReference<'a>> {
         self.references
