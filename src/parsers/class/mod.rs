@@ -1,3 +1,11 @@
+//! VB6 Class File Parser Module
+//!
+//! This module provides functionality to parse VB6 class files (.cls).
+//! It defines the `ClassFile` struct representing a VB6 class file,
+//! along with methods to parse the file and extract relevant information
+//! such as version, properties, and attributes.
+//!
+
 pub mod properties;
 
 use std::collections::HashMap;
@@ -26,7 +34,10 @@ use crate::{
 /// The cst contains the concrete syntax tree of the code of the class file.
 #[derive(Debug, PartialEq, Clone, Serialize)]
 pub struct ClassFile {
+    /// The header of the class file.
     pub header: ClassHeader,
+    /// The concrete syntax tree of the class file.
+    /// This excludes nodes that are already represented in the header.
     #[serde(serialize_with = "serialize_cst")]
     pub cst: ConcreteSyntaxTree,
 }

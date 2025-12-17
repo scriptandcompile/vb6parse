@@ -1,3 +1,13 @@
+//! VB6 Class File Properties Module
+//!
+//! This module defines the properties and attributes of a VB6 class file (.cls).
+//! It includes enums and structs to represent various class file properties
+//! such as COM usage, persistability, MTS status, data binding behavior, and more.
+//!
+//! These properties are typically found in the header of a VB6 class file
+//! and are not normally visible in the code editor region. They are only
+//! visible in the file property explorer.
+
 use serde::Serialize;
 
 use crate::parsers::header::{FileAttributes, FileFormatVersion};
