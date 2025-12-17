@@ -1,3 +1,9 @@
+//! Defines the properties and value enumeration for a CheckBox control in a VB6 form.
+//! This includes the `CheckBoxProperties` struct which holds all configurable
+//! properties of the CheckBox, as well as the `CheckBoxValue` enum which
+//! represents the state of the CheckBox (Unchecked, Checked, Grayed).
+//! These are used in the context of parsing and representing VB6 form controls.
+
 use crate::{
     language::{
         controls::{
@@ -12,6 +18,7 @@ use crate::{
 use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
+
 /// Represents the current state of a checkbox control.
 ///
 /// This is used as a property of the [`CheckBoxProperties`](crate::language::controls::CheckBoxProperties)
@@ -38,39 +45,73 @@ pub enum CheckBoxValue {
 /// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct CheckBoxProperties {
+    /// Justify alignment of the checkbox caption.
     pub alignment: JustifyAlignment,
+    /// Appearance of the checkbox control.
     pub appearance: Appearance,
+    /// Background color of the checkbox control.
     pub back_color: Color,
+    /// Caption text of the checkbox control.
     pub caption: String,
+    /// Whether the checkbox control causes validation.
     pub causes_validation: CausesValidation,
+    /// Data field associated with the checkbox control.
     pub data_field: String,
+    /// Data format for the checkbox control.
     pub data_format: String,
+    /// Data member associated with the checkbox control.
     pub data_member: String,
+    /// Data source associated with the checkbox control.
     pub data_source: String,
+    /// Picture displayed when the checkbox is disabled.
     pub disabled_picture: Option<ReferenceOrValue<DynamicImage>>,
+    /// Picture displayed when the checkbox is pressed down.
     pub down_picture: Option<ReferenceOrValue<DynamicImage>>,
+    /// Icon used during drag operations.
     pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// Drag mode of the checkbox control.
     pub drag_mode: DragMode,
+    /// Whether the checkbox control is enabled.
     pub enabled: Activation,
+    /// Foreground color of the checkbox control.
     pub fore_color: Color,
+    /// Height of the checkbox control.
     pub height: i32,
+    /// Help context ID associated with the checkbox control.
     pub help_context_id: i32,
+    /// Left position of the checkbox control.
     pub left: i32,
+    /// Mask color used for transparency.
     pub mask_color: Color,
+    /// Icon displayed when the mouse is over the checkbox control.
     pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// Mouse pointer style when hovering over the checkbox control.
     pub mouse_pointer: MousePointer,
+    /// OLE drop mode of the checkbox control.
     pub ole_drop_mode: OLEDropMode,
+    /// Picture displayed on the checkbox control.
     pub picture: Option<ReferenceOrValue<DynamicImage>>,
+    /// Text direction of the checkbox control.
     pub right_to_left: TextDirection,
+    /// Style of the checkbox control.
     pub style: Style,
+    /// Tab index of the checkbox control.
     pub tab_index: i32,
+    /// Whether the checkbox control is included in the tab order.
     pub tab_stop: TabStop,
+    /// Tool tip text for the checkbox control.
     pub tool_tip_text: String,
+    /// Top position of the checkbox control.
     pub top: i32,
+    /// Whether to use the mask color for transparency.
     pub use_mask_color: UseMaskColor,
+    /// Current value/state of the checkbox control.
     pub value: CheckBoxValue,
+    /// Visibility of the checkbox control.
     pub visible: Visibility,
+    /// "What's This?" help ID associated with the checkbox control.
     pub whats_this_help_id: i32,
+    /// Width of the checkbox control.
     pub width: i32,
 }
 
