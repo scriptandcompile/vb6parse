@@ -1,3 +1,11 @@
+//! Properties for an `OptionButton` control.
+//!
+//! This is used as an enum variant of
+//! [`ControlKind::OptionButton`](crate::language::controls::ControlKind::OptionButton).
+//! tag, name, and index are not included in this struct, but instead are part
+//! of the parent [`Control`](crate::language::controls::Control) struct.
+//!
+
 use crate::language::controls::{
     Activation, Appearance, CausesValidation, DragMode, JustifyAlignment, MousePointer,
     OLEDropMode, ReferenceOrValue, Style, TabStop, TextDirection, UseMaskColor, Visibility,
@@ -9,11 +17,17 @@ use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
+/// Value of an `OptionButton` control.
+///
+/// This is used as the `Value` property of an `OptionButton` control.
+/// Either, `UnSelected` (0) or `Selected` (1).
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum OptionButtonValue {
+    /// The option button is not selected.
     #[default]
     UnSelected = 0,
+    /// The option button is selected.
     Selected = 1,
 }
 
@@ -25,35 +39,65 @@ pub enum OptionButtonValue {
 /// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct OptionButtonProperties {
+    /// Alignment of the option button.
     pub alignment: JustifyAlignment,
+    /// Appearance of the option button.
     pub appearance: Appearance,
+    /// Background color of the option button.
     pub back_color: Color,
+    /// Caption of the option button.
     pub caption: String,
+    /// Causes validation setting of the option button.
     pub causes_validation: CausesValidation,
+    /// Disabled picture of the option button.
     pub disabled_picture: Option<ReferenceOrValue<DynamicImage>>,
+    /// Down picture of the option button.
     pub down_picture: Option<ReferenceOrValue<DynamicImage>>,
+    /// Drag icon of the option button.
     pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// Drag mode of the option button.
     pub drag_mode: DragMode,
+    /// Enabled state of the option button.
     pub enabled: Activation,
+    /// Foreground color of the option button.
     pub fore_color: Color,
+    /// Height of the option button.
     pub height: i32,
+    /// Help context ID of the option button.
     pub help_context_id: i32,
+    /// Left position of the option button.
     pub left: i32,
+    /// Mask color of the option button.
     pub mask_color: Color,
+    /// Mouse icon of the option button.
     pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// Mouse pointer of the option button.
     pub mouse_pointer: MousePointer,
+    /// OLE drop mode of the option button.
     pub ole_drop_mode: OLEDropMode,
+    /// Picture of the option button.
     pub picture: Option<ReferenceOrValue<DynamicImage>>,
+    /// Right-to-left text direction of the option button.
     pub right_to_left: TextDirection,
+    /// Style of the option button.
     pub style: Style,
+    /// Tab index of the option button.
     pub tab_index: i32,
+    /// Tab stop setting of the option button.
     pub tab_stop: TabStop,
+    /// Tool tip text of the option button.
     pub tool_tip_text: String,
+    /// Top position of the option button.
     pub top: i32,
+    /// Use mask color setting of the option button.
     pub use_mask_color: UseMaskColor,
+    /// Value of the option button.
     pub value: OptionButtonValue,
+    /// Visibility of the option button.
     pub visible: Visibility,
+    /// What's this help ID of the option button.
     pub whats_this_help_id: i32,
+    /// Width of the option button.
     pub width: i32,
 }
 
@@ -167,8 +211,13 @@ impl From<Properties> for OptionButtonProperties {
         option_button_prop.causes_validation =
             prop.get_property("CausesValidation", option_button_prop.causes_validation);
 
+        // TODO: process DisabledPicture
         // DisabledPicture
+
+        // TODO: process DownPicture
         // DownPicture
+
+        // TODO: process DragIcon
         // DragIcon
 
         option_button_prop.drag_mode = prop.get_property("DragMode", option_button_prop.drag_mode);
@@ -180,6 +229,7 @@ impl From<Properties> for OptionButtonProperties {
         option_button_prop.left = prop.get_i32("Left", option_button_prop.left);
         option_button_prop.mask_color = prop.get_color("MaskColor", option_button_prop.mask_color);
 
+        // TODO: process MouseIcon
         // MouseIcon
 
         option_button_prop.mouse_pointer =
@@ -187,6 +237,7 @@ impl From<Properties> for OptionButtonProperties {
         option_button_prop.ole_drop_mode =
             prop.get_property("OLEDropMode", option_button_prop.ole_drop_mode);
 
+        // TODO: process Picture
         // Picture
 
         option_button_prop.right_to_left =
