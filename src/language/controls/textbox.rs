@@ -1,3 +1,11 @@
+//! Properties for TextBox controls.
+//!
+//! This is used as an enum variant of
+//! [`ControlKind::TextBox`](crate::language::controls::ControlKind::TextBox).
+//! tag, name, and index are not included in this struct, but instead are part
+//! of the parent [`Control`](crate::language::controls::Control) struct.
+//!
+
 use crate::{
     language::controls::{
         Activation, Alignment, Appearance, BorderStyle, CausesValidation, DragMode, LinkMode,
@@ -53,44 +61,83 @@ pub enum MultiLine {
 /// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct TextBoxProperties {
+    /// Text alignment within the text box.
     pub alignment: Alignment,
+    /// Appearance of the text box.
     pub appearance: Appearance,
+    /// Background color of the text box.
     pub back_color: Color,
+    /// Border style of the text box.
     pub border_style: BorderStyle,
+    /// Indicates whether the control causes validation when it receives focus.
     pub causes_validation: CausesValidation,
+    /// Data field associated with the text box.
     pub data_field: String,
+    /// Data format for displaying the text.
     pub data_format: String,
+    /// Data member associated with the text box.
     pub data_member: String,
+    /// Data source associated with the text box.
     pub data_source: String,
+    /// Icon displayed when dragging the text box.
     pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// Indicates how the control can be dragged.
     pub drag_mode: DragMode,
+    /// Indicates whether the control is enabled.
     pub enabled: Activation,
+    /// Foreground color of the text box.
     pub fore_color: Color,
+    /// Height of the text box control.
     pub height: i32,
+    /// Help context ID associated with the control.
     pub help_context_id: i32,
+    /// Indicates whether the selected text remains highlighted when the text box loses focus.
     pub hide_selection: bool,
+    /// Left position of the text box control.
     pub left: i32,
+    /// Link item associated with the text box.
     pub link_item: String,
+    /// Link mode of the text box.
     pub link_mode: LinkMode,
+    /// Link timeout for the text box.
     pub link_timeout: i32,
+    /// Link topic associated with the text box.
     pub link_topic: String,
+    /// Indicates whether the text box is locked for editing.
     pub locked: bool,
+    /// Maximum length of text that can be entered in the text box.
     pub max_length: i32,
+    /// Icon displayed when the mouse is over the text box.
     pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// Mouse pointer type when hovering over the text box.
     pub mouse_pointer: MousePointer,
+    /// Indicates whether the text box is multi-line or single-line.
     pub multi_line: MultiLine,
+    /// OLE drag mode of the text box.
     pub ole_drag_mode: OLEDragMode,
+    /// OLE drop mode of the text box.
     pub ole_drop_mode: OLEDropMode,
+    /// Character used to mask input in password mode.
     pub password_char: Option<char>,
+    /// Text direction for the text box.
     pub right_to_left: TextDirection,
+    /// Scroll bars displayed in the text box.
     pub scroll_bars: ScrollBars,
+    /// Tab index of the text box control.
     pub tab_index: i32,
+    /// Indicates whether the control is included in the tab order.
     pub tab_stop: TabStop,
+    /// Text content of the text box.
     pub text: String,
+    /// Tool tip text for the text box.
     pub tool_tip_text: String,
+    /// Top position of the text box control.
     pub top: i32,
+    /// Visibility of the text box control.
     pub visible: Visibility,
+    /// "What's This?" help context ID associated with the control.
     pub whats_this_help_id: i32,
+    /// Width of the text box control.
     pub width: i32,
 }
 
@@ -225,6 +272,7 @@ impl From<Properties> for TextBoxProperties {
             None => text_box_prop.data_source,
         };
 
+        // TODO: process DragIcon
         // drag_icon: Option<DynamicImage>,
 
         text_box_prop.drag_mode = prop.get_property("DragMode", text_box_prop.drag_mode);
@@ -248,6 +296,7 @@ impl From<Properties> for TextBoxProperties {
         text_box_prop.locked = prop.get_bool("Locked", text_box_prop.locked);
         text_box_prop.max_length = prop.get_i32("MaxLength", text_box_prop.max_length);
 
+        // TODO: process MouseIcon
         // mouse_icon: Option<DynamicImage>,
 
         text_box_prop.mouse_pointer =
