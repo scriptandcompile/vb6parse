@@ -312,7 +312,7 @@ mod test {
     #[test]
     fn call_statement_simple() {
         let source = "Call MySubroutine()\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
 
@@ -326,7 +326,7 @@ mod test {
     #[test]
     fn call_statement_with_arguments() {
         let source = "Call ProcessData(x, y, z)\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
 
@@ -341,7 +341,7 @@ mod test {
     #[test]
     fn call_statement_preserves_whitespace() {
         let source = "Call  MyFunction (  arg1 ,  arg2  )\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.text(), source);
     }
@@ -349,7 +349,7 @@ mod test {
     #[test]
     fn call_statement_in_sub() {
         let source = "Sub Main()\nCall DoSomething()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
 
@@ -364,7 +364,7 @@ mod test {
     #[test]
     fn call_statement_no_parentheses() {
         let source = "Call MySubroutine\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
 
@@ -378,7 +378,7 @@ mod test {
     #[test]
     fn multiple_call_statements() {
         let source = "Call First()\nCall Second()\nCall Third()\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 3);
 
@@ -396,7 +396,7 @@ mod test {
     #[test]
     fn call_statement_with_string_arguments() {
         let source = "Call ShowMessage(\"Hello, World!\")\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
 
@@ -410,7 +410,7 @@ mod test {
     #[test]
     fn call_statement_with_complex_expressions() {
         let source = "Call Calculate(x + y, z * 2, (a - b) / c)\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
 
@@ -426,7 +426,7 @@ mod test {
     #[test]
     fn procedure_call_no_arguments() {
         let source = "InitializeRandomDNA\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
 
@@ -440,7 +440,7 @@ mod test {
     #[test]
     fn procedure_call_with_parentheses() {
         let source = "DoSomething()\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
 
@@ -454,7 +454,7 @@ mod test {
     #[test]
     fn procedure_call_with_arguments_no_parentheses() {
         let source = "MsgBox \"Hello\", vbInformation, \"Title\"\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
 
@@ -468,7 +468,7 @@ mod test {
     #[test]
     fn procedure_call_with_arguments_with_parentheses() {
         let source = "ProcessData(x, y, z)\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
 
@@ -482,7 +482,7 @@ mod test {
     #[test]
     fn multiple_procedure_calls_in_sub() {
         let source = "Sub Test()\nInitializeRandomDNA\nGetInitialSize\nGetInitialSpeed\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
 
@@ -509,7 +509,7 @@ mod test {
     #[test]
     fn procedure_call_preserves_whitespace() {
         let source = "MySub  arg1 ,  arg2\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
 
@@ -524,7 +524,7 @@ mod test {
     fn procedure_call_vs_assignment() {
         // This should be an assignment, not a procedure call
         let source = "x = 5\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
 
@@ -542,7 +542,7 @@ Sub Test()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetStatement"));
@@ -591,7 +591,7 @@ Sub Test()
     Set myObj.Property = otherObj
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetStatement"));
@@ -605,7 +605,7 @@ Sub Test()
     Set result = GetObject("WinMgmts:")
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetStatement"));
@@ -618,7 +618,7 @@ Sub Test()
     Set item = collection.Item(1)
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetStatement"));
@@ -633,7 +633,7 @@ Sub Test()
     Set obj3 = Nothing
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let set_count = debug.matches("SetStatement").count();
@@ -647,7 +647,7 @@ Sub Test()
     Set   obj   =   New   MyClass
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetStatement"));
@@ -661,7 +661,7 @@ Function GetObject() As Object
     Set GetObject = New MyClass
 End Function
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetStatement"));
@@ -673,7 +673,7 @@ End Function
         let source = r#"
 Set globalObj = New MyClass
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetStatement"));
@@ -690,7 +690,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("WithStatement"));
@@ -707,7 +707,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("WithStatement"));
@@ -724,7 +724,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("WithStatement"));
@@ -743,7 +743,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let count = debug.matches("WithStatement").count();
@@ -762,7 +762,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("WithStatement"));
@@ -780,7 +780,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("WithStatement"));
@@ -798,7 +798,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("WithStatement"));
@@ -815,7 +815,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("WithStatement"));
@@ -831,7 +831,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("WithStatement"));
@@ -846,7 +846,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("WithStatement"));
@@ -864,7 +864,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let count = debug.matches("WithStatement").count();
@@ -878,7 +878,7 @@ With obj
     .Property = value
 End With
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("WithStatement"));
@@ -895,7 +895,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("WithStatement"));
@@ -909,7 +909,7 @@ With GlobalObject
     .Config = value
 End With
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("WithStatement"));
@@ -924,7 +924,7 @@ Sub Test()
     RaiseEvent DataReceived
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RaiseEventStatement"));
@@ -939,7 +939,7 @@ Sub Test()
     RaiseEvent StatusChanged(newStatus)
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RaiseEventStatement"));
@@ -954,7 +954,7 @@ Sub Test()
     RaiseEvent DataChanged(oldValue, newValue, timestamp)
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RaiseEventStatement"));
@@ -966,7 +966,7 @@ End Sub
     #[test]
     fn raiseevent_at_module_level() {
         let source = "RaiseEvent ProcessComplete\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
         assert_eq!(cst.child_count(), 1);
@@ -978,7 +978,7 @@ End Sub
     #[test]
     fn raiseevent_preserves_whitespace() {
         let source = "    RaiseEvent    DataReady  (  value  )    \n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.text(), "    RaiseEvent    DataReady  (  value  )    \n");
 
@@ -993,7 +993,7 @@ Sub Test()
     RaiseEvent Updated ' Notify listeners
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RaiseEventStatement"));
@@ -1009,7 +1009,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RaiseEventStatement"));
@@ -1023,7 +1023,7 @@ Sub Test()
     If condition Then RaiseEvent EventFired
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RaiseEventStatement"));
@@ -1038,7 +1038,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RaiseEventStatement"));
@@ -1052,7 +1052,7 @@ Sub Test()
     RaiseEvent MessageSent("Hello, World!")
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RaiseEventStatement"));
@@ -1066,7 +1066,7 @@ Sub Test()
     RaiseEvent PositionChanged(100, 200)
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RaiseEventStatement"));
@@ -1081,7 +1081,7 @@ Sub Test()
     RaiseEvent ValueChanged(obj.Property)
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RaiseEventStatement"));
@@ -1096,7 +1096,7 @@ Sub Test()
     RaiseEvent DataProcessed(ProcessData(input))
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RaiseEventStatement"));
@@ -1117,7 +1117,7 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let raiseevent_count = debug.matches("RaiseEventStatement").count();
@@ -1133,7 +1133,7 @@ Sub Test()
     RaiseEvent AfterUpdate
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let raiseevent_count = debug.matches("RaiseEventStatement").count();
@@ -1147,7 +1147,7 @@ Sub Test()
     RaiseEvent BeforeClose(Cancel)
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RaiseEventStatement"));
@@ -1164,7 +1164,7 @@ ErrorHandler:
     RaiseEvent ErrorOccurred(Err.Number, Err.Description)
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RaiseEventStatement"));
@@ -1178,7 +1178,7 @@ Sub Test()
     RaiseEvent ItemSelected(items(index))
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RaiseEventStatement"));
@@ -1192,7 +1192,7 @@ Sub Test()
     RaiseEvent ProgressChanged((current / total) * 100)
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RaiseEventStatement"));
@@ -1209,7 +1209,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RaiseEventStatement"));
@@ -1226,7 +1226,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RaiseEventStatement"));
@@ -1245,7 +1245,7 @@ Public Sub UpdateStatus(ByVal status As String)
     RaiseEvent StatusChanged(status)
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.cls", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RaiseEventStatement"));
@@ -1259,7 +1259,7 @@ Sub Test()
     RaiseEvent ValidationComplete(True)
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RaiseEventStatement"));
@@ -1273,7 +1273,7 @@ Sub Test()
     RaiseEvent DateChanged(#1/1/2025#)
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RaiseEventStatement"));
@@ -1290,7 +1290,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let raiseevent_count = debug.matches("RaiseEventStatement").count();
@@ -1304,7 +1304,7 @@ Sub Test()
     RaiseEvent Complete()
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RaiseEventStatement"));

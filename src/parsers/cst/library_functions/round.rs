@@ -688,7 +688,7 @@ mod tests {
 Dim result As Double
 result = Round(3.7)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("Identifier"));
@@ -700,7 +700,7 @@ result = Round(3.7)
 Dim rounded As Double
 rounded = Round(12.3456, 2)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("Identifier"));
@@ -713,7 +713,7 @@ If Round(price, 2) > 100 Then
     MsgBox "Expensive"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("Identifier"));
@@ -726,7 +726,7 @@ Function RoundCurrency(amount As Double) As Double
     RoundCurrency = Round(amount, 2)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("Identifier"));
@@ -738,7 +738,7 @@ End Function
 Dim value As Double
 value = Round(inputValue, decimalPlaces)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("Identifier"));
@@ -749,7 +749,7 @@ value = Round(inputValue, decimalPlaces)
         let source = r#"
 MsgBox "Rounded: " & Round(pi, 3)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("Identifier"));
@@ -760,7 +760,7 @@ MsgBox "Rounded: " & Round(pi, 3)
         let source = r#"
 Debug.Print Round(value, 4)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("Identifier"));
@@ -776,7 +776,7 @@ Select Case Round(score)
         grade = "B"
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("Identifier"));
@@ -791,7 +791,7 @@ Public Sub SetValue(value As Double)
     m_roundedValue = Round(value, 2)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("Identifier"));
@@ -804,7 +804,7 @@ With calculation
     .Result = Round(.RawValue, .Precision)
 End With
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("Identifier"));
@@ -819,7 +819,7 @@ ElseIf Round(temp) > 30 Then
     status = "Hot"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("Identifier"));
@@ -832,7 +832,7 @@ For i = 1 To 10
     rounded(i) = Round(values(i), 2)
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("Identifier"));
@@ -845,7 +845,7 @@ Do While Round(balance, 2) > 0
     balance = balance - payment
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("Identifier"));
@@ -858,7 +858,7 @@ Do Until Round(distance) >= target
     distance = distance + step
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("Identifier"));
@@ -871,7 +871,7 @@ While Round(counter, 1) < 100.5
     counter = counter + increment
 Wend
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("Identifier"));
@@ -883,7 +883,7 @@ Wend
 Dim val As Double
 val = (Round(input, 3))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("Identifier"));
@@ -895,7 +895,7 @@ val = (Round(input, 3))
 Dim display As String
 display = IIf(Round(value) > 10, "High", "Low")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("Identifier"));
@@ -907,7 +907,7 @@ display = IIf(Round(value) > 10, "High", "Low")
 Dim result As Double
 result = Round(Round(value, 3) * 100, 1)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("Identifier"));
@@ -919,7 +919,7 @@ result = Round(Round(value, 3) * 100, 1)
 Dim prices(10) As Double
 prices(i) = Round(rawPrices(i), 2)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("Identifier"));
@@ -931,7 +931,7 @@ prices(i) = Round(rawPrices(i), 2)
 Set obj = New Calculator
 obj.RoundedValue = Round(obj.RawValue, 4)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("Identifier"));
@@ -942,7 +942,7 @@ obj.RoundedValue = Round(obj.RawValue, 4)
         let source = r#"
 Call ProcessValue(Round(measurement, 2))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("Identifier"));
@@ -954,7 +954,7 @@ Call ProcessValue(Round(measurement, 2))
 Dim msg As String
 msg = "Price: $" & Round(price, 2)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("Identifier"));
@@ -967,7 +967,7 @@ If Round(amount1, 2) = Round(amount2, 2) Then
     MsgBox "Equal"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("Identifier"));
@@ -979,7 +979,7 @@ End If
 Dim roundedToTens As Long
 roundedToTens = Round(2748, -1)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("roundedToTens"));
@@ -992,7 +992,7 @@ Dim r1 As Integer, r2 As Integer
 r1 = Round(2.5)
 r2 = Round(3.5)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("Identifier"));
@@ -1008,7 +1008,7 @@ If Err.Number <> 0 Then
     result = 0
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("Identifier"));
@@ -1026,7 +1026,7 @@ ErrorHandler:
     MsgBox "Error rounding value"
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
         assert!(text.contains("Identifier"));

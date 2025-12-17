@@ -716,7 +716,7 @@ Sub Test()
     parts = Split("a,b,c", ",")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
         assert!(debug.contains("parts"));
@@ -734,7 +734,7 @@ Sub Test()
     result = Split(text, delimiter)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
         assert!(debug.contains("result"));
@@ -748,7 +748,7 @@ Sub Test()
     words = Split("The quick brown fox")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
         assert!(debug.contains("words"));
@@ -762,7 +762,7 @@ Sub Test()
     items = Split("a,b,c,d,e", ",", 3)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
         assert!(debug.contains("items"));
@@ -777,7 +777,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
     }
@@ -789,7 +789,7 @@ Function ParseCSV(line As String) As String()
     ParseCSV = Split(line, ",")
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
         assert!(debug.contains("ParseCSV"));
@@ -803,7 +803,7 @@ Sub Test()
     fields = Split(csvLine, ",")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
         assert!(debug.contains("fields"));
@@ -819,7 +819,7 @@ Sub Test()
     firstPart = parts(0)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
     }
@@ -836,7 +836,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
     }
@@ -850,7 +850,7 @@ Class Parser
     End Function
 End Class
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
         assert!(debug.contains("GetFields"));
@@ -866,7 +866,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
     }
@@ -883,7 +883,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
     }
@@ -901,7 +901,7 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
     }
@@ -917,7 +917,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
     }
@@ -933,7 +933,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
     }
@@ -949,7 +949,7 @@ Sub Test()
     Wend
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
     }
@@ -965,7 +965,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
     }
@@ -982,7 +982,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
     }
@@ -995,7 +995,7 @@ Sub Test()
     lines = Split(multilineText, vbCrLf)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
         assert!(debug.contains("lines"));
@@ -1009,7 +1009,7 @@ Sub Test()
     count = UBound(Split(text, ",")) + 1
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
         assert!(debug.contains("count"));
@@ -1025,7 +1025,7 @@ Sub Test()
     result = Join(parts, ";")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
     }
@@ -1042,7 +1042,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
     }
@@ -1059,7 +1059,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
     }
@@ -1076,7 +1076,7 @@ ErrorHandler:
     MsgBox "Error parsing data"
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
     }
@@ -1091,7 +1091,7 @@ Sub Test()
     fileName = pathParts(UBound(pathParts))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
     }
@@ -1104,7 +1104,7 @@ Sub Test()
     items = Split(text, delimiter, -1, vbTextCompare)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
         assert!(debug.contains("items"));
@@ -1124,7 +1124,7 @@ Sub Test()
     value = parts(1)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
         assert!(debug.contains("parts"));

@@ -332,7 +332,7 @@ Sub Test()
     ch = ChrB(65)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("IntegerLiteral"));
     }
@@ -344,7 +344,7 @@ Sub Test()
     x = ChrB(65)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("IntegerLiteral"));
     }
@@ -356,7 +356,7 @@ Sub Test()
     newline = ChrB(10)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("IntegerLiteral"));
     }
@@ -368,7 +368,7 @@ Sub Test()
     text = ChrB(72) & ChrB(101) & ChrB(108)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -380,7 +380,7 @@ Sub Test()
     CRLF = ChrB(13) & ChrB(10)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -392,7 +392,7 @@ Sub Test()
     TAB = ChrB(9)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -406,7 +406,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Identifier"));
     }
@@ -418,7 +418,7 @@ Sub Test()
     nullTerm = "Hello" & ChrB(0)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("IntegerLiteral"));
     }
@@ -430,7 +430,7 @@ Sub Test()
     quote = ChrB(34)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -443,7 +443,7 @@ Sub Test()
     ch = ChrB(charCode)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Identifier"));
     }
@@ -455,7 +455,7 @@ Function GetChar(code As Integer) As String
     GetChar = ChrB(code)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Identifier"));
     }
@@ -468,7 +468,7 @@ Sub Test()
     result = result & ChrB(bytes(i))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -480,7 +480,7 @@ Sub Test()
     ch = ChrB(128)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("IntegerLiteral"));
     }
@@ -494,7 +494,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -506,7 +506,7 @@ Sub Test()
     Const TAB_CHAR As String = ChrB(9)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -519,7 +519,7 @@ Sub Test()
     data = "Field1" & PIPE & "Field2"
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -533,7 +533,7 @@ Function SafeChrB(charcode As Long) As String
     End If
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Identifier"));
     }
@@ -545,7 +545,7 @@ Sub Test()
     Debug.Print ChrB(65)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -559,7 +559,7 @@ Function BuildString() As String
     BuildString = result
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -571,7 +571,7 @@ Sub CreateMessage()
     msg = ChrB(1) & ChrB(msgType) & ChrB(2) & payload & ChrB(3)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }

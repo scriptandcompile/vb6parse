@@ -681,7 +681,7 @@ Sub Test()
     result = Sgn(10)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
         assert!(debug.contains("result"));
@@ -695,7 +695,7 @@ Sub Test()
     sign = Sgn(-5.5)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
         assert!(debug.contains("sign"));
@@ -710,7 +710,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
     }
@@ -722,7 +722,7 @@ Function GetSign(num As Double) As Integer
     GetSign = Sgn(num)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
         assert!(debug.contains("GetSign"));
@@ -736,7 +736,7 @@ Sub Test()
     direction = Sgn(newValue - oldValue)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
         assert!(debug.contains("direction"));
@@ -749,7 +749,7 @@ Sub Test()
     MsgBox "Sign: " & Sgn(value)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
         assert!(debug.contains("MsgBox"));
@@ -762,7 +762,7 @@ Sub Test()
     Debug.Print Sgn(number)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
         assert!(debug.contains("Debug"));
@@ -782,7 +782,7 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
     }
@@ -796,7 +796,7 @@ Class Calculator
     End Function
 End Class
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
         assert!(debug.contains("GetDirection"));
@@ -812,7 +812,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
         assert!(debug.contains("s"));
@@ -831,7 +831,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
     }
@@ -846,7 +846,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
     }
@@ -860,7 +860,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
     }
@@ -874,7 +874,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
     }
@@ -888,7 +888,7 @@ Sub Test()
     Wend
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
     }
@@ -901,7 +901,7 @@ Sub Test()
     result = (Sgn(a) + Sgn(b))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
         assert!(debug.contains("result"));
@@ -915,7 +915,7 @@ Sub Test()
     msg = IIf(Sgn(value) = 1, "Positive", "Not positive")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
         assert!(debug.contains("msg"));
@@ -929,7 +929,7 @@ Sub Test()
     signs(0) = Sgn(values(0))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
         assert!(debug.contains("signs"));
@@ -947,7 +947,7 @@ Sub Test()
     pt.Sign = Sgn(value)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
     }
@@ -962,7 +962,7 @@ Sub Test()
     ProcessSign Sgn(value)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
         assert!(debug.contains("ProcessSign"));
@@ -976,7 +976,7 @@ Sub Test()
     msg = "Direction: " & Sgn(delta)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
         assert!(debug.contains("msg"));
@@ -990,7 +990,7 @@ Sub Test()
     sameSign = (Sgn(a) = Sgn(b))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
         assert!(debug.contains("sameSign"));
@@ -1004,7 +1004,7 @@ Sub Test()
     normalized = Abs(value) * Sgn(reference)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
         assert!(debug.contains("normalized"));
@@ -1018,7 +1018,7 @@ Sub Test()
     trend = Sgn(newVal - oldVal)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
         assert!(debug.contains("trend"));
@@ -1036,7 +1036,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
         assert!(debug.contains("s"));
@@ -1054,7 +1054,7 @@ ErrorHandler:
     MsgBox "Error getting sign"
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
         assert!(debug.contains("signValue"));
@@ -1068,7 +1068,7 @@ Sub Test()
     compareResult = Sgn(value1 - value2)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
         assert!(debug.contains("compareResult"));

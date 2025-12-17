@@ -6,7 +6,7 @@ fn expression_whitespace_conservation() {
     let input = "a = 1 + 2";
 
     // Use the high-level API to parse directly from source
-    let result = ConcreteSyntaxTree::from_source("test.bas", input);
+    let result = ConcreteSyntaxTree::from_text("test.bas", input);
 
     // Check for errors
     if !result.failures.is_empty() {

@@ -708,7 +708,7 @@ mod tests {
         let source = r#"
 fileName = Dir("*.txt")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
         assert!(debug.contains("Identifier"));
@@ -719,7 +719,7 @@ fileName = Dir("*.txt")
         let source = r#"
 fileName = Dir("C:\Data\*.txt")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
         assert!(debug.contains("Identifier"));
@@ -730,7 +730,7 @@ fileName = Dir("C:\Data\*.txt")
         let source = r#"
 fileName = Dir("*.*", vbDirectory)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
         assert!(debug.contains("Identifier"));
@@ -741,7 +741,7 @@ fileName = Dir("*.*", vbDirectory)
         let source = r#"
 fileName = Dir
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
         assert!(debug.contains("Identifier"));
@@ -756,7 +756,7 @@ Do While fileName <> ""
     fileName = Dir
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
         assert!(debug.contains("Identifier"));
@@ -769,7 +769,7 @@ If Len(Dir("C:\file.txt")) > 0 Then
     MsgBox "File exists"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
         assert!(debug.contains("Identifier"));
@@ -780,7 +780,7 @@ End If
         let source = r#"
 volumeLabel = Dir("C:\", vbVolume)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
         assert!(debug.contains("Identifier"));
@@ -793,7 +793,7 @@ Function FileExists(filePath As String) As Boolean
     FileExists = (Len(Dir(filePath)) > 0)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
         assert!(debug.contains("Identifier"));
@@ -804,7 +804,7 @@ End Function
         let source = r#"
 fileName = Dir("*.*", vbHidden)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
         assert!(debug.contains("Identifier"));
@@ -815,7 +815,7 @@ fileName = Dir("*.*", vbHidden)
         let source = r#"
 fileName = Dir("*.*", vbHidden + vbSystem)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
         assert!(debug.contains("Identifier"));
@@ -827,7 +827,7 @@ fileName = Dir("*.*", vbHidden + vbSystem)
 pattern = "*.doc"
 fileName = Dir(pattern)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
         assert!(debug.contains("Identifier"));
@@ -838,7 +838,7 @@ fileName = Dir(pattern)
         let source = r#"
 fileName = Dir(folderPath & "\*.txt")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
         assert!(debug.contains("Identifier"));
@@ -854,7 +854,7 @@ Do While fileName <> ""
     fileName = Dir
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
         assert!(debug.contains("Identifier"));
@@ -869,7 +869,7 @@ Do While fileName <> ""
     fileName = Dir
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
         assert!(debug.contains("Identifier"));
@@ -884,7 +884,7 @@ Do While fileName <> ""
     fileName = Dir
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
         assert!(debug.contains("Identifier"));
@@ -899,7 +899,7 @@ Do While fileName <> ""
     fileName = Dir
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
         assert!(debug.contains("Identifier"));
@@ -914,7 +914,7 @@ If Err.Number <> 0 Then
     MsgBox "Error accessing directory"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
         assert!(debug.contains("Identifier"));
@@ -930,7 +930,7 @@ Select Case UCase(Right(Dir("*.*"), 3))
         MsgBox "Word file"
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
         assert!(debug.contains("Identifier"));
@@ -947,7 +947,7 @@ Do While fileName <> ""
     fileName = Dir
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
         assert!(debug.contains("Identifier"));
@@ -958,7 +958,7 @@ Loop
         let source = r#"
 MsgBox "First file: " & Dir("*.txt")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
         assert!(debug.contains("Identifier"));
@@ -969,7 +969,7 @@ MsgBox "First file: " & Dir("*.txt")
         let source = r#"
 fileName = Dir()
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
         assert!(debug.contains("Identifier"));
@@ -980,7 +980,7 @@ fileName = Dir()
         let source = r#"
 fileName = Dir("C:\Users\Documents\Reports\*.pdf")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
         assert!(debug.contains("Identifier"));
@@ -991,7 +991,7 @@ fileName = Dir("C:\Users\Documents\Reports\*.pdf")
         let source = r#"
 fileName = Dir("test?.txt")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
         assert!(debug.contains("Identifier"));
@@ -1002,7 +1002,7 @@ fileName = Dir("test?.txt")
         let source = r#"
 fileName = Dir("*.*")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
         assert!(debug.contains("Identifier"));
@@ -1019,7 +1019,7 @@ Do While fileName <> ""
     fileName = Dir
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
         assert!(debug.contains("Identifier"));

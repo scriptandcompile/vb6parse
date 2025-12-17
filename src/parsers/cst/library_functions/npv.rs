@@ -815,7 +815,7 @@ mod tests {
 Dim result As Double
 result = NPV(0.1, cashFlows)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));
@@ -827,7 +827,7 @@ result = NPV(0.1, cashFlows)
 Dim netValue As Double
 netValue = NPV(0.08, cashFlows) - initialInvestment
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));
@@ -840,7 +840,7 @@ If NPV(rate, values) - cost > 0 Then
     MsgBox "Good investment"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));
@@ -853,7 +853,7 @@ Function CalculateNPV(rate As Double, flows() As Double) As Double
     CalculateNPV = NPV(rate, flows)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));
@@ -865,7 +865,7 @@ End Function
 Dim presentValue As Double
 presentValue = NPV(0.12, projectedCashFlows)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));
@@ -876,7 +876,7 @@ presentValue = NPV(0.12, projectedCashFlows)
         let source = r#"
 MsgBox "NPV: $" & Format(NPV(discountRate, flows), "0.00")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));
@@ -887,7 +887,7 @@ MsgBox "NPV: $" & Format(NPV(discountRate, flows), "0.00")
         let source = r#"
 Debug.Print "Net Present Value: " & NPV(r, cf)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));
@@ -905,7 +905,7 @@ Select Case NPV(rate, cashFlows) - investment
         decision = "Poor"
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));
@@ -920,7 +920,7 @@ Public Sub Calculate()
     m_npv = NPV(m_rate, m_cashFlows)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));
@@ -933,7 +933,7 @@ With investment
     .NetPresentValue = NPV(.DiscountRate, .CashFlows) - .InitialCost
 End With
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));
@@ -948,7 +948,7 @@ ElseIf NPV(r, flows) > threshold Then
     y = 2
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));
@@ -962,7 +962,7 @@ For rate = 0.05 To 0.15 Step 0.01
     Debug.Print rate, npvValue
 Next rate
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));
@@ -975,7 +975,7 @@ Do While NPV(currentRate, flows) - cost > 0
     currentRate = currentRate + 0.01
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));
@@ -988,7 +988,7 @@ Do Until NPV(r, values) - investment <= 0
     r = r + 0.001
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));
@@ -1001,7 +1001,7 @@ While NPV(discountRate, projections) > minValue
     discountRate = discountRate + 0.005
 Wend
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));
@@ -1013,7 +1013,7 @@ Wend
 Dim result As Double
 result = (NPV(rate, cashFlows))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));
@@ -1025,7 +1025,7 @@ result = (NPV(rate, cashFlows))
 Dim decision As String
 decision = IIf(NPV(r, cf) - cost > 0, "Accept", "Reject")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));
@@ -1038,7 +1038,7 @@ If NPV(rate1, flows1) > NPV(rate2, flows2) Then
     MsgBox "Project 1 is better"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));
@@ -1050,7 +1050,7 @@ End If
 Dim npvValues(10) As Double
 npvValues(i) = NPV(rates(i), cashFlows)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));
@@ -1062,7 +1062,7 @@ npvValues(i) = NPV(rates(i), cashFlows)
 Set obj = New Investment
 obj.PresentValue = NPV(obj.Rate, obj.CashFlows)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));
@@ -1073,7 +1073,7 @@ obj.PresentValue = NPV(obj.Rate, obj.CashFlows)
         let source = r#"
 Call DisplayInvestmentAnalysis(NPV(discountRate, projectedFlows))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));
@@ -1085,7 +1085,7 @@ Call DisplayInvestmentAnalysis(NPV(discountRate, projectedFlows))
 Dim formatted As String
 formatted = "NPV: " & Format(NPV(0.1, flows), "0.00")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));
@@ -1097,7 +1097,7 @@ formatted = "NPV: " & Format(NPV(0.1, flows), "0.00")
 Dim profitabilityIndex As Double
 profitabilityIndex = NPV(rate, flows) / initialInvestment
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));
@@ -1109,7 +1109,7 @@ profitabilityIndex = NPV(rate, flows) / initialInvestment
 Dim msg As String
 msg = "Present Value: $" & NPV(r, cf) & " at " & r * 100 & "%"
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));
@@ -1121,7 +1121,7 @@ msg = "Present Value: $" & NPV(r, cf) & " at " & r * 100 & "%"
 Dim absValue As Double
 absValue = Abs(NPV(discountRate, cashFlows) - targetValue)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));
@@ -1137,7 +1137,7 @@ If Err.Number <> 0 Then
 End If
 On Error GoTo 0
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));
@@ -1155,7 +1155,7 @@ ErrorHandler:
     MsgBox "Error calculating NPV"
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
         assert!(text.contains("Identifier"));

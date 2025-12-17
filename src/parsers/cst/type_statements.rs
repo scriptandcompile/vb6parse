@@ -310,7 +310,7 @@ Type Point
     y As Single
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -329,7 +329,7 @@ Type Employee
     Salary As Currency
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -348,7 +348,7 @@ Public Type Rectangle
     Bottom As Long
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -364,7 +364,7 @@ Private Type InternalData
     Length As Integer
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -381,7 +381,7 @@ Type CustomerRecord
     Address As String * 100
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -398,7 +398,7 @@ Type SalesData
     MonthlySales(1 To 12) As Currency
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -414,7 +414,7 @@ Type Matrix
     Data(1 To 10, 1 To 10) As Double
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -430,7 +430,7 @@ Type DynamicBuffer
     Count As Long
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -455,7 +455,7 @@ Type AllTypes
     VariantField As Variant
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -476,7 +476,7 @@ Type Person
     HomeAddress As Address
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -495,7 +495,7 @@ Type Employee
     LastName As String   ' Last name
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -508,7 +508,7 @@ End Type
 Type EmptyType
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -522,7 +522,7 @@ Type SimpleType
     Value As Long
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -536,7 +536,7 @@ Type BoundedArray
     Items(0 To 99) As Integer
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -551,7 +551,7 @@ Type NegativeBounds
     Values(-10 To 10) As Single
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -568,7 +568,7 @@ Type RECT
     Bottom As Long
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -588,7 +588,7 @@ Type Type2
     Field2 As String
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         // CST includes whitespace, so count is more than 2
@@ -605,7 +605,7 @@ Type DataContainer
     Connection As Object
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -621,7 +621,7 @@ Type FlexibleData
     DataValue As Variant
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -637,7 +637,7 @@ Type ComplexArrays
     Matrix3D(0 To 2, 0 To 2, 0 To 2) As Single
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -654,7 +654,7 @@ Type KeywordFields
     End As Long
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -669,7 +669,7 @@ Type FileRecord
     FileSize As Long
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -686,7 +686,7 @@ Type ContactInfo
     Email As String * 50
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -702,7 +702,7 @@ Type Config
     TimeoutSeconds As Long     ' Timeout in seconds
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -720,7 +720,7 @@ Type Data
     Name As String
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -737,7 +737,7 @@ Type PROCESSENTRY32
     th32ProcessID As Long
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -753,7 +753,7 @@ Type MixedCase
     EMPLOYEE_ID As Long
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -769,7 +769,7 @@ Type BinaryData
     Length As Integer
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -801,7 +801,7 @@ Public Type CustomerRecord
     IsActive As Boolean
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
@@ -819,7 +819,7 @@ Type ZeroBasedData
     Count As Long
 End Type
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));

@@ -62,7 +62,7 @@ Sub Test()
     Mid(text, 5, 3) = "abc"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MidStatement"));
@@ -73,7 +73,7 @@ End Sub
     #[test]
     fn mid_at_module_level() {
         let source = r#"Mid(globalStr, 1, 5) = "START""#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
         assert_eq!(cst.child_count(), 1);
@@ -89,7 +89,7 @@ Sub Test()
     Mid(s, 10) = replacement
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MidStatement"));
@@ -103,7 +103,7 @@ Sub Test()
     Mid(arr(i), startPos + 1, Len(newStr)) = newStr
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MidStatement"));
@@ -113,7 +113,7 @@ End Sub
     #[test]
     fn mid_preserves_whitespace() {
         let source = "    Mid  (  myString  ,  3  ,  2  )  =  \"XX\"    \n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(
             cst.text(),
@@ -131,7 +131,7 @@ Sub Test()
     Mid(buffer, pos, 10) = data ' Replace 10 characters
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MidStatement"));
@@ -147,7 +147,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MidStatement"));
@@ -160,7 +160,7 @@ Sub Test()
     If valid Then Mid(s, 1, 1) = "A"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MidStatement"));
@@ -175,7 +175,7 @@ Sub ReplaceChars()
     Mid(line3, 2, 4) = "TEST"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let count = debug.matches("MidStatement").count();
@@ -192,7 +192,7 @@ Sub Test()
     ' s now contains "Hello VB6!!"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MidStatement"));
@@ -205,7 +205,7 @@ Sub Test()
     Mid(obj.Name, 1, 10) = newName
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MidStatement"));
@@ -219,7 +219,7 @@ Sub Test()
     Mid(fullText, pos, 5) = prefix & suffix
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MidStatement"));

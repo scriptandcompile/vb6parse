@@ -341,7 +341,7 @@ Sub Test()
     result = Hex(255)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));
@@ -354,7 +354,7 @@ Function ToHexString(value As Long) As String
     ToHexString = Hex(value)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));
@@ -367,7 +367,7 @@ Sub Test()
     hexStr = "&H" & Hex(42)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));
@@ -380,7 +380,7 @@ Sub Test()
     Debug.Print Hex(255)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));
@@ -395,7 +395,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));
@@ -411,7 +411,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));
@@ -429,7 +429,7 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));
@@ -444,7 +444,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));
@@ -457,7 +457,7 @@ Private Sub Class_Initialize()
     m_hexValue = Hex(initialValue)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));
@@ -471,7 +471,7 @@ Sub Test()
     config.hexCode = Hex(statusValue)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));
@@ -485,7 +485,7 @@ Sub Test()
     col.Add Hex(value), "HexValue"
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));
@@ -500,7 +500,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));
@@ -513,7 +513,7 @@ Sub Test()
     MsgBox "Hex value: " & Hex(errorCode)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));
@@ -526,7 +526,7 @@ Property Get HexValue() As String
     HexValue = Hex(m_value)
 End Property
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));
@@ -539,7 +539,7 @@ Sub Test()
     result = "0x" & Hex(address)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));
@@ -555,7 +555,7 @@ Sub Test()
     Next
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));
@@ -571,7 +571,7 @@ Sub Test()
     On Error GoTo 0
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));
@@ -584,7 +584,7 @@ Sub Test()
     padded = Right$("00" & Hex(value), 2)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));
@@ -598,7 +598,7 @@ Sub Test()
     hexArray(1) = Hex(255)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));
@@ -611,7 +611,7 @@ Sub Test()
     DisplayHexValue Hex(colorValue)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));
@@ -624,7 +624,7 @@ Sub Test()
     length = Len(Hex(value))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));
@@ -637,7 +637,7 @@ Sub Test()
     display = IIf(showHex, Hex(value), Str(value))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));
@@ -650,7 +650,7 @@ Function RGBToHex(r As Integer, g As Integer, b As Integer) As String
     RGBToHex = Right$("0" & Hex(r), 2) & Right$("0" & Hex(g), 2) & Right$("0" & Hex(b), 2)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));
@@ -667,7 +667,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));
@@ -680,7 +680,7 @@ Sub Test()
     value = (Hex(number))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));
@@ -693,7 +693,7 @@ Function FormatAddress(addr As Long) As String
     FormatAddress = "0x" & Right$("00000000" & Hex(addr), 8)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));
@@ -708,7 +708,7 @@ Sub Test()
     Debug.Print negHex
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
         assert!(text.contains("Identifier"));

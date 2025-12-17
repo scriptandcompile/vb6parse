@@ -156,7 +156,7 @@ Sub TestSub()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ForStatement"));
@@ -175,7 +175,7 @@ Sub TestSub()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ForStatement"));
@@ -192,7 +192,7 @@ Sub TestSub()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ForStatement"));
@@ -209,7 +209,7 @@ Sub TestSub()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ForStatement"));
@@ -228,7 +228,7 @@ Sub TestSub()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         // Count occurrences of ForStatement - should have 2
@@ -246,7 +246,7 @@ Sub TestSub()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ForStatement"));
@@ -264,7 +264,7 @@ Sub TestSub()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ForStatement"));
@@ -285,7 +285,7 @@ Sub TestSub()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         // Count occurrences of ForStatement - should have 2
@@ -303,7 +303,7 @@ Sub TestSub()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ForEachStatement"));
@@ -323,7 +323,7 @@ Sub TestSub()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ForEachStatement"));
@@ -343,7 +343,7 @@ Sub TestSub()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ForStatement"));

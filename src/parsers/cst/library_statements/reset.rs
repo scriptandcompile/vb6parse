@@ -32,7 +32,7 @@ Sub Test()
     Reset
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ResetStatement"));
@@ -42,7 +42,7 @@ End Sub
     #[test]
     fn reset_at_module_level() {
         let source = "Reset\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
         assert_eq!(cst.child_count(), 1);
@@ -60,7 +60,7 @@ Sub CleanupFiles()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ResetStatement"));
@@ -69,7 +69,7 @@ End Sub
     #[test]
     fn reset_preserves_whitespace() {
         let source = "    Reset    \n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.text(), "    Reset    \n");
 
@@ -84,7 +84,7 @@ Sub Test()
     Reset ' Close all open files
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ResetStatement"));
@@ -98,7 +98,7 @@ Sub Test()
     If shouldClose Then Reset
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ResetStatement"));
@@ -113,7 +113,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ResetStatement"));
@@ -130,7 +130,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ResetStatement"));
@@ -145,7 +145,7 @@ Sub Test()
     Reset
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let reset_count = debug.matches("ResetStatement").count();
@@ -162,7 +162,7 @@ Sub Test()
     Reset
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("ResetStatement"));

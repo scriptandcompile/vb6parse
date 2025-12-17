@@ -343,7 +343,7 @@ Sub Test()
     result = Fix(8.7)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));
@@ -356,7 +356,7 @@ Sub Test()
     result = Fix(-8.7)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));
@@ -369,7 +369,7 @@ Sub Test()
     dollars = Fix(price)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));
@@ -384,7 +384,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));
@@ -397,7 +397,7 @@ Function Truncate(value As Double) As Long
     Truncate = Fix(value)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));
@@ -412,7 +412,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));
@@ -430,7 +430,7 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));
@@ -446,7 +446,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));
@@ -459,7 +459,7 @@ Sub Test()
     Debug.Print "Whole part: " & Fix(value)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));
@@ -472,7 +472,7 @@ Sub Test()
     wholeNumbers(i) = Fix(decimals(i))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));
@@ -485,7 +485,7 @@ Sub Test()
     obj.WholePart = Fix(obj.DecimalValue)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));
@@ -498,7 +498,7 @@ Private Sub Class_Initialize()
     m_wholePart = Fix(m_value)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));
@@ -513,7 +513,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));
@@ -526,7 +526,7 @@ Sub Test()
     Call ProcessInteger(Fix(value))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));
@@ -539,7 +539,7 @@ Sub Test()
     message = "Truncated: " & Fix(number)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));
@@ -553,7 +553,7 @@ Sub Test()
     fractionalPart = value - wholePart
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));
@@ -566,7 +566,7 @@ Sub Test()
     result = IIf(Fix(value) > 0, "Positive", "Zero or Negative")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));
@@ -579,7 +579,7 @@ Sub Test()
     MsgBox "Whole value: " & Fix(amount)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));
@@ -592,7 +592,7 @@ Sub Test()
     wholeNumbers.Add Fix(values(i))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));
@@ -605,7 +605,7 @@ Sub Test()
     isValid = Fix(value) >= minValue And Fix(value) <= maxValue
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));
@@ -618,7 +618,7 @@ Sub Test()
     result = CStr(Fix(value))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));
@@ -633,7 +633,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));
@@ -646,7 +646,7 @@ Sub Test()
     cents = Fix(Abs((amount - dollars) * 100))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));
@@ -660,7 +660,7 @@ Sub Test()
     cents = Fix((amount - dollars) * 100)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));
@@ -674,7 +674,7 @@ Sub Test()
     pixelY = Fix(coordinateY)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));
@@ -688,7 +688,7 @@ Sub Test()
     value = items(index)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));
@@ -701,7 +701,7 @@ Sub Test()
     value = (Fix(number))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
         assert!(text.contains("Identifier"));

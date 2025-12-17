@@ -595,7 +595,7 @@ mod tests {
         let source = r#"
 depreciation = DDB(10000, 1000, 5, 1)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
         assert!(debug.contains("Identifier"));
@@ -606,7 +606,7 @@ depreciation = DDB(10000, 1000, 5, 1)
         let source = r#"
 depreciation = DDB(10000, 1000, 5, 1, 1.5)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
         assert!(debug.contains("Identifier"));
@@ -617,7 +617,7 @@ depreciation = DDB(10000, 1000, 5, 1, 1.5)
         let source = r#"
 depr = DDB(cost, salvage, life, period)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
         assert!(debug.contains("Identifier"));
@@ -630,7 +630,7 @@ Function CalculateDepreciation(cost As Double, years As Integer) As Double
     CalculateDepreciation = DDB(cost, 0, years, 1)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
         assert!(debug.contains("Identifier"));
@@ -644,7 +644,7 @@ For period = 1 To life
     total = total + depreciation
 Next period
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
         assert!(debug.contains("Identifier"));
@@ -655,7 +655,7 @@ Next period
         let source = r#"
 bookValue = cost - DDB(cost, salvage, life, period)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
         assert!(debug.contains("Identifier"));
@@ -668,7 +668,7 @@ If DDB(cost, salvage, life, year) > SLN(cost, salvage, life) Then
     MsgBox "DDB is higher"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
         assert!(debug.contains("Identifier"));
@@ -679,7 +679,7 @@ End If
         let source = r#"
 schedule(i, 2) = DDB(cost, salvage, life, i)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
         assert!(debug.contains("Identifier"));
@@ -690,7 +690,7 @@ schedule(i, 2) = DDB(cost, salvage, life, i)
         let source = r#"
 formatted = Format(DDB(cost, salvage, life, period), "Currency")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
         assert!(debug.contains("Identifier"));
@@ -701,7 +701,7 @@ formatted = Format(DDB(cost, salvage, life, period), "Currency")
         let source = r#"
 monthlyDepr = DDB(cost, salvage, lifeYears * 12, month)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
         assert!(debug.contains("Identifier"));
@@ -714,7 +714,7 @@ For i = 1 To currentPeriod
     accumulated = accumulated + DDB(cost, salvage, life, i)
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
         assert!(debug.contains("Identifier"));
@@ -729,7 +729,7 @@ If Err.Number <> 0 Then
     result = 0
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
         assert!(debug.contains("Identifier"));
@@ -745,7 +745,7 @@ Select Case method
         depr = SLN(cost, salvage, life)
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
         assert!(debug.contains("Identifier"));
@@ -756,7 +756,7 @@ End Select
         let source = r#"
 Debug.Print "Depreciation: " & DDB(10000, 1000, 5, 1)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
         assert!(debug.contains("Identifier"));
@@ -767,7 +767,7 @@ Debug.Print "Depreciation: " & DDB(10000, 1000, 5, 1)
         let source = r#"
 depr150 = DDB(cost, salvage, life, period, 1.5)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
         assert!(debug.contains("Identifier"));
@@ -778,7 +778,7 @@ depr150 = DDB(cost, salvage, life, period, 1.5)
         let source = r#"
 totalDepr = DDB(asset1Cost, asset1Salvage, life, year) + DDB(asset2Cost, asset2Salvage, life, year)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
         assert!(debug.contains("Identifier"));
@@ -789,7 +789,7 @@ totalDepr = DDB(asset1Cost, asset1Salvage, life, year) + DDB(asset2Cost, asset2S
         let source = r#"
 depr = DDB(cost, cost * 0.1, 5, currentYear - purchaseYear + 1)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
         assert!(debug.contains("Identifier"));
@@ -800,7 +800,7 @@ depr = DDB(cost, cost * 0.1, 5, currentYear - purchaseYear + 1)
         let source = r#"
 taxSavings = DDB(cost, salvage, life, year) * taxRate
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
         assert!(debug.contains("Identifier"));
@@ -811,7 +811,7 @@ taxSavings = DDB(cost, salvage, life, year) * taxRate
         let source = r#"
 MsgBox "Year " & year & " depreciation: " & DDB(cost, salvage, life, year)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
         assert!(debug.contains("Identifier"));
@@ -822,7 +822,7 @@ MsgBox "Year " & year & " depreciation: " & DDB(cost, salvage, life, year)
         let source = r#"
 depr = IIf(useDDB, DDB(cost, salvage, life, year), SLN(cost, salvage, life))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
         assert!(debug.contains("Identifier"));
@@ -833,7 +833,7 @@ depr = IIf(useDDB, DDB(cost, salvage, life, year), SLN(cost, salvage, life))
         let source = r#"
 rs("Depreciation") = DDB(rs("Cost"), rs("Salvage"), rs("Life"), currentYear)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
         assert!(debug.contains("Identifier"));
@@ -844,7 +844,7 @@ rs("Depreciation") = DDB(rs("Cost"), rs("Salvage"), rs("Life"), currentYear)
         let source = r#"
 partialDepr = DDB(cost, salvage, life, 1) * (monthsInYear / 12)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
         assert!(debug.contains("Identifier"));
@@ -855,7 +855,7 @@ partialDepr = DDB(cost, salvage, life, 1) * (monthsInYear / 12)
         let source = r#"
 maxDepr = Application.Max(DDB(cost, salvage, life, year), SLN(cost, salvage, life))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
         assert!(debug.contains("Identifier"));
@@ -868,7 +868,7 @@ For yr = 1 To assetLife
     cells(yr, 2) = DDB(assetCost, assetSalvage, assetLife, yr)
 Next yr
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
         assert!(debug.contains("Identifier"));
@@ -881,7 +881,7 @@ If cost > salvage And life > 0 Then
     result = DDB(cost, salvage, life, period)
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
         assert!(debug.contains("Identifier"));

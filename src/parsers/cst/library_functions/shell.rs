@@ -768,7 +768,7 @@ Sub Test()
     taskId = Shell("notepad.exe")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
         assert!(debug.contains("taskId"));
@@ -782,7 +782,7 @@ Sub Test()
     result = Shell("calc.exe", vbNormalFocus)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
         assert!(debug.contains("result"));
@@ -797,7 +797,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
     }
@@ -809,7 +809,7 @@ Function LaunchApp() As Double
     LaunchApp = Shell("notepad.exe", vbNormalFocus)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
         assert!(debug.contains("LaunchApp"));
@@ -823,7 +823,7 @@ Sub Test()
     procId = Shell(programPath, vbMaximizedFocus)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
         assert!(debug.contains("procId"));
@@ -836,7 +836,7 @@ Sub Test()
     MsgBox "Task ID: " & Shell("calc.exe", vbNormalFocus)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
         assert!(debug.contains("MsgBox"));
@@ -849,7 +849,7 @@ Sub Test()
     Debug.Print Shell("notepad.exe", vbHide)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
         assert!(debug.contains("Debug"));
@@ -867,7 +867,7 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
     }
@@ -881,7 +881,7 @@ Class AppLauncher
     End Function
 End Class
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
         assert!(debug.contains("Launch"));
@@ -897,7 +897,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
         assert!(debug.contains("id"));
@@ -916,7 +916,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
     }
@@ -931,7 +931,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
     }
@@ -945,7 +945,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
     }
@@ -959,7 +959,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
     }
@@ -974,7 +974,7 @@ Sub Test()
     Wend
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
     }
@@ -987,7 +987,7 @@ Sub Test()
     result = (Shell("notepad.exe", vbNormalFocus))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
         assert!(debug.contains("result"));
@@ -1001,7 +1001,7 @@ Sub Test()
     msg = IIf(Shell("calc.exe", vbHide) > 0, "OK", "Failed")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
         assert!(debug.contains("msg"));
@@ -1015,7 +1015,7 @@ Sub Test()
     tasks(0) = Shell("notepad.exe", vbNormalFocus)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
         assert!(debug.contains("tasks"));
@@ -1033,7 +1033,7 @@ Sub Test()
     p.TaskId = Shell("calc.exe", vbNormalFocus)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
     }
@@ -1048,7 +1048,7 @@ Sub Test()
     ProcessTask Shell("notepad.exe", vbNormalFocus)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
         assert!(debug.contains("ProcessTask"));
@@ -1062,7 +1062,7 @@ Sub Test()
     msg = "Task: " & Shell("calc.exe", vbNormalFocus)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
         assert!(debug.contains("msg"));
@@ -1076,7 +1076,7 @@ Sub Test()
     success = (Shell(path, vbNormalFocus) > 0)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
         assert!(debug.contains("success"));
@@ -1090,7 +1090,7 @@ Sub Test()
     t = Shell("notepad.exe C:\file.txt", vbNormalFocus)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
         assert!(debug.contains("t"));
@@ -1104,7 +1104,7 @@ Sub Test()
     id = Shell(Chr(34) & path & Chr(34), vbNormalFocus)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
         assert!(debug.contains("id"));
@@ -1122,7 +1122,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
         assert!(debug.contains("t"));
@@ -1140,7 +1140,7 @@ ErrorHandler:
     MsgBox "Error launching app"
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
         assert!(debug.contains("taskId"));
@@ -1154,7 +1154,7 @@ Sub Test()
     cmdTaskId = Shell("cmd.exe /c dir", vbHide)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
         assert!(debug.contains("cmdTaskId"));

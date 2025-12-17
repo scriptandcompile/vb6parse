@@ -583,7 +583,7 @@ mod tests {
         let source = r#"
 result = FormatNumber(value)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
         assert!(debug.contains("Identifier"));
@@ -594,7 +594,7 @@ result = FormatNumber(value)
         let source = r#"
 formatted = FormatNumber(value, 2)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
         assert!(debug.contains("Identifier"));
@@ -605,7 +605,7 @@ formatted = FormatNumber(value, 2)
         let source = r#"
 formatted = FormatNumber(value, 0)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
         assert!(debug.contains("Identifier"));
@@ -616,7 +616,7 @@ formatted = FormatNumber(value, 0)
         let source = r#"
 result = FormatNumber(negative, 2, , vbTrue)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
         assert!(debug.contains("Identifier"));
@@ -627,7 +627,7 @@ result = FormatNumber(negative, 2, , vbTrue)
         let source = r#"
 formatted = FormatNumber(value, 2, vbTrue, vbTrue, vbTrue)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
         assert!(debug.contains("Identifier"));
@@ -638,7 +638,7 @@ formatted = FormatNumber(value, 2, vbTrue, vbTrue, vbTrue)
         let source = r#"
 Debug.Print FormatNumber(total, 2)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
         assert!(debug.contains("Identifier"));
@@ -649,7 +649,7 @@ Debug.Print FormatNumber(total, 2)
         let source = r#"
 msg = "Total: " & FormatNumber(total, 2)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
         assert!(debug.contains("Identifier"));
@@ -662,7 +662,7 @@ Function FormatPopulation(population As Long) As String
     FormatPopulation = FormatNumber(population, 0, , , vbTrue)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
         assert!(debug.contains("Identifier"));
@@ -674,7 +674,7 @@ End Function
 grid.TextMatrix(i + 1, 0) = FormatNumber(i, 0)
 grid.TextMatrix(i + 1, 1) = FormatNumber(values(i), 2)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
         assert!(debug.contains("Identifier"));
@@ -685,7 +685,7 @@ grid.TextMatrix(i + 1, 1) = FormatNumber(values(i), 2)
         let source = r#"
 result = FormatNumber(value * 100, 2)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
         assert!(debug.contains("Identifier"));
@@ -696,7 +696,7 @@ result = FormatNumber(value * 100, 2)
         let source = r#"
 formatted = FormatNumber(value / Billion, 2) & "B"
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
         assert!(debug.contains("Identifier"));
@@ -707,7 +707,7 @@ formatted = FormatNumber(value / Billion, 2) & "B"
         let source = r#"
 lst.AddItem FormatNumber(values(i), decimals)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
         assert!(debug.contains("Identifier"));
@@ -720,7 +720,7 @@ summary = "Actual: " & FormatNumber(actual, 2) & vbCrLf & _
           "Expected: " & FormatNumber(expected, 2) & vbCrLf & _
           "Difference: " & FormatNumber(difference, 2, , vbTrue)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
         assert!(debug.contains("Identifier"));
@@ -735,7 +735,7 @@ Else
     result = FormatNumber(value, 2)
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
         assert!(debug.contains("Identifier"));
@@ -748,7 +748,7 @@ If Not IsNull(value) Then
     formatted = FormatNumber(value, 2)
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
         assert!(debug.contains("Identifier"));
@@ -761,7 +761,7 @@ If IsNumeric(value) Then
     result = FormatNumber(CDbl(value), decimals)
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
         assert!(debug.contains("Identifier"));
@@ -776,7 +776,7 @@ Exit Function
 ErrorHandler:
     formatted = "Error"
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
         assert!(debug.contains("Identifier"));
@@ -789,7 +789,7 @@ For i = LBound(values) To UBound(values)
     Debug.Print FormatNumber(values(i), 2)
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
         assert!(debug.contains("Identifier"));
@@ -805,7 +805,7 @@ Select Case Abs(value)
         result = FormatNumber(value, 2)
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
         assert!(debug.contains("Identifier"));
@@ -816,7 +816,7 @@ End Select
         let source = r#"
 comparison = FormatNumber(value1, 2) & " vs " & FormatNumber(value2, 2)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
         assert!(debug.contains("Identifier"));
@@ -827,7 +827,7 @@ comparison = FormatNumber(value1, 2) & " vs " & FormatNumber(value2, 2)
         let source = r#"
 result = FormatNumber(fraction, 2, vbFalse)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
         assert!(debug.contains("Identifier"));
@@ -838,7 +838,7 @@ result = FormatNumber(fraction, 2, vbFalse)
         let source = r#"
 formatted = FormatNumber(largeNumber, 2, , , vbTrue)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
         assert!(debug.contains("Identifier"));
@@ -849,7 +849,7 @@ formatted = FormatNumber(largeNumber, 2, , , vbTrue)
         let source = r#"
 formatted = FormatNumber(rs.Fields(fieldName).Value, decimals)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
         assert!(debug.contains("Identifier"));
@@ -861,7 +861,7 @@ formatted = FormatNumber(rs.Fields(fieldName).Value, decimals)
 parens = IIf(useParens, vbTrue, vbFalse)
 result = FormatNumber(value, decimals, vbTrue, parens, vbTrue)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
         assert!(debug.contains("Identifier"));
@@ -872,7 +872,7 @@ result = FormatNumber(value, decimals, vbTrue, parens, vbTrue)
         let source = r#"
 result = FormatNumber(value, decimals) & " " & unit
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
         assert!(debug.contains("Identifier"));
@@ -883,7 +883,7 @@ result = FormatNumber(value, decimals) & " " & unit
         let source = r#"
 difference = FormatNumber(actual - expected, 2, , vbTrue)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
         assert!(debug.contains("Identifier"));

@@ -627,7 +627,7 @@ Sub Test()
     rate = IRR(cashFlows)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));
@@ -640,7 +640,7 @@ Sub Test()
     rate = IRR(cashFlows, 0.1)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));
@@ -654,7 +654,7 @@ Sub Test()
     rate = IRR(flows)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));
@@ -669,7 +669,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));
@@ -682,7 +682,7 @@ Function CalculateReturn() As Double
     CalculateReturn = IRR(projectCashFlows)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));
@@ -697,7 +697,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));
@@ -710,7 +710,7 @@ Sub Test()
     formatted = Format$(IRR(cashFlows) * 100, "0.00") & "%"
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));
@@ -723,7 +723,7 @@ Sub Test()
     Debug.Print "IRR: " & Format$(IRR(cashFlows) * 100, "0.00") & "%"
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));
@@ -737,7 +737,7 @@ Sub Test()
     returnRate = IRR(investmentFlows)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));
@@ -750,7 +750,7 @@ Sub Test()
     investment.ReturnRate = IRR(investment.CashFlows)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));
@@ -763,7 +763,7 @@ Private Sub Class_Initialize()
     m_irr = IRR(m_cashFlows)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));
@@ -778,7 +778,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));
@@ -791,7 +791,7 @@ Sub Test()
     Call EvaluateInvestment(IRR(cashFlows))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));
@@ -809,7 +809,7 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));
@@ -822,7 +822,7 @@ Sub Test()
     MsgBox "Investment return: " & Format$(IRR(cashFlows) * 100, "0.00") & "%"
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));
@@ -835,7 +835,7 @@ Sub Test()
     results.Add IRR(projectFlows(i))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));
@@ -848,7 +848,7 @@ Sub Test()
     spread = IRR(project1) - IRR(project2)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));
@@ -861,7 +861,7 @@ Sub Test()
     decision = IIf(IRR(cashFlows) > hurdleRate, "Approve", "Reject")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));
@@ -877,7 +877,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));
@@ -892,7 +892,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));
@@ -905,7 +905,7 @@ Sub Test()
     isAcceptable = IRR(cashFlows) > hurdleRate And totalCost < budget
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));
@@ -922,7 +922,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));
@@ -935,7 +935,7 @@ Sub Test()
     percentageRate = IRR(cashFlows) * 100
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));
@@ -948,7 +948,7 @@ Sub Test()
     value = (IRR(cashFlows))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));
@@ -961,7 +961,7 @@ Sub Test()
     result = "IRR: " & IRR(cashFlows)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));
@@ -974,7 +974,7 @@ Sub Test()
     projectRates(index) = IRR(projectCashFlows(index))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));
@@ -987,7 +987,7 @@ Sub Test()
     percentage = CStr(IRR(cashFlows) * 100)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
         assert!(text.contains("Identifier"));

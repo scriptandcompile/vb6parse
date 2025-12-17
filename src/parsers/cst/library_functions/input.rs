@@ -501,7 +501,7 @@ Sub Test()
     content = Input(100, #1)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));
@@ -514,7 +514,7 @@ Sub Test()
     data = Input(50, fileNum)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));
@@ -527,7 +527,7 @@ Sub Test()
     fileContent = Input(LOF(fileNum), #fileNum)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));
@@ -542,7 +542,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));
@@ -555,7 +555,7 @@ Sub Test()
     ch = Input(1, #fileNum)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));
@@ -568,7 +568,7 @@ Function ReadFile() As String
     ReadFile = Input(LOF(1), #1)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));
@@ -584,7 +584,7 @@ Sub Test()
     data = Input(size, #1)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));
@@ -597,7 +597,7 @@ Sub Test()
     result = result & Input(100, #1)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));
@@ -612,7 +612,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));
@@ -626,7 +626,7 @@ Sub Test()
     content = Input(100, #fileNum)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));
@@ -639,7 +639,7 @@ Sub Test()
     Debug.Print Input(50, #1)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));
@@ -652,7 +652,7 @@ Sub Test()
     chunks(i) = Input(1024, #fileNum)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));
@@ -665,7 +665,7 @@ Sub Test()
     data = (Input(100, #1))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));
@@ -678,7 +678,7 @@ Sub Test()
     Call ProcessData(Input(100, #1))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));
@@ -691,7 +691,7 @@ Sub Test()
     size = Len(Input(100, #1))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));
@@ -707,7 +707,7 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));
@@ -720,7 +720,7 @@ Sub Test()
     data = Input(size * 2, #fileNum)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));
@@ -733,7 +733,7 @@ Private Sub Class_Initialize()
     m_data = Input(100, #m_fileNum)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));
@@ -749,7 +749,7 @@ Sub Test()
     On Error GoTo 0
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));
@@ -764,7 +764,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));
@@ -777,7 +777,7 @@ Sub Test()
     obj.Content = Input(200, #1)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));
@@ -790,7 +790,7 @@ Sub Test()
     col.Add Input(100, #fileNum)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));
@@ -805,7 +805,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));
@@ -821,7 +821,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));
@@ -834,7 +834,7 @@ Sub Test()
     MsgBox Input(20, #1)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));
@@ -847,7 +847,7 @@ Sub Test()
     cleaned = Trim$(Input(100, #1))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));
@@ -860,7 +860,7 @@ Sub Test()
     result = IIf(EOF(1), "", Input(100, #1))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
         assert!(text.contains("Identifier"));

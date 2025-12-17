@@ -617,7 +617,7 @@ Sub Test()
     result = Sqr(25)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
         assert!(debug.contains("result"));
@@ -633,7 +633,7 @@ Sub Test()
     sqrtValue = Sqr(value)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
         assert!(debug.contains("sqrtValue"));
@@ -648,7 +648,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
     }
@@ -660,7 +660,7 @@ Function CalculateDistance(dx As Double, dy As Double) As Double
     CalculateDistance = Sqr(dx * dx + dy * dy)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
         assert!(debug.contains("CalculateDistance"));
@@ -674,7 +674,7 @@ Sub Test()
     hypotenuse = Sqr(3 ^ 2 + 4 ^ 2)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
         assert!(debug.contains("hypotenuse"));
@@ -687,7 +687,7 @@ Sub Test()
     MsgBox "Square root: " & Sqr(100)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
         assert!(debug.contains("MsgBox"));
@@ -700,7 +700,7 @@ Sub Test()
     Debug.Print Sqr(144)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
         assert!(debug.contains("Debug"));
@@ -720,7 +720,7 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
     }
@@ -734,7 +734,7 @@ Class MathHelper
     End Function
 End Class
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
         assert!(debug.contains("GetSquareRoot"));
@@ -750,7 +750,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
         assert!(debug.contains("root"));
@@ -770,7 +770,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
     }
@@ -785,7 +785,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
     }
@@ -799,7 +799,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
     }
@@ -813,7 +813,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
     }
@@ -828,7 +828,7 @@ Sub Test()
     Wend
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
     }
@@ -841,7 +841,7 @@ Sub Test()
     distance = (Sqr(dx * dx + dy * dy))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
         assert!(debug.contains("distance"));
@@ -855,7 +855,7 @@ Sub Test()
     safe = IIf(value >= 0, Sqr(value), 0)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
         assert!(debug.contains("safe"));
@@ -869,7 +869,7 @@ Sub Test()
     roots(0) = Sqr(25)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
         assert!(debug.contains("roots"));
@@ -887,7 +887,7 @@ Sub Test()
     calc.SquareRoot = Sqr(value)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
     }
@@ -902,7 +902,7 @@ Sub Test()
     ProcessValue Sqr(100)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
         assert!(debug.contains("ProcessValue"));
@@ -916,7 +916,7 @@ Sub Test()
     msg = "The square root is: " & Sqr(value)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
         assert!(debug.contains("msg"));
@@ -930,7 +930,7 @@ Sub Test()
     isLarge = (Sqr(area) > 100)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
         assert!(debug.contains("isLarge"));
@@ -944,7 +944,7 @@ Sub Test()
     magnitude = Sqr(x * x + y * y + z * z)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
         assert!(debug.contains("magnitude"));
@@ -960,7 +960,7 @@ Sub Test()
     root1 = (-b + Sqr(discriminant)) / (2 * a)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
         assert!(debug.contains("discriminant"));
@@ -978,7 +978,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
         assert!(debug.contains("s"));
@@ -996,7 +996,7 @@ ErrorHandler:
     MsgBox "Error calculating square root"
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
         assert!(debug.contains("sqrtVal"));
@@ -1012,7 +1012,7 @@ Sub Test()
     stdDev = Sqr(variance)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
         assert!(debug.contains("stdDev"));

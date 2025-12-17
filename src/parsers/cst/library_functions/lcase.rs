@@ -540,7 +540,7 @@ Sub Test()
     result = LCase(myString)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));
@@ -553,7 +553,7 @@ Sub Test()
     result = LCase("HELLO")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));
@@ -568,7 +568,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));
@@ -581,7 +581,7 @@ Function Normalize(text As String) As String
     Normalize = LCase(text)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));
@@ -596,7 +596,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));
@@ -609,7 +609,7 @@ Sub Test()
     Debug.Print LCase("TEST")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));
@@ -622,7 +622,7 @@ Sub Test()
     MsgBox LCase(userName)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));
@@ -636,7 +636,7 @@ Sub Test()
     lower = LCase(original)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));
@@ -649,7 +649,7 @@ Sub Test()
     obj.LowerText = LCase(obj.Text)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));
@@ -662,7 +662,7 @@ Sub Test()
     result = "Value: " & LCase(data)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));
@@ -675,7 +675,7 @@ Private Sub Class_Initialize()
     m_key = LCase(m_name)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));
@@ -690,7 +690,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));
@@ -703,7 +703,7 @@ Sub Test()
     Call ProcessString(LCase(input))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));
@@ -721,7 +721,7 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));
@@ -737,7 +737,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));
@@ -754,7 +754,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));
@@ -767,7 +767,7 @@ Sub Test()
     result = IIf(LCase(status) = "active", 1, 0)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));
@@ -780,7 +780,7 @@ Sub Test()
     result = (LCase(text))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));
@@ -793,7 +793,7 @@ Sub Test()
     normalized(i) = LCase(original(i))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));
@@ -806,7 +806,7 @@ Sub Test()
     keywords.Add LCase(word)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));
@@ -819,7 +819,7 @@ Sub Test()
     result = Trim(LCase(input))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));
@@ -834,7 +834,7 @@ Sub Test()
     Wend
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));
@@ -849,7 +849,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));
@@ -864,7 +864,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));
@@ -877,7 +877,7 @@ Sub Test()
     pos = InStr(1, LCase(text), LCase(search))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));
@@ -890,7 +890,7 @@ Sub Test()
     normalized = LCase(Trim(userInput))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));
@@ -903,7 +903,7 @@ Sub Test()
     dict.Add LCase(key), value
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
         assert!(text.contains("Identifier"));

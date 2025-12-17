@@ -402,7 +402,7 @@ Sub Test()
     byteVal = AscB("A")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("StringLiteral"));
     }
@@ -414,7 +414,7 @@ Sub Test()
     code = AscB(extendedChar)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -426,7 +426,7 @@ Sub Test()
     tabByte = AscB(vbTab)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -439,7 +439,7 @@ Function IsASCII(char As String) As Boolean
     IsASCII = (AscB(char) < 128)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -453,7 +453,7 @@ Function IsControlChar(char As String) As Boolean
     IsControlChar = (byteVal < 32 Or byteVal = 127)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -465,7 +465,7 @@ Function CompareBytes(str1 As String, str2 As String) As Integer
     CompareBytes = AscB(str1) - AscB(str2)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -480,7 +480,7 @@ Function SimpleChecksum(text As String) As Long
     Next i
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -496,7 +496,7 @@ Function DetectLineEnding(text As String) As String
     End If
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -510,7 +510,7 @@ Function ByteToHex(char As String) As String
     ByteToHex = Right("0" & Hex(byteVal), 2)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -525,7 +525,7 @@ Function ByteEqualsIgnoreCase(char1 As String, char2 As String) As Boolean
     ByteEqualsIgnoreCase = (byte1 = byte2)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -541,7 +541,7 @@ Function FilterPrintable(text As String) As String
     End If
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -557,7 +557,7 @@ Function NeedsURLEncoding(char As String) As Boolean
     End If
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -571,7 +571,7 @@ Function ParseBinaryHeader(data As String) As Variant
     header(2) = AscB(Mid(data, 2, 1))
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -586,7 +586,7 @@ Function XOREncrypt(text As String, key As String) As String
     result = ChrB(textByte Xor keyByte)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -602,7 +602,7 @@ Function ParseCSVField(field As String) As String
     End If
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -615,7 +615,7 @@ Function ValidateCharacterSet(text As String, validSet As String) As Boolean
     textByte = AscB(Mid(text, 1, 1))
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -631,7 +631,7 @@ Function SafeAscB(text As String) As Integer
     SafeAscB = AscB(text)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -645,7 +645,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -657,7 +657,7 @@ Sub Test()
     firstByte = AscB(Mid(myString, 1, 1))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -671,7 +671,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }

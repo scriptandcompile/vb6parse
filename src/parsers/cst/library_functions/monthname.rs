@@ -611,7 +611,7 @@ mod tests {
 Dim name As String
 name = MonthName(3)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));
@@ -623,7 +623,7 @@ name = MonthName(3)
 Dim monthName As String
 monthName = MonthName(Month(Date))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));
@@ -635,7 +635,7 @@ monthName = MonthName(Month(Date))
 Dim shortName As String
 shortName = MonthName(11, True)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));
@@ -648,7 +648,7 @@ If MonthName(Month(Date)) = "November" Then
     MsgBox "It's November"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));
@@ -661,7 +661,7 @@ Function GetCurrentMonthName() As String
     GetCurrentMonthName = MonthName(Month(Date))
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));
@@ -673,7 +673,7 @@ End Function
 Dim dateStr As String
 dateStr = MonthName(Month(Date)) & " " & Day(Date) & ", " & Year(Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));
@@ -684,7 +684,7 @@ dateStr = MonthName(Month(Date)) & " " & Day(Date) & ", " & Year(Date)
         let source = r#"
 Debug.Print MonthName(5)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));
@@ -697,7 +697,7 @@ With reportData
     .MonthDisplay = MonthName(Month(.ReportDate), True)
 End With
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));
@@ -713,7 +713,7 @@ Select Case MonthName(Month(Date), True)
         MsgBox "Q2"
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));
@@ -728,7 +728,7 @@ ElseIf MonthName(m) = "December" Then
     y = 2
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));
@@ -740,7 +740,7 @@ End If
 Dim name As String
 name = (MonthName(6, False))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));
@@ -752,7 +752,7 @@ name = (MonthName(6, False))
 Dim display As String
 display = IIf(useShort, MonthName(m, True), MonthName(m, False))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));
@@ -767,7 +767,7 @@ Public Sub UpdateMonth()
     m_monthName = MonthName(Month(Now), True)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));
@@ -778,7 +778,7 @@ End Sub
         let source = r#"
 Call DisplayMonth(MonthName(m, True))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));
@@ -790,7 +790,7 @@ Call DisplayMonth(MonthName(m, True))
 Set obj = New Calendar
 obj.CurrentMonth = MonthName(Month(Date))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));
@@ -803,7 +803,7 @@ Dim monthNames(12) As String
 Dim i As Integer
 monthNames(i) = MonthName(i, True)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));
@@ -817,7 +817,7 @@ For i = 1 To 12
     cboMonth.AddItem MonthName(i)
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));
@@ -831,7 +831,7 @@ While m <= 12
     m = m + 1
 Wend
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));
@@ -845,7 +845,7 @@ Do While i < 12
     i = i + 1
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));
@@ -859,7 +859,7 @@ Do Until i > 12
     i = i + 1
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));
@@ -870,7 +870,7 @@ Loop
         let source = r#"
 MsgBox "Current month: " & MonthName(Month(Now))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));
@@ -883,7 +883,7 @@ If MonthName(m1) = MonthName(m2) Then
     MsgBox "Same month name"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));
@@ -895,7 +895,7 @@ End If
 Dim upper As String
 upper = UCase(MonthName(3, True))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));
@@ -906,7 +906,7 @@ upper = UCase(MonthName(3, True))
         let source = r#"
 lblMonth.Caption = MonthName(Month(Date))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));
@@ -917,7 +917,7 @@ lblMonth.Caption = MonthName(Month(Date))
         let source = r#"
 cboMonths.AddItem MonthName(i, False)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));
@@ -929,7 +929,7 @@ cboMonths.AddItem MonthName(i, False)
 Dim formatted As String
 formatted = MonthName(Month(d)) & " " & Format(Day(d), "00") & ", " & Year(d)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));
@@ -941,7 +941,7 @@ formatted = MonthName(Month(d)) & " " & Format(Day(d), "00") & ", " & Year(d)
 Dim firstLetter As String
 firstLetter = Left(MonthName(m), 1)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
         assert!(text.contains("Identifier"));

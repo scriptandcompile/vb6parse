@@ -45,7 +45,7 @@ Sub Test()
     Kill "C:\DATA.TXT"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("KillStatement"));
@@ -55,7 +55,7 @@ End Sub
     #[test]
     fn kill_module_level() {
         let source = "Kill \"temp.dat\"\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("KillStatement"));
@@ -69,7 +69,7 @@ Sub Test()
     Kill "C:\*.TXT"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("KillStatement"));
@@ -83,7 +83,7 @@ Sub Test()
     Kill "C:\TEST?.TXT"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("KillStatement"));
@@ -97,7 +97,7 @@ Sub Test()
     Kill myFileName
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("KillStatement"));
@@ -111,7 +111,7 @@ Sub Test()
     Kill App.Path & "\temp.dat"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("KillStatement"));
@@ -121,7 +121,7 @@ End Sub
     #[test]
     fn kill_preserves_whitespace() {
         let source = "    Kill    \"C:\\\\file.txt\"    \n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.text(), "    Kill    \"C:\\\\file.txt\"    \n");
 
@@ -136,7 +136,7 @@ Sub Test()
     Kill "temp.txt" ' Delete temporary file
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("KillStatement"));
@@ -152,7 +152,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("KillStatement"));
@@ -165,7 +165,7 @@ Sub Test()
     If fileExists Then Kill "temp.dat"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("KillStatement"));
@@ -182,7 +182,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("KillStatement"));
@@ -196,7 +196,7 @@ Sub Test()
     Kill "temp2.txt"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let kill_count = debug.matches("KillStatement").count();
@@ -214,7 +214,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("KillStatement"));

@@ -183,7 +183,7 @@ Sub Test()
     Seek #1, 1
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -193,7 +193,7 @@ End Sub
     #[test]
     fn seek_at_module_level() {
         let source = "Seek #1, 100\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
         assert_eq!(cst.child_count(), 1);
@@ -209,7 +209,7 @@ Sub Test()
     Seek 1, 50
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -222,7 +222,7 @@ Sub Test()
     Seek #1, position
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -236,7 +236,7 @@ Sub Test()
     Seek #fileNum, 1
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -250,7 +250,7 @@ Sub Test()
     Seek #1, recordNum * recordSize
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -265,7 +265,7 @@ Sub Test()
     Seek #1, LOF(1) + 1
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -279,7 +279,7 @@ Sub Test()
     Seek #1, Seek(1) + 100
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -292,7 +292,7 @@ If needSeek Then
     Seek #1, targetPosition
 End If
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -306,7 +306,7 @@ For i = 1 To 100
     Seek #1, i * 10
 Next i
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -319,7 +319,7 @@ Sub Test()
     Seek #1, 1  ' Rewind to start
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -329,7 +329,7 @@ End Sub
     #[test]
     fn seek_preserves_whitespace() {
         let source = "Seek   #1  ,   100\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -343,7 +343,7 @@ Sub Test()
     Seek #2, pos2
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -358,7 +358,7 @@ Sub Test()
     Seek #1, currentPos + offset
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -376,7 +376,7 @@ Select Case action
         Seek #1, 200
 End Select
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -390,7 +390,7 @@ Sub Test()
     Get #1, , myRecord
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -405,7 +405,7 @@ Sub Test()
     Put #1, , dataBytes
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -419,7 +419,7 @@ Sub RewindFile(fileNum As Integer)
     Seek fileNum, 1
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -434,7 +434,7 @@ Function GetRecordAt(fileNum As Integer, pos As Long) As String
     GetRecordAt = ""
 End Function
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -448,7 +448,7 @@ Sub Test()
     Seek #1, (recordNum - 1) * recordLen + 1
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -465,7 +465,7 @@ If Err.Number <> 0 Then
     MsgBox "Seek failed"
 End If
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -475,7 +475,7 @@ End If
     #[test]
     fn seek_multiple_on_same_line() {
         let source = "Seek #1, 100: Seek #2, 200\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -488,7 +488,7 @@ With fileData
     Seek .fileNum, .position
 End With
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -503,7 +503,7 @@ Sub Test()
     Seek #1, 2147483647
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -519,7 +519,7 @@ Public Sub SetPosition(pos As Long)
     Seek fileNumber, pos
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.cls", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -533,7 +533,7 @@ Sub Test()
         targetPosition
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -549,7 +549,7 @@ Sub Test()
     Put #1, , data
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -562,7 +562,7 @@ Sub Test()
     Seek #1, CLng(position)
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));
@@ -578,7 +578,7 @@ Sub Test()
     Seek #1, currentPos - 5
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SeekStatement"));

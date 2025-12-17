@@ -326,7 +326,7 @@ Sub Test()
     value = GetSetting("MyApp", "Section", "Key", "Default")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));
@@ -339,7 +339,7 @@ Sub Test()
     value = GetSetting("MyApp", "Section", "Key")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));
@@ -352,7 +352,7 @@ Function GetUserName() As String
     GetUserName = GetSetting("MyApp", "User", "Name", "Guest")
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));
@@ -366,7 +366,7 @@ Sub Test()
     x = CInt(GetSetting("MyApp", "Settings", "Value", "0"))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));
@@ -381,7 +381,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));
@@ -397,7 +397,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));
@@ -415,7 +415,7 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));
@@ -430,7 +430,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));
@@ -443,7 +443,7 @@ Private Sub Class_Initialize()
     m_setting = GetSetting("MyApp", "Config", "Value", "")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));
@@ -457,7 +457,7 @@ Sub Test()
     cfg.server = GetSetting("MyApp", "Database", "Server", "localhost")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));
@@ -471,7 +471,7 @@ Sub Test()
     col.Add GetSetting("MyApp", "Paths", "Data", App.Path)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));
@@ -486,7 +486,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));
@@ -499,7 +499,7 @@ Sub Test()
     Debug.Print GetSetting("MyApp", "Debug", "Level", "Info")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));
@@ -512,7 +512,7 @@ Sub Test()
     MsgBox GetSetting("MyApp", "Messages", "Welcome", "Hello!")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));
@@ -525,7 +525,7 @@ Property Get AppName() As String
     AppName = GetSetting("MyApp", "Info", "Name", "MyApplication")
 End Property
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));
@@ -538,7 +538,7 @@ Sub Test()
     path = GetSetting("MyApp", "Paths", "Base", "C:\") & "Data"
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));
@@ -554,7 +554,7 @@ Sub Test()
     Next
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));
@@ -570,7 +570,7 @@ Sub Test()
     On Error GoTo 0
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));
@@ -585,7 +585,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));
@@ -599,7 +599,7 @@ Sub Test()
     settings(1) = GetSetting("MyApp", "Config", "Setting1", "")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));
@@ -612,7 +612,7 @@ Sub Test()
     ProcessConfig GetSetting("MyApp", "Config", "File", "default.cfg")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));
@@ -625,7 +625,7 @@ Sub Test()
     value = UCase(GetSetting("MyApp", "Text", "Value", "default"))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));
@@ -638,7 +638,7 @@ Sub Test()
     value = IIf(GetSetting("MyApp", "Options", "Mode", "") = "Advanced", 1, 0)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));
@@ -652,7 +652,7 @@ Private Sub Form_Load()
     Me.Top = CLng(GetSetting("MyApp", "MainForm", "Top", "0"))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));
@@ -667,7 +667,7 @@ Sub Test()
     port = GetSetting("MyApp", "Database", "Port", "1433")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));
@@ -680,7 +680,7 @@ Sub Test()
     value = (GetSetting("MyApp", "Config", "Value", "0"))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));
@@ -693,7 +693,7 @@ Sub Test()
     msg = "Server: " & GetSetting("MyApp", "DB", "Server", "localhost") & vbCrLf
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("GetSetting"));
         assert!(text.contains("Identifier"));

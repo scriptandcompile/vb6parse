@@ -618,7 +618,7 @@ Sub Test()
     result = LBound(myArray)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));
@@ -631,7 +631,7 @@ Sub Test()
     result = LBound(matrix, 2)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));
@@ -647,7 +647,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));
@@ -660,7 +660,7 @@ Function GetLowerBound(arr As Variant) As Long
     GetLowerBound = LBound(arr)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));
@@ -675,7 +675,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));
@@ -688,7 +688,7 @@ Sub Test()
     Debug.Print "Lower bound: " & LBound(items)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));
@@ -701,7 +701,7 @@ Sub Test()
     MsgBox "Array starts at: " & LBound(values)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));
@@ -715,7 +715,7 @@ Sub Test()
     lb = LBound(myArray)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));
@@ -728,7 +728,7 @@ Sub Test()
     obj.LowerBound = LBound(obj.Data)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));
@@ -741,7 +741,7 @@ Sub Test()
     size = UBound(arr) - LBound(arr) + 1
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));
@@ -754,7 +754,7 @@ Private Sub Class_Initialize()
     m_lowerBound = LBound(m_data)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));
@@ -769,7 +769,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));
@@ -782,7 +782,7 @@ Sub Test()
     Call ProcessBound(LBound(data))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));
@@ -800,7 +800,7 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));
@@ -817,7 +817,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));
@@ -830,7 +830,7 @@ Sub Test()
     info = "Range: " & LBound(arr) & " to " & UBound(arr)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));
@@ -843,7 +843,7 @@ Sub Test()
     result = (LBound(values))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));
@@ -856,7 +856,7 @@ Sub Test()
     bounds(0) = LBound(data)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));
@@ -869,7 +869,7 @@ Sub Test()
     bounds.Add LBound(arrays(i))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));
@@ -884,7 +884,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));
@@ -897,7 +897,7 @@ Sub Test()
     result = CStr(LBound(data))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));
@@ -913,7 +913,7 @@ Sub Test()
     Wend
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));
@@ -929,7 +929,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));
@@ -945,7 +945,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));
@@ -960,7 +960,7 @@ Sub Test()
     ReDim Preserve arr(lb To lb + 20)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));
@@ -977,7 +977,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));
@@ -990,7 +990,7 @@ Sub Test()
     start = IIf(LBound(arr) = 0, "Zero-based", "One-based")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
         assert!(text.contains("Identifier"));

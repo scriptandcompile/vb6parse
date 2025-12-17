@@ -514,7 +514,7 @@ mod tests {
         let source = r#"
 result = DateAdd("d", 30, Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateAdd"));
         assert!(debug.contains("Identifier"));
@@ -525,7 +525,7 @@ result = DateAdd("d", 30, Date)
         let source = r#"
 nextYear = DateAdd("yyyy", 1, Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateAdd"));
         assert!(debug.contains("Identifier"));
@@ -536,7 +536,7 @@ nextYear = DateAdd("yyyy", 1, Date)
         let source = r#"
 nextMonth = DateAdd("m", 1, startDate)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateAdd"));
         assert!(debug.contains("Identifier"));
@@ -547,7 +547,7 @@ nextMonth = DateAdd("m", 1, startDate)
         let source = r#"
 pastDate = DateAdd("d", -7, Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateAdd"));
         assert!(debug.contains("Identifier"));
@@ -558,7 +558,7 @@ pastDate = DateAdd("d", -7, Date)
         let source = r#"
 later = DateAdd("h", 6, Now)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateAdd"));
         assert!(debug.contains("Identifier"));
@@ -569,7 +569,7 @@ later = DateAdd("h", 6, Now)
         let source = r#"
 later = DateAdd("n", 90, Now)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateAdd"));
         assert!(debug.contains("Identifier"));
@@ -580,7 +580,7 @@ later = DateAdd("n", 90, Now)
         let source = r#"
 later = DateAdd("s", 3600, Now)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateAdd"));
         assert!(debug.contains("Identifier"));
@@ -591,7 +591,7 @@ later = DateAdd("s", 3600, Now)
         let source = r#"
 nextWeek = DateAdd("ww", 1, Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateAdd"));
         assert!(debug.contains("Identifier"));
@@ -602,7 +602,7 @@ nextWeek = DateAdd("ww", 1, Date)
         let source = r#"
 nextQuarter = DateAdd("q", 1, Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateAdd"));
         assert!(debug.contains("Identifier"));
@@ -615,7 +615,7 @@ Function GetDueDate(invoice As Date) As Date
     GetDueDate = DateAdd("d", 30, invoice)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateAdd"));
         assert!(debug.contains("Identifier"));
@@ -626,7 +626,7 @@ End Function
         let source = r#"
 result = DateAdd("m", 6, #1/1/2025#)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateAdd"));
         assert!(debug.contains("Identifier"));
@@ -637,7 +637,7 @@ result = DateAdd("m", 6, #1/1/2025#)
         let source = r#"
 result = DateAdd("d", -1, DateAdd("m", 3, startDate))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateAdd"));
         assert!(debug.contains("Identifier"));
@@ -650,7 +650,7 @@ If DateAdd("d", 30, startDate) > endDate Then
     MsgBox "Too late"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateAdd"));
         assert!(debug.contains("Identifier"));
@@ -663,7 +663,7 @@ Dim interval As String
 interval = "m"
 result = DateAdd(interval, 1, Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateAdd"));
         assert!(debug.contains("Identifier"));
@@ -676,7 +676,7 @@ For i = 1 To 12
     dates(i) = DateAdd("m", i, startDate)
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateAdd"));
         assert!(debug.contains("Identifier"));
@@ -692,7 +692,7 @@ Select Case frequency
         nextDate = DateAdd("yyyy", 1, lastDate)
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateAdd"));
         assert!(debug.contains("Identifier"));
@@ -703,7 +703,7 @@ End Select
         let source = r#"
 formatted = Format(DateAdd("d", 7, Date), "yyyy-mm-dd")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateAdd"));
         assert!(debug.contains("Identifier"));
@@ -714,7 +714,7 @@ formatted = Format(DateAdd("d", 7, Date), "yyyy-mm-dd")
         let source = r#"
 result = DateAdd("y", 1, Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateAdd"));
         assert!(debug.contains("Identifier"));
@@ -725,7 +725,7 @@ result = DateAdd("y", 1, Date)
         let source = r#"
 result = DateAdd("w", 1, Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateAdd"));
         assert!(debug.contains("Identifier"));
@@ -737,7 +737,7 @@ result = DateAdd("w", 1, Date)
 dates(0) = DateAdd("m", 0, startDate)
 dates(1) = DateAdd("m", 1, startDate)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateAdd"));
         assert!(debug.contains("Identifier"));
@@ -749,7 +749,7 @@ dates(1) = DateAdd("m", 1, startDate)
 start = DateAdd("m", -1, Date)
 finish = DateAdd("m", 1, Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateAdd"));
         assert!(debug.contains("Identifier"));
@@ -760,7 +760,7 @@ finish = DateAdd("m", 1, Date)
         let source = r#"
 MsgBox "Next week: " & DateAdd("ww", 1, Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateAdd"));
         assert!(debug.contains("Identifier"));
@@ -771,7 +771,7 @@ MsgBox "Next week: " & DateAdd("ww", 1, Date)
         let source = r#"
 result = DateAdd("d", days * 2, startDate)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateAdd"));
         assert!(debug.contains("Identifier"));
@@ -782,7 +782,7 @@ result = DateAdd("d", days * 2, startDate)
         let source = r#"
 result = DateAdd("d", 0, Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateAdd"));
         assert!(debug.contains("Identifier"));
@@ -793,7 +793,7 @@ result = DateAdd("d", 0, Date)
         let source = r#"
 result = DateAdd("d", 365, Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateAdd"));
         assert!(debug.contains("Identifier"));

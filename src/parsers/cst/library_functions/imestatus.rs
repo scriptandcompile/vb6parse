@@ -404,7 +404,7 @@ Sub Test()
     status = IMEStatus()
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));
@@ -417,7 +417,7 @@ Function GetIMEMode() As Integer
     GetIMEMode = IMEStatus()
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));
@@ -432,7 +432,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));
@@ -450,7 +450,7 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));
@@ -465,7 +465,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));
@@ -478,7 +478,7 @@ Sub Test()
     Debug.Print IMEStatus()
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));
@@ -492,7 +492,7 @@ Sub Test()
     mode = IMEStatus()
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));
@@ -505,7 +505,7 @@ Sub Test()
     MsgBox "IME Status: " & IMEStatus()
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));
@@ -518,7 +518,7 @@ Sub Test()
     msg = "Current mode: " & CStr(IMEStatus())
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));
@@ -531,7 +531,7 @@ Sub Test()
     value = (IMEStatus())
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));
@@ -546,7 +546,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));
@@ -559,7 +559,7 @@ Private Sub Class_Initialize()
     m_imeMode = IMEStatus()
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));
@@ -574,7 +574,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));
@@ -587,7 +587,7 @@ Sub Test()
     Call ProcessMode(IMEStatus())
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));
@@ -600,7 +600,7 @@ Sub Test()
     obj.IMEMode = IMEStatus()
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));
@@ -613,7 +613,7 @@ Sub Test()
     modes(0) = IMEStatus()
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));
@@ -628,7 +628,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));
@@ -644,7 +644,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));
@@ -657,7 +657,7 @@ Sub Test()
     result = CStr(IMEStatus())
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));
@@ -670,7 +670,7 @@ Sub Test()
     msg = IIf(IMEStatus() = vbIMEOn, "On", "Off")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));
@@ -687,7 +687,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));
@@ -700,7 +700,7 @@ Sub Test()
     col.Add IMEStatus()
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));
@@ -713,7 +713,7 @@ Function CheckIME() As Integer
     CheckIME = IMEStatus()
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));
@@ -727,7 +727,7 @@ Sub Test()
     info.IMEMode = IMEStatus()
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));
@@ -740,7 +740,7 @@ Sub Test()
     isEnabled = (IMEStatus() <> vbIMENoOp)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));
@@ -753,7 +753,7 @@ Sub Test()
     text = "Mode: " & Format$(IMEStatus(), "0")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));
@@ -766,7 +766,7 @@ Private Sub Timer1_Timer()
     lblStatus.Caption = "IME: " & IMEStatus()
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
         assert!(text.contains("Identifier"));

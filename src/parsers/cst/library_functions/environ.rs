@@ -627,7 +627,7 @@ mod tests {
         let source = r#"
 userName = Environ("USERNAME")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Environ"));
         assert!(debug.contains("Identifier"));
@@ -638,7 +638,7 @@ userName = Environ("USERNAME")
         let source = r#"
 firstVar = Environ(1)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Environ"));
         assert!(debug.contains("Identifier"));
@@ -649,7 +649,7 @@ firstVar = Environ(1)
         let source = r#"
 tempDir = Environ("TEMP")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Environ"));
         assert!(debug.contains("Identifier"));
@@ -662,7 +662,7 @@ Function GetUserProfile() As String
     GetUserProfile = Environ("USERPROFILE")
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Environ"));
         assert!(debug.contains("Identifier"));
@@ -675,7 +675,7 @@ If Len(Environ("JAVA_HOME")) > 0 Then
     MsgBox "Java configured"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Environ"));
         assert!(debug.contains("Identifier"));
@@ -686,7 +686,7 @@ End If
         let source = r#"
 appDataPath = Environ("APPDATA") & "\MyApp"
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Environ"));
         assert!(debug.contains("Identifier"));
@@ -703,7 +703,7 @@ Do
     i = i + 1
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Environ"));
         assert!(debug.contains("Identifier"));
@@ -715,7 +715,7 @@ Loop
 varName = "PATH"
 pathValue = Environ(varName)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Environ"));
         assert!(debug.contains("Identifier"));
@@ -728,7 +728,7 @@ If Environ("OS") = "Windows_NT" Then
     MsgBox "Windows NT"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Environ"));
         assert!(debug.contains("Identifier"));
@@ -739,7 +739,7 @@ End If
         let source = r#"
 MsgBox "Computer: " & Environ("COMPUTERNAME")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Environ"));
         assert!(debug.contains("Identifier"));
@@ -755,7 +755,7 @@ Select Case UCase(Environ("OS"))
         MsgBox "Other"
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Environ"));
         assert!(debug.contains("Identifier"));
@@ -770,7 +770,7 @@ If value = "" Then
     value = "default"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Environ"));
         assert!(debug.contains("Identifier"));
@@ -783,7 +783,7 @@ user = Environ("USERNAME")
 comp = Environ("COMPUTERNAME")
 temp = Environ("TEMP")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Environ"));
         assert!(debug.contains("Identifier"));
@@ -794,7 +794,7 @@ temp = Environ("TEMP")
         let source = r#"
 paths = Split(Environ("PATH"), ";")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Environ"));
         assert!(debug.contains("Identifier"));
@@ -805,7 +805,7 @@ paths = Split(Environ("PATH"), ";")
         let source = r#"
 logFile = Environ("TEMP") & "\app.log"
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Environ"));
         assert!(debug.contains("Identifier"));
@@ -818,7 +818,7 @@ If Right(Environ("TEMP"), 1) <> "\" Then
     tempDir = Environ("TEMP") & "\"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Environ"));
         assert!(debug.contains("Identifier"));
@@ -832,7 +832,7 @@ If IsNumeric(procCount) Then
     cores = CInt(procCount)
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Environ"));
         assert!(debug.contains("Identifier"));
@@ -847,7 +847,7 @@ For i = 1 To 100
     ProcessVar envVar
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Environ"));
         assert!(debug.contains("Identifier"));
@@ -860,7 +860,7 @@ If InStr(Environ("PATH"), "Java") > 0 Then
     MsgBox "Java in PATH"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Environ"));
         assert!(debug.contains("Identifier"));
@@ -874,7 +874,7 @@ If Dir(configDir, vbDirectory) = "" Then
     MkDir configDir
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Environ"));
         assert!(debug.contains("Identifier"));
@@ -886,7 +886,7 @@ End If
 value = Environ("CUSTOM_VAR")
 If value = "" Then value = "default_value"
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Environ"));
         assert!(debug.contains("Identifier"));
@@ -897,7 +897,7 @@ If value = "" Then value = "default_value"
         let source = r#"
 Debug.Print "User: " & Environ("USERNAME")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Environ"));
         assert!(debug.contains("Identifier"));
@@ -910,7 +910,7 @@ Open Environ("TEMP") & "\output.txt" For Output As #1
 Print #1, Environ("USERNAME")
 Close #1
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Environ"));
         assert!(debug.contains("Identifier"));
@@ -921,7 +921,7 @@ Close #1
         let source = r#"
 osName = UCase(Environ("OS"))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Environ"));
         assert!(debug.contains("Identifier"));
@@ -932,7 +932,7 @@ osName = UCase(Environ("OS"))
         let source = r#"
 envDict.Add Environ("USERNAME"), "User"
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Environ"));
         assert!(debug.contains("Identifier"));

@@ -46,7 +46,7 @@ Sub Test()
     FileCopy "source.txt", "dest.txt"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("FileCopyStatement"));
@@ -56,7 +56,7 @@ End Sub
     #[test]
     fn filecopy_at_module_level() {
         let source = "FileCopy \"old.dat\", \"new.dat\"\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
         assert_eq!(cst.child_count(), 1);
@@ -72,7 +72,7 @@ Sub Test()
     FileCopy "C:\\SOURCE.TXT", "C:\\DEST.TXT"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("FileCopyStatement"));
@@ -85,7 +85,7 @@ Sub Test()
     FileCopy oldFile, newFile
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("FileCopyStatement"));
@@ -100,7 +100,7 @@ Sub Test()
     FileCopy App.Path & "\\data.dat", "C:\\Backup\\data.dat"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("FileCopyStatement"));
@@ -110,7 +110,7 @@ End Sub
     #[test]
     fn filecopy_preserves_whitespace() {
         let source = "    FileCopy    \"a.txt\"  ,  \"b.txt\"    \n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.text(), "    FileCopy    \"a.txt\"  ,  \"b.txt\"    \n");
 
@@ -125,7 +125,7 @@ Sub Test()
     FileCopy "source.dat", "dest.dat" ' Backup file
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("FileCopyStatement"));
@@ -141,7 +141,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("FileCopyStatement"));
@@ -154,7 +154,7 @@ Sub Test()
     If createBackup Then FileCopy "file.txt", "file.bak"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("FileCopyStatement"));
@@ -171,7 +171,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("FileCopyStatement"));
@@ -186,7 +186,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("FileCopyStatement"));
@@ -200,7 +200,7 @@ Sub Test()
     FileCopy "file2.txt", "backup2.txt"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let filecopy_count = debug.matches("FileCopyStatement").count();
@@ -214,7 +214,7 @@ Sub Test()
     FileCopy "\\\\server\\share\\file.dat", "C:\\local\\file.dat"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("FileCopyStatement"));

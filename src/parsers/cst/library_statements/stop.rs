@@ -253,7 +253,7 @@ Sub Test()
     Stop
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -263,7 +263,7 @@ End Sub
     #[test]
     fn stop_at_module_level() {
         let source = "Stop\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
         assert_eq!(cst.child_count(), 1);
@@ -279,7 +279,7 @@ Sub Test()
     Stop ' Debug breakpoint
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -293,7 +293,7 @@ If value < 0 Then
     Stop
 End If
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -308,7 +308,7 @@ For i = 1 To 100
     End If
 Next i
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -325,7 +325,7 @@ ErrorHandler:
     Stop
     MsgBox Err.Description
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -334,7 +334,7 @@ ErrorHandler:
     #[test]
     fn stop_preserves_whitespace() {
         let source = "    Stop    \n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -343,7 +343,7 @@ ErrorHandler:
     #[test]
     fn stop_multiple_on_same_line() {
         let source = "Stop: Stop\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -359,7 +359,7 @@ Select Case userType
         Stop
 End Select
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -373,7 +373,7 @@ Function ValidateData(data As String) As Boolean
     ValidateData = True
 End Function
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -387,7 +387,7 @@ Sub ProcessData()
     ' Process here
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -401,7 +401,7 @@ Private Sub Class_Initialize()
     InitializeProperties
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.cls", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -417,7 +417,7 @@ Sub DeleteAllRecords()
     rs.Delete
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -432,7 +432,7 @@ Public Property Let Value(ByVal newValue As Integer)
     End If
 End Property
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.cls", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -448,7 +448,7 @@ For i = 1 To 1000
     End If
 Next i
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -462,7 +462,7 @@ Private Sub Form_Load()
     InitializeControls
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -477,7 +477,7 @@ Sub ProcessArray(arr() As Integer)
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -499,7 +499,7 @@ Function ValidateData(data As String) As Boolean
     ValidateData = True
 End Function
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -508,7 +508,7 @@ End Function
     #[test]
     fn stop_inline_if() {
         let source = "If debug Then Stop\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -522,7 +522,7 @@ With objData
     .Property = Value
 End With
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -537,7 +537,7 @@ Do While Not rs.EOF
     rs.MoveNext
 Loop
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -552,7 +552,7 @@ Sub ProcessData(value As Integer)
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -566,7 +566,7 @@ Private Sub Class_Terminate()
     Cleanup
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.cls", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -580,7 +580,7 @@ Public Property Get Value() As Integer
     Value = m_Value
 End Property
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.cls", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -598,7 +598,7 @@ Sub Calculate()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -614,7 +614,7 @@ For Each item In collection
     ProcessItem item
 Next item
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -623,7 +623,7 @@ Next item
     #[test]
     fn stop_case_insensitive() {
         let source = "stop\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -638,7 +638,7 @@ If condition1 Then
     End If
 End If
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -655,7 +655,7 @@ Sub Test()
     Stop
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));
@@ -670,7 +670,7 @@ Sub InitializeType()
     data.Field1 = 10
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("StopStatement"));

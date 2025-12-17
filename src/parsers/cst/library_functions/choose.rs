@@ -333,7 +333,7 @@ mod tests {
         let source = r#"
 result = Choose(1, "First", "Second", "Third")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
         assert!(debug.contains("Identifier"));
@@ -344,7 +344,7 @@ result = Choose(1, "First", "Second", "Third")
         let source = r#"
 result = Choose(index, "A", "B", "C", "D")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
         assert!(debug.contains("Identifier"));
@@ -355,7 +355,7 @@ result = Choose(index, "A", "B", "C", "D")
         let source = r#"
 value = Choose(level, 1, 5, 10, 50, 100)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
         assert!(debug.contains("Identifier"));
@@ -366,7 +366,7 @@ value = Choose(level, 1, 5, 10, 50, 100)
         let source = r#"
 result = Choose(x + 1, "Zero", "One", "Two")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
         assert!(debug.contains("Identifier"));
@@ -377,7 +377,7 @@ result = Choose(x + 1, "Zero", "One", "Two")
         let source = r#"
 dayName = Choose(Weekday(Date), "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
         assert!(debug.contains("Identifier"));
@@ -391,7 +391,7 @@ result = Choose(index, _
     "Second", _
     "Third")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
         assert!(debug.contains("Identifier"));
@@ -402,7 +402,7 @@ result = Choose(index, _
         let source = r#"
 monthName = Choose(month, "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
         assert!(debug.contains("Identifier"));
@@ -415,7 +415,7 @@ If Choose(status, "Pending", "Active", "Closed") = "Active" Then
     Process
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
         assert!(debug.contains("Identifier"));
@@ -426,7 +426,7 @@ End If
         let source = r#"
 MsgBox Choose(errorLevel, "Info", "Warning", "Error")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
         assert!(debug.contains("Identifier"));
@@ -440,7 +440,7 @@ If IsNull(result) Then
     result = "Invalid"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
         assert!(debug.contains("Identifier"));
@@ -451,7 +451,7 @@ End If
         let source = r#"
 color = Choose(colorCode, vbRed, vbGreen, vbBlue, vbYellow)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
         assert!(debug.contains("Identifier"));
@@ -462,7 +462,7 @@ color = Choose(colorCode, vbRed, vbGreen, vbBlue, vbYellow)
         let source = r#"
 isValid = Choose(dayOfWeek, False, True, True, True, True, True, False)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
         assert!(debug.contains("Identifier"));
@@ -475,7 +475,7 @@ Function GetStatus(code As Integer) As String
     GetStatus = Choose(code, "Pending", "Approved", "Rejected")
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
         assert!(debug.contains("Identifier"));
@@ -486,7 +486,7 @@ End Function
         let source = r#"
 result = Choose(x, Choose(y, "A", "B"), Choose(y, "C", "D"))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
         assert!(debug.contains("Identifier"));
@@ -497,7 +497,7 @@ result = Choose(x, Choose(y, "A", "B"), Choose(y, "C", "D"))
         let source = r#"
 discount = amount * Choose(customerType, 0.05, 0.1, 0.15, 0.2)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
         assert!(debug.contains("Identifier"));
@@ -513,7 +513,7 @@ Select Case Choose(index, 1, 2, 3)
         DoOther
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
         assert!(debug.contains("Identifier"));
@@ -524,7 +524,7 @@ End Select
         let source = r#"
 dueDate = Choose(priority, #1/1/2000#, #1/15/2000#, #2/1/2000#)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
         assert!(debug.contains("Identifier"));
@@ -537,7 +537,7 @@ For i = 1 To 3
     Print Choose(i, "First", "Second", "Third")
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
         assert!(debug.contains("Identifier"));
@@ -548,7 +548,7 @@ Next i
         let source = r#"
 result = Choose(selector, 100, "Text", #1/1/2000#, True, 3.14)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
         assert!(debug.contains("Identifier"));
@@ -559,7 +559,7 @@ result = Choose(selector, 100, "Text", #1/1/2000#, True, 3.14)
         let source = r#"
 value = Choose(index, obj.Property1, obj.Property2, obj.Property3)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
         assert!(debug.contains("Identifier"));
@@ -570,7 +570,7 @@ value = Choose(index, obj.Property1, obj.Property2, obj.Property3)
         let source = r#"
 result = Choose(index, arr(0), arr(1), arr(2))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
         assert!(debug.contains("Identifier"));
@@ -582,7 +582,7 @@ result = Choose(index, arr(0), arr(1), arr(2))
 Dim msg As String
 msg = Choose(errorLevel, "Success", "Warning", "Error", "Critical")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
         assert!(debug.contains("Identifier"));
@@ -593,7 +593,7 @@ msg = Choose(errorLevel, "Success", "Warning", "Error", "Critical")
         let source = r#"
 result = Choose(index, obj.Method1(), obj.Method2(), obj.Method3())
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
         assert!(debug.contains("Identifier"));
@@ -607,7 +607,7 @@ Do While counter < 10
     counter = counter + 1
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
         assert!(debug.contains("Identifier"));
@@ -618,7 +618,7 @@ Loop
         let source = r#"
 result = Choose( index , "First" , "Second" , "Third" )
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
         assert!(debug.contains("Identifier"));

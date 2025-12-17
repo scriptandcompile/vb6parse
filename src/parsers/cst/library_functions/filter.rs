@@ -799,7 +799,7 @@ mod tests {
         let source = r#"
 filtered = Filter(fruits, "e")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));
@@ -810,7 +810,7 @@ filtered = Filter(fruits, "e")
         let source = r#"
 filtered = Filter(fruits, "e", False)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));
@@ -821,7 +821,7 @@ filtered = Filter(fruits, "e", False)
         let source = r#"
 filtered = Filter(fruits, "a", True, vbTextCompare)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));
@@ -832,7 +832,7 @@ filtered = Filter(fruits, "a", True, vbTextCompare)
         let source = r#"
 result = Filter(names, "J", True, vbBinaryCompare)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));
@@ -843,7 +843,7 @@ result = Filter(names, "J", True, vbBinaryCompare)
         let source = r#"
 textFiles = Filter(files, ".bak", False)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));
@@ -856,7 +856,7 @@ Function SearchList(items() As String, searchTerm As String) As String()
     SearchList = Filter(items, searchTerm, True, vbTextCompare)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));
@@ -870,7 +870,7 @@ If UBound(matches) >= 0 Then
     count = UBound(matches) + 1
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));
@@ -882,7 +882,7 @@ End If
 temp = Filter(result, filters(i), True, vbTextCompare)
 result = temp
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));
@@ -896,7 +896,7 @@ For i = 0 To UBound(filtered)
     lstBox.AddItem filtered(i)
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));
@@ -911,7 +911,7 @@ Exit Function
 ErrorHandler:
     ReDim filtered(0 To -1)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));
@@ -926,7 +926,7 @@ Else
     results = Filter(items, searchTerm, True, vbTextCompare)
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));
@@ -937,7 +937,7 @@ End If
         let source = r#"
 txtFiles = Filter(allFiles, ".txt", True, vbTextCompare)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));
@@ -950,7 +950,7 @@ searchMode = vbTextCompare
 includeMatches = True
 result = Filter(sourceData, pattern, includeMatches, searchMode)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));
@@ -962,7 +962,7 @@ result = Filter(sourceData, pattern, includeMatches, searchMode)
 levelTag = "[" & UCase(level) & "]"
 result = Filter(logEntries, levelTag, True, vbTextCompare)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));
@@ -974,7 +974,7 @@ result = Filter(logEntries, levelTag, True, vbTextCompare)
 temp = Filter(items, includeText, True, vbTextCompare)
 temp = Filter(temp, excludeText, False, vbTextCompare)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));
@@ -985,7 +985,7 @@ temp = Filter(temp, excludeText, False, vbTextCompare)
         let source = r#"
 Debug.Print "Found: " & UBound(Filter(items, searchTerm)) + 1
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));
@@ -996,7 +996,7 @@ Debug.Print "Found: " & UBound(Filter(items, searchTerm)) + 1
         let source = r#"
 matchedNames = Filter(names, searchTerm, True, vbTextCompare)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));
@@ -1009,7 +1009,7 @@ If InStr(1, records(i).Name, searchTerm, vbTextCompare) > 0 Then
     matches = Filter(names, searchTerm, True, vbTextCompare)
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));
@@ -1021,7 +1021,7 @@ End If
 filtered = Filter(cachedResults, currentSearch, True, vbTextCompare)
 cachedResults = filtered
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));
@@ -1035,7 +1035,7 @@ If UBound(results) < 0 Then
     Debug.Print "No matches"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));
@@ -1051,7 +1051,7 @@ Else
 End If
 result = Filter(items, searchTerm, True, compareMode)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));
@@ -1064,7 +1064,7 @@ If Not IsNull(items) Then
     result = Filter(items, searchTerm, True, vbTextCompare)
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));
@@ -1077,7 +1077,7 @@ If IsArray(items) Then
     filtered = Filter(items, searchTerm, True, vbTextCompare)
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));
@@ -1090,7 +1090,7 @@ startTime = Timer
 results = Filter(items, searchTerm, True, vbTextCompare)
 elapsedMs = (Timer - startTime) * 1000
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));
@@ -1105,7 +1105,7 @@ For Each item In matches
     Debug.Print item
 Next item
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));
@@ -1121,7 +1121,7 @@ Select Case filterType
         result = Filter(items, term, False, vbTextCompare)
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
         assert!(debug.contains("Identifier"));

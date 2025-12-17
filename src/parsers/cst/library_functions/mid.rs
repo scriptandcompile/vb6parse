@@ -795,7 +795,7 @@ mod tests {
         let source = r#"
             result = Mid("Hello World", 7, 5)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
         assert!(text.contains("Identifier"));
@@ -806,7 +806,7 @@ mod tests {
         let source = r#"
             result = Mid(text, 5)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
         assert!(text.contains("Identifier"));
@@ -817,7 +817,7 @@ mod tests {
         let source = r#"
             substring = Mid(fullText, startPos, length)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
         assert!(text.contains("Identifier"));
@@ -830,7 +830,7 @@ mod tests {
                 MsgBox "Match"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
     }
@@ -842,7 +842,7 @@ mod tests {
                 GetSubstring = Mid(data, 10, 20)
             End Function
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
         assert!(text.contains("Identifier"));
@@ -854,7 +854,7 @@ mod tests {
             pos = InStr(text, ",")
             field = Mid(text, 1, pos - 1)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
         assert!(text.contains("Identifier"));
@@ -865,7 +865,7 @@ mod tests {
         let source = r#"
             Debug.Print Mid(message, 5, 10)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
         assert!(text.contains("Identifier"));
@@ -878,7 +878,7 @@ mod tests {
                 .ID = Mid(.FullData, 1, 10)
             End With
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
         assert!(text.contains("Identifier"));
@@ -892,7 +892,7 @@ mod tests {
                     MsgBox "Type A"
             End Select
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
         assert!(text.contains("Identifier"));
@@ -907,7 +907,7 @@ mod tests {
                 status = "Special"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
         assert!(text.contains("Identifier"));
@@ -918,7 +918,7 @@ mod tests {
         let source = r#"
             result = (Mid(text, 3, 5))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
         assert!(text.contains("Identifier"));
@@ -929,7 +929,7 @@ mod tests {
         let source = r#"
             result = IIf(Mid(text, 1, 1) = "A", "Yes", "No")
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
         assert!(text.contains("Identifier"));
@@ -942,7 +942,7 @@ mod tests {
                 m_code = Mid(m_rawData, 1, 5)
             End Sub
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
         assert!(text.contains("Identifier"));
@@ -953,7 +953,7 @@ mod tests {
         let source = r#"
             Call ProcessText(Mid(input, 10, 50))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
         assert!(text.contains("Identifier"));
@@ -964,7 +964,7 @@ mod tests {
         let source = r#"
             MyObject.Substring = Mid(fullString, 5, 10)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
         assert!(text.contains("Identifier"));
@@ -975,7 +975,7 @@ mod tests {
         let source = r#"
             fields(i) = Mid(record, pos, fieldWidth)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
         assert!(text.contains("Identifier"));
@@ -988,7 +988,7 @@ mod tests {
                 char = Mid(text, i, 1)
             Next i
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
         assert!(text.contains("Identifier"));
@@ -1002,7 +1002,7 @@ mod tests {
                 pos = pos + 10
             Wend
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
         assert!(text.contains("Identifier"));
@@ -1016,7 +1016,7 @@ mod tests {
                 i = i + 1
             Loop
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
         assert!(text.contains("Identifier"));
@@ -1030,7 +1030,7 @@ mod tests {
                 pos = delimPos + 1
             Loop
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
         assert!(text.contains("Identifier"));
@@ -1041,7 +1041,7 @@ mod tests {
         let source = r#"
             MsgBox Mid(errorMessage, 1, 50)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
         assert!(text.contains("Identifier"));
@@ -1052,7 +1052,7 @@ mod tests {
         let source = r#"
             fullName = Mid(firstName, 1, 1) & ". " & lastName
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
         assert!(text.contains("Identifier"));
@@ -1065,7 +1065,7 @@ mod tests {
                 MsgBox "Match"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
         assert!(text.contains("Identifier"));
@@ -1076,7 +1076,7 @@ mod tests {
         let source = r#"
             cleanField = Trim(Mid(record, 10, 30))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
         assert!(text.contains("Identifier"));
@@ -1088,7 +1088,7 @@ mod tests {
             customerID = Mid(record, 1, 10)
             customerName = Mid(record, 11, 30)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
         assert!(text.contains("Identifier"));
@@ -1099,7 +1099,7 @@ mod tests {
         let source = r#"
             result = Mid(Mid(text, 5, 20), 3, 10)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
         assert!(text.contains("Identifier"));
@@ -1110,7 +1110,7 @@ mod tests {
         let source = r#"
             char = Mid(text, position, 1)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
         assert!(text.contains("Identifier"));

@@ -668,7 +668,7 @@ mod tests {
 Dim result As String
 result = Oct(64)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));
@@ -681,7 +681,7 @@ Dim permissions As Integer
 permissions = 493
 Debug.Print Oct(permissions)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));
@@ -694,7 +694,7 @@ If Oct(value) = "100" Then
     MsgBox "Value is 64 in decimal"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));
@@ -707,7 +707,7 @@ Function GetOctalString(num As Long) As String
     GetOctalString = Oct(num)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));
@@ -719,7 +719,7 @@ End Function
 Dim octStr As String
 octStr = Oct(511)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));
@@ -730,7 +730,7 @@ octStr = Oct(511)
         let source = r#"
 MsgBox "Octal: " & Oct(value)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));
@@ -741,7 +741,7 @@ MsgBox "Octal: " & Oct(value)
         let source = r#"
 Debug.Print "Dec: " & num & " Oct: " & Oct(num)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));
@@ -759,7 +759,7 @@ Select Case Oct(filePerms)
         msg = "Other permission"
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));
@@ -774,7 +774,7 @@ Public Sub ConvertValue(num As Long)
     m_octal = Oct(num)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));
@@ -787,7 +787,7 @@ With converter
     .OctalValue = Oct(.DecimalValue)
 End With
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));
@@ -802,7 +802,7 @@ ElseIf Oct(x) = "144" Then
     y = 2
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));
@@ -815,7 +815,7 @@ For i = 0 To 15
     Debug.Print i, Oct(i), Hex(i)
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));
@@ -828,7 +828,7 @@ Do While Len(Oct(counter)) < 4
     counter = counter * 8
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));
@@ -841,7 +841,7 @@ Do Until Oct(val) = targetOctal
     val = val + 1
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));
@@ -855,7 +855,7 @@ While num <= 100
     num = num + 1
 Wend
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));
@@ -867,7 +867,7 @@ Wend
 Dim result As String
 result = (Oct(value))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));
@@ -879,7 +879,7 @@ result = (Oct(value))
 Dim display As String
 display = IIf(showOctal, Oct(num), Hex(num))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));
@@ -892,7 +892,7 @@ If Oct(perms1) = Oct(perms2) Then
     MsgBox "Permissions match"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));
@@ -904,7 +904,7 @@ End If
 Dim octValues(10) As String
 octValues(i) = Oct(numbers(i))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));
@@ -916,7 +916,7 @@ octValues(i) = Oct(numbers(i))
 Set obj = New BaseConverter
 obj.OctalString = Oct(obj.DecimalValue)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));
@@ -927,7 +927,7 @@ obj.OctalString = Oct(obj.DecimalValue)
         let source = r#"
 Call LogValue("Octal", Oct(deviceCode))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));
@@ -939,7 +939,7 @@ Call LogValue("Octal", Oct(deviceCode))
 Dim combined As Long
 combined = CLng("&O" & Oct(value1)) + CLng("&O" & Oct(value2))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));
@@ -951,7 +951,7 @@ combined = CLng("&O" & Oct(value1)) + CLng("&O" & Oct(value2))
 Dim info As String
 info = "Dec: " & num & " Hex: " & Hex(num) & " Oct: " & Oct(num)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));
@@ -963,7 +963,7 @@ info = "Dec: " & num & " Hex: " & Hex(num) & " Oct: " & Oct(num)
 Dim formatted As String
 formatted = "&O" & Oct(value)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));
@@ -975,7 +975,7 @@ formatted = "&O" & Oct(value)
 Dim digitCount As Integer
 digitCount = Len(Oct(number))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));
@@ -991,7 +991,7 @@ If Err.Number <> 0 Then
 End If
 On Error GoTo 0
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));
@@ -1009,7 +1009,7 @@ ErrorHandler:
     MsgBox "Error converting to octal"
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
         assert!(text.contains("Identifier"));

@@ -39,7 +39,7 @@ Sub Test()
     DeleteSetting "MyApp", "Startup"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("DeleteSettingStatement"));
@@ -53,7 +53,7 @@ Sub Test()
     DeleteSetting "MyApp", "Startup", "Left"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("DeleteSettingStatement"));
@@ -67,7 +67,7 @@ Sub Test()
     DeleteSetting App.ProductName, "FileFilter"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("DeleteSettingStatement"));
@@ -81,7 +81,7 @@ Sub Test()
     DeleteSetting REGISTRY_KEY, "Settings", "frmPost.Left"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("DeleteSettingStatement"));
@@ -97,7 +97,7 @@ Sub Test()
     DeleteSetting REGISTRY_KEY, "Settings", "frmPost.Height"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.matches("DeleteSettingStatement").count() >= 3);
@@ -115,7 +115,7 @@ Sub Test()
     DeleteSetting appName, sectionName
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("DeleteSettingStatement"));
@@ -132,7 +132,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("DeleteSettingStatement"));
@@ -146,7 +146,7 @@ Sub Test()
     DeleteSetting "MyApp", "Section" & Num, "Key" & Index
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("DeleteSettingStatement"));
@@ -162,7 +162,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("DeleteSettingStatement"));
@@ -176,7 +176,7 @@ Sub Test()
     DeleteSetting GetAppName(), GetSection(), GetKey()
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("DeleteSettingStatement"));
@@ -190,7 +190,7 @@ Sub Test()
     DeleteSetting ("MyApp"), ("Settings"), ("WindowState")
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("DeleteSettingStatement"));
@@ -206,7 +206,7 @@ Sub Test()
     If Err Then MsgBox "Error deleting setting"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("DeleteSettingStatement"));

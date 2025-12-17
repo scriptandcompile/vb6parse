@@ -423,7 +423,7 @@ mod tests {
         let source = r#"
 ch = Chr(65)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
         assert!(debug.contains("Identifier"));
@@ -434,7 +434,7 @@ ch = Chr(65)
         let source = r#"
 result = Chr(code)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
         assert!(debug.contains("Identifier"));
@@ -448,7 +448,7 @@ lf = Chr(10)
 cr = Chr(13)
 space = Chr(32)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
         assert!(debug.contains("Identifier"));
@@ -459,7 +459,7 @@ space = Chr(32)
         let source = r#"
 msg = "Line 1" & Chr(13) & Chr(10) & "Line 2"
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
         assert!(debug.contains("Identifier"));
@@ -472,7 +472,7 @@ For i = 65 To 90
     alphabet = alphabet & Chr(i)
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
         assert!(debug.contains("Identifier"));
@@ -483,7 +483,7 @@ Next i
         let source = r#"
 quote = Chr(34)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
         assert!(debug.contains("Identifier"));
@@ -496,7 +496,7 @@ Function QuoteString(text As String) As String
     QuoteString = Chr(34) & text & Chr(34)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
         assert!(debug.contains("Identifier"));
@@ -507,7 +507,7 @@ End Function
         let source = r#"
 ch = Chr(65 + offset)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
         assert!(debug.contains("Identifier"));
@@ -520,7 +520,7 @@ If ch = Chr(13) Then
     ProcessNewline
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
         assert!(debug.contains("Identifier"));
@@ -531,7 +531,7 @@ End If
         let source = r#"
 line = Chr(218) & Chr(196) & Chr(191)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
         assert!(debug.contains("Identifier"));
@@ -543,7 +543,7 @@ line = Chr(218) & Chr(196) & Chr(191)
 Dim separator As String
 separator = Chr(9)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
         assert!(debug.contains("Identifier"));
@@ -559,7 +559,7 @@ Select Case ch
         HandleLF
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
         assert!(debug.contains("Identifier"));
@@ -570,7 +570,7 @@ End Select
         let source = r#"
 original = Chr(Asc(text))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
         assert!(debug.contains("Identifier"));
@@ -584,7 +584,7 @@ While i <= 90
     i = i + 1
 Wend
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
         assert!(debug.contains("Identifier"));
@@ -598,7 +598,7 @@ Do While i < 256
     i = i + 1
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
         assert!(debug.contains("Identifier"));
@@ -609,7 +609,7 @@ Loop
         let source = r#"
 nullChar = Chr(0)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
         assert!(debug.contains("Identifier"));
@@ -623,7 +623,7 @@ msg = "Text" & _
       Chr(10) & _
       "More text"
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
         assert!(debug.contains("Identifier"));
@@ -634,7 +634,7 @@ msg = "Text" & _
         let source = r#"
 chars(i) = Chr(code)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
         assert!(debug.contains("Identifier"));
@@ -645,7 +645,7 @@ chars(i) = Chr(code)
         let source = r#"
 MsgBox "Line 1" & Chr(13) & "Line 2"
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
         assert!(debug.contains("Identifier"));
@@ -656,7 +656,7 @@ MsgBox "Line 1" & Chr(13) & "Line 2"
         let source = r#"
 boxChar = Chr(196)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
         assert!(debug.contains("Identifier"));
@@ -667,7 +667,7 @@ boxChar = Chr(196)
         let source = r#"
 result = Replace(text, Chr(13), "")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
         assert!(debug.contains("Identifier"));
@@ -678,7 +678,7 @@ result = Replace(text, Chr(13), "")
         let source = r#"
 ch = Chr(value Mod 256)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
         assert!(debug.contains("Identifier"));
@@ -689,7 +689,7 @@ ch = Chr(value Mod 256)
         let source = r#"
 parts = Split(data, Chr(9))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
         assert!(debug.contains("Identifier"));
@@ -700,7 +700,7 @@ parts = Split(data, Chr(9))
         let source = r#"
 ch = Chr(CInt(value))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
         assert!(debug.contains("Identifier"));
@@ -711,7 +711,7 @@ ch = Chr(CInt(value))
         let source = r#"
 result = Chr( 65 )
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
         assert!(debug.contains("Identifier"));

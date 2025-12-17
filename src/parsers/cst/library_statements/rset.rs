@@ -91,7 +91,7 @@ Sub Test()
     RSet myString = "test"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -102,7 +102,7 @@ End Sub
     #[test]
     fn rset_at_module_level() {
         let source = "RSet fixedStr = \"VB6\"\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
         assert_eq!(cst.child_count(), 1);
@@ -118,7 +118,7 @@ Sub Test()
     RSet FixedString = userName
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -133,7 +133,7 @@ Sub Test()
     RSet myRecord = sourceRecord
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -148,7 +148,7 @@ Sub Test()
     RSet buffer = Left$(inputStr, 5)
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -163,7 +163,7 @@ Sub Test()
     RSet obj.Property = value
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -178,7 +178,7 @@ Sub Test()
     RSet result = prefix & suffix
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -193,7 +193,7 @@ If condition Then
     RSet output = "aligned"
 End If
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -207,7 +207,7 @@ For i = 1 To 10
     RSet buffer = data(i)
 Next i
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -221,7 +221,7 @@ Sub Test()
     RSet aligned = text ' Right-align text
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -231,7 +231,7 @@ End Sub
     #[test]
     fn rset_preserves_whitespace() {
         let source = "RSet   target   =   source\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -246,7 +246,7 @@ Sub Test()
     RSet arr(index) = value
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -261,7 +261,7 @@ Sub Test()
     RSet matrix(row, col) = data
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -275,7 +275,7 @@ Sub Test()
     RSet obj.Field.Value = newValue
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -291,7 +291,7 @@ Sub Test()
     RSet buffer = Str$(number)
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -306,7 +306,7 @@ Sub Test()
     RSet output = RTrim$(input)
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -317,7 +317,7 @@ End Sub
     #[test]
     fn rset_multiple_on_same_line() {
         let source = "RSet a = x: RSet b = y\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         // Check that both RSet statements are present
@@ -333,7 +333,7 @@ Sub Test()
     RSet buffer = ""
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -347,7 +347,7 @@ Sub Test()
     RSet padded = Space$(10) & text
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -362,7 +362,7 @@ Sub Test()
     RSet display = IIf(flag, "Yes", "No")
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -379,7 +379,7 @@ Select Case mode
         RSet output = "Right"
 End Select
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -393,7 +393,7 @@ With recordset
     RSet .Name = newName
 End With
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -408,7 +408,7 @@ Sub FormatOutput()
     RSet buffer = data
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -422,7 +422,7 @@ Function RightJustify(text As String) As String
     RSet RightJustify = text
 End Function
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -436,7 +436,7 @@ Sub Test()
     RSet formatted = Left$(s, 5) & Mid$(s, 6, 3) & Right$(s, 2)
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -452,7 +452,7 @@ Public Sub Align(text As String)
     RSet buffer = text
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.cls", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -466,7 +466,7 @@ Sub Test()
     RSet display = Format$(value, "000.00")
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -481,7 +481,7 @@ Sub Test()
     RSet result = UCase$(input)
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -496,7 +496,7 @@ Sub Test()
     RSet clean = Replace(dirty, " ", "_")
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));
@@ -511,7 +511,7 @@ Sub Test()
         = expression
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("RSetStatement"));

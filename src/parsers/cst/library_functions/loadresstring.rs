@@ -633,7 +633,7 @@ mod tests {
             Dim msg As String
             msg = LoadResString(1001)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));
@@ -644,7 +644,7 @@ mod tests {
         let source = r#"
             MsgBox LoadResString(2001), vbCritical
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));
@@ -657,7 +657,7 @@ mod tests {
                 MsgBox LoadResString(3001), vbCritical
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));
@@ -668,7 +668,7 @@ mod tests {
         let source = r#"
             Me.Caption = LoadResString(4001)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));
@@ -681,7 +681,7 @@ mod tests {
                 lblWelcome.Caption = LoadResString(5001)
             End Sub
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));
@@ -694,7 +694,7 @@ mod tests {
                 labels(i).Caption = LoadResString(6000 + i)
             Next i
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));
@@ -707,7 +707,7 @@ mod tests {
                 GetErrorMessage = LoadResString(7001)
             End Function
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));
@@ -722,7 +722,7 @@ mod tests {
                 msg = "Resource not found"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));
@@ -735,7 +735,7 @@ mod tests {
                 .Caption = LoadResString(8001)
             End With
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));
@@ -751,7 +751,7 @@ mod tests {
                     msg = LoadResString(9002)
             End Select
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));
@@ -766,7 +766,7 @@ mod tests {
                 msg = LoadResString(11001)
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));
@@ -778,7 +778,7 @@ mod tests {
             Dim fullMsg As String
             fullMsg = LoadResString(12001) & vbCrLf & details
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));
@@ -789,7 +789,7 @@ mod tests {
         let source = r#"
             msg = (LoadResString(13001))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));
@@ -800,7 +800,7 @@ mod tests {
         let source = r#"
             msg = IIf(success, LoadResString(14001), LoadResString(14002))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));
@@ -813,7 +813,7 @@ mod tests {
                 m_errorMsg = LoadResString(15001)
             End Sub
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));
@@ -824,7 +824,7 @@ mod tests {
         let source = r#"
             Call ShowMessage(LoadResString(16001))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));
@@ -835,7 +835,7 @@ mod tests {
         let source = r#"
             MyObject.Message = LoadResString(17001)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));
@@ -846,7 +846,7 @@ mod tests {
         let source = r#"
             messages(i) = LoadResString(18000 + i)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));
@@ -860,7 +860,7 @@ mod tests {
                 index = index + 1
             Wend
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));
@@ -873,7 +873,7 @@ mod tests {
                 currentMsg = LoadResString(GetNextID())
             Loop
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));
@@ -888,7 +888,7 @@ mod tests {
                 loaded = (Err.Number = 0)
             Loop
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));
@@ -900,7 +900,7 @@ mod tests {
             Const MSG_ERROR = 20001
             MsgBox LoadResString(MSG_ERROR), vbCritical
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));
@@ -913,7 +913,7 @@ mod tests {
             baseID = 21000
             msg = LoadResString(baseID + offset)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));
@@ -926,7 +926,7 @@ mod tests {
             template = LoadResString(22001)
             msg = Replace(template, "{0}", userName)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));
@@ -937,7 +937,7 @@ mod tests {
         let source = r#"
             messages.Add LoadResString(23001), "WelcomeMsg"
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));
@@ -948,7 +948,7 @@ mod tests {
         let source = r#"
             Debug.Print LoadResString(24001)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));
@@ -959,7 +959,7 @@ mod tests {
         let source = r#"
             cmdSave.ToolTipText = LoadResString(25001)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
         assert!(text.contains("Identifier"));

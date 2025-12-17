@@ -110,7 +110,7 @@ mod test {
     fn deftype_defint_single_letter() {
         // Test DefInt with single letter
         let source = "DefInt I\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -123,7 +123,7 @@ mod test {
     fn deftype_defint_range() {
         // Test DefInt with letter range
         let source = "DefInt A-Z\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -136,7 +136,7 @@ mod test {
     fn deftype_deflng_multiple_ranges() {
         // Test DefLng with multiple ranges
         let source = "DefLng L, M-N\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -149,7 +149,7 @@ mod test {
     fn deftype_defstr_single() {
         // Test DefStr with single letter
         let source = "DefStr S\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -162,7 +162,7 @@ mod test {
     fn deftype_defdbl_range() {
         // Test DefDbl with range
         let source = "DefDbl D-F\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -175,7 +175,7 @@ mod test {
     fn deftype_defobj_full_range() {
         // Test DefObj A-Z (common pattern)
         let source = "DefObj A-Z\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -188,7 +188,7 @@ mod test {
     fn deftype_defbool() {
         // Test DefBool
         let source = "DefBool B\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -201,7 +201,7 @@ mod test {
     fn deftype_defbyte() {
         // Test DefByte
         let source = "DefByte B\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -214,7 +214,7 @@ mod test {
     fn deftype_defcur() {
         // Test DefCur
         let source = "DefCur C\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -227,7 +227,7 @@ mod test {
     fn deftype_defsng() {
         // Test DefSng
         let source = "DefSng F-G\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -240,7 +240,7 @@ mod test {
     fn deftype_defdec() {
         // Test DefDec
         let source = "DefDec D\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -253,7 +253,7 @@ mod test {
     fn deftype_defdate() {
         // Test DefDate
         let source = "DefDate D\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -266,7 +266,7 @@ mod test {
     fn deftype_defvar() {
         // Test DefVar
         let source = "DefVar V-Z\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -279,7 +279,7 @@ mod test {
     fn deftype_multiple_single_letters() {
         // Test multiple single letters
         let source = "DefInt A, B, C\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -292,7 +292,7 @@ mod test {
     fn deftype_mixed_ranges_and_singles() {
         // Test mixed ranges and single letters
         let source = "DefLng A-C, E, G-Z\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -305,7 +305,7 @@ mod test {
     fn deftype_multiple_statements() {
         // Test multiple DefType statements
         let source = "DefInt I-N\nDefLng L\nDefStr S\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 3);
         if let Some(child) = cst.child_at(0) {
@@ -323,7 +323,7 @@ mod test {
     fn deftype_with_spaces() {
         // Test with various spacing
         let source = "DefInt  A - Z\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -336,7 +336,7 @@ mod test {
     fn deftype_lowercase_range() {
         // Test with lowercase letters (should still work)
         let source = "DefStr a-z\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -348,7 +348,7 @@ mod test {
     fn deftype_partial_alphabet() {
         // Test partial alphabet ranges
         let source = "DefInt A-M\nDefLng N-Z\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 2);
         assert!(cst.text().contains("A-M"));

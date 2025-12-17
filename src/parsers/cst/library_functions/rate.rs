@@ -748,7 +748,7 @@ mod tests {
 Dim interestRate As Double
 interestRate = Rate(60, -200, 10000)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
         assert!(text.contains("Identifier"));
@@ -760,7 +760,7 @@ interestRate = Rate(60, -200, 10000)
 Dim rate As Double
 rate = Rate(48, -250, 10000, 0, 0, 0.08)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
         assert!(text.contains("Identifier"));
@@ -773,7 +773,7 @@ If Rate(nper, pmt, pv) > 0.06 Then
     MsgBox "Rate is above 6%"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
         assert!(text.contains("Identifier"));
@@ -788,7 +788,7 @@ Function CalculateAPR(loan As Double, payment As Double) As Double
     CalculateAPR = monthlyRate * 12
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
         assert!(text.contains("Identifier"));
@@ -800,7 +800,7 @@ End Function
 Dim monthlyRate As Double
 monthlyRate = Rate(months, payment, principal)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
         assert!(text.contains("Identifier"));
@@ -811,7 +811,7 @@ monthlyRate = Rate(months, payment, principal)
         let source = r#"
 MsgBox "APR: " & Format(Rate(60, -500, 20000) * 12 * 100, "0.00") & "%"
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
         assert!(text.contains("Identifier"));
@@ -822,7 +822,7 @@ MsgBox "APR: " & Format(Rate(60, -500, 20000) * 12 * 100, "0.00") & "%"
         let source = r#"
 Debug.Print "Monthly Rate: " & Rate(n, p, pv)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
         assert!(text.contains("Identifier"));
@@ -842,7 +842,7 @@ Select Case apr
         category = "Low"
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
         assert!(text.contains("Identifier"));
@@ -857,7 +857,7 @@ Public Sub Calculate()
     m_rate = Rate(m_nper, m_pmt, m_pv)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
         assert!(text.contains("Identifier"));
@@ -870,7 +870,7 @@ With loanCalc
     .InterestRate = Rate(.NumPayments, .Payment, .Principal)
 End With
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
         assert!(text.contains("Identifier"));
@@ -885,7 +885,7 @@ ElseIf Rate(60, -pmt, loan) > 0.08 Then
     r = 0.06
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
         assert!(text.contains("Identifier"));
@@ -899,7 +899,7 @@ For payment = 100 To 500 Step 50
     Debug.Print payment, r * 12
 Next payment
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
         assert!(text.contains("Identifier"));
@@ -912,7 +912,7 @@ Do While Rate(nper, -pmt, pv) < targetRate
     pmt = pmt + 10
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
         assert!(text.contains("Identifier"));
@@ -925,7 +925,7 @@ Do Until Rate(n, -p, amount) >= minRate
     amount = amount - 100
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
         assert!(text.contains("Identifier"));
@@ -938,7 +938,7 @@ While Rate(periods, payment, principal) > 0
     principal = principal + 1000
 Wend
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
         assert!(text.contains("Identifier"));
@@ -950,7 +950,7 @@ Wend
 Dim result As Double
 result = (Rate(nper, pmt, pv))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
         assert!(text.contains("Identifier"));
@@ -962,7 +962,7 @@ result = (Rate(nper, pmt, pv))
 Dim annualRate As Double
 annualRate = IIf(useGuess, Rate(n, p, pv, fv, t, g), Rate(n, p, pv))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
         assert!(text.contains("Identifier"));
@@ -975,7 +975,7 @@ If Rate(60, -200, 10000) > Rate(48, -250, 10000) Then
     MsgBox "First loan has higher rate"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
         assert!(text.contains("Identifier"));
@@ -987,7 +987,7 @@ End If
 Dim rates(10) As Double
 rates(i) = Rate(periods(i), payments(i), principals(i))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
         assert!(text.contains("Identifier"));
@@ -999,7 +999,7 @@ rates(i) = Rate(periods(i), payments(i), principals(i))
 Set obj = New LoanAnalyzer
 obj.InterestRate = Rate(obj.Term, obj.Payment, obj.Principal)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
         assert!(text.contains("Identifier"));
@@ -1010,7 +1010,7 @@ obj.InterestRate = Rate(obj.Term, obj.Payment, obj.Principal)
         let source = r#"
 Call AnalyzeLoan(Rate(60, -payment, principal) * 12, loanAmount)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
         assert!(text.contains("Identifier"));
@@ -1022,7 +1022,7 @@ Call AnalyzeLoan(Rate(60, -payment, principal) * 12, loanAmount)
 Dim apr As Double
 apr = Rate(months, -pmt, pv) * 12 * 100
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
         assert!(text.contains("Identifier"));
@@ -1034,7 +1034,7 @@ apr = Rate(months, -pmt, pv) * 12 * 100
 Dim msg As String
 msg = "APR is: " & Format(Rate(n, p, pv) * 12, "0.00%")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
         assert!(text.contains("Identifier"));
@@ -1046,7 +1046,7 @@ msg = "APR is: " & Format(Rate(n, p, pv) * 12, "0.00%")
 Dim display As String
 display = Format(Rate(60, -500, 20000) * 12 * 100, "0.00")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
         assert!(text.contains("Identifier"));
@@ -1062,7 +1062,7 @@ If Err.Number <> 0 Then
 End If
 On Error GoTo 0
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
         assert!(text.contains("Identifier"));
@@ -1080,7 +1080,7 @@ ErrorHandler:
     MsgBox "Error in rate calculation"
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
         assert!(text.contains("Identifier"));

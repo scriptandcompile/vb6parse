@@ -480,7 +480,7 @@ mod tests {
         let source = r#"
 today = Date
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Date"));
         assert!(debug.contains("Identifier"));
@@ -492,7 +492,7 @@ today = Date
 Dim currentDate As Date
 currentDate = Date
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Date"));
         assert!(debug.contains("Identifier"));
@@ -503,7 +503,7 @@ currentDate = Date
         let source = r#"
 MsgBox "Today is: " & Date
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Date"));
         assert!(debug.contains("Identifier"));
@@ -516,7 +516,7 @@ If Date > deadline Then
     MsgBox "Expired"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Date"));
         assert!(debug.contains("Identifier"));
@@ -527,7 +527,7 @@ End If
         let source = r#"
 futureDate = Date + 30
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Date"));
         assert!(debug.contains("Identifier"));
@@ -538,7 +538,7 @@ futureDate = Date + 30
         let source = r#"
 daysPassed = Date - startDate
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Date"));
         assert!(debug.contains("Identifier"));
@@ -549,7 +549,7 @@ daysPassed = Date - startDate
         let source = r#"
 currentYear = Year(Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Date"));
         assert!(debug.contains("Identifier"));
@@ -560,7 +560,7 @@ currentYear = Year(Date)
         let source = r#"
 currentMonth = Month(Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Date"));
         assert!(debug.contains("Identifier"));
@@ -571,7 +571,7 @@ currentMonth = Month(Date)
         let source = r#"
 currentDay = Day(Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Date"));
         assert!(debug.contains("Identifier"));
@@ -582,7 +582,7 @@ currentDay = Day(Date)
         let source = r#"
 formatted = Format(Date, "yyyy-mm-dd")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Date"));
         assert!(debug.contains("Identifier"));
@@ -595,7 +595,7 @@ Function GetToday() As Date
     GetToday = Date
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Date"));
         assert!(debug.contains("Identifier"));
@@ -606,7 +606,7 @@ End Function
         let source = r#"
 lastDay = DateSerial(Year(Date), Month(Date) + 1, 0)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Date"));
         assert!(debug.contains("Identifier"));
@@ -622,7 +622,7 @@ Select Case Day(Date)
         discount = 0
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Date"));
         assert!(debug.contains("Identifier"));
@@ -637,7 +637,7 @@ For i = 1 To 10
     End If
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Date"));
         assert!(debug.contains("Identifier"));
@@ -648,7 +648,7 @@ Next i
         let source = r#"
 fileName = "Report_" & Date & ".txt"
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Date"));
         assert!(debug.contains("Identifier"));
@@ -661,7 +661,7 @@ If Date() = #1/1/2025# Then
     MsgBox "New Year"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Date"));
     }
@@ -671,7 +671,7 @@ End If
         let source = r#"
 dayOfWeek = Weekday(Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Date"));
         assert!(debug.contains("Identifier"));
@@ -683,7 +683,7 @@ dayOfWeek = Weekday(Date)
 rs("OrderDate") = Date
 rs.Update
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Date"));
         assert!(debug.contains("Identifier"));
@@ -696,7 +696,7 @@ If Date() > #12/31/2024# Then
     MsgBox "Past deadline"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Date"));
     }
@@ -711,7 +711,7 @@ For i = 1 To 1000
     End If
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Date"));
         assert!(debug.contains("Identifier"));
@@ -724,7 +724,7 @@ startDate = Date
 endDate = Date + 30
 range = endDate - startDate
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Date"));
         assert!(debug.contains("Identifier"));
@@ -735,7 +735,7 @@ range = endDate - startDate
         let source = r#"
 today = CDate(Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Date"));
         assert!(debug.contains("Identifier"));
@@ -746,7 +746,7 @@ today = CDate(Date)
         let source = r#"
 Print #1, Date() & " - Log entry"
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Date"));
     }
@@ -757,7 +757,7 @@ Print #1, Date() & " - Log entry"
 Dim value As Variant
 value = Date
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Date"));
         assert!(debug.contains("Identifier"));
@@ -768,7 +768,7 @@ value = Date
         let source = r#"
 result = DateSerial(Year(Date), 12, 31) - Date
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Date"));
         assert!(debug.contains("Identifier"));

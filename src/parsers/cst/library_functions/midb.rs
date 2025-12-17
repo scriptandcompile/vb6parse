@@ -62,7 +62,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("MidBKeyword"));
@@ -77,7 +77,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("MidBKeyword"));
@@ -95,7 +95,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("MidBKeyword"));
@@ -110,7 +110,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("MidBKeyword"));
@@ -125,7 +125,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("MidBKeyword"));
@@ -140,7 +140,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("MidBKeyword"));
@@ -157,7 +157,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("MidBKeyword"));
@@ -173,7 +173,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("MidBKeyword"));
@@ -191,7 +191,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("MidBKeyword"));
@@ -207,7 +207,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("MidBKeyword"));
@@ -226,7 +226,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("MidBKeyword"));
@@ -242,7 +242,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("MidBKeyword"));
@@ -256,7 +256,7 @@ Function ProcessBytes(text As String) As String
 End Function
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("MidBKeyword"));
@@ -272,7 +272,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("MidBKeyword"));
@@ -294,7 +294,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("MidBKeyword"));
@@ -311,7 +311,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("MidBKeyword"));
@@ -329,7 +329,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("MidBKeyword"));
@@ -347,7 +347,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("MidBKeyword"));
@@ -368,7 +368,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("MidBKeyword"));
@@ -382,7 +382,7 @@ Function GetBytes(s As String, pos As Long) As String
 End Function
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("MidBKeyword"));

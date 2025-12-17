@@ -731,7 +731,7 @@ mod tests {
             Dim result As String
             result = Trim("   Hello   ")
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -742,7 +742,7 @@ mod tests {
         let source = r#"
             cleaned = Trim(userInput)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -753,7 +753,7 @@ mod tests {
         let source = r#"
             txtUsername.Text = Trim(txtUsername.Text)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -766,7 +766,7 @@ mod tests {
                 MsgBox "Empty"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -779,7 +779,7 @@ mod tests {
                 CleanText = Trim(s)
             End Function
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -792,7 +792,7 @@ mod tests {
                 MsgBox "Too short"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -805,7 +805,7 @@ mod tests {
                 result = "Match"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -816,7 +816,7 @@ mod tests {
         let source = r#"
             Debug.Print Trim(text)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -829,7 +829,7 @@ mod tests {
                 .Name = Trim(.Name)
             End With
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -845,7 +845,7 @@ mod tests {
                     Process input
             End Select
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -860,7 +860,7 @@ mod tests {
                 status = "Whitespace only"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -871,7 +871,7 @@ mod tests {
         let source = r#"
             result = (Trim(text))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -882,7 +882,7 @@ mod tests {
         let source = r#"
             result = IIf(Trim(text) = "", "Empty", "Has data")
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -895,7 +895,7 @@ mod tests {
                 m_cleanValue = Trim(m_rawValue)
             End Sub
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -906,7 +906,7 @@ mod tests {
         let source = r#"
             Call ProcessText(Trim(input))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -917,7 +917,7 @@ mod tests {
         let source = r#"
             MyObject.CleanText = Trim(dirtyText)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -928,7 +928,7 @@ mod tests {
         let source = r#"
             cleanValues(i) = Trim(rawValues(i))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -941,7 +941,7 @@ mod tests {
                 items(i) = Trim(items(i))
             Next i
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -955,7 +955,7 @@ mod tests {
                 line = Trim(line)
             Wend
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -969,7 +969,7 @@ mod tests {
                 i = i + 1
             Loop
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -982,7 +982,7 @@ mod tests {
                 input = InputBox("Enter text")
             Loop
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -993,7 +993,7 @@ mod tests {
         let source = r#"
             MsgBox Trim(message)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -1004,7 +1004,7 @@ mod tests {
         let source = r#"
             parts = Split(Trim(line), ",")
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -1015,7 +1015,7 @@ mod tests {
         let source = r#"
             customerName = Trim(rs("CustomerName"))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -1026,7 +1026,7 @@ mod tests {
         let source = r#"
             upperText = UCase(Trim(text))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -1037,7 +1037,7 @@ mod tests {
         let source = r#"
             fullName = Trim(firstName) & " " & Trim(lastName)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -1048,7 +1048,7 @@ mod tests {
         let source = r#"
             lblName.Caption = Trim(rs.Fields("Name").Value)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));

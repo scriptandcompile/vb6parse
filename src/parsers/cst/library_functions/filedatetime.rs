@@ -850,7 +850,7 @@ mod tests {
         let source = r#"
 fileDate = FileDateTime("C:\data.txt")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
         assert!(debug.contains("Identifier"));
@@ -861,7 +861,7 @@ fileDate = FileDateTime("C:\data.txt")
         let source = r#"
 fileDate = FileDateTime(filePath)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
         assert!(debug.contains("Identifier"));
@@ -872,7 +872,7 @@ fileDate = FileDateTime(filePath)
         let source = r#"
 isNewer = (FileDateTime(file1) > FileDateTime(file2))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
         assert!(debug.contains("Identifier"));
@@ -883,7 +883,7 @@ isNewer = (FileDateTime(file1) > FileDateTime(file2))
         let source = r#"
 Debug.Print FileDateTime("C:\temp.dat")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
         assert!(debug.contains("Identifier"));
@@ -896,7 +896,7 @@ Function GetFileAge(path As String) As Long
     GetFileAge = DateDiff("d", FileDateTime(path), Now)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
         assert!(debug.contains("Identifier"));
@@ -907,7 +907,7 @@ End Function
         let source = r#"
 formatted = Format(FileDateTime(filePath), "yyyy-mm-dd hh:nn:ss")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
         assert!(debug.contains("Identifier"));
@@ -920,7 +920,7 @@ If FileDateTime(sourceFile) > FileDateTime(backupFile) Then
     needsBackup = True
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
         assert!(debug.contains("Identifier"));
@@ -931,7 +931,7 @@ End If
         let source = r#"
 ageInDays = DateDiff("d", FileDateTime(filePath), Now)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
         assert!(debug.contains("Identifier"));
@@ -942,7 +942,7 @@ ageInDays = DateDiff("d", FileDateTime(filePath), Now)
         let source = r#"
 msg = "File modified: " & FileDateTime(filePath)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
         assert!(debug.contains("Identifier"));
@@ -957,7 +957,7 @@ If Err.Number <> 0 Then
     MsgBox "File not found"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
         assert!(debug.contains("Identifier"));
@@ -971,7 +971,7 @@ Do While fileName <> ""
     fileName = Dir
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
         assert!(debug.contains("Identifier"));
@@ -982,7 +982,7 @@ Loop
         let source = r#"
 info.ModifiedDate = FileDateTime(filePath)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
         assert!(debug.contains("Identifier"));
@@ -993,7 +993,7 @@ info.ModifiedDate = FileDateTime(filePath)
         let source = r#"
 dates(i) = FileDateTime(files(i))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
         assert!(debug.contains("Identifier"));
@@ -1009,7 +1009,7 @@ Select Case DateDiff("d", FileDateTime(filePath), Now)
         Debug.Print "Recent file"
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
         assert!(debug.contains("Identifier"));
@@ -1020,7 +1020,7 @@ End Select
         let source = r#"
 MsgBox "Last modified: " & FileDateTime(filePath)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
         assert!(debug.contains("Identifier"));
@@ -1034,7 +1034,7 @@ If FileDateTime(fullPath) > newestDate Then
     newestFile = fileName
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
         assert!(debug.contains("Identifier"));
@@ -1047,7 +1047,7 @@ If FileDateTime(fullPath) >= startDate And FileDateTime(fullPath) <= endDate The
     files.Add fullPath
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
         assert!(debug.contains("Identifier"));
@@ -1058,7 +1058,7 @@ End If
         let source = r#"
 Print #reportNum, fileName, FileDateTime(fullPath)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
         assert!(debug.contains("Identifier"));
@@ -1069,7 +1069,7 @@ Print #reportNum, fileName, FileDateTime(fullPath)
         let source = r#"
 configDate = FileDateTime(App.Path & "\config.ini")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
         assert!(debug.contains("Identifier"));
@@ -1080,7 +1080,7 @@ configDate = FileDateTime(App.Path & "\config.ini")
         let source = r#"
 isToday = (Int(FileDateTime(filePath)) = Int(Date))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
         assert!(debug.contains("Identifier"));
@@ -1094,7 +1094,7 @@ If files(j).ModifiedDate > files(i).ModifiedDate Then
     files(i) = files(j)
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("ModifiedDate"));
     }
@@ -1107,7 +1107,7 @@ For i = 0 To fileCount - 1
     Debug.Print fileList(i), dt
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
         assert!(debug.contains("Identifier"));
@@ -1120,7 +1120,7 @@ info = "File: " & filePath & vbCrLf & _
        "Modified: " & FileDateTime(filePath) & vbCrLf & _
        "Age: " & DateDiff("d", FileDateTime(filePath), Now) & " days"
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
         assert!(debug.contains("Identifier"));
@@ -1133,7 +1133,7 @@ If cache(i).CachedDate = FileDateTime(filePath) Then
     isValid = True
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
         assert!(debug.contains("Identifier"));
@@ -1144,7 +1144,7 @@ End If
         let source = r#"
 needsCopy = (FileDateTime(sourceFile) > FileDateTime(destFile))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
         assert!(debug.contains("Identifier"));

@@ -615,7 +615,7 @@ Sub Test()
     result = Join(myArray)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));
@@ -628,7 +628,7 @@ Sub Test()
     result = Join(items, ", ")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));
@@ -643,7 +643,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));
@@ -656,7 +656,7 @@ Function GetCSV(fields As Variant) As String
     GetCSV = Join(fields, ",")
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));
@@ -669,7 +669,7 @@ Sub Test()
     Debug.Print Join(values, " | ")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));
@@ -682,7 +682,7 @@ Sub Test()
     MsgBox Join(names, vbCrLf)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));
@@ -696,7 +696,7 @@ Sub Test()
     combined = Join(words, " ")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));
@@ -709,7 +709,7 @@ Sub Test()
     obj.DisplayText = Join(obj.Lines, vbCrLf)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));
@@ -722,7 +722,7 @@ Sub Test()
     result = "Values: " & Join(data, ", ")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));
@@ -735,7 +735,7 @@ Private Sub Class_Initialize()
     m_text = Join(m_parts, "")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));
@@ -750,7 +750,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));
@@ -763,7 +763,7 @@ Sub Test()
     Call ProcessText(Join(lines, vbCrLf))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));
@@ -781,7 +781,7 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));
@@ -797,7 +797,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));
@@ -814,7 +814,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));
@@ -827,7 +827,7 @@ Sub Test()
     result = IIf(useComma, Join(arr, ","), Join(arr, ";"))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));
@@ -840,7 +840,7 @@ Sub Test()
     result = (Join(values, "-"))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));
@@ -853,7 +853,7 @@ Sub Test()
     csvRows(i) = Join(fields(i), ",")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));
@@ -866,7 +866,7 @@ Sub Test()
     lines.Add Join(row, vbTab)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));
@@ -881,7 +881,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));
@@ -894,7 +894,7 @@ Sub Test()
     result = UCase(Join(names, " "))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));
@@ -909,7 +909,7 @@ Sub Test()
     Wend
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));
@@ -924,7 +924,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));
@@ -939,7 +939,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));
@@ -953,7 +953,7 @@ Sub Test()
     result = Join(parts, " ")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));
@@ -966,7 +966,7 @@ Function BuildCSV(fields As Variant) As String
     BuildCSV = Join(fields, ",")
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));
@@ -979,7 +979,7 @@ Sub Test()
     concatenated = Join(chars, "")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
         assert!(text.contains("Identifier"));

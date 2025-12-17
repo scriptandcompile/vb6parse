@@ -632,7 +632,7 @@ mod tests {
             Dim data() As Byte
             data = LoadResData(101, 256)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));
@@ -643,7 +643,7 @@ mod tests {
         let source = r#"
             data = LoadResData("SOUND", 257)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));
@@ -656,7 +656,7 @@ mod tests {
                 data = LoadResData(resID, resFormat)
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));
@@ -669,7 +669,7 @@ mod tests {
                 GetResourceData = LoadResData(101, 256)
             End Function
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));
@@ -682,7 +682,7 @@ mod tests {
                 resData = LoadResData(i, 256)
             Next i
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));
@@ -697,7 +697,7 @@ mod tests {
                 MsgBox "Resource not found"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));
@@ -710,7 +710,7 @@ mod tests {
                 .data = LoadResData(101, 256)
             End With
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));
@@ -722,7 +722,7 @@ mod tests {
             Dim resources(1 To 5) As Variant
             resources(i) = LoadResData(i, 256)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));
@@ -738,7 +738,7 @@ mod tests {
                     data = LoadResData(102, 257)
             End Select
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));
@@ -753,7 +753,7 @@ mod tests {
                 data = LoadResData(102, 256)
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));
@@ -765,7 +765,7 @@ mod tests {
             Dim textData As String
             textData = StrConv(LoadResData("TEXT", 300), vbUnicode)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));
@@ -776,7 +776,7 @@ mod tests {
         let source = r#"
             data = (LoadResData(101, 256))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));
@@ -787,7 +787,7 @@ mod tests {
         let source = r#"
             data = IIf(useCustom, LoadResData(101, 256), LoadResData(1, 256))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));
@@ -800,7 +800,7 @@ mod tests {
                 m_data = LoadResData("DEFAULT", 256)
             End Sub
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));
@@ -811,7 +811,7 @@ mod tests {
         let source = r#"
             Call ProcessData(LoadResData(101, 256))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));
@@ -822,7 +822,7 @@ mod tests {
         let source = r#"
             MyObject.ResourceData = LoadResData(101, 256)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));
@@ -834,7 +834,7 @@ mod tests {
             Dim size As Long
             size = UBound(LoadResData(101, 256)) + 1
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));
@@ -848,7 +848,7 @@ mod tests {
                 index = index + 1
             Wend
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));
@@ -861,7 +861,7 @@ mod tests {
                 currentData = LoadResData(GetNextID(), format)
             Loop
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));
@@ -876,7 +876,7 @@ mod tests {
                 loaded = (Err.Number = 0)
             Loop
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));
@@ -888,7 +888,7 @@ mod tests {
             Const RES_FORMAT_WAVE = 257
             data = LoadResData(101, RES_FORMAT_WAVE)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));
@@ -901,7 +901,7 @@ mod tests {
             fileNum = FreeFile
             Put #fileNum, , LoadResData(101, 256)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));
@@ -914,7 +914,7 @@ mod tests {
             id = "RES_" & resNum
             data = LoadResData(id, 256)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));
@@ -925,7 +925,7 @@ mod tests {
         let source = r#"
             resources.Add LoadResData(i, 256), "Resource" & i
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));
@@ -936,7 +936,7 @@ mod tests {
         let source = r#"
             Debug.Print "Size: " & UBound(LoadResData(101, 256)) + 1
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));
@@ -949,7 +949,7 @@ mod tests {
                 MsgBox "Valid header"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));
@@ -960,7 +960,7 @@ mod tests {
         let source = r#"
             MsgBox "Loaded " & UBound(LoadResData(101, 256)) + 1 & " bytes"
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResData"));
         assert!(text.contains("Identifier"));

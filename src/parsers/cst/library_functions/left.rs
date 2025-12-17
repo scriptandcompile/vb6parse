@@ -564,7 +564,7 @@ Sub Test()
     result = Left(myString, 5)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));
@@ -577,7 +577,7 @@ Sub Test()
     result = Left("Hello World", 5)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));
@@ -592,7 +592,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));
@@ -605,7 +605,7 @@ Function GetPrefix(text As String) As String
     GetPrefix = Left(text, 3)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));
@@ -618,7 +618,7 @@ Sub Test()
     Debug.Print Left("Testing", 4)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));
@@ -631,7 +631,7 @@ Sub Test()
     MsgBox Left(message, 50)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));
@@ -645,7 +645,7 @@ Sub Test()
     prefix = Left(code, 2)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));
@@ -658,7 +658,7 @@ Sub Test()
     obj.Prefix = Left(obj.FullText, 10)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));
@@ -671,7 +671,7 @@ Sub Test()
     result = "Prefix: " & Left(data, 5)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));
@@ -684,7 +684,7 @@ Private Sub Class_Initialize()
     m_code = Left(m_identifier, 3)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));
@@ -699,7 +699,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));
@@ -712,7 +712,7 @@ Sub Test()
     Call ProcessPrefix(Left(identifier, 2))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));
@@ -730,7 +730,7 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));
@@ -746,7 +746,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));
@@ -763,7 +763,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));
@@ -776,7 +776,7 @@ Sub Test()
     result = IIf(Left(name, 2) = "Mr", "Male", "Unknown")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));
@@ -789,7 +789,7 @@ Sub Test()
     result = (Left(text, 10))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));
@@ -802,7 +802,7 @@ Sub Test()
     codes(i) = Left(fullCodes(i), 4)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));
@@ -815,7 +815,7 @@ Sub Test()
     prefixes.Add Left(names(i), 1)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));
@@ -828,7 +828,7 @@ Sub Test()
     result = UCase(Left(name, 1))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));
@@ -843,7 +843,7 @@ Sub Test()
     Wend
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));
@@ -858,7 +858,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));
@@ -873,7 +873,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));
@@ -888,7 +888,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));
@@ -901,7 +901,7 @@ Sub Test()
     initial = Left(name, Len(name) - 1)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));
@@ -918,7 +918,7 @@ Function Truncate(text As String, maxLen As Long) As String
     End If
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));
@@ -931,7 +931,7 @@ Function StartsWith(text As String, prefix As String) As Boolean
     StartsWith = (Left(text, Len(prefix)) = prefix)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
         assert!(text.contains("Identifier"));

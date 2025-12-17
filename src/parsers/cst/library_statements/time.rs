@@ -264,7 +264,7 @@ Sub Test()
     Time = "14:30:00"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -274,7 +274,7 @@ End Sub
     #[test]
     fn time_at_module_level() {
         let source = "Time = \"12:00:00\"\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
         assert_eq!(cst.child_count(), 1);
@@ -290,7 +290,7 @@ Sub Test()
     Time = "9:15 AM"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -303,7 +303,7 @@ Sub Test()
     Time = "00:00:00"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -316,7 +316,7 @@ Sub Test()
     Time = "12:00:00"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -329,7 +329,7 @@ Sub Test()
     Time = newTime
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -343,7 +343,7 @@ Sub Test()
     Time = TimeValue("3:30 PM")
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -357,7 +357,7 @@ Sub Test()
     Time = Time + TimeValue("00:15:00")
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -370,7 +370,7 @@ Sub Test()
     Time = "10:30:00" ' Set to 10:30 AM
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -380,7 +380,7 @@ End Sub
     #[test]
     fn time_preserves_whitespace() {
         let source = "Time   =   \"12:00:00\"  \n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -393,7 +393,7 @@ Sub Test()
     Time = Now
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -407,7 +407,7 @@ If condition Then
     Time = "08:00:00"
 End If
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -420,7 +420,7 @@ Sub Test()
     Time = TimeSerial(14, 30, 0)
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -434,7 +434,7 @@ Sub Test()
     Time = hours & ":" & minutes & ":00"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -448,7 +448,7 @@ Function SetSystemTime() As Boolean
     SetSystemTime = True
 End Function
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -463,7 +463,7 @@ If Err.Number <> 0 Then
     MsgBox "Error"
 End If
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -476,7 +476,7 @@ Private Sub Class_Initialize()
     Time = "12:00:00"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.cls", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -489,7 +489,7 @@ Sub Test()
     Time = Format(Now, "hh:mm:ss")
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -503,7 +503,7 @@ For i = 0 To 23
     Time = TimeSerial(i, 0, 0)
 Next i
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -518,7 +518,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -535,7 +535,7 @@ Select Case timeType
         Time = "12:00:00"
 End Select
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -544,7 +544,7 @@ End Select
     #[test]
     fn time_multiple_on_same_line() {
         let source = "Time = \"08:00:00\": Time = \"12:00:00\"\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -557,7 +557,7 @@ With timeSettings
     Time = .DefaultTime
 End With
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -572,7 +572,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -585,7 +585,7 @@ Sub Test()
     Time = 0.5
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -599,7 +599,7 @@ Sub Test()
         "14:30:00"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -608,7 +608,7 @@ End Sub
     #[test]
     fn time_inline_if() {
         let source = "If resetTime Then Time = \"00:00:00\"\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -621,7 +621,7 @@ Sub Test()
     Time = "23:59:59"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -634,7 +634,7 @@ Sub Test()
     Time = baseTime + offset
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));
@@ -643,7 +643,7 @@ End Sub
     #[test]
     fn time_case_insensitive() {
         let source = "time = \"12:00:00\"\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TimeStatement"));

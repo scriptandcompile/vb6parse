@@ -693,7 +693,7 @@ mod tests {
         let source = r#"
             Set Picture1.Picture = LoadResPicture(101, vbResBitmap)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));
@@ -704,7 +704,7 @@ mod tests {
         let source = r#"
             Image1.Picture = LoadResPicture(102, vbResIcon)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));
@@ -717,7 +717,7 @@ mod tests {
                 Picture1.Picture = LoadResPicture(resID, vbResBitmap)
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));
@@ -728,7 +728,7 @@ mod tests {
         let source = r#"
             Picture1.Picture = LoadResPicture("LOGO", vbResBitmap)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));
@@ -741,7 +741,7 @@ mod tests {
                 Me.Picture = LoadResPicture(101, vbResBitmap)
             End Sub
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));
@@ -752,7 +752,7 @@ mod tests {
         let source = r#"
             Set images(i) = LoadResPicture(100 + i, vbResBitmap)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));
@@ -765,7 +765,7 @@ mod tests {
                 Set imgArray(i).Picture = LoadResPicture(100 + i, vbResBitmap)
             Next i
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));
@@ -778,7 +778,7 @@ mod tests {
                 Set GetResPicture = LoadResPicture(101, vbResBitmap)
             End Function
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));
@@ -793,7 +793,7 @@ mod tests {
                 MsgBox "Resource not found"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));
@@ -806,7 +806,7 @@ mod tests {
                 .Picture = LoadResPicture(101, vbResBitmap)
             End With
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));
@@ -822,7 +822,7 @@ mod tests {
                     Picture1.Picture = LoadResPicture(102, vbResIcon)
             End Select
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));
@@ -837,7 +837,7 @@ mod tests {
                 Picture1.Picture = LoadResPicture(101, vbResBitmap)
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));
@@ -848,7 +848,7 @@ mod tests {
         let source = r#"
             Set pic = (LoadResPicture(101, vbResBitmap))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));
@@ -859,7 +859,7 @@ mod tests {
         let source = r#"
             Picture1.Picture = IIf(enabled, LoadResPicture(101, vbResIcon), LoadResPicture(102, vbResIcon))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));
@@ -872,7 +872,7 @@ mod tests {
                 Set m_defaultPic = LoadResPicture(101, vbResBitmap)
             End Sub
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));
@@ -883,7 +883,7 @@ mod tests {
         let source = r#"
             Call SetPicture(LoadResPicture(101, vbResBitmap))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));
@@ -894,7 +894,7 @@ mod tests {
         let source = r#"
             Set MyForm.Picture = LoadResPicture(101, vbResBitmap)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));
@@ -908,7 +908,7 @@ mod tests {
                 MsgBox "Failed to load"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));
@@ -922,7 +922,7 @@ mod tests {
                 index = index + 1
             Wend
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));
@@ -935,7 +935,7 @@ mod tests {
                 Set currentPic = LoadResPicture(GetNextID(), vbResBitmap)
             Loop
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));
@@ -950,7 +950,7 @@ mod tests {
                 loaded = (Err.Number = 0)
             Loop
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));
@@ -962,7 +962,7 @@ mod tests {
             Me.MousePointer = vbCustom
             Me.MouseIcon = LoadResPicture(103, vbResCursor)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));
@@ -974,7 +974,7 @@ mod tests {
             Const RES_LOGO = 101
             Picture1.Picture = LoadResPicture(RES_LOGO, vbResBitmap)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));
@@ -987,7 +987,7 @@ mod tests {
             imageID = 100 + selectedIndex
             Picture1.Picture = LoadResPicture(imageID, vbResBitmap)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));
@@ -998,7 +998,7 @@ mod tests {
         let source = r#"
             cmdSave.Picture = LoadResPicture(203, vbResIcon)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));
@@ -1010,7 +1010,7 @@ mod tests {
             Set pic = LoadResPicture(101, vbResBitmap)
             Debug.Print "Loaded resource 101"
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));
@@ -1025,7 +1025,7 @@ mod tests {
                 MsgBox "Failed to load resource"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
         assert!(text.contains("Identifier"));

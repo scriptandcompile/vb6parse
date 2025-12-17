@@ -32,7 +32,7 @@ mod test {
     #[test]
     fn parse_attribute_statement() {
         let source = "Attribute VB_Name = \"modTest\"\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
         assert_eq!(cst.child_count(), 1); // AttributeStatement

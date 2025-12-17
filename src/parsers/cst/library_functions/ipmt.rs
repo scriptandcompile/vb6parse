@@ -526,7 +526,7 @@ Sub Test()
     interest = IPmt(0.08 / 12, 1, 48, -20000)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));
@@ -539,7 +539,7 @@ Sub Test()
     interest = IPmt(rate, period, nper, pv, fv)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));
@@ -552,7 +552,7 @@ Sub Test()
     interest = IPmt(monthlyRate, 1, totalMonths, loanAmount, 0, 1)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));
@@ -568,7 +568,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));
@@ -583,7 +583,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));
@@ -596,7 +596,7 @@ Function CalculateInterest() As Double
     CalculateInterest = IPmt(0.06 / 12, 1, 360, -200000)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));
@@ -609,7 +609,7 @@ Sub Test()
     positiveInterest = Abs(IPmt(rate, period, nper, pv))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));
@@ -622,7 +622,7 @@ Sub Test()
     formatted = Format$(IPmt(rate, period, nper, pv), "Currency")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));
@@ -635,7 +635,7 @@ Sub Test()
     Debug.Print "Interest: " & IPmt(monthlyRate, 1, totalMonths, loanAmount)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));
@@ -648,7 +648,7 @@ Sub Test()
     interestPayments(i) = IPmt(rate, i, nper, pv)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));
@@ -661,7 +661,7 @@ Sub Test()
     loan.InterestPayment = IPmt(loan.Rate, loan.Period, loan.NPer, loan.Amount)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));
@@ -674,7 +674,7 @@ Private Sub Class_Initialize()
     m_interest = IPmt(m_rate, m_period, m_nper, m_pv)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));
@@ -689,7 +689,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));
@@ -702,7 +702,7 @@ Sub Test()
     Call ProcessPayment(IPmt(rate, period, nper, pv))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));
@@ -717,7 +717,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));
@@ -735,7 +735,7 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));
@@ -748,7 +748,7 @@ Sub Test()
     MsgBox "Interest payment: " & Format$(IPmt(rate, period, nper, pv), "Currency")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));
@@ -761,7 +761,7 @@ Sub Test()
     payments.Add IPmt(rate, i, nper, pv)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));
@@ -774,7 +774,7 @@ Sub Test()
     totalPayment = IPmt(rate, period, nper, pv) + PPmt(rate, period, nper, pv)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));
@@ -787,7 +787,7 @@ Sub Test()
     result = IIf(IPmt(rate, period, nper, pv) < 0, "Payment", "Receipt")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));
@@ -800,7 +800,7 @@ Sub Test()
     yearlyInterest = IPmt(annualRate / 12, month, years * 12, -loanAmount) * 12
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));
@@ -818,7 +818,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));
@@ -831,7 +831,7 @@ Sub Test()
     isHighInterest = Abs(IPmt(rate, 1, nper, pv)) > threshold And period = 1
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));
@@ -845,7 +845,7 @@ Sub Test()
     entry.InterestPayment = IPmt(monthlyRate, paymentNum, totalMonths, loanAmount)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));
@@ -860,7 +860,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));
@@ -873,7 +873,7 @@ Sub Test()
     value = (IPmt(rate, period, nper, pv))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));
@@ -886,7 +886,7 @@ Sub Test()
     result = "Interest: " & IPmt(rate, period, nper, pv)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
         assert!(text.contains("Identifier"));

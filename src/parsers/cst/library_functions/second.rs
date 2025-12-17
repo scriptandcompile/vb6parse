@@ -635,7 +635,7 @@ mod tests {
 Dim sec As Integer
 sec = Second(Now)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Identifier"));
@@ -647,7 +647,7 @@ sec = Second(Now)
 Dim seconds As Integer
 seconds = Second("3:45:30 PM")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Identifier"));
@@ -660,7 +660,7 @@ If Second(Now) = 0 Then
     MsgBox "New minute!"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Identifier"));
@@ -673,7 +673,7 @@ Function GetSeconds(timeValue As Date) As Integer
     GetSeconds = Second(timeValue)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Identifier"));
@@ -685,7 +685,7 @@ End Function
 Dim s As Integer
 s = Second(currentTime)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Identifier"));
@@ -696,7 +696,7 @@ s = Second(currentTime)
         let source = r#"
 MsgBox "Second: " & Second(Time)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Identifier"));
@@ -707,7 +707,7 @@ MsgBox "Second: " & Second(Time)
         let source = r#"
 Debug.Print Second(Now)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Identifier"));
@@ -723,7 +723,7 @@ Select Case Second(Now)
         msg = "Second quarter"
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Identifier"));
@@ -738,7 +738,7 @@ Public Sub UpdateTime()
     m_seconds = Second(Now)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Identifier"));
@@ -751,7 +751,7 @@ With timeData
     .Seconds = Second(.TimeValue)
 End With
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Identifier"));
@@ -766,7 +766,7 @@ ElseIf Second(t) >= 30 Then
     half = "Second"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Identifier"));
@@ -779,7 +779,7 @@ For i = 1 To 10
     timestamps(i) = Second(times(i))
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Identifier"));
@@ -792,7 +792,7 @@ Do While Second(Now) < 30
     DoSomething
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Identifier"));
@@ -805,7 +805,7 @@ Do Until Second(currentTime) = 0
     currentTime = Now
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Identifier"));
@@ -818,7 +818,7 @@ While Second(Now) > 45
     Wait
 Wend
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Identifier"));
@@ -830,7 +830,7 @@ Wend
 Dim val As Integer
 val = (Second(Now))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Identifier"));
@@ -842,7 +842,7 @@ val = (Second(Now))
 Dim display As String
 display = IIf(Second(Now) < 10, "0" & Second(Now), Second(Now))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Identifier"));
@@ -854,7 +854,7 @@ display = IIf(Second(Now) < 10, "0" & Second(Now), Second(Now))
 Dim seconds(10) As Integer
 seconds(i) = Second(timeArray(i))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Identifier"));
@@ -866,7 +866,7 @@ seconds(i) = Second(timeArray(i))
 Set obj = New TimeData
 obj.SecondValue = Second(Now)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Identifier"));
@@ -877,7 +877,7 @@ obj.SecondValue = Second(Now)
         let source = r#"
 Call LogTime(Second(Now))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Identifier"));
@@ -889,7 +889,7 @@ Call LogTime(Second(Now))
 Dim msg As String
 msg = "Seconds: " & Second(Time)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Identifier"));
@@ -902,7 +902,7 @@ If Second(time1) = Second(time2) Then
     MsgBox "Same second"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Identifier"));
@@ -915,7 +915,7 @@ If Second(Now) Mod 15 = 0 Then
     UpdateDisplay
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Identifier"));
@@ -927,7 +927,7 @@ End If
 Dim formatted As String
 formatted = Format(Second(Now), "00")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Format"));
@@ -939,7 +939,7 @@ formatted = Format(Second(Now), "00")
 Dim s As Integer
 s = Second(#1/15/2000 10:30:45 AM#)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Identifier"));
@@ -955,7 +955,7 @@ If Err.Number <> 0 Then
     sec = 0
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Identifier"));
@@ -973,7 +973,7 @@ ErrorHandler:
     MsgBox "Error getting second"
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Second"));
         assert!(text.contains("Identifier"));

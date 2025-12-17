@@ -696,7 +696,7 @@ mod tests {
 Dim randomValue As Single
 randomValue = Rnd()
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Identifier"));
@@ -708,7 +708,7 @@ randomValue = Rnd()
 Dim x As Single
 x = Rnd
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Identifier"));
@@ -720,7 +720,7 @@ x = Rnd
 Dim result As Single
 result = Rnd(-1)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Identifier"));
@@ -735,7 +735,7 @@ Else
     MsgBox "Tails"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Identifier"));
@@ -748,7 +748,7 @@ Function GetRandomValue() As Single
     GetRandomValue = Rnd
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Identifier"));
@@ -760,7 +760,7 @@ End Function
 Dim randomNum As Single
 randomNum = Rnd
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Identifier"));
@@ -771,7 +771,7 @@ randomNum = Rnd
         let source = r#"
 MsgBox "Random: " & Rnd
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Identifier"));
@@ -782,7 +782,7 @@ MsgBox "Random: " & Rnd
         let source = r#"
 Debug.Print Rnd()
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Identifier"));
@@ -802,7 +802,7 @@ Select Case value
         result = "High"
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Identifier"));
@@ -817,7 +817,7 @@ Public Sub GenerateRandom()
     m_randomValue = Rnd
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Identifier"));
@@ -830,7 +830,7 @@ With dataObject
     .RandomValue = Rnd
 End With
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Identifier"));
@@ -847,7 +847,7 @@ ElseIf r < 0.5 Then
     category = 2
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Identifier"));
@@ -860,7 +860,7 @@ For i = 1 To 10
     randomNumbers(i) = Rnd
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Identifier"));
@@ -873,7 +873,7 @@ Do While Rnd < 0.95
     count = count + 1
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Identifier"));
@@ -886,7 +886,7 @@ Do Until Rnd > 0.9
     attempts = attempts + 1
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Identifier"));
@@ -899,7 +899,7 @@ While Rnd < 0.8
     iterations = iterations + 1
 Wend
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Identifier"));
@@ -911,7 +911,7 @@ Wend
 Dim val As Single
 val = (Rnd)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Identifier"));
@@ -923,7 +923,7 @@ val = (Rnd)
 Dim result As String
 result = IIf(Rnd > 0.5, "Win", "Lose")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Identifier"));
@@ -935,7 +935,7 @@ result = IIf(Rnd > 0.5, "Win", "Lose")
 Dim values(10) As Single
 values(i) = Rnd
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Identifier"));
@@ -947,7 +947,7 @@ values(i) = Rnd
 Set obj = New RandomData
 obj.Value = Rnd
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Identifier"));
@@ -958,7 +958,7 @@ obj.Value = Rnd
         let source = r#"
 Call ProcessValue(Rnd)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Identifier"));
@@ -970,7 +970,7 @@ Call ProcessValue(Rnd)
 Dim msg As String
 msg = "Value: " & Rnd
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Identifier"));
@@ -982,7 +982,7 @@ msg = "Value: " & Rnd
 Dim diceRoll As Integer
 diceRoll = Int(Rnd * 6) + 1
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Int"));
@@ -995,7 +995,7 @@ If Rnd < 0.3 Then
     status = "Rare"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Identifier"));
@@ -1008,7 +1008,7 @@ Dim x As Single, y As Single
 x = Rnd
 y = Rnd
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Identifier"));
@@ -1024,7 +1024,7 @@ If Err.Number <> 0 Then
     randomVal = 0.5
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Identifier"));
@@ -1042,7 +1042,7 @@ ErrorHandler:
     MsgBox "Error generating random number"
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rnd"));
         assert!(text.contains("Identifier"));

@@ -363,7 +363,7 @@ Sub Main()
     result = Str$(123)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
     }
@@ -376,7 +376,7 @@ Sub Main()
     numStr = Str$(456)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
     }
@@ -391,7 +391,7 @@ Sub Main()
     text = Str$(value)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
     }
@@ -404,7 +404,7 @@ Sub Main()
     result = Str$(-42)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
     }
@@ -416,7 +416,7 @@ Function NumberToString(value As Long) As String
     NumberToString = LTrim$(Str$(value))
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
     }
@@ -428,7 +428,7 @@ Function FormatMessage(count As Integer) As String
     FormatMessage = "Found" & Str$(count) & " items"
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
     }
@@ -442,7 +442,7 @@ Sub Main()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
     }
@@ -454,7 +454,7 @@ Function CreateLabel(index As Integer) As String
     CreateLabel = "Item" & LTrim$(Str$(index))
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
     }
@@ -466,7 +466,7 @@ Sub LogValue(valueName As String, value As Double)
     Debug.Print valueName & " =" & Str$(value)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
     }
@@ -481,7 +481,7 @@ Sub ProcessValues()
     text2 = Str$(20)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
     }
@@ -498,7 +498,7 @@ Sub Main()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
     }
@@ -510,7 +510,7 @@ Function BuildCSV(val1 As Integer, val2 As Integer) As String
     BuildCSV = LTrim$(Str$(val1)) & "," & LTrim$(Str$(val2))
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
     }
@@ -522,7 +522,7 @@ Sub WriteData(fileNum As Integer, id As Long)
     Print #fileNum, LTrim$(Str$(id))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
     }
@@ -537,7 +537,7 @@ Sub ShowArray(arr() As Integer)
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
     }
@@ -549,7 +549,7 @@ Function ProgressMessage(current As Long, total As Long) As String
     ProgressMessage = "Item" & Str$(current) & " of" & Str$(total)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
     }
@@ -561,7 +561,7 @@ Function GenerateFileName(baseName As String, index As Integer) As String
     GenerateFileName = baseName & LTrim$(Str$(index)) & ".dat"
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
     }
@@ -576,7 +576,7 @@ Sub Main()
     result = Str$(value)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
     }
@@ -591,7 +591,7 @@ Sub Main()
     text = Str$(amount)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
     }
@@ -603,7 +603,7 @@ Function ConvertNumber(num As Long) As String
     ConvertNumber = Str$(num)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
     }
@@ -615,7 +615,7 @@ Function BuildQuery(userId As Long) As String
     BuildQuery = "SELECT * FROM Users WHERE ID = " & LTrim$(Str$(userId))
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
     }

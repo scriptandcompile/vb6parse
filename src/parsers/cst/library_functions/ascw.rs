@@ -426,7 +426,7 @@ Sub Test()
     code = AscW("A")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("StringLiteral"));
     }
@@ -438,7 +438,7 @@ Sub Test()
     euroCode = AscW(euroChar)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -450,7 +450,7 @@ Sub Test()
     alphaCode = AscW(greekChar)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -464,7 +464,7 @@ Function IsInUnicodeRange(char As String, rangeStart As Long, rangeEnd As Long) 
     IsInUnicodeRange = (code >= rangeStart And code <= rangeEnd)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -480,7 +480,7 @@ Function GetCharacterScript(char As String) As String
     End If
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -494,7 +494,7 @@ Function IsLatinChar(char As String) As Boolean
     IsLatinChar = (code >= 0 And code <= 591)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -508,7 +508,7 @@ Function IsSymbol(char As String) As Boolean
     IsSymbol = (code >= 8192 And code <= 8303)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -520,7 +520,7 @@ Function CompareUnicode(char1 As String, char2 As String) As Integer
     CompareUnicode = AscW(char1) - AscW(char2)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -534,7 +534,7 @@ Function IsEmojiBMP(char As String) As Boolean
     IsEmojiBMP = (code >= 9728 And code <= 9983)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -550,7 +550,7 @@ Function GetUnicodeArray(text As String) As Variant
     Next i
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -564,7 +564,7 @@ Function IsDiacriticalMark(char As String) As Boolean
     IsDiacriticalMark = (code >= 768 And code <= 879)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -578,7 +578,7 @@ Function IsValidEmailChar(char As String) As Boolean
     IsValidEmailChar = (code >= 48 And code <= 57) Or code = 64
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -592,7 +592,7 @@ Function IsUnicodeControl(char As String) As Boolean
     IsUnicodeControl = (code >= 0 And code <= 31)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -607,7 +607,7 @@ Function CompareNormalized(str1 As String, str2 As String) As Boolean
     CompareNormalized = (code1 = code2)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -621,7 +621,7 @@ Function UnicodeToHTMLEntity(char As String) As String
     UnicodeToHTMLEntity = "&#" & code & ";"
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -637,7 +637,7 @@ Function AnalyzeText(text As String) As String
     End If
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -653,7 +653,7 @@ Function ValidateCategory(text As String, category As String) As Boolean
     End If
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -669,7 +669,7 @@ Function SafeAscW(text As String) As Long
     SafeAscW = AscW(text)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -683,7 +683,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }
@@ -697,7 +697,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
     }

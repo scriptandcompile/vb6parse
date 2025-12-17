@@ -923,7 +923,7 @@ mod tests {
 
     /// Helper function to create a CST from source and get debug output
     fn parse_expression_test(source: &str) -> String {
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         tree.debug_tree()
     }
 
@@ -1249,7 +1249,7 @@ x = Chr$(65)
 y = UCase$("hello")
 z = Left$("test", 2)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         // All three dollar-sign functions should appear as single merged identifiers

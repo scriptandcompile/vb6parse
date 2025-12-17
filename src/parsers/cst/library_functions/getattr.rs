@@ -796,7 +796,7 @@ mod tests {
     #[test]
     fn getattr_basic() {
         let source = r#"attr = GetAttr("C:\data.txt")"#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));
@@ -805,7 +805,7 @@ mod tests {
     #[test]
     fn getattr_with_variable() {
         let source = r#"fileAttr = GetAttr(filename)"#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));
@@ -814,7 +814,7 @@ mod tests {
     #[test]
     fn getattr_readonly_check() {
         let source = r#"If GetAttr("file.txt") And vbReadOnly Then MsgBox "Read-only""#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));
@@ -823,7 +823,7 @@ mod tests {
     #[test]
     fn getattr_directory_check() {
         let source = r#"If GetAttr(path) And vbDirectory Then isDir = True"#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));
@@ -832,7 +832,7 @@ mod tests {
     #[test]
     fn getattr_hidden_check() {
         let source = r#"If GetAttr(fullPath) And vbHidden Then Debug.Print "Hidden""#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));
@@ -843,7 +843,7 @@ mod tests {
         let source = r#"Function IsDirectory(path As String) As Boolean
     IsDirectory = (GetAttr(path) And vbDirectory) <> 0
 End Function"#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));
@@ -853,7 +853,7 @@ End Function"#;
     fn getattr_assignment() {
         let source = r#"Dim attr As Integer
 attr = GetAttr(filename)"#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));
@@ -863,7 +863,7 @@ attr = GetAttr(filename)"#;
     fn getattr_error_handling() {
         let source = r#"On Error GoTo ErrorHandler
 attr = GetAttr(filename)"#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));
@@ -872,7 +872,7 @@ attr = GetAttr(filename)"#;
     #[test]
     fn getattr_system_check() {
         let source = r#"If GetAttr(filename) And vbSystem Then Exit Sub"#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));
@@ -881,7 +881,7 @@ attr = GetAttr(filename)"#;
     #[test]
     fn getattr_archive_check() {
         let source = r#"needsBackup = (GetAttr(filename) And vbArchive) <> 0"#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));
@@ -890,7 +890,7 @@ attr = GetAttr(filename)"#;
     #[test]
     fn getattr_multiple_checks() {
         let source = r#"If GetAttr(file) And vbReadOnly Then description = "Read-Only""#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));
@@ -899,7 +899,7 @@ attr = GetAttr(filename)"#;
     #[test]
     fn getattr_comparison() {
         let source = r#"If GetAttr(filename) = vbNormal Then MsgBox "Normal file""#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));
@@ -908,7 +908,7 @@ attr = GetAttr(filename)"#;
     #[test]
     fn getattr_not_operator() {
         let source = r#"canModify = Not (GetAttr(filename) And vbReadOnly)"#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));
@@ -920,7 +920,7 @@ attr = GetAttr(filename)"#;
     Case 0
         Debug.Print "File"
 End Select"#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));
@@ -931,7 +931,7 @@ End Select"#;
         let source = r#"Do While filename <> ""
     attr = GetAttr(fullPath)
 Loop"#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));
@@ -940,7 +940,7 @@ Loop"#;
     #[test]
     fn getattr_setattr() {
         let source = r#"SetAttr filename, GetAttr(filename) And Not vbReadOnly"#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));
@@ -949,7 +949,7 @@ Loop"#;
     #[test]
     fn getattr_debug_print() {
         let source = r#"Debug.Print "Attributes: " & GetAttr(filename)"#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));
@@ -958,7 +958,7 @@ Loop"#;
     #[test]
     fn getattr_class_member() {
         let source = r#"m_Attributes = GetAttr(m_Filename)"#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));
@@ -967,7 +967,7 @@ Loop"#;
     #[test]
     fn getattr_property() {
         let source = r#"IsReadOnly = (GetAttr(filename) And vbReadOnly) <> 0"#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));
@@ -976,7 +976,7 @@ Loop"#;
     #[test]
     fn getattr_type_field() {
         let source = r#"snapshot.Attributes = GetAttr(filename)"#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));
@@ -985,7 +985,7 @@ Loop"#;
     #[test]
     fn getattr_or_operator() {
         let source = r#"newAttr = GetAttr(filename) Or vbReadOnly"#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));
@@ -994,7 +994,7 @@ Loop"#;
     #[test]
     fn getattr_comparison_vars() {
         let source = r#"If GetAttr(file1) <> GetAttr(file2) Then changed = True"#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));
@@ -1005,7 +1005,7 @@ Loop"#;
         let source = r#"For i = LBound(files) To UBound(files)
     currentAttr = GetAttr(files(i))
 Next i"#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));
@@ -1014,7 +1014,7 @@ Next i"#;
     #[test]
     fn getattr_msgbox() {
         let source = r#"MsgBox "File attributes: " & GetAttr(filename)"#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));
@@ -1023,7 +1023,7 @@ Next i"#;
     #[test]
     fn getattr_listbox() {
         let source = r#"lst.AddItem filename & " (" & GetAttr(fullPath) & ")""#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));
@@ -1032,7 +1032,7 @@ Next i"#;
     #[test]
     fn getattr_iif() {
         let source = r#"result = IIf(GetAttr(filename) And vbReadOnly, "RO", "RW")"#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));
@@ -1043,7 +1043,7 @@ Next i"#;
         let source = r#"On Error Resume Next
 attr = GetAttr(fullPath)
 On Error GoTo 0"#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAttr"));
         assert!(debug.contains("Identifier"));

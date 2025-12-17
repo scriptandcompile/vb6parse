@@ -233,7 +233,7 @@ Sub Test()
     SetAttr "C:\MyFile.txt", vbReadOnly
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -243,7 +243,7 @@ End Sub
     #[test]
     fn setattr_at_module_level() {
         let source = "SetAttr \"C:\\File.txt\", vbNormal\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
         assert_eq!(cst.child_count(), 1);
@@ -259,7 +259,7 @@ Sub Test()
     SetAttr "C:\MyFile.txt", vbReadOnly
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -273,7 +273,7 @@ Sub Test()
     SetAttr "C:\Data\Secret.dat", vbHidden
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -287,7 +287,7 @@ Sub Test()
     SetAttr "C:\Config.ini", vbReadOnly + vbHidden
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -302,7 +302,7 @@ Sub Test()
     SetAttr "C:\MyFile.txt", vbNormal
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -316,7 +316,7 @@ Sub Test()
     SetAttr "C:\Backup\Data.dat", vbArchive
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -330,7 +330,7 @@ Sub Test()
     SetAttr fileName, attrs
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -345,7 +345,7 @@ Sub Test()
     SetAttr "C:\Windows\system.dat", vbSystem
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -359,7 +359,7 @@ Sub Test()
     SetAttr "C:\MyFile.txt", 1
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -372,7 +372,7 @@ Sub Test()
     SetAttr App.Path & "\Config.ini", vbHidden
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -385,7 +385,7 @@ If FileExists Then
     SetAttr filePath, vbReadOnly
 End If
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -398,7 +398,7 @@ For i = 1 To 10
     SetAttr "C:\Files\File" & i & ".txt", vbReadOnly
 Next i
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -411,7 +411,7 @@ Sub Test()
     SetAttr "C:\MyFile.txt", vbReadOnly ' Make read-only
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -421,7 +421,7 @@ End Sub
     #[test]
     fn setattr_preserves_whitespace() {
         let source = "SetAttr   \"File.txt\"  ,   vbNormal\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -435,7 +435,7 @@ Sub Test()
     SetAttr filePath, currentAttrs Or vbHidden
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -452,7 +452,7 @@ Select Case fileType
         SetAttr filePath, vbHidden
 End Select
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -461,7 +461,7 @@ End Select
     #[test]
     fn setattr_multiple_on_same_line() {
         let source = "SetAttr \"File1.txt\", vbNormal: SetAttr \"File2.txt\", vbReadOnly\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -474,7 +474,7 @@ With fileObj
     SetAttr .Path, vbArchive
 End With
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -487,7 +487,7 @@ Sub MakeReadOnly()
     SetAttr "C:\MyFile.txt", vbReadOnly
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -501,7 +501,7 @@ Function SetFileAttributes(path As String) As Boolean
     SetFileAttributes = True
 End Function
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -514,7 +514,7 @@ Sub Test()
     SetAttr "\\Server\Share\File.txt", vbReadOnly
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -529,7 +529,7 @@ Public Sub SetReadOnly()
     SetAttr filePath, vbReadOnly
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.cls", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -543,7 +543,7 @@ Sub Test()
         "C:\MyFile.txt", vbReadOnly
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -556,7 +556,7 @@ Sub Test()
     SetAttr "C:\Data\" & fileName & ".txt", vbHidden
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -573,7 +573,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -588,7 +588,7 @@ If Err.Number <> 0 Then
     MsgBox "Error"
 End If
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -603,7 +603,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -618,7 +618,7 @@ Sub Test()
     SetAttr "File3.txt", vbArchive
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
@@ -635,7 +635,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));

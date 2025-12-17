@@ -652,7 +652,7 @@ Sub Test()
     result = IsNumeric(myVariable)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));
@@ -667,7 +667,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));
@@ -682,7 +682,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));
@@ -695,7 +695,7 @@ Function IsValidNumber(v As Variant) As Boolean
     IsValidNumber = IsNumeric(v)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));
@@ -710,7 +710,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));
@@ -725,7 +725,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));
@@ -738,7 +738,7 @@ Sub Test()
     displayValue = IIf(IsNumeric(value), CDbl(value), 0)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));
@@ -751,7 +751,7 @@ Sub Test()
     Debug.Print "Is numeric: " & IsNumeric(testVar)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));
@@ -764,7 +764,7 @@ Sub Test()
     MsgBox "Numeric status: " & IsNumeric(userInput)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));
@@ -779,7 +779,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));
@@ -794,7 +794,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));
@@ -808,7 +808,7 @@ Sub Test()
     isValid = IsNumeric(dataValue)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));
@@ -821,7 +821,7 @@ Sub Test()
     obj.IsNumericValue = IsNumeric(obj.Data)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));
@@ -834,7 +834,7 @@ Private Sub Class_Initialize()
     m_isNumeric = IsNumeric(m_value)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));
@@ -849,7 +849,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));
@@ -862,7 +862,7 @@ Sub Test()
     Call ValidateInput(IsNumeric(txtAmount.Text))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));
@@ -880,7 +880,7 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));
@@ -898,7 +898,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));
@@ -915,7 +915,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));
@@ -928,7 +928,7 @@ Sub Test()
     status = "Valid: " & IsNumeric(variable)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));
@@ -941,7 +941,7 @@ Sub Test()
     result = (IsNumeric(value))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));
@@ -954,7 +954,7 @@ Sub Test()
     checks(i) = IsNumeric(values(i))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));
@@ -967,7 +967,7 @@ Sub Test()
     numericFlags.Add IsNumeric(data(i))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));
@@ -982,7 +982,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));
@@ -995,7 +995,7 @@ Sub Test()
     result = CStr(IsNumeric(myVar))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));
@@ -1010,7 +1010,7 @@ Sub Test()
     Wend
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));
@@ -1030,7 +1030,7 @@ Function GetNumber() As Double
     End If
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
         assert!(text.contains("Identifier"));

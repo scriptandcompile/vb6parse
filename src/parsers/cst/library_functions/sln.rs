@@ -705,7 +705,7 @@ Sub Test()
     depreciation = SLN(50000, 5000, 5)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
         assert!(debug.contains("depreciation"));
@@ -722,7 +722,7 @@ Sub Test()
     result = SLN(cost, salvage, life)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
         assert!(debug.contains("result"));
@@ -737,7 +737,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
     }
@@ -749,7 +749,7 @@ Function CalculateDepreciation(c As Double, s As Double, l As Double) As Double
     CalculateDepreciation = SLN(c, s, l)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
         assert!(debug.contains("CalculateDepreciation"));
@@ -763,7 +763,7 @@ Sub Test()
     annualDepreciation = SLN(100000, 10000, 10)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
         assert!(debug.contains("annualDepreciation"));
@@ -776,7 +776,7 @@ Sub Test()
     MsgBox "Annual depreciation: " & SLN(cost, salvage, life)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
         assert!(debug.contains("MsgBox"));
@@ -789,7 +789,7 @@ Sub Test()
     Debug.Print SLN(30000, 3000, 5)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
         assert!(debug.contains("Debug"));
@@ -809,7 +809,7 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
     }
@@ -823,7 +823,7 @@ Class AssetManager
     End Function
 End Class
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
         assert!(debug.contains("GetDepreciation"));
@@ -839,7 +839,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
         assert!(debug.contains("dep"));
@@ -860,7 +860,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
     }
@@ -877,7 +877,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
     }
@@ -891,7 +891,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
     }
@@ -905,7 +905,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
     }
@@ -920,7 +920,7 @@ Sub Test()
     Wend
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
     }
@@ -933,7 +933,7 @@ Sub Test()
     total = (SLN(cost1, salvage1, life1) + SLN(cost2, salvage2, life2))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
         assert!(debug.contains("total"));
@@ -947,7 +947,7 @@ Sub Test()
     msg = IIf(SLN(cost, salvage, life) > threshold, "High", "Low")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
         assert!(debug.contains("msg"));
@@ -961,7 +961,7 @@ Sub Test()
     schedule(0) = SLN(cost, salvage, life)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
         assert!(debug.contains("schedule"));
@@ -979,7 +979,7 @@ Sub Test()
     a.AnnualDepreciation = SLN(cost, salvage, life)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
     }
@@ -994,7 +994,7 @@ Sub Test()
     ProcessDepreciation SLN(cost, salvage, life)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
         assert!(debug.contains("ProcessDepreciation"));
@@ -1008,7 +1008,7 @@ Sub Test()
     report = "Depreciation: $" & SLN(cost, salvage, life)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
         assert!(debug.contains("report"));
@@ -1022,7 +1022,7 @@ Sub Test()
     needsAttention = (SLN(cost, salvage, life) > budget)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
         assert!(debug.contains("needsAttention"));
@@ -1036,7 +1036,7 @@ Sub Test()
     bookValue = initialCost - (SLN(cost, salvage, life) * years)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
         assert!(debug.contains("bookValue"));
@@ -1050,7 +1050,7 @@ Sub Test()
     monthlyDep = SLN(cost, salvage, life) / 12
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
         assert!(debug.contains("monthlyDep"));
@@ -1068,7 +1068,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
         assert!(debug.contains("d"));
@@ -1086,7 +1086,7 @@ ErrorHandler:
     MsgBox "Error calculating depreciation"
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
         assert!(debug.contains("depValue"));
@@ -1104,7 +1104,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
         assert!(debug.contains("annualDep"));

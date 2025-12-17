@@ -551,7 +551,7 @@ mod tests {
         let source = r#"
 birthday = DateSerial(1990, 5, 15)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
         assert!(debug.contains("Identifier"));
@@ -562,7 +562,7 @@ birthday = DateSerial(1990, 5, 15)
         let source = r#"
 result = DateSerial(y, m, d)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
         assert!(debug.contains("Identifier"));
@@ -573,7 +573,7 @@ result = DateSerial(y, m, d)
         let source = r#"
 lastDay = DateSerial(2025, 2, 0)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
         assert!(debug.contains("Identifier"));
@@ -584,7 +584,7 @@ lastDay = DateSerial(2025, 2, 0)
         let source = r#"
 newYear = DateSerial(Year(Date), 1, 1)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
         assert!(debug.contains("Identifier"));
@@ -595,7 +595,7 @@ newYear = DateSerial(Year(Date), 1, 1)
         let source = r#"
 result = DateSerial(2025, 13, 1)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
         assert!(debug.contains("Identifier"));
@@ -606,7 +606,7 @@ result = DateSerial(2025, 13, 1)
         let source = r#"
 result = DateSerial(2025, 1, 32)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
         assert!(debug.contains("Identifier"));
@@ -617,7 +617,7 @@ result = DateSerial(2025, 1, 32)
         let source = r#"
 result = DateSerial(2025, -1, 1)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
         assert!(debug.contains("Identifier"));
@@ -630,7 +630,7 @@ Function GetLastDay(y As Integer, m As Integer) As Date
     GetLastDay = DateSerial(y, m + 1, 0)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
         assert!(debug.contains("Identifier"));
@@ -641,7 +641,7 @@ End Function
         let source = r#"
 result = DateSerial(Year(Date), Month(Date) + 1, 0)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
         assert!(debug.contains("Identifier"));
@@ -654,7 +654,7 @@ For i = 1 To 12
     dates(i) = DateSerial(2025, i, 1)
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
         assert!(debug.contains("Identifier"));
@@ -665,7 +665,7 @@ Next i
         let source = r#"
 quarterStart = DateSerial(year, (quarter - 1) * 3 + 1, 1)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
         assert!(debug.contains("Identifier"));
@@ -676,7 +676,7 @@ quarterStart = DateSerial(year, (quarter - 1) * 3 + 1, 1)
         let source = r#"
 result = DateSerial(y, m, Day(someDate))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
         assert!(debug.contains("Identifier"));
@@ -689,7 +689,7 @@ If Date > DateSerial(2025, 12, 31) Then
     MsgBox "Past deadline"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
         assert!(debug.contains("Identifier"));
@@ -700,7 +700,7 @@ End If
         let source = r#"
 offset = DateSerial(y, m, d) - Date
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
         assert!(debug.contains("Identifier"));
@@ -712,7 +712,7 @@ offset = DateSerial(y, m, d) - Date
 Const YEAR As Integer = 2025
 result = DateSerial(YEAR, 1, 1)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
         assert!(debug.contains("Identifier"));
@@ -723,7 +723,7 @@ result = DateSerial(YEAR, 1, 1)
         let source = r#"
 formatted = Format(DateSerial(2025, 12, 25), "yyyy-mm-dd")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
         assert!(debug.contains("Identifier"));
@@ -737,7 +737,7 @@ Select Case Date
         MsgBox "New Year"
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
         assert!(debug.contains("Identifier"));
@@ -749,7 +749,7 @@ End Select
 startDate = DateSerial(2025, 1, 1)
 endDate = DateSerial(2025, 12, 31)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
         assert!(debug.contains("Identifier"));
@@ -760,7 +760,7 @@ endDate = DateSerial(2025, 12, 31)
         let source = r#"
 result = DateSerial(DatePart("yyyy", Date), 1, 1)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
         assert!(debug.contains("Identifier"));
@@ -772,7 +772,7 @@ result = DateSerial(DatePart("yyyy", Date), 1, 1)
 dates(0) = DateSerial(2025, 1, 1)
 dates(1) = DateSerial(2025, 2, 1)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
         assert!(debug.contains("Identifier"));
@@ -783,7 +783,7 @@ dates(1) = DateSerial(2025, 2, 1)
         let source = r#"
 weekStart = DateSerial(Year(Date), Month(Date), Day(Date) - offset)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
         assert!(debug.contains("Identifier"));
@@ -794,7 +794,7 @@ weekStart = DateSerial(Year(Date), Month(Date), Day(Date) - offset)
         let source = r#"
 anniversary = DateSerial(Year(original) + years, Month(original), Day(original))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
         assert!(debug.contains("Identifier"));
@@ -805,7 +805,7 @@ anniversary = DateSerial(Year(original) + years, Month(original), Day(original))
         let source = r#"
 lastMonth = DateSerial(2025, 2, 0)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
         assert!(debug.contains("Identifier"));
@@ -816,7 +816,7 @@ lastMonth = DateSerial(2025, 2, 0)
         let source = r#"
 MsgBox "Date: " & DateSerial(2025, 12, 25)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
         assert!(debug.contains("Identifier"));
@@ -827,7 +827,7 @@ MsgBox "Date: " & DateSerial(2025, 12, 25)
         let source = r#"
 result = DateSerial(Year(base) + yOffset, Month(base) + mOffset, Day(base) + dOffset)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
         assert!(debug.contains("Identifier"));

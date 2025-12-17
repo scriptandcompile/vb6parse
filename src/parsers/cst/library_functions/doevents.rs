@@ -663,7 +663,7 @@ mod tests {
         let source = r#"
 DoEvents
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
         assert!(debug.contains("Identifier"));
@@ -674,7 +674,7 @@ DoEvents
         let source = r#"
 DoEvents()
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
         assert!(debug.contains("Identifier"));
@@ -688,7 +688,7 @@ For i = 1 To 10000
     If i Mod 100 = 0 Then DoEvents
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
         assert!(debug.contains("Identifier"));
@@ -699,7 +699,7 @@ Next i
         let source = r#"
 formCount = DoEvents()
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
         assert!(debug.contains("Identifier"));
@@ -713,7 +713,7 @@ Do Until EOF(1)
     DoEvents
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
         assert!(debug.contains("Identifier"));
@@ -728,7 +728,7 @@ For i = 1 To 100000
     If i Mod 100 = 0 Then DoEvents
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
         assert!(debug.contains("Identifier"));
@@ -741,7 +741,7 @@ lblStatus.Caption = "Processing..."
 DoEvents
 ProcessData
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
         assert!(debug.contains("Identifier"));
@@ -753,7 +753,7 @@ ProcessData
 ProgressBar1.Value = i
 DoEvents
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
         assert!(debug.contains("Identifier"));
@@ -768,7 +768,7 @@ Do While fileName <> ""
     DoEvents
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
         assert!(debug.contains("Identifier"));
@@ -783,7 +783,7 @@ Do Until rs.EOF
     rs.MoveNext
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
         assert!(debug.contains("Identifier"));
@@ -799,7 +799,7 @@ lblStatus.Caption = "Step 2"
 DoEvents
 ProcessData
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
         assert!(debug.contains("Identifier"));
@@ -817,7 +817,7 @@ Function ProcessData() As Boolean
     ProcessData = True
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
         assert!(debug.contains("Identifier"));
@@ -832,7 +832,7 @@ For i = 1 To 10000
     DoEvents
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
         assert!(debug.contains("Identifier"));
@@ -848,7 +848,7 @@ For i = 1 To 1000
 Next i
 isProcessing = False
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
         assert!(debug.contains("Identifier"));
@@ -864,7 +864,7 @@ Do Until EOF(fileNum)
     If lineCount Mod 100 = 0 Then DoEvents
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
         assert!(debug.contains("Identifier"));
@@ -878,7 +878,7 @@ If Timer - lastUpdate > 0.1 Then
     lastUpdate = Timer
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
         assert!(debug.contains("Identifier"));
@@ -896,7 +896,7 @@ Select Case step
         ProcessStep2
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
         assert!(debug.contains("Identifier"));
@@ -912,7 +912,7 @@ For i = 1 To 100
     DoEvents
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
         assert!(debug.contains("Identifier"));
@@ -926,7 +926,7 @@ Do Until processingComplete
     Sleep 10
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
         assert!(debug.contains("Identifier"));
@@ -944,7 +944,7 @@ Do While fileName <> ""
     fileName = Dir
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
         assert!(debug.contains("Identifier"));
@@ -958,7 +958,7 @@ For i = 1 To 100
     DoEvents
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
         assert!(debug.contains("Identifier"));
@@ -969,7 +969,7 @@ Next i
         let source = r#"
 If i Mod 100 = 0 Then DoEvents Else ProcessFast
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
         assert!(debug.contains("Identifier"));
@@ -983,7 +983,7 @@ For Each item In collection
     DoEvents
 Next item
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
         assert!(debug.contains("Identifier"));
@@ -1000,7 +1000,7 @@ For i = 1 To recordCount
     End If
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
         assert!(debug.contains("Identifier"));
@@ -1011,7 +1011,7 @@ Next i
         let source = r#"
 Call DoEvents
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
         assert!(debug.contains("Identifier"));

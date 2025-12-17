@@ -366,7 +366,7 @@ Sub Test()
     result = LCase$("HELLO")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
@@ -378,7 +378,7 @@ Sub Test()
     text = LCase$("Hello World")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
@@ -390,7 +390,7 @@ Sub Test()
     mixed = LCase$("ABC123")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
@@ -402,7 +402,7 @@ Function CompareIgnoreCase(str1 As String, str2 As String) As Boolean
     CompareIgnoreCase = (LCase$(str1) = LCase$(str2))
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
@@ -414,7 +414,7 @@ Function NormalizeInput(userInput As String) As String
     NormalizeInput = Trim$(LCase$(userInput))
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
@@ -426,7 +426,7 @@ Function NormalizeEmail(email As String) As String
     NormalizeEmail = LCase$(Trim$(email))
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
@@ -438,7 +438,7 @@ Function ContainsIgnoreCase(text As String, searchFor As String) As Boolean
     ContainsIgnoreCase = (InStr(LCase$(text), LCase$(searchFor)) > 0)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
@@ -450,7 +450,7 @@ Function ValidateUsername(username As String) As String
     ValidateUsername = LCase$(Trim$(username))
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
@@ -464,7 +464,7 @@ Function HasExtension(filename As String, ext As String) As Boolean
     HasExtension = (fileExt = LCase$(ext))
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
@@ -476,7 +476,7 @@ Sub AddToDictionary(dict As Object, key As String, value As Variant)
     lowercaseKey = LCase$(key)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
@@ -489,7 +489,7 @@ Function ParseCommand(input As String) As String
     cmd = LCase$(Trim$(input))
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
@@ -502,7 +502,7 @@ Function FindInCollection(col As Collection, key As String) As Variant
     lowerKey = LCase$(key)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
@@ -515,7 +515,7 @@ Function BuildWhereClause(fieldName As String, operator As String) As String
     op = LCase$(Trim$(operator))
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
@@ -527,7 +527,7 @@ Function ParseConfigLine(line As String, key As String) As Boolean
     key = LCase$(Trim$(Left$(line, 10)))
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
@@ -541,7 +541,7 @@ Function SmartCompare(str1 As String, str2 As String, caseSensitive As Boolean) 
     End If
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
@@ -553,7 +553,7 @@ Function SafeLCase(text As String) As String
     SafeLCase = LCase$(text)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
@@ -569,7 +569,7 @@ Function ArrayContains(arr() As String, value As String) As Boolean
     End If
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
@@ -582,7 +582,7 @@ Function GetURLParameter(url As String, paramName As String) As String
     lowerURL = LCase$(url)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
@@ -599,7 +599,7 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }
@@ -613,7 +613,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
     }

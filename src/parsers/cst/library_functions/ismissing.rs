@@ -596,7 +596,7 @@ Sub Test(Optional param As Variant)
     result = IsMissing(param)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));
@@ -613,7 +613,7 @@ Function Greet(name As String, Optional title As Variant) As String
     End If
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));
@@ -628,7 +628,7 @@ Sub Test(Optional value As Variant)
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));
@@ -641,7 +641,7 @@ Function IsProvided(Optional arg As Variant) As Boolean
     IsProvided = Not IsMissing(arg)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));
@@ -656,7 +656,7 @@ Sub Test(Optional arg1 As Variant, Optional arg2 As Variant)
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));
@@ -671,7 +671,7 @@ Sub Test(Optional param1 As Variant, Optional param2 As Variant)
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));
@@ -684,7 +684,7 @@ Function GetValue(Optional value As Variant) As String
     GetValue = IIf(IsMissing(value), "Default", value)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));
@@ -697,7 +697,7 @@ Sub Test(Optional arg As Variant)
     Debug.Print "Missing: " & IsMissing(arg)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));
@@ -710,7 +710,7 @@ Sub Test(Optional myParam As Variant)
     MsgBox "Parameter status: " & IsMissing(myParam)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));
@@ -725,7 +725,7 @@ Sub Test(Optional config As Variant)
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));
@@ -740,7 +740,7 @@ Sub Test(Optional setting As Variant)
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));
@@ -754,7 +754,7 @@ Sub Test(Optional data As Variant)
     isMissing = IsMissing(data)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));
@@ -767,7 +767,7 @@ Sub Test(Optional opt As Variant)
     obj.WasProvided = Not IsMissing(opt)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));
@@ -780,7 +780,7 @@ Public Sub Initialize(Optional settings As Variant)
     m_hasSettings = Not IsMissing(settings)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));
@@ -795,7 +795,7 @@ Sub Configure(Optional options As Variant)
     End With
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));
@@ -808,7 +808,7 @@ Sub Test(Optional param As Variant)
     Call LogStatus(IsMissing(param))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));
@@ -826,7 +826,7 @@ Sub Process(Optional mode As Variant)
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));
@@ -844,7 +844,7 @@ Function CountProvided(Optional a As Variant, Optional b As Variant, Optional c 
     CountProvided = count
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));
@@ -861,7 +861,7 @@ Sub Handle(Optional param As Variant)
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));
@@ -874,7 +874,7 @@ Sub Report(Optional value As Variant)
     status = "Provided: " & Not IsMissing(value)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));
@@ -887,7 +887,7 @@ Sub Test(Optional arg As Variant)
     result = (IsMissing(arg))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));
@@ -905,7 +905,7 @@ Sub SaveFile(filename As String, Optional path As Variant, Optional backup As Va
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));
@@ -920,7 +920,7 @@ Sub AddOptional(coll As Collection, Optional item As Variant)
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));
@@ -933,7 +933,7 @@ Function Compare(Optional a As Variant, Optional b As Variant) As Boolean
     Compare = (IsMissing(a) = IsMissing(b))
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));
@@ -946,7 +946,7 @@ Sub Test(Optional value As Variant)
     result = CStr(IsMissing(value))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));
@@ -961,7 +961,7 @@ Sub Test(Optional input As Variant)
     Wend
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));
@@ -978,7 +978,7 @@ Function Calculate(x As Double, Optional multiplier As Variant) As Double
     End If
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsMissing"));
         assert!(text.contains("Identifier"));

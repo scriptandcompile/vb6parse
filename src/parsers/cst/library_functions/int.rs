@@ -450,7 +450,7 @@ Sub Test()
     result = Int(8.7)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));
@@ -463,7 +463,7 @@ Sub Test()
     result = Int(-8.7)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));
@@ -476,7 +476,7 @@ Sub Test()
     randomNum = Int(Rnd * 100) + 1
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));
@@ -491,7 +491,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));
@@ -504,7 +504,7 @@ Function GetWhole(value As Double) As Long
     GetWhole = Int(value)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));
@@ -517,7 +517,7 @@ Sub Test()
     pages = Int(totalItems / itemsPerPage) + 1
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));
@@ -532,7 +532,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));
@@ -550,7 +550,7 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));
@@ -566,7 +566,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));
@@ -579,7 +579,7 @@ Sub Test()
     Debug.Print "Integer part: " & Int(value)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));
@@ -592,7 +592,7 @@ Sub Test()
     wholeNumbers(i) = Int(decimals(i))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));
@@ -605,7 +605,7 @@ Sub Test()
     obj.WholeValue = Int(obj.DecimalValue)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));
@@ -618,7 +618,7 @@ Private Sub Class_Initialize()
     m_wholePart = Int(m_value)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));
@@ -633,7 +633,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));
@@ -646,7 +646,7 @@ Sub Test()
     Call ProcessInteger(Int(value))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));
@@ -659,7 +659,7 @@ Sub Test()
     message = "Whole part: " & Int(number)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));
@@ -672,7 +672,7 @@ Sub Test()
     gridX = Int(pixelX / gridSize)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));
@@ -685,7 +685,7 @@ Sub Test()
     result = IIf(Int(value) > 0, "Positive", "Zero or Negative")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));
@@ -698,7 +698,7 @@ Sub Test()
     MsgBox "Integer value: " & Int(value)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));
@@ -711,7 +711,7 @@ Sub Test()
     numbers.Add Int(values(i))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));
@@ -724,7 +724,7 @@ Sub Test()
     isValid = Int(value) >= minValue And Int(value) <= maxValue
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));
@@ -737,7 +737,7 @@ Sub Test()
     result = CStr(Int(value))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));
@@ -752,7 +752,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));
@@ -765,7 +765,7 @@ Sub Test()
     wholePart = Int(Abs(value))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));
@@ -779,7 +779,7 @@ Sub Test()
     item = items(index)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));
@@ -793,7 +793,7 @@ Sub Test()
     remainder = dividend - (quotient * divisor)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));
@@ -806,7 +806,7 @@ Sub Test()
     value = (Int(number))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
         assert!(text.contains("Identifier"));

@@ -339,7 +339,7 @@ Sub Test()
     result = UCase$("hello")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
     }
@@ -351,7 +351,7 @@ Sub Test()
     text = UCase$("Hello World")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
     }
@@ -363,7 +363,7 @@ Sub Test()
     mixed = UCase$("abc123")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
     }
@@ -375,7 +375,7 @@ Function BuildSQLQuery(table As String) As String
     BuildSQLQuery = UCase$("SELECT") & " * FROM " & table
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
     }
@@ -387,7 +387,7 @@ Function GenerateConstantName(baseName As String) As String
     GenerateConstantName = UCase$(Replace(baseName, " ", "_"))
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
     }
@@ -399,7 +399,7 @@ Function FormatAcronym(text As String) As String
     FormatAcronym = UCase$(text)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
     }
@@ -411,7 +411,7 @@ Function CreateHeader(title As String) As String
     CreateHeader = UCase$(title)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
     }
@@ -426,7 +426,7 @@ Function ProcessCommand(cmd As String) As Boolean
     End Select
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
     }
@@ -442,7 +442,7 @@ Function NormalizeExtension(filename As String) As String
     End If
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
     }
@@ -454,7 +454,7 @@ Function GetEnvironmentVar(varName As String) As String
     GetEnvironmentVar = Environ$(UCase$(varName))
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
     }
@@ -466,7 +466,7 @@ Function NormalizeRegistryKey(keyName As String) As String
     NormalizeRegistryKey = UCase$(Trim$(keyName))
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
     }
@@ -478,7 +478,7 @@ Function FormatDisplayName(lastName As String) As String
     FormatDisplayName = UCase$(lastName)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
     }
@@ -490,7 +490,7 @@ Function GenerateEnumMember(memberName As String) As String
     GenerateEnumMember = UCase$(memberName)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
     }
@@ -503,7 +503,7 @@ Function BuildComplexQuery(table As String, fields As String) As String
     sql = UCase$("SELECT") & " " & fields
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
     }
@@ -515,7 +515,7 @@ Sub WriteConfigSection(sectionName As String)
     section = UCase$(sectionName)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
     }
@@ -527,7 +527,7 @@ Function GenerateReportHeader(reportTitle As String) As String
     GenerateReportHeader = UCase$(reportTitle)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
     }
@@ -539,7 +539,7 @@ Function ValidateMacroName(macroName As String) As String
     ValidateMacroName = UCase$(macroName)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
     }
@@ -551,7 +551,7 @@ Function SafeUCase(text As String) As String
     SafeUCase = UCase$(text)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
     }
@@ -563,7 +563,7 @@ Function FormatHTTPHeader(headerName As String, headerValue As String) As String
     FormatHTTPHeader = UCase$(headerName) & ": " & headerValue
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
     }
@@ -575,7 +575,7 @@ Function GetColumnName(fieldName As String) As String
     GetColumnName = UCase$(Replace(fieldName, " ", "_"))
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
     }
