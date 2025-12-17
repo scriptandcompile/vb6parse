@@ -1,6 +1,6 @@
-//! This module contains the error types used in the VB6 parser.
-//! It defines the `VB6Error` type, which is used to represent
-//! errors that occur during parsing. The `VB6Error` type contains
+//! Module containing the error types used in the VB6 parser.
+//! It defines the `ErrorDetails` type, which is used to represent
+//! errors that occur during parsing. The `ErrorDetails` type contains
 //! information about the error, including the file name, source code,
 //! source offset, column, line number, and the kind of error.
 use core::convert::From;
@@ -11,7 +11,7 @@ use std::fmt::Debug;
 
 use ariadne::{Label, Report, ReportKind, Source};
 
-/// Represents detailed information about an error that occurred during parsing.
+/// Contains detailed information about an error that occurred during parsing.
 /// This struct contains the source name, source content, error offset,
 /// line start and end positions, and the kind of error.
 ///
@@ -177,10 +177,7 @@ where
     }
 }
 
-/// Represents errors related to source file parsing.
-/// This enum defines various kinds of source file errors
-/// that can occur during the parsing process.
-/// Each variant includes a descriptive error message.
+/// Errors related to source file parsing.
 #[derive(thiserror::Error, Debug, Clone)]
 pub enum SourceFileErrorKind {
     /// Indicates that the source file is malformed.
@@ -191,10 +188,7 @@ pub enum SourceFileErrorKind {
     },
 }
 
-/// Represents errors related to code parsing.
-/// This enum defines various kinds of code errors
-/// that can occur during the parsing process.
-/// Each variant includes a descriptive error message.
+/// Errors related to code parsing.
 #[derive(thiserror::Error, Debug, Clone)]
 pub enum CodeErrorKind {
     /// Indicates that a variable name exceeds the maximum allowed length in VB6.
@@ -213,10 +207,7 @@ pub enum CodeErrorKind {
     UnexpectedEndOfStream,
 }
 
-/// Represents errors related to class parsing.
-/// This enum defines various kinds of class errors
-/// that can occur during the parsing process.
-/// Each variant includes a descriptive error message.
+/// Errors related to class parsing.
 #[derive(thiserror::Error, Debug, Clone)]
 pub enum ClassErrorKind<'a> {
     /// Indicates that the 'VERSION' keyword is missing from the class file header.
@@ -334,10 +325,7 @@ impl<'a> From<ErrorDetails<'a, CodeErrorKind>> for ErrorDetails<'a, ClassErrorKi
     }
 }
 
-/// Represents errors related to module parsing.
-/// This enum defines various kinds of module errors
-/// that can occur during the parsing process.
-/// Each variant includes a descriptive error message.
+/// Errors related to module parsing.
 #[derive(thiserror::Error, Debug, Clone)]
 pub enum ModuleErrorKind {
     /// Indicates that the 'Attribute' keyword is missing from the module file header.
@@ -383,10 +371,7 @@ impl<'a> From<ErrorDetails<'a, CodeErrorKind>> for ErrorDetails<'a, ModuleErrorK
     }
 }
 
-/// Represents errors related to project parsing.
-/// This enum defines various kinds of project errors
-/// that can occur during the parsing process.
-/// Each variant includes a descriptive error message.
+/// Errors related to project parsing.
 #[derive(thiserror::Error, Debug, Clone)]
 pub enum ProjectErrorKind<'a> {
     /// Indicates that a section header was expected but was not terminated properly.
@@ -565,10 +550,7 @@ pub enum ProjectErrorKind<'a> {
     },
 }
 
-/// Represents errors related to property parsing.
-/// This enum defines various kinds of property errors
-/// that can occur during the parsing process.
-/// Each variant includes a descriptive error message.
+/// Errors related to property parsing.
 #[derive(thiserror::Error, PartialEq, Eq, Debug)]
 pub enum PropertyError {
     /// Indicates that the Appearance property has an invalid value.
@@ -632,9 +614,7 @@ pub enum PropertyError {
     InvalidPropertyValueTrueFalse,
 }
 
-/// Represents errors related to form parsing.
-/// This enum defines various kinds of form errors
-/// that can occur during the parsing process.
+/// Errors related to form parsing.
 #[derive(thiserror::Error, Debug)]
 pub enum FormErrorKind {
     /// Indicates that the 'VERSION' keyword is missing from the form file header.
