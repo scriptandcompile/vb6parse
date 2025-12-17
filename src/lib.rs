@@ -21,7 +21,6 @@
 //! This method takes a `SourceFile` as input, and returns a
 //! `Project` struct that contains the parsed information.
 //!
-//! # Example:
 //! ```rust
 //! use vb6parse::*;
 //!
@@ -113,8 +112,8 @@
 //! assert_eq!(project.properties.exe_32_file_name, "Project1.exe");
 //! ```
 //!
-//! Note that in the example above, the `VB6Project::parse` method is used to parse
-//! the project file. The `VB6Project` struct contains the parsed information
+//! Note that in the example above, the `Project::parse` method is used to parse
+//! the project file. The `Project` struct contains the parsed information
 //! about the project, including the project type, references, objects, modules,
 //! classes, forms, user controls, etc. These references are not actually loaded
 //! or parsed. This makes it possible to read a project file in parts or to
@@ -129,7 +128,6 @@
 //! throughout the library. This makes it easier to work with dynamically
 //! created VB6 code or test date without having to load the data from disk.
 //!
-//! # Example:
 //! ```rust
 //! use vb6parse::parsers::FormFile;
 //! use vb6parse::parsers::resource_file_resolver;
