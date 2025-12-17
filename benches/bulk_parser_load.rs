@@ -89,7 +89,7 @@ fn project_benchmark(criterion: &mut Criterion) {
         criterion.bench_function("load multiple projects", |bench| {
             bench.iter(|| {
                 black_box({
-                    let _proj = Project::parse(&project_source_file);
+                    let _proj = ProjectFile::parse(&project_source_file);
                 });
             })
         });

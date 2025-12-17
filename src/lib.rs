@@ -87,7 +87,7 @@
 //!     }
 //! };
 //!
-//! let result = Project::parse(&project_source_file);
+//! let result = ProjectFile::parse(&project_source_file);
 //!
 //! if result.has_failures() {
 //!     for failure in result.failures {

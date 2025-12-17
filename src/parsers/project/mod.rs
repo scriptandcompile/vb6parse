@@ -23,7 +23,7 @@ use crate::{
 };
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
-pub struct Project<'a> {
+pub struct ProjectFile<'a> {
     pub project_type: CompileTargetType,
     pub references: Vec<ProjectReference<'a>>,
     pub objects: Vec<ObjectReference>,
@@ -101,9 +101,9 @@ pub struct ProjectClassReference<'a> {
     pub path: &'a str,
 }
 
-pub type ProjectResult<'a> = ParseResult<'a, Project<'a>, ProjectErrorKind<'a>>;
+pub type ProjectResult<'a> = ParseResult<'a, ProjectFile<'a>, ProjectErrorKind<'a>>;
 
-impl<'a> Project<'a> {
+impl<'a> ProjectFile<'a> {
     /// Parses a VB6 project file.
     ///
     /// # Arguments
@@ -112,11 +112,11 @@ impl<'a> Project<'a> {
     ///
     /// # Returns
     ///
-    /// A `Result` containing the parsed project or an error.
+    /// A `ProjectResult` containing the parsed project and/or error(s).
     ///
     /// # Errors
     ///
-    /// This function can return a `VB6Error` if the input is not a valid VB6 project file.
+    /// This function can return a collection of `ErrorDetails` if the input is not a valid VB6 project file.
     ///
     /// # Panics
     ///
@@ -187,7 +187,7 @@ impl<'a> Project<'a> {
     ///     }
     /// };
     ///
-    /// let result = Project::parse(&project_source_file);
+    /// let result = ProjectFile::parse(&project_source_file);
     ///
     /// if result.has_failures() {
     ///     for failure in result.failures {
@@ -215,7 +215,7 @@ impl<'a> Project<'a> {
     pub fn parse(source_file: &'a SourceFile) -> ProjectResult<'a> {
         let mut failures = vec![];
 
-        let mut project = Project {
+        let mut project = ProjectFile {
             project_type: CompileTargetType::Exe,
             references: vec![],
             objects: vec![],
@@ -1989,7 +1989,7 @@ mod tests {
 
         let project_source_file = SourceFile::decode("project1.vbp", input.as_bytes()).unwrap();
 
-        let result = Project::parse(&project_source_file);
+        let result = ProjectFile::parse(&project_source_file);
 
         if result.has_failures() {
             for failure in result.failures {
@@ -2176,7 +2176,7 @@ mod tests {
             }
         };
 
-        let result = Project::parse(&project_source_file);
+        let result = ProjectFile::parse(&project_source_file);
 
         if result.has_failures() {
             for failure in result.failures {
@@ -2336,7 +2336,7 @@ mod tests {
                 }
             };
 
-        let result = Project::parse(&project_source_file);
+        let result = ProjectFile::parse(&project_source_file);
 
         if result.has_failures() {
             for failure in result.failures {

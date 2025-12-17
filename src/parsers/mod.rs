@@ -6,16 +6,16 @@
 //! bytes for a file and provides basic method for iterating over the bytes as
 //! well as tracking the line, column, and character position of the current byte.
 //!
-//! `VB6Project` - a structure for holding the parsed information from a VB6
+//! `ProjectFile` - a structure for holding the parsed information from a VB6
 //! project file.
 //!
-//! `VB6ClassFile` - a structure for holding the parsed information from a VB6
+//! `ClassFile` - a structure for holding the parsed information from a VB6
 //! class file.
 //!
-//! `VB6FormFile` - a structure for holding the parsed information from a VB6
+//! `FormFile` - a structure for holding the parsed information from a VB6
 //! form file.
 //!
-//! `VB6ModuleFile` - a structure for holding the parsed information from a VB6
+//! `ModuleFile` - a structure for holding the parsed information from a VB6
 //! module file.
 //!
 
@@ -41,7 +41,7 @@ pub use properties::Properties;
 pub use resource::{list_resolver, resource_file_resolver};
 
 pub use project::{
-    compilesettings::*, properties::*, Project, ProjectClassReference, ProjectModuleReference,
+    compilesettings::*, properties::*, ProjectClassReference, ProjectFile, ProjectModuleReference,
     ProjectReference,
 };
 

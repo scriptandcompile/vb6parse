@@ -196,7 +196,7 @@ Further work is needed to correctly assign the binary resources to the their pro
 
 </details>
 
-#### VB6Project API:
+#### ProjectFile API:
 - [ ] Unit Testing - Partially supported.
 - [ ] Integration/End-to-End Testing - Partially supported.
 - [x] Benchmarking.
