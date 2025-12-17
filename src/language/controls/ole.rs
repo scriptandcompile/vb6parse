@@ -1,3 +1,11 @@
+//! Properties for an `OLE` control.
+//!
+//! This is used as an enum variant of
+//! [`ControlKind::Ole`](crate::language::controls::ControlKind::Ole).
+//! tag, name, and index are not included in this struct, but instead are part
+//! of the parent [`Control`](crate::language::controls::Control) struct.
+//!
+
 use crate::language::controls::{
     Activation, Appearance, BackStyle, BorderStyle, CausesValidation, DragMode, MousePointer,
     ReferenceOrValue, SizeMode, TabStop, Visibility,
@@ -97,39 +105,73 @@ pub enum DisplayType {
 /// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct OLEProperties {
+    /// Appearance of the OLE control.
     pub appearance: Appearance,
+    /// Auto activate setting of the OLE control.
     pub auto_activate: AutoActivate,
+    /// Auto verb menu setting of the OLE control.
     pub auto_verb_menu: bool,
+    /// Background color of the OLE control.
     pub back_color: Color,
+    /// Back style of the OLE control.
     pub back_style: BackStyle,
+    /// Border style of the OLE control.
     pub border_style: BorderStyle,
+    /// Causes validation setting of the OLE control.
     pub causes_validation: CausesValidation,
+    /// Class of the OLE control.
     pub class: Option<String>,
+    /// Data field of the OLE control.
     pub data_field: String,
+    /// Data source of the OLE control.
     pub data_source: String,
+    /// Display type of the OLE control.
     pub display_type: DisplayType,
+    /// Drag icon of the OLE control.
     pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// Drag mode of the OLE control.
     pub drag_mode: DragMode,
+    /// Enabled state of the OLE control.
     pub enabled: Activation,
+    /// Height of the OLE control.
     pub height: i32,
+    /// Help context ID of the OLE control.
     pub help_context_id: i32,
+    /// Host name of the OLE control.
     pub host_name: String,
+    /// Left position of the OLE control.
     pub left: i32,
+    /// Miscellaneous flags of the OLE control.
     pub misc_flags: i32,
+    /// Mouse icon of the OLE control.
     pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// Mouse pointer of the OLE control.
     pub mouse_pointer: MousePointer,
+    /// Indicates whether OLE drop is allowed for the OLE control.
     pub ole_drop_allowed: bool,
+    /// Indicates the types of OLE objects allowed for the OLE control.
     pub ole_type_allowed: OLETypeAllowed,
+    /// Size mode of the OLE control.
     pub size_mode: SizeMode,
-    //pub source_doc: String,
-    //pub source_item: String,
+    /// Source document of the OLE control.
+    pub source_doc: String,
+    /// Source item of the OLE control.
+    pub source_item: String,
+    /// Tab index of the OLE control.
     pub tab_index: i32,
+    /// Tab stop setting of the OLE control.
     pub tab_stop: TabStop,
+    /// Top position of the OLE control.
     pub top: i32,
+    /// Update options of the OLE control.
     pub update_options: UpdateOptions,
+    /// Verb of the OLE control.
     pub verb: i32,
+    /// Visibility of the OLE control.
     pub visible: Visibility,
+    /// What's this help ID of the OLE control.
     pub whats_this_help_id: i32,
+    /// Width of the OLE control.
     pub width: i32,
 }
 
@@ -160,8 +202,8 @@ impl Default for OLEProperties {
             ole_drop_allowed: false,
             ole_type_allowed: OLETypeAllowed::Either,
             size_mode: SizeMode::Clip,
-            //source_doc: "".into(),
-            //source_item: "".into(),
+            source_doc: "".into(),
+            source_item: "".into(),
             tab_index: 0,
             tab_stop: TabStop::Included,
             top: 1200,
@@ -212,8 +254,8 @@ impl Serialize for OLEProperties {
         s.serialize_field("ole_drop_allowed", &self.ole_drop_allowed)?;
         s.serialize_field("ole_type_allowed", &self.ole_type_allowed)?;
         s.serialize_field("size_mode", &self.size_mode)?;
-        //s.serialize_field("source_doc", &self.source_doc)?;
-        //s.serialize_field("source_item", &self.source_item)?;
+        s.serialize_field("source_doc", &self.source_doc)?;
+        s.serialize_field("source_item", &self.source_item)?;
         s.serialize_field("tab_index", &self.tab_index)?;
         s.serialize_field("tab_stop", &self.tab_stop)?;
         s.serialize_field("top", &self.top)?;
